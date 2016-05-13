@@ -9,9 +9,9 @@ structure GioIOStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_io_stream_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_io_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val spliceFinish_ = call (load_sym libgio "g_io_stream_splice_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
-      val clearPending_ = call (load_sym libgio "g_io_stream_clear_pending") (GioIOStreamClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val clearPending_ = call (load_sym libgio "g_io_stream_clear_pending") (GioIOStreamClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val close_ =
         call (load_sym libgio "g_io_stream_close")
           (

@@ -9,7 +9,7 @@ structure GioProxy :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_proxy_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_proxy_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getDefaultForProtocol_ = call (load_sym libgio "g_proxy_get_default_for_protocol") (Utf8.PolyML.cInPtr --> GioProxyClass.PolyML.cPtr)
       val connect_ =
         call (load_sym libgio "g_proxy_connect")

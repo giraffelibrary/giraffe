@@ -12,7 +12,7 @@ structure CairoRectangleIntRecord :> CAIRO_RECTANGLE_INT_RECORD =
       val new_ =
         call
           (load_sym libgiraffecairo "giraffe_cairo_rectangle_int_t_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,12 +22,12 @@ structure CairoRectangleIntRecord :> CAIRO_RECTANGLE_INT_RECORD =
       val free_ =
         call
           (load_sym libgiraffecairo "giraffe_cairo_rectangle_int_t_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libcairogobject "cairo_gobject_rectangle_int_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =

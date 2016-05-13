@@ -7,7 +7,7 @@ structure GdkCursor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_cursor_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgdk "gdk_cursor_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgdk "gdk_cursor_new") (GdkCursorType.PolyML.cVal --> GdkCursorClass.PolyML.cPtr)
       val newForDisplay_ = call (load_sym libgdk "gdk_cursor_new_for_display") (GdkDisplayClass.PolyML.cPtr &&> GdkCursorType.PolyML.cVal --> GdkCursorClass.PolyML.cPtr)
       val newFromName_ = call (load_sym libgdk "gdk_cursor_new_from_name") (GdkDisplayClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GdkCursorClass.PolyML.cPtr)

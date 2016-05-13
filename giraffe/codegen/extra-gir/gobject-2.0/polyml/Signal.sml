@@ -41,7 +41,7 @@ structure Signal :>
           (
             GObjectObjectClass.PolyML.cPtr
              &&> FFI.ULong.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           );
 
       val signalHandlerIsConnected_ =

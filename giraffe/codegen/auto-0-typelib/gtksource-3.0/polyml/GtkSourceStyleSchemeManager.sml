@@ -6,13 +6,13 @@ structure GtkSourceStyleSchemeManager :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_style_scheme_manager_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtksourceview "gtk_source_style_scheme_manager_new") (FFI.PolyML.cVoid --> GtkSourceStyleSchemeManagerClass.PolyML.cPtr)
-      val getDefault_ = call (load_sym libgtksourceview "gtk_source_style_scheme_manager_get_default") (FFI.PolyML.cVoid --> GtkSourceStyleSchemeManagerClass.PolyML.cPtr)
-      val appendSearchPath_ = call (load_sym libgtksourceview "gtk_source_style_scheme_manager_append_search_path") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val forceRescan_ = call (load_sym libgtksourceview "gtk_source_style_scheme_manager_force_rescan") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_style_scheme_manager_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtksourceview "gtk_source_style_scheme_manager_new") (PolyMLFFI.cVoid --> GtkSourceStyleSchemeManagerClass.PolyML.cPtr)
+      val getDefault_ = call (load_sym libgtksourceview "gtk_source_style_scheme_manager_get_default") (PolyMLFFI.cVoid --> GtkSourceStyleSchemeManagerClass.PolyML.cPtr)
+      val appendSearchPath_ = call (load_sym libgtksourceview "gtk_source_style_scheme_manager_append_search_path") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val forceRescan_ = call (load_sym libgtksourceview "gtk_source_style_scheme_manager_force_rescan") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getScheme_ = call (load_sym libgtksourceview "gtk_source_style_scheme_manager_get_scheme") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkSourceStyleSchemeClass.PolyML.cPtr)
-      val prependSearchPath_ = call (load_sym libgtksourceview "gtk_source_style_scheme_manager_prepend_search_path") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val prependSearchPath_ = call (load_sym libgtksourceview "gtk_source_style_scheme_manager_prepend_search_path") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkSourceStyleSchemeManagerClass.class
     type 'a style_scheme_class = 'a GtkSourceStyleSchemeClass.class

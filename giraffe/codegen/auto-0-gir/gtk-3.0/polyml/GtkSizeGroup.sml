@@ -8,14 +8,14 @@ structure GtkSizeGroup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_size_group_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_size_group_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_size_group_new") (GtkSizeGroupMode.PolyML.cVal --> GtkSizeGroupClass.PolyML.cPtr)
-      val addWidget_ = call (load_sym libgtk "gtk_size_group_add_widget") (GtkSizeGroupClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val addWidget_ = call (load_sym libgtk "gtk_size_group_add_widget") (GtkSizeGroupClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getIgnoreHidden_ = call (load_sym libgtk "gtk_size_group_get_ignore_hidden") (GtkSizeGroupClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getMode_ = call (load_sym libgtk "gtk_size_group_get_mode") (GtkSizeGroupClass.PolyML.cPtr --> GtkSizeGroupMode.PolyML.cVal)
-      val removeWidget_ = call (load_sym libgtk "gtk_size_group_remove_widget") (GtkSizeGroupClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setIgnoreHidden_ = call (load_sym libgtk "gtk_size_group_set_ignore_hidden") (GtkSizeGroupClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setMode_ = call (load_sym libgtk "gtk_size_group_set_mode") (GtkSizeGroupClass.PolyML.cPtr &&> GtkSizeGroupMode.PolyML.cVal --> FFI.PolyML.cVoid)
+      val removeWidget_ = call (load_sym libgtk "gtk_size_group_remove_widget") (GtkSizeGroupClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setIgnoreHidden_ = call (load_sym libgtk "gtk_size_group_set_ignore_hidden") (GtkSizeGroupClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMode_ = call (load_sym libgtk "gtk_size_group_set_mode") (GtkSizeGroupClass.PolyML.cPtr &&> GtkSizeGroupMode.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkSizeGroupClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

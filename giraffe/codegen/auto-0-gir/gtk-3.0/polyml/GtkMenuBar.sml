@@ -7,12 +7,12 @@ structure GtkMenuBar :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_menu_bar_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_menu_bar_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_menu_bar_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_menu_bar_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val getChildPackDirection_ = call (load_sym libgtk "gtk_menu_bar_get_child_pack_direction") (GtkMenuBarClass.PolyML.cPtr --> GtkPackDirection.PolyML.cVal)
       val getPackDirection_ = call (load_sym libgtk "gtk_menu_bar_get_pack_direction") (GtkMenuBarClass.PolyML.cPtr --> GtkPackDirection.PolyML.cVal)
-      val setChildPackDirection_ = call (load_sym libgtk "gtk_menu_bar_set_child_pack_direction") (GtkMenuBarClass.PolyML.cPtr &&> GtkPackDirection.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setPackDirection_ = call (load_sym libgtk "gtk_menu_bar_set_pack_direction") (GtkMenuBarClass.PolyML.cPtr &&> GtkPackDirection.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setChildPackDirection_ = call (load_sym libgtk "gtk_menu_bar_set_child_pack_direction") (GtkMenuBarClass.PolyML.cPtr &&> GtkPackDirection.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPackDirection_ = call (load_sym libgtk "gtk_menu_bar_set_pack_direction") (GtkMenuBarClass.PolyML.cPtr &&> GtkPackDirection.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkMenuBarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

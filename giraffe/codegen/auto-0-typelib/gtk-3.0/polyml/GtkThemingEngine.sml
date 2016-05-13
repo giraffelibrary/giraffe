@@ -12,7 +12,7 @@ structure GtkThemingEngine :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_theming_engine_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_theming_engine_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val load_ = call (load_sym libgtk "gtk_theming_engine_load") (Utf8.PolyML.cInPtr --> GtkThemingEngineClass.PolyML.cPtr)
       val getBackgroundColor_ =
         call (load_sym libgtk "gtk_theming_engine_get_background_color")
@@ -20,7 +20,7 @@ structure GtkThemingEngine :>
             GtkThemingEngineClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GdkRgbaRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getBorder_ =
         call (load_sym libgtk "gtk_theming_engine_get_border")
@@ -28,7 +28,7 @@ structure GtkThemingEngine :>
             GtkThemingEngineClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GtkBorderRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getBorderColor_ =
         call (load_sym libgtk "gtk_theming_engine_get_border_color")
@@ -36,7 +36,7 @@ structure GtkThemingEngine :>
             GtkThemingEngineClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GdkRgbaRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getColor_ =
         call (load_sym libgtk "gtk_theming_engine_get_color")
@@ -44,7 +44,7 @@ structure GtkThemingEngine :>
             GtkThemingEngineClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GdkRgbaRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getDirection_ = call (load_sym libgtk "gtk_theming_engine_get_direction") (GtkThemingEngineClass.PolyML.cPtr --> GtkTextDirection.PolyML.cVal)
       val getFont_ = call (load_sym libgtk "gtk_theming_engine_get_font") (GtkThemingEngineClass.PolyML.cPtr &&> GtkStateFlags.PolyML.cVal --> PangoFontDescriptionRecord.PolyML.cPtr)
@@ -55,7 +55,7 @@ structure GtkThemingEngine :>
             GtkThemingEngineClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GtkBorderRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getPadding_ =
         call (load_sym libgtk "gtk_theming_engine_get_padding")
@@ -63,7 +63,7 @@ structure GtkThemingEngine :>
             GtkThemingEngineClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GtkBorderRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getPath_ = call (load_sym libgtk "gtk_theming_engine_get_path") (GtkThemingEngineClass.PolyML.cPtr --> GtkWidgetPathRecord.PolyML.cPtr)
       val getScreen_ = call (load_sym libgtk "gtk_theming_engine_get_screen") (GtkThemingEngineClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
@@ -74,7 +74,7 @@ structure GtkThemingEngine :>
             GtkThemingEngineClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GObjectValueRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val hasClass_ = call (load_sym libgtk "gtk_theming_engine_has_class") (GtkThemingEngineClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
       val hasRegion_ =

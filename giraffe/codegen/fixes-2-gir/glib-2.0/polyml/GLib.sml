@@ -54,15 +54,15 @@ structure GLib : G_LIB =
             Utf8.PolyML.cInPtr
              &&> GLibLogLevelFlags.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val logRemoveHandler_ = call (load_sym libglib "g_log_remove_handler") (Utf8.PolyML.cInPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
+      val logRemoveHandler_ = call (load_sym libglib "g_log_remove_handler") (Utf8.PolyML.cInPtr &&> FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val logSetAlwaysFatal_ = call (load_sym libglib "g_log_set_always_fatal") (GLibLogLevelFlags.PolyML.cVal --> GLibLogLevelFlags.PolyML.cVal)
       val logSetFatalMask_ = call (load_sym libglib "g_log_set_fatal_mask") (Utf8.PolyML.cInPtr &&> GLibLogLevelFlags.PolyML.cVal --> GLibLogLevelFlags.PolyML.cVal)
-      val mainContextDefault_ = call (load_sym libglib "g_main_context_default") (FFI.PolyML.cVoid --> GLibMainContextRecord.PolyML.cPtr)
-      val mainContextGetThreadDefault_ = call (load_sym libglib "g_main_context_get_thread_default") (FFI.PolyML.cVoid --> GLibMainContextRecord.PolyML.cPtr)
-      val mainCurrentSource_ = call (load_sym libglib "g_main_current_source") (FFI.PolyML.cVoid --> GLibSourceRecord.PolyML.cPtr)
-      val mainDepth_ = call (load_sym libglib "g_main_depth") (FFI.PolyML.cVoid --> FFI.Int.PolyML.cVal)
+      val mainContextDefault_ = call (load_sym libglib "g_main_context_default") (PolyMLFFI.cVoid --> GLibMainContextRecord.PolyML.cPtr)
+      val mainContextGetThreadDefault_ = call (load_sym libglib "g_main_context_get_thread_default") (PolyMLFFI.cVoid --> GLibMainContextRecord.PolyML.cPtr)
+      val mainCurrentSource_ = call (load_sym libglib "g_main_current_source") (PolyMLFFI.cVoid --> GLibSourceRecord.PolyML.cPtr)
+      val mainDepth_ = call (load_sym libglib "g_main_depth") (PolyMLFFI.cVoid --> FFI.Int.PolyML.cVal)
       val regexMatchSimple_ =
         call (load_sym libglib "g_regex_match_simple")
           (
@@ -101,7 +101,7 @@ structure GLib : G_LIB =
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
-      val spawnClosePid_ = call (load_sym libglib "g_spawn_close_pid") (GLibPid.PolyML.cVal --> FFI.PolyML.cVoid)
+      val spawnClosePid_ = call (load_sym libglib "g_spawn_close_pid") (GLibPid.PolyML.cVal --> PolyMLFFI.cVoid)
       val spawnCommandLineAsync_ = call (load_sym libglib "g_spawn_command_line_async") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
       val timeoutAdd_ =
         call

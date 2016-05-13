@@ -7,12 +7,12 @@ structure GtkTextTagTable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_text_tag_table_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_text_tag_table_new") (FFI.PolyML.cVoid --> GtkTextTagTableClass.PolyML.cPtr)
-      val add_ = call (load_sym libgtk "gtk_text_tag_table_add") (GtkTextTagTableClass.PolyML.cPtr &&> GtkTextTagClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libgtk "gtk_text_tag_table_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_text_tag_table_new") (PolyMLFFI.cVoid --> GtkTextTagTableClass.PolyML.cPtr)
+      val add_ = call (load_sym libgtk "gtk_text_tag_table_add") (GtkTextTagTableClass.PolyML.cPtr &&> GtkTextTagClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getSize_ = call (load_sym libgtk "gtk_text_tag_table_get_size") (GtkTextTagTableClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val lookup_ = call (load_sym libgtk "gtk_text_tag_table_lookup") (GtkTextTagTableClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkTextTagClass.PolyML.cPtr)
-      val remove_ = call (load_sym libgtk "gtk_text_tag_table_remove") (GtkTextTagTableClass.PolyML.cPtr &&> GtkTextTagClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val remove_ = call (load_sym libgtk "gtk_text_tag_table_remove") (GtkTextTagTableClass.PolyML.cPtr &&> GtkTextTagClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkTextTagTableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

@@ -7,7 +7,7 @@ structure GtkCellLayout :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_cell_layout_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_cell_layout_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val addAttribute_ =
         call (load_sym libgtk "gtk_cell_layout_add_attribute")
           (
@@ -15,10 +15,10 @@ structure GtkCellLayout :>
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val clear_ = call (load_sym libgtk "gtk_cell_layout_clear") (GtkCellLayoutClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val clearAttributes_ = call (load_sym libgtk "gtk_cell_layout_clear_attributes") (GtkCellLayoutClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val clear_ = call (load_sym libgtk "gtk_cell_layout_clear") (GtkCellLayoutClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val clearAttributes_ = call (load_sym libgtk "gtk_cell_layout_clear_attributes") (GtkCellLayoutClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getArea_ = call (load_sym libgtk "gtk_cell_layout_get_area") (GtkCellLayoutClass.PolyML.cPtr --> GtkCellAreaClass.PolyML.cPtr)
       val packEnd_ =
         call (load_sym libgtk "gtk_cell_layout_pack_end")
@@ -26,7 +26,7 @@ structure GtkCellLayout :>
             GtkCellLayoutClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val packStart_ =
         call (load_sym libgtk "gtk_cell_layout_pack_start")
@@ -34,7 +34,7 @@ structure GtkCellLayout :>
             GtkCellLayoutClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val reorder_ =
         call (load_sym libgtk "gtk_cell_layout_reorder")
@@ -42,7 +42,7 @@ structure GtkCellLayout :>
             GtkCellLayoutClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GtkCellLayoutClass.class

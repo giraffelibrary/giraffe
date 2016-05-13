@@ -6,17 +6,17 @@ structure GtkPlug :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_plug_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_plug_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_plug_new") (XlibWindow.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
       val newForDisplay_ = call (load_sym libgtk "gtk_plug_new_for_display") (GdkDisplayClass.PolyML.cPtr &&> XlibWindow.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
-      val construct_ = call (load_sym libgtk "gtk_plug_construct") (GtkPlugClass.PolyML.cPtr &&> XlibWindow.PolyML.cVal --> FFI.PolyML.cVoid)
+      val construct_ = call (load_sym libgtk "gtk_plug_construct") (GtkPlugClass.PolyML.cPtr &&> XlibWindow.PolyML.cVal --> PolyMLFFI.cVoid)
       val constructForDisplay_ =
         call (load_sym libgtk "gtk_plug_construct_for_display")
           (
             GtkPlugClass.PolyML.cPtr
              &&> GdkDisplayClass.PolyML.cPtr
              &&> XlibWindow.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getEmbedded_ = call (load_sym libgtk "gtk_plug_get_embedded") (GtkPlugClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getId_ = call (load_sym libgtk "gtk_plug_get_id") (GtkPlugClass.PolyML.cPtr --> XlibWindow.PolyML.cVal)

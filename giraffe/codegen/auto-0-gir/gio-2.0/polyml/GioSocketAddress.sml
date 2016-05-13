@@ -7,7 +7,7 @@ structure GioSocketAddress :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_socket_address_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_socket_address_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getFamily_ = call (load_sym libgio "g_socket_address_get_family") (GioSocketAddressClass.PolyML.cPtr --> GioSocketFamily.PolyML.cVal)
       val getNativeSize_ = call (load_sym libgio "g_socket_address_get_native_size") (GioSocketAddressClass.PolyML.cPtr --> FFI.SSize.PolyML.cVal)
     end

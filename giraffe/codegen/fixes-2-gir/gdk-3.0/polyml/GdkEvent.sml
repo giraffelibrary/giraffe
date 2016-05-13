@@ -26,7 +26,7 @@ structure GdkEvent :>
       val free_ =
         call
           (load_sym libgdk "gdk_event_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
     end
 
     type 'a union = notnull p Finalizable.t
@@ -75,7 +75,7 @@ structure GdkEvent :>
       val getType_ =
         call
           (load_sym libgdk "gdk_event_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
 
       val getValue_ =
         call
@@ -90,12 +90,12 @@ structure GdkEvent :>
       val setValue_ =
         call
           (load_sym libgobject "g_value_set_boxed")
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> FFI.PolyML.cVoid);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid);
 
       val setOptValue_ =
         call
           (load_sym libgobject "g_value_set_boxed")
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> FFI.PolyML.cVoid);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid);
     end
 
     val t =

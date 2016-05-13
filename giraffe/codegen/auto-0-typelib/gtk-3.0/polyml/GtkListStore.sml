@@ -11,16 +11,16 @@ structure GtkListStore :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_list_store_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val append_ = call (load_sym libgtk "gtk_list_store_append") (GtkListStoreClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val clear_ = call (load_sym libgtk "gtk_list_store_clear") (GtkListStoreClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libgtk "gtk_list_store_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val append_ = call (load_sym libgtk "gtk_list_store_append") (GtkListStoreClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val clear_ = call (load_sym libgtk "gtk_list_store_clear") (GtkListStoreClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val insert_ =
         call (load_sym libgtk "gtk_list_store_insert")
           (
             GtkListStoreClass.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val insertAfter_ =
         call (load_sym libgtk "gtk_list_store_insert_after")
@@ -28,7 +28,7 @@ structure GtkListStore :>
             GtkListStoreClass.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cOptPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val insertBefore_ =
         call (load_sym libgtk "gtk_list_store_insert_before")
@@ -36,7 +36,7 @@ structure GtkListStore :>
             GtkListStoreClass.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cOptPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val iterIsValid_ = call (load_sym libgtk "gtk_list_store_iter_is_valid") (GtkListStoreClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val moveAfter_ =
@@ -45,7 +45,7 @@ structure GtkListStore :>
             GtkListStoreClass.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cOptPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val moveBefore_ =
         call (load_sym libgtk "gtk_list_store_move_before")
@@ -53,9 +53,9 @@ structure GtkListStore :>
             GtkListStoreClass.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cOptPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val prepend_ = call (load_sym libgtk "gtk_list_store_prepend") (GtkListStoreClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val prepend_ = call (load_sym libgtk "gtk_list_store_prepend") (GtkListStoreClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val remove_ = call (load_sym libgtk "gtk_list_store_remove") (GtkListStoreClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val setValue_ =
         call (load_sym libgtk "gtk_list_store_set_value")
@@ -64,7 +64,7 @@ structure GtkListStore :>
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> GObjectValueRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val swap_ =
         call (load_sym libgtk "gtk_list_store_swap")
@@ -72,7 +72,7 @@ structure GtkListStore :>
             GtkListStoreClass.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GtkListStoreClass.class

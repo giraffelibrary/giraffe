@@ -5,8 +5,8 @@ structure GtkSourceCompletionProposal :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val changed_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_changed") (GtkSourceCompletionProposalClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val changed_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_changed") (GtkSourceCompletionProposalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val equal_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_equal") (GtkSourceCompletionProposalClass.PolyML.cPtr &&> GtkSourceCompletionProposalClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getIcon_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_get_icon") (GtkSourceCompletionProposalClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
       val getInfo_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_get_info") (GtkSourceCompletionProposalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)

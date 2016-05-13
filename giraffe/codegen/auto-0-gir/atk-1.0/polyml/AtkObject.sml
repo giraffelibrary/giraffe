@@ -10,7 +10,7 @@ structure AtkObject :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_object_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libatk "atk_object_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val addRelationship_ =
         call (load_sym libatk "atk_object_add_relationship")
           (
@@ -31,12 +31,12 @@ structure AtkObject :>
             AtkObjectClass.PolyML.cPtr
              &&> AtkState.PolyML.cVal
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val refAccessibleChild_ = call (load_sym libatk "atk_object_ref_accessible_child") (AtkObjectClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
       val refRelationSet_ = call (load_sym libatk "atk_object_ref_relation_set") (AtkObjectClass.PolyML.cPtr --> AtkRelationSetClass.PolyML.cPtr)
       val refStateSet_ = call (load_sym libatk "atk_object_ref_state_set") (AtkObjectClass.PolyML.cPtr --> AtkStateSetClass.PolyML.cPtr)
-      val removePropertyChangeHandler_ = call (load_sym libatk "atk_object_remove_property_change_handler") (AtkObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
+      val removePropertyChangeHandler_ = call (load_sym libatk "atk_object_remove_property_change_handler") (AtkObjectClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val removeRelationship_ =
         call (load_sym libatk "atk_object_remove_relationship")
           (
@@ -45,10 +45,10 @@ structure AtkObject :>
              &&> AtkObjectClass.PolyML.cPtr
              --> FFI.Bool.PolyML.cVal
           )
-      val setDescription_ = call (load_sym libatk "atk_object_set_description") (AtkObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setName_ = call (load_sym libatk "atk_object_set_name") (AtkObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setParent_ = call (load_sym libatk "atk_object_set_parent") (AtkObjectClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setRole_ = call (load_sym libatk "atk_object_set_role") (AtkObjectClass.PolyML.cPtr &&> AtkRole.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDescription_ = call (load_sym libatk "atk_object_set_description") (AtkObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setName_ = call (load_sym libatk "atk_object_set_name") (AtkObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setParent_ = call (load_sym libatk "atk_object_set_parent") (AtkObjectClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setRole_ = call (load_sym libatk "atk_object_set_role") (AtkObjectClass.PolyML.cPtr &&> AtkRole.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a AtkObjectClass.class
     type state_t = AtkState.t

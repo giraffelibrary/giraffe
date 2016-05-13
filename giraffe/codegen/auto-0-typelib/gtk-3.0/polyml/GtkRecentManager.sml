@@ -7,9 +7,9 @@ structure GtkRecentManager :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_recent_manager_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_recent_manager_new") (FFI.PolyML.cVoid --> GtkRecentManagerClass.PolyML.cPtr)
-      val getDefault_ = call (load_sym libgtk "gtk_recent_manager_get_default") (FFI.PolyML.cVoid --> GtkRecentManagerClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_recent_manager_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_recent_manager_new") (PolyMLFFI.cVoid --> GtkRecentManagerClass.PolyML.cPtr)
+      val getDefault_ = call (load_sym libgtk "gtk_recent_manager_get_default") (PolyMLFFI.cVoid --> GtkRecentManagerClass.PolyML.cPtr)
       val addFull_ =
         call (load_sym libgtk "gtk_recent_manager_add_full")
           (

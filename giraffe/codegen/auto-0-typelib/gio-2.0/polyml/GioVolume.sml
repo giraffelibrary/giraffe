@@ -10,7 +10,7 @@ structure GioVolume :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_volume_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_volume_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val canEject_ = call (load_sym libgio "g_volume_can_eject") (GioVolumeClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val canMount_ = call (load_sym libgio "g_volume_can_mount") (GioVolumeClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val ejectWithOperationFinish_ =

@@ -12,7 +12,7 @@ structure GtkIconSetRecord :> GTK_ICON_SET_RECORD =
       val new_ =
         call
           (load_sym libgtk "gtk_icon_set_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,12 +22,12 @@ structure GtkIconSetRecord :> GTK_ICON_SET_RECORD =
       val free_ =
         call
           (load_sym libgtk "gtk_icon_set_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libgtk "gtk_icon_set_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =

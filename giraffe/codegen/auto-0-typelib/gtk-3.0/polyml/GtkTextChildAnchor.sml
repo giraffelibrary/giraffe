@@ -5,8 +5,8 @@ structure GtkTextChildAnchor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_text_child_anchor_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_text_child_anchor_new") (FFI.PolyML.cVoid --> GtkTextChildAnchorClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_text_child_anchor_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_text_child_anchor_new") (PolyMLFFI.cVoid --> GtkTextChildAnchorClass.PolyML.cPtr)
       val getDeleted_ = call (load_sym libgtk "gtk_text_child_anchor_get_deleted") (GtkTextChildAnchorClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class = 'a GtkTextChildAnchorClass.class

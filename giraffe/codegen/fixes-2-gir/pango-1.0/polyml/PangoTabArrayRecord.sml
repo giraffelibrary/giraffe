@@ -17,12 +17,12 @@ structure PangoTabArrayRecord :> PANGO_TAB_ARRAY_RECORD =
       val free_ =
         call
           (load_sym libpango "pango_tab_array_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libpango "pango_tab_array_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =

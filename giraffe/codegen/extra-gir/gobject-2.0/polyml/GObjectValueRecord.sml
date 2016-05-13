@@ -32,7 +32,7 @@ structure GObjectValueRecord :>
       val new_ =
         call
           (load_sym libgiraffegobject "giraffe_g_value_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -42,12 +42,12 @@ structure GObjectValueRecord :>
       val free_ =
         call
           (load_sym libgiraffegobject "giraffe_g_value_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val size_ =
         call
           (load_sym libgiraffegobject "giraffe_g_value_size")
-          (FFI.PolyML.cVoid --> FFI.UInt.PolyML.cVal)
+          (PolyMLFFI.cVoid --> FFI.UInt.PolyML.cVal)
     end
 
     type t = notnull p Finalizable.t

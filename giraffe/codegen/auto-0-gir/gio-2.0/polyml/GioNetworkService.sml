@@ -6,7 +6,7 @@ structure GioNetworkService :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_network_service_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_network_service_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgio "g_network_service_new")
           (
@@ -19,7 +19,7 @@ structure GioNetworkService :>
       val getProtocol_ = call (load_sym libgio "g_network_service_get_protocol") (GioNetworkServiceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getScheme_ = call (load_sym libgio "g_network_service_get_scheme") (GioNetworkServiceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getService_ = call (load_sym libgio "g_network_service_get_service") (GioNetworkServiceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val setScheme_ = call (load_sym libgio "g_network_service_set_scheme") (GioNetworkServiceClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setScheme_ = call (load_sym libgio "g_network_service_set_scheme") (GioNetworkServiceClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioNetworkServiceClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class

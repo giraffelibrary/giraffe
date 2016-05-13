@@ -10,7 +10,7 @@ structure GtkSourceBuffer :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_buffer_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_buffer_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtksourceview "gtk_source_buffer_new") (GtkTextTagTableClass.PolyML.cOptPtr --> GtkSourceBufferClass.PolyML.cPtr)
       val newWithLanguage_ = call (load_sym libgtksourceview "gtk_source_buffer_new_with_language") (GtkSourceLanguageClass.PolyML.cPtr --> GtkSourceBufferClass.PolyML.cPtr)
       val backwardIterToSourceMark_ =
@@ -21,7 +21,7 @@ structure GtkSourceBuffer :>
              &&> Utf8.PolyML.cInOptPtr
              --> FFI.Bool.PolyML.cVal
           )
-      val beginNotUndoableAction_ = call (load_sym libgtksourceview "gtk_source_buffer_begin_not_undoable_action") (GtkSourceBufferClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val beginNotUndoableAction_ = call (load_sym libgtksourceview "gtk_source_buffer_begin_not_undoable_action") (GtkSourceBufferClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val canRedo_ = call (load_sym libgtksourceview "gtk_source_buffer_can_redo") (GtkSourceBufferClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val canUndo_ = call (load_sym libgtksourceview "gtk_source_buffer_can_undo") (GtkSourceBufferClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val createSourceMark_ =
@@ -33,14 +33,14 @@ structure GtkSourceBuffer :>
              &&> GtkTextIterRecord.PolyML.cPtr
              --> GtkSourceMarkClass.PolyML.cPtr
           )
-      val endNotUndoableAction_ = call (load_sym libgtksourceview "gtk_source_buffer_end_not_undoable_action") (GtkSourceBufferClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val endNotUndoableAction_ = call (load_sym libgtksourceview "gtk_source_buffer_end_not_undoable_action") (GtkSourceBufferClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val ensureHighlight_ =
         call (load_sym libgtksourceview "gtk_source_buffer_ensure_highlight")
           (
             GtkSourceBufferClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val forwardIterToSourceMark_ =
         call (load_sym libgtksourceview "gtk_source_buffer_forward_iter_to_source_mark")
@@ -80,7 +80,7 @@ structure GtkSourceBuffer :>
              &&> Utf8.PolyML.cInPtr
              --> FFI.Bool.PolyML.cVal
           )
-      val redo_ = call (load_sym libgtksourceview "gtk_source_buffer_redo") (GtkSourceBufferClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val redo_ = call (load_sym libgtksourceview "gtk_source_buffer_redo") (GtkSourceBufferClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val removeSourceMarks_ =
         call (load_sym libgtksourceview "gtk_source_buffer_remove_source_marks")
           (
@@ -88,15 +88,15 @@ structure GtkSourceBuffer :>
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setHighlightMatchingBrackets_ = call (load_sym libgtksourceview "gtk_source_buffer_set_highlight_matching_brackets") (GtkSourceBufferClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setHighlightSyntax_ = call (load_sym libgtksourceview "gtk_source_buffer_set_highlight_syntax") (GtkSourceBufferClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setLanguage_ = call (load_sym libgtksourceview "gtk_source_buffer_set_language") (GtkSourceBufferClass.PolyML.cPtr &&> GtkSourceLanguageClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setMaxUndoLevels_ = call (load_sym libgtksourceview "gtk_source_buffer_set_max_undo_levels") (GtkSourceBufferClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setStyleScheme_ = call (load_sym libgtksourceview "gtk_source_buffer_set_style_scheme") (GtkSourceBufferClass.PolyML.cPtr &&> GtkSourceStyleSchemeClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setUndoManager_ = call (load_sym libgtksourceview "gtk_source_buffer_set_undo_manager") (GtkSourceBufferClass.PolyML.cPtr &&> GtkSourceUndoManagerClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val undo_ = call (load_sym libgtksourceview "gtk_source_buffer_undo") (GtkSourceBufferClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setHighlightMatchingBrackets_ = call (load_sym libgtksourceview "gtk_source_buffer_set_highlight_matching_brackets") (GtkSourceBufferClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setHighlightSyntax_ = call (load_sym libgtksourceview "gtk_source_buffer_set_highlight_syntax") (GtkSourceBufferClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setLanguage_ = call (load_sym libgtksourceview "gtk_source_buffer_set_language") (GtkSourceBufferClass.PolyML.cPtr &&> GtkSourceLanguageClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setMaxUndoLevels_ = call (load_sym libgtksourceview "gtk_source_buffer_set_max_undo_levels") (GtkSourceBufferClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setStyleScheme_ = call (load_sym libgtksourceview "gtk_source_buffer_set_style_scheme") (GtkSourceBufferClass.PolyML.cPtr &&> GtkSourceStyleSchemeClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setUndoManager_ = call (load_sym libgtksourceview "gtk_source_buffer_set_undo_manager") (GtkSourceBufferClass.PolyML.cPtr &&> GtkSourceUndoManagerClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val undo_ = call (load_sym libgtksourceview "gtk_source_buffer_undo") (GtkSourceBufferClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkSourceBufferClass.class
     type 'a mark_class = 'a GtkSourceMarkClass.class

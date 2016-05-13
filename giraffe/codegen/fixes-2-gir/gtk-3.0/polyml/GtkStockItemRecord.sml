@@ -12,7 +12,7 @@ structure GtkStockItemRecord :> GTK_STOCK_ITEM_RECORD =
       val new_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_stock_item_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,7 +22,7 @@ structure GtkStockItemRecord :> GTK_STOCK_ITEM_RECORD =
       val free_ =
         call
           (load_sym libgiraffegtk "gtk_stock_item_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
     end
 
     structure Record =

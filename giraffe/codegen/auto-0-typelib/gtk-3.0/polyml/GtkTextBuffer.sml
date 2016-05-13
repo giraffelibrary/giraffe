@@ -12,7 +12,7 @@ structure GtkTextBuffer :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_text_buffer_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_text_buffer_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_text_buffer_new") (GtkTextTagTableClass.PolyML.cOptPtr --> GtkTextBufferClass.PolyML.cPtr)
       val addMark_ =
         call (load_sym libgtk "gtk_text_buffer_add_mark")
@@ -20,9 +20,9 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> GtkTextMarkClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val addSelectionClipboard_ = call (load_sym libgtk "gtk_text_buffer_add_selection_clipboard") (GtkTextBufferClass.PolyML.cPtr &&> GtkClipboardClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val addSelectionClipboard_ = call (load_sym libgtk "gtk_text_buffer_add_selection_clipboard") (GtkTextBufferClass.PolyML.cPtr &&> GtkClipboardClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val applyTag_ =
         call (load_sym libgtk "gtk_text_buffer_apply_tag")
           (
@@ -30,7 +30,7 @@ structure GtkTextBuffer :>
              &&> GtkTextTagClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val applyTagByName_ =
         call (load_sym libgtk "gtk_text_buffer_apply_tag_by_name")
@@ -39,7 +39,7 @@ structure GtkTextBuffer :>
              &&> Utf8.PolyML.cInPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val backspace_ =
         call (load_sym libgtk "gtk_text_buffer_backspace")
@@ -50,8 +50,8 @@ structure GtkTextBuffer :>
              &&> FFI.Bool.PolyML.cVal
              --> FFI.Bool.PolyML.cVal
           )
-      val beginUserAction_ = call (load_sym libgtk "gtk_text_buffer_begin_user_action") (GtkTextBufferClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val copyClipboard_ = call (load_sym libgtk "gtk_text_buffer_copy_clipboard") (GtkTextBufferClass.PolyML.cPtr &&> GtkClipboardClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val beginUserAction_ = call (load_sym libgtk "gtk_text_buffer_begin_user_action") (GtkTextBufferClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val copyClipboard_ = call (load_sym libgtk "gtk_text_buffer_copy_clipboard") (GtkTextBufferClass.PolyML.cPtr &&> GtkClipboardClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val createChildAnchor_ = call (load_sym libgtk "gtk_text_buffer_create_child_anchor") (GtkTextBufferClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GtkTextChildAnchorClass.PolyML.cPtr)
       val createMark_ =
         call (load_sym libgtk "gtk_text_buffer_create_mark")
@@ -68,7 +68,7 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> GtkClipboardClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val delete_ =
         call (load_sym libgtk "gtk_text_buffer_delete")
@@ -76,7 +76,7 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val deleteInteractive_ =
         call (load_sym libgtk "gtk_text_buffer_delete_interactive")
@@ -87,8 +87,8 @@ structure GtkTextBuffer :>
              &&> FFI.Bool.PolyML.cVal
              --> FFI.Bool.PolyML.cVal
           )
-      val deleteMark_ = call (load_sym libgtk "gtk_text_buffer_delete_mark") (GtkTextBufferClass.PolyML.cPtr &&> GtkTextMarkClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val deleteMarkByName_ = call (load_sym libgtk "gtk_text_buffer_delete_mark_by_name") (GtkTextBufferClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val deleteMark_ = call (load_sym libgtk "gtk_text_buffer_delete_mark") (GtkTextBufferClass.PolyML.cPtr &&> GtkTextMarkClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val deleteMarkByName_ = call (load_sym libgtk "gtk_text_buffer_delete_mark_by_name") (GtkTextBufferClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val deleteSelection_ =
         call (load_sym libgtk "gtk_text_buffer_delete_selection")
           (
@@ -104,20 +104,20 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> GdkAtomRecord.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val endUserAction_ = call (load_sym libgtk "gtk_text_buffer_end_user_action") (GtkTextBufferClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val endUserAction_ = call (load_sym libgtk "gtk_text_buffer_end_user_action") (GtkTextBufferClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getBounds_ =
         call (load_sym libgtk "gtk_text_buffer_get_bounds")
           (
             GtkTextBufferClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getCharCount_ = call (load_sym libgtk "gtk_text_buffer_get_char_count") (GtkTextBufferClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getCopyTargetList_ = call (load_sym libgtk "gtk_text_buffer_get_copy_target_list") (GtkTextBufferClass.PolyML.cPtr --> GtkTargetListRecord.PolyML.cPtr)
-      val getEndIter_ = call (load_sym libgtk "gtk_text_buffer_get_end_iter") (GtkTextBufferClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getEndIter_ = call (load_sym libgtk "gtk_text_buffer_get_end_iter") (GtkTextBufferClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getHasSelection_ = call (load_sym libgtk "gtk_text_buffer_get_has_selection") (GtkTextBufferClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getInsert_ = call (load_sym libgtk "gtk_text_buffer_get_insert") (GtkTextBufferClass.PolyML.cPtr --> GtkTextMarkClass.PolyML.cPtr)
       val getIterAtChildAnchor_ =
@@ -126,7 +126,7 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextChildAnchorClass.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getIterAtLine_ =
         call (load_sym libgtk "gtk_text_buffer_get_iter_at_line")
@@ -134,7 +134,7 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getIterAtLineIndex_ =
         call (load_sym libgtk "gtk_text_buffer_get_iter_at_line_index")
@@ -143,7 +143,7 @@ structure GtkTextBuffer :>
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getIterAtLineOffset_ =
         call (load_sym libgtk "gtk_text_buffer_get_iter_at_line_offset")
@@ -152,7 +152,7 @@ structure GtkTextBuffer :>
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getIterAtMark_ =
         call (load_sym libgtk "gtk_text_buffer_get_iter_at_mark")
@@ -160,7 +160,7 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextMarkClass.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getIterAtOffset_ =
         call (load_sym libgtk "gtk_text_buffer_get_iter_at_offset")
@@ -168,7 +168,7 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getLineCount_ = call (load_sym libgtk "gtk_text_buffer_get_line_count") (GtkTextBufferClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getMark_ = call (load_sym libgtk "gtk_text_buffer_get_mark") (GtkTextBufferClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkTextMarkClass.PolyML.cPtr)
@@ -192,7 +192,7 @@ structure GtkTextBuffer :>
              &&> FFI.Bool.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val getStartIter_ = call (load_sym libgtk "gtk_text_buffer_get_start_iter") (GtkTextBufferClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getStartIter_ = call (load_sym libgtk "gtk_text_buffer_get_start_iter") (GtkTextBufferClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getTagTable_ = call (load_sym libgtk "gtk_text_buffer_get_tag_table") (GtkTextBufferClass.PolyML.cPtr --> GtkTextTagTableClass.PolyML.cPtr)
       val getText_ =
         call (load_sym libgtk "gtk_text_buffer_get_text")
@@ -210,7 +210,7 @@ structure GtkTextBuffer :>
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val insertAtCursor_ =
         call (load_sym libgtk "gtk_text_buffer_insert_at_cursor")
@@ -218,7 +218,7 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val insertChildAnchor_ =
         call (load_sym libgtk "gtk_text_buffer_insert_child_anchor")
@@ -226,7 +226,7 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextChildAnchorClass.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val insertInteractive_ =
         call (load_sym libgtk "gtk_text_buffer_insert_interactive")
@@ -253,7 +253,7 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GdkPixbufPixbufClass.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val insertRange_ =
         call (load_sym libgtk "gtk_text_buffer_insert_range")
@@ -262,7 +262,7 @@ structure GtkTextBuffer :>
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val insertRangeInteractive_ =
         call (load_sym libgtk "gtk_text_buffer_insert_range_interactive")
@@ -280,7 +280,7 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> GtkTextMarkClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val moveMarkByName_ =
         call (load_sym libgtk "gtk_text_buffer_move_mark_by_name")
@@ -288,7 +288,7 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val pasteClipboard_ =
         call (load_sym libgtk "gtk_text_buffer_paste_clipboard")
@@ -297,9 +297,9 @@ structure GtkTextBuffer :>
              &&> GtkClipboardClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cOptPtr
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val placeCursor_ = call (load_sym libgtk "gtk_text_buffer_place_cursor") (GtkTextBufferClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val placeCursor_ = call (load_sym libgtk "gtk_text_buffer_place_cursor") (GtkTextBufferClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val registerDeserializeTagset_ = call (load_sym libgtk "gtk_text_buffer_register_deserialize_tagset") (GtkTextBufferClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> GdkAtomRecord.PolyML.cPtr)
       val registerSerializeTagset_ = call (load_sym libgtk "gtk_text_buffer_register_serialize_tagset") (GtkTextBufferClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> GdkAtomRecord.PolyML.cPtr)
       val removeAllTags_ =
@@ -308,9 +308,9 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val removeSelectionClipboard_ = call (load_sym libgtk "gtk_text_buffer_remove_selection_clipboard") (GtkTextBufferClass.PolyML.cPtr &&> GtkClipboardClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val removeSelectionClipboard_ = call (load_sym libgtk "gtk_text_buffer_remove_selection_clipboard") (GtkTextBufferClass.PolyML.cPtr &&> GtkClipboardClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val removeTag_ =
         call (load_sym libgtk "gtk_text_buffer_remove_tag")
           (
@@ -318,7 +318,7 @@ structure GtkTextBuffer :>
              &&> GtkTextTagClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val removeTagByName_ =
         call (load_sym libgtk "gtk_text_buffer_remove_tag_by_name")
@@ -327,7 +327,7 @@ structure GtkTextBuffer :>
              &&> Utf8.PolyML.cInPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val selectRange_ =
         call (load_sym libgtk "gtk_text_buffer_select_range")
@@ -335,19 +335,19 @@ structure GtkTextBuffer :>
             GtkTextBufferClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setModified_ = call (load_sym libgtk "gtk_text_buffer_set_modified") (GtkTextBufferClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setModified_ = call (load_sym libgtk "gtk_text_buffer_set_modified") (GtkTextBufferClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setText_ =
         call (load_sym libgtk "gtk_text_buffer_set_text")
           (
             GtkTextBufferClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val unregisterDeserializeFormat_ = call (load_sym libgtk "gtk_text_buffer_unregister_deserialize_format") (GtkTextBufferClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val unregisterSerializeFormat_ = call (load_sym libgtk "gtk_text_buffer_unregister_serialize_format") (GtkTextBufferClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val unregisterDeserializeFormat_ = call (load_sym libgtk "gtk_text_buffer_unregister_deserialize_format") (GtkTextBufferClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unregisterSerializeFormat_ = call (load_sym libgtk "gtk_text_buffer_unregister_serialize_format") (GtkTextBufferClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkTextBufferClass.class
     type 'a text_child_anchor_class = 'a GtkTextChildAnchorClass.class

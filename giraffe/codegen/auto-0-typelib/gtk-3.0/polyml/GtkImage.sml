@@ -8,8 +8,8 @@ structure GtkImage :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_image_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_image_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_image_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_image_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val newFromAnimation_ = call (load_sym libgtk "gtk_image_new_from_animation") (GdkPixbufPixbufAnimationClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val newFromFile_ = call (load_sym libgtk "gtk_image_new_from_file") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newFromGicon_ = call (load_sym libgtk "gtk_image_new_from_gicon") (GioIconClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
@@ -17,7 +17,7 @@ structure GtkImage :>
       val newFromIconSet_ = call (load_sym libgtk "gtk_image_new_from_icon_set") (GtkIconSetRecord.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
       val newFromPixbuf_ = call (load_sym libgtk "gtk_image_new_from_pixbuf") (GdkPixbufPixbufClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val newFromStock_ = call (load_sym libgtk "gtk_image_new_from_stock") (Utf8.PolyML.cInPtr &&> FFI.Int32.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
-      val clear_ = call (load_sym libgtk "gtk_image_clear") (GtkImageClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val clear_ = call (load_sym libgtk "gtk_image_clear") (GtkImageClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getAnimation_ = call (load_sym libgtk "gtk_image_get_animation") (GtkImageClass.PolyML.cPtr --> GdkPixbufPixbufAnimationClass.PolyML.cPtr)
       val getGicon_ =
         call (load_sym libgtk "gtk_image_get_gicon")
@@ -25,7 +25,7 @@ structure GtkImage :>
             GtkImageClass.PolyML.cPtr
              &&> GioIconClass.PolyML.cOutRef
              &&> FFI.Int32.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getIconName_ =
         call (load_sym libgtk "gtk_image_get_icon_name")
@@ -33,7 +33,7 @@ structure GtkImage :>
             GtkImageClass.PolyML.cPtr
              &&> Utf8.PolyML.cOutRef
              &&> FFI.Int32.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getIconSet_ =
         call (load_sym libgtk "gtk_image_get_icon_set")
@@ -41,7 +41,7 @@ structure GtkImage :>
             GtkImageClass.PolyML.cPtr
              &&> GtkIconSetRecord.PolyML.cOutRef
              &&> FFI.Int32.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getPixbuf_ = call (load_sym libgtk "gtk_image_get_pixbuf") (GtkImageClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
       val getPixelSize_ = call (load_sym libgtk "gtk_image_get_pixel_size") (GtkImageClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
@@ -51,18 +51,18 @@ structure GtkImage :>
             GtkImageClass.PolyML.cPtr
              &&> Utf8.PolyML.cOutRef
              &&> FFI.Int32.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getStorageType_ = call (load_sym libgtk "gtk_image_get_storage_type") (GtkImageClass.PolyML.cPtr --> GtkImageType.PolyML.cVal)
-      val setFromAnimation_ = call (load_sym libgtk "gtk_image_set_from_animation") (GtkImageClass.PolyML.cPtr &&> GdkPixbufPixbufAnimationClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setFromFile_ = call (load_sym libgtk "gtk_image_set_from_file") (GtkImageClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
+      val setFromAnimation_ = call (load_sym libgtk "gtk_image_set_from_animation") (GtkImageClass.PolyML.cPtr &&> GdkPixbufPixbufAnimationClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setFromFile_ = call (load_sym libgtk "gtk_image_set_from_file") (GtkImageClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
       val setFromGicon_ =
         call (load_sym libgtk "gtk_image_set_from_gicon")
           (
             GtkImageClass.PolyML.cPtr
              &&> GioIconClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setFromIconName_ =
         call (load_sym libgtk "gtk_image_set_from_icon_name")
@@ -70,7 +70,7 @@ structure GtkImage :>
             GtkImageClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setFromIconSet_ =
         call (load_sym libgtk "gtk_image_set_from_icon_set")
@@ -78,18 +78,18 @@ structure GtkImage :>
             GtkImageClass.PolyML.cPtr
              &&> GtkIconSetRecord.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setFromPixbuf_ = call (load_sym libgtk "gtk_image_set_from_pixbuf") (GtkImageClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setFromPixbuf_ = call (load_sym libgtk "gtk_image_set_from_pixbuf") (GtkImageClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
       val setFromStock_ =
         call (load_sym libgtk "gtk_image_set_from_stock")
           (
             GtkImageClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setPixelSize_ = call (load_sym libgtk "gtk_image_set_pixel_size") (GtkImageClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setPixelSize_ = call (load_sym libgtk "gtk_image_set_pixel_size") (GtkImageClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkImageClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

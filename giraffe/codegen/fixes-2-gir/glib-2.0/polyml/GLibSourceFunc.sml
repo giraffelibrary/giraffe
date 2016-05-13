@@ -16,7 +16,7 @@ structure GLibSourceFunc :>
         local
           open PolyMLFFI
         in
-          val makeClosure = closure (FFI.PolyML.cVoid --> FFI.Bool.PolyML.cVal)
+          val makeClosure = closure (PolyMLFFI.cVoid --> FFI.Bool.PolyML.cVal)
         end
         fun withCallback f callback =
           f (makeClosure (fn () => FFI.Bool.C.withVal I (callback ())))

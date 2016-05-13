@@ -7,10 +7,10 @@ structure GtkPrintOperationPreview :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_print_operation_preview_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val endPreview_ = call (load_sym libgtk "gtk_print_operation_preview_end_preview") (GtkPrintOperationPreviewClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libgtk "gtk_print_operation_preview_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val endPreview_ = call (load_sym libgtk "gtk_print_operation_preview_end_preview") (GtkPrintOperationPreviewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val isSelected_ = call (load_sym libgtk "gtk_print_operation_preview_is_selected") (GtkPrintOperationPreviewClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val renderPage_ = call (load_sym libgtk "gtk_print_operation_preview_render_page") (GtkPrintOperationPreviewClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val renderPage_ = call (load_sym libgtk "gtk_print_operation_preview_render_page") (GtkPrintOperationPreviewClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkPrintOperationPreviewClass.class
     type 'a page_setup_class = 'a GtkPageSetupClass.class

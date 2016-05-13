@@ -17,12 +17,12 @@ structure CairoRegionRecord :> CAIRO_REGION_RECORD =
       val free_ =
         call
           (load_sym libcairo "cairo_region_destroy")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libcairogobject "cairo_gobject_region_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =

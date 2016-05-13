@@ -13,7 +13,7 @@ structure GioSocket :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_socket_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_socket_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgio "g_socket_new")
           (
@@ -109,10 +109,10 @@ structure GioSocket :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Int64.PolyML.cVal
           )
-      val setBlocking_ = call (load_sym libgio "g_socket_set_blocking") (GioSocketClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setKeepalive_ = call (load_sym libgio "g_socket_set_keepalive") (GioSocketClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setListenBacklog_ = call (load_sym libgio "g_socket_set_listen_backlog") (GioSocketClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setTimeout_ = call (load_sym libgio "g_socket_set_timeout") (GioSocketClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setBlocking_ = call (load_sym libgio "g_socket_set_blocking") (GioSocketClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setKeepalive_ = call (load_sym libgio "g_socket_set_keepalive") (GioSocketClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setListenBacklog_ = call (load_sym libgio "g_socket_set_listen_backlog") (GioSocketClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setTimeout_ = call (load_sym libgio "g_socket_set_timeout") (GioSocketClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val shutdown_ =
         call (load_sym libgio "g_socket_shutdown")
           (

@@ -5,7 +5,7 @@ structure AtkStreamableContent :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_streamable_content_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libatk "atk_streamable_content_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getMimeType_ = call (load_sym libatk "atk_streamable_content_get_mime_type") (AtkStreamableContentClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val getNMimeTypes_ = call (load_sym libatk "atk_streamable_content_get_n_mime_types") (AtkStreamableContentClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getStream_ = call (load_sym libatk "atk_streamable_content_get_stream") (AtkStreamableContentClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibIOChannelRecord.PolyML.cPtr)

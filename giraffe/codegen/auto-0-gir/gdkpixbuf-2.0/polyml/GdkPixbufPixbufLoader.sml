@@ -8,8 +8,8 @@ structure GdkPixbufPixbufLoader :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_new") (FFI.PolyML.cVoid --> GdkPixbufPixbufLoaderClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_new") (PolyMLFFI.cVoid --> GdkPixbufPixbufLoaderClass.PolyML.cPtr)
       val newWithMimeType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_new_with_mime_type") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GdkPixbufPixbufLoaderClass.PolyML.cPtr)
       val newWithType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_new_with_type") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GdkPixbufPixbufLoaderClass.PolyML.cPtr)
       val close_ = call (load_sym libgdkpixbuf "gdk_pixbuf_loader_close") (GdkPixbufPixbufLoaderClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
@@ -22,7 +22,7 @@ structure GdkPixbufPixbufLoader :>
             GdkPixbufPixbufLoaderClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GdkPixbufPixbufLoaderClass.class

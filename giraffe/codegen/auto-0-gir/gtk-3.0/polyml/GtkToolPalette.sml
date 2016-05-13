@@ -17,10 +17,10 @@ structure GtkToolPalette :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tool_palette_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_tool_palette_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val getDragTargetGroup_ = call (load_sym libgtk "gtk_tool_palette_get_drag_target_group") (FFI.PolyML.cVoid --> GtkTargetEntryRecord.PolyML.cPtr)
-      val getDragTargetItem_ = call (load_sym libgtk "gtk_tool_palette_get_drag_target_item") (FFI.PolyML.cVoid --> GtkTargetEntryRecord.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_tool_palette_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_tool_palette_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getDragTargetGroup_ = call (load_sym libgtk "gtk_tool_palette_get_drag_target_group") (PolyMLFFI.cVoid --> GtkTargetEntryRecord.PolyML.cPtr)
+      val getDragTargetItem_ = call (load_sym libgtk "gtk_tool_palette_get_drag_target_item") (PolyMLFFI.cVoid --> GtkTargetEntryRecord.PolyML.cPtr)
       val addDragDest_ =
         call (load_sym libgtk "gtk_tool_palette_add_drag_dest")
           (
@@ -29,7 +29,7 @@ structure GtkToolPalette :>
              &&> GtkDestDefaults.PolyML.cVal
              &&> GtkToolPaletteDragTargets.PolyML.cVal
              &&> GdkDragAction.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getDragItem_ = call (load_sym libgtk "gtk_tool_palette_get_drag_item") (GtkToolPaletteClass.PolyML.cPtr &&> GtkSelectionDataRecord.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getDropGroup_ =
@@ -53,14 +53,14 @@ structure GtkToolPalette :>
       val getGroupPosition_ = call (load_sym libgtk "gtk_tool_palette_get_group_position") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolItemGroupClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getIconSize_ = call (load_sym libgtk "gtk_tool_palette_get_icon_size") (GtkToolPaletteClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getStyle_ = call (load_sym libgtk "gtk_tool_palette_get_style") (GtkToolPaletteClass.PolyML.cPtr --> GtkToolbarStyle.PolyML.cVal)
-      val setDragSource_ = call (load_sym libgtk "gtk_tool_palette_set_drag_source") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolPaletteDragTargets.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDragSource_ = call (load_sym libgtk "gtk_tool_palette_set_drag_source") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolPaletteDragTargets.PolyML.cVal --> PolyMLFFI.cVoid)
       val setExclusive_ =
         call (load_sym libgtk "gtk_tool_palette_set_exclusive")
           (
             GtkToolPaletteClass.PolyML.cPtr
              &&> GtkToolItemGroupClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setExpand_ =
         call (load_sym libgtk "gtk_tool_palette_set_expand")
@@ -68,7 +68,7 @@ structure GtkToolPalette :>
             GtkToolPaletteClass.PolyML.cPtr
              &&> GtkToolItemGroupClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setGroupPosition_ =
         call (load_sym libgtk "gtk_tool_palette_set_group_position")
@@ -76,12 +76,12 @@ structure GtkToolPalette :>
             GtkToolPaletteClass.PolyML.cPtr
              &&> GtkToolItemGroupClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setIconSize_ = call (load_sym libgtk "gtk_tool_palette_set_icon_size") (GtkToolPaletteClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setStyle_ = call (load_sym libgtk "gtk_tool_palette_set_style") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolbarStyle.PolyML.cVal --> FFI.PolyML.cVoid)
-      val unsetIconSize_ = call (load_sym libgtk "gtk_tool_palette_unset_icon_size") (GtkToolPaletteClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val unsetStyle_ = call (load_sym libgtk "gtk_tool_palette_unset_style") (GtkToolPaletteClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setIconSize_ = call (load_sym libgtk "gtk_tool_palette_set_icon_size") (GtkToolPaletteClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setStyle_ = call (load_sym libgtk "gtk_tool_palette_set_style") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolbarStyle.PolyML.cVal --> PolyMLFFI.cVoid)
+      val unsetIconSize_ = call (load_sym libgtk "gtk_tool_palette_unset_icon_size") (GtkToolPaletteClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unsetStyle_ = call (load_sym libgtk "gtk_tool_palette_unset_style") (GtkToolPaletteClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkToolPaletteClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

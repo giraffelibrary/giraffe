@@ -6,7 +6,7 @@ structure PangoFontFace :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_font_face_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libpango "pango_font_face_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val describe_ = call (load_sym libpango "pango_font_face_describe") (PangoFontFaceClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
       val getFaceName_ = call (load_sym libpango "pango_font_face_get_face_name") (PangoFontFaceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val isSynthesized_ = call (load_sym libpango "pango_font_face_is_synthesized") (PangoFontFaceClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)

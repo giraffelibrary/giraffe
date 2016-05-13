@@ -9,8 +9,8 @@ structure GLibMainContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "g_main_context_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libglib "g_main_context_new") (FFI.PolyML.cVoid --> GLibMainContextRecord.PolyML.cPtr)
+      val getType_ = call (load_sym libgobject "g_main_context_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libglib "g_main_context_new") (PolyMLFFI.cVoid --> GLibMainContextRecord.PolyML.cPtr)
       val acquire_ = call (load_sym libglib "g_main_context_acquire") (GLibMainContextRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val addPoll_ =
         call (load_sym libglib "g_main_context_add_poll")
@@ -18,17 +18,17 @@ structure GLibMainContext :>
             GLibMainContextRecord.PolyML.cPtr
              &&> GLibPollFDRecord.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val dispatch_ = call (load_sym libglib "g_main_context_dispatch") (GLibMainContextRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val dispatch_ = call (load_sym libglib "g_main_context_dispatch") (GLibMainContextRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val findSourceById_ = call (load_sym libglib "g_main_context_find_source_by_id") (GLibMainContextRecord.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
       val isOwner_ = call (load_sym libglib "g_main_context_is_owner") (GLibMainContextRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val iteration_ = call (load_sym libglib "g_main_context_iteration") (GLibMainContextRecord.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.Bool.PolyML.cVal)
       val pending_ = call (load_sym libglib "g_main_context_pending") (GLibMainContextRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val popThreadDefault_ = call (load_sym libglib "g_main_context_pop_thread_default") (GLibMainContextRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val pushThreadDefault_ = call (load_sym libglib "g_main_context_push_thread_default") (GLibMainContextRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val release_ = call (load_sym libglib "g_main_context_release") (GLibMainContextRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val removePoll_ = call (load_sym libglib "g_main_context_remove_poll") (GLibMainContextRecord.PolyML.cPtr &&> GLibPollFDRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val popThreadDefault_ = call (load_sym libglib "g_main_context_pop_thread_default") (GLibMainContextRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val pushThreadDefault_ = call (load_sym libglib "g_main_context_push_thread_default") (GLibMainContextRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val release_ = call (load_sym libglib "g_main_context_release") (GLibMainContextRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val removePoll_ = call (load_sym libglib "g_main_context_remove_poll") (GLibMainContextRecord.PolyML.cPtr &&> GLibPollFDRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val wait_ =
         call (load_sym libglib "g_main_context_wait")
           (
@@ -37,9 +37,9 @@ structure GLibMainContext :>
              &&> GLibMutexRecord.PolyML.cPtr
              --> FFI.Bool.PolyML.cVal
           )
-      val wakeup_ = call (load_sym libglib "g_main_context_wakeup") (GLibMainContextRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val default_ = call (load_sym libglib "g_main_context_default") (FFI.PolyML.cVoid --> GLibMainContextRecord.PolyML.cPtr)
-      val getThreadDefault_ = call (load_sym libglib "g_main_context_get_thread_default") (FFI.PolyML.cVoid --> GLibMainContextRecord.PolyML.cPtr)
+      val wakeup_ = call (load_sym libglib "g_main_context_wakeup") (GLibMainContextRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val default_ = call (load_sym libglib "g_main_context_default") (PolyMLFFI.cVoid --> GLibMainContextRecord.PolyML.cPtr)
+      val getThreadDefault_ = call (load_sym libglib "g_main_context_get_thread_default") (PolyMLFFI.cVoid --> GLibMainContextRecord.PolyML.cPtr)
     end
     type t = GLibMainContextRecord.t
     type source_t = GLibSourceRecord.t

@@ -6,9 +6,9 @@ structure GioVfs :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_vfs_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (load_sym libgio "g_vfs_get_default") (FFI.PolyML.cVoid --> GioVfsClass.PolyML.cPtr)
-      val getLocal_ = call (load_sym libgio "g_vfs_get_local") (FFI.PolyML.cVoid --> GioVfsClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgio "g_vfs_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (load_sym libgio "g_vfs_get_default") (PolyMLFFI.cVoid --> GioVfsClass.PolyML.cPtr)
+      val getLocal_ = call (load_sym libgio "g_vfs_get_local") (PolyMLFFI.cVoid --> GioVfsClass.PolyML.cPtr)
       val getFileForPath_ = call (load_sym libgio "g_vfs_get_file_for_path") (GioVfsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
       val getFileForUri_ = call (load_sym libgio "g_vfs_get_file_for_uri") (GioVfsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
       val isActive_ = call (load_sym libgio "g_vfs_is_active") (GioVfsClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)

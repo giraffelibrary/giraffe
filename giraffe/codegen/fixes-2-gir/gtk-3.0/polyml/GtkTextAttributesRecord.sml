@@ -12,7 +12,7 @@ structure GtkTextAttributesRecord :> GTK_TEXT_ATTRIBUTES_RECORD =
       val new_ =
         call
           (load_sym libgtk "gtk_text_attributes_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,12 +22,12 @@ structure GtkTextAttributesRecord :> GTK_TEXT_ATTRIBUTES_RECORD =
       val free_ =
         call
           (load_sym libgtk "gtk_text_attributes_unref")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libgtk "gtk_text_attributes_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =

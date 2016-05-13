@@ -5,7 +5,7 @@ structure GtkFontChooser :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_font_chooser_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_font_chooser_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getFont_ = call (load_sym libgtk "gtk_font_chooser_get_font") (GtkFontChooserClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getFontDesc_ = call (load_sym libgtk "gtk_font_chooser_get_font_desc") (GtkFontChooserClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
       val getFontFace_ = call (load_sym libgtk "gtk_font_chooser_get_font_face") (GtkFontChooserClass.PolyML.cPtr --> PangoFontFaceClass.PolyML.cPtr)
@@ -13,10 +13,10 @@ structure GtkFontChooser :>
       val getFontSize_ = call (load_sym libgtk "gtk_font_chooser_get_font_size") (GtkFontChooserClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getPreviewText_ = call (load_sym libgtk "gtk_font_chooser_get_preview_text") (GtkFontChooserClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getShowPreviewEntry_ = call (load_sym libgtk "gtk_font_chooser_get_show_preview_entry") (GtkFontChooserClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setFont_ = call (load_sym libgtk "gtk_font_chooser_set_font") (GtkFontChooserClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setFontDesc_ = call (load_sym libgtk "gtk_font_chooser_set_font_desc") (GtkFontChooserClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setPreviewText_ = call (load_sym libgtk "gtk_font_chooser_set_preview_text") (GtkFontChooserClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setShowPreviewEntry_ = call (load_sym libgtk "gtk_font_chooser_set_show_preview_entry") (GtkFontChooserClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setFont_ = call (load_sym libgtk "gtk_font_chooser_set_font") (GtkFontChooserClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setFontDesc_ = call (load_sym libgtk "gtk_font_chooser_set_font_desc") (GtkFontChooserClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setPreviewText_ = call (load_sym libgtk "gtk_font_chooser_set_preview_text") (GtkFontChooserClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setShowPreviewEntry_ = call (load_sym libgtk "gtk_font_chooser_set_show_preview_entry") (GtkFontChooserClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkFontChooserClass.class
     type t = base class

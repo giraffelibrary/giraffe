@@ -13,7 +13,7 @@ structure GioTlsDatabase :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tls_database_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_tls_database_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val createCertificateHandle_ = call (load_sym libgio "g_tls_database_create_certificate_handle") (GioTlsDatabaseClass.PolyML.cPtr &&> GioTlsCertificateClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val lookupCertificateForHandle_ =
         call (load_sym libgio "g_tls_database_lookup_certificate_for_handle")

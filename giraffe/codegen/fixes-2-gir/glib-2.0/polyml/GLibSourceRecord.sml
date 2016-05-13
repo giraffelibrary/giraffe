@@ -17,12 +17,12 @@ structure GLibSourceRecord :> G_LIB_SOURCE_RECORD =
       val free_ =
         call
           (load_sym libglib "g_source_unref")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libglib "g_source_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =

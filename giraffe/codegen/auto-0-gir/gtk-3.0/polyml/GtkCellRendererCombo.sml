@@ -7,8 +7,8 @@ structure GtkCellRendererCombo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_cell_renderer_combo_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_cell_renderer_combo_new") (FFI.PolyML.cVoid --> GtkCellRendererClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_cell_renderer_combo_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_cell_renderer_combo_new") (PolyMLFFI.cVoid --> GtkCellRendererClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkCellRendererComboClass.class
     type tree_iter_t = GtkTreeIterRecord.t

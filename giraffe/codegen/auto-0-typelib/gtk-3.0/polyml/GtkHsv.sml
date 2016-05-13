@@ -7,8 +7,8 @@ structure GtkHsv :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_hsv_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_hsv_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_hsv_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_hsv_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val toRgb_ =
         call (load_sym libgtk "gtk_hsv_to_rgb")
           (
@@ -18,7 +18,7 @@ structure GtkHsv :>
              &&> FFI.Double.PolyML.cRef
              &&> FFI.Double.PolyML.cRef
              &&> FFI.Double.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getColor_ =
         call (load_sym libgtk "gtk_hsv_get_color")
@@ -27,7 +27,7 @@ structure GtkHsv :>
              &&> FFI.Double.PolyML.cRef
              &&> FFI.Double.PolyML.cRef
              &&> FFI.Double.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getMetrics_ =
         call (load_sym libgtk "gtk_hsv_get_metrics")
@@ -35,7 +35,7 @@ structure GtkHsv :>
             GtkHsvClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cRef
              &&> FFI.Int32.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val isAdjusting_ = call (load_sym libgtk "gtk_hsv_is_adjusting") (GtkHsvClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val setColor_ =
@@ -45,7 +45,7 @@ structure GtkHsv :>
              &&> FFI.Double.PolyML.cVal
              &&> FFI.Double.PolyML.cVal
              &&> FFI.Double.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setMetrics_ =
         call (load_sym libgtk "gtk_hsv_set_metrics")
@@ -53,7 +53,7 @@ structure GtkHsv :>
             GtkHsvClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GtkHsvClass.class

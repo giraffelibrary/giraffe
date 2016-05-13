@@ -7,7 +7,7 @@ structure GioSettings :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_settings_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_settings_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgio "g_settings_new") (Utf8.PolyML.cInPtr --> GioSettingsClass.PolyML.cPtr)
       val newWithBackend_ = call (load_sym libgio "g_settings_new_with_backend") (Utf8.PolyML.cInPtr &&> GioSettingsBackendRecord.PolyML.cPtr --> GioSettingsClass.PolyML.cPtr)
       val newWithBackendAndPath_ =
@@ -19,8 +19,8 @@ structure GioSettings :>
              --> GioSettingsClass.PolyML.cPtr
           )
       val newWithPath_ = call (load_sym libgio "g_settings_new_with_path") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GioSettingsClass.PolyML.cPtr)
-      val sync_ = call (load_sym libgio "g_settings_sync") (FFI.PolyML.cVoid --> FFI.PolyML.cVoid)
-      val apply_ = call (load_sym libgio "g_settings_apply") (GioSettingsClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val sync_ = call (load_sym libgio "g_settings_sync") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val apply_ = call (load_sym libgio "g_settings_apply") (GioSettingsClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val bind_ =
         call (load_sym libgio "g_settings_bind")
           (
@@ -29,7 +29,7 @@ structure GioSettings :>
              &&> GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GioSettingsBindFlags.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val bindWritable_ =
         call (load_sym libgio "g_settings_bind_writable")
@@ -39,9 +39,9 @@ structure GioSettings :>
              &&> GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val delay_ = call (load_sym libgio "g_settings_delay") (GioSettingsClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val delay_ = call (load_sym libgio "g_settings_delay") (GioSettingsClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getBoolean_ = call (load_sym libgio "g_settings_get_boolean") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
       val getChild_ = call (load_sym libgio "g_settings_get_child") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioSettingsClass.PolyML.cPtr)
       val getDouble_ = call (load_sym libgio "g_settings_get_double") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Double.PolyML.cVal)
@@ -62,8 +62,8 @@ structure GioSettings :>
              &&> GLibVariantRecord.PolyML.cPtr
              --> FFI.Bool.PolyML.cVal
           )
-      val reset_ = call (load_sym libgio "g_settings_reset") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val revert_ = call (load_sym libgio "g_settings_revert") (GioSettingsClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val reset_ = call (load_sym libgio "g_settings_reset") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val revert_ = call (load_sym libgio "g_settings_revert") (GioSettingsClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val setBoolean_ =
         call (load_sym libgio "g_settings_set_boolean")
           (

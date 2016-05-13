@@ -9,8 +9,8 @@ structure GtkStatusIcon :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_status_icon_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_status_icon_new") (FFI.PolyML.cVoid --> GtkStatusIconClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_status_icon_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_status_icon_new") (PolyMLFFI.cVoid --> GtkStatusIconClass.PolyML.cPtr)
       val newFromFile_ = call (load_sym libgtk "gtk_status_icon_new_from_file") (Utf8.PolyML.cInPtr --> GtkStatusIconClass.PolyML.cPtr)
       val newFromGicon_ = call (load_sym libgtk "gtk_status_icon_new_from_gicon") (GioIconClass.PolyML.cPtr --> GtkStatusIconClass.PolyML.cPtr)
       val newFromIconName_ = call (load_sym libgtk "gtk_status_icon_new_from_icon_name") (Utf8.PolyML.cInPtr --> GtkStatusIconClass.PolyML.cPtr)
@@ -24,7 +24,7 @@ structure GtkStatusIcon :>
              &&> FFI.Int32.PolyML.cRef
              &&> FFI.Bool.PolyML.cRef
              &&> GtkStatusIconClass.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getGeometry_ =
         call (load_sym libgtk "gtk_status_icon_get_geometry")
@@ -49,18 +49,18 @@ structure GtkStatusIcon :>
       val getVisible_ = call (load_sym libgtk "gtk_status_icon_get_visible") (GtkStatusIconClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getX11WindowId_ = call (load_sym libgtk "gtk_status_icon_get_x11_window_id") (GtkStatusIconClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
       val isEmbedded_ = call (load_sym libgtk "gtk_status_icon_is_embedded") (GtkStatusIconClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setFromFile_ = call (load_sym libgtk "gtk_status_icon_set_from_file") (GtkStatusIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setFromGicon_ = call (load_sym libgtk "gtk_status_icon_set_from_gicon") (GtkStatusIconClass.PolyML.cPtr &&> GioIconClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setFromIconName_ = call (load_sym libgtk "gtk_status_icon_set_from_icon_name") (GtkStatusIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setFromPixbuf_ = call (load_sym libgtk "gtk_status_icon_set_from_pixbuf") (GtkStatusIconClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setFromStock_ = call (load_sym libgtk "gtk_status_icon_set_from_stock") (GtkStatusIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setHasTooltip_ = call (load_sym libgtk "gtk_status_icon_set_has_tooltip") (GtkStatusIconClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setName_ = call (load_sym libgtk "gtk_status_icon_set_name") (GtkStatusIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setScreen_ = call (load_sym libgtk "gtk_status_icon_set_screen") (GtkStatusIconClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setTitle_ = call (load_sym libgtk "gtk_status_icon_set_title") (GtkStatusIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setTooltipMarkup_ = call (load_sym libgtk "gtk_status_icon_set_tooltip_markup") (GtkStatusIconClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
-      val setTooltipText_ = call (load_sym libgtk "gtk_status_icon_set_tooltip_text") (GtkStatusIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setVisible_ = call (load_sym libgtk "gtk_status_icon_set_visible") (GtkStatusIconClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setFromFile_ = call (load_sym libgtk "gtk_status_icon_set_from_file") (GtkStatusIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setFromGicon_ = call (load_sym libgtk "gtk_status_icon_set_from_gicon") (GtkStatusIconClass.PolyML.cPtr &&> GioIconClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setFromIconName_ = call (load_sym libgtk "gtk_status_icon_set_from_icon_name") (GtkStatusIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setFromPixbuf_ = call (load_sym libgtk "gtk_status_icon_set_from_pixbuf") (GtkStatusIconClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setFromStock_ = call (load_sym libgtk "gtk_status_icon_set_from_stock") (GtkStatusIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setHasTooltip_ = call (load_sym libgtk "gtk_status_icon_set_has_tooltip") (GtkStatusIconClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setName_ = call (load_sym libgtk "gtk_status_icon_set_name") (GtkStatusIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setScreen_ = call (load_sym libgtk "gtk_status_icon_set_screen") (GtkStatusIconClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setTitle_ = call (load_sym libgtk "gtk_status_icon_set_title") (GtkStatusIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setTooltipMarkup_ = call (load_sym libgtk "gtk_status_icon_set_tooltip_markup") (GtkStatusIconClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setTooltipText_ = call (load_sym libgtk "gtk_status_icon_set_tooltip_text") (GtkStatusIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setVisible_ = call (load_sym libgtk "gtk_status_icon_set_visible") (GtkStatusIconClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkStatusIconClass.class
     type 'a menu_class = 'a GtkMenuClass.class

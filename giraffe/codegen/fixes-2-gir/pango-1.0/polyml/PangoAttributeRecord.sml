@@ -17,7 +17,7 @@ structure PangoAttributeRecord :> PANGO_ATTRIBUTE_RECORD =
       val free_ =
         call
           (load_sym libpango "pango_attribute_destroy")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
     end
 
     structure Record =

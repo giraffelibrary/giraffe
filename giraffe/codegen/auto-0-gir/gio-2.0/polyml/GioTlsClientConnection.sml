@@ -8,7 +8,7 @@ structure GioTlsClientConnection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tls_client_connection_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_tls_client_connection_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgio "g_tls_client_connection_new")
           (
@@ -20,9 +20,9 @@ structure GioTlsClientConnection :>
       val getServerIdentity_ = call (load_sym libgio "g_tls_client_connection_get_server_identity") (GioTlsClientConnectionClass.PolyML.cPtr --> GioSocketConnectableClass.PolyML.cPtr)
       val getUseSsl3_ = call (load_sym libgio "g_tls_client_connection_get_use_ssl3") (GioTlsClientConnectionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getValidationFlags_ = call (load_sym libgio "g_tls_client_connection_get_validation_flags") (GioTlsClientConnectionClass.PolyML.cPtr --> GioTlsCertificateFlags.PolyML.cVal)
-      val setServerIdentity_ = call (load_sym libgio "g_tls_client_connection_set_server_identity") (GioTlsClientConnectionClass.PolyML.cPtr &&> GioSocketConnectableClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setUseSsl3_ = call (load_sym libgio "g_tls_client_connection_set_use_ssl3") (GioTlsClientConnectionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setValidationFlags_ = call (load_sym libgio "g_tls_client_connection_set_validation_flags") (GioTlsClientConnectionClass.PolyML.cPtr &&> GioTlsCertificateFlags.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setServerIdentity_ = call (load_sym libgio "g_tls_client_connection_set_server_identity") (GioTlsClientConnectionClass.PolyML.cPtr &&> GioSocketConnectableClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setUseSsl3_ = call (load_sym libgio "g_tls_client_connection_set_use_ssl3") (GioTlsClientConnectionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setValidationFlags_ = call (load_sym libgio "g_tls_client_connection_set_validation_flags") (GioTlsClientConnectionClass.PolyML.cPtr &&> GioTlsCertificateFlags.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioTlsClientConnectionClass.class
     type 'a i_o_stream_class = 'a GioIOStreamClass.class

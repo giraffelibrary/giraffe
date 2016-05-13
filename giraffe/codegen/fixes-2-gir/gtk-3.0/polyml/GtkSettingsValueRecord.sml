@@ -12,7 +12,7 @@ structure GtkSettingsValueRecord :> GTK_SETTINGS_VALUE_RECORD =
       val new_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_settings_value_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,7 +22,7 @@ structure GtkSettingsValueRecord :> GTK_SETTINGS_VALUE_RECORD =
       val free_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_settings_value_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
     end
 
     structure Record =

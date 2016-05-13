@@ -8,12 +8,12 @@ structure GioDBusObjectManagerServer :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_object_manager_server_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_dbus_object_manager_server_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgio "g_dbus_object_manager_server_new") (Utf8.PolyML.cInPtr --> GioDBusObjectManagerServerClass.PolyML.cPtr)
-      val export_ = call (load_sym libgio "g_dbus_object_manager_server_export") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusObjectSkeletonClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val exportUniquely_ = call (load_sym libgio "g_dbus_object_manager_server_export_uniquely") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusObjectSkeletonClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val export_ = call (load_sym libgio "g_dbus_object_manager_server_export") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusObjectSkeletonClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val exportUniquely_ = call (load_sym libgio "g_dbus_object_manager_server_export_uniquely") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusObjectSkeletonClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getConnection_ = call (load_sym libgio "g_dbus_object_manager_server_get_connection") (GioDBusObjectManagerServerClass.PolyML.cPtr --> GioDBusConnectionClass.PolyML.cPtr)
-      val setConnection_ = call (load_sym libgio "g_dbus_object_manager_server_set_connection") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusConnectionClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setConnection_ = call (load_sym libgio "g_dbus_object_manager_server_set_connection") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusConnectionClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
       val unexport_ = call (load_sym libgio "g_dbus_object_manager_server_unexport") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class = 'a GioDBusObjectManagerServerClass.class

@@ -8,11 +8,11 @@ structure GtkAssistant :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_assistant_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_assistant_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val addActionWidget_ = call (load_sym libgtk "gtk_assistant_add_action_widget") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libgtk "gtk_assistant_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_assistant_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val addActionWidget_ = call (load_sym libgtk "gtk_assistant_add_action_widget") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val appendPage_ = call (load_sym libgtk "gtk_assistant_append_page") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val commit_ = call (load_sym libgtk "gtk_assistant_commit") (GtkAssistantClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val commit_ = call (load_sym libgtk "gtk_assistant_commit") (GtkAssistantClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getCurrentPage_ = call (load_sym libgtk "gtk_assistant_get_current_page") (GtkAssistantClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getNPages_ = call (load_sym libgtk "gtk_assistant_get_n_pages") (GtkAssistantClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getNthPage_ = call (load_sym libgtk "gtk_assistant_get_nth_page") (GtkAssistantClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
@@ -27,19 +27,19 @@ structure GtkAssistant :>
              &&> FFI.Int.PolyML.cVal
              --> FFI.Int.PolyML.cVal
           )
-      val nextPage_ = call (load_sym libgtk "gtk_assistant_next_page") (GtkAssistantClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val nextPage_ = call (load_sym libgtk "gtk_assistant_next_page") (GtkAssistantClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val prependPage_ = call (load_sym libgtk "gtk_assistant_prepend_page") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val previousPage_ = call (load_sym libgtk "gtk_assistant_previous_page") (GtkAssistantClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val removeActionWidget_ = call (load_sym libgtk "gtk_assistant_remove_action_widget") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val removePage_ = call (load_sym libgtk "gtk_assistant_remove_page") (GtkAssistantClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setCurrentPage_ = call (load_sym libgtk "gtk_assistant_set_current_page") (GtkAssistantClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val previousPage_ = call (load_sym libgtk "gtk_assistant_previous_page") (GtkAssistantClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val removeActionWidget_ = call (load_sym libgtk "gtk_assistant_remove_action_widget") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val removePage_ = call (load_sym libgtk "gtk_assistant_remove_page") (GtkAssistantClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setCurrentPage_ = call (load_sym libgtk "gtk_assistant_set_current_page") (GtkAssistantClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
       val setPageComplete_ =
         call (load_sym libgtk "gtk_assistant_set_page_complete")
           (
             GtkAssistantClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setPageTitle_ =
         call (load_sym libgtk "gtk_assistant_set_page_title")
@@ -47,7 +47,7 @@ structure GtkAssistant :>
             GtkAssistantClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setPageType_ =
         call (load_sym libgtk "gtk_assistant_set_page_type")
@@ -55,9 +55,9 @@ structure GtkAssistant :>
             GtkAssistantClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkAssistantPageType.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val updateButtonsState_ = call (load_sym libgtk "gtk_assistant_update_buttons_state") (GtkAssistantClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val updateButtonsState_ = call (load_sym libgtk "gtk_assistant_update_buttons_state") (GtkAssistantClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkAssistantClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

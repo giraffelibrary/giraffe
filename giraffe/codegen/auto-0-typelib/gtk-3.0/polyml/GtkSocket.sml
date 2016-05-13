@@ -6,9 +6,9 @@ structure GtkSocket :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_socket_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_socket_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val addId_ = call (load_sym libgtk "gtk_socket_add_id") (GtkSocketClass.PolyML.cPtr &&> FFI.UInt64.PolyML.cVal --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libgtk "gtk_socket_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_socket_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val addId_ = call (load_sym libgtk "gtk_socket_add_id") (GtkSocketClass.PolyML.cPtr &&> FFI.UInt64.PolyML.cVal --> PolyMLFFI.cVoid)
       val getId_ = call (load_sym libgtk "gtk_socket_get_id") (GtkSocketClass.PolyML.cPtr --> FFI.UInt64.PolyML.cVal)
       val getPlugWindow_ = call (load_sym libgtk "gtk_socket_get_plug_window") (GtkSocketClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
     end

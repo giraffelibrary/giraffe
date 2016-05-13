@@ -5,7 +5,7 @@ structure AtkAction :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_action_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libatk "atk_action_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val doAction_ = call (load_sym libatk "atk_action_do_action") (AtkActionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
       val getDescription_ = call (load_sym libatk "atk_action_get_description") (AtkActionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val getKeybinding_ = call (load_sym libatk "atk_action_get_keybinding") (AtkActionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)

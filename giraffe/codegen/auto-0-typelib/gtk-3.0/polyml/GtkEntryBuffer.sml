@@ -5,7 +5,7 @@ structure GtkEntryBuffer :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_entry_buffer_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_entry_buffer_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_entry_buffer_new") (Utf8.PolyML.cInOptPtr &&> FFI.Int32.PolyML.cVal --> GtkEntryBufferClass.PolyML.cPtr)
       val deleteText_ =
         call (load_sym libgtk "gtk_entry_buffer_delete_text")
@@ -21,7 +21,7 @@ structure GtkEntryBuffer :>
             GtkEntryBufferClass.PolyML.cPtr
              &&> FFI.UInt32.PolyML.cVal
              &&> FFI.UInt32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val emitInsertedText_ =
         call (load_sym libgtk "gtk_entry_buffer_emit_inserted_text")
@@ -30,7 +30,7 @@ structure GtkEntryBuffer :>
              &&> FFI.UInt32.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
              &&> FFI.UInt32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getBytes_ = call (load_sym libgtk "gtk_entry_buffer_get_bytes") (GtkEntryBufferClass.PolyML.cPtr --> FFI.UInt64.PolyML.cVal)
       val getLength_ = call (load_sym libgtk "gtk_entry_buffer_get_length") (GtkEntryBufferClass.PolyML.cPtr --> FFI.UInt32.PolyML.cVal)
@@ -45,14 +45,14 @@ structure GtkEntryBuffer :>
              &&> FFI.Int32.PolyML.cVal
              --> FFI.UInt32.PolyML.cVal
           )
-      val setMaxLength_ = call (load_sym libgtk "gtk_entry_buffer_set_max_length") (GtkEntryBufferClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setMaxLength_ = call (load_sym libgtk "gtk_entry_buffer_set_max_length") (GtkEntryBufferClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
       val setText_ =
         call (load_sym libgtk "gtk_entry_buffer_set_text")
           (
             GtkEntryBufferClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GtkEntryBufferClass.class

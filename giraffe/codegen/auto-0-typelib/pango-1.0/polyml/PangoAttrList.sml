@@ -6,12 +6,12 @@ structure PangoAttrList :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_attr_list_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libpango "pango_attr_list_new") (FFI.PolyML.cVoid --> PangoAttrListRecord.PolyML.cPtr)
-      val change_ = call (load_sym libpango "pango_attr_list_change") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libpango "pango_attr_list_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libpango "pango_attr_list_new") (PolyMLFFI.cVoid --> PangoAttrListRecord.PolyML.cPtr)
+      val change_ = call (load_sym libpango "pango_attr_list_change") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val copy_ = call (load_sym libpango "pango_attr_list_copy") (PangoAttrListRecord.PolyML.cPtr --> PangoAttrListRecord.PolyML.cPtr)
-      val insert_ = call (load_sym libpango "pango_attr_list_insert") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val insertBefore_ = call (load_sym libpango "pango_attr_list_insert_before") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val insert_ = call (load_sym libpango "pango_attr_list_insert") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val insertBefore_ = call (load_sym libpango "pango_attr_list_insert_before") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val splice_ =
         call (load_sym libpango "pango_attr_list_splice")
           (
@@ -19,7 +19,7 @@ structure PangoAttrList :>
              &&> PangoAttrListRecord.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
     end
     type t = PangoAttrListRecord.t

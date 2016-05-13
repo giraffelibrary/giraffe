@@ -7,7 +7,7 @@ structure GtkRadioMenuItem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_radio_menu_item_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_radio_menu_item_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val newFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_from_widget") (GtkRadioMenuItemClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithLabelFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_with_label_from_widget") (GtkRadioMenuItemClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithMnemonicFromWidget_ = call (load_sym libgtk "gtk_radio_menu_item_new_with_mnemonic_from_widget") (GtkRadioMenuItemClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)

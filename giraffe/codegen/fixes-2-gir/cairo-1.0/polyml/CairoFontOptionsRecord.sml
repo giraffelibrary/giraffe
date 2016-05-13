@@ -12,7 +12,7 @@ structure CairoFontOptionsRecord :> CAIRO_FONT_OPTIONS_RECORD =
       val new_ =
         call
           (load_sym libcairo "cairo_font_options_create")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,7 +22,7 @@ structure CairoFontOptionsRecord :> CAIRO_FONT_OPTIONS_RECORD =
       val free_ =
         call
           (load_sym libcairo "cairo_font_options_destroy")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
     end
 
     structure Record =

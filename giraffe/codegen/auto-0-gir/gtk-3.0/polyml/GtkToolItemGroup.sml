@@ -10,7 +10,7 @@ structure GtkToolItemGroup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tool_item_group_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_tool_item_group_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_tool_item_group_new") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val getCollapsed_ = call (load_sym libgtk "gtk_tool_item_group_get_collapsed") (GtkToolItemGroupClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getDropItem_ =
@@ -34,21 +34,21 @@ structure GtkToolItemGroup :>
             GtkToolItemGroupClass.PolyML.cPtr
              &&> GtkToolItemClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setCollapsed_ = call (load_sym libgtk "gtk_tool_item_group_set_collapsed") (GtkToolItemGroupClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setEllipsize_ = call (load_sym libgtk "gtk_tool_item_group_set_ellipsize") (GtkToolItemGroupClass.PolyML.cPtr &&> PangoEllipsizeMode.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setHeaderRelief_ = call (load_sym libgtk "gtk_tool_item_group_set_header_relief") (GtkToolItemGroupClass.PolyML.cPtr &&> GtkReliefStyle.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setCollapsed_ = call (load_sym libgtk "gtk_tool_item_group_set_collapsed") (GtkToolItemGroupClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setEllipsize_ = call (load_sym libgtk "gtk_tool_item_group_set_ellipsize") (GtkToolItemGroupClass.PolyML.cPtr &&> PangoEllipsizeMode.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setHeaderRelief_ = call (load_sym libgtk "gtk_tool_item_group_set_header_relief") (GtkToolItemGroupClass.PolyML.cPtr &&> GtkReliefStyle.PolyML.cVal --> PolyMLFFI.cVoid)
       val setItemPosition_ =
         call (load_sym libgtk "gtk_tool_item_group_set_item_position")
           (
             GtkToolItemGroupClass.PolyML.cPtr
              &&> GtkToolItemClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setLabel_ = call (load_sym libgtk "gtk_tool_item_group_set_label") (GtkToolItemGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setLabelWidget_ = call (load_sym libgtk "gtk_tool_item_group_set_label_widget") (GtkToolItemGroupClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setLabel_ = call (load_sym libgtk "gtk_tool_item_group_set_label") (GtkToolItemGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setLabelWidget_ = call (load_sym libgtk "gtk_tool_item_group_set_label_widget") (GtkToolItemGroupClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkToolItemGroupClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

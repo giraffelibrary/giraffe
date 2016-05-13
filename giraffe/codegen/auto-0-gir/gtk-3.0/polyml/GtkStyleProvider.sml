@@ -9,7 +9,7 @@ structure GtkStyleProvider :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_style_provider_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_style_provider_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getIconFactory_ = call (load_sym libgtk "gtk_style_provider_get_icon_factory") (GtkStyleProviderClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> GtkIconFactoryClass.PolyML.cPtr)
       val getStyle_ = call (load_sym libgtk "gtk_style_provider_get_style") (GtkStyleProviderClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> GtkStylePropertiesClass.PolyML.cPtr)
       val getStyleProperty_ =

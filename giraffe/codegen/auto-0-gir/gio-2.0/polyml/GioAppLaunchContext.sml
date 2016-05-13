@@ -5,9 +5,9 @@ structure GioAppLaunchContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_app_launch_context_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_app_launch_context_new") (FFI.PolyML.cVoid --> GioAppLaunchContextClass.PolyML.cPtr)
-      val launchFailed_ = call (load_sym libgio "g_app_launch_context_launch_failed") (GioAppLaunchContextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libgio "g_app_launch_context_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgio "g_app_launch_context_new") (PolyMLFFI.cVoid --> GioAppLaunchContextClass.PolyML.cPtr)
+      val launchFailed_ = call (load_sym libgio "g_app_launch_context_launch_failed") (GioAppLaunchContextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioAppLaunchContextClass.class
     type t = base class

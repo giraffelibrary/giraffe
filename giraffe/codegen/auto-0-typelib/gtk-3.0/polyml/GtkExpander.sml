@@ -7,7 +7,7 @@ structure GtkExpander :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_expander_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_expander_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_expander_new") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithMnemonic_ = call (load_sym libgtk "gtk_expander_new_with_mnemonic") (Utf8.PolyML.cInOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val getExpanded_ = call (load_sym libgtk "gtk_expander_get_expanded") (GtkExpanderClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
@@ -18,14 +18,14 @@ structure GtkExpander :>
       val getSpacing_ = call (load_sym libgtk "gtk_expander_get_spacing") (GtkExpanderClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getUseMarkup_ = call (load_sym libgtk "gtk_expander_get_use_markup") (GtkExpanderClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getUseUnderline_ = call (load_sym libgtk "gtk_expander_get_use_underline") (GtkExpanderClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setExpanded_ = call (load_sym libgtk "gtk_expander_set_expanded") (GtkExpanderClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setLabel_ = call (load_sym libgtk "gtk_expander_set_label") (GtkExpanderClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
-      val setLabelFill_ = call (load_sym libgtk "gtk_expander_set_label_fill") (GtkExpanderClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setLabelWidget_ = call (load_sym libgtk "gtk_expander_set_label_widget") (GtkExpanderClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setResizeToplevel_ = call (load_sym libgtk "gtk_expander_set_resize_toplevel") (GtkExpanderClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setSpacing_ = call (load_sym libgtk "gtk_expander_set_spacing") (GtkExpanderClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setUseMarkup_ = call (load_sym libgtk "gtk_expander_set_use_markup") (GtkExpanderClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setUseUnderline_ = call (load_sym libgtk "gtk_expander_set_use_underline") (GtkExpanderClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setExpanded_ = call (load_sym libgtk "gtk_expander_set_expanded") (GtkExpanderClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setLabel_ = call (load_sym libgtk "gtk_expander_set_label") (GtkExpanderClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setLabelFill_ = call (load_sym libgtk "gtk_expander_set_label_fill") (GtkExpanderClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setLabelWidget_ = call (load_sym libgtk "gtk_expander_set_label_widget") (GtkExpanderClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setResizeToplevel_ = call (load_sym libgtk "gtk_expander_set_resize_toplevel") (GtkExpanderClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSpacing_ = call (load_sym libgtk "gtk_expander_set_spacing") (GtkExpanderClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setUseMarkup_ = call (load_sym libgtk "gtk_expander_set_use_markup") (GtkExpanderClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setUseUnderline_ = call (load_sym libgtk "gtk_expander_set_use_underline") (GtkExpanderClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkExpanderClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

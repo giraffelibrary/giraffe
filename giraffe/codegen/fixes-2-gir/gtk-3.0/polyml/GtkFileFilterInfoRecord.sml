@@ -12,7 +12,7 @@ structure GtkFileFilterInfoRecord :> GTK_FILE_FILTER_INFO_RECORD =
       val new_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_file_filter_info_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,7 +22,7 @@ structure GtkFileFilterInfoRecord :> GTK_FILE_FILTER_INFO_RECORD =
       val free_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_file_filter_info_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
     end
 
     structure Record =

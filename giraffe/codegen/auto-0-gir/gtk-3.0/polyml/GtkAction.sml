@@ -9,7 +9,7 @@ structure GtkAction :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_action_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_action_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgtk "gtk_action_new")
           (
@@ -19,14 +19,14 @@ structure GtkAction :>
              &&> Utf8.PolyML.cInOptPtr
              --> GtkActionClass.PolyML.cPtr
           )
-      val activate_ = call (load_sym libgtk "gtk_action_activate") (GtkActionClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val blockActivate_ = call (load_sym libgtk "gtk_action_block_activate") (GtkActionClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val connectAccelerator_ = call (load_sym libgtk "gtk_action_connect_accelerator") (GtkActionClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val activate_ = call (load_sym libgtk "gtk_action_activate") (GtkActionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val blockActivate_ = call (load_sym libgtk "gtk_action_block_activate") (GtkActionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val connectAccelerator_ = call (load_sym libgtk "gtk_action_connect_accelerator") (GtkActionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val createIcon_ = call (load_sym libgtk "gtk_action_create_icon") (GtkActionClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
       val createMenu_ = call (load_sym libgtk "gtk_action_create_menu") (GtkActionClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val createMenuItem_ = call (load_sym libgtk "gtk_action_create_menu_item") (GtkActionClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val createToolItem_ = call (load_sym libgtk "gtk_action_create_tool_item") (GtkActionClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val disconnectAccelerator_ = call (load_sym libgtk "gtk_action_disconnect_accelerator") (GtkActionClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val disconnectAccelerator_ = call (load_sym libgtk "gtk_action_disconnect_accelerator") (GtkActionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getAccelClosure_ = call (load_sym libgtk "gtk_action_get_accel_closure") (GtkActionClass.PolyML.cPtr --> GObjectClosureRecord.PolyML.cPtr)
       val getAccelPath_ = call (load_sym libgtk "gtk_action_get_accel_path") (GtkActionClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getAlwaysShowImage_ = call (load_sym libgtk "gtk_action_get_always_show_image") (GtkActionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
@@ -44,21 +44,21 @@ structure GtkAction :>
       val getVisibleVertical_ = call (load_sym libgtk "gtk_action_get_visible_vertical") (GtkActionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val isSensitive_ = call (load_sym libgtk "gtk_action_is_sensitive") (GtkActionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val isVisible_ = call (load_sym libgtk "gtk_action_is_visible") (GtkActionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setAccelGroup_ = call (load_sym libgtk "gtk_action_set_accel_group") (GtkActionClass.PolyML.cPtr &&> GtkAccelGroupClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setAccelPath_ = call (load_sym libgtk "gtk_action_set_accel_path") (GtkActionClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setAlwaysShowImage_ = call (load_sym libgtk "gtk_action_set_always_show_image") (GtkActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setGicon_ = call (load_sym libgtk "gtk_action_set_gicon") (GtkActionClass.PolyML.cPtr &&> GioIconClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setIconName_ = call (load_sym libgtk "gtk_action_set_icon_name") (GtkActionClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setIsImportant_ = call (load_sym libgtk "gtk_action_set_is_important") (GtkActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setLabel_ = call (load_sym libgtk "gtk_action_set_label") (GtkActionClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setSensitive_ = call (load_sym libgtk "gtk_action_set_sensitive") (GtkActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setShortLabel_ = call (load_sym libgtk "gtk_action_set_short_label") (GtkActionClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setStockId_ = call (load_sym libgtk "gtk_action_set_stock_id") (GtkActionClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setTooltip_ = call (load_sym libgtk "gtk_action_set_tooltip") (GtkActionClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setVisible_ = call (load_sym libgtk "gtk_action_set_visible") (GtkActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setVisibleHorizontal_ = call (load_sym libgtk "gtk_action_set_visible_horizontal") (GtkActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setVisibleVertical_ = call (load_sym libgtk "gtk_action_set_visible_vertical") (GtkActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val unblockActivate_ = call (load_sym libgtk "gtk_action_unblock_activate") (GtkActionClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setAccelGroup_ = call (load_sym libgtk "gtk_action_set_accel_group") (GtkActionClass.PolyML.cPtr &&> GtkAccelGroupClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setAccelPath_ = call (load_sym libgtk "gtk_action_set_accel_path") (GtkActionClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setAlwaysShowImage_ = call (load_sym libgtk "gtk_action_set_always_show_image") (GtkActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setGicon_ = call (load_sym libgtk "gtk_action_set_gicon") (GtkActionClass.PolyML.cPtr &&> GioIconClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setIconName_ = call (load_sym libgtk "gtk_action_set_icon_name") (GtkActionClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setIsImportant_ = call (load_sym libgtk "gtk_action_set_is_important") (GtkActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setLabel_ = call (load_sym libgtk "gtk_action_set_label") (GtkActionClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setSensitive_ = call (load_sym libgtk "gtk_action_set_sensitive") (GtkActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setShortLabel_ = call (load_sym libgtk "gtk_action_set_short_label") (GtkActionClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setStockId_ = call (load_sym libgtk "gtk_action_set_stock_id") (GtkActionClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setTooltip_ = call (load_sym libgtk "gtk_action_set_tooltip") (GtkActionClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setVisible_ = call (load_sym libgtk "gtk_action_set_visible") (GtkActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setVisibleHorizontal_ = call (load_sym libgtk "gtk_action_set_visible_horizontal") (GtkActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setVisibleVertical_ = call (load_sym libgtk "gtk_action_set_visible_vertical") (GtkActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val unblockActivate_ = call (load_sym libgtk "gtk_action_unblock_activate") (GtkActionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkActionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

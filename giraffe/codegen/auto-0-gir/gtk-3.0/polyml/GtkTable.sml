@@ -8,7 +8,7 @@ structure GtkTable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_table_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_table_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libgtk "gtk_table_new")
           (
@@ -30,7 +30,7 @@ structure GtkTable :>
              &&> GtkAttachOptions.PolyML.cVal
              &&> FFI.UInt.PolyML.cVal
              &&> FFI.UInt.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val attachDefaults_ =
         call (load_sym libgtk "gtk_table_attach_defaults")
@@ -41,7 +41,7 @@ structure GtkTable :>
              &&> FFI.UInt.PolyML.cVal
              &&> FFI.UInt.PolyML.cVal
              &&> FFI.UInt.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getColSpacing_ = call (load_sym libgtk "gtk_table_get_col_spacing") (GtkTableClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.UInt.PolyML.cVal)
       val getDefaultColSpacing_ = call (load_sym libgtk "gtk_table_get_default_col_spacing") (GtkTableClass.PolyML.cPtr --> FFI.UInt.PolyML.cVal)
@@ -54,7 +54,7 @@ structure GtkTable :>
             GtkTableClass.PolyML.cPtr
              &&> FFI.UInt.PolyML.cRef
              &&> FFI.UInt.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val resize_ =
         call (load_sym libgtk "gtk_table_resize")
@@ -62,7 +62,7 @@ structure GtkTable :>
             GtkTableClass.PolyML.cPtr
              &&> FFI.UInt.PolyML.cVal
              &&> FFI.UInt.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setColSpacing_ =
         call (load_sym libgtk "gtk_table_set_col_spacing")
@@ -70,19 +70,19 @@ structure GtkTable :>
             GtkTableClass.PolyML.cPtr
              &&> FFI.UInt.PolyML.cVal
              &&> FFI.UInt.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setColSpacings_ = call (load_sym libgtk "gtk_table_set_col_spacings") (GtkTableClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setHomogeneous_ = call (load_sym libgtk "gtk_table_set_homogeneous") (GtkTableClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setColSpacings_ = call (load_sym libgtk "gtk_table_set_col_spacings") (GtkTableClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setHomogeneous_ = call (load_sym libgtk "gtk_table_set_homogeneous") (GtkTableClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setRowSpacing_ =
         call (load_sym libgtk "gtk_table_set_row_spacing")
           (
             GtkTableClass.PolyML.cPtr
              &&> FFI.UInt.PolyML.cVal
              &&> FFI.UInt.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setRowSpacings_ = call (load_sym libgtk "gtk_table_set_row_spacings") (GtkTableClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setRowSpacings_ = call (load_sym libgtk "gtk_table_set_row_spacings") (GtkTableClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkTableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

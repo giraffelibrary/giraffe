@@ -6,16 +6,16 @@ structure GtkAccelMap :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_accel_map_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_accel_map_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val addEntry_ =
         call (load_sym libgtk "gtk_accel_map_add_entry")
           (
             Utf8.PolyML.cInPtr
              &&> FFI.UInt.PolyML.cVal
              &&> GdkModifierType.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val addFilter_ = call (load_sym libgtk "gtk_accel_map_add_filter") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val addFilter_ = call (load_sym libgtk "gtk_accel_map_add_filter") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val changeEntry_ =
         call (load_sym libgtk "gtk_accel_map_change_entry")
           (
@@ -25,14 +25,14 @@ structure GtkAccelMap :>
              &&> FFI.Bool.PolyML.cVal
              --> FFI.Bool.PolyML.cVal
           )
-      val get_ = call (load_sym libgtk "gtk_accel_map_get") (FFI.PolyML.cVoid --> GtkAccelMapClass.PolyML.cPtr)
-      val load_ = call (load_sym libgtk "gtk_accel_map_load") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val loadFd_ = call (load_sym libgtk "gtk_accel_map_load_fd") (FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
-      val lockPath_ = call (load_sym libgtk "gtk_accel_map_lock_path") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val get_ = call (load_sym libgtk "gtk_accel_map_get") (PolyMLFFI.cVoid --> GtkAccelMapClass.PolyML.cPtr)
+      val load_ = call (load_sym libgtk "gtk_accel_map_load") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val loadFd_ = call (load_sym libgtk "gtk_accel_map_load_fd") (FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val lockPath_ = call (load_sym libgtk "gtk_accel_map_lock_path") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val lookupEntry_ = call (load_sym libgtk "gtk_accel_map_lookup_entry") (Utf8.PolyML.cInPtr &&> GtkAccelKeyRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val save_ = call (load_sym libgtk "gtk_accel_map_save") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val saveFd_ = call (load_sym libgtk "gtk_accel_map_save_fd") (FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
-      val unlockPath_ = call (load_sym libgtk "gtk_accel_map_unlock_path") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val save_ = call (load_sym libgtk "gtk_accel_map_save") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val saveFd_ = call (load_sym libgtk "gtk_accel_map_save_fd") (FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val unlockPath_ = call (load_sym libgtk "gtk_accel_map_unlock_path") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkAccelMapClass.class
     type accel_key_t = GtkAccelKeyRecord.t

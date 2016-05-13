@@ -449,7 +449,7 @@ val cValId : id = "cVal"
 val cRefId : id = "cRef"
 val cVoidId : id = "cVoid"
 
-val cVoidConv = mkLIdLNameExp [FFIId, PolyMLId, cVoidId]
+val cVoidConv = mkLIdLNameExp [PolyMLFFIId, cVoidId]
 
 
 val cValTy : ty = TyRef ([], toList1 [CId, valId])

@@ -9,24 +9,24 @@ structure GtkMenuItem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_menu_item_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_menu_item_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_menu_item_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_menu_item_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val newWithLabel_ = call (load_sym libgtk "gtk_menu_item_new_with_label") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithMnemonic_ = call (load_sym libgtk "gtk_menu_item_new_with_mnemonic") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
-      val activate_ = call (load_sym libgtk "gtk_menu_item_activate") (GtkMenuItemClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val deselect_ = call (load_sym libgtk "gtk_menu_item_deselect") (GtkMenuItemClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val activate_ = call (load_sym libgtk "gtk_menu_item_activate") (GtkMenuItemClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val deselect_ = call (load_sym libgtk "gtk_menu_item_deselect") (GtkMenuItemClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getAccelPath_ = call (load_sym libgtk "gtk_menu_item_get_accel_path") (GtkMenuItemClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getLabel_ = call (load_sym libgtk "gtk_menu_item_get_label") (GtkMenuItemClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getReserveIndicator_ = call (load_sym libgtk "gtk_menu_item_get_reserve_indicator") (GtkMenuItemClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getSubmenu_ = call (load_sym libgtk "gtk_menu_item_get_submenu") (GtkMenuItemClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getUseUnderline_ = call (load_sym libgtk "gtk_menu_item_get_use_underline") (GtkMenuItemClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val select_ = call (load_sym libgtk "gtk_menu_item_select") (GtkMenuItemClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setAccelPath_ = call (load_sym libgtk "gtk_menu_item_set_accel_path") (GtkMenuItemClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
-      val setLabel_ = call (load_sym libgtk "gtk_menu_item_set_label") (GtkMenuItemClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setReserveIndicator_ = call (load_sym libgtk "gtk_menu_item_set_reserve_indicator") (GtkMenuItemClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setSubmenu_ = call (load_sym libgtk "gtk_menu_item_set_submenu") (GtkMenuItemClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setUseUnderline_ = call (load_sym libgtk "gtk_menu_item_set_use_underline") (GtkMenuItemClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val toggleSizeAllocate_ = call (load_sym libgtk "gtk_menu_item_toggle_size_allocate") (GtkMenuItemClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val select_ = call (load_sym libgtk "gtk_menu_item_select") (GtkMenuItemClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setAccelPath_ = call (load_sym libgtk "gtk_menu_item_set_accel_path") (GtkMenuItemClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setLabel_ = call (load_sym libgtk "gtk_menu_item_set_label") (GtkMenuItemClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setReserveIndicator_ = call (load_sym libgtk "gtk_menu_item_set_reserve_indicator") (GtkMenuItemClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSubmenu_ = call (load_sym libgtk "gtk_menu_item_set_submenu") (GtkMenuItemClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setUseUnderline_ = call (load_sym libgtk "gtk_menu_item_set_use_underline") (GtkMenuItemClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val toggleSizeAllocate_ = call (load_sym libgtk "gtk_menu_item_toggle_size_allocate") (GtkMenuItemClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkMenuItemClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

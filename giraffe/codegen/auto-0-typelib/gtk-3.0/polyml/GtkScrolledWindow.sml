@@ -13,9 +13,9 @@ structure GtkScrolledWindow :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_scrolled_window_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_scrolled_window_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_scrolled_window_new") (GtkAdjustmentClass.PolyML.cOptPtr &&> GtkAdjustmentClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
-      val addWithViewport_ = call (load_sym libgtk "gtk_scrolled_window_add_with_viewport") (GtkScrolledWindowClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val addWithViewport_ = call (load_sym libgtk "gtk_scrolled_window_add_with_viewport") (GtkScrolledWindowClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getHadjustment_ = call (load_sym libgtk "gtk_scrolled_window_get_hadjustment") (GtkScrolledWindowClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getHscrollbar_ = call (load_sym libgtk "gtk_scrolled_window_get_hscrollbar") (GtkScrolledWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getMinContentHeight_ = call (load_sym libgtk "gtk_scrolled_window_get_min_content_height") (GtkScrolledWindowClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
@@ -27,26 +27,26 @@ structure GtkScrolledWindow :>
             GtkScrolledWindowClass.PolyML.cPtr
              &&> GtkPolicyType.PolyML.cRef
              &&> GtkPolicyType.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getShadowType_ = call (load_sym libgtk "gtk_scrolled_window_get_shadow_type") (GtkScrolledWindowClass.PolyML.cPtr --> GtkShadowType.PolyML.cVal)
       val getVadjustment_ = call (load_sym libgtk "gtk_scrolled_window_get_vadjustment") (GtkScrolledWindowClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getVscrollbar_ = call (load_sym libgtk "gtk_scrolled_window_get_vscrollbar") (GtkScrolledWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val setHadjustment_ = call (load_sym libgtk "gtk_scrolled_window_set_hadjustment") (GtkScrolledWindowClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setMinContentHeight_ = call (load_sym libgtk "gtk_scrolled_window_set_min_content_height") (GtkScrolledWindowClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setMinContentWidth_ = call (load_sym libgtk "gtk_scrolled_window_set_min_content_width") (GtkScrolledWindowClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setPlacement_ = call (load_sym libgtk "gtk_scrolled_window_set_placement") (GtkScrolledWindowClass.PolyML.cPtr &&> GtkCornerType.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setHadjustment_ = call (load_sym libgtk "gtk_scrolled_window_set_hadjustment") (GtkScrolledWindowClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setMinContentHeight_ = call (load_sym libgtk "gtk_scrolled_window_set_min_content_height") (GtkScrolledWindowClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMinContentWidth_ = call (load_sym libgtk "gtk_scrolled_window_set_min_content_width") (GtkScrolledWindowClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPlacement_ = call (load_sym libgtk "gtk_scrolled_window_set_placement") (GtkScrolledWindowClass.PolyML.cPtr &&> GtkCornerType.PolyML.cVal --> PolyMLFFI.cVoid)
       val setPolicy_ =
         call (load_sym libgtk "gtk_scrolled_window_set_policy")
           (
             GtkScrolledWindowClass.PolyML.cPtr
              &&> GtkPolicyType.PolyML.cVal
              &&> GtkPolicyType.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setShadowType_ = call (load_sym libgtk "gtk_scrolled_window_set_shadow_type") (GtkScrolledWindowClass.PolyML.cPtr &&> GtkShadowType.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setVadjustment_ = call (load_sym libgtk "gtk_scrolled_window_set_vadjustment") (GtkScrolledWindowClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val unsetPlacement_ = call (load_sym libgtk "gtk_scrolled_window_unset_placement") (GtkScrolledWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setShadowType_ = call (load_sym libgtk "gtk_scrolled_window_set_shadow_type") (GtkScrolledWindowClass.PolyML.cPtr &&> GtkShadowType.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setVadjustment_ = call (load_sym libgtk "gtk_scrolled_window_set_vadjustment") (GtkScrolledWindowClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unsetPlacement_ = call (load_sym libgtk "gtk_scrolled_window_unset_placement") (GtkScrolledWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkScrolledWindowClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

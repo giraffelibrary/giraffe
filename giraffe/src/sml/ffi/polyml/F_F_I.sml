@@ -7,10 +7,6 @@
 
 signature F_F_I =
   sig
-    structure PolyML :
-      sig
-        val cVoid : unit PolyMLFFI.conversion
-      end
     structure Flags : F_F_I_FLAGS_ENUM where type t = Word32.word
     structure Enum : F_F_I_FLAGS_ENUM where type t = Int32.int
     structure OptPointer : F_F_I_SCALAR where type t = unit CPointer.p

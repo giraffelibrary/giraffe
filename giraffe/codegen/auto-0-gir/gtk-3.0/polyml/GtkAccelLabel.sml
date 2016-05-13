@@ -7,13 +7,13 @@ structure GtkAccelLabel :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_accel_label_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_accel_label_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_accel_label_new") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val getAccelWidget_ = call (load_sym libgtk "gtk_accel_label_get_accel_widget") (GtkAccelLabelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getAccelWidth_ = call (load_sym libgtk "gtk_accel_label_get_accel_width") (GtkAccelLabelClass.PolyML.cPtr --> FFI.UInt.PolyML.cVal)
       val refetch_ = call (load_sym libgtk "gtk_accel_label_refetch") (GtkAccelLabelClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setAccelClosure_ = call (load_sym libgtk "gtk_accel_label_set_accel_closure") (GtkAccelLabelClass.PolyML.cPtr &&> GObjectClosureRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setAccelWidget_ = call (load_sym libgtk "gtk_accel_label_set_accel_widget") (GtkAccelLabelClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setAccelClosure_ = call (load_sym libgtk "gtk_accel_label_set_accel_closure") (GtkAccelLabelClass.PolyML.cPtr &&> GObjectClosureRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setAccelWidget_ = call (load_sym libgtk "gtk_accel_label_set_accel_widget") (GtkAccelLabelClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkAccelLabelClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

@@ -13,7 +13,7 @@ structure GIRepository : G_I_REPOSITORY =
       val argInfoIsOptional_ = call (load_sym libgirepository "g_arg_info_is_optional") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val argInfoIsReturnValue_ = call (load_sym libgirepository "g_arg_info_is_return_value") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val argInfoIsSkip_ = call (load_sym libgirepository "g_arg_info_is_skip") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val argInfoLoadType_ = call (load_sym libgirepository "g_arg_info_load_type") (GIRepositoryBaseInfoRecord.PolyML.cPtr &&> GIRepositoryBaseInfoRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val argInfoLoadType_ = call (load_sym libgirepository "g_arg_info_load_type") (GIRepositoryBaseInfoRecord.PolyML.cPtr &&> GIRepositoryBaseInfoRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val argInfoMayBeNull_ = call (load_sym libgirepository "g_arg_info_may_be_null") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val baseInfoGetType_ = call (load_sym libgirepository "g_base_info_get_type") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> GIRepositoryInfoType.PolyML.cVal)
       val callableInfoGetArg_ = call (load_sym libgirepository "g_callable_info_get_arg") (GIRepositoryBaseInfoRecord.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> GIRepositoryBaseInfoRecord.PolyML.cPtr)
@@ -36,9 +36,9 @@ structure GIRepository : G_I_REPOSITORY =
             GIRepositoryBaseInfoRecord.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> GIRepositoryBaseInfoRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val callableInfoLoadReturnType_ = call (load_sym libgirepository "g_callable_info_load_return_type") (GIRepositoryBaseInfoRecord.PolyML.cPtr &&> GIRepositoryBaseInfoRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val callableInfoLoadReturnType_ = call (load_sym libgirepository "g_callable_info_load_return_type") (GIRepositoryBaseInfoRecord.PolyML.cPtr &&> GIRepositoryBaseInfoRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val callableInfoMayReturnNull_ = call (load_sym libgirepository "g_callable_info_may_return_null") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val callableInfoSkipReturn_ = call (load_sym libgirepository "g_callable_info_skip_return") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val constantInfoGetType_ = call (load_sym libgirepository "g_constant_info_get_type") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> GIRepositoryBaseInfoRecord.PolyML.cPtr)
@@ -81,7 +81,7 @@ structure GIRepository : G_I_REPOSITORY =
       val interfaceInfoGetProperty_ = call (load_sym libgirepository "g_interface_info_get_property") (GIRepositoryBaseInfoRecord.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> GIRepositoryBaseInfoRecord.PolyML.cPtr)
       val interfaceInfoGetSignal_ = call (load_sym libgirepository "g_interface_info_get_signal") (GIRepositoryBaseInfoRecord.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> GIRepositoryBaseInfoRecord.PolyML.cPtr)
       val interfaceInfoGetVfunc_ = call (load_sym libgirepository "g_interface_info_get_vfunc") (GIRepositoryBaseInfoRecord.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> GIRepositoryBaseInfoRecord.PolyML.cPtr)
-      val invokeErrorQuark_ = call (load_sym libgirepository "g_invoke_error_quark") (FFI.PolyML.cVoid --> FFI.UInt32.PolyML.cVal)
+      val invokeErrorQuark_ = call (load_sym libgirepository "g_invoke_error_quark") (PolyMLFFI.cVoid --> FFI.UInt32.PolyML.cVal)
       val objectInfoFindMethod_ = call (load_sym libgirepository "g_object_info_find_method") (GIRepositoryBaseInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GIRepositoryBaseInfoRecord.PolyML.cPtr)
       val objectInfoFindMethodUsingInterfaces_ =
         call (load_sym libgirepository "g_object_info_find_method_using_interfaces")

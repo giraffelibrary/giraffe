@@ -9,8 +9,8 @@ structure GtkMenu :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_menu_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_menu_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_menu_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_menu_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val attach_ =
         call (load_sym libgtk "gtk_menu_attach")
           (
@@ -20,9 +20,9 @@ structure GtkMenu :>
              &&> FFI.UInt.PolyML.cVal
              &&> FFI.UInt.PolyML.cVal
              &&> FFI.UInt.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val detach_ = call (load_sym libgtk "gtk_menu_detach") (GtkMenuClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val detach_ = call (load_sym libgtk "gtk_menu_detach") (GtkMenuClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getAccelGroup_ = call (load_sym libgtk "gtk_menu_get_accel_group") (GtkMenuClass.PolyML.cPtr --> GtkAccelGroupClass.PolyML.cPtr)
       val getAccelPath_ = call (load_sym libgtk "gtk_menu_get_accel_path") (GtkMenuClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getActive_ = call (load_sym libgtk "gtk_menu_get_active") (GtkMenuClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
@@ -31,24 +31,24 @@ structure GtkMenu :>
       val getReserveToggleSize_ = call (load_sym libgtk "gtk_menu_get_reserve_toggle_size") (GtkMenuClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getTearoffState_ = call (load_sym libgtk "gtk_menu_get_tearoff_state") (GtkMenuClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getTitle_ = call (load_sym libgtk "gtk_menu_get_title") (GtkMenuClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val popdown_ = call (load_sym libgtk "gtk_menu_popdown") (GtkMenuClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val popdown_ = call (load_sym libgtk "gtk_menu_popdown") (GtkMenuClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val reorderChild_ =
         call (load_sym libgtk "gtk_menu_reorder_child")
           (
             GtkMenuClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val reposition_ = call (load_sym libgtk "gtk_menu_reposition") (GtkMenuClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setAccelGroup_ = call (load_sym libgtk "gtk_menu_set_accel_group") (GtkMenuClass.PolyML.cPtr &&> GtkAccelGroupClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setAccelPath_ = call (load_sym libgtk "gtk_menu_set_accel_path") (GtkMenuClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
-      val setActive_ = call (load_sym libgtk "gtk_menu_set_active") (GtkMenuClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setMonitor_ = call (load_sym libgtk "gtk_menu_set_monitor") (GtkMenuClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setReserveToggleSize_ = call (load_sym libgtk "gtk_menu_set_reserve_toggle_size") (GtkMenuClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setScreen_ = call (load_sym libgtk "gtk_menu_set_screen") (GtkMenuClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setTearoffState_ = call (load_sym libgtk "gtk_menu_set_tearoff_state") (GtkMenuClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setTitle_ = call (load_sym libgtk "gtk_menu_set_title") (GtkMenuClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val reposition_ = call (load_sym libgtk "gtk_menu_reposition") (GtkMenuClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setAccelGroup_ = call (load_sym libgtk "gtk_menu_set_accel_group") (GtkMenuClass.PolyML.cPtr &&> GtkAccelGroupClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setAccelPath_ = call (load_sym libgtk "gtk_menu_set_accel_path") (GtkMenuClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setActive_ = call (load_sym libgtk "gtk_menu_set_active") (GtkMenuClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMonitor_ = call (load_sym libgtk "gtk_menu_set_monitor") (GtkMenuClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setReserveToggleSize_ = call (load_sym libgtk "gtk_menu_set_reserve_toggle_size") (GtkMenuClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setScreen_ = call (load_sym libgtk "gtk_menu_set_screen") (GtkMenuClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setTearoffState_ = call (load_sym libgtk "gtk_menu_set_tearoff_state") (GtkMenuClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setTitle_ = call (load_sym libgtk "gtk_menu_set_title") (GtkMenuClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkMenuClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

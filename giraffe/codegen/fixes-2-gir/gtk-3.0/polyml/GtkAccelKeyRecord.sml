@@ -12,7 +12,7 @@ structure GtkAccelKeyRecord :> GTK_ACCEL_KEY_RECORD =
       val new_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_accel_key_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,7 +22,7 @@ structure GtkAccelKeyRecord :> GTK_ACCEL_KEY_RECORD =
       val free_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_accel_key_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
     end
 
     structure Record =

@@ -6,7 +6,7 @@ structure AtkTable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_table_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libatk "atk_table_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val addColumnSelection_ = call (load_sym libatk "atk_table_add_column_selection") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
       val addRowSelection_ = call (load_sym libatk "atk_table_add_row_selection") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
       val getCaption_ = call (load_sym libatk "atk_table_get_caption") (AtkTableClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
@@ -63,14 +63,14 @@ structure AtkTable :>
           )
       val removeColumnSelection_ = call (load_sym libatk "atk_table_remove_column_selection") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
       val removeRowSelection_ = call (load_sym libatk "atk_table_remove_row_selection") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val setCaption_ = call (load_sym libatk "atk_table_set_caption") (AtkTableClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setCaption_ = call (load_sym libatk "atk_table_set_caption") (AtkTableClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val setColumnDescription_ =
         call (load_sym libatk "atk_table_set_column_description")
           (
             AtkTableClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setColumnHeader_ =
         call (load_sym libatk "atk_table_set_column_header")
@@ -78,7 +78,7 @@ structure AtkTable :>
             AtkTableClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> AtkObjectClass.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setRowDescription_ =
         call (load_sym libatk "atk_table_set_row_description")
@@ -86,7 +86,7 @@ structure AtkTable :>
             AtkTableClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setRowHeader_ =
         call (load_sym libatk "atk_table_set_row_header")
@@ -94,9 +94,9 @@ structure AtkTable :>
             AtkTableClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> AtkObjectClass.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setSummary_ = call (load_sym libatk "atk_table_set_summary") (AtkTableClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setSummary_ = call (load_sym libatk "atk_table_set_summary") (AtkTableClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a AtkTableClass.class
     type 'a object_class = 'a AtkObjectClass.class

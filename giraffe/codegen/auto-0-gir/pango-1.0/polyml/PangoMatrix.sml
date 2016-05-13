@@ -5,18 +5,18 @@ structure PangoMatrix :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_matrix_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val concat_ = call (load_sym libpango "pango_matrix_concat") (PangoMatrixRecord.PolyML.cPtr &&> PangoMatrixRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libpango "pango_matrix_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val concat_ = call (load_sym libpango "pango_matrix_concat") (PangoMatrixRecord.PolyML.cPtr &&> PangoMatrixRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val copy_ = call (load_sym libpango "pango_matrix_copy") (PangoMatrixRecord.PolyML.cPtr --> PangoMatrixRecord.PolyML.cPtr)
       val getFontScaleFactor_ = call (load_sym libpango "pango_matrix_get_font_scale_factor") (PangoMatrixRecord.PolyML.cPtr --> FFI.Double.PolyML.cVal)
-      val rotate_ = call (load_sym libpango "pango_matrix_rotate") (PangoMatrixRecord.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val rotate_ = call (load_sym libpango "pango_matrix_rotate") (PangoMatrixRecord.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> PolyMLFFI.cVoid)
       val scale_ =
         call (load_sym libpango "pango_matrix_scale")
           (
             PangoMatrixRecord.PolyML.cPtr
              &&> FFI.Double.PolyML.cVal
              &&> FFI.Double.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val transformDistance_ =
         call (load_sym libpango "pango_matrix_transform_distance")
@@ -24,7 +24,7 @@ structure PangoMatrix :>
             PangoMatrixRecord.PolyML.cPtr
              &&> FFI.Double.PolyML.cRef
              &&> FFI.Double.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val transformPoint_ =
         call (load_sym libpango "pango_matrix_transform_point")
@@ -32,7 +32,7 @@ structure PangoMatrix :>
             PangoMatrixRecord.PolyML.cPtr
              &&> FFI.Double.PolyML.cRef
              &&> FFI.Double.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val translate_ =
         call (load_sym libpango "pango_matrix_translate")
@@ -40,7 +40,7 @@ structure PangoMatrix :>
             PangoMatrixRecord.PolyML.cPtr
              &&> FFI.Double.PolyML.cVal
              &&> FFI.Double.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
     end
     type t = PangoMatrixRecord.t

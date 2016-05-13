@@ -7,10 +7,10 @@ structure GtkSwitch :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_switch_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_switch_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_switch_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_switch_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val getActive_ = call (load_sym libgtk "gtk_switch_get_active") (GtkSwitchClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setActive_ = call (load_sym libgtk "gtk_switch_set_active") (GtkSwitchClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setActive_ = call (load_sym libgtk "gtk_switch_set_active") (GtkSwitchClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkSwitchClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

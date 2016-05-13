@@ -18,7 +18,7 @@ structure GdkDevice :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_device_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgdk "gdk_device_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val grabInfoLibgtkOnly_ =
         call (load_sym libgdk "gdk_device_grab_info_libgtk_only")
           (
@@ -53,7 +53,7 @@ structure GdkDevice :>
              &&> GdkScreenClass.PolyML.cOutRef
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getSource_ = call (load_sym libgdk "gdk_device_get_source") (GdkDeviceClass.PolyML.cPtr --> GdkInputSource.PolyML.cVal)
       val getWindowAtPosition_ =
@@ -82,7 +82,7 @@ structure GdkDevice :>
             GdkDeviceClass.PolyML.cPtr
              &&> FFI.UInt.PolyML.cVal
              &&> GdkAxisUse.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setKey_ =
         call (load_sym libgdk "gdk_device_set_key")
@@ -91,10 +91,10 @@ structure GdkDevice :>
              &&> FFI.UInt.PolyML.cVal
              &&> FFI.UInt.PolyML.cVal
              &&> GdkModifierType.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setMode_ = call (load_sym libgdk "gdk_device_set_mode") (GdkDeviceClass.PolyML.cPtr &&> GdkInputMode.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val ungrab_ = call (load_sym libgdk "gdk_device_ungrab") (GdkDeviceClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val ungrab_ = call (load_sym libgdk "gdk_device_ungrab") (GdkDeviceClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val warp_ =
         call (load_sym libgdk "gdk_device_warp")
           (
@@ -102,7 +102,7 @@ structure GdkDevice :>
              &&> GdkScreenClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GdkDeviceClass.class

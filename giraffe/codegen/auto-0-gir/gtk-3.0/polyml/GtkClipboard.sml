@@ -7,22 +7,22 @@ structure GtkClipboard :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_clipboard_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_clipboard_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val get_ = call (load_sym libgtk "gtk_clipboard_get") (GdkAtomRecord.PolyML.cPtr --> GtkClipboardClass.PolyML.cPtr)
       val getForDisplay_ = call (load_sym libgtk "gtk_clipboard_get_for_display") (GdkDisplayClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> GtkClipboardClass.PolyML.cPtr)
-      val clear_ = call (load_sym libgtk "gtk_clipboard_clear") (GtkClipboardClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val clear_ = call (load_sym libgtk "gtk_clipboard_clear") (GtkClipboardClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getDisplay_ = call (load_sym libgtk "gtk_clipboard_get_display") (GtkClipboardClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
       val getOwner_ = call (load_sym libgtk "gtk_clipboard_get_owner") (GtkClipboardClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val setImage_ = call (load_sym libgtk "gtk_clipboard_set_image") (GtkClipboardClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setImage_ = call (load_sym libgtk "gtk_clipboard_set_image") (GtkClipboardClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val setText_ =
         call (load_sym libgtk "gtk_clipboard_set_text")
           (
             GtkClipboardClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val store_ = call (load_sym libgtk "gtk_clipboard_store") (GtkClipboardClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val store_ = call (load_sym libgtk "gtk_clipboard_store") (GtkClipboardClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val waitForContents_ = call (load_sym libgtk "gtk_clipboard_wait_for_contents") (GtkClipboardClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> GtkSelectionDataRecord.PolyML.cPtr)
       val waitForImage_ = call (load_sym libgtk "gtk_clipboard_wait_for_image") (GtkClipboardClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
       val waitForText_ = call (load_sym libgtk "gtk_clipboard_wait_for_text") (GtkClipboardClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)

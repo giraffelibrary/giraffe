@@ -10,10 +10,10 @@ structure GtkPaned :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_paned_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_paned_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_paned_new") (GtkOrientation.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
-      val add1_ = call (load_sym libgtk "gtk_paned_add1") (GtkPanedClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val add2_ = call (load_sym libgtk "gtk_paned_add2") (GtkPanedClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val add1_ = call (load_sym libgtk "gtk_paned_add1") (GtkPanedClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val add2_ = call (load_sym libgtk "gtk_paned_add2") (GtkPanedClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getChild1_ = call (load_sym libgtk "gtk_paned_get_child1") (GtkPanedClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getChild2_ = call (load_sym libgtk "gtk_paned_get_child2") (GtkPanedClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getHandleWindow_ = call (load_sym libgtk "gtk_paned_get_handle_window") (GtkPanedClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
@@ -25,7 +25,7 @@ structure GtkPaned :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val pack2_ =
         call (load_sym libgtk "gtk_paned_pack2")
@@ -34,9 +34,9 @@ structure GtkPaned :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setPosition_ = call (load_sym libgtk "gtk_paned_set_position") (GtkPanedClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setPosition_ = call (load_sym libgtk "gtk_paned_set_position") (GtkPanedClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkPanedClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

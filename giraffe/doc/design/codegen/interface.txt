@@ -166,7 +166,7 @@ structure <InterfaceNamespace><InterfaceName> :>
       val getType_ =                                                         |
         call                                                                 |
           (load_sym lib<interfacenamespace> "<getTypeSymbol>")               |
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);                    |
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);                     |
                                                                              | Poly/ML only
       <LowLevelFunction[1]>                                                  |
                                                                              |

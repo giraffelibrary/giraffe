@@ -17,12 +17,12 @@ structure PangoLayoutLineRecord :> PANGO_LAYOUT_LINE_RECORD =
       val free_ =
         call
           (load_sym libpango "pango_layout_line_unref")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libpango "pango_layout_line_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =

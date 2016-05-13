@@ -5,7 +5,7 @@ structure AtkDocument :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_document_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libatk "atk_document_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getAttributeValue_ = call (load_sym libatk "atk_document_get_attribute_value") (AtkDocumentClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val getDocumentType_ = call (load_sym libatk "atk_document_get_document_type") (AtkDocumentClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getLocale_ = call (load_sym libatk "atk_document_get_locale") (AtkDocumentClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)

@@ -113,7 +113,7 @@ structure <StructNamespace><StructName> :>
       val getType_ =                                           |                           |
         call                                                   | optGetTypeSymbol          |
           (load_sym lib<structnamespace> "<getTypeSymbol>")    |  is SOME getTypeSymbol    |
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);      |                           |
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);       |                           |
                                                               -'                           | Poly/ML only
                                                                                            |
       <LowLevelFunction[1]>                                                                |

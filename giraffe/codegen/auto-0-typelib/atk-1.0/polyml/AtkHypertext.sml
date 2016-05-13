@@ -6,7 +6,7 @@ structure AtkHypertext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_hypertext_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libatk "atk_hypertext_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getLink_ = call (load_sym libatk "atk_hypertext_get_link") (AtkHypertextClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> AtkHyperlinkClass.PolyML.cPtr)
       val getLinkIndex_ = call (load_sym libatk "atk_hypertext_get_link_index") (AtkHypertextClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Int32.PolyML.cVal)
       val getNLinks_ = call (load_sym libatk "atk_hypertext_get_n_links") (AtkHypertextClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)

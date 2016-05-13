@@ -6,7 +6,7 @@ structure GtkSourceStyleScheme :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getDescription_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_description") (GtkSourceStyleSchemeClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getFilename_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_filename") (GtkSourceStyleSchemeClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getId_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_id") (GtkSourceStyleSchemeClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)

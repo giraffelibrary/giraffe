@@ -6,7 +6,7 @@ structure GtkSelectionData :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_selection_data_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_selection_data_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val copy_ = call (load_sym libgtk "gtk_selection_data_copy") (GtkSelectionDataRecord.PolyML.cPtr --> GtkSelectionDataRecord.PolyML.cPtr)
       val getDataType_ = call (load_sym libgtk "gtk_selection_data_get_data_type") (GtkSelectionDataRecord.PolyML.cPtr --> GdkAtomRecord.PolyML.cPtr)
       val getDisplay_ = call (load_sym libgtk "gtk_selection_data_get_display") (GtkSelectionDataRecord.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)

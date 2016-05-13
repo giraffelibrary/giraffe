@@ -5,7 +5,7 @@ structure GioIcon :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_icon_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_icon_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val newForString_ = call (load_sym libgio "g_icon_new_for_string") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioIconClass.PolyML.cPtr)
       val equal_ = call (load_sym libgio "g_icon_equal") (GioIconClass.PolyML.cPtr &&> GioIconClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val toString_ = call (load_sym libgio "g_icon_to_string") (GioIconClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)

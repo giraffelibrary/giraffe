@@ -5,8 +5,8 @@ structure GioProxyResolver :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_proxy_resolver_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (load_sym libgio "g_proxy_resolver_get_default") (FFI.PolyML.cVoid --> GioProxyResolverClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgio "g_proxy_resolver_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (load_sym libgio "g_proxy_resolver_get_default") (PolyMLFFI.cVoid --> GioProxyResolverClass.PolyML.cPtr)
       val isSupported_ = call (load_sym libgio "g_proxy_resolver_is_supported") (GioProxyResolverClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end
     type 'a class = 'a GioProxyResolverClass.class

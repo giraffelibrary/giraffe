@@ -7,12 +7,12 @@ structure GtkWindowGroup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_window_group_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_window_group_new") (FFI.PolyML.cVoid --> GtkWindowGroupClass.PolyML.cPtr)
-      val addWindow_ = call (load_sym libgtk "gtk_window_group_add_window") (GtkWindowGroupClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libgtk "gtk_window_group_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_window_group_new") (PolyMLFFI.cVoid --> GtkWindowGroupClass.PolyML.cPtr)
+      val addWindow_ = call (load_sym libgtk "gtk_window_group_add_window") (GtkWindowGroupClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getCurrentDeviceGrab_ = call (load_sym libgtk "gtk_window_group_get_current_device_grab") (GtkWindowGroupClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getCurrentGrab_ = call (load_sym libgtk "gtk_window_group_get_current_grab") (GtkWindowGroupClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val removeWindow_ = call (load_sym libgtk "gtk_window_group_remove_window") (GtkWindowGroupClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val removeWindow_ = call (load_sym libgtk "gtk_window_group_remove_window") (GtkWindowGroupClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkWindowGroupClass.class
     type 'a widget_class = 'a GtkWidgetClass.class

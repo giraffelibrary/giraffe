@@ -7,7 +7,7 @@ structure GdkPixbufPixbufAnimation :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val newFromFile_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GdkPixbufPixbufAnimationClass.PolyML.cPtr)
       val getHeight_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_height") (GdkPixbufPixbufAnimationClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getIter_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_iter") (GdkPixbufPixbufAnimationClass.PolyML.cPtr &&> GLibTimeValRecord.PolyML.cPtr --> GdkPixbufPixbufAnimationIterClass.PolyML.cPtr)

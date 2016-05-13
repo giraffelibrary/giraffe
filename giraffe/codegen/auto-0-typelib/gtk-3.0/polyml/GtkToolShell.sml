@@ -9,7 +9,7 @@ structure GtkToolShell :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tool_shell_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_tool_shell_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getEllipsizeMode_ = call (load_sym libgtk "gtk_tool_shell_get_ellipsize_mode") (GtkToolShellClass.PolyML.cPtr --> PangoEllipsizeMode.PolyML.cVal)
       val getIconSize_ = call (load_sym libgtk "gtk_tool_shell_get_icon_size") (GtkToolShellClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getOrientation_ = call (load_sym libgtk "gtk_tool_shell_get_orientation") (GtkToolShellClass.PolyML.cPtr --> GtkOrientation.PolyML.cVal)
@@ -18,7 +18,7 @@ structure GtkToolShell :>
       val getTextAlignment_ = call (load_sym libgtk "gtk_tool_shell_get_text_alignment") (GtkToolShellClass.PolyML.cPtr --> FFI.Float.PolyML.cVal)
       val getTextOrientation_ = call (load_sym libgtk "gtk_tool_shell_get_text_orientation") (GtkToolShellClass.PolyML.cPtr --> GtkOrientation.PolyML.cVal)
       val getTextSizeGroup_ = call (load_sym libgtk "gtk_tool_shell_get_text_size_group") (GtkToolShellClass.PolyML.cPtr --> GtkSizeGroupClass.PolyML.cPtr)
-      val rebuildMenu_ = call (load_sym libgtk "gtk_tool_shell_rebuild_menu") (GtkToolShellClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val rebuildMenu_ = call (load_sym libgtk "gtk_tool_shell_rebuild_menu") (GtkToolShellClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkToolShellClass.class
     type relief_style_t = GtkReliefStyle.t

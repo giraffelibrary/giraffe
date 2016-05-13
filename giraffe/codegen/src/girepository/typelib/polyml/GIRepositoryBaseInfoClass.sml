@@ -24,7 +24,7 @@ structure GIRepositoryBaseInfoClass :> G_I_REPOSITORY_BASE_INFO_CLASS =
       val unref_ =
         call
           (load_sym libgirepository "g_base_info_unref")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
     end
 
     type 'a class = notnull p Finalizable.t

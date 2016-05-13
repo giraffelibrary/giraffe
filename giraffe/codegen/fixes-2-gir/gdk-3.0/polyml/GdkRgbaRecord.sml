@@ -12,7 +12,7 @@ structure GdkRgbaRecord :> GDK_RGBA_RECORD =
       val new_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_rgba_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,12 +22,12 @@ structure GdkRgbaRecord :> GDK_RGBA_RECORD =
       val free_ =
         call
           (load_sym libgdk "gdk_rgba_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libgdk "gdk_rgba_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =

@@ -7,7 +7,7 @@ structure AtkRelation :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_relation_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libatk "atk_relation_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (load_sym libatk "atk_relation_new")
           (
@@ -16,7 +16,7 @@ structure AtkRelation :>
              &&> AtkRelationType.PolyML.cVal
              --> AtkRelationClass.PolyML.cPtr
           )
-      val addTarget_ = call (load_sym libatk "atk_relation_add_target") (AtkRelationClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val addTarget_ = call (load_sym libatk "atk_relation_add_target") (AtkRelationClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getRelationType_ = call (load_sym libatk "atk_relation_get_relation_type") (AtkRelationClass.PolyML.cPtr --> AtkRelationType.PolyML.cVal)
       val removeTarget_ = call (load_sym libatk "atk_relation_remove_target") (AtkRelationClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end

@@ -12,7 +12,7 @@ structure GLibMainContextRecord :> G_LIB_MAIN_CONTEXT_RECORD =
       val new_ =
         call
           (load_sym libglib "g_main_context_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,12 +22,12 @@ structure GLibMainContextRecord :> G_LIB_MAIN_CONTEXT_RECORD =
       val free_ =
         call
           (load_sym libglib "g_main_context_unref")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libglib "g_main_context_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =

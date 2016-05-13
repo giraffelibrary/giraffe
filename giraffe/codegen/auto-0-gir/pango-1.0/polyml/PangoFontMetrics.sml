@@ -5,7 +5,7 @@ structure PangoFontMetrics :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_font_metrics_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libpango "pango_font_metrics_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getApproximateCharWidth_ = call (load_sym libpango "pango_font_metrics_get_approximate_char_width") (PangoFontMetricsRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getApproximateDigitWidth_ = call (load_sym libpango "pango_font_metrics_get_approximate_digit_width") (PangoFontMetricsRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getAscent_ = call (load_sym libpango "pango_font_metrics_get_ascent") (PangoFontMetricsRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)

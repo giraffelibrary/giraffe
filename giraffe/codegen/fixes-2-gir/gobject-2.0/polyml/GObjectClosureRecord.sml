@@ -16,7 +16,7 @@ structure GObjectClosureRecord :>
         then
           call
             (load_sym libgiraffegobject "giraffe_debug_closure_take")
-            (cPtr --> FFI.PolyML.cVoid)
+            (cPtr --> PolyMLFFI.cVoid)
         else
           ignore
 
@@ -28,7 +28,7 @@ structure GObjectClosureRecord :>
       val sink_ =
         call
           (load_sym libgobject "g_closure_sink")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val copy_ =
         if GiraffeDebug.isEnabled
@@ -44,16 +44,16 @@ structure GObjectClosureRecord :>
         then
           call
             (load_sym libgiraffegobject "giraffe_debug_g_closure_unref")
-            (cPtr --> FFI.PolyML.cVoid)
+            (cPtr --> PolyMLFFI.cVoid)
         else
           call
             (load_sym libgobject "g_closure_unref")
-            (cPtr --> FFI.PolyML.cVoid)
+            (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libgobject "g_closure_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor

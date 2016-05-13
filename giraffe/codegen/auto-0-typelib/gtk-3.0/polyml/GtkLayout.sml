@@ -9,7 +9,7 @@ structure GtkLayout :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_layout_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_layout_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_layout_new") (GtkAdjustmentClass.PolyML.cOptPtr &&> GtkAdjustmentClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val getBinWindow_ = call (load_sym libgtk "gtk_layout_get_bin_window") (GtkLayoutClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getSize_ =
@@ -18,7 +18,7 @@ structure GtkLayout :>
             GtkLayoutClass.PolyML.cPtr
              &&> FFI.UInt32.PolyML.cRef
              &&> FFI.UInt32.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val move_ =
         call (load_sym libgtk "gtk_layout_move")
@@ -27,7 +27,7 @@ structure GtkLayout :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val put_ =
         call (load_sym libgtk "gtk_layout_put")
@@ -36,7 +36,7 @@ structure GtkLayout :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setSize_ =
         call (load_sym libgtk "gtk_layout_set_size")
@@ -44,7 +44,7 @@ structure GtkLayout :>
             GtkLayoutClass.PolyML.cPtr
              &&> FFI.UInt32.PolyML.cVal
              &&> FFI.UInt32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GtkLayoutClass.class

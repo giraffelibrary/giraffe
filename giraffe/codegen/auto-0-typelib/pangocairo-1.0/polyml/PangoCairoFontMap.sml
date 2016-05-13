@@ -5,12 +5,12 @@ structure PangoCairoFontMap :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpangocairo "pango_cairo_font_map_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (load_sym libpangocairo "pango_cairo_font_map_get_default") (FFI.PolyML.cVoid --> PangoFontMapClass.PolyML.cPtr)
-      val new_ = call (load_sym libpangocairo "pango_cairo_font_map_new") (FFI.PolyML.cVoid --> PangoFontMapClass.PolyML.cPtr)
+      val getType_ = call (load_sym libpangocairo "pango_cairo_font_map_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (load_sym libpangocairo "pango_cairo_font_map_get_default") (PolyMLFFI.cVoid --> PangoFontMapClass.PolyML.cPtr)
+      val new_ = call (load_sym libpangocairo "pango_cairo_font_map_new") (PolyMLFFI.cVoid --> PangoFontMapClass.PolyML.cPtr)
       val getResolution_ = call (load_sym libpangocairo "pango_cairo_font_map_get_resolution") (PangoCairoFontMapClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
-      val setDefault_ = call (load_sym libpangocairo "pango_cairo_font_map_set_default") (PangoCairoFontMapClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setResolution_ = call (load_sym libpangocairo "pango_cairo_font_map_set_resolution") (PangoCairoFontMapClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDefault_ = call (load_sym libpangocairo "pango_cairo_font_map_set_default") (PangoCairoFontMapClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setResolution_ = call (load_sym libpangocairo "pango_cairo_font_map_set_resolution") (PangoCairoFontMapClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a PangoCairoFontMapClass.class
     type t = base class

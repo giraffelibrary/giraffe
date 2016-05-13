@@ -17,7 +17,7 @@ structure GdkKeymapKeyRecord :> GDK_KEYMAP_KEY_RECORD =
       val free_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_keymap_key_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
     end
 
     structure Record =

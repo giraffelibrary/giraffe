@@ -7,8 +7,8 @@ structure GtkAboutDialog :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_about_dialog_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_about_dialog_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_about_dialog_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_about_dialog_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val getComments_ = call (load_sym libgtk "gtk_about_dialog_get_comments") (GtkAboutDialogClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getCopyright_ = call (load_sym libgtk "gtk_about_dialog_get_copyright") (GtkAboutDialogClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getLicense_ = call (load_sym libgtk "gtk_about_dialog_get_license") (GtkAboutDialogClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
@@ -21,18 +21,18 @@ structure GtkAboutDialog :>
       val getWebsite_ = call (load_sym libgtk "gtk_about_dialog_get_website") (GtkAboutDialogClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getWebsiteLabel_ = call (load_sym libgtk "gtk_about_dialog_get_website_label") (GtkAboutDialogClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getWrapLicense_ = call (load_sym libgtk "gtk_about_dialog_get_wrap_license") (GtkAboutDialogClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setComments_ = call (load_sym libgtk "gtk_about_dialog_set_comments") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
-      val setCopyright_ = call (load_sym libgtk "gtk_about_dialog_set_copyright") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setLicense_ = call (load_sym libgtk "gtk_about_dialog_set_license") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
-      val setLicenseType_ = call (load_sym libgtk "gtk_about_dialog_set_license_type") (GtkAboutDialogClass.PolyML.cPtr &&> GtkLicense.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setLogo_ = call (load_sym libgtk "gtk_about_dialog_set_logo") (GtkAboutDialogClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setLogoIconName_ = call (load_sym libgtk "gtk_about_dialog_set_logo_icon_name") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
-      val setProgramName_ = call (load_sym libgtk "gtk_about_dialog_set_program_name") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setTranslatorCredits_ = call (load_sym libgtk "gtk_about_dialog_set_translator_credits") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
-      val setVersion_ = call (load_sym libgtk "gtk_about_dialog_set_version") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
-      val setWebsite_ = call (load_sym libgtk "gtk_about_dialog_set_website") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
-      val setWebsiteLabel_ = call (load_sym libgtk "gtk_about_dialog_set_website_label") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setWrapLicense_ = call (load_sym libgtk "gtk_about_dialog_set_wrap_license") (GtkAboutDialogClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setComments_ = call (load_sym libgtk "gtk_about_dialog_set_comments") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setCopyright_ = call (load_sym libgtk "gtk_about_dialog_set_copyright") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setLicense_ = call (load_sym libgtk "gtk_about_dialog_set_license") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setLicenseType_ = call (load_sym libgtk "gtk_about_dialog_set_license_type") (GtkAboutDialogClass.PolyML.cPtr &&> GtkLicense.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setLogo_ = call (load_sym libgtk "gtk_about_dialog_set_logo") (GtkAboutDialogClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setLogoIconName_ = call (load_sym libgtk "gtk_about_dialog_set_logo_icon_name") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setProgramName_ = call (load_sym libgtk "gtk_about_dialog_set_program_name") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setTranslatorCredits_ = call (load_sym libgtk "gtk_about_dialog_set_translator_credits") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setVersion_ = call (load_sym libgtk "gtk_about_dialog_set_version") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setWebsite_ = call (load_sym libgtk "gtk_about_dialog_set_website") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setWebsiteLabel_ = call (load_sym libgtk "gtk_about_dialog_set_website_label") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setWrapLicense_ = call (load_sym libgtk "gtk_about_dialog_set_wrap_license") (GtkAboutDialogClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkAboutDialogClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

@@ -6,7 +6,7 @@ structure GObjectParamSpecOverride :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "intern") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgobject "intern") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class = 'a GObjectParamSpecOverrideClass.class
     type type_t = GObjectType.t

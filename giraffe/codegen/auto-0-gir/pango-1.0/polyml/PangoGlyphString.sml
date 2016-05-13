@@ -7,8 +7,8 @@ structure PangoGlyphString :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_glyph_string_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libpango "pango_glyph_string_new") (FFI.PolyML.cVoid --> PangoGlyphStringRecord.PolyML.cPtr)
+      val getType_ = call (load_sym libpango "pango_glyph_string_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libpango "pango_glyph_string_new") (PolyMLFFI.cVoid --> PangoGlyphStringRecord.PolyML.cPtr)
       val copy_ = call (load_sym libpango "pango_glyph_string_copy") (PangoGlyphStringRecord.PolyML.cPtr --> PangoGlyphStringRecord.PolyML.cPtr)
       val extents_ =
         call (load_sym libpango "pango_glyph_string_extents")
@@ -17,7 +17,7 @@ structure PangoGlyphString :>
              &&> PangoFontClass.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val extentsRange_ =
         call (load_sym libpango "pango_glyph_string_extents_range")
@@ -28,10 +28,10 @@ structure PangoGlyphString :>
              &&> PangoFontClass.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getWidth_ = call (load_sym libpango "pango_glyph_string_get_width") (PangoGlyphStringRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val setSize_ = call (load_sym libpango "pango_glyph_string_set_size") (PangoGlyphStringRecord.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSize_ = call (load_sym libpango "pango_glyph_string_set_size") (PangoGlyphStringRecord.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type t = PangoGlyphStringRecord.t
     type rectangle_t = PangoRectangleRecord.t

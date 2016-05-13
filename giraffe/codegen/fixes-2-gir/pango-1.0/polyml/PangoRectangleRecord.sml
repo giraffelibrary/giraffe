@@ -12,7 +12,7 @@ structure PangoRectangleRecord :> PANGO_RECTANGLE_RECORD =
       val new_ =
         call
           (load_sym libgiraffepango "giraffe_pango_rectangle_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,7 +22,7 @@ structure PangoRectangleRecord :> PANGO_RECTANGLE_RECORD =
       val free_ =
         call
           (load_sym libgiraffepango "giraffe_pango_rectangle_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
     end
 
     structure Record =

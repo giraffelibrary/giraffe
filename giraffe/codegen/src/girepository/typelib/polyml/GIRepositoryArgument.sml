@@ -22,12 +22,12 @@ structure GIRepositoryArgument :>
       val new_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_new")
-          (FFI.PolyML.cVoid --> cPtr);
+          (PolyMLFFI.cVoid --> cPtr);
 
       val free_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_free")
-          (cPtr --> FFI.PolyML.cVoid);
+          (cPtr --> PolyMLFFI.cVoid);
 
       val from_boolean_ =
         call

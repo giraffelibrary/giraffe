@@ -16,7 +16,7 @@ structure GLibSpawnChildSetupFunc :>
         local
           open PolyMLFFI
         in
-          val makeClosure = closure (FFI.PolyML.cVoid --> FFI.PolyML.cVoid)
+          val makeClosure = closure (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
         end
         fun withCallback f callback = f (makeClosure callback)
         fun withOptCallback f optCallback =

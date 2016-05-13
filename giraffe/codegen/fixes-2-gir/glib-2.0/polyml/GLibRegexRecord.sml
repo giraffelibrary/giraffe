@@ -17,12 +17,12 @@ structure GLibRegexRecord :> G_LIB_REGEX_RECORD =
       val free_ =
         call
           (load_sym libglib "g_regex_unref")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libglib "g_regex_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =

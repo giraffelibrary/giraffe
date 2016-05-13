@@ -5,15 +5,15 @@ structure GtkSourceGutterRendererText :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_new") (FFI.PolyML.cVoid --> GtkSourceGutterRendererClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_new") (PolyMLFFI.cVoid --> GtkSourceGutterRendererClass.PolyML.cPtr)
       val setMarkup_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_set_markup")
           (
             GtkSourceGutterRendererTextClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setText_ =
         call (load_sym libgtksourceview "gtk_source_gutter_renderer_text_set_text")
@@ -21,7 +21,7 @@ structure GtkSourceGutterRendererText :>
             GtkSourceGutterRendererTextClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GtkSourceGutterRendererTextClass.class

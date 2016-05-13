@@ -7,11 +7,11 @@ structure GtkRadioButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_radio_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_radio_button_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val newFromWidget_ = call (load_sym libgtk "gtk_radio_button_new_from_widget") (GtkRadioButtonClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithLabelFromWidget_ = call (load_sym libgtk "gtk_radio_button_new_with_label_from_widget") (GtkRadioButtonClass.PolyML.cOptPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithMnemonicFromWidget_ = call (load_sym libgtk "gtk_radio_button_new_with_mnemonic_from_widget") (GtkRadioButtonClass.PolyML.cOptPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
-      val joinGroup_ = call (load_sym libgtk "gtk_radio_button_join_group") (GtkRadioButtonClass.PolyML.cPtr &&> GtkRadioButtonClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val joinGroup_ = call (load_sym libgtk "gtk_radio_button_join_group") (GtkRadioButtonClass.PolyML.cPtr &&> GtkRadioButtonClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkRadioButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

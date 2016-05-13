@@ -7,9 +7,9 @@ structure GioUnixSocketAddress :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_unix_socket_address_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_unix_socket_address_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgio "g_unix_socket_address_new") (Utf8.PolyML.cInPtr --> GioSocketAddressClass.PolyML.cPtr)
-      val abstractNamesSupported_ = call (load_sym libgio "g_unix_socket_address_abstract_names_supported") (FFI.PolyML.cVoid --> FFI.Bool.PolyML.cVal)
+      val abstractNamesSupported_ = call (load_sym libgio "g_unix_socket_address_abstract_names_supported") (PolyMLFFI.cVoid --> FFI.Bool.PolyML.cVal)
       val getAddressType_ = call (load_sym libgio "g_unix_socket_address_get_address_type") (GioUnixSocketAddressClass.PolyML.cPtr --> GioUnixSocketAddressType.PolyML.cVal)
       val getPath_ = call (load_sym libgio "g_unix_socket_address_get_path") (GioUnixSocketAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getPathLen_ = call (load_sym libgio "g_unix_socket_address_get_path_len") (GioUnixSocketAddressClass.PolyML.cPtr --> FFI.Size.PolyML.cVal)

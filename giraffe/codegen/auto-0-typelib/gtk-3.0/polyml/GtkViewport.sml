@@ -9,12 +9,12 @@ structure GtkViewport :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_viewport_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_viewport_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_viewport_new") (GtkAdjustmentClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getBinWindow_ = call (load_sym libgtk "gtk_viewport_get_bin_window") (GtkViewportClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getShadowType_ = call (load_sym libgtk "gtk_viewport_get_shadow_type") (GtkViewportClass.PolyML.cPtr --> GtkShadowType.PolyML.cVal)
       val getViewWindow_ = call (load_sym libgtk "gtk_viewport_get_view_window") (GtkViewportClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
-      val setShadowType_ = call (load_sym libgtk "gtk_viewport_set_shadow_type") (GtkViewportClass.PolyML.cPtr &&> GtkShadowType.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setShadowType_ = call (load_sym libgtk "gtk_viewport_set_shadow_type") (GtkViewportClass.PolyML.cPtr &&> GtkShadowType.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkViewportClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

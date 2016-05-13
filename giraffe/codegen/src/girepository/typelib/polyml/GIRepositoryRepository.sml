@@ -11,12 +11,12 @@ structure GIRepositoryRepository :>
       val getDefault_ =
         call
           (load_sym libgirepository "g_irepository_get_default")
-          (FFI.PolyML.cVoid --> GObjectObjectClass.PolyML.cPtr)
+          (PolyMLFFI.cVoid --> GObjectObjectClass.PolyML.cPtr)
 
       val prependSearchPath_ =
         call
           (load_sym libgirepository "g_irepository_prepend_search_path")
-          (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+          (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
 
       val loadTypelib_ =
         call

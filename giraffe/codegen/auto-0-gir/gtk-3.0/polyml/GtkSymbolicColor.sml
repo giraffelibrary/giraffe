@@ -6,7 +6,7 @@ structure GtkSymbolicColor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_symbolic_color_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_symbolic_color_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val newAlpha_ = call (load_sym libgtk "gtk_symbolic_color_new_alpha") (GtkSymbolicColorRecord.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> GtkSymbolicColorRecord.PolyML.cPtr)
       val newLiteral_ = call (load_sym libgtk "gtk_symbolic_color_new_literal") (GdkRgbaRecord.PolyML.cPtr --> GtkSymbolicColorRecord.PolyML.cPtr)
       val newMix_ =

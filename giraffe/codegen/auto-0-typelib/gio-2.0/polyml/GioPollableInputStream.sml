@@ -5,7 +5,7 @@ structure GioPollableInputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_pollable_input_stream_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_pollable_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val canPoll_ = call (load_sym libgio "g_pollable_input_stream_can_poll") (GioPollableInputStreamClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val isReadable_ = call (load_sym libgio "g_pollable_input_stream_is_readable") (GioPollableInputStreamClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
     end

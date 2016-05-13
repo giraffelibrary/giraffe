@@ -38,7 +38,7 @@ structure GObjectObjectClass :>
         then
           call
             (load_sym libgiraffegobject "giraffe_debug_object_take")
-            (cPtr --> FFI.PolyML.cVoid)
+            (cPtr --> PolyMLFFI.cVoid)
         else
           ignore
 
@@ -58,11 +58,11 @@ structure GObjectObjectClass :>
         then
           call
             (load_sym libgiraffegobject "giraffe_debug_g_object_unref")
-            (cPtr --> FFI.PolyML.cVoid)
+            (cPtr --> PolyMLFFI.cVoid)
         else
           call
             (load_sym libgobject "g_object_unref")
-            (cPtr --> FFI.PolyML.cVoid)
+            (cPtr --> PolyMLFFI.cVoid)
     end
 
     type 'a class = notnull p Finalizable.t
@@ -123,7 +123,7 @@ structure GObjectObjectClass :>
       val getType_ =
         call
           (load_sym libgobject "g_object_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
 
       val getValue_ =
         call
@@ -138,12 +138,12 @@ structure GObjectObjectClass :>
       val setValue_ =
         call
           (load_sym libgobject "g_value_set_object")
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> FFI.PolyML.cVoid);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid);
 
       val setOptValue_ =
         call
           (load_sym libgobject "g_value_set_object")
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> FFI.PolyML.cVoid);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid);
     end
 
     type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor

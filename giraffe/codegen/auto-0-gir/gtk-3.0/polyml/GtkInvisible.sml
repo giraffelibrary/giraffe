@@ -6,11 +6,11 @@ structure GtkInvisible :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_invisible_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_invisible_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_invisible_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_invisible_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val newForScreen_ = call (load_sym libgtk "gtk_invisible_new_for_screen") (GdkScreenClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getScreen_ = call (load_sym libgtk "gtk_invisible_get_screen") (GtkInvisibleClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
-      val setScreen_ = call (load_sym libgtk "gtk_invisible_set_screen") (GtkInvisibleClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setScreen_ = call (load_sym libgtk "gtk_invisible_set_screen") (GtkInvisibleClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkInvisibleClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

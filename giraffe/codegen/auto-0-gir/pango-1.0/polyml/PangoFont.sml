@@ -11,7 +11,7 @@ structure PangoFont :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_font_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libpango "pango_font_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val describe_ = call (load_sym libpango "pango_font_describe") (PangoFontClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
       val describeWithAbsoluteSize_ = call (load_sym libpango "pango_font_describe_with_absolute_size") (PangoFontClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
       val getFontMap_ = call (load_sym libpango "pango_font_get_font_map") (PangoFontClass.PolyML.cPtr --> PangoFontMapClass.PolyML.cPtr)
@@ -22,7 +22,7 @@ structure PangoFont :>
              &&> PangoGlyph.PolyML.cVal
              &&> PangoRectangleRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getMetrics_ = call (load_sym libpango "pango_font_get_metrics") (PangoFontClass.PolyML.cPtr &&> PangoLanguageRecord.PolyML.cOptPtr --> PangoFontMetricsRecord.PolyML.cPtr)
     end

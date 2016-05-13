@@ -9,8 +9,8 @@ structure GtkCellAreaBox :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_cell_area_box_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_cell_area_box_new") (FFI.PolyML.cVoid --> GtkCellAreaClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_cell_area_box_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_cell_area_box_new") (PolyMLFFI.cVoid --> GtkCellAreaClass.PolyML.cPtr)
       val getSpacing_ = call (load_sym libgtk "gtk_cell_area_box_get_spacing") (GtkCellAreaBoxClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val packEnd_ =
         call (load_sym libgtk "gtk_cell_area_box_pack_end")
@@ -20,7 +20,7 @@ structure GtkCellAreaBox :>
              &&> FFI.Bool.PolyML.cVal
              &&> FFI.Bool.PolyML.cVal
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val packStart_ =
         call (load_sym libgtk "gtk_cell_area_box_pack_start")
@@ -30,9 +30,9 @@ structure GtkCellAreaBox :>
              &&> FFI.Bool.PolyML.cVal
              &&> FFI.Bool.PolyML.cVal
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setSpacing_ = call (load_sym libgtk "gtk_cell_area_box_set_spacing") (GtkCellAreaBoxClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSpacing_ = call (load_sym libgtk "gtk_cell_area_box_set_spacing") (GtkCellAreaBoxClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkCellAreaBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

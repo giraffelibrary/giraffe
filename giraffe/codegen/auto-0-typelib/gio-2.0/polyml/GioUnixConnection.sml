@@ -7,7 +7,7 @@ structure GioUnixConnection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_unix_connection_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_unix_connection_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val receiveCredentials_ =
         call (load_sym libgio "g_unix_connection_receive_credentials")
           (

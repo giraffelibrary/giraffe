@@ -7,9 +7,9 @@ structure GtkCalendar :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_calendar_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_calendar_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val clearMarks_ = call (load_sym libgtk "gtk_calendar_clear_marks") (GtkCalendarClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libgtk "gtk_calendar_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_calendar_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val clearMarks_ = call (load_sym libgtk "gtk_calendar_clear_marks") (GtkCalendarClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getDate_ =
         call (load_sym libgtk "gtk_calendar_get_date")
           (
@@ -17,26 +17,26 @@ structure GtkCalendar :>
              &&> FFI.UInt32.PolyML.cRef
              &&> FFI.UInt32.PolyML.cRef
              &&> FFI.UInt32.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getDayIsMarked_ = call (load_sym libgtk "gtk_calendar_get_day_is_marked") (GtkCalendarClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
       val getDetailHeightRows_ = call (load_sym libgtk "gtk_calendar_get_detail_height_rows") (GtkCalendarClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getDetailWidthChars_ = call (load_sym libgtk "gtk_calendar_get_detail_width_chars") (GtkCalendarClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getDisplayOptions_ = call (load_sym libgtk "gtk_calendar_get_display_options") (GtkCalendarClass.PolyML.cPtr --> GtkCalendarDisplayOptions.PolyML.cVal)
-      val markDay_ = call (load_sym libgtk "gtk_calendar_mark_day") (GtkCalendarClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
-      val selectDay_ = call (load_sym libgtk "gtk_calendar_select_day") (GtkCalendarClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val markDay_ = call (load_sym libgtk "gtk_calendar_mark_day") (GtkCalendarClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val selectDay_ = call (load_sym libgtk "gtk_calendar_select_day") (GtkCalendarClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val selectMonth_ =
         call (load_sym libgtk "gtk_calendar_select_month")
           (
             GtkCalendarClass.PolyML.cPtr
              &&> FFI.UInt32.PolyML.cVal
              &&> FFI.UInt32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setDetailHeightRows_ = call (load_sym libgtk "gtk_calendar_set_detail_height_rows") (GtkCalendarClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setDetailWidthChars_ = call (load_sym libgtk "gtk_calendar_set_detail_width_chars") (GtkCalendarClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setDisplayOptions_ = call (load_sym libgtk "gtk_calendar_set_display_options") (GtkCalendarClass.PolyML.cPtr &&> GtkCalendarDisplayOptions.PolyML.cVal --> FFI.PolyML.cVoid)
-      val unmarkDay_ = call (load_sym libgtk "gtk_calendar_unmark_day") (GtkCalendarClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setDetailHeightRows_ = call (load_sym libgtk "gtk_calendar_set_detail_height_rows") (GtkCalendarClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDetailWidthChars_ = call (load_sym libgtk "gtk_calendar_set_detail_width_chars") (GtkCalendarClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDisplayOptions_ = call (load_sym libgtk "gtk_calendar_set_display_options") (GtkCalendarClass.PolyML.cPtr &&> GtkCalendarDisplayOptions.PolyML.cVal --> PolyMLFFI.cVoid)
+      val unmarkDay_ = call (load_sym libgtk "gtk_calendar_unmark_day") (GtkCalendarClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkCalendarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

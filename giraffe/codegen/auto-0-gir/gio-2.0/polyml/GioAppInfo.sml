@@ -8,7 +8,7 @@ structure GioAppInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_app_info_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_app_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val createFromCommandline_ =
         call (load_sym libgio "g_app_info_create_from_commandline")
           (
@@ -28,7 +28,7 @@ structure GioAppInfo :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> FFI.Bool.PolyML.cVal
           )
-      val resetTypeAssociations_ = call (load_sym libgio "g_app_info_reset_type_associations") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val resetTypeAssociations_ = call (load_sym libgio "g_app_info_reset_type_associations") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val addSupportsType_ =
         call (load_sym libgio "g_app_info_add_supports_type")
           (

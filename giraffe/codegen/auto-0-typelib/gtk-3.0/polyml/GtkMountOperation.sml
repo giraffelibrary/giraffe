@@ -6,13 +6,13 @@ structure GtkMountOperation :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_mount_operation_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_mount_operation_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_mount_operation_new") (GtkWindowClass.PolyML.cOptPtr --> GioMountOperationClass.PolyML.cPtr)
       val getParent_ = call (load_sym libgtk "gtk_mount_operation_get_parent") (GtkMountOperationClass.PolyML.cPtr --> GtkWindowClass.PolyML.cPtr)
       val getScreen_ = call (load_sym libgtk "gtk_mount_operation_get_screen") (GtkMountOperationClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
       val isShowing_ = call (load_sym libgtk "gtk_mount_operation_is_showing") (GtkMountOperationClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setParent_ = call (load_sym libgtk "gtk_mount_operation_set_parent") (GtkMountOperationClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setScreen_ = call (load_sym libgtk "gtk_mount_operation_set_screen") (GtkMountOperationClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val setParent_ = call (load_sym libgtk "gtk_mount_operation_set_parent") (GtkMountOperationClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setScreen_ = call (load_sym libgtk "gtk_mount_operation_set_screen") (GtkMountOperationClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkMountOperationClass.class
     type 'a window_class = 'a GtkWindowClass.class

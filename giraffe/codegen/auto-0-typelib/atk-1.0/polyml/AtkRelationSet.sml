@@ -8,22 +8,22 @@ structure AtkRelationSet :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_relation_set_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libatk "atk_relation_set_new") (FFI.PolyML.cVoid --> AtkRelationSetClass.PolyML.cPtr)
-      val add_ = call (load_sym libatk "atk_relation_set_add") (AtkRelationSetClass.PolyML.cPtr &&> AtkRelationClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libatk "atk_relation_set_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libatk "atk_relation_set_new") (PolyMLFFI.cVoid --> AtkRelationSetClass.PolyML.cPtr)
+      val add_ = call (load_sym libatk "atk_relation_set_add") (AtkRelationSetClass.PolyML.cPtr &&> AtkRelationClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val addRelationByType_ =
         call (load_sym libatk "atk_relation_set_add_relation_by_type")
           (
             AtkRelationSetClass.PolyML.cPtr
              &&> AtkRelationType.PolyML.cVal
              &&> AtkObjectClass.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val contains_ = call (load_sym libatk "atk_relation_set_contains") (AtkRelationSetClass.PolyML.cPtr &&> AtkRelationType.PolyML.cVal --> FFI.Bool.PolyML.cVal)
       val getNRelations_ = call (load_sym libatk "atk_relation_set_get_n_relations") (AtkRelationSetClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getRelation_ = call (load_sym libatk "atk_relation_set_get_relation") (AtkRelationSetClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> AtkRelationClass.PolyML.cPtr)
       val getRelationByType_ = call (load_sym libatk "atk_relation_set_get_relation_by_type") (AtkRelationSetClass.PolyML.cPtr &&> AtkRelationType.PolyML.cVal --> AtkRelationClass.PolyML.cPtr)
-      val remove_ = call (load_sym libatk "atk_relation_set_remove") (AtkRelationSetClass.PolyML.cPtr &&> AtkRelationClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val remove_ = call (load_sym libatk "atk_relation_set_remove") (AtkRelationSetClass.PolyML.cPtr &&> AtkRelationClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a AtkRelationSetClass.class
     type 'a object_class = 'a AtkObjectClass.class

@@ -12,7 +12,7 @@ structure PangoFontDescriptionRecord :> PANGO_FONT_DESCRIPTION_RECORD =
       val new_ =
         call
           (load_sym libpango "pango_font_description_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,12 +22,12 @@ structure PangoFontDescriptionRecord :> PANGO_FONT_DESCRIPTION_RECORD =
       val free_ =
         call
           (load_sym libpango "pango_font_description_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libpango "pango_font_description_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =

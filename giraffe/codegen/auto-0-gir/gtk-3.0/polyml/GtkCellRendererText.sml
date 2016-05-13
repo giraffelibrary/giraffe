@@ -5,9 +5,9 @@ structure GtkCellRendererText :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_cell_renderer_text_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_cell_renderer_text_new") (FFI.PolyML.cVoid --> GtkCellRendererClass.PolyML.cPtr)
-      val setFixedHeightFromFont_ = call (load_sym libgtk "gtk_cell_renderer_text_set_fixed_height_from_font") (GtkCellRendererTextClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libgtk "gtk_cell_renderer_text_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_cell_renderer_text_new") (PolyMLFFI.cVoid --> GtkCellRendererClass.PolyML.cPtr)
+      val setFixedHeightFromFont_ = call (load_sym libgtk "gtk_cell_renderer_text_set_fixed_height_from_font") (GtkCellRendererTextClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkCellRendererTextClass.class
     type t = base class

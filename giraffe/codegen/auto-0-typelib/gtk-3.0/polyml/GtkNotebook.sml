@@ -11,8 +11,8 @@ structure GtkNotebook :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_notebook_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_notebook_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_notebook_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_notebook_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val appendPage_ =
         call (load_sym libgtk "gtk_notebook_append_page")
           (
@@ -66,10 +66,10 @@ structure GtkNotebook :>
              &&> FFI.Int32.PolyML.cVal
              --> FFI.Int32.PolyML.cVal
           )
-      val nextPage_ = call (load_sym libgtk "gtk_notebook_next_page") (GtkNotebookClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val nextPage_ = call (load_sym libgtk "gtk_notebook_next_page") (GtkNotebookClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val pageNum_ = call (load_sym libgtk "gtk_notebook_page_num") (GtkNotebookClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
-      val popupDisable_ = call (load_sym libgtk "gtk_notebook_popup_disable") (GtkNotebookClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val popupEnable_ = call (load_sym libgtk "gtk_notebook_popup_enable") (GtkNotebookClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val popupDisable_ = call (load_sym libgtk "gtk_notebook_popup_disable") (GtkNotebookClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val popupEnable_ = call (load_sym libgtk "gtk_notebook_popup_enable") (GtkNotebookClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val prependPage_ =
         call (load_sym libgtk "gtk_notebook_prepend_page")
           (
@@ -87,15 +87,15 @@ structure GtkNotebook :>
              &&> GtkWidgetClass.PolyML.cOptPtr
              --> FFI.Int32.PolyML.cVal
           )
-      val prevPage_ = call (load_sym libgtk "gtk_notebook_prev_page") (GtkNotebookClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val removePage_ = call (load_sym libgtk "gtk_notebook_remove_page") (GtkNotebookClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val prevPage_ = call (load_sym libgtk "gtk_notebook_prev_page") (GtkNotebookClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val removePage_ = call (load_sym libgtk "gtk_notebook_remove_page") (GtkNotebookClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
       val reorderChild_ =
         call (load_sym libgtk "gtk_notebook_reorder_child")
           (
             GtkNotebookClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setActionWidget_ =
         call (load_sym libgtk "gtk_notebook_set_action_widget")
@@ -103,17 +103,17 @@ structure GtkNotebook :>
             GtkNotebookClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkPackType.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setCurrentPage_ = call (load_sym libgtk "gtk_notebook_set_current_page") (GtkNotebookClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setGroupName_ = call (load_sym libgtk "gtk_notebook_set_group_name") (GtkNotebookClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
+      val setCurrentPage_ = call (load_sym libgtk "gtk_notebook_set_current_page") (GtkNotebookClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setGroupName_ = call (load_sym libgtk "gtk_notebook_set_group_name") (GtkNotebookClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
       val setMenuLabel_ =
         call (load_sym libgtk "gtk_notebook_set_menu_label")
           (
             GtkNotebookClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cOptPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setMenuLabelText_ =
         call (load_sym libgtk "gtk_notebook_set_menu_label_text")
@@ -121,18 +121,18 @@ structure GtkNotebook :>
             GtkNotebookClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setScrollable_ = call (load_sym libgtk "gtk_notebook_set_scrollable") (GtkNotebookClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setShowBorder_ = call (load_sym libgtk "gtk_notebook_set_show_border") (GtkNotebookClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setShowTabs_ = call (load_sym libgtk "gtk_notebook_set_show_tabs") (GtkNotebookClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setScrollable_ = call (load_sym libgtk "gtk_notebook_set_scrollable") (GtkNotebookClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setShowBorder_ = call (load_sym libgtk "gtk_notebook_set_show_border") (GtkNotebookClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setShowTabs_ = call (load_sym libgtk "gtk_notebook_set_show_tabs") (GtkNotebookClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setTabDetachable_ =
         call (load_sym libgtk "gtk_notebook_set_tab_detachable")
           (
             GtkNotebookClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setTabLabel_ =
         call (load_sym libgtk "gtk_notebook_set_tab_label")
@@ -140,7 +140,7 @@ structure GtkNotebook :>
             GtkNotebookClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cOptPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setTabLabelText_ =
         call (load_sym libgtk "gtk_notebook_set_tab_label_text")
@@ -148,16 +148,16 @@ structure GtkNotebook :>
             GtkNotebookClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setTabPos_ = call (load_sym libgtk "gtk_notebook_set_tab_pos") (GtkNotebookClass.PolyML.cPtr &&> GtkPositionType.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setTabPos_ = call (load_sym libgtk "gtk_notebook_set_tab_pos") (GtkNotebookClass.PolyML.cPtr &&> GtkPositionType.PolyML.cVal --> PolyMLFFI.cVoid)
       val setTabReorderable_ =
         call (load_sym libgtk "gtk_notebook_set_tab_reorderable")
           (
             GtkNotebookClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Bool.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GtkNotebookClass.class

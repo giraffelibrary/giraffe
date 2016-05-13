@@ -12,7 +12,7 @@ structure GtkCellRenderer :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_cell_renderer_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_cell_renderer_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val activate_ =
         call (load_sym libgtk "gtk_cell_renderer_activate")
           (
@@ -33,7 +33,7 @@ structure GtkCellRenderer :>
              &&> GtkCellRendererState.PolyML.cVal
              &&> GdkRectangleRecord.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getAlignment_ =
         call (load_sym libgtk "gtk_cell_renderer_get_alignment")
@@ -41,7 +41,7 @@ structure GtkCellRenderer :>
             GtkCellRendererClass.PolyML.cPtr
              &&> FFI.Float.PolyML.cRef
              &&> FFI.Float.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getFixedSize_ =
         call (load_sym libgtk "gtk_cell_renderer_get_fixed_size")
@@ -49,7 +49,7 @@ structure GtkCellRenderer :>
             GtkCellRendererClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getPadding_ =
         call (load_sym libgtk "gtk_cell_renderer_get_padding")
@@ -57,7 +57,7 @@ structure GtkCellRenderer :>
             GtkCellRendererClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getPreferredHeight_ =
         call (load_sym libgtk "gtk_cell_renderer_get_preferred_height")
@@ -66,7 +66,7 @@ structure GtkCellRenderer :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getPreferredHeightForWidth_ =
         call (load_sym libgtk "gtk_cell_renderer_get_preferred_height_for_width")
@@ -76,7 +76,7 @@ structure GtkCellRenderer :>
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getPreferredSize_ =
         call (load_sym libgtk "gtk_cell_renderer_get_preferred_size")
@@ -85,7 +85,7 @@ structure GtkCellRenderer :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkRequisitionRecord.PolyML.cPtr
              &&> GtkRequisitionRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getPreferredWidth_ =
         call (load_sym libgtk "gtk_cell_renderer_get_preferred_width")
@@ -94,7 +94,7 @@ structure GtkCellRenderer :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getPreferredWidthForHeight_ =
         call (load_sym libgtk "gtk_cell_renderer_get_preferred_width_for_height")
@@ -104,7 +104,7 @@ structure GtkCellRenderer :>
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getRequestMode_ = call (load_sym libgtk "gtk_cell_renderer_get_request_mode") (GtkCellRendererClass.PolyML.cPtr --> GtkSizeRequestMode.PolyML.cVal)
       val getSensitive_ = call (load_sym libgtk "gtk_cell_renderer_get_sensitive") (GtkCellRendererClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
@@ -127,7 +127,7 @@ structure GtkCellRenderer :>
              &&> GdkRectangleRecord.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
              &&> GtkCellRendererState.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setAlignment_ =
         call (load_sym libgtk "gtk_cell_renderer_set_alignment")
@@ -135,7 +135,7 @@ structure GtkCellRenderer :>
             GtkCellRendererClass.PolyML.cPtr
              &&> FFI.Float.PolyML.cVal
              &&> FFI.Float.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setFixedSize_ =
         call (load_sym libgtk "gtk_cell_renderer_set_fixed_size")
@@ -143,7 +143,7 @@ structure GtkCellRenderer :>
             GtkCellRendererClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setPadding_ =
         call (load_sym libgtk "gtk_cell_renderer_set_padding")
@@ -151,10 +151,10 @@ structure GtkCellRenderer :>
             GtkCellRendererClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setSensitive_ = call (load_sym libgtk "gtk_cell_renderer_set_sensitive") (GtkCellRendererClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setVisible_ = call (load_sym libgtk "gtk_cell_renderer_set_visible") (GtkCellRendererClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setSensitive_ = call (load_sym libgtk "gtk_cell_renderer_set_sensitive") (GtkCellRendererClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setVisible_ = call (load_sym libgtk "gtk_cell_renderer_set_visible") (GtkCellRendererClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
       val startEditing_ =
         call (load_sym libgtk "gtk_cell_renderer_start_editing")
           (
@@ -167,7 +167,7 @@ structure GtkCellRenderer :>
              &&> GtkCellRendererState.PolyML.cVal
              --> GtkCellEditableClass.PolyML.cPtr
           )
-      val stopEditing_ = call (load_sym libgtk "gtk_cell_renderer_stop_editing") (GtkCellRendererClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val stopEditing_ = call (load_sym libgtk "gtk_cell_renderer_stop_editing") (GtkCellRendererClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkCellRendererClass.class
     type requisition_t = GtkRequisitionRecord.t

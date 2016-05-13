@@ -7,13 +7,13 @@ structure GtkLinkButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_link_button_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_link_button_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_link_button_new") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithLabel_ = call (load_sym libgtk "gtk_link_button_new_with_label") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val getUri_ = call (load_sym libgtk "gtk_link_button_get_uri") (GtkLinkButtonClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getVisited_ = call (load_sym libgtk "gtk_link_button_get_visited") (GtkLinkButtonClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setUri_ = call (load_sym libgtk "gtk_link_button_set_uri") (GtkLinkButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
-      val setVisited_ = call (load_sym libgtk "gtk_link_button_set_visited") (GtkLinkButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setUri_ = call (load_sym libgtk "gtk_link_button_set_uri") (GtkLinkButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setVisited_ = call (load_sym libgtk "gtk_link_button_set_visited") (GtkLinkButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkLinkButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

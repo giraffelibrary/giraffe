@@ -11,11 +11,11 @@ structure GtkEntryCompletion :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_entry_completion_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_entry_completion_new") (FFI.PolyML.cVoid --> GtkEntryCompletionClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_entry_completion_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_entry_completion_new") (PolyMLFFI.cVoid --> GtkEntryCompletionClass.PolyML.cPtr)
       val newWithArea_ = call (load_sym libgtk "gtk_entry_completion_new_with_area") (GtkCellAreaClass.PolyML.cPtr --> GtkEntryCompletionClass.PolyML.cPtr)
-      val complete_ = call (load_sym libgtk "gtk_entry_completion_complete") (GtkEntryCompletionClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val deleteAction_ = call (load_sym libgtk "gtk_entry_completion_delete_action") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val complete_ = call (load_sym libgtk "gtk_entry_completion_complete") (GtkEntryCompletionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val deleteAction_ = call (load_sym libgtk "gtk_entry_completion_delete_action") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
       val getCompletionPrefix_ = call (load_sym libgtk "gtk_entry_completion_get_completion_prefix") (GtkEntryCompletionClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getEntry_ = call (load_sym libgtk "gtk_entry_completion_get_entry") (GtkEntryCompletionClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getInlineCompletion_ = call (load_sym libgtk "gtk_entry_completion_get_inline_completion") (GtkEntryCompletionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
@@ -32,7 +32,7 @@ structure GtkEntryCompletion :>
             GtkEntryCompletionClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val insertActionText_ =
         call (load_sym libgtk "gtk_entry_completion_insert_action_text")
@@ -40,17 +40,17 @@ structure GtkEntryCompletion :>
             GtkEntryCompletionClass.PolyML.cPtr
              &&> FFI.Int32.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val insertPrefix_ = call (load_sym libgtk "gtk_entry_completion_insert_prefix") (GtkEntryCompletionClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setInlineCompletion_ = call (load_sym libgtk "gtk_entry_completion_set_inline_completion") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setInlineSelection_ = call (load_sym libgtk "gtk_entry_completion_set_inline_selection") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setMinimumKeyLength_ = call (load_sym libgtk "gtk_entry_completion_set_minimum_key_length") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setModel_ = call (load_sym libgtk "gtk_entry_completion_set_model") (GtkEntryCompletionClass.PolyML.cPtr &&> GtkTreeModelClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setPopupCompletion_ = call (load_sym libgtk "gtk_entry_completion_set_popup_completion") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setPopupSetWidth_ = call (load_sym libgtk "gtk_entry_completion_set_popup_set_width") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setPopupSingleMatch_ = call (load_sym libgtk "gtk_entry_completion_set_popup_single_match") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setTextColumn_ = call (load_sym libgtk "gtk_entry_completion_set_text_column") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val insertPrefix_ = call (load_sym libgtk "gtk_entry_completion_insert_prefix") (GtkEntryCompletionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setInlineCompletion_ = call (load_sym libgtk "gtk_entry_completion_set_inline_completion") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setInlineSelection_ = call (load_sym libgtk "gtk_entry_completion_set_inline_selection") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMinimumKeyLength_ = call (load_sym libgtk "gtk_entry_completion_set_minimum_key_length") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setModel_ = call (load_sym libgtk "gtk_entry_completion_set_model") (GtkEntryCompletionClass.PolyML.cPtr &&> GtkTreeModelClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setPopupCompletion_ = call (load_sym libgtk "gtk_entry_completion_set_popup_completion") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPopupSetWidth_ = call (load_sym libgtk "gtk_entry_completion_set_popup_set_width") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPopupSingleMatch_ = call (load_sym libgtk "gtk_entry_completion_set_popup_single_match") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setTextColumn_ = call (load_sym libgtk "gtk_entry_completion_set_text_column") (GtkEntryCompletionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkEntryCompletionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

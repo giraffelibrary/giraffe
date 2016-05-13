@@ -17,7 +17,7 @@ structure GdkWindowAttrRecord :> GDK_WINDOW_ATTR_RECORD =
       val free_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_window_attr_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
     end
 
     structure Record =

@@ -12,7 +12,7 @@ structure GdkGeometryRecord :> GDK_GEOMETRY_RECORD =
       val new_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_geometry_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,7 +22,7 @@ structure GdkGeometryRecord :> GDK_GEOMETRY_RECORD =
       val free_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_geometry_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
     end
 
     structure Record =

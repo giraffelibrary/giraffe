@@ -9,18 +9,18 @@ structure PangoLayoutIter :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_layout_iter_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libpango "pango_layout_iter_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val atLastLine_ = call (load_sym libpango "pango_layout_iter_at_last_line") (PangoLayoutIterRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val copy_ = call (load_sym libpango "pango_layout_iter_copy") (PangoLayoutIterRecord.PolyML.cPtr --> PangoLayoutIterRecord.PolyML.cPtr)
       val getBaseline_ = call (load_sym libpango "pango_layout_iter_get_baseline") (PangoLayoutIterRecord.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
-      val getCharExtents_ = call (load_sym libpango "pango_layout_iter_get_char_extents") (PangoLayoutIterRecord.PolyML.cPtr &&> PangoRectangleRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getCharExtents_ = call (load_sym libpango "pango_layout_iter_get_char_extents") (PangoLayoutIterRecord.PolyML.cPtr &&> PangoRectangleRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getClusterExtents_ =
         call (load_sym libpango "pango_layout_iter_get_cluster_extents")
           (
             PangoLayoutIterRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getIndex_ = call (load_sym libpango "pango_layout_iter_get_index") (PangoLayoutIterRecord.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
       val getLayout_ = call (load_sym libpango "pango_layout_iter_get_layout") (PangoLayoutIterRecord.PolyML.cPtr --> PangoLayoutClass.PolyML.cPtr)
@@ -30,7 +30,7 @@ structure PangoLayoutIter :>
             PangoLayoutIterRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getLine_ = call (load_sym libpango "pango_layout_iter_get_line") (PangoLayoutIterRecord.PolyML.cPtr --> PangoLayoutLineRecord.PolyML.cPtr)
       val getLineExtents_ =
@@ -39,7 +39,7 @@ structure PangoLayoutIter :>
             PangoLayoutIterRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getLineReadonly_ = call (load_sym libpango "pango_layout_iter_get_line_readonly") (PangoLayoutIterRecord.PolyML.cPtr --> PangoLayoutLineRecord.PolyML.cPtr)
       val getLineYrange_ =
@@ -48,7 +48,7 @@ structure PangoLayoutIter :>
             PangoLayoutIterRecord.PolyML.cPtr
              &&> FFI.Int32.PolyML.cRef
              &&> FFI.Int32.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getRun_ = call (load_sym libpango "pango_layout_iter_get_run") (PangoLayoutIterRecord.PolyML.cPtr --> PangoGlyphItemRecord.PolyML.cPtr)
       val getRunExtents_ =
@@ -57,7 +57,7 @@ structure PangoLayoutIter :>
             PangoLayoutIterRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getRunReadonly_ = call (load_sym libpango "pango_layout_iter_get_run_readonly") (PangoLayoutIterRecord.PolyML.cPtr --> PangoGlyphItemRecord.PolyML.cPtr)
       val nextChar_ = call (load_sym libpango "pango_layout_iter_next_char") (PangoLayoutIterRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)

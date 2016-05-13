@@ -6,7 +6,7 @@ structure GtkPrintContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_print_context_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_print_context_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val createPangoContext_ = call (load_sym libgtk "gtk_print_context_create_pango_context") (GtkPrintContextClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
       val createPangoLayout_ = call (load_sym libgtk "gtk_print_context_create_pango_layout") (GtkPrintContextClass.PolyML.cPtr --> PangoLayoutClass.PolyML.cPtr)
       val getCairoContext_ = call (load_sym libgtk "gtk_print_context_get_cairo_context") (GtkPrintContextClass.PolyML.cPtr --> CairoContextRecord.PolyML.cPtr)
@@ -33,7 +33,7 @@ structure GtkPrintContext :>
              &&> CairoContextRecord.PolyML.cPtr
              &&> FFI.Double.PolyML.cVal
              &&> FFI.Double.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GtkPrintContextClass.class

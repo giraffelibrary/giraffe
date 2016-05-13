@@ -7,12 +7,12 @@ structure GdkAppLaunchContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_app_launch_context_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val setDesktop_ = call (load_sym libgdk "gdk_app_launch_context_set_desktop") (GdkAppLaunchContextClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setIcon_ = call (load_sym libgdk "gdk_app_launch_context_set_icon") (GdkAppLaunchContextClass.PolyML.cPtr &&> GioIconClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setIconName_ = call (load_sym libgdk "gdk_app_launch_context_set_icon_name") (GdkAppLaunchContextClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> FFI.PolyML.cVoid)
-      val setScreen_ = call (load_sym libgdk "gdk_app_launch_context_set_screen") (GdkAppLaunchContextClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setTimestamp_ = call (load_sym libgdk "gdk_app_launch_context_set_timestamp") (GdkAppLaunchContextClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libgdk "gdk_app_launch_context_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val setDesktop_ = call (load_sym libgdk "gdk_app_launch_context_set_desktop") (GdkAppLaunchContextClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setIcon_ = call (load_sym libgdk "gdk_app_launch_context_set_icon") (GdkAppLaunchContextClass.PolyML.cPtr &&> GioIconClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setIconName_ = call (load_sym libgdk "gdk_app_launch_context_set_icon_name") (GdkAppLaunchContextClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setScreen_ = call (load_sym libgdk "gdk_app_launch_context_set_screen") (GdkAppLaunchContextClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setTimestamp_ = call (load_sym libgdk "gdk_app_launch_context_set_timestamp") (GdkAppLaunchContextClass.PolyML.cPtr &&> FFI.UInt32.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GdkAppLaunchContextClass.class
     type 'a screen_class = 'a GdkScreenClass.class

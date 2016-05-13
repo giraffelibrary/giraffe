@@ -12,7 +12,7 @@ structure GtkRecentFilterInfoRecord :> GTK_RECENT_FILTER_INFO_RECORD =
       val new_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_recent_filter_info_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,12 +22,12 @@ structure GtkRecentFilterInfoRecord :> GTK_RECENT_FILTER_INFO_RECORD =
       val free_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_recent_filter_info_free")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libgtk "gtk_recent_filter_info_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =

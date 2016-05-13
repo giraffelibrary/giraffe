@@ -17,12 +17,12 @@ structure CairoScaledFontRecord :> CAIRO_SCALED_FONT_RECORD =
       val free_ =
         call
           (load_sym libcairo "cairo_scaled_font_destroy")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libcairogobject "cairo_gobject_scaled_font_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =

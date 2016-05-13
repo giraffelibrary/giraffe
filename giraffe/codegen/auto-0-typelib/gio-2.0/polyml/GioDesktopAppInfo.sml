@@ -6,11 +6,11 @@ structure GioDesktopAppInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_desktop_app_info_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_desktop_app_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgio "g_desktop_app_info_new") (Utf8.PolyML.cInPtr --> GioDesktopAppInfoClass.PolyML.cPtr)
       val newFromFilename_ = call (load_sym libgio "g_desktop_app_info_new_from_filename") (Utf8.PolyML.cInPtr --> GioDesktopAppInfoClass.PolyML.cPtr)
       val newFromKeyfile_ = call (load_sym libgio "g_desktop_app_info_new_from_keyfile") (GLibKeyFileRecord.PolyML.cPtr --> GioDesktopAppInfoClass.PolyML.cPtr)
-      val setDesktopEnv_ = call (load_sym libgio "g_desktop_app_info_set_desktop_env") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val setDesktopEnv_ = call (load_sym libgio "g_desktop_app_info_set_desktop_env") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val getCategories_ = call (load_sym libgio "g_desktop_app_info_get_categories") (GioDesktopAppInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getFilename_ = call (load_sym libgio "g_desktop_app_info_get_filename") (GioDesktopAppInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getGenericName_ = call (load_sym libgio "g_desktop_app_info_get_generic_name") (GioDesktopAppInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)

@@ -9,8 +9,8 @@ structure GtkTreeModelFilter :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tree_model_filter_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val clearCache_ = call (load_sym libgtk "gtk_tree_model_filter_clear_cache") (GtkTreeModelFilterClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val getType_ = call (load_sym libgtk "gtk_tree_model_filter_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val clearCache_ = call (load_sym libgtk "gtk_tree_model_filter_clear_cache") (GtkTreeModelFilterClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val convertChildIterToIter_ =
         call (load_sym libgtk "gtk_tree_model_filter_convert_child_iter_to_iter")
           (
@@ -26,12 +26,12 @@ structure GtkTreeModelFilter :>
             GtkTreeModelFilterClass.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val convertPathToChildPath_ = call (load_sym libgtk "gtk_tree_model_filter_convert_path_to_child_path") (GtkTreeModelFilterClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
       val getModel_ = call (load_sym libgtk "gtk_tree_model_filter_get_model") (GtkTreeModelFilterClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
-      val refilter_ = call (load_sym libgtk "gtk_tree_model_filter_refilter") (GtkTreeModelFilterClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val setVisibleColumn_ = call (load_sym libgtk "gtk_tree_model_filter_set_visible_column") (GtkTreeModelFilterClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
+      val refilter_ = call (load_sym libgtk "gtk_tree_model_filter_refilter") (GtkTreeModelFilterClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setVisibleColumn_ = call (load_sym libgtk "gtk_tree_model_filter_set_visible_column") (GtkTreeModelFilterClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkTreeModelFilterClass.class
     type 'a tree_drag_source_class = 'a GtkTreeDragSourceClass.class

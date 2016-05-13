@@ -12,7 +12,7 @@ structure GLibKeyFileRecord :> G_LIB_KEY_FILE_RECORD =
       val new_ =
         call
           (load_sym libglib "g_key_file_new")
-          (FFI.PolyML.cVoid --> cPtr)
+          (PolyMLFFI.cVoid --> cPtr)
 
       val copy_ =
         call
@@ -22,12 +22,12 @@ structure GLibKeyFileRecord :> G_LIB_KEY_FILE_RECORD =
       val free_ =
         call
           (load_sym libglib "g_key_file_unref")
-          (cPtr --> FFI.PolyML.cVoid)
+          (cPtr --> PolyMLFFI.cVoid)
 
       val getType_ =
         call
           (load_sym libglib "g_key_file_get_type")
-          (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal);
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =

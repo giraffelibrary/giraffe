@@ -3,19 +3,19 @@ structure Atk : ATK =
     local
       open PolyMLFFI
     in
-      val focusTrackerNotify_ = call (load_sym libatk "atk_focus_tracker_notify") (AtkObjectClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val getDefaultRegistry_ = call (load_sym libatk "atk_get_default_registry") (FFI.PolyML.cVoid --> AtkRegistryClass.PolyML.cPtr)
-      val getFocusObject_ = call (load_sym libatk "atk_get_focus_object") (FFI.PolyML.cVoid --> AtkObjectClass.PolyML.cPtr)
-      val getRoot_ = call (load_sym libatk "atk_get_root") (FFI.PolyML.cVoid --> AtkObjectClass.PolyML.cPtr)
-      val getToolkitName_ = call (load_sym libatk "atk_get_toolkit_name") (FFI.PolyML.cVoid --> Utf8.PolyML.cOutPtr)
-      val getToolkitVersion_ = call (load_sym libatk "atk_get_toolkit_version") (FFI.PolyML.cVoid --> Utf8.PolyML.cOutPtr)
-      val getVersion_ = call (load_sym libatk "atk_get_version") (FFI.PolyML.cVoid --> Utf8.PolyML.cOutPtr)
+      val focusTrackerNotify_ = call (load_sym libatk "atk_focus_tracker_notify") (AtkObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getDefaultRegistry_ = call (load_sym libatk "atk_get_default_registry") (PolyMLFFI.cVoid --> AtkRegistryClass.PolyML.cPtr)
+      val getFocusObject_ = call (load_sym libatk "atk_get_focus_object") (PolyMLFFI.cVoid --> AtkObjectClass.PolyML.cPtr)
+      val getRoot_ = call (load_sym libatk "atk_get_root") (PolyMLFFI.cVoid --> AtkObjectClass.PolyML.cPtr)
+      val getToolkitName_ = call (load_sym libatk "atk_get_toolkit_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getToolkitVersion_ = call (load_sym libatk "atk_get_toolkit_version") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getVersion_ = call (load_sym libatk "atk_get_version") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
       val relationTypeForName_ = call (load_sym libatk "atk_relation_type_for_name") (Utf8.PolyML.cInPtr --> AtkRelationType.PolyML.cVal)
       val relationTypeGetName_ = call (load_sym libatk "atk_relation_type_get_name") (AtkRelationType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val relationTypeRegister_ = call (load_sym libatk "atk_relation_type_register") (Utf8.PolyML.cInPtr --> AtkRelationType.PolyML.cVal)
-      val removeFocusTracker_ = call (load_sym libatk "atk_remove_focus_tracker") (FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
-      val removeGlobalEventListener_ = call (load_sym libatk "atk_remove_global_event_listener") (FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
-      val removeKeyEventListener_ = call (load_sym libatk "atk_remove_key_event_listener") (FFI.UInt.PolyML.cVal --> FFI.PolyML.cVoid)
+      val removeFocusTracker_ = call (load_sym libatk "atk_remove_focus_tracker") (FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val removeGlobalEventListener_ = call (load_sym libatk "atk_remove_global_event_listener") (FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val removeKeyEventListener_ = call (load_sym libatk "atk_remove_key_event_listener") (FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val roleForName_ = call (load_sym libatk "atk_role_for_name") (Utf8.PolyML.cInPtr --> AtkRole.PolyML.cVal)
       val roleGetLocalizedName_ = call (load_sym libatk "atk_role_get_localized_name") (AtkRole.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val roleGetName_ = call (load_sym libatk "atk_role_get_name") (AtkRole.PolyML.cVal --> Utf8.PolyML.cOutPtr)
@@ -27,7 +27,7 @@ structure Atk : ATK =
       val textAttributeGetName_ = call (load_sym libatk "atk_text_attribute_get_name") (AtkTextAttribute.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val textAttributeGetValue_ = call (load_sym libatk "atk_text_attribute_get_value") (AtkTextAttribute.PolyML.cVal &&> FFI.Int.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val textAttributeRegister_ = call (load_sym libatk "atk_text_attribute_register") (Utf8.PolyML.cInPtr --> AtkTextAttribute.PolyML.cVal)
-      val textFreeRanges_ = call (load_sym libatk "atk_text_free_ranges") (AtkTextRangeRecord.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val textFreeRanges_ = call (load_sym libatk "atk_text_free_ranges") (AtkTextRangeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     structure State = AtkState
     structure ActionClass = AtkActionClass

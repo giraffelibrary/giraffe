@@ -5,9 +5,9 @@ structure GioTcpConnection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tcp_connection_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_tcp_connection_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getGracefulDisconnect_ = call (load_sym libgio "g_tcp_connection_get_graceful_disconnect") (GioTcpConnectionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setGracefulDisconnect_ = call (load_sym libgio "g_tcp_connection_set_graceful_disconnect") (GioTcpConnectionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setGracefulDisconnect_ = call (load_sym libgio "g_tcp_connection_set_graceful_disconnect") (GioTcpConnectionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioTcpConnectionClass.class
     type t = base class

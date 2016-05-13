@@ -7,10 +7,10 @@ structure GioEmblemedIcon :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_emblemed_icon_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgio "g_emblemed_icon_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgio "g_emblemed_icon_new") (GioIconClass.PolyML.cPtr &&> GioEmblemClass.PolyML.cOptPtr --> GioIconClass.PolyML.cPtr)
-      val addEmblem_ = call (load_sym libgio "g_emblemed_icon_add_emblem") (GioEmblemedIconClass.PolyML.cPtr &&> GioEmblemClass.PolyML.cPtr --> FFI.PolyML.cVoid)
-      val clearEmblems_ = call (load_sym libgio "g_emblemed_icon_clear_emblems") (GioEmblemedIconClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val addEmblem_ = call (load_sym libgio "g_emblemed_icon_add_emblem") (GioEmblemedIconClass.PolyML.cPtr &&> GioEmblemClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val clearEmblems_ = call (load_sym libgio "g_emblemed_icon_clear_emblems") (GioEmblemedIconClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getIcon_ = call (load_sym libgio "g_emblemed_icon_get_icon") (GioEmblemedIconClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
     end
     type 'a class = 'a GioEmblemedIconClass.class

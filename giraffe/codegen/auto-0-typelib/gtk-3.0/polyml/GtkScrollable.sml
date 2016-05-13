@@ -7,15 +7,15 @@ structure GtkScrollable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_scrollable_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgtk "gtk_scrollable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getHadjustment_ = call (load_sym libgtk "gtk_scrollable_get_hadjustment") (GtkScrollableClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getHscrollPolicy_ = call (load_sym libgtk "gtk_scrollable_get_hscroll_policy") (GtkScrollableClass.PolyML.cPtr --> GtkScrollablePolicy.PolyML.cVal)
       val getVadjustment_ = call (load_sym libgtk "gtk_scrollable_get_vadjustment") (GtkScrollableClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getVscrollPolicy_ = call (load_sym libgtk "gtk_scrollable_get_vscroll_policy") (GtkScrollableClass.PolyML.cPtr --> GtkScrollablePolicy.PolyML.cVal)
-      val setHadjustment_ = call (load_sym libgtk "gtk_scrollable_set_hadjustment") (GtkScrollableClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setHscrollPolicy_ = call (load_sym libgtk "gtk_scrollable_set_hscroll_policy") (GtkScrollableClass.PolyML.cPtr &&> GtkScrollablePolicy.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setVadjustment_ = call (load_sym libgtk "gtk_scrollable_set_vadjustment") (GtkScrollableClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setVscrollPolicy_ = call (load_sym libgtk "gtk_scrollable_set_vscroll_policy") (GtkScrollableClass.PolyML.cPtr &&> GtkScrollablePolicy.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setHadjustment_ = call (load_sym libgtk "gtk_scrollable_set_hadjustment") (GtkScrollableClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setHscrollPolicy_ = call (load_sym libgtk "gtk_scrollable_set_hscroll_policy") (GtkScrollableClass.PolyML.cPtr &&> GtkScrollablePolicy.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setVadjustment_ = call (load_sym libgtk "gtk_scrollable_set_vadjustment") (GtkScrollableClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setVscrollPolicy_ = call (load_sym libgtk "gtk_scrollable_set_vscroll_policy") (GtkScrollableClass.PolyML.cPtr &&> GtkScrollablePolicy.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkScrollableClass.class
     type 'a adjustment_class = 'a GtkAdjustmentClass.class

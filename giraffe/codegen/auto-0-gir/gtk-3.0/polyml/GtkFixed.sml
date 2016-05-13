@@ -7,8 +7,8 @@ structure GtkFixed :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_fixed_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_fixed_new") (FFI.PolyML.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (load_sym libgtk "gtk_fixed_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (load_sym libgtk "gtk_fixed_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val move_ =
         call (load_sym libgtk "gtk_fixed_move")
           (
@@ -16,7 +16,7 @@ structure GtkFixed :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val put_ =
         call (load_sym libgtk "gtk_fixed_put")
@@ -25,7 +25,7 @@ structure GtkFixed :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GtkFixedClass.class

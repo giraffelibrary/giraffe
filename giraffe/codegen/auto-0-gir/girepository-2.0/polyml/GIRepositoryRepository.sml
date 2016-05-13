@@ -9,10 +9,10 @@ structure GIRepositoryRepository :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgirepository "g_irepository_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libgirepository "g_irepository_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val dump_ = call (load_sym libgirepository "g_irepository_dump") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
-      val getDefault_ = call (load_sym libgirepository "g_irepository_get_default") (FFI.PolyML.cVoid --> GIRepositoryRepositoryClass.PolyML.cPtr)
-      val prependSearchPath_ = call (load_sym libgirepository "g_irepository_prepend_search_path") (Utf8.PolyML.cInPtr --> FFI.PolyML.cVoid)
+      val getDefault_ = call (load_sym libgirepository "g_irepository_get_default") (PolyMLFFI.cVoid --> GIRepositoryRepositoryClass.PolyML.cPtr)
+      val prependSearchPath_ = call (load_sym libgirepository "g_irepository_prepend_search_path") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val findByErrorDomain_ = call (load_sym libgirepository "g_irepository_find_by_error_domain") (GIRepositoryRepositoryClass.PolyML.cPtr &&> GLibQuark.PolyML.cVal --> GIRepositoryEnumInfoRecord.PolyML.cPtr)
       val findByName_ =
         call (load_sym libgirepository "g_irepository_find_by_name")

@@ -15,9 +15,9 @@ structure PangoLayout :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_layout_get_type") (FFI.PolyML.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (load_sym libpango "pango_layout_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libpango "pango_layout_new") (PangoContextClass.PolyML.cPtr --> PangoLayoutClass.PolyML.cPtr)
-      val contextChanged_ = call (load_sym libpango "pango_layout_context_changed") (PangoLayoutClass.PolyML.cPtr --> FFI.PolyML.cVoid)
+      val contextChanged_ = call (load_sym libpango "pango_layout_context_changed") (PangoLayoutClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val copy_ = call (load_sym libpango "pango_layout_copy") (PangoLayoutClass.PolyML.cPtr --> PangoLayoutClass.PolyML.cPtr)
       val getAlignment_ = call (load_sym libpango "pango_layout_get_alignment") (PangoLayoutClass.PolyML.cPtr --> PangoAlignment.PolyML.cVal)
       val getAttributes_ = call (load_sym libpango "pango_layout_get_attributes") (PangoLayoutClass.PolyML.cPtr --> PangoAttrListRecord.PolyML.cPtr)
@@ -32,7 +32,7 @@ structure PangoLayout :>
              &&> FFI.Int.PolyML.cVal
              &&> PangoRectangleRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getEllipsize_ = call (load_sym libpango "pango_layout_get_ellipsize") (PangoLayoutClass.PolyML.cPtr --> PangoEllipsizeMode.PolyML.cVal)
       val getExtents_ =
@@ -41,7 +41,7 @@ structure PangoLayout :>
             PangoLayoutClass.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getFontDescription_ = call (load_sym libpango "pango_layout_get_font_description") (PangoLayoutClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
       val getHeight_ = call (load_sym libpango "pango_layout_get_height") (PangoLayoutClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
@@ -57,7 +57,7 @@ structure PangoLayout :>
             PangoLayoutClass.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getPixelSize_ =
         call (load_sym libpango "pango_layout_get_pixel_size")
@@ -65,7 +65,7 @@ structure PangoLayout :>
             PangoLayoutClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getSingleParagraphMode_ = call (load_sym libpango "pango_layout_get_single_paragraph_mode") (PangoLayoutClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val getSize_ =
@@ -74,7 +74,7 @@ structure PangoLayout :>
             PangoLayoutClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val getSpacing_ = call (load_sym libpango "pango_layout_get_spacing") (PangoLayoutClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
       val getTabs_ = call (load_sym libpango "pango_layout_get_tabs") (PangoLayoutClass.PolyML.cPtr --> PangoTabArrayRecord.PolyML.cPtr)
@@ -90,7 +90,7 @@ structure PangoLayout :>
              &&> FFI.Bool.PolyML.cVal
              &&> FFI.Int.PolyML.cRef
              &&> FFI.Int.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val indexToPos_ =
         call (load_sym libpango "pango_layout_index_to_pos")
@@ -98,24 +98,24 @@ structure PangoLayout :>
             PangoLayoutClass.PolyML.cPtr
              &&> FFI.Int.PolyML.cVal
              &&> PangoRectangleRecord.PolyML.cPtr
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val isEllipsized_ = call (load_sym libpango "pango_layout_is_ellipsized") (PangoLayoutClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
       val isWrapped_ = call (load_sym libpango "pango_layout_is_wrapped") (PangoLayoutClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setAlignment_ = call (load_sym libpango "pango_layout_set_alignment") (PangoLayoutClass.PolyML.cPtr &&> PangoAlignment.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setAutoDir_ = call (load_sym libpango "pango_layout_set_auto_dir") (PangoLayoutClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setEllipsize_ = call (load_sym libpango "pango_layout_set_ellipsize") (PangoLayoutClass.PolyML.cPtr &&> PangoEllipsizeMode.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setFontDescription_ = call (load_sym libpango "pango_layout_set_font_description") (PangoLayoutClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
-      val setHeight_ = call (load_sym libpango "pango_layout_set_height") (PangoLayoutClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setIndent_ = call (load_sym libpango "pango_layout_set_indent") (PangoLayoutClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setJustify_ = call (load_sym libpango "pango_layout_set_justify") (PangoLayoutClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setAlignment_ = call (load_sym libpango "pango_layout_set_alignment") (PangoLayoutClass.PolyML.cPtr &&> PangoAlignment.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setAutoDir_ = call (load_sym libpango "pango_layout_set_auto_dir") (PangoLayoutClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setEllipsize_ = call (load_sym libpango "pango_layout_set_ellipsize") (PangoLayoutClass.PolyML.cPtr &&> PangoEllipsizeMode.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setFontDescription_ = call (load_sym libpango "pango_layout_set_font_description") (PangoLayoutClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setHeight_ = call (load_sym libpango "pango_layout_set_height") (PangoLayoutClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setIndent_ = call (load_sym libpango "pango_layout_set_indent") (PangoLayoutClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setJustify_ = call (load_sym libpango "pango_layout_set_justify") (PangoLayoutClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setMarkup_ =
         call (load_sym libpango "pango_layout_set_markup")
           (
             PangoLayoutClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
       val setMarkupWithAccel_ =
         call (load_sym libpango "pango_layout_set_markup_with_accel")
@@ -125,21 +125,21 @@ structure PangoLayout :>
              &&> FFI.Int.PolyML.cVal
              &&> FFI.Char.PolyML.cVal
              &&> FFI.Char.PolyML.cRef
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setSingleParagraphMode_ = call (load_sym libpango "pango_layout_set_single_paragraph_mode") (PangoLayoutClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setSpacing_ = call (load_sym libpango "pango_layout_set_spacing") (PangoLayoutClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setTabs_ = call (load_sym libpango "pango_layout_set_tabs") (PangoLayoutClass.PolyML.cPtr &&> PangoTabArrayRecord.PolyML.cOptPtr --> FFI.PolyML.cVoid)
+      val setSingleParagraphMode_ = call (load_sym libpango "pango_layout_set_single_paragraph_mode") (PangoLayoutClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSpacing_ = call (load_sym libpango "pango_layout_set_spacing") (PangoLayoutClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setTabs_ = call (load_sym libpango "pango_layout_set_tabs") (PangoLayoutClass.PolyML.cPtr &&> PangoTabArrayRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
       val setText_ =
         call (load_sym libpango "pango_layout_set_text")
           (
             PangoLayoutClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> FFI.Int.PolyML.cVal
-             --> FFI.PolyML.cVoid
+             --> PolyMLFFI.cVoid
           )
-      val setWidth_ = call (load_sym libpango "pango_layout_set_width") (PangoLayoutClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> FFI.PolyML.cVoid)
-      val setWrap_ = call (load_sym libpango "pango_layout_set_wrap") (PangoLayoutClass.PolyML.cPtr &&> PangoWrapMode.PolyML.cVal --> FFI.PolyML.cVoid)
+      val setWidth_ = call (load_sym libpango "pango_layout_set_width") (PangoLayoutClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setWrap_ = call (load_sym libpango "pango_layout_set_wrap") (PangoLayoutClass.PolyML.cPtr &&> PangoWrapMode.PolyML.cVal --> PolyMLFFI.cVoid)
       val xyToIndex_ =
         call (load_sym libpango "pango_layout_xy_to_index")
           (
