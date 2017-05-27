@@ -2,78 +2,8 @@
  * Namespace
  * -------------------------------------------------------------------------- *)
 
-(* Lists of STRUCT names and UNION names to include.
- *
- * A STRUCT that is a field of an included UNION is not in the STRUCT list.
- *)
-
-val structNames = [
-  ("GLib", "Error"),
-  ("GLib", "IOChannel"),
-  ("GLib", "KeyFile"),
-  ("GLib", "MainContext"),
-  ("GLib", "MatchInfo"),
-  ("GLib", "Regex"),
-  ("GLib", "Source"),
-  ("GLib", "TimeVal"),
-  ("GObject", "Closure"),
-  ("Gdk", "Atom"),
-  ("Gdk", "Color"),
-  ("Gdk", "Geometry"),
-  ("Gdk", "KeymapKey"),
-  ("Gdk", "RGBA"),
-  ("Gdk", "WindowAttr"),
-  ("GdkPixbuf", "PixbufFormat"),
-  ("Gtk", "AccelKey"),
-  ("Gtk", "Border"),
-  ("Gtk", "FileFilterInfo"),
-  ("Gtk", "IconInfo"),
-  ("Gtk", "IconSet"),
-  ("Gtk", "IconSource"),
-  ("Gtk", "PaperSize"),
-  ("Gtk", "RecentData"),
-  ("Gtk", "RecentFilterInfo"),
-  ("Gtk", "RecentInfo"),
-  ("Gtk", "Requisition"),
-  ("Gtk", "SelectionData"),
-  ("Gtk", "SettingsValue"),
-  ("Gtk", "StockItem"),
-  ("Gtk", "SymbolicColor"),
-  ("Gtk", "TargetEntry"),
-  ("Gtk", "TargetList"),
-  ("Gtk", "TextAttributes"),
-  ("Gtk", "TextIter"),
-  ("Gtk", "TreeIter"),
-  ("Gtk", "TreePath"),
-  ("Gtk", "WidgetPath"),
-  ("cairo", "Context"),
-  ("cairo", "FontOptions"),
-  ("cairo", "Pattern"),
-  ("cairo", "RectangleInt"),
-  ("cairo", "Region"),
-  ("cairo", "ScaledFont"),
-  ("cairo", "Surface"),
-  ("Pango", "Attribute"),
-  ("Pango", "AttrList"),
-  ("Pango", "Color"),
-  ("Pango", "FontDescription"),
-  ("Pango", "FontMetrics"),
-  ("Pango", "GlyphItem"),
-  ("Pango", "GlyphString"),
-  ("Pango", "Language"),
-  ("Pango", "LayoutIter"),
-  ("Pango", "LayoutLine"),
-  ("Pango", "LogAttr"),
-  ("Pango", "Matrix"),
-  ("Pango", "Rectangle"),
-  ("Pango", "TabArray")
-]
-
-val unionNames = [
-  ("Gdk", "Event")
-]
-
-
+val structNames = ref []
+val unionNames = ref []
 
 fun dupSig id _ = raise Fail (String.concat ["duplicate signature ", id])
 fun dupStr id _ = raise Fail (String.concat ["duplicate structure ", id])
@@ -224,7 +154,7 @@ fun translateInfo
           val structNamespace = namespace
           fun isName x = x = (structNamespace, structName)
         in
-          List.exists isName structNames
+          List.exists isName (!structNames)
         end
       then
         let
@@ -292,7 +222,7 @@ fun translateInfo
           val unionNamespace = namespace
           fun isName x = x = (unionNamespace, unionName)
         in
-          List.exists isName unionNames
+          List.exists isName (!unionNames)
         end
       then
         let

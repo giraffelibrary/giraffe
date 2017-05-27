@@ -3,5 +3,5 @@ use "map/polyml.sml";
 use "pp/polyml.sml";
 use "girepository/polyml-typelib.sml";
 use "GIRepository.sml";
-use "overrides.sml";
 use "codegen/polyml-typelib.sml";
+use "config.sml";

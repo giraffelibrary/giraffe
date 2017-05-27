@@ -3,5 +3,6 @@ use "map/polyml.sml";
 use "pp/polyml.sml";
 use "girepository/polyml-gir.sml";
 use "GIRepository.sml";
-use "overrides.sml";
 use "codegen/polyml-gir.sml";
+use "config.sml";
+use "config-gir.sml";
