@@ -1,1 +1,1 @@
-structure XlibKeyCode = FFI.UInt8
+structure XlibKeyCode = GUInt8

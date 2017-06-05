@@ -1,1 +1,1 @@
-structure XlibKeySym = FFI.ULong
+structure XlibKeySym = GULong

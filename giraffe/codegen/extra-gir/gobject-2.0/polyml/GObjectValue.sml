@@ -9,9 +9,10 @@ structure GObjectValue :>
   G_OBJECT_VALUE
     where type t = GObjectValueRecord.t
     where type type_t = GObjectType.t
-    where type C.notnull = GObjectValueRecord.C.notnull
-    where type 'a C.p = 'a GObjectValueRecord.C.p
-    where type 'a C.Array.array_p = 'a GObjectValueRecord.C.Array.array_p =
+    where type C.v = GObjectValueRecord.C.ValueType.v (*
+    where type C.notnull = GObjectValueRecord.FFI.notnull
+    where type 'a C.p = 'a GObjectValueRecord.FFI.p
+    where type 'a C.Array.array_p = 'a GObjectValueRecord.C.Array.array_p *) =
   struct
     local
       open PolyMLFFI
@@ -34,7 +35,7 @@ structure GObjectValue :>
       val holds_ =
         call
           (load_sym libgiraffegobject "giraffe_g_value_holds")
-          (GObjectValueRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> FFI.Bool.PolyML.cVal);
+          (GObjectValueRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal);
 
       val gtypeOf_ =
         call
@@ -44,7 +45,7 @@ structure GObjectValue :>
       val isValue_ =
         call
           (load_sym libgiraffegobject "giraffe_g_is_value")
-          (GObjectValueRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
+          (GObjectValueRecord.PolyML.cPtr --> GBool.PolyML.cVal);
     end
 
     type t = GObjectValueRecord.t
@@ -53,9 +54,9 @@ structure GObjectValue :>
     fun init gtype =
       let
         val value & () =
-          (GObjectValueRecord.C.withNewPtr
-            &&&> GObjectType.C.withVal
-            ---> GObjectValueRecord.C.fromPtr true && I)
+          (GObjectValueRecord.FFI.withNewPtr
+            &&&> GObjectType.FFI.withVal
+            ---> GObjectValueRecord.FFI.fromPtr true && I)
             (ignore o init_)
             (() & gtype)
       in
@@ -63,64 +64,45 @@ structure GObjectValue :>
       end
 
     fun reset value =
-      (GObjectValueRecord.C.withPtr ---> I) (ignore o reset_) value
+      (GObjectValueRecord.FFI.withPtr ---> I) (ignore o reset_) value
 
-    fun getType () = (I ---> GObjectType.C.fromVal) getType_ ()
+    fun getType () = (I ---> GObjectType.FFI.fromVal) getType_ ()
 
     fun holds gtype value =
-      (GObjectValueRecord.C.withPtr &&&> GObjectType.C.withVal ---> FFI.Bool.C.fromVal)
+      (GObjectValueRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal)
         holds_
         (value & gtype)
 
     fun gTypeOf value =
-      (GObjectValueRecord.C.withPtr ---> GObjectType.C.fromVal) gtypeOf_ value
+      (GObjectValueRecord.FFI.withPtr ---> GObjectType.FFI.fromVal) gtypeOf_ value
 
     fun isValue value =
-      (GObjectValueRecord.C.withPtr ---> FFI.Bool.C.fromVal) isValue_ value
-
-
-    local
-      open PolyMLFFI
-    in
-      val isValue_ =
-        call
-          (load_sym libgiraffegobject "giraffe_g_is_value")
-          (GObjectValueRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
-    end
+      (GObjectValueRecord.FFI.withPtr ---> GBool.FFI.fromVal) isValue_ value
 
 
     type ('a, 'b) accessor = {
       getType  : unit -> GObjectType.t,
-      getValue : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> 'a,
-      setValue : (GObjectValueRecord.C.notnull GObjectValueRecord.C.p, 'b) pair -> unit
+      getValue : GObjectValueRecord.C.ValueType.v -> 'a,
+      setValue : (GObjectValueRecord.C.ValueType.v, 'b) pair -> unit
     }
     structure C =
       struct
-        type notnull = GObjectValueRecord.C.notnull
-        type 'a p = 'a GObjectValueRecord.C.p
+        type v = GObjectValueRecord.C.ValueType.v
 
-        structure Array =
-          struct
-            open GObjectValueRecord.C.Array
-            fun get ({getValue, ...} : ('a, 'b) accessor) ptr i =
-              getValue (sub ptr i)
-            fun set ({setValue, ...} : ('a, 'b) accessor) ptr i x =
-              setValue (sub ptr i & x)
-          end
-
+        fun get ({getValue, ...} : ('a, 'b) accessor) ptr = getValue ptr
         fun set ({setValue, ...} : ('a, 'b) accessor) ptr x = setValue (ptr & x)
 
-        val isValue = (I ---> FFI.Bool.C.fromVal) isValue_
+        val isValue = (I ---> GBool.FFI.fromVal) isValue_
 
         fun createAccessor x = x
       end
 
 
     fun get ({getValue, ...} : ('a, 'b) accessor) value =
-      (GObjectValueRecord.C.withPtr ---> I) getValue value
+      (GObjectValueRecord.FFI.withPtr ---> I) getValue value
 
     fun set ({setValue, ...} : ('a, 'b) accessor) value x =
-      (GObjectValueRecord.C.withPtr &&&> I ---> I) setValue (value & x)
+      (GObjectValueRecord.FFI.withPtr &&&> I ---> I) setValue (value & x)
 
     fun baseType ({getType, ...} : ('a, 'b) accessor) = getType ()
   end
@@ -134,52 +116,52 @@ local
     val get_boolean_ =
       call
         (load_sym libgobject "g_value_get_boolean")
-        (GET FFI.Bool.PolyML.cVal);
+        (GET GBool.PolyML.cVal);
 
     val get_int_ =
       call
         (load_sym libgobject "g_value_get_int")
-        (GET FFI.Int.PolyML.cVal);
+        (GET GInt.PolyML.cVal);
 
     val get_uint_ =
       call
         (load_sym libgobject "g_value_get_uint")
-        (GET FFI.UInt.PolyML.cVal);
+        (GET GUInt.PolyML.cVal);
 
     val get_long_ =
       call
         (load_sym libgobject "g_value_get_long")
-        (GET FFI.Long.PolyML.cVal);
+        (GET GLong.PolyML.cVal);
 
     val get_ulong_ =
       call
         (load_sym libgobject "g_value_get_ulong")
-        (GET FFI.ULong.PolyML.cVal);
+        (GET GULong.PolyML.cVal);
 
     val get_int64_ =
       call
         (load_sym libgobject "g_value_get_int64")
-        (GET FFI.Int64.PolyML.cVal);
+        (GET GInt64.PolyML.cVal);
 
     val get_uint64_ =
       call
         (load_sym libgobject "g_value_get_uint64")
-        (GET FFI.UInt64.PolyML.cVal);
+        (GET GUInt64.PolyML.cVal);
 
     val get_float_ =
       call
         (load_sym libgobject "g_value_get_float")
-        (GET FFI.Float.PolyML.cVal);
+        (GET GFloat.PolyML.cVal);
 
     val get_double_ =
       call
         (load_sym libgobject "g_value_get_double")
-        (GET FFI.Double.PolyML.cVal);
+        (GET GDouble.PolyML.cVal);
 
     val get_char_ =
       call
         (load_sym libgobject "g_value_get_char")
-        (GET FFI.Char.PolyML.cVal);
+        (GET GChar.PolyML.cVal);
 
     val get_string_ =
       call
@@ -197,52 +179,52 @@ local
     val set_boolean_ =
       call
         (load_sym libgobject "g_value_set_boolean")
-        (SET FFI.Bool.PolyML.cVal);
+        (SET GBool.PolyML.cVal);
 
     val set_int_ =
       call
         (load_sym libgobject "g_value_set_int")
-        (SET FFI.Int.PolyML.cVal);
+        (SET GInt.PolyML.cVal);
 
     val set_uint_ =
       call
         (load_sym libgobject "g_value_set_uint")
-        (SET FFI.UInt.PolyML.cVal);
+        (SET GUInt.PolyML.cVal);
 
     val set_long_ =
       call
         (load_sym libgobject "g_value_set_long")
-        (SET FFI.Long.PolyML.cVal);
+        (SET GLong.PolyML.cVal);
 
     val set_ulong_ =
       call
         (load_sym libgobject "g_value_set_ulong")
-        (SET FFI.ULong.PolyML.cVal);
+        (SET GULong.PolyML.cVal);
 
     val set_int64_ =
       call
         (load_sym libgobject "g_value_set_int64")
-        (SET FFI.Int64.PolyML.cVal);
+        (SET GInt64.PolyML.cVal);
 
     val set_uint64_ =
       call
         (load_sym libgobject "g_value_set_uint64")
-        (SET FFI.UInt64.PolyML.cVal);
+        (SET GUInt64.PolyML.cVal);
 
     val set_float_ =
       call
         (load_sym libgobject "g_value_set_float")
-        (SET FFI.Float.PolyML.cVal);
+        (SET GFloat.PolyML.cVal);
 
     val set_double_ =
       call
         (load_sym libgobject "g_value_set_double")
-        (SET FFI.Double.PolyML.cVal);
+        (SET GDouble.PolyML.cVal);
 
     val set_char_ =
       call
         (load_sym libgobject "g_value_set_char")
-        (SET FFI.Char.PolyML.cVal);
+        (SET GChar.PolyML.cVal);
 
     val set_string_ =
       call
@@ -258,22 +240,22 @@ in
   val boolean : (bool, bool) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.boolean,
-      getValue = (I ---> FFI.Bool.C.fromVal) get_boolean_,
-      setValue = (I &&&> FFI.Bool.C.withVal ---> I) set_boolean_
+      getValue = (I ---> GBool.FFI.fromVal) get_boolean_,
+      setValue = (I &&&> GBool.FFI.withVal ---> I) set_boolean_
     }
 
   val int : (LargeInt.int, LargeInt.int) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.int,
-      getValue = (I ---> FFI.Int.C.fromVal) get_int_,
-      setValue = (I &&&> FFI.Int.C.withVal ---> I) set_int_
+      getValue = (I ---> GInt.FFI.fromVal) get_int_,
+      setValue = (I &&&> GInt.FFI.withVal ---> I) set_int_
     }
 
   val uint : (LargeInt.int, LargeInt.int) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.uint,
-      getValue = (I ---> FFI.UInt.C.fromVal) get_uint_,
-      setValue = (I &&&> FFI.UInt.C.withVal ---> I) set_uint_
+      getValue = (I ---> GUInt.FFI.fromVal) get_uint_,
+      setValue = (I &&&> GUInt.FFI.withVal ---> I) set_uint_
     }
 
   (* temporary *)
@@ -283,63 +265,63 @@ in
   val long : (LargeInt.int, LargeInt.int) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.long,
-      getValue = (I ---> FFI.Long.C.fromVal) get_long_,
-      setValue = (I &&&> FFI.Long.C.withVal ---> I) set_long_
+      getValue = (I ---> GLong.FFI.fromVal) get_long_,
+      setValue = (I &&&> GLong.FFI.withVal ---> I) set_long_
     }
 
   val ulong : (LargeInt.int, LargeInt.int) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.ulong,
-      getValue = (I ---> FFI.ULong.C.fromVal) get_ulong_,
-      setValue = (I &&&> FFI.ULong.C.withVal ---> I) set_ulong_
+      getValue = (I ---> GULong.FFI.fromVal) get_ulong_,
+      setValue = (I &&&> GULong.FFI.withVal ---> I) set_ulong_
     }
 
   val int64 : (LargeInt.int, LargeInt.int) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.int64,
-      getValue = (I ---> FFI.Int64.C.fromVal) get_int64_,
-      setValue = (I &&&> FFI.Int64.C.withVal ---> I) set_int64_
+      getValue = (I ---> GInt64.FFI.fromVal) get_int64_,
+      setValue = (I &&&> GInt64.FFI.withVal ---> I) set_int64_
     }
 
   val uint64 : (LargeInt.int, LargeInt.int) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.uint64,
-      getValue = (I ---> FFI.UInt64.C.fromVal) get_uint64_,
-      setValue = (I &&&> FFI.UInt64.C.withVal ---> I) set_uint64_
+      getValue = (I ---> GUInt64.FFI.fromVal) get_uint64_,
+      setValue = (I &&&> GUInt64.FFI.withVal ---> I) set_uint64_
     }
 
   val float : (real, real) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.float,
-      getValue = (I ---> FFI.Float.C.fromVal) get_float_,
-      setValue = (I &&&> FFI.Float.C.withVal ---> I) set_float_
+      getValue = (I ---> GFloat.FFI.fromVal) get_float_,
+      setValue = (I &&&> GFloat.FFI.withVal ---> I) set_float_
     }
 
   val double : (real, real) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.double,
-      getValue = (I ---> FFI.Double.C.fromVal) get_double_,
-      setValue = (I &&&> FFI.Double.C.withVal ---> I) set_double_
+      getValue = (I ---> GDouble.FFI.fromVal) get_double_,
+      setValue = (I &&&> GDouble.FFI.withVal ---> I) set_double_
     }
 
   val char : (char, char) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.char,
-      getValue = (I ---> FFI.Char.C.fromVal) get_char_,
-      setValue = (I &&&> FFI.Char.C.withVal ---> I) set_char_
+      getValue = (I ---> GChar.FFI.fromVal) get_char_,
+      setValue = (I &&&> GChar.FFI.withVal ---> I) set_char_
     }
 
   val string : (string, string) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.string,
-      getValue = (I ---> Utf8.C.fromPtr false) get_string_,
-      setValue = (I &&&> Utf8.C.withPtr ---> I) set_string_
+      getValue = (I ---> Utf8.FFI.fromPtr 0) get_string_,
+      setValue = (I &&&> Utf8.FFI.withPtr ---> I) set_string_
     }
 
   val stringOpt : (string option, string option) GObjectValue.accessor =
     GObjectValue.C.createAccessor {
       getType  = GObjectType.string,
-      getValue = (I ---> Utf8.C.fromOptPtr false) get_string_opt_,
-      setValue = (I &&&> Utf8.C.withOptPtr ---> I) set_string_opt_
+      getValue = (I ---> Utf8.FFI.fromOptPtr 0) get_string_opt_,
+      setValue = (I &&&> Utf8.FFI.withOptPtr ---> I) set_string_opt_
     }
 end

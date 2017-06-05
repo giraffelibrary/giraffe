@@ -6,15 +6,15 @@ structure GioDBusMethodInvocation :>
     where type d_bus_method_info_t = GioDBusMethodInfoRecord.t
     where type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class =
   struct
-    val getType_ = _import "g_dbus_method_invocation_get_type" : unit -> GObjectType.C.val_;
-    val getConnection_ = _import "g_dbus_method_invocation_get_connection" : GioDBusMethodInvocationClass.C.notnull GioDBusMethodInvocationClass.C.p -> GioDBusConnectionClass.C.notnull GioDBusConnectionClass.C.p;
-    val getInterfaceName_ = _import "g_dbus_method_invocation_get_interface_name" : GioDBusMethodInvocationClass.C.notnull GioDBusMethodInvocationClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getMessage_ = _import "g_dbus_method_invocation_get_message" : GioDBusMethodInvocationClass.C.notnull GioDBusMethodInvocationClass.C.p -> GioDBusMessageClass.C.notnull GioDBusMessageClass.C.p;
-    val getMethodInfo_ = _import "g_dbus_method_invocation_get_method_info" : GioDBusMethodInvocationClass.C.notnull GioDBusMethodInvocationClass.C.p -> GioDBusMethodInfoRecord.C.notnull GioDBusMethodInfoRecord.C.p;
-    val getMethodName_ = _import "g_dbus_method_invocation_get_method_name" : GioDBusMethodInvocationClass.C.notnull GioDBusMethodInvocationClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getObjectPath_ = _import "g_dbus_method_invocation_get_object_path" : GioDBusMethodInvocationClass.C.notnull GioDBusMethodInvocationClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getParameters_ = _import "g_dbus_method_invocation_get_parameters" : GioDBusMethodInvocationClass.C.notnull GioDBusMethodInvocationClass.C.p -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
-    val getSender_ = _import "g_dbus_method_invocation_get_sender" : GioDBusMethodInvocationClass.C.notnull GioDBusMethodInvocationClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getType_ = _import "g_dbus_method_invocation_get_type" : unit -> GObjectType.FFI.val_;
+    val getConnection_ = _import "g_dbus_method_invocation_get_connection" : GioDBusMethodInvocationClass.FFI.notnull GioDBusMethodInvocationClass.FFI.p -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;
+    val getInterfaceName_ = _import "g_dbus_method_invocation_get_interface_name" : GioDBusMethodInvocationClass.FFI.notnull GioDBusMethodInvocationClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getMessage_ = _import "g_dbus_method_invocation_get_message" : GioDBusMethodInvocationClass.FFI.notnull GioDBusMethodInvocationClass.FFI.p -> GioDBusMessageClass.FFI.notnull GioDBusMessageClass.FFI.p;
+    val getMethodInfo_ = _import "g_dbus_method_invocation_get_method_info" : GioDBusMethodInvocationClass.FFI.notnull GioDBusMethodInvocationClass.FFI.p -> GioDBusMethodInfoRecord.FFI.notnull GioDBusMethodInfoRecord.FFI.p;
+    val getMethodName_ = _import "g_dbus_method_invocation_get_method_name" : GioDBusMethodInvocationClass.FFI.notnull GioDBusMethodInvocationClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getObjectPath_ = _import "g_dbus_method_invocation_get_object_path" : GioDBusMethodInvocationClass.FFI.notnull GioDBusMethodInvocationClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getParameters_ = _import "g_dbus_method_invocation_get_parameters" : GioDBusMethodInvocationClass.FFI.notnull GioDBusMethodInvocationClass.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+    val getSender_ = _import "g_dbus_method_invocation_get_sender" : GioDBusMethodInvocationClass.FFI.notnull GioDBusMethodInvocationClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val returnDbusError_ =
       fn
         x1
@@ -22,11 +22,11 @@ structure GioDBusMethodInvocation :>
          & (x4, x5) =>
           (
             _import "mlton_g_dbus_method_invocation_return_dbus_error" :
-              GioDBusMethodInvocationClass.C.notnull GioDBusMethodInvocationClass.C.p
+              GioDBusMethodInvocationClass.FFI.notnull GioDBusMethodInvocationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -44,11 +44,11 @@ structure GioDBusMethodInvocation :>
          & (x4, x5) =>
           (
             _import "mlton_g_dbus_method_invocation_return_error_literal" :
-              GioDBusMethodInvocationClass.C.notnull GioDBusMethodInvocationClass.C.p
-               * FFI.UInt32.C.val_
-               * FFI.Int32.C.val_
+              GioDBusMethodInvocationClass.FFI.notnull GioDBusMethodInvocationClass.FFI.p
+               * GUInt32.FFI.val_
+               * GInt32.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -58,7 +58,7 @@ structure GioDBusMethodInvocation :>
               x4,
               x5
             )
-    val returnValue_ = fn x1 & x2 => (_import "g_dbus_method_invocation_return_value" : GioDBusMethodInvocationClass.C.notnull GioDBusMethodInvocationClass.C.p * unit GLibVariantRecord.C.p -> unit;) (x1, x2)
+    val returnValue_ = fn x1 & x2 => (_import "g_dbus_method_invocation_return_value" : GioDBusMethodInvocationClass.FFI.notnull GioDBusMethodInvocationClass.FFI.p * unit GLibVariantRecord.FFI.p -> unit;) (x1, x2)
     val returnValueWithUnixFdList_ =
       fn
         x1
@@ -66,9 +66,9 @@ structure GioDBusMethodInvocation :>
          & x3 =>
           (
             _import "g_dbus_method_invocation_return_value_with_unix_fd_list" :
-              GioDBusMethodInvocationClass.C.notnull GioDBusMethodInvocationClass.C.p
-               * unit GLibVariantRecord.C.p
-               * unit GioUnixFDListClass.C.p
+              GioDBusMethodInvocationClass.FFI.notnull GioDBusMethodInvocationClass.FFI.p
+               * unit GLibVariantRecord.FFI.p
+               * unit GioUnixFDListClass.FFI.p
                -> unit;
           )
             (
@@ -82,20 +82,20 @@ structure GioDBusMethodInvocation :>
     type d_bus_method_info_t = GioDBusMethodInfoRecord.t
     type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getConnection self = (GioDBusMethodInvocationClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
-    fun getInterfaceName self = (GioDBusMethodInvocationClass.C.withPtr ---> Utf8.C.fromPtr false) getInterfaceName_ self
-    fun getMessage self = (GioDBusMethodInvocationClass.C.withPtr ---> GioDBusMessageClass.C.fromPtr false) getMessage_ self
-    fun getMethodInfo self = (GioDBusMethodInvocationClass.C.withPtr ---> GioDBusMethodInfoRecord.C.fromPtr false) getMethodInfo_ self
-    fun getMethodName self = (GioDBusMethodInvocationClass.C.withPtr ---> Utf8.C.fromPtr false) getMethodName_ self
-    fun getObjectPath self = (GioDBusMethodInvocationClass.C.withPtr ---> Utf8.C.fromPtr false) getObjectPath_ self
-    fun getParameters self = (GioDBusMethodInvocationClass.C.withPtr ---> GLibVariantRecord.C.fromPtr false) getParameters_ self
-    fun getSender self = (GioDBusMethodInvocationClass.C.withPtr ---> Utf8.C.fromPtr false) getSender_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getConnection self = (GioDBusMethodInvocationClass.FFI.withPtr ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
+    fun getInterfaceName self = (GioDBusMethodInvocationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getInterfaceName_ self
+    fun getMessage self = (GioDBusMethodInvocationClass.FFI.withPtr ---> GioDBusMessageClass.FFI.fromPtr false) getMessage_ self
+    fun getMethodInfo self = (GioDBusMethodInvocationClass.FFI.withPtr ---> GioDBusMethodInfoRecord.FFI.fromPtr false) getMethodInfo_ self
+    fun getMethodName self = (GioDBusMethodInvocationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getMethodName_ self
+    fun getObjectPath self = (GioDBusMethodInvocationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
+    fun getParameters self = (GioDBusMethodInvocationClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) getParameters_ self
+    fun getSender self = (GioDBusMethodInvocationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSender_ self
     fun returnDbusError self errorName errorMessage =
       (
-        GioDBusMethodInvocationClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
+        GioDBusMethodInvocationClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         returnDbusError_
@@ -106,10 +106,10 @@ structure GioDBusMethodInvocation :>
         )
     fun returnErrorLiteral self domain code message =
       (
-        GioDBusMethodInvocationClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withPtr
+        GioDBusMethodInvocationClass.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         returnErrorLiteral_
@@ -119,12 +119,12 @@ structure GioDBusMethodInvocation :>
            & code
            & message
         )
-    fun returnValue self parameters = (GioDBusMethodInvocationClass.C.withPtr &&&> GLibVariantRecord.C.withOptPtr ---> I) returnValue_ (self & parameters)
+    fun returnValue self parameters = (GioDBusMethodInvocationClass.FFI.withPtr &&&> GLibVariantRecord.FFI.withOptPtr ---> I) returnValue_ (self & parameters)
     fun returnValueWithUnixFdList self parameters fdList =
       (
-        GioDBusMethodInvocationClass.C.withPtr
-         &&&> GLibVariantRecord.C.withOptPtr
-         &&&> GioUnixFDListClass.C.withOptPtr
+        GioDBusMethodInvocationClass.FFI.withPtr
+         &&&> GLibVariantRecord.FFI.withOptPtr
+         &&&> GioUnixFDListClass.FFI.withOptPtr
          ---> I
       )
         returnValueWithUnixFdList_

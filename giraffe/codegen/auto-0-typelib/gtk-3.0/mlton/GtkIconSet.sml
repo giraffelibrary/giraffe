@@ -4,11 +4,36 @@ structure GtkIconSet :>
     where type icon_source_t = GtkIconSourceRecord.t
     where type 'a style_context_class = 'a GtkStyleContextClass.class =
   struct
-    val getType_ = _import "gtk_icon_set_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_icon_set_new" : unit -> GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p;
-    val newFromPixbuf_ = _import "gtk_icon_set_new_from_pixbuf" : GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p -> GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p;
-    val addSource_ = fn x1 & x2 => (_import "gtk_icon_set_add_source" : GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p * GtkIconSourceRecord.C.notnull GtkIconSourceRecord.C.p -> unit;) (x1, x2)
-    val copy_ = _import "gtk_icon_set_copy" : GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p -> GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p;
+    structure GInt32CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GInt32Type
+        structure ElemSequence = CValueVectorSequence(GInt32Type)
+      )
+    structure GInt32CVectorN = CVectorN(GInt32CVectorNType)
+    val getType_ = _import "gtk_icon_set_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_icon_set_new" : unit -> GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p;
+    val newFromPixbuf_ = _import "gtk_icon_set_new_from_pixbuf" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p;
+    val addSource_ = fn x1 & x2 => (_import "gtk_icon_set_add_source" : GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p * GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p -> unit;) (x1, x2)
+    val copy_ = _import "gtk_icon_set_copy" : GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p -> GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p;
+    val getSizes_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4 =>
+          (
+            _import "mlton_gtk_icon_set_get_sizes" :
+              GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p
+               * GInt32CVectorN.MLton.r1
+               * (unit, GInt32CVectorN.FFI.notnull) GInt32CVectorN.MLton.r2
+               * GInt32.FFI.ref_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val renderIconPixbuf_ =
       fn
         x1
@@ -16,10 +41,10 @@ structure GtkIconSet :>
          & x3 =>
           (
             _import "gtk_icon_set_render_icon_pixbuf" :
-              GtkIconSetRecord.C.notnull GtkIconSetRecord.C.p
-               * GtkStyleContextClass.C.notnull GtkStyleContextClass.C.p
-               * FFI.Int32.C.val_
-               -> GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p;
+              GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p
+               * GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+               * GInt32.FFI.val_
+               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -29,17 +54,39 @@ structure GtkIconSet :>
     type t = GtkIconSetRecord.t
     type icon_source_t = GtkIconSourceRecord.t
     type 'a style_context_class = 'a GtkStyleContextClass.class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkIconSetRecord.C.fromPtr true) new_ ()
-    fun newFromPixbuf pixbuf = (GdkPixbufPixbufClass.C.withPtr ---> GtkIconSetRecord.C.fromPtr true) newFromPixbuf_ pixbuf
-    fun addSource self source = (GtkIconSetRecord.C.withPtr &&&> GtkIconSourceRecord.C.withPtr ---> I) addSource_ (self & source)
-    fun copy self = (GtkIconSetRecord.C.withPtr ---> GtkIconSetRecord.C.fromPtr true) copy_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkIconSetRecord.FFI.fromPtr true) new_ ()
+    fun newFromPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withPtr ---> GtkIconSetRecord.FFI.fromPtr true) newFromPixbuf_ pixbuf
+    fun addSource self source = (GtkIconSetRecord.FFI.withPtr &&&> GtkIconSourceRecord.FFI.withPtr ---> I) addSource_ (self & source)
+    fun copy self = (GtkIconSetRecord.FFI.withPtr ---> GtkIconSetRecord.FFI.fromPtr true) copy_ self
+    fun getSizes self =
+      let
+        val sizes
+         & nSizes
+         & () =
+          (
+            GtkIconSetRecord.FFI.withPtr
+             &&&> GInt32CVectorN.FFI.withRefOptPtr
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32CVectorN.FFI.fromPtr 1
+                   && GInt32.FFI.fromVal
+                   && I
+          )
+            getSizes_
+            (
+              self
+               & NONE
+               & GInt32.null
+            )
+      in
+        sizes (LargeInt.toInt nSizes)
+      end
     fun renderIconPixbuf self context size =
       (
-        GtkIconSetRecord.C.withPtr
-         &&&> GtkStyleContextClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         ---> GdkPixbufPixbufClass.C.fromPtr true
+        GtkIconSetRecord.FFI.withPtr
+         &&&> GtkStyleContextClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         ---> GdkPixbufPixbufClass.FFI.fromPtr true
       )
         renderIconPixbuf_
         (

@@ -2,6 +2,12 @@ structure GtkBuilder :>
   GTK_BUILDER
     where type 'a class = 'a GtkBuilderClass.class =
   struct
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -13,16 +19,35 @@ structure GtkBuilder :>
             GtkBuilderClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.UInt32.PolyML.cVal
+             --> GUInt32.PolyML.cVal
           )
       val addFromString_ =
         call (load_sym libgtk "gtk_builder_add_from_string")
           (
             GtkBuilderClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.UInt64.PolyML.cVal
+             &&> GUInt64.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.UInt32.PolyML.cVal
+             --> GUInt32.PolyML.cVal
+          )
+      val addObjectsFromFile_ =
+        call (load_sym libgtk "gtk_builder_add_objects_from_file")
+          (
+            GtkBuilderClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8CVector.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GUInt32.PolyML.cVal
+          )
+      val addObjectsFromString_ =
+        call (load_sym libgtk "gtk_builder_add_objects_from_string")
+          (
+            GtkBuilderClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GUInt64.PolyML.cVal
+             &&> Utf8CVector.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GUInt32.PolyML.cVal
           )
       val getObject_ = call (load_sym libgtk "gtk_builder_get_object") (GtkBuilderClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
       val getTranslationDomain_ = call (load_sym libgtk "gtk_builder_get_translation_domain") (GtkBuilderClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
@@ -35,19 +60,19 @@ structure GtkBuilder :>
              &&> Utf8.PolyML.cInPtr
              &&> GObjectValueRecord.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
     end
     type 'a class = 'a GtkBuilderClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkBuilderClass.C.fromPtr true) new_ ()
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkBuilderClass.FFI.fromPtr true) new_ ()
     fun addFromFile self filename =
       (
-        GtkBuilderClass.C.withPtr
-         &&&> Utf8.C.withPtr
+        GtkBuilderClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.UInt32.C.fromVal
+         ---> GUInt32.FFI.fromVal
       )
         addFromFile_
         (
@@ -57,11 +82,11 @@ structure GtkBuilder :>
         )
     fun addFromString self buffer length =
       (
-        GtkBuilderClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.UInt64.C.withVal
+        GtkBuilderClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt64.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> FFI.UInt32.C.fromVal
+         ---> GUInt32.FFI.fromVal
       )
         addFromString_
         (
@@ -70,19 +95,51 @@ structure GtkBuilder :>
            & length
            & []
         )
-    fun getObject self name = (GtkBuilderClass.C.withPtr &&&> Utf8.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getObject_ (self & name)
-    fun getTranslationDomain self = (GtkBuilderClass.C.withPtr ---> Utf8.C.fromPtr false) getTranslationDomain_ self
-    fun setTranslationDomain self domain = (GtkBuilderClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTranslationDomain_ (self & domain)
+    fun addObjectsFromFile self filename objectIds =
+      (
+        GtkBuilderClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8CVector.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> GUInt32.FFI.fromVal
+      )
+        addObjectsFromFile_
+        (
+          self
+           & filename
+           & objectIds
+           & []
+        )
+    fun addObjectsFromString self buffer length objectIds =
+      (
+        GtkBuilderClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt64.FFI.withVal
+         &&&> Utf8CVector.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> GUInt32.FFI.fromVal
+      )
+        addObjectsFromString_
+        (
+          self
+           & buffer
+           & length
+           & objectIds
+           & []
+        )
+    fun getObject self name = (GtkBuilderClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getObject_ (self & name)
+    fun getTranslationDomain self = (GtkBuilderClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTranslationDomain_ self
+    fun setTranslationDomain self domain = (GtkBuilderClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTranslationDomain_ (self & domain)
     fun valueFromString self pspec string =
       let
         val value & retVal =
           (
-            GtkBuilderClass.C.withPtr
-             &&&> GObjectParamSpecClass.C.withPtr
-             &&&> Utf8.C.withPtr
-             &&&> GObjectValueRecord.C.withNewPtr
+            GtkBuilderClass.FFI.withPtr
+             &&&> GObjectParamSpecClass.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GObjectValueRecord.FFI.withNewPtr
              &&&> GLibErrorRecord.handleError
-             ---> GObjectValueRecord.C.fromPtr true && FFI.Bool.C.fromVal
+             ---> GObjectValueRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
             valueFromString_
             (

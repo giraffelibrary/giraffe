@@ -18,14 +18,14 @@ structure GtkMenuBar :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type pack_direction_t = GtkPackDirection.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkMenuBarClass.C.fromPtr false) new_ ()
-    fun getChildPackDirection self = (GtkMenuBarClass.C.withPtr ---> GtkPackDirection.C.fromVal) getChildPackDirection_ self
-    fun getPackDirection self = (GtkMenuBarClass.C.withPtr ---> GtkPackDirection.C.fromVal) getPackDirection_ self
-    fun setChildPackDirection self childPackDir = (GtkMenuBarClass.C.withPtr &&&> GtkPackDirection.C.withVal ---> I) setChildPackDirection_ (self & childPackDir)
-    fun setPackDirection self packDir = (GtkMenuBarClass.C.withPtr &&&> GtkPackDirection.C.withVal ---> I) setPackDirection_ (self & packDir)
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkMenuBarClass.FFI.fromPtr false) new_ ()
+    fun getChildPackDirection self = (GtkMenuBarClass.FFI.withPtr ---> GtkPackDirection.FFI.fromVal) getChildPackDirection_ self
+    fun getPackDirection self = (GtkMenuBarClass.FFI.withPtr ---> GtkPackDirection.FFI.fromVal) getPackDirection_ self
+    fun setChildPackDirection self childPackDir = (GtkMenuBarClass.FFI.withPtr &&&> GtkPackDirection.FFI.withVal ---> I) setChildPackDirection_ (self & childPackDir)
+    fun setPackDirection self packDir = (GtkMenuBarClass.FFI.withPtr &&&> GtkPackDirection.FFI.withVal ---> I) setPackDirection_ (self & packDir)
     local
       open Property
     in

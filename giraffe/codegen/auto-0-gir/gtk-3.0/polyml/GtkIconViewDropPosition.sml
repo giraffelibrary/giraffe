@@ -1,35 +1,26 @@
-structure GtkIconViewDropPosition :>
-  sig
-    include GTK_ICON_VIEW_DROP_POSITION
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkIconViewDropPosition :> GTK_ICON_VIEW_DROP_POSITION =
   struct
-    datatype t =
+    datatype enum =
       NO_DROP
     | DROP_INTO
     | DROP_LEFT
     | DROP_RIGHT
     | DROP_ABOVE
     | DROP_BELOW
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NO_DROP
+        val toInt =
           fn
-            NO_DROP => f 0
-          | DROP_INTO => f 1
-          | DROP_LEFT => f 2
-          | DROP_RIGHT => f 3
-          | DROP_ABOVE => f 4
-          | DROP_BELOW => f 5
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NO_DROP => 0
+          | DROP_INTO => 1
+          | DROP_LEFT => 2
+          | DROP_RIGHT => 3
+          | DROP_ABOVE => 4
+          | DROP_BELOW => 5
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => NO_DROP
           | 1 => DROP_INTO
@@ -38,12 +29,8 @@ structure GtkIconViewDropPosition :>
           | 4 => DROP_ABOVE
           | 5 => DROP_BELOW
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -54,10 +41,9 @@ structure GtkIconViewDropPosition :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = NO_DROP
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

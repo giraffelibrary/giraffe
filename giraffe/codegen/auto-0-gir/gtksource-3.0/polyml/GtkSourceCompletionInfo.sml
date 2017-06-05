@@ -20,16 +20,16 @@ structure GtkSourceCompletionInfo :>
     end
     type 'a class = 'a GtkSourceCompletionInfoClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkSourceCompletionInfoClass.C.fromPtr false) new_ ()
-    fun getWidget self = (GtkSourceCompletionInfoClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkSourceCompletionInfoClass.FFI.fromPtr false) new_ ()
+    fun getWidget self = (GtkSourceCompletionInfoClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self
     fun moveToIter self view iter =
       (
-        GtkSourceCompletionInfoClass.C.withPtr
-         &&&> GtkTextViewClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withOptPtr
+        GtkSourceCompletionInfoClass.FFI.withPtr
+         &&&> GtkTextViewClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withOptPtr
          ---> I
       )
         moveToIter_
@@ -38,7 +38,7 @@ structure GtkSourceCompletionInfo :>
            & view
            & iter
         )
-    fun setWidget self widget = (GtkSourceCompletionInfoClass.C.withPtr &&&> GtkWidgetClass.C.withOptPtr ---> I) setWidget_ (self & widget)
+    fun setWidget self widget = (GtkSourceCompletionInfoClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setWidget_ (self & widget)
     local
       open ClosureMarshal Signal
     in

@@ -1,1 +1,1 @@
-structure GLibDateDay = FFI.UInt8
+structure GLibDateDay = GUInt8

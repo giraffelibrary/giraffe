@@ -4,16 +4,16 @@ structure GioTlsCertificate :>
     where type tls_certificate_flags_t = GioTlsCertificateFlags.t
     where type 'a socket_connectable_class = 'a GioSocketConnectableClass.class =
   struct
-    val getType_ = _import "g_tls_certificate_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "g_tls_certificate_get_type" : unit -> GObjectType.FFI.val_;
     val newFromFile_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_tls_certificate_new_from_file" :
               Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
           )
             (
               x1,
@@ -28,11 +28,11 @@ structure GioTlsCertificate :>
           (
             _import "mlton_g_tls_certificate_new_from_files" :
               Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
           )
             (
               x1,
@@ -49,10 +49,10 @@ structure GioTlsCertificate :>
           (
             _import "mlton_g_tls_certificate_new_from_pem" :
               Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int64.C.val_
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt64.FFI.val_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
           )
             (
               x1,
@@ -60,7 +60,7 @@ structure GioTlsCertificate :>
               x3,
               x4
             )
-    val getIssuer_ = _import "g_tls_certificate_get_issuer" : GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p -> GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p;
+    val getIssuer_ = _import "g_tls_certificate_get_issuer" : GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
     val verify_ =
       fn
         x1
@@ -68,10 +68,10 @@ structure GioTlsCertificate :>
          & x3 =>
           (
             _import "g_tls_certificate_verify" :
-              GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p
-               * unit GioSocketConnectableClass.C.p
-               * unit GioTlsCertificateClass.C.p
-               -> GioTlsCertificateFlags.C.val_;
+              GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p
+               * unit GioSocketConnectableClass.FFI.p
+               * unit GioTlsCertificateClass.FFI.p
+               -> GioTlsCertificateFlags.FFI.val_;
           )
             (
               x1,
@@ -82,14 +82,14 @@ structure GioTlsCertificate :>
     type tls_certificate_flags_t = GioTlsCertificateFlags.t
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFromFile file = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsCertificateClass.C.fromPtr true) newFromFile_ (file & [])
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun newFromFile file = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsCertificateClass.FFI.fromPtr true) newFromFile_ (file & [])
     fun newFromFiles certFile keyFile =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioTlsCertificateClass.C.fromPtr true
+         ---> GioTlsCertificateClass.FFI.fromPtr true
       )
         newFromFiles_
         (
@@ -99,10 +99,10 @@ structure GioTlsCertificate :>
         )
     fun newFromPem data length =
       (
-        Utf8.C.withPtr
-         &&&> FFI.Int64.C.withVal
+        Utf8.FFI.withPtr
+         &&&> GInt64.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GioTlsCertificateClass.C.fromPtr true
+         ---> GioTlsCertificateClass.FFI.fromPtr true
       )
         newFromPem_
         (
@@ -110,13 +110,13 @@ structure GioTlsCertificate :>
            & length
            & []
         )
-    fun getIssuer self = (GioTlsCertificateClass.C.withPtr ---> GioTlsCertificateClass.C.fromPtr false) getIssuer_ self
+    fun getIssuer self = (GioTlsCertificateClass.FFI.withPtr ---> GioTlsCertificateClass.FFI.fromPtr false) getIssuer_ self
     fun verify self identity trustedCa =
       (
-        GioTlsCertificateClass.C.withPtr
-         &&&> GioSocketConnectableClass.C.withOptPtr
-         &&&> GioTlsCertificateClass.C.withOptPtr
-         ---> GioTlsCertificateFlags.C.fromVal
+        GioTlsCertificateClass.FFI.withPtr
+         &&&> GioSocketConnectableClass.FFI.withOptPtr
+         &&&> GioTlsCertificateClass.FFI.withOptPtr
+         ---> GioTlsCertificateFlags.FFI.fromVal
       )
         verify_
         (

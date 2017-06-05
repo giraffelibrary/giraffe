@@ -1,43 +1,30 @@
-structure GtkToolbarStyle :>
-  sig
-    include GTK_TOOLBAR_STYLE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkToolbarStyle :> GTK_TOOLBAR_STYLE =
   struct
-    datatype t =
+    datatype enum =
       ICONS
     | TEXT
     | BOTH
     | BOTH_HORIZ
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = ICONS
+        val toInt =
           fn
-            ICONS => f 0
-          | TEXT => f 1
-          | BOTH => f 2
-          | BOTH_HORIZ => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            ICONS => 0
+          | TEXT => 1
+          | BOTH => 2
+          | BOTH_HORIZ => 3
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => ICONS
           | 1 => TEXT
           | 2 => BOTH
           | 3 => BOTH_HORIZ
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -48,10 +35,9 @@ structure GtkToolbarStyle :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = ICONS
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

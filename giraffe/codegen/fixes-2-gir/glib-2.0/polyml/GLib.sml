@@ -1,23 +1,46 @@
 structure GLib : G_LIB =
   struct
+    structure Utf8CVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
+    structure GUInt8CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GUInt8Type
+        structure ElemSequence = MonoVectorSequence(Word8Vector)
+      )
+    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
+      val base64Decode_ = call (load_sym libglib "g_base64_decode") (Utf8.PolyML.cInPtr &&> GSize.PolyML.cRef --> GUInt8CVectorN.PolyML.cOutPtr)
+      val base64Encode_ = call (load_sym libglib "g_base64_encode") (GUInt8CVectorN.PolyML.cInPtr &&> GSize.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val buildFilenamev_ = call (load_sym libglib "g_build_filenamev") (Utf8CVector.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val buildPathv_ = call (load_sym libglib "g_build_pathv") (Utf8.PolyML.cInPtr &&> Utf8CVector.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val chdir_ = call (load_sym libglib "g_chdir") (Utf8.PolyML.cInPtr --> GInt.PolyML.cVal)
       val checkVersion_ =
         call (load_sym libglib "glib_check_version")
           (
-            FFI.UInt.PolyML.cVal
-             &&> FFI.UInt.PolyML.cVal
-             &&> FFI.UInt.PolyML.cVal
+            GUInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
       val childWatchAdd_ =
         call (load_sym libgiraffeglib "giraffe_g_child_watch_add")
           (
-            FFI.Int.PolyML.cVal
+            GInt.PolyML.cVal
              &&> GLibPid.PolyML.cVal
              &&> GLibChildWatchFunc.PolyML.CALLBACK
-             --> FFI.UInt.PolyML.cVal
+             --> GUInt.PolyML.cVal
           )
       val childWatchSourceNew_ = call (load_sym libgiraffeglib "giraffe_g_child_watch_source_new") (GLibPid.PolyML.cVal &&> GLibChildWatchFunc.PolyML.CALLBACK --> GLibSourceRecord.PolyML.cPtr)
       val filenameFromUri_ =
@@ -36,16 +59,38 @@ structure GLib : G_LIB =
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
-      val idleAdd_ = call (load_sym libgiraffeglib "giraffe_g_idle_add") (FFI.Int.PolyML.cVal &&> GLibSourceFunc.PolyML.CALLBACK --> FFI.UInt.PolyML.cVal)
+      val getApplicationName_ = call (load_sym libglib "g_get_application_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getCurrentDir_ = call (load_sym libglib "g_get_current_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getCurrentTime_ = call (load_sym libglib "g_get_current_time") (GLibTimeValRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getEnviron_ = call (load_sym libglib "g_get_environ") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val getHomeDir_ = call (load_sym libglib "g_get_home_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getHostName_ = call (load_sym libglib "g_get_host_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getLanguageNames_ = call (load_sym libglib "g_get_language_names") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val getLocaleVariants_ = call (load_sym libglib "g_get_locale_variants") (Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getMonotonicTime_ = call (load_sym libglib "g_get_monotonic_time") (PolyMLFFI.cVoid --> GInt64.PolyML.cVal)
+      val getPrgname_ = call (load_sym libglib "g_get_prgname") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getRealName_ = call (load_sym libglib "g_get_real_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getRealTime_ = call (load_sym libglib "g_get_real_time") (PolyMLFFI.cVoid --> GInt64.PolyML.cVal)
+      val getSystemConfigDirs_ = call (load_sym libglib "g_get_system_config_dirs") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val getSystemDataDirs_ = call (load_sym libglib "g_get_system_data_dirs") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val getTmpDir_ = call (load_sym libglib "g_get_tmp_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getUserCacheDir_ = call (load_sym libglib "g_get_user_cache_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getUserConfigDir_ = call (load_sym libglib "g_get_user_config_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getUserDataDir_ = call (load_sym libglib "g_get_user_data_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getUserName_ = call (load_sym libglib "g_get_user_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getUserRuntimeDir_ = call (load_sym libglib "g_get_user_runtime_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getUserSpecialDir_ = call (load_sym libglib "g_get_user_special_dir") (GLibUserDirectory.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getenv_ = call (load_sym libglib "g_getenv") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val idleAdd_ = call (load_sym libgiraffeglib "giraffe_g_idle_add") (GInt.PolyML.cVal &&> GLibSourceFunc.PolyML.CALLBACK --> GUInt.PolyML.cVal)
       val ioAddWatch_ =
         call
           (load_sym libgiraffeglib "giraffe_g_io_add_watch")
           (
             GLibIOChannelRecord.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> GLibIOCondition.PolyML.cVal
              &&> GLibIOFunc.PolyML.CALLBACK
-             --> FFI.UInt.PolyML.cVal
+             --> GUInt.PolyML.cVal
           )
       val ioCreateWatch_ = call (load_sym libglib "g_io_create_watch") (GLibIOChannelRecord.PolyML.cPtr &&> GLibIOCondition.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
       val logDefaultHandler_ =
@@ -56,13 +101,13 @@ structure GLib : G_LIB =
              &&> Utf8.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
-      val logRemoveHandler_ = call (load_sym libglib "g_log_remove_handler") (Utf8.PolyML.cInPtr &&> FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val logRemoveHandler_ = call (load_sym libglib "g_log_remove_handler") (Utf8.PolyML.cInPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val logSetAlwaysFatal_ = call (load_sym libglib "g_log_set_always_fatal") (GLibLogLevelFlags.PolyML.cVal --> GLibLogLevelFlags.PolyML.cVal)
       val logSetFatalMask_ = call (load_sym libglib "g_log_set_fatal_mask") (Utf8.PolyML.cInPtr &&> GLibLogLevelFlags.PolyML.cVal --> GLibLogLevelFlags.PolyML.cVal)
       val mainContextDefault_ = call (load_sym libglib "g_main_context_default") (PolyMLFFI.cVoid --> GLibMainContextRecord.PolyML.cPtr)
       val mainContextGetThreadDefault_ = call (load_sym libglib "g_main_context_get_thread_default") (PolyMLFFI.cVoid --> GLibMainContextRecord.PolyML.cPtr)
       val mainCurrentSource_ = call (load_sym libglib "g_main_current_source") (PolyMLFFI.cVoid --> GLibSourceRecord.PolyML.cPtr)
-      val mainDepth_ = call (load_sym libglib "g_main_depth") (PolyMLFFI.cVoid --> FFI.Int.PolyML.cVal)
+      val mainDepth_ = call (load_sym libglib "g_main_depth") (PolyMLFFI.cVoid --> GInt.PolyML.cVal)
       val regexMatchSimple_ =
         call (load_sym libglib "g_regex_match_simple")
           (
@@ -70,21 +115,20 @@ structure GLib : G_LIB =
              &&> Utf8.PolyML.cInPtr
              &&> GLibRegexCompileFlags.PolyML.cVal
              &&> GLibRegexMatchFlags.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val shellParseArgv_ =
-        call
-          (load_sym libglib "g_shell_parse_argv")
+        call (load_sym libglib "g_shell_parse_argv")
           (
             Utf8.PolyML.cInPtr
-             &&> FFI.OptPointer.PolyML.cVal
-             &&> Utf8CVector.PolyML.cOutRef
+             &&> GInt.PolyML.cRef
+             &&> Utf8CVectorN.PolyML.cOutRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val shellQuote_ = call (load_sym libglib "g_shell_quote") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val shellUnquote_ = call (load_sym libglib "g_shell_unquote") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> Utf8.PolyML.cOutPtr)
-      val sourceRemove_ = call (load_sym libglib "g_source_remove") (FFI.UInt.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val sourceRemove_ = call (load_sym libglib "g_source_remove") (GUInt.PolyML.cVal --> GBool.PolyML.cVal)
       val spawnAsyncWithPipes_ =
         call
           (load_sym libgiraffeglib "giraffe_g_spawn_async_with_pipes")
@@ -99,34 +143,34 @@ structure GLib : G_LIB =
              &&> FileDesc.PolyML.cRef
              &&> FileDesc.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val spawnClosePid_ = call (load_sym libglib "g_spawn_close_pid") (GLibPid.PolyML.cVal --> PolyMLFFI.cVoid)
-      val spawnCommandLineAsync_ = call (load_sym libglib "g_spawn_command_line_async") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
+      val spawnCommandLineAsync_ = call (load_sym libglib "g_spawn_command_line_async") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val timeoutAdd_ =
         call
           (load_sym libgiraffeglib "giraffe_g_timeout_add")
           (
-            FFI.Int.PolyML.cVal
-             &&> FFI.UInt.PolyML.cVal
+            GInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              &&> GLibSourceFunc.PolyML.CALLBACK
-             --> FFI.UInt.PolyML.cVal
+             --> GUInt.PolyML.cVal
           )
       val timeoutAddSeconds_ =
         call
           (load_sym libgiraffeglib "giraffe_g_timeout_add_seconds")
           (
-            FFI.Int.PolyML.cVal
-             &&> FFI.UInt.PolyML.cVal
+            GInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              &&> GLibSourceFunc.PolyML.CALLBACK
-             --> FFI.UInt.PolyML.cVal
+             --> GUInt.PolyML.cVal
           )
       val uriEscapeString_ =
         call (load_sym libglib "g_uri_escape_string")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
       val uriParseScheme_ = call (load_sym libglib "g_uri_parse_scheme") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
@@ -165,6 +209,7 @@ structure GLib : G_LIB =
     structure SourceRecord = GLibSourceRecord
     structure SpawnFlags = GLibSpawnFlags
     structure TimeValRecord = GLibTimeValRecord
+    structure UserDirectory = GLibUserDirectory
     structure ChildWatchFunc = GLibChildWatchFunc
     structure IOFunc = GLibIOFunc
     structure ErrorRecord = GLibErrorRecord
@@ -220,12 +265,28 @@ structure GLib : G_LIB =
     val PRIORITY_LOW = 300
     val URI_RESERVED_CHARS_GENERIC_DELIMITERS = ":/?#[]@"
     val URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS = "!$&'()*+,;="
+    fun base64Decode text =
+      let
+        val outLen & retVal = (Utf8.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 1) base64Decode_ (text & GSize.null)
+      in
+        retVal (LargeInt.toInt outLen)
+      end
+    fun base64Encode data =
+      let
+        val len = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val retVal = (GUInt8CVectorN.FFI.withPtr &&&> GSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) base64Encode_ (data & len)
+      in
+        retVal
+      end
+    fun buildFilenamev args = (Utf8CVector.FFI.withPtr ---> Utf8.FFI.fromPtr 1) buildFilenamev_ args
+    fun buildPathv separator args = (Utf8.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> Utf8.FFI.fromPtr 1) buildPathv_ (separator & args)
+    fun chdir path = (Utf8.FFI.withPtr ---> GInt.FFI.fromVal) chdir_ path
     fun checkVersion requiredMajor requiredMinor requiredMicro =
       (
-        FFI.UInt.C.withVal
-         &&&> FFI.UInt.C.withVal
-         &&&> FFI.UInt.C.withVal
-         ---> Utf8.C.fromPtr false
+        GUInt.FFI.withVal
+         &&&> GUInt.FFI.withVal
+         &&&> GUInt.FFI.withVal
+         ---> Utf8.FFI.fromPtr 0
       )
         checkVersion_
         (
@@ -235,10 +296,10 @@ structure GLib : G_LIB =
         )
     fun childWatchAdd priority pid function =
       (
-        FFI.Int.C.withVal
-         &&&> GLibPid.C.withVal
-         &&&> GLibChildWatchFunc.C.withCallback
-         ---> FFI.UInt.C.fromVal
+        GInt.FFI.withVal
+         &&&> GLibPid.FFI.withVal
+         &&&> GLibChildWatchFunc.FFI.withCallback
+         ---> GUInt.FFI.fromVal
       )
         childWatchAdd_
         (
@@ -246,13 +307,13 @@ structure GLib : G_LIB =
            & pid
            & function
         )
-    fun childWatchSourceNew pid function = (GLibPid.C.withVal &&&> GLibChildWatchFunc.C.withCallback ---> GLibSourceRecord.C.fromPtr true) childWatchSourceNew_ (pid & function)
+    fun childWatchSourceNew pid function = (GLibPid.FFI.withVal &&&> GLibChildWatchFunc.FFI.withCallback ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ (pid & function)
     fun filenameFromUri uri hostname =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8.C.fromPtr true
+         ---> Utf8.FFI.fromPtr 1
       )
         filenameFromUri_
         (
@@ -262,10 +323,10 @@ structure GLib : G_LIB =
         )
     fun filenameToUri filename hostname =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withOptPtr
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8.C.fromPtr true
+         ---> Utf8.FFI.fromPtr 1
       )
         filenameToUri_
         (
@@ -273,14 +334,36 @@ structure GLib : G_LIB =
            & hostname
            & []
         )
-    fun idleAdd priority function = (FFI.Int.C.withVal &&&> GLibSourceFunc.C.withCallback ---> FFI.UInt.C.fromVal) idleAdd_ (priority & function)
+    fun getApplicationName () = (I ---> Utf8.FFI.fromPtr 0) getApplicationName_ ()
+    fun getCurrentDir () = (I ---> Utf8.FFI.fromPtr 1) getCurrentDir_ ()
+    fun getCurrentTime result = (GLibTimeValRecord.FFI.withPtr ---> I) getCurrentTime_ result
+    fun getEnviron () = (I ---> Utf8CVector.FFI.fromPtr 2) getEnviron_ ()
+    fun getHomeDir () = (I ---> Utf8.FFI.fromPtr 0) getHomeDir_ ()
+    fun getHostName () = (I ---> Utf8.FFI.fromPtr 0) getHostName_ ()
+    fun getLanguageNames () = (I ---> Utf8CVector.FFI.fromPtr 0) getLanguageNames_ ()
+    fun getLocaleVariants locale = (Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getLocaleVariants_ locale
+    fun getMonotonicTime () = (I ---> GInt64.FFI.fromVal) getMonotonicTime_ ()
+    fun getPrgname () = (I ---> Utf8.FFI.fromPtr 1) getPrgname_ ()
+    fun getRealName () = (I ---> Utf8.FFI.fromPtr 0) getRealName_ ()
+    fun getRealTime () = (I ---> GInt64.FFI.fromVal) getRealTime_ ()
+    fun getSystemConfigDirs () = (I ---> Utf8CVector.FFI.fromPtr 0) getSystemConfigDirs_ ()
+    fun getSystemDataDirs () = (I ---> Utf8CVector.FFI.fromPtr 0) getSystemDataDirs_ ()
+    fun getTmpDir () = (I ---> Utf8.FFI.fromPtr 0) getTmpDir_ ()
+    fun getUserCacheDir () = (I ---> Utf8.FFI.fromPtr 0) getUserCacheDir_ ()
+    fun getUserConfigDir () = (I ---> Utf8.FFI.fromPtr 0) getUserConfigDir_ ()
+    fun getUserDataDir () = (I ---> Utf8.FFI.fromPtr 0) getUserDataDir_ ()
+    fun getUserName () = (I ---> Utf8.FFI.fromPtr 0) getUserName_ ()
+    fun getUserRuntimeDir () = (I ---> Utf8.FFI.fromPtr 0) getUserRuntimeDir_ ()
+    fun getUserSpecialDir directory = (GLibUserDirectory.FFI.withVal ---> Utf8.FFI.fromPtr 0) getUserSpecialDir_ directory
+    fun getenv variable = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getenv_ variable
+    fun idleAdd priority function = (GInt.FFI.withVal &&&> GLibSourceFunc.FFI.withCallback ---> GUInt.FFI.fromVal) idleAdd_ (priority & function)
     fun ioAddWatch channel priority condition func =
       (
-        GLibIOChannelRecord.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> GLibIOCondition.C.withVal
-         &&&> GLibIOFunc.C.withCallback
-         ---> FFI.UInt.C.fromVal
+        GLibIOChannelRecord.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GLibIOCondition.FFI.withVal
+         &&&> GLibIOFunc.FFI.withCallback
+         ---> GUInt.FFI.fromVal
       )
         ioAddWatch_
         (
@@ -289,12 +372,12 @@ structure GLib : G_LIB =
            & condition
            & func
         )
-    fun ioCreateWatch channel condition = (GLibIOChannelRecord.C.withPtr &&&> GLibIOCondition.C.withVal ---> GLibSourceRecord.C.fromPtr true) ioCreateWatch_ (channel & condition)
+    fun ioCreateWatch channel condition = (GLibIOChannelRecord.FFI.withPtr &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) ioCreateWatch_ (channel & condition)
     fun logDefaultHandler logDomain logLevel message =
       (
-        Utf8.C.withPtr
-         &&&> GLibLogLevelFlags.C.withVal
-         &&&> Utf8.C.withPtr
+        Utf8.FFI.withPtr
+         &&&> GLibLogLevelFlags.FFI.withVal
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         logDefaultHandler_
@@ -303,20 +386,20 @@ structure GLib : G_LIB =
            & logLevel
            & message
         )
-    fun logRemoveHandler logDomain handlerId = (Utf8.C.withPtr &&&> FFI.UInt.C.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
-    fun logSetAlwaysFatal fatalMask = (GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetAlwaysFatal_ fatalMask
-    fun logSetFatalMask logDomain fatalMask = (Utf8.C.withPtr &&&> GLibLogLevelFlags.C.withVal ---> GLibLogLevelFlags.C.fromVal) logSetFatalMask_ (logDomain & fatalMask)
-    fun mainContextDefault () = (I ---> GLibMainContextRecord.C.fromPtr false) mainContextDefault_ ()
-    fun mainContextGetThreadDefault () = (I ---> GLibMainContextRecord.C.fromPtr false) mainContextGetThreadDefault_ ()
-    fun mainCurrentSource () = (I ---> GLibSourceRecord.C.fromPtr false) mainCurrentSource_ ()
-    fun mainDepth () = (I ---> FFI.Int.C.fromVal) mainDepth_ ()
+    fun logRemoveHandler logDomain handlerId = (Utf8.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
+    fun logSetAlwaysFatal fatalMask = (GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetAlwaysFatal_ fatalMask
+    fun logSetFatalMask logDomain fatalMask = (Utf8.FFI.withPtr &&&> GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetFatalMask_ (logDomain & fatalMask)
+    fun mainContextDefault () = (I ---> GLibMainContextRecord.FFI.fromPtr false) mainContextDefault_ ()
+    fun mainContextGetThreadDefault () = (I ---> GLibMainContextRecord.FFI.fromPtr false) mainContextGetThreadDefault_ ()
+    fun mainCurrentSource () = (I ---> GLibSourceRecord.FFI.fromPtr false) mainCurrentSource_ ()
+    fun mainDepth () = (I ---> GInt.FFI.fromVal) mainDepth_ ()
     fun regexMatchSimple pattern string compileOptions matchOptions =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GLibRegexCompileFlags.C.withVal
-         &&&> GLibRegexMatchFlags.C.withVal
-         ---> FFI.Bool.C.fromVal
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibRegexCompileFlags.FFI.withVal
+         &&&> GLibRegexMatchFlags.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         regexMatchSimple_
         (
@@ -327,27 +410,31 @@ structure GLib : G_LIB =
         )
     fun shellParseArgv commandLine =
       let
-        val argvp & _ =
+        val argcp
+         & argvp
+         & _ =
           (
-            Utf8.C.withPtr
-             &&&> FFI.OptPointer.C.withVal
-             &&&> Utf8CVector.C.withRefOptPtr
+            Utf8.FFI.withPtr
+             &&&> GInt.FFI.withRefVal
+             &&&> Utf8CVectorN.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> Utf8CVector.C.fromPtr true && I
+             ---> GInt.FFI.fromVal
+                   && Utf8CVectorN.FFI.fromPtr 2
+                   && GBool.FFI.fromVal
           )
             shellParseArgv_
             (
               commandLine
-               & FFI.OptPointer.null
+               & GInt.null
                & NONE
                & [GLibShellError.handler]
             )
       in
-        argvp
+        argvp (LargeInt.toInt argcp)
       end
-    fun shellQuote unquotedString = (Utf8.C.withPtr ---> Utf8.C.fromPtr true) shellQuote_ unquotedString
-    fun shellUnquote quotedString = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.C.fromPtr true) shellUnquote_ (quotedString & [])
-    fun sourceRemove tag = (FFI.UInt.C.withVal ---> FFI.Bool.C.fromVal) sourceRemove_ tag
+    fun shellQuote unquotedString = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) shellQuote_ unquotedString
+    fun shellUnquote quotedString = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) shellUnquote_ (quotedString & [])
+    fun sourceRemove tag = (GUInt.FFI.withVal ---> GBool.FFI.fromVal) sourceRemove_ tag
     fun spawnAsyncWithPipes workingDirectory argv envp flags childSetup =
       let
         val
@@ -357,20 +444,20 @@ structure GLib : G_LIB =
            & standardError
            & _ =
           (
-            Utf8.C.withOptPtr
-             &&&> Utf8CVector.C.withPtr
-             &&&> Utf8CVector.C.withOptPtr
-             &&&> GLibSpawnFlags.C.withVal
-             &&&> GLibSpawnChildSetupFunc.C.withOptCallback
-             &&&> GLibPid.C.withRefVal
-             &&&> FileDesc.C.withRefVal
-             &&&> FileDesc.C.withRefVal
-             &&&> FileDesc.C.withRefVal
+            Utf8.FFI.withOptPtr
+             &&&> Utf8CVector.FFI.withPtr
+             &&&> Utf8CVector.FFI.withOptPtr
+             &&&> GLibSpawnFlags.FFI.withVal
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback
+             &&&> GLibPid.FFI.withRefVal
+             &&&> FileDesc.FFI.withRefVal
+             &&&> FileDesc.FFI.withRefVal
+             &&&> FileDesc.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GLibPid.C.fromVal
-                   && FileDesc.C.fromVal
-                   && FileDesc.C.fromVal
-                   && FileDesc.C.fromVal
+             ---> GLibPid.FFI.fromVal
+                   && FileDesc.FFI.fromVal
+                   && FileDesc.FFI.fromVal
+                   && FileDesc.FFI.fromVal
                    && I
           )
             spawnAsyncWithPipes_
@@ -389,14 +476,14 @@ structure GLib : G_LIB =
       in
         (childPid, standardInput, standardOutput, standardError)
       end
-    fun spawnClosePid pid = (GLibPid.C.withVal ---> I) spawnClosePid_ pid
-    fun spawnCommandLineAsync commandLine = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) spawnCommandLineAsync_ (commandLine & [])
+    fun spawnClosePid pid = (GLibPid.FFI.withVal ---> I) spawnClosePid_ pid
+    fun spawnCommandLineAsync commandLine = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) spawnCommandLineAsync_ (commandLine & [])
     fun timeoutAdd priority interval function =
       (
-        FFI.Int.C.withVal
-         &&&> FFI.UInt.C.withVal
-         &&&> GLibSourceFunc.C.withCallback
-         ---> FFI.UInt.C.fromVal
+        GInt.FFI.withVal
+         &&&> GUInt.FFI.withVal
+         &&&> GLibSourceFunc.FFI.withCallback
+         ---> GUInt.FFI.fromVal
       )
         timeoutAdd_
         (
@@ -406,10 +493,10 @@ structure GLib : G_LIB =
         )
     fun timeoutAddSeconds priority interval function =
       (
-        FFI.Int.C.withVal
-         &&&> FFI.UInt.C.withVal
-         &&&> GLibSourceFunc.C.withCallback
-         ---> FFI.UInt.C.fromVal
+        GInt.FFI.withVal
+         &&&> GUInt.FFI.withVal
+         &&&> GLibSourceFunc.FFI.withCallback
+         ---> GUInt.FFI.fromVal
       )
         timeoutAddSeconds_
         (
@@ -419,10 +506,10 @@ structure GLib : G_LIB =
         )
     fun uriEscapeString unescaped reservedCharsAllowed allowUtf8 =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         ---> Utf8.C.fromPtr true
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         ---> Utf8.FFI.fromPtr 1
       )
         uriEscapeString_
         (
@@ -430,13 +517,13 @@ structure GLib : G_LIB =
            & reservedCharsAllowed
            & allowUtf8
         )
-    fun uriParseScheme uri = (Utf8.C.withPtr ---> Utf8.C.fromPtr true) uriParseScheme_ uri
+    fun uriParseScheme uri = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) uriParseScheme_ uri
     fun uriUnescapeSegment escapedString escapedStringEnd illegalCharacters =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         ---> Utf8.C.fromPtr true
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> Utf8.FFI.fromPtr 1
       )
         uriUnescapeSegment_
         (
@@ -444,5 +531,5 @@ structure GLib : G_LIB =
            & escapedStringEnd
            & illegalCharacters
         )
-    fun uriUnescapeString escapedString illegalCharacters = (Utf8.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr true) uriUnescapeString_ (escapedString & illegalCharacters)
+    fun uriUnescapeString escapedString illegalCharacters = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) uriUnescapeString_ (escapedString & illegalCharacters)
   end

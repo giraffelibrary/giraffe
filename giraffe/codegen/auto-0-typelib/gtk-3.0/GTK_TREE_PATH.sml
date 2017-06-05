@@ -16,6 +16,7 @@ signature GTK_TREE_PATH =
     val copy : t -> t
     val down : t -> unit
     val getDepth : t -> LargeInt.int
+    val getIndices : t -> LargeInt.int vector
     val isAncestor :
       t
        -> t

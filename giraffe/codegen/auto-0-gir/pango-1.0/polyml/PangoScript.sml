@@ -1,16 +1,8 @@
 structure PangoScript :>
-  sig
-    include
-      PANGO_SCRIPT
-        where type language_t = PangoLanguageRecord.t
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+  PANGO_SCRIPT
+    where type language_t = PangoLanguageRecord.t =
   struct
-    datatype t =
+    datatype enum =
       INVALID_CODE
     | COMMON
     | INHERITED
@@ -90,94 +82,93 @@ structure PangoScript :>
     | CARIAN
     | LYCIAN
     | LYDIAN
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = INVALID_CODE
+        val toInt =
           fn
-            INVALID_CODE => f ~1
-          | COMMON => f 0
-          | INHERITED => f 1
-          | ARABIC => f 2
-          | ARMENIAN => f 3
-          | BENGALI => f 4
-          | BOPOMOFO => f 5
-          | CHEROKEE => f 6
-          | COPTIC => f 7
-          | CYRILLIC => f 8
-          | DESERET => f 9
-          | DEVANAGARI => f 10
-          | ETHIOPIC => f 11
-          | GEORGIAN => f 12
-          | GOTHIC => f 13
-          | GREEK => f 14
-          | GUJARATI => f 15
-          | GURMUKHI => f 16
-          | HAN => f 17
-          | HANGUL => f 18
-          | HEBREW => f 19
-          | HIRAGANA => f 20
-          | KANNADA => f 21
-          | KATAKANA => f 22
-          | KHMER => f 23
-          | LAO => f 24
-          | LATIN => f 25
-          | MALAYALAM => f 26
-          | MONGOLIAN => f 27
-          | MYANMAR => f 28
-          | OGHAM => f 29
-          | OLD_ITALIC => f 30
-          | ORIYA => f 31
-          | RUNIC => f 32
-          | SINHALA => f 33
-          | SYRIAC => f 34
-          | TAMIL => f 35
-          | TELUGU => f 36
-          | THAANA => f 37
-          | THAI => f 38
-          | TIBETAN => f 39
-          | CANADIAN_ABORIGINAL => f 40
-          | YI => f 41
-          | TAGALOG => f 42
-          | HANUNOO => f 43
-          | BUHID => f 44
-          | TAGBANWA => f 45
-          | BRAILLE => f 46
-          | CYPRIOT => f 47
-          | LIMBU => f 48
-          | OSMANYA => f 49
-          | SHAVIAN => f 50
-          | LINEAR_B => f 51
-          | TAI_LE => f 52
-          | UGARITIC => f 53
-          | NEW_TAI_LUE => f 54
-          | BUGINESE => f 55
-          | GLAGOLITIC => f 56
-          | TIFINAGH => f 57
-          | SYLOTI_NAGRI => f 58
-          | OLD_PERSIAN => f 59
-          | KHAROSHTHI => f 60
-          | UNKNOWN => f 61
-          | BALINESE => f 62
-          | CUNEIFORM => f 63
-          | PHOENICIAN => f 64
-          | PHAGS_PA => f 65
-          | NKO => f 66
-          | KAYAH_LI => f 67
-          | LEPCHA => f 68
-          | REJANG => f 69
-          | SUNDANESE => f 70
-          | SAURASHTRA => f 71
-          | CHAM => f 72
-          | OL_CHIKI => f 73
-          | VAI => f 74
-          | CARIAN => f 75
-          | LYCIAN => f 76
-          | LYDIAN => f 77
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            INVALID_CODE => ~1
+          | COMMON => 0
+          | INHERITED => 1
+          | ARABIC => 2
+          | ARMENIAN => 3
+          | BENGALI => 4
+          | BOPOMOFO => 5
+          | CHEROKEE => 6
+          | COPTIC => 7
+          | CYRILLIC => 8
+          | DESERET => 9
+          | DEVANAGARI => 10
+          | ETHIOPIC => 11
+          | GEORGIAN => 12
+          | GOTHIC => 13
+          | GREEK => 14
+          | GUJARATI => 15
+          | GURMUKHI => 16
+          | HAN => 17
+          | HANGUL => 18
+          | HEBREW => 19
+          | HIRAGANA => 20
+          | KANNADA => 21
+          | KATAKANA => 22
+          | KHMER => 23
+          | LAO => 24
+          | LATIN => 25
+          | MALAYALAM => 26
+          | MONGOLIAN => 27
+          | MYANMAR => 28
+          | OGHAM => 29
+          | OLD_ITALIC => 30
+          | ORIYA => 31
+          | RUNIC => 32
+          | SINHALA => 33
+          | SYRIAC => 34
+          | TAMIL => 35
+          | TELUGU => 36
+          | THAANA => 37
+          | THAI => 38
+          | TIBETAN => 39
+          | CANADIAN_ABORIGINAL => 40
+          | YI => 41
+          | TAGALOG => 42
+          | HANUNOO => 43
+          | BUHID => 44
+          | TAGBANWA => 45
+          | BRAILLE => 46
+          | CYPRIOT => 47
+          | LIMBU => 48
+          | OSMANYA => 49
+          | SHAVIAN => 50
+          | LINEAR_B => 51
+          | TAI_LE => 52
+          | UGARITIC => 53
+          | NEW_TAI_LUE => 54
+          | BUGINESE => 55
+          | GLAGOLITIC => 56
+          | TIFINAGH => 57
+          | SYLOTI_NAGRI => 58
+          | OLD_PERSIAN => 59
+          | KHAROSHTHI => 60
+          | UNKNOWN => 61
+          | BALINESE => 62
+          | CUNEIFORM => 63
+          | PHOENICIAN => 64
+          | PHAGS_PA => 65
+          | NKO => 66
+          | KAYAH_LI => 67
+          | LEPCHA => 68
+          | REJANG => 69
+          | SUNDANESE => 70
+          | SAURASHTRA => 71
+          | CHAM => 72
+          | OL_CHIKI => 73
+          | VAI => 74
+          | CARIAN => 75
+          | LYCIAN => 76
+          | LYDIAN => 77
+        exception Value of GInt.t
+        val fromInt =
           fn
             ~1 => INVALID_CODE
           | 0 => COMMON
@@ -259,12 +250,8 @@ structure PangoScript :>
           | 76 => LYCIAN
           | 77 => LYDIAN
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -275,19 +262,18 @@ structure PangoScript :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = INVALID_CODE
     local
       open PolyMLFFI
     in
-      val forUnichar_ = call (load_sym libpango "pango_script_for_unichar") (FFI.Char.PolyML.cVal --> PolyML.cVal)
+      val forUnichar_ = call (load_sym libpango "pango_script_for_unichar") (GChar.PolyML.cVal --> PolyML.cVal)
       val getSampleLanguage_ = call (load_sym libpango "pango_script_get_sample_language") (PolyML.cVal --> PangoLanguageRecord.PolyML.cPtr)
     end
     type language_t = PangoLanguageRecord.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forUnichar ch = (FFI.Char.C.withVal ---> C.fromVal) forUnichar_ ch
-    fun getSampleLanguage script = (C.withVal ---> PangoLanguageRecord.C.fromPtr true) getSampleLanguage_ script
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun forUnichar ch = (GChar.FFI.withVal ---> FFI.fromVal) forUnichar_ ch
+    fun getSampleLanguage script = (FFI.withVal ---> PangoLanguageRecord.FFI.fromPtr true) getSampleLanguage_ script
   end

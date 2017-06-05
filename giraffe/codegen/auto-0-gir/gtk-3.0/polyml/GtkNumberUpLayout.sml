@@ -1,14 +1,6 @@
-structure GtkNumberUpLayout :>
-  sig
-    include GTK_NUMBER_UP_LAYOUT
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkNumberUpLayout :> GTK_NUMBER_UP_LAYOUT =
   struct
-    datatype t =
+    datatype enum =
       LRTB
     | LRBT
     | RLTB
@@ -17,23 +9,22 @@ structure GtkNumberUpLayout :>
     | TBRL
     | BTLR
     | BTRL
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = LRTB
+        val toInt =
           fn
-            LRTB => f 0
-          | LRBT => f 1
-          | RLTB => f 2
-          | RLBT => f 3
-          | TBLR => f 4
-          | TBRL => f 5
-          | BTLR => f 6
-          | BTRL => f 7
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            LRTB => 0
+          | LRBT => 1
+          | RLTB => 2
+          | RLBT => 3
+          | TBLR => 4
+          | TBRL => 5
+          | BTLR => 6
+          | BTRL => 7
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => LRTB
           | 1 => LRBT
@@ -44,12 +35,8 @@ structure GtkNumberUpLayout :>
           | 6 => BTLR
           | 7 => BTRL
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -60,10 +47,9 @@ structure GtkNumberUpLayout :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = LRTB
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

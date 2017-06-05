@@ -28,6 +28,7 @@ use "typelib/G_I_REPOSITORY_ARRAY_TYPE.sml";
 use "typelib/G_I_REPOSITORY_BASE_INFO.sml";
 use "typelib/G_I_REPOSITORY_TYPE_INFO.sml";
 use "typelib/G_I_REPOSITORY_ARGUMENT.sml";
+use "typelib/polyml/G_I_REPOSITORY_ARGUMENT.sml";
 use "typelib/G_I_REPOSITORY_CONSTANT_INFO.sml";
 use "typelib/G_I_REPOSITORY_REGISTERED_TYPE_INFO.sml";
 use "typelib/G_I_REPOSITORY_VALUE_INFO.sml";

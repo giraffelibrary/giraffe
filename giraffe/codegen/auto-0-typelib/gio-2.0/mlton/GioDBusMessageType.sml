@@ -1,28 +1,24 @@
-structure GioDBusMessageType :>
-  sig
-    include GIO_D_BUS_MESSAGE_TYPE
-  end =
+structure GioDBusMessageType :> GIO_D_BUS_MESSAGE_TYPE =
   struct
-    datatype t =
+    datatype enum =
       INVALID
     | METHOD_CALL
     | METHOD_RETURN
     | ERROR
     | SIGNAL
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = INVALID
+        val toInt =
           fn
-            INVALID => f 0
-          | METHOD_CALL => f 1
-          | METHOD_RETURN => f 2
-          | ERROR => f 3
-          | SIGNAL => f 4
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            INVALID => 0
+          | METHOD_CALL => 1
+          | METHOD_RETURN => 2
+          | ERROR => 3
+          | SIGNAL => 4
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => INVALID
           | 1 => METHOD_CALL
@@ -30,17 +26,17 @@ structure GioDBusMessageType :>
           | 3 => ERROR
           | 4 => SIGNAL
           | n => raise Value n
-      end
-    val getType_ = _import "g_dbus_message_type_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "g_dbus_message_type_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = INVALID
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

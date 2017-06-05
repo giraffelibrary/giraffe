@@ -19,7 +19,7 @@ structure GtkNotebook :>
             GtkNotebookClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cOptPtr
-             --> FFI.Int.PolyML.cVal
+             --> GInt.PolyML.cVal
           )
       val appendPageMenu_ =
         call (load_sym libgtk "gtk_notebook_append_page_menu")
@@ -28,33 +28,33 @@ structure GtkNotebook :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> GtkWidgetClass.PolyML.cOptPtr
-             --> FFI.Int.PolyML.cVal
+             --> GInt.PolyML.cVal
           )
       val getActionWidget_ = call (load_sym libgtk "gtk_notebook_get_action_widget") (GtkNotebookClass.PolyML.cPtr &&> GtkPackType.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
-      val getCurrentPage_ = call (load_sym libgtk "gtk_notebook_get_current_page") (GtkNotebookClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getCurrentPage_ = call (load_sym libgtk "gtk_notebook_get_current_page") (GtkNotebookClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getGroupName_ = call (load_sym libgtk "gtk_notebook_get_group_name") (GtkNotebookClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getMenuLabel_ = call (load_sym libgtk "gtk_notebook_get_menu_label") (GtkNotebookClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getMenuLabelText_ = call (load_sym libgtk "gtk_notebook_get_menu_label_text") (GtkNotebookClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getNPages_ = call (load_sym libgtk "gtk_notebook_get_n_pages") (GtkNotebookClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getNthPage_ = call (load_sym libgtk "gtk_notebook_get_nth_page") (GtkNotebookClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
-      val getScrollable_ = call (load_sym libgtk "gtk_notebook_get_scrollable") (GtkNotebookClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getShowBorder_ = call (load_sym libgtk "gtk_notebook_get_show_border") (GtkNotebookClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getShowTabs_ = call (load_sym libgtk "gtk_notebook_get_show_tabs") (GtkNotebookClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getTabDetachable_ = call (load_sym libgtk "gtk_notebook_get_tab_detachable") (GtkNotebookClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getTabHborder_ = call (load_sym libgtk "gtk_notebook_get_tab_hborder") (GtkNotebookClass.PolyML.cPtr --> FFI.UInt16.PolyML.cVal)
+      val getNPages_ = call (load_sym libgtk "gtk_notebook_get_n_pages") (GtkNotebookClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getNthPage_ = call (load_sym libgtk "gtk_notebook_get_nth_page") (GtkNotebookClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val getScrollable_ = call (load_sym libgtk "gtk_notebook_get_scrollable") (GtkNotebookClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getShowBorder_ = call (load_sym libgtk "gtk_notebook_get_show_border") (GtkNotebookClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getShowTabs_ = call (load_sym libgtk "gtk_notebook_get_show_tabs") (GtkNotebookClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getTabDetachable_ = call (load_sym libgtk "gtk_notebook_get_tab_detachable") (GtkNotebookClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getTabHborder_ = call (load_sym libgtk "gtk_notebook_get_tab_hborder") (GtkNotebookClass.PolyML.cPtr --> GUInt16.PolyML.cVal)
       val getTabLabel_ = call (load_sym libgtk "gtk_notebook_get_tab_label") (GtkNotebookClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getTabLabelText_ = call (load_sym libgtk "gtk_notebook_get_tab_label_text") (GtkNotebookClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getTabPos_ = call (load_sym libgtk "gtk_notebook_get_tab_pos") (GtkNotebookClass.PolyML.cPtr --> GtkPositionType.PolyML.cVal)
-      val getTabReorderable_ = call (load_sym libgtk "gtk_notebook_get_tab_reorderable") (GtkNotebookClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getTabVborder_ = call (load_sym libgtk "gtk_notebook_get_tab_vborder") (GtkNotebookClass.PolyML.cPtr --> FFI.UInt16.PolyML.cVal)
+      val getTabReorderable_ = call (load_sym libgtk "gtk_notebook_get_tab_reorderable") (GtkNotebookClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getTabVborder_ = call (load_sym libgtk "gtk_notebook_get_tab_vborder") (GtkNotebookClass.PolyML.cPtr --> GUInt16.PolyML.cVal)
       val insertPage_ =
         call (load_sym libgtk "gtk_notebook_insert_page")
           (
             GtkNotebookClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cOptPtr
-             &&> FFI.Int.PolyML.cVal
-             --> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> GInt.PolyML.cVal
           )
       val insertPageMenu_ =
         call (load_sym libgtk "gtk_notebook_insert_page_menu")
@@ -63,11 +63,11 @@ structure GtkNotebook :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> GtkWidgetClass.PolyML.cOptPtr
-             &&> FFI.Int.PolyML.cVal
-             --> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> GInt.PolyML.cVal
           )
       val nextPage_ = call (load_sym libgtk "gtk_notebook_next_page") (GtkNotebookClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val pageNum_ = call (load_sym libgtk "gtk_notebook_page_num") (GtkNotebookClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val pageNum_ = call (load_sym libgtk "gtk_notebook_page_num") (GtkNotebookClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val popupDisable_ = call (load_sym libgtk "gtk_notebook_popup_disable") (GtkNotebookClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val popupEnable_ = call (load_sym libgtk "gtk_notebook_popup_enable") (GtkNotebookClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val prependPage_ =
@@ -76,7 +76,7 @@ structure GtkNotebook :>
             GtkNotebookClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cOptPtr
-             --> FFI.Int.PolyML.cVal
+             --> GInt.PolyML.cVal
           )
       val prependPageMenu_ =
         call (load_sym libgtk "gtk_notebook_prepend_page_menu")
@@ -85,16 +85,16 @@ structure GtkNotebook :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> GtkWidgetClass.PolyML.cOptPtr
-             --> FFI.Int.PolyML.cVal
+             --> GInt.PolyML.cVal
           )
       val prevPage_ = call (load_sym libgtk "gtk_notebook_prev_page") (GtkNotebookClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val removePage_ = call (load_sym libgtk "gtk_notebook_remove_page") (GtkNotebookClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val removePage_ = call (load_sym libgtk "gtk_notebook_remove_page") (GtkNotebookClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val reorderChild_ =
         call (load_sym libgtk "gtk_notebook_reorder_child")
           (
             GtkNotebookClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val setActionWidget_ =
@@ -105,7 +105,7 @@ structure GtkNotebook :>
              &&> GtkPackType.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setCurrentPage_ = call (load_sym libgtk "gtk_notebook_set_current_page") (GtkNotebookClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setCurrentPage_ = call (load_sym libgtk "gtk_notebook_set_current_page") (GtkNotebookClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setGroupName_ = call (load_sym libgtk "gtk_notebook_set_group_name") (GtkNotebookClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
       val setMenuLabel_ =
         call (load_sym libgtk "gtk_notebook_set_menu_label")
@@ -123,15 +123,15 @@ structure GtkNotebook :>
              &&> Utf8.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
-      val setScrollable_ = call (load_sym libgtk "gtk_notebook_set_scrollable") (GtkNotebookClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setShowBorder_ = call (load_sym libgtk "gtk_notebook_set_show_border") (GtkNotebookClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setShowTabs_ = call (load_sym libgtk "gtk_notebook_set_show_tabs") (GtkNotebookClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setScrollable_ = call (load_sym libgtk "gtk_notebook_set_scrollable") (GtkNotebookClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setShowBorder_ = call (load_sym libgtk "gtk_notebook_set_show_border") (GtkNotebookClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setShowTabs_ = call (load_sym libgtk "gtk_notebook_set_show_tabs") (GtkNotebookClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setTabDetachable_ =
         call (load_sym libgtk "gtk_notebook_set_tab_detachable")
           (
             GtkNotebookClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val setTabLabel_ =
@@ -156,7 +156,7 @@ structure GtkNotebook :>
           (
             GtkNotebookClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
     end
@@ -168,16 +168,16 @@ structure GtkNotebook :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type position_type_t = GtkPositionType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkNotebookClass.C.fromPtr false) new_ ()
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkNotebookClass.FFI.fromPtr false) new_ ()
     fun appendPage self child tabLabel =
       (
-        GtkNotebookClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> GtkWidgetClass.C.withOptPtr
-         ---> FFI.Int.C.fromVal
+        GtkNotebookClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         ---> GInt.FFI.fromVal
       )
         appendPage_
         (
@@ -187,11 +187,11 @@ structure GtkNotebook :>
         )
     fun appendPageMenu self child tabLabel menuLabel =
       (
-        GtkNotebookClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> GtkWidgetClass.C.withOptPtr
-         ---> FFI.Int.C.fromVal
+        GtkNotebookClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         ---> GInt.FFI.fromVal
       )
         appendPageMenu_
         (
@@ -200,30 +200,30 @@ structure GtkNotebook :>
            & tabLabel
            & menuLabel
         )
-    fun getActionWidget self packType = (GtkNotebookClass.C.withPtr &&&> GtkPackType.C.withVal ---> GtkWidgetClass.C.fromPtr false) getActionWidget_ (self & packType)
-    fun getCurrentPage self = (GtkNotebookClass.C.withPtr ---> FFI.Int.C.fromVal) getCurrentPage_ self
-    fun getGroupName self = (GtkNotebookClass.C.withPtr ---> Utf8.C.fromPtr false) getGroupName_ self
-    fun getMenuLabel self child = (GtkNotebookClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMenuLabel_ (self & child)
-    fun getMenuLabelText self child = (GtkNotebookClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> Utf8.C.fromPtr false) getMenuLabelText_ (self & child)
-    fun getNPages self = (GtkNotebookClass.C.withPtr ---> FFI.Int.C.fromVal) getNPages_ self
-    fun getNthPage self pageNum = (GtkNotebookClass.C.withPtr &&&> FFI.Int.C.withVal ---> GtkWidgetClass.C.fromPtr false) getNthPage_ (self & pageNum)
-    fun getScrollable self = (GtkNotebookClass.C.withPtr ---> FFI.Bool.C.fromVal) getScrollable_ self
-    fun getShowBorder self = (GtkNotebookClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowBorder_ self
-    fun getShowTabs self = (GtkNotebookClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowTabs_ self
-    fun getTabDetachable self child = (GtkNotebookClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> FFI.Bool.C.fromVal) getTabDetachable_ (self & child)
-    fun getTabHborder self = (GtkNotebookClass.C.withPtr ---> FFI.UInt16.C.fromVal) getTabHborder_ self
-    fun getTabLabel self child = (GtkNotebookClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getTabLabel_ (self & child)
-    fun getTabLabelText self child = (GtkNotebookClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> Utf8.C.fromPtr false) getTabLabelText_ (self & child)
-    fun getTabPos self = (GtkNotebookClass.C.withPtr ---> GtkPositionType.C.fromVal) getTabPos_ self
-    fun getTabReorderable self child = (GtkNotebookClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> FFI.Bool.C.fromVal) getTabReorderable_ (self & child)
-    fun getTabVborder self = (GtkNotebookClass.C.withPtr ---> FFI.UInt16.C.fromVal) getTabVborder_ self
+    fun getActionWidget self packType = (GtkNotebookClass.FFI.withPtr &&&> GtkPackType.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getActionWidget_ (self & packType)
+    fun getCurrentPage self = (GtkNotebookClass.FFI.withPtr ---> GInt.FFI.fromVal) getCurrentPage_ self
+    fun getGroupName self = (GtkNotebookClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getGroupName_ self
+    fun getMenuLabel self child = (GtkNotebookClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getMenuLabel_ (self & child)
+    fun getMenuLabelText self child = (GtkNotebookClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getMenuLabelText_ (self & child)
+    fun getNPages self = (GtkNotebookClass.FFI.withPtr ---> GInt.FFI.fromVal) getNPages_ self
+    fun getNthPage self pageNum = (GtkNotebookClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getNthPage_ (self & pageNum)
+    fun getScrollable self = (GtkNotebookClass.FFI.withPtr ---> GBool.FFI.fromVal) getScrollable_ self
+    fun getShowBorder self = (GtkNotebookClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowBorder_ self
+    fun getShowTabs self = (GtkNotebookClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowTabs_ self
+    fun getTabDetachable self child = (GtkNotebookClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getTabDetachable_ (self & child)
+    fun getTabHborder self = (GtkNotebookClass.FFI.withPtr ---> GUInt16.FFI.fromVal) getTabHborder_ self
+    fun getTabLabel self child = (GtkNotebookClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getTabLabel_ (self & child)
+    fun getTabLabelText self child = (GtkNotebookClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTabLabelText_ (self & child)
+    fun getTabPos self = (GtkNotebookClass.FFI.withPtr ---> GtkPositionType.FFI.fromVal) getTabPos_ self
+    fun getTabReorderable self child = (GtkNotebookClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getTabReorderable_ (self & child)
+    fun getTabVborder self = (GtkNotebookClass.FFI.withPtr ---> GUInt16.FFI.fromVal) getTabVborder_ self
     fun insertPage self child tabLabel position =
       (
-        GtkNotebookClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         ---> FFI.Int.C.fromVal
+        GtkNotebookClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         ---> GInt.FFI.fromVal
       )
         insertPage_
         (
@@ -234,12 +234,12 @@ structure GtkNotebook :>
         )
     fun insertPageMenu self child tabLabel menuLabel position =
       (
-        GtkNotebookClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         ---> FFI.Int.C.fromVal
+        GtkNotebookClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         ---> GInt.FFI.fromVal
       )
         insertPageMenu_
         (
@@ -249,16 +249,16 @@ structure GtkNotebook :>
            & menuLabel
            & position
         )
-    fun nextPage self = (GtkNotebookClass.C.withPtr ---> I) nextPage_ self
-    fun pageNum self child = (GtkNotebookClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> FFI.Int.C.fromVal) pageNum_ (self & child)
-    fun popupDisable self = (GtkNotebookClass.C.withPtr ---> I) popupDisable_ self
-    fun popupEnable self = (GtkNotebookClass.C.withPtr ---> I) popupEnable_ self
+    fun nextPage self = (GtkNotebookClass.FFI.withPtr ---> I) nextPage_ self
+    fun pageNum self child = (GtkNotebookClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) pageNum_ (self & child)
+    fun popupDisable self = (GtkNotebookClass.FFI.withPtr ---> I) popupDisable_ self
+    fun popupEnable self = (GtkNotebookClass.FFI.withPtr ---> I) popupEnable_ self
     fun prependPage self child tabLabel =
       (
-        GtkNotebookClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> GtkWidgetClass.C.withOptPtr
-         ---> FFI.Int.C.fromVal
+        GtkNotebookClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         ---> GInt.FFI.fromVal
       )
         prependPage_
         (
@@ -268,11 +268,11 @@ structure GtkNotebook :>
         )
     fun prependPageMenu self child tabLabel menuLabel =
       (
-        GtkNotebookClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> GtkWidgetClass.C.withOptPtr
-         ---> FFI.Int.C.fromVal
+        GtkNotebookClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         ---> GInt.FFI.fromVal
       )
         prependPageMenu_
         (
@@ -281,13 +281,13 @@ structure GtkNotebook :>
            & tabLabel
            & menuLabel
         )
-    fun prevPage self = (GtkNotebookClass.C.withPtr ---> I) prevPage_ self
-    fun removePage self pageNum = (GtkNotebookClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) removePage_ (self & pageNum)
+    fun prevPage self = (GtkNotebookClass.FFI.withPtr ---> I) prevPage_ self
+    fun removePage self pageNum = (GtkNotebookClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) removePage_ (self & pageNum)
     fun reorderChild self child position =
       (
-        GtkNotebookClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkNotebookClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         reorderChild_
@@ -298,9 +298,9 @@ structure GtkNotebook :>
         )
     fun setActionWidget self widget packType =
       (
-        GtkNotebookClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> GtkPackType.C.withVal
+        GtkNotebookClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkPackType.FFI.withVal
          ---> I
       )
         setActionWidget_
@@ -309,13 +309,13 @@ structure GtkNotebook :>
            & widget
            & packType
         )
-    fun setCurrentPage self pageNum = (GtkNotebookClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setCurrentPage_ (self & pageNum)
-    fun setGroupName self groupName = (GtkNotebookClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setGroupName_ (self & groupName)
+    fun setCurrentPage self pageNum = (GtkNotebookClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setCurrentPage_ (self & pageNum)
+    fun setGroupName self groupName = (GtkNotebookClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setGroupName_ (self & groupName)
     fun setMenuLabel self child menuLabel =
       (
-        GtkNotebookClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> GtkWidgetClass.C.withOptPtr
+        GtkNotebookClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
          ---> I
       )
         setMenuLabel_
@@ -326,9 +326,9 @@ structure GtkNotebook :>
         )
     fun setMenuLabelText self child menuText =
       (
-        GtkNotebookClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> Utf8.C.withPtr
+        GtkNotebookClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         setMenuLabelText_
@@ -337,14 +337,14 @@ structure GtkNotebook :>
            & child
            & menuText
         )
-    fun setScrollable self scrollable = (GtkNotebookClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setScrollable_ (self & scrollable)
-    fun setShowBorder self showBorder = (GtkNotebookClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowBorder_ (self & showBorder)
-    fun setShowTabs self showTabs = (GtkNotebookClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowTabs_ (self & showTabs)
+    fun setScrollable self scrollable = (GtkNotebookClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setScrollable_ (self & scrollable)
+    fun setShowBorder self showBorder = (GtkNotebookClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowBorder_ (self & showBorder)
+    fun setShowTabs self showTabs = (GtkNotebookClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowTabs_ (self & showTabs)
     fun setTabDetachable self child detachable =
       (
-        GtkNotebookClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GtkNotebookClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         setTabDetachable_
@@ -355,9 +355,9 @@ structure GtkNotebook :>
         )
     fun setTabLabel self child tabLabel =
       (
-        GtkNotebookClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> GtkWidgetClass.C.withOptPtr
+        GtkNotebookClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
          ---> I
       )
         setTabLabel_
@@ -368,9 +368,9 @@ structure GtkNotebook :>
         )
     fun setTabLabelText self child tabText =
       (
-        GtkNotebookClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> Utf8.C.withPtr
+        GtkNotebookClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         setTabLabelText_
@@ -379,12 +379,12 @@ structure GtkNotebook :>
            & child
            & tabText
         )
-    fun setTabPos self pos = (GtkNotebookClass.C.withPtr &&&> GtkPositionType.C.withVal ---> I) setTabPos_ (self & pos)
+    fun setTabPos self pos = (GtkNotebookClass.FFI.withPtr &&&> GtkPositionType.FFI.withVal ---> I) setTabPos_ (self & pos)
     fun setTabReorderable self child reorderable =
       (
-        GtkNotebookClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GtkNotebookClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         setTabReorderable_

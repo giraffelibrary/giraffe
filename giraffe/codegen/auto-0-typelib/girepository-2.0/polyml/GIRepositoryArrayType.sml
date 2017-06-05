@@ -1,42 +1,28 @@
-structure GIRepositoryArrayType :>
-  sig
-    include G_I_REPOSITORY_ARRAY_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GIRepositoryArrayType :> G_I_REPOSITORY_ARRAY_TYPE =
   struct
-    datatype t =
+    datatype enum =
       C
     | ARRAY
     | PTR_ARRAY
     | BYTE_ARRAY
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = C
+        val toInt =
           fn
-            C => f 0
-          | ARRAY => f 1
-          | PTR_ARRAY => f 2
-          | BYTE_ARRAY => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            C => 0
+          | ARRAY => 1
+          | PTR_ARRAY => 2
+          | BYTE_ARRAY => 3
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => C
           | 1 => ARRAY
           | 2 => PTR_ARRAY
           | 3 => BYTE_ARRAY
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
-    val null = C
+      )
+    open Enum
   end

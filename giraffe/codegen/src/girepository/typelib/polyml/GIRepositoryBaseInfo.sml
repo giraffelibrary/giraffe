@@ -19,7 +19,7 @@ structure GIRepositoryBaseInfo :>
       val isDeprecated_ =
         call
           (load_sym libgirepository "g_base_info_is_deprecated")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GBool.PolyML.cVal);
 
       val getAttribute_ =
         call
@@ -43,7 +43,7 @@ structure GIRepositoryBaseInfo :>
           (load_sym libgirepository "g_base_info_equal")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> GIRepositoryBaseInfoClass.PolyML.cPtr
-            --> FFI.Bool.PolyML.cVal);
+            --> GBool.PolyML.cVal);
     end
 
 
@@ -53,44 +53,44 @@ structure GIRepositoryBaseInfo :>
 
     val getName =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> Utf8.C.fromOptPtr false)
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0)
           getName_ info
 
     val getNamespace =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> Utf8.C.fromPtr false)
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0)
           getNamespace_
           info
 
     val isDeprecated =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal)
           isDeprecated_
           info
 
     val getAttribute =
       fn info => fn name =>
-        (GIRepositoryBaseInfoClass.C.withPtr
-          &&&> Utf8.C.withPtr
-          ---> Utf8.C.fromOptPtr false)
+        (GIRepositoryBaseInfoClass.FFI.withPtr
+          &&&> Utf8.FFI.withPtr
+          ---> Utf8.FFI.fromOptPtr 0)
           getAttribute_
           (info & name)
 
     val getContainer =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryBaseInfoClass.C.fromOptPtr false)
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryBaseInfoClass.FFI.fromOptPtr false)
           getContainer_
           info
 
     val getTypelib =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypelibType.C.fromPtr false)
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTypelibType.FFI.fromPtr false)
           getTypelib_
           info
 
     val equal =
       fn info1 => fn info2 =>
-        (GIRepositoryBaseInfoClass.C.withPtr &&&> GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr &&&> GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal)
         equal_
         (info1 & info2)
   end

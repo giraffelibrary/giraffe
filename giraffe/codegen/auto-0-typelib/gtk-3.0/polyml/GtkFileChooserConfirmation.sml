@@ -1,40 +1,27 @@
-structure GtkFileChooserConfirmation :>
-  sig
-    include GTK_FILE_CHOOSER_CONFIRMATION
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkFileChooserConfirmation :> GTK_FILE_CHOOSER_CONFIRMATION =
   struct
-    datatype t =
+    datatype enum =
       CONFIRM
     | ACCEPT_FILENAME
     | SELECT_AGAIN
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = CONFIRM
+        val toInt =
           fn
-            CONFIRM => f 0
-          | ACCEPT_FILENAME => f 1
-          | SELECT_AGAIN => f 2
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            CONFIRM => 0
+          | ACCEPT_FILENAME => 1
+          | SELECT_AGAIN => 2
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => CONFIRM
           | 1 => ACCEPT_FILENAME
           | 2 => SELECT_AGAIN
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -45,10 +32,9 @@ structure GtkFileChooserConfirmation :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = CONFIRM
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

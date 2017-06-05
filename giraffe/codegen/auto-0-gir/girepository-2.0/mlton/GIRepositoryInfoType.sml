@@ -1,9 +1,6 @@
-structure GIRepositoryInfoType :>
-  sig
-    include G_I_REPOSITORY_INFO_TYPE
-  end =
+structure GIRepositoryInfoType :> G_I_REPOSITORY_INFO_TYPE =
   struct
-    datatype t =
+    datatype enum =
       INVALID
     | FUNCTION
     | CALLBACK
@@ -24,35 +21,34 @@ structure GIRepositoryInfoType :>
     | ARG
     | TYPE
     | UNRESOLVED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = INVALID
+        val toInt =
           fn
-            INVALID => f 0
-          | FUNCTION => f 1
-          | CALLBACK => f 2
-          | STRUCT => f 3
-          | BOXED => f 4
-          | ENUM => f 5
-          | FLAGS => f 6
-          | OBJECT => f 7
-          | INTERFACE => f 8
-          | CONSTANT => f 9
-          | INVALID_0 => f 10
-          | UNION => f 11
-          | VALUE => f 12
-          | SIGNAL => f 13
-          | VFUNC => f 14
-          | PROPERTY => f 15
-          | FIELD => f 16
-          | ARG => f 17
-          | TYPE => f 18
-          | UNRESOLVED => f 19
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            INVALID => 0
+          | FUNCTION => 1
+          | CALLBACK => 2
+          | STRUCT => 3
+          | BOXED => 4
+          | ENUM => 5
+          | FLAGS => 6
+          | OBJECT => 7
+          | INTERFACE => 8
+          | CONSTANT => 9
+          | INVALID_0 => 10
+          | UNION => 11
+          | VALUE => 12
+          | SIGNAL => 13
+          | VFUNC => 14
+          | PROPERTY => 15
+          | FIELD => 16
+          | ARG => 17
+          | TYPE => 18
+          | UNRESOLVED => 19
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => INVALID
           | 1 => FUNCTION
@@ -75,6 +71,6 @@ structure GIRepositoryInfoType :>
           | 18 => TYPE
           | 19 => UNRESOLVED
           | n => raise Value n
-      end
-    val null = INVALID
+      )
+    open Enum
   end

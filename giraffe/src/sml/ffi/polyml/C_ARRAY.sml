@@ -1,4 +1,4 @@
-(* Copyright (C) 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2017 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,15 +11,15 @@ signature C_ARRAY =
 
     structure PolyML :
       sig
-        val cOutPtr    : C.notnull C.out_p PolyMLFFI.conversion
-        val cOptOutPtr : unit      C.out_p PolyMLFFI.conversion
+        val cInPtr     : FFI.notnull FFI.in_p PolyMLFFI.conversion
+        val cInOptPtr  : unit        FFI.in_p PolyMLFFI.conversion
 
-        val cInPtr     : C.notnull C.in_p PolyMLFFI.conversion
-        val cOptInPtr  : unit      C.in_p PolyMLFFI.conversion
+        val cOutPtr    : FFI.notnull FFI.out_p PolyMLFFI.conversion
+        val cOutOptPtr : unit        FFI.out_p PolyMLFFI.conversion
 
-        val cOptOutRef   : ('a,        unit) C.r PolyMLFFI.conversion
-        val cInOptOutRef : (C.notnull, unit) C.r PolyMLFFI.conversion
-        val cRef         : ('a,        'b)   C.r PolyMLFFI.conversion
-        val cInRef       : (C.notnull, 'a)   C.r PolyMLFFI.conversion
+        val cOutRef      : (unit,        FFI.notnull) FFI.r PolyMLFFI.conversion
+        val cOutOptRef   : (unit,        unit)        FFI.r PolyMLFFI.conversion
+        val cInOutRef    : (FFI.notnull, FFI.notnull) FFI.r PolyMLFFI.conversion
+        val cInOutOptRef : (unit,        unit)        FFI.r PolyMLFFI.conversion
       end
   end

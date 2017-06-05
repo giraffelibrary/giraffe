@@ -24,7 +24,7 @@ structure GIRepositoryInfoType :>
       val getType_ =
         call
           (load_sym libgirepository "g_base_info_get_type")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
     end
 
 
@@ -69,34 +69,34 @@ structure GIRepositoryInfoType :>
     | UNRESOLVED
 
     local
-      val table : (GIRepositoryBaseInfoClass.C.notnull GIRepositoryBaseInfoClass.C.p -> t) vector =
+      val table : (GIRepositoryBaseInfoClass.FFI.notnull GIRepositoryBaseInfoClass.FFI.p -> t) vector =
         Vector.fromList [
           K INVALID,
-          FUNCTION    o GIRepositoryFunctionInfoClass.C.fromPtr false,
-          CALLBACK    o GIRepositoryCallableInfoClass.C.fromPtr false,
-          STRUCT      o GIRepositoryStructInfoClass.C.fromPtr false,
-          BOXED       o GIRepositoryRegisteredTypeInfoClass.C.fromPtr false,
-          ENUM        o GIRepositoryEnumInfoClass.C.fromPtr false,
-          FLAGS       o GIRepositoryEnumInfoClass.C.fromPtr false,
-          OBJECT      o GIRepositoryObjectInfoClass.C.fromPtr false,
-          INTERFACE   o GIRepositoryInterfaceInfoClass.C.fromPtr false,
-          CONSTANT    o GIRepositoryConstantInfoClass.C.fromPtr false,
+          FUNCTION    o GIRepositoryFunctionInfoClass.FFI.fromPtr false,
+          CALLBACK    o GIRepositoryCallableInfoClass.FFI.fromPtr false,
+          STRUCT      o GIRepositoryStructInfoClass.FFI.fromPtr false,
+          BOXED       o GIRepositoryRegisteredTypeInfoClass.FFI.fromPtr false,
+          ENUM        o GIRepositoryEnumInfoClass.FFI.fromPtr false,
+          FLAGS       o GIRepositoryEnumInfoClass.FFI.fromPtr false,
+          OBJECT      o GIRepositoryObjectInfoClass.FFI.fromPtr false,
+          INTERFACE   o GIRepositoryInterfaceInfoClass.FFI.fromPtr false,
+          CONSTANT    o GIRepositoryConstantInfoClass.FFI.fromPtr false,
           K INVALID_0,
-          UNION       o GIRepositoryUnionInfoClass.C.fromPtr false,
-          VALUE       o GIRepositoryValueInfoClass.C.fromPtr false,
-          SIGNAL      o GIRepositorySignalInfoClass.C.fromPtr false,
-          VFUNC       o GIRepositoryVFuncInfoClass.C.fromPtr false,
-          PROPERTY    o GIRepositoryPropertyInfoClass.C.fromPtr false,
-          FIELD       o GIRepositoryFieldInfoClass.C.fromPtr false,
-          ARG         o GIRepositoryArgInfoClass.C.fromPtr false,
-          TYPE        o GIRepositoryTypeInfoClass.C.fromPtr false,
+          UNION       o GIRepositoryUnionInfoClass.FFI.fromPtr false,
+          VALUE       o GIRepositoryValueInfoClass.FFI.fromPtr false,
+          SIGNAL      o GIRepositorySignalInfoClass.FFI.fromPtr false,
+          VFUNC       o GIRepositoryVFuncInfoClass.FFI.fromPtr false,
+          PROPERTY    o GIRepositoryPropertyInfoClass.FFI.fromPtr false,
+          FIELD       o GIRepositoryFieldInfoClass.FFI.fromPtr false,
+          ARG         o GIRepositoryArgInfoClass.FFI.fromPtr false,
+          TYPE        o GIRepositoryTypeInfoClass.FFI.fromPtr false,
           K UNRESOLVED
         ]
     in
       val getType : 'a baseinfo_class -> t =
         fn info =>
-          GIRepositoryBaseInfoClass.C.withPtr
-            (fn ptr => Vector.sub (table, FFI.Int32.C.fromVal (getType_ ptr)) ptr)
+          GIRepositoryBaseInfoClass.FFI.withPtr
+            (fn ptr => Vector.sub (table, GInt32.FFI.fromVal (getType_ ptr)) ptr)
             info
             handle
               Subscript => INVALID

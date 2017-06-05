@@ -1,14 +1,6 @@
-structure GtkCssSectionType :>
-  sig
-    include GTK_CSS_SECTION_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkCssSectionType :> GTK_CSS_SECTION_TYPE =
   struct
-    datatype t =
+    datatype enum =
       DOCUMENT
     | IMPORT
     | COLOR_DEFINITION
@@ -17,23 +9,22 @@ structure GtkCssSectionType :>
     | SELECTOR
     | DECLARATION
     | VALUE
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = DOCUMENT
+        val toInt =
           fn
-            DOCUMENT => f 0
-          | IMPORT => f 1
-          | COLOR_DEFINITION => f 2
-          | BINDING_SET => f 3
-          | RULESET => f 4
-          | SELECTOR => f 5
-          | DECLARATION => f 6
-          | VALUE => f 7
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            DOCUMENT => 0
+          | IMPORT => 1
+          | COLOR_DEFINITION => 2
+          | BINDING_SET => 3
+          | RULESET => 4
+          | SELECTOR => 5
+          | DECLARATION => 6
+          | VALUE => 7
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => DOCUMENT
           | 1 => IMPORT
@@ -44,12 +35,8 @@ structure GtkCssSectionType :>
           | 6 => DECLARATION
           | 7 => VALUE
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -60,10 +47,9 @@ structure GtkCssSectionType :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = DOCUMENT
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

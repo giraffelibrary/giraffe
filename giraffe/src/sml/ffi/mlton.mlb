@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2016-2017 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -17,43 +17,83 @@ in
   mlton/Callback.sml
   HighLevelFFI.sml
   FINALIZABLE.sml
-  C_TYPE.sml
-  mlton/C_TYPE.sml
+  C_VALUE.sml
+  mlton/C_VALUE.sml
+  C_VALUE_EQ.sml
+  mlton/C_VALUE_EQ.sml
+  C_VALUE_TYPE.sml
+  C_VALUE_NULL_TYPE.sml
+  C_VALUE_EQ_TYPE.sml
+  C_VALUE_EQ_NULL_TYPE.sml
+  FILE_DESC_TYPE.sml
+  C_REF.sml
   C_POINTER.sml
   mlton/C_POINTER.sml
   C_TYPED_POINTER.sml
-  C_ARRAY.sml
-  mlton/C_ARRAY.sml
+  C_POINTER_TYPE.sml
+  mlton/C_POINTER_TYPE.sml
+  C_SCALAR.sml
+  SEQUENCE.sml
+  MONO_SEQUENCE.sml
   C_ARRAY_TYPE.sml
   mlton/C_ARRAY_TYPE.sml
-  FILE_DESC.sml
+  C_ARRAY.sml
+  mlton/C_ARRAY.sml
+  C_ARRAY_LOW_LEVEL.sml
   mlton/Finalizable.sml
-  mlton/CPointer.sml
+  mlton/CRef.sml
+  mlton/CPointerInternal.sml
   CTypedPointer.sml
   CPointer.sml
+  mlton/CScalar.sml
+  mlton/CVectorLowLevel.sml
   mlton/CVector.sml
+  mlton/CVectorNLowLevel.sml
   mlton/CVectorN.sml
-  mlton/CVectorType.sml
-  mlton/CVectorVectorType.sml
-  mlton/CVectorVectorNType.sml
-  mlton/GCharCType.sml
-  GCharCVectorType.sml
-  GCharCVectorVectorType.sml
-  GCharCVectorVectorNType.sml
-  GCharCVector.sml
-  GCharCVectorVector.sml
-  GCharCVectorVectorN.sml
-  mlton/F_F_I_SCALAR.sml
-  mlton/F_F_I_ARRAY.sml
-  mlton/FFIArray.sml
-  mlton/F_F_I_FLAGS_ENUM.sml
-  mlton/F_F_I.sml
-  mlton/FFI.sml
+  mlton/CValueCVectorType.sml
+  mlton/CValueCVectorNType.sml
+  mlton/CPointerCVectorType.sml
+  mlton/CPointerCVectorNType.sml
+  mlton/MLtonIntPointer.sml
+  mlton/MLtonWordPointer.sml
+  mlton/GCharType.sml
+  mlton/GShortType.sml
+  mlton/GUShortType.sml
+  mlton/GIntType.sml
+  mlton/GUIntType.sml
+  mlton/GLongType.sml
+  mlton/GULongType.sml
+  mlton/GBoolType.sml
+  mlton/GInt8Type.sml
+  mlton/GUInt8Type.sml
+  mlton/GInt16Type.sml
+  mlton/GUInt16Type.sml
+  mlton/GInt32Type.sml
+  mlton/GUInt32Type.sml
+  mlton/GInt64Type.sml
+  mlton/GUInt64Type.sml
+  mlton/GSSizeType.sml
+  mlton/GSizeType.sml
+  mlton/GFloatType.sml
+  mlton/GDoubleType.sml
+  mlton/FileDescType.sml
+  CScalars.sml
+  MonoVectorSequence.sml
+  CValueVector.sml
+  CValueVectorSequence.sml
+  ListSequence.sml
+  VectorSequence.sml
   UTF8.sml
-  UTF8_C_VECTOR.sml
-  UTF8_C_VECTOR_N.sml
   Utf8.sml
-  Utf8CVector.sml
-  Utf8CVectorN.sml
-  mlton/FileDesc.sml
+  CLASS.sml
+  UNION.sml
+  RECORD.sml
+  VALUE_RECORD.sml
+  FLAGS.sml
+  ENUM.sml
+  mlton/PointerRecord.sml
+  mlton/BoxedRecord.sml
+  mlton/BoxedValueRecord.sml
+  mlton/Flags.sml
+  mlton/Enum.sml
 end

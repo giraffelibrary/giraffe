@@ -25,8 +25,8 @@ Placeholders
 ==Specification==
 
 For
-  L non-VOID IN/INOUT parameters excluding the object instance,
-  K non-VOID INOUT/OUT parameters,
+  L non-VOID non-length IN/INOUT parameters excluding the object instance,
+  K non-VOID non-length INOUT/OUT parameters,
 SignalSpec has the form:
 
 
@@ -228,9 +228,15 @@ where
 ==Declaration==
 
 For
+  J non-VOID non-length IN/INOUT parameters excluding the object instance,
   L non-VOID IN/INOUT parameters excluding the object instance,
   K non-VOID INOUT/OUT parameters,
-SignalDec has the form:
+where a length parameter is one that provides the length of an array in another parameter
+or the return value, SignalDec has a form as described below.
+
+We also treat J, K and L as arrays whose elements are the parameter index in the
+full list of parameters.  Each array is injective (i.e. elements are unique) and the
+inverse of an array X is denoted X~.
 
 
   fun <signalName>Sig f =
@@ -240,7 +246,7 @@ SignalDec has the form:
     (
       fn inParamName[1] & ... & inParamName[L] =>
         let
-          val <retPat> = f inParamName[1] ... inParamName[L]
+          val <retPat> = f inParamExp[1] ... inParamExp[J]
         in
           outParamName[1] & ... & outParamName[K] & <retVal>
         end
@@ -271,7 +277,7 @@ SignalDec has the form:
     (<getFun[1]> &&&> ... &&&> <getFun[L]> ---> <retFun>)
     (
       fn inParamName[1] & ... & inParamName[L] =>
-        f inParamName[1] ... inParamName[L]
+        f inParamExp[1] ... inParamExp[J]
     )
 
     if K = 0 and L > 1
@@ -326,6 +332,36 @@ where
         ------------------+-------------------
           _               | retVal
         ------------------+-------------------
+
+
+  outParamName[k]
+    is the <k>th element in the list of names of non-VOID INOUT/OUT
+    parameters of the function as given by `GIRepository.BaseInfo.getName`.
+
+
+  inParamName[l]
+    is the <l>th element in the list of names of non-VOID IN/INOUT
+    parameters of the function as given by `GIRepository.BaseInfo.getName`.
+
+
+  inParamExp[j]
+    is defined as follows:
+
+      <inParamName[L~[J[j]]]> <inParamArrayLenExp>
+
+    where
+
+      inParamArrayLenExp is defined as follows:
+
+        argTypeInfo = GIRepository.ArgInfo.getType argInfo
+        arrayLength = GIRepository.TypeInfo.getArrayLength argTypeInfo
+
+        Conversion from arrayLength is as follows:
+
+          NONE                     --->     <empty>
+          SOME ZeroTerminated      --->     <empty>
+          SOME (LengthFixed n)     --->     <n>
+          SOME (LengthParam i)     --->     (LargeInt.toInt <inParamName[L~[i]]>)
 
 
   retFun
@@ -415,20 +451,20 @@ where
         UINT16    --->    <raise Error "no corresponding GType for UINT16">
         GTYPE     --->    <raise Error "not supported">
         FILENAME  --->    <raise Error "not supported">
-        ARRAY     --->    <raise Error "not supported">
+        ARRAY     --->    <getArrayFun[l]>
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
         VOID      --->    <raise Fail "VOID">
-        BOOLEAN   --->    get <j> boolean
-        INT32     --->    get <j> int32
-        UINT32    --->    get <j> uint32
-        INT64     --->    get <j> int64
-        UINT64    --->    get <j> uint64
-        FLOAT     --->    get <j> float
-        DOUBLE    --->    get <j> double
-        UTF8      --->    get <j> string
-        UNICHAR   --->    get <j> char
+        BOOLEAN   --->    get 0w<L[l]> boolean
+        INT32     --->    get 0w<L[l]> int32
+        UINT32    --->    get 0w<L[l]> uint32
+        INT64     --->    get 0w<L[l]> int64
+        UINT64    --->    get 0w<L[l]> uint64
+        FLOAT     --->    get 0w<L[l]> float
+        DOUBLE    --->    get 0w<L[l]> double
+        UTF8      --->    get 0w<L[l]> string
+        UNICHAR   --->    get 0w<L[l]> char
 
         INTERFACE --->
 
@@ -443,25 +479,25 @@ where
 
           isSelf = InterfaceName = ContainerName
 
-            get <j> <InterfaceNamespace><InterfaceName>Class.t<InOpt>
+            get 0w<L[l]> <InterfaceNamespace><InterfaceName>Class.t<InOpt>
               if isClass
 
 
-            get <j> <InterfaceNamespace><InterfaceName>Record.t<InOpt>
+            get 0w<L[l]> <InterfaceNamespace><InterfaceName>Record.t<InOpt>
               if isRecord
 
 
-            get <j> <InterfaceNamespace><InterfaceName>.t<InOpt>
+            get 0w<L[l]> <InterfaceNamespace><InterfaceName>.t<InOpt>
               if  not isSelf and isUnion
 
-            get <j> t<InOpt>
+            get 0w<L[l]> t<InOpt>
               if isSelf and isUnion
 
 
-            get <j> <InterfaceNamespace><InterfaceName>.t<InOpt>
+            get 0w<L[l]> <InterfaceNamespace><InterfaceName>.t<InOpt>
               if  not isSelf and isOther
 
-            get <j> t<InOpt>
+            get 0w<L[l]> t<InOpt>
               if isSelf and isOther
 
 
@@ -477,9 +513,39 @@ where
             ------------------+-------------------
 
 
-  setFun[k]
-    for k in 1 to K, is the closure marshaller writer function for the
-    <k>th parameter in the list of non-VOID INOUT/OUT parameters of the
+  getArrayFun[l]
+    is defined as follows:
+
+        ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
+        argTypeInfo       = GIRepository.ArgInfo.getType argInfo
+        mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo
+
+          ownershipTra... | getArrayFun[l]
+        ==================+===============================================
+          NOTHING         | get 0w<L[l]> <A>.t<Opt>
+        ------------------+-----------------------------------------------
+          CONTAINER       | <raise Error "not supported">
+        ------------------+-----------------------------------------------
+          EVERYTHING      | <raise Error "not supported">
+        ------------------+-----------------------------------------------
+
+    where
+
+      A is <ArrayStructId(argTypeInfo)>.FFI
+
+      Opt is defined as follows:
+
+          mayBeNull       | Opt
+        ==================+===================
+          false           | <empty>
+        ------------------+-------------------
+          true            | Opt
+        ------------------+-------------------
+
+
+  setFun[n]
+    for n in 1 to N, is the closure marshaller writer function for the
+    <n>th parameter in the list of non-VOID INOUT/OUT parameters of the
     signal handler function, translated according to the GIR type tag
     as follows:
 
@@ -495,15 +561,15 @@ where
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
         VOID      --->    <raise Fail "VOID">
-        BOOLEAN   --->    set <j> boolean
-        INT32     --->    set <j> int32
-        UINT32    --->    set <j> uint32
-        INT64     --->    set <j> int64
-        UINT64    --->    set <j> uint64
-        FLOAT     --->    set <j> float
-        DOUBLE    --->    set <j> double
-        UTF8      --->    set <j> string
-        UNICHAR   --->    set <j> char
+        BOOLEAN   --->    set <N[n]> boolean
+        INT32     --->    set <N[n]> int32
+        UINT32    --->    set <N[n]> uint32
+        INT64     --->    set <N[n]> int64
+        UINT64    --->    set <N[n]> uint64
+        FLOAT     --->    set <N[n]> float
+        DOUBLE    --->    set <N[n]> double
+        UTF8      --->    set <N[n]> string
+        UNICHAR   --->    set <N[n]> char
 
         INTERFACE --->
 
@@ -518,25 +584,25 @@ where
 
           isSelf = InterfaceName = ContainerName
 
-            set <j> <InterfaceNamespace><InterfaceName>Class.t<OutOpt>
+            set <N[n]> <InterfaceNamespace><InterfaceName>Class.t<OutOpt>
               if isClass
 
 
-            set <j> <InterfaceNamespace><InterfaceName>Record.t<OutOpt>
+            set <N[n]> <InterfaceNamespace><InterfaceName>Record.t<OutOpt>
               if isRecord
 
 
-            set <j> <InterfaceNamespace><InterfaceName>.t<OutOpt>
+            set <N[n]> <InterfaceNamespace><InterfaceName>.t<OutOpt>
               if not isSelf and isUnion
 
-            set <j> t<OutOpt>
+            set <N[n]> t<OutOpt>
               if isSelf and isUnion
 
 
-            set <j> <InterfaceNamespace><InterfaceName>.t<OutOpt>
+            set <N[n]> <InterfaceNamespace><InterfaceName>.t<OutOpt>
               if not isSelf and isOther
 
-            set <j> t<OutOpt>
+            set <N[n]> t<OutOpt>
               if isSelf and isOther
 
 
@@ -547,11 +613,4 @@ where
             ==+===================
               | <empty>
             --+-------------------
-
-
-  j
-    is a word literal giving the zero-based position of the
-    IN/INOUT/OUT parameter in the list of parameters.
-
-
 

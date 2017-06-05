@@ -10,20 +10,20 @@ structure GtkTargetEntry :>
         call (load_sym libgtk "gtk_target_entry_new")
           (
             Utf8.PolyML.cInPtr
-             &&> FFI.UInt32.PolyML.cVal
-             &&> FFI.UInt32.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
              --> GtkTargetEntryRecord.PolyML.cPtr
           )
       val copy_ = call (load_sym libgtk "gtk_target_entry_copy") (GtkTargetEntryRecord.PolyML.cPtr --> GtkTargetEntryRecord.PolyML.cPtr)
     end
     type t = GtkTargetEntryRecord.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new target flags info =
       (
-        Utf8.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
-         ---> GtkTargetEntryRecord.C.fromPtr true
+        Utf8.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         &&&> GUInt32.FFI.withVal
+         ---> GtkTargetEntryRecord.FFI.fromPtr true
       )
         new_
         (
@@ -31,5 +31,5 @@ structure GtkTargetEntry :>
            & flags
            & info
         )
-    fun copy self = (GtkTargetEntryRecord.C.withPtr ---> GtkTargetEntryRecord.C.fromPtr true) copy_ self
+    fun copy self = (GtkTargetEntryRecord.FFI.withPtr ---> GtkTargetEntryRecord.FFI.fromPtr true) copy_ self
   end

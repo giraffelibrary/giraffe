@@ -13,7 +13,7 @@ structure GObjectTypePlugin :>
     type 'a class = 'a GObjectTypePluginClass.class
     type type_t = GObjectType.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun unuse self = (GObjectTypePluginClass.C.withPtr ---> I) unuse_ self
-    fun use self = (GObjectTypePluginClass.C.withPtr ---> I) use_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun unuse self = (GObjectTypePluginClass.FFI.withPtr ---> I) unuse_ self
+    fun use self = (GObjectTypePluginClass.FFI.withPtr ---> I) use_ self
   end

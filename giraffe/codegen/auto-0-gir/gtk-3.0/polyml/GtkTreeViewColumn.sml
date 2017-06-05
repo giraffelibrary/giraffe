@@ -23,7 +23,7 @@ structure GtkTreeViewColumn :>
             GtkTreeViewColumnClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val cellGetPosition_ =
@@ -31,62 +31,62 @@ structure GtkTreeViewColumn :>
           (
             GtkTreeViewColumnClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cRef
-             &&> FFI.Int.PolyML.cRef
-             --> FFI.Bool.PolyML.cVal
+             &&> GInt.PolyML.cRef
+             &&> GInt.PolyML.cRef
+             --> GBool.PolyML.cVal
           )
       val cellGetSize_ =
         call (load_sym libgtk "gtk_tree_view_column_cell_get_size")
           (
             GtkTreeViewColumnClass.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cOptPtr
-             &&> FFI.Int.PolyML.cRef
-             &&> FFI.Int.PolyML.cRef
-             &&> FFI.Int.PolyML.cRef
-             &&> FFI.Int.PolyML.cRef
+             &&> GInt.PolyML.cRef
+             &&> GInt.PolyML.cRef
+             &&> GInt.PolyML.cRef
+             &&> GInt.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val cellIsVisible_ = call (load_sym libgtk "gtk_tree_view_column_cell_is_visible") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val cellIsVisible_ = call (load_sym libgtk "gtk_tree_view_column_cell_is_visible") (GtkTreeViewColumnClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val cellSetCellData_ =
         call (load_sym libgtk "gtk_tree_view_column_cell_set_cell_data")
           (
             GtkTreeViewColumnClass.PolyML.cPtr
              &&> GtkTreeModelClass.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val clear_ = call (load_sym libgtk "gtk_tree_view_column_clear") (GtkTreeViewColumnClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val clearAttributes_ = call (load_sym libgtk "gtk_tree_view_column_clear_attributes") (GtkTreeViewColumnClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val clicked_ = call (load_sym libgtk "gtk_tree_view_column_clicked") (GtkTreeViewColumnClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val focusCell_ = call (load_sym libgtk "gtk_tree_view_column_focus_cell") (GtkTreeViewColumnClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getAlignment_ = call (load_sym libgtk "gtk_tree_view_column_get_alignment") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Float.PolyML.cVal)
+      val getAlignment_ = call (load_sym libgtk "gtk_tree_view_column_get_alignment") (GtkTreeViewColumnClass.PolyML.cPtr --> GFloat.PolyML.cVal)
       val getButton_ = call (load_sym libgtk "gtk_tree_view_column_get_button") (GtkTreeViewColumnClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getClickable_ = call (load_sym libgtk "gtk_tree_view_column_get_clickable") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getExpand_ = call (load_sym libgtk "gtk_tree_view_column_get_expand") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getFixedWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_fixed_width") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getMaxWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_max_width") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getMinWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_min_width") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getReorderable_ = call (load_sym libgtk "gtk_tree_view_column_get_reorderable") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getResizable_ = call (load_sym libgtk "gtk_tree_view_column_get_resizable") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getClickable_ = call (load_sym libgtk "gtk_tree_view_column_get_clickable") (GtkTreeViewColumnClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getExpand_ = call (load_sym libgtk "gtk_tree_view_column_get_expand") (GtkTreeViewColumnClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getFixedWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_fixed_width") (GtkTreeViewColumnClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getMaxWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_max_width") (GtkTreeViewColumnClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getMinWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_min_width") (GtkTreeViewColumnClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getReorderable_ = call (load_sym libgtk "gtk_tree_view_column_get_reorderable") (GtkTreeViewColumnClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getResizable_ = call (load_sym libgtk "gtk_tree_view_column_get_resizable") (GtkTreeViewColumnClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSizing_ = call (load_sym libgtk "gtk_tree_view_column_get_sizing") (GtkTreeViewColumnClass.PolyML.cPtr --> GtkTreeViewColumnSizing.PolyML.cVal)
-      val getSortColumnId_ = call (load_sym libgtk "gtk_tree_view_column_get_sort_column_id") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getSortIndicator_ = call (load_sym libgtk "gtk_tree_view_column_get_sort_indicator") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getSortColumnId_ = call (load_sym libgtk "gtk_tree_view_column_get_sort_column_id") (GtkTreeViewColumnClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getSortIndicator_ = call (load_sym libgtk "gtk_tree_view_column_get_sort_indicator") (GtkTreeViewColumnClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSortOrder_ = call (load_sym libgtk "gtk_tree_view_column_get_sort_order") (GtkTreeViewColumnClass.PolyML.cPtr --> GtkSortType.PolyML.cVal)
-      val getSpacing_ = call (load_sym libgtk "gtk_tree_view_column_get_spacing") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getSpacing_ = call (load_sym libgtk "gtk_tree_view_column_get_spacing") (GtkTreeViewColumnClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getTitle_ = call (load_sym libgtk "gtk_tree_view_column_get_title") (GtkTreeViewColumnClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getTreeView_ = call (load_sym libgtk "gtk_tree_view_column_get_tree_view") (GtkTreeViewColumnClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getVisible_ = call (load_sym libgtk "gtk_tree_view_column_get_visible") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getVisible_ = call (load_sym libgtk "gtk_tree_view_column_get_visible") (GtkTreeViewColumnClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getWidget_ = call (load_sym libgtk "gtk_tree_view_column_get_widget") (GtkTreeViewColumnClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_width") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getXOffset_ = call (load_sym libgtk "gtk_tree_view_column_get_x_offset") (GtkTreeViewColumnClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getWidth_ = call (load_sym libgtk "gtk_tree_view_column_get_width") (GtkTreeViewColumnClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getXOffset_ = call (load_sym libgtk "gtk_tree_view_column_get_x_offset") (GtkTreeViewColumnClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val packEnd_ =
         call (load_sym libgtk "gtk_tree_view_column_pack_end")
           (
             GtkTreeViewColumnClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val packStart_ =
@@ -94,25 +94,25 @@ structure GtkTreeViewColumn :>
           (
             GtkTreeViewColumnClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val queueResize_ = call (load_sym libgtk "gtk_tree_view_column_queue_resize") (GtkTreeViewColumnClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setAlignment_ = call (load_sym libgtk "gtk_tree_view_column_set_alignment") (GtkTreeViewColumnClass.PolyML.cPtr &&> FFI.Float.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setClickable_ = call (load_sym libgtk "gtk_tree_view_column_set_clickable") (GtkTreeViewColumnClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setExpand_ = call (load_sym libgtk "gtk_tree_view_column_set_expand") (GtkTreeViewColumnClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setFixedWidth_ = call (load_sym libgtk "gtk_tree_view_column_set_fixed_width") (GtkTreeViewColumnClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setMaxWidth_ = call (load_sym libgtk "gtk_tree_view_column_set_max_width") (GtkTreeViewColumnClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setMinWidth_ = call (load_sym libgtk "gtk_tree_view_column_set_min_width") (GtkTreeViewColumnClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setReorderable_ = call (load_sym libgtk "gtk_tree_view_column_set_reorderable") (GtkTreeViewColumnClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setResizable_ = call (load_sym libgtk "gtk_tree_view_column_set_resizable") (GtkTreeViewColumnClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setAlignment_ = call (load_sym libgtk "gtk_tree_view_column_set_alignment") (GtkTreeViewColumnClass.PolyML.cPtr &&> GFloat.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setClickable_ = call (load_sym libgtk "gtk_tree_view_column_set_clickable") (GtkTreeViewColumnClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setExpand_ = call (load_sym libgtk "gtk_tree_view_column_set_expand") (GtkTreeViewColumnClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setFixedWidth_ = call (load_sym libgtk "gtk_tree_view_column_set_fixed_width") (GtkTreeViewColumnClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMaxWidth_ = call (load_sym libgtk "gtk_tree_view_column_set_max_width") (GtkTreeViewColumnClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMinWidth_ = call (load_sym libgtk "gtk_tree_view_column_set_min_width") (GtkTreeViewColumnClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setReorderable_ = call (load_sym libgtk "gtk_tree_view_column_set_reorderable") (GtkTreeViewColumnClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setResizable_ = call (load_sym libgtk "gtk_tree_view_column_set_resizable") (GtkTreeViewColumnClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setSizing_ = call (load_sym libgtk "gtk_tree_view_column_set_sizing") (GtkTreeViewColumnClass.PolyML.cPtr &&> GtkTreeViewColumnSizing.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSortColumnId_ = call (load_sym libgtk "gtk_tree_view_column_set_sort_column_id") (GtkTreeViewColumnClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSortIndicator_ = call (load_sym libgtk "gtk_tree_view_column_set_sort_indicator") (GtkTreeViewColumnClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSortColumnId_ = call (load_sym libgtk "gtk_tree_view_column_set_sort_column_id") (GtkTreeViewColumnClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSortIndicator_ = call (load_sym libgtk "gtk_tree_view_column_set_sort_indicator") (GtkTreeViewColumnClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setSortOrder_ = call (load_sym libgtk "gtk_tree_view_column_set_sort_order") (GtkTreeViewColumnClass.PolyML.cPtr &&> GtkSortType.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSpacing_ = call (load_sym libgtk "gtk_tree_view_column_set_spacing") (GtkTreeViewColumnClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSpacing_ = call (load_sym libgtk "gtk_tree_view_column_set_spacing") (GtkTreeViewColumnClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setTitle_ = call (load_sym libgtk "gtk_tree_view_column_set_title") (GtkTreeViewColumnClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setVisible_ = call (load_sym libgtk "gtk_tree_view_column_set_visible") (GtkTreeViewColumnClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setVisible_ = call (load_sym libgtk "gtk_tree_view_column_set_visible") (GtkTreeViewColumnClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setWidget_ = call (load_sym libgtk "gtk_tree_view_column_set_widget") (GtkTreeViewColumnClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkTreeViewColumnClass.class
@@ -126,17 +126,17 @@ structure GtkTreeViewColumn :>
     type sort_type_t = GtkSortType.t
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkTreeViewColumnClass.C.fromPtr false) new_ ()
-    fun newWithArea area = (GtkCellAreaClass.C.withPtr ---> GtkTreeViewColumnClass.C.fromPtr false) newWithArea_ area
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asCellLayout self = (GObjectObjectClass.FFI.withPtr ---> GtkCellLayoutClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkTreeViewColumnClass.FFI.fromPtr false) new_ ()
+    fun newWithArea area = (GtkCellAreaClass.FFI.withPtr ---> GtkTreeViewColumnClass.FFI.fromPtr false) newWithArea_ area
     fun addAttribute self cellRenderer attribute column =
       (
-        GtkTreeViewColumnClass.C.withPtr
-         &&&> GtkCellRendererClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkTreeViewColumnClass.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         addAttribute_
@@ -152,20 +152,20 @@ structure GtkTreeViewColumn :>
          & width
          & retVal =
           (
-            GtkTreeViewColumnClass.C.withPtr
-             &&&> GtkCellRendererClass.C.withPtr
-             &&&> FFI.Int.C.withRefVal
-             &&&> FFI.Int.C.withRefVal
-             ---> FFI.Int.C.fromVal
-                   && FFI.Int.C.fromVal
-                   && FFI.Bool.C.fromVal
+            GtkTreeViewColumnClass.FFI.withPtr
+             &&&> GtkCellRendererClass.FFI.withPtr
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && GBool.FFI.fromVal
           )
             cellGetPosition_
             (
               self
                & cellRenderer
-               & FFI.Int.null
-               & FFI.Int.null
+               & GInt.null
+               & GInt.null
             )
       in
         if retVal then SOME (xOffset, width) else NONE
@@ -178,26 +178,26 @@ structure GtkTreeViewColumn :>
          & height
          & () =
           (
-            GtkTreeViewColumnClass.C.withPtr
-             &&&> GdkRectangleRecord.C.withOptPtr
-             &&&> FFI.Int.C.withRefVal
-             &&&> FFI.Int.C.withRefVal
-             &&&> FFI.Int.C.withRefVal
-             &&&> FFI.Int.C.withRefVal
-             ---> FFI.Int.C.fromVal
-                   && FFI.Int.C.fromVal
-                   && FFI.Int.C.fromVal
-                   && FFI.Int.C.fromVal
+            GtkTreeViewColumnClass.FFI.withPtr
+             &&&> GdkRectangleRecord.FFI.withOptPtr
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
                    && I
           )
             cellGetSize_
             (
               self
                & cellArea
-               & FFI.Int.null
-               & FFI.Int.null
-               & FFI.Int.null
-               & FFI.Int.null
+               & GInt.null
+               & GInt.null
+               & GInt.null
+               & GInt.null
             )
       in
         (
@@ -207,14 +207,14 @@ structure GtkTreeViewColumn :>
           height
         )
       end
-    fun cellIsVisible self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Bool.C.fromVal) cellIsVisible_ self
+    fun cellIsVisible self = (GtkTreeViewColumnClass.FFI.withPtr ---> GBool.FFI.fromVal) cellIsVisible_ self
     fun cellSetCellData self treeModel iter isExpander isExpanded =
       (
-        GtkTreeViewColumnClass.C.withPtr
-         &&&> GtkTreeModelClass.C.withPtr
-         &&&> GtkTreeIterRecord.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.Bool.C.withVal
+        GtkTreeViewColumnClass.FFI.withPtr
+         &&&> GtkTreeModelClass.FFI.withPtr
+         &&&> GtkTreeIterRecord.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> GBool.FFI.withVal
          ---> I
       )
         cellSetCellData_
@@ -225,35 +225,35 @@ structure GtkTreeViewColumn :>
            & isExpander
            & isExpanded
         )
-    fun clear self = (GtkTreeViewColumnClass.C.withPtr ---> I) clear_ self
-    fun clearAttributes self cellRenderer = (GtkTreeViewColumnClass.C.withPtr &&&> GtkCellRendererClass.C.withPtr ---> I) clearAttributes_ (self & cellRenderer)
-    fun clicked self = (GtkTreeViewColumnClass.C.withPtr ---> I) clicked_ self
-    fun focusCell self cell = (GtkTreeViewColumnClass.C.withPtr &&&> GtkCellRendererClass.C.withPtr ---> I) focusCell_ (self & cell)
-    fun getAlignment self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Float.C.fromVal) getAlignment_ self
-    fun getButton self = (GtkTreeViewColumnClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getButton_ self
-    fun getClickable self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Bool.C.fromVal) getClickable_ self
-    fun getExpand self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Bool.C.fromVal) getExpand_ self
-    fun getFixedWidth self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Int.C.fromVal) getFixedWidth_ self
-    fun getMaxWidth self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Int.C.fromVal) getMaxWidth_ self
-    fun getMinWidth self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Int.C.fromVal) getMinWidth_ self
-    fun getReorderable self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Bool.C.fromVal) getReorderable_ self
-    fun getResizable self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Bool.C.fromVal) getResizable_ self
-    fun getSizing self = (GtkTreeViewColumnClass.C.withPtr ---> GtkTreeViewColumnSizing.C.fromVal) getSizing_ self
-    fun getSortColumnId self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Int.C.fromVal) getSortColumnId_ self
-    fun getSortIndicator self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Bool.C.fromVal) getSortIndicator_ self
-    fun getSortOrder self = (GtkTreeViewColumnClass.C.withPtr ---> GtkSortType.C.fromVal) getSortOrder_ self
-    fun getSpacing self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Int.C.fromVal) getSpacing_ self
-    fun getTitle self = (GtkTreeViewColumnClass.C.withPtr ---> Utf8.C.fromPtr false) getTitle_ self
-    fun getTreeView self = (GtkTreeViewColumnClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getTreeView_ self
-    fun getVisible self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
-    fun getWidget self = (GtkTreeViewColumnClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getWidget_ self
-    fun getWidth self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Int.C.fromVal) getWidth_ self
-    fun getXOffset self = (GtkTreeViewColumnClass.C.withPtr ---> FFI.Int.C.fromVal) getXOffset_ self
+    fun clear self = (GtkTreeViewColumnClass.FFI.withPtr ---> I) clear_ self
+    fun clearAttributes self cellRenderer = (GtkTreeViewColumnClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> I) clearAttributes_ (self & cellRenderer)
+    fun clicked self = (GtkTreeViewColumnClass.FFI.withPtr ---> I) clicked_ self
+    fun focusCell self cell = (GtkTreeViewColumnClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> I) focusCell_ (self & cell)
+    fun getAlignment self = (GtkTreeViewColumnClass.FFI.withPtr ---> GFloat.FFI.fromVal) getAlignment_ self
+    fun getButton self = (GtkTreeViewColumnClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getButton_ self
+    fun getClickable self = (GtkTreeViewColumnClass.FFI.withPtr ---> GBool.FFI.fromVal) getClickable_ self
+    fun getExpand self = (GtkTreeViewColumnClass.FFI.withPtr ---> GBool.FFI.fromVal) getExpand_ self
+    fun getFixedWidth self = (GtkTreeViewColumnClass.FFI.withPtr ---> GInt.FFI.fromVal) getFixedWidth_ self
+    fun getMaxWidth self = (GtkTreeViewColumnClass.FFI.withPtr ---> GInt.FFI.fromVal) getMaxWidth_ self
+    fun getMinWidth self = (GtkTreeViewColumnClass.FFI.withPtr ---> GInt.FFI.fromVal) getMinWidth_ self
+    fun getReorderable self = (GtkTreeViewColumnClass.FFI.withPtr ---> GBool.FFI.fromVal) getReorderable_ self
+    fun getResizable self = (GtkTreeViewColumnClass.FFI.withPtr ---> GBool.FFI.fromVal) getResizable_ self
+    fun getSizing self = (GtkTreeViewColumnClass.FFI.withPtr ---> GtkTreeViewColumnSizing.FFI.fromVal) getSizing_ self
+    fun getSortColumnId self = (GtkTreeViewColumnClass.FFI.withPtr ---> GInt.FFI.fromVal) getSortColumnId_ self
+    fun getSortIndicator self = (GtkTreeViewColumnClass.FFI.withPtr ---> GBool.FFI.fromVal) getSortIndicator_ self
+    fun getSortOrder self = (GtkTreeViewColumnClass.FFI.withPtr ---> GtkSortType.FFI.fromVal) getSortOrder_ self
+    fun getSpacing self = (GtkTreeViewColumnClass.FFI.withPtr ---> GInt.FFI.fromVal) getSpacing_ self
+    fun getTitle self = (GtkTreeViewColumnClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTitle_ self
+    fun getTreeView self = (GtkTreeViewColumnClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getTreeView_ self
+    fun getVisible self = (GtkTreeViewColumnClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
+    fun getWidget self = (GtkTreeViewColumnClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self
+    fun getWidth self = (GtkTreeViewColumnClass.FFI.withPtr ---> GInt.FFI.fromVal) getWidth_ self
+    fun getXOffset self = (GtkTreeViewColumnClass.FFI.withPtr ---> GInt.FFI.fromVal) getXOffset_ self
     fun packEnd self cell expand =
       (
-        GtkTreeViewColumnClass.C.withPtr
-         &&&> GtkCellRendererClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GtkTreeViewColumnClass.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         packEnd_
@@ -264,9 +264,9 @@ structure GtkTreeViewColumn :>
         )
     fun packStart self cell expand =
       (
-        GtkTreeViewColumnClass.C.withPtr
-         &&&> GtkCellRendererClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GtkTreeViewColumnClass.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         packStart_
@@ -275,23 +275,23 @@ structure GtkTreeViewColumn :>
            & cell
            & expand
         )
-    fun queueResize self = (GtkTreeViewColumnClass.C.withPtr ---> I) queueResize_ self
-    fun setAlignment self xalign = (GtkTreeViewColumnClass.C.withPtr &&&> FFI.Float.C.withVal ---> I) setAlignment_ (self & xalign)
-    fun setClickable self clickable = (GtkTreeViewColumnClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setClickable_ (self & clickable)
-    fun setExpand self expand = (GtkTreeViewColumnClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setExpand_ (self & expand)
-    fun setFixedWidth self fixedWidth = (GtkTreeViewColumnClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setFixedWidth_ (self & fixedWidth)
-    fun setMaxWidth self maxWidth = (GtkTreeViewColumnClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMaxWidth_ (self & maxWidth)
-    fun setMinWidth self minWidth = (GtkTreeViewColumnClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMinWidth_ (self & minWidth)
-    fun setReorderable self reorderable = (GtkTreeViewColumnClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setReorderable_ (self & reorderable)
-    fun setResizable self resizable = (GtkTreeViewColumnClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setResizable_ (self & resizable)
-    fun setSizing self type' = (GtkTreeViewColumnClass.C.withPtr &&&> GtkTreeViewColumnSizing.C.withVal ---> I) setSizing_ (self & type')
-    fun setSortColumnId self sortColumnId = (GtkTreeViewColumnClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSortColumnId_ (self & sortColumnId)
-    fun setSortIndicator self setting = (GtkTreeViewColumnClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSortIndicator_ (self & setting)
-    fun setSortOrder self order = (GtkTreeViewColumnClass.C.withPtr &&&> GtkSortType.C.withVal ---> I) setSortOrder_ (self & order)
-    fun setSpacing self spacing = (GtkTreeViewColumnClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSpacing_ (self & spacing)
-    fun setTitle self title = (GtkTreeViewColumnClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTitle_ (self & title)
-    fun setVisible self visible = (GtkTreeViewColumnClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & visible)
-    fun setWidget self widget = (GtkTreeViewColumnClass.C.withPtr &&&> GtkWidgetClass.C.withOptPtr ---> I) setWidget_ (self & widget)
+    fun queueResize self = (GtkTreeViewColumnClass.FFI.withPtr ---> I) queueResize_ self
+    fun setAlignment self xalign = (GtkTreeViewColumnClass.FFI.withPtr &&&> GFloat.FFI.withVal ---> I) setAlignment_ (self & xalign)
+    fun setClickable self clickable = (GtkTreeViewColumnClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setClickable_ (self & clickable)
+    fun setExpand self expand = (GtkTreeViewColumnClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setExpand_ (self & expand)
+    fun setFixedWidth self fixedWidth = (GtkTreeViewColumnClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setFixedWidth_ (self & fixedWidth)
+    fun setMaxWidth self maxWidth = (GtkTreeViewColumnClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMaxWidth_ (self & maxWidth)
+    fun setMinWidth self minWidth = (GtkTreeViewColumnClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMinWidth_ (self & minWidth)
+    fun setReorderable self reorderable = (GtkTreeViewColumnClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setReorderable_ (self & reorderable)
+    fun setResizable self resizable = (GtkTreeViewColumnClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setResizable_ (self & resizable)
+    fun setSizing self type' = (GtkTreeViewColumnClass.FFI.withPtr &&&> GtkTreeViewColumnSizing.FFI.withVal ---> I) setSizing_ (self & type')
+    fun setSortColumnId self sortColumnId = (GtkTreeViewColumnClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setSortColumnId_ (self & sortColumnId)
+    fun setSortIndicator self setting = (GtkTreeViewColumnClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSortIndicator_ (self & setting)
+    fun setSortOrder self order = (GtkTreeViewColumnClass.FFI.withPtr &&&> GtkSortType.FFI.withVal ---> I) setSortOrder_ (self & order)
+    fun setSpacing self spacing = (GtkTreeViewColumnClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setSpacing_ (self & spacing)
+    fun setTitle self title = (GtkTreeViewColumnClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTitle_ (self & title)
+    fun setVisible self visible = (GtkTreeViewColumnClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
+    fun setWidget self widget = (GtkTreeViewColumnClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setWidget_ (self & widget)
     local
       open ClosureMarshal Signal
     in

@@ -43,8 +43,7 @@ signature <ENUM_NAMESPACE>_<ENUM_NAME> =
   sig
     (* Types *)
 
-    eqtype t
-    include BIT_FLAGS where type flags = t
+    include FLAGS
 
     val <VALUENAME[1]> : t
 
@@ -75,16 +74,6 @@ signature <ENUM_NAMESPACE>_<ENUM_NAME> =
     ...
 
     <FunctionSpec[M]>
-
-
-    structure C :
-      sig
-        type val_
-        type ref_
-        val withVal : (val_ -> 'a) -> t -> 'a
-        val withRefVal : (ref_ -> 'a) -> t -> (val_, 'a) pair
-        val fromVal : val_ -> t
-      end
   end
 
 
@@ -125,24 +114,16 @@ where
 ==Structure==
 
 structure <EnumNamespace><EnumName> :>
-  sig
-    include
-      <ENUM_NAMESPACE>_<ENUM_NAME>
-                                                                                -.
-        where type ('a, 'b) value_accessor = ('a, 'b) GObject.Value.accessor     | isGObject andalso optGetTypeSymbol is SOME _
-                                                                                -'
-        where type <varlist[1]> <local_name[1]> = <varlist[1]> <EnumNamespace><TypeName[1]>.<t[1]>
+  <ENUM_NAMESPACE>_<ENUM_NAME>
+                                                                            -.
+    where type ('a, 'b) value_accessor = ('a, 'b) GObject.Value.accessor     | isGObject andalso optGetTypeSymbol is SOME _
+                                                                            -'
+    where type <varlist[1]> <local_name[1]> = <varlist[1]> <EnumNamespace><TypeName[1]>.<t[1]>
 
-        ...
+    ...
 
-        where type <varlist[N]> <local_name[N]> = <varlist[N]> <EnumNamespace><TypeName[N]>.<t[N]>
-
-    structure PolyML :                          -.
-      sig                                        |
-        val cVal : C.val_ PolyMLFFI.conversion   | Poly/ML only
-        val cRef : C.ref_ PolyMLFFI.conversion   |
-      end                                       -'
-  end =
+    where type <varlist[N]> <local_name[N]> = <varlist[N]> <EnumNamespace><TypeName[N]>.<t[N]>
+=
   struct
     val <VALUENAME[1]> = <valueValue[1]>
 
@@ -157,65 +138,52 @@ structure <EnumNamespace><EnumName> :>
 
       <VALUENAME[V]>
     ]
-    structure BitFlags = Word32BitFlags (val allFlags = allFlags)
-    open BitFlags
-    type t = flags
-
-    structure C =
-      struct
-        type val_ = Word32.word
-        type ref_ = FFI.Word32.ref_
-        fun withVal f = f
-        fun withRefVal f = withVal (FFI.Word32.withRefVal f)
-        fun fromVal w = w
-      end
-
-    structure PolyML =                          -.
-      struct                                     |
-        val cVal = FFI.PolyML.Word32.cVal        | Poly/ML only
-        val cRef = FFI.PolyML.Word32.cRef        |
-      end                                       -'
+    structure Flags =
+      Flags(
+        val allFlags = allFlags
+      )
+    open Flags
 
 
     (* Accessor *)
-                                                                          -.              -.
-    local                                                                  |               |
-      open PolyMLFFI                                                       |               |
-    in                                                                     |               |
-      val getType_ =                                                       |               |
-        call                                                               |               |
-          (load_sym lib<enumobjectnamespace> "<getTypeSymbol>")            | Poly/ML only  |
-          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);                   |               |
-                                                                           |               |
-      val getValue_ =                                                      |               |
-        call                                                               |               |
-          (load_sym libgobject "g_value_get_flags")                        |               |
-          (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal);                |               |
-                                                                           |               |
-      val setValue_ =                                                      |               |
-        call                                                               |               |
-          (load_sym libgobject "g_value_set_flags")                        |               |
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid);            |
-    end                                                                    |               | optGetTypeSymbol
-                                                                          -'               |  is SOME getTypeSymbol
-                                                                          -.               |
-    val getType_ = _import "<getTypeSymbol>" : unit -> GObjectType.C.val_; |               |
-                                                                           |               |
-    val getValue_ =                                                        |               |
-      _import "g_value_get_flags" : GObjectValueRecord.C.p -> C.val_;      | MLton only    |
-                                                                           |               |
-    val setValue_ =                                                        |               |
-      _import "g_value_set_flags" : GObjectValueRecord.C.p * C.val_ -> unit;               |
-                                                                          -'               |
-                                                                          -.               |
-    type ('a, 'b) value_accessor = ('a, 'b) GObject.Value.accessor         | isGObject     |
-                                                                          -'               |
-    val t =                                                                                |
-      GObjectValue.C.createAccessor {                                                      |
-        getType  = (I ---> GObjectType.C.fromVal) getType_,                                |
-        getValue = (I ---> C.fromPtr false) getValue_,                                     |
-        setValue = (I &&&> C.withPtr ---> I) setValue_                                     |
-      }                                                                                   -'
+                                                                            -.              -.
+    local                                                                    |               |
+      open PolyMLFFI                                                         |               |
+    in                                                                       |               |
+      val getType_ =                                                         |               |
+        call                                                                 |               |
+          (load_sym lib<enumobjectnamespace> "<getTypeSymbol>")              | Poly/ML only  |
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);                     |               |
+                                                                             |               |
+      val getValue_ =                                                        |               |
+        call                                                                 |               |
+          (load_sym libgobject "g_value_get_flags")                          |               |
+          (GObjectValueRecord.PolyML.PTR --> PolyML.cVal);                   |               |
+                                                                             |               |
+      val setValue_ =                                                        |               |
+        call                                                                 |               |
+          (load_sym libgobject "g_value_set_flags")                          |               |
+          (GObjectValueRecord.PolyML.PTR &&> PolyML.cVal --> PolyMLFFI.cVoid);               |
+    end                                                                      |               | optGetTypeSymbol
+                                                                            -'               |  is SOME getTypeSymbol
+                                                                            -.               |
+    val getType_ = _import "<getTypeSymbol>" : unit -> GObjectType.FFI.val_; |               |
+                                                                             |               |
+    val getValue_ =                                                          |               |
+      _import "g_value_get_flags" : GObjectValueRecord.FFI.p -> FFI.val_;    | MLton only    |
+                                                                             |               |
+    val setValue_ =                                                          |               |
+      _import "g_value_set_flags" : GObjectValueRecord.FFI.p * FFI.val_ -> unit;             |
+                                                                            -'               |
+                                                                            -.               |
+    type ('a, 'b) value_accessor = ('a, 'b) GObject.Value.accessor           | isGObject     |
+                                                                            -'               |
+    val t =                                                                                  |
+      GObjectValue.C.createAccessor {                                                        |
+        getType  = (I ---> GObjectType.FFI.fromVal) getType_,                                |
+        getValue = (I ---> FFI.fromPtr false) getValue_,                                     |
+        setValue = (I &&&> FFI.withPtr ---> I) setValue_                                     |
+      }                                                                                     -'
 
 
     (* Low-Level Functions *)
@@ -248,9 +216,9 @@ structure <EnumNamespace><EnumName> :>
 
 
     (* High-Level Functions *)
-                                                              -. 
-    val getType = (I ---> GObjectType.C.fromVal) getType_      | optGetTypeSymbol is SOME _
-                                                              -'
+                                                                -. 
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_      | optGetTypeSymbol is SOME _
+                                                                -'
     <HighLevelFunction[1]>
 
     ...

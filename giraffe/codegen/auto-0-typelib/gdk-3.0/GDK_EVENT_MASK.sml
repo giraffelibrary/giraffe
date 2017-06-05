@@ -1,9 +1,6 @@
 signature GDK_EVENT_MASK =
   sig
-    eqtype t
-    include
-      BIT_FLAGS
-        where type flags = t
+    include FLAGS
     val EXPOSURE_MASK : t
     val POINTER_MOTION_MASK : t
     val POINTER_MOTION_HINT_MASK : t
@@ -28,18 +25,4 @@ signature GDK_EVENT_MASK =
     val ALL_EVENTS_MASK : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
-    structure C :
-      sig
-        type val_
-        type ref_
-        val withVal :
-          (val_ -> 'a)
-           -> t
-           -> 'a
-        val withRefVal :
-          (ref_ -> 'a)
-           -> t
-           -> (val_, 'a) pair
-        val fromVal : val_ -> t
-      end
   end

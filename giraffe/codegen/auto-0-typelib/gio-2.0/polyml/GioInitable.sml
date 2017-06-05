@@ -13,19 +13,19 @@ structure GioInitable :>
             GioInitableClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
     end
     type 'a class = 'a GioInitableClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun init self cancellable =
       (
-        GioInitableClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioInitableClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         init_
         (

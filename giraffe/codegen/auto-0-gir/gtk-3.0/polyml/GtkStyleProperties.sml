@@ -25,7 +25,7 @@ structure GtkStyleProperties :>
           (
             GtkStylePropertiesClass.PolyML.cPtr
              &&> GtkStylePropertiesClass.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val setProperty_ =
@@ -51,16 +51,16 @@ structure GtkStyleProperties :>
     type symbolic_color_t = GtkSymbolicColorRecord.t
     type state_flags_t = GtkStateFlags.t
     type t = base class
-    fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkStylePropertiesClass.C.fromPtr true) new_ ()
-    fun clear self = (GtkStylePropertiesClass.C.withPtr ---> I) clear_ self
-    fun lookupColor self name = (GtkStylePropertiesClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkSymbolicColorRecord.C.fromPtr false) lookupColor_ (self & name)
+    fun asStyleProvider self = (GObjectObjectClass.FFI.withPtr ---> GtkStyleProviderClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkStylePropertiesClass.FFI.fromPtr true) new_ ()
+    fun clear self = (GtkStylePropertiesClass.FFI.withPtr ---> I) clear_ self
+    fun lookupColor self name = (GtkStylePropertiesClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSymbolicColorRecord.FFI.fromPtr false) lookupColor_ (self & name)
     fun mapColor self name color =
       (
-        GtkStylePropertiesClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GtkSymbolicColorRecord.C.withPtr
+        GtkStylePropertiesClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GtkSymbolicColorRecord.FFI.withPtr
          ---> I
       )
         mapColor_
@@ -71,9 +71,9 @@ structure GtkStyleProperties :>
         )
     fun merge self propsToMerge replace =
       (
-        GtkStylePropertiesClass.C.withPtr
-         &&&> GtkStylePropertiesClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GtkStylePropertiesClass.FFI.withPtr
+         &&&> GtkStylePropertiesClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         merge_
@@ -84,10 +84,10 @@ structure GtkStyleProperties :>
         )
     fun setProperty self property state value =
       (
-        GtkStylePropertiesClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GtkStateFlags.C.withVal
-         &&&> GObjectValueRecord.C.withPtr
+        GtkStylePropertiesClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GtkStateFlags.FFI.withVal
+         &&&> GObjectValueRecord.FFI.withPtr
          ---> I
       )
         setProperty_
@@ -99,9 +99,9 @@ structure GtkStyleProperties :>
         )
     fun unsetProperty self property state =
       (
-        GtkStylePropertiesClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GtkStateFlags.C.withVal
+        GtkStylePropertiesClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GtkStateFlags.FFI.withVal
          ---> I
       )
         unsetProperty_

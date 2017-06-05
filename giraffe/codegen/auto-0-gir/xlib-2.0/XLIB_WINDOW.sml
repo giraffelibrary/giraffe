@@ -1,1 +1,1 @@
-signature XLIB_WINDOW = F_F_I_SCALAR
+signature XLIB_WINDOW = C_SCALAR

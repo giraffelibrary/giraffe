@@ -10,56 +10,56 @@ structure GtkAlignment :>
       val new_ =
         call (load_sym libgtk "gtk_alignment_new")
           (
-            FFI.Float.PolyML.cVal
-             &&> FFI.Float.PolyML.cVal
-             &&> FFI.Float.PolyML.cVal
-             &&> FFI.Float.PolyML.cVal
+            GFloat.PolyML.cVal
+             &&> GFloat.PolyML.cVal
+             &&> GFloat.PolyML.cVal
+             &&> GFloat.PolyML.cVal
              --> GtkWidgetClass.PolyML.cPtr
           )
       val getPadding_ =
         call (load_sym libgtk "gtk_alignment_get_padding")
           (
             GtkAlignmentClass.PolyML.cPtr
-             &&> FFI.UInt32.PolyML.cRef
-             &&> FFI.UInt32.PolyML.cRef
-             &&> FFI.UInt32.PolyML.cRef
-             &&> FFI.UInt32.PolyML.cRef
+             &&> GUInt32.PolyML.cRef
+             &&> GUInt32.PolyML.cRef
+             &&> GUInt32.PolyML.cRef
+             &&> GUInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
       val set_ =
         call (load_sym libgtk "gtk_alignment_set")
           (
             GtkAlignmentClass.PolyML.cPtr
-             &&> FFI.Float.PolyML.cVal
-             &&> FFI.Float.PolyML.cVal
-             &&> FFI.Float.PolyML.cVal
-             &&> FFI.Float.PolyML.cVal
+             &&> GFloat.PolyML.cVal
+             &&> GFloat.PolyML.cVal
+             &&> GFloat.PolyML.cVal
+             &&> GFloat.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val setPadding_ =
         call (load_sym libgtk "gtk_alignment_set_padding")
           (
             GtkAlignmentClass.PolyML.cPtr
-             &&> FFI.UInt32.PolyML.cVal
-             &&> FFI.UInt32.PolyML.cVal
-             &&> FFI.UInt32.PolyML.cVal
-             &&> FFI.UInt32.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GtkAlignmentClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new xalign yalign xscale yscale =
       (
-        FFI.Float.C.withVal
-         &&&> FFI.Float.C.withVal
-         &&&> FFI.Float.C.withVal
-         &&&> FFI.Float.C.withVal
-         ---> GtkAlignmentClass.C.fromPtr false
+        GFloat.FFI.withVal
+         &&&> GFloat.FFI.withVal
+         &&&> GFloat.FFI.withVal
+         &&&> GFloat.FFI.withVal
+         ---> GtkAlignmentClass.FFI.fromPtr false
       )
         new_
         (
@@ -76,24 +76,24 @@ structure GtkAlignment :>
          & paddingRight
          & () =
           (
-            GtkAlignmentClass.C.withPtr
-             &&&> FFI.UInt32.C.withRefVal
-             &&&> FFI.UInt32.C.withRefVal
-             &&&> FFI.UInt32.C.withRefVal
-             &&&> FFI.UInt32.C.withRefVal
-             ---> FFI.UInt32.C.fromVal
-                   && FFI.UInt32.C.fromVal
-                   && FFI.UInt32.C.fromVal
-                   && FFI.UInt32.C.fromVal
+            GtkAlignmentClass.FFI.withPtr
+             &&&> GUInt32.FFI.withRefVal
+             &&&> GUInt32.FFI.withRefVal
+             &&&> GUInt32.FFI.withRefVal
+             &&&> GUInt32.FFI.withRefVal
+             ---> GUInt32.FFI.fromVal
+                   && GUInt32.FFI.fromVal
+                   && GUInt32.FFI.fromVal
+                   && GUInt32.FFI.fromVal
                    && I
           )
             getPadding_
             (
               self
-               & FFI.UInt32.null
-               & FFI.UInt32.null
-               & FFI.UInt32.null
-               & FFI.UInt32.null
+               & GUInt32.null
+               & GUInt32.null
+               & GUInt32.null
+               & GUInt32.null
             )
       in
         (
@@ -105,11 +105,11 @@ structure GtkAlignment :>
       end
     fun set self xalign yalign xscale yscale =
       (
-        GtkAlignmentClass.C.withPtr
-         &&&> FFI.Float.C.withVal
-         &&&> FFI.Float.C.withVal
-         &&&> FFI.Float.C.withVal
-         &&&> FFI.Float.C.withVal
+        GtkAlignmentClass.FFI.withPtr
+         &&&> GFloat.FFI.withVal
+         &&&> GFloat.FFI.withVal
+         &&&> GFloat.FFI.withVal
+         &&&> GFloat.FFI.withVal
          ---> I
       )
         set_
@@ -122,11 +122,11 @@ structure GtkAlignment :>
         )
     fun setPadding self paddingTop paddingBottom paddingLeft paddingRight =
       (
-        GtkAlignmentClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
+        GtkAlignmentClass.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         &&&> GUInt32.FFI.withVal
+         &&&> GUInt32.FFI.withVal
+         &&&> GUInt32.FFI.withVal
          ---> I
       )
         setPadding_

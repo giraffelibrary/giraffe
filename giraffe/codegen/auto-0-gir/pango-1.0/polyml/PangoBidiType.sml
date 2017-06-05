@@ -1,14 +1,6 @@
-structure PangoBidiType :>
-  sig
-    include PANGO_BIDI_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure PangoBidiType :> PANGO_BIDI_TYPE =
   struct
-    datatype t =
+    datatype enum =
       L
     | LRE
     | LRO
@@ -28,34 +20,33 @@ structure PangoBidiType :>
     | S
     | WS
     | ON
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = L
+        val toInt =
           fn
-            L => f 0
-          | LRE => f 1
-          | LRO => f 2
-          | R => f 3
-          | AL => f 4
-          | RLE => f 5
-          | RLO => f 6
-          | PDF => f 7
-          | EN => f 8
-          | ES => f 9
-          | ET => f 10
-          | AN => f 11
-          | CS => f 12
-          | NSM => f 13
-          | BN => f 14
-          | B => f 15
-          | S => f 16
-          | WS => f 17
-          | ON => f 18
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            L => 0
+          | LRE => 1
+          | LRO => 2
+          | R => 3
+          | AL => 4
+          | RLE => 5
+          | RLO => 6
+          | PDF => 7
+          | EN => 8
+          | ES => 9
+          | ET => 10
+          | AN => 11
+          | CS => 12
+          | NSM => 13
+          | BN => 14
+          | B => 15
+          | S => 16
+          | WS => 17
+          | ON => 18
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => L
           | 1 => LRE
@@ -77,12 +68,8 @@ structure PangoBidiType :>
           | 17 => WS
           | 18 => ON
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -93,16 +80,15 @@ structure PangoBidiType :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = L
     local
       open PolyMLFFI
     in
-      val forUnichar_ = call (load_sym libpango "pango_bidi_type_for_unichar") (FFI.Char.PolyML.cVal --> PolyML.cVal)
+      val forUnichar_ = call (load_sym libpango "pango_bidi_type_for_unichar") (GChar.PolyML.cVal --> PolyML.cVal)
     end
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forUnichar ch = (FFI.Char.C.withVal ---> C.fromVal) forUnichar_ ch
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun forUnichar ch = (GChar.FFI.withVal ---> FFI.fromVal) forUnichar_ ch
   end

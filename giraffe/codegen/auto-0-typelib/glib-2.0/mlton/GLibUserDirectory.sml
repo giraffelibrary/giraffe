@@ -1,9 +1,6 @@
-structure GLibUserDirectory :>
-  sig
-    include G_LIB_USER_DIRECTORY
-  end =
+structure GLibUserDirectory :> G_LIB_USER_DIRECTORY =
   struct
-    datatype t =
+    datatype enum =
       DIRECTORY_DESKTOP
     | DIRECTORY_DOCUMENTS
     | DIRECTORY_DOWNLOAD
@@ -13,24 +10,23 @@ structure GLibUserDirectory :>
     | DIRECTORY_TEMPLATES
     | DIRECTORY_VIDEOS
     | N_DIRECTORIES
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = DIRECTORY_DESKTOP
+        val toInt =
           fn
-            DIRECTORY_DESKTOP => f 0
-          | DIRECTORY_DOCUMENTS => f 1
-          | DIRECTORY_DOWNLOAD => f 2
-          | DIRECTORY_MUSIC => f 3
-          | DIRECTORY_PICTURES => f 4
-          | DIRECTORY_PUBLIC_SHARE => f 5
-          | DIRECTORY_TEMPLATES => f 6
-          | DIRECTORY_VIDEOS => f 7
-          | N_DIRECTORIES => f 8
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            DIRECTORY_DESKTOP => 0
+          | DIRECTORY_DOCUMENTS => 1
+          | DIRECTORY_DOWNLOAD => 2
+          | DIRECTORY_MUSIC => 3
+          | DIRECTORY_PICTURES => 4
+          | DIRECTORY_PUBLIC_SHARE => 5
+          | DIRECTORY_TEMPLATES => 6
+          | DIRECTORY_VIDEOS => 7
+          | N_DIRECTORIES => 8
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => DIRECTORY_DESKTOP
           | 1 => DIRECTORY_DOCUMENTS
@@ -42,6 +38,6 @@ structure GLibUserDirectory :>
           | 7 => DIRECTORY_VIDEOS
           | 8 => N_DIRECTORIES
           | n => raise Value n
-      end
-    val null = DIRECTORY_DESKTOP
+      )
+    open Enum
   end

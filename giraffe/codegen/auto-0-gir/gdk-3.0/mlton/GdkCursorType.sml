@@ -1,9 +1,6 @@
-structure GdkCursorType :>
-  sig
-    include GDK_CURSOR_TYPE
-  end =
+structure GdkCursorType :> GDK_CURSOR_TYPE =
   struct
-    datatype t =
+    datatype enum =
       X_CURSOR
     | ARROW
     | BASED_ARROW_DOWN
@@ -84,95 +81,94 @@ structure GdkCursorType :>
     | LAST_CURSOR
     | BLANK_CURSOR
     | CURSOR_IS_PIXMAP
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = X_CURSOR
+        val toInt =
           fn
-            X_CURSOR => f 0
-          | ARROW => f 2
-          | BASED_ARROW_DOWN => f 4
-          | BASED_ARROW_UP => f 6
-          | BOAT => f 8
-          | BOGOSITY => f 10
-          | BOTTOM_LEFT_CORNER => f 12
-          | BOTTOM_RIGHT_CORNER => f 14
-          | BOTTOM_SIDE => f 16
-          | BOTTOM_TEE => f 18
-          | BOX_SPIRAL => f 20
-          | CENTER_PTR => f 22
-          | CIRCLE => f 24
-          | CLOCK => f 26
-          | COFFEE_MUG => f 28
-          | CROSS => f 30
-          | CROSS_REVERSE => f 32
-          | CROSSHAIR => f 34
-          | DIAMOND_CROSS => f 36
-          | DOT => f 38
-          | DOTBOX => f 40
-          | DOUBLE_ARROW => f 42
-          | DRAFT_LARGE => f 44
-          | DRAFT_SMALL => f 46
-          | DRAPED_BOX => f 48
-          | EXCHANGE => f 50
-          | FLEUR => f 52
-          | GOBBLER => f 54
-          | GUMBY => f 56
-          | HAND_1 => f 58
-          | HAND_2 => f 60
-          | HEART => f 62
-          | ICON => f 64
-          | IRON_CROSS => f 66
-          | LEFT_PTR => f 68
-          | LEFT_SIDE => f 70
-          | LEFT_TEE => f 72
-          | LEFTBUTTON => f 74
-          | LL_ANGLE => f 76
-          | LR_ANGLE => f 78
-          | MAN => f 80
-          | MIDDLEBUTTON => f 82
-          | MOUSE => f 84
-          | PENCIL => f 86
-          | PIRATE => f 88
-          | PLUS => f 90
-          | QUESTION_ARROW => f 92
-          | RIGHT_PTR => f 94
-          | RIGHT_SIDE => f 96
-          | RIGHT_TEE => f 98
-          | RIGHTBUTTON => f 100
-          | RTL_LOGO => f 102
-          | SAILBOAT => f 104
-          | SB_DOWN_ARROW => f 106
-          | SB_H_DOUBLE_ARROW => f 108
-          | SB_LEFT_ARROW => f 110
-          | SB_RIGHT_ARROW => f 112
-          | SB_UP_ARROW => f 114
-          | SB_V_DOUBLE_ARROW => f 116
-          | SHUTTLE => f 118
-          | SIZING => f 120
-          | SPIDER => f 122
-          | SPRAYCAN => f 124
-          | STAR => f 126
-          | TARGET => f 128
-          | TCROSS => f 130
-          | TOP_LEFT_ARROW => f 132
-          | TOP_LEFT_CORNER => f 134
-          | TOP_RIGHT_CORNER => f 136
-          | TOP_SIDE => f 138
-          | TOP_TEE => f 140
-          | TREK => f 142
-          | UL_ANGLE => f 144
-          | UMBRELLA => f 146
-          | UR_ANGLE => f 148
-          | WATCH => f 150
-          | XTERM => f 152
-          | LAST_CURSOR => f 153
-          | BLANK_CURSOR => f ~2
-          | CURSOR_IS_PIXMAP => f ~1
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            X_CURSOR => 0
+          | ARROW => 2
+          | BASED_ARROW_DOWN => 4
+          | BASED_ARROW_UP => 6
+          | BOAT => 8
+          | BOGOSITY => 10
+          | BOTTOM_LEFT_CORNER => 12
+          | BOTTOM_RIGHT_CORNER => 14
+          | BOTTOM_SIDE => 16
+          | BOTTOM_TEE => 18
+          | BOX_SPIRAL => 20
+          | CENTER_PTR => 22
+          | CIRCLE => 24
+          | CLOCK => 26
+          | COFFEE_MUG => 28
+          | CROSS => 30
+          | CROSS_REVERSE => 32
+          | CROSSHAIR => 34
+          | DIAMOND_CROSS => 36
+          | DOT => 38
+          | DOTBOX => 40
+          | DOUBLE_ARROW => 42
+          | DRAFT_LARGE => 44
+          | DRAFT_SMALL => 46
+          | DRAPED_BOX => 48
+          | EXCHANGE => 50
+          | FLEUR => 52
+          | GOBBLER => 54
+          | GUMBY => 56
+          | HAND_1 => 58
+          | HAND_2 => 60
+          | HEART => 62
+          | ICON => 64
+          | IRON_CROSS => 66
+          | LEFT_PTR => 68
+          | LEFT_SIDE => 70
+          | LEFT_TEE => 72
+          | LEFTBUTTON => 74
+          | LL_ANGLE => 76
+          | LR_ANGLE => 78
+          | MAN => 80
+          | MIDDLEBUTTON => 82
+          | MOUSE => 84
+          | PENCIL => 86
+          | PIRATE => 88
+          | PLUS => 90
+          | QUESTION_ARROW => 92
+          | RIGHT_PTR => 94
+          | RIGHT_SIDE => 96
+          | RIGHT_TEE => 98
+          | RIGHTBUTTON => 100
+          | RTL_LOGO => 102
+          | SAILBOAT => 104
+          | SB_DOWN_ARROW => 106
+          | SB_H_DOUBLE_ARROW => 108
+          | SB_LEFT_ARROW => 110
+          | SB_RIGHT_ARROW => 112
+          | SB_UP_ARROW => 114
+          | SB_V_DOUBLE_ARROW => 116
+          | SHUTTLE => 118
+          | SIZING => 120
+          | SPIDER => 122
+          | SPRAYCAN => 124
+          | STAR => 126
+          | TARGET => 128
+          | TCROSS => 130
+          | TOP_LEFT_ARROW => 132
+          | TOP_LEFT_CORNER => 134
+          | TOP_RIGHT_CORNER => 136
+          | TOP_SIDE => 138
+          | TOP_TEE => 140
+          | TREK => 142
+          | UL_ANGLE => 144
+          | UMBRELLA => 146
+          | UR_ANGLE => 148
+          | WATCH => 150
+          | XTERM => 152
+          | LAST_CURSOR => 153
+          | BLANK_CURSOR => ~2
+          | CURSOR_IS_PIXMAP => ~1
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => X_CURSOR
           | 2 => ARROW
@@ -255,17 +251,17 @@ structure GdkCursorType :>
           | ~2 => BLANK_CURSOR
           | ~1 => CURSOR_IS_PIXMAP
           | n => raise Value n
-      end
-    val getType_ = _import "gdk_cursor_type_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "gdk_cursor_type_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = X_CURSOR
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

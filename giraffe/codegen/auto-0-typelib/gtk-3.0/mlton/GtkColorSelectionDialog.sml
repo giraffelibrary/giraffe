@@ -4,18 +4,18 @@ structure GtkColorSelectionDialog :>
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
-    val getType_ = _import "gtk_color_selection_dialog_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_color_selection_dialog_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
-    val getColorSelection_ = _import "gtk_color_selection_dialog_get_color_selection" : GtkColorSelectionDialogClass.C.notnull GtkColorSelectionDialogClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val getType_ = _import "gtk_color_selection_dialog_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "mlton_gtk_color_selection_dialog_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getColorSelection_ = _import "gtk_color_selection_dialog_get_color_selection" : GtkColorSelectionDialogClass.FFI.notnull GtkColorSelectionDialogClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     type 'a class = 'a GtkColorSelectionDialogClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new title = (Utf8.C.withPtr ---> GtkColorSelectionDialogClass.C.fromPtr false) new_ title
-    fun getColorSelection self = (GtkColorSelectionDialogClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getColorSelection_ self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new title = (Utf8.FFI.withPtr ---> GtkColorSelectionDialogClass.FFI.fromPtr false) new_ title
+    fun getColorSelection self = (GtkColorSelectionDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getColorSelection_ self
     local
       open Property
     in

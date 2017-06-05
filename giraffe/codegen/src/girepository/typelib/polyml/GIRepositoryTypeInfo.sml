@@ -11,7 +11,7 @@ structure GIRepositoryTypeInfo :>
       val isPointer_ =
         call
           (load_sym libgirepository "g_type_info_is_pointer")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GBool.PolyML.cVal);
 
       val getTag_ =
         call
@@ -22,7 +22,7 @@ structure GIRepositoryTypeInfo :>
         call
           (load_sym libgirepository "g_type_info_get_param_type")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
-            &&> FFI.Int32.PolyML.cVal
+            &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
 
       val getInterface_ =
@@ -33,17 +33,17 @@ structure GIRepositoryTypeInfo :>
       val getArrayLength_ =
         call
           (load_sym libgirepository "g_type_info_get_array_length")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getArrayFixedSize_ =
         call
           (load_sym libgirepository "g_type_info_get_array_fixed_size")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val isZeroTerminated_ =
         call
           (load_sym libgirepository "g_type_info_is_zero_terminated")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GBool.PolyML.cVal);
 
       val getArrayType_ =
         call
@@ -59,38 +59,38 @@ structure GIRepositoryTypeInfo :>
 
 
     val isPointer =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) isPointer_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isPointer_ info
 
     val getTag =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypeTag.C.fromVal) getTag_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTypeTag.FFI.fromVal) getTag_ info
 
     val getParamType =
       fn info => fn n =>
-        (GIRepositoryBaseInfoClass.C.withPtr
-          &&&> FFI.Int32.C.withVal
-          ---> GIRepositoryTypeInfoClass.C.fromOptPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr
+          &&&> GInt32.FFI.withVal
+          ---> GIRepositoryTypeInfoClass.FFI.fromOptPtr true)
           getParamType_
           (info & n)
 
     val getInterface =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryBaseInfoClass.C.fromOptPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryBaseInfoClass.FFI.fromOptPtr true)
           getInterface_
           info
 
     val getArrayLength =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getArrayLength_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getArrayLength_ info
 
     val getArrayFixedSize =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getArrayFixedSize_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getArrayFixedSize_ info
 
     val isZeroTerminated =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) isZeroTerminated_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isZeroTerminated_ info
 
     val getArrayType =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryArrayType.C.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryArrayType.FFI.fromVal)
           getArrayType_
           info
   end

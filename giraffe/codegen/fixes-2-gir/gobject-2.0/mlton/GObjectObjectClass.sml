@@ -37,11 +37,54 @@ structure GObjectObjectClass :>
       then _import "giraffe_debug_g_object_unref" : notnull p -> unit;
       else _import "g_object_unref" : notnull p -> unit;
 
+    structure C =
+      struct
+        structure Pointer = CPointer
+        type notnull = notnull
+        type 'a p = 'a p
+        type ('a, 'b) r = ('a, 'b) Pointer.r
+
+        structure PointerType =
+          struct
+            structure Pointer = Pointer
+            type notnull = Pointer.notnull
+            type 'a p = 'a Pointer.p
+
+            type t = notnull p Finalizable.t
+
+            fun dup d = if d <> 0 then ref_ else Fn.id
+
+            fun free d = if d <> 0 then unref_ else ignore
+
+            fun toC p = (* FFI.withPtr (dup ~1) p *)
+              Finalizable.withValue (p, Pointer.withVal ref_)
+
+            fun fromC p = (* FFI.fromPtr false p *)
+              let
+                val object = Finalizable.new (ref_ p)
+              in
+                Finalizable.addFinalizer (object, unref_);
+                object
+              end
+
+            structure CVector =
+              struct
+                type cvector = notnull p
+                val v = let open Pointer in toNotNull (sub (null, 0w1)) end
+                val free = free ~1
+                val fromPointer = dup ~1
+                val toPointer = dup ~1
+                val fromVal = toC
+                val toVal = fromC
+              end
+          end
+      end
+
     type 'a class = notnull p Finalizable.t
     type t = base class
     fun toBase obj = obj
 
-    structure C =
+    structure FFI =
       struct
         structure Pointer = CPointer
         type notnull = notnull
@@ -80,41 +123,41 @@ structure GObjectObjectClass :>
       end
 
     val getType_ =
-      _import "g_object_get_type" : unit -> GObjectType.C.val_;
+      _import "g_object_get_type" : unit -> GObjectType.FFI.val_;
 
     val getValue_ =
       _import "g_value_get_object" :
-        GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.notnull C.p;
+        GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.notnull FFI.p;
 
     val getOptValue_ =
       _import "g_value_get_object" :
-        GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> unit C.p;
+        GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit FFI.p;
 
     val setValue_ =
       fn x1 & x2 =>
         (_import "g_value_set_object" :
-           GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.notnull C.p -> unit;)
+           GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.notnull FFI.p -> unit;)
         (x1, x2)
 
     val setOptValue_ =
       fn x1 & x2 =>
         (_import "g_value_set_object" :
-           GObjectValueRecord.C.notnull GObjectValueRecord.C.p * unit C.p -> unit;)
+           GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * unit FFI.p -> unit;)
         (x1, x2)
 
     type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
 
     val t =
       GObjectValue.C.createAccessor {
-        getType  = (I ---> GObjectType.C.fromVal) getType_,
-        getValue = (I ---> C.fromPtr false) getValue_,
-        setValue = (I &&&> C.withPtr ---> I) setValue_
+        getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+        getValue = (I ---> FFI.fromPtr false) getValue_,
+        setValue = (I &&&> FFI.withPtr ---> I) setValue_
       }
 
     val tOpt =
       GObjectValue.C.createAccessor {
-        getType  = (I ---> GObjectType.C.fromVal) getType_,
-        getValue = (I ---> C.fromOptPtr false) getOptValue_,
-        setValue = (I &&&> C.withOptPtr ---> I) setOptValue_
+        getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+        getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
+        setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_
       }
   end

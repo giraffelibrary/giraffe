@@ -6,6 +6,12 @@ structure GtkRecentChooser :>
     where type 'a recent_manager_class = 'a GtkRecentManagerClass.class
     where type recent_sort_type_t = GtkRecentSortType.t =
   struct
+    structure Utf8CVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -14,14 +20,15 @@ structure GtkRecentChooser :>
       val getCurrentItem_ = call (load_sym libgtk "gtk_recent_chooser_get_current_item") (GtkRecentChooserClass.PolyML.cPtr --> GtkRecentInfoRecord.PolyML.cPtr)
       val getCurrentUri_ = call (load_sym libgtk "gtk_recent_chooser_get_current_uri") (GtkRecentChooserClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getFilter_ = call (load_sym libgtk "gtk_recent_chooser_get_filter") (GtkRecentChooserClass.PolyML.cPtr --> GtkRecentFilterClass.PolyML.cPtr)
-      val getLimit_ = call (load_sym libgtk "gtk_recent_chooser_get_limit") (GtkRecentChooserClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
-      val getLocalOnly_ = call (load_sym libgtk "gtk_recent_chooser_get_local_only") (GtkRecentChooserClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getSelectMultiple_ = call (load_sym libgtk "gtk_recent_chooser_get_select_multiple") (GtkRecentChooserClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getShowIcons_ = call (load_sym libgtk "gtk_recent_chooser_get_show_icons") (GtkRecentChooserClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getShowNotFound_ = call (load_sym libgtk "gtk_recent_chooser_get_show_not_found") (GtkRecentChooserClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getShowPrivate_ = call (load_sym libgtk "gtk_recent_chooser_get_show_private") (GtkRecentChooserClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getShowTips_ = call (load_sym libgtk "gtk_recent_chooser_get_show_tips") (GtkRecentChooserClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getLimit_ = call (load_sym libgtk "gtk_recent_chooser_get_limit") (GtkRecentChooserClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getLocalOnly_ = call (load_sym libgtk "gtk_recent_chooser_get_local_only") (GtkRecentChooserClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getSelectMultiple_ = call (load_sym libgtk "gtk_recent_chooser_get_select_multiple") (GtkRecentChooserClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getShowIcons_ = call (load_sym libgtk "gtk_recent_chooser_get_show_icons") (GtkRecentChooserClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getShowNotFound_ = call (load_sym libgtk "gtk_recent_chooser_get_show_not_found") (GtkRecentChooserClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getShowPrivate_ = call (load_sym libgtk "gtk_recent_chooser_get_show_private") (GtkRecentChooserClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getShowTips_ = call (load_sym libgtk "gtk_recent_chooser_get_show_tips") (GtkRecentChooserClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSortType_ = call (load_sym libgtk "gtk_recent_chooser_get_sort_type") (GtkRecentChooserClass.PolyML.cPtr --> GtkRecentSortType.PolyML.cVal)
+      val getUris_ = call (load_sym libgtk "gtk_recent_chooser_get_uris") (GtkRecentChooserClass.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CVectorN.PolyML.cOutPtr)
       val removeFilter_ = call (load_sym libgtk "gtk_recent_chooser_remove_filter") (GtkRecentChooserClass.PolyML.cPtr &&> GtkRecentFilterClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val selectAll_ = call (load_sym libgtk "gtk_recent_chooser_select_all") (GtkRecentChooserClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val selectUri_ =
@@ -30,7 +37,7 @@ structure GtkRecentChooser :>
             GtkRecentChooserClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val setCurrentUri_ =
         call (load_sym libgtk "gtk_recent_chooser_set_current_uri")
@@ -38,16 +45,16 @@ structure GtkRecentChooser :>
             GtkRecentChooserClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val setFilter_ = call (load_sym libgtk "gtk_recent_chooser_set_filter") (GtkRecentChooserClass.PolyML.cPtr &&> GtkRecentFilterClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setLimit_ = call (load_sym libgtk "gtk_recent_chooser_set_limit") (GtkRecentChooserClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setLocalOnly_ = call (load_sym libgtk "gtk_recent_chooser_set_local_only") (GtkRecentChooserClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSelectMultiple_ = call (load_sym libgtk "gtk_recent_chooser_set_select_multiple") (GtkRecentChooserClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setShowIcons_ = call (load_sym libgtk "gtk_recent_chooser_set_show_icons") (GtkRecentChooserClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setShowNotFound_ = call (load_sym libgtk "gtk_recent_chooser_set_show_not_found") (GtkRecentChooserClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setShowPrivate_ = call (load_sym libgtk "gtk_recent_chooser_set_show_private") (GtkRecentChooserClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setShowTips_ = call (load_sym libgtk "gtk_recent_chooser_set_show_tips") (GtkRecentChooserClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setLimit_ = call (load_sym libgtk "gtk_recent_chooser_set_limit") (GtkRecentChooserClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setLocalOnly_ = call (load_sym libgtk "gtk_recent_chooser_set_local_only") (GtkRecentChooserClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSelectMultiple_ = call (load_sym libgtk "gtk_recent_chooser_set_select_multiple") (GtkRecentChooserClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setShowIcons_ = call (load_sym libgtk "gtk_recent_chooser_set_show_icons") (GtkRecentChooserClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setShowNotFound_ = call (load_sym libgtk "gtk_recent_chooser_set_show_not_found") (GtkRecentChooserClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setShowPrivate_ = call (load_sym libgtk "gtk_recent_chooser_set_show_private") (GtkRecentChooserClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setShowTips_ = call (load_sym libgtk "gtk_recent_chooser_set_show_tips") (GtkRecentChooserClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setSortType_ = call (load_sym libgtk "gtk_recent_chooser_set_sort_type") (GtkRecentChooserClass.PolyML.cPtr &&> GtkRecentSortType.PolyML.cVal --> PolyMLFFI.cVoid)
       val unselectAll_ = call (load_sym libgtk "gtk_recent_chooser_unselect_all") (GtkRecentChooserClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val unselectUri_ = call (load_sym libgtk "gtk_recent_chooser_unselect_uri") (GtkRecentChooserClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
@@ -58,27 +65,33 @@ structure GtkRecentChooser :>
     type 'a recent_manager_class = 'a GtkRecentManagerClass.class
     type recent_sort_type_t = GtkRecentSortType.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun addFilter self filter = (GtkRecentChooserClass.C.withPtr &&&> GtkRecentFilterClass.C.withPtr ---> I) addFilter_ (self & filter)
-    fun getCurrentItem self = (GtkRecentChooserClass.C.withPtr ---> GtkRecentInfoRecord.C.fromPtr true) getCurrentItem_ self
-    fun getCurrentUri self = (GtkRecentChooserClass.C.withPtr ---> Utf8.C.fromPtr true) getCurrentUri_ self
-    fun getFilter self = (GtkRecentChooserClass.C.withPtr ---> GtkRecentFilterClass.C.fromPtr false) getFilter_ self
-    fun getLimit self = (GtkRecentChooserClass.C.withPtr ---> FFI.Int32.C.fromVal) getLimit_ self
-    fun getLocalOnly self = (GtkRecentChooserClass.C.withPtr ---> FFI.Bool.C.fromVal) getLocalOnly_ self
-    fun getSelectMultiple self = (GtkRecentChooserClass.C.withPtr ---> FFI.Bool.C.fromVal) getSelectMultiple_ self
-    fun getShowIcons self = (GtkRecentChooserClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowIcons_ self
-    fun getShowNotFound self = (GtkRecentChooserClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowNotFound_ self
-    fun getShowPrivate self = (GtkRecentChooserClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowPrivate_ self
-    fun getShowTips self = (GtkRecentChooserClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowTips_ self
-    fun getSortType self = (GtkRecentChooserClass.C.withPtr ---> GtkRecentSortType.C.fromVal) getSortType_ self
-    fun removeFilter self filter = (GtkRecentChooserClass.C.withPtr &&&> GtkRecentFilterClass.C.withPtr ---> I) removeFilter_ (self & filter)
-    fun selectAll self = (GtkRecentChooserClass.C.withPtr ---> I) selectAll_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun addFilter self filter = (GtkRecentChooserClass.FFI.withPtr &&&> GtkRecentFilterClass.FFI.withPtr ---> I) addFilter_ (self & filter)
+    fun getCurrentItem self = (GtkRecentChooserClass.FFI.withPtr ---> GtkRecentInfoRecord.FFI.fromPtr true) getCurrentItem_ self
+    fun getCurrentUri self = (GtkRecentChooserClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getCurrentUri_ self
+    fun getFilter self = (GtkRecentChooserClass.FFI.withPtr ---> GtkRecentFilterClass.FFI.fromPtr false) getFilter_ self
+    fun getLimit self = (GtkRecentChooserClass.FFI.withPtr ---> GInt32.FFI.fromVal) getLimit_ self
+    fun getLocalOnly self = (GtkRecentChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getLocalOnly_ self
+    fun getSelectMultiple self = (GtkRecentChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getSelectMultiple_ self
+    fun getShowIcons self = (GtkRecentChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowIcons_ self
+    fun getShowNotFound self = (GtkRecentChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowNotFound_ self
+    fun getShowPrivate self = (GtkRecentChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowPrivate_ self
+    fun getShowTips self = (GtkRecentChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowTips_ self
+    fun getSortType self = (GtkRecentChooserClass.FFI.withPtr ---> GtkRecentSortType.FFI.fromVal) getSortType_ self
+    fun getUris self =
+      let
+        val length & retVal = (GtkRecentChooserClass.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CVectorN.FFI.fromPtr 2) getUris_ (self & GUInt64.null)
+      in
+        retVal (LargeInt.toInt length)
+      end
+    fun removeFilter self filter = (GtkRecentChooserClass.FFI.withPtr &&&> GtkRecentFilterClass.FFI.withPtr ---> I) removeFilter_ (self & filter)
+    fun selectAll self = (GtkRecentChooserClass.FFI.withPtr ---> I) selectAll_ self
     fun selectUri self uri =
       (
-        GtkRecentChooserClass.C.withPtr
-         &&&> Utf8.C.withPtr
+        GtkRecentChooserClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         selectUri_
         (
@@ -88,10 +101,10 @@ structure GtkRecentChooser :>
         )
     fun setCurrentUri self uri =
       (
-        GtkRecentChooserClass.C.withPtr
-         &&&> Utf8.C.withPtr
+        GtkRecentChooserClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         setCurrentUri_
         (
@@ -99,17 +112,17 @@ structure GtkRecentChooser :>
            & uri
            & []
         )
-    fun setFilter self filter = (GtkRecentChooserClass.C.withPtr &&&> GtkRecentFilterClass.C.withPtr ---> I) setFilter_ (self & filter)
-    fun setLimit self limit = (GtkRecentChooserClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setLimit_ (self & limit)
-    fun setLocalOnly self localOnly = (GtkRecentChooserClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setLocalOnly_ (self & localOnly)
-    fun setSelectMultiple self selectMultiple = (GtkRecentChooserClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSelectMultiple_ (self & selectMultiple)
-    fun setShowIcons self showIcons = (GtkRecentChooserClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowIcons_ (self & showIcons)
-    fun setShowNotFound self showNotFound = (GtkRecentChooserClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowNotFound_ (self & showNotFound)
-    fun setShowPrivate self showPrivate = (GtkRecentChooserClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowPrivate_ (self & showPrivate)
-    fun setShowTips self showTips = (GtkRecentChooserClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowTips_ (self & showTips)
-    fun setSortType self sortType = (GtkRecentChooserClass.C.withPtr &&&> GtkRecentSortType.C.withVal ---> I) setSortType_ (self & sortType)
-    fun unselectAll self = (GtkRecentChooserClass.C.withPtr ---> I) unselectAll_ self
-    fun unselectUri self uri = (GtkRecentChooserClass.C.withPtr &&&> Utf8.C.withPtr ---> I) unselectUri_ (self & uri)
+    fun setFilter self filter = (GtkRecentChooserClass.FFI.withPtr &&&> GtkRecentFilterClass.FFI.withPtr ---> I) setFilter_ (self & filter)
+    fun setLimit self limit = (GtkRecentChooserClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setLimit_ (self & limit)
+    fun setLocalOnly self localOnly = (GtkRecentChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setLocalOnly_ (self & localOnly)
+    fun setSelectMultiple self selectMultiple = (GtkRecentChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSelectMultiple_ (self & selectMultiple)
+    fun setShowIcons self showIcons = (GtkRecentChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowIcons_ (self & showIcons)
+    fun setShowNotFound self showNotFound = (GtkRecentChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowNotFound_ (self & showNotFound)
+    fun setShowPrivate self showPrivate = (GtkRecentChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowPrivate_ (self & showPrivate)
+    fun setShowTips self showTips = (GtkRecentChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowTips_ (self & showTips)
+    fun setSortType self sortType = (GtkRecentChooserClass.FFI.withPtr &&&> GtkRecentSortType.FFI.withVal ---> I) setSortType_ (self & sortType)
+    fun unselectAll self = (GtkRecentChooserClass.FFI.withPtr ---> I) unselectAll_ self
+    fun unselectUri self uri = (GtkRecentChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) unselectUri_ (self & uri)
     local
       open ClosureMarshal Signal
     in

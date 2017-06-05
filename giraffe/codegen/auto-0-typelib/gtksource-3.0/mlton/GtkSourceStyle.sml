@@ -2,12 +2,12 @@ structure GtkSourceStyle :>
   GTK_SOURCE_STYLE
     where type 'a class = 'a GtkSourceStyleClass.class =
   struct
-    val getType_ = _import "gtk_source_style_get_type" : unit -> GObjectType.C.val_;
-    val copy_ = _import "gtk_source_style_copy" : GtkSourceStyleClass.C.notnull GtkSourceStyleClass.C.p -> GtkSourceStyleClass.C.notnull GtkSourceStyleClass.C.p;
+    val getType_ = _import "gtk_source_style_get_type" : unit -> GObjectType.FFI.val_;
+    val copy_ = _import "gtk_source_style_copy" : GtkSourceStyleClass.FFI.notnull GtkSourceStyleClass.FFI.p -> GtkSourceStyleClass.FFI.notnull GtkSourceStyleClass.FFI.p;
     type 'a class = 'a GtkSourceStyleClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun copy self = (GtkSourceStyleClass.C.withPtr ---> GtkSourceStyleClass.C.fromPtr true) copy_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun copy self = (GtkSourceStyleClass.FFI.withPtr ---> GtkSourceStyleClass.FFI.fromPtr true) copy_ self
     local
       open Property
     in

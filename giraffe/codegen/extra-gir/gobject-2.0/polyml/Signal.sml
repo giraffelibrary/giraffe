@@ -31,8 +31,8 @@ structure Signal :>
             GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GObjectClosureRecord.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
-             --> FFI.ULong.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             --> GULong.PolyML.cVal
           );
 
       val signalHandlerDisconnect_ =
@@ -40,7 +40,7 @@ structure Signal :>
           (PolyMLFFI.load_sym libgobject "g_signal_handler_disconnect")
           (
             GObjectObjectClass.PolyML.cPtr
-             &&> FFI.ULong.PolyML.cVal
+             &&> GULong.PolyML.cVal
              --> PolyMLFFI.cVoid
           );
 
@@ -49,8 +49,8 @@ structure Signal :>
           (PolyMLFFI.load_sym libgobject "g_signal_handler_is_connected")
           (
             GObjectObjectClass.PolyML.cPtr
-             &&> FFI.ULong.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GULong.PolyML.cVal
+             --> GBool.PolyML.cVal
           );
     end
 
@@ -59,14 +59,14 @@ structure Signal :>
     fun signal detailedSignal marshaller callback =
       (detailedSignal, GObjectClosure.new marshaller callback)
 
-    type signal_id = FFI.ULong.C.val_
+    type signal_id = GULong.FFI.val_
 
     fun signalConnectClosure instance detailedSignal closure after =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GObjectClosureRecord.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectClosureRecord.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         signalConnectClosure_
@@ -79,7 +79,7 @@ structure Signal :>
 
     fun signalHandlerDisconnect instance handlerId =
       (
-        GObjectObjectClass.C.withPtr
+        GObjectObjectClass.FFI.withPtr
          &&&> I
          ---> I
       )
@@ -88,9 +88,9 @@ structure Signal :>
 
     fun signalHandlerIsConnected instance handlerId =
       (
-        GObjectObjectClass.C.withPtr
+        GObjectObjectClass.FFI.withPtr
          &&&> I
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         signalHandlerIsConnected_
         (instance & handlerId)

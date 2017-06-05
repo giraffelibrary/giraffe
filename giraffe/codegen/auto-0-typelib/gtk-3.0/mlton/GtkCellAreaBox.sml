@@ -6,9 +6,9 @@ structure GtkCellAreaBox :>
     where type 'a orientable_class = 'a GtkOrientableClass.class
     where type 'a cell_renderer_class = 'a GtkCellRendererClass.class =
   struct
-    val getType_ = _import "gtk_cell_area_box_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_cell_area_box_new" : unit -> GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p;
-    val getSpacing_ = _import "gtk_cell_area_box_get_spacing" : GtkCellAreaBoxClass.C.notnull GtkCellAreaBoxClass.C.p -> FFI.Int32.C.val_;
+    val getType_ = _import "gtk_cell_area_box_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_cell_area_box_new" : unit -> GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p;
+    val getSpacing_ = _import "gtk_cell_area_box_get_spacing" : GtkCellAreaBoxClass.FFI.notnull GtkCellAreaBoxClass.FFI.p -> GInt32.FFI.val_;
     val packEnd_ =
       fn
         x1
@@ -18,11 +18,11 @@ structure GtkCellAreaBox :>
          & x5 =>
           (
             _import "gtk_cell_area_box_pack_end" :
-              GtkCellAreaBoxClass.C.notnull GtkCellAreaBoxClass.C.p
-               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
-               * FFI.Bool.C.val_
-               * FFI.Bool.C.val_
-               * FFI.Bool.C.val_
+              GtkCellAreaBoxClass.FFI.notnull GtkCellAreaBoxClass.FFI.p
+               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+               * GBool.FFI.val_
+               * GBool.FFI.val_
+               * GBool.FFI.val_
                -> unit;
           )
             (
@@ -41,11 +41,11 @@ structure GtkCellAreaBox :>
          & x5 =>
           (
             _import "gtk_cell_area_box_pack_start" :
-              GtkCellAreaBoxClass.C.notnull GtkCellAreaBoxClass.C.p
-               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
-               * FFI.Bool.C.val_
-               * FFI.Bool.C.val_
-               * FFI.Bool.C.val_
+              GtkCellAreaBoxClass.FFI.notnull GtkCellAreaBoxClass.FFI.p
+               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+               * GBool.FFI.val_
+               * GBool.FFI.val_
+               * GBool.FFI.val_
                -> unit;
           )
             (
@@ -55,26 +55,26 @@ structure GtkCellAreaBox :>
               x4,
               x5
             )
-    val setSpacing_ = fn x1 & x2 => (_import "gtk_cell_area_box_set_spacing" : GtkCellAreaBoxClass.C.notnull GtkCellAreaBoxClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setSpacing_ = fn x1 & x2 => (_import "gtk_cell_area_box_set_spacing" : GtkCellAreaBoxClass.FFI.notnull GtkCellAreaBoxClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkCellAreaBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_layout_class = 'a GtkCellLayoutClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
     type 'a cell_renderer_class = 'a GtkCellRendererClass.class
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkCellAreaBoxClass.C.fromPtr false) new_ ()
-    fun getSpacing self = (GtkCellAreaBoxClass.C.withPtr ---> FFI.Int32.C.fromVal) getSpacing_ self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asCellLayout self = (GObjectObjectClass.FFI.withPtr ---> GtkCellLayoutClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkCellAreaBoxClass.FFI.fromPtr false) new_ ()
+    fun getSpacing self = (GtkCellAreaBoxClass.FFI.withPtr ---> GInt32.FFI.fromVal) getSpacing_ self
     fun packEnd self renderer expand align fixed =
       (
-        GtkCellAreaBoxClass.C.withPtr
-         &&&> GtkCellRendererClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.Bool.C.withVal
+        GtkCellAreaBoxClass.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> GBool.FFI.withVal
+         &&&> GBool.FFI.withVal
          ---> I
       )
         packEnd_
@@ -87,11 +87,11 @@ structure GtkCellAreaBox :>
         )
     fun packStart self renderer expand align fixed =
       (
-        GtkCellAreaBoxClass.C.withPtr
-         &&&> GtkCellRendererClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.Bool.C.withVal
+        GtkCellAreaBoxClass.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> GBool.FFI.withVal
+         &&&> GBool.FFI.withVal
          ---> I
       )
         packStart_
@@ -102,7 +102,7 @@ structure GtkCellAreaBox :>
            & align
            & fixed
         )
-    fun setSpacing self spacing = (GtkCellAreaBoxClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSpacing_ (self & spacing)
+    fun setSpacing self spacing = (GtkCellAreaBoxClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setSpacing_ (self & spacing)
     local
       open Property
     in

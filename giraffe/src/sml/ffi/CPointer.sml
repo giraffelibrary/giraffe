@@ -5,4 +5,4 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-structure CPointer :> C_POINTER = CPointer
+structure CPointer :> C_POINTER = CPointerInternal

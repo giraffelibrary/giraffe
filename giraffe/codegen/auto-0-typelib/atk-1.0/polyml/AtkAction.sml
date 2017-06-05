@@ -6,36 +6,36 @@ structure AtkAction :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libatk "atk_action_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val doAction_ = call (load_sym libatk "atk_action_do_action") (AtkActionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val getDescription_ = call (load_sym libatk "atk_action_get_description") (AtkActionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val getKeybinding_ = call (load_sym libatk "atk_action_get_keybinding") (AtkActionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val getLocalizedName_ = call (load_sym libatk "atk_action_get_localized_name") (AtkActionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val getNActions_ = call (load_sym libatk "atk_action_get_n_actions") (AtkActionClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
-      val getName_ = call (load_sym libatk "atk_action_get_name") (AtkActionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val doAction_ = call (load_sym libatk "atk_action_do_action") (AtkActionClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GBool.PolyML.cVal)
+      val getDescription_ = call (load_sym libatk "atk_action_get_description") (AtkActionClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getKeybinding_ = call (load_sym libatk "atk_action_get_keybinding") (AtkActionClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getLocalizedName_ = call (load_sym libatk "atk_action_get_localized_name") (AtkActionClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getNActions_ = call (load_sym libatk "atk_action_get_n_actions") (AtkActionClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getName_ = call (load_sym libatk "atk_action_get_name") (AtkActionClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val setDescription_ =
         call (load_sym libatk "atk_action_set_description")
           (
             AtkActionClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
     end
     type 'a class = 'a AtkActionClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun doAction self i = (AtkActionClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) doAction_ (self & i)
-    fun getDescription self i = (AtkActionClass.C.withPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) getDescription_ (self & i)
-    fun getKeybinding self i = (AtkActionClass.C.withPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) getKeybinding_ (self & i)
-    fun getLocalizedName self i = (AtkActionClass.C.withPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) getLocalizedName_ (self & i)
-    fun getNActions self = (AtkActionClass.C.withPtr ---> FFI.Int32.C.fromVal) getNActions_ self
-    fun getName self i = (AtkActionClass.C.withPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) getName_ (self & i)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun doAction self i = (AtkActionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) doAction_ (self & i)
+    fun getDescription self i = (AtkActionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) getDescription_ (self & i)
+    fun getKeybinding self i = (AtkActionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) getKeybinding_ (self & i)
+    fun getLocalizedName self i = (AtkActionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) getLocalizedName_ (self & i)
+    fun getNActions self = (AtkActionClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNActions_ self
+    fun getName self i = (AtkActionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ (self & i)
     fun setDescription self i desc =
       (
-        AtkActionClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withPtr
-         ---> FFI.Bool.C.fromVal
+        AtkActionClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> Utf8.FFI.withPtr
+         ---> GBool.FFI.fromVal
       )
         setDescription_
         (

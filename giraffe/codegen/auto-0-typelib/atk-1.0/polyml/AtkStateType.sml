@@ -1,14 +1,6 @@
-structure AtkStateType :>
-  sig
-    include ATK_STATE_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure AtkStateType :> ATK_STATE_TYPE =
   struct
-    datatype t =
+    datatype enum =
       INVALID
     | ACTIVE
     | ARMED
@@ -49,55 +41,54 @@ structure AtkStateType :>
     | ANIMATED
     | VISITED
     | LAST_DEFINED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = INVALID
+        val toInt =
           fn
-            INVALID => f 0
-          | ACTIVE => f 1
-          | ARMED => f 2
-          | BUSY => f 3
-          | CHECKED => f 4
-          | DEFUNCT => f 5
-          | EDITABLE => f 6
-          | ENABLED => f 7
-          | EXPANDABLE => f 8
-          | EXPANDED => f 9
-          | FOCUSABLE => f 10
-          | FOCUSED => f 11
-          | HORIZONTAL => f 12
-          | ICONIFIED => f 13
-          | MODAL => f 14
-          | MULTI_LINE => f 15
-          | MULTISELECTABLE => f 16
-          | OPAQUE => f 17
-          | PRESSED => f 18
-          | RESIZABLE => f 19
-          | SELECTABLE => f 20
-          | SELECTED => f 21
-          | SENSITIVE => f 22
-          | SHOWING => f 23
-          | SINGLE_LINE => f 24
-          | STALE => f 25
-          | TRANSIENT => f 26
-          | VERTICAL => f 27
-          | VISIBLE => f 28
-          | MANAGES_DESCENDANTS => f 29
-          | INDETERMINATE => f 30
-          | TRUNCATED => f 31
-          | REQUIRED => f 32
-          | INVALID_ENTRY => f 33
-          | SUPPORTS_AUTOCOMPLETION => f 34
-          | SELECTABLE_TEXT => f 35
-          | DEFAULT => f 36
-          | ANIMATED => f 37
-          | VISITED => f 38
-          | LAST_DEFINED => f 39
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            INVALID => 0
+          | ACTIVE => 1
+          | ARMED => 2
+          | BUSY => 3
+          | CHECKED => 4
+          | DEFUNCT => 5
+          | EDITABLE => 6
+          | ENABLED => 7
+          | EXPANDABLE => 8
+          | EXPANDED => 9
+          | FOCUSABLE => 10
+          | FOCUSED => 11
+          | HORIZONTAL => 12
+          | ICONIFIED => 13
+          | MODAL => 14
+          | MULTI_LINE => 15
+          | MULTISELECTABLE => 16
+          | OPAQUE => 17
+          | PRESSED => 18
+          | RESIZABLE => 19
+          | SELECTABLE => 20
+          | SELECTED => 21
+          | SENSITIVE => 22
+          | SHOWING => 23
+          | SINGLE_LINE => 24
+          | STALE => 25
+          | TRANSIENT => 26
+          | VERTICAL => 27
+          | VISIBLE => 28
+          | MANAGES_DESCENDANTS => 29
+          | INDETERMINATE => 30
+          | TRUNCATED => 31
+          | REQUIRED => 32
+          | INVALID_ENTRY => 33
+          | SUPPORTS_AUTOCOMPLETION => 34
+          | SELECTABLE_TEXT => 35
+          | DEFAULT => 36
+          | ANIMATED => 37
+          | VISITED => 38
+          | LAST_DEFINED => 39
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => INVALID
           | 1 => ACTIVE
@@ -140,12 +131,8 @@ structure AtkStateType :>
           | 38 => VISITED
           | 39 => LAST_DEFINED
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -156,11 +143,10 @@ structure AtkStateType :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = INVALID
     local
       open PolyMLFFI
     in
@@ -168,8 +154,8 @@ structure AtkStateType :>
       val getName_ = call (load_sym libatk "atk_state_type_get_name") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val register_ = call (load_sym libatk "atk_state_type_register") (Utf8.PolyML.cInPtr --> PolyML.cVal)
     end
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (Utf8.C.withPtr ---> C.fromVal) forName_ name
-    fun getName type' = (C.withVal ---> Utf8.C.fromPtr false) getName_ type'
-    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun forName name = (Utf8.FFI.withPtr ---> FFI.fromVal) forName_ name
+    fun getName type' = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ type'
+    fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
   end

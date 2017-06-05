@@ -1,37 +1,24 @@
-structure GtkRecentChooserError :>
-  sig
-    include GTK_RECENT_CHOOSER_ERROR
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkRecentChooserError :> GTK_RECENT_CHOOSER_ERROR =
   struct
-    datatype t =
+    datatype enum =
       NOT_FOUND
     | INVALID_URI
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NOT_FOUND
+        val toInt =
           fn
-            NOT_FOUND => f 0
-          | INVALID_URI => f 1
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NOT_FOUND => 0
+          | INVALID_URI => 1
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => NOT_FOUND
           | 1 => INVALID_URI
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -42,18 +29,18 @@ structure GtkRecentChooserError :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
     exception Error of t
     val handler =
       GLibErrorRecord.makeHandler
         (
           "gtk-recent-chooser-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end
 exception GtkRecentChooserError = GtkRecentChooserError.Error

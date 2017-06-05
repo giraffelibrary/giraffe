@@ -15,9 +15,9 @@ structure GioTcpWrapperConnection :>
     type 'a socket_class = 'a GioSocketClass.class
     type 'a i_o_stream_class = 'a GioIOStreamClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new baseIoStream socket = (GioIOStreamClass.C.withPtr &&&> GioSocketClass.C.withPtr ---> GioTcpWrapperConnectionClass.C.fromPtr true) new_ (baseIoStream & socket)
-    fun getBaseIoStream self = (GioTcpWrapperConnectionClass.C.withPtr ---> GioIOStreamClass.C.fromPtr false) getBaseIoStream_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new baseIoStream socket = (GioIOStreamClass.FFI.withPtr &&&> GioSocketClass.FFI.withPtr ---> GioTcpWrapperConnectionClass.FFI.fromPtr true) new_ (baseIoStream & socket)
+    fun getBaseIoStream self = (GioTcpWrapperConnectionClass.FFI.withPtr ---> GioIOStreamClass.FFI.fromPtr false) getBaseIoStream_ self
     local
       open Property
     in

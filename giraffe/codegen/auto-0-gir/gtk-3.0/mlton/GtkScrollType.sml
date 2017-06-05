@@ -1,9 +1,6 @@
-structure GtkScrollType :>
-  sig
-    include GTK_SCROLL_TYPE
-  end =
+structure GtkScrollType :> GTK_SCROLL_TYPE =
   struct
-    datatype t =
+    datatype enum =
       NONE
     | JUMP
     | STEP_BACKWARD
@@ -20,31 +17,30 @@ structure GtkScrollType :>
     | PAGE_RIGHT
     | START
     | END
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NONE
+        val toInt =
           fn
-            NONE => f 0
-          | JUMP => f 1
-          | STEP_BACKWARD => f 2
-          | STEP_FORWARD => f 3
-          | PAGE_BACKWARD => f 4
-          | PAGE_FORWARD => f 5
-          | STEP_UP => f 6
-          | STEP_DOWN => f 7
-          | PAGE_UP => f 8
-          | PAGE_DOWN => f 9
-          | STEP_LEFT => f 10
-          | STEP_RIGHT => f 11
-          | PAGE_LEFT => f 12
-          | PAGE_RIGHT => f 13
-          | START => f 14
-          | END => f 15
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NONE => 0
+          | JUMP => 1
+          | STEP_BACKWARD => 2
+          | STEP_FORWARD => 3
+          | PAGE_BACKWARD => 4
+          | PAGE_FORWARD => 5
+          | STEP_UP => 6
+          | STEP_DOWN => 7
+          | PAGE_UP => 8
+          | PAGE_DOWN => 9
+          | STEP_LEFT => 10
+          | STEP_RIGHT => 11
+          | PAGE_LEFT => 12
+          | PAGE_RIGHT => 13
+          | START => 14
+          | END => 15
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => NONE
           | 1 => JUMP
@@ -63,17 +59,17 @@ structure GtkScrollType :>
           | 14 => START
           | 15 => END
           | n => raise Value n
-      end
-    val getType_ = _import "gtk_scroll_type_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "gtk_scroll_type_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = NONE
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

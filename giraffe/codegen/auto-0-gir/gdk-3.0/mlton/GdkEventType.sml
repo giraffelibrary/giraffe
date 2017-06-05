@@ -1,9 +1,6 @@
-structure GdkEventType :>
-  sig
-    include GDK_EVENT_TYPE
-  end =
+structure GdkEventType :> GDK_EVENT_TYPE =
   struct
-    datatype t =
+    datatype enum =
       NOTHING
     | DELETE
     | DESTROY
@@ -42,53 +39,52 @@ structure GdkEventType :>
     | GRAB_BROKEN
     | DAMAGE
     | EVENT_LAST
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NOTHING
+        val toInt =
           fn
-            NOTHING => f ~1
-          | DELETE => f 0
-          | DESTROY => f 1
-          | EXPOSE => f 2
-          | MOTION_NOTIFY => f 3
-          | BUTTON_PRESS => f 4
-          | DOUBLE_BUTTON_PRESS => f 5
-          | TRIPLE_BUTTON_PRESS => f 6
-          | BUTTON_RELEASE => f 7
-          | KEY_PRESS => f 8
-          | KEY_RELEASE => f 9
-          | ENTER_NOTIFY => f 10
-          | LEAVE_NOTIFY => f 11
-          | FOCUS_CHANGE => f 12
-          | CONFIGURE => f 13
-          | MAP => f 14
-          | UNMAP => f 15
-          | PROPERTY_NOTIFY => f 16
-          | SELECTION_CLEAR => f 17
-          | SELECTION_REQUEST => f 18
-          | SELECTION_NOTIFY => f 19
-          | PROXIMITY_IN => f 20
-          | PROXIMITY_OUT => f 21
-          | DRAG_ENTER => f 22
-          | DRAG_LEAVE => f 23
-          | DRAG_MOTION => f 24
-          | DRAG_STATUS => f 25
-          | DROP_START => f 26
-          | DROP_FINISHED => f 27
-          | CLIENT_EVENT => f 28
-          | VISIBILITY_NOTIFY => f 29
-          | SCROLL => f 31
-          | WINDOW_STATE => f 32
-          | SETTING => f 33
-          | OWNER_CHANGE => f 34
-          | GRAB_BROKEN => f 35
-          | DAMAGE => f 36
-          | EVENT_LAST => f 37
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NOTHING => ~1
+          | DELETE => 0
+          | DESTROY => 1
+          | EXPOSE => 2
+          | MOTION_NOTIFY => 3
+          | BUTTON_PRESS => 4
+          | DOUBLE_BUTTON_PRESS => 5
+          | TRIPLE_BUTTON_PRESS => 6
+          | BUTTON_RELEASE => 7
+          | KEY_PRESS => 8
+          | KEY_RELEASE => 9
+          | ENTER_NOTIFY => 10
+          | LEAVE_NOTIFY => 11
+          | FOCUS_CHANGE => 12
+          | CONFIGURE => 13
+          | MAP => 14
+          | UNMAP => 15
+          | PROPERTY_NOTIFY => 16
+          | SELECTION_CLEAR => 17
+          | SELECTION_REQUEST => 18
+          | SELECTION_NOTIFY => 19
+          | PROXIMITY_IN => 20
+          | PROXIMITY_OUT => 21
+          | DRAG_ENTER => 22
+          | DRAG_LEAVE => 23
+          | DRAG_MOTION => 24
+          | DRAG_STATUS => 25
+          | DROP_START => 26
+          | DROP_FINISHED => 27
+          | CLIENT_EVENT => 28
+          | VISIBILITY_NOTIFY => 29
+          | SCROLL => 31
+          | WINDOW_STATE => 32
+          | SETTING => 33
+          | OWNER_CHANGE => 34
+          | GRAB_BROKEN => 35
+          | DAMAGE => 36
+          | EVENT_LAST => 37
+        exception Value of GInt.t
+        val fromInt =
           fn
             ~1 => NOTHING
           | 0 => DELETE
@@ -129,17 +125,17 @@ structure GdkEventType :>
           | 36 => DAMAGE
           | 37 => EVENT_LAST
           | n => raise Value n
-      end
-    val getType_ = _import "gdk_event_type_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "gdk_event_type_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = NOTHING
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

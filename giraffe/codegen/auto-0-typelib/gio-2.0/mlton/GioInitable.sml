@@ -3,7 +3,7 @@ structure GioInitable :>
     where type 'a class = 'a GioInitableClass.class
     where type 'a cancellable_class = 'a GioCancellableClass.class =
   struct
-    val getType_ = _import "g_initable_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "g_initable_get_type" : unit -> GObjectType.FFI.val_;
     val init_ =
       fn
         x1
@@ -11,10 +11,10 @@ structure GioInitable :>
          & x3 =>
           (
             _import "g_initable_init" :
-              GioInitableClass.C.notnull GioInitableClass.C.p
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioInitableClass.FFI.notnull GioInitableClass.FFI.p
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -24,13 +24,13 @@ structure GioInitable :>
     type 'a class = 'a GioInitableClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun init self cancellable =
       (
-        GioInitableClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioInitableClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         init_
         (

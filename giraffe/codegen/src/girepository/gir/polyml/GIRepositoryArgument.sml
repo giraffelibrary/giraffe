@@ -1,8 +1,6 @@
 structure GIRepositoryArgument :>
-  sig
-    include G_I_REPOSITORY_ARGUMENT
-      where type typetag_t = GIRepositoryTypeTag.t
-  end =
+  G_I_REPOSITORY_ARGUMENT
+    where type typetag_t = GIRepositoryTypeTag.t =
   struct
     type typetag_t = GIRepositoryTypeTag.t
 

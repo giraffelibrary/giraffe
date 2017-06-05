@@ -1,35 +1,26 @@
-structure GdkVisualType :>
-  sig
-    include GDK_VISUAL_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GdkVisualType :> GDK_VISUAL_TYPE =
   struct
-    datatype t =
+    datatype enum =
       STATIC_GRAY
     | GRAYSCALE
     | STATIC_COLOR
     | PSEUDO_COLOR
     | TRUE_COLOR
     | DIRECT_COLOR
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = STATIC_GRAY
+        val toInt =
           fn
-            STATIC_GRAY => f 0
-          | GRAYSCALE => f 1
-          | STATIC_COLOR => f 2
-          | PSEUDO_COLOR => f 3
-          | TRUE_COLOR => f 4
-          | DIRECT_COLOR => f 5
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            STATIC_GRAY => 0
+          | GRAYSCALE => 1
+          | STATIC_COLOR => 2
+          | PSEUDO_COLOR => 3
+          | TRUE_COLOR => 4
+          | DIRECT_COLOR => 5
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => STATIC_GRAY
           | 1 => GRAYSCALE
@@ -38,12 +29,8 @@ structure GdkVisualType :>
           | 4 => TRUE_COLOR
           | 5 => DIRECT_COLOR
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -54,10 +41,9 @@ structure GdkVisualType :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = STATIC_GRAY
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

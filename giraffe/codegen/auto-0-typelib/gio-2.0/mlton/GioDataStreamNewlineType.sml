@@ -1,43 +1,39 @@
-structure GioDataStreamNewlineType :>
-  sig
-    include GIO_DATA_STREAM_NEWLINE_TYPE
-  end =
+structure GioDataStreamNewlineType :> GIO_DATA_STREAM_NEWLINE_TYPE =
   struct
-    datatype t =
+    datatype enum =
       LF
     | CR
     | CR_LF
     | ANY
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = LF
+        val toInt =
           fn
-            LF => f 0
-          | CR => f 1
-          | CR_LF => f 2
-          | ANY => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            LF => 0
+          | CR => 1
+          | CR_LF => 2
+          | ANY => 3
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => LF
           | 1 => CR
           | 2 => CR_LF
           | 3 => ANY
           | n => raise Value n
-      end
-    val getType_ = _import "g_data_stream_newline_type_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "g_data_stream_newline_type_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = LF
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

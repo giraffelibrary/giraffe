@@ -55,8 +55,8 @@ InterfaceConvDec has the form:
 
 
   fun as<InterfaceName> self =
-    (<RootObjectNamespace><RootObjectName>Class.C.withPtr
-      ---> <InterfaceNamespace><InterfaceName>Class.C.fromPtr false)
+    (<RootObjectNamespace><RootObjectName>Class.FFI.withPtr
+      ---> <InterfaceNamespace><InterfaceName>Class.FFI.fromPtr false)
     I
     self
 

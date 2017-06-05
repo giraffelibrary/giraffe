@@ -1,7 +1,4 @@
-structure GLibRegexMatchFlags :>
-  sig
-    include G_LIB_REGEX_MATCH_FLAGS
-  end =
+structure GLibRegexMatchFlags :> G_LIB_REGEX_MATCH_FLAGS =
   struct
     val ANCHORED = 0w16
     val NOTBOL = 0w128
@@ -24,18 +21,9 @@ structure GLibRegexMatchFlags :>
         NEWLINE_CRLF,
         NEWLINE_ANY
       ]
-    structure BitFlags =
-      Word32BitFlags (
+    structure Flags =
+      Flags(
         val allFlags = allFlags
       )
-    open BitFlags
-    type t = flags
-    structure C =
-      struct
-        type val_ = FFI.Flags.C.val_
-        type ref_ = FFI.Flags.C.ref_
-        fun withVal f = f
-        fun withRefVal f = withVal (FFI.Flags.C.withRef f)
-        fun fromVal w = w
-      end
+    open Flags
   end

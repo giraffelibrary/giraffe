@@ -1,9 +1,9 @@
 structure Vte : VTE =
   struct
-    val getMajorVersion_ = _import "vte_get_major_version" : unit -> FFI.UInt.C.val_;
-    val getMicroVersion_ = _import "vte_get_micro_version" : unit -> FFI.UInt.C.val_;
-    val getMinorVersion_ = _import "vte_get_minor_version" : unit -> FFI.UInt.C.val_;
-    val getUserShell_ = _import "vte_get_user_shell" : unit -> Utf8.C.notnull Utf8.C.out_p;
+    val getMajorVersion_ = _import "vte_get_major_version" : unit -> GUInt.FFI.val_;
+    val getMicroVersion_ = _import "vte_get_micro_version" : unit -> GUInt.FFI.val_;
+    val getMinorVersion_ = _import "vte_get_minor_version" : unit -> GUInt.FFI.val_;
+    val getUserShell_ = _import "vte_get_user_shell" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
     structure CursorBlinkMode = VteCursorBlinkMode
     structure CursorShape = VteCursorShape
     structure EraseBinding = VteEraseBinding
@@ -19,8 +19,8 @@ structure Vte : VTE =
     val MICRO_VERSION = 1
     val MINOR_VERSION = 39
     val SPAWN_NO_PARENT_ENVV = 33554432
-    fun getMajorVersion () = (I ---> FFI.UInt.C.fromVal) getMajorVersion_ ()
-    fun getMicroVersion () = (I ---> FFI.UInt.C.fromVal) getMicroVersion_ ()
-    fun getMinorVersion () = (I ---> FFI.UInt.C.fromVal) getMinorVersion_ ()
-    fun getUserShell () = (I ---> Utf8.C.fromPtr true) getUserShell_ ()
+    fun getMajorVersion () = (I ---> GUInt.FFI.fromVal) getMajorVersion_ ()
+    fun getMicroVersion () = (I ---> GUInt.FFI.fromVal) getMicroVersion_ ()
+    fun getMinorVersion () = (I ---> GUInt.FFI.fromVal) getMinorVersion_ ()
+    fun getUserShell () = (I ---> Utf8.FFI.fromPtr 1) getUserShell_ ()
   end

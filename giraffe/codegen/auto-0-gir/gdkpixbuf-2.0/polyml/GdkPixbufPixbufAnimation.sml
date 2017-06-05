@@ -9,21 +9,21 @@ structure GdkPixbufPixbufAnimation :>
     in
       val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val newFromFile_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GdkPixbufPixbufAnimationClass.PolyML.cPtr)
-      val getHeight_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_height") (GdkPixbufPixbufAnimationClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getHeight_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_height") (GdkPixbufPixbufAnimationClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getIter_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_iter") (GdkPixbufPixbufAnimationClass.PolyML.cPtr &&> GLibTimeValRecord.PolyML.cPtr --> GdkPixbufPixbufAnimationIterClass.PolyML.cPtr)
       val getStaticImage_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_static_image") (GdkPixbufPixbufAnimationClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
-      val getWidth_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_width") (GdkPixbufPixbufAnimationClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val isStaticImage_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_is_static_image") (GdkPixbufPixbufAnimationClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getWidth_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_get_width") (GdkPixbufPixbufAnimationClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val isStaticImage_ = call (load_sym libgdkpixbuf "gdk_pixbuf_animation_is_static_image") (GdkPixbufPixbufAnimationClass.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a GdkPixbufPixbufAnimationClass.class
     type 'a pixbuf_animation_iter_class = 'a GdkPixbufPixbufAnimationIterClass.class
     type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFromFile filename = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufAnimationClass.C.fromPtr true) newFromFile_ (filename & [])
-    fun getHeight self = (GdkPixbufPixbufAnimationClass.C.withPtr ---> FFI.Int.C.fromVal) getHeight_ self
-    fun getIter self startTime = (GdkPixbufPixbufAnimationClass.C.withPtr &&&> GLibTimeValRecord.C.withPtr ---> GdkPixbufPixbufAnimationIterClass.C.fromPtr true) getIter_ (self & startTime)
-    fun getStaticImage self = (GdkPixbufPixbufAnimationClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getStaticImage_ self
-    fun getWidth self = (GdkPixbufPixbufAnimationClass.C.withPtr ---> FFI.Int.C.fromVal) getWidth_ self
-    fun isStaticImage self = (GdkPixbufPixbufAnimationClass.C.withPtr ---> FFI.Bool.C.fromVal) isStaticImage_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun newFromFile filename = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr true) newFromFile_ (filename & [])
+    fun getHeight self = (GdkPixbufPixbufAnimationClass.FFI.withPtr ---> GInt.FFI.fromVal) getHeight_ self
+    fun getIter self startTime = (GdkPixbufPixbufAnimationClass.FFI.withPtr &&&> GLibTimeValRecord.FFI.withPtr ---> GdkPixbufPixbufAnimationIterClass.FFI.fromPtr true) getIter_ (self & startTime)
+    fun getStaticImage self = (GdkPixbufPixbufAnimationClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getStaticImage_ self
+    fun getWidth self = (GdkPixbufPixbufAnimationClass.FFI.withPtr ---> GInt.FFI.fromVal) getWidth_ self
+    fun isStaticImage self = (GdkPixbufPixbufAnimationClass.FFI.withPtr ---> GBool.FFI.fromVal) isStaticImage_ self
   end

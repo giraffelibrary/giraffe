@@ -1,9 +1,6 @@
-structure GioDBusError :>
-  sig
-    include GIO_D_BUS_ERROR
-  end =
+structure GioDBusError :> GIO_D_BUS_ERROR =
   struct
-    datatype t =
+    datatype enum =
       FAILED
     | NO_MEMORY
     | SERVICE_UNKNOWN
@@ -45,56 +42,55 @@ structure GioDBusError :>
     | SELINUX_SECURITY_CONTEXT_UNKNOWN
     | ADT_AUDIT_DATA_UNKNOWN
     | OBJECT_PATH_IN_USE
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = FAILED
+        val toInt =
           fn
-            FAILED => f 0
-          | NO_MEMORY => f 1
-          | SERVICE_UNKNOWN => f 2
-          | NAME_HAS_NO_OWNER => f 3
-          | NO_REPLY => f 4
-          | IO_ERROR => f 5
-          | BAD_ADDRESS => f 6
-          | NOT_SUPPORTED => f 7
-          | LIMITS_EXCEEDED => f 8
-          | ACCESS_DENIED => f 9
-          | AUTH_FAILED => f 10
-          | NO_SERVER => f 11
-          | TIMEOUT => f 12
-          | NO_NETWORK => f 13
-          | ADDRESS_IN_USE => f 14
-          | DISCONNECTED => f 15
-          | INVALID_ARGS => f 16
-          | FILE_NOT_FOUND => f 17
-          | FILE_EXISTS => f 18
-          | UNKNOWN_METHOD => f 19
-          | TIMED_OUT => f 20
-          | MATCH_RULE_NOT_FOUND => f 21
-          | MATCH_RULE_INVALID => f 22
-          | SPAWN_EXEC_FAILED => f 23
-          | SPAWN_FORK_FAILED => f 24
-          | SPAWN_CHILD_EXITED => f 25
-          | SPAWN_CHILD_SIGNALED => f 26
-          | SPAWN_FAILED => f 27
-          | SPAWN_SETUP_FAILED => f 28
-          | SPAWN_CONFIG_INVALID => f 29
-          | SPAWN_SERVICE_INVALID => f 30
-          | SPAWN_SERVICE_NOT_FOUND => f 31
-          | SPAWN_PERMISSIONS_INVALID => f 32
-          | SPAWN_FILE_INVALID => f 33
-          | SPAWN_NO_MEMORY => f 34
-          | UNIX_PROCESS_ID_UNKNOWN => f 35
-          | INVALID_SIGNATURE => f 36
-          | INVALID_FILE_CONTENT => f 37
-          | SELINUX_SECURITY_CONTEXT_UNKNOWN => f 38
-          | ADT_AUDIT_DATA_UNKNOWN => f 39
-          | OBJECT_PATH_IN_USE => f 40
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            FAILED => 0
+          | NO_MEMORY => 1
+          | SERVICE_UNKNOWN => 2
+          | NAME_HAS_NO_OWNER => 3
+          | NO_REPLY => 4
+          | IO_ERROR => 5
+          | BAD_ADDRESS => 6
+          | NOT_SUPPORTED => 7
+          | LIMITS_EXCEEDED => 8
+          | ACCESS_DENIED => 9
+          | AUTH_FAILED => 10
+          | NO_SERVER => 11
+          | TIMEOUT => 12
+          | NO_NETWORK => 13
+          | ADDRESS_IN_USE => 14
+          | DISCONNECTED => 15
+          | INVALID_ARGS => 16
+          | FILE_NOT_FOUND => 17
+          | FILE_EXISTS => 18
+          | UNKNOWN_METHOD => 19
+          | TIMED_OUT => 20
+          | MATCH_RULE_NOT_FOUND => 21
+          | MATCH_RULE_INVALID => 22
+          | SPAWN_EXEC_FAILED => 23
+          | SPAWN_FORK_FAILED => 24
+          | SPAWN_CHILD_EXITED => 25
+          | SPAWN_CHILD_SIGNALED => 26
+          | SPAWN_FAILED => 27
+          | SPAWN_SETUP_FAILED => 28
+          | SPAWN_CONFIG_INVALID => 29
+          | SPAWN_SERVICE_INVALID => 30
+          | SPAWN_SERVICE_NOT_FOUND => 31
+          | SPAWN_PERMISSIONS_INVALID => 32
+          | SPAWN_FILE_INVALID => 33
+          | SPAWN_NO_MEMORY => 34
+          | UNIX_PROCESS_ID_UNKNOWN => 35
+          | INVALID_SIGNATURE => 36
+          | INVALID_FILE_CONTENT => 37
+          | SELINUX_SECURITY_CONTEXT_UNKNOWN => 38
+          | ADT_AUDIT_DATA_UNKNOWN => 39
+          | OBJECT_PATH_IN_USE => 40
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => FAILED
           | 1 => NO_MEMORY
@@ -138,17 +134,17 @@ structure GioDBusError :>
           | 39 => ADT_AUDIT_DATA_UNKNOWN
           | 40 => OBJECT_PATH_IN_USE
           | n => raise Value n
-      end
-    val getType_ = _import "g_dbus_error_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "g_dbus_error_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = FAILED
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

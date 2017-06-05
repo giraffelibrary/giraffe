@@ -57,46 +57,73 @@ The gtk-doc annotations allow the transfer convention 'floating' to be specified
 
 
 <section>
-<title>Structures</title>
+<title>Structs</title>
 
 <section>
 <title>Boxed types</title>
 
-A boxed type is a C structure that has been registered as a boxed type with the GObject type system.  In practical terms, this means that the type system knows how to copy and free such structures.
+A boxed type is a C structure that has been registered with the GObject type system with <code>copy</code> and <code>free</code> functions.  This enables the type system to copy and free such structures without knowing anything about their contents.
 
-In Gtk, there are C structures for which <code>copy</code> and <code>free</code> functions are provided but are not listed as boxed types, e.g. <code>GtkTargetEntry</code>, <code>GtkIconInfo</code>, <code>GtkStockItem</code>.
+A boxed type may be reference counted in which case the <code>copy</code> and <code>free</code> functions actually perform ref and unref operations respectively, e.g. <code>GtkTextAttributes</code>, <code>GtkCssSection</code>, <code>GtkIconSet</code> and <code>GtkTargetList</code>.
 
-Furthermore, there are C structures that are listed as boxed types for which no explicit <code>copy</code> and <code>free</code> function is documented, e.g. <code>GtkSelectionData</code>, <code>GtkCssSection</code>.
+A boxed types is not necessarily an opaque structure, e.g. <code>GtkRequisition</code>, <code>GtkSelectionData</code>, though some are, e.g. <code>GtkTextIter</code>, <code>GtkTreeModel</code>, <code>GtkTreePath</code>.
 
-Boxed types are not necessarily opaque structures, e.g. <code>GtkRequisition</code>, <code>GtkSelectionData</code>, though some are, e.g. <code>GtkTextIter</code>, <code>GtkTreeModel</code>, <code>GtkTreePath</code>.
+In Gtk, there are C structures for which <code>copy</code> and <code>free</code> functions are provided but are not listed as boxed types, e.g. <code>GtkIconInfo</code>.
 
-Some boxed types do support reference counting and some do not.  Those that do are <code>GtkCssSection</code>, <code>GtkIconSet</code> and <code>GtkTargetList</code> (and consequently do not have explicit <code>copy</code> or <code>free</code> functions).
+</section>
 
-For generating SML from introspection metadata, there is nothing special about boxed types.  Instead, the code generation considers structures generally.  A boxed type is simply a particular case of a structure.  
+<section>
+<title>FFI</title>
+<p>
+The C interface and FFI for a C struct type is provided by an SML structure that implements either RECORD or NEW_RECORD depending on how the C struct can be used.
+
+The FFI for a C struct is not affected by whether it is registered as a boxed type however RECORD can always be implemented for a boxed type because it provides <code>dup</code> and <code>free</code> functions.
+
+In contrast, NEW_RECORD can be implemented only for a C struct with <code>new</code>, <code>copy</code> and <code>free</code> functions.  (Note that a dup function can be derived from new and copy functions.)
+
+Both structures provide high-level FFI functions for a C struct referenced by a pointer.
+
+RECORD provides a C interface sub-structure that implements C_POINTER_TYPE.
+
+NEW_RECORD, which includes RECORD, also provides a C interface sub-structure that implements C_VALUE_TYPE.
+
+This allows a C interface (and therefore high-level FFI) to be generated for an array of C structs that are packed inline, so such an array representation in C requires NEW_RECORD to be implemented for a C struct.
+
+In contrast, an implementation of C_POINTER_TYPE allow only a C interface (and FFI) to be generated for an array of pointers to the C structs.
+
+NEW_RECORD provides <code>FFI.withNewPtr</code> that supports caller-allocated 'out' parameters.
+</p>
+<p>
+An opaque C struct must always be referenced by a pointer and therefore only a structure that implements NEW_RECORD cannot be implemented for it.
+</p>
+<p>
+Generally, we would not expect C_VALUE_TYPE and, therefore NEW_RECORD, to be implemented for a reference-counted C struct.
+</p>
+
 </section>
 
 
 <section>
 <title>Memory management</title>
 
-The memory management for a structure depends on the particular functions that it provides: some provide <code>ref</code>/<code>unref</code> functions that support reference counting, some provide <code>copy</code>/<code>free</code> functions and some provide no functions.
-
-
-<section>
-<title>Structures that provide <code>new</code>/<code>copy</code>/<code>free</code> functions</title>
-
-Structures that are allocated in SML are automatically freed: when the garbage collector determines that the ML value is unreachable, the allocated memory is freed (using <code>g_boxed_free</code>).  (Contrast with objects, where an unreachable object is unreferened by <code>g_object_unref</code>.)  Therefore ownership of an allocated structure can never be transferred from SML to C.  The library interface must ensure, to make the interface 'safe', that no library function exists that holds on to a reference to a structure for later use.  This is currently the case because function that has an IN or INOUT parameter with ownership transfer that is not NOTHING is excluded.
-
+<p>
+A C struct that is owned by SML is automatically freed when the garbage collector determines that the SML value is unreachable by calling the `free` function.
+For a reference-counted C struct, the `free` function is actually the `unref` function but this detail is hidden by the FFI structure.
+</p>
+<p>
+Once a C struct is owned by SML, its ownership must not be transferred from SML to C because only the SML compiler knows when the value is no longer reachable on the SML side.
+Furthermore, a C function must not hold on to a reference to a C struct for later use because the SML side may free it.
+As for an object, a C function that takes ownership must be passed a duplicate using `withDupPtr`.
+This passes a duplicate to the C function or, for a reference-counted C struct, calls the `ref` function to increment the reference count.
+</p>
+<p>
 Many C functions return structures.  Where C functions write to a caller-allocated structure, the structure is allocated from the SML side, so this does not present any issue as described above.  Alternatively, a C function can return a reference to a structure.  Such a structure is allocated on the C side.  When the C function transfers ownership to the caller, the SML side is responsible for freeing the structure so can guarantee its presence for as long as it requires it.  However, when the C function does not transfer ownership, this presents an issue for access from SML: an SML program could hold a reference to a structure after it has been freed.  In this case, it is necessary to copy the structure using the copy operation into a structure allocated on the SML side.  For example, gtk_style_context_lookup_icon_set returns a pointer to a <code>GtkIconSet</code> which is not owned by the caller, so must be copied.
-
-Note that <code>GValue</code> is treated like any other structure.
-
-In the case of extracting a structure from a GValue, g_value_dup_boxed can be used instead of g_value_get_boxed.
+</p>
 
 <section>
 <title>Structures that provide <code>ref</code>/<code>unref</code> functions</title>
 
-For example <code>GtkTextAttributes</code>
+For example 
 
   - ref/unref like a GObject
   - for sample code, see GIBaseInfoClass
@@ -172,6 +199,17 @@ An explicit call to Widget.destroy should do the job rather than letting destruc
 </section>
 
 
+
+
+<section>
+<title>Arrays</title>
+
+
+
+
+
+
+</section>
 
 
 

@@ -11,12 +11,12 @@ structure GtkAssistant :>
       val getType_ = call (load_sym libgtk "gtk_assistant_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_assistant_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val addActionWidget_ = call (load_sym libgtk "gtk_assistant_add_action_widget") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val appendPage_ = call (load_sym libgtk "gtk_assistant_append_page") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val appendPage_ = call (load_sym libgtk "gtk_assistant_append_page") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val commit_ = call (load_sym libgtk "gtk_assistant_commit") (GtkAssistantClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getCurrentPage_ = call (load_sym libgtk "gtk_assistant_get_current_page") (GtkAssistantClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getNPages_ = call (load_sym libgtk "gtk_assistant_get_n_pages") (GtkAssistantClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getNthPage_ = call (load_sym libgtk "gtk_assistant_get_nth_page") (GtkAssistantClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
-      val getPageComplete_ = call (load_sym libgtk "gtk_assistant_get_page_complete") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getCurrentPage_ = call (load_sym libgtk "gtk_assistant_get_current_page") (GtkAssistantClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getNPages_ = call (load_sym libgtk "gtk_assistant_get_n_pages") (GtkAssistantClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getNthPage_ = call (load_sym libgtk "gtk_assistant_get_nth_page") (GtkAssistantClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val getPageComplete_ = call (load_sym libgtk "gtk_assistant_get_page_complete") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getPageTitle_ = call (load_sym libgtk "gtk_assistant_get_page_title") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getPageType_ = call (load_sym libgtk "gtk_assistant_get_page_type") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GtkAssistantPageType.PolyML.cVal)
       val insertPage_ =
@@ -24,21 +24,21 @@ structure GtkAssistant :>
           (
             GtkAssistantClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             --> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> GInt.PolyML.cVal
           )
       val nextPage_ = call (load_sym libgtk "gtk_assistant_next_page") (GtkAssistantClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val prependPage_ = call (load_sym libgtk "gtk_assistant_prepend_page") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val prependPage_ = call (load_sym libgtk "gtk_assistant_prepend_page") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val previousPage_ = call (load_sym libgtk "gtk_assistant_previous_page") (GtkAssistantClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val removeActionWidget_ = call (load_sym libgtk "gtk_assistant_remove_action_widget") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val removePage_ = call (load_sym libgtk "gtk_assistant_remove_page") (GtkAssistantClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setCurrentPage_ = call (load_sym libgtk "gtk_assistant_set_current_page") (GtkAssistantClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val removePage_ = call (load_sym libgtk "gtk_assistant_remove_page") (GtkAssistantClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setCurrentPage_ = call (load_sym libgtk "gtk_assistant_set_current_page") (GtkAssistantClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setPageComplete_ =
         call (load_sym libgtk "gtk_assistant_set_page_complete")
           (
             GtkAssistantClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val setPageTitle_ =
@@ -64,25 +64,25 @@ structure GtkAssistant :>
     type assistant_page_type_t = GtkAssistantPageType.t
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkAssistantClass.C.fromPtr false) new_ ()
-    fun addActionWidget self child = (GtkAssistantClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) addActionWidget_ (self & child)
-    fun appendPage self page = (GtkAssistantClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> FFI.Int.C.fromVal) appendPage_ (self & page)
-    fun commit self = (GtkAssistantClass.C.withPtr ---> I) commit_ self
-    fun getCurrentPage self = (GtkAssistantClass.C.withPtr ---> FFI.Int.C.fromVal) getCurrentPage_ self
-    fun getNPages self = (GtkAssistantClass.C.withPtr ---> FFI.Int.C.fromVal) getNPages_ self
-    fun getNthPage self pageNum = (GtkAssistantClass.C.withPtr &&&> FFI.Int.C.withVal ---> GtkWidgetClass.C.fromPtr false) getNthPage_ (self & pageNum)
-    fun getPageComplete self page = (GtkAssistantClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> FFI.Bool.C.fromVal) getPageComplete_ (self & page)
-    fun getPageTitle self page = (GtkAssistantClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> Utf8.C.fromPtr false) getPageTitle_ (self & page)
-    fun getPageType self page = (GtkAssistantClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> GtkAssistantPageType.C.fromVal) getPageType_ (self & page)
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkAssistantClass.FFI.fromPtr false) new_ ()
+    fun addActionWidget self child = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) addActionWidget_ (self & child)
+    fun appendPage self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) appendPage_ (self & page)
+    fun commit self = (GtkAssistantClass.FFI.withPtr ---> I) commit_ self
+    fun getCurrentPage self = (GtkAssistantClass.FFI.withPtr ---> GInt.FFI.fromVal) getCurrentPage_ self
+    fun getNPages self = (GtkAssistantClass.FFI.withPtr ---> GInt.FFI.fromVal) getNPages_ self
+    fun getNthPage self pageNum = (GtkAssistantClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getNthPage_ (self & pageNum)
+    fun getPageComplete self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getPageComplete_ (self & page)
+    fun getPageTitle self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPageTitle_ (self & page)
+    fun getPageType self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GtkAssistantPageType.FFI.fromVal) getPageType_ (self & page)
     fun insertPage self page position =
       (
-        GtkAssistantClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         ---> FFI.Int.C.fromVal
+        GtkAssistantClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         ---> GInt.FFI.fromVal
       )
         insertPage_
         (
@@ -90,17 +90,17 @@ structure GtkAssistant :>
            & page
            & position
         )
-    fun nextPage self = (GtkAssistantClass.C.withPtr ---> I) nextPage_ self
-    fun prependPage self page = (GtkAssistantClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> FFI.Int.C.fromVal) prependPage_ (self & page)
-    fun previousPage self = (GtkAssistantClass.C.withPtr ---> I) previousPage_ self
-    fun removeActionWidget self child = (GtkAssistantClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) removeActionWidget_ (self & child)
-    fun removePage self pageNum = (GtkAssistantClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) removePage_ (self & pageNum)
-    fun setCurrentPage self pageNum = (GtkAssistantClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setCurrentPage_ (self & pageNum)
+    fun nextPage self = (GtkAssistantClass.FFI.withPtr ---> I) nextPage_ self
+    fun prependPage self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) prependPage_ (self & page)
+    fun previousPage self = (GtkAssistantClass.FFI.withPtr ---> I) previousPage_ self
+    fun removeActionWidget self child = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) removeActionWidget_ (self & child)
+    fun removePage self pageNum = (GtkAssistantClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) removePage_ (self & pageNum)
+    fun setCurrentPage self pageNum = (GtkAssistantClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setCurrentPage_ (self & pageNum)
     fun setPageComplete self page complete =
       (
-        GtkAssistantClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GtkAssistantClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         setPageComplete_
@@ -111,9 +111,9 @@ structure GtkAssistant :>
         )
     fun setPageTitle self page title =
       (
-        GtkAssistantClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> Utf8.C.withPtr
+        GtkAssistantClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         setPageTitle_
@@ -124,9 +124,9 @@ structure GtkAssistant :>
         )
     fun setPageType self page type' =
       (
-        GtkAssistantClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> GtkAssistantPageType.C.withVal
+        GtkAssistantClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkAssistantPageType.FFI.withVal
          ---> I
       )
         setPageType_
@@ -135,7 +135,7 @@ structure GtkAssistant :>
            & page
            & type'
         )
-    fun updateButtonsState self = (GtkAssistantClass.C.withPtr ---> I) updateButtonsState_ self
+    fun updateButtonsState self = (GtkAssistantClass.FFI.withPtr ---> I) updateButtonsState_ self
     local
       open ClosureMarshal Signal
     in

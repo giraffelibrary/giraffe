@@ -11,15 +11,15 @@ structure GtkCellAreaBox :>
     in
       val getType_ = call (load_sym libgtk "gtk_cell_area_box_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_cell_area_box_new") (PolyMLFFI.cVoid --> GtkCellAreaClass.PolyML.cPtr)
-      val getSpacing_ = call (load_sym libgtk "gtk_cell_area_box_get_spacing") (GtkCellAreaBoxClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getSpacing_ = call (load_sym libgtk "gtk_cell_area_box_get_spacing") (GtkCellAreaBoxClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val packEnd_ =
         call (load_sym libgtk "gtk_cell_area_box_pack_end")
           (
             GtkCellAreaBoxClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val packStart_ =
@@ -27,12 +27,12 @@ structure GtkCellAreaBox :>
           (
             GtkCellAreaBoxClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setSpacing_ = call (load_sym libgtk "gtk_cell_area_box_set_spacing") (GtkCellAreaBoxClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSpacing_ = call (load_sym libgtk "gtk_cell_area_box_set_spacing") (GtkCellAreaBoxClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkCellAreaBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -40,19 +40,19 @@ structure GtkCellAreaBox :>
     type 'a orientable_class = 'a GtkOrientableClass.class
     type 'a cell_renderer_class = 'a GtkCellRendererClass.class
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkCellAreaBoxClass.C.fromPtr false) new_ ()
-    fun getSpacing self = (GtkCellAreaBoxClass.C.withPtr ---> FFI.Int32.C.fromVal) getSpacing_ self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asCellLayout self = (GObjectObjectClass.FFI.withPtr ---> GtkCellLayoutClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkCellAreaBoxClass.FFI.fromPtr false) new_ ()
+    fun getSpacing self = (GtkCellAreaBoxClass.FFI.withPtr ---> GInt32.FFI.fromVal) getSpacing_ self
     fun packEnd self renderer expand align fixed =
       (
-        GtkCellAreaBoxClass.C.withPtr
-         &&&> GtkCellRendererClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.Bool.C.withVal
+        GtkCellAreaBoxClass.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> GBool.FFI.withVal
+         &&&> GBool.FFI.withVal
          ---> I
       )
         packEnd_
@@ -65,11 +65,11 @@ structure GtkCellAreaBox :>
         )
     fun packStart self renderer expand align fixed =
       (
-        GtkCellAreaBoxClass.C.withPtr
-         &&&> GtkCellRendererClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.Bool.C.withVal
+        GtkCellAreaBoxClass.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> GBool.FFI.withVal
+         &&&> GBool.FFI.withVal
          ---> I
       )
         packStart_
@@ -80,7 +80,7 @@ structure GtkCellAreaBox :>
            & align
            & fixed
         )
-    fun setSpacing self spacing = (GtkCellAreaBoxClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setSpacing_ (self & spacing)
+    fun setSpacing self spacing = (GtkCellAreaBoxClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setSpacing_ (self & spacing)
     local
       open Property
     in

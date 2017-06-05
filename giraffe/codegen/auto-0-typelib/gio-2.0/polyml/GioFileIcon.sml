@@ -16,10 +16,10 @@ structure GioFileIcon :>
     type 'a loadable_icon_class = 'a GioLoadableIconClass.class
     type 'a file_class = 'a GioFileClass.class
     type t = base class
-    fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
-    fun asLoadableIcon self = (GObjectObjectClass.C.withPtr ---> GioLoadableIconClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getFile self = (GioFileIconClass.C.withPtr ---> GioFileClass.C.fromPtr false) getFile_ self
+    fun asIcon self = (GObjectObjectClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) I self
+    fun asLoadableIcon self = (GObjectObjectClass.FFI.withPtr ---> GioLoadableIconClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getFile self = (GioFileIconClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr false) getFile_ self
     local
       open Property
     in

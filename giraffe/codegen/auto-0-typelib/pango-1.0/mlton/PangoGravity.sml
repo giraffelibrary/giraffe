@@ -1,32 +1,28 @@
 structure PangoGravity :>
-  sig
-    include
-      PANGO_GRAVITY
-        where type matrix_t = PangoMatrixRecord.t
-        where type gravity_hint_t = PangoGravityHint.t
-        where type script_t = PangoScript.t
-  end =
+  PANGO_GRAVITY
+    where type matrix_t = PangoMatrixRecord.t
+    where type gravity_hint_t = PangoGravityHint.t
+    where type script_t = PangoScript.t =
   struct
-    datatype t =
+    datatype enum =
       SOUTH
     | EAST
     | NORTH
     | WEST
     | AUTO
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = SOUTH
+        val toInt =
           fn
-            SOUTH => f 0
-          | EAST => f 1
-          | NORTH => f 2
-          | WEST => f 3
-          | AUTO => f 4
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            SOUTH => 0
+          | EAST => 1
+          | NORTH => 2
+          | WEST => 3
+          | AUTO => 4
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => SOUTH
           | 1 => EAST
@@ -34,19 +30,19 @@ structure PangoGravity :>
           | 3 => WEST
           | 4 => AUTO
           | n => raise Value n
-      end
-    val getType_ = _import "pango_gravity_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "pango_gravity_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = SOUTH
-    val getForMatrix_ = _import "pango_gravity_get_for_matrix" : PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p -> C.val_;
+    val getForMatrix_ = _import "pango_gravity_get_for_matrix" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p -> FFI.val_;
     val getForScript_ =
       fn
         x1
@@ -54,10 +50,10 @@ structure PangoGravity :>
          & x3 =>
           (
             _import "pango_gravity_get_for_script" :
-              PangoScript.C.val_
-               * C.val_
-               * PangoGravityHint.C.val_
-               -> C.val_;
+              PangoScript.FFI.val_
+               * FFI.val_
+               * PangoGravityHint.FFI.val_
+               -> FFI.val_;
           )
             (
               x1,
@@ -72,11 +68,11 @@ structure PangoGravity :>
          & x4 =>
           (
             _import "pango_gravity_get_for_script_and_width" :
-              PangoScript.C.val_
-               * FFI.Bool.C.val_
-               * C.val_
-               * PangoGravityHint.C.val_
-               -> C.val_;
+              PangoScript.FFI.val_
+               * GBool.FFI.val_
+               * FFI.val_
+               * PangoGravityHint.FFI.val_
+               -> FFI.val_;
           )
             (
               x1,
@@ -84,18 +80,18 @@ structure PangoGravity :>
               x3,
               x4
             )
-    val toRotation_ = _import "pango_gravity_to_rotation" : C.val_ -> FFI.Double.C.val_;
+    val toRotation_ = _import "pango_gravity_to_rotation" : FFI.val_ -> GDouble.FFI.val_;
     type matrix_t = PangoMatrixRecord.t
     type gravity_hint_t = PangoGravityHint.t
     type script_t = PangoScript.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getForMatrix matrix = (PangoMatrixRecord.C.withPtr ---> C.fromVal) getForMatrix_ matrix
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getForMatrix matrix = (PangoMatrixRecord.FFI.withPtr ---> FFI.fromVal) getForMatrix_ matrix
     fun getForScript script baseGravity hint =
       (
-        PangoScript.C.withVal
-         &&&> C.withVal
-         &&&> PangoGravityHint.C.withVal
-         ---> C.fromVal
+        PangoScript.FFI.withVal
+         &&&> FFI.withVal
+         &&&> PangoGravityHint.FFI.withVal
+         ---> FFI.fromVal
       )
         getForScript_
         (
@@ -105,11 +101,11 @@ structure PangoGravity :>
         )
     fun getForScriptAndWidth script wide baseGravity hint =
       (
-        PangoScript.C.withVal
-         &&&> FFI.Bool.C.withVal
-         &&&> C.withVal
-         &&&> PangoGravityHint.C.withVal
-         ---> C.fromVal
+        PangoScript.FFI.withVal
+         &&&> GBool.FFI.withVal
+         &&&> FFI.withVal
+         &&&> PangoGravityHint.FFI.withVal
+         ---> FFI.fromVal
       )
         getForScriptAndWidth_
         (
@@ -118,5 +114,5 @@ structure PangoGravity :>
            & baseGravity
            & hint
         )
-    fun toRotation gravity = (C.withVal ---> FFI.Double.C.fromVal) toRotation_ gravity
+    fun toRotation gravity = (FFI.withVal ---> GDouble.FFI.fromVal) toRotation_ gravity
   end

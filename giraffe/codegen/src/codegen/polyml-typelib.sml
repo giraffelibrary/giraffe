@@ -13,6 +13,6 @@ use "struct.sml";
 use "union.sml";
 use "flags_enum_common.sml";
 use "flags.sml";
-use "enum.sml";
+use "typelib/enum.sml";
 use "typelib/namespace.sml";
 use "typelib/generate.sml";

@@ -18,7 +18,7 @@ structure GioDBusInterfaceSkeleton :>
              &&> GioDBusConnectionClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val flush_ = call (load_sym libgio "g_dbus_interface_skeleton_flush") (GioDBusInterfaceSkeletonClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getConnection_ = call (load_sym libgio "g_dbus_interface_skeleton_get_connection") (GioDBusInterfaceSkeletonClass.PolyML.cPtr --> GioDBusConnectionClass.PolyML.cPtr)
@@ -36,15 +36,15 @@ structure GioDBusInterfaceSkeleton :>
     type 'a d_bus_method_invocation_class = 'a GioDBusMethodInvocationClass.class
     type d_bus_interface_skeleton_flags_t = GioDBusInterfaceSkeletonFlags.t
     type t = base class
-    fun asDBusInterface self = (GObjectObjectClass.C.withPtr ---> GioDBusInterfaceClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asDBusInterface self = (GObjectObjectClass.FFI.withPtr ---> GioDBusInterfaceClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun export self connection objectPath =
       (
-        GioDBusInterfaceSkeletonClass.C.withPtr
-         &&&> GioDBusConnectionClass.C.withPtr
-         &&&> Utf8.C.withPtr
+        GioDBusInterfaceSkeletonClass.FFI.withPtr
+         &&&> GioDBusConnectionClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         export_
         (
@@ -53,14 +53,14 @@ structure GioDBusInterfaceSkeleton :>
            & objectPath
            & []
         )
-    fun flush self = (GioDBusInterfaceSkeletonClass.C.withPtr ---> I) flush_ self
-    fun getConnection self = (GioDBusInterfaceSkeletonClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
-    fun getFlags self = (GioDBusInterfaceSkeletonClass.C.withPtr ---> GioDBusInterfaceSkeletonFlags.C.fromVal) getFlags_ self
-    fun getInfo self = (GioDBusInterfaceSkeletonClass.C.withPtr ---> GioDBusInterfaceInfoRecord.C.fromPtr false) getInfo_ self
-    fun getObjectPath self = (GioDBusInterfaceSkeletonClass.C.withPtr ---> Utf8.C.fromPtr false) getObjectPath_ self
-    fun getProperties self = (GioDBusInterfaceSkeletonClass.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getProperties_ self
-    fun setFlags self flags = (GioDBusInterfaceSkeletonClass.C.withPtr &&&> GioDBusInterfaceSkeletonFlags.C.withVal ---> I) setFlags_ (self & flags)
-    fun unexport self = (GioDBusInterfaceSkeletonClass.C.withPtr ---> I) unexport_ self
+    fun flush self = (GioDBusInterfaceSkeletonClass.FFI.withPtr ---> I) flush_ self
+    fun getConnection self = (GioDBusInterfaceSkeletonClass.FFI.withPtr ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
+    fun getFlags self = (GioDBusInterfaceSkeletonClass.FFI.withPtr ---> GioDBusInterfaceSkeletonFlags.FFI.fromVal) getFlags_ self
+    fun getInfo self = (GioDBusInterfaceSkeletonClass.FFI.withPtr ---> GioDBusInterfaceInfoRecord.FFI.fromPtr false) getInfo_ self
+    fun getObjectPath self = (GioDBusInterfaceSkeletonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
+    fun getProperties self = (GioDBusInterfaceSkeletonClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getProperties_ self
+    fun setFlags self flags = (GioDBusInterfaceSkeletonClass.FFI.withPtr &&&> GioDBusInterfaceSkeletonFlags.FFI.withVal ---> I) setFlags_ (self & flags)
+    fun unexport self = (GioDBusInterfaceSkeletonClass.FFI.withPtr ---> I) unexport_ self
     local
       open ClosureMarshal Signal
     in

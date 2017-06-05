@@ -1,1 +1,1 @@
-signature XLIB_COLORMAP = F_F_I_SCALAR
+signature XLIB_COLORMAP = C_SCALAR

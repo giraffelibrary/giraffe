@@ -227,6 +227,14 @@ signature GIO_FILE =
        -> file_create_flags_t
        -> 'b cancellable_class option
        -> base file_output_stream_class
+    val replaceContents :
+      'a class
+       -> Word8Vector.vector
+       -> string option
+       -> bool
+       -> file_create_flags_t
+       -> 'b cancellable_class option
+       -> string option
     val replaceContentsFinish :
       'a class
        -> 'b async_result_class

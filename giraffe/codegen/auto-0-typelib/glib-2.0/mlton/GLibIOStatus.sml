@@ -1,32 +1,28 @@
-structure GLibIOStatus :>
-  sig
-    include G_LIB_I_O_STATUS
-  end =
+structure GLibIOStatus :> G_LIB_I_O_STATUS =
   struct
-    datatype t =
+    datatype enum =
       ERROR
     | NORMAL
     | EOF
     | AGAIN
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = ERROR
+        val toInt =
           fn
-            ERROR => f 0
-          | NORMAL => f 1
-          | EOF => f 2
-          | AGAIN => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            ERROR => 0
+          | NORMAL => 1
+          | EOF => 2
+          | AGAIN => 3
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => ERROR
           | 1 => NORMAL
           | 2 => EOF
           | 3 => AGAIN
           | n => raise Value n
-      end
-    val null = ERROR
+      )
+    open Enum
   end

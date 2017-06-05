@@ -15,7 +15,7 @@ structure GtkTooltip :>
           (
             GtkTooltipClass.PolyML.cPtr
              &&> GioIconClass.PolyML.cOptPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val setIconFromIconName_ =
@@ -23,7 +23,7 @@ structure GtkTooltip :>
           (
             GtkTooltipClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val setIconFromStock_ =
@@ -31,7 +31,7 @@ structure GtkTooltip :>
           (
             GtkTooltipClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val setMarkup_ = call (load_sym libgtk "gtk_tooltip_set_markup") (GtkTooltipClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
@@ -41,15 +41,15 @@ structure GtkTooltip :>
     type 'a class = 'a GtkTooltipClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun triggerTooltipQuery display = (GdkDisplayClass.C.withPtr ---> I) triggerTooltipQuery_ display
-    fun setCustom self customWidget = (GtkTooltipClass.C.withPtr &&&> GtkWidgetClass.C.withOptPtr ---> I) setCustom_ (self & customWidget)
-    fun setIcon self pixbuf = (GtkTooltipClass.C.withPtr &&&> GdkPixbufPixbufClass.C.withOptPtr ---> I) setIcon_ (self & pixbuf)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun triggerTooltipQuery display = (GdkDisplayClass.FFI.withPtr ---> I) triggerTooltipQuery_ display
+    fun setCustom self customWidget = (GtkTooltipClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setCustom_ (self & customWidget)
+    fun setIcon self pixbuf = (GtkTooltipClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withOptPtr ---> I) setIcon_ (self & pixbuf)
     fun setIconFromGicon self gicon size =
       (
-        GtkTooltipClass.C.withPtr
-         &&&> GioIconClass.C.withOptPtr
-         &&&> FFI.Int32.C.withVal
+        GtkTooltipClass.FFI.withPtr
+         &&&> GioIconClass.FFI.withOptPtr
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         setIconFromGicon_
@@ -60,9 +60,9 @@ structure GtkTooltip :>
         )
     fun setIconFromIconName self iconName size =
       (
-        GtkTooltipClass.C.withPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int32.C.withVal
+        GtkTooltipClass.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         setIconFromIconName_
@@ -73,9 +73,9 @@ structure GtkTooltip :>
         )
     fun setIconFromStock self stockId size =
       (
-        GtkTooltipClass.C.withPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int32.C.withVal
+        GtkTooltipClass.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         setIconFromStock_
@@ -84,7 +84,7 @@ structure GtkTooltip :>
            & stockId
            & size
         )
-    fun setMarkup self markup = (GtkTooltipClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setMarkup_ (self & markup)
-    fun setText self text = (GtkTooltipClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setText_ (self & text)
-    fun setTipArea self rect = (GtkTooltipClass.C.withPtr &&&> CairoRectangleIntRecord.C.withPtr ---> I) setTipArea_ (self & rect)
+    fun setMarkup self markup = (GtkTooltipClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setMarkup_ (self & markup)
+    fun setText self text = (GtkTooltipClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setText_ (self & text)
+    fun setTipArea self rect = (GtkTooltipClass.FFI.withPtr &&&> CairoRectangleIntRecord.FFI.withPtr ---> I) setTipArea_ (self & rect)
   end

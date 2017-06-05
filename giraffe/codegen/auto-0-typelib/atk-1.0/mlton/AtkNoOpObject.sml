@@ -13,8 +13,8 @@ structure AtkNoOpObject :>
     where type 'a value_class = 'a AtkValueClass.class
     where type 'a window_class = 'a AtkWindowClass.class =
   struct
-    val getType_ = _import "atk_no_op_object_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "atk_no_op_object_new" : GObjectObjectClass.C.notnull GObjectObjectClass.C.p -> AtkObjectClass.C.notnull AtkObjectClass.C.p;
+    val getType_ = _import "atk_no_op_object_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "atk_no_op_object_new" : GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
     type 'a class = 'a AtkNoOpObjectClass.class
     type 'a action_class = 'a AtkActionClass.class
     type 'a component_class = 'a AtkComponentClass.class
@@ -28,17 +28,17 @@ structure AtkNoOpObject :>
     type 'a value_class = 'a AtkValueClass.class
     type 'a window_class = 'a AtkWindowClass.class
     type t = base class
-    fun asAction self = (GObjectObjectClass.C.withPtr ---> AtkActionClass.C.fromPtr false) I self
-    fun asComponent self = (GObjectObjectClass.C.withPtr ---> AtkComponentClass.C.fromPtr false) I self
-    fun asDocument self = (GObjectObjectClass.C.withPtr ---> AtkDocumentClass.C.fromPtr false) I self
-    fun asEditableText self = (GObjectObjectClass.C.withPtr ---> AtkEditableTextClass.C.fromPtr false) I self
-    fun asHypertext self = (GObjectObjectClass.C.withPtr ---> AtkHypertextClass.C.fromPtr false) I self
-    fun asImage self = (GObjectObjectClass.C.withPtr ---> AtkImageClass.C.fromPtr false) I self
-    fun asSelection self = (GObjectObjectClass.C.withPtr ---> AtkSelectionClass.C.fromPtr false) I self
-    fun asTable self = (GObjectObjectClass.C.withPtr ---> AtkTableClass.C.fromPtr false) I self
-    fun asText self = (GObjectObjectClass.C.withPtr ---> AtkTextClass.C.fromPtr false) I self
-    fun asValue self = (GObjectObjectClass.C.withPtr ---> AtkValueClass.C.fromPtr false) I self
-    fun asWindow self = (GObjectObjectClass.C.withPtr ---> AtkWindowClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new obj = (GObjectObjectClass.C.withPtr ---> AtkNoOpObjectClass.C.fromPtr true) new_ obj
+    fun asAction self = (GObjectObjectClass.FFI.withPtr ---> AtkActionClass.FFI.fromPtr false) I self
+    fun asComponent self = (GObjectObjectClass.FFI.withPtr ---> AtkComponentClass.FFI.fromPtr false) I self
+    fun asDocument self = (GObjectObjectClass.FFI.withPtr ---> AtkDocumentClass.FFI.fromPtr false) I self
+    fun asEditableText self = (GObjectObjectClass.FFI.withPtr ---> AtkEditableTextClass.FFI.fromPtr false) I self
+    fun asHypertext self = (GObjectObjectClass.FFI.withPtr ---> AtkHypertextClass.FFI.fromPtr false) I self
+    fun asImage self = (GObjectObjectClass.FFI.withPtr ---> AtkImageClass.FFI.fromPtr false) I self
+    fun asSelection self = (GObjectObjectClass.FFI.withPtr ---> AtkSelectionClass.FFI.fromPtr false) I self
+    fun asTable self = (GObjectObjectClass.FFI.withPtr ---> AtkTableClass.FFI.fromPtr false) I self
+    fun asText self = (GObjectObjectClass.FFI.withPtr ---> AtkTextClass.FFI.fromPtr false) I self
+    fun asValue self = (GObjectObjectClass.FFI.withPtr ---> AtkValueClass.FFI.fromPtr false) I self
+    fun asWindow self = (GObjectObjectClass.FFI.withPtr ---> AtkWindowClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new obj = (GObjectObjectClass.FFI.withPtr ---> AtkNoOpObjectClass.FFI.fromPtr true) new_ obj
   end

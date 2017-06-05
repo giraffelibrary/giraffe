@@ -9,7 +9,7 @@ structure GioZlibCompressor :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_zlib_compressor_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_zlib_compressor_new") (GioZlibCompressorFormat.PolyML.cVal &&> FFI.Int32.PolyML.cVal --> GioZlibCompressorClass.PolyML.cPtr)
+      val new_ = call (load_sym libgio "g_zlib_compressor_new") (GioZlibCompressorFormat.PolyML.cVal &&> GInt32.PolyML.cVal --> GioZlibCompressorClass.PolyML.cPtr)
       val getFileInfo_ = call (load_sym libgio "g_zlib_compressor_get_file_info") (GioZlibCompressorClass.PolyML.cPtr --> GioFileInfoClass.PolyML.cPtr)
       val setFileInfo_ = call (load_sym libgio "g_zlib_compressor_set_file_info") (GioZlibCompressorClass.PolyML.cPtr &&> GioFileInfoClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
     end
@@ -18,11 +18,11 @@ structure GioZlibCompressor :>
     type 'a file_info_class = 'a GioFileInfoClass.class
     type zlib_compressor_format_t = GioZlibCompressorFormat.t
     type t = base class
-    fun asConverter self = (GObjectObjectClass.C.withPtr ---> GioConverterClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new format level = (GioZlibCompressorFormat.C.withVal &&&> FFI.Int32.C.withVal ---> GioZlibCompressorClass.C.fromPtr true) new_ (format & level)
-    fun getFileInfo self = (GioZlibCompressorClass.C.withPtr ---> GioFileInfoClass.C.fromPtr false) getFileInfo_ self
-    fun setFileInfo self fileInfo = (GioZlibCompressorClass.C.withPtr &&&> GioFileInfoClass.C.withOptPtr ---> I) setFileInfo_ (self & fileInfo)
+    fun asConverter self = (GObjectObjectClass.FFI.withPtr ---> GioConverterClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new format level = (GioZlibCompressorFormat.FFI.withVal &&&> GInt32.FFI.withVal ---> GioZlibCompressorClass.FFI.fromPtr true) new_ (format & level)
+    fun getFileInfo self = (GioZlibCompressorClass.FFI.withPtr ---> GioFileInfoClass.FFI.fromPtr false) getFileInfo_ self
+    fun setFileInfo self fileInfo = (GioZlibCompressorClass.FFI.withPtr &&&> GioFileInfoClass.FFI.withOptPtr ---> I) setFileInfo_ (self & fileInfo)
     local
       open Property
     in

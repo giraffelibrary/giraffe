@@ -12,8 +12,8 @@ structure GtkCellRendererSpin :>
     type 'a class = 'a GtkCellRendererSpinClass.class
     type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkCellRendererSpinClass.C.fromPtr false) new_ ()
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkCellRendererSpinClass.FFI.fromPtr false) new_ ()
     local
       open Property
     in

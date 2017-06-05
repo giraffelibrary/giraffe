@@ -8,5 +8,5 @@ structure CairoScaledFont :>
       val getType_ = call (load_sym libcairogobject "cairo_gobject_scaled_font_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
     end
     type t = CairoScaledFontRecord.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

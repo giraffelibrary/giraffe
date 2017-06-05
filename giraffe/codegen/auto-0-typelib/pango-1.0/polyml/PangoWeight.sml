@@ -1,14 +1,6 @@
-structure PangoWeight :>
-  sig
-    include PANGO_WEIGHT
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure PangoWeight :> PANGO_WEIGHT =
   struct
-    datatype t =
+    datatype enum =
       THIN
     | ULTRALIGHT
     | LIGHT
@@ -20,26 +12,25 @@ structure PangoWeight :>
     | ULTRABOLD
     | HEAVY
     | ULTRAHEAVY
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = THIN
+        val toInt =
           fn
-            THIN => f 100
-          | ULTRALIGHT => f 200
-          | LIGHT => f 300
-          | BOOK => f 380
-          | NORMAL => f 400
-          | MEDIUM => f 500
-          | SEMIBOLD => f 600
-          | BOLD => f 700
-          | ULTRABOLD => f 800
-          | HEAVY => f 900
-          | ULTRAHEAVY => f 1000
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            THIN => 100
+          | ULTRALIGHT => 200
+          | LIGHT => 300
+          | BOOK => 380
+          | NORMAL => 400
+          | MEDIUM => 500
+          | SEMIBOLD => 600
+          | BOLD => 700
+          | ULTRABOLD => 800
+          | HEAVY => 900
+          | ULTRAHEAVY => 1000
+        exception Value of GInt32.t
+        val fromInt =
           fn
             100 => THIN
           | 200 => ULTRALIGHT
@@ -53,12 +44,8 @@ structure PangoWeight :>
           | 900 => HEAVY
           | 1000 => ULTRAHEAVY
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -69,10 +56,9 @@ structure PangoWeight :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = THIN
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

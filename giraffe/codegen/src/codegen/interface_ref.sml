@@ -561,14 +561,15 @@ makeTyList makeBaseTy (3, 0);
 *)
 
 
-fun makeRefVarTy ((nTys, longId), tyVarIdx) =
+fun makeRefVarTy isElem ((nTys, longId), tyVarIdx) =
   let
-    val (tys, tyVarIdx') = makeTyList makeVarTy (nTys, tyVarIdx)
+    val (tys, tyVarIdx') =
+      makeTyList (if isElem then makeBaseTy else makeVarTy) (nTys, tyVarIdx)
   in
     (TyRef (tys, longId), tyVarIdx')
   end
 
-fun makeRefBaseTy ((nTys, longId), tyVarIdx) =
+fun makeRefBaseTy (_ : bool) ((nTys, longId), tyVarIdx) =
   let
     val (tys, tyVarIdx') = makeTyList makeBaseTy (nTys, tyVarIdx)
   in

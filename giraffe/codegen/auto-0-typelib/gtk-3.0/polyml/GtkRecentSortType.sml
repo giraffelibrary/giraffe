@@ -1,43 +1,30 @@
-structure GtkRecentSortType :>
-  sig
-    include GTK_RECENT_SORT_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkRecentSortType :> GTK_RECENT_SORT_TYPE =
   struct
-    datatype t =
+    datatype enum =
       NONE
     | MRU
     | LRU
     | CUSTOM
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NONE
+        val toInt =
           fn
-            NONE => f 0
-          | MRU => f 1
-          | LRU => f 2
-          | CUSTOM => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NONE => 0
+          | MRU => 1
+          | LRU => 2
+          | CUSTOM => 3
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => NONE
           | 1 => MRU
           | 2 => LRU
           | 3 => CUSTOM
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -48,10 +35,9 @@ structure GtkRecentSortType :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = NONE
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

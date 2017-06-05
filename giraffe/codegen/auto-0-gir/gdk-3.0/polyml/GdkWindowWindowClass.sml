@@ -1,37 +1,24 @@
-structure GdkWindowWindowClass :>
-  sig
-    include GDK_WINDOW_WINDOW_CLASS
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GdkWindowWindowClass :> GDK_WINDOW_WINDOW_CLASS =
   struct
-    datatype t =
+    datatype enum =
       OUTPUT
     | ONLY
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = OUTPUT
+        val toInt =
           fn
-            OUTPUT => f 0
-          | ONLY => f 1
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            OUTPUT => 0
+          | ONLY => 1
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => OUTPUT
           | 1 => ONLY
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -42,10 +29,9 @@ structure GdkWindowWindowClass :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = OUTPUT
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

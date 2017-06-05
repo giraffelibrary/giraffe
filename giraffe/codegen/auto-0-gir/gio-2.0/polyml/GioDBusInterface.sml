@@ -16,8 +16,8 @@ structure GioDBusInterface :>
     type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t
     type 'a d_bus_object_class = 'a GioDBusObjectClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getInfo self = (GioDBusInterfaceClass.C.withPtr ---> GioDBusInterfaceInfoRecord.C.fromPtr false) getInfo_ self
-    fun getObject self = (GioDBusInterfaceClass.C.withPtr ---> GioDBusObjectClass.C.fromPtr false) getObject_ self
-    fun setObject self object = (GioDBusInterfaceClass.C.withPtr &&&> GioDBusObjectClass.C.withPtr ---> I) setObject_ (self & object)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getInfo self = (GioDBusInterfaceClass.FFI.withPtr ---> GioDBusInterfaceInfoRecord.FFI.fromPtr false) getInfo_ self
+    fun getObject self = (GioDBusInterfaceClass.FFI.withPtr ---> GioDBusObjectClass.FFI.fromPtr false) getObject_ self
+    fun setObject self object = (GioDBusInterfaceClass.FFI.withPtr &&&> GioDBusObjectClass.FFI.withPtr ---> I) setObject_ (self & object)
   end

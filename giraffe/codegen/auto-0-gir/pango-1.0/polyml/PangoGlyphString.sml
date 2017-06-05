@@ -23,34 +23,34 @@ structure PangoGlyphString :>
         call (load_sym libpango "pango_glyph_string_extents_range")
           (
             PangoGlyphStringRecord.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> PangoFontClass.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val getWidth_ = call (load_sym libpango "pango_glyph_string_get_width") (PangoGlyphStringRecord.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val setSize_ = call (load_sym libpango "pango_glyph_string_set_size") (PangoGlyphStringRecord.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getWidth_ = call (load_sym libpango "pango_glyph_string_get_width") (PangoGlyphStringRecord.PolyML.cPtr --> GInt.PolyML.cVal)
+      val setSize_ = call (load_sym libpango "pango_glyph_string_set_size") (PangoGlyphStringRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type t = PangoGlyphStringRecord.t
     type rectangle_t = PangoRectangleRecord.t
     type 'a font_class = 'a PangoFontClass.class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> PangoGlyphStringRecord.C.fromPtr true) new_ ()
-    fun copy self = (PangoGlyphStringRecord.C.withPtr ---> PangoGlyphStringRecord.C.fromPtr true) copy_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> PangoGlyphStringRecord.FFI.fromPtr true) new_ ()
+    fun copy self = (PangoGlyphStringRecord.FFI.withPtr ---> PangoGlyphStringRecord.FFI.fromPtr true) copy_ self
     fun extents self font =
       let
         val inkRect
          & logicalRect
          & () =
           (
-            PangoGlyphStringRecord.C.withPtr
-             &&&> PangoFontClass.C.withPtr
-             &&&> PangoRectangleRecord.C.withNewPtr
-             &&&> PangoRectangleRecord.C.withNewPtr
-             ---> PangoRectangleRecord.C.fromPtr true
-                   && PangoRectangleRecord.C.fromPtr true
+            PangoGlyphStringRecord.FFI.withPtr
+             &&&> PangoFontClass.FFI.withPtr
+             &&&> PangoRectangleRecord.FFI.withNewPtr
+             &&&> PangoRectangleRecord.FFI.withNewPtr
+             ---> PangoRectangleRecord.FFI.fromPtr true
+                   && PangoRectangleRecord.FFI.fromPtr true
                    && I
           )
             extents_
@@ -65,12 +65,12 @@ structure PangoGlyphString :>
       end
     fun extentsRange self start end' font inkRect logicalRect =
       (
-        PangoGlyphStringRecord.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> PangoFontClass.C.withPtr
-         &&&> PangoRectangleRecord.C.withPtr
-         &&&> PangoRectangleRecord.C.withPtr
+        PangoGlyphStringRecord.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> PangoFontClass.FFI.withPtr
+         &&&> PangoRectangleRecord.FFI.withPtr
+         &&&> PangoRectangleRecord.FFI.withPtr
          ---> I
       )
         extentsRange_
@@ -82,6 +82,6 @@ structure PangoGlyphString :>
            & inkRect
            & logicalRect
         )
-    fun getWidth self = (PangoGlyphStringRecord.C.withPtr ---> FFI.Int.C.fromVal) getWidth_ self
-    fun setSize self newLen = (PangoGlyphStringRecord.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSize_ (self & newLen)
+    fun getWidth self = (PangoGlyphStringRecord.FFI.withPtr ---> GInt.FFI.fromVal) getWidth_ self
+    fun setSize self newLen = (PangoGlyphStringRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setSize_ (self & newLen)
   end

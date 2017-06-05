@@ -8,6 +8,10 @@ signature GIO_FILENAME_COMPLETER =
       'a class
        -> string
        -> string
+    val getCompletions :
+      'a class
+       -> string
+       -> string list
     val setDirsOnly :
       'a class
        -> bool

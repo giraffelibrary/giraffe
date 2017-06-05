@@ -2,11 +2,11 @@ structure PangoMatrix :>
   PANGO_MATRIX
     where type t = PangoMatrixRecord.t =
   struct
-    val getType_ = _import "pango_matrix_get_type" : unit -> GObjectType.C.val_;
-    val concat_ = fn x1 & x2 => (_import "pango_matrix_concat" : PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p * PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p -> unit;) (x1, x2)
-    val copy_ = _import "pango_matrix_copy" : PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p -> PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p;
-    val getFontScaleFactor_ = _import "pango_matrix_get_font_scale_factor" : PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p -> FFI.Double.C.val_;
-    val rotate_ = fn x1 & x2 => (_import "pango_matrix_rotate" : PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p * FFI.Double.C.val_ -> unit;) (x1, x2)
+    val getType_ = _import "pango_matrix_get_type" : unit -> GObjectType.FFI.val_;
+    val concat_ = fn x1 & x2 => (_import "pango_matrix_concat" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p * PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p -> unit;) (x1, x2)
+    val copy_ = _import "pango_matrix_copy" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p -> PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p;
+    val getFontScaleFactor_ = _import "pango_matrix_get_font_scale_factor" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p -> GDouble.FFI.val_;
+    val rotate_ = fn x1 & x2 => (_import "pango_matrix_rotate" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
     val scale_ =
       fn
         x1
@@ -14,9 +14,9 @@ structure PangoMatrix :>
          & x3 =>
           (
             _import "pango_matrix_scale" :
-              PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p
-               * FFI.Double.C.val_
-               * FFI.Double.C.val_
+              PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
                -> unit;
           )
             (
@@ -31,9 +31,9 @@ structure PangoMatrix :>
          & x3 =>
           (
             _import "pango_matrix_transform_distance" :
-              PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p
-               * FFI.Double.C.ref_
-               * FFI.Double.C.ref_
+              PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p
+               * GDouble.FFI.ref_
+               * GDouble.FFI.ref_
                -> unit;
           )
             (
@@ -48,9 +48,9 @@ structure PangoMatrix :>
          & x3 =>
           (
             _import "pango_matrix_transform_point" :
-              PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p
-               * FFI.Double.C.ref_
-               * FFI.Double.C.ref_
+              PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p
+               * GDouble.FFI.ref_
+               * GDouble.FFI.ref_
                -> unit;
           )
             (
@@ -65,9 +65,9 @@ structure PangoMatrix :>
          & x3 =>
           (
             _import "pango_matrix_translate" :
-              PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p
-               * FFI.Double.C.val_
-               * FFI.Double.C.val_
+              PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
                -> unit;
           )
             (
@@ -76,16 +76,16 @@ structure PangoMatrix :>
               x3
             )
     type t = PangoMatrixRecord.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun concat self newMatrix = (PangoMatrixRecord.C.withPtr &&&> PangoMatrixRecord.C.withPtr ---> I) concat_ (self & newMatrix)
-    fun copy self = (PangoMatrixRecord.C.withPtr ---> PangoMatrixRecord.C.fromPtr true) copy_ self
-    fun getFontScaleFactor self = (PangoMatrixRecord.C.withPtr ---> FFI.Double.C.fromVal) getFontScaleFactor_ self
-    fun rotate self degrees = (PangoMatrixRecord.C.withPtr &&&> FFI.Double.C.withVal ---> I) rotate_ (self & degrees)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun concat self newMatrix = (PangoMatrixRecord.FFI.withPtr &&&> PangoMatrixRecord.FFI.withPtr ---> I) concat_ (self & newMatrix)
+    fun copy self = (PangoMatrixRecord.FFI.withPtr ---> PangoMatrixRecord.FFI.fromPtr true) copy_ self
+    fun getFontScaleFactor self = (PangoMatrixRecord.FFI.withPtr ---> GDouble.FFI.fromVal) getFontScaleFactor_ self
+    fun rotate self degrees = (PangoMatrixRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) rotate_ (self & degrees)
     fun scale self scaleX scaleY =
       (
-        PangoMatrixRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        PangoMatrixRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         scale_
@@ -100,11 +100,11 @@ structure PangoMatrix :>
          & dy
          & () =
           (
-            PangoMatrixRecord.C.withPtr
-             &&&> FFI.Double.C.withRefVal
-             &&&> FFI.Double.C.withRefVal
-             ---> FFI.Double.C.fromVal
-                   && FFI.Double.C.fromVal
+            PangoMatrixRecord.FFI.withPtr
+             &&&> GDouble.FFI.withRefVal
+             &&&> GDouble.FFI.withRefVal
+             ---> GDouble.FFI.fromVal
+                   && GDouble.FFI.fromVal
                    && I
           )
             transformDistance_
@@ -122,11 +122,11 @@ structure PangoMatrix :>
          & y
          & () =
           (
-            PangoMatrixRecord.C.withPtr
-             &&&> FFI.Double.C.withRefVal
-             &&&> FFI.Double.C.withRefVal
-             ---> FFI.Double.C.fromVal
-                   && FFI.Double.C.fromVal
+            PangoMatrixRecord.FFI.withPtr
+             &&&> GDouble.FFI.withRefVal
+             &&&> GDouble.FFI.withRefVal
+             ---> GDouble.FFI.fromVal
+                   && GDouble.FFI.fromVal
                    && I
           )
             transformPoint_
@@ -140,9 +140,9 @@ structure PangoMatrix :>
       end
     fun translate self tx ty =
       (
-        PangoMatrixRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        PangoMatrixRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         translate_

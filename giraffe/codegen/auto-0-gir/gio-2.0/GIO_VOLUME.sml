@@ -14,6 +14,7 @@ signature GIO_VOLUME =
       'a class
        -> 'b async_result_class
        -> bool
+    val enumerateIdentifiers : 'a class -> string list
     val getActivationRoot : 'a class -> base file_class
     val getDrive : 'a class -> base drive_class
     val getIcon : 'a class -> base icon_class

@@ -1,9 +1,6 @@
-structure PangoAttrType :>
-  sig
-    include PANGO_ATTR_TYPE
-  end =
+structure PangoAttrType :> PANGO_ATTR_TYPE =
   struct
-    datatype t =
+    datatype enum =
       INVALID
     | LANGUAGE
     | FAMILY
@@ -27,38 +24,37 @@ structure PangoAttrType :>
     | ABSOLUTE_SIZE
     | GRAVITY
     | GRAVITY_HINT
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = INVALID
+        val toInt =
           fn
-            INVALID => f 0
-          | LANGUAGE => f 1
-          | FAMILY => f 2
-          | STYLE => f 3
-          | WEIGHT => f 4
-          | VARIANT => f 5
-          | STRETCH => f 6
-          | SIZE => f 7
-          | FONT_DESC => f 8
-          | FOREGROUND => f 9
-          | BACKGROUND => f 10
-          | UNDERLINE => f 11
-          | STRIKETHROUGH => f 12
-          | RISE => f 13
-          | SHAPE => f 14
-          | SCALE => f 15
-          | FALLBACK => f 16
-          | LETTER_SPACING => f 17
-          | UNDERLINE_COLOR => f 18
-          | STRIKETHROUGH_COLOR => f 19
-          | ABSOLUTE_SIZE => f 20
-          | GRAVITY => f 21
-          | GRAVITY_HINT => f 22
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            INVALID => 0
+          | LANGUAGE => 1
+          | FAMILY => 2
+          | STYLE => 3
+          | WEIGHT => 4
+          | VARIANT => 5
+          | STRETCH => 6
+          | SIZE => 7
+          | FONT_DESC => 8
+          | FOREGROUND => 9
+          | BACKGROUND => 10
+          | UNDERLINE => 11
+          | STRIKETHROUGH => 12
+          | RISE => 13
+          | SHAPE => 14
+          | SCALE => 15
+          | FALLBACK => 16
+          | LETTER_SPACING => 17
+          | UNDERLINE_COLOR => 18
+          | STRIKETHROUGH_COLOR => 19
+          | ABSOLUTE_SIZE => 20
+          | GRAVITY => 21
+          | GRAVITY_HINT => 22
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => INVALID
           | 1 => LANGUAGE
@@ -84,21 +80,21 @@ structure PangoAttrType :>
           | 21 => GRAVITY
           | 22 => GRAVITY_HINT
           | n => raise Value n
-      end
-    val getType_ = _import "pango_attr_type_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "pango_attr_type_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = INVALID
-    val getName_ = _import "pango_attr_type_get_name" : C.val_ -> Utf8.C.notnull Utf8.C.out_p;
-    val register_ = _import "mlton_pango_attr_type_register" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> C.val_;
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getName type' = (C.withVal ---> Utf8.C.fromPtr false) getName_ type'
-    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
+    val getName_ = _import "pango_attr_type_get_name" : FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val register_ = _import "mlton_pango_attr_type_register" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> FFI.val_;
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getName type' = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ type'
+    fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
   end

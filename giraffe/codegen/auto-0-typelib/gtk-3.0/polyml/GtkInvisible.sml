@@ -15,13 +15,13 @@ structure GtkInvisible :>
     type 'a class = 'a GtkInvisibleClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkInvisibleClass.C.fromPtr false) new_ ()
-    fun newForScreen screen = (GdkScreenClass.C.withPtr ---> GtkInvisibleClass.C.fromPtr false) newForScreen_ screen
-    fun getScreen self = (GtkInvisibleClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getScreen_ self
-    fun setScreen self screen = (GtkInvisibleClass.C.withPtr &&&> GdkScreenClass.C.withPtr ---> I) setScreen_ (self & screen)
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkInvisibleClass.FFI.fromPtr false) new_ ()
+    fun newForScreen screen = (GdkScreenClass.FFI.withPtr ---> GtkInvisibleClass.FFI.fromPtr false) newForScreen_ screen
+    fun getScreen self = (GtkInvisibleClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
+    fun setScreen self screen = (GtkInvisibleClass.FFI.withPtr &&&> GdkScreenClass.FFI.withPtr ---> I) setScreen_ (self & screen)
     local
       open Property
     in

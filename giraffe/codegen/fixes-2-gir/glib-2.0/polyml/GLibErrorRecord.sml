@@ -1,8 +1,15 @@
+(* Copyright (C) 2013, 2016 Phil Clayton <phil.clayton@veonix.com>
+ *
+ * This file is part of the Giraffe Library runtime.  For your rights to use
+ * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+ * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+ *)
+
 structure GLibErrorRecord :>
   G_LIB_ERROR_RECORD
     where type quark_t = GLibQuark.t =
   struct
-    structure Pointer = CPointer
+    structure Pointer = CPointerInternal
     type notnull = Pointer.notnull
     type 'a p = 'a Pointer.p
 
@@ -11,7 +18,7 @@ structure GLibErrorRecord :>
     local
       open PolyMLFFI
     in
-      val copy_ =
+      val dup_ =
         call
           (load_sym libglib "g_error_copy")
           (cPtr --> cPtr)
@@ -19,26 +26,27 @@ structure GLibErrorRecord :>
       val free_ =
         call
           (load_sym libglib "g_error_free")
-          (cPtr --> PolyMLFFI.cVoid)
+          (cPtr --> cVoid)
 
       val getType_ =
         call
           (load_sym libglib "g_error_get_type")
-          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
+          (cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =
-      BoxedRecord (
+      BoxedRecord(
+        structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
+        val dup_ = dup_
         val take_ = ignore
-        val copy_ = copy_
         val free_ = free_
       )
     open Record
 
     structure Type =
-      BoxedType (
+      BoxedType(
         structure Record = Record
         type t = t
         val getType_ = getType_
@@ -56,7 +64,7 @@ structure GLibErrorRecord :>
       val getCode_ =
         call
           (load_sym libgiraffeglib "giraffe_get_g_error_code")
-          (PolyML.cPtr --> FFI.Enum.PolyML.cVal)
+          (PolyML.cPtr --> GInt.PolyML.cVal)
 
       val getMessage_ =
         call
@@ -68,15 +76,15 @@ structure GLibErrorRecord :>
 
     val domain =
       {
-        get = fn self => (C.withPtr ---> GLibQuark.C.fromVal) getDomain_ self
+        get = fn self => (FFI.withPtr ---> GLibQuark.FFI.fromVal) getDomain_ self
       }
     val code =
       {
-        get = fn self => (C.withPtr ---> I) getCode_ self
+        get = fn self => (FFI.withPtr ---> GInt.FFI.fromVal) getCode_ self
       }
     val message =
       {
-        get = fn self => (C.withPtr ---> Utf8.C.fromPtr false) getMessage_ self
+        get = fn self => (FFI.withPtr ---> Utf8.FFI.fromPtr 0) getMessage_ self
       }
 
     exception Error of exn * t
@@ -91,7 +99,7 @@ structure GLibErrorRecord :>
 
     fun handleError f handlers =
       let
-        val optErr & retVal = (C.withRefOptPtr ---> C.fromOptPtr true && I) f NONE
+        val optErr & retVal = (FFI.withRefOptPtr ---> FFI.fromOptPtr true && I) f NONE
       in
         case optErr of
           NONE     => retVal
@@ -106,13 +114,13 @@ structure GLibErrorRecord :>
           in
             if errQuark = GLibQuark.fromString domainName
             then
-              SOME (domainExn ((C.withPtr ---> fromVal) getCode_ err))
+              SOME (domainExn ((FFI.withPtr ---> fromVal) getCode_ err))
                 handle
                   _ =>
                     let
                       val msg = concat [
                         "internal error in error handler: unknown error code ",
-                        Int32.toString (#get code err), " in error domain \"",
+                        LargeInt.toString (#get code err), " in error domain \"",
                         GLibQuark.toString errQuark, "\"\n"
                       ]
                     in

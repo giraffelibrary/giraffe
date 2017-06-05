@@ -1,10 +1,10 @@
 structure GtkAccelKeyRecord :> GTK_ACCEL_KEY_RECORD =
   struct
-    structure Pointer = CPointer
-    type notnull = CPointer.notnull
-    type 'a p = 'a CPointer.p
+    structure Pointer = CPointerInternal
+    type notnull = Pointer.notnull
+    type 'a p = 'a Pointer.p
 
-    val cPtr = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
+    val cPtr = Pointer.PolyML.cVal : notnull p PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -12,27 +12,35 @@ structure GtkAccelKeyRecord :> GTK_ACCEL_KEY_RECORD =
       val new_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_accel_key_new")
-          (PolyMLFFI.cVoid --> cPtr)
+          (cVoid --> cPtr)
 
       val copy_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_accel_key_copy")
-          (cPtr --> cPtr)
+          (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
           (load_sym libgiraffegtk "giraffe_gtk_accel_key_free")
-          (cPtr --> PolyMLFFI.cVoid)
+          (cPtr --> cVoid)
+
+      val size_ =
+        call
+          (load_sym libgiraffegtk "giraffe_gtk_accel_key_size")
+          (cVoid --> GUInt.PolyML.cVal)
     end
 
     structure Record =
-      BoxedNewRecord (
+      BoxedValueRecord(
+        structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
         val new_ = new_
-        val take_ = ignore
         val copy_ = copy_
+        val take_ = ignore
+        val clear_ = ignore
         val free_ = free_
+        val size_ = size_
       )
     open Record
   end

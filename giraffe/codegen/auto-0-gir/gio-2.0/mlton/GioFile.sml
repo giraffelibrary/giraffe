@@ -19,11 +19,17 @@ structure GioFile :>
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
-    val getType_ = _import "g_file_get_type" : unit -> GObjectType.C.val_;
-    val newForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GioFileClass.C.notnull GioFileClass.C.p;
-    val newForPath_ = _import "mlton_g_file_new_for_path" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GioFileClass.C.notnull GioFileClass.C.p;
-    val newForUri_ = _import "mlton_g_file_new_for_uri" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GioFileClass.C.notnull GioFileClass.C.p;
-    val parseName_ = _import "mlton_g_file_parse_name" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GioFileClass.C.notnull GioFileClass.C.p;
+    structure GUInt8CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GUInt8Type
+        structure ElemSequence = MonoVectorSequence(Word8Vector)
+      )
+    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
+    val getType_ = _import "g_file_get_type" : unit -> GObjectType.FFI.val_;
+    val newForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+    val newForPath_ = _import "mlton_g_file_new_for_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+    val newForUri_ = _import "mlton_g_file_new_for_uri" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+    val parseName_ = _import "mlton_g_file_parse_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
     val appendTo_ =
       fn
         x1
@@ -32,11 +38,11 @@ structure GioFile :>
          & x4 =>
           (
             _import "g_file_append_to" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioFileCreateFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileOutputStreamClass.C.notnull GioFileOutputStreamClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioFileCreateFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileOutputStreamClass.FFI.notnull GioFileOutputStreamClass.FFI.p;
           )
             (
               x1,
@@ -51,10 +57,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_append_to_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileOutputStreamClass.C.notnull GioFileOutputStreamClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileOutputStreamClass.FFI.notnull GioFileOutputStreamClass.FFI.p;
           )
             (
               x1,
@@ -70,12 +76,12 @@ structure GioFile :>
          & x5 =>
           (
             _import "g_file_copy_attributes" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioFileClass.C.notnull GioFileClass.C.p
-               * GioFileCopyFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioFileCopyFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -91,10 +97,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_copy_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -109,11 +115,11 @@ structure GioFile :>
          & x4 =>
           (
             _import "g_file_create" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioFileCreateFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileOutputStreamClass.C.notnull GioFileOutputStreamClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioFileCreateFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileOutputStreamClass.FFI.notnull GioFileOutputStreamClass.FFI.p;
           )
             (
               x1,
@@ -128,10 +134,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_create_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileOutputStreamClass.C.notnull GioFileOutputStreamClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileOutputStreamClass.FFI.notnull GioFileOutputStreamClass.FFI.p;
           )
             (
               x1,
@@ -146,11 +152,11 @@ structure GioFile :>
          & x4 =>
           (
             _import "g_file_create_readwrite" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioFileCreateFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileIOStreamClass.C.notnull GioFileIOStreamClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioFileCreateFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileIOStreamClass.FFI.notnull GioFileIOStreamClass.FFI.p;
           )
             (
               x1,
@@ -165,10 +171,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_create_readwrite_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileIOStreamClass.C.notnull GioFileIOStreamClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileIOStreamClass.FFI.notnull GioFileIOStreamClass.FFI.p;
           )
             (
               x1,
@@ -182,17 +188,17 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_delete" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val dup_ = _import "g_file_dup" : GioFileClass.C.notnull GioFileClass.C.p -> GioFileClass.C.notnull GioFileClass.C.p;
+    val dup_ = _import "g_file_dup" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
     val ejectMountableWithOperationFinish_ =
       fn
         x1
@@ -200,10 +206,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_eject_mountable_with_operation_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -219,13 +225,13 @@ structure GioFile :>
          & x6 =>
           (
             _import "mlton_g_file_enumerate_children" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * GioFileQueryInfoFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileEnumeratorClass.C.notnull GioFileEnumeratorClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GioFileQueryInfoFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileEnumeratorClass.FFI.notnull GioFileEnumeratorClass.FFI.p;
           )
             (
               x1,
@@ -242,17 +248,17 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_enumerate_children_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileEnumeratorClass.C.notnull GioFileEnumeratorClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileEnumeratorClass.FFI.notnull GioFileEnumeratorClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val equal_ = fn x1 & x2 => (_import "g_file_equal" : GioFileClass.C.notnull GioFileClass.C.p * GioFileClass.C.notnull GioFileClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val equal_ = fn x1 & x2 => (_import "g_file_equal" : GioFileClass.FFI.notnull GioFileClass.FFI.p * GioFileClass.FFI.notnull GioFileClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val findEnclosingMount_ =
       fn
         x1
@@ -260,10 +266,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_find_enclosing_mount" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioMountClass.C.notnull GioMountClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioMountClass.FFI.notnull GioMountClass.FFI.p;
           )
             (
               x1,
@@ -277,26 +283,26 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_find_enclosing_mount_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioMountClass.C.notnull GioMountClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioMountClass.FFI.notnull GioMountClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getBasename_ = _import "g_file_get_basename" : GioFileClass.C.notnull GioFileClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getBasename_ = _import "g_file_get_basename" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getChild_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_get_child" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> GioFileClass.C.notnull GioFileClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
           )
             (
               x1,
@@ -310,11 +316,11 @@ structure GioFile :>
          & x4 =>
           (
             _import "mlton_g_file_get_child_for_display_name" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileClass.C.notnull GioFileClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
           )
             (
               x1,
@@ -322,31 +328,31 @@ structure GioFile :>
               x3,
               x4
             )
-    val getParent_ = _import "g_file_get_parent" : GioFileClass.C.notnull GioFileClass.C.p -> GioFileClass.C.notnull GioFileClass.C.p;
-    val getParseName_ = _import "g_file_get_parse_name" : GioFileClass.C.notnull GioFileClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getPath_ = _import "g_file_get_path" : GioFileClass.C.notnull GioFileClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getRelativePath_ = fn x1 & x2 => (_import "g_file_get_relative_path" : GioFileClass.C.notnull GioFileClass.C.p * GioFileClass.C.notnull GioFileClass.C.p -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
-    val getUri_ = _import "g_file_get_uri" : GioFileClass.C.notnull GioFileClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getUriScheme_ = _import "g_file_get_uri_scheme" : GioFileClass.C.notnull GioFileClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val hasParent_ = fn x1 & x2 => (_import "g_file_has_parent" : GioFileClass.C.notnull GioFileClass.C.p * GioFileClass.C.notnull GioFileClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val hasPrefix_ = fn x1 & x2 => (_import "g_file_has_prefix" : GioFileClass.C.notnull GioFileClass.C.p * GioFileClass.C.notnull GioFileClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val getParent_ = _import "g_file_get_parent" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+    val getParseName_ = _import "g_file_get_parse_name" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getPath_ = _import "g_file_get_path" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getRelativePath_ = fn x1 & x2 => (_import "g_file_get_relative_path" : GioFileClass.FFI.notnull GioFileClass.FFI.p * GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val getUri_ = _import "g_file_get_uri" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getUriScheme_ = _import "g_file_get_uri_scheme" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val hasParent_ = fn x1 & x2 => (_import "g_file_has_parent" : GioFileClass.FFI.notnull GioFileClass.FFI.p * GioFileClass.FFI.notnull GioFileClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val hasPrefix_ = fn x1 & x2 => (_import "g_file_has_prefix" : GioFileClass.FFI.notnull GioFileClass.FFI.p * GioFileClass.FFI.notnull GioFileClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val hasUriScheme_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_has_uri_scheme" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> FFI.Bool.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GBool.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val iconNew_ = _import "g_file_icon_new" : GioFileClass.C.notnull GioFileClass.C.p -> GioIconClass.C.notnull GioIconClass.C.p;
-    val isNative_ = _import "g_file_is_native" : GioFileClass.C.notnull GioFileClass.C.p -> FFI.Bool.C.val_;
+    val iconNew_ = _import "g_file_icon_new" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
+    val isNative_ = _import "g_file_is_native" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> GBool.FFI.val_;
     val makeDirectory_ =
       fn
         x1
@@ -354,10 +360,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_make_directory" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -371,10 +377,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_make_directory_with_parents" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -389,12 +395,12 @@ structure GioFile :>
          & x5 =>
           (
             _import "mlton_g_file_make_symbolic_link" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -411,11 +417,11 @@ structure GioFile :>
          & x4 =>
           (
             _import "g_file_monitor" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioFileMonitorFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileMonitorClass.C.notnull GioFileMonitorClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioFileMonitorFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileMonitorClass.FFI.notnull GioFileMonitorClass.FFI.p;
           )
             (
               x1,
@@ -431,11 +437,11 @@ structure GioFile :>
          & x4 =>
           (
             _import "g_file_monitor_directory" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioFileMonitorFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileMonitorClass.C.notnull GioFileMonitorClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioFileMonitorFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileMonitorClass.FFI.notnull GioFileMonitorClass.FFI.p;
           )
             (
               x1,
@@ -451,11 +457,11 @@ structure GioFile :>
          & x4 =>
           (
             _import "g_file_monitor_file" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioFileMonitorFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileMonitorClass.C.notnull GioFileMonitorClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioFileMonitorFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileMonitorClass.FFI.notnull GioFileMonitorClass.FFI.p;
           )
             (
               x1,
@@ -470,10 +476,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_mount_enclosing_volume_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -487,10 +493,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_mount_mountable_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileClass.C.notnull GioFileClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
           )
             (
               x1,
@@ -504,10 +510,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_open_readwrite" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileIOStreamClass.C.notnull GioFileIOStreamClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileIOStreamClass.FFI.notnull GioFileIOStreamClass.FFI.p;
           )
             (
               x1,
@@ -521,10 +527,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_open_readwrite_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileIOStreamClass.C.notnull GioFileIOStreamClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileIOStreamClass.FFI.notnull GioFileIOStreamClass.FFI.p;
           )
             (
               x1,
@@ -538,10 +544,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_poll_mountable_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -555,17 +561,17 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_query_default_handler" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioAppInfoClass.C.notnull GioAppInfoClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val queryExists_ = fn x1 & x2 => (_import "g_file_query_exists" : GioFileClass.C.notnull GioFileClass.C.p * unit GioCancellableClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val queryExists_ = fn x1 & x2 => (_import "g_file_query_exists" : GioFileClass.FFI.notnull GioFileClass.FFI.p * unit GioCancellableClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val queryFileType_ =
       fn
         x1
@@ -573,10 +579,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_query_file_type" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioFileQueryInfoFlags.C.val_
-               * unit GioCancellableClass.C.p
-               -> GioFileType.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioFileQueryInfoFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               -> GioFileType.FFI.val_;
           )
             (
               x1,
@@ -591,12 +597,12 @@ structure GioFile :>
          & x5 =>
           (
             _import "mlton_g_file_query_filesystem_info" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileInfoClass.C.notnull GioFileInfoClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
           )
             (
               x1,
@@ -612,10 +618,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_query_filesystem_info_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileInfoClass.C.notnull GioFileInfoClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
           )
             (
               x1,
@@ -631,13 +637,13 @@ structure GioFile :>
          & x6 =>
           (
             _import "mlton_g_file_query_info" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * GioFileQueryInfoFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileInfoClass.C.notnull GioFileInfoClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GioFileQueryInfoFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
           )
             (
               x1,
@@ -654,10 +660,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_query_info_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileInfoClass.C.notnull GioFileInfoClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
           )
             (
               x1,
@@ -671,10 +677,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_query_settable_attributes" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileAttributeInfoListRecord.C.notnull GioFileAttributeInfoListRecord.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileAttributeInfoListRecord.FFI.notnull GioFileAttributeInfoListRecord.FFI.p;
           )
             (
               x1,
@@ -688,10 +694,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_query_writable_namespaces" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileAttributeInfoListRecord.C.notnull GioFileAttributeInfoListRecord.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileAttributeInfoListRecord.FFI.notnull GioFileAttributeInfoListRecord.FFI.p;
           )
             (
               x1,
@@ -705,10 +711,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_read" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileInputStreamClass.C.notnull GioFileInputStreamClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileInputStreamClass.FFI.notnull GioFileInputStreamClass.FFI.p;
           )
             (
               x1,
@@ -722,10 +728,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_read_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileInputStreamClass.C.notnull GioFileInputStreamClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileInputStreamClass.FFI.notnull GioFileInputStreamClass.FFI.p;
           )
             (
               x1,
@@ -742,14 +748,14 @@ structure GioFile :>
          & x7 =>
           (
             _import "mlton_g_file_replace" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               * FFI.Bool.C.val_
-               * GioFileCreateFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileOutputStreamClass.C.notnull GioFileOutputStreamClass.C.p;
+               * GBool.FFI.val_
+               * GioFileCreateFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileOutputStreamClass.FFI.notnull GioFileOutputStreamClass.FFI.p;
           )
             (
               x1,
@@ -760,6 +766,47 @@ structure GioFile :>
               x6,
               x7
             )
+    val replaceContents_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & (x5, x6)
+         & x7
+         & x8
+         & (x9, x10)
+         & x11
+         & x12 =>
+          (
+            _import "mlton_g_file_replace_contents" :
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GUInt8CVectorN.MLton.p1
+               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GSize.FFI.val_
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * GBool.FFI.val_
+               * GioFileCreateFlags.FFI.val_
+               * Utf8.MLton.r1
+               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7,
+              x8,
+              x9,
+              x10,
+              x11,
+              x12
+            )
     val replaceContentsFinish_ =
       fn
         x1
@@ -768,12 +815,12 @@ structure GioFile :>
          & x5 =>
           (
             _import "mlton_g_file_replace_contents_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
                * Utf8.MLton.r1
-               * (unit, Utf8.C.notnull) Utf8.MLton.r2
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -789,10 +836,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_replace_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileOutputStreamClass.C.notnull GioFileOutputStreamClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileOutputStreamClass.FFI.notnull GioFileOutputStreamClass.FFI.p;
           )
             (
               x1,
@@ -809,14 +856,14 @@ structure GioFile :>
          & x7 =>
           (
             _import "mlton_g_file_replace_readwrite" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               * FFI.Bool.C.val_
-               * GioFileCreateFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileIOStreamClass.C.notnull GioFileIOStreamClass.C.p;
+               * GBool.FFI.val_
+               * GioFileCreateFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileIOStreamClass.FFI.notnull GioFileIOStreamClass.FFI.p;
           )
             (
               x1,
@@ -834,10 +881,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_replace_readwrite_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileIOStreamClass.C.notnull GioFileIOStreamClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileIOStreamClass.FFI.notnull GioFileIOStreamClass.FFI.p;
           )
             (
               x1,
@@ -849,10 +896,10 @@ structure GioFile :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_resolve_relative_path" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> GioFileClass.C.notnull GioFileClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
           )
             (
               x1,
@@ -869,15 +916,15 @@ structure GioFile :>
          & x8 =>
           (
             _import "mlton_g_file_set_attribute_byte_string" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * GioFileQueryInfoFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GioFileQueryInfoFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -899,14 +946,14 @@ structure GioFile :>
          & x7 =>
           (
             _import "mlton_g_file_set_attribute_int32" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int32.C.val_
-               * GioFileQueryInfoFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt32.FFI.val_
+               * GioFileQueryInfoFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -927,14 +974,14 @@ structure GioFile :>
          & x7 =>
           (
             _import "mlton_g_file_set_attribute_int64" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int64.C.val_
-               * GioFileQueryInfoFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt64.FFI.val_
+               * GioFileQueryInfoFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -955,15 +1002,15 @@ structure GioFile :>
          & x8 =>
           (
             _import "mlton_g_file_set_attribute_string" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * GioFileQueryInfoFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GioFileQueryInfoFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -985,14 +1032,14 @@ structure GioFile :>
          & x7 =>
           (
             _import "mlton_g_file_set_attribute_uint32" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.UInt32.C.val_
-               * GioFileQueryInfoFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GUInt32.FFI.val_
+               * GioFileQueryInfoFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -1013,14 +1060,14 @@ structure GioFile :>
          & x7 =>
           (
             _import "mlton_g_file_set_attribute_uint64" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.UInt64.C.val_
-               * GioFileQueryInfoFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GUInt64.FFI.val_
+               * GioFileQueryInfoFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -1039,11 +1086,11 @@ structure GioFile :>
          & x4 =>
           (
             _import "g_file_set_attributes_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, GioFileInfoClass.C.notnull) GioFileInfoClass.C.r
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, GioFileInfoClass.FFI.notnull) GioFileInfoClass.FFI.r
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -1060,12 +1107,12 @@ structure GioFile :>
          & x5 =>
           (
             _import "g_file_set_attributes_from_info" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioFileInfoClass.C.notnull GioFileInfoClass.C.p
-               * GioFileQueryInfoFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+               * GioFileQueryInfoFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -1082,12 +1129,12 @@ structure GioFile :>
          & x5 =>
           (
             _import "mlton_g_file_set_display_name" :
-              GioFileClass.C.notnull GioFileClass.C.p
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileClass.C.notnull GioFileClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
           )
             (
               x1,
@@ -1103,10 +1150,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_set_display_name_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileClass.C.notnull GioFileClass.C.p;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
           )
             (
               x1,
@@ -1120,10 +1167,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_start_mountable_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -1137,17 +1184,17 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_stop_mountable_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val supportsThreadContexts_ = _import "g_file_supports_thread_contexts" : GioFileClass.C.notnull GioFileClass.C.p -> FFI.Bool.C.val_;
+    val supportsThreadContexts_ = _import "g_file_supports_thread_contexts" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> GBool.FFI.val_;
     val trash_ =
       fn
         x1
@@ -1155,10 +1202,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_trash" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -1172,10 +1219,10 @@ structure GioFile :>
          & x3 =>
           (
             _import "g_file_unmount_mountable_with_operation_finish" :
-              GioFileClass.C.notnull GioFileClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -1201,18 +1248,18 @@ structure GioFile :>
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newForCommandlineArg arg = (Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) newForCommandlineArg_ arg
-    fun newForPath path = (Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) newForPath_ path
-    fun newForUri uri = (Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) newForUri_ uri
-    fun parseName parseName = (Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) parseName_ parseName
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun newForCommandlineArg arg = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) newForCommandlineArg_ arg
+    fun newForPath path = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) newForPath_ path
+    fun newForUri uri = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) newForUri_ uri
+    fun parseName parseName = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) parseName_ parseName
     fun appendTo self flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioFileCreateFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioFileCreateFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileOutputStreamClass.C.fromPtr true
+         ---> GioFileOutputStreamClass.FFI.fromPtr true
       )
         appendTo_
         (
@@ -1223,10 +1270,10 @@ structure GioFile :>
         )
     fun appendToFinish self res =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileOutputStreamClass.C.fromPtr true
+         ---> GioFileOutputStreamClass.FFI.fromPtr true
       )
         appendToFinish_
         (
@@ -1236,12 +1283,12 @@ structure GioFile :>
         )
     fun copyAttributes self destination flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioFileClass.C.withPtr
-         &&&> GioFileCopyFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioFileClass.FFI.withPtr
+         &&&> GioFileCopyFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         copyAttributes_
         (
@@ -1253,10 +1300,10 @@ structure GioFile :>
         )
     fun copyFinish self res =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         copyFinish_
         (
@@ -1266,11 +1313,11 @@ structure GioFile :>
         )
     fun create self flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioFileCreateFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioFileCreateFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileOutputStreamClass.C.fromPtr true
+         ---> GioFileOutputStreamClass.FFI.fromPtr true
       )
         create_
         (
@@ -1281,10 +1328,10 @@ structure GioFile :>
         )
     fun createFinish self res =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileOutputStreamClass.C.fromPtr true
+         ---> GioFileOutputStreamClass.FFI.fromPtr true
       )
         createFinish_
         (
@@ -1294,11 +1341,11 @@ structure GioFile :>
         )
     fun createReadwrite self flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioFileCreateFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioFileCreateFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileIOStreamClass.C.fromPtr true
+         ---> GioFileIOStreamClass.FFI.fromPtr true
       )
         createReadwrite_
         (
@@ -1309,10 +1356,10 @@ structure GioFile :>
         )
     fun createReadwriteFinish self res =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileIOStreamClass.C.fromPtr true
+         ---> GioFileIOStreamClass.FFI.fromPtr true
       )
         createReadwriteFinish_
         (
@@ -1322,10 +1369,10 @@ structure GioFile :>
         )
     fun delete self cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         delete_
         (
@@ -1333,13 +1380,13 @@ structure GioFile :>
            & cancellable
            & []
         )
-    fun dup self = (GioFileClass.C.withPtr ---> GioFileClass.C.fromPtr true) dup_ self
+    fun dup self = (GioFileClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) dup_ self
     fun ejectMountableWithOperationFinish self result =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         ejectMountableWithOperationFinish_
         (
@@ -1349,12 +1396,12 @@ structure GioFile :>
         )
     fun enumerateChildren self attributes flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioFileQueryInfoFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioFileQueryInfoFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileEnumeratorClass.C.fromPtr true
+         ---> GioFileEnumeratorClass.FFI.fromPtr true
       )
         enumerateChildren_
         (
@@ -1366,10 +1413,10 @@ structure GioFile :>
         )
     fun enumerateChildrenFinish self res =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileEnumeratorClass.C.fromPtr true
+         ---> GioFileEnumeratorClass.FFI.fromPtr true
       )
         enumerateChildrenFinish_
         (
@@ -1377,13 +1424,13 @@ structure GioFile :>
            & res
            & []
         )
-    fun equal self file2 = (GioFileClass.C.withPtr &&&> GioFileClass.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & file2)
+    fun equal self file2 = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & file2)
     fun findEnclosingMount self cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioMountClass.C.fromPtr true
+         ---> GioMountClass.FFI.fromPtr true
       )
         findEnclosingMount_
         (
@@ -1393,10 +1440,10 @@ structure GioFile :>
         )
     fun findEnclosingMountFinish self res =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioMountClass.C.fromPtr true
+         ---> GioMountClass.FFI.fromPtr true
       )
         findEnclosingMountFinish_
         (
@@ -1404,14 +1451,14 @@ structure GioFile :>
            & res
            & []
         )
-    fun getBasename self = (GioFileClass.C.withPtr ---> Utf8.C.fromPtr true) getBasename_ self
-    fun getChild self name = (GioFileClass.C.withPtr &&&> Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) getChild_ (self & name)
+    fun getBasename self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getBasename_ self
+    fun getChild self name = (GioFileClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getChild_ (self & name)
     fun getChildForDisplayName self displayName =
       (
-        GioFileClass.C.withPtr
-         &&&> Utf8.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileClass.C.fromPtr true
+         ---> GioFileClass.FFI.fromPtr true
       )
         getChildForDisplayName_
         (
@@ -1419,23 +1466,23 @@ structure GioFile :>
            & displayName
            & []
         )
-    fun getParent self = (GioFileClass.C.withPtr ---> GioFileClass.C.fromPtr true) getParent_ self
-    fun getParseName self = (GioFileClass.C.withPtr ---> Utf8.C.fromPtr true) getParseName_ self
-    fun getPath self = (GioFileClass.C.withPtr ---> Utf8.C.fromPtr true) getPath_ self
-    fun getRelativePath self descendant = (GioFileClass.C.withPtr &&&> GioFileClass.C.withPtr ---> Utf8.C.fromPtr true) getRelativePath_ (self & descendant)
-    fun getUri self = (GioFileClass.C.withPtr ---> Utf8.C.fromPtr true) getUri_ self
-    fun getUriScheme self = (GioFileClass.C.withPtr ---> Utf8.C.fromPtr true) getUriScheme_ self
-    fun hasParent self parent = (GioFileClass.C.withPtr &&&> GioFileClass.C.withPtr ---> FFI.Bool.C.fromVal) hasParent_ (self & parent)
-    fun hasPrefix self prefix = (GioFileClass.C.withPtr &&&> GioFileClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPrefix_ (self & prefix)
-    fun hasUriScheme self uriScheme = (GioFileClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasUriScheme_ (self & uriScheme)
-    fun iconNew self = (GioFileClass.C.withPtr ---> GioIconClass.C.fromPtr true) iconNew_ self
-    fun isNative self = (GioFileClass.C.withPtr ---> FFI.Bool.C.fromVal) isNative_ self
+    fun getParent self = (GioFileClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getParent_ self
+    fun getParseName self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getParseName_ self
+    fun getPath self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getPath_ self
+    fun getRelativePath self descendant = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getRelativePath_ (self & descendant)
+    fun getUri self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUri_ self
+    fun getUriScheme self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUriScheme_ self
+    fun hasParent self parent = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> GBool.FFI.fromVal) hasParent_ (self & parent)
+    fun hasPrefix self prefix = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> GBool.FFI.fromVal) hasPrefix_ (self & prefix)
+    fun hasUriScheme self uriScheme = (GioFileClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasUriScheme_ (self & uriScheme)
+    fun iconNew self = (GioFileClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) iconNew_ self
+    fun isNative self = (GioFileClass.FFI.withPtr ---> GBool.FFI.fromVal) isNative_ self
     fun makeDirectory self cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         makeDirectory_
         (
@@ -1445,10 +1492,10 @@ structure GioFile :>
         )
     fun makeDirectoryWithParents self cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         makeDirectoryWithParents_
         (
@@ -1458,11 +1505,11 @@ structure GioFile :>
         )
     fun makeSymbolicLink self symlinkValue cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         makeSymbolicLink_
         (
@@ -1473,11 +1520,11 @@ structure GioFile :>
         )
     fun monitor self flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioFileMonitorFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioFileMonitorFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileMonitorClass.C.fromPtr true
+         ---> GioFileMonitorClass.FFI.fromPtr true
       )
         monitor_
         (
@@ -1488,11 +1535,11 @@ structure GioFile :>
         )
     fun monitorDirectory self flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioFileMonitorFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioFileMonitorFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileMonitorClass.C.fromPtr true
+         ---> GioFileMonitorClass.FFI.fromPtr true
       )
         monitorDirectory_
         (
@@ -1503,11 +1550,11 @@ structure GioFile :>
         )
     fun monitorFile self flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioFileMonitorFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioFileMonitorFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileMonitorClass.C.fromPtr true
+         ---> GioFileMonitorClass.FFI.fromPtr true
       )
         monitorFile_
         (
@@ -1518,10 +1565,10 @@ structure GioFile :>
         )
     fun mountEnclosingVolumeFinish self result =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         mountEnclosingVolumeFinish_
         (
@@ -1531,10 +1578,10 @@ structure GioFile :>
         )
     fun mountMountableFinish self result =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileClass.C.fromPtr true
+         ---> GioFileClass.FFI.fromPtr true
       )
         mountMountableFinish_
         (
@@ -1544,10 +1591,10 @@ structure GioFile :>
         )
     fun openReadwrite self cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileIOStreamClass.C.fromPtr true
+         ---> GioFileIOStreamClass.FFI.fromPtr true
       )
         openReadwrite_
         (
@@ -1557,10 +1604,10 @@ structure GioFile :>
         )
     fun openReadwriteFinish self res =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileIOStreamClass.C.fromPtr true
+         ---> GioFileIOStreamClass.FFI.fromPtr true
       )
         openReadwriteFinish_
         (
@@ -1570,10 +1617,10 @@ structure GioFile :>
         )
     fun pollMountableFinish self result =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         pollMountableFinish_
         (
@@ -1583,10 +1630,10 @@ structure GioFile :>
         )
     fun queryDefaultHandler self cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioAppInfoClass.C.fromPtr true
+         ---> GioAppInfoClass.FFI.fromPtr true
       )
         queryDefaultHandler_
         (
@@ -1594,13 +1641,13 @@ structure GioFile :>
            & cancellable
            & []
         )
-    fun queryExists self cancellable = (GioFileClass.C.withPtr &&&> GioCancellableClass.C.withOptPtr ---> FFI.Bool.C.fromVal) queryExists_ (self & cancellable)
+    fun queryExists self cancellable = (GioFileClass.FFI.withPtr &&&> GioCancellableClass.FFI.withOptPtr ---> GBool.FFI.fromVal) queryExists_ (self & cancellable)
     fun queryFileType self flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioFileQueryInfoFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
-         ---> GioFileType.C.fromVal
+        GioFileClass.FFI.withPtr
+         &&&> GioFileQueryInfoFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
+         ---> GioFileType.FFI.fromVal
       )
         queryFileType_
         (
@@ -1610,11 +1657,11 @@ structure GioFile :>
         )
     fun queryFilesystemInfo self attributes cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileInfoClass.C.fromPtr true
+         ---> GioFileInfoClass.FFI.fromPtr true
       )
         queryFilesystemInfo_
         (
@@ -1625,10 +1672,10 @@ structure GioFile :>
         )
     fun queryFilesystemInfoFinish self res =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileInfoClass.C.fromPtr true
+         ---> GioFileInfoClass.FFI.fromPtr true
       )
         queryFilesystemInfoFinish_
         (
@@ -1638,12 +1685,12 @@ structure GioFile :>
         )
     fun queryInfo self attributes flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioFileQueryInfoFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioFileQueryInfoFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileInfoClass.C.fromPtr true
+         ---> GioFileInfoClass.FFI.fromPtr true
       )
         queryInfo_
         (
@@ -1655,10 +1702,10 @@ structure GioFile :>
         )
     fun queryInfoFinish self res =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileInfoClass.C.fromPtr true
+         ---> GioFileInfoClass.FFI.fromPtr true
       )
         queryInfoFinish_
         (
@@ -1668,10 +1715,10 @@ structure GioFile :>
         )
     fun querySettableAttributes self cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileAttributeInfoListRecord.C.fromPtr true
+         ---> GioFileAttributeInfoListRecord.FFI.fromPtr true
       )
         querySettableAttributes_
         (
@@ -1681,10 +1728,10 @@ structure GioFile :>
         )
     fun queryWritableNamespaces self cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileAttributeInfoListRecord.C.fromPtr true
+         ---> GioFileAttributeInfoListRecord.FFI.fromPtr true
       )
         queryWritableNamespaces_
         (
@@ -1694,10 +1741,10 @@ structure GioFile :>
         )
     fun read self cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileInputStreamClass.C.fromPtr true
+         ---> GioFileInputStreamClass.FFI.fromPtr true
       )
         read_
         (
@@ -1707,10 +1754,10 @@ structure GioFile :>
         )
     fun readFinish self res =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileInputStreamClass.C.fromPtr true
+         ---> GioFileInputStreamClass.FFI.fromPtr true
       )
         readFinish_
         (
@@ -1720,13 +1767,13 @@ structure GioFile :>
         )
     fun replace self etag makeBackup flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Bool.C.withVal
-         &&&> GioFileCreateFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GBool.FFI.withVal
+         &&&> GioFileCreateFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileOutputStreamClass.C.fromPtr true
+         ---> GioFileOutputStreamClass.FFI.fromPtr true
       )
         replace_
         (
@@ -1737,15 +1784,46 @@ structure GioFile :>
            & cancellable
            & []
         )
+    fun replaceContents self contents etag makeBackup flags cancellable =
+      let
+        val length = LargeInt.fromInt (GUInt8CVectorN.length contents)
+        val newEtag & retVal =
+          (
+            GioFileClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GSize.FFI.withVal
+             &&&> Utf8.FFI.withOptPtr
+             &&&> GBool.FFI.withVal
+             &&&> GioFileCreateFlags.FFI.withVal
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> Utf8.FFI.fromPtr 1 && GBool.FFI.fromVal
+          )
+            replaceContents_
+            (
+              self
+               & contents
+               & length
+               & etag
+               & makeBackup
+               & flags
+               & NONE
+               & cancellable
+               & []
+            )
+      in
+        if retVal then SOME newEtag else NONE
+      end
     fun replaceContentsFinish self res =
       let
         val newEtag & retVal =
           (
-            GioFileClass.C.withPtr
-             &&&> GioAsyncResultClass.C.withPtr
-             &&&> Utf8.C.withRefOptPtr
+            GioFileClass.FFI.withPtr
+             &&&> GioAsyncResultClass.FFI.withPtr
+             &&&> Utf8.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.C.fromPtr true && FFI.Bool.C.fromVal
+             ---> Utf8.FFI.fromPtr 1 && GBool.FFI.fromVal
           )
             replaceContentsFinish_
             (
@@ -1759,10 +1837,10 @@ structure GioFile :>
       end
     fun replaceFinish self res =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileOutputStreamClass.C.fromPtr true
+         ---> GioFileOutputStreamClass.FFI.fromPtr true
       )
         replaceFinish_
         (
@@ -1772,13 +1850,13 @@ structure GioFile :>
         )
     fun replaceReadwrite self etag makeBackup flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Bool.C.withVal
-         &&&> GioFileCreateFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GBool.FFI.withVal
+         &&&> GioFileCreateFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileIOStreamClass.C.fromPtr true
+         ---> GioFileIOStreamClass.FFI.fromPtr true
       )
         replaceReadwrite_
         (
@@ -1791,10 +1869,10 @@ structure GioFile :>
         )
     fun replaceReadwriteFinish self res =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileIOStreamClass.C.fromPtr true
+         ---> GioFileIOStreamClass.FFI.fromPtr true
       )
         replaceReadwriteFinish_
         (
@@ -1802,16 +1880,16 @@ structure GioFile :>
            & res
            & []
         )
-    fun resolveRelativePath self relativePath = (GioFileClass.C.withPtr &&&> Utf8.C.withPtr ---> GioFileClass.C.fromPtr true) resolveRelativePath_ (self & relativePath)
+    fun resolveRelativePath self relativePath = (GioFileClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) resolveRelativePath_ (self & relativePath)
     fun setAttributeByteString self attribute value flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioFileQueryInfoFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioFileQueryInfoFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         setAttributeByteString_
         (
@@ -1824,13 +1902,13 @@ structure GioFile :>
         )
     fun setAttributeInt32 self attribute value flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> GioFileQueryInfoFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GioFileQueryInfoFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         setAttributeInt32_
         (
@@ -1843,13 +1921,13 @@ structure GioFile :>
         )
     fun setAttributeInt64 self attribute value flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int64.C.withVal
-         &&&> GioFileQueryInfoFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt64.FFI.withVal
+         &&&> GioFileQueryInfoFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         setAttributeInt64_
         (
@@ -1862,13 +1940,13 @@ structure GioFile :>
         )
     fun setAttributeString self attribute value flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioFileQueryInfoFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioFileQueryInfoFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         setAttributeString_
         (
@@ -1881,13 +1959,13 @@ structure GioFile :>
         )
     fun setAttributeUint32 self attribute value flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         &&&> GioFileQueryInfoFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         &&&> GioFileQueryInfoFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         setAttributeUint32_
         (
@@ -1900,13 +1978,13 @@ structure GioFile :>
         )
     fun setAttributeUint64 self attribute value flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.UInt64.C.withVal
-         &&&> GioFileQueryInfoFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt64.FFI.withVal
+         &&&> GioFileQueryInfoFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         setAttributeUint64_
         (
@@ -1921,11 +1999,11 @@ structure GioFile :>
       let
         val info & retVal =
           (
-            GioFileClass.C.withPtr
-             &&&> GioAsyncResultClass.C.withPtr
-             &&&> GioFileInfoClass.C.withRefOptPtr
+            GioFileClass.FFI.withPtr
+             &&&> GioAsyncResultClass.FFI.withPtr
+             &&&> GioFileInfoClass.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GioFileInfoClass.C.fromPtr true && FFI.Bool.C.fromVal
+             ---> GioFileInfoClass.FFI.fromPtr true && GBool.FFI.fromVal
           )
             setAttributesFinish_
             (
@@ -1939,12 +2017,12 @@ structure GioFile :>
       end
     fun setAttributesFromInfo self info flags cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioFileInfoClass.C.withPtr
-         &&&> GioFileQueryInfoFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioFileInfoClass.FFI.withPtr
+         &&&> GioFileQueryInfoFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         setAttributesFromInfo_
         (
@@ -1956,11 +2034,11 @@ structure GioFile :>
         )
     fun setDisplayName self displayName cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileClass.C.fromPtr true
+         ---> GioFileClass.FFI.fromPtr true
       )
         setDisplayName_
         (
@@ -1971,10 +2049,10 @@ structure GioFile :>
         )
     fun setDisplayNameFinish self res =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileClass.C.fromPtr true
+         ---> GioFileClass.FFI.fromPtr true
       )
         setDisplayNameFinish_
         (
@@ -1984,10 +2062,10 @@ structure GioFile :>
         )
     fun startMountableFinish self result =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         startMountableFinish_
         (
@@ -1997,10 +2075,10 @@ structure GioFile :>
         )
     fun stopMountableFinish self result =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         stopMountableFinish_
         (
@@ -2008,13 +2086,13 @@ structure GioFile :>
            & result
            & []
         )
-    fun supportsThreadContexts self = (GioFileClass.C.withPtr ---> FFI.Bool.C.fromVal) supportsThreadContexts_ self
+    fun supportsThreadContexts self = (GioFileClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsThreadContexts_ self
     fun trash self cancellable =
       (
-        GioFileClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         trash_
         (
@@ -2024,10 +2102,10 @@ structure GioFile :>
         )
     fun unmountMountableWithOperationFinish self result =
       (
-        GioFileClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         unmountMountableWithOperationFinish_
         (

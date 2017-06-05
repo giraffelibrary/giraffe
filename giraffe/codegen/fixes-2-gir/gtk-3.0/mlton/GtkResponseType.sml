@@ -1,7 +1,4 @@
-structure GtkResponseType :>
-  sig
-    include GTK_RESPONSE_TYPE
-  end =
+structure GtkResponseType :> GTK_RESPONSE_TYPE =
   struct
     type t = LargeInt.int
     local

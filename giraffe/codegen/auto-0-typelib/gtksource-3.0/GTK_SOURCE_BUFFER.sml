@@ -35,6 +35,10 @@ signature GTK_SOURCE_BUFFER =
        -> Gtk.TextIterRecord.t
        -> string option
        -> bool
+    val getContextClassesAtIter :
+      'a class
+       -> Gtk.TextIterRecord.t
+       -> string list
     val getHighlightMatchingBrackets : 'a class -> bool
     val getHighlightSyntax : 'a class -> bool
     val getLanguage : 'a class -> base language_class

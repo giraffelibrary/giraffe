@@ -5,7 +5,7 @@ structure GioLoadableIcon :>
     where type 'a input_stream_class = 'a GioInputStreamClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
-    val getType_ = _import "g_loadable_icon_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "g_loadable_icon_get_type" : unit -> GObjectType.FFI.val_;
     val load_ =
       fn
         x1
@@ -15,13 +15,13 @@ structure GioLoadableIcon :>
          & x6 =>
           (
             _import "mlton_g_loadable_icon_load" :
-              GioLoadableIconClass.C.notnull GioLoadableIconClass.C.p
-               * FFI.Int32.C.val_
+              GioLoadableIconClass.FFI.notnull GioLoadableIconClass.FFI.p
+               * GInt32.FFI.val_
                * Utf8.MLton.r1
-               * (unit, Utf8.C.notnull) Utf8.MLton.r2
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioInputStreamClass.C.notnull GioInputStreamClass.C.p;
+               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
           )
             (
               x1,
@@ -39,12 +39,12 @@ structure GioLoadableIcon :>
          & x5 =>
           (
             _import "mlton_g_loadable_icon_load_finish" :
-              GioLoadableIconClass.C.notnull GioLoadableIconClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
+              GioLoadableIconClass.FFI.notnull GioLoadableIconClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioInputStreamClass.C.notnull GioInputStreamClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
           )
             (
               x1,
@@ -58,17 +58,17 @@ structure GioLoadableIcon :>
     type 'a input_stream_class = 'a GioInputStreamClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun load self size cancellable =
       let
         val type' & retVal =
           (
-            GioLoadableIconClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> Utf8.C.withRefOptPtr
-             &&&> GioCancellableClass.C.withOptPtr
+            GioLoadableIconClass.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.C.fromPtr true && GioInputStreamClass.C.fromPtr true
+             ---> Utf8.FFI.fromPtr 1 && GioInputStreamClass.FFI.fromPtr true
           )
             load_
             (
@@ -83,11 +83,11 @@ structure GioLoadableIcon :>
       end
     fun loadFinish self res type' =
       (
-        GioLoadableIconClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
-         &&&> Utf8.C.withPtr
+        GioLoadableIconClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioInputStreamClass.C.fromPtr true
+         ---> GioInputStreamClass.FFI.fromPtr true
       )
         loadFinish_
         (

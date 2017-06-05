@@ -4,7 +4,7 @@ structure GioDBusObjectManager :>
     where type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class
     where type 'a d_bus_object_class = 'a GioDBusObjectClass.class =
   struct
-    val getType_ = _import "g_dbus_object_manager_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "g_dbus_object_manager_get_type" : unit -> GObjectType.FFI.val_;
     val getInterface_ =
       fn
         x1
@@ -12,12 +12,12 @@ structure GioDBusObjectManager :>
          & (x4, x5) =>
           (
             _import "mlton_g_dbus_object_manager_get_interface" :
-              GioDBusObjectManagerClass.C.notnull GioDBusObjectManagerClass.C.p
+              GioDBusObjectManagerClass.FFI.notnull GioDBusObjectManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> GioDBusInterfaceClass.C.notnull GioDBusInterfaceClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GioDBusInterfaceClass.FFI.notnull GioDBusInterfaceClass.FFI.p;
           )
             (
               x1,
@@ -31,28 +31,28 @@ structure GioDBusObjectManager :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_dbus_object_manager_get_object" :
-              GioDBusObjectManagerClass.C.notnull GioDBusObjectManagerClass.C.p
+              GioDBusObjectManagerClass.FFI.notnull GioDBusObjectManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> GioDBusObjectClass.C.notnull GioDBusObjectClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GioDBusObjectClass.FFI.notnull GioDBusObjectClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getObjectPath_ = _import "g_dbus_object_manager_get_object_path" : GioDBusObjectManagerClass.C.notnull GioDBusObjectManagerClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getObjectPath_ = _import "g_dbus_object_manager_get_object_path" : GioDBusObjectManagerClass.FFI.notnull GioDBusObjectManagerClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     type 'a class = 'a GioDBusObjectManagerClass.class
     type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class
     type 'a d_bus_object_class = 'a GioDBusObjectClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getInterface self objectPath interfaceName =
       (
-        GioDBusObjectManagerClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         ---> GioDBusInterfaceClass.C.fromPtr true
+        GioDBusObjectManagerClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> GioDBusInterfaceClass.FFI.fromPtr true
       )
         getInterface_
         (
@@ -60,8 +60,8 @@ structure GioDBusObjectManager :>
            & objectPath
            & interfaceName
         )
-    fun getObject self objectPath = (GioDBusObjectManagerClass.C.withPtr &&&> Utf8.C.withPtr ---> GioDBusObjectClass.C.fromPtr true) getObject_ (self & objectPath)
-    fun getObjectPath self = (GioDBusObjectManagerClass.C.withPtr ---> Utf8.C.fromPtr false) getObjectPath_ self
+    fun getObject self objectPath = (GioDBusObjectManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioDBusObjectClass.FFI.fromPtr true) getObject_ (self & objectPath)
+    fun getObjectPath self = (GioDBusObjectManagerClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
     local
       open ClosureMarshal Signal
     in

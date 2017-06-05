@@ -3,9 +3,9 @@ structure GObjectParamSpecFloat :>
     where type 'a class = 'a GObjectParamSpecFloatClass.class
     where type type_t = GObjectType.t =
   struct
-    val getType_ = _import "intern" : unit -> GObjectType.C.val_;
+    val getType_ = _import "intern" : unit -> GObjectType.FFI.val_;
     type 'a class = 'a GObjectParamSpecFloatClass.class
     type type_t = GObjectType.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

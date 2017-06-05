@@ -16,13 +16,13 @@ structure GtkRadioMenuItem :>
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFromWidget group = (GtkRadioMenuItemClass.C.withPtr ---> GtkRadioMenuItemClass.C.fromPtr false) newFromWidget_ group
-    fun newWithLabelFromWidget group label = (GtkRadioMenuItemClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkRadioMenuItemClass.C.fromPtr false) newWithLabelFromWidget_ (group & label)
-    fun newWithMnemonicFromWidget group label = (GtkRadioMenuItemClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkRadioMenuItemClass.C.fromPtr false) newWithMnemonicFromWidget_ (group & label)
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun newFromWidget group = (GtkRadioMenuItemClass.FFI.withPtr ---> GtkRadioMenuItemClass.FFI.fromPtr false) newFromWidget_ group
+    fun newWithLabelFromWidget group label = (GtkRadioMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkRadioMenuItemClass.FFI.fromPtr false) newWithLabelFromWidget_ (group & label)
+    fun newWithMnemonicFromWidget group label = (GtkRadioMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkRadioMenuItemClass.FFI.fromPtr false) newWithMnemonicFromWidget_ (group & label)
     local
       open ClosureMarshal Signal
     in

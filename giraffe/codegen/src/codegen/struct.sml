@@ -221,16 +221,16 @@ fun makeStructStr
     (* module *)
     val acc'0
       : strdec list
-         * interfaceref list
+         * (interfaceref list * struct1 ListDict.t)
          * infoerrorhier list =
-      ([], [], errs'0)
+      ([], ([], ListDict.empty), errs'0)
     val acc'1 =
       addStructMethodStrDecsHighLevel repo structIRef (structInfo, acc'0)
     val acc'2 =
       case optGetTypeSymbol of
         SOME _ => addGetTypeFunctionStrDecHighLevel typeIRef acc'1
       | NONE   => acc'1
-    val (strDecs'2, iRefs'2, errs'2) = acc'2
+    val (strDecs'2, (iRefs'2, structDeps'2), errs'2) = acc'2
 
     val strIRefs =
       structIRef :: iRefs'2  (* `structIRef` for record structure dependence *)
@@ -251,7 +251,7 @@ fun makeStructStr
 
     fun mkModule isPolyML =
       let
-        val (strDecs, _) =
+        val (strDecs'4, _) =
           addStructMethodStrDecsLowLevel
             isPolyML
             repo
@@ -260,7 +260,10 @@ fun makeStructStr
             structIRef
             (structInfo, (strDecs'3, errs'2))
 
-        val struct1 = mkStructBody strDecs
+        val strDecs'5 =
+          revMapAppend mkStructStrDec (ListDict.toList structDeps'2, strDecs'4)
+
+        val struct1 = mkBodyStruct strDecs'5
 
         (* sig *)
         val sig1 = SigName structSigId

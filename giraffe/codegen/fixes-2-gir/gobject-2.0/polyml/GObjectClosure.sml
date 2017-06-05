@@ -17,10 +17,10 @@ structure GObjectClosure :>
     type t = GObjectClosureRecord.t
     type type_t = GObjectType.t
     type 'a marshaller = 'a ClosureMarshal.marshaller
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new marshaller callback =
-      (ClosureMarshal.C.withCallback ---> GObjectClosureRecord.C.fromPtr false)
+      (ClosureMarshal.FFI.withCallback ---> GObjectClosureRecord.FFI.fromPtr false)
         new_
         (marshaller, callback)
-    fun invalidate self = (GObjectClosureRecord.C.withPtr ---> I) invalidate_ self
+    fun invalidate self = (GObjectClosureRecord.FFI.withPtr ---> I) invalidate_ self
   end

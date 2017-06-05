@@ -2202,6 +2202,8 @@ signature GTK =
        -> LargeInt.int
        -> unit
     val iconThemeErrorQuark : unit -> GLib.Quark.t
+    val init : string list -> string list
+    val initCheck : string list -> bool * string list
     val keySnooperRemove : LargeInt.int -> unit
     val main : unit -> unit
     val mainDoEvent : 'a Gdk.Event.union -> unit
@@ -2453,6 +2455,7 @@ signature GTK =
        -> LargeInt.int
        -> unit
     val paperSizeGetDefault : unit -> string
+    val parseArgs : string list -> bool * string list
     val printErrorQuark : unit -> GLib.Quark.t
     val printRunPageSetupDialog :
       'a WindowClass.class option
@@ -2464,7 +2467,9 @@ signature GTK =
        -> 'b Gdk.Event.union
        -> unit
     val rcAddDefaultFile : string -> unit
+    val rcGetDefaultFiles : unit -> string list
     val rcGetStyle : 'a WidgetClass.class -> base StyleClass.class
+    val rcSetDefaultFiles : string list -> unit
     val recentChooserErrorQuark : unit -> GLib.Quark.t
     val recentManagerErrorQuark : unit -> GLib.Quark.t
     val renderActivity :
@@ -2637,6 +2642,16 @@ signature GTK =
        -> LargeInt.int
        -> bool
     val stockLookup : string -> StockItemRecord.t option
+    val targetsIncludeImage :
+      Gdk.AtomRecord.t vector
+       -> bool
+       -> bool
+    val targetsIncludeRichText :
+      Gdk.AtomRecord.t vector
+       -> 'a TextBufferClass.class
+       -> bool
+    val targetsIncludeText : Gdk.AtomRecord.t vector -> bool
+    val targetsIncludeUri : Gdk.AtomRecord.t vector -> bool
     val testCreateSimpleWindow :
       string
        -> string

@@ -10,25 +10,25 @@ structure GIRepositoryStructInfo :>
       val getNFields_ =
         call
           (load_sym libgirepository "g_struct_info_get_n_fields")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getField_ =
         call
           (load_sym libgirepository "g_struct_info_get_field")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
-            &&> FFI.Int32.PolyML.cVal
+            &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNMethods_ =
         call
           (load_sym libgirepository "g_struct_info_get_n_methods")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getMethod_ =
         call
           (load_sym libgirepository "g_struct_info_get_method")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
-            &&> FFI.Int32.PolyML.cVal
+            &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val findMethod_ =
@@ -41,22 +41,22 @@ structure GIRepositoryStructInfo :>
       val getSize_ =
         call
           (load_sym libgirepository "g_struct_info_get_size")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.ULong.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GULong.PolyML.cVal);
 
       val getAlignment_ =
         call
           (load_sym libgirepository "g_struct_info_get_alignment")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.ULong.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GULong.PolyML.cVal);
 
       val isGtypeStruct_ =
         call
           (load_sym libgirepository "g_struct_info_is_gtype_struct")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GBool.PolyML.cVal);
 
       val isForeign_ =
         call
           (load_sym libgirepository "g_struct_info_is_foreign")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GBool.PolyML.cVal);
     end
 
 
@@ -66,39 +66,39 @@ structure GIRepositoryStructInfo :>
 
 
     val getNFields =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getNFields_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNFields_ info
 
     val getField =
       fn info => fn n =>
-        (GIRepositoryBaseInfoClass.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryFieldInfoClass.C.fromPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GIRepositoryFieldInfoClass.FFI.fromPtr true)
         getField_
         (info & n)
 
     val getNMethods =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getNMethods_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNMethods_ info
 
     val getMethod =
       fn info => fn n =>
-        (GIRepositoryBaseInfoClass.C.withPtr &&&> FFI.Int32.C.withVal ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true)
         getMethod_
         (info & n)
 
     val findMethod =
       fn info => fn name =>
-        (GIRepositoryBaseInfoClass.C.withPtr
-          &&&> Utf8.C.withPtr
-          ---> GIRepositoryFunctionInfoClass.C.fromPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr
+          &&&> Utf8.FFI.withPtr
+          ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true)
         findMethod_
         (info & name)
 
-    val getSize = fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.ULong.C.fromVal) getSize_ info
+    val getSize = fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GULong.FFI.fromVal) getSize_ info
 
     val getAlignment =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.ULong.C.fromVal) getAlignment_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GULong.FFI.fromVal) getAlignment_ info
 
     val isGtypeStruct =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) isGtypeStruct_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isGtypeStruct_ info
 
     val isForeign =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) isForeign_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isForeign_ info
   end

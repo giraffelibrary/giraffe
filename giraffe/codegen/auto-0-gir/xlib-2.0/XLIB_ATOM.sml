@@ -1,1 +1,1 @@
-signature XLIB_ATOM = F_F_I_SCALAR
+signature XLIB_ATOM = C_SCALAR

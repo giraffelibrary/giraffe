@@ -3,6 +3,12 @@ structure PangoLayoutLine :>
     where type t = PangoLayoutLineRecord.t
     where type rectangle_t = PangoRectangleRecord.t =
   struct
+    structure GInt32CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GInt32Type
+        structure ElemSequence = CValueVectorSequence(GInt32Type)
+      )
+    structure GInt32CVectorN = CVectorN(GInt32CVectorNType)
     local
       open PolyMLFFI
     in
@@ -23,39 +29,49 @@ structure PangoLayoutLine :>
              &&> PangoRectangleRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
+      val getXRanges_ =
+        call (load_sym libpango "pango_layout_line_get_x_ranges")
+          (
+            PangoLayoutLineRecord.PolyML.cPtr
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32CVectorN.PolyML.cOutRef
+             &&> GInt32.PolyML.cRef
+             --> PolyMLFFI.cVoid
+          )
       val indexToX_ =
         call (load_sym libpango "pango_layout_line_index_to_x")
           (
             PangoLayoutLineRecord.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
-             &&> FFI.Int32.PolyML.cRef
+             &&> GInt32.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
       val xToIndex_ =
         call (load_sym libpango "pango_layout_line_x_to_index")
           (
             PangoLayoutLineRecord.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cRef
-             &&> FFI.Int32.PolyML.cRef
-             --> FFI.Bool.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             --> GBool.PolyML.cVal
           )
     end
     type t = PangoLayoutLineRecord.t
     type rectangle_t = PangoRectangleRecord.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getExtents self =
       let
         val inkRect
          & logicalRect
          & () =
           (
-            PangoLayoutLineRecord.C.withPtr
-             &&&> PangoRectangleRecord.C.withNewPtr
-             &&&> PangoRectangleRecord.C.withNewPtr
-             ---> PangoRectangleRecord.C.fromPtr true
-                   && PangoRectangleRecord.C.fromPtr true
+            PangoLayoutLineRecord.FFI.withPtr
+             &&&> PangoRectangleRecord.FFI.withNewPtr
+             &&&> PangoRectangleRecord.FFI.withNewPtr
+             ---> PangoRectangleRecord.FFI.fromPtr true
+                   && PangoRectangleRecord.FFI.fromPtr true
                    && I
           )
             getExtents_
@@ -73,11 +89,11 @@ structure PangoLayoutLine :>
          & logicalRect
          & () =
           (
-            PangoLayoutLineRecord.C.withPtr
-             &&&> PangoRectangleRecord.C.withNewPtr
-             &&&> PangoRectangleRecord.C.withNewPtr
-             ---> PangoRectangleRecord.C.fromPtr true
-                   && PangoRectangleRecord.C.fromPtr true
+            PangoLayoutLineRecord.FFI.withPtr
+             &&&> PangoRectangleRecord.FFI.withNewPtr
+             &&&> PangoRectangleRecord.FFI.withNewPtr
+             ---> PangoRectangleRecord.FFI.fromPtr true
+                   && PangoRectangleRecord.FFI.fromPtr true
                    && I
           )
             getPixelExtents_
@@ -89,22 +105,48 @@ structure PangoLayoutLine :>
       in
         (inkRect, logicalRect)
       end
+    fun getXRanges self startIndex endIndex =
+      let
+        val ranges
+         & nRanges
+         & () =
+          (
+            PangoLayoutLineRecord.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GInt32.FFI.withVal
+             &&&> GInt32CVectorN.FFI.withRefOptPtr
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32CVectorN.FFI.fromPtr 1
+                   && GInt32.FFI.fromVal
+                   && I
+          )
+            getXRanges_
+            (
+              self
+               & startIndex
+               & endIndex
+               & NONE
+               & GInt32.null
+            )
+      in
+        ranges (LargeInt.toInt nRanges)
+      end
     fun indexToX self index trailing =
       let
         val xPos & () =
           (
-            PangoLayoutLineRecord.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Bool.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal && I
+            PangoLayoutLineRecord.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GBool.FFI.withVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal && I
           )
             indexToX_
             (
               self
                & index
                & trailing
-               & FFI.Int32.null
+               & GInt32.null
             )
       in
         xPos
@@ -115,20 +157,20 @@ structure PangoLayoutLine :>
          & trailing
          & retVal =
           (
-            PangoLayoutLineRecord.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
-                   && FFI.Bool.C.fromVal
+            PangoLayoutLineRecord.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && GBool.FFI.fromVal
           )
             xToIndex_
             (
               self
                & xPos
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & GInt32.null
+               & GInt32.null
             )
       in
         if retVal then SOME (index, trailing) else NONE

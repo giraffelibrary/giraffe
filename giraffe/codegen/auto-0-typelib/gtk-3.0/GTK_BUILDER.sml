@@ -13,6 +13,17 @@ signature GTK_BUILDER =
        -> string
        -> LargeInt.int
        -> LargeInt.int
+    val addObjectsFromFile :
+      'a class
+       -> string
+       -> string list
+       -> LargeInt.int
+    val addObjectsFromString :
+      'a class
+       -> string
+       -> LargeInt.int
+       -> string list
+       -> LargeInt.int
     val getObject :
       'a class
        -> string

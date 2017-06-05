@@ -1,15 +1,7 @@
 structure GObjectBindingFlags :>
-  sig
-    include
-      G_OBJECT_BINDING_FLAGS
-        where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
-        where type type_t = GObjectType.t
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+  G_OBJECT_BINDING_FLAGS
+    where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
+    where type type_t = GObjectType.t =
   struct
     val DEFAULT = 0w0
     val BIDIRECTIONAL = 0w1
@@ -22,25 +14,11 @@ structure GObjectBindingFlags :>
         SYNC_CREATE,
         INVERT_BOOLEAN
       ]
-    structure BitFlags =
-      Word32BitFlags (
+    structure Flags =
+      Flags(
         val allFlags = allFlags
       )
-    open BitFlags
-    type t = flags
-    structure C =
-      struct
-        type val_ = FFI.Flags.C.val_
-        type ref_ = FFI.Flags.C.ref_
-        fun withVal f = f
-        fun withRefVal f = withVal (FFI.Flags.C.withRef f)
-        fun fromVal w = w
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Flags.PolyML.cVal
-        val cRef = FFI.Flags.PolyML.cRef
-      end
+    open Flags
     local
       open PolyMLFFI
     in
@@ -52,10 +30,10 @@ structure GObjectBindingFlags :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
     type type_t = GObjectType.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

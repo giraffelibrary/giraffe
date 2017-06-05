@@ -33,6 +33,10 @@ signature GTK_DIALOG =
        -> LargeInt.int
        -> unit
     val run : 'a class -> LargeInt.int
+    val setAlternativeButtonOrderFromArray :
+      'a class
+       -> LargeInt.int vector
+       -> unit
     val setDefaultResponse :
       'a class
        -> LargeInt.int

@@ -21,7 +21,7 @@ structure GioTlsCertificate :>
         call (load_sym libgio "g_tls_certificate_new_from_pem")
           (
             Utf8.PolyML.cInPtr
-             &&> FFI.Int64.PolyML.cVal
+             &&> GInt64.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioTlsCertificateClass.PolyML.cPtr
           )
@@ -39,14 +39,14 @@ structure GioTlsCertificate :>
     type tls_certificate_flags_t = GioTlsCertificateFlags.t
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFromFile file = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsCertificateClass.C.fromPtr true) newFromFile_ (file & [])
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun newFromFile file = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsCertificateClass.FFI.fromPtr true) newFromFile_ (file & [])
     fun newFromFiles certFile keyFile =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioTlsCertificateClass.C.fromPtr true
+         ---> GioTlsCertificateClass.FFI.fromPtr true
       )
         newFromFiles_
         (
@@ -56,10 +56,10 @@ structure GioTlsCertificate :>
         )
     fun newFromPem data length =
       (
-        Utf8.C.withPtr
-         &&&> FFI.Int64.C.withVal
+        Utf8.FFI.withPtr
+         &&&> GInt64.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GioTlsCertificateClass.C.fromPtr true
+         ---> GioTlsCertificateClass.FFI.fromPtr true
       )
         newFromPem_
         (
@@ -67,13 +67,13 @@ structure GioTlsCertificate :>
            & length
            & []
         )
-    fun getIssuer self = (GioTlsCertificateClass.C.withPtr ---> GioTlsCertificateClass.C.fromPtr false) getIssuer_ self
+    fun getIssuer self = (GioTlsCertificateClass.FFI.withPtr ---> GioTlsCertificateClass.FFI.fromPtr false) getIssuer_ self
     fun verify self identity trustedCa =
       (
-        GioTlsCertificateClass.C.withPtr
-         &&&> GioSocketConnectableClass.C.withOptPtr
-         &&&> GioTlsCertificateClass.C.withOptPtr
-         ---> GioTlsCertificateFlags.C.fromVal
+        GioTlsCertificateClass.FFI.withPtr
+         &&&> GioSocketConnectableClass.FFI.withOptPtr
+         &&&> GioTlsCertificateClass.FFI.withOptPtr
+         ---> GioTlsCertificateFlags.FFI.fromVal
       )
         verify_
         (

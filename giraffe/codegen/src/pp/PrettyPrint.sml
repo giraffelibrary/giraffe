@@ -1039,10 +1039,10 @@ structure PrettyPrint :>
           )
       | StructInst (id, funArg) => (
           case fmtFunArg funArg of
-            H h => H (H.seq [fmtId id, sp1, H.str "(", h, H.str ")", hLast])
+            H h => H (H.seq [fmtId id, H.str "(", h, H.str ")", hLast])
           | V v => V (
               V.seq [
-                V.line (H.seq [fmtId id, sp1, H.str "("]),
+                V.line (H.seq [fmtId id, H.str "("]),
                 indent v,
                 V.line (H.seq [H.str ")", hLast])
               ]

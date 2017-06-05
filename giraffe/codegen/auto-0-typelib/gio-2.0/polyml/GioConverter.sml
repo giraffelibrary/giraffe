@@ -10,6 +10,6 @@ structure GioConverter :>
     end
     type 'a class = 'a GioConverterClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun reset self = (GioConverterClass.C.withPtr ---> I) reset_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun reset self = (GioConverterClass.FFI.withPtr ---> I) reset_ self
   end

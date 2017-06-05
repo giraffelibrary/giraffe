@@ -1,14 +1,6 @@
-structure GLibErrorType :>
-  sig
-    include G_LIB_ERROR_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GLibErrorType :> G_LIB_ERROR_TYPE =
   struct
-    datatype t =
+    datatype enum =
       UNKNOWN
     | UNEXP_EOF
     | UNEXP_EOF_IN_STRING
@@ -17,23 +9,22 @@ structure GLibErrorType :>
     | DIGIT_RADIX
     | FLOAT_RADIX
     | FLOAT_MALFORMED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = UNKNOWN
+        val toInt =
           fn
-            UNKNOWN => f 0
-          | UNEXP_EOF => f 1
-          | UNEXP_EOF_IN_STRING => f 2
-          | UNEXP_EOF_IN_COMMENT => f 3
-          | NON_DIGIT_IN_CONST => f 4
-          | DIGIT_RADIX => f 5
-          | FLOAT_RADIX => f 6
-          | FLOAT_MALFORMED => f 7
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            UNKNOWN => 0
+          | UNEXP_EOF => 1
+          | UNEXP_EOF_IN_STRING => 2
+          | UNEXP_EOF_IN_COMMENT => 3
+          | NON_DIGIT_IN_CONST => 4
+          | DIGIT_RADIX => 5
+          | FLOAT_RADIX => 6
+          | FLOAT_MALFORMED => 7
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => UNKNOWN
           | 1 => UNEXP_EOF
@@ -44,11 +35,6 @@ structure GLibErrorType :>
           | 6 => FLOAT_RADIX
           | 7 => FLOAT_MALFORMED
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
-    val null = UNKNOWN
+      )
+    open Enum
   end

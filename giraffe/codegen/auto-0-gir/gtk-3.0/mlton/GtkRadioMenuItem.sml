@@ -4,17 +4,17 @@ structure GtkRadioMenuItem :>
     where type 'a activatable_class = 'a GtkActivatableClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
-    val getType_ = _import "gtk_radio_menu_item_get_type" : unit -> GObjectType.C.val_;
-    val newFromWidget_ = _import "gtk_radio_menu_item_new_from_widget" : GtkRadioMenuItemClass.C.notnull GtkRadioMenuItemClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val getType_ = _import "gtk_radio_menu_item_get_type" : unit -> GObjectType.FFI.val_;
+    val newFromWidget_ = _import "gtk_radio_menu_item_new_from_widget" : GtkRadioMenuItemClass.FFI.notnull GtkRadioMenuItemClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val newWithLabelFromWidget_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_radio_menu_item_new_with_label_from_widget" :
-              GtkRadioMenuItemClass.C.notnull GtkRadioMenuItemClass.C.p
+              GtkRadioMenuItemClass.FFI.notnull GtkRadioMenuItemClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -26,10 +26,10 @@ structure GtkRadioMenuItem :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_radio_menu_item_new_with_mnemonic_from_widget" :
-              GtkRadioMenuItemClass.C.notnull GtkRadioMenuItemClass.C.p
+              GtkRadioMenuItemClass.FFI.notnull GtkRadioMenuItemClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -40,13 +40,13 @@ structure GtkRadioMenuItem :>
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFromWidget group = (GtkRadioMenuItemClass.C.withPtr ---> GtkRadioMenuItemClass.C.fromPtr false) newFromWidget_ group
-    fun newWithLabelFromWidget group label = (GtkRadioMenuItemClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkRadioMenuItemClass.C.fromPtr false) newWithLabelFromWidget_ (group & label)
-    fun newWithMnemonicFromWidget group label = (GtkRadioMenuItemClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkRadioMenuItemClass.C.fromPtr false) newWithMnemonicFromWidget_ (group & label)
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun newFromWidget group = (GtkRadioMenuItemClass.FFI.withPtr ---> GtkRadioMenuItemClass.FFI.fromPtr false) newFromWidget_ group
+    fun newWithLabelFromWidget group label = (GtkRadioMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkRadioMenuItemClass.FFI.fromPtr false) newWithLabelFromWidget_ (group & label)
+    fun newWithMnemonicFromWidget group label = (GtkRadioMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkRadioMenuItemClass.FFI.fromPtr false) newWithMnemonicFromWidget_ (group & label)
     local
       open ClosureMarshal Signal
     in

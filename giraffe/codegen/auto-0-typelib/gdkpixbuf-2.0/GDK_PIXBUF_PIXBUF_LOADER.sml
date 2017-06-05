@@ -18,6 +18,10 @@ signature GDK_PIXBUF_PIXBUF_LOADER =
        -> LargeInt.int
        -> LargeInt.int
        -> unit
+    val write :
+      'a class
+       -> Word8Vector.vector
+       -> bool
     val areaPreparedSig : (unit -> unit) -> 'a class Signal.signal
     val areaUpdatedSig :
       (LargeInt.int

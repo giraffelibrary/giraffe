@@ -29,7 +29,7 @@ signature CLOSURE_MARSHAL =
     val ret_void : unit ret
 
 
-    structure C :
+    structure FFI :
       sig
         type callback
         val withCallback :

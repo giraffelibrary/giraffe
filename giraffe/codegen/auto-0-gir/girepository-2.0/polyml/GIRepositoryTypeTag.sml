@@ -1,14 +1,6 @@
-structure GIRepositoryTypeTag :>
-  sig
-    include G_I_REPOSITORY_TYPE_TAG
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GIRepositoryTypeTag :> G_I_REPOSITORY_TYPE_TAG =
   struct
-    datatype t =
+    datatype enum =
       VOID
     | BOOLEAN
     | INT_8
@@ -31,37 +23,36 @@ structure GIRepositoryTypeTag :>
     | GHASH
     | ERROR
     | UNICHAR
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = VOID
+        val toInt =
           fn
-            VOID => f 0
-          | BOOLEAN => f 1
-          | INT_8 => f 2
-          | UINT_8 => f 3
-          | INT_16 => f 4
-          | UINT_16 => f 5
-          | INT_32 => f 6
-          | UINT_32 => f 7
-          | INT_64 => f 8
-          | UINT_64 => f 9
-          | FLOAT => f 10
-          | DOUBLE => f 11
-          | GTYPE => f 12
-          | UTF_8 => f 13
-          | FILENAME => f 14
-          | ARRAY => f 15
-          | INTERFACE => f 16
-          | GLIST => f 17
-          | GSLIST => f 18
-          | GHASH => f 19
-          | ERROR => f 20
-          | UNICHAR => f 21
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            VOID => 0
+          | BOOLEAN => 1
+          | INT_8 => 2
+          | UINT_8 => 3
+          | INT_16 => 4
+          | UINT_16 => 5
+          | INT_32 => 6
+          | UINT_32 => 7
+          | INT_64 => 8
+          | UINT_64 => 9
+          | FLOAT => 10
+          | DOUBLE => 11
+          | GTYPE => 12
+          | UTF_8 => 13
+          | FILENAME => 14
+          | ARRAY => 15
+          | INTERFACE => 16
+          | GLIST => 17
+          | GSLIST => 18
+          | GHASH => 19
+          | ERROR => 20
+          | UNICHAR => 21
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => VOID
           | 1 => BOOLEAN
@@ -86,11 +77,6 @@ structure GIRepositoryTypeTag :>
           | 20 => ERROR
           | 21 => UNICHAR
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
-    val null = VOID
+      )
+    open Enum
   end

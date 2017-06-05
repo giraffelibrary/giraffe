@@ -1,14 +1,6 @@
-structure AtkTextBoundary :>
-  sig
-    include ATK_TEXT_BOUNDARY
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure AtkTextBoundary :> ATK_TEXT_BOUNDARY =
   struct
-    datatype t =
+    datatype enum =
       CHAR
     | WORD_START
     | WORD_END
@@ -16,22 +8,21 @@ structure AtkTextBoundary :>
     | SENTENCE_END
     | LINE_START
     | LINE_END
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = CHAR
+        val toInt =
           fn
-            CHAR => f 0
-          | WORD_START => f 1
-          | WORD_END => f 2
-          | SENTENCE_START => f 3
-          | SENTENCE_END => f 4
-          | LINE_START => f 5
-          | LINE_END => f 6
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            CHAR => 0
+          | WORD_START => 1
+          | WORD_END => 2
+          | SENTENCE_START => 3
+          | SENTENCE_END => 4
+          | LINE_START => 5
+          | LINE_END => 6
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => CHAR
           | 1 => WORD_START
@@ -41,12 +32,8 @@ structure AtkTextBoundary :>
           | 5 => LINE_START
           | 6 => LINE_END
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -57,10 +44,9 @@ structure AtkTextBoundary :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = CHAR
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

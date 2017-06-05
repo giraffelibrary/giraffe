@@ -14,52 +14,52 @@ structure AtkComponent :>
         call (load_sym libatk "atk_component_contains")
           (
             AtkComponentClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> AtkCoordType.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
-      val getAlpha_ = call (load_sym libatk "atk_component_get_alpha") (AtkComponentClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getAlpha_ = call (load_sym libatk "atk_component_get_alpha") (AtkComponentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val getLayer_ = call (load_sym libatk "atk_component_get_layer") (AtkComponentClass.PolyML.cPtr --> AtkLayer.PolyML.cVal)
-      val getMdiZorder_ = call (load_sym libatk "atk_component_get_mdi_zorder") (AtkComponentClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val grabFocus_ = call (load_sym libatk "atk_component_grab_focus") (AtkComponentClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getMdiZorder_ = call (load_sym libatk "atk_component_get_mdi_zorder") (AtkComponentClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val grabFocus_ = call (load_sym libatk "atk_component_grab_focus") (AtkComponentClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val refAccessibleAtPoint_ =
         call (load_sym libatk "atk_component_ref_accessible_at_point")
           (
             AtkComponentClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> AtkCoordType.PolyML.cVal
              --> AtkObjectClass.PolyML.cPtr
           )
-      val removeFocusHandler_ = call (load_sym libatk "atk_component_remove_focus_handler") (AtkComponentClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val removeFocusHandler_ = call (load_sym libatk "atk_component_remove_focus_handler") (AtkComponentClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setExtents_ =
         call (load_sym libatk "atk_component_set_extents")
           (
             AtkComponentClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> AtkCoordType.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val setPosition_ =
         call (load_sym libatk "atk_component_set_position")
           (
             AtkComponentClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> AtkCoordType.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val setSize_ =
         call (load_sym libatk "atk_component_set_size")
           (
             AtkComponentClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
     end
     type 'a class = 'a AtkComponentClass.class
@@ -68,14 +68,14 @@ structure AtkComponent :>
     type coord_type_t = AtkCoordType.t
     type rectangle_t = AtkRectangleRecord.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun contains self x y coordType =
       (
-        AtkComponentClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> AtkCoordType.C.withVal
-         ---> FFI.Bool.C.fromVal
+        AtkComponentClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> AtkCoordType.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         contains_
         (
@@ -84,17 +84,17 @@ structure AtkComponent :>
            & y
            & coordType
         )
-    fun getAlpha self = (AtkComponentClass.C.withPtr ---> FFI.Double.C.fromVal) getAlpha_ self
-    fun getLayer self = (AtkComponentClass.C.withPtr ---> AtkLayer.C.fromVal) getLayer_ self
-    fun getMdiZorder self = (AtkComponentClass.C.withPtr ---> FFI.Int.C.fromVal) getMdiZorder_ self
-    fun grabFocus self = (AtkComponentClass.C.withPtr ---> FFI.Bool.C.fromVal) grabFocus_ self
+    fun getAlpha self = (AtkComponentClass.FFI.withPtr ---> GDouble.FFI.fromVal) getAlpha_ self
+    fun getLayer self = (AtkComponentClass.FFI.withPtr ---> AtkLayer.FFI.fromVal) getLayer_ self
+    fun getMdiZorder self = (AtkComponentClass.FFI.withPtr ---> GInt.FFI.fromVal) getMdiZorder_ self
+    fun grabFocus self = (AtkComponentClass.FFI.withPtr ---> GBool.FFI.fromVal) grabFocus_ self
     fun refAccessibleAtPoint self x y coordType =
       (
-        AtkComponentClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> AtkCoordType.C.withVal
-         ---> AtkObjectClass.C.fromPtr true
+        AtkComponentClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> AtkCoordType.FFI.withVal
+         ---> AtkObjectClass.FFI.fromPtr true
       )
         refAccessibleAtPoint_
         (
@@ -103,16 +103,16 @@ structure AtkComponent :>
            & y
            & coordType
         )
-    fun removeFocusHandler self handlerId = (AtkComponentClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) removeFocusHandler_ (self & handlerId)
+    fun removeFocusHandler self handlerId = (AtkComponentClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) removeFocusHandler_ (self & handlerId)
     fun setExtents self x y width height coordType =
       (
-        AtkComponentClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> AtkCoordType.C.withVal
-         ---> FFI.Bool.C.fromVal
+        AtkComponentClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> AtkCoordType.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         setExtents_
         (
@@ -125,11 +125,11 @@ structure AtkComponent :>
         )
     fun setPosition self x y coordType =
       (
-        AtkComponentClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> AtkCoordType.C.withVal
-         ---> FFI.Bool.C.fromVal
+        AtkComponentClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> AtkCoordType.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         setPosition_
         (
@@ -140,10 +140,10 @@ structure AtkComponent :>
         )
     fun setSize self width height =
       (
-        AtkComponentClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         ---> FFI.Bool.C.fromVal
+        AtkComponentClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         setSize_
         (

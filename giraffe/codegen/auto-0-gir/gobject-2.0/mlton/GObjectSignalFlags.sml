@@ -1,7 +1,4 @@
-structure GObjectSignalFlags :>
-  sig
-    include G_OBJECT_SIGNAL_FLAGS
-  end =
+structure GObjectSignalFlags :> G_OBJECT_SIGNAL_FLAGS =
   struct
     val RUN_FIRST = 0w1
     val RUN_LAST = 0w2
@@ -22,18 +19,9 @@ structure GObjectSignalFlags :>
         NO_HOOKS,
         MUST_COLLECT
       ]
-    structure BitFlags =
-      Word32BitFlags (
+    structure Flags =
+      Flags(
         val allFlags = allFlags
       )
-    open BitFlags
-    type t = flags
-    structure C =
-      struct
-        type val_ = FFI.Flags.C.val_
-        type ref_ = FFI.Flags.C.ref_
-        fun withVal f = f
-        fun withRefVal f = withVal (FFI.Flags.C.withRef f)
-        fun fromVal w = w
-      end
+    open Flags
   end

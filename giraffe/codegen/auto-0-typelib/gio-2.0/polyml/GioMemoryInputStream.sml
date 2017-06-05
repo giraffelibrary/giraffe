@@ -12,7 +12,7 @@ structure GioMemoryInputStream :>
     type 'a class = 'a GioMemoryInputStreamClass.class
     type 'a seekable_class = 'a GioSeekableClass.class
     type t = base class
-    fun asSeekable self = (GObjectObjectClass.C.withPtr ---> GioSeekableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GioMemoryInputStreamClass.C.fromPtr true) new_ ()
+    fun asSeekable self = (GObjectObjectClass.FFI.withPtr ---> GioSeekableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GioMemoryInputStreamClass.FFI.fromPtr true) new_ ()
   end

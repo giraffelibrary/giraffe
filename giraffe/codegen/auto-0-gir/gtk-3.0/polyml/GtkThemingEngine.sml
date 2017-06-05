@@ -76,14 +76,14 @@ structure GtkThemingEngine :>
              &&> GObjectValueRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val hasClass_ = call (load_sym libgtk "gtk_theming_engine_has_class") (GtkThemingEngineClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val hasClass_ = call (load_sym libgtk "gtk_theming_engine_has_class") (GtkThemingEngineClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val hasRegion_ =
         call (load_sym libgtk "gtk_theming_engine_has_region")
           (
             GtkThemingEngineClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkRegionFlags.PolyML.cRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val lookupColor_ =
         call (load_sym libgtk "gtk_theming_engine_lookup_color")
@@ -91,15 +91,15 @@ structure GtkThemingEngine :>
             GtkThemingEngineClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GdkRgbaRecord.PolyML.cPtr
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val stateIsRunning_ =
         call (load_sym libgtk "gtk_theming_engine_state_is_running")
           (
             GtkThemingEngineClass.PolyML.cPtr
              &&> GtkStateType.PolyML.cVal
-             &&> FFI.Double.PolyML.cRef
-             --> FFI.Bool.PolyML.cVal
+             &&> GDouble.PolyML.cRef
+             --> GBool.PolyML.cVal
           )
     end
     type 'a class = 'a GtkThemingEngineClass.class
@@ -111,16 +111,16 @@ structure GtkThemingEngine :>
     type region_flags_t = GtkRegionFlags.t
     type state_type_t = GtkStateType.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun load name = (Utf8.C.withPtr ---> GtkThemingEngineClass.C.fromPtr false) load_ name
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun load name = (Utf8.FFI.withPtr ---> GtkThemingEngineClass.FFI.fromPtr false) load_ name
     fun getBackgroundColor self state =
       let
         val color & () =
           (
-            GtkThemingEngineClass.C.withPtr
-             &&&> GtkStateFlags.C.withVal
-             &&&> GdkRgbaRecord.C.withNewPtr
-             ---> GdkRgbaRecord.C.fromPtr true && I
+            GtkThemingEngineClass.FFI.withPtr
+             &&&> GtkStateFlags.FFI.withVal
+             &&&> GdkRgbaRecord.FFI.withNewPtr
+             ---> GdkRgbaRecord.FFI.fromPtr true && I
           )
             getBackgroundColor_
             (
@@ -135,10 +135,10 @@ structure GtkThemingEngine :>
       let
         val border & () =
           (
-            GtkThemingEngineClass.C.withPtr
-             &&&> GtkStateFlags.C.withVal
-             &&&> GtkBorderRecord.C.withNewPtr
-             ---> GtkBorderRecord.C.fromPtr true && I
+            GtkThemingEngineClass.FFI.withPtr
+             &&&> GtkStateFlags.FFI.withVal
+             &&&> GtkBorderRecord.FFI.withNewPtr
+             ---> GtkBorderRecord.FFI.fromPtr true && I
           )
             getBorder_
             (
@@ -153,10 +153,10 @@ structure GtkThemingEngine :>
       let
         val color & () =
           (
-            GtkThemingEngineClass.C.withPtr
-             &&&> GtkStateFlags.C.withVal
-             &&&> GdkRgbaRecord.C.withNewPtr
-             ---> GdkRgbaRecord.C.fromPtr true && I
+            GtkThemingEngineClass.FFI.withPtr
+             &&&> GtkStateFlags.FFI.withVal
+             &&&> GdkRgbaRecord.FFI.withNewPtr
+             ---> GdkRgbaRecord.FFI.fromPtr true && I
           )
             getBorderColor_
             (
@@ -171,10 +171,10 @@ structure GtkThemingEngine :>
       let
         val color & () =
           (
-            GtkThemingEngineClass.C.withPtr
-             &&&> GtkStateFlags.C.withVal
-             &&&> GdkRgbaRecord.C.withNewPtr
-             ---> GdkRgbaRecord.C.fromPtr true && I
+            GtkThemingEngineClass.FFI.withPtr
+             &&&> GtkStateFlags.FFI.withVal
+             &&&> GdkRgbaRecord.FFI.withNewPtr
+             ---> GdkRgbaRecord.FFI.fromPtr true && I
           )
             getColor_
             (
@@ -185,17 +185,17 @@ structure GtkThemingEngine :>
       in
         color
       end
-    fun getDirection self = (GtkThemingEngineClass.C.withPtr ---> GtkTextDirection.C.fromVal) getDirection_ self
-    fun getFont self state = (GtkThemingEngineClass.C.withPtr &&&> GtkStateFlags.C.withVal ---> PangoFontDescriptionRecord.C.fromPtr false) getFont_ (self & state)
-    fun getJunctionSides self = (GtkThemingEngineClass.C.withPtr ---> GtkJunctionSides.C.fromVal) getJunctionSides_ self
+    fun getDirection self = (GtkThemingEngineClass.FFI.withPtr ---> GtkTextDirection.FFI.fromVal) getDirection_ self
+    fun getFont self state = (GtkThemingEngineClass.FFI.withPtr &&&> GtkStateFlags.FFI.withVal ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFont_ (self & state)
+    fun getJunctionSides self = (GtkThemingEngineClass.FFI.withPtr ---> GtkJunctionSides.FFI.fromVal) getJunctionSides_ self
     fun getMargin self state =
       let
         val margin & () =
           (
-            GtkThemingEngineClass.C.withPtr
-             &&&> GtkStateFlags.C.withVal
-             &&&> GtkBorderRecord.C.withNewPtr
-             ---> GtkBorderRecord.C.fromPtr true && I
+            GtkThemingEngineClass.FFI.withPtr
+             &&&> GtkStateFlags.FFI.withVal
+             &&&> GtkBorderRecord.FFI.withNewPtr
+             ---> GtkBorderRecord.FFI.fromPtr true && I
           )
             getMargin_
             (
@@ -210,10 +210,10 @@ structure GtkThemingEngine :>
       let
         val padding & () =
           (
-            GtkThemingEngineClass.C.withPtr
-             &&&> GtkStateFlags.C.withVal
-             &&&> GtkBorderRecord.C.withNewPtr
-             ---> GtkBorderRecord.C.fromPtr true && I
+            GtkThemingEngineClass.FFI.withPtr
+             &&&> GtkStateFlags.FFI.withVal
+             &&&> GtkBorderRecord.FFI.withNewPtr
+             ---> GtkBorderRecord.FFI.fromPtr true && I
           )
             getPadding_
             (
@@ -224,14 +224,14 @@ structure GtkThemingEngine :>
       in
         padding
       end
-    fun getPath self = (GtkThemingEngineClass.C.withPtr ---> GtkWidgetPathRecord.C.fromPtr false) getPath_ self
-    fun getScreen self = (GtkThemingEngineClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getScreen_ self
-    fun getState self = (GtkThemingEngineClass.C.withPtr ---> GtkStateFlags.C.fromVal) getState_ self
+    fun getPath self = (GtkThemingEngineClass.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self
+    fun getScreen self = (GtkThemingEngineClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
+    fun getState self = (GtkThemingEngineClass.FFI.withPtr ---> GtkStateFlags.FFI.fromVal) getState_ self
     fun getStyleProperty self propertyName value =
       (
-        GtkThemingEngineClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GObjectValueRecord.C.withPtr
+        GtkThemingEngineClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectValueRecord.FFI.withPtr
          ---> I
       )
         getStyleProperty_
@@ -240,15 +240,15 @@ structure GtkThemingEngine :>
            & propertyName
            & value
         )
-    fun hasClass self styleClass = (GtkThemingEngineClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) hasClass_ (self & styleClass)
+    fun hasClass self styleClass = (GtkThemingEngineClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasClass_ (self & styleClass)
     fun hasRegion self styleRegion =
       let
         val flags & retVal =
           (
-            GtkThemingEngineClass.C.withPtr
-             &&&> Utf8.C.withPtr
-             &&&> GtkRegionFlags.C.withRefVal
-             ---> GtkRegionFlags.C.fromVal && FFI.Bool.C.fromVal
+            GtkThemingEngineClass.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GtkRegionFlags.FFI.withRefVal
+             ---> GtkRegionFlags.FFI.fromVal && GBool.FFI.fromVal
           )
             hasRegion_
             (
@@ -263,10 +263,10 @@ structure GtkThemingEngine :>
       let
         val color & retVal =
           (
-            GtkThemingEngineClass.C.withPtr
-             &&&> Utf8.C.withPtr
-             &&&> GdkRgbaRecord.C.withNewPtr
-             ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal
+            GtkThemingEngineClass.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GdkRgbaRecord.FFI.withNewPtr
+             ---> GdkRgbaRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
             lookupColor_
             (
@@ -281,16 +281,16 @@ structure GtkThemingEngine :>
       let
         val progress & retVal =
           (
-            GtkThemingEngineClass.C.withPtr
-             &&&> GtkStateType.C.withVal
-             &&&> FFI.Double.C.withRefVal
-             ---> FFI.Double.C.fromVal && FFI.Bool.C.fromVal
+            GtkThemingEngineClass.FFI.withPtr
+             &&&> GtkStateType.FFI.withVal
+             &&&> GDouble.FFI.withRefVal
+             ---> GDouble.FFI.fromVal && GBool.FFI.fromVal
           )
             stateIsRunning_
             (
               self
                & state
-               & FFI.Double.null
+               & GDouble.null
             )
       in
         if retVal then SOME progress else NONE

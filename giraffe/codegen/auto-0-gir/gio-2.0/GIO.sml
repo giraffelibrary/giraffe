@@ -171,6 +171,7 @@ signature GIO =
         where type 'a class = 'a ApplicationClass.class
         where type 'a cancellable_class = 'a CancellableClass.class
         where type 'a application_command_line_class = 'a ApplicationCommandLineClass.class
+        where type 'a file_class = 'a FileClass.class
         where type 'a action_group_class = 'a ActionGroupClass.class
         where type application_flags_t = ApplicationFlags.t
     structure ApplicationCommandLine :
@@ -382,6 +383,7 @@ signature GIO =
         where type 'a icon_class = 'a IconClass.class
         where type 'a file_class = 'a FileClass.class
         where type 'a volume_class = 'a VolumeClass.class
+        where type 'a cancellable_class = 'a CancellableClass.class
         where type 'a async_result_class = 'a AsyncResultClass.class
     structure MountOperation :
       GIO_MOUNT_OPERATION
@@ -403,9 +405,9 @@ signature GIO =
     structure OutputStream :
       GIO_OUTPUT_STREAM
         where type 'a class = 'a OutputStreamClass.class
-        where type 'a cancellable_class = 'a CancellableClass.class
         where type output_stream_splice_flags_t = OutputStreamSpliceFlags.t
         where type 'a input_stream_class = 'a InputStreamClass.class
+        where type 'a cancellable_class = 'a CancellableClass.class
         where type 'a async_result_class = 'a AsyncResultClass.class
     structure Permission :
       GIO_PERMISSION
@@ -418,12 +420,15 @@ signature GIO =
     structure PollableOutputStream :
       GIO_POLLABLE_OUTPUT_STREAM
         where type 'a class = 'a PollableOutputStreamClass.class
+        where type 'a cancellable_class = 'a CancellableClass.class
     structure ProxyAddressEnumeratorClass :
       GIO_PROXY_ADDRESS_ENUMERATOR_CLASS
         where type 'a socket_address_enumerator_class = 'a SocketAddressEnumeratorClass.class
     structure ProxyResolver :
       GIO_PROXY_RESOLVER
         where type 'a class = 'a ProxyResolverClass.class
+        where type 'a cancellable_class = 'a CancellableClass.class
+        where type 'a async_result_class = 'a AsyncResultClass.class
     structure Resolver :
       GIO_RESOLVER
         where type 'a class = 'a ResolverClass.class
@@ -950,6 +955,11 @@ signature GIO =
     val contentTypeGetDescription : string -> string
     val contentTypeGetIcon : string -> base IconClass.class
     val contentTypeGetMimeType : string -> string
+    val contentTypeGuess :
+      string option
+       -> Word8Vector.vector option
+       -> string * bool
+    val contentTypeGuessForTree : 'a FileClass.class -> string list
     val contentTypeIsA :
       string
        -> string

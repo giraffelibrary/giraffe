@@ -6,8 +6,8 @@ structure GtkMenu :>
     where type 'a accel_group_class = 'a GtkAccelGroupClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
-    val getType_ = _import "gtk_menu_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_menu_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val getType_ = _import "gtk_menu_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_menu_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val attach_ =
       fn
         x1
@@ -18,12 +18,12 @@ structure GtkMenu :>
          & x6 =>
           (
             _import "gtk_menu_attach" :
-              GtkMenuClass.C.notnull GtkMenuClass.C.p
-               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
-               * FFI.UInt32.C.val_
-               * FFI.UInt32.C.val_
-               * FFI.UInt32.C.val_
-               * FFI.UInt32.C.val_
+              GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p
+               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * GUInt32.FFI.val_
+               * GUInt32.FFI.val_
+               * GUInt32.FFI.val_
+               * GUInt32.FFI.val_
                -> unit;
           )
             (
@@ -34,16 +34,16 @@ structure GtkMenu :>
               x5,
               x6
             )
-    val detach_ = _import "gtk_menu_detach" : GtkMenuClass.C.notnull GtkMenuClass.C.p -> unit;
-    val getAccelGroup_ = _import "gtk_menu_get_accel_group" : GtkMenuClass.C.notnull GtkMenuClass.C.p -> GtkAccelGroupClass.C.notnull GtkAccelGroupClass.C.p;
-    val getAccelPath_ = _import "gtk_menu_get_accel_path" : GtkMenuClass.C.notnull GtkMenuClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getActive_ = _import "gtk_menu_get_active" : GtkMenuClass.C.notnull GtkMenuClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
-    val getAttachWidget_ = _import "gtk_menu_get_attach_widget" : GtkMenuClass.C.notnull GtkMenuClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
-    val getMonitor_ = _import "gtk_menu_get_monitor" : GtkMenuClass.C.notnull GtkMenuClass.C.p -> FFI.Int32.C.val_;
-    val getReserveToggleSize_ = _import "gtk_menu_get_reserve_toggle_size" : GtkMenuClass.C.notnull GtkMenuClass.C.p -> FFI.Bool.C.val_;
-    val getTearoffState_ = _import "gtk_menu_get_tearoff_state" : GtkMenuClass.C.notnull GtkMenuClass.C.p -> FFI.Bool.C.val_;
-    val getTitle_ = _import "gtk_menu_get_title" : GtkMenuClass.C.notnull GtkMenuClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val popdown_ = _import "gtk_menu_popdown" : GtkMenuClass.C.notnull GtkMenuClass.C.p -> unit;
+    val detach_ = _import "gtk_menu_detach" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p -> unit;
+    val getAccelGroup_ = _import "gtk_menu_get_accel_group" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p -> GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p;
+    val getAccelPath_ = _import "gtk_menu_get_accel_path" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getActive_ = _import "gtk_menu_get_active" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getAttachWidget_ = _import "gtk_menu_get_attach_widget" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getMonitor_ = _import "gtk_menu_get_monitor" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p -> GInt32.FFI.val_;
+    val getReserveToggleSize_ = _import "gtk_menu_get_reserve_toggle_size" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p -> GBool.FFI.val_;
+    val getTearoffState_ = _import "gtk_menu_get_tearoff_state" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p -> GBool.FFI.val_;
+    val getTitle_ = _import "gtk_menu_get_title" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val popdown_ = _import "gtk_menu_popdown" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p -> unit;
     val reorderChild_ =
       fn
         x1
@@ -51,9 +51,9 @@ structure GtkMenu :>
          & x3 =>
           (
             _import "gtk_menu_reorder_child" :
-              GtkMenuClass.C.notnull GtkMenuClass.C.p
-               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
-               * FFI.Int32.C.val_
+              GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p
+               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * GInt32.FFI.val_
                -> unit;
           )
             (
@@ -61,14 +61,14 @@ structure GtkMenu :>
               x2,
               x3
             )
-    val reposition_ = _import "gtk_menu_reposition" : GtkMenuClass.C.notnull GtkMenuClass.C.p -> unit;
-    val setAccelGroup_ = fn x1 & x2 => (_import "gtk_menu_set_accel_group" : GtkMenuClass.C.notnull GtkMenuClass.C.p * unit GtkAccelGroupClass.C.p -> unit;) (x1, x2)
+    val reposition_ = _import "gtk_menu_reposition" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p -> unit;
+    val setAccelGroup_ = fn x1 & x2 => (_import "gtk_menu_set_accel_group" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p * unit GtkAccelGroupClass.FFI.p -> unit;) (x1, x2)
     val setAccelPath_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_menu_set_accel_path" :
-              GtkMenuClass.C.notnull GtkMenuClass.C.p
+              GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                -> unit;
@@ -78,19 +78,19 @@ structure GtkMenu :>
               x2,
               x3
             )
-    val setActive_ = fn x1 & x2 => (_import "gtk_menu_set_active" : GtkMenuClass.C.notnull GtkMenuClass.C.p * FFI.UInt32.C.val_ -> unit;) (x1, x2)
-    val setMonitor_ = fn x1 & x2 => (_import "gtk_menu_set_monitor" : GtkMenuClass.C.notnull GtkMenuClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    val setReserveToggleSize_ = fn x1 & x2 => (_import "gtk_menu_set_reserve_toggle_size" : GtkMenuClass.C.notnull GtkMenuClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setScreen_ = fn x1 & x2 => (_import "gtk_menu_set_screen" : GtkMenuClass.C.notnull GtkMenuClass.C.p * unit GdkScreenClass.C.p -> unit;) (x1, x2)
-    val setTearoffState_ = fn x1 & x2 => (_import "gtk_menu_set_tearoff_state" : GtkMenuClass.C.notnull GtkMenuClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setActive_ = fn x1 & x2 => (_import "gtk_menu_set_active" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val setMonitor_ = fn x1 & x2 => (_import "gtk_menu_set_monitor" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setReserveToggleSize_ = fn x1 & x2 => (_import "gtk_menu_set_reserve_toggle_size" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setScreen_ = fn x1 & x2 => (_import "gtk_menu_set_screen" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p * unit GdkScreenClass.FFI.p -> unit;) (x1, x2)
+    val setTearoffState_ = fn x1 & x2 => (_import "gtk_menu_set_tearoff_state" : GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setTitle_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_menu_set_title" :
-              GtkMenuClass.C.notnull GtkMenuClass.C.p
+              GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -104,18 +104,18 @@ structure GtkMenu :>
     type 'a accel_group_class = 'a GtkAccelGroupClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkMenuClass.C.fromPtr false) new_ ()
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkMenuClass.FFI.fromPtr false) new_ ()
     fun attach self child leftAttach rightAttach topAttach bottomAttach =
       (
-        GtkMenuClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
+        GtkMenuClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         &&&> GUInt32.FFI.withVal
+         &&&> GUInt32.FFI.withVal
+         &&&> GUInt32.FFI.withVal
          ---> I
       )
         attach_
@@ -127,21 +127,21 @@ structure GtkMenu :>
            & topAttach
            & bottomAttach
         )
-    fun detach self = (GtkMenuClass.C.withPtr ---> I) detach_ self
-    fun getAccelGroup self = (GtkMenuClass.C.withPtr ---> GtkAccelGroupClass.C.fromPtr false) getAccelGroup_ self
-    fun getAccelPath self = (GtkMenuClass.C.withPtr ---> Utf8.C.fromPtr false) getAccelPath_ self
-    fun getActive self = (GtkMenuClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getActive_ self
-    fun getAttachWidget self = (GtkMenuClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getAttachWidget_ self
-    fun getMonitor self = (GtkMenuClass.C.withPtr ---> FFI.Int32.C.fromVal) getMonitor_ self
-    fun getReserveToggleSize self = (GtkMenuClass.C.withPtr ---> FFI.Bool.C.fromVal) getReserveToggleSize_ self
-    fun getTearoffState self = (GtkMenuClass.C.withPtr ---> FFI.Bool.C.fromVal) getTearoffState_ self
-    fun getTitle self = (GtkMenuClass.C.withPtr ---> Utf8.C.fromPtr false) getTitle_ self
-    fun popdown self = (GtkMenuClass.C.withPtr ---> I) popdown_ self
+    fun detach self = (GtkMenuClass.FFI.withPtr ---> I) detach_ self
+    fun getAccelGroup self = (GtkMenuClass.FFI.withPtr ---> GtkAccelGroupClass.FFI.fromPtr false) getAccelGroup_ self
+    fun getAccelPath self = (GtkMenuClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAccelPath_ self
+    fun getActive self = (GtkMenuClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getActive_ self
+    fun getAttachWidget self = (GtkMenuClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getAttachWidget_ self
+    fun getMonitor self = (GtkMenuClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMonitor_ self
+    fun getReserveToggleSize self = (GtkMenuClass.FFI.withPtr ---> GBool.FFI.fromVal) getReserveToggleSize_ self
+    fun getTearoffState self = (GtkMenuClass.FFI.withPtr ---> GBool.FFI.fromVal) getTearoffState_ self
+    fun getTitle self = (GtkMenuClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTitle_ self
+    fun popdown self = (GtkMenuClass.FFI.withPtr ---> I) popdown_ self
     fun reorderChild self child position =
       (
-        GtkMenuClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+        GtkMenuClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         reorderChild_
@@ -150,15 +150,15 @@ structure GtkMenu :>
            & child
            & position
         )
-    fun reposition self = (GtkMenuClass.C.withPtr ---> I) reposition_ self
-    fun setAccelGroup self accelGroup = (GtkMenuClass.C.withPtr &&&> GtkAccelGroupClass.C.withOptPtr ---> I) setAccelGroup_ (self & accelGroup)
-    fun setAccelPath self accelPath = (GtkMenuClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setAccelPath_ (self & accelPath)
-    fun setActive self index = (GtkMenuClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> I) setActive_ (self & index)
-    fun setMonitor self monitorNum = (GtkMenuClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMonitor_ (self & monitorNum)
-    fun setReserveToggleSize self reserveToggleSize = (GtkMenuClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setReserveToggleSize_ (self & reserveToggleSize)
-    fun setScreen self screen = (GtkMenuClass.C.withPtr &&&> GdkScreenClass.C.withOptPtr ---> I) setScreen_ (self & screen)
-    fun setTearoffState self tornOff = (GtkMenuClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setTearoffState_ (self & tornOff)
-    fun setTitle self title = (GtkMenuClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTitle_ (self & title)
+    fun reposition self = (GtkMenuClass.FFI.withPtr ---> I) reposition_ self
+    fun setAccelGroup self accelGroup = (GtkMenuClass.FFI.withPtr &&&> GtkAccelGroupClass.FFI.withOptPtr ---> I) setAccelGroup_ (self & accelGroup)
+    fun setAccelPath self accelPath = (GtkMenuClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setAccelPath_ (self & accelPath)
+    fun setActive self index = (GtkMenuClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setActive_ (self & index)
+    fun setMonitor self monitorNum = (GtkMenuClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setMonitor_ (self & monitorNum)
+    fun setReserveToggleSize self reserveToggleSize = (GtkMenuClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setReserveToggleSize_ (self & reserveToggleSize)
+    fun setScreen self screen = (GtkMenuClass.FFI.withPtr &&&> GdkScreenClass.FFI.withOptPtr ---> I) setScreen_ (self & screen)
+    fun setTearoffState self tornOff = (GtkMenuClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setTearoffState_ (self & tornOff)
+    fun setTitle self title = (GtkMenuClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTitle_ (self & title)
     local
       open ClosureMarshal Signal
     in

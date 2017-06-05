@@ -1,14 +1,6 @@
-structure GtkTextWindowType :>
-  sig
-    include GTK_TEXT_WINDOW_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkTextWindowType :> GTK_TEXT_WINDOW_TYPE =
   struct
-    datatype t =
+    datatype enum =
       PRIVATE
     | WIDGET
     | TEXT
@@ -16,22 +8,21 @@ structure GtkTextWindowType :>
     | RIGHT
     | TOP
     | BOTTOM
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = PRIVATE
+        val toInt =
           fn
-            PRIVATE => f 0
-          | WIDGET => f 1
-          | TEXT => f 2
-          | LEFT => f 3
-          | RIGHT => f 4
-          | TOP => f 5
-          | BOTTOM => f 6
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            PRIVATE => 0
+          | WIDGET => 1
+          | TEXT => 2
+          | LEFT => 3
+          | RIGHT => 4
+          | TOP => 5
+          | BOTTOM => 6
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => PRIVATE
           | 1 => WIDGET
@@ -41,12 +32,8 @@ structure GtkTextWindowType :>
           | 5 => TOP
           | 6 => BOTTOM
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -57,10 +44,9 @@ structure GtkTextWindowType :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = PRIVATE
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

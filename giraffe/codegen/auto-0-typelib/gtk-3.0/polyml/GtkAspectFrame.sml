@@ -11,37 +11,37 @@ structure GtkAspectFrame :>
         call (load_sym libgtk "gtk_aspect_frame_new")
           (
             Utf8.PolyML.cInPtr
-             &&> FFI.Float.PolyML.cVal
-             &&> FFI.Float.PolyML.cVal
-             &&> FFI.Float.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
+             &&> GFloat.PolyML.cVal
+             &&> GFloat.PolyML.cVal
+             &&> GFloat.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> GtkWidgetClass.PolyML.cPtr
           )
       val set_ =
         call (load_sym libgtk "gtk_aspect_frame_set")
           (
             GtkAspectFrameClass.PolyML.cPtr
-             &&> FFI.Float.PolyML.cVal
-             &&> FFI.Float.PolyML.cVal
-             &&> FFI.Float.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
+             &&> GFloat.PolyML.cVal
+             &&> GFloat.PolyML.cVal
+             &&> GFloat.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GtkAspectFrameClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new label xalign yalign ratio obeyChild =
       (
-        Utf8.C.withPtr
-         &&&> FFI.Float.C.withVal
-         &&&> FFI.Float.C.withVal
-         &&&> FFI.Float.C.withVal
-         &&&> FFI.Bool.C.withVal
-         ---> GtkAspectFrameClass.C.fromPtr false
+        Utf8.FFI.withPtr
+         &&&> GFloat.FFI.withVal
+         &&&> GFloat.FFI.withVal
+         &&&> GFloat.FFI.withVal
+         &&&> GBool.FFI.withVal
+         ---> GtkAspectFrameClass.FFI.fromPtr false
       )
         new_
         (
@@ -53,11 +53,11 @@ structure GtkAspectFrame :>
         )
     fun set self xalign yalign ratio obeyChild =
       (
-        GtkAspectFrameClass.C.withPtr
-         &&&> FFI.Float.C.withVal
-         &&&> FFI.Float.C.withVal
-         &&&> FFI.Float.C.withVal
-         &&&> FFI.Bool.C.withVal
+        GtkAspectFrameClass.FFI.withPtr
+         &&&> GFloat.FFI.withVal
+         &&&> GFloat.FFI.withVal
+         &&&> GFloat.FFI.withVal
+         &&&> GBool.FFI.withVal
          ---> I
       )
         set_

@@ -17,14 +17,14 @@ structure GtkRadioButton :>
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFromWidget radioGroupMember = (GtkRadioButtonClass.C.withOptPtr ---> GtkRadioButtonClass.C.fromPtr false) newFromWidget_ radioGroupMember
-    fun newWithLabelFromWidget radioGroupMember label = (GtkRadioButtonClass.C.withOptPtr &&&> Utf8.C.withPtr ---> GtkRadioButtonClass.C.fromPtr false) newWithLabelFromWidget_ (radioGroupMember & label)
-    fun newWithMnemonicFromWidget radioGroupMember label = (GtkRadioButtonClass.C.withOptPtr &&&> Utf8.C.withPtr ---> GtkRadioButtonClass.C.fromPtr false) newWithMnemonicFromWidget_ (radioGroupMember & label)
-    fun joinGroup self groupSource = (GtkRadioButtonClass.C.withPtr &&&> GtkRadioButtonClass.C.withOptPtr ---> I) joinGroup_ (self & groupSource)
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun newFromWidget radioGroupMember = (GtkRadioButtonClass.FFI.withOptPtr ---> GtkRadioButtonClass.FFI.fromPtr false) newFromWidget_ radioGroupMember
+    fun newWithLabelFromWidget radioGroupMember label = (GtkRadioButtonClass.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> GtkRadioButtonClass.FFI.fromPtr false) newWithLabelFromWidget_ (radioGroupMember & label)
+    fun newWithMnemonicFromWidget radioGroupMember label = (GtkRadioButtonClass.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> GtkRadioButtonClass.FFI.fromPtr false) newWithMnemonicFromWidget_ (radioGroupMember & label)
+    fun joinGroup self groupSource = (GtkRadioButtonClass.FFI.withPtr &&&> GtkRadioButtonClass.FFI.withOptPtr ---> I) joinGroup_ (self & groupSource)
     local
       open ClosureMarshal Signal
     in

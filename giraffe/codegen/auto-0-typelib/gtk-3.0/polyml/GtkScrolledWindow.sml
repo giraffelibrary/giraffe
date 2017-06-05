@@ -18,8 +18,8 @@ structure GtkScrolledWindow :>
       val addWithViewport_ = call (load_sym libgtk "gtk_scrolled_window_add_with_viewport") (GtkScrolledWindowClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getHadjustment_ = call (load_sym libgtk "gtk_scrolled_window_get_hadjustment") (GtkScrolledWindowClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getHscrollbar_ = call (load_sym libgtk "gtk_scrolled_window_get_hscrollbar") (GtkScrolledWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getMinContentHeight_ = call (load_sym libgtk "gtk_scrolled_window_get_min_content_height") (GtkScrolledWindowClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
-      val getMinContentWidth_ = call (load_sym libgtk "gtk_scrolled_window_get_min_content_width") (GtkScrolledWindowClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getMinContentHeight_ = call (load_sym libgtk "gtk_scrolled_window_get_min_content_height") (GtkScrolledWindowClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getMinContentWidth_ = call (load_sym libgtk "gtk_scrolled_window_get_min_content_width") (GtkScrolledWindowClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getPlacement_ = call (load_sym libgtk "gtk_scrolled_window_get_placement") (GtkScrolledWindowClass.PolyML.cPtr --> GtkCornerType.PolyML.cVal)
       val getPolicy_ =
         call (load_sym libgtk "gtk_scrolled_window_get_policy")
@@ -33,8 +33,8 @@ structure GtkScrolledWindow :>
       val getVadjustment_ = call (load_sym libgtk "gtk_scrolled_window_get_vadjustment") (GtkScrolledWindowClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getVscrollbar_ = call (load_sym libgtk "gtk_scrolled_window_get_vscrollbar") (GtkScrolledWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val setHadjustment_ = call (load_sym libgtk "gtk_scrolled_window_set_hadjustment") (GtkScrolledWindowClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setMinContentHeight_ = call (load_sym libgtk "gtk_scrolled_window_set_min_content_height") (GtkScrolledWindowClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setMinContentWidth_ = call (load_sym libgtk "gtk_scrolled_window_set_min_content_width") (GtkScrolledWindowClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMinContentHeight_ = call (load_sym libgtk "gtk_scrolled_window_set_min_content_height") (GtkScrolledWindowClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMinContentWidth_ = call (load_sym libgtk "gtk_scrolled_window_set_min_content_width") (GtkScrolledWindowClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val setPlacement_ = call (load_sym libgtk "gtk_scrolled_window_set_placement") (GtkScrolledWindowClass.PolyML.cPtr &&> GtkCornerType.PolyML.cVal --> PolyMLFFI.cVoid)
       val setPolicy_ =
         call (load_sym libgtk "gtk_scrolled_window_set_policy")
@@ -58,27 +58,27 @@ structure GtkScrolledWindow :>
     type policy_type_t = GtkPolicyType.t
     type corner_type_t = GtkCornerType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new hadjustment vadjustment = (GtkAdjustmentClass.C.withOptPtr &&&> GtkAdjustmentClass.C.withOptPtr ---> GtkScrolledWindowClass.C.fromPtr false) new_ (hadjustment & vadjustment)
-    fun addWithViewport self child = (GtkScrolledWindowClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) addWithViewport_ (self & child)
-    fun getHadjustment self = (GtkScrolledWindowClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getHadjustment_ self
-    fun getHscrollbar self = (GtkScrolledWindowClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getHscrollbar_ self
-    fun getMinContentHeight self = (GtkScrolledWindowClass.C.withPtr ---> FFI.Int32.C.fromVal) getMinContentHeight_ self
-    fun getMinContentWidth self = (GtkScrolledWindowClass.C.withPtr ---> FFI.Int32.C.fromVal) getMinContentWidth_ self
-    fun getPlacement self = (GtkScrolledWindowClass.C.withPtr ---> GtkCornerType.C.fromVal) getPlacement_ self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new hadjustment vadjustment = (GtkAdjustmentClass.FFI.withOptPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> GtkScrolledWindowClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
+    fun addWithViewport self child = (GtkScrolledWindowClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) addWithViewport_ (self & child)
+    fun getHadjustment self = (GtkScrolledWindowClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
+    fun getHscrollbar self = (GtkScrolledWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getHscrollbar_ self
+    fun getMinContentHeight self = (GtkScrolledWindowClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMinContentHeight_ self
+    fun getMinContentWidth self = (GtkScrolledWindowClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMinContentWidth_ self
+    fun getPlacement self = (GtkScrolledWindowClass.FFI.withPtr ---> GtkCornerType.FFI.fromVal) getPlacement_ self
     fun getPolicy self =
       let
         val hscrollbarPolicy
          & vscrollbarPolicy
          & () =
           (
-            GtkScrolledWindowClass.C.withPtr
-             &&&> GtkPolicyType.C.withRefVal
-             &&&> GtkPolicyType.C.withRefVal
-             ---> GtkPolicyType.C.fromVal
-                   && GtkPolicyType.C.fromVal
+            GtkScrolledWindowClass.FFI.withPtr
+             &&&> GtkPolicyType.FFI.withRefVal
+             &&&> GtkPolicyType.FFI.withRefVal
+             ---> GtkPolicyType.FFI.fromVal
+                   && GtkPolicyType.FFI.fromVal
                    && I
           )
             getPolicy_
@@ -90,18 +90,18 @@ structure GtkScrolledWindow :>
       in
         (hscrollbarPolicy, vscrollbarPolicy)
       end
-    fun getShadowType self = (GtkScrolledWindowClass.C.withPtr ---> GtkShadowType.C.fromVal) getShadowType_ self
-    fun getVadjustment self = (GtkScrolledWindowClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getVadjustment_ self
-    fun getVscrollbar self = (GtkScrolledWindowClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getVscrollbar_ self
-    fun setHadjustment self hadjustment = (GtkScrolledWindowClass.C.withPtr &&&> GtkAdjustmentClass.C.withPtr ---> I) setHadjustment_ (self & hadjustment)
-    fun setMinContentHeight self height = (GtkScrolledWindowClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMinContentHeight_ (self & height)
-    fun setMinContentWidth self width = (GtkScrolledWindowClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setMinContentWidth_ (self & width)
-    fun setPlacement self windowPlacement = (GtkScrolledWindowClass.C.withPtr &&&> GtkCornerType.C.withVal ---> I) setPlacement_ (self & windowPlacement)
+    fun getShadowType self = (GtkScrolledWindowClass.FFI.withPtr ---> GtkShadowType.FFI.fromVal) getShadowType_ self
+    fun getVadjustment self = (GtkScrolledWindowClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
+    fun getVscrollbar self = (GtkScrolledWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getVscrollbar_ self
+    fun setHadjustment self hadjustment = (GtkScrolledWindowClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setHadjustment_ (self & hadjustment)
+    fun setMinContentHeight self height = (GtkScrolledWindowClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setMinContentHeight_ (self & height)
+    fun setMinContentWidth self width = (GtkScrolledWindowClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setMinContentWidth_ (self & width)
+    fun setPlacement self windowPlacement = (GtkScrolledWindowClass.FFI.withPtr &&&> GtkCornerType.FFI.withVal ---> I) setPlacement_ (self & windowPlacement)
     fun setPolicy self hscrollbarPolicy vscrollbarPolicy =
       (
-        GtkScrolledWindowClass.C.withPtr
-         &&&> GtkPolicyType.C.withVal
-         &&&> GtkPolicyType.C.withVal
+        GtkScrolledWindowClass.FFI.withPtr
+         &&&> GtkPolicyType.FFI.withVal
+         &&&> GtkPolicyType.FFI.withVal
          ---> I
       )
         setPolicy_
@@ -110,9 +110,9 @@ structure GtkScrolledWindow :>
            & hscrollbarPolicy
            & vscrollbarPolicy
         )
-    fun setShadowType self type' = (GtkScrolledWindowClass.C.withPtr &&&> GtkShadowType.C.withVal ---> I) setShadowType_ (self & type')
-    fun setVadjustment self vadjustment = (GtkScrolledWindowClass.C.withPtr &&&> GtkAdjustmentClass.C.withPtr ---> I) setVadjustment_ (self & vadjustment)
-    fun unsetPlacement self = (GtkScrolledWindowClass.C.withPtr ---> I) unsetPlacement_ self
+    fun setShadowType self type' = (GtkScrolledWindowClass.FFI.withPtr &&&> GtkShadowType.FFI.withVal ---> I) setShadowType_ (self & type')
+    fun setVadjustment self vadjustment = (GtkScrolledWindowClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setVadjustment_ (self & vadjustment)
+    fun unsetPlacement self = (GtkScrolledWindowClass.FFI.withPtr ---> I) unsetPlacement_ self
     local
       open ClosureMarshal Signal
     in

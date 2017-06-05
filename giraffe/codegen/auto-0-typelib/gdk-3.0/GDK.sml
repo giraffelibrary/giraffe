@@ -151,11 +151,11 @@ signature GDK =
         where type 'a class = 'a DisplayClass.class
         where type 'a device_class = 'a DeviceClass.class
         where type 'a app_launch_context_class = 'a AppLaunchContextClass.class
-        where type 'a window_class = 'a WindowClass.class
         where type 'a device_manager_class = 'a DeviceManagerClass.class
         where type 'a screen_class = 'a ScreenClass.class
         where type 'a event_union = 'a Event.union
         where type atom_t = AtomRecord.t
+        where type 'a window_class = 'a WindowClass.class
     structure DisplayManager :
       GDK_DISPLAY_MANAGER
         where type 'a class = 'a DisplayManagerClass.class
@@ -2575,6 +2575,8 @@ signature GDK =
     val getDisplayArgName : unit -> string
     val getProgramClass : unit -> string
     val getShowEvents : unit -> bool
+    val init : string list -> string list
+    val initCheck : string list -> bool * string list
     val keyvalConvertCase : LargeInt.int -> LargeInt.int * LargeInt.int
     val keyvalFromName : string -> LargeInt.int
     val keyvalIsLower : LargeInt.int -> bool
@@ -2593,6 +2595,7 @@ signature GDK =
        -> unit
     val pangoContextGet : unit -> base Pango.ContextClass.class
     val pangoContextGetForScreen : 'a ScreenClass.class -> base Pango.ContextClass.class
+    val parseArgs : string list -> string list
     val pixbufGetFromSurface :
       Cairo.SurfaceRecord.t
        -> LargeInt.int
@@ -2612,6 +2615,19 @@ signature GDK =
       'a WindowClass.class
        -> AtomRecord.t
        -> unit
+    val propertyGet :
+      'a WindowClass.class
+       -> AtomRecord.t
+       -> AtomRecord.t
+       -> LargeInt.int
+       -> LargeInt.int
+       -> LargeInt.int
+       -> (AtomRecord.t
+            * LargeInt.int
+            * Word8Vector.vector)
+            option
+    val queryDepths : unit -> LargeInt.int vector
+    val queryVisualTypes : unit -> VisualType.t vector
     val rectangleIntersect :
       Cairo.RectangleIntRecord.t
        -> Cairo.RectangleIntRecord.t
@@ -2688,6 +2704,12 @@ signature GDK =
        -> ModifierType.t
        -> EventType.t
        -> bool
+    val textPropertyToUtf8ListForDisplay :
+      'a DisplayClass.class
+       -> AtomRecord.t
+       -> LargeInt.int
+       -> Word8Vector.vector
+       -> LargeInt.int * string list
     val threadsEnter : unit -> unit
     val threadsInit : unit -> unit
     val threadsLeave : unit -> unit

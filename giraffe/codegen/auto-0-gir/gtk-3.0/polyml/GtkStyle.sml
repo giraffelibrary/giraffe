@@ -19,22 +19,22 @@ structure GtkStyle :>
              &&> CairoContextRecord.PolyML.cPtr
              &&> GdkWindowClass.PolyML.cPtr
              &&> GtkStateType.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val copy_ = call (load_sym libgtk "gtk_style_copy") (GtkStyleClass.PolyML.cPtr --> GtkStyleClass.PolyML.cPtr)
       val detach_ = call (load_sym libgtk "gtk_style_detach") (GtkStyleClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val hasContext_ = call (load_sym libgtk "gtk_style_has_context") (GtkStyleClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val hasContext_ = call (load_sym libgtk "gtk_style_has_context") (GtkStyleClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val lookupColor_ =
         call (load_sym libgtk "gtk_style_lookup_color")
           (
             GtkStyleClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GdkColorRecord.PolyML.cPtr
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val lookupIconSet_ = call (load_sym libgtk "gtk_style_lookup_icon_set") (GtkStyleClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkIconSetRecord.PolyML.cPtr)
       val renderIcon_ =
@@ -44,7 +44,7 @@ structure GtkStyle :>
              &&> GtkIconSourceRecord.PolyML.cPtr
              &&> GtkTextDirection.PolyML.cVal
              &&> GtkStateType.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
              --> GdkPixbufPixbufClass.PolyML.cPtr
@@ -66,17 +66,17 @@ structure GtkStyle :>
     type state_type_t = GtkStateType.t
     type 'a style_context_class = 'a GtkStyleContextClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun applyDefaultBackground self cr window stateType x y width height =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GdkWindowClass.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GdkWindowClass.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         applyDefaultBackground_
@@ -90,17 +90,17 @@ structure GtkStyle :>
            & width
            & height
         )
-    fun copy self = (GtkStyleClass.C.withPtr ---> GtkStyleClass.C.fromPtr true) copy_ self
-    fun detach self = (GtkStyleClass.C.withPtr ---> I) detach_ self
-    fun hasContext self = (GtkStyleClass.C.withPtr ---> FFI.Bool.C.fromVal) hasContext_ self
+    fun copy self = (GtkStyleClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr true) copy_ self
+    fun detach self = (GtkStyleClass.FFI.withPtr ---> I) detach_ self
+    fun hasContext self = (GtkStyleClass.FFI.withPtr ---> GBool.FFI.fromVal) hasContext_ self
     fun lookupColor self colorName =
       let
         val color & retVal =
           (
-            GtkStyleClass.C.withPtr
-             &&&> Utf8.C.withPtr
-             &&&> GdkColorRecord.C.withNewPtr
-             ---> GdkColorRecord.C.fromPtr true && FFI.Bool.C.fromVal
+            GtkStyleClass.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GdkColorRecord.FFI.withNewPtr
+             ---> GdkColorRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
             lookupColor_
             (
@@ -111,17 +111,17 @@ structure GtkStyle :>
       in
         if retVal then SOME color else NONE
       end
-    fun lookupIconSet self stockId = (GtkStyleClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkIconSetRecord.C.fromPtr false) lookupIconSet_ (self & stockId)
+    fun lookupIconSet self stockId = (GtkStyleClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkIconSetRecord.FFI.fromPtr false) lookupIconSet_ (self & stockId)
     fun renderIcon self source direction state size widget detail =
       (
-        GtkStyleClass.C.withPtr
-         &&&> GtkIconSourceRecord.C.withPtr
-         &&&> GtkTextDirection.C.withVal
-         &&&> GtkStateType.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         ---> GdkPixbufPixbufClass.C.fromPtr true
+        GtkStyleClass.FFI.withPtr
+         &&&> GtkIconSourceRecord.FFI.withPtr
+         &&&> GtkTextDirection.FFI.withVal
+         &&&> GtkStateType.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         ---> GdkPixbufPixbufClass.FFI.fromPtr true
       )
         renderIcon_
         (
@@ -135,9 +135,9 @@ structure GtkStyle :>
         )
     fun setBackground self window stateType =
       (
-        GtkStyleClass.C.withPtr
-         &&&> GdkWindowClass.C.withPtr
-         &&&> GtkStateType.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> GdkWindowClass.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
          ---> I
       )
         setBackground_

@@ -1,43 +1,30 @@
-structure GtkExpanderStyle :>
-  sig
-    include GTK_EXPANDER_STYLE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkExpanderStyle :> GTK_EXPANDER_STYLE =
   struct
-    datatype t =
+    datatype enum =
       COLLAPSED
     | SEMI_COLLAPSED
     | SEMI_EXPANDED
     | EXPANDED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = COLLAPSED
+        val toInt =
           fn
-            COLLAPSED => f 0
-          | SEMI_COLLAPSED => f 1
-          | SEMI_EXPANDED => f 2
-          | EXPANDED => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            COLLAPSED => 0
+          | SEMI_COLLAPSED => 1
+          | SEMI_EXPANDED => 2
+          | EXPANDED => 3
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => COLLAPSED
           | 1 => SEMI_COLLAPSED
           | 2 => SEMI_EXPANDED
           | 3 => EXPANDED
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -48,10 +35,9 @@ structure GtkExpanderStyle :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = COLLAPSED
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

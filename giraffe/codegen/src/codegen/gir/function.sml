@@ -20,11 +20,13 @@ val excludedFunctionSymbols = [
   "pango_glyph_item_letter_space",
   "pango_shape",
   "pango_read_line",
+  "pango_skip_space",
   "pango_scan_int",
   "pango_scan_string",
   "pango_scan_word",
   "pango_attribute_init",
   "pango_attribute_destroy",
+  "g_regex_escape_string",  (* GIR data broken: says param 0 is utf8 array *)
   "g_source_new",
   "g_source_set_callback_indirect",
   "g_source_add_poll",
@@ -157,6 +159,22 @@ fun checkAliasName name =
 
 (* Support for parameters and return values *)
 
+fun arrayTypeNotSupported ty =
+  concat [
+    "array type ",
+    case ty of
+      ArrayType.C          => "C"
+    | ArrayType.ARRAY      => "GArray"
+    | ArrayType.PTR_ARRAY  => "GPtrArray"
+    | ArrayType.BYTE_ARRAY => "GByteArray",
+    " not supported"
+  ]
+
+val noArrayTypeForArray = "** ARRAY with no array type not valid **"
+
+val noTypeParamForArray =
+  "** ARRAY without type parameter not valid **"
+
 val containerForUtf8 =
   "** ownership transfer CONTAINER for UTF8 not valid **"
 
@@ -178,6 +196,9 @@ val everythingForNonPtrStruct =
 val everythingForNonPtrUnion =
   "** ownership transfer EVERYTHING for non-pointer UNION INTERFACE parameter \
   \not valid **"
+
+val containerForIn =
+  "ownership transfer CONTAINER for IN parameter not supported"
 
 val everythingForIn =
   "ownership transfer EVERYTHING for IN parameter not supported"
@@ -367,6 +388,7 @@ local
 
   val boolTyRef = (0, toList1 ["bool"])
   val charTyRef = (0, toList1 ["char"])
+  val word8TyRef = (0, toList1 ["Word8", "word"])
   val largeIntTyRef = (0, toList1 ["LargeInt", "int"])
   val realTyRef = (0, toList1 ["real"])
 in
@@ -382,7 +404,7 @@ in
     | STLONG         => largeIntTyRef               (* GIR only *)
     | STULONG        => largeIntTyRef               (* GIR only *)
     | STINT8         => largeIntTyRef
-    | STUINT8        => largeIntTyRef
+    | STUINT8        => word8TyRef
     | STINT16        => largeIntTyRef
     | STUINT16       => largeIntTyRef
     | STINT32        => largeIntTyRef
@@ -401,26 +423,25 @@ end
 
 
 val utf8TyRef : int * lid = (0, toList1 ["string"])
+val stringTyRef : int * lid = (0, toList1 ["string"])
+val word8VectorTyRef : int * lid = (0, toList1 ["Word8Vector", vectorId])
 
 
-type scalarinfo =
+type scalar_info =
   {
-    name    : id,
     ty      : scalartype,
     optIRef : interfaceref option
   }
 
-type utf8info =
+type utf8_info =
   {
-    name    : id,
     isOpt   : bool,
     ownXfer : bool,
     optIRef : interfaceref option
   }
 
-type interfaceinfo =
+type interface_info =
   {
-    name       : id,
     rootIRef   : interfaceref,
     iRef       : interfaceref,
     infoType   : InfoType.t,
@@ -444,6 +465,292 @@ type interfaceinfo =
  * Therefore `isOpt` is not included as part of option type for `ptrOwnXfer`.
  *)
 
+datatype array_length =
+  ArrayLengthZeroTerminated
+| ArrayLengthFixed of int     (* the fixed length *)
+| ArrayLengthParam of string  (* the parameter name *)
+
+datatype info =
+  ISCALAR    of scalar_info
+| IUTF8      of utf8_info
+| IARRAY     of array_info
+| IINTERFACE of interface_info
+
+withtype array_info =
+  {
+    isOpt   : bool,
+    ownXfer : bool,
+    length  : array_length,
+    optIRef : interfaceref option,
+    elem    : info
+  }
+
+fun getBaseInfo info =
+  case info of
+    IARRAY {elem, ...} => getBaseInfo elem
+  | _                  => info
+
+fun addIRef (info, iRefs) =
+  case info of
+    ISCALAR scalarParInfo                  => (
+      case scalarParInfo of
+        {optIRef = SOME iRef, ...} =>
+          let
+            val {scope, ...} = iRef
+          in
+            case scope of
+              GLOBAL             => iRefs
+            | LOCALINTERFACESELF => iRefs
+            | _                  => insert (iRef, iRefs)
+          end
+      | _                          => iRefs
+    )
+  | IUTF8 utf8ParInfo                      => (
+      case utf8ParInfo of
+        {optIRef = SOME iRef, ...} =>
+          let
+            val {scope, ...} = iRef
+          in
+            case scope of
+              GLOBAL             => iRefs
+            | LOCALINTERFACESELF => iRefs
+            | _                  => insert (iRef, iRefs)
+          end
+      | _                          => iRefs
+    )
+  | IARRAY arrayParInfo                    => (
+      case arrayParInfo of
+        {optIRef = SOME iRef, ...} =>
+          let
+            val {scope, ...} = iRef
+          in
+            case scope of
+              GLOBAL             => iRefs
+            | LOCALINTERFACESELF => iRefs
+            | _                  => insert (iRef, iRefs)
+          end
+      | {elem, ...}                => addIRef (elem, iRefs)
+    )
+  | IINTERFACE {iRef as {scope, ...}, ...} => (
+      case scope of
+        GLOBAL             => iRefs
+      | LOCALINTERFACESELF => iRefs
+      | _                  => insert (iRef, iRefs)
+    )
+
+fun mkArrayLenExp length e =
+  case length of
+    ArrayLengthZeroTerminated => e
+  | ArrayLengthFixed n        => ExpApp (e, mkIntConstExp n)
+  | ArrayLengthParam lenName  =>
+      ExpApp (
+        e,
+        mkParenExp (
+          ExpApp (
+            mkLIdLNameExp [largeIntStrId, toIntId],
+            mkIdLNameExp lenName
+          )
+        )
+      )
+
+fun cArrayStrId length elem =
+  let
+    val suffixStrId = String.concat (
+      cStrId :: vectorStrId :: (
+        case length of
+          ArrayLengthZeroTerminated => []
+        | _                         => ["N"]
+      )
+    )
+
+    val elemStrId =
+      case elem of
+        ISCALAR {ty, optIRef, ...}                 => (
+          case optIRef of
+            NONE      => gStrId ^ scalarStrId ty
+          | SOME iRef => makeIRefInterfaceOtherStrId iRef
+        )
+      | IUTF8 {optIRef, isOpt, ...}                => (
+          if isOpt
+          then infoError "optional UTF8 as array element not supported"
+          else
+            case optIRef of
+              NONE      => utf8StrId
+            | SOME iRef => makeIRefInterfaceOtherStrId iRef
+        )
+      | IARRAY {optIRef, isOpt, length, elem, ...} => (
+          if isOpt
+          then infoError "optional ARRAY as array element not supported"
+          else
+            case optIRef of
+              NONE      => cArrayStrId length elem
+            | SOME iRef => makeIRefInterfaceOtherStrId iRef
+        )
+      | IINTERFACE {iRef, ...}                     =>
+          makeIRefInterfaceOtherStrId iRef
+
+    val elemArrayStrId = elemStrId ^ suffixStrId
+  in
+    elemArrayStrId
+  end
+
+(* `cArrayStrIdStructDeps length elem structDeps` returns
+ * `(elemArrayStrId, structDeps')` where
+ *
+ *   `elemArrayStrId`
+ *     is the name of the array type structure for an array whose element is
+ *     `elem` and has length convention `length`, as returned by
+ *     `cArrayStrId length elem`.
+ *
+ *   `structDeps'`
+ *     is an ordered dictionary of the structure dependencies, indexed by
+ *     name, that are required to create the structure `elemArrayStrId` (when
+ *     not part of the static library) and contains `structDeps`.
+ *
+ * Note that `structDeps` and `structDeps'` are in 'reverse' order, that is,
+ * `ListDict.toList` will return a list in reverse order.
+ *)
+
+val needsStructDeps =
+  fn
+    ISCALAR _                  => SOME false
+  | IUTF8 _                    => SOME true
+  | IARRAY _                   => SOME true
+  | IINTERFACE {infoType, ...} =>
+      case infoType of
+        InfoType.FLAGS _ => SOME false
+      | InfoType.ENUM _  => SOME false
+      | _                => SOME true
+
+
+fun cArrayStrIdStructDeps length elem structDeps =
+  let
+    val suffixStrId = String.concat (
+      cStrId :: vectorStrId :: (
+        case length of
+          ArrayLengthZeroTerminated => []
+        | _                         => [nStrId]
+      )
+    )
+
+    val (elemStrId, structDeps'1) =
+      case elem of
+        ISCALAR {ty, optIRef, ...}                 => (
+          case optIRef of
+            NONE      => gStrId ^ scalarStrId ty
+          | SOME iRef => makeIRefInterfaceOtherStrId iRef,
+          structDeps
+        )
+      | IUTF8 {optIRef, isOpt, ...}                => (
+          if isOpt
+          then infoError "optional UTF8 as array element not supported"
+          else
+            case optIRef of
+              NONE      => utf8StrId
+            | SOME iRef => makeIRefInterfaceOtherStrId iRef,
+          structDeps
+        )
+      | IARRAY {optIRef, isOpt, length, elem, ...} => (
+          if isOpt
+          then infoError "optional ARRAY as array element not supported"
+          else
+            case optIRef of
+              NONE      => cArrayStrIdStructDeps length elem structDeps
+            | SOME iRef => (makeIRefInterfaceOtherStrId iRef, structDeps)
+        )
+      | IINTERFACE {iRef, ...}                     =>
+          (makeIRefInterfaceOtherStrId iRef, structDeps)
+
+    val elemArrayStrId = elemStrId ^ suffixStrId
+
+    val structDeps'2 =
+      case needsStructDeps elem of
+        SOME isPtr =>
+          let
+            val funcId = suffixStrId
+            val funcTypeId =
+              let
+                val prefixId = if isPtr then cPointerStrId else cValueStrId
+              in
+                prefixId ^ suffixStrId ^ typeStrId
+              end
+            val elemArrayTypeStrId = elemArrayStrId ^ typeStrId
+
+            val arrayStruct = (
+              elemArrayStrId,
+              mkInstStruct (funcId, mkNameStruct [elemArrayTypeStrId])
+            )
+            val arrayTypeStruct = (
+              elemArrayTypeStrId,
+              StructInst (
+                funcTypeId,
+                if isPtr
+                then
+                  let
+                    val elemStruct =
+                      case elem of
+                        IUTF8 _  => mkNameStruct [elemStrId, cStrId, arrayTypeStrId]
+                      | IARRAY _ => mkNameStruct [elemStrId, cStrId, arrayTypeStrId]
+                      | _        => mkNameStruct [elemStrId, cStrId, pointerTypeStrId]
+
+                    val sequenceStruct =
+                      case getBaseInfo elem of
+                        IUTF8 _  => mkNameStruct ["ListSequence"]
+                      | _        => mkNameStruct ["VectorSequence"]
+
+                  in
+                    mkStrDecsFunArg [
+                      mkStructStrDec ("CElemType", elemStruct),
+                      mkStructStrDec ("Sequence", sequenceStruct)
+                    ]
+                  end
+                else
+                  let
+                    val elemStruct =
+                      case elem of
+                        ISCALAR {ty, ...} =>
+                          mkNameStruct [gStrId ^ scalarStrId ty ^ typeStrId]
+                      | _                 =>
+                          mkNameStruct [elemStrId, cStrId, valueTypeStrId]
+
+                    val elemSequenceStruct =
+                      case elem of
+                        ISCALAR {ty = STCHAR,  optIRef = NONE} =>
+                          mkInstStruct ("MonoVectorSequence", mkNameStruct ["CharVector"])
+                      | ISCALAR {ty = STUINT8, optIRef = NONE} =>
+                          mkInstStruct ("MonoVectorSequence", mkNameStruct ["Word8Vector"])
+                      | _                                      =>
+                          mkInstStruct ("CValueVectorSequence", elemStruct)
+                  in
+                    mkStrDecsFunArg [
+                      mkStructStrDec ("CElemType", elemStruct),
+                      mkStructStrDec ("ElemSequence", elemSequenceStruct)
+                    ]
+                  end
+              )
+            )
+          in
+            foldl (ListDict.insert Fn.id #2) structDeps'1 [arrayTypeStruct, arrayStruct]
+          end
+      | NONE       => structDeps'1
+  in
+    (elemArrayStrId, structDeps'2)
+  end
+
+fun boolToInt b = if b then 1 else 0
+
+fun getArrayOwnXferDepth ownXferDepth elem =
+  case elem of
+    ISCALAR _                    => ownXferDepth
+  | IUTF8 {ownXfer, ...}         => ownXferDepth + (boolToInt ownXfer)
+  | IARRAY {ownXfer, elem, ...}  =>
+      if ownXfer
+      then getArrayOwnXferDepth (ownXferDepth + 1) elem
+      else ownXferDepth
+  | IINTERFACE {ptrOwnXfer, ...} =>
+      case ptrOwnXfer of
+        SOME ownXfer => ownXferDepth + (boolToInt ownXfer)
+      | NONE         => ownXferDepth
 
 datatype dir =
   IN
@@ -452,16 +759,26 @@ datatype dir =
 
 datatype parinfo =
   PIVOID
-| PISCALAR    of dir * scalarinfo
-| PIUTF8      of dir * utf8info
-| PIINTERFACE of dir * interfaceinfo
+| PISOME of
+    {
+      name  : id,
+      dir   : dir,
+      array : {name : id, info : array_info} option,
+      info  : info
+    }
+
+(* In the value `PISOME {name = lenName, array, ...}`, `array` has the value
+ *   - `SOME {name, info}` if the parameter `lenName` is the length of either
+ *       - the array parameter called `name`, if `name <> ""`, or
+ *       - the array return value,            if `name = ""`
+ *      with array_info `info`;
+ *   - `NONE` otherwise.
+ *)
 
 
 datatype retinfo =
   RIVOID
-| RISCALAR    of scalarinfo
-| RIUTF8      of utf8info
-| RIINTERFACE of interfaceinfo
+| RISOME of {info : info}
 
 
 (* 
@@ -471,18 +788,43 @@ datatype retinfo =
  * rather than using the c:type attribute, which is not present for signals.
  *)
 
-fun getParInfo usePtrDefault repo functionNamespace optContainerName argInfo =
+exception Void
+
+fun getParInfo
+  usePtrDefault
+  repo
+  functionNamespace
+  optContainerName
+  callableInfo
+  argInfo =
   let
+    val typeInfo = ArgInfo.getType argInfo
+    val () =
+      case TypeInfo.getTag typeInfo of
+        TypeTag.VOID =>
+          if
+            if usePtrDefault
+            then
+              true
+            else
+              TypeInfo.isPointer typeInfo NONE false
+                handle
+                  Fail msg => infoError msg
+          then infoError ptrForVoid
+          else raise Void
+      | _            => ()
+
     val direction = ArgInfo.getDirection argInfo
     val mayBeNull = ArgInfo.mayBeNull argInfo
 
     val ownershipTransfer = ArgInfo.getOwnershipTransfer argInfo
     val isCallerAllocates = ArgInfo.isCallerAllocates argInfo
 
-    val typeInfo = ArgInfo.getType argInfo
-
     val argName = getName argInfo
     val argId = mkId (toLCC argName)
+
+    fun getNthArgName n = getName (CallableInfo.getArg callableInfo n)
+    fun getNthArgId n = mkId (toLCC (getNthArgName n))
 
     val dir =
       case direction of
@@ -491,15 +833,13 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName argInfo =
       | Direction.INOUT => INOUT
     val isRef = case dir of IN => false | _ => true
 
-    val isOpt = mayBeNull
-
     local
       open Transfer
     in
-      fun ptrOwnXferObjectInterface isPtr nonPtrForX =
+      fun ptrOwnXferObjectInterface isPtr ownXfer nonPtrForX =
         if isPtr
         then
-          case (dir, ownershipTransfer) of
+          case (dir, ownXfer) of
             (_,     NOTHING)    => SOME false
           | (OUT _, EVERYTHING) => SOME true
           | (IN,    EVERYTHING) => infoError everythingForIn
@@ -510,8 +850,8 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName argInfo =
       val objectMsg = nonPtrForObject
       val interfaceMsg = nonPtrForInterface
 
-      fun ptrOwnXferStructUnion isPtr (nonPtrForInX, everythingForNonPtrX) =
-        case (dir, isPtr, ownershipTransfer) of
+      fun ptrOwnXferStructUnion isPtr ownXfer (nonPtrForInX, everythingForNonPtrX) =
+        case (dir, isPtr, ownXfer) of
           (IN,    false, NOTHING)    => infoError nonPtrForInX
         | (_,     false, NOTHING)    => NONE
         | (_,     true,  NOTHING)    => SOME false
@@ -534,23 +874,11 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName argInfo =
     fun notExpected s = infoError ("parameter type " ^ s ^ " not expected")
     fun notSupported s = infoError ("parameter type " ^ s ^ " not supported")
 
-    fun resolveType optIRef cxtPtrDepth typeInfo =
+    fun resolveType optIRef cxtPtrDepth (isOpt, ownXfer) typeInfo =
       let
         open TypeTag
 
-        fun checkVoid () =
-          if
-            if usePtrDefault
-            then
-              true
-            else
-              TypeInfo.isPointer typeInfo cxtPtrDepth isRef
-                handle
-                  Fail msg => infoError msg
-          then infoError ptrForVoid
-          else ()
-
-        fun toScalarInfo ty =
+        fun toScalarParInfo ty =
           if
             if usePtrDefault
             then
@@ -562,8 +890,7 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName argInfo =
           then
             infoError (ptrForScalar scalarToString ty)
           else
-            {
-              name    = argId,
+            ISCALAR {
               ty      = ty,
               optIRef = optIRef
             }
@@ -571,70 +898,125 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName argInfo =
         case TypeInfo.getTag typeInfo of
           ERROR        => notExpected "ERROR"
         | GTYPE        => notSupported "GTYPE"
-        | ARRAY        => notSupported "ARRAY"
+        | ARRAY        =>
+            let
+              open Transfer
+
+              val () =
+                if dir = IN
+                then
+                  case ownXfer of
+                    NOTHING    => ()
+                  | CONTAINER  => infoError containerForIn
+                  | EVERYTHING => infoError everythingForIn
+                else ()
+
+              val ownXfer' =
+                case ownXfer of
+                  CONTAINER => NOTHING
+                | _         => ownXfer
+
+              val () =
+                case TypeInfo.getArrayType typeInfo of
+                  SOME ArrayType.C  => ()
+                | SOME ty           => infoError (arrayTypeNotSupported ty)
+                | NONE              => infoError noArrayTypeForArray
+
+              val length =
+                case TypeInfo.getArrayFixedSize typeInfo of
+                  ~1 => (
+                    case TypeInfo.getArrayLength typeInfo of
+                      ~1 => (
+                        if TypeInfo.isZeroTerminated typeInfo
+                        then ArrayLengthZeroTerminated
+                        else infoError "cannot determine array length"
+                      )
+                    | n  => ArrayLengthParam (getNthArgId n)
+                  )
+                | n  => ArrayLengthFixed n
+
+              val elemTypeInfo =
+                case TypeInfo.getParamType typeInfo 0 of
+                  SOME typeInfo => typeInfo
+                | NONE          => infoError noTypeParamForArray
+
+              val arrayInfo = {
+                isOpt   = isOpt,
+                ownXfer = ownXfer <> NOTHING,
+                length  = length,
+                optIRef = optIRef,
+                elem    = resolveType NONE NONE (false, ownXfer') elemTypeInfo
+              }
+            in
+              IARRAY arrayInfo
+            end
         | GLIST        => notSupported "GLIST"
         | GSLIST       => notSupported "GSLIST"
         | GHASH        => notSupported "GHASH"
-        | VOID         => (checkVoid (); PIVOID)
-        | BOOLEAN      => PISCALAR (dir, toScalarInfo STBOOLEAN)
-        | CHAR         => PISCALAR (dir, toScalarInfo STCHAR)    (* GIR only *)
-        | UCHAR        => PISCALAR (dir, toScalarInfo STUCHAR)   (* GIR only *)
-        | INT          => PISCALAR (dir, toScalarInfo STINT)     (* GIR only *)
-        | UINT         => PISCALAR (dir, toScalarInfo STUINT)    (* GIR only *)
-        | SHORT        => PISCALAR (dir, toScalarInfo STSHORT)   (* GIR only *)
-        | USHORT       => PISCALAR (dir, toScalarInfo STUSHORT)  (* GIR only *)
-        | LONG         => PISCALAR (dir, toScalarInfo STLONG)    (* GIR only *)
-        | ULONG        => PISCALAR (dir, toScalarInfo STULONG)   (* GIR only *)
-        | INT8         => PISCALAR (dir, toScalarInfo STINT8)
-        | UINT8        => PISCALAR (dir, toScalarInfo STUINT8)
-        | INT16        => PISCALAR (dir, toScalarInfo STINT16)
-        | UINT16       => PISCALAR (dir, toScalarInfo STUINT16)
-        | INT32        => PISCALAR (dir, toScalarInfo STINT32)
-        | UINT32       => PISCALAR (dir, toScalarInfo STUINT32)
-        | INT64        => PISCALAR (dir, toScalarInfo STINT64)
-        | UINT64       => PISCALAR (dir, toScalarInfo STUINT64)
-        | FLOAT        => PISCALAR (dir, toScalarInfo STFLOAT)
-        | DOUBLE       => PISCALAR (dir, toScalarInfo STDOUBLE)
-        | SIZE         => PISCALAR (dir, toScalarInfo STSIZE)    (* GIR only *)
-        | SSIZE        => PISCALAR (dir, toScalarInfo STSSIZE)   (* GIR only *)
-        | OFFSET       => notSupported "OFFSET"                  (* GIR only *)
-        | INTPTR       => notSupported "INTPTR"                  (* GIR only *)
-        | UINTPTR      => notSupported "UINTPTR"                 (* GIR only *)
+        | VOID         => notExpected "VOID"
+        | BOOLEAN      => toScalarParInfo STBOOLEAN
+        | CHAR         => toScalarParInfo STCHAR    (* GIR only *)
+        | UCHAR        => toScalarParInfo STUCHAR   (* GIR only *)
+        | INT          => toScalarParInfo STINT     (* GIR only *)
+        | UINT         => toScalarParInfo STUINT    (* GIR only *)
+        | SHORT        => toScalarParInfo STSHORT   (* GIR only *)
+        | USHORT       => toScalarParInfo STUSHORT  (* GIR only *)
+        | LONG         => toScalarParInfo STLONG    (* GIR only *)
+        | ULONG        => toScalarParInfo STULONG   (* GIR only *)
+        | INT8         => toScalarParInfo STINT8
+        | UINT8        => toScalarParInfo STUINT8
+        | INT16        => toScalarParInfo STINT16
+        | UINT16       => toScalarParInfo STUINT16
+        | INT32        => toScalarParInfo STINT32
+        | UINT32       => toScalarParInfo STUINT32
+        | INT64        => toScalarParInfo STINT64
+        | UINT64       => toScalarParInfo STUINT64
+        | FLOAT        => toScalarParInfo STFLOAT
+        | DOUBLE       => toScalarParInfo STDOUBLE
+        | SIZE         => toScalarParInfo STSIZE    (* GIR only *)
+        | SSIZE        => toScalarParInfo STSSIZE   (* GIR only *)
+        | OFFSET       => notSupported "OFFSET"     (* GIR only *)
+        | INTPTR       => notSupported "INTPTR"     (* GIR only *)
+        | UINTPTR      => notSupported "UINTPTR"    (* GIR only *)
         | FILENAME     =>
             let
               open Transfer
 
               val utf8Info = {
-                name    = argId,
                 isOpt   = isOpt,
                 ownXfer =
-                  case ownershipTransfer of
+                  case ownXfer of
                     NOTHING    => false
-                  | EVERYTHING => true
+                  | EVERYTHING =>
+                      if dir = IN
+                      then infoError everythingForIn
+                      else true
                   | CONTAINER  => infoError containerForFilename,
                 optIRef = optIRef
               }
             in
-              PIUTF8 (dir, utf8Info)
+              IUTF8 utf8Info
             end
         | UTF8         =>
             let
               open Transfer
 
               val utf8Info = {
-                name    = argId,
                 isOpt   = isOpt,
                 ownXfer =
-                  case ownershipTransfer of
+                  case ownXfer of
                     NOTHING    => false
-                  | EVERYTHING => true
+                  | EVERYTHING =>
+                      if dir = IN
+                      then infoError everythingForIn
+                      else true
                   | CONTAINER  => infoError containerForUtf8,
                 optIRef = optIRef
               }
             in
-              PIUTF8 (dir, utf8Info)
+              IUTF8 utf8Info
             end
-        | UNICHAR      => PISCALAR (dir, toScalarInfo STUNICHAR)
+        | UNICHAR      => toScalarParInfo STUNICHAR
         | INTERFACE    =>
             let
               val interfaceInfo = getInterface typeInfo
@@ -676,6 +1058,7 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName argInfo =
                   resolveType
                     (SOME iRef)
                     (TypeInfo.addPtrDepth typeInfo cxtPtrDepth)
+                    (isOpt, ownXfer)
                     (AliasInfo.getType aliasInfo)
               | _ =>
                   let
@@ -700,25 +1083,24 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName argInfo =
                         OBJECT objectInfo
                                     =>
                           (
-                            ptrOwnXferObjectInterface isPtr objectMsg,
+                            ptrOwnXferObjectInterface isPtr ownXfer objectMsg,
                             getRootObjectIRef repo functionNamespace
                               optContainerName
                               (objectInfo, iRef)
                           )
                       | INTERFACE _ =>
                           (
-                            ptrOwnXferObjectInterface isPtr interfaceMsg,
+                            ptrOwnXferObjectInterface isPtr ownXfer interfaceMsg,
                             makeInterfaceRootIRef functionNamespace
                               optContainerName
                           )
-                      | STRUCT _    => (ptrOwnXferStructUnion isPtr structMsg, iRef)
-                      | UNION _     => (ptrOwnXferStructUnion isPtr unionMsg, iRef)
+                      | STRUCT _    => (ptrOwnXferStructUnion isPtr ownXfer structMsg, iRef)
+                      | UNION _     => (ptrOwnXferStructUnion isPtr ownXfer unionMsg, iRef)
                       | FLAGS _     => (ptrOwnXferFlagsEnum isPtr flagsMsg, iRef)
                       | ENUM _      => (ptrOwnXferFlagsEnum isPtr enumMsg, iRef)
                       | _           => infoError (unsupportedInterface infoType)
 
                     val interfaceInfo = {
-                      name       = argId,
                       rootIRef   = rootIRef,
                       iRef       = iRef,
                       infoType   = infoType,
@@ -726,36 +1108,102 @@ fun getParInfo usePtrDefault repo functionNamespace optContainerName argInfo =
                       ptrOwnXfer = ptrOwnXfer
                     }
                   in
-                    PIINTERFACE (dir, interfaceInfo)
+                    IINTERFACE interfaceInfo
                   end
             end
       end
   in
-    resolveType NONE NONE typeInfo
+    PISOME {
+      name  = argId,
+      dir   = dir,
+      array = NONE,  (* updated by `updateParInfos` *)
+      info  = resolveType NONE NONE (mayBeNull, ownershipTransfer) typeInfo
+    }
+  end
+    handle Void => PIVOID
+
+
+fun updateParInfos retInfo parInfos =
+  let
+    fun addLenArray name (info, lenArrayInfos) =
+      case info of
+        IARRAY (
+          arrayInfo as {
+            length = ArrayLengthParam lenName,
+            ...
+          }
+        ) => (lenName, {name = name, info = arrayInfo}) :: lenArrayInfos
+      | _ => lenArrayInfos
+
+    fun addParLenArray (parInfo, lenArrayInfos) =
+      case parInfo of
+        PIVOID                   => lenArrayInfos
+      | PISOME {name, info, ...} => addLenArray name (info, lenArrayInfos)
+
+    val initlenArrayInfos =
+      case retInfo of
+        RIVOID        => []
+      | RISOME {info} => addLenArray "" (info, [])
+
+    val lenArrayInfos = foldl addParLenArray initlenArrayInfos parInfos
+
+    fun getArrayInfo lenName =
+      case List.find (fn (x, _) => x = lenName) lenArrayInfos of
+        SOME (_, y) => SOME y
+      | NONE        => NONE
+
+    fun update parInfo =
+      case parInfo of
+        PIVOID                        => PIVOID
+      | PISOME {name, dir, info, ...} =>
+          PISOME {
+            name  = name,
+            dir   = dir,
+            array = getArrayInfo name,
+            info  = info
+          }
+  in
+    List.map update parInfos
   end
 
 
-fun getRetInfo usePtrDefault repo functionNamespace optContainerName callableInfo =
+fun getRetInfo
+  usePtrDefault
+  repo
+  functionNamespace
+  optContainerName
+  callableInfo =
   let
+    val typeInfo = CallableInfo.getReturnType callableInfo
+    val () =
+      case TypeInfo.getTag typeInfo of
+        TypeTag.VOID =>
+          if
+            (* Don't need a c:type attribute to determine pointer depth for
+             * VOID tag, so no need to use default when `usePtrDefault`. *)
+            TypeInfo.isPointer typeInfo NONE false
+              handle
+                Fail msg => infoError msg
+          then infoError ptrForVoid
+          else raise Void
+      | _            => ()
+
     val mayReturnNull = CallableInfo.mayReturnNull callableInfo
 
     val ownershipTransfer = CallableInfo.getCallerOwns callableInfo
 
-    val typeInfo = CallableInfo.getReturnType callableInfo
-
-    val argId = ""
+    fun getNthArgName n = getName (CallableInfo.getArg callableInfo n)
+    fun getNthArgId n = mkId (toLCC (getNthArgName n))
 
     val isRef = false
-
-    val isOpt = mayReturnNull
 
     local
       open Transfer
     in
-      fun ptrOwnXferObjectInterface isPtr nonPtrForX =
+      fun ptrOwnXferObjectInterface isPtr ownXfer nonPtrForX =
         if isPtr
         then
-          case ownershipTransfer of
+          case ownXfer of
             NOTHING    => SOME false
           | EVERYTHING => SOME true
           | CONTAINER  => infoError containerForInterface
@@ -764,8 +1212,8 @@ fun getRetInfo usePtrDefault repo functionNamespace optContainerName callableInf
       val objectMsg = nonPtrForObject
       val interfaceMsg = nonPtrForInterface
 
-      fun ptrOwnXferStructUnion isPtr nonPtrForRetX =
-        case (isPtr, ownershipTransfer) of
+      fun ptrOwnXferStructUnion isPtr ownXfer nonPtrForRetX =
+        case (isPtr, ownXfer) of
           (false, _)          => infoError nonPtrForRetX
         | (_,     NOTHING)    => SOME false
         | (_,     EVERYTHING) => SOME true
@@ -784,21 +1232,11 @@ fun getRetInfo usePtrDefault repo functionNamespace optContainerName callableInf
     fun notExpected s = infoError ("return type " ^ s ^ " not expected")
     fun notSupported s = infoError ("return type " ^ s ^ " not supported")
 
-    fun resolveType optIRef cxtPtrDepth typeInfo =
+    fun resolveType optIRef cxtPtrDepth (isOpt, ownXfer) typeInfo =
       let
         open TypeTag
 
-        fun checkVoid () =
-          if
-            (* Don't need a c:type attribute to determine pointer depth for
-             * VOID tag, so no need to use default when `usePtrDefault`. *)
-            TypeInfo.isPointer typeInfo cxtPtrDepth isRef
-              handle
-                Fail msg => infoError msg
-          then infoError ptrForVoid
-          else ()
-
-        fun toScalarInfo ty =
+        fun toScalarRetInfo ty =
           if
             if usePtrDefault
             then
@@ -810,8 +1248,7 @@ fun getRetInfo usePtrDefault repo functionNamespace optContainerName callableInf
           then
             infoError (ptrForScalar scalarToString ty)
           else
-            {
-              name    = argId,
+            ISCALAR {
               ty      = ty,
               optIRef = optIRef
             }
@@ -819,70 +1256,110 @@ fun getRetInfo usePtrDefault repo functionNamespace optContainerName callableInf
         case TypeInfo.getTag typeInfo of
           ERROR        => notExpected "ERROR"
         | GTYPE        => notSupported "GTYPE"
-        | ARRAY        => notSupported "ARRAY"
+        | ARRAY        =>
+            let
+              open Transfer
+
+              val ownXfer' =
+                case ownXfer of
+                  CONTAINER => NOTHING
+                | _         => ownXfer
+
+              val () =
+                case TypeInfo.getArrayType typeInfo of
+                  SOME ArrayType.C  => ()
+                | SOME ty           => infoError (arrayTypeNotSupported ty)
+                | NONE              => infoError noArrayTypeForArray
+
+              val length =
+                case TypeInfo.getArrayFixedSize typeInfo of
+                  ~1 => (
+                    case TypeInfo.getArrayLength typeInfo of
+                      ~1 => (
+                        if TypeInfo.isZeroTerminated typeInfo
+                        then ArrayLengthZeroTerminated
+                        else infoError "cannot determine array length"
+                      )
+                    | n  => ArrayLengthParam (getNthArgId n)
+                  )
+                | n  => ArrayLengthFixed n
+
+              val elemTypeInfo =
+                case TypeInfo.getParamType typeInfo 0 of
+                  SOME typeInfo => typeInfo
+                | NONE          => infoError noTypeParamForArray
+
+              val arrayInfo = {
+                isOpt   = isOpt,
+                ownXfer = ownXfer <> NOTHING,
+                length  = length,
+                optIRef = optIRef,
+                elem    = resolveType NONE NONE (false, ownXfer') elemTypeInfo
+              }
+            in
+              IARRAY arrayInfo
+            end
         | GLIST        => notSupported "GLIST"
         | GSLIST       => notSupported "GSLIST"
         | GHASH        => notSupported "GHASH"
-        | VOID         => (checkVoid (); RIVOID)
-        | BOOLEAN      => RISCALAR (toScalarInfo STBOOLEAN)
-        | CHAR         => RISCALAR (toScalarInfo STCHAR)    (* GIR only *)
-        | UCHAR        => RISCALAR (toScalarInfo STUCHAR)   (* GIR only *)
-        | INT          => RISCALAR (toScalarInfo STINT)     (* GIR only *)
-        | UINT         => RISCALAR (toScalarInfo STUINT)    (* GIR only *)
-        | SHORT        => RISCALAR (toScalarInfo STSHORT)   (* GIR only *)
-        | USHORT       => RISCALAR (toScalarInfo STUSHORT)  (* GIR only *)
-        | LONG         => RISCALAR (toScalarInfo STLONG)    (* GIR only *)
-        | ULONG        => RISCALAR (toScalarInfo STULONG)   (* GIR only *)
-        | INT8         => RISCALAR (toScalarInfo STINT8)
-        | UINT8        => RISCALAR (toScalarInfo STUINT8)
-        | INT16        => RISCALAR (toScalarInfo STINT16)
-        | UINT16       => RISCALAR (toScalarInfo STUINT16)
-        | INT32        => RISCALAR (toScalarInfo STINT32)
-        | UINT32       => RISCALAR (toScalarInfo STUINT32)
-        | INT64        => RISCALAR (toScalarInfo STINT64)
-        | UINT64       => RISCALAR (toScalarInfo STUINT64)
-        | FLOAT        => RISCALAR (toScalarInfo STFLOAT)
-        | DOUBLE       => RISCALAR (toScalarInfo STDOUBLE)
-        | SIZE         => RISCALAR (toScalarInfo STSIZE)    (* GIR only *)
-        | SSIZE        => RISCALAR (toScalarInfo STSSIZE)   (* GIR only *)
-        | OFFSET       => notSupported "OFFSET"             (* GIR only *)
-        | INTPTR       => notSupported "INTPTR"             (* GIR only *)
-        | UINTPTR      => notSupported "UINTPTR"            (* GIR only *)
+        | VOID         => notExpected "VOID"
+        | BOOLEAN      => toScalarRetInfo STBOOLEAN
+        | CHAR         => toScalarRetInfo STCHAR    (* GIR only *)
+        | UCHAR        => toScalarRetInfo STUCHAR   (* GIR only *)
+        | INT          => toScalarRetInfo STINT     (* GIR only *)
+        | UINT         => toScalarRetInfo STUINT    (* GIR only *)
+        | SHORT        => toScalarRetInfo STSHORT   (* GIR only *)
+        | USHORT       => toScalarRetInfo STUSHORT  (* GIR only *)
+        | LONG         => toScalarRetInfo STLONG    (* GIR only *)
+        | ULONG        => toScalarRetInfo STULONG   (* GIR only *)
+        | INT8         => toScalarRetInfo STINT8
+        | UINT8        => toScalarRetInfo STUINT8
+        | INT16        => toScalarRetInfo STINT16
+        | UINT16       => toScalarRetInfo STUINT16
+        | INT32        => toScalarRetInfo STINT32
+        | UINT32       => toScalarRetInfo STUINT32
+        | INT64        => toScalarRetInfo STINT64
+        | UINT64       => toScalarRetInfo STUINT64
+        | FLOAT        => toScalarRetInfo STFLOAT
+        | DOUBLE       => toScalarRetInfo STDOUBLE
+        | SIZE         => toScalarRetInfo STSIZE    (* GIR only *)
+        | SSIZE        => toScalarRetInfo STSSIZE   (* GIR only *)
+        | OFFSET       => notSupported "OFFSET"     (* GIR only *)
+        | INTPTR       => notSupported "INTPTR"     (* GIR only *)
+        | UINTPTR      => notSupported "UINTPTR"    (* GIR only *)
         | FILENAME     =>
             let
               open Transfer
 
               val utf8Info = {
-                name    = argId,
                 isOpt   = isOpt,
                 ownXfer =
-                  case ownershipTransfer of
+                  case ownXfer of
                     NOTHING    => false
                   | EVERYTHING => true
                   | CONTAINER  => infoError containerForFilename,
                 optIRef = optIRef
               }
             in
-              RIUTF8 utf8Info
+              IUTF8 utf8Info
             end
         | UTF8         =>
             let
               open Transfer
 
               val utf8Info = {
-                name    = argId,
                 isOpt   = isOpt,
                 ownXfer =
-                  case ownershipTransfer of
+                  case ownXfer of
                     NOTHING    => false
                   | EVERYTHING => true
                   | CONTAINER  => infoError containerForUtf8,
                 optIRef = optIRef
               }
             in
-              RIUTF8 utf8Info
+              IUTF8 utf8Info
             end
-        | UNICHAR      => RISCALAR (toScalarInfo STUNICHAR)
+        | UNICHAR      => toScalarRetInfo STUNICHAR
         | INTERFACE    =>
             let
               val interfaceInfo = getInterface typeInfo
@@ -924,6 +1401,7 @@ fun getRetInfo usePtrDefault repo functionNamespace optContainerName callableInf
                   resolveType
                     (SOME iRef)
                     (TypeInfo.addPtrDepth typeInfo cxtPtrDepth)
+                    (isOpt, ownXfer)
                     (AliasInfo.getType aliasInfo)
               | _ =>
                   let
@@ -948,25 +1426,24 @@ fun getRetInfo usePtrDefault repo functionNamespace optContainerName callableInf
                         OBJECT objectInfo
                                     =>
                           (
-                            ptrOwnXferObjectInterface isPtr objectMsg,
+                            ptrOwnXferObjectInterface isPtr ownXfer objectMsg,
                             getRootObjectIRef repo functionNamespace
                               optContainerName
                               (objectInfo, iRef)
                           )
                       | INTERFACE _ =>
                           (
-                            ptrOwnXferObjectInterface isPtr interfaceMsg,
+                            ptrOwnXferObjectInterface isPtr ownXfer interfaceMsg,
                             makeInterfaceRootIRef functionNamespace
                               optContainerName
                           )
-                      | STRUCT _    => (ptrOwnXferStructUnion isPtr structMsg, iRef)
-                      | UNION _     => (ptrOwnXferStructUnion isPtr unionMsg, iRef)
+                      | STRUCT _    => (ptrOwnXferStructUnion isPtr ownXfer structMsg, iRef)
+                      | UNION _     => (ptrOwnXferStructUnion isPtr ownXfer unionMsg, iRef)
                       | FLAGS _     => (ptrOwnXferFlagsEnum isPtr flagsMsg, iRef)
                       | ENUM _      => (ptrOwnXferFlagsEnum isPtr enumMsg, iRef)
                       | _           => infoError (unsupportedInterface infoType)
 
                     val interfaceInfo = {
-                      name       = argId,
                       rootIRef   = rootIRef,
                       iRef       = iRef,
                       infoType   = infoType,
@@ -974,13 +1451,16 @@ fun getRetInfo usePtrDefault repo functionNamespace optContainerName callableInf
                       ptrOwnXfer = ptrOwnXfer
                     }
                   in
-                    RIINTERFACE interfaceInfo
+                    IINTERFACE interfaceInfo
                   end
             end
       end
   in
-    resolveType NONE NONE typeInfo
+    RISOME {
+      info = resolveType NONE NONE (mayReturnNull, ownershipTransfer) typeInfo
+    }
   end
+    handle Void => RIVOID
 
 
 (* Specification *)
@@ -991,37 +1471,37 @@ fun addSpecParInfo
   let
     fun mkOpt isOpt ty = if isOpt then optionTy ty else ty
 
-    fun addInTy isOpt tyRef =
+    fun addInTy isElem tyMap tyRef =
       let
-        val (ty, tyVarIdx') = makeInRefTy (tyRef, tyVarIdx)
+        val (ty, tyVarIdx') = makeInRefTy isElem (tyRef, tyVarIdx)
       in
-        ((mkOpt isOpt ty :: inTys, outTys), tyVarIdx')
+        ((tyMap ty :: inTys, outTys), tyVarIdx')
       end
 
-    fun addInOutTy isOpt tyRef =
+    fun addInOutTy isElem tyMap tyRef =
       let
-        val (ty, tyVarIdx') = makeInRefTy (tyRef, tyVarIdx)
+        val (ty, tyVarIdx') = makeInRefTy isElem (tyRef, tyVarIdx)
         val isRetCondInit = false
-        val optTy = mkOpt isOpt ty
+        val ty' = tyMap ty
       in
-        ((optTy :: inTys, (optTy, isRetCondInit) :: outTys), tyVarIdx')
+        ((ty' :: inTys, (ty', isRetCondInit) :: outTys), tyVarIdx')
       end
 
-    fun addOutTy isOpt tyRef =
+    fun addOutTy isElem tyMap tyRef =
       let
-        val (ty, tyVarIdx') = makeOutRefTy (tyRef, tyVarIdx)
+        val (ty, tyVarIdx') = makeOutRefTy isElem (tyRef, tyVarIdx)
         val isRetCondInit = true
       in
-        ((inTys, (mkOpt isOpt ty, isRetCondInit) :: outTys), tyVarIdx')
+        ((inTys, (tyMap ty, isRetCondInit) :: outTys), tyVarIdx')
       end
 
-    fun addTy dir isOpt ifTyRef =
+    fun addTy dir isElem tyMap tyRef =
       case dir of
-        IN    => addInTy isOpt ifTyRef
-      | INOUT => addInOutTy isOpt ifTyRef
-      | OUT _ => addOutTy isOpt ifTyRef
+        IN    => addInTy isElem tyMap tyRef
+      | INOUT => addInOutTy isElem tyMap tyRef
+      | OUT _ => addOutTy isElem tyMap tyRef
 
-    fun addIRefTy dir isOpt iRef iRefs =
+    fun addIRefTy dir isElem tyMap iRef iRefs =
       let
         val {scope, ...} = iRef
         val iRefs' =
@@ -1035,22 +1515,57 @@ fun addSpecParInfo
           makeInterfaceRefTyLongId iRef
         )
       in
-        (addTy dir isOpt ifTyRef, iRefs')
+        (addTy dir isElem tyMap ifTyRef, iRefs')
       end
   in
     case parInfo of
       PIVOID                                => acc
-    | PISCALAR (dir, {ty, optIRef, ...})    => (
-        case optIRef of
-          NONE      => (addTy dir false (scalarTyRef ty), iRefs)
-        | SOME iRef => addIRefTy dir false iRef iRefs
-      )
-    | PIUTF8 (dir, {isOpt, optIRef, ...})   => (
-        case optIRef of
-          NONE      => (addTy dir isOpt utf8TyRef, iRefs)
-        | SOME iRef => addIRefTy dir isOpt iRef iRefs
-      )
-    | PIINTERFACE (dir, {iRef, isOpt, ...}) => addIRefTy dir isOpt iRef iRefs
+    | PISOME {array = SOME _, ...}          => acc
+    | PISOME {dir, array = NONE, info, ...} =>
+        let
+          val baseInfo = getBaseInfo info
+          val arrayTy =
+            case baseInfo of
+              IUTF8 _ => listTy
+            | _       => vectorTy
+
+          fun addInfo isElem tyMap info =
+            case info of
+              ISCALAR {ty, optIRef, ...}         => (
+                if true
+                then
+                  case optIRef of
+                    NONE      => (addTy dir isElem tyMap (scalarTyRef ty), iRefs)
+                  | SOME iRef => addIRefTy dir isElem tyMap iRef iRefs
+                else
+                  acc
+              )
+            | IUTF8 {isOpt, optIRef, ...}        => (
+                case optIRef of
+                  NONE      => (addTy dir isElem (mkOpt isOpt o tyMap) utf8TyRef, iRefs)
+                | SOME iRef => addIRefTy dir isElem (mkOpt isOpt o tyMap) iRef iRefs
+              )
+            | IARRAY {isOpt, optIRef, elem, ...} => (
+                case optIRef of
+                  NONE      => (
+                    case elem of
+                      ISCALAR {
+                        ty = STUINT8,
+                        ...
+                      } => (addTy dir isElem (mkOpt isOpt o tyMap) word8VectorTyRef, iRefs)
+                    | ISCALAR {
+                        ty = STCHAR,
+                        ...
+                      } => (addTy dir isElem (mkOpt isOpt o tyMap) stringTyRef, iRefs)
+                    | _ => addInfo true (mkOpt isOpt o arrayTy o tyMap) elem
+                  )
+                | SOME iRef => addIRefTy dir isElem (mkOpt isOpt o tyMap) iRef iRefs
+              )
+            | IINTERFACE {iRef, isOpt, ...}      =>
+                addIRefTy dir isElem (mkOpt isOpt o tyMap) iRef iRefs
+        in
+          addInfo false I info
+        end
   end
 
 
@@ -1061,14 +1576,14 @@ fun addSpecRetInfo
   let
     fun mkOpt isOpt ty = if isOpt then optionTy ty else ty
 
-    fun mkTy isOpt tyRef =
+    fun mkTy isElem tyMap tyRef =
       let
-        val (ty, tyVarIdx') = makeOutRefTy (tyRef, tyVarIdx)
+        val (ty, tyVarIdx') = makeOutRefTy isElem (tyRef, tyVarIdx)
       in
-        (mkOpt isOpt ty, tyVarIdx')
+        (tyMap ty, tyVarIdx')
       end
 
-    fun mkIRefTy isOpt iRef iRefs =
+    fun mkIRefTy isElem tyMap iRef iRefs =
       let
         val {scope, ...} = iRef
         val iRefs' =
@@ -1082,44 +1597,71 @@ fun addSpecRetInfo
           makeInterfaceRefTyLongId iRef
         )
       in
-        (mkTy isOpt ifTyRef, iRefs')
+        (mkTy isElem tyMap ifTyRef, iRefs')
       end
   in
     case retInfo of
-      RIVOID                       => ((unitTy, tyVarIdx), iRefs)
-    | RISCALAR {ty, optIRef, ...}  => (
-        case optIRef of
-          NONE      => (mkTy false (scalarTyRef ty), iRefs)
-        | SOME iRef => mkIRefTy false iRef iRefs
-      )
-    | RIUTF8 {isOpt, optIRef, ...} => (
-        case optIRef of
-          NONE      => (mkTy isOpt utf8TyRef, iRefs)
-        | SOME iRef => mkIRefTy isOpt iRef iRefs
-      )
-    | RIINTERFACE {
-        name,
-        iRef,
-        infoType,
-        isOpt,
-        ptrOwnXfer,
-        ...
-      }                            =>
+      RIVOID        => ((unitTy, tyVarIdx), iRefs)
+    | RISOME {info} =>
         let
-          val interfaceRetInfo = {
-            name       = name,
-            iRef       =
-              case (optConstructorIRef, infoType) of
-                (SOME constructorIRef, InfoType.OBJECT _)    => constructorIRef
-              | (SOME constructorIRef, InfoType.INTERFACE _) => constructorIRef
-              | _                                            => iRef,
-            infoType   = infoType,
-            isOpt      = isOpt,
-            ptrOwnXfer = ptrOwnXfer
-          }
-          val {iRef, isOpt, ...} = interfaceRetInfo
+          val baseInfo = getBaseInfo info
+          val arrayTy =
+            case baseInfo of
+              IUTF8 _ => listTy
+            | _       => vectorTy
+
+          fun addInfo isElem tyMap info =
+            case info of
+              ISCALAR {ty, optIRef, ...}         => (
+                case optIRef of
+                  NONE      => (mkTy isElem tyMap (scalarTyRef ty), iRefs)
+                | SOME iRef => mkIRefTy isElem tyMap iRef iRefs
+              )
+            | IUTF8 {isOpt, optIRef, ...}        => (
+                case optIRef of
+                  NONE      => (mkTy isElem (mkOpt isOpt o tyMap) utf8TyRef, iRefs)
+                | SOME iRef => mkIRefTy isElem (mkOpt isOpt o tyMap) iRef iRefs
+              )
+            | IARRAY {isOpt, optIRef, elem, ...} => (
+                case optIRef of
+                  NONE      => (
+                    case elem of
+                      ISCALAR {
+                        ty = STUINT8,
+                        ...
+                      } => (mkTy isElem (mkOpt isOpt o tyMap) word8VectorTyRef, iRefs)
+                    | ISCALAR {
+                        ty = STCHAR,
+                        ...
+                      } => (mkTy isElem (mkOpt isOpt o tyMap) stringTyRef, iRefs)
+                    | _ => addInfo true (mkOpt isOpt o arrayTy o tyMap) elem
+                  )
+                | SOME iRef => mkIRefTy isElem (mkOpt isOpt o tyMap) iRef iRefs
+              )
+            | IINTERFACE {
+                iRef,
+                infoType,
+                isOpt,
+                ptrOwnXfer,
+                ...
+              }                                  =>
+                let
+                  val interfaceRetInfo = {
+                    iRef       =
+                      case (optConstructorIRef, infoType) of
+                        (SOME constructorIRef, InfoType.OBJECT _)    => constructorIRef
+                      | (SOME constructorIRef, InfoType.INTERFACE _) => constructorIRef
+                      | _                                            => iRef,
+                    infoType   = infoType,
+                    isOpt      = isOpt,
+                    ptrOwnXfer = ptrOwnXfer
+                  }
+                  val {iRef, isOpt, ...} = interfaceRetInfo
+                in
+                  mkIRefTy isElem (mkOpt isOpt o tyMap) iRef iRefs
+                end
         in
-          mkIRefTy isOpt iRef iRefs
+          addInfo false I info
         end
   end
 
@@ -1148,25 +1690,28 @@ fun makeFunctionSpec
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo false repo functionNamespace optContainerName)
+        (getParInfo false repo functionNamespace optContainerName functionInfo)
         (functionInfo, [])
 
     val retInfo =
       getRetInfo false repo functionNamespace optContainerName
         functionInfo
 
+    val parInfos = updateParInfos retInfo parInfos
+
+
     (* For a method function, add an initial argument type for the interface
      * that contains this function. *)
     val tyVarIdx'0 = 0
     val (revInTys'1, tyVarIdx'1) =
       if FunctionInfoFlags.anySet
-           (functionFlags, FunctionInfoFlags.ISMETHOD)
+           (functionFlags, FunctionInfoFlags.IS_METHOD)
       then
         case optContainerIRef of
           SOME containerIRef =>
             let
               val (selfTy, tyVarIdx'1) =
-                makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'0)
+                makeIRefLocalTypeRef (makeRefVarTy false) (containerIRef, tyVarIdx'0)
             in
               ([selfTy], tyVarIdx'1)
             end
@@ -1186,7 +1731,7 @@ fun makeFunctionSpec
 
     val optConstructorIRef =
       if FunctionInfoFlags.anySet
-           (functionFlags, FunctionInfoFlags.ISCONSTRUCTOR)
+           (functionFlags, FunctionInfoFlags.IS_CONSTRUCTOR)
       then
         case optContainerIRef of
           SOME _ => optContainerIRef
@@ -1221,25 +1766,26 @@ fun makeFunctionSpec
 
             val retTys =
               case (retInfo, outParamTysCond) of
-                (RIVOID,                         [])        => outParamTysUncond
+                (RIVOID,                         [])                       =>
+                  outParamTysUncond
 
-              | (_,                              [])        =>
+              | (_,                              [])                       =>
                   retValTy :: outParamTysUncond
 
-              | (RISCALAR {ty = STBOOLEAN, ...}, ty :: tys) =>
+              | (RISOME {info = ISCALAR {ty = STBOOLEAN, ...}}, ty :: tys) =>
                   optionTy (mkProdTy1 (ty, tys)) :: outParamTysUncond
 
-              | (RIVOID,                         _ :: _)    =>
+              | (RIVOID,                         _ :: _)                   =>
                   outParamTysCond @ outParamTysUncond
 
-              | (_,                              _ :: _)    =>
+              | (_,                              _ :: _)                   =>
                   retValTy :: (outParamTysCond @ outParamTysUncond)
 
                (*
                 * In future, when conditional outs can be identifed
                 * the last two cases will be:
                 *
-              | (_,                              _ :: _)    =>
+              | (_,                              _ :: _)                   =>
                   infoError "non-BOOLEAN return type with \
                             \conditional out parameters"
                 *)
@@ -1257,7 +1803,7 @@ fun makeFunctionSpec
  *)
 fun getTypeSpec typeIRef =
   let
-    val (typeRefTy, _) = makeIRefLocalTypeRef makeRefBaseTy (typeIRef, 0)
+    val (typeRefTy, _) = makeIRefLocalTypeRef (makeRefBaseTy false) (typeIRef, 0)
   in
     mkValSpec (getTypeId, TyFun (unitTy, typeRefTy))
   end
@@ -1267,13 +1813,14 @@ fun getTypeSpec typeIRef =
 
 (* `addParInfo` accumulates high-level function components in the parameter
  *
- *   `(js, ks, ls, iRefs)`
+ *   `(js, ks, ls, ms, ns, iRefs, strDecs)`
  *
- * The lists `js`, `ks` and `ls` accumulate the components of the vectors of
- * sizes J, K and L, respectively, in the CODEGEN for HighLevelFunction.
+ * The lists `js`, `ks`, `ls, `ms` and `ns` accumulate the components of the
+ * vectors of sizes J, K, L, N, M and L, respectively, in the codegen for
+ * HighLevelFunction.
  *
- * `js`, `ks` and `ls` are built up in reverse.  After iterating over all
- * `parInfo` values, the final values are as follows:
+ * `js`, `ks`, `ls`, `ms` and `ns` are built up in reverse.  After iterating
+ * over all `parInfo` values, the final values are as follows:
  *
  *
  *   the j<th> element of `js` contains
@@ -1283,7 +1830,7 @@ fun getTypeSpec typeIRef =
  *
  *   the k<th> element of `ks` contains
  *
- *     (<fromFun[k]>, <outParamName[k]>, <isCondOut[k]>)
+ *     (<outParamExp[k]>, <isCondOut[k]>)
  *
  *
  *   the l<th> element of `ls` contains
@@ -1291,13 +1838,31 @@ fun getTypeSpec typeIRef =
  *     <inParamName[l]>
  *
  *
+ *   the m<th> element of `ms` contains
+ *
+ *     (<lenParamName[m]>, <lenParamExp[m]>)
+ *
+ *
+ *   the n<th> element of `ns` contains
+ *
+ *     (<fromFun[n]>, <outParamName[n]>)
+ *
+ *
  * `iRefs` accumulates the references to interfaces for generating type
  * declarations as required by the signature and the corresponding where
  * clauses on the signature ascription in the structure.
+ *
+ * `strDecs` accumulates structure declarations for required array types
+ * which are included at the start of the structure.
  *)
 
 local
-  fun withFunExp prefixIds {isRef, isDup, isNew, isOpt, isPtr} =
+  datatype xfer =
+    XferFlag of bool
+  | XferDepth of int
+  | XferNone
+
+  fun withFunExp prefixIds {isRef, isDup, isNew, isOpt, isPtr, xfer} =
     let
       val refStr = if isRef then "Ref" else ""
       val dupStr = if isDup then "Dup" else ""
@@ -1307,57 +1872,91 @@ local
 
       val withFunId =
         concat ["with", refStr, dupStr, newStr, optStr, ptrStr]
+      val funExp = mkLIdLNameExp (prefixIds @ [withFunId])
     in
-      mkLIdLNameExp (prefixIds @ [withFunId])
+      case xfer of
+        XferFlag b  => ExpApp (funExp, mkIdLNameExp (Bool.toString b))
+      | XferDepth n => ExpApp (funExp, mkIntConstExp n)
+      | XferNone    => funExp
     end
 
-  fun fromFunExp prefixIds {isOpt, ptrOwnXfer} =
+  fun fromFunExp prefixIds {isOpt, xfer} =
     let
       val optStr = if isOpt then "Opt" else ""
-      val ptrStr = if isSome ptrOwnXfer then "Ptr" else "Val"
+      val ptrStr = if xfer <> XferNone then "Ptr" else "Val"
 
       val fromFunId = concat ["from", optStr, ptrStr]
       val funExp = mkLIdLNameExp (prefixIds @ [fromFunId])
     in
-      case ptrOwnXfer of
-        NONE   => funExp
-      | SOME b => ExpApp (funExp, mkIdLNameExp (Bool.toString b))
+      case xfer of
+        XferFlag b  => ExpApp (funExp, mkIdLNameExp (Bool.toString b))
+      | XferDepth n => ExpApp (funExp, mkIntConstExp n)
+      | XferNone    => funExp
     end
 
-  fun withFunScalar (dir, {ty, optIRef, ...} : scalarinfo) =
+  fun withFunScalar (dir, {ty, optIRef, ...} : scalar_info) =
     let
       val prefixIds =
         case optIRef of
-          NONE      => [FFIId, scalarStrId ty, CId]
-        | SOME iRef => prefixInterfaceStrId iRef ["C"]
+          NONE      => [gStrId ^ scalarStrId ty, ffiStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
     in
       withFunExp prefixIds {
         isRef = dir <> IN,
         isDup = false,
         isNew = false,
         isOpt = false,
-        isPtr = false
+        isPtr = false,
+        xfer  = XferNone
       }
     end
 
-  fun withFunUtf8 (dir, {isOpt, optIRef, ...} : utf8info) =
+  fun withFunUtf8 (dir, {ownXfer, isOpt, optIRef, ...} : utf8_info) =
     let
       val prefixIds =
         case optIRef of
-          NONE      => [utf8StrId, CId]
-        | SOME iRef => prefixInterfaceStrId iRef [CId]
+          NONE      => [utf8StrId, ffiStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
+
+      val isDup = dir = INOUT andalso ownXfer
     in
       withFunExp prefixIds {
         isRef = dir <> IN,
-        isDup = false,
+        isDup = isDup,
         isNew = false,
         isOpt = isOpt orelse case dir of OUT _ => true | _ => false,
-        isPtr = true
+        isPtr = true,
+        xfer  =
+          if isDup
+          then XferDepth 1
+          else XferNone
+      }
+    end
+
+  fun withFunArray arrayStrId (dir, {ownXfer, isOpt, optIRef, elem, ...} : array_info) =
+    let
+      val prefixIds =
+        case optIRef of
+          NONE      => [arrayStrId, ffiStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
+
+      val isDup = dir = INOUT andalso ownXfer
+    in
+      withFunExp prefixIds {
+        isRef = dir <> IN,
+        isDup = isDup,
+        isNew = false,
+        isOpt = isOpt orelse case dir of OUT _ => true | _ => false,
+        isPtr = true,
+        xfer  =
+          if isDup
+          then XferDepth (getArrayOwnXferDepth (boolToInt ownXfer) elem)
+          else XferNone
       }
     end
 
   fun withFunInterface
-    (dir, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interfaceinfo) =
+    (dir, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interface_info) =
     let
 (*
       val {isSelf, ...} = iRef
@@ -1365,19 +1964,19 @@ local
       open InfoType
       val prefixIds =
         case infoType of
-          OBJECT _    => prefixInterfaceStrId iRef ["C"]
-        | INTERFACE _ => prefixInterfaceStrId iRef ["C"]
-        | STRUCT _    => prefixInterfaceStrId iRef ["C"]
+          OBJECT _    => prefixInterfaceStrId iRef [ffiStrId]
+        | INTERFACE _ => prefixInterfaceStrId iRef [ffiStrId]
+        | STRUCT _    => prefixInterfaceStrId iRef [ffiStrId]
         | _           =>
             if isSelf
-            then ["C"]
-            else prefixInterfaceStrId iRef ["C"]
+            then [ffiStrId]
+            else prefixInterfaceStrId iRef [ffiStrId]
 
  * Is above really needed?
  * Doesn't `prefixInterfaceStrId` handle SIMPLE case for LOCALINTERFACESELF?
  * Let's see...
  *)
-      val prefixIds = prefixInterfaceStrId iRef ["C"]
+      val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
 
       open InfoType
     in
@@ -1395,7 +1994,10 @@ local
           | _                 => false,
         isNew =
           case dir of
-            OUT isCallerAllocates => isCallerAllocates
+            OUT isCallerAllocates => isCallerAllocates andalso ptrOwnXfer = NONE
+            (* Note that `isCallerAllocates` can be true when `ptrOwnXfer <> NONE`
+             * for disguised structs, such as GdkAtom.  For information on disguised
+             * structs, see https://bugzilla.gnome.org/show_bug.cgi?id=560248 . *)
           | _                     => false,
         isOpt =
           case dir of
@@ -1405,38 +2007,52 @@ local
         isPtr =
           case infoType of
             STRUCT _ => true
-          | _        => isSome ptrOwnXfer
+          | _        => isSome ptrOwnXfer,
+        xfer  = XferNone
       }
     end
 
-  fun fromFunScalar ({ty, optIRef, ...} : scalarinfo) =
+  fun fromFunScalar ({ty, optIRef, ...} : scalar_info) =
     let
       val prefixIds =
         case optIRef of
-          NONE      => [FFIId, scalarStrId ty, CId]
-        | SOME iRef => prefixInterfaceStrId iRef ["C"]
+          NONE      => [gStrId ^ scalarStrId ty, ffiStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
     in
       fromFunExp prefixIds {
-        isOpt      = false,
-        ptrOwnXfer = NONE
+        isOpt = false,
+        xfer  = XferNone
       }
     end
 
-  fun fromFunUtf8 (_, {ownXfer, isOpt, optIRef, ...} : utf8info) =
+  fun fromFunUtf8 (_, {ownXfer, isOpt, optIRef, ...} : utf8_info) =
     let
       val prefixIds =
         case optIRef of
-          NONE      => [utf8StrId, CId]
-        | SOME iRef => prefixInterfaceStrId iRef [CId]
+          NONE      => [utf8StrId, ffiStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
     in
       fromFunExp prefixIds {
-        isOpt      = isOpt,
-        ptrOwnXfer = SOME ownXfer
+        isOpt = isOpt,
+        xfer  = XferDepth (boolToInt ownXfer)
+      }
+    end
+
+  fun fromFunArray arrayStrId (_, {ownXfer, isOpt, optIRef, elem, ...} : array_info) =
+    let
+      val prefixIds =
+        case optIRef of
+          NONE      => [arrayStrId, ffiStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
+    in
+      fromFunExp prefixIds {
+        isOpt = isOpt,
+        xfer  = XferDepth (getArrayOwnXferDepth (boolToInt ownXfer) elem)
       }
     end
 
   fun fromFunInterface
-    (isInOut, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interfaceinfo) =
+    (isInOut, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interface_info) =
     let
 (*
       val {isSelf, ...} = iRef
@@ -1444,46 +2060,54 @@ local
       open InfoType
       val prefixIds =
         case infoType of
-          OBJECT _    => prefixInterfaceStrId iRef ["C"]
-        | INTERFACE _ => prefixInterfaceStrId iRef ["C"]
-        | STRUCT _    => prefixInterfaceStrId iRef ["C"]
+          OBJECT _    => prefixInterfaceStrId iRef [ffiStrId]
+        | INTERFACE _ => prefixInterfaceStrId iRef [ffiStrId]
+        | STRUCT _    => prefixInterfaceStrId iRef [ffiStrId]
         | _           =>
             if isSelf
-            then ["C"]
-            else prefixInterfaceStrId iRef ["C"]
+            then [ffiStrId]
+            else prefixInterfaceStrId iRef [ffiStrId]
 
  * Is above really needed?
  * Doesn't `prefixInterfaceStrId` handle SIMPLE case for LOCALINTERFACESELF?
  * Let's see...
  *)
-      val prefixIds = prefixInterfaceStrId iRef ["C"]
+      val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
 
       open InfoType
     in
       fromFunExp prefixIds {
-        isOpt      = isOpt,
-        ptrOwnXfer =
+        isOpt = isOpt,
+        xfer  =
           case (infoType, isInOut, ptrOwnXfer) of
-            (OBJECT _,    true,  _)    => SOME true
-          | (INTERFACE _, true,  _)    => SOME true
-          | (STRUCT _,    false, NONE) => SOME true
-          | (STRUCT _,    true,  _)    => SOME true
-          | _                          => ptrOwnXfer
+            (OBJECT _,    true,  _)         => XferFlag true
+          | (INTERFACE _, true,  _)         => XferFlag true
+          | (STRUCT _,    false, NONE)      => XferFlag true
+          | (STRUCT _,    true,  _)         => XferFlag true
+          | _                               =>
+              case ptrOwnXfer of
+                SOME ownXfer => XferFlag ownXfer
+              | NONE         => XferNone
       }
     end
 
-  fun argValScalar (dir, {ty, name, ...} : scalarinfo) =
+  fun argValScalar (name, dir, {ty, ...} : scalar_info) =
     case dir of
-      OUT _ => mkLIdLNameExp [FFIId, scalarStrId ty, nullId]
+      OUT _ => mkLIdLNameExp [gStrId ^ scalarStrId ty, nullId]
     | _     => mkIdLNameExp name
 
-  fun argValUtf8 (dir, {name, ...} : utf8info) =
+  fun argValUtf8 (name, dir, {...} : utf8_info) =
+    case dir of
+      OUT _ => noneExp
+    | _     => mkIdLNameExp name
+
+  fun argValArray (name, dir, {...} : array_info) =
     case dir of
       OUT _ => noneExp
     | _     => mkIdLNameExp name
 
   fun argValInterface
-    (dir, {iRef, infoType, ptrOwnXfer, name, ...} : interfaceinfo) =
+    (name, dir, {iRef, infoType, ptrOwnXfer, ...} : interface_info) =
     case dir of
       OUT _ =>
         let
@@ -1507,176 +2131,189 @@ local
         end
     | _     => mkIdLNameExp name
 
-  fun parNameScalar ({name, ...} : scalarinfo) = name
-
-  fun parNameUtf8 ({name, ...} : utf8info) = name
-
-  fun parNameInterface ({name, ...} : interfaceinfo) = name
+  fun mkLenParamExp ty arrayInfo arrayName =
+    let
+      val {length, elem, isOpt, ...} = arrayInfo
+      val strId = cArrayStrId length elem
+      val lenExp =
+        ExpApp (
+          mkLIdLNameExp [largeIntStrId, fromIntId],
+          mkParenExp (
+            ExpApp (
+              mkLIdLNameExp [strId, lengthId],
+              mkIdLNameExp arrayName
+            )
+          )
+        )
+    in
+      if isOpt
+      then
+        let
+          val somePat = PatPrefix (toList1 [someId], mkIdVarPat arrayName)
+          val nonePat = mkConstPat (mkIdLNameConst noneId)
+          val noneExp = mkLIdLNameExp [gStrId ^ scalarStrId ty, nullId]
+        in
+          ExpCase (
+            mkIdLNameExp arrayName,
+            toList1 [
+              (somePat, lenExp),
+              (nonePat, noneExp)
+            ]
+          )
+        end
+      else
+        lenExp
+    end
 in
-  fun addParInfo (parInfo, acc as (js, ks, ls, iRefs)) =
+  fun addParInfo (parInfo, acc as (js, ks, ls, ms, ns, iRefs, structDeps)) =
     case parInfo of
-      PIVOID                                             => acc
-    | PISCALAR (dir, scalarParInfo)                      =>
+      PIVOID                          => acc
+    | PISOME {name, dir, array, info} =>
         let
-          val withFunExp = withFunScalar (dir, scalarParInfo)
-          val argValExp = argValScalar (dir, scalarParInfo)
-          val js' = (withFunExp, argValExp) :: js
-
-          val parName = parNameScalar scalarParInfo
-          fun makeK isRetCondInit = (
-            fromFunScalar scalarParInfo,
-            (parName, isRetCondInit)
-          )
-          val l = mkIdVarAPat parName
-          val (ks', ls') =
-            case dir of
-              OUT _ => (makeK true :: ks,  ls)
-            | INOUT => (makeK false :: ks, l :: ls)
-            | IN    => (ks,                l :: ls)
-
-          val iRefs' =
-            case scalarParInfo of
-              {optIRef = SOME iRef, ...} =>
+          val (withFunExp, argValExp, fromFunExp, outParamExp, structDeps'1) =
+            case info of
+              ISCALAR scalarParInfo       =>
                 let
-                  val {scope, ...} = iRef
+                  val withFunExp = withFunScalar (dir, scalarParInfo)
+                  val argValExp = argValScalar (name, dir, scalarParInfo)
+                  fun fromFunExp () = fromFunScalar scalarParInfo
+                  fun outParamExp () = mkIdLNameExp name
                 in
-                  case scope of
-                    GLOBAL             => iRefs
-                  | LOCALINTERFACESELF => iRefs
-                  | _                  => insert (iRef, iRefs)
+                  (withFunExp, argValExp, fromFunExp, outParamExp, structDeps)
                 end
-            | _                          => iRefs
-        in
-          (js', ks', ls', iRefs')
-        end
-    | PIUTF8 (dir, utf8ParInfo)                          =>
-        let
-          val withFunExp = withFunUtf8 (dir, utf8ParInfo)
-          val argValExp = argValUtf8 (dir, utf8ParInfo)
-          val js' = (withFunExp, argValExp) :: js
-
-          val parName = parNameUtf8 utf8ParInfo
-          fun makeK isRetCondInit = (
-            fromFunUtf8 (dir = INOUT, utf8ParInfo),
-            (parName, isRetCondInit)
-          )
-          val l = mkIdVarAPat parName
-          val (ks', ls') =
-            case dir of
-              OUT _ => (makeK true :: ks,  ls)
-            | INOUT => (makeK false :: ks, l :: ls)
-            | IN    => (ks,                l :: ls)
-
-          val iRefs' =
-            case utf8ParInfo of
-              {optIRef = SOME iRef, ...} =>
+            | IUTF8 utf8ParInfo           =>
                 let
-                  val {scope, ...} = iRef
+                  val withFunExp = withFunUtf8 (dir, utf8ParInfo)
+                  val argValExp = argValUtf8 (name, dir, utf8ParInfo)
+                  fun fromFunExp () = fromFunUtf8 (dir = INOUT, utf8ParInfo)
+                  fun outParamExp () = mkIdLNameExp name
                 in
-                  case scope of
-                    GLOBAL             => iRefs
-                  | LOCALINTERFACESELF => iRefs
-                  | _                  => insert (iRef, iRefs)
+                  (withFunExp, argValExp, fromFunExp, outParamExp, structDeps)
                 end
-            | _                          => iRefs
-        in
-          (js', ks', ls', iRefs')
-        end
-    | PIINTERFACE (dir, interfaceParInfo as {iRef, ...}) =>
-        let
-          val withFunExp = withFunInterface (dir, interfaceParInfo)
-          val argValExp = argValInterface (dir, interfaceParInfo)
+            | IARRAY arrayParInfo         =>
+                let
+                  val {length, elem, ...} = arrayParInfo
+                  val (strId, structDeps'1) =
+                    cArrayStrIdStructDeps length elem structDeps
+
+                  val withFunExp = withFunArray strId (dir, arrayParInfo)
+                  val argValExp = argValArray (name, dir, arrayParInfo)
+                  fun fromFunExp () =
+                    fromFunArray strId (dir = INOUT, arrayParInfo)
+                  fun outParamExp () = mkArrayLenExp length (mkIdLNameExp name)
+                in
+                  (withFunExp, argValExp, fromFunExp, outParamExp, structDeps'1)
+                end
+            | IINTERFACE interfaceParInfo =>
+                let
+                  val withFunExp = withFunInterface (dir, interfaceParInfo)
+                  val argValExp = argValInterface (name, dir, interfaceParInfo)
+                  fun fromFunExp () =
+                    fromFunInterface (dir = INOUT, interfaceParInfo)
+                  fun outParamExp () = mkIdLNameExp name
+                in
+                  (withFunExp, argValExp, fromFunExp, outParamExp, structDeps)
+                end
+
           val js' = (withFunExp, argValExp) :: js
+          val structDeps' = structDeps'1
 
-          val parName = parNameInterface interfaceParInfo
-          fun makeK isRetCondInit = (
-            fromFunInterface (dir = INOUT, interfaceParInfo),
-            (parName, isRetCondInit)
-          )
-          val l = mkIdVarAPat parName
-          val (ks', ls') =
+          fun addK ks =
+            case array of
+              SOME _ => ks
+            | NONE   => (outParamExp (), dir <> INOUT) :: ks
+          fun addL ls =
+            case array of
+              SOME _ => ls
+            | NONE   => mkIdVarAPat name :: ls
+          fun addM ms =
+            case array of
+              SOME {
+                name = arrayName,
+                info = arrayInfo
+              }    => (
+                case info of
+                  ISCALAR {ty, ...} => (name, mkLenParamExp ty arrayInfo arrayName) :: ms
+                | _                 => infoError "non-scalar length parameter"
+              )
+            | NONE => ms
+          fun addN ns = (fromFunExp (), name) :: ns
+
+          val (ks', ls', ms', ns') =
             case dir of
-              OUT _ => (makeK true :: ks,  ls)
-            | INOUT => (makeK false :: ks, l :: ls)
-            | IN    => (ks,                l :: ls)
+              OUT _ => (addK ks, ls,      ms,      addN ns)
+            | INOUT => (addK ks, addL ls, addM ms, addN ns)
+            | IN    => (ks,      addL ls, addM ms, ns)
 
-          val {scope, ...} = iRef
-          val iRefs' =
-            case scope of
-              GLOBAL             => iRefs
-            | LOCALINTERFACESELF => iRefs
-            | _                  => insert (iRef, iRefs)
+          val iRefs' = addIRef (info, iRefs)
         in
-          (js', ks', ls', iRefs')
+          (js', ks', ls', ms', ns', iRefs', structDeps')
         end
 
-  fun addRetInfo optConstructorIRef (retInfo, iRefs) =
+  fun addRetInfo optConstructorIRef (retInfo, acc as (iRefs, structDeps)) =
     case retInfo of
-      RIVOID                 => (mkIdLNameExp "I", iRefs)
-    | RISCALAR scalarRetInfo =>
+      RIVOID        => (mkIdLNameExp "I", acc)
+    | RISOME {info} =>
         let
-          val iRefs' =
-            case scalarRetInfo of
-              {optIRef = SOME iRef, ...} =>
+          (* override type in `info` for interface constructor *)
+          val info' =
+            case info of
+              ISCALAR _ => info
+            | IUTF8 _   => info
+            | IARRAY _  => info
+            | IINTERFACE {
+                rootIRef,
+                iRef,
+                infoType,
+                isOpt,
+                ptrOwnXfer
+              }         =>
+                IINTERFACE {
+                  rootIRef   = rootIRef,
+                  iRef       =
+                    case (optConstructorIRef, infoType) of
+                      (SOME constructorIRef, InfoType.OBJECT _)    => constructorIRef
+                    | (SOME constructorIRef, InfoType.INTERFACE _) => constructorIRef
+                    | _                                            => iRef,
+                  infoType   = infoType,
+                  isOpt      = isOpt,
+                  ptrOwnXfer = ptrOwnXfer
+                }
+
+          val (fromFunExp, structDeps') =
+            case info' of
+              ISCALAR scalarParInfo       =>
                 let
-                  val {scope, ...} = iRef
+                  val fromFunExp = fromFunScalar scalarParInfo
                 in
-                  case scope of
-                    GLOBAL             => iRefs
-                  | LOCALINTERFACESELF => iRefs
-                  | _                  => insert (iRef, iRefs)
+                  (fromFunExp, structDeps)
                 end
-            | _                          => iRefs
-        in
-          (fromFunScalar scalarRetInfo, iRefs')
-        end
-    | RIUTF8 utf8RetInfo     =>
-        let
-          val iRefs' =
-            case utf8RetInfo of
-              {optIRef = SOME iRef, ...} =>
+            | IUTF8 utf8ParInfo           =>
                 let
-                  val {scope, ...} = iRef
+                  val fromFunExp = fromFunUtf8 (false, utf8ParInfo)
                 in
-                  case scope of
-                    GLOBAL             => iRefs
-                  | LOCALINTERFACESELF => iRefs
-                  | _                  => insert (iRef, iRefs)
+                  (fromFunExp, structDeps)
                 end
-            | _                          => iRefs
+            | IARRAY arrayParInfo         =>
+                let
+                  val {length, elem, ...} = arrayParInfo
+                  val (strId, structDeps') =
+                    cArrayStrIdStructDeps length elem structDeps
+
+                  val fromFunExp = fromFunArray strId (false, arrayParInfo)
+                in
+                  (fromFunExp, structDeps')
+                end
+            | IINTERFACE interfaceParInfo =>
+                let
+                  val fromFunExp = fromFunInterface (false, interfaceParInfo)
+                in
+                  (fromFunExp, structDeps)
+                end
+
+          val iRefs' = addIRef (info', iRefs)
         in
-          (fromFunUtf8 (false, utf8RetInfo), iRefs')
-        end
-    | RIINTERFACE {
-        name,
-        rootIRef,
-        iRef,
-        infoType,
-        isOpt,
-        ptrOwnXfer
-      }                      =>
-        let
-          val interfaceRetInfo = {
-            name       = name,
-            rootIRef   = rootIRef,
-            iRef       =
-              case (optConstructorIRef, infoType) of
-                (SOME constructorIRef, InfoType.OBJECT _)    => constructorIRef
-              | (SOME constructorIRef, InfoType.INTERFACE _) => constructorIRef
-              | _                                            => iRef,
-            infoType   = infoType,
-            isOpt      = isOpt,
-            ptrOwnXfer = ptrOwnXfer
-          }
-          val {iRef, ...} = interfaceRetInfo
-          val {scope, ...} = iRef
-          val iRefs' =
-            case scope of
-              GLOBAL             => iRefs
-            | LOCALINTERFACESELF => iRefs
-            | _                  => insert (iRef, iRefs)
-        in
-          (fromFunInterface (false, interfaceRetInfo), iRefs')
+          (fromFunExp, (iRefs', structDeps'))
         end
 end
 
@@ -1696,8 +2333,11 @@ val retValExp : exp = mkIdLNameExp retValId
 
 val retVal =
   fn
-    RIVOID => (PatA (APatConst ConstUnit), ExpConst ConstUnit)
-  | _      => (retValPat, retValExp)
+    RIVOID              => (PatA (APatConst ConstUnit), ExpConst ConstUnit)
+  | RISOME {info} =>
+      case info of
+        IARRAY {length, ...} => (retValPat, mkArrayLenExp length retValExp)
+      | _                    => (retValPat, retValExp)
 
 
 val aInfixId = "&"
@@ -1723,8 +2363,8 @@ fun retValCondExp retValExp (es1 : exp list1) : exp =
 fun makeFunctionStrDecHighLevel
   repo
   (optRootContainerIRef : (interfaceref * interfaceref) option)
-  (functionInfo, (iRefs, errs))
-  : strdec * (interfaceref list * infoerrorhier list) =
+  (functionInfo, ((iRefs, structDeps), errs))
+  : strdec * ((interfaceref list * struct1 ListDict.t) * infoerrorhier list) =
   let
     val () = checkDeprecated functionInfo
 
@@ -1750,25 +2390,28 @@ fun makeFunctionStrDecHighLevel
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo false repo functionNamespace optContainerName)
+        (getParInfo false repo functionNamespace optContainerName functionInfo)
         (functionInfo, [])
 
     val retInfo =
       getRetInfo false repo functionNamespace optContainerName
         functionInfo
 
+    val parInfos = updateParInfos retInfo parInfos
+
+
     (* For a method function, add an initial argument for the interface
      * that contains this function. *)
     val (revJs'1, revLs'1) =
       if FunctionInfoFlags.anySet
-           (functionFlags, FunctionInfoFlags.ISMETHOD)
+           (functionFlags, FunctionInfoFlags.IS_METHOD)
       then
         case optContainerIRef of
           SOME iRef =>
             let
               val withFun =
                 mkLIdLNameExp (
-                  prefixInterfaceStrId iRef ["C", withPtrId]
+                  prefixInterfaceStrId iRef [ffiStrId, withPtrId]
                 )
               val argVal = mkIdLNameExp selfId
               val inParamAPat = mkIdVarAPat selfId
@@ -1780,14 +2423,19 @@ fun makeFunctionStrDecHighLevel
       else
         ([], [])
     val revKs'1 = []
+    val revMs'1 = []
+    val revNs'1 = []
     val iRefs'1 = iRefs
+    val structDeps'1 = structDeps
 
-    (* Construct J, K, L vectors in forward pass over parameter infos.
+    (* Construct J, K, L, M, N vectors in forward pass over parameter infos.
      * As for a function spec, `iRefs` should be generated in a forwards
      * pass over the parameter infos so types appear in order of first
      * appearance. *)
-    val (revJs'2, revKs'2, revLs'2, iRefs'2) =
-      foldl addParInfo (revJs'1, revKs'1, revLs'1, iRefs'1) parInfos
+    val (revJs'2, revKs'2, revLs'2, revMs'2, revNs'2, iRefs'2, structDeps'2) =
+      foldl addParInfo
+        (revJs'1, revKs'1, revLs'1, revMs'1, revNs'1, iRefs'1, structDeps'1)
+        parInfos
 
     (* For a function that may raise an exception, add a final argument for
      * the GError out parameter. *)
@@ -1804,7 +2452,7 @@ fun makeFunctionStrDecHighLevel
 
     val optConstructorIRef =
       if FunctionInfoFlags.anySet
-           (functionFlags, FunctionInfoFlags.ISCONSTRUCTOR)
+           (functionFlags, FunctionInfoFlags.IS_CONSTRUCTOR)
       then
         case optContainerIRef of
           SOME _ => optContainerIRef
@@ -1812,8 +2460,8 @@ fun makeFunctionStrDecHighLevel
             infoError "function outside interface has constructor flag set"
       else
         NONE
-    val (retFromFun, iRefs'3) =
-      addRetInfo optConstructorIRef (retInfo, iRefs'2)
+    val (retFromFun, (iRefs'3, structDeps'3)) =
+      addRetInfo optConstructorIRef (retInfo, (iRefs'2, structDeps'2))
 
     (* Derive non-empty lists `revWithFuns1` and `revArgVals1` from `revJs'3`
      * and non-empty list `inParamNames1` from `revLs'2`.  When
@@ -1843,15 +2491,15 @@ fun makeFunctionStrDecHighLevel
     val (revWithFuns1 : exp list1, revArgVals1 : exp list1) =
       unzip1 (getList1 (revJs'3, (iExp, ExpConst ConstUnit)))
 
-    (* No need to handle K = 0 here: lists `revFromFuns` and `revOutParams` may
+    (* No need to handle N = 0 here: lists `revFromFuns` and `revOutParams` may
      * be empty.  `revOutParams` contains out parameter names associated with
      * the conditional output flag for each out parameter.
      *)
-    val (revFromFuns, revOutParams) = ListPair.unzip revKs'2
+    val (revFromFuns, revOutParams) = ListPair.unzip revNs'2
 
     (* Construct
      *
-     *   <fromFun[1]> && ... && <fromFun[K]> && <retFromFun>
+     *   <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>
      *)
     val fromFunsExp = foldl mkAAExp retFromFun revFromFuns
 
@@ -1867,7 +2515,7 @@ fun makeFunctionStrDecHighLevel
 
     (*
      *   (<withFun[1]> &&&> ... &&&> <withFun[J]>
-     *     ---> <fromFun[1]> && ... && <fromFun[K]> && <retFromFun>)
+     *     ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>)
      *     <functionName>_
      *     (<argVal[1]> & ... & <argVal[J]>)
      *)
@@ -1886,45 +2534,49 @@ fun makeFunctionStrDecHighLevel
     (* Construct the function body with the form:
      *
      *   let
-     *     val <outParamName[1]> & ... & <outParamName[K]> & <retVal> =
+     *     val <lenParamName[1]> = <lenParamExp[1]>
+     *     ...
+     *     val <lenParamName[M]> = <lenParamExp[M]>
+     *
+     *     val <outParamName[1]> & ... & <outParamName[N]> & <retVal> =
      *       <functionCoreExp>
      *   in
      *     <retExp>
      *   end
-     *     if K > 0
+     *     if N + M > 0, i.e. N > 0 or M > 0
      *
      *
      *   <functionCoreExp>
-     *     otherwise
+     *     otherwise, i.e. N = 0 and M = 0
      *)
     val functionExp =
-      case revOutParams of
-        []     => functionCoreExp
-      | _ :: _ =>
+      case (revOutParams, revMs'2) of
+        ([], []) => functionCoreExp
+      | _        =>
           let
-            fun getNamePat (id, _) = mkIdVarPat id
-            fun getNameExp (id, _) = mkIdLNameExp id
-            fun getCondNameExp (id, isCond) =
-              if isCond then SOME (mkIdLNameExp id) else NONE
+            fun getNameExp (exp, _) = exp
+            fun getCondNameExp (exp, isCond) =
+              if isCond then SOME exp else NONE
 
             val (outParamExpsCond, outParamExpsUncond) =
-              partitionRevMap (getCondNameExp, getNameExp) revOutParams
+              partitionRevMap (getCondNameExp, getNameExp) revKs'2
 
             val (retValPat, retValExp) = retVal retInfo
             val retExps =
               case (retInfo, outParamExpsCond) of
-                (RIVOID,                         [])      => outParamExpsUncond
+                (RIVOID,                         [])                     =>
+                  outParamExpsUncond
 
-              | (_,                              [])      =>
+              | (_,                              [])                     =>
                   retValExp :: outParamExpsUncond
 
-              | (RISCALAR {ty = STBOOLEAN, ...}, e :: es) =>
+              | (RISOME {info = ISCALAR {ty = STBOOLEAN, ...}}, e :: es) =>
                   retValCondExp retValExp (e, es) :: outParamExpsUncond
 
-              | (RIVOID,                         _ :: _)  =>
+              | (RIVOID,                         _ :: _)                 =>
                   outParamExpsCond @ outParamExpsUncond
 
-              | (_,                              _ :: _)  =>
+              | (_,                              _ :: _)                 =>
                   retValExp :: (outParamExpsCond @ outParamExpsUncond)
                (*
                 * In future, when conditional outs can be identifed
@@ -1935,15 +2587,16 @@ fun makeFunctionStrDecHighLevel
                 *)
             val retExp =
               case retExps of
-                []      => ExpConst ConstUnit  (* unreachable *)
+                []      => ExpConst ConstUnit
               | e :: [] => e
               | e :: es => ExpParen (e, es)
 
-            val revOutParamPats = map getNamePat revOutParams
+            val revOutParamPats = map mkIdVarPat revOutParams
             val pat = foldl mkAPat retValPat revOutParamPats
-            val dec = DecVal (toList1 [([], false, pat, functionCoreExp)])
+            val decs'1 = [DecVal (toList1 [([], false, pat, functionCoreExp)])]
+            val decs'2 = revMapAppend mkIdValDec (revMs'2, decs'1)
           in
-            ExpLet (mkDecs [dec], toList1 [retExp])
+            ExpLet (mkDecs decs'2, toList1 [retExp])
           end
   in
     (
@@ -1961,7 +2614,7 @@ fun makeFunctionStrDecHighLevel
           ]
         )
       ),
-      (iRefs'3, errs)
+      ((iRefs'3, structDeps'3), errs)
     )
   end
 
@@ -1974,7 +2627,7 @@ val getTypeStrDecHighLevel =
       getTypeId,
       ExpApp (
         mkParenExp (
-          mkDDDRExp (iExp, mkLIdLNameExp ["GObjectType", "C", fromValId])
+          mkDDDRExp (iExp, mkLIdLNameExp ["GObjectType", ffiStrId, fromValId])
         ),
         mkIdLNameExp getTypeUId
       )
@@ -1985,9 +2638,10 @@ val getTypeStrDecHighLevel =
 
 (* Low-level - common *)
 
+datatype dir = In | Out
 datatype low_level_spec =
   VAL
-| PTR of {optIsRet : bool option, isOpt : bool}
+| PTR of {optDir : dir option, isOpt : bool}
 | REF of {isInOut : bool, isOpt : bool} option
 
 
@@ -2041,16 +2695,16 @@ local
       val convId =
         case spec of
           VAL                         => "cVal"
-        | PTR {optIsRet, isOpt}       =>
+        | PTR {optDir, isOpt}         =>
             let
-              val inOutStr =
-               case optIsRet of
-                  NONE       => ""
-                | SOME false => "In"
-                | SOME true  => "Out"
+              val dirStr =
+               case optDir of
+                  NONE     => ""
+                | SOME In  => "In"
+                | SOME Out => "Out"
               val optStr = if isOpt then "Opt" else ""
             in
-              concat ["c", inOutStr, optStr, "Ptr"]
+              concat ["c", dirStr, optStr, "Ptr"]
             end
         | REF NONE                    => "cRef"
         | REF (SOME {isInOut, isOpt}) =>
@@ -2066,11 +2720,11 @@ local
 
   val retVoidConv = cVoidConv
 
-  fun parScalarConv (dir, {ty, optIRef, ...} : scalarinfo) =
+  fun parScalarConv (dir, {ty, optIRef, ...} : scalar_info) =
     let
       val prefixIds =
         case optIRef of
-          NONE      => [FFIId, scalarStrId ty, PolyMLId]
+          NONE      => [gStrId ^ scalarStrId ty, PolyMLId]
         | SOME iRef => prefixInterfaceStrId iRef [PolyMLId]
     in
       convExp prefixIds (
@@ -2082,17 +2736,17 @@ local
       )
     end
 
-  fun retScalarConv ({ty, optIRef, ...} : scalarinfo) =
+  fun retScalarConv ({ty, optIRef, ...} : scalar_info) =
     let
       val prefixIds =
         case optIRef of
-          NONE      => [FFIId, scalarStrId ty, PolyMLId]
+          NONE      => [gStrId ^ scalarStrId ty, PolyMLId]
         | SOME iRef => prefixInterfaceStrId iRef [PolyMLId]
     in
       convExp prefixIds VAL
     end
 
-  fun parUtf8Conv (dir, {isOpt, optIRef, ...} : utf8info) =
+  fun parUtf8Conv (dir, {isOpt, optIRef, ...} : utf8_info) =
     let
       val prefixIds =
         case optIRef of
@@ -2110,13 +2764,13 @@ local
           )
         else
           PTR {
-            optIsRet = SOME false,
-            isOpt    = isOpt
+            optDir = SOME In,
+            isOpt  = isOpt
           }
       )
     end
 
-  fun retUtf8Conv ({isOpt, optIRef, ...} : utf8info) =
+  fun retUtf8Conv ({isOpt, optIRef, ...} : utf8_info) =
     let
       val prefixIds =
         case optIRef of
@@ -2125,14 +2779,53 @@ local
     in
       convExp prefixIds (
         PTR {
-          optIsRet = SOME true,
-          isOpt    = isOpt
+          optDir = SOME Out,
+          isOpt  = isOpt
+        }
+      )
+    end
+
+  fun parArrayConv (dir, {isOpt, optIRef, length, elem, ...} : array_info) =
+    let
+      val prefixIds =
+        case optIRef of
+          NONE      => [cArrayStrId length elem, PolyMLId]
+        | SOME iRef => prefixInterfaceStrId iRef [PolyMLId]
+    in
+      convExp prefixIds (
+        if dir <> IN
+        then
+          REF (
+            SOME {
+              isInOut = dir = INOUT,
+              isOpt   = false
+            }
+          )
+        else
+          PTR {
+            optDir = SOME In,
+            isOpt  = isOpt
+          }
+      )
+    end
+
+  fun retArrayConv ({isOpt, optIRef, length, elem, ...} : array_info) =
+    let
+      val prefixIds =
+        case optIRef of
+          NONE      => [cArrayStrId length elem, PolyMLId]
+        | SOME iRef => prefixInterfaceStrId iRef [PolyMLId]
+    in
+      convExp prefixIds (
+        PTR {
+          optDir = SOME Out,
+          isOpt  = isOpt
         }
       )
     end
 
   fun parInterfaceConv
-    (dir, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interfaceinfo) =
+    (dir, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interface_info) =
     let
 (*
       val {isSelf, ...} = iRef
@@ -2177,14 +2870,14 @@ local
             VAL
         else
           PTR {
-            optIsRet = NONE,
-            isOpt    = isOpt andalso isSome ptrOwnXfer
+            optDir = NONE,
+            isOpt  = isOpt andalso isSome ptrOwnXfer
           }
       )
     end
 
   fun retInterfaceConv
-    ({iRef, infoType, isOpt, ...} : interfaceinfo) =
+    ({iRef, infoType, isOpt, ...} : interface_info) =
     let
 (*
       val {isSelf, ...} = iRef
@@ -2218,8 +2911,8 @@ local
           VAL
         else
           PTR {
-            optIsRet = NONE,
-            isOpt    = isOpt
+            optDir = NONE,
+            isOpt  = isOpt
           }
       )
     end
@@ -2228,40 +2921,51 @@ in
 
   fun addParInfo (parInfo, acc) =
     case parInfo of
-      PIVOID => acc
-    | PISCALAR (dir, scalarParInfo) =>
-        let
-          val convExp = parScalarConv (dir, scalarParInfo)
-        in
-          convExp :: acc
-        end
-    | PIUTF8 (dir, utf8ParInfo) =>
-        let
-          val convExp = parUtf8Conv (dir, utf8ParInfo)
-        in
-          convExp :: acc
-        end
-    | PIINTERFACE (dir, interfaceParInfo) =>
-        let
-          val convExp = parInterfaceConv (dir, interfaceParInfo)
-        in
-          convExp :: acc
-        end
+      PIVOID                  => acc
+    | PISOME {dir, info, ...} =>
+        case info of
+          ISCALAR scalarParInfo =>
+            let
+              val convExp = parScalarConv (dir, scalarParInfo)
+            in
+              convExp :: acc
+            end
+        | IUTF8 utf8ParInfo =>
+            let
+              val convExp = parUtf8Conv (dir, utf8ParInfo)
+            in
+              convExp :: acc
+            end
+        | IARRAY arrayParInfo =>
+            let
+              val convExp = parArrayConv (dir, arrayParInfo)
+            in
+              convExp :: acc
+            end
+        | IINTERFACE interfaceParInfo =>
+            let
+              val convExp = parInterfaceConv (dir, interfaceParInfo)
+            in
+              convExp :: acc
+            end
 
   fun addRetInfo retInfo =
     case retInfo of
-      RIVOID                       => retVoidConv
-    | RISCALAR scalarRetInfo       => retScalarConv scalarRetInfo
-    | RIUTF8 utf8RetInfo           => retUtf8Conv utf8RetInfo
-    | RIINTERFACE interfaceRetInfo => retInterfaceConv interfaceRetInfo
+      RIVOID        => retVoidConv
+    | RISOME {info} =>
+        case info of
+          ISCALAR scalarRetInfo       => retScalarConv scalarRetInfo
+        | IUTF8 utf8RetInfo           => retUtf8Conv utf8RetInfo
+        | IARRAY arrayInfo            => retArrayConv arrayInfo
+        | IINTERFACE interfaceRetInfo => retInterfaceConv interfaceRetInfo
 
   fun parSelfConv iRef =
     convExp
       (prefixInterfaceStrId iRef [PolyMLId])
       (
         PTR {
-          optIsRet = NONE,
-          isOpt    = false
+          optDir = NONE,
+          isOpt  = false
         }
       )
 
@@ -2308,7 +3012,7 @@ fun makeFunctionStrDecLowLevelPolyML
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo false repo functionNamespace optContainerName)
+        (getParInfo false repo functionNamespace optContainerName functionInfo)
         (functionInfo, [])
 
     val retInfo =
@@ -2321,7 +3025,7 @@ fun makeFunctionStrDecLowLevelPolyML
      * that contains this function. *)
     val revParConvs'1 =
       if FunctionInfoFlags.anySet
-           (functionFlags, FunctionInfoFlags.ISMETHOD)
+           (functionFlags, FunctionInfoFlags.IS_METHOD)
       then
         case optContainerIRef of
           SOME iRef => [parSelfConv iRef]
@@ -2587,50 +3291,54 @@ local
    *   (<inopt>, <outopt>) <A>.r
    *)
   local
-    val structId = utf8StrId
-    val mltonId = "MLton"
-    fun mkOptTy isOpt = if isOpt then unitTy else mkNotnullTy [structId, CId]
+    fun mltonStructId prefixIds id =
+      case List.rev prefixIds of
+        "FFI" :: revIds => List.rev (id :: "MLton" :: revIds)
+      | _               => raise Fail "mltonStructId requires struct called \"C\""
+
+    fun mkOptTy prefixIds isOpt =
+      if isOpt then unitTy else mkNotnullTy prefixIds
   in
-    (* `Utf8.MLton.p1 * <opt> Utf8.MLton.p2`
+    (* `<A>.MLton.p1 * <opt> <A>.MLton.p2`
      *
      *   where <opt> is
      *     unit
      *       if `isOpt`
      *
-     *     Utf8.C.notnull
+     *     <A>.C.notnull
      *       otherwise
      *)
-    fun utf8PtrTy isOpt =
+    fun arrayPtrTy prefixIds isOpt =
       mkProdTy0 [
-        TyRef ([], toList1 [structId, mltonId, "p1"]),
-        TyRef ([mkOptTy isOpt], toList1 [structId, mltonId, "p2"])
+        TyRef ([], toList1 (mltonStructId prefixIds "p1")),
+        TyRef ([mkOptTy prefixIds isOpt], toList1 (mltonStructId prefixIds "p2"))
       ]
 
-    (* `Utf8.MLton.r1 * (<inopt>, <outopt>) Utf8.MLton.r2`
+    (* `<A>.MLton.r1 * (<inopt>, <outopt>) <A>.MLton.r2`
      *
      *   where <inopt> is
      *     unit
      *       if `isOpt orelse not isInOut`
      *
-     *     Utf8.C.notnull
+     *     <A>.C.notnull
      *       otherwise
      *
      *   where <outopt> is
      *     unit
      *       if `isOpt`
      *
-     *     Utf8.C.notnull
+     *     <A>.C.notnull
      *       otherwise
      *)
-    fun utf8RefTy isInOut isOpt =
+    fun arrayRefTy prefixIds isInOut isOpt =
       mkProdTy0 [
-        TyRef ([], toList1 [structId, mltonId, "r1"]),
+        TyRef ([], toList1 (mltonStructId prefixIds "r1")),
         TyRef (
           [
-            mkOptTy (isOpt orelse not isInOut),
-            mkOptTy isOpt
+            mkOptTy prefixIds (isOpt orelse not isInOut),
+            mkOptTy prefixIds isOpt
           ],
-          toList1 [structId, mltonId, "r2"]
+          toList1 (mltonStructId prefixIds "r2")
         )
       ]
   end
@@ -2640,26 +3348,26 @@ local
       val ty =
         case spec of
           VAL                         => mkLIdTy (prefixIds @ ["val_"])
-        | PTR {optIsRet, isOpt}       =>
+        | PTR {optDir, isOpt}         =>
             if isUtf8
             then
-              utf8PtrTy isOpt
+              arrayPtrTy prefixIds isOpt
             else
               let
-                val inOutStr =
-                  case optIsRet of
-                    NONE       => ""
-                  | SOME false => "in_"
-                  | SOME true  => "out_"
+                val dirStr =
+                  case optDir of
+                    NONE     => ""
+                  | SOME In  => "in_"
+                  | SOME Out => "out_"
                 val ty = if isOpt then unitTy else mkNotnullTy prefixIds
               in
-                TyRef ([ty], toList1 (prefixIds @ [concat [inOutStr, "p"]]))
+                TyRef ([ty], toList1 (prefixIds @ [concat [dirStr, "p"]]))
               end
         | REF NONE                    => mkLIdTy (prefixIds @ ["ref_"])
         | REF (SOME {isInOut, isOpt}) =>
             if isUtf8
             then
-              utf8RefTy isInOut isOpt  (* !!!! needed? !!!! *)
+              arrayRefTy prefixIds isInOut isOpt
             else
               let
                 val isInOpt = isOpt orelse not isInOut
@@ -2683,12 +3391,12 @@ local
 
   val retVoidType = unitTy
 
-  fun parScalarType (dir, {ty, optIRef, ...} : scalarinfo) =
+  fun parScalarType (dir, {ty, optIRef, ...} : scalar_info) =
     let
       val prefixIds =
         case optIRef of
-          NONE      => [FFIId, scalarStrId ty, CId]
-        | SOME iRef => prefixInterfaceStrId iRef ["C"]
+          NONE      => [gStrId ^ scalarStrId ty, ffiStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
     in
       typeTy false prefixIds (
         if dir <> IN
@@ -2699,22 +3407,22 @@ local
       )
     end
 
-  fun retScalarType ({ty, optIRef, ...} : scalarinfo) =
+  fun retScalarType ({ty, optIRef, ...} : scalar_info) =
     let
       val prefixIds =
         case optIRef of
-          NONE      => [FFIId, scalarStrId ty, CId]
-        | SOME iRef => prefixInterfaceStrId iRef ["C"]
+          NONE      => [gStrId ^ scalarStrId ty, ffiStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
     in
       typeTy false prefixIds VAL
     end
 
-  fun parUtf8Type (dir, {isOpt, optIRef, ...} : utf8info) =
+  fun parUtf8Type (dir, {isOpt, optIRef, ...} : utf8_info) =
     let
       val prefixIds =
         case optIRef of
-          NONE      => [utf8StrId, CId]
-        | SOME iRef => prefixInterfaceStrId iRef ["C"]
+          NONE      => [utf8StrId, ffiStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
     in
       typeTy true prefixIds (
         if dir <> IN
@@ -2727,29 +3435,68 @@ local
           )
         else
           PTR {
-            optIsRet = SOME false,
-            isOpt    = isOpt
+            optDir = SOME In,
+            isOpt  = isOpt
           }
       )
     end
 
-  fun retUtf8Type ({isOpt, optIRef, ...} : utf8info) =
+  fun retUtf8Type ({isOpt, optIRef, ...} : utf8_info) =
     let
       val prefixIds =
         case optIRef of
-          NONE      => [utf8StrId, CId]
-        | SOME iRef => prefixInterfaceStrId iRef ["C"]
+          NONE      => [utf8StrId, ffiStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
     in
       typeTy false prefixIds (
         PTR {
-          optIsRet = SOME true,
-          isOpt    = isOpt
+          optDir = SOME Out,
+          isOpt  = isOpt
+        }
+      )
+    end
+
+  fun parArrayType (dir, {isOpt, optIRef, length, elem, ...} : array_info) =
+    let
+      val prefixIds =
+        case optIRef of
+          NONE      => [cArrayStrId length elem, ffiStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
+    in
+      typeTy true prefixIds (
+        if dir <> IN
+        then
+          REF (
+            SOME {
+              isInOut = dir = INOUT,
+              isOpt   = false
+            }
+          )
+        else
+          PTR {
+            optDir = SOME In,
+            isOpt  = isOpt
+          }
+      )
+    end
+
+  fun retArrayType ({isOpt, optIRef, length, elem, ...} : array_info) =
+    let
+      val prefixIds =
+        case optIRef of
+          NONE      => [cArrayStrId length elem, ffiStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
+    in
+      typeTy false prefixIds (
+        PTR {
+          optDir = SOME Out,
+          isOpt  = isOpt
         }
       )
     end
 
   fun parInterfaceType
-    (dir, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interfaceinfo) =
+    (dir, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interface_info) =
     let
 (*
       val {isSelf, ...} = iRef
@@ -2757,18 +3504,18 @@ local
       open InfoType
       val prefixIds =
         case infoType of
-          OBJECT _    => prefixInterfaceStrId iRef [CId]
-        | INTERFACE _ => prefixInterfaceStrId iRef [CId]
-        | STRUCT _    => prefixInterfaceStrId iRef [CId]
+          OBJECT _    => prefixInterfaceStrId iRef [ffiStrId]
+        | INTERFACE _ => prefixInterfaceStrId iRef [ffiStrId]
+        | STRUCT _    => prefixInterfaceStrId iRef [ffiStrId]
         | _           =>
             if isSelf
-            then [CId]
-            else prefixInterfaceStrId iRef [CId]
+            then [ffiStrId]
+            else prefixInterfaceStrId iRef [ffiStrId]
  * Is above really needed?
  * Doesn't `prefixInterfaceStrId` handle SIMPLE case for LOCALINTERFACESELF?
  * Let's see...
  *)
-      val prefixIds = prefixInterfaceStrId iRef [CId]
+      val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
 
       open InfoType
     in
@@ -2794,14 +3541,14 @@ local
             VAL
         else
           PTR {
-            optIsRet = NONE,
-            isOpt    = isOpt andalso isSome ptrOwnXfer
+            optDir = NONE,
+            isOpt  = isOpt andalso isSome ptrOwnXfer
           }
       )
     end
 
   fun retInterfaceType
-    ({iRef, infoType, isOpt, ...} : interfaceinfo) =
+    ({iRef, infoType, isOpt, ...} : interface_info) =
     let
 (*
       val {isSelf, ...} = iRef
@@ -2809,18 +3556,18 @@ local
       open InfoType
       val prefixIds =
         case infoType of
-          OBJECT _    => prefixInterfaceStrId iRef [CId]
-        | INTERFACE _ => prefixInterfaceStrId iRef [CId]
-        | STRUCT _    => prefixInterfaceStrId iRef [CId]
+          OBJECT _    => prefixInterfaceStrId iRef [ffiStrId]
+        | INTERFACE _ => prefixInterfaceStrId iRef [ffiStrId]
+        | STRUCT _    => prefixInterfaceStrId iRef [ffiStrId]
         | _           =>
             if isSelf
-            then [CId]
-            else prefixInterfaceStrId iRef [CId]
+            then [ffiStrId]
+            else prefixInterfaceStrId iRef [ffiStrId]
  * Is above really needed?
  * Doesn't `prefixInterfaceStrId` handle SIMPLE case for LOCALINTERFACESELF?
  * Let's see...
  *)
-      val prefixIds = prefixInterfaceStrId iRef [CId]
+      val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
 
       open InfoType
     in
@@ -2834,8 +3581,8 @@ local
           VAL
         else
           PTR {
-            optIsRet = NONE,
-            isOpt    = isOpt
+            optDir = NONE,
+            isOpt  = isOpt
           }
       )
     end
@@ -2844,48 +3591,59 @@ in
 
   fun addParInfo (parInfo, acc) =
     case parInfo of
-      PIVOID                              => acc
-    | PISCALAR (dir, scalarParInfo)       =>
-        let
-          val typeTy = parScalarType (dir, scalarParInfo)
-        in
-          typeTy :: acc
-        end
-    | PIUTF8 (dir, utf8ParInfo)           =>
-        let
-          val typeTy = parUtf8Type (dir, utf8ParInfo)
-        in
-          typeTy :: acc
-        end
-    | PIINTERFACE (dir, interfaceParInfo) =>
-        let
-          val typeTy = parInterfaceType (dir, interfaceParInfo)
-        in
-          typeTy :: acc
-        end
+      PIVOID                  => acc
+    | PISOME {dir, info, ...} =>
+        case info of
+          ISCALAR scalarParInfo       =>
+            let
+              val typeTy = parScalarType (dir, scalarParInfo)
+            in
+              typeTy :: acc
+            end
+        | IUTF8 utf8ParInfo           =>
+            let
+              val typeTy = parUtf8Type (dir, utf8ParInfo)
+            in
+              typeTy :: acc
+            end
+        | IARRAY arrayParInfo         =>
+            let
+              val typeTy = parArrayType (dir, arrayParInfo)
+            in
+              typeTy :: acc
+            end
+        | IINTERFACE interfaceParInfo =>
+            let
+              val typeTy = parInterfaceType (dir, interfaceParInfo)
+            in
+              typeTy :: acc
+            end
 
   fun addRetInfo retInfo =
     case retInfo of
-      RIVOID                       => retVoidType
-    | RISCALAR scalarRetInfo       => retScalarType scalarRetInfo
-    | RIUTF8 utf8RetInfo           => retUtf8Type utf8RetInfo
-    | RIINTERFACE interfaceRetInfo => retInterfaceType interfaceRetInfo
+      RIVOID        => retVoidType
+    | RISOME {info} =>
+        case info of
+          ISCALAR scalarRetInfo       => retScalarType scalarRetInfo
+        | IUTF8 utf8RetInfo           => retUtf8Type utf8RetInfo
+        | IARRAY arrayRetInfo         => retArrayType arrayRetInfo
+        | IINTERFACE interfaceRetInfo => retInterfaceType interfaceRetInfo
 
   fun parSelfType iRef =
     typeTy
       false
-      (prefixInterfaceStrId iRef [CId])
+      (prefixInterfaceStrId iRef [ffiStrId])
       (
         PTR {
-          optIsRet = NONE,
-          isOpt    = false
+          optDir = NONE,
+          isOpt  = false
         }
       )
 
   fun parErrType namespace optName =
     typeTy
       false
-      (prefixInterfaceStrId (makeErrorIRef namespace optName) [CId])
+      (prefixInterfaceStrId (makeErrorIRef namespace optName) [ffiStrId])
       (
         REF (
           SOME {
@@ -2925,7 +3683,7 @@ fun makeFunctionStrDecLowLevelMLton
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo false repo functionNamespace optContainerName)
+        (getParInfo false repo functionNamespace optContainerName functionInfo)
         (functionInfo, [])
 
     val retInfo =
@@ -2938,7 +3696,7 @@ fun makeFunctionStrDecLowLevelMLton
      * that contains this function. *)
     val revParTypes'1 =
       if FunctionInfoFlags.anySet
-           (functionFlags, FunctionInfoFlags.ISMETHOD)
+           (functionFlags, FunctionInfoFlags.IS_METHOD)
       then
         case optContainerIRef of
           SOME iRef => [parSelfType iRef]
@@ -3007,7 +3765,7 @@ fun getTypeStrDecLowLevelMLton getTypeSymbol =
   StrDecDec (
     mkIdValDec (
       getTypeUId,
-      callMLtonFFIExp getTypeSymbol ([], mkLIdTy ["GObjectType", "C", valId])
+      callMLtonFFIExp getTypeSymbol ([], mkLIdTy ["GObjectType", ffiStrId, valId])
     )
   )
 

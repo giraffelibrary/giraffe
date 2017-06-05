@@ -3,10 +3,10 @@ structure GtkPlug :>
     where type 'a class = 'a GtkPlugClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
-    val getType_ = _import "gtk_plug_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_plug_new" : FFI.UInt64.C.val_ -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
-    val newForDisplay_ = fn x1 & x2 => (_import "gtk_plug_new_for_display" : GdkDisplayClass.C.notnull GdkDisplayClass.C.p * FFI.UInt64.C.val_ -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;) (x1, x2)
-    val construct_ = fn x1 & x2 => (_import "gtk_plug_construct" : GtkPlugClass.C.notnull GtkPlugClass.C.p * FFI.UInt64.C.val_ -> unit;) (x1, x2)
+    val getType_ = _import "gtk_plug_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_plug_new" : GUInt64.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val newForDisplay_ = fn x1 & x2 => (_import "gtk_plug_new_for_display" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GUInt64.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
+    val construct_ = fn x1 & x2 => (_import "gtk_plug_construct" : GtkPlugClass.FFI.notnull GtkPlugClass.FFI.p * GUInt64.FFI.val_ -> unit;) (x1, x2)
     val constructForDisplay_ =
       fn
         x1
@@ -14,9 +14,9 @@ structure GtkPlug :>
          & x3 =>
           (
             _import "gtk_plug_construct_for_display" :
-              GtkPlugClass.C.notnull GtkPlugClass.C.p
-               * GdkDisplayClass.C.notnull GdkDisplayClass.C.p
-               * FFI.UInt64.C.val_
+              GtkPlugClass.FFI.notnull GtkPlugClass.FFI.p
+               * GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
+               * GUInt64.FFI.val_
                -> unit;
           )
             (
@@ -24,23 +24,23 @@ structure GtkPlug :>
               x2,
               x3
             )
-    val getEmbedded_ = _import "gtk_plug_get_embedded" : GtkPlugClass.C.notnull GtkPlugClass.C.p -> FFI.Bool.C.val_;
-    val getId_ = _import "gtk_plug_get_id" : GtkPlugClass.C.notnull GtkPlugClass.C.p -> FFI.UInt64.C.val_;
-    val getSocketWindow_ = _import "gtk_plug_get_socket_window" : GtkPlugClass.C.notnull GtkPlugClass.C.p -> GdkWindowClass.C.notnull GdkWindowClass.C.p;
+    val getEmbedded_ = _import "gtk_plug_get_embedded" : GtkPlugClass.FFI.notnull GtkPlugClass.FFI.p -> GBool.FFI.val_;
+    val getId_ = _import "gtk_plug_get_id" : GtkPlugClass.FFI.notnull GtkPlugClass.FFI.p -> GUInt64.FFI.val_;
+    val getSocketWindow_ = _import "gtk_plug_get_socket_window" : GtkPlugClass.FFI.notnull GtkPlugClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
     type 'a class = 'a GtkPlugClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new socketId = (FFI.UInt64.C.withVal ---> GtkPlugClass.C.fromPtr false) new_ socketId
-    fun newForDisplay display socketId = (GdkDisplayClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> GtkPlugClass.C.fromPtr false) newForDisplay_ (display & socketId)
-    fun construct self socketId = (GtkPlugClass.C.withPtr &&&> FFI.UInt64.C.withVal ---> I) construct_ (self & socketId)
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new socketId = (GUInt64.FFI.withVal ---> GtkPlugClass.FFI.fromPtr false) new_ socketId
+    fun newForDisplay display socketId = (GdkDisplayClass.FFI.withPtr &&&> GUInt64.FFI.withVal ---> GtkPlugClass.FFI.fromPtr false) newForDisplay_ (display & socketId)
+    fun construct self socketId = (GtkPlugClass.FFI.withPtr &&&> GUInt64.FFI.withVal ---> I) construct_ (self & socketId)
     fun constructForDisplay self display socketId =
       (
-        GtkPlugClass.C.withPtr
-         &&&> GdkDisplayClass.C.withPtr
-         &&&> FFI.UInt64.C.withVal
+        GtkPlugClass.FFI.withPtr
+         &&&> GdkDisplayClass.FFI.withPtr
+         &&&> GUInt64.FFI.withVal
          ---> I
       )
         constructForDisplay_
@@ -49,9 +49,9 @@ structure GtkPlug :>
            & display
            & socketId
         )
-    fun getEmbedded self = (GtkPlugClass.C.withPtr ---> FFI.Bool.C.fromVal) getEmbedded_ self
-    fun getId self = (GtkPlugClass.C.withPtr ---> FFI.UInt64.C.fromVal) getId_ self
-    fun getSocketWindow self = (GtkPlugClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getSocketWindow_ self
+    fun getEmbedded self = (GtkPlugClass.FFI.withPtr ---> GBool.FFI.fromVal) getEmbedded_ self
+    fun getId self = (GtkPlugClass.FFI.withPtr ---> GUInt64.FFI.fromVal) getId_ self
+    fun getSocketWindow self = (GtkPlugClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getSocketWindow_ self
     local
       open ClosureMarshal Signal
     in

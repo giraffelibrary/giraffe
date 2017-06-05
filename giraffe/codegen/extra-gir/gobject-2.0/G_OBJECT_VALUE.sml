@@ -12,7 +12,7 @@ signature G_OBJECT_VALUE =
 
 
     val init : type_t -> t
- (* val copy : t * record_t -> unit  ?? should be called assign for consistency? *)
+ (* val copy : t * t -> unit  ?? should be called assign for consistency? *)
     val reset : t -> unit
 
     val getType : unit -> type_t
@@ -30,26 +30,19 @@ signature G_OBJECT_VALUE =
 
     structure C :
       sig
-        type notnull
-        type 'a p
+        type v
 
         val createAccessor :
           {
             getType  : unit -> type_t,
-            getValue : notnull p -> 'a,
-            setValue : (notnull p, 'b) pair -> unit
+            getValue : v -> 'a,
+            setValue : (v, 'b) pair -> unit
           }
             -> ('a, 'b) accessor
 
-        structure Array :
-          sig
-            type 'a array_p
-            val get : ('a, 'b) accessor -> notnull array_p -> word -> 'a
-            val set : ('a, 'b) accessor -> notnull array_p -> word -> 'b -> unit
-          end
+        val get : ('a, 'b) accessor -> v -> 'a
+        val set : ('a, 'b) accessor -> v -> 'b -> unit
 
-        val set : ('a, 'b) accessor -> notnull p -> 'b -> unit
-
-        val isValue : notnull p -> bool
+        val isValue : v -> bool
       end
   end

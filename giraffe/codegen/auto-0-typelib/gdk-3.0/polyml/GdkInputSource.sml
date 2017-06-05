@@ -1,33 +1,24 @@
-structure GdkInputSource :>
-  sig
-    include GDK_INPUT_SOURCE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GdkInputSource :> GDK_INPUT_SOURCE =
   struct
-    datatype t =
+    datatype enum =
       MOUSE
     | PEN
     | ERASER
     | CURSOR
     | KEYBOARD
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = MOUSE
+        val toInt =
           fn
-            MOUSE => f 0
-          | PEN => f 1
-          | ERASER => f 2
-          | CURSOR => f 3
-          | KEYBOARD => f 4
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            MOUSE => 0
+          | PEN => 1
+          | ERASER => 2
+          | CURSOR => 3
+          | KEYBOARD => 4
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => MOUSE
           | 1 => PEN
@@ -35,12 +26,8 @@ structure GdkInputSource :>
           | 3 => CURSOR
           | 4 => KEYBOARD
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -51,10 +38,9 @@ structure GdkInputSource :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = MOUSE
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

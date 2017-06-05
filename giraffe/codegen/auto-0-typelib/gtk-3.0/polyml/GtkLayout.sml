@@ -16,8 +16,8 @@ structure GtkLayout :>
         call (load_sym libgtk "gtk_layout_get_size")
           (
             GtkLayoutClass.PolyML.cPtr
-             &&> FFI.UInt32.PolyML.cRef
-             &&> FFI.UInt32.PolyML.cRef
+             &&> GUInt32.PolyML.cRef
+             &&> GUInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
       val move_ =
@@ -25,8 +25,8 @@ structure GtkLayout :>
           (
             GtkLayoutClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val put_ =
@@ -34,16 +34,16 @@ structure GtkLayout :>
           (
             GtkLayoutClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val setSize_ =
         call (load_sym libgtk "gtk_layout_set_size")
           (
             GtkLayoutClass.PolyML.cPtr
-             &&> FFI.UInt32.PolyML.cVal
-             &&> FFI.UInt32.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
     end
@@ -53,40 +53,40 @@ structure GtkLayout :>
     type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new hadjustment vadjustment = (GtkAdjustmentClass.C.withOptPtr &&&> GtkAdjustmentClass.C.withOptPtr ---> GtkLayoutClass.C.fromPtr false) new_ (hadjustment & vadjustment)
-    fun getBinWindow self = (GtkLayoutClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getBinWindow_ self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asScrollable self = (GObjectObjectClass.FFI.withPtr ---> GtkScrollableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new hadjustment vadjustment = (GtkAdjustmentClass.FFI.withOptPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> GtkLayoutClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
+    fun getBinWindow self = (GtkLayoutClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self
     fun getSize self =
       let
         val width
          & height
          & () =
           (
-            GtkLayoutClass.C.withPtr
-             &&&> FFI.UInt32.C.withRefVal
-             &&&> FFI.UInt32.C.withRefVal
-             ---> FFI.UInt32.C.fromVal
-                   && FFI.UInt32.C.fromVal
+            GtkLayoutClass.FFI.withPtr
+             &&&> GUInt32.FFI.withRefVal
+             &&&> GUInt32.FFI.withRefVal
+             ---> GUInt32.FFI.fromVal
+                   && GUInt32.FFI.fromVal
                    && I
           )
             getSize_
             (
               self
-               & FFI.UInt32.null
-               & FFI.UInt32.null
+               & GUInt32.null
+               & GUInt32.null
             )
       in
         (width, height)
       end
     fun move self childWidget x y =
       (
-        GtkLayoutClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        GtkLayoutClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         move_
@@ -98,10 +98,10 @@ structure GtkLayout :>
         )
     fun put self childWidget x y =
       (
-        GtkLayoutClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        GtkLayoutClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         put_
@@ -113,9 +113,9 @@ structure GtkLayout :>
         )
     fun setSize self width height =
       (
-        GtkLayoutClass.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.UInt32.C.withVal
+        GtkLayoutClass.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         &&&> GUInt32.FFI.withVal
          ---> I
       )
         setSize_

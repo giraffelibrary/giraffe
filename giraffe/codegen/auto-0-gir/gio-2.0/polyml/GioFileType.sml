@@ -1,14 +1,6 @@
-structure GioFileType :>
-  sig
-    include GIO_FILE_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GioFileType :> GIO_FILE_TYPE =
   struct
-    datatype t =
+    datatype enum =
       UNKNOWN
     | REGULAR
     | DIRECTORY
@@ -16,22 +8,21 @@ structure GioFileType :>
     | SPECIAL
     | SHORTCUT
     | MOUNTABLE
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = UNKNOWN
+        val toInt =
           fn
-            UNKNOWN => f 0
-          | REGULAR => f 1
-          | DIRECTORY => f 2
-          | SYMBOLIC_LINK => f 3
-          | SPECIAL => f 4
-          | SHORTCUT => f 5
-          | MOUNTABLE => f 6
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            UNKNOWN => 0
+          | REGULAR => 1
+          | DIRECTORY => 2
+          | SYMBOLIC_LINK => 3
+          | SPECIAL => 4
+          | SHORTCUT => 5
+          | MOUNTABLE => 6
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => UNKNOWN
           | 1 => REGULAR
@@ -41,12 +32,8 @@ structure GioFileType :>
           | 5 => SHORTCUT
           | 6 => MOUNTABLE
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -57,10 +44,9 @@ structure GioFileType :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = UNKNOWN
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

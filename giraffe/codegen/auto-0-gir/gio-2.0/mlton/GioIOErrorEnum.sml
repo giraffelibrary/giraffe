@@ -1,9 +1,6 @@
-structure GioIOErrorEnum :>
-  sig
-    include GIO_I_O_ERROR_ENUM
-  end =
+structure GioIOErrorEnum :> GIO_I_O_ERROR_ENUM =
   struct
-    datatype t =
+    datatype enum =
       FAILED
     | NOT_FOUND
     | EXISTS
@@ -48,59 +45,58 @@ structure GioIOErrorEnum :>
     | PROXY_AUTH_FAILED
     | PROXY_NEED_AUTH
     | PROXY_NOT_ALLOWED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = FAILED
+        val toInt =
           fn
-            FAILED => f 0
-          | NOT_FOUND => f 1
-          | EXISTS => f 2
-          | IS_DIRECTORY => f 3
-          | NOT_DIRECTORY => f 4
-          | NOT_EMPTY => f 5
-          | NOT_REGULAR_FILE => f 6
-          | NOT_SYMBOLIC_LINK => f 7
-          | NOT_MOUNTABLE_FILE => f 8
-          | FILENAME_TOO_LONG => f 9
-          | INVALID_FILENAME => f 10
-          | TOO_MANY_LINKS => f 11
-          | NO_SPACE => f 12
-          | INVALID_ARGUMENT => f 13
-          | PERMISSION_DENIED => f 14
-          | NOT_SUPPORTED => f 15
-          | NOT_MOUNTED => f 16
-          | ALREADY_MOUNTED => f 17
-          | CLOSED => f 18
-          | CANCELLED => f 19
-          | PENDING => f 20
-          | READ_ONLY => f 21
-          | CANT_CREATE_BACKUP => f 22
-          | WRONG_ETAG => f 23
-          | TIMED_OUT => f 24
-          | WOULD_RECURSE => f 25
-          | BUSY => f 26
-          | WOULD_BLOCK => f 27
-          | HOST_NOT_FOUND => f 28
-          | WOULD_MERGE => f 29
-          | FAILED_HANDLED => f 30
-          | TOO_MANY_OPEN_FILES => f 31
-          | NOT_INITIALIZED => f 32
-          | ADDRESS_IN_USE => f 33
-          | PARTIAL_INPUT => f 34
-          | INVALID_DATA => f 35
-          | DBUS_ERROR => f 36
-          | HOST_UNREACHABLE => f 37
-          | NETWORK_UNREACHABLE => f 38
-          | CONNECTION_REFUSED => f 39
-          | PROXY_FAILED => f 40
-          | PROXY_AUTH_FAILED => f 41
-          | PROXY_NEED_AUTH => f 42
-          | PROXY_NOT_ALLOWED => f 43
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            FAILED => 0
+          | NOT_FOUND => 1
+          | EXISTS => 2
+          | IS_DIRECTORY => 3
+          | NOT_DIRECTORY => 4
+          | NOT_EMPTY => 5
+          | NOT_REGULAR_FILE => 6
+          | NOT_SYMBOLIC_LINK => 7
+          | NOT_MOUNTABLE_FILE => 8
+          | FILENAME_TOO_LONG => 9
+          | INVALID_FILENAME => 10
+          | TOO_MANY_LINKS => 11
+          | NO_SPACE => 12
+          | INVALID_ARGUMENT => 13
+          | PERMISSION_DENIED => 14
+          | NOT_SUPPORTED => 15
+          | NOT_MOUNTED => 16
+          | ALREADY_MOUNTED => 17
+          | CLOSED => 18
+          | CANCELLED => 19
+          | PENDING => 20
+          | READ_ONLY => 21
+          | CANT_CREATE_BACKUP => 22
+          | WRONG_ETAG => 23
+          | TIMED_OUT => 24
+          | WOULD_RECURSE => 25
+          | BUSY => 26
+          | WOULD_BLOCK => 27
+          | HOST_NOT_FOUND => 28
+          | WOULD_MERGE => 29
+          | FAILED_HANDLED => 30
+          | TOO_MANY_OPEN_FILES => 31
+          | NOT_INITIALIZED => 32
+          | ADDRESS_IN_USE => 33
+          | PARTIAL_INPUT => 34
+          | INVALID_DATA => 35
+          | DBUS_ERROR => 36
+          | HOST_UNREACHABLE => 37
+          | NETWORK_UNREACHABLE => 38
+          | CONNECTION_REFUSED => 39
+          | PROXY_FAILED => 40
+          | PROXY_AUTH_FAILED => 41
+          | PROXY_NEED_AUTH => 42
+          | PROXY_NOT_ALLOWED => 43
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => FAILED
           | 1 => NOT_FOUND
@@ -147,25 +143,26 @@ structure GioIOErrorEnum :>
           | 42 => PROXY_NEED_AUTH
           | 43 => PROXY_NOT_ALLOWED
           | n => raise Value n
-      end
-    val getType_ = _import "g_io_error_enum_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "g_io_error_enum_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
     exception Error of t
     val handler =
       GLibErrorRecord.makeHandler
         (
           "g-io-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end
 exception GioIOErrorEnum = GioIOErrorEnum.Error

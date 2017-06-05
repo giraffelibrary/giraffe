@@ -15,8 +15,14 @@ signature GTK_SOURCE_STYLE_SCHEME_MANAGER =
       'a class
        -> string
        -> base style_scheme_class
+    val getSchemeIds : 'a class -> string list
+    val getSearchPath : 'a class -> string list
     val prependSearchPath :
       'a class
        -> string
+       -> unit
+    val setSearchPath :
+      'a class
+       -> string list option
        -> unit
   end

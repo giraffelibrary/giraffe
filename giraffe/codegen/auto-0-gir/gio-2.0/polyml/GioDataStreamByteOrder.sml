@@ -1,40 +1,27 @@
-structure GioDataStreamByteOrder :>
-  sig
-    include GIO_DATA_STREAM_BYTE_ORDER
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GioDataStreamByteOrder :> GIO_DATA_STREAM_BYTE_ORDER =
   struct
-    datatype t =
+    datatype enum =
       BIG_ENDIAN
     | LITTLE_ENDIAN
     | HOST_ENDIAN
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = BIG_ENDIAN
+        val toInt =
           fn
-            BIG_ENDIAN => f 0
-          | LITTLE_ENDIAN => f 1
-          | HOST_ENDIAN => f 2
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            BIG_ENDIAN => 0
+          | LITTLE_ENDIAN => 1
+          | HOST_ENDIAN => 2
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => BIG_ENDIAN
           | 1 => LITTLE_ENDIAN
           | 2 => HOST_ENDIAN
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -45,10 +32,9 @@ structure GioDataStreamByteOrder :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = BIG_ENDIAN
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

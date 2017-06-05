@@ -4,6 +4,12 @@ structure GtkDialog :>
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
+    structure GInt32CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GInt32Type
+        structure ElemSequence = CValueVectorSequence(GInt32Type)
+      )
+    structure GInt32CVectorN = CVectorN(GInt32CVectorNType)
     local
       open PolyMLFFI
     in
@@ -14,7 +20,7 @@ structure GtkDialog :>
           (
             GtkDialogClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val addButton_ =
@@ -22,22 +28,30 @@ structure GtkDialog :>
           (
             GtkDialogClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> GtkWidgetClass.PolyML.cPtr
           )
       val getActionArea_ = call (load_sym libgtk "gtk_dialog_get_action_area") (GtkDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getContentArea_ = call (load_sym libgtk "gtk_dialog_get_content_area") (GtkDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getResponseForWidget_ = call (load_sym libgtk "gtk_dialog_get_response_for_widget") (GtkDialogClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
-      val getWidgetForResponse_ = call (load_sym libgtk "gtk_dialog_get_widget_for_response") (GtkDialogClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
-      val response_ = call (load_sym libgtk "gtk_dialog_response") (GtkDialogClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val run_ = call (load_sym libgtk "gtk_dialog_run") (GtkDialogClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
-      val setDefaultResponse_ = call (load_sym libgtk "gtk_dialog_set_default_response") (GtkDialogClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getResponseForWidget_ = call (load_sym libgtk "gtk_dialog_get_response_for_widget") (GtkDialogClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getWidgetForResponse_ = call (load_sym libgtk "gtk_dialog_get_widget_for_response") (GtkDialogClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val response_ = call (load_sym libgtk "gtk_dialog_response") (GtkDialogClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val run_ = call (load_sym libgtk "gtk_dialog_run") (GtkDialogClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val setAlternativeButtonOrderFromArray_ =
+        call (load_sym libgtk "gtk_dialog_set_alternative_button_order_from_array")
+          (
+            GtkDialogClass.PolyML.cPtr
+             &&> GInt32.PolyML.cVal
+             &&> GInt32CVectorN.PolyML.cInPtr
+             --> PolyMLFFI.cVoid
+          )
+      val setDefaultResponse_ = call (load_sym libgtk "gtk_dialog_set_default_response") (GtkDialogClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val setResponseSensitive_ =
         call (load_sym libgtk "gtk_dialog_set_response_sensitive")
           (
             GtkDialogClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
     end
@@ -45,15 +59,15 @@ structure GtkDialog :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkDialogClass.C.fromPtr false) new_ ()
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkDialogClass.FFI.fromPtr false) new_ ()
     fun addActionWidget self child responseId =
       (
-        GtkDialogClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+        GtkDialogClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         addActionWidget_
@@ -64,10 +78,10 @@ structure GtkDialog :>
         )
     fun addButton self buttonText responseId =
       (
-        GtkDialogClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         ---> GtkWidgetClass.C.fromPtr false
+        GtkDialogClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         ---> GtkWidgetClass.FFI.fromPtr false
       )
         addButton_
         (
@@ -75,18 +89,37 @@ structure GtkDialog :>
            & buttonText
            & responseId
         )
-    fun getActionArea self = (GtkDialogClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getActionArea_ self
-    fun getContentArea self = (GtkDialogClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getContentArea_ self
-    fun getResponseForWidget self widget = (GtkDialogClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> FFI.Int32.C.fromVal) getResponseForWidget_ (self & widget)
-    fun getWidgetForResponse self responseId = (GtkDialogClass.C.withPtr &&&> FFI.Int32.C.withVal ---> GtkWidgetClass.C.fromPtr false) getWidgetForResponse_ (self & responseId)
-    fun response self responseId = (GtkDialogClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) response_ (self & responseId)
-    fun run self = (GtkDialogClass.C.withPtr ---> FFI.Int32.C.fromVal) run_ self
-    fun setDefaultResponse self responseId = (GtkDialogClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setDefaultResponse_ (self & responseId)
+    fun getActionArea self = (GtkDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getActionArea_ self
+    fun getContentArea self = (GtkDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getContentArea_ self
+    fun getResponseForWidget self widget = (GtkDialogClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getResponseForWidget_ (self & widget)
+    fun getWidgetForResponse self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getWidgetForResponse_ (self & responseId)
+    fun response self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) response_ (self & responseId)
+    fun run self = (GtkDialogClass.FFI.withPtr ---> GInt32.FFI.fromVal) run_ self
+    fun setAlternativeButtonOrderFromArray self newOrder =
+      let
+        val nParams = LargeInt.fromInt (GInt32CVectorN.length newOrder)
+        val () =
+          (
+            GtkDialogClass.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GInt32CVectorN.FFI.withPtr
+             ---> I
+          )
+            setAlternativeButtonOrderFromArray_
+            (
+              self
+               & nParams
+               & newOrder
+            )
+      in
+        ()
+      end
+    fun setDefaultResponse self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setDefaultResponse_ (self & responseId)
     fun setResponseSensitive self responseId setting =
       (
-        GtkDialogClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Bool.C.withVal
+        GtkDialogClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GBool.FFI.withVal
          ---> I
       )
         setResponseSensitive_

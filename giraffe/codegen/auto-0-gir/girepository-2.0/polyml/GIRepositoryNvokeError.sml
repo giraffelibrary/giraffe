@@ -1,46 +1,33 @@
-structure GIRepositoryNvokeError :>
-  sig
-    include G_I_REPOSITORY_NVOKE_ERROR
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GIRepositoryNvokeError :> G_I_REPOSITORY_NVOKE_ERROR =
   struct
-    datatype t =
+    datatype enum =
       FAILED
     | SYMBOL_NOT_FOUND
     | ARGUMENT_MISMATCH
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = FAILED
+        val toInt =
           fn
-            FAILED => f 0
-          | SYMBOL_NOT_FOUND => f 1
-          | ARGUMENT_MISMATCH => f 2
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            FAILED => 0
+          | SYMBOL_NOT_FOUND => 1
+          | ARGUMENT_MISMATCH => 2
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => FAILED
           | 1 => SYMBOL_NOT_FOUND
           | 2 => ARGUMENT_MISMATCH
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     exception Error of t
     val handler =
       GLibErrorRecord.makeHandler
         (
           "g-invoke-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
   end

@@ -16,10 +16,10 @@ structure GioSocketConnection :>
     type 'a socket_address_class = 'a GioSocketAddressClass.class
     type 'a socket_class = 'a GioSocketClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getLocalAddress self = (GioSocketConnectionClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.C.fromPtr true) getLocalAddress_ (self & [])
-    fun getRemoteAddress self = (GioSocketConnectionClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.C.fromPtr true) getRemoteAddress_ (self & [])
-    fun getSocket self = (GioSocketConnectionClass.C.withPtr ---> GioSocketClass.C.fromPtr false) getSocket_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getLocalAddress self = (GioSocketConnectionClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.FFI.fromPtr true) getLocalAddress_ (self & [])
+    fun getRemoteAddress self = (GioSocketConnectionClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.FFI.fromPtr true) getRemoteAddress_ (self & [])
+    fun getSocket self = (GioSocketConnectionClass.FFI.withPtr ---> GioSocketClass.FFI.fromPtr false) getSocket_ self
     local
       open Property
     in

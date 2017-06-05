@@ -1,1 +1,1 @@
-structure XlibTime = FFI.ULong
+structure XlibTime = GULong

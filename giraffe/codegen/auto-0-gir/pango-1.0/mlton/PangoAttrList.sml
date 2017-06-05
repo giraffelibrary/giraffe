@@ -3,12 +3,12 @@ structure PangoAttrList :>
     where type t = PangoAttrListRecord.t
     where type attribute_t = PangoAttributeRecord.t =
   struct
-    val getType_ = _import "pango_attr_list_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "pango_attr_list_new" : unit -> PangoAttrListRecord.C.notnull PangoAttrListRecord.C.p;
-    val change_ = fn x1 & x2 => (_import "pango_attr_list_change" : PangoAttrListRecord.C.notnull PangoAttrListRecord.C.p * PangoAttributeRecord.C.notnull PangoAttributeRecord.C.p -> unit;) (x1, x2)
-    val copy_ = _import "pango_attr_list_copy" : PangoAttrListRecord.C.notnull PangoAttrListRecord.C.p -> PangoAttrListRecord.C.notnull PangoAttrListRecord.C.p;
-    val insert_ = fn x1 & x2 => (_import "pango_attr_list_insert" : PangoAttrListRecord.C.notnull PangoAttrListRecord.C.p * PangoAttributeRecord.C.notnull PangoAttributeRecord.C.p -> unit;) (x1, x2)
-    val insertBefore_ = fn x1 & x2 => (_import "pango_attr_list_insert_before" : PangoAttrListRecord.C.notnull PangoAttrListRecord.C.p * PangoAttributeRecord.C.notnull PangoAttributeRecord.C.p -> unit;) (x1, x2)
+    val getType_ = _import "pango_attr_list_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "pango_attr_list_new" : unit -> PangoAttrListRecord.FFI.notnull PangoAttrListRecord.FFI.p;
+    val change_ = fn x1 & x2 => (_import "pango_attr_list_change" : PangoAttrListRecord.FFI.notnull PangoAttrListRecord.FFI.p * PangoAttributeRecord.FFI.notnull PangoAttributeRecord.FFI.p -> unit;) (x1, x2)
+    val copy_ = _import "pango_attr_list_copy" : PangoAttrListRecord.FFI.notnull PangoAttrListRecord.FFI.p -> PangoAttrListRecord.FFI.notnull PangoAttrListRecord.FFI.p;
+    val insert_ = fn x1 & x2 => (_import "pango_attr_list_insert" : PangoAttrListRecord.FFI.notnull PangoAttrListRecord.FFI.p * PangoAttributeRecord.FFI.notnull PangoAttributeRecord.FFI.p -> unit;) (x1, x2)
+    val insertBefore_ = fn x1 & x2 => (_import "pango_attr_list_insert_before" : PangoAttrListRecord.FFI.notnull PangoAttrListRecord.FFI.p * PangoAttributeRecord.FFI.notnull PangoAttributeRecord.FFI.p -> unit;) (x1, x2)
     val splice_ =
       fn
         x1
@@ -17,10 +17,10 @@ structure PangoAttrList :>
          & x4 =>
           (
             _import "pango_attr_list_splice" :
-              PangoAttrListRecord.C.notnull PangoAttrListRecord.C.p
-               * PangoAttrListRecord.C.notnull PangoAttrListRecord.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
+              PangoAttrListRecord.FFI.notnull PangoAttrListRecord.FFI.p
+               * PangoAttrListRecord.FFI.notnull PangoAttrListRecord.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -31,18 +31,18 @@ structure PangoAttrList :>
             )
     type t = PangoAttrListRecord.t
     type attribute_t = PangoAttributeRecord.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> PangoAttrListRecord.C.fromPtr true) new_ ()
-    fun change self attr = (PangoAttrListRecord.C.withPtr &&&> PangoAttributeRecord.C.withPtr ---> I) change_ (self & attr)
-    fun copy self = (PangoAttrListRecord.C.withPtr ---> PangoAttrListRecord.C.fromPtr true) copy_ self
-    fun insert self attr = (PangoAttrListRecord.C.withPtr &&&> PangoAttributeRecord.C.withPtr ---> I) insert_ (self & attr)
-    fun insertBefore self attr = (PangoAttrListRecord.C.withPtr &&&> PangoAttributeRecord.C.withPtr ---> I) insertBefore_ (self & attr)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> PangoAttrListRecord.FFI.fromPtr true) new_ ()
+    fun change self attr = (PangoAttrListRecord.FFI.withPtr &&&> PangoAttributeRecord.FFI.withPtr ---> I) change_ (self & attr)
+    fun copy self = (PangoAttrListRecord.FFI.withPtr ---> PangoAttrListRecord.FFI.fromPtr true) copy_ self
+    fun insert self attr = (PangoAttrListRecord.FFI.withPtr &&&> PangoAttributeRecord.FFI.withPtr ---> I) insert_ (self & attr)
+    fun insertBefore self attr = (PangoAttrListRecord.FFI.withPtr &&&> PangoAttributeRecord.FFI.withPtr ---> I) insertBefore_ (self & attr)
     fun splice self other pos len =
       (
-        PangoAttrListRecord.C.withPtr
-         &&&> PangoAttrListRecord.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        PangoAttrListRecord.FFI.withPtr
+         &&&> PangoAttrListRecord.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         splice_

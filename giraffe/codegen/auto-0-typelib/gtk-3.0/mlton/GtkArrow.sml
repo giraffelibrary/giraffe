@@ -5,8 +5,8 @@ structure GtkArrow :>
     where type arrow_type_t = GtkArrowType.t
     where type shadow_type_t = GtkShadowType.t =
   struct
-    val getType_ = _import "gtk_arrow_get_type" : unit -> GObjectType.C.val_;
-    val new_ = fn x1 & x2 => (_import "gtk_arrow_new" : GtkArrowType.C.val_ * GtkShadowType.C.val_ -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;) (x1, x2)
+    val getType_ = _import "gtk_arrow_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = fn x1 & x2 => (_import "gtk_arrow_new" : GtkArrowType.FFI.val_ * GtkShadowType.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
     val set_ =
       fn
         x1
@@ -14,9 +14,9 @@ structure GtkArrow :>
          & x3 =>
           (
             _import "gtk_arrow_set" :
-              GtkArrowClass.C.notnull GtkArrowClass.C.p
-               * GtkArrowType.C.val_
-               * GtkShadowType.C.val_
+              GtkArrowClass.FFI.notnull GtkArrowClass.FFI.p
+               * GtkArrowType.FFI.val_
+               * GtkShadowType.FFI.val_
                -> unit;
           )
             (
@@ -29,15 +29,15 @@ structure GtkArrow :>
     type arrow_type_t = GtkArrowType.t
     type shadow_type_t = GtkShadowType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new arrowType shadowType = (GtkArrowType.C.withVal &&&> GtkShadowType.C.withVal ---> GtkArrowClass.C.fromPtr false) new_ (arrowType & shadowType)
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new arrowType shadowType = (GtkArrowType.FFI.withVal &&&> GtkShadowType.FFI.withVal ---> GtkArrowClass.FFI.fromPtr false) new_ (arrowType & shadowType)
     fun set self arrowType shadowType =
       (
-        GtkArrowClass.C.withPtr
-         &&&> GtkArrowType.C.withVal
-         &&&> GtkShadowType.C.withVal
+        GtkArrowClass.FFI.withPtr
+         &&&> GtkArrowType.FFI.withVal
+         &&&> GtkShadowType.FFI.withVal
          ---> I
       )
         set_

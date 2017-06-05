@@ -11,16 +11,16 @@ structure GtkCellAreaContext :>
         call (load_sym libgtk "gtk_cell_area_context_allocate")
           (
             GtkCellAreaContextClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val getAllocation_ =
         call (load_sym libgtk "gtk_cell_area_context_get_allocation")
           (
             GtkCellAreaContextClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cRef
-             &&> FFI.Int32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
       val getArea_ = call (load_sym libgtk "gtk_cell_area_context_get_area") (GtkCellAreaContextClass.PolyML.cPtr --> GtkCellAreaClass.PolyML.cPtr)
@@ -28,50 +28,50 @@ structure GtkCellAreaContext :>
         call (load_sym libgtk "gtk_cell_area_context_get_preferred_height")
           (
             GtkCellAreaContextClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cRef
-             &&> FFI.Int32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
       val getPreferredHeightForWidth_ =
         call (load_sym libgtk "gtk_cell_area_context_get_preferred_height_for_width")
           (
             GtkCellAreaContextClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cRef
-             &&> FFI.Int32.PolyML.cRef
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
       val getPreferredWidth_ =
         call (load_sym libgtk "gtk_cell_area_context_get_preferred_width")
           (
             GtkCellAreaContextClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cRef
-             &&> FFI.Int32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
       val getPreferredWidthForHeight_ =
         call (load_sym libgtk "gtk_cell_area_context_get_preferred_width_for_height")
           (
             GtkCellAreaContextClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cRef
-             &&> FFI.Int32.PolyML.cRef
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
       val pushPreferredHeight_ =
         call (load_sym libgtk "gtk_cell_area_context_push_preferred_height")
           (
             GtkCellAreaContextClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val pushPreferredWidth_ =
         call (load_sym libgtk "gtk_cell_area_context_push_preferred_width")
           (
             GtkCellAreaContextClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val reset_ = call (load_sym libgtk "gtk_cell_area_context_reset") (GtkCellAreaContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
@@ -79,12 +79,12 @@ structure GtkCellAreaContext :>
     type 'a class = 'a GtkCellAreaContextClass.class
     type 'a cell_area_class = 'a GtkCellAreaClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun allocate self width height =
       (
-        GtkCellAreaContextClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        GtkCellAreaContextClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         allocate_
@@ -99,41 +99,41 @@ structure GtkCellAreaContext :>
          & height
          & () =
           (
-            GtkCellAreaContextClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+            GtkCellAreaContextClass.FFI.withPtr
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
                    && I
           )
             getAllocation_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & GInt32.null
+               & GInt32.null
             )
       in
         (width, height)
       end
-    fun getArea self = (GtkCellAreaContextClass.C.withPtr ---> GtkCellAreaClass.C.fromPtr false) getArea_ self
+    fun getArea self = (GtkCellAreaContextClass.FFI.withPtr ---> GtkCellAreaClass.FFI.fromPtr false) getArea_ self
     fun getPreferredHeight self =
       let
         val minimumHeight
          & naturalHeight
          & () =
           (
-            GtkCellAreaContextClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+            GtkCellAreaContextClass.FFI.withPtr
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
                    && I
           )
             getPreferredHeight_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & GInt32.null
+               & GInt32.null
             )
       in
         (minimumHeight, naturalHeight)
@@ -144,20 +144,20 @@ structure GtkCellAreaContext :>
          & naturalHeight
          & () =
           (
-            GtkCellAreaContextClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+            GtkCellAreaContextClass.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
                    && I
           )
             getPreferredHeightForWidth_
             (
               self
                & width
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & GInt32.null
+               & GInt32.null
             )
       in
         (minimumHeight, naturalHeight)
@@ -168,18 +168,18 @@ structure GtkCellAreaContext :>
          & naturalWidth
          & () =
           (
-            GtkCellAreaContextClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+            GtkCellAreaContextClass.FFI.withPtr
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
                    && I
           )
             getPreferredWidth_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & GInt32.null
+               & GInt32.null
             )
       in
         (minimumWidth, naturalWidth)
@@ -190,29 +190,29 @@ structure GtkCellAreaContext :>
          & naturalWidth
          & () =
           (
-            GtkCellAreaContextClass.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+            GtkCellAreaContextClass.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
                    && I
           )
             getPreferredWidthForHeight_
             (
               self
                & height
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & GInt32.null
+               & GInt32.null
             )
       in
         (minimumWidth, naturalWidth)
       end
     fun pushPreferredHeight self minimumHeight naturalHeight =
       (
-        GtkCellAreaContextClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        GtkCellAreaContextClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         pushPreferredHeight_
@@ -223,9 +223,9 @@ structure GtkCellAreaContext :>
         )
     fun pushPreferredWidth self minimumWidth naturalWidth =
       (
-        GtkCellAreaContextClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        GtkCellAreaContextClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         pushPreferredWidth_
@@ -234,7 +234,7 @@ structure GtkCellAreaContext :>
            & minimumWidth
            & naturalWidth
         )
-    fun reset self = (GtkCellAreaContextClass.C.withPtr ---> I) reset_ self
+    fun reset self = (GtkCellAreaContextClass.FFI.withPtr ---> I) reset_ self
     local
       open Property
     in

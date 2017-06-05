@@ -15,10 +15,10 @@ structure GtkIconView :>
     where type 'a tree_model_class = 'a GtkTreeModelClass.class
     where type selection_mode_t = GtkSelectionMode.t =
   struct
-    val getType_ = _import "gtk_icon_view_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_icon_view_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
-    val newWithArea_ = _import "gtk_icon_view_new_with_area" : GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
-    val newWithModel_ = _import "gtk_icon_view_new_with_model" : GtkTreeModelClass.C.notnull GtkTreeModelClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val getType_ = _import "gtk_icon_view_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_icon_view_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val newWithArea_ = _import "gtk_icon_view_new_with_area" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val newWithModel_ = _import "gtk_icon_view_new_with_model" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val convertWidgetToBinWindowCoords_ =
       fn
         x1
@@ -28,11 +28,11 @@ structure GtkIconView :>
          & x5 =>
           (
             _import "gtk_icon_view_convert_widget_to_bin_window_coords" :
-              GtkIconViewClass.C.notnull GtkIconViewClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               * FFI.Int.C.ref_
-               * FFI.Int.C.ref_
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * GInt.FFI.ref_
+               * GInt.FFI.ref_
                -> unit;
           )
             (
@@ -42,9 +42,9 @@ structure GtkIconView :>
               x4,
               x5
             )
-    val createDragIcon_ = fn x1 & x2 => (_import "gtk_icon_view_create_drag_icon" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> CairoSurfaceRecord.C.notnull CairoSurfaceRecord.C.p;) (x1, x2)
-    val getColumnSpacing_ = _import "gtk_icon_view_get_column_spacing" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> FFI.Int.C.val_;
-    val getColumns_ = _import "gtk_icon_view_get_columns" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> FFI.Int.C.val_;
+    val createDragIcon_ = fn x1 & x2 => (_import "gtk_icon_view_create_drag_icon" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p;) (x1, x2)
+    val getColumnSpacing_ = _import "gtk_icon_view_get_column_spacing" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt.FFI.val_;
+    val getColumns_ = _import "gtk_icon_view_get_columns" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt.FFI.val_;
     val getCursor_ =
       fn
         x1
@@ -52,10 +52,10 @@ structure GtkIconView :>
          & x3 =>
           (
             _import "gtk_icon_view_get_cursor" :
-              GtkIconViewClass.C.notnull GtkIconViewClass.C.p
-               * (unit, GtkTreePathRecord.C.notnull) GtkTreePathRecord.C.r
-               * (unit, GtkCellRendererClass.C.notnull) GtkCellRendererClass.C.r
-               -> FFI.Bool.C.val_;
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
+               * (unit, GtkCellRendererClass.FFI.notnull) GtkCellRendererClass.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -71,12 +71,12 @@ structure GtkIconView :>
          & x5 =>
           (
             _import "gtk_icon_view_get_dest_item_at_pos" :
-              GtkIconViewClass.C.notnull GtkIconViewClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               * (unit, GtkTreePathRecord.C.notnull) GtkTreePathRecord.C.r
-               * GtkIconViewDropPosition.C.ref_
-               -> FFI.Bool.C.val_;
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
+               * GtkIconViewDropPosition.FFI.ref_
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -92,9 +92,9 @@ structure GtkIconView :>
          & x3 =>
           (
             _import "gtk_icon_view_get_drag_dest_item" :
-              GtkIconViewClass.C.notnull GtkIconViewClass.C.p
-               * (unit, GtkTreePathRecord.C.notnull) GtkTreePathRecord.C.r
-               * GtkIconViewDropPosition.C.ref_
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
+               * GtkIconViewDropPosition.FFI.ref_
                -> unit;
           )
             (
@@ -111,12 +111,12 @@ structure GtkIconView :>
          & x5 =>
           (
             _import "gtk_icon_view_get_item_at_pos" :
-              GtkIconViewClass.C.notnull GtkIconViewClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               * (unit, GtkTreePathRecord.C.notnull) GtkTreePathRecord.C.r
-               * (unit, GtkCellRendererClass.C.notnull) GtkCellRendererClass.C.r
-               -> FFI.Bool.C.val_;
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
+               * (unit, GtkCellRendererClass.FFI.notnull) GtkCellRendererClass.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -125,14 +125,14 @@ structure GtkIconView :>
               x4,
               x5
             )
-    val getItemColumn_ = fn x1 & x2 => (_import "gtk_icon_view_get_item_column" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> FFI.Int.C.val_;) (x1, x2)
-    val getItemOrientation_ = _import "gtk_icon_view_get_item_orientation" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> GtkOrientation.C.val_;
-    val getItemPadding_ = _import "gtk_icon_view_get_item_padding" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> FFI.Int.C.val_;
-    val getItemRow_ = fn x1 & x2 => (_import "gtk_icon_view_get_item_row" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> FFI.Int.C.val_;) (x1, x2)
-    val getItemWidth_ = _import "gtk_icon_view_get_item_width" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> FFI.Int.C.val_;
-    val getMargin_ = _import "gtk_icon_view_get_margin" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> FFI.Int.C.val_;
-    val getMarkupColumn_ = _import "gtk_icon_view_get_markup_column" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> FFI.Int.C.val_;
-    val getModel_ = _import "gtk_icon_view_get_model" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> GtkTreeModelClass.C.notnull GtkTreeModelClass.C.p;
+    val getItemColumn_ = fn x1 & x2 => (_import "gtk_icon_view_get_item_column" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val getItemOrientation_ = _import "gtk_icon_view_get_item_orientation" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GtkOrientation.FFI.val_;
+    val getItemPadding_ = _import "gtk_icon_view_get_item_padding" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt.FFI.val_;
+    val getItemRow_ = fn x1 & x2 => (_import "gtk_icon_view_get_item_row" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val getItemWidth_ = _import "gtk_icon_view_get_item_width" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt.FFI.val_;
+    val getMargin_ = _import "gtk_icon_view_get_margin" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt.FFI.val_;
+    val getMarkupColumn_ = _import "gtk_icon_view_get_markup_column" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt.FFI.val_;
+    val getModel_ = _import "gtk_icon_view_get_model" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p;
     val getPathAtPos_ =
       fn
         x1
@@ -140,23 +140,23 @@ structure GtkIconView :>
          & x3 =>
           (
             _import "gtk_icon_view_get_path_at_pos" :
-              GtkIconViewClass.C.notnull GtkIconViewClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               -> GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p;
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               -> GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getPixbufColumn_ = _import "gtk_icon_view_get_pixbuf_column" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> FFI.Int.C.val_;
-    val getReorderable_ = _import "gtk_icon_view_get_reorderable" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> FFI.Bool.C.val_;
-    val getRowSpacing_ = _import "gtk_icon_view_get_row_spacing" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> FFI.Int.C.val_;
-    val getSelectionMode_ = _import "gtk_icon_view_get_selection_mode" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> GtkSelectionMode.C.val_;
-    val getSpacing_ = _import "gtk_icon_view_get_spacing" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> FFI.Int.C.val_;
-    val getTextColumn_ = _import "gtk_icon_view_get_text_column" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> FFI.Int.C.val_;
-    val getTooltipColumn_ = _import "gtk_icon_view_get_tooltip_column" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> FFI.Int.C.val_;
+    val getPixbufColumn_ = _import "gtk_icon_view_get_pixbuf_column" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt.FFI.val_;
+    val getReorderable_ = _import "gtk_icon_view_get_reorderable" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GBool.FFI.val_;
+    val getRowSpacing_ = _import "gtk_icon_view_get_row_spacing" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt.FFI.val_;
+    val getSelectionMode_ = _import "gtk_icon_view_get_selection_mode" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GtkSelectionMode.FFI.val_;
+    val getSpacing_ = _import "gtk_icon_view_get_spacing" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt.FFI.val_;
+    val getTextColumn_ = _import "gtk_icon_view_get_text_column" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt.FFI.val_;
+    val getTooltipColumn_ = _import "gtk_icon_view_get_tooltip_column" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt.FFI.val_;
     val getTooltipContext_ =
       fn
         x1
@@ -168,14 +168,14 @@ structure GtkIconView :>
          & x7 =>
           (
             _import "gtk_icon_view_get_tooltip_context" :
-              GtkIconViewClass.C.notnull GtkIconViewClass.C.p
-               * FFI.Int.C.ref_
-               * FFI.Int.C.ref_
-               * FFI.Bool.C.val_
-               * (unit, GtkTreeModelClass.C.notnull) GtkTreeModelClass.C.r
-               * (unit, GtkTreePathRecord.C.notnull) GtkTreePathRecord.C.r
-               * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
-               -> FFI.Bool.C.val_;
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * GInt.FFI.ref_
+               * GInt.FFI.ref_
+               * GBool.FFI.val_
+               * (unit, GtkTreeModelClass.FFI.notnull) GtkTreeModelClass.FFI.r
+               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
+               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -193,18 +193,18 @@ structure GtkIconView :>
          & x3 =>
           (
             _import "gtk_icon_view_get_visible_range" :
-              GtkIconViewClass.C.notnull GtkIconViewClass.C.p
-               * (unit, GtkTreePathRecord.C.notnull) GtkTreePathRecord.C.r
-               * (unit, GtkTreePathRecord.C.notnull) GtkTreePathRecord.C.r
-               -> FFI.Bool.C.val_;
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
+               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val itemActivated_ = fn x1 & x2 => (_import "gtk_icon_view_item_activated" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> unit;) (x1, x2)
-    val pathIsSelected_ = fn x1 & x2 => (_import "gtk_icon_view_path_is_selected" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val itemActivated_ = fn x1 & x2 => (_import "gtk_icon_view_item_activated" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> unit;) (x1, x2)
+    val pathIsSelected_ = fn x1 & x2 => (_import "gtk_icon_view_path_is_selected" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val scrollToPath_ =
       fn
         x1
@@ -214,11 +214,11 @@ structure GtkIconView :>
          & x5 =>
           (
             _import "gtk_icon_view_scroll_to_path" :
-              GtkIconViewClass.C.notnull GtkIconViewClass.C.p
-               * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p
-               * FFI.Bool.C.val_
-               * FFI.Float.C.val_
-               * FFI.Float.C.val_
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
+               * GBool.FFI.val_
+               * GFloat.FFI.val_
+               * GFloat.FFI.val_
                -> unit;
           )
             (
@@ -228,10 +228,10 @@ structure GtkIconView :>
               x4,
               x5
             )
-    val selectAll_ = _import "gtk_icon_view_select_all" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> unit;
-    val selectPath_ = fn x1 & x2 => (_import "gtk_icon_view_select_path" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> unit;) (x1, x2)
-    val setColumnSpacing_ = fn x1 & x2 => (_import "gtk_icon_view_set_column_spacing" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
-    val setColumns_ = fn x1 & x2 => (_import "gtk_icon_view_set_columns" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
+    val selectAll_ = _import "gtk_icon_view_select_all" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> unit;
+    val selectPath_ = fn x1 & x2 => (_import "gtk_icon_view_select_path" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> unit;) (x1, x2)
+    val setColumnSpacing_ = fn x1 & x2 => (_import "gtk_icon_view_set_column_spacing" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setColumns_ = fn x1 & x2 => (_import "gtk_icon_view_set_columns" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val setCursor_ =
       fn
         x1
@@ -240,10 +240,10 @@ structure GtkIconView :>
          & x4 =>
           (
             _import "gtk_icon_view_set_cursor" :
-              GtkIconViewClass.C.notnull GtkIconViewClass.C.p
-               * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p
-               * unit GtkCellRendererClass.C.p
-               * FFI.Bool.C.val_
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
+               * unit GtkCellRendererClass.FFI.p
+               * GBool.FFI.val_
                -> unit;
           )
             (
@@ -259,9 +259,9 @@ structure GtkIconView :>
          & x3 =>
           (
             _import "gtk_icon_view_set_drag_dest_item" :
-              GtkIconViewClass.C.notnull GtkIconViewClass.C.p
-               * unit GtkTreePathRecord.C.p
-               * GtkIconViewDropPosition.C.val_
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * unit GtkTreePathRecord.FFI.p
+               * GtkIconViewDropPosition.FFI.val_
                -> unit;
           )
             (
@@ -269,18 +269,18 @@ structure GtkIconView :>
               x2,
               x3
             )
-    val setItemOrientation_ = fn x1 & x2 => (_import "gtk_icon_view_set_item_orientation" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * GtkOrientation.C.val_ -> unit;) (x1, x2)
-    val setItemPadding_ = fn x1 & x2 => (_import "gtk_icon_view_set_item_padding" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
-    val setItemWidth_ = fn x1 & x2 => (_import "gtk_icon_view_set_item_width" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
-    val setMargin_ = fn x1 & x2 => (_import "gtk_icon_view_set_margin" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
-    val setMarkupColumn_ = fn x1 & x2 => (_import "gtk_icon_view_set_markup_column" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
-    val setModel_ = fn x1 & x2 => (_import "gtk_icon_view_set_model" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * unit GtkTreeModelClass.C.p -> unit;) (x1, x2)
-    val setPixbufColumn_ = fn x1 & x2 => (_import "gtk_icon_view_set_pixbuf_column" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
-    val setReorderable_ = fn x1 & x2 => (_import "gtk_icon_view_set_reorderable" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setRowSpacing_ = fn x1 & x2 => (_import "gtk_icon_view_set_row_spacing" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
-    val setSelectionMode_ = fn x1 & x2 => (_import "gtk_icon_view_set_selection_mode" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * GtkSelectionMode.C.val_ -> unit;) (x1, x2)
-    val setSpacing_ = fn x1 & x2 => (_import "gtk_icon_view_set_spacing" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
-    val setTextColumn_ = fn x1 & x2 => (_import "gtk_icon_view_set_text_column" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
+    val setItemOrientation_ = fn x1 & x2 => (_import "gtk_icon_view_set_item_orientation" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GtkOrientation.FFI.val_ -> unit;) (x1, x2)
+    val setItemPadding_ = fn x1 & x2 => (_import "gtk_icon_view_set_item_padding" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setItemWidth_ = fn x1 & x2 => (_import "gtk_icon_view_set_item_width" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setMargin_ = fn x1 & x2 => (_import "gtk_icon_view_set_margin" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setMarkupColumn_ = fn x1 & x2 => (_import "gtk_icon_view_set_markup_column" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setModel_ = fn x1 & x2 => (_import "gtk_icon_view_set_model" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * unit GtkTreeModelClass.FFI.p -> unit;) (x1, x2)
+    val setPixbufColumn_ = fn x1 & x2 => (_import "gtk_icon_view_set_pixbuf_column" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setReorderable_ = fn x1 & x2 => (_import "gtk_icon_view_set_reorderable" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setRowSpacing_ = fn x1 & x2 => (_import "gtk_icon_view_set_row_spacing" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setSelectionMode_ = fn x1 & x2 => (_import "gtk_icon_view_set_selection_mode" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GtkSelectionMode.FFI.val_ -> unit;) (x1, x2)
+    val setSpacing_ = fn x1 & x2 => (_import "gtk_icon_view_set_spacing" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setTextColumn_ = fn x1 & x2 => (_import "gtk_icon_view_set_text_column" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val setTooltipCell_ =
       fn
         x1
@@ -289,10 +289,10 @@ structure GtkIconView :>
          & x4 =>
           (
             _import "gtk_icon_view_set_tooltip_cell" :
-              GtkIconViewClass.C.notnull GtkIconViewClass.C.p
-               * GtkTooltipClass.C.notnull GtkTooltipClass.C.p
-               * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p
-               * unit GtkCellRendererClass.C.p
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * GtkTooltipClass.FFI.notnull GtkTooltipClass.FFI.p
+               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
+               * unit GtkCellRendererClass.FFI.p
                -> unit;
           )
             (
@@ -301,7 +301,7 @@ structure GtkIconView :>
               x3,
               x4
             )
-    val setTooltipColumn_ = fn x1 & x2 => (_import "gtk_icon_view_set_tooltip_column" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
+    val setTooltipColumn_ = fn x1 & x2 => (_import "gtk_icon_view_set_tooltip_column" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val setTooltipItem_ =
       fn
         x1
@@ -309,9 +309,9 @@ structure GtkIconView :>
          & x3 =>
           (
             _import "gtk_icon_view_set_tooltip_item" :
-              GtkIconViewClass.C.notnull GtkIconViewClass.C.p
-               * GtkTooltipClass.C.notnull GtkTooltipClass.C.p
-               * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * GtkTooltipClass.FFI.notnull GtkTooltipClass.FFI.p
+               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
                -> unit;
           )
             (
@@ -319,10 +319,10 @@ structure GtkIconView :>
               x2,
               x3
             )
-    val unselectAll_ = _import "gtk_icon_view_unselect_all" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> unit;
-    val unselectPath_ = fn x1 & x2 => (_import "gtk_icon_view_unselect_path" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> unit;) (x1, x2)
-    val unsetModelDragDest_ = _import "gtk_icon_view_unset_model_drag_dest" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> unit;
-    val unsetModelDragSource_ = _import "gtk_icon_view_unset_model_drag_source" : GtkIconViewClass.C.notnull GtkIconViewClass.C.p -> unit;
+    val unselectAll_ = _import "gtk_icon_view_unselect_all" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> unit;
+    val unselectPath_ = fn x1 & x2 => (_import "gtk_icon_view_unselect_path" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> unit;) (x1, x2)
+    val unsetModelDragDest_ = _import "gtk_icon_view_unset_model_drag_dest" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> unit;
+    val unsetModelDragSource_ = _import "gtk_icon_view_unset_model_drag_source" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> unit;
     type 'a class = 'a GtkIconViewClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_layout_class = 'a GtkCellLayoutClass.class
@@ -338,27 +338,27 @@ structure GtkIconView :>
     type 'a tree_model_class = 'a GtkTreeModelClass.class
     type selection_mode_t = GtkSelectionMode.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self
-    fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkIconViewClass.C.fromPtr false) new_ ()
-    fun newWithArea area = (GtkCellAreaClass.C.withPtr ---> GtkIconViewClass.C.fromPtr false) newWithArea_ area
-    fun newWithModel model = (GtkTreeModelClass.C.withPtr ---> GtkIconViewClass.C.fromPtr false) newWithModel_ model
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asCellLayout self = (GObjectObjectClass.FFI.withPtr ---> GtkCellLayoutClass.FFI.fromPtr false) I self
+    fun asScrollable self = (GObjectObjectClass.FFI.withPtr ---> GtkScrollableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkIconViewClass.FFI.fromPtr false) new_ ()
+    fun newWithArea area = (GtkCellAreaClass.FFI.withPtr ---> GtkIconViewClass.FFI.fromPtr false) newWithArea_ area
+    fun newWithModel model = (GtkTreeModelClass.FFI.withPtr ---> GtkIconViewClass.FFI.fromPtr false) newWithModel_ model
     fun convertWidgetToBinWindowCoords self wx wy =
       let
         val bx
          & by
          & () =
           (
-            GtkIconViewClass.C.withPtr
-             &&&> FFI.Int.C.withVal
-             &&&> FFI.Int.C.withVal
-             &&&> FFI.Int.C.withRefVal
-             &&&> FFI.Int.C.withRefVal
-             ---> FFI.Int.C.fromVal
-                   && FFI.Int.C.fromVal
+            GtkIconViewClass.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             &&&> GInt.FFI.withVal
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
                    && I
           )
             convertWidgetToBinWindowCoords_
@@ -366,27 +366,27 @@ structure GtkIconView :>
               self
                & wx
                & wy
-               & FFI.Int.null
-               & FFI.Int.null
+               & GInt.null
+               & GInt.null
             )
       in
         (bx, by)
       end
-    fun createDragIcon self path = (GtkIconViewClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> CairoSurfaceRecord.C.fromPtr true) createDragIcon_ (self & path)
-    fun getColumnSpacing self = (GtkIconViewClass.C.withPtr ---> FFI.Int.C.fromVal) getColumnSpacing_ self
-    fun getColumns self = (GtkIconViewClass.C.withPtr ---> FFI.Int.C.fromVal) getColumns_ self
+    fun createDragIcon self path = (GtkIconViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromPtr true) createDragIcon_ (self & path)
+    fun getColumnSpacing self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getColumnSpacing_ self
+    fun getColumns self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getColumns_ self
     fun getCursor self =
       let
         val path
          & cell
          & retVal =
           (
-            GtkIconViewClass.C.withPtr
-             &&&> GtkTreePathRecord.C.withRefOptPtr
-             &&&> GtkCellRendererClass.C.withRefOptPtr
-             ---> GtkTreePathRecord.C.fromPtr true
-                   && GtkCellRendererClass.C.fromPtr true
-                   && FFI.Bool.C.fromVal
+            GtkIconViewClass.FFI.withPtr
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr
+             &&&> GtkCellRendererClass.FFI.withRefOptPtr
+             ---> GtkTreePathRecord.FFI.fromPtr true
+                   && GtkCellRendererClass.FFI.fromPtr true
+                   && GBool.FFI.fromVal
           )
             getCursor_
             (
@@ -403,14 +403,14 @@ structure GtkIconView :>
          & pos
          & retVal =
           (
-            GtkIconViewClass.C.withPtr
-             &&&> FFI.Int.C.withVal
-             &&&> FFI.Int.C.withVal
-             &&&> GtkTreePathRecord.C.withRefOptPtr
-             &&&> GtkIconViewDropPosition.C.withRefVal
-             ---> GtkTreePathRecord.C.fromPtr true
-                   && GtkIconViewDropPosition.C.fromVal
-                   && FFI.Bool.C.fromVal
+            GtkIconViewClass.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             &&&> GInt.FFI.withVal
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr
+             &&&> GtkIconViewDropPosition.FFI.withRefVal
+             ---> GtkTreePathRecord.FFI.fromPtr true
+                   && GtkIconViewDropPosition.FFI.fromVal
+                   && GBool.FFI.fromVal
           )
             getDestItemAtPos_
             (
@@ -429,11 +429,11 @@ structure GtkIconView :>
          & pos
          & () =
           (
-            GtkIconViewClass.C.withPtr
-             &&&> GtkTreePathRecord.C.withRefOptPtr
-             &&&> GtkIconViewDropPosition.C.withRefVal
-             ---> GtkTreePathRecord.C.fromPtr true
-                   && GtkIconViewDropPosition.C.fromVal
+            GtkIconViewClass.FFI.withPtr
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr
+             &&&> GtkIconViewDropPosition.FFI.withRefVal
+             ---> GtkTreePathRecord.FFI.fromPtr true
+                   && GtkIconViewDropPosition.FFI.fromVal
                    && I
           )
             getDragDestItem_
@@ -451,14 +451,14 @@ structure GtkIconView :>
          & cell
          & retVal =
           (
-            GtkIconViewClass.C.withPtr
-             &&&> FFI.Int.C.withVal
-             &&&> FFI.Int.C.withVal
-             &&&> GtkTreePathRecord.C.withRefOptPtr
-             &&&> GtkCellRendererClass.C.withRefOptPtr
-             ---> GtkTreePathRecord.C.fromPtr true
-                   && GtkCellRendererClass.C.fromPtr true
-                   && FFI.Bool.C.fromVal
+            GtkIconViewClass.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             &&&> GInt.FFI.withVal
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr
+             &&&> GtkCellRendererClass.FFI.withRefOptPtr
+             ---> GtkTreePathRecord.FFI.fromPtr true
+                   && GtkCellRendererClass.FFI.fromPtr true
+                   && GBool.FFI.fromVal
           )
             getItemAtPos_
             (
@@ -471,20 +471,20 @@ structure GtkIconView :>
       in
         if retVal then SOME (path, cell) else NONE
       end
-    fun getItemColumn self path = (GtkIconViewClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> FFI.Int.C.fromVal) getItemColumn_ (self & path)
-    fun getItemOrientation self = (GtkIconViewClass.C.withPtr ---> GtkOrientation.C.fromVal) getItemOrientation_ self
-    fun getItemPadding self = (GtkIconViewClass.C.withPtr ---> FFI.Int.C.fromVal) getItemPadding_ self
-    fun getItemRow self path = (GtkIconViewClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> FFI.Int.C.fromVal) getItemRow_ (self & path)
-    fun getItemWidth self = (GtkIconViewClass.C.withPtr ---> FFI.Int.C.fromVal) getItemWidth_ self
-    fun getMargin self = (GtkIconViewClass.C.withPtr ---> FFI.Int.C.fromVal) getMargin_ self
-    fun getMarkupColumn self = (GtkIconViewClass.C.withPtr ---> FFI.Int.C.fromVal) getMarkupColumn_ self
-    fun getModel self = (GtkIconViewClass.C.withPtr ---> GtkTreeModelClass.C.fromPtr false) getModel_ self
+    fun getItemColumn self path = (GtkIconViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GInt.FFI.fromVal) getItemColumn_ (self & path)
+    fun getItemOrientation self = (GtkIconViewClass.FFI.withPtr ---> GtkOrientation.FFI.fromVal) getItemOrientation_ self
+    fun getItemPadding self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getItemPadding_ self
+    fun getItemRow self path = (GtkIconViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GInt.FFI.fromVal) getItemRow_ (self & path)
+    fun getItemWidth self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getItemWidth_ self
+    fun getMargin self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getMargin_ self
+    fun getMarkupColumn self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getMarkupColumn_ self
+    fun getModel self = (GtkIconViewClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
     fun getPathAtPos self x y =
       (
-        GtkIconViewClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         ---> GtkTreePathRecord.C.fromPtr true
+        GtkIconViewClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GtkTreePathRecord.FFI.fromPtr true
       )
         getPathAtPos_
         (
@@ -492,13 +492,13 @@ structure GtkIconView :>
            & x
            & y
         )
-    fun getPixbufColumn self = (GtkIconViewClass.C.withPtr ---> FFI.Int.C.fromVal) getPixbufColumn_ self
-    fun getReorderable self = (GtkIconViewClass.C.withPtr ---> FFI.Bool.C.fromVal) getReorderable_ self
-    fun getRowSpacing self = (GtkIconViewClass.C.withPtr ---> FFI.Int.C.fromVal) getRowSpacing_ self
-    fun getSelectionMode self = (GtkIconViewClass.C.withPtr ---> GtkSelectionMode.C.fromVal) getSelectionMode_ self
-    fun getSpacing self = (GtkIconViewClass.C.withPtr ---> FFI.Int.C.fromVal) getSpacing_ self
-    fun getTextColumn self = (GtkIconViewClass.C.withPtr ---> FFI.Int.C.fromVal) getTextColumn_ self
-    fun getTooltipColumn self = (GtkIconViewClass.C.withPtr ---> FFI.Int.C.fromVal) getTooltipColumn_ self
+    fun getPixbufColumn self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getPixbufColumn_ self
+    fun getReorderable self = (GtkIconViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getReorderable_ self
+    fun getRowSpacing self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getRowSpacing_ self
+    fun getSelectionMode self = (GtkIconViewClass.FFI.withPtr ---> GtkSelectionMode.FFI.fromVal) getSelectionMode_ self
+    fun getSpacing self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getSpacing_ self
+    fun getTextColumn self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getTextColumn_ self
+    fun getTooltipColumn self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getTooltipColumn_ self
     fun getTooltipContext self x y keyboardTip =
       let
         val x
@@ -508,19 +508,19 @@ structure GtkIconView :>
          & iter
          & retVal =
           (
-            GtkIconViewClass.C.withPtr
-             &&&> FFI.Int.C.withRefVal
-             &&&> FFI.Int.C.withRefVal
-             &&&> FFI.Bool.C.withVal
-             &&&> GtkTreeModelClass.C.withRefOptPtr
-             &&&> GtkTreePathRecord.C.withRefOptPtr
-             &&&> GtkTreeIterRecord.C.withNewPtr
-             ---> FFI.Int.C.fromVal
-                   && FFI.Int.C.fromVal
-                   && GtkTreeModelClass.C.fromPtr true
-                   && GtkTreePathRecord.C.fromPtr true
-                   && GtkTreeIterRecord.C.fromPtr true
-                   && FFI.Bool.C.fromVal
+            GtkIconViewClass.FFI.withPtr
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             &&&> GBool.FFI.withVal
+             &&&> GtkTreeModelClass.FFI.withRefOptPtr
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr
+             &&&> GtkTreeIterRecord.FFI.withNewPtr
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && GtkTreeModelClass.FFI.fromPtr true
+                   && GtkTreePathRecord.FFI.fromPtr true
+                   && GtkTreeIterRecord.FFI.fromPtr true
+                   && GBool.FFI.fromVal
           )
             getTooltipContext_
             (
@@ -553,12 +553,12 @@ structure GtkIconView :>
          & endPath
          & retVal =
           (
-            GtkIconViewClass.C.withPtr
-             &&&> GtkTreePathRecord.C.withRefOptPtr
-             &&&> GtkTreePathRecord.C.withRefOptPtr
-             ---> GtkTreePathRecord.C.fromPtr true
-                   && GtkTreePathRecord.C.fromPtr true
-                   && FFI.Bool.C.fromVal
+            GtkIconViewClass.FFI.withPtr
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr
+             ---> GtkTreePathRecord.FFI.fromPtr true
+                   && GtkTreePathRecord.FFI.fromPtr true
+                   && GBool.FFI.fromVal
           )
             getVisibleRange_
             (
@@ -569,15 +569,15 @@ structure GtkIconView :>
       in
         if retVal then SOME (startPath, endPath) else NONE
       end
-    fun itemActivated self path = (GtkIconViewClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> I) itemActivated_ (self & path)
-    fun pathIsSelected self path = (GtkIconViewClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> FFI.Bool.C.fromVal) pathIsSelected_ (self & path)
+    fun itemActivated self path = (GtkIconViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) itemActivated_ (self & path)
+    fun pathIsSelected self path = (GtkIconViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GBool.FFI.fromVal) pathIsSelected_ (self & path)
     fun scrollToPath self path useAlign rowAlign colAlign =
       (
-        GtkIconViewClass.C.withPtr
-         &&&> GtkTreePathRecord.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.Float.C.withVal
-         &&&> FFI.Float.C.withVal
+        GtkIconViewClass.FFI.withPtr
+         &&&> GtkTreePathRecord.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> GFloat.FFI.withVal
+         &&&> GFloat.FFI.withVal
          ---> I
       )
         scrollToPath_
@@ -588,16 +588,16 @@ structure GtkIconView :>
            & rowAlign
            & colAlign
         )
-    fun selectAll self = (GtkIconViewClass.C.withPtr ---> I) selectAll_ self
-    fun selectPath self path = (GtkIconViewClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> I) selectPath_ (self & path)
-    fun setColumnSpacing self columnSpacing = (GtkIconViewClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setColumnSpacing_ (self & columnSpacing)
-    fun setColumns self columns = (GtkIconViewClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setColumns_ (self & columns)
+    fun selectAll self = (GtkIconViewClass.FFI.withPtr ---> I) selectAll_ self
+    fun selectPath self path = (GtkIconViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) selectPath_ (self & path)
+    fun setColumnSpacing self columnSpacing = (GtkIconViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setColumnSpacing_ (self & columnSpacing)
+    fun setColumns self columns = (GtkIconViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setColumns_ (self & columns)
     fun setCursor self path cell startEditing =
       (
-        GtkIconViewClass.C.withPtr
-         &&&> GtkTreePathRecord.C.withPtr
-         &&&> GtkCellRendererClass.C.withOptPtr
-         &&&> FFI.Bool.C.withVal
+        GtkIconViewClass.FFI.withPtr
+         &&&> GtkTreePathRecord.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withOptPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         setCursor_
@@ -609,9 +609,9 @@ structure GtkIconView :>
         )
     fun setDragDestItem self path pos =
       (
-        GtkIconViewClass.C.withPtr
-         &&&> GtkTreePathRecord.C.withOptPtr
-         &&&> GtkIconViewDropPosition.C.withVal
+        GtkIconViewClass.FFI.withPtr
+         &&&> GtkTreePathRecord.FFI.withOptPtr
+         &&&> GtkIconViewDropPosition.FFI.withVal
          ---> I
       )
         setDragDestItem_
@@ -620,24 +620,24 @@ structure GtkIconView :>
            & path
            & pos
         )
-    fun setItemOrientation self orientation = (GtkIconViewClass.C.withPtr &&&> GtkOrientation.C.withVal ---> I) setItemOrientation_ (self & orientation)
-    fun setItemPadding self itemPadding = (GtkIconViewClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setItemPadding_ (self & itemPadding)
-    fun setItemWidth self itemWidth = (GtkIconViewClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setItemWidth_ (self & itemWidth)
-    fun setMargin self margin = (GtkIconViewClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMargin_ (self & margin)
-    fun setMarkupColumn self column = (GtkIconViewClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMarkupColumn_ (self & column)
-    fun setModel self model = (GtkIconViewClass.C.withPtr &&&> GtkTreeModelClass.C.withOptPtr ---> I) setModel_ (self & model)
-    fun setPixbufColumn self column = (GtkIconViewClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setPixbufColumn_ (self & column)
-    fun setReorderable self reorderable = (GtkIconViewClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setReorderable_ (self & reorderable)
-    fun setRowSpacing self rowSpacing = (GtkIconViewClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setRowSpacing_ (self & rowSpacing)
-    fun setSelectionMode self mode = (GtkIconViewClass.C.withPtr &&&> GtkSelectionMode.C.withVal ---> I) setSelectionMode_ (self & mode)
-    fun setSpacing self spacing = (GtkIconViewClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setSpacing_ (self & spacing)
-    fun setTextColumn self column = (GtkIconViewClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setTextColumn_ (self & column)
+    fun setItemOrientation self orientation = (GtkIconViewClass.FFI.withPtr &&&> GtkOrientation.FFI.withVal ---> I) setItemOrientation_ (self & orientation)
+    fun setItemPadding self itemPadding = (GtkIconViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setItemPadding_ (self & itemPadding)
+    fun setItemWidth self itemWidth = (GtkIconViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setItemWidth_ (self & itemWidth)
+    fun setMargin self margin = (GtkIconViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMargin_ (self & margin)
+    fun setMarkupColumn self column = (GtkIconViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMarkupColumn_ (self & column)
+    fun setModel self model = (GtkIconViewClass.FFI.withPtr &&&> GtkTreeModelClass.FFI.withOptPtr ---> I) setModel_ (self & model)
+    fun setPixbufColumn self column = (GtkIconViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setPixbufColumn_ (self & column)
+    fun setReorderable self reorderable = (GtkIconViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setReorderable_ (self & reorderable)
+    fun setRowSpacing self rowSpacing = (GtkIconViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setRowSpacing_ (self & rowSpacing)
+    fun setSelectionMode self mode = (GtkIconViewClass.FFI.withPtr &&&> GtkSelectionMode.FFI.withVal ---> I) setSelectionMode_ (self & mode)
+    fun setSpacing self spacing = (GtkIconViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setSpacing_ (self & spacing)
+    fun setTextColumn self column = (GtkIconViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setTextColumn_ (self & column)
     fun setTooltipCell self tooltip path cell =
       (
-        GtkIconViewClass.C.withPtr
-         &&&> GtkTooltipClass.C.withPtr
-         &&&> GtkTreePathRecord.C.withPtr
-         &&&> GtkCellRendererClass.C.withOptPtr
+        GtkIconViewClass.FFI.withPtr
+         &&&> GtkTooltipClass.FFI.withPtr
+         &&&> GtkTreePathRecord.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withOptPtr
          ---> I
       )
         setTooltipCell_
@@ -647,12 +647,12 @@ structure GtkIconView :>
            & path
            & cell
         )
-    fun setTooltipColumn self column = (GtkIconViewClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setTooltipColumn_ (self & column)
+    fun setTooltipColumn self column = (GtkIconViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setTooltipColumn_ (self & column)
     fun setTooltipItem self tooltip path =
       (
-        GtkIconViewClass.C.withPtr
-         &&&> GtkTooltipClass.C.withPtr
-         &&&> GtkTreePathRecord.C.withPtr
+        GtkIconViewClass.FFI.withPtr
+         &&&> GtkTooltipClass.FFI.withPtr
+         &&&> GtkTreePathRecord.FFI.withPtr
          ---> I
       )
         setTooltipItem_
@@ -661,10 +661,10 @@ structure GtkIconView :>
            & tooltip
            & path
         )
-    fun unselectAll self = (GtkIconViewClass.C.withPtr ---> I) unselectAll_ self
-    fun unselectPath self path = (GtkIconViewClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> I) unselectPath_ (self & path)
-    fun unsetModelDragDest self = (GtkIconViewClass.C.withPtr ---> I) unsetModelDragDest_ self
-    fun unsetModelDragSource self = (GtkIconViewClass.C.withPtr ---> I) unsetModelDragSource_ self
+    fun unselectAll self = (GtkIconViewClass.FFI.withPtr ---> I) unselectAll_ self
+    fun unselectPath self path = (GtkIconViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) unselectPath_ (self & path)
+    fun unsetModelDragDest self = (GtkIconViewClass.FFI.withPtr ---> I) unsetModelDragDest_ self
+    fun unsetModelDragSource self = (GtkIconViewClass.FFI.withPtr ---> I) unsetModelDragSource_ self
     local
       open ClosureMarshal Signal
     in

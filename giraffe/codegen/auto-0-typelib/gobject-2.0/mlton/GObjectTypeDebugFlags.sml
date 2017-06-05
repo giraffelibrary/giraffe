@@ -1,7 +1,4 @@
-structure GObjectTypeDebugFlags :>
-  sig
-    include G_OBJECT_TYPE_DEBUG_FLAGS
-  end =
+structure GObjectTypeDebugFlags :> G_OBJECT_TYPE_DEBUG_FLAGS =
   struct
     local
       fun NONE () = 0w0
@@ -18,18 +15,9 @@ structure GObjectTypeDebugFlags :>
         SIGNALS,
         MASK
       ]
-    structure BitFlags =
-      Word32BitFlags (
+    structure Flags =
+      Flags(
         val allFlags = allFlags
       )
-    open BitFlags
-    type t = flags
-    structure C =
-      struct
-        type val_ = FFI.Flags.C.val_
-        type ref_ = FFI.Flags.C.ref_
-        fun withVal f = f
-        fun withRefVal f = withVal (FFI.Flags.C.withRef f)
-        fun fromVal w = w
-      end
+    open Flags
   end

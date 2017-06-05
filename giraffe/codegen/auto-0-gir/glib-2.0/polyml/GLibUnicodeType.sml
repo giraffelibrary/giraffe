@@ -1,14 +1,6 @@
-structure GLibUnicodeType :>
-  sig
-    include G_LIB_UNICODE_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GLibUnicodeType :> G_LIB_UNICODE_TYPE =
   struct
-    datatype t =
+    datatype enum =
       CONTROL
     | FORMAT
     | UNASSIGNED
@@ -39,45 +31,44 @@ structure GLibUnicodeType :>
     | LINE_SEPARATOR
     | PARAGRAPH_SEPARATOR
     | SPACE_SEPARATOR
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = CONTROL
+        val toInt =
           fn
-            CONTROL => f 0
-          | FORMAT => f 1
-          | UNASSIGNED => f 2
-          | PRIVATE_USE => f 3
-          | SURROGATE => f 4
-          | LOWERCASE_LETTER => f 5
-          | MODIFIER_LETTER => f 6
-          | OTHER_LETTER => f 7
-          | TITLECASE_LETTER => f 8
-          | UPPERCASE_LETTER => f 9
-          | SPACING_MARK => f 10
-          | ENCLOSING_MARK => f 11
-          | NON_SPACING_MARK => f 12
-          | DECIMAL_NUMBER => f 13
-          | LETTER_NUMBER => f 14
-          | OTHER_NUMBER => f 15
-          | CONNECT_PUNCTUATION => f 16
-          | DASH_PUNCTUATION => f 17
-          | CLOSE_PUNCTUATION => f 18
-          | FINAL_PUNCTUATION => f 19
-          | INITIAL_PUNCTUATION => f 20
-          | OTHER_PUNCTUATION => f 21
-          | OPEN_PUNCTUATION => f 22
-          | CURRENCY_SYMBOL => f 23
-          | MODIFIER_SYMBOL => f 24
-          | MATH_SYMBOL => f 25
-          | OTHER_SYMBOL => f 26
-          | LINE_SEPARATOR => f 27
-          | PARAGRAPH_SEPARATOR => f 28
-          | SPACE_SEPARATOR => f 29
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            CONTROL => 0
+          | FORMAT => 1
+          | UNASSIGNED => 2
+          | PRIVATE_USE => 3
+          | SURROGATE => 4
+          | LOWERCASE_LETTER => 5
+          | MODIFIER_LETTER => 6
+          | OTHER_LETTER => 7
+          | TITLECASE_LETTER => 8
+          | UPPERCASE_LETTER => 9
+          | SPACING_MARK => 10
+          | ENCLOSING_MARK => 11
+          | NON_SPACING_MARK => 12
+          | DECIMAL_NUMBER => 13
+          | LETTER_NUMBER => 14
+          | OTHER_NUMBER => 15
+          | CONNECT_PUNCTUATION => 16
+          | DASH_PUNCTUATION => 17
+          | CLOSE_PUNCTUATION => 18
+          | FINAL_PUNCTUATION => 19
+          | INITIAL_PUNCTUATION => 20
+          | OTHER_PUNCTUATION => 21
+          | OPEN_PUNCTUATION => 22
+          | CURRENCY_SYMBOL => 23
+          | MODIFIER_SYMBOL => 24
+          | MATH_SYMBOL => 25
+          | OTHER_SYMBOL => 26
+          | LINE_SEPARATOR => 27
+          | PARAGRAPH_SEPARATOR => 28
+          | SPACE_SEPARATOR => 29
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => CONTROL
           | 1 => FORMAT
@@ -110,11 +101,6 @@ structure GLibUnicodeType :>
           | 28 => PARAGRAPH_SEPARATOR
           | 29 => SPACE_SEPARATOR
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
-    val null = CONTROL
+      )
+    open Enum
   end

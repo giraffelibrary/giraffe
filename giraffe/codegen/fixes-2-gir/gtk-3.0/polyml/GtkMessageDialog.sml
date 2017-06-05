@@ -34,16 +34,16 @@ structure GtkMessageDialog :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type message_type_t = GtkMessageType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new parent flags type' buttons =
       (
-        GtkWindowClass.C.withOptPtr
-         &&&> GtkDialogFlags.C.withVal
-         &&&> GtkMessageType.C.withVal
-         &&&> GtkButtonsType.C.withVal
-         ---> GtkMessageDialogClass.C.fromPtr false
+        GtkWindowClass.FFI.withOptPtr
+         &&&> GtkDialogFlags.FFI.withVal
+         &&&> GtkMessageType.FFI.withVal
+         &&&> GtkButtonsType.FFI.withVal
+         ---> GtkMessageDialogClass.FFI.fromPtr false
       )
         new_
         (
@@ -52,10 +52,10 @@ structure GtkMessageDialog :>
            & type'
            & buttons
         )
-    fun getImage self = (GtkMessageDialogClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getImage_ self
-    fun getMessageArea self = (GtkMessageDialogClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getMessageArea_ self
-    fun setImage self image = (GtkMessageDialogClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) setImage_ (self & image)
-    fun setMarkup self str = (GtkMessageDialogClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setMarkup_ (self & str)
+    fun getImage self = (GtkMessageDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getImage_ self
+    fun getMessageArea self = (GtkMessageDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getMessageArea_ self
+    fun setImage self image = (GtkMessageDialogClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) setImage_ (self & image)
+    fun setMarkup self str = (GtkMessageDialogClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setMarkup_ (self & str)
     local
       open Property
     in

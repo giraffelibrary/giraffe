@@ -91,6 +91,8 @@ in
   mlton/GObjectTypeFundamentalFlags.sml
   mlton/GObjectValue.sml
   mlton/GObjectBindingFlags.sml
+  mlton/CVector.sml
+  mlton/CVectorN.sml
   mlton/ClosureMarshal.sml
   mlton/GObjectClosureRecord.sml
   mlton/GObjectObjectClass.sml

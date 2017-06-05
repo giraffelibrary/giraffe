@@ -3,7 +3,7 @@ structure GioAsyncInitable :>
     where type 'a class = 'a GioAsyncInitableClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
-    val getType_ = _import "g_async_initable_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "g_async_initable_get_type" : unit -> GObjectType.FFI.val_;
     val initFinish_ =
       fn
         x1
@@ -11,10 +11,10 @@ structure GioAsyncInitable :>
          & x3 =>
           (
             _import "g_async_initable_init_finish" :
-              GioAsyncInitableClass.C.notnull GioAsyncInitableClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioAsyncInitableClass.FFI.notnull GioAsyncInitableClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -28,10 +28,10 @@ structure GioAsyncInitable :>
          & x3 =>
           (
             _import "g_async_initable_new_finish" :
-              GioAsyncInitableClass.C.notnull GioAsyncInitableClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
+              GioAsyncInitableClass.FFI.notnull GioAsyncInitableClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
           )
             (
               x1,
@@ -41,13 +41,13 @@ structure GioAsyncInitable :>
     type 'a class = 'a GioAsyncInitableClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun initFinish self res =
       (
-        GioAsyncInitableClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioAsyncInitableClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         initFinish_
         (
@@ -57,10 +57,10 @@ structure GioAsyncInitable :>
         )
     fun newFinish self res =
       (
-        GioAsyncInitableClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioAsyncInitableClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GObjectObjectClass.C.fromPtr true
+         ---> GObjectObjectClass.FFI.fromPtr true
       )
         newFinish_
         (

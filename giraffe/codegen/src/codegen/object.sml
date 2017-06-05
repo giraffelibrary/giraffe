@@ -231,7 +231,7 @@ in
           end
         else (strDecs'1, [])
 
-      val struct1 = mkStructBody strDecs'2
+      val struct1 = mkBodyStruct strDecs'2
 
       (* sig *)
       val sig1 = SigName objectClassSigId
@@ -520,14 +520,14 @@ fun addObjectMethodStrDecsHighLevel repo rootObjectIRef objectIRef =
     (makeFunctionStrDecHighLevel repo (SOME (rootObjectIRef, objectIRef)))
 
 fun addObjectSignalStrDecs repo objectIRef =
-  fn (objectInfo, (strDecs, iRefs, errs)) =>
+  fn (objectInfo, (strDecs, x, errs)) =>
     let
-      val (localStrDecs, iRefs', errs') =
+      val (localStrDecs, x', errs') =
         revFoldMapInfosWithErrs
           ObjectInfo.getNSignals
           ObjectInfo.getSignal
           (makeSignalStrDec repo objectIRef)
-          (objectInfo, ([], iRefs, errs))
+          (objectInfo, ([], x, errs))
     in
       case localStrDecs of
         _ :: _ =>
@@ -547,20 +547,20 @@ fun addObjectSignalStrDecs repo objectIRef =
                 mkStrDecs localStrDecs
               )
           in
-            (strDec :: strDecs, iRefs', errs')
+            (strDec :: strDecs, x', errs')
           end
-      | _      => (strDecs, iRefs', errs')
+      | _      => (strDecs, x', errs')
     end
 
 fun addObjectPropertyStrDecs repo objectIRef =
-  fn (objectInfo, (strDecs, iRefs, errs)) =>
+  fn (objectInfo, (strDecs, x, errs)) =>
     let
-      val (localStrDecs, iRefs', errs') =
+      val (localStrDecs, x', errs') =
         revFoldMapInfosWithErrs
           ObjectInfo.getNProperties
           ObjectInfo.getProperty
           (makePropertyStrDec repo objectIRef)
-          (objectInfo, ([], iRefs, errs))
+          (objectInfo, ([], x, errs))
     in
       case localStrDecs of
         _ :: _ =>
@@ -579,9 +579,9 @@ fun addObjectPropertyStrDecs repo objectIRef =
                 mkStrDecs localStrDecs
               )
           in
-            (strDec :: strDecs, iRefs', errs')
+            (strDec :: strDecs, x', errs')
           end
-      | _      => (strDecs, iRefs', errs')
+      | _      => (strDecs, x', errs')
     end
 
 fun makeObjectStr
@@ -620,9 +620,9 @@ fun makeObjectStr
     (* module *)
     val acc'0
       : strdec list
-         * interfaceref list
+         * (interfaceref list * struct1 ListDict.t)
          * infoerrorhier list =
-      ([], [], errs'0)
+      ([], ([], ListDict.empty), errs'0)
     val acc'1 = addObjectPropertyStrDecs repo objectIRef (objectInfo, acc'0)
     val acc'2 = addObjectSignalStrDecs repo objectIRef (objectInfo, acc'1)
     val acc'3 =
@@ -639,7 +639,7 @@ fun makeObjectStr
         rootObjectIRef
         objectIRef
         (objectInfo, acc'5)
-    val (strDecs'6, iRefs'6, errs'6) = acc'6
+    val (strDecs'6, (iRefs'6, structDeps'6), errs'6) = acc'6
 
     val strIRefs =
       objectIRef :: iRefs'6  (* `objectIRef` for class structure dependence *)
@@ -671,7 +671,7 @@ fun makeObjectStr
 
     fun mkModule isPolyML =
       let
-        val (strDecs, _) =
+        val (strDecs'10, _) =
           addObjectMethodStrDecsLowLevel
             isPolyML
             repo
@@ -688,7 +688,11 @@ fun makeObjectStr
             objectIRef
             (objectInfo, (strDecs'9, errs'6))
 
-        val struct1 = mkStructBody strDecs
+        val strDecs'11 =
+          revMapAppend mkStructStrDec
+            (ListDict.toList structDeps'6, strDecs'10)
+
+        val struct1 = mkBodyStruct strDecs'11
 
         (* sig *)
         val sig1 = SigName objectSigId

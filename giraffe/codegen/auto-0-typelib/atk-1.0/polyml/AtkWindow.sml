@@ -9,7 +9,7 @@ structure AtkWindow :>
     end
     type 'a class = 'a AtkWindowClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     local
       open ClosureMarshal Signal
     in

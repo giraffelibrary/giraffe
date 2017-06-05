@@ -1,26 +1,32 @@
 structure Pango : PANGO =
   struct
-    val attrTypeGetName_ = _import "pango_attr_type_get_name" : PangoAttrType.C.val_ -> Utf8.C.notnull Utf8.C.out_p;
-    val attrTypeRegister_ = _import "mlton_pango_attr_type_register" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> PangoAttrType.C.val_;
-    val bidiTypeForUnichar_ = _import "pango_bidi_type_for_unichar" : FFI.Char.C.val_ -> PangoBidiType.C.val_;
-    val extentsToPixels_ = fn x1 & x2 => (_import "pango_extents_to_pixels" : unit PangoRectangleRecord.C.p * unit PangoRectangleRecord.C.p -> unit;) (x1, x2)
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
+    val attrTypeGetName_ = _import "pango_attr_type_get_name" : PangoAttrType.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val attrTypeRegister_ = _import "mlton_pango_attr_type_register" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> PangoAttrType.FFI.val_;
+    val bidiTypeForUnichar_ = _import "pango_bidi_type_for_unichar" : GChar.FFI.val_ -> PangoBidiType.FFI.val_;
+    val extentsToPixels_ = fn x1 & x2 => (_import "pango_extents_to_pixels" : unit PangoRectangleRecord.FFI.p * unit PangoRectangleRecord.FFI.p -> unit;) (x1, x2)
     val findBaseDir_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_pango_find_base_dir" :
               Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int32.C.val_
-               -> PangoDirection.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt32.FFI.val_
+               -> PangoDirection.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val fontDescriptionFromString_ = _import "mlton_pango_font_description_from_string" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> PangoFontDescriptionRecord.C.notnull PangoFontDescriptionRecord.C.p;
-    val gravityGetForMatrix_ = _import "pango_gravity_get_for_matrix" : PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p -> PangoGravity.C.val_;
+    val fontDescriptionFromString_ = _import "mlton_pango_font_description_from_string" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;
+    val gravityGetForMatrix_ = _import "pango_gravity_get_for_matrix" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p -> PangoGravity.FFI.val_;
     val gravityGetForScript_ =
       fn
         x1
@@ -28,10 +34,10 @@ structure Pango : PANGO =
          & x3 =>
           (
             _import "pango_gravity_get_for_script" :
-              PangoScript.C.val_
-               * PangoGravity.C.val_
-               * PangoGravityHint.C.val_
-               -> PangoGravity.C.val_;
+              PangoScript.FFI.val_
+               * PangoGravity.FFI.val_
+               * PangoGravityHint.FFI.val_
+               -> PangoGravity.FFI.val_;
           )
             (
               x1,
@@ -46,11 +52,11 @@ structure Pango : PANGO =
          & x4 =>
           (
             _import "pango_gravity_get_for_script_and_width" :
-              PangoScript.C.val_
-               * FFI.Bool.C.val_
-               * PangoGravity.C.val_
-               * PangoGravityHint.C.val_
-               -> PangoGravity.C.val_;
+              PangoScript.FFI.val_
+               * GBool.FFI.val_
+               * PangoGravity.FFI.val_
+               * PangoGravityHint.FFI.val_
+               -> PangoGravity.FFI.val_;
           )
             (
               x1,
@@ -58,10 +64,10 @@ structure Pango : PANGO =
               x3,
               x4
             )
-    val gravityToRotation_ = _import "pango_gravity_to_rotation" : PangoGravity.C.val_ -> FFI.Double.C.val_;
-    val isZeroWidth_ = _import "pango_is_zero_width" : FFI.Char.C.val_ -> FFI.Bool.C.val_;
-    val languageFromString_ = _import "mlton_pango_language_from_string" : Utf8.MLton.p1 * unit Utf8.MLton.p2 -> PangoLanguageRecord.C.notnull PangoLanguageRecord.C.p;
-    val languageGetDefault_ = _import "pango_language_get_default" : unit -> PangoLanguageRecord.C.notnull PangoLanguageRecord.C.p;
+    val gravityToRotation_ = _import "pango_gravity_to_rotation" : PangoGravity.FFI.val_ -> GDouble.FFI.val_;
+    val isZeroWidth_ = _import "pango_is_zero_width" : GChar.FFI.val_ -> GBool.FFI.val_;
+    val languageFromString_ = _import "mlton_pango_language_from_string" : Utf8.MLton.p1 * unit Utf8.MLton.p2 -> PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p;
+    val languageGetDefault_ = _import "pango_language_get_default" : unit -> PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p;
     val parseMarkup_ =
       fn
         (x1, x2)
@@ -74,15 +80,15 @@ structure Pango : PANGO =
           (
             _import "mlton_pango_parse_markup" :
               Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int32.C.val_
-               * FFI.Char.C.val_
-               * (unit, PangoAttrListRecord.C.notnull) PangoAttrListRecord.C.r
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt32.FFI.val_
+               * GChar.FFI.val_
+               * (unit, PangoAttrListRecord.FFI.notnull) PangoAttrListRecord.FFI.r
                * Utf8.MLton.r1
-               * (unit, Utf8.C.notnull) Utf8.MLton.r2
-               * FFI.Char.C.ref_
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * GChar.FFI.ref_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -95,15 +101,15 @@ structure Pango : PANGO =
               x8,
               x9
             )
-    val quantizeLineGeometry_ = fn x1 & x2 => (_import "pango_quantize_line_geometry" : FFI.Int32.C.ref_ * FFI.Int32.C.ref_ -> unit;) (x1, x2)
-    val scriptForUnichar_ = _import "pango_script_for_unichar" : FFI.Char.C.val_ -> PangoScript.C.val_;
-    val scriptGetSampleLanguage_ = _import "pango_script_get_sample_language" : PangoScript.C.val_ -> PangoLanguageRecord.C.notnull PangoLanguageRecord.C.p;
-    val skipSpace_ = _import "mlton_pango_skip_space" : Utf8.MLton.r1 * (Utf8.C.notnull, Utf8.C.notnull) Utf8.MLton.r2 -> FFI.Bool.C.val_;
-    val trimString_ = _import "mlton_pango_trim_string" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> Utf8.C.notnull Utf8.C.out_p;
-    val unicharDirection_ = _import "pango_unichar_direction" : FFI.Char.C.val_ -> PangoDirection.C.val_;
-    val unitsFromDouble_ = _import "pango_units_from_double" : FFI.Double.C.val_ -> FFI.Int32.C.val_;
-    val unitsToDouble_ = _import "pango_units_to_double" : FFI.Int32.C.val_ -> FFI.Double.C.val_;
-    val version_ = _import "pango_version" : unit -> FFI.Int32.C.val_;
+    val quantizeLineGeometry_ = fn x1 & x2 => (_import "pango_quantize_line_geometry" : GInt32.FFI.ref_ * GInt32.FFI.ref_ -> unit;) (x1, x2)
+    val scriptForUnichar_ = _import "pango_script_for_unichar" : GChar.FFI.val_ -> PangoScript.FFI.val_;
+    val scriptGetSampleLanguage_ = _import "pango_script_get_sample_language" : PangoScript.FFI.val_ -> PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p;
+    val splitFileList_ = _import "mlton_pango_split_file_list" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+    val trimString_ = _import "mlton_pango_trim_string" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val unicharDirection_ = _import "pango_unichar_direction" : GChar.FFI.val_ -> PangoDirection.FFI.val_;
+    val unitsFromDouble_ = _import "pango_units_from_double" : GDouble.FFI.val_ -> GInt32.FFI.val_;
+    val unitsToDouble_ = _import "pango_units_to_double" : GInt32.FFI.val_ -> GDouble.FFI.val_;
+    val version_ = _import "pango_version" : unit -> GInt32.FFI.val_;
     val versionCheck_ =
       fn
         x1
@@ -111,17 +117,17 @@ structure Pango : PANGO =
          & x3 =>
           (
             _import "pango_version_check" :
-              FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               -> Utf8.C.notnull Utf8.C.out_p;
+              GInt32.FFI.val_
+               * GInt32.FFI.val_
+               * GInt32.FFI.val_
+               -> Utf8.FFI.notnull Utf8.FFI.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val versionString_ = _import "pango_version_string" : unit -> Utf8.C.notnull Utf8.C.out_p;
+    val versionString_ = _import "pango_version_string" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
     structure Alignment = PangoAlignment
     structure AttrListRecord = PangoAttrListRecord
     structure AttrType = PangoAttrType
@@ -147,6 +153,7 @@ structure Pango : PANGO =
     structure LayoutClass = PangoLayoutClass
     structure LayoutIterRecord = PangoLayoutIterRecord
     structure LayoutLineRecord = PangoLayoutLineRecord
+    structure LogAttrRecord = PangoLogAttrRecord
     structure MatrixRecord = PangoMatrixRecord
     structure RectangleRecord = PangoRectangleRecord
     structure RenderPart = PangoRenderPart
@@ -173,6 +180,7 @@ structure Pango : PANGO =
     structure Layout = PangoLayout
     structure LayoutIter = PangoLayoutIter
     structure LayoutLine = PangoLayoutLine
+    structure LogAttr = PangoLogAttr
     structure Matrix = PangoMatrix
     structure Rectangle = PangoRectangle
     structure Renderer = PangoRenderer
@@ -190,19 +198,19 @@ structure Pango : PANGO =
     val SCALE = 1024
     val UNKNOWN_GLYPH_HEIGHT = 14
     val UNKNOWN_GLYPH_WIDTH = 10
-    fun attrTypeGetName type' = (PangoAttrType.C.withVal ---> Utf8.C.fromPtr false) attrTypeGetName_ type'
-    fun attrTypeRegister name = (Utf8.C.withPtr ---> PangoAttrType.C.fromVal) attrTypeRegister_ name
-    fun bidiTypeForUnichar ch = (FFI.Char.C.withVal ---> PangoBidiType.C.fromVal) bidiTypeForUnichar_ ch
-    fun extentsToPixels inclusive nearest = (PangoRectangleRecord.C.withOptPtr &&&> PangoRectangleRecord.C.withOptPtr ---> I) extentsToPixels_ (inclusive & nearest)
-    fun findBaseDir text length = (Utf8.C.withPtr &&&> FFI.Int32.C.withVal ---> PangoDirection.C.fromVal) findBaseDir_ (text & length)
-    fun fontDescriptionFromString str = (Utf8.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) fontDescriptionFromString_ str
-    fun gravityGetForMatrix matrix = (PangoMatrixRecord.C.withPtr ---> PangoGravity.C.fromVal) gravityGetForMatrix_ matrix
+    fun attrTypeGetName type' = (PangoAttrType.FFI.withVal ---> Utf8.FFI.fromPtr 0) attrTypeGetName_ type'
+    fun attrTypeRegister name = (Utf8.FFI.withPtr ---> PangoAttrType.FFI.fromVal) attrTypeRegister_ name
+    fun bidiTypeForUnichar ch = (GChar.FFI.withVal ---> PangoBidiType.FFI.fromVal) bidiTypeForUnichar_ ch
+    fun extentsToPixels inclusive nearest = (PangoRectangleRecord.FFI.withOptPtr &&&> PangoRectangleRecord.FFI.withOptPtr ---> I) extentsToPixels_ (inclusive & nearest)
+    fun findBaseDir text length = (Utf8.FFI.withPtr &&&> GInt32.FFI.withVal ---> PangoDirection.FFI.fromVal) findBaseDir_ (text & length)
+    fun fontDescriptionFromString str = (Utf8.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr true) fontDescriptionFromString_ str
+    fun gravityGetForMatrix matrix = (PangoMatrixRecord.FFI.withPtr ---> PangoGravity.FFI.fromVal) gravityGetForMatrix_ matrix
     fun gravityGetForScript script baseGravity hint =
       (
-        PangoScript.C.withVal
-         &&&> PangoGravity.C.withVal
-         &&&> PangoGravityHint.C.withVal
-         ---> PangoGravity.C.fromVal
+        PangoScript.FFI.withVal
+         &&&> PangoGravity.FFI.withVal
+         &&&> PangoGravityHint.FFI.withVal
+         ---> PangoGravity.FFI.fromVal
       )
         gravityGetForScript_
         (
@@ -212,11 +220,11 @@ structure Pango : PANGO =
         )
     fun gravityGetForScriptAndWidth script wide baseGravity hint =
       (
-        PangoScript.C.withVal
-         &&&> FFI.Bool.C.withVal
-         &&&> PangoGravity.C.withVal
-         &&&> PangoGravityHint.C.withVal
-         ---> PangoGravity.C.fromVal
+        PangoScript.FFI.withVal
+         &&&> GBool.FFI.withVal
+         &&&> PangoGravity.FFI.withVal
+         &&&> PangoGravityHint.FFI.withVal
+         ---> PangoGravity.FFI.fromVal
       )
         gravityGetForScriptAndWidth_
         (
@@ -225,10 +233,10 @@ structure Pango : PANGO =
            & baseGravity
            & hint
         )
-    fun gravityToRotation gravity = (PangoGravity.C.withVal ---> FFI.Double.C.fromVal) gravityToRotation_ gravity
-    fun isZeroWidth ch = (FFI.Char.C.withVal ---> FFI.Bool.C.fromVal) isZeroWidth_ ch
-    fun languageFromString language = (Utf8.C.withOptPtr ---> PangoLanguageRecord.C.fromPtr true) languageFromString_ language
-    fun languageGetDefault () = (I ---> PangoLanguageRecord.C.fromPtr true) languageGetDefault_ ()
+    fun gravityToRotation gravity = (PangoGravity.FFI.withVal ---> GDouble.FFI.fromVal) gravityToRotation_ gravity
+    fun isZeroWidth ch = (GChar.FFI.withVal ---> GBool.FFI.fromVal) isZeroWidth_ ch
+    fun languageFromString language = (Utf8.FFI.withOptPtr ---> PangoLanguageRecord.FFI.fromPtr true) languageFromString_ language
+    fun languageGetDefault () = (I ---> PangoLanguageRecord.FFI.fromPtr true) languageGetDefault_ ()
     fun parseMarkup markupText length accelMarker =
       let
         val attrList
@@ -236,17 +244,17 @@ structure Pango : PANGO =
          & accelChar
          & retVal =
           (
-            Utf8.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Char.C.withVal
-             &&&> PangoAttrListRecord.C.withRefOptPtr
-             &&&> Utf8.C.withRefOptPtr
-             &&&> FFI.Char.C.withRefVal
+            Utf8.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GChar.FFI.withVal
+             &&&> PangoAttrListRecord.FFI.withRefOptPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GChar.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> PangoAttrListRecord.C.fromPtr true
-                   && Utf8.C.fromPtr true
-                   && FFI.Char.C.fromVal
-                   && FFI.Bool.C.fromVal
+             ---> PangoAttrListRecord.FFI.fromPtr true
+                   && Utf8.FFI.fromPtr 1
+                   && GChar.FFI.fromVal
+                   && GBool.FFI.fromVal
           )
             parseMarkup_
             (
@@ -255,7 +263,7 @@ structure Pango : PANGO =
                & accelMarker
                & NONE
                & NONE
-               & FFI.Char.null
+               & GChar.null
                & []
             )
       in
@@ -275,9 +283,9 @@ structure Pango : PANGO =
          & position
          & () =
           (
-            FFI.Int32.C.withRefVal &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
+            GInt32.FFI.withRefVal &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
                    && I
           )
             quantizeLineGeometry_
@@ -285,25 +293,20 @@ structure Pango : PANGO =
       in
         (thickness, position)
       end
-    fun scriptForUnichar ch = (FFI.Char.C.withVal ---> PangoScript.C.fromVal) scriptForUnichar_ ch
-    fun scriptGetSampleLanguage script = (PangoScript.C.withVal ---> PangoLanguageRecord.C.fromPtr true) scriptGetSampleLanguage_ script
-    fun skipSpace pos =
-      let
-        val pos & retVal = (Utf8.C.withRefPtr ---> Utf8.C.fromPtr true && FFI.Bool.C.fromVal) skipSpace_ pos
-      in
-        (retVal, pos)
-      end
-    fun trimString str = (Utf8.C.withPtr ---> Utf8.C.fromPtr true) trimString_ str
-    fun unicharDirection ch = (FFI.Char.C.withVal ---> PangoDirection.C.fromVal) unicharDirection_ ch
-    fun unitsFromDouble d = (FFI.Double.C.withVal ---> FFI.Int32.C.fromVal) unitsFromDouble_ d
-    fun unitsToDouble i = (FFI.Int32.C.withVal ---> FFI.Double.C.fromVal) unitsToDouble_ i
-    fun version () = (I ---> FFI.Int32.C.fromVal) version_ ()
+    fun scriptForUnichar ch = (GChar.FFI.withVal ---> PangoScript.FFI.fromVal) scriptForUnichar_ ch
+    fun scriptGetSampleLanguage script = (PangoScript.FFI.withVal ---> PangoLanguageRecord.FFI.fromPtr true) scriptGetSampleLanguage_ script
+    fun splitFileList str = (Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) splitFileList_ str
+    fun trimString str = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) trimString_ str
+    fun unicharDirection ch = (GChar.FFI.withVal ---> PangoDirection.FFI.fromVal) unicharDirection_ ch
+    fun unitsFromDouble d = (GDouble.FFI.withVal ---> GInt32.FFI.fromVal) unitsFromDouble_ d
+    fun unitsToDouble i = (GInt32.FFI.withVal ---> GDouble.FFI.fromVal) unitsToDouble_ i
+    fun version () = (I ---> GInt32.FFI.fromVal) version_ ()
     fun versionCheck requiredMajor requiredMinor requiredMicro =
       (
-        FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         ---> Utf8.C.fromPtr false
+        GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         ---> Utf8.FFI.fromPtr 0
       )
         versionCheck_
         (
@@ -311,5 +314,5 @@ structure Pango : PANGO =
            & requiredMinor
            & requiredMicro
         )
-    fun versionString () = (I ---> Utf8.C.fromPtr false) versionString_ ()
+    fun versionString () = (I ---> Utf8.FFI.fromPtr 0) versionString_ ()
   end

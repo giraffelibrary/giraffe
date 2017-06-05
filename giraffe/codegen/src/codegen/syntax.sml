@@ -127,6 +127,9 @@ fun mkLIdLNameExp lid : exp = ExpLName (LNameId (toList1 lid))
 fun mkIdLNameExp id : exp = mkLIdLNameExp [id]
 fun mkOpLNameExp infixOp : exp = ExpLName (LNameOp infixOp)
 
+fun mkIntConstExp n : exp = ExpConst (ConstInt (n, NONE))
+fun mkWordConstExp n : exp = ExpConst (ConstWord (n, NONE))
+
 fun mkIdVarAPat id : apat = APatVar (NameId id)
 
 fun mkIdVarPat id : pat = PatA (mkIdVarAPat id)
@@ -169,8 +172,14 @@ fun mkValSpec (id, ty) : spec = SpecVal (toList1 [(id, ty)])
 fun mkExnSpec (id, optTy) : spec = SpecExn (toList1 [(id, optTy)])
 
 fun mkSigSpec specs : sig1 = SigSpec (mkSpecs specs)
-fun mkStructBody strDecs : struct1 = StructBody (mkStrDecs strDecs)
-fun mkFunArgStrDec strDecs : funarg = FunArgStrDec (mkStrDecs strDecs)
+fun mkBodyStruct strDecs : struct1 = StructBody (mkStrDecs strDecs)
+fun mkNameStruct ids : struct1 = StructName (toList1 ids)
+fun mkInstStruct (id, struct1) : struct1 = StructInst (id, FunArgStruct struct1)
+
+fun mkStrDecsFunArg strDecs : funarg = FunArgStrDec (mkStrDecs strDecs)
+fun mkStructFunArg struct1 : funarg = FunArgStruct struct1
+
+fun mkStructStrDec (id, struct1) = StrDecStruct (toList1 [(id, NONE, struct1)])
 
 fun mkModuleTopLevelDec module : topleveldec = TopLevelDecModule (module, false)
 
@@ -188,6 +197,8 @@ fun optionTy ty =
   in
     TyRef ([ty'], toList1 ["option"])
   end
+fun listTy ty = TyRef ([ty], toList1 ["list"])
+fun vectorTy ty = TyRef ([ty], toList1 ["vector"])
 
 val noneId : id = "NONE"
 val someId : id = "SOME"
@@ -195,7 +206,15 @@ val noneExp : exp = mkIdLNameExp noneId
 local
   val someIdExp : exp = mkIdLNameExp someId
 in
-  fun someExp (e : exp) : exp = ExpApp (someIdExp, e)
+  fun someExp (e : exp) : exp =
+    let
+      val e' =
+        case e of
+          ExpApp _ => mkParenExp e
+        | _        => e
+    in
+      ExpApp (someIdExp, e')
+    end
 end
 
 
@@ -317,7 +336,7 @@ val iExp : exp = mkIdLNameExp iId
 val falseId : id = "false"
 val falseExp = mkIdLNameExp falseId
 
-val bitFlagsName = "BitFlags"
+val flagsStrId = "Flags"
 
 val pairId : id = "pair"
 fun pairTy (ty1, ty2) : ty = TyRef ([ty1, ty2], toList1 [pairId])
@@ -327,9 +346,26 @@ val refId : id = "ref_"
 val selfId = "self"
 val flagsId : id = "flags"
 val nullId : id = "null"
-val CId : id = "C"
-val FFIId : id = "FFI"
+val cStrId : id = "C"
+val gStrId : id = "G"
+val nStrId : id = "N"
+val ffiStrId : id = "FFI"
+val largeIntStrId : id = "LargeInt"
+val wordStrId : id = "Word"
+val toIntId : id = "toInt"
+val fromIntId : id = "fromInt"
+val fromLargeIntId : id = "fromLargeInt"
+val lengthId : id = "length"
 val utf8StrId : id = "Utf8"
+val vectorId : id = "vector"
+val vectorStrId : id = "Vector"
+val typeStrId : id = "Type"
+val cValueStrId : id = "CValue"
+val cPointerStrId : id = "CPointer"
+val valueTypeStrId : id = "ValueType"
+val pointerTypeStrId : id = "PointerType"
+val arrayTypeStrId : id = "ArrayType"
+val vectorFFIArrayStrId : id = "VectorFFIArray"
 val withValId : id = "withVal"
 val withRefValId : id = "withRefVal"
 val fromValId : id = "fromVal"
@@ -350,6 +386,7 @@ fun tTy ty : ty = TyRef ([ty], toList1 [tId])
 fun classTyName tyVar : tyname = ([tyVar], classId)
 fun classTyLName tyVar : tylname = ([tyVar], toList1 [classId])
 val tTyName : tyname = ([], tId)
+val tTyLName : tylname = ([], toList1 [tId])
 val tOptId : id = "tOpt"
 val aId : id = "a"
 val bId : id = "b"
@@ -433,7 +470,7 @@ fun mkCStructSpec specs : spec =
  *       end
  *)
 fun mkCStructStrDec strDecs : strdec =
-  StrDecStruct (toList1 [("C", NONE, mkStructBody strDecs)])
+  StrDecStruct (toList1 [("C", NONE, mkBodyStruct strDecs)])
 
 
 
@@ -452,8 +489,8 @@ val cVoidId : id = "cVoid"
 val cVoidConv = mkLIdLNameExp [PolyMLFFIId, cVoidId]
 
 
-val cValTy : ty = TyRef ([], toList1 [CId, valId])
-val cRefTy : ty = TyRef ([], toList1 [CId, refId])
+val cValTy : ty = TyRef ([], toList1 [ffiStrId, valId])
+val cRefTy : ty = TyRef ([], toList1 [ffiStrId, refId])
 
 fun mkConversionTy ty = TyRef ([ty], toList1 [PolyMLFFIId, "conversion"])
 
@@ -475,4 +512,4 @@ fun mkPolyMLStructSpec specs : spec =
  *       end
  *)
 fun mkPolyMLStructStrDec strDecs : strdec =
-  StrDecStruct (toList1 [(PolyMLId, NONE, mkStructBody strDecs)])
+  StrDecStruct (toList1 [(PolyMLId, NONE, mkBodyStruct strDecs)])

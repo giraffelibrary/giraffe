@@ -1,37 +1,24 @@
-structure GioIOModuleScopeFlags :>
-  sig
-    include GIO_I_O_MODULE_SCOPE_FLAGS
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GioIOModuleScopeFlags :> GIO_I_O_MODULE_SCOPE_FLAGS =
   struct
-    datatype t =
+    datatype enum =
       NONE
     | BLOCK_DUPLICATES
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NONE
+        val toInt =
           fn
-            NONE => f 0
-          | BLOCK_DUPLICATES => f 1
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NONE => 0
+          | BLOCK_DUPLICATES => 1
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => NONE
           | 1 => BLOCK_DUPLICATES
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -42,10 +29,9 @@ structure GioIOModuleScopeFlags :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = NONE
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

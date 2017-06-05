@@ -15,21 +15,21 @@ structure GioDBusAuthObserver :>
             GioDBusAuthObserverClass.PolyML.cPtr
              &&> GioIOStreamClass.PolyML.cPtr
              &&> GioCredentialsClass.PolyML.cPtr
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
     end
     type 'a class = 'a GioDBusAuthObserverClass.class
     type 'a credentials_class = 'a GioCredentialsClass.class
     type 'a i_o_stream_class = 'a GioIOStreamClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GioDBusAuthObserverClass.C.fromPtr true) new_ ()
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GioDBusAuthObserverClass.FFI.fromPtr true) new_ ()
     fun authorizeAuthenticatedPeer self stream credentials =
       (
-        GioDBusAuthObserverClass.C.withPtr
-         &&&> GioIOStreamClass.C.withPtr
-         &&&> GioCredentialsClass.C.withPtr
-         ---> FFI.Bool.C.fromVal
+        GioDBusAuthObserverClass.FFI.withPtr
+         &&&> GioIOStreamClass.FFI.withPtr
+         &&&> GioCredentialsClass.FFI.withPtr
+         ---> GBool.FFI.fromVal
       )
         authorizeAuthenticatedPeer_
         (

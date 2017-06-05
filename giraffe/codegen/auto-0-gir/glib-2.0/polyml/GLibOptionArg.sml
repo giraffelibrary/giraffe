@@ -1,14 +1,6 @@
-structure GLibOptionArg :>
-  sig
-    include G_LIB_OPTION_ARG
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GLibOptionArg :> G_LIB_OPTION_ARG =
   struct
-    datatype t =
+    datatype enum =
       NONE
     | STRING
     | INT
@@ -18,24 +10,23 @@ structure GLibOptionArg :>
     | FILENAME_ARRAY
     | DOUBLE
     | INT_64
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NONE
+        val toInt =
           fn
-            NONE => f 0
-          | STRING => f 1
-          | INT => f 2
-          | CALLBACK => f 3
-          | FILENAME => f 4
-          | STRING_ARRAY => f 5
-          | FILENAME_ARRAY => f 6
-          | DOUBLE => f 7
-          | INT_64 => f 8
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NONE => 0
+          | STRING => 1
+          | INT => 2
+          | CALLBACK => 3
+          | FILENAME => 4
+          | STRING_ARRAY => 5
+          | FILENAME_ARRAY => 6
+          | DOUBLE => 7
+          | INT_64 => 8
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => NONE
           | 1 => STRING
@@ -47,11 +38,6 @@ structure GLibOptionArg :>
           | 7 => DOUBLE
           | 8 => INT_64
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
-    val null = NONE
+      )
+    open Enum
   end

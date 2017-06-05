@@ -25,16 +25,16 @@ structure GtkFileChooserDialog :>
     type 'a window_class = 'a GtkWindowClass.class
     type file_chooser_action_t = GtkFileChooserAction.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asFileChooser self = (GObjectObjectClass.C.withPtr ---> GtkFileChooserClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asFileChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkFileChooserClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new title parent action =
       (
-        Utf8.C.withOptPtr
-         &&&> GtkWindowClass.C.withOptPtr
-         &&&> GtkFileChooserAction.C.withVal
-         ---> GtkFileChooserDialogClass.C.fromPtr false
+        Utf8.FFI.withOptPtr
+         &&&> GtkWindowClass.FFI.withOptPtr
+         &&&> GtkFileChooserAction.FFI.withVal
+         ---> GtkFileChooserDialogClass.FFI.fromPtr false
       )
         new_
         (

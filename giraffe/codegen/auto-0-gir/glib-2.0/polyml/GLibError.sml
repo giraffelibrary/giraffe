@@ -12,19 +12,19 @@ structure GLibError :>
           (
             GLibErrorRecord.PolyML.cPtr
              &&> GLibQuark.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
     end
     type t = GLibErrorRecord.t
     type quark_t = GLibQuark.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun matches self domain code =
       (
-        GLibErrorRecord.C.withPtr
-         &&&> GLibQuark.C.withVal
-         &&&> FFI.Int.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GLibErrorRecord.FFI.withPtr
+         &&&> GLibQuark.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         matches_
         (

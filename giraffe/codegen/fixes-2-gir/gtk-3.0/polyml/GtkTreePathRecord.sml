@@ -1,6 +1,6 @@
 structure GtkTreePathRecord :> GTK_TREE_PATH_RECORD =
   struct
-    structure Pointer = CPointer
+    structure Pointer = CPointerInternal
     type notnull = Pointer.notnull
     type 'a p = 'a Pointer.p
 
@@ -9,12 +9,7 @@ structure GtkTreePathRecord :> GTK_TREE_PATH_RECORD =
     local
       open PolyMLFFI
     in
-      val new_ =
-        call
-          (load_sym libgtk "gtk_tree_path_new")
-          (PolyMLFFI.cVoid --> cPtr)
-
-      val copy_ =
+      val dup_ =
         call
           (load_sym libgtk "gtk_tree_path_copy")
           (cPtr --> cPtr)
@@ -22,27 +17,27 @@ structure GtkTreePathRecord :> GTK_TREE_PATH_RECORD =
       val free_ =
         call
           (load_sym libgtk "gtk_tree_path_free")
-          (cPtr --> PolyMLFFI.cVoid)
+          (cPtr --> cVoid)
 
       val getType_ =
         call
           (load_sym libgtk "gtk_tree_path_get_type")
-          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
+          (cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =
-      BoxedNewRecord (
+      BoxedRecord(
+        structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
-        val new_ = new_
+        val dup_ = dup_
         val take_ = ignore
-        val copy_ = copy_
         val free_ = free_
       )
     open Record
 
     structure Type =
-      BoxedType (
+      BoxedType(
         structure Record = Record
         type t = t
         val getType_ = getType_

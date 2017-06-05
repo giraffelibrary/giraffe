@@ -1,7 +1,4 @@
-structure GObjectSignalMatchType :>
-  sig
-    include G_OBJECT_SIGNAL_MATCH_TYPE
-  end =
+structure GObjectSignalMatchType :> G_OBJECT_SIGNAL_MATCH_TYPE =
   struct
     val ID = 0w1
     val DETAIL = 0w2
@@ -18,18 +15,9 @@ structure GObjectSignalMatchType :>
         DATA,
         UNBLOCKED
       ]
-    structure BitFlags =
-      Word32BitFlags (
+    structure Flags =
+      Flags(
         val allFlags = allFlags
       )
-    open BitFlags
-    type t = flags
-    structure C =
-      struct
-        type val_ = FFI.Flags.C.val_
-        type ref_ = FFI.Flags.C.ref_
-        fun withVal f = f
-        fun withRefVal f = withVal (FFI.Flags.C.withRef f)
-        fun fromVal w = w
-      end
+    open Flags
   end

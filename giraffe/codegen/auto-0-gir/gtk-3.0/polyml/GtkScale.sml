@@ -16,35 +16,35 @@ structure GtkScale :>
         call (load_sym libgtk "gtk_scale_new_with_range")
           (
             GtkOrientation.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> GtkWidgetClass.PolyML.cPtr
           )
       val addMark_ =
         call (load_sym libgtk "gtk_scale_add_mark")
           (
             GtkScaleClass.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              &&> GtkPositionType.PolyML.cVal
              &&> Utf8.PolyML.cInOptPtr
              --> PolyMLFFI.cVoid
           )
       val clearMarks_ = call (load_sym libgtk "gtk_scale_clear_marks") (GtkScaleClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getDigits_ = call (load_sym libgtk "gtk_scale_get_digits") (GtkScaleClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getDrawValue_ = call (load_sym libgtk "gtk_scale_get_draw_value") (GtkScaleClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getDigits_ = call (load_sym libgtk "gtk_scale_get_digits") (GtkScaleClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getDrawValue_ = call (load_sym libgtk "gtk_scale_get_draw_value") (GtkScaleClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getLayout_ = call (load_sym libgtk "gtk_scale_get_layout") (GtkScaleClass.PolyML.cPtr --> PangoLayoutClass.PolyML.cPtr)
       val getLayoutOffsets_ =
         call (load_sym libgtk "gtk_scale_get_layout_offsets")
           (
             GtkScaleClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cRef
-             &&> FFI.Int.PolyML.cRef
+             &&> GInt.PolyML.cRef
+             &&> GInt.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
       val getValuePos_ = call (load_sym libgtk "gtk_scale_get_value_pos") (GtkScaleClass.PolyML.cPtr --> GtkPositionType.PolyML.cVal)
-      val setDigits_ = call (load_sym libgtk "gtk_scale_set_digits") (GtkScaleClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDrawValue_ = call (load_sym libgtk "gtk_scale_set_draw_value") (GtkScaleClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDigits_ = call (load_sym libgtk "gtk_scale_set_digits") (GtkScaleClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDrawValue_ = call (load_sym libgtk "gtk_scale_set_draw_value") (GtkScaleClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setValuePos_ = call (load_sym libgtk "gtk_scale_set_value_pos") (GtkScaleClass.PolyML.cPtr &&> GtkPositionType.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkScaleClass.class
@@ -54,18 +54,18 @@ structure GtkScale :>
     type orientation_t = GtkOrientation.t
     type position_type_t = GtkPositionType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new orientation adjustment = (GtkOrientation.C.withVal &&&> GtkAdjustmentClass.C.withOptPtr ---> GtkScaleClass.C.fromPtr false) new_ (orientation & adjustment)
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new orientation adjustment = (GtkOrientation.FFI.withVal &&&> GtkAdjustmentClass.FFI.withOptPtr ---> GtkScaleClass.FFI.fromPtr false) new_ (orientation & adjustment)
     fun newWithRange orientation min max step =
       (
-        GtkOrientation.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         ---> GtkScaleClass.C.fromPtr false
+        GtkOrientation.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> GtkScaleClass.FFI.fromPtr false
       )
         newWithRange_
         (
@@ -76,10 +76,10 @@ structure GtkScale :>
         )
     fun addMark self value position markup =
       (
-        GtkScaleClass.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> GtkPositionType.C.withVal
-         &&&> Utf8.C.withOptPtr
+        GtkScaleClass.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GtkPositionType.FFI.withVal
+         &&&> Utf8.FFI.withOptPtr
          ---> I
       )
         addMark_
@@ -89,36 +89,36 @@ structure GtkScale :>
            & position
            & markup
         )
-    fun clearMarks self = (GtkScaleClass.C.withPtr ---> I) clearMarks_ self
-    fun getDigits self = (GtkScaleClass.C.withPtr ---> FFI.Int.C.fromVal) getDigits_ self
-    fun getDrawValue self = (GtkScaleClass.C.withPtr ---> FFI.Bool.C.fromVal) getDrawValue_ self
-    fun getLayout self = (GtkScaleClass.C.withPtr ---> PangoLayoutClass.C.fromPtr false) getLayout_ self
+    fun clearMarks self = (GtkScaleClass.FFI.withPtr ---> I) clearMarks_ self
+    fun getDigits self = (GtkScaleClass.FFI.withPtr ---> GInt.FFI.fromVal) getDigits_ self
+    fun getDrawValue self = (GtkScaleClass.FFI.withPtr ---> GBool.FFI.fromVal) getDrawValue_ self
+    fun getLayout self = (GtkScaleClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self
     fun getLayoutOffsets self =
       let
         val x
          & y
          & () =
           (
-            GtkScaleClass.C.withPtr
-             &&&> FFI.Int.C.withRefVal
-             &&&> FFI.Int.C.withRefVal
-             ---> FFI.Int.C.fromVal
-                   && FFI.Int.C.fromVal
+            GtkScaleClass.FFI.withPtr
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
                    && I
           )
             getLayoutOffsets_
             (
               self
-               & FFI.Int.null
-               & FFI.Int.null
+               & GInt.null
+               & GInt.null
             )
       in
         (x, y)
       end
-    fun getValuePos self = (GtkScaleClass.C.withPtr ---> GtkPositionType.C.fromVal) getValuePos_ self
-    fun setDigits self digits = (GtkScaleClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setDigits_ (self & digits)
-    fun setDrawValue self drawValue = (GtkScaleClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setDrawValue_ (self & drawValue)
-    fun setValuePos self pos = (GtkScaleClass.C.withPtr &&&> GtkPositionType.C.withVal ---> I) setValuePos_ (self & pos)
+    fun getValuePos self = (GtkScaleClass.FFI.withPtr ---> GtkPositionType.FFI.fromVal) getValuePos_ self
+    fun setDigits self digits = (GtkScaleClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setDigits_ (self & digits)
+    fun setDrawValue self drawValue = (GtkScaleClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDrawValue_ (self & drawValue)
+    fun setValuePos self pos = (GtkScaleClass.FFI.withPtr &&&> GtkPositionType.FFI.withVal ---> I) setValuePos_ (self & pos)
     local
       open ClosureMarshal Signal
     in

@@ -1,39 +1,36 @@
 structure GLibOptionError :>
-  sig
-    include
-      G_LIB_OPTION_ERROR
-        where type error_handler = GLibErrorRecord.handler
-  end =
+  G_LIB_OPTION_ERROR
+    where type error_handler = GLibErrorRecord.handler =
   struct
-    datatype t =
+    datatype enum =
       UNKNOWN_OPTION
     | BAD_VALUE
     | FAILED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = UNKNOWN_OPTION
+        val toInt =
           fn
-            UNKNOWN_OPTION => f 0
-          | BAD_VALUE => f 1
-          | FAILED => f 2
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            UNKNOWN_OPTION => 0
+          | BAD_VALUE => 1
+          | FAILED => 2
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => UNKNOWN_OPTION
           | 1 => BAD_VALUE
           | 2 => FAILED
           | n => raise Value n
-      end
+      )
+    open Enum
     exception Error of t
     type error_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (
           "g-option-context-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
   end

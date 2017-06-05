@@ -2,7 +2,7 @@ structure GObjectClosureRecord :>
   G_OBJECT_CLOSURE_RECORD
     where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor =
   struct
-    structure Pointer = CPointer
+    structure Pointer = CPointerInternal
     type notnull = Pointer.notnull
     type 'a p = 'a Pointer.p
 
@@ -16,7 +16,7 @@ structure GObjectClosureRecord :>
         then
           call
             (load_sym libgiraffegobject "giraffe_debug_closure_take")
-            (cPtr --> PolyMLFFI.cVoid)
+            (cPtr --> cVoid)
         else
           ignore
 
@@ -28,9 +28,9 @@ structure GObjectClosureRecord :>
       val sink_ =
         call
           (load_sym libgobject "g_closure_sink")
-          (cPtr --> PolyMLFFI.cVoid)
+          (cPtr --> cVoid)
 
-      val copy_ =
+      val dup_ =
         if GiraffeDebug.isEnabled
         then 
           call
@@ -44,32 +44,33 @@ structure GObjectClosureRecord :>
         then
           call
             (load_sym libgiraffegobject "giraffe_debug_g_closure_unref")
-            (cPtr --> PolyMLFFI.cVoid)
+            (cPtr --> cVoid)
         else
           call
             (load_sym libgobject "g_closure_unref")
-            (cPtr --> PolyMLFFI.cVoid)
+            (cPtr --> cVoid)
 
       val getType_ =
         call
           (load_sym libgobject "g_closure_get_type")
-          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
+          (cVoid --> GObjectType.PolyML.cVal);
     end
 
     type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
 
     structure Record =
-      BoxedRecord (
+      BoxedRecord(
+        structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
+        val dup_ = dup_
         val take_ = take_
-        val copy_ = copy_
         val free_ = free_
       )
     open Record
 
     structure Type =
-      BoxedType (
+      BoxedType(
         structure Record = Record
         type t = t
         val getType_ = getType_

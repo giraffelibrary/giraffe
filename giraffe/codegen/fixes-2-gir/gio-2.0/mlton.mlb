@@ -10,6 +10,8 @@ in
   GIO_APP_INFO_CLASS.sml
   GIO_APP_LAUNCH_CONTEXT_CLASS.sml
   GIO_APPLICATION_CLASS.sml
+  GIO_APPLICATION.sml
+  GIO_APPLICATION_COMMAND_LINE_CLASS.sml
   GIO_APPLICATION_FLAGS.sml
   GIO_ASYNC_RESULT_CLASS.sml
   GIO_CANCELLABLE_CLASS.sml
@@ -26,6 +28,7 @@ in
   mlton/GioAppInfoClass.sml
   mlton/GioAppLaunchContextClass.sml
   mlton/GioApplicationClass.sml
+  mlton/GioApplicationCommandLineClass.sml
   mlton/GioApplicationFlags.sml
   mlton/GioAsyncResultClass.sml
   mlton/GioCancellableClass.sml
@@ -37,5 +40,6 @@ in
   mlton/GioMountOperationClass.sml
   mlton/GioOutputStreamClass.sml
   mlton/GioPermissionClass.sml
+  mlton/GioApplication.sml
   mlton/Gio.sml
 end

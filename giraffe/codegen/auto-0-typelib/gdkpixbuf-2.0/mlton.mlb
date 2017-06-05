@@ -3,10 +3,10 @@ local
   $(SML_LIB)/basis/mlton.mlb
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
-  ../glib-2.0/mlton.mlb
   ../gmodule-2.0/mlton.mlb
   ../gobject-2.0/mlton.mlb
   ../gio-2.0/mlton.mlb
+  ../glib-2.0/mlton.mlb
 in
   GDK_PIXBUF_COLORSPACE.sml
   GDK_PIXBUF_INTERP_TYPE.sml

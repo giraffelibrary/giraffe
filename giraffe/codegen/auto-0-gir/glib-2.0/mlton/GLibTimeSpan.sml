@@ -1,1 +1,1 @@
-structure GLibTimeSpan = FFI.Int64
+structure GLibTimeSpan = GInt64

@@ -19,11 +19,11 @@ structure GtkRecentChooserWidget :>
     type 'a recent_chooser_class = 'a GtkRecentChooserClass.class
     type 'a recent_manager_class = 'a GtkRecentManagerClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
-    fun asRecentChooser self = (GObjectObjectClass.C.withPtr ---> GtkRecentChooserClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkRecentChooserWidgetClass.C.fromPtr false) new_ ()
-    fun newForManager manager = (GtkRecentManagerClass.C.withPtr ---> GtkRecentChooserWidgetClass.C.fromPtr false) newForManager_ manager
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asRecentChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkRecentChooserClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkRecentChooserWidgetClass.FFI.fromPtr false) new_ ()
+    fun newForManager manager = (GtkRecentManagerClass.FFI.withPtr ---> GtkRecentChooserWidgetClass.FFI.fromPtr false) newForManager_ manager
   end

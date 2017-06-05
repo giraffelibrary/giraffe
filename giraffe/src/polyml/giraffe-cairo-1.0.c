@@ -9,6 +9,7 @@
  * Cairo GObject C interface support for Poly/ML
  */
 
+#include <string.h>
 #include <glib.h>
 #include <cairo/cairo.h>
 
@@ -21,10 +22,11 @@ giraffe_cairo_rectangle_int_t_new (void)
   return g_slice_new (cairo_rectangle_int_t);
 }
 
-cairo_rectangle_int_t *
-giraffe_cairo_rectangle_int_t_copy (const cairo_rectangle_int_t *rect)
+void
+giraffe_cairo_rectangle_int_t_copy (const cairo_rectangle_int_t *src,
+                                          cairo_rectangle_int_t *dest)
 {
-  return g_slice_dup (cairo_rectangle_int_t, rect);
+  memcpy (dest, src, sizeof (cairo_rectangle_int_t));
 }
 
 void

@@ -1,14 +1,6 @@
-structure GLibDateWeekday :>
-  sig
-    include G_LIB_DATE_WEEKDAY
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GLibDateWeekday :> G_LIB_DATE_WEEKDAY =
   struct
-    datatype t =
+    datatype enum =
       BAD_WEEKDAY
     | MONDAY
     | TUESDAY
@@ -17,23 +9,22 @@ structure GLibDateWeekday :>
     | FRIDAY
     | SATURDAY
     | SUNDAY
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = BAD_WEEKDAY
+        val toInt =
           fn
-            BAD_WEEKDAY => f 0
-          | MONDAY => f 1
-          | TUESDAY => f 2
-          | WEDNESDAY => f 3
-          | THURSDAY => f 4
-          | FRIDAY => f 5
-          | SATURDAY => f 6
-          | SUNDAY => f 7
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            BAD_WEEKDAY => 0
+          | MONDAY => 1
+          | TUESDAY => 2
+          | WEDNESDAY => 3
+          | THURSDAY => 4
+          | FRIDAY => 5
+          | SATURDAY => 6
+          | SUNDAY => 7
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => BAD_WEEKDAY
           | 1 => MONDAY
@@ -44,11 +35,6 @@ structure GLibDateWeekday :>
           | 6 => SATURDAY
           | 7 => SUNDAY
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
-    val null = BAD_WEEKDAY
+      )
+    open Enum
   end

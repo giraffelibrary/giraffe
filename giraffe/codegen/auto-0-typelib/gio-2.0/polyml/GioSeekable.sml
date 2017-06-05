@@ -7,43 +7,43 @@ structure GioSeekable :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_seekable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val canSeek_ = call (load_sym libgio "g_seekable_can_seek") (GioSeekableClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val canTruncate_ = call (load_sym libgio "g_seekable_can_truncate") (GioSeekableClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val canSeek_ = call (load_sym libgio "g_seekable_can_seek") (GioSeekableClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val canTruncate_ = call (load_sym libgio "g_seekable_can_truncate") (GioSeekableClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val seek_ =
         call (load_sym libgio "g_seekable_seek")
           (
             GioSeekableClass.PolyML.cPtr
-             &&> FFI.Int64.PolyML.cVal
+             &&> GInt64.PolyML.cVal
              &&> GLibSeekType.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
-      val tell_ = call (load_sym libgio "g_seekable_tell") (GioSeekableClass.PolyML.cPtr --> FFI.Int64.PolyML.cVal)
+      val tell_ = call (load_sym libgio "g_seekable_tell") (GioSeekableClass.PolyML.cPtr --> GInt64.PolyML.cVal)
       val truncate_ =
         call (load_sym libgio "g_seekable_truncate")
           (
             GioSeekableClass.PolyML.cPtr
-             &&> FFI.Int64.PolyML.cVal
+             &&> GInt64.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
     end
     type 'a class = 'a GioSeekableClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun canSeek self = (GioSeekableClass.C.withPtr ---> FFI.Bool.C.fromVal) canSeek_ self
-    fun canTruncate self = (GioSeekableClass.C.withPtr ---> FFI.Bool.C.fromVal) canTruncate_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun canSeek self = (GioSeekableClass.FFI.withPtr ---> GBool.FFI.fromVal) canSeek_ self
+    fun canTruncate self = (GioSeekableClass.FFI.withPtr ---> GBool.FFI.fromVal) canTruncate_ self
     fun seek self offset type' cancellable =
       (
-        GioSeekableClass.C.withPtr
-         &&&> FFI.Int64.C.withVal
-         &&&> GLibSeekType.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioSeekableClass.FFI.withPtr
+         &&&> GInt64.FFI.withVal
+         &&&> GLibSeekType.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         seek_
         (
@@ -53,14 +53,14 @@ structure GioSeekable :>
            & cancellable
            & []
         )
-    fun tell self = (GioSeekableClass.C.withPtr ---> FFI.Int64.C.fromVal) tell_ self
+    fun tell self = (GioSeekableClass.FFI.withPtr ---> GInt64.FFI.fromVal) tell_ self
     fun truncate self offset cancellable =
       (
-        GioSeekableClass.C.withPtr
-         &&&> FFI.Int64.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioSeekableClass.FFI.withPtr
+         &&&> GInt64.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         truncate_
         (

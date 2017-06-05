@@ -2,6 +2,7 @@ signature ATK_TEXT =
   sig
     type 'a class
     type text_range_t
+    type text_clip_type_t
     type text_rectangle_t
     type coord_type_t
     type t = base class
@@ -12,6 +13,13 @@ signature ATK_TEXT =
        -> LargeInt.int
        -> LargeInt.int
        -> bool
+    val getBoundedRanges :
+      'a class
+       -> text_rectangle_t
+       -> coord_type_t
+       -> text_clip_type_t
+       -> text_clip_type_t
+       -> text_range_t vector
     val getCaretOffset : 'a class -> LargeInt.int
     val getCharacterAtOffset :
       'a class

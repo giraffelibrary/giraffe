@@ -2,7 +2,7 @@ structure AtkEditableText :>
   ATK_EDITABLE_TEXT
     where type 'a class = 'a AtkEditableTextClass.class =
   struct
-    val getType_ = _import "atk_editable_text_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "atk_editable_text_get_type" : unit -> GObjectType.FFI.val_;
     val copyText_ =
       fn
         x1
@@ -10,9 +10,9 @@ structure AtkEditableText :>
          & x3 =>
           (
             _import "atk_editable_text_copy_text" :
-              AtkEditableTextClass.C.notnull AtkEditableTextClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
+              AtkEditableTextClass.FFI.notnull AtkEditableTextClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -27,9 +27,9 @@ structure AtkEditableText :>
          & x3 =>
           (
             _import "atk_editable_text_cut_text" :
-              AtkEditableTextClass.C.notnull AtkEditableTextClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
+              AtkEditableTextClass.FFI.notnull AtkEditableTextClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -44,9 +44,9 @@ structure AtkEditableText :>
          & x3 =>
           (
             _import "atk_editable_text_delete_text" :
-              AtkEditableTextClass.C.notnull AtkEditableTextClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
+              AtkEditableTextClass.FFI.notnull AtkEditableTextClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -54,15 +54,15 @@ structure AtkEditableText :>
               x2,
               x3
             )
-    val pasteText_ = fn x1 & x2 => (_import "atk_editable_text_paste_text" : AtkEditableTextClass.C.notnull AtkEditableTextClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
+    val pasteText_ = fn x1 & x2 => (_import "atk_editable_text_paste_text" : AtkEditableTextClass.FFI.notnull AtkEditableTextClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val setTextContents_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_atk_editable_text_set_text_contents" :
-              AtkEditableTextClass.C.notnull AtkEditableTextClass.C.p
+              AtkEditableTextClass.FFI.notnull AtkEditableTextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -72,12 +72,12 @@ structure AtkEditableText :>
             )
     type 'a class = 'a AtkEditableTextClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun copyText self startPos endPos =
       (
-        AtkEditableTextClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        AtkEditableTextClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         copyText_
@@ -88,9 +88,9 @@ structure AtkEditableText :>
         )
     fun cutText self startPos endPos =
       (
-        AtkEditableTextClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        AtkEditableTextClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         cutText_
@@ -101,9 +101,9 @@ structure AtkEditableText :>
         )
     fun deleteText self startPos endPos =
       (
-        AtkEditableTextClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        AtkEditableTextClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         deleteText_
@@ -112,6 +112,6 @@ structure AtkEditableText :>
            & startPos
            & endPos
         )
-    fun pasteText self position = (AtkEditableTextClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) pasteText_ (self & position)
-    fun setTextContents self string = (AtkEditableTextClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setTextContents_ (self & string)
+    fun pasteText self position = (AtkEditableTextClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) pasteText_ (self & position)
+    fun setTextContents self string = (AtkEditableTextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTextContents_ (self & string)
   end

@@ -14,11 +14,11 @@ structure GtkSourceCompletionWords :>
     type 'a class = 'a GtkSourceCompletionWordsClass.class
     type 'a completion_provider_class = 'a GtkSourceCompletionProviderClass.class
     type t = base class
-    fun asCompletionProvider self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionProviderClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name icon = (Utf8.C.withOptPtr &&&> GdkPixbufPixbufClass.C.withOptPtr ---> GtkSourceCompletionWordsClass.C.fromPtr true) new_ (name & icon)
-    fun register self buffer = (GtkSourceCompletionWordsClass.C.withPtr &&&> GtkTextBufferClass.C.withPtr ---> I) register_ (self & buffer)
-    fun unregister self buffer = (GtkSourceCompletionWordsClass.C.withPtr &&&> GtkTextBufferClass.C.withPtr ---> I) unregister_ (self & buffer)
+    fun asCompletionProvider self = (GObjectObjectClass.FFI.withPtr ---> GtkSourceCompletionProviderClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new name icon = (Utf8.FFI.withOptPtr &&&> GdkPixbufPixbufClass.FFI.withOptPtr ---> GtkSourceCompletionWordsClass.FFI.fromPtr true) new_ (name & icon)
+    fun register self buffer = (GtkSourceCompletionWordsClass.FFI.withPtr &&&> GtkTextBufferClass.FFI.withPtr ---> I) register_ (self & buffer)
+    fun unregister self buffer = (GtkSourceCompletionWordsClass.FFI.withPtr &&&> GtkTextBufferClass.FFI.withPtr ---> I) unregister_ (self & buffer)
     local
       open Property
     in

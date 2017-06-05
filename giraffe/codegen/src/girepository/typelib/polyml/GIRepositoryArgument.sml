@@ -1,14 +1,6 @@
 structure GIRepositoryArgument :>
-  sig
-    include G_I_REPOSITORY_ARGUMENT
-      where type typetag_t = GIRepositoryTypeTag.t
-
-    structure PolyML :
-      sig
-        val cPtr : C.notnull C.p PolyMLFFI.conversion
-        val cOptPtr : unit C.p PolyMLFFI.conversion
-      end
-  end =
+  G_I_REPOSITORY_ARGUMENT
+    where type typetag_t = GIRepositoryTypeTag.t =
   struct
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.p
@@ -32,57 +24,57 @@ structure GIRepositoryArgument :>
       val from_boolean_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_boolean")
-          (cPtr --> FFI.Bool.PolyML.cVal);
+          (cPtr --> GBool.PolyML.cVal);
 
       val from_int8_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_int8")
-          (cPtr --> FFI.Int8.PolyML.cVal);
+          (cPtr --> GInt8.PolyML.cVal);
 
       val from_uint8_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint8")
-          (cPtr --> FFI.UInt8.PolyML.cVal);
+          (cPtr --> GUInt8.PolyML.cVal);
 
       val from_int16_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_int16")
-          (cPtr --> FFI.Int16.PolyML.cVal);
+          (cPtr --> GInt16.PolyML.cVal);
 
       val from_uint16_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint16")
-          (cPtr --> FFI.UInt16.PolyML.cVal);
+          (cPtr --> GUInt16.PolyML.cVal);
 
       val from_int32_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_int32")
-          (cPtr --> FFI.Int32.PolyML.cVal);
+          (cPtr --> GInt32.PolyML.cVal);
 
       val from_uint32_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint32")
-          (cPtr --> FFI.UInt32.PolyML.cVal);
+          (cPtr --> GUInt32.PolyML.cVal);
 
       val from_int64_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_int64")
-          (cPtr --> FFI.Int64.PolyML.cVal);
+          (cPtr --> GInt64.PolyML.cVal);
 
       val from_uint64_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint64")
-          (cPtr --> FFI.UInt64.PolyML.cVal);
+          (cPtr --> GUInt64.PolyML.cVal);
 
       val from_float_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_float")
-          (cPtr --> FFI.Float.PolyML.cVal);
+          (cPtr --> GFloat.PolyML.cVal);
 
       val from_double_ =
         call
           (load_sym libgiraffegirepository "giraffe_gi_argument_from_double")
-          (cPtr --> FFI.Double.PolyML.cVal);
+          (cPtr --> GDouble.PolyML.cVal);
 
       val from_string_ =
         call
@@ -140,7 +132,7 @@ structure GIRepositoryArgument :>
     | ERROR
     | UNICHAR
 
-    structure C =
+    structure FFI =
       struct
         structure Pointer = CPointer
         type notnull = notnull
@@ -157,22 +149,22 @@ structure GIRepositoryArgument :>
         fun fromPtr tag ptr =
           (
             case tag of
-              GIRepositoryTypeTag.BOOLEAN  => BOOLEAN (FFI.Bool.C.fromVal (from_boolean_ ptr))
-            | GIRepositoryTypeTag.INT8     => INT8    (FFI.Int8.C.fromVal (from_int8_ ptr))
-            | GIRepositoryTypeTag.UINT8    => UINT8   (FFI.UInt8.C.fromVal (from_uint8_ ptr))
-            | GIRepositoryTypeTag.INT16    => INT16   (FFI.Int16.C.fromVal (from_int16_ ptr))
-            | GIRepositoryTypeTag.UINT16   => UINT16  (FFI.UInt16.C.fromVal (from_uint16_ ptr))
-            | GIRepositoryTypeTag.INT32    => INT32   (FFI.Int32.C.fromVal (from_int32_ ptr))
-            | GIRepositoryTypeTag.UINT32   => UINT32  (FFI.UInt32.C.fromVal (from_uint32_ ptr))
-            | GIRepositoryTypeTag.INT64    => INT64   (FFI.Int64.C.fromVal (from_int64_ ptr))
-            | GIRepositoryTypeTag.UINT64   => UINT64  (FFI.UInt64.C.fromVal (from_uint64_ ptr))
-            | GIRepositoryTypeTag.FLOAT    => FLOAT   (fromReal (FFI.Float.C.fromVal (from_float_ ptr)))
-            | GIRepositoryTypeTag.DOUBLE   => DOUBLE  (fromReal (FFI.Double.C.fromVal (from_double_ ptr)))
+              GIRepositoryTypeTag.BOOLEAN  => BOOLEAN (GBool.FFI.fromVal (from_boolean_ ptr))
+            | GIRepositoryTypeTag.INT8     => INT8    (GInt8.FFI.fromVal (from_int8_ ptr))
+            | GIRepositoryTypeTag.UINT8    => UINT8   (Word8.toLargeInt (GUInt8.FFI.fromVal (from_uint8_ ptr)))
+            | GIRepositoryTypeTag.INT16    => INT16   (GInt16.FFI.fromVal (from_int16_ ptr))
+            | GIRepositoryTypeTag.UINT16   => UINT16  (GUInt16.FFI.fromVal (from_uint16_ ptr))
+            | GIRepositoryTypeTag.INT32    => INT32   (GInt32.FFI.fromVal (from_int32_ ptr))
+            | GIRepositoryTypeTag.UINT32   => UINT32  (GUInt32.FFI.fromVal (from_uint32_ ptr))
+            | GIRepositoryTypeTag.INT64    => INT64   (GInt64.FFI.fromVal (from_int64_ ptr))
+            | GIRepositoryTypeTag.UINT64   => UINT64  (GUInt64.FFI.fromVal (from_uint64_ ptr))
+            | GIRepositoryTypeTag.FLOAT    => FLOAT   (fromReal (GFloat.FFI.fromVal (from_float_ ptr)))
+            | GIRepositoryTypeTag.DOUBLE   => DOUBLE  (fromReal (GDouble.FFI.fromVal (from_double_ ptr)))
             | GIRepositoryTypeTag.UTF8     => UTF8 (
-                Utf8.C.fromPtr true (from_string_ ptr)
+                Utf8.FFI.fromPtr ~1 (from_string_ ptr)
               )
             | GIRepositoryTypeTag.FILENAME => FILENAME (
-                Utf8.C.fromPtr true (from_string_ ptr)
+                Utf8.FFI.fromPtr ~1 (from_string_ ptr)
               )
             | GIRepositoryTypeTag.VOID      => VOID
             | GIRepositoryTypeTag.GTYPE     => GTYPE

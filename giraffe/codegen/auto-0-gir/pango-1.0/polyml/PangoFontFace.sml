@@ -9,13 +9,13 @@ structure PangoFontFace :>
       val getType_ = call (load_sym libpango "pango_font_face_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val describe_ = call (load_sym libpango "pango_font_face_describe") (PangoFontFaceClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
       val getFaceName_ = call (load_sym libpango "pango_font_face_get_face_name") (PangoFontFaceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val isSynthesized_ = call (load_sym libpango "pango_font_face_is_synthesized") (PangoFontFaceClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isSynthesized_ = call (load_sym libpango "pango_font_face_is_synthesized") (PangoFontFaceClass.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a PangoFontFaceClass.class
     type font_description_t = PangoFontDescriptionRecord.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun describe self = (PangoFontFaceClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) describe_ self
-    fun getFaceName self = (PangoFontFaceClass.C.withPtr ---> Utf8.C.fromPtr false) getFaceName_ self
-    fun isSynthesized self = (PangoFontFaceClass.C.withPtr ---> FFI.Bool.C.fromVal) isSynthesized_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun describe self = (PangoFontFaceClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr true) describe_ self
+    fun getFaceName self = (PangoFontFaceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getFaceName_ self
+    fun isSynthesized self = (PangoFontFaceClass.FFI.withPtr ---> GBool.FFI.fromVal) isSynthesized_ self
   end

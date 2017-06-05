@@ -63,51 +63,12 @@ fun addFlagsValueStrDecs (enumInfo, strDecs) : strdec list =
 (* Signature *)
 
 local
-  val flagsTyLName : tylname = ([], toList1 [flagsId])
-
   (*
-   *     include BIT_FLAGS where type flags = t
+   *     include FLAGS
    *)
-  val tTypeSpec = SpecType (true, toList1 [(tTyName, NONE)])
+  val flagsInclSpec = SpecIncl (SigName (toUCU flagsStrId), [])
 
-  (*
-   *     include BIT_FLAGS where type flags = t
-   *)
-  val bitFlagsInclSpec =
-    SpecIncl (
-      SigName (toUCU bitFlagsName),
-      [toList1 [(flagsTyLName, tTy)]]
-    )
-
-  (*
-   *     structure C :
-   *       sig
-   *         type val_
-   *         type ref_
-   *         val withVal : (val_ -> 'a) -> t -> 'a
-   *         val withRefVal : (ref_ -> 'a) -> t -> (val_, 'a) pair
-   *         val fromVal : val_ -> t
-   *       endz
-   *)
-  val structCSpecs = [
-    mkTypeSpec (valTyName, NONE),
-    mkTypeSpec (refTyName, NONE),
-    mkValSpec (
-      withValId,
-      TyFun (TyParen (TyFun (valTy, aVarTy)), TyFun (tTy, aVarTy))
-    ),
-    mkValSpec (
-      withRefValId,
-      TyFun (
-        TyParen (TyFun (refTy, aVarTy)),
-        TyFun (tTy, pairTy (valTy, aVarTy))
-      )
-    ),
-    mkValSpec (fromValId, TyFun (valTy, tTy))
-  ]
-  val structCSpec = mkCStructSpec structCSpecs
-
-  val specs'0 = [structCSpec]
+  val specs'0 = []
 in
   fun makeFlagsSig
     (repo        : 'a RepositoryClass.class)
@@ -144,7 +105,7 @@ in
       val specs'4 =
         addAccessorSpecs enumNamespace enumInfo (tTy, tTy) false specs'3
       val specs'5 = addFlagsValueSpecs (enumInfo, specs'4)
-      val specs'6 = tTypeSpec :: bitFlagsInclSpec :: specs'5
+      val specs'6 = flagsInclSpec :: specs'5
 
       val sig1 = mkSigSpec specs'6
       val qSig : qsig = (sig1, [])
@@ -160,127 +121,25 @@ end
 (* Structure *)
 
 local
-  val wId = "w"
-  val bitFlagsIdUCC = toUCC bitFlagsName
-
   (*
-   *     structure BitFlags = Word32BitFlags (val allFlags = allFlags)
+   *     structure Flags = Flags(val allFlags = allFlags)
    *)
-  val structBitFlagsStrDec =
-    StrDecStruct (
-      toList1 [
-        (
-          bitFlagsIdUCC,
-          NONE,
-          StructInst (
-            "Word32BitFlags",
-            mkFunArgStrDec [
-              StrDecDec (mkIdValDec (allFlagsId, allFlagsExp))
-            ]
-          )
-        )
-      ]
+  val structFlagsStrDec =
+    mkStructStrDec (
+      flagsStrId,
+      StructInst (
+        flagsStrId,
+        mkStrDecsFunArg [
+          StrDecDec (mkIdValDec (allFlagsId, allFlagsExp))
+        ]
+      )
     )
 
   (*
-   *     open BitFlags
+   *     open Flags
    *)
-  val openBitFlagsStrDec =
-    StrDecDec (DecOpen (toList1 [toList1 [bitFlagsIdUCC]]))
-
-  (*
-   *     type t = flags
-   *)
-  val tTypeStrDec = StrDecDec (DecType (toList1 [(tTyName, flagsTy)]))
-
-  (*
-   *     structure PolyML =                          -.
-   *       struct                                     |
-   *         val cVal = FFI.Flags.PolyML.cVal         | Poly/ML only
-   *         val cRef = FFI.Flags.PolyML.cRef         |
-   *       end                                       -'
-   *)
-  val structPolyMLStrDec =
-    mkPolyMLStructStrDec [
-      StrDecDec (
-        mkIdValDec (
-          cValId,
-          mkLIdLNameExp [FFIId, FlagsId, PolyMLId, cValId]
-        )
-      ),
-      StrDecDec (
-        mkIdValDec (
-          cRefId,
-          mkLIdLNameExp [FFIId, FlagsId, PolyMLId, cRefId]
-        )
-      )
-    ]
-
-  (*
-   *     structure C =
-   *       struct
-   *         type val_ = FFI.Flags.C.val_
-   *         type ref_ = FFI.Flags.C.ref_
-   *         fun withVal f = f
-   *         fun withRefVal f = withVal (FFI.Flags.C.withRef f)
-   *         fun fromVal w = w
-   *       end
-   *)
-  val structCStrDec =
-    mkCStructStrDec [
-      StrDecDec (mkTypeDec (valTyName, mkLIdTy [FFIId, FlagsId, CId, valId])),
-      StrDecDec (mkTypeDec (refTyName, mkLIdTy [FFIId, FlagsId, CId, refId])),
-      StrDecDec (
-        DecFun (
-          [],
-          toList1 [
-            toList1 [
-              (
-                FunHeadPrefix (NameId withValId, toList1 [mkIdVarAPat fId]),
-                NONE,
-                mkIdLNameExp fId
-              )
-            ]
-          ]
-        )
-      ),
-      StrDecDec (
-        DecFun (
-          [],
-          toList1 [
-            toList1 [
-              (
-                FunHeadPrefix (NameId withRefValId, toList1 [mkIdVarAPat fId]),
-                NONE,
-                ExpApp (
-                  mkIdLNameExp withValId,
-                  mkParenExp (
-                    ExpApp (
-                      mkLIdLNameExp [FFIId, FlagsId, CId, "withRef"],
-                      mkIdLNameExp fId
-                    )
-                  )
-                )
-              )
-            ]
-          ]
-        )
-      ),
-      StrDecDec (
-        DecFun (
-          [],
-          toList1 [
-            toList1 [
-              (
-                FunHeadPrefix (NameId fromValId, toList1 [mkIdVarAPat wId]),
-                NONE,
-                mkIdLNameExp wId
-              )
-            ]
-          ]
-        )
-      )
-    ]
+  val openFlagsStrDec =
+    StrDecDec (DecOpen (toList1 [toList1 [flagsStrId]]))
 in
   fun makeFlagsStr
     (repo          : 'a RepositoryClass.class)
@@ -313,16 +172,16 @@ in
       (* module *)
       val acc'0
         : strdec list
-           * interfaceref list
+           * (interfaceref list * struct1 ListDict.t)
            * infoerrorhier list =
-        ([], [], errs'0)
+        ([], ([], ListDict.empty), errs'0)
       val acc'1 =
         addFlagsEnumMethodStrDecsHighLevel repo enumIRef (enumInfo, acc'0)
       val acc'2 =
         case optGetTypeSymbol of
           SOME _ => addGetTypeFunctionStrDecHighLevel typeIRef acc'1
         | NONE   => acc'1
-      val (strDecs'2, iRefs'2, errs'2) = acc'2
+      val (strDecs'2, (iRefs'2, structDeps'2), errs'2) = acc'2
 
       val revLocalTypes = revMap makeIRefLocalType iRefs'2
       val strDecs'3 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'2)
@@ -342,17 +201,15 @@ in
               (enumInfo, (strDecs'3, errs'2))
 
           val strDecs'5 = addAccessorStrDecs ("flags", false) isPolyML strDecs'4
-
-          val strDecs'6 =
-            if isPolyML
-            then structPolyMLStrDec :: strDecs'5
-            else strDecs'5
-          val strDecs'7 = structCStrDec :: strDecs'6
-          val strDecs'8 =
-            [structBitFlagsStrDec, openBitFlagsStrDec, tTypeStrDec]
-             @ strDecs'7
+          val strDecs'6 = strDecs'5
+          val strDecs'7 = strDecs'6
+          val strDecs'8 = [structFlagsStrDec, openFlagsStrDec] @ strDecs'7
           val strDecs'9 = addFlagsValueStrDecs (enumInfo, strDecs'8)
-          val struct1 = mkStructBody strDecs'9
+          val strDecs'10 =
+            revMapAppend mkStructStrDec
+              (ListDict.toList structDeps'2, strDecs'9)
+
+          val struct1 = mkBodyStruct strDecs'10
 
           (* sig *)
           val sig1 = SigName enumSigId
@@ -361,14 +218,6 @@ in
             revMapAppend makeLocalTypeStrModuleQual
               (revAccessorLocalTypes, sigQual'1)
           val qSig : qsig = (sig1, sigQual'2)
-
-          val sigSpecs'1 =
-            if isPolyML
-            then [structPolyMLSpec]
-            else []
-          val sigSpecs'2 = SpecIncl qSig :: sigSpecs'1
-          val sig1 = mkSigSpec sigSpecs'2
-          val qSig : qsig = (sig1, [])
 
           (* strdec *)
           val structDec = toList1 [(enumStrId, SOME (true, qSig), struct1)]
@@ -398,11 +247,7 @@ in
 
       (* namespace strdec *)
       val enumStrDec =
-        StrDecStruct (
-          toList1 [
-            (enumStrNameId, NONE, StructName (toList1 [enumStrId]))
-          ]
-        )
+        mkStructStrDec (enumStrNameId, StructName (toList1 [enumStrId]))
       val enumStrDecs = [enumStrDec]
     in
       (

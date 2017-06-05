@@ -13,9 +13,15 @@ structure GioDBusProxy :>
     where type d_bus_proxy_flags_t = GioDBusProxyFlags.t
     where type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t =
   struct
-    val getType_ = _import "g_dbus_proxy_get_type" : unit -> GObjectType.C.val_;
-    val newFinish_ = fn x1 & x2 => (_import "g_dbus_proxy_new_finish" : GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p * (unit, unit) GLibErrorRecord.C.r -> GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p;) (x1, x2)
-    val newForBusFinish_ = fn x1 & x2 => (_import "g_dbus_proxy_new_for_bus_finish" : GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p * (unit, unit) GLibErrorRecord.C.r -> GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p;) (x1, x2)
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
+    val getType_ = _import "g_dbus_proxy_get_type" : unit -> GObjectType.FFI.val_;
+    val newFinish_ = fn x1 & x2 => (_import "g_dbus_proxy_new_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p;) (x1, x2)
+    val newForBusFinish_ = fn x1 & x2 => (_import "g_dbus_proxy_new_for_bus_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p;) (x1, x2)
     val newForBusSync_ =
       fn
         x1
@@ -28,18 +34,18 @@ structure GioDBusProxy :>
          & x11 =>
           (
             _import "mlton_g_dbus_proxy_new_for_bus_sync" :
-              GioBusType.C.val_
-               * GioDBusProxyFlags.C.val_
-               * unit GioDBusInterfaceInfoRecord.C.p
+              GioBusType.FFI.val_
+               * GioDBusProxyFlags.FFI.val_
+               * unit GioDBusInterfaceInfoRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p;
           )
             (
               x1,
@@ -66,18 +72,18 @@ structure GioDBusProxy :>
          & x11 =>
           (
             _import "mlton_g_dbus_proxy_new_sync" :
-              GioDBusConnectionClass.C.notnull GioDBusConnectionClass.C.p
-               * GioDBusProxyFlags.C.val_
-               * unit GioDBusInterfaceInfoRecord.C.p
+              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+               * GioDBusProxyFlags.FFI.val_
+               * unit GioDBusInterfaceInfoRecord.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p;
           )
             (
               x1,
@@ -99,10 +105,10 @@ structure GioDBusProxy :>
          & x3 =>
           (
             _import "g_dbus_proxy_call_finish" :
-              GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
+              GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -120,15 +126,15 @@ structure GioDBusProxy :>
          & x8 =>
           (
             _import "mlton_g_dbus_proxy_call_sync" :
-              GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p
+              GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * unit GLibVariantRecord.C.p
-               * GioDBusCallFlags.C.val_
-               * FFI.Int32.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit GLibVariantRecord.FFI.p
+               * GioDBusCallFlags.FFI.val_
+               * GInt32.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -148,11 +154,11 @@ structure GioDBusProxy :>
          & x4 =>
           (
             _import "g_dbus_proxy_call_with_unix_fd_list_finish" :
-              GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p
-               * (unit, GioUnixFDListClass.C.notnull) GioUnixFDListClass.C.r
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
+              GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p
+               * (unit, GioUnixFDListClass.FFI.notnull) GioUnixFDListClass.FFI.r
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -173,17 +179,17 @@ structure GioDBusProxy :>
          & x10 =>
           (
             _import "mlton_g_dbus_proxy_call_with_unix_fd_list_sync" :
-              GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p
+              GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * unit GLibVariantRecord.C.p
-               * GioDBusCallFlags.C.val_
-               * FFI.Int32.C.val_
-               * unit GioUnixFDListClass.C.p
-               * (unit, GioUnixFDListClass.C.notnull) GioUnixFDListClass.C.r
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit GLibVariantRecord.FFI.p
+               * GioDBusCallFlags.FFI.val_
+               * GInt32.FFI.val_
+               * unit GioUnixFDListClass.FFI.p
+               * (unit, GioUnixFDListClass.FFI.notnull) GioUnixFDListClass.FFI.r
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -202,24 +208,25 @@ structure GioDBusProxy :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_dbus_proxy_get_cached_property" :
-              GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p
+              GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> GLibVariantRecord.C.notnull GLibVariantRecord.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getConnection_ = _import "g_dbus_proxy_get_connection" : GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p -> GioDBusConnectionClass.C.notnull GioDBusConnectionClass.C.p;
-    val getDefaultTimeout_ = _import "g_dbus_proxy_get_default_timeout" : GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p -> FFI.Int32.C.val_;
-    val getFlags_ = _import "g_dbus_proxy_get_flags" : GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p -> GioDBusProxyFlags.C.val_;
-    val getInterfaceInfo_ = _import "g_dbus_proxy_get_interface_info" : GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p -> GioDBusInterfaceInfoRecord.C.notnull GioDBusInterfaceInfoRecord.C.p;
-    val getInterfaceName_ = _import "g_dbus_proxy_get_interface_name" : GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getName_ = _import "g_dbus_proxy_get_name" : GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getNameOwner_ = _import "g_dbus_proxy_get_name_owner" : GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getObjectPath_ = _import "g_dbus_proxy_get_object_path" : GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getCachedPropertyNames_ = _import "g_dbus_proxy_get_cached_property_names" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+    val getConnection_ = _import "g_dbus_proxy_get_connection" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;
+    val getDefaultTimeout_ = _import "g_dbus_proxy_get_default_timeout" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p -> GInt32.FFI.val_;
+    val getFlags_ = _import "g_dbus_proxy_get_flags" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p -> GioDBusProxyFlags.FFI.val_;
+    val getInterfaceInfo_ = _import "g_dbus_proxy_get_interface_info" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p -> GioDBusInterfaceInfoRecord.FFI.notnull GioDBusInterfaceInfoRecord.FFI.p;
+    val getInterfaceName_ = _import "g_dbus_proxy_get_interface_name" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getName_ = _import "g_dbus_proxy_get_name" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getNameOwner_ = _import "g_dbus_proxy_get_name_owner" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getObjectPath_ = _import "g_dbus_proxy_get_object_path" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val setCachedProperty_ =
       fn
         x1
@@ -227,10 +234,10 @@ structure GioDBusProxy :>
          & x4 =>
           (
             _import "mlton_g_dbus_proxy_set_cached_property" :
-              GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p
+              GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * unit GLibVariantRecord.C.p
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit GLibVariantRecord.FFI.p
                -> unit;
           )
             (
@@ -239,8 +246,8 @@ structure GioDBusProxy :>
               x3,
               x4
             )
-    val setDefaultTimeout_ = fn x1 & x2 => (_import "g_dbus_proxy_set_default_timeout" : GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    val setInterfaceInfo_ = fn x1 & x2 => (_import "g_dbus_proxy_set_interface_info" : GioDBusProxyClass.C.notnull GioDBusProxyClass.C.p * unit GioDBusInterfaceInfoRecord.C.p -> unit;) (x1, x2)
+    val setDefaultTimeout_ = fn x1 & x2 => (_import "g_dbus_proxy_set_default_timeout" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setInterfaceInfo_ = fn x1 & x2 => (_import "g_dbus_proxy_set_interface_info" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p * unit GioDBusInterfaceInfoRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GioDBusProxyClass.class
     type 'a async_initable_class = 'a GioAsyncInitableClass.class
     type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class
@@ -254,23 +261,23 @@ structure GioDBusProxy :>
     type d_bus_proxy_flags_t = GioDBusProxyFlags.t
     type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t
     type t = base class
-    fun asAsyncInitable self = (GObjectObjectClass.C.withPtr ---> GioAsyncInitableClass.C.fromPtr false) I self
-    fun asDBusInterface self = (GObjectObjectClass.C.withPtr ---> GioDBusInterfaceClass.C.fromPtr false) I self
-    fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newFinish res = (GioAsyncResultClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusProxyClass.C.fromPtr true) newFinish_ (res & [])
-    fun newForBusFinish res = (GioAsyncResultClass.C.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusProxyClass.C.fromPtr true) newForBusFinish_ (res & [])
+    fun asAsyncInitable self = (GObjectObjectClass.FFI.withPtr ---> GioAsyncInitableClass.FFI.fromPtr false) I self
+    fun asDBusInterface self = (GObjectObjectClass.FFI.withPtr ---> GioDBusInterfaceClass.FFI.fromPtr false) I self
+    fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun newFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusProxyClass.FFI.fromPtr true) newFinish_ (res & [])
+    fun newForBusFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusProxyClass.FFI.fromPtr true) newForBusFinish_ (res & [])
     fun newForBusSync busType flags info name objectPath interfaceName cancellable =
       (
-        GioBusType.C.withVal
-         &&&> GioDBusProxyFlags.C.withVal
-         &&&> GioDBusInterfaceInfoRecord.C.withOptPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioBusType.FFI.withVal
+         &&&> GioDBusProxyFlags.FFI.withVal
+         &&&> GioDBusInterfaceInfoRecord.FFI.withOptPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioDBusProxyClass.C.fromPtr true
+         ---> GioDBusProxyClass.FFI.fromPtr true
       )
         newForBusSync_
         (
@@ -285,15 +292,15 @@ structure GioDBusProxy :>
         )
     fun newSync connection flags info name objectPath interfaceName cancellable =
       (
-        GioDBusConnectionClass.C.withPtr
-         &&&> GioDBusProxyFlags.C.withVal
-         &&&> GioDBusInterfaceInfoRecord.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioDBusConnectionClass.FFI.withPtr
+         &&&> GioDBusProxyFlags.FFI.withVal
+         &&&> GioDBusInterfaceInfoRecord.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioDBusProxyClass.C.fromPtr true
+         ---> GioDBusProxyClass.FFI.fromPtr true
       )
         newSync_
         (
@@ -308,10 +315,10 @@ structure GioDBusProxy :>
         )
     fun callFinish self res =
       (
-        GioDBusProxyClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioDBusProxyClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GLibVariantRecord.C.fromPtr true
+         ---> GLibVariantRecord.FFI.fromPtr true
       )
         callFinish_
         (
@@ -321,14 +328,14 @@ structure GioDBusProxy :>
         )
     fun callSync self methodName parameters flags timeoutMsec cancellable =
       (
-        GioDBusProxyClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GLibVariantRecord.C.withOptPtr
-         &&&> GioDBusCallFlags.C.withVal
-         &&&> FFI.Int32.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioDBusProxyClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibVariantRecord.FFI.withOptPtr
+         &&&> GioDBusCallFlags.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GLibVariantRecord.C.fromPtr true
+         ---> GLibVariantRecord.FFI.fromPtr true
       )
         callSync_
         (
@@ -344,11 +351,11 @@ structure GioDBusProxy :>
       let
         val outFdList & retVal =
           (
-            GioDBusProxyClass.C.withPtr
-             &&&> GioUnixFDListClass.C.withRefOptPtr
-             &&&> GioAsyncResultClass.C.withPtr
+            GioDBusProxyClass.FFI.withPtr
+             &&&> GioUnixFDListClass.FFI.withRefOptPtr
+             &&&> GioAsyncResultClass.FFI.withPtr
              &&&> GLibErrorRecord.handleError
-             ---> GioUnixFDListClass.C.fromPtr true && GLibVariantRecord.C.fromPtr true
+             ---> GioUnixFDListClass.FFI.fromPtr true && GLibVariantRecord.FFI.fromPtr true
           )
             callWithUnixFdListFinish_
             (
@@ -364,16 +371,16 @@ structure GioDBusProxy :>
       let
         val outFdList & retVal =
           (
-            GioDBusProxyClass.C.withPtr
-             &&&> Utf8.C.withPtr
-             &&&> GLibVariantRecord.C.withOptPtr
-             &&&> GioDBusCallFlags.C.withVal
-             &&&> FFI.Int32.C.withVal
-             &&&> GioUnixFDListClass.C.withOptPtr
-             &&&> GioUnixFDListClass.C.withRefOptPtr
-             &&&> GioCancellableClass.C.withOptPtr
+            GioDBusProxyClass.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GLibVariantRecord.FFI.withOptPtr
+             &&&> GioDBusCallFlags.FFI.withVal
+             &&&> GInt32.FFI.withVal
+             &&&> GioUnixFDListClass.FFI.withOptPtr
+             &&&> GioUnixFDListClass.FFI.withRefOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GioUnixFDListClass.C.fromPtr true && GLibVariantRecord.C.fromPtr true
+             ---> GioUnixFDListClass.FFI.fromPtr true && GLibVariantRecord.FFI.fromPtr true
           )
             callWithUnixFdListSync_
             (
@@ -390,20 +397,21 @@ structure GioDBusProxy :>
       in
         (retVal, outFdList)
       end
-    fun getCachedProperty self propertyName = (GioDBusProxyClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getCachedProperty_ (self & propertyName)
-    fun getConnection self = (GioDBusProxyClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
-    fun getDefaultTimeout self = (GioDBusProxyClass.C.withPtr ---> FFI.Int32.C.fromVal) getDefaultTimeout_ self
-    fun getFlags self = (GioDBusProxyClass.C.withPtr ---> GioDBusProxyFlags.C.fromVal) getFlags_ self
-    fun getInterfaceInfo self = (GioDBusProxyClass.C.withPtr ---> GioDBusInterfaceInfoRecord.C.fromPtr true) getInterfaceInfo_ self
-    fun getInterfaceName self = (GioDBusProxyClass.C.withPtr ---> Utf8.C.fromPtr false) getInterfaceName_ self
-    fun getName self = (GioDBusProxyClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun getNameOwner self = (GioDBusProxyClass.C.withPtr ---> Utf8.C.fromPtr true) getNameOwner_ self
-    fun getObjectPath self = (GioDBusProxyClass.C.withPtr ---> Utf8.C.fromPtr false) getObjectPath_ self
+    fun getCachedProperty self propertyName = (GioDBusProxyClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getCachedProperty_ (self & propertyName)
+    fun getCachedPropertyNames self = (GioDBusProxyClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getCachedPropertyNames_ self
+    fun getConnection self = (GioDBusProxyClass.FFI.withPtr ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
+    fun getDefaultTimeout self = (GioDBusProxyClass.FFI.withPtr ---> GInt32.FFI.fromVal) getDefaultTimeout_ self
+    fun getFlags self = (GioDBusProxyClass.FFI.withPtr ---> GioDBusProxyFlags.FFI.fromVal) getFlags_ self
+    fun getInterfaceInfo self = (GioDBusProxyClass.FFI.withPtr ---> GioDBusInterfaceInfoRecord.FFI.fromPtr true) getInterfaceInfo_ self
+    fun getInterfaceName self = (GioDBusProxyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getInterfaceName_ self
+    fun getName self = (GioDBusProxyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getNameOwner self = (GioDBusProxyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getNameOwner_ self
+    fun getObjectPath self = (GioDBusProxyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
     fun setCachedProperty self propertyName value =
       (
-        GioDBusProxyClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GLibVariantRecord.C.withOptPtr
+        GioDBusProxyClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibVariantRecord.FFI.withOptPtr
          ---> I
       )
         setCachedProperty_
@@ -412,11 +420,12 @@ structure GioDBusProxy :>
            & propertyName
            & value
         )
-    fun setDefaultTimeout self timeoutMsec = (GioDBusProxyClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setDefaultTimeout_ (self & timeoutMsec)
-    fun setInterfaceInfo self info = (GioDBusProxyClass.C.withPtr &&&> GioDBusInterfaceInfoRecord.C.withOptPtr ---> I) setInterfaceInfo_ (self & info)
+    fun setDefaultTimeout self timeoutMsec = (GioDBusProxyClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setDefaultTimeout_ (self & timeoutMsec)
+    fun setInterfaceInfo self info = (GioDBusProxyClass.FFI.withPtr &&&> GioDBusInterfaceInfoRecord.FFI.withOptPtr ---> I) setInterfaceInfo_ (self & info)
     local
       open ClosureMarshal Signal
     in
+      fun gPropertiesChangedSig f = signal "g-properties-changed" (get 0w1 GLibVariantRecord.t &&&> get 0w2 Utf8CVector.t ---> ret_void) (fn changedProperties & invalidatedProperties => f changedProperties invalidatedProperties)
       fun gSignalSig f =
         signal "g-signal"
           (

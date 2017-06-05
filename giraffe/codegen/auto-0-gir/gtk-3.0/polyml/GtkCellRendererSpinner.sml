@@ -12,8 +12,8 @@ structure GtkCellRendererSpinner :>
     type 'a class = 'a GtkCellRendererSpinnerClass.class
     type icon_size_t = GtkIconSize.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkCellRendererSpinnerClass.C.fromPtr false) new_ ()
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkCellRendererSpinnerClass.FFI.fromPtr false) new_ ()
     local
       open Property
     in

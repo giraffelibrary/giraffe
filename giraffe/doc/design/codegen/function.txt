@@ -15,22 +15,23 @@ Context
 
 Placeholders
 
-  optContainerName = Option.map GIBaseInfo.getName optContainerInfo
+  optContainerName = Option.map GIRepository.BaseInfo.getName optContainerInfo
 
-  FunctionName = GIBaseInfo.getName functionInfo
+  FunctionName = GIRepository.BaseInfo.getName functionInfo
 
-  FunctionSymbol = GIFunctionInfo.getSymbol functionInfo
+  FunctionSymbol = GIRepository.FunctionInfo.getSymbol functionInfo
 
-  FunctionNamespace = GIBaseInfo.getNamespace functionInfo
+  FunctionNamespace = GIRepository.BaseInfo.getNamespace functionInfo
 
-  FunctionFlags = GIFunctionInfo.getFlags functionInfo
+  FunctionFlags = GIRepository.FunctionInfo.getFlags functionInfo
+
 
 
 ==Specification==
 
 For
-  L non-VOID IN/INOUT parameters,
-  K non-VOID INOUT/OUT parameters,
+  L non-VOID non-length IN/INOUT parameters,
+  K non-VOID non-length INOUT/OUT parameters,
 FunctionSpec has the form:
 
 
@@ -71,13 +72,14 @@ where
     is the SML type representing the return type of the function
     translated as follows:
 
-      mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+      mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
+      typeInfo      = GIRepository.CallableInfo.getReturnType functionInfo
 
         mayReturnNull    | retValType
       ===================+===================
-        false            | <type>
+        false            | <type(typeInfo)>
       -------------------+-------------------
-        true             | <type> option
+        true             | <type(typeInfo)> option
       -------------------+-------------------
 
 
@@ -88,8 +90,8 @@ where
     defined as follows:
 
 
-        retTypeInfo = GICallableInfo.getReturnType functionInfo
-        tag         = GITypeInfo.getTag retTypeInfo
+        retTypeInfo = GIRepository.CallableInfo.getReturnType functionInfo
+        tag         = GIRepository.TypeInfo.getTag retTypeInfo
 
           tag     0 < KA  KA < K   | retExpType
         ===========================+===================================================
@@ -128,13 +130,14 @@ where
     <l>th parameter type in the list of non-VOID IN/INOUT parameter
     types of the function translated as follows:
 
-      mayBeNull = GIArgInfo.mayBeNull argInfo
+      mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
+      typeInfo  = GIRepository.ArgInfo.getType argInfo
 
         mayBeNull        | inParamType
       ===================+===================
-        false            | <type>
+        false            | <type(typeInfo)>
       -------------------+-------------------
-        true             | <type> option
+        true             | <type(typeInfo)> option
       -------------------+-------------------
 
 
@@ -143,13 +146,14 @@ where
     <k>th parameter type in the list of non-VOID INOUT/OUT
     parameter types of the function translated as follows:
 
-      mayBeNull = GIArgInfo.mayBeNull argInfo
+      mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
+      typeInfo  = GIRepository.ArgInfo.getType argInfo
 
         mayBeNull        | outParamType
       ===================+===================
-        false [#1]       | <type>
+        false [#1]       | <type(typeInfo)>
       -------------------+-------------------
-        true [#1]        | <type> option
+        true [#1]        | <type(typeInfo)> option
       -------------------+-------------------
 
       #1: currently for out and in-out parameters, mayBeNull indicates
@@ -171,7 +175,7 @@ where
     is the SML type representing the object or interface
     that contains the function and has the form as follows:
 
-      infoType = GIInfoType.getType containerInfo
+      infoType = GIRepository.InfoType.getType containerInfo
       isClass = infoType is OBJECT _ | INTERFACE _
       isRecord = infoType is STRUCT _
       isUnion = infoType is UNION _
@@ -190,22 +194,17 @@ where
           if isOther
 
 
-  type
+  type(typeInfo)
     is defined as according to the GIR type tag as follows:
 
-                  .-
-                  | GIArgInfo.getType argInfo
-      typeInfo = <
-                  | GICallableInfo.getReturnType functionInfo
-                  `-
-      tag = GITypeInfo.get_tag typeInfo
+      tag = GIRepository.TypeInfo.get_tag typeInfo
 
       Conversion from tag is as follows:
 
         ERROR     --->    <raise Error "not expected">
         GTYPE     --->    <raise Error "not supported">
-        FILENAME  --->    <raise Error "not supported">
-        ARRAY     --->    <raise Error "not supported">
+        FILENAME  --->    string
+        ARRAY     --->    <arrayType(typeInfo)>
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
@@ -226,13 +225,13 @@ where
 
         INTERFACE --->
 
-          interfaceTypeInfo = GITypeInfo.getInterface typeInfo
+          interfaceTypeInfo = GIRepository.TypeInfo.getInterface typeInfo
 
-          InterfaceName = GIBaseInfo.getName interfaceTypeInfo
-          InterfaceNamespace = GIBaseInfo.getNamespace interfaceTypeInfo
+          InterfaceName = GIRepository.BaseInfo.getName interfaceTypeInfo
+          InterfaceNamespace = GIRepository.BaseInfo.getNamespace interfaceTypeInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
-          infoType = GIInfoType.getType interfaceTypeInfo
+          infoType = GIRepository.InfoType.getType interfaceTypeInfo
           isClass = infoType is OBJECT _ | INTERFACE _
           isRecord = infoType is STRUCT _
           isUnion = infoType is UNION _
@@ -294,13 +293,185 @@ where
               if not isGlobal and not isNamespace and isSelf and isOther
 
 
-  var is
+  arrayType(arrayTypeInfo)
+    is defined as follows:
 
-    a fresh type variable
-      for selfType or an inParamType
+        elemTypeInfo = GIRepository.TypeInfo.getParamType arrayTypeInfo 0
 
-    base
-      for an outParamType or retType
+      <type(elemTypeInfo)> list
+        if baseTag(elemTypeInfo) is UTF8 or FILENAME
+
+      <type(elemTypeInfo)> vector
+        otherwise
+
+
+  baseTag(typeInfo)
+    is defined as according to the GIR type tag as follows:
+
+        tag = GIRepository.TypeInfo.get_tag typeInfo
+
+      <baseTag(GIRepository.TypeInfo.getParamType typeInfo 0)>
+        if tag is ARRAY
+
+      <tag>
+        otherwise
+
+
+  var
+    is
+
+      <"a fresh type variable">
+        for selfType or a non-contained inParamType
+
+      base
+        for an outParamType or retType or contained type.
+
+    A type is 'contained' when it is the element type of some container, e.g. array, list etc.
+
+
+
+==Common==
+
+  ArrayStructId(arrayTypeInfo)
+    is as follows:
+
+      elemTypeInfo = GIRepository.TypeInfo.getParamType arrayTypeInfo 0
+      tag          = GIRepository.TypeInfo.getTag elemTypeInfo
+
+    Conversion from tag is as follows:
+
+      ERROR     --->    <raise Error "not expected">
+      FILENAME  --->    Utf8
+      ARRAY     --->    <ArrayStructId(elemTypeInfo)><VectorType>
+      GLIST     --->    <raise Error "not expected">
+      GSLIST    --->    <raise Error "not expected">
+      GHASH     --->    <raise Error "not expected">
+      INT8      --->    <Prefix>Int8<VectorType>
+      UINT8     --->    <Prefix>UInt8<VectorType>
+      INT16     --->    <Prefix>Int16<VectorType>
+      UINT16    --->    <Prefix>UInt16<VectorType>
+      INT32     --->    <Prefix>Int32<VectorType>
+      UINT32    --->    <Prefix>UInt32<VectorType>
+      INT64     --->    <Prefix>Int64<VectorType>
+      UINT64    --->    <Prefix>UInt64<VectorType>
+      VOID      --->    <raise Fail "VOID">
+      BOOLEAN   --->    <Prefix>Bool<VectorType>
+      FLOAT     --->    <Prefix>Float<VectorType>
+      DOUBLE    --->    <Prefix>Double<VectorType>
+      UTF8      --->    Utf8
+      UNICHAR   --->    <Prefix>Char<VectorType>
+      INTERFACE --->    <InterfaceArrayStructId>
+
+
+    Prefix is G
+
+
+    InterfaceArrayStructId is as follows:
+
+      interfaceTypeInfo = GIRepository.TypeInfo.getInterface elemTypeInfo
+
+      InterfaceName = GIRepository.BaseInfo.getName interfaceTypeInfo
+      InterfaceNamespace = GIRepository.BaseInfo.getNamespace interfaceTypeInfo
+      InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+      infoType = GIRepository.InfoType.getType interfaceTypeInfo
+      isClass = infoType is OBJECT _ | INTERFACE _
+      isRecord = infoType is STRUCT _
+      isUnion = infoType is UNION _
+      isEnum = infoType is ENUM _
+      isFlags = infoType is FLAGS _
+      isOther = not (isClass or isRecord or isUnion or isEnum or isFlags)
+
+      isGlobal = InterfaceNamespace <> FunctionNamespace
+      isNamespace = optContainerName = NONE
+      isSelf = SOME InterfaceName = optContainerName
+
+        <InterfaceNamespace><InterfaceName>Class<VectorType>
+          if isGlobal and isClass
+
+        <InterfaceNamespace><InterfaceName>Record<VectorType>
+          if isGlobal and isRecord
+
+        <InterfaceNamespace><InterfaceName><VectorType>
+          if isGlobal and isUnion
+
+        <InterfaceNamespace><InterfaceName><VectorType>
+          if isGlobal and isEnum
+
+        <InterfaceNamespace><InterfaceName><VectorType>
+          if isGlobal and isFlags
+
+        <InterfaceNamespace><InterfaceName><VectorType>
+          if isGlobal and isOther
+
+
+        <InterfaceNamespace><InterfaceName>Class<VectorType>
+          if not isGlobal and isNamespace and isClass
+
+        <InterfaceNamespace><InterfaceName>Record<VectorType>
+          if not isGlobal and isNamespace and isRecord
+
+        <InterfaceNamespace><InterfaceName><VectorType>
+          if not isGlobal and isNamespace and isUnion
+
+        <InterfaceNamespace><InterfaceName><VectorType>
+          if not isGlobal and isNamespace and isEnum
+
+        <InterfaceNamespace><InterfaceName><VectorType>
+          if not isGlobal and isNamespace and isFlags
+
+        <InterfaceNamespace><InterfaceName><VectorType>
+          if not isGlobal and isNamespace and isOther
+
+
+        <InterfaceNamespace><InterfaceName>Class<VectorType>
+          if not isGlobal and not isNamespace and not isSelf and isClass
+
+        <InterfaceNamespace><InterfaceName>Record<VectorType>
+          if not isGlobal and not isNamespace and not isSelf and isRecord
+
+        <InterfaceNamespace><InterfaceName><VectorType>
+          if not isGlobal and not isNamespace and not isSelf and isUnion
+
+        <InterfaceNamespace><InterfaceName><VectorType>
+          if not isGlobal and not isNamespace and not isSelf and isEnum
+
+        <InterfaceNamespace><InterfaceName><VectorType>
+          if not isGlobal and not isNamespace and not isSelf and isFlags
+
+        <InterfaceNamespace><InterfaceName><VectorType>
+          if not isGlobal and not isNamespace and not isSelf and isOther
+
+
+        <InterfaceNamespace><InterfaceName>Class<VectorType>
+          if not isGlobal and not isNamespace and isSelf and isClass
+
+        <InterfaceNamespace><InterfaceName>Record<VectorType>
+          if not isGlobal and not isNamespace and isSelf and isRecord
+
+        <VectorType>
+          if not isGlobal and not isNamespace and isSelf and isUnion
+
+        <VectorType>
+          if not isGlobal and not isNamespace and isSelf and isEnum
+
+        <VectorType>
+          if not isGlobal and not isNamespace and isSelf and isFlags
+
+        <VectorType>
+          if not isGlobal and not isNamespace and isSelf and isOther
+
+
+    VectorType is as follows:
+
+      isZeroTerminated = GIRepository.TypeInfo.isZeroTerminated arrayTypeInfo
+
+        isZeroTermin... | VectorType
+      ==================+===================
+        false           | CVector
+      ------------------+-------------------
+        true            | CVectorN
+      ------------------+-------------------
 
 
 
@@ -308,51 +479,72 @@ where
 
 For
   J non-VOID parameters,
-  L non-VOID IN/INOUT parameters,
-  K non-VOID INOUT/OUT parameters,
-HighLevelFunction has the form:
+  K non-VOID non-length INOUT/OUT parameters,
+  L non-VOID non-length IN/INOUT parameters,
+  M length IN/INOUT parameters,
+  N non-VOID INOUT/OUT parameters,
+where a length parameter is one that provides the length of an array in another parameter
+or the return value, HighLevelFunction has a form as described below.
+
+Note that the condition 'N + M > 0' determines whether a let-expression is introduced.
+
+We also treat J, K, L, M and N as arrays whose elements are the parameter index in the
+full list of parameters.  Each array is injective (i.e. elements are unique) and the
+inverse of an array X is denoted X~.
 
 
   fun <functionName> self <inParamName[1]> ... <inParamName[L]> =
     let
-      val <outParamName[1]> & ... & <outParamName[K]> & <retVal> =
+      val <lenParamName[1]> = <lenParamExp[1]>
+      ...
+      val <lenParamName[M]> = <lenParamExp[M]>
+
+      val <outParamName[1]> & ... & <outParamName[N]> & <retVal> =
         (<withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
-          ---> <fromFun[1]> && ... && <fromFun[K]> && <retFromFun>)
+          ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>)
           <functionName>_
           (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
     in
       <retExp>
     end
 
-    if K > 0 and anySet (FunctionFlags, IS_METHOD)
+    if N + M > 0 and anySet (FunctionFlags, IS_METHOD)
 
 
   fun <functionName> <inParamName[1]> ... <inParamName[L]> =
     let
-      val <outParamName[1]> & ... & <outParamName[K]> & <retVal> =
+      val <lenParamName[1]> = <lenParamExp[1]>
+      ...
+      val <lenParamName[M]> = <lenParamExp[M]>
+
+      val <outParamName[1]> & ... & <outParamName[N]> & <retVal> =
         (<withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
-          ---> <fromFun[1]> && ... && <fromFun[K]> && <retFromFun>)
+          ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>)
           <functionName>_
           (<argVal[1]> & ... & <argVal[J]> [& <argValErr>])
     in
       <retExp>
     end
 
-    if K > 0 and L > 0 and not anySet (FunctionFlags, IS_METHOD)
+    if N + M > 0 and L > 0 and not anySet (FunctionFlags, IS_METHOD)
 
 
   fun <functionName> () =
     let
-      val <outParamName[1]> & ... & <outParamName[K]> & <retVal> =
+      val <lenParamName[1]> = <lenParamExp[1]>
+      ...
+      val <lenParamName[M]> = <lenParamExp[M]>
+
+      val <outParamName[1]> & ... & <outParamName[N]> & <retVal> =
         (<withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
-          ---> <fromFun[1]> && ... && <fromFun[K]> && <retFromFun>)
+          ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>)
           <functionName>_
           (<argVal[1]> & ... & <argVal[J]> [& <argValErr>])
     in
       <retExp>
     end
 
-    if K > 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
+    if N + M > 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
 
 
   fun <functionName> self <inParamName[1]> ... <inParamName[L]> =
@@ -360,7 +552,7 @@ HighLevelFunction has the form:
       <functionName>_
       (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
 
-    if K = 0 and anySet (FunctionFlags, IS_METHOD)
+    if N + M = 0 and anySet (FunctionFlags, IS_METHOD)
 
 
   fun <functionName> <inParamName[1]> ... <inParamName[L]> =
@@ -368,7 +560,7 @@ HighLevelFunction has the form:
       <functionName>_
       (<argVal[1]> & ... & <argVal[J]> [& <argValErr>])
 
-    if K = 0 and L > 0 and not anySet (FunctionFlags, IS_METHOD)
+    if N + M = 0 and L > 0 and not anySet (FunctionFlags, IS_METHOD)
 
 
   fun <functionName> () =
@@ -376,9 +568,9 @@ HighLevelFunction has the form:
       <functionName>_
       <argValErr>
 
-    if K = 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
+    if N + M = 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
                        and anySet (FunctionFlags, THROWS)
-      (note K = 0 and L = 0 iff J = 0)
+      (note N = 0 and L = 0 and M = 0 iff J = 0)
 
 
   fun <functionName> () =
@@ -386,9 +578,9 @@ HighLevelFunction has the form:
       <functionName>_
       ()
 
-    if K = 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
+    if N + M = 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
                        and not anySet (FunctionFlags, THROWS)
-      (note K = 0 and L = 0 iff J = 0)
+      (note N = 0 and L = 0 and M = 0 iff J = 0)
 
 
 where
@@ -404,18 +596,29 @@ where
 
 
   retVal
-    is defined, when K > 0, as follows:
+    is defined as follows:
 
-
-        retTypeInfo = GICallableInfo.getReturnType functionInfo
-        tag         = GITypeInfo.getTag retTypeInfo
+        retTypeInfo = GIRepository.CallableInfo.getReturnType functionInfo
+        tag         = GIRepository.TypeInfo.getTag retTypeInfo
 
           tag             | retVal
         ==================+===================
           VOID            | ()
         ------------------+-------------------
-          _               | retVal
+          _               | retVal <retValArrayLenExp>
         ------------------+-------------------
+
+      retValArrayLenExp is defined as follows:
+
+        retTypeInfo = GIRepository.CallableInfo.getReturnType functionInfo
+        arrayLength = GIRepository.TypeInfo.getArrayLength retTypeInfo
+
+        Conversion from arrayLength is as follows:
+
+          NONE                     --->     <empty>
+          SOME ZeroTerminated      --->     <empty>
+          SOME (LengthFixed n)     --->     <n>
+          SOME (LengthParam i)     --->     (LargeInt.toInt <outParamName[N~[i]]>)
 
 
     In the forms of a high-level function, the return value is not
@@ -424,27 +627,29 @@ where
 
 
   retExp
+    when K = 0, retExp is <retVal>
+
     when K > 0, taking the numer of conditional outputs to be KA, where
     the indices of conditional outputs are ka[1], ..., ka[KA] and the
     indices of non-conditional outputs are kb[1], ..., kb[K - KA], is
     defined as follows:
 
 
-        retTypeInfo = GICallableInfo.getReturnType functionInfo
-        tag         = GITypeInfo.getTag retTypeInfo
+        retTypeInfo = GIRepository.CallableInfo.getReturnType functionInfo
+        tag         = GIRepository.TypeInfo.getTag retTypeInfo
 
           tag     0 < KA  KA < K   | retExp
         ===========================+===================================================
-          VOID    false   _        | (<outParamName[1]>, ..., <outParamName[K]>)
+          VOID    false   _        | (<outParamExp[1]>, ..., <outParamExp[K]>)
         ---------------------------+---------------------------------------------------
-          _       false   _        | (retVal, <outParamName[1]>, ..., <outParamName[K]>)
+          _       false   _        | (retVal, <outParamExp[1]>, ..., <outParamExp[K]>)
         ---------------------------+---------------------------------------------------
           BOOLEAN true    false    | if retVal
                                    | then
                                    |   SOME (
-                                   |     <outParamName[1]>,
+                                   |     <outParamExp[1]>,
                                    |     ...,
-                                   |     <outParamName[KA]>
+                                   |     <outParamExp[KA]>
                                    |   )
                                    | else
                                    |   NONE
@@ -453,9 +658,9 @@ where
                                    |   if retVal
                                    |   then
                                    |     SOME (
-                                   |       <outParamName[ka[1]]>,
+                                   |       <outParamExp[ka[1]]>,
                                    |       ...,
-                                   |       <outParamName[ka[KA]]>
+                                   |       <outParamExp[ka[KA]]>
                                    |     )
                                    |   else
                                    |     NONE,
@@ -481,14 +686,100 @@ where
     above the high-level FFI.
 
 
+  outParamName[n]
+    is the <n>th element in the list of names of non-VOID INOUT/OUT
+    parameters of the function as given by `GIRepository.BaseInfo.getName`.
+
+
+  outParamExp[k]
+    is defined as follows:
+
+      <outParamName[N~[K[k]]]> <outParamArrayLenExp>
+
+    where
+
+      outParamArrayLenExp is defined as follows:
+
+        argTypeInfo = GIRepository.ArgInfo.getType argInfo
+        arrayLength = GIRepository.TypeInfo.getArrayLength argTypeInfo
+
+        Conversion from arrayLength is as follows:
+
+          NONE                     --->     <empty>
+          SOME ZeroTerminated      --->     <empty>
+          SOME (LengthFixed n)     --->     <n>
+          SOME (LengthParam i)     --->     (LargeInt.toInt <outParamName[N~[i]]>)
+
+
   inParamName[l]
     is the <l>th element in the list of names of non-VOID IN/INOUT
-    parameters of the function as given by `GIBaseInfo.getName`.
+    parameters of the function as given by `GIRepository.BaseInfo.getName`.
 
 
-  outParamName[k]
-    is the <k>th element in the list of names of non-VOID INOUT/OUT
-    parameters of the function as given by `GIBaseInfo.getName`.
+  lenParamName[m]
+    is the <m>th element in the list of names of IN/INOUT length
+    parameters of the function as given by `GIRepository.BaseInfo.getName`.
+
+
+  lenParamExp[m]
+    is defined as follows:
+
+      case <arrInParamName> of
+        SOME <arrInParamName> => <lenParamSomeExp>
+      | NONE                  => <lenParamNoneExp>
+
+        if GIRepository.ArgInfo.mayBeNull arrArgInfo
+
+
+      <lenParamSomeExp>
+
+        otherwise
+
+    where
+
+      arrInParamName is <inParamName[L~[M[m]]]>
+
+      lenParamSomeExp
+        is defined as follows:
+
+          LargeInt.fromInt (<ArrayStructId(arrArgTypeInfo)>.length <arrInParamName>)
+
+        where the corresponding array parameter is represented by arrArgInfo
+        that satisfies, for some arrArgTypeInfo:
+
+          arrArgTypeInfo = GIRepository.ArgInfo.getType arrArgInfo
+          SOME (LengthParam <M[m]>) = GIRepository.TypeInfo.getArrayLength arrArgTypeInfo
+
+
+      lenParamNoneExp
+        is defined as follows:
+
+          argTypeInfo = GIRepository.ArgInfo.getType argInfo
+          tag = GIRepository.TypeInfo.get_tag argTypeInfo
+
+          Conversion from tag is as follows:
+
+            ERROR     --->    <raise Error "not expected">
+            FILENAME  --->    <raise Error "not expected">
+            ARRAY     --->    <raise Error "not expected">
+            GLIST     --->    <raise Error "not supported">
+            GSLIST    --->    <raise Error "not supported">
+            GHASH     --->    <raise Error "not supported">
+            INT8      --->    GInt8.null
+            UINT8     --->    GUInt8.null
+            INT16     --->    GInt16.null
+            UINT16    --->    GUInt16.null
+            INT32     --->    GInt32.null
+            UINT32    --->    GUInt32.null
+            INT64     --->    GInt64.null
+            UINT64    --->    GUInt64.null
+            VOID      --->    <raise Error "not expected">
+            BOOLEAN   --->    <raise Error "not expected">
+            FLOAT     --->    <raise Error "not expected">
+            DOUBLE    --->    <raise Error "not expected">
+            UTF8      --->    <raise Error "not expected">
+            UNICHAR   --->    <raise Error "not expected">
+            INTERFACE --->    <raise Error "not expected">
 
 
   withFunSelf
@@ -505,31 +796,31 @@ where
     is defined according to the GIR type tag of the type of the
     <j>th non-VOID parameter ('argument') of the function as follows:
 
-      argTypeInfo = GIArgInfo.getType argInfo
-      tag = GITypeInfo.get_tag argTypeInfo
+      argTypeInfo = GIRepository.ArgInfo.getType argInfo
+      tag = GIRepository.TypeInfo.get_tag argTypeInfo
 
       Conversion from tag is as follows:
 
         ERROR     --->    <raise Error "not expected">
-        FILENAME  --->    <raise Error "not supported">
-        ARRAY     --->    <raise Error "not supported">
+        FILENAME  --->    <withUtf8Fun>
+        ARRAY     --->    <withArrayFun>
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
-        INT8      --->    <withValFun(FFI.Int8)>
-        UINT8     --->    <withValFun(FFI.Word8)>
-        INT16     --->    <withValFun(FFI.Int16)>
-        UINT16    --->    <withValFun(FFI.Word16)>
-        INT32     --->    <withValFun(FFI.Int32)>
-        UINT32    --->    <withValFun(FFI.Word32)>
-        INT64     --->    <withValFun(FFI.Int64)>
-        UINT64    --->    <withValFun(FFI.Word64)>
+        INT8      --->    <withValFun(GInt8.FFI)>
+        UINT8     --->    <withValFun(GUInt8.FFI)>
+        INT16     --->    <withValFun(GInt16.FFI)>
+        UINT16    --->    <withValFun(GUInt16.FFI)>
+        INT32     --->    <withValFun(GInt32.FFI)>
+        UINT32    --->    <withValFun(GUInt32.FFI)>
+        INT64     --->    <withValFun(GInt64.FFI)>
+        UINT64    --->    <withValFun(GUInt64.FFI)>
         VOID      --->    <raise Fail "VOID">
-        BOOLEAN   --->    <withValFun(FFI.Bool)>
-        FLOAT     --->    <withValFun(FFI.Float)>
-        DOUBLE    --->    <withValFun(FFI.Double)>
+        BOOLEAN   --->    <withValFun(GBool.FFI)>
+        FLOAT     --->    <withValFun(GFloat.FFI)>
+        DOUBLE    --->    <withValFun(GDouble.FFI)>
         UTF8      --->    <withUtf8Fun>
-        UNICHAR   --->    <withValFun(FFI.Char)>
+        UNICHAR   --->    <withValFun(GChar.FFI)>
         INTERFACE --->    <withInterfaceFun>
 
 
@@ -549,39 +840,42 @@ where
   withUtf8Fun
     is defined as follows:
 
-        direction         = GIArgInfo.getDirection argInfo
-        mayBeNull         = GIArgInfo.mayBeNull argInfo
-        ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
+        direction         = GIRepository.ArgInfo.getDirection argInfo
+        mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo
+        ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
 
           dire... ownershipTra... | withUtf8Fun
         ==========================+===============================================
-                  NOTHING         | <A>.with<Opt>Ptr
+                  NOTHING         | <A>.with<Opt>Ptr                  (see note 1)
                 ------------------+-----------------------------------------------
-          IN      EVERYTHING      | <raise Error everythingForIn>  (see note 1)
+          IN      CONTAINER       | <raise Error containerForUtf8>
                 ------------------+-----------------------------------------------
-                  CONTAINER       | <raise Error containerForUtf8>
+                  EVERYTHING      | <raise Error everythingForIn>     (see note 2)
         --------------------------+-----------------------------------------------
                   NOTHING         | <A>.withRefOptPtr
                 ------------------+-----------------------------------------------
-          OUT     EVERYTHING      | <A>.withRefOptPtr
+          OUT     CONTAINER       | <raise Error containerForUtf8>
                 ------------------+-----------------------------------------------
-                  CONTAINER       | <raise Error containerForUtf8>
+                  EVERYTHING      | <A>.withRefOptPtr
         --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.withRef<Opt>Ptr
+                  NOTHING         | <A>.withRef<Opt>Ptr               (see note 1)
                 ------------------+-----------------------------------------------
-          INOUT   EVERYTHING      | <raise Error everythingForInOut>  (see note 2)
+          INOUT   CONTAINER       | <raise Error containerForUtf8>
                 ------------------+-----------------------------------------------
-                  CONTAINER       | <raise Error containerForUtf8>
+                  EVERYTHING      | <A>.withRefDup<Opt>Ptr 1          (see note 3)
         --------------------------+-----------------------------------------------
 
-          Note 1: surely ownership is never handed over for an IN parameter?
+          Note 1: we assume that the parameter is not destructively updated so
+            don't use `with[Ref]Dup[Opt]Ptr` to provide a copy.
 
-          Note 2: surely EVERYTHING is the same as NOTHING: handing
-            ownership to the function and taking ownership back is
-            the same as not handing over ownership (assuming that
-            ownershipTransfer applies in both directions).
+          Note 2: surely ownership is never handed over for an IN parameter
+            because this would require the C function to free the memory.
 
-      A is Utf8.C
+          Note 3: ownership transfer EVERYTHING is not the same as NOTHING:
+            handing ownership to the function and taking ownership back allows
+            the function to free and/or allocate memory.
+
+      A is Utf8.FFI
 
       Opt is defined as follows:
 
@@ -607,16 +901,67 @@ where
             optionally-null and non-null values.  We assume non-null values.
 
 
+  withArrayFun
+    is defined as follows:
+
+        direction         = GIRepository.ArgInfo.getDirection argInfo
+        mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo
+        ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
+        argTypeInfo       = GIRepository.ArgInfo.getType argInfo
+
+          dire... ownershipTra... | withArrayFun
+        ==========================+===============================================
+                  NOTHING         | <A>.with<Opt>Ptr                  (see note 1)
+                ------------------+-----------------------------------------------
+          IN      CONTAINER       | <raise Error containerForUtf8>
+                ------------------+-----------------------------------------------
+                  EVERYTHING      | <raise Error everythingForIn>     (see note 2)
+        --------------------------+-----------------------------------------------
+                  NOTHING         | <A>.withRefOptPtr
+                ------------------+-----------------------------------------------
+          OUT     CONTAINER       | <A>.withRefOptPtr
+                ------------------+-----------------------------------------------
+                  EVERYTHING      | <raise Error containerForUtf8>
+        --------------------------+-----------------------------------------------
+                  NOTHING         | <A>.withRef<Opt>Ptr               (see note 1)
+                ------------------+-----------------------------------------------
+          INOUT   CONTAINER       | <A>.withRefDup<Opt>Ptr 1          (see note 3)
+                ------------------+-----------------------------------------------
+                  EVERYTHING      | <A>.withRefDup<Opt>Ptr 2          (see note 3)
+        --------------------------+-----------------------------------------------
+
+          Note 1: we assume that the parameter is not destructively updated so
+            don't use `with[Ref]Dup[Opt]Ptr` to provide a copy.
+
+          Note 2: surely ownership is never handed over for an IN parameter
+            because this would require the C function to free the memory.
+
+          Note 3: ownership transfer EVERYTHING is not the same as NOTHING:
+            handing ownership to the function and taking ownership back allows
+            the function to free and/or allocate memory.
+
+      A is <ArrayStructId(argTypeInfo)>.FFI
+
+      Opt is defined as follows:
+
+          mayBeNull       | Opt
+        ==================+===================
+          false           | <empty>
+        ------------------+-------------------
+          true            | Opt
+        ------------------+-------------------
+
+
   withInterfaceFun
     is defined according to the interface type as follows:
 
-      argInterfaceTypeInfo = GITypeInfo.getInterface argTypeInfo
-      argInfoType = GIInfoType.getType argInterfaceTypeInfo
+      argInterfaceTypeInfo = GIRepository.TypeInfo.getInterface argTypeInfo
+      argInfoType = GIRepository.InfoType.getType argInterfaceTypeInfo
 
       <withObjectFun>
         if argInfoType is OBJECT argObjectInfo, where
 
-            isPointer = GITypeInfo.isPointer argTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
 
               isPointer       | _
             ==================+===================================
@@ -627,9 +972,9 @@ where
 
           withObjectFun is defined as follows:
 
-            direction         = GIArgInfo.getDirection argInfo
-            mayBeNull         = GIArgInfo.mayBeNull argInfo
-            ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
+            direction         = GIRepository.ArgInfo.getDirection argInfo
+            mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo
+            ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
 
               direction   ownershipTra... | withObjectFun
             ==============================+===================================
@@ -663,7 +1008,7 @@ where
                 before the call and this is transferred after the call.
                 See note for corresponding function <fromObjectFun>.
 
-          A is <ObjectNamespace><ObjectName>Class.C
+          A is <ObjectNamespace><ObjectName>Class.FFI
 
           ObjectName = GIRepository.BaseInfo.getName argObjectInfo
           ObjectNamespace = GIRepository.BaseInfo.getNamespace argObjectInfo
@@ -701,11 +1046,11 @@ where
 
           withStructFun is defined as follows:
 
-            direction         = GIArgInfo.getDirection argInfo
-            mayBeNull         = GIArgInfo.mayBeNull argInfo
-            ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
+            direction         = GIRepository.ArgInfo.getDirection argInfo
+            mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo
+            ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
 
-            isPointer         = GITypeInfo.isPointer argTypeInfo
+            isPointer         = GIRepository.TypeInfo.isPointer argTypeInfo
 
               direction   isPointer   ownershipTra... | withStructFun
             ==========================================+===================================
@@ -759,15 +1104,12 @@ where
 
           A is defined as follows:
 
-            <InterfaceNamespace><InterfaceName>.C
+            <InterfaceNamespace><InterfaceName>.FFI
               if SOME <InterfaceName> is not equal to <optContainerName>, where
 
-                InterfaceName = GIBaseInfo.getName argTypeInfo
-                InterfaceNamespace = GIBaseInfo.getNamespace argTypeInfo
+                InterfaceName = GIRepository.BaseInfo.getName argTypeInfo
+                InterfaceNamespace = GIRepository.BaseInfo.getNamespace argTypeInfo
                 InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
-
-            C
-              otherwise
 
           Opt is defined as follows:
 
@@ -804,7 +1146,7 @@ where
       <withFlagsEnumFun>
         if argInfoType is FLAGS _ | ENUM _.
 
-            isPointer = GITypeInfo.isPointer argTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
 
               isPointer       | _
             ==================+===================================
@@ -826,14 +1168,15 @@ where
 
           A is defined as follows:
 
-            <InterfaceNamespace><InterfaceName>.C
-              if SOME <InterfaceName> is not equal to <ContainerName>, where
+            <InterfaceNamespace><InterfaceName>.FFI
+              if (<InterfaceNamespace>, SOME <InterfaceName>) is not equal
+              to (<FunctionNamespace>, <optContainerName>), where
 
-                InterfaceName = GIBaseInfo.getName argTypeInfo
-                InterfaceNamespace = GIBaseInfo.getNamespace argTypeInfo
+                InterfaceName = GIRepository.BaseInfo.getName argTypeInfo
+                InterfaceNamespace = GIRepository.BaseInfo.getNamespace argTypeInfo
                 InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
-            C
+            FFI
               otherwise
 
 
@@ -855,14 +1198,14 @@ where
     <k>th non-VOID INOUT/OUT parameter ('argument') of the
     function as follows:
 
-      argTypeInfo = GIArgInfo.getType argInfo
-      tag = GITypeInfo.get_tag argTypeInfo
+      argTypeInfo = GIRepository.ArgInfo.getType argInfo
+      tag = GIRepository.TypeInfo.get_tag argTypeInfo
 
       Conversion from tag is as follows:
 
         ERROR     --->    <raise Error "not expected">
-        FILENAME  --->    <raise Error "not supported">
-        ARRAY     --->    <raise Error "not supported">
+        FILENAME  --->    <fromUtf8Fun>
+        ARRAY     --->    <fromArrayFun>
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
@@ -886,31 +1229,70 @@ where
   fromUtf8Fun
     is as follows:
 
-        direction         = GIArgInfo.getDirection argInfo
-        mayBeNull         = GIArgInfo.mayBeNull argInfo  (not used: see Opt below)
-        ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
+        direction         = GIRepository.ArgInfo.getDirection argInfo
+        mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo  (not used: see Opt below)
+        ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
 
           dire... ownershipTra... | fromUtf8Fun
         ==========================+===============================================
-                  NOTHING         | <A>.from<Opt>Ptr false
+                  NOTHING         | <A>.from<Opt>Ptr 0
                 ------------------+-----------------------------------------------
-          OUT     EVERYTHING      | <A>.from<Opt>Ptr true
+          OUT     CONTAINER       | <raise Error containerForUtf8>
                 ------------------+-----------------------------------------------
-                  CONTAINER       | <raise Error containerForUtf8>
+                  EVERYTHING      | <A>.from<Opt>Ptr 1
         --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.from<Opt>Ptr false
+                  NOTHING         | <A>.from<Opt>Ptr 0
                 ------------------+-----------------------------------------------
-          INOUT   EVERYTHING      | <raise Error everythingForInOut>  (see note 1)
+          INOUT   CONTAINER       | <raise Error containerForUtf8>
                 ------------------+-----------------------------------------------
-                  CONTAINER       | <raise Error containerForUtf8>
+                  EVERYTHING      | <A>.from<Opt>Ptr 1             (see note 1)
         --------------------------+-----------------------------------------------
 
-          Note 1: surely EVERYTHING is the same as NOTHING: handing
-            ownership to the function and taking ownership back is
-            the same as not handing over ownership (assuming that
-            ownershipTransfer applies in both directions).
+          Note 1: ownership transfer EVERYTHING is not the same as NOTHING:
+            handing ownership to the function and taking ownership back allows
+            the function to free and/or allocate memory.  This takes back
+            ownership of the value created by <withUtf8Fun>.
 
-      A is Utf8.C
+      A is Utf8.FFI
+
+      Opt cannot be determined because GIR does not capture
+      sufficient information.  For now, it is defined as follows:
+
+          | Opt
+        ==+===================
+          | <empty>
+        --+-------------------
+
+
+  fromArrayFun
+    is as follows:
+
+        direction         = GIRepository.ArgInfo.getDirection argInfo
+        mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo  (not used: see Opt below)
+        ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
+        argTypeInfo       = GIRepository.ArgInfo.getType argInfo
+
+          dire... ownershipTra... | fromArrayFun
+        ==========================+===============================================
+                  NOTHING         | <A>.from<Opt>Ptr 0
+                ------------------+-----------------------------------------------
+          OUT     CONTAINER       | <raise Error containerForUtf8>
+                ------------------+-----------------------------------------------
+                  EVERYTHING      | <A>.from<Opt>Ptr 1
+        --------------------------+-----------------------------------------------
+                  NOTHING         | <A>.from<Opt>Ptr 0
+                ------------------+-----------------------------------------------
+          INOUT   CONTAINER       | <A>.from<Opt>Ptr 1                (see note 1)
+                ------------------+-----------------------------------------------
+                  EVERYTHING      | <A>.from<Opt>Ptr 2                (see note 1)
+        --------------------------+-----------------------------------------------
+
+          Note 1: ownership transfer EVERYTHING is not the same as NOTHING:
+            handing ownership to the function and taking ownership back allows
+            the function to free and/or allocate memory.  This takes back
+            ownership of the value created by <withArrayFun>.
+
+      A is <ArrayStructId(argTypeInfo)>.FFI
 
       Opt cannot be determined because GIR does not capture
       sufficient information.  For now, it is defined as follows:
@@ -924,13 +1306,13 @@ where
   fromInterfaceFun
     is defined according to the interface type as follows:
 
-      argInterfaceTypeInfo = GITypeInfo.getInterface argTypeInfo
-      argInfoType = GIInfoType.getType argInterfaceTypeInfo
+      argInterfaceTypeInfo = GIRepository.TypeInfo.getInterface argTypeInfo
+      argInfoType = GIRepository.InfoType.getType argInterfaceTypeInfo
 
       <fromObjectFun>
         if argInfoType is OBJECT argObjectInfo, where
 
-            isPointer = GITypeInfo.isPointer argTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
 
               isPointer       | _
             ==================+===================================
@@ -941,9 +1323,9 @@ where
 
           fromObjectFun is defined as follows:
 
-            direction         = GIArgInfo.getDirection argInfo
-            mayBeNull         = GIArgInfo.mayBeNull argInfo  (not used: see Opt below)
-            ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
+            direction         = GIRepository.ArgInfo.getDirection argInfo
+            mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo  (not used: see Opt below)
+            ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
 
               direction   ownershipTra... | fromObjectFun
             ==============================+===================================
@@ -974,10 +1356,10 @@ where
                 This is entirely an academic matter because there is no known
                 occurrence of INOUT STRUCT INTERFACE parameters.
 
-          A is <InterfaceNamespace><InterfaceName>Class.C
+          A is <InterfaceNamespace><InterfaceName>Class.FFI
 
-          InterfaceName = GIBaseInfo.getName argObjectInfo
-          InterfaceNamespace = GIBaseInfo.getNamespace argObjectInfo
+          InterfaceName = GIRepository.BaseInfo.getName argObjectInfo
+          InterfaceNamespace = GIRepository.BaseInfo.getNamespace argObjectInfo
 
           Opt cannot be determined because GIR does not capture
           sufficient information.  For now, it is defined as follows:
@@ -997,11 +1379,11 @@ where
 
           fromStructFun is defined as follows:
 
-            direction         = GIArgInfo.getDirection argInfo
-            mayBeNull         = GIArgInfo.mayBeNull argInfo  (not used: see Opt below)
-            ownershipTransfer = GIArgInfo.getOwnershipTransfer argInfo
+            direction         = GIRepository.ArgInfo.getDirection argInfo
+            mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo  (not used: see Opt below)
+            ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
 
-            isPointer         = GITypeInfo.isPointer argTypeInfo
+            isPointer         = GIRepository.TypeInfo.isPointer argTypeInfo
 
               direction   isPointer   ownershipTra... | fromStructFun
             ==========================================+===================================
@@ -1051,17 +1433,11 @@ where
                 This is entirely an academic matter because there is no known
                 occurrence of INOUT STRUCT INTERFACE parameters.
 
-          A is defined as follows:
+          A is <InterfaceNamespace><InterfaceName>Record.FFI
 
-            <InterfaceNamespace><InterfaceName>.C
-              if SOME <InterfaceName> is not equal to <ContainerName>, where
-
-                InterfaceName = GIBaseInfo.getName argStructInfo
-                InterfaceNamespace = GIBaseInfo.getNamespace argStructInfo
-                InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
-
-            C
-              otherwise
+          InterfaceName = GIRepository.BaseInfo.getName argStructInfo
+          InterfaceNamespace = GIRepository.BaseInfo.getNamespace argStructInfo
+          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
           Opt cannot be determined because GIR does not capture
           sufficient information.  For now, it is defined as follows:
@@ -1083,7 +1459,7 @@ where
       <fromFlagsEnumFun>
         if argInfoType is FLAGS argFlagsEnumInfo | ENUM argFlagsEnumInfo.
 
-            isPointer = GITypeInfo.isPointer argTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
 
               isPointer       | _
             ==================+===================================
@@ -1096,14 +1472,15 @@ where
 
           A is defined as follows:
 
-            <InterfaceNamespace><InterfaceName>.C
-              if SOME <InterfaceName> is not equal to <ContainerName>, where
+            <InterfaceNamespace><InterfaceName>.FFI
+              if (<InterfaceNamespace>, SOME <InterfaceName>) is not equal
+              to (<FunctionNamespace>, <optContainerName>), where
 
-                InterfaceName = GIBaseInfo.getName argFlagsEnumInfo
-                InterfaceNamespace = GIBaseInfo.getNamespace argFlagsEnumInfo
+                InterfaceName = GIRepository.BaseInfo.getName argFlagsEnumInfo
+                InterfaceNamespace = GIRepository.BaseInfo.getNamespace argFlagsEnumInfo
                 InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
-            C
+            FFI
               otherwise
 
 
@@ -1124,14 +1501,14 @@ where
     is defined according to the GIR type tag of the return type of
     the function as follows:
 
-      retTypeInfo = GICallableInfo.getReturnType functionInfo
-      tag = GITypeInfo.get_tag retTypeInfo
+      retTypeInfo = GIRepository.CallableInfo.getReturnType functionInfo
+      tag = GIRepository.TypeInfo.get_tag retTypeInfo
 
       Conversion from tag is as follows:
 
         ERROR     --->    <raise Error "not expected">
-        FILENAME  --->    <raise Error "not supported">
-        ARRAY     --->    <raise Error "not supported">
+        FILENAME  --->    <retFromUtf8Fun>
+        ARRAY     --->    <retFromArrayFun>
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
@@ -1155,45 +1532,68 @@ where
   retFromUtf8Fun
     is as follows:
 
-      Utf8.C.<fromFun>
+        mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
+        getCallerOwns = GIRepository.CallableInfo.getCallerOwns functionInfo
 
-        where
+          getCallerOwns   | retFromUtf8Fun
+        ==================+===============================================
+          NOTHING         | <A>.from<Opt>Ptr 0
+        ------------------+-----------------------------------------------
+          CONTAINER       | <raise Error containerForUtf8>
+        ------------------+-----------------------------------------------
+          EVERYTHING      | <A>.from<Opt>Ptr 1
+        ------------------+-----------------------------------------------
 
-          <fromFun> is defined as follows:
+      A is Utf8.FFI
 
-            mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+      Opt is as follows:
 
-              mayReturnNull   | fromFun
-            ==================+===========================
-              false           | fromPtr <transfer>
-            ------------------+---------------------------
-              true            | fromOptPtr <transfer>
-            ------------------+---------------------------
+          mayReturnNull   | Opt
+        ==================+===========================
+          false           | <empty>
+        ------------------+---------------------------
+          true            | Opt
+        ------------------+---------------------------
 
-          <transfer> is defined as follows:
 
-            getCallerOwns = GICallableInfo.getCallerOwns functionInfo
+  retFromArrayFun
+    is as follows:
 
-              getCallerOwns   | transfer
-            ==================+===================
-              NOTHING         | false
-            ------------------+-------------------
-              EVERYTHING      | true
-            ------------------+-------------------
-              CONTAINER       | <raise Error containerForUtf8>
-            --------------------------------------
+        mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
+        getCallerOwns = GIRepository.CallableInfo.getCallerOwns functionInfo
+        retTypeInfo   = GIRepository.CallableInfo.getReturnType functionInfo
+
+          getCallerOwns   | retFromArrayFun
+        ==================+===============================================
+          NOTHING         | <A>.from<Opt>Ptr 0
+        ------------------+-----------------------------------------------
+          CONTAINER       | <raise Error containerForArray>
+        ------------------+-----------------------------------------------
+          EVERYTHING      | <A>.from<Opt>Ptr 1
+        ------------------+-----------------------------------------------
+
+      A is <ArrayStructId(retTypeInfo)>.FFI
+
+      Opt is as follows:
+
+          mayReturnNull   | Opt
+        ==================+===========================
+          false           | <empty>
+        ------------------+---------------------------
+          true            | Opt
+        ------------------+---------------------------
 
 
   retFromInterfaceFun
     is defined according to the interface type as follows:
 
-      retInterfaceTypeInfo = GITypeInfo.getInterface retTypeInfo
-      retInfoType = GIInfoType.getType retInterfaceTypeInfo
+      retInterfaceTypeInfo = GIRepository.TypeInfo.getInterface retTypeInfo
+      retInfoType = GIRepository.InfoType.getType retInterfaceTypeInfo
 
       <fromObjectFun>
         if retInfoType is OBJECT retObjectInfo, where
 
-            isPointer = GITypeInfo.isPointer retTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer retTypeInfo
 
               isPointer       | _
             ==================+===================================
@@ -1202,9 +1602,9 @@ where
               true            | <>
             ------------------+-----------------------------------
 
-          fromFun is defined as follows:
+          fromObjectFun is defined as follows:
 
-            getCallerOwns = GICallableInfo.getCallerOwns functionInfo
+            getCallerOwns = GIRepository.CallableInfo.getCallerOwns functionInfo
 
               getCallerOwns   | fromObjectFun
             ==================+===================================
@@ -1217,24 +1617,24 @@ where
 
           A is defined as follows:
 
-            <ContainerNamespace><ContainerName>Class.C
+            <ContainerNamespace><ContainerName>Class.FFI
               if anySet (FunctionFlags, IS_CONSTRUCTOR), where
 
                 SOME containerInfo = optContainerInfo
-                ContainerName = GIBaseInfo.getName containerInfo
-                ContainerNamespace = GIBaseInfo.getNamespace containerInfo
+                ContainerName = GIRepository.BaseInfo.getName containerInfo
+                ContainerNamespace = GIRepository.BaseInfo.getNamespace containerInfo
                 ContainerCPrefix = GIRepository.getCPrefix repo <ContainerNamespace>
 
-            <InterfaceNamespace><InterfaceName>Class.C
+            <InterfaceNamespace><InterfaceName>Class.FFI
               otherwise, where
 
-                InterfaceName = GIBaseInfo.getName retObjectInfo
-                InterfaceNamespace = GIBaseInfo.getNamespace retObjectInfo
+                InterfaceName = GIRepository.BaseInfo.getName retObjectInfo
+                InterfaceNamespace = GIRepository.BaseInfo.getNamespace retObjectInfo
                 InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
           RetOpt is defined as follows:
 
-            mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+            mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
 
               mayReturnNull   | RetOpt
             ==================+===================
@@ -1251,9 +1651,9 @@ where
 
           fromStructFun is defined as follows:
 
-            getCallerOwns = GICallableInfo.getCallerOwns functionInfo
+            getCallerOwns = GIRepository.CallableInfo.getCallerOwns functionInfo
 
-            isPointer     = GITypeInfo.isPointer retTypeInfo
+            isPointer     = GIRepository.TypeInfo.isPointer retTypeInfo
 
               isPointer   getCallerOwns   | fromStructFun
             ==============================+===================================
@@ -1271,21 +1671,15 @@ where
                 reference counting, a copy must be made when there is no
                 transfer.
 
-          A is defined as follows:
+          A is <InterfaceNamespace><InterfaceName>Record.FFI
 
-            <InterfaceNamespace><InterfaceName>.C
-              if <InterfaceName> is not equal to <ContainerName>
-
-            C
-              otherwise
-
-          InterfaceName = GIBaseInfo.getName argStructInfo
-          InterfaceNamespace = GIBaseInfo.getNamespace argStructInfo
+          InterfaceName = GIRepository.BaseInfo.getName argStructInfo
+          InterfaceNamespace = GIRepository.BaseInfo.getNamespace argStructInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
           RetOpt is defined as follows:
 
-            mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+            mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
 
               mayReturnNull   | RetOpt
             ==================+===================
@@ -1307,10 +1701,10 @@ where
         if retInfoType is INTERFACE _.
 
 
-      <InterfaceNamespace><InterfaceName>.C.fromVal
+      <InterfaceNamespace><InterfaceName>.FFI.fromVal
         if retInfoType is FLAGS _ | ENUM _.
 
-            isPointer = GITypeInfo.isPointer retTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer retTypeInfo
 
               isPointer       | _
             ==================+===================================
@@ -1332,18 +1726,18 @@ where
     is defined according to the GIR type tag of the type of the
     <j>th argument of the function as follows:
 
-      argTypeInfo = GIArgInfo.getType argInfo
-      tag = GITypeInfo.get_tag argTypeInfo
+      argTypeInfo = GIRepository.ArgInfo.getType argInfo
+      tag = GIRepository.TypeInfo.get_tag argTypeInfo
 
       Conversion from tag is as follows:
 
       if direction is IN or INOUT:
 
-        name = GIBaseInfo.getName
+        name = GIRepository.BaseInfo.getName
 
         ERROR     --->    <raise Error "not expected">
-        FILENAME  --->    <raise Error "not supported">
-        ARRAY     --->    <raise Error "not supported">
+        FILENAME  --->    <name>
+        ARRAY     --->    <name>
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
@@ -1366,8 +1760,8 @@ where
       otherwise (direction is OUT):
 
         ERROR     --->    <raise Error "not expected">
-        FILENAME  --->    <raise Error "not supported">
-        ARRAY     --->    <raise Error "not supported">
+        FILENAME  --->    NONE
+        ARRAY     --->    NONE
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
@@ -1391,8 +1785,8 @@ where
   argInterfaceVal
     is defined according to the interface type as follows:
 
-      argInterfaceTypeInfo = GITypeInfo.getInterface argTypeInfo
-      argInfoType = GIInfoType.getType argInterfaceTypeInfo
+      argInterfaceTypeInfo = GIRepository.TypeInfo.getInterface argTypeInfo
+      argInfoType = GIRepository.InfoType.getType argInterfaceTypeInfo
 
       NONE
         if argInfoType is OBJECT _.
@@ -1407,7 +1801,7 @@ where
 
           argStructVal is defined as follows:
 
-            isPointer = GITypeInfo.isPointer argTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
 
               isPointer    | argStructVal
             ===============+===================================
@@ -1521,39 +1915,39 @@ where
     function, given by argInfo, defined according to the GIR type tag as
     follows:
 
-      argTypeInfo = GIArgInfo.getType argInfo
-      tag = GITypeInfo.get_tag argTypeInfo
+      argTypeInfo = GIRepository.ArgInfo.getType argInfo
+      tag = GIRepository.TypeInfo.get_tag argTypeInfo
 
       Conversion from tag is as follows:
 
         ERROR     --->    <raise Error "not expected">
-        FILENAME  --->    <raise Error "not supported">
+        FILENAME  --->    <parUtf8Conv>
         GTYPE     --->    <raise Error "not supported">
-        ARRAY     --->    <raise Error "not supported">
+        ARRAY     --->    <parArrayConv>
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
         VOID      --->    <raise Fail "VOID">
-        BOOLEAN   --->    <parScalarConv(FFI.PolyML.Bool)>
-        INT8      --->    <parScalarConv(FFI.PolyML.Int8)>
-        UINT8     --->    <parScalarConv(FFI.PolyML.Word8)>
-        INT16     --->    <parScalarConv(FFI.PolyML.Int16)>
-        UINT16    --->    <parScalarConv(FFI.PolyML.Word16)>
-        INT32     --->    <parScalarConv(FFI.PolyML.Int32)>
-        UINT32    --->    <parScalarConv(FFI.PolyML.Word32)>
-        INT64     --->    <parScalarConv(FFI.PolyML.Int64)>
-        UINT64    --->    <parScalarConv(FFI.PolyML.Word64)>
-        FLOAT     --->    <parScalarConv(FFI.PolyML.Float)>
-        DOUBLE    --->    <parScalarConv(FFI.PolyML.Double)>
+        BOOLEAN   --->    <parScalarConv(GBool.PolyML)>
+        INT8      --->    <parScalarConv(GInt8.PolyML)>
+        UINT8     --->    <parScalarConv(GUInt8.PolyML)>
+        INT16     --->    <parScalarConv(GInt16.PolyML)>
+        UINT16    --->    <parScalarConv(GUInt16.PolyML)>
+        INT32     --->    <parScalarConv(GInt32.PolyML)>
+        UINT32    --->    <parScalarConv(GUInt32.PolyML)>
+        INT64     --->    <parScalarConv(GInt64.PolyML)>
+        UINT64    --->    <parScalarConv(GUInt64.PolyML)>
+        FLOAT     --->    <parScalarConv(GFloat.PolyML)>
+        DOUBLE    --->    <parScalarConv(GDouble.PolyML)>
         UTF8      --->    <parUtf8Conv>
-        UNICHAR   --->    <parScalarConv(FFI.PolyML.Char)>
+        UNICHAR   --->    <parScalarConv(GChar.PolyML)>
         INTERFACE --->    <parInterfaceConv>
 
 
   parScalarConv(A)
     is defined as follows:
 
-        direction = GIArgInfo.getDirection argInfo
+        direction = GIRepository.ArgInfo.getDirection argInfo
 
           direction       | parScalarConv(A)
         ==================+===========================
@@ -1568,11 +1962,11 @@ where
   parUtf8Conv
     is defined as follows:
 
-        direction = GIArgInfo.getDirection argInfo
+        direction = GIRepository.ArgInfo.getDirection argInfo
 
           direction       | parUtf8Conv
         ==================+===========================
-          IN              | <A>.c<Opt>Ptr
+          IN              | <A>.cIn<Opt>Ptr
         ------------------+---------------------------
           OUT             | <A>.cOut<Opt>Ref
         ------------------+---------------------------
@@ -1583,7 +1977,49 @@ where
 
       Opt is defined as follows:
 
-        mayBeNull = GIArgInfo.mayBeNull argInfo
+        mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
+
+          mayBeNull       | Opt
+        ==================+===================
+          false           | <empty>
+        ------------------+-------------------
+          true            | Opt
+        ------------------+-------------------
+
+          Note: currently for OUT and INOUT parameters, mayBeNull indicates
+            whether a null reference argument is allowed, rather than a non-null
+            reference to null.   This allows the parameter to be optional thus
+            provides what one would have expected from isOptional.
+            (isOptional itself appears to always return false.)  Thus there
+            is no mechanism to know whether an out parameter that is a pointer
+            can have a null out value.  Similarly for an in-out parameter, there
+            is no way to know whether the in value or out value can be null.
+            Furthermore, an in-out parameter would require two atttibutes:
+            allow-none-in and allow-none-out.
+
+            For now, for OUT and INOUT parameters, we do not distinguish
+            optionally-null and non-null values.  We assume non-null values.
+
+
+  parArrayConv
+    is defined as follows:
+
+        direction = GIRepository.ArgInfo.getDirection argInfo
+
+          direction       | parArrayConv
+        ==================+===========================
+          IN              | <A>.cIn<Opt>Ptr
+        ------------------+---------------------------
+          OUT             | <A>.cOut<Opt>Ref
+        ------------------+---------------------------
+          INOUT           | <A>.cInOut<Opt>Ref
+        ------------------+---------------------------
+
+      A is <StructId>.PolyML
+
+      Opt is defined as follows:
+
+        mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
 
           mayBeNull       | Opt
         ==================+===================
@@ -1610,13 +2046,13 @@ where
   parInterfaceConv
     is defined according to the interface type as follows:
 
-      argInterfaceTypeInfo = GITypeInfo.getInterface argTypeInfo
-      argInfoType = GIInfoType.getType argInterfaceTypeInfo
+      argInterfaceTypeInfo = GIRepository.TypeInfo.getInterface argTypeInfo
+      argInfoType = GIRepository.InfoType.getType argInterfaceTypeInfo
 
       <parInterfaceObjectConv>
         if argInfoType is OBJECT argObjectInfo, where
 
-            isPointer = GITypeInfo.isPointer argTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
 
               isPointer       | _
             ==================+===================================
@@ -1627,7 +2063,7 @@ where
 
           parInterfaceObjectConv is defined as follows:
 
-            direction = GIArgInfo.getDirection argInfo
+            direction = GIRepository.ArgInfo.getDirection argInfo
 
               direction       | parInterfaceObjectConv
             ==================+===========================
@@ -1640,9 +2076,12 @@ where
 
           A is <ObjectNamespace><ObjectName>Class.PolyML
 
+          ObjectName = GIRepository.BaseInfo.getName argObjectInfo
+          ObjectNamespace = GIRepository.BaseInfo.getNamespace argObjectInfo
+
           Opt is defined as follows:
 
-            mayBeNull = GIArgInfo.mayBeNull argInfo
+            mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
 
               mayBeNull       | Opt
             ==================+===================
@@ -1675,9 +2114,9 @@ where
 
           parInterfaceStructConv is defined as follows:
 
-            direction = GIArgInfo.getDirection argInfo
+            direction = GIRepository.ArgInfo.getDirection argInfo
 
-            isPointer = GITypeInfo.isPointer argTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
 
               direction       isPointer       parInterfaceStructConv
             ====================================================
@@ -1694,21 +2133,15 @@ where
                               true            <A>.cInOut<Opt>Ref
             ----------------------------------------------------
 
-          A is defined as follows:
+          A is <InterfaceNamespace><InterfaceName>Record.PolyML
 
-            <InterfaceNamespace><InterfaceName>.PolyML
-              if <InterfaceName> is not equal to <ContainerName>
-
-            PolyML
-              otherwise
-
-          InterfaceName = GIBaseInfo.getName argStructInfo
-          InterfaceNamespace = GIBaseInfo.getNamespace argStructInfo
+          InterfaceName = GIRepository.BaseInfo.getName argStructInfo
+          InterfaceNamespace = GIRepository.BaseInfo.getNamespace argStructInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
           Opt is defined as follows:
 
-            mayBeNull = GIArgInfo.mayBeNull argInfo
+            mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
 
               mayBeNull       | Opt
             ==================+===================
@@ -1743,7 +2176,7 @@ where
       <parInterfaceFlagsEnumConv>
         if argInfoType is FLAGS argFlagsEnumInfo | ENUM argFlagsEnumInfo.
 
-            isPointer = GITypeInfo.isPointer argTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
 
               isPointer       | _
             ==================+===================================
@@ -1754,7 +2187,7 @@ where
 
           parInterfaceFlagsEnumConv is defined as follows:
 
-            direction = GIArgInfo.getDirection argInfo
+            direction = GIRepository.ArgInfo.getDirection argInfo
 
               direction       | parInterfaceFlagsEnumConv
             ==================+===========================
@@ -1768,13 +2201,14 @@ where
           A is defined as follows:
 
             <InterfaceNamespace><InterfaceName>.PolyML
-              if <InterfaceName> is not equal to <ContainerName>
+              if (<InterfaceNamespace>, SOME <InterfaceName>) is not equal
+              to (<FunctionNamespace>, <optContainerName>), where
 
             PolyML
               otherwise
 
-          InterfaceName = GIBaseInfo.getName argFlagsEnumInfo
-          InterfaceNamespace = GIBaseInfo.getNamespace argFlagsEnumInfo
+          InterfaceName = GIRepository.BaseInfo.getName argFlagsEnumInfo
+          InterfaceNamespace = GIRepository.BaseInfo.getNamespace argFlagsEnumInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
 
@@ -1795,32 +2229,32 @@ where
     is the Poly/ML C conversion for the return value of the function, defined
     according to the GIR type tag as follows:
 
-      retTypeInfo = GICallableInfo.getReturnType functionInfo
-      tag = GITypeInfo.get_tag retTypeInfo
+      retTypeInfo = GIRepository.CallableInfo.getReturnType functionInfo
+      tag = GIRepository.TypeInfo.get_tag retTypeInfo
 
       Conversion from tag is as follows:
 
         ERROR     --->    <raise Error "not expected">
-        FILENAME  --->    <raise Error "not supported">
+        FILENAME  --->    <retUtf8Conv>
         GTYPE     --->    <raise Error "not supported">
         ARRAY     --->    <raise Error "not supported">
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
         VOID      --->    PolyMLFFI.cVoid
-        BOOLEAN   --->    <retScalarConv(FFI.PolyML.Bool)>
-        INT8      --->    <retScalarConv(FFI.PolyML.Int8)>
-        UINT8     --->    <retScalarConv(FFI.PolyML.Word8)>
-        INT16     --->    <retScalarConv(FFI.PolyML.Int16)>
-        UINT16    --->    <retScalarConv(FFI.PolyML.Word16)>
-        INT32     --->    <retScalarConv(FFI.PolyML.Int32)>
-        UINT32    --->    <retScalarConv(FFI.PolyML.Word32)>
-        INT64     --->    <retScalarConv(FFI.PolyML.Int64)>
-        UINT64    --->    <retScalarConv(FFI.PolyML.Word64)>
-        FLOAT     --->    <retScalarConv(FFI.PolyML.Float)>
-        DOUBLE    --->    <retScalarConv(FFI.PolyML.Double)>
+        BOOLEAN   --->    <retScalarConv(GBool.PolyML)>
+        INT8      --->    <retScalarConv(GInt8.PolyML)>
+        UINT8     --->    <retScalarConv(GUInt8.PolyML)>
+        INT16     --->    <retScalarConv(GInt16.PolyML)>
+        UINT16    --->    <retScalarConv(GUInt16.PolyML)>
+        INT32     --->    <retScalarConv(GInt32.PolyML)>
+        UINT32    --->    <retScalarConv(GUInt32.PolyML)>
+        INT64     --->    <retScalarConv(GInt64.PolyML)>
+        UINT64    --->    <retScalarConv(GUInt64.PolyML)>
+        FLOAT     --->    <retScalarConv(GFloat.PolyML)>
+        DOUBLE    --->    <retScalarConv(GDouble.PolyML)>
         UTF8      --->    <retUtf8Conv>
-        UNICHAR   --->    <retScalarConv(FFI.PolyML.Char)>
+        UNICHAR   --->    <retScalarConv(GChar.PolyML)>
         INTERFACE --->    <retInterfaceConv>
 
 
@@ -1842,7 +2276,28 @@ where
 
       Opt is defined as follows:
 
-        mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+        mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
+
+          mayReturnNull   | Opt
+        ==================+===================
+          false           | <empty>
+        ------------------+-------------------
+          true            | Opt
+        ------------------+-------------------
+
+
+  retArrayConv
+    is defined as follows:
+
+        retTypeInfo = GIRepository.CallableInfo.getReturnType functionInfo
+
+      retArrayConv is <A>.cOut<Opt>Ptr
+
+      A is <ArrayStructId(retTypeInfo)>.PolyML
+
+      Opt is defined as follows:
+
+        mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
 
           mayReturnNull   | Opt
         ==================+===================
@@ -1855,13 +2310,13 @@ where
   retInterfaceConv
     is defined according to the interface type as follows:
 
-      retInterfaceTypeInfo = GITypeInfo.getInterface retTypeInfo
-      retInfoType = GIInfoType.getType retInterfaceTypeInfo
+      retInterfaceTypeInfo = GIRepository.TypeInfo.getInterface retTypeInfo
+      retInfoType = GIRepository.InfoType.getType retInterfaceTypeInfo
 
       <retInterfaceObjectConv>
         if retInfoType is OBJECT retObjectInfo, where
 
-            isPointer = GITypeInfo.isPointer retTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer retTypeInfo
 
               isPointer       | _
             ==================+===================================
@@ -1874,9 +2329,12 @@ where
 
           A is <ObjectNamespace><ObjectName>Class.PolyML
 
+          ObjectName = GIRepository.BaseInfo.getName retObjectInfo
+          ObjectNamespace = GIRepository.BaseInfo.getNamespace retObjectInfo
+
           Opt is defined as follows:
 
-            mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+            mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
 
               mayReturnNull   | Opt
             ==================+===================
@@ -1895,7 +2353,7 @@ where
 
           retInterfaceStructConv is defined as follows:
 
-            isPointer = GITypeInfo.isPointer retTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer retTypeInfo
 
               isPointer       | retInterfaceStructConv
             ==================+===================================
@@ -1904,21 +2362,15 @@ where
               true            | <A>.c<Opt>Ptr
             ------------------+-----------------------------------
 
-          A is defined as follows:
+          A is <InterfaceNamespace><InterfaceName>Record.PolyML
 
-            <InterfaceNamespace><InterfaceName>.PolyML
-              if <InterfaceName> is not equal to <ContainerName>
-
-            PolyML
-              otherwise
-
-          InterfaceName = GIBaseInfo.getName retStructInfo
-          InterfaceNamespace = GIBaseInfo.getNamespace retStructInfo
+          InterfaceName = GIRepository.BaseInfo.getName retStructInfo
+          InterfaceNamespace = GIRepository.BaseInfo.getNamespace retStructInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
           Opt is defined as follows:
 
-            mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+            mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
 
               mayReturnNull   | Opt
             ==================+===================
@@ -1939,7 +2391,7 @@ where
       <retInterfaceFlagsEnumConv>
         if retInfoType is FLAGS retFlagsEnumInfo | ENUM retFlagsEnumInfo.
 
-            isPointer = GITypeInfo.isPointer retTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer retTypeInfo
 
               isPointer       | _
             ==================+===================================
@@ -1953,13 +2405,14 @@ where
           A is defined as follows:
 
             <InterfaceNamespace><InterfaceName>.PolyML
-              if <InterfaceName> is not equal to <ContainerName>
+              if (<InterfaceNamespace>, SOME <InterfaceName>) is not equal
+              to (<FunctionNamespace>, <optContainerName>), where
 
             PolyML
               otherwise
 
-          InterfaceName = GIBaseInfo.getName retFlagsEnumInfo
-          InterfaceNamespace = GIBaseInfo.getNamespace retFlagsEnumInfo
+          InterfaceName = GIRepository.BaseInfo.getName retFlagsEnumInfo
+          InterfaceNamespace = GIRepository.BaseInfo.getNamespace retFlagsEnumInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
 
@@ -2070,46 +2523,46 @@ where
 
 
   parTypeErr
-    is GError.C.outptr
+    is GError.FFI.outptr
 
 
   parType[j]
     is the SML type for the <j>th non-VOID parameter of the function,
     given by argInfo, defined according to the GIR type tag as follows:
 
-      argTypeInfo = GIArgInfo.getType argInfo
-      tag = GITypeInfo.get_tag argTypeInfo
+      argTypeInfo = GIRepository.ArgInfo.getType argInfo
+      tag = GIRepository.TypeInfo.get_tag argTypeInfo
 
       Conversion from tag is as follows:
 
         ERROR     --->    <raise Error "not expected">
-        FILENAME  --->    <raise Error "not supported">
+        FILENAME  --->    <parUtf8Type>
         GTYPE     --->    <raise Error "not supported">
-        ARRAY     --->    <raise Error "not supported">
+        ARRAY     --->    <parArrayType>
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
         VOID      --->    <raise Fail "VOID">
-        BOOLEAN   --->    <parScalarType(FFI.Bool)>
-        INT8      --->    <parScalarType(FFI.Int8)>
-        UINT8     --->    <parScalarType(FFI.Word8)>
-        INT16     --->    <parScalarType(FFI.Int16)>
-        UINT16    --->    <parScalarType(FFI.Word16)>
-        INT32     --->    <parScalarType(FFI.Int32)>
-        UINT32    --->    <parScalarType(FFI.Word32)>
-        INT64     --->    <parScalarType(FFI.Int64)>
-        UINT64    --->    <parScalarType(FFI.Word64)>
-        FLOAT     --->    <parScalarType(FFI.Float)>
-        DOUBLE    --->    <parScalarType(FFI.Double)>
+        BOOLEAN   --->    <parScalarType(GBool.FFI)>
+        INT8      --->    <parScalarType(GInt8.FFI)>
+        UINT8     --->    <parScalarType(GUInt8.FFI)>
+        INT16     --->    <parScalarType(GInt16.FFI)>
+        UINT16    --->    <parScalarType(GUInt16.FFI)>
+        INT32     --->    <parScalarType(GInt32.FFI)>
+        UINT32    --->    <parScalarType(GUInt32.FFI)>
+        INT64     --->    <parScalarType(GInt64.FFI)>
+        UINT64    --->    <parScalarType(GUInt64.FFI)>
+        FLOAT     --->    <parScalarType(GFloat.FFI)>
+        DOUBLE    --->    <parScalarType(GDouble.FFI)>
         UTF8      --->    <parUtf8Type>
-        UNICHAR   --->    <parScalarType(FFI.Char)>
+        UNICHAR   --->    <parScalarType(GChar.FFI)>
         INTERFACE --->    <parInterfaceType>
 
 
   parScalarType(A)
     is defined as follows:
 
-        direction = GIArgInfo.getDirection argInfo
+        direction = GIRepository.ArgInfo.getDirection argInfo
 
           direction       | parScalarType(A)
         ==================+===========================
@@ -2124,7 +2577,7 @@ where
   parUtf8Type
     is defined as follows:
 
-        direction = GIArgInfo.getDirection argInfo
+        direction = GIRepository.ArgInfo.getDirection argInfo
 
           direction       | parUtf8Type
         ==================+===========================
@@ -2135,11 +2588,65 @@ where
           INOUT           | (<opt>, <opt>) <A>.r
         ------------------+---------------------------
 
-      A is Utf8.C
+      A is Utf8.FFI
 
       opt is defined as follows:
 
-        mayBeNull = GIArgInfo.mayBeNull argInfo
+        mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
+
+          mayBeNull       | opt
+        ==================+===================
+          false           | <A>.notnull
+        ------------------+-------------------
+          true            | unit
+        ------------------+-------------------
+
+      inopt and outopt cannot be determined because GIR does not capture
+      sufficient information.  For now, they are defined as follows:
+
+          | inopt           outopt
+        ==+===================================
+          | <A>.notnull     <A>.notnull
+        --+-----------------------------------
+
+          Note: currently for OUT and INOUT parameters, mayBeNull indicates
+            whether a null reference argument is allowed, rather than a non-null
+            reference to null.   This allows the parameter to be optional thus
+            provides what one would have expected from isOptional.
+            (isOptional itself appears to always return false.)  Thus there
+            is no mechanism to know whether an out parameter that is a pointer
+            can have a null out value.  Similarly for an in-out parameter, there
+            is no way to know whether the in value or out value can be null.
+            Furthermore, an in-out parameter would require two atttibutes:
+            allow-none-in and allow-none-out.
+
+            For now, for OUT and INOUT parameters, we do not distinguish
+            optionally-null and non-null values.  The types outref and
+            inoutref are used.  (We also need to know this missing information
+            for the high-level interface to determine whether to use an optional
+            type.)
+
+
+  parArrayType
+    is defined as follows:
+
+        direction   = GIRepository.ArgInfo.getDirection argInfo
+        argTypeInfo = GIRepository.ArgInfo.getType argInfo
+
+          direction       | parArrayType
+        ==================+===========================
+          IN              | <opt> <A>.in_p
+        ------------------+---------------------------
+          OUT             | (unit, <outopt>) <A>.r
+        ------------------+---------------------------
+          INOUT           | (<inopt>, <outopt>) <A>.r
+        ------------------+---------------------------
+
+      A is <ArrayStructId(argTypeInfo)>.FFI
+
+      opt is defined as follows:
+
+        mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
 
           mayBeNull       | opt
         ==================+===================
@@ -2166,13 +2673,13 @@ where
   parInterfaceType
     is defined according to the interface type as follows:
 
-      argInterfaceTypeInfo = GITypeInfo.getInterface argTypeInfo
-      argInfoType = GIInfoType.getType argInterfaceTypeInfo
+      argInterfaceTypeInfo = GIRepository.TypeInfo.getInterface argTypeInfo
+      argInfoType = GIRepository.InfoType.getType argInterfaceTypeInfo
 
       <parInterfaceObjectType>
         if argInfoType is OBJECT argObjectInfo, where
 
-            isPointer = GITypeInfo.isPointer argTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
 
               isPointer       | _
             ==================+===================================
@@ -2183,7 +2690,7 @@ where
 
           parInterfaceObjectType is defined as follows:
 
-            direction   = GIArgInfo.getDirection argInfo
+            direction   = GIRepository.ArgInfo.getDirection argInfo
 
               direction       | parInterfaceObjectType
             ==================+===========================
@@ -2194,14 +2701,14 @@ where
               INOUT           | (<opt>, <opt>) <A>.r
             ------------------+---------------------------
 
-          A is <ObjectNamespace><ObjectName>Class.C
+          A is <ObjectNamespace><ObjectName>Class.FFI
 
           ObjectName = GIRepository.BaseInfo.getName argObjectInfo
           ObjectNamespace = GIRepository.BaseInfo.getNamespace argObjectInfo
 
           opt is defined as follows:
 
-            mayBeNull   = GIArgInfo.mayBeNull argInfo
+            mayBeNull   = GIRepository.ArgInfo.mayBeNull argInfo
 
               mayBeNull       | opt
             ==================+===================
@@ -2234,9 +2741,9 @@ where
 
           parInterfaceStructType is defined as follows:
 
-            direction = GIArgInfo.getDirection argInfo
+            direction = GIRepository.ArgInfo.getDirection argInfo
 
-            isPointer = GITypeInfo.isPointer argTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
 
               direction       isPointer       parInterfaceStructType
             ====================================================
@@ -2253,21 +2760,15 @@ where
                               true            (<opt>, <opt>) <A>.r
             ----------------------------------------------------
 
-          A is defined as follows:
+          A is <InterfaceNamespace><InterfaceName>Record.FFI
 
-            <InterfaceNamespace><InterfaceName>.C
-              if <InterfaceName> is not equal to <ContainerName>
-
-            C
-              otherwise
-
-          InterfaceName = GIBaseInfo.getName argStructInfo
-          InterfaceNamespace = GIBaseInfo.getNamespace argStructInfo
+          InterfaceName = GIRepository.BaseInfo.getName argStructInfo
+          InterfaceNamespace = GIRepository.BaseInfo.getNamespace argStructInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
           opt is defined as follows:
 
-            mayBeNull = GIArgInfo.mayBeNull argInfo
+            mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
 
               mayBeNull       | opt
             ==================+===================
@@ -2302,7 +2803,7 @@ where
       <parInterfaceFlagsEnumType>
         if argInfoType is FLAGS argFlagsEnumInfo | ENUM argFlagsEnumInfo.
 
-            isPointer = GITypeInfo.isPointer argTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
 
               isPointer       | _
             ==================+===================================
@@ -2313,7 +2814,7 @@ where
 
           parInterfaceFlagsEnumType is defined as follows:
 
-            direction = GIArgInfo.getDirection argInfo
+            direction = GIRepository.ArgInfo.getDirection argInfo
 
               direction       | parInterfaceFlagsEnumType
             ==================+===========================
@@ -2326,14 +2827,15 @@ where
 
           A is defined as follows:
 
-            <InterfaceNamespace><InterfaceName>.C
-              if <InterfaceName> is not equal to <ContainerName>, where
+            <InterfaceNamespace><InterfaceName>.FFI
+              if (<InterfaceNamespace>, SOME <InterfaceName>) is not equal
+              to (<FunctionNamespace>, <optContainerName>), where
 
-            C
+            FFI
               otherwise
 
-          InterfaceName = GIBaseInfo.getName argFlagsEnumInfo
-          InterfaceNamespace = GIBaseInfo.getNamespace argFlagsEnumInfo
+          InterfaceName = GIRepository.BaseInfo.getName argFlagsEnumInfo
+          InterfaceNamespace = GIRepository.BaseInfo.getNamespace argFlagsEnumInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
 
@@ -2354,32 +2856,32 @@ where
     is the SML type for the return value of the function, defined
     according to the GIR type tag as follows:
 
-      retTypeInfo = GICallableInfo.getReturnType functionInfo
-      tag = GITypeInfo.get_tag retTypeInfo
+      retTypeInfo = GIRepository.CallableInfo.getReturnType functionInfo
+      tag = GIRepository.TypeInfo.get_tag retTypeInfo
 
       Conversion from tag is as follows:
 
         ERROR     --->    <raise Error "not expected">
-        FILENAME  --->    <raise Error "not supported">
+        FILENAME  --->    <retUtf8Type>
         GTYPE     --->    <raise Error "not supported">
-        ARRAY     --->    <raise Error "not supported">
+        ARRAY     --->    <retArrayType>
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
         VOID      --->    unit
-        BOOLEAN   --->    <retScalarType(FFI.Bool)>
-        INT8      --->    <retScalarType(FFI.Int8)>
-        UINT8     --->    <retScalarType(FFI.Word8)>
-        INT16     --->    <retScalarType(FFI.Int16)>
-        UINT16    --->    <retScalarType(FFI.Word16)>
-        INT32     --->    <retScalarType(FFI.Int32)>
-        UINT32    --->    <retScalarType(FFI.Word32)>
-        INT64     --->    <retScalarType(FFI.Int64)>
-        UINT64    --->    <retScalarType(FFI.Word64)>
-        FLOAT     --->    <retScalarType(FFI.Float)>
-        DOUBLE    --->    <retScalarType(FFI.Double)>
+        BOOLEAN   --->    <retScalarType(GBool.FFI)>
+        INT8      --->    <retScalarType(GInt8.FFI)>
+        UINT8     --->    <retScalarType(GUInt8.FFI)>
+        INT16     --->    <retScalarType(GInt16.FFI)>
+        UINT16    --->    <retScalarType(GUInt16.FFI)>
+        INT32     --->    <retScalarType(GInt32.FFI)>
+        UINT32    --->    <retScalarType(GUInt32.FFI)>
+        INT64     --->    <retScalarType(GInt64.FFI)>
+        UINT64    --->    <retScalarType(GUInt64.FFI)>
+        FLOAT     --->    <retScalarType(GFloat.FFI)>
+        DOUBLE    --->    <retScalarType(GDouble.FFI)>
         UTF8      --->    <retUtf8Type>
-        UNICHAR   --->    <retScalarType(FFI.Char)>
+        UNICHAR   --->    <retScalarType(GChar.FFI)>
         INTERFACE --->    <retInterfaceType>
 
 
@@ -2397,11 +2899,31 @@ where
 
       retUtf8Type is <opt> <A>.out_p
 
-      A is Utf8.C
+      A is Utf8.FFI
 
       opt is defined as follows:
 
-        mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+        mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
+
+          mayReturnNull   | opt
+        ==================+===================
+          false           | <A>.notnull
+        ------------------+-------------------
+          true            | unit
+        ------------------+-------------------
+
+
+  retArrayType
+    is defined as follows:
+
+        mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
+        retTypeInfo   = GIRepository.CallableInfo.getReturnType functionInfo
+
+      retArrayType is <opt> <A>.out_p
+
+      A is ArrayStructId(retTypeInfo).FFI
+
+      opt is defined as follows:
 
           mayReturnNull   | opt
         ==================+===================
@@ -2414,13 +2936,13 @@ where
   retInterfaceType
     is defined according to the interface type as follows:
 
-      retInterfaceTypeInfo = GITypeInfo.getInterface retTypeInfo
-      retInfoType = GIInfoType.getType retInterfaceTypeInfo
+      retInterfaceTypeInfo = GIRepository.TypeInfo.getInterface retTypeInfo
+      retInfoType = GIRepository.InfoType.getType retInterfaceTypeInfo
 
       <retInterfaceObjectType>
         if retInfoType is OBJECT retObjectInfo, where
 
-            isPointer = GITypeInfo.isPointer retTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer retTypeInfo
 
               isPointer       | _
             ==================+===================================
@@ -2431,14 +2953,14 @@ where
 
           retInterfaceObjectType is <opt> <A>.out_p
 
-          A is <ObjectNamespace><ObjectName>Class.C
+          A is <ObjectNamespace><ObjectName>Class.FFI
 
           ObjectName = GIRepository.BaseInfo.getName retObjectInfo
           ObjectNamespace = GIRepository.BaseInfo.getNamespace retObjectInfo
 
           opt is defined as follows:
 
-            mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+            mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
 
               mayReturnNull   | opt
             ==================+===================
@@ -2457,7 +2979,7 @@ where
 
           retInterfaceStructType is defined as follows:
 
-            isPointer = GITypeInfo.isPointer retTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer retTypeInfo
 
               isPointer       | retInterfaceStructType
             ==================+===================================
@@ -2466,21 +2988,15 @@ where
               true            | <opt> <A>.out_p
             ------------------+-----------------------------------
 
-          A is defined as follows:
+          A is <InterfaceNamespace><InterfaceName>Record.FFI
 
-            <InterfaceNamespace><InterfaceName>.C
-              if <InterfaceName> is not equal to <ContainerName>
-
-            C
-              otherwise
-
-          InterfaceName = GIBaseInfo.getName retStructInfo
-          InterfaceNamespace = GIBaseInfo.getNamespace retStructInfo
+          InterfaceName = GIRepository.BaseInfo.getName retStructInfo
+          InterfaceNamespace = GIRepository.BaseInfo.getNamespace retStructInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
           opt is defined as follows:
 
-            mayReturnNull = GICallableInfo.mayReturnNull functionInfo
+            mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
 
               mayReturnNull   | opt
             ==================+===================
@@ -2501,7 +3017,7 @@ where
       <retInterfaceFlagsEnumType>
         if retInfoType is FLAGS retFlagsEnumInfo | ENUM retFlagsEnumInfo.
 
-            isPointer = GITypeInfo.isPointer retTypeInfo
+            isPointer = GIRepository.TypeInfo.isPointer retTypeInfo
 
               isPointer       | _
             ==================+===================================
@@ -2514,14 +3030,15 @@ where
 
           A is defined as follows:
 
-            <InterfaceNamespace><InterfaceName>.C
-              if <InterfaceName> is not equal to <ContainerName>
+            <InterfaceNamespace><InterfaceName>.FFI
+              if (<InterfaceNamespace>, SOME <InterfaceName>) is not equal
+              to (<FunctionNamespace>, <optContainerName>), where
 
-            C
+            FFI
               otherwise
 
-          InterfaceName = GIBaseInfo.getName retFlagsEnumInfo
-          InterfaceNamespace = GIBaseInfo.getNamespace retFlagsEnumInfo
+          InterfaceName = GIRepository.BaseInfo.getName retFlagsEnumInfo
+          InterfaceNamespace = GIRepository.BaseInfo.getNamespace retFlagsEnumInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
 

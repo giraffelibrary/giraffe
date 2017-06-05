@@ -1,1 +1,1 @@
-structure PangoGlyph = FFI.UInt32
+structure PangoGlyph = GUInt32

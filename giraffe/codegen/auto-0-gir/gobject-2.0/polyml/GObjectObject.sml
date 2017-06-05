@@ -20,7 +20,7 @@ structure GObjectObject :>
              &&> GObjectValueRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val isFloating_ = call (load_sym libgobject "g_object_is_floating") (GObjectObjectClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isFloating_ = call (load_sym libgobject "g_object_is_floating") (GObjectObjectClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val notify_ = call (load_sym libgobject "g_object_notify") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val notifyByPspec_ = call (load_sym libgobject "g_object_notify_by_pspec") (GObjectObjectClass.PolyML.cPtr &&> GObjectParamSpecClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val runDispose_ = call (load_sym libgobject "g_object_run_dispose") (GObjectObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
@@ -41,14 +41,14 @@ structure GObjectObject :>
     type closure_t = GObjectClosureRecord.t
     type 'a param_spec_class = 'a GObjectParamSpecClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forceFloating self = (GObjectObjectClass.C.withPtr ---> I) forceFloating_ self
-    fun freezeNotify self = (GObjectObjectClass.C.withPtr ---> I) freezeNotify_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun forceFloating self = (GObjectObjectClass.FFI.withPtr ---> I) forceFloating_ self
+    fun freezeNotify self = (GObjectObjectClass.FFI.withPtr ---> I) freezeNotify_ self
     fun getProperty self propertyName value =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GObjectValueRecord.C.withPtr
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectValueRecord.FFI.withPtr
          ---> I
       )
         getProperty_
@@ -57,15 +57,15 @@ structure GObjectObject :>
            & propertyName
            & value
         )
-    fun isFloating self = (GObjectObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) isFloating_ self
-    fun notify self propertyName = (GObjectObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) notify_ (self & propertyName)
-    fun notifyByPspec self pspec = (GObjectObjectClass.C.withPtr &&&> GObjectParamSpecClass.C.withPtr ---> I) notifyByPspec_ (self & pspec)
-    fun runDispose self = (GObjectObjectClass.C.withPtr ---> I) runDispose_ self
+    fun isFloating self = (GObjectObjectClass.FFI.withPtr ---> GBool.FFI.fromVal) isFloating_ self
+    fun notify self propertyName = (GObjectObjectClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) notify_ (self & propertyName)
+    fun notifyByPspec self pspec = (GObjectObjectClass.FFI.withPtr &&&> GObjectParamSpecClass.FFI.withPtr ---> I) notifyByPspec_ (self & pspec)
+    fun runDispose self = (GObjectObjectClass.FFI.withPtr ---> I) runDispose_ self
     fun setProperty self propertyName value =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GObjectValueRecord.C.withPtr
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectValueRecord.FFI.withPtr
          ---> I
       )
         setProperty_
@@ -74,8 +74,8 @@ structure GObjectObject :>
            & propertyName
            & value
         )
-    fun thawNotify self = (GObjectObjectClass.C.withPtr ---> I) thawNotify_ self
-    fun watchClosure self closure = (GObjectObjectClass.C.withPtr &&&> GObjectClosureRecord.C.withPtr ---> I) watchClosure_ (self & closure)
+    fun thawNotify self = (GObjectObjectClass.FFI.withPtr ---> I) thawNotify_ self
+    fun watchClosure self closure = (GObjectObjectClass.FFI.withPtr &&&> GObjectClosureRecord.FFI.withPtr ---> I) watchClosure_ (self & closure)
     local
       open ClosureMarshal Signal
     in

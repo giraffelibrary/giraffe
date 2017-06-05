@@ -13,35 +13,35 @@ structure GtkEditable :>
         call (load_sym libgtk "gtk_editable_delete_text")
           (
             GtkEditableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val getChars_ =
         call (load_sym libgtk "gtk_editable_get_chars")
           (
             GtkEditableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val getEditable_ = call (load_sym libgtk "gtk_editable_get_editable") (GtkEditableClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getPosition_ = call (load_sym libgtk "gtk_editable_get_position") (GtkEditableClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getEditable_ = call (load_sym libgtk "gtk_editable_get_editable") (GtkEditableClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getPosition_ = call (load_sym libgtk "gtk_editable_get_position") (GtkEditableClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getSelectionBounds_ =
         call (load_sym libgtk "gtk_editable_get_selection_bounds")
           (
             GtkEditableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cRef
-             &&> FFI.Int32.PolyML.cRef
-             --> FFI.Bool.PolyML.cVal
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             --> GBool.PolyML.cVal
           )
       val insertText_ =
         call (load_sym libgtk "gtk_editable_insert_text")
           (
             GtkEditableClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cRef
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
       val pasteClipboard_ = call (load_sym libgtk "gtk_editable_paste_clipboard") (GtkEditableClass.PolyML.cPtr --> PolyMLFFI.cVoid)
@@ -49,24 +49,24 @@ structure GtkEditable :>
         call (load_sym libgtk "gtk_editable_select_region")
           (
             GtkEditableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setEditable_ = call (load_sym libgtk "gtk_editable_set_editable") (GtkEditableClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPosition_ = call (load_sym libgtk "gtk_editable_set_position") (GtkEditableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setEditable_ = call (load_sym libgtk "gtk_editable_set_editable") (GtkEditableClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPosition_ = call (load_sym libgtk "gtk_editable_set_position") (GtkEditableClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkEditableClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun copyClipboard self = (GtkEditableClass.C.withPtr ---> I) copyClipboard_ self
-    fun cutClipboard self = (GtkEditableClass.C.withPtr ---> I) cutClipboard_ self
-    fun deleteSelection self = (GtkEditableClass.C.withPtr ---> I) deleteSelection_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun copyClipboard self = (GtkEditableClass.FFI.withPtr ---> I) copyClipboard_ self
+    fun cutClipboard self = (GtkEditableClass.FFI.withPtr ---> I) cutClipboard_ self
+    fun deleteSelection self = (GtkEditableClass.FFI.withPtr ---> I) deleteSelection_ self
     fun deleteText self startPos endPos =
       (
-        GtkEditableClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        GtkEditableClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         deleteText_
@@ -77,10 +77,10 @@ structure GtkEditable :>
         )
     fun getChars self startPos endPos =
       (
-        GtkEditableClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         ---> Utf8.C.fromPtr true
+        GtkEditableClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         ---> Utf8.FFI.fromPtr 1
       )
         getChars_
         (
@@ -88,26 +88,26 @@ structure GtkEditable :>
            & startPos
            & endPos
         )
-    fun getEditable self = (GtkEditableClass.C.withPtr ---> FFI.Bool.C.fromVal) getEditable_ self
-    fun getPosition self = (GtkEditableClass.C.withPtr ---> FFI.Int32.C.fromVal) getPosition_ self
+    fun getEditable self = (GtkEditableClass.FFI.withPtr ---> GBool.FFI.fromVal) getEditable_ self
+    fun getPosition self = (GtkEditableClass.FFI.withPtr ---> GInt32.FFI.fromVal) getPosition_ self
     fun getSelectionBounds self =
       let
         val startPos
          & endPos
          & retVal =
           (
-            GtkEditableClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
-                   && FFI.Bool.C.fromVal
+            GtkEditableClass.FFI.withPtr
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && GBool.FFI.fromVal
           )
             getSelectionBounds_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & GInt32.null
+               & GInt32.null
             )
       in
         if retVal then SOME (startPos, endPos) else NONE
@@ -116,11 +116,11 @@ structure GtkEditable :>
       let
         val position & () =
           (
-            GtkEditableClass.C.withPtr
-             &&&> Utf8.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> FFI.Int32.C.fromVal && I
+            GtkEditableClass.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal && I
           )
             insertText_
             (
@@ -132,12 +132,12 @@ structure GtkEditable :>
       in
         position
       end
-    fun pasteClipboard self = (GtkEditableClass.C.withPtr ---> I) pasteClipboard_ self
+    fun pasteClipboard self = (GtkEditableClass.FFI.withPtr ---> I) pasteClipboard_ self
     fun selectRegion self startPos endPos =
       (
-        GtkEditableClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        GtkEditableClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         selectRegion_
@@ -146,8 +146,8 @@ structure GtkEditable :>
            & startPos
            & endPos
         )
-    fun setEditable self isEditable = (GtkEditableClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setEditable_ (self & isEditable)
-    fun setPosition self position = (GtkEditableClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setPosition_ (self & position)
+    fun setEditable self isEditable = (GtkEditableClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setEditable_ (self & isEditable)
+    fun setPosition self position = (GtkEditableClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setPosition_ (self & position)
     local
       open ClosureMarshal Signal
     in

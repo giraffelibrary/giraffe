@@ -1,1 +1,1 @@
-structure XlibDrawable = FFI.ULong
+structure XlibDrawable = GULong

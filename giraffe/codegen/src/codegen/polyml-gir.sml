@@ -13,7 +13,7 @@ use "struct.sml";
 use "union.sml";
 use "flags_enum_common.sml";
 use "flags.sml";
-use "enum.sml";
+use "gir/enum.sml";
 use "gir/alias.sml";
 use "gir/namespace.sml";
 use "gir/generate.sml";

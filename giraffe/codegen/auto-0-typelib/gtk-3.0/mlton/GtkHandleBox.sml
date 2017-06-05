@@ -6,32 +6,32 @@ structure GtkHandleBox :>
     where type shadow_type_t = GtkShadowType.t
     where type position_type_t = GtkPositionType.t =
   struct
-    val getType_ = _import "gtk_handle_box_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_handle_box_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
-    val getChildDetached_ = _import "gtk_handle_box_get_child_detached" : GtkHandleBoxClass.C.notnull GtkHandleBoxClass.C.p -> FFI.Bool.C.val_;
-    val getHandlePosition_ = _import "gtk_handle_box_get_handle_position" : GtkHandleBoxClass.C.notnull GtkHandleBoxClass.C.p -> GtkPositionType.C.val_;
-    val getShadowType_ = _import "gtk_handle_box_get_shadow_type" : GtkHandleBoxClass.C.notnull GtkHandleBoxClass.C.p -> GtkShadowType.C.val_;
-    val getSnapEdge_ = _import "gtk_handle_box_get_snap_edge" : GtkHandleBoxClass.C.notnull GtkHandleBoxClass.C.p -> GtkPositionType.C.val_;
-    val setHandlePosition_ = fn x1 & x2 => (_import "gtk_handle_box_set_handle_position" : GtkHandleBoxClass.C.notnull GtkHandleBoxClass.C.p * GtkPositionType.C.val_ -> unit;) (x1, x2)
-    val setShadowType_ = fn x1 & x2 => (_import "gtk_handle_box_set_shadow_type" : GtkHandleBoxClass.C.notnull GtkHandleBoxClass.C.p * GtkShadowType.C.val_ -> unit;) (x1, x2)
-    val setSnapEdge_ = fn x1 & x2 => (_import "gtk_handle_box_set_snap_edge" : GtkHandleBoxClass.C.notnull GtkHandleBoxClass.C.p * GtkPositionType.C.val_ -> unit;) (x1, x2)
+    val getType_ = _import "gtk_handle_box_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_handle_box_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getChildDetached_ = _import "gtk_handle_box_get_child_detached" : GtkHandleBoxClass.FFI.notnull GtkHandleBoxClass.FFI.p -> GBool.FFI.val_;
+    val getHandlePosition_ = _import "gtk_handle_box_get_handle_position" : GtkHandleBoxClass.FFI.notnull GtkHandleBoxClass.FFI.p -> GtkPositionType.FFI.val_;
+    val getShadowType_ = _import "gtk_handle_box_get_shadow_type" : GtkHandleBoxClass.FFI.notnull GtkHandleBoxClass.FFI.p -> GtkShadowType.FFI.val_;
+    val getSnapEdge_ = _import "gtk_handle_box_get_snap_edge" : GtkHandleBoxClass.FFI.notnull GtkHandleBoxClass.FFI.p -> GtkPositionType.FFI.val_;
+    val setHandlePosition_ = fn x1 & x2 => (_import "gtk_handle_box_set_handle_position" : GtkHandleBoxClass.FFI.notnull GtkHandleBoxClass.FFI.p * GtkPositionType.FFI.val_ -> unit;) (x1, x2)
+    val setShadowType_ = fn x1 & x2 => (_import "gtk_handle_box_set_shadow_type" : GtkHandleBoxClass.FFI.notnull GtkHandleBoxClass.FFI.p * GtkShadowType.FFI.val_ -> unit;) (x1, x2)
+    val setSnapEdge_ = fn x1 & x2 => (_import "gtk_handle_box_set_snap_edge" : GtkHandleBoxClass.FFI.notnull GtkHandleBoxClass.FFI.p * GtkPositionType.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkHandleBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type shadow_type_t = GtkShadowType.t
     type position_type_t = GtkPositionType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkHandleBoxClass.C.fromPtr false) new_ ()
-    fun getChildDetached self = (GtkHandleBoxClass.C.withPtr ---> FFI.Bool.C.fromVal) getChildDetached_ self
-    fun getHandlePosition self = (GtkHandleBoxClass.C.withPtr ---> GtkPositionType.C.fromVal) getHandlePosition_ self
-    fun getShadowType self = (GtkHandleBoxClass.C.withPtr ---> GtkShadowType.C.fromVal) getShadowType_ self
-    fun getSnapEdge self = (GtkHandleBoxClass.C.withPtr ---> GtkPositionType.C.fromVal) getSnapEdge_ self
-    fun setHandlePosition self position = (GtkHandleBoxClass.C.withPtr &&&> GtkPositionType.C.withVal ---> I) setHandlePosition_ (self & position)
-    fun setShadowType self type' = (GtkHandleBoxClass.C.withPtr &&&> GtkShadowType.C.withVal ---> I) setShadowType_ (self & type')
-    fun setSnapEdge self edge = (GtkHandleBoxClass.C.withPtr &&&> GtkPositionType.C.withVal ---> I) setSnapEdge_ (self & edge)
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkHandleBoxClass.FFI.fromPtr false) new_ ()
+    fun getChildDetached self = (GtkHandleBoxClass.FFI.withPtr ---> GBool.FFI.fromVal) getChildDetached_ self
+    fun getHandlePosition self = (GtkHandleBoxClass.FFI.withPtr ---> GtkPositionType.FFI.fromVal) getHandlePosition_ self
+    fun getShadowType self = (GtkHandleBoxClass.FFI.withPtr ---> GtkShadowType.FFI.fromVal) getShadowType_ self
+    fun getSnapEdge self = (GtkHandleBoxClass.FFI.withPtr ---> GtkPositionType.FFI.fromVal) getSnapEdge_ self
+    fun setHandlePosition self position = (GtkHandleBoxClass.FFI.withPtr &&&> GtkPositionType.FFI.withVal ---> I) setHandlePosition_ (self & position)
+    fun setShadowType self type' = (GtkHandleBoxClass.FFI.withPtr &&&> GtkShadowType.FFI.withVal ---> I) setShadowType_ (self & type')
+    fun setSnapEdge self edge = (GtkHandleBoxClass.FFI.withPtr &&&> GtkPositionType.FFI.withVal ---> I) setSnapEdge_ (self & edge)
     local
       open ClosureMarshal Signal
     in

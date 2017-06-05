@@ -78,6 +78,23 @@ signature GIO_SOCKET =
        -> bool
        -> 'b cancellable_class option
        -> LargeInt.int
+    val send :
+      'a class
+       -> string list
+       -> 'b cancellable_class option
+       -> LargeInt.int
+    val sendTo :
+      'a class
+       -> 'b socket_address_class
+       -> string list
+       -> 'c cancellable_class option
+       -> LargeInt.int
+    val sendWithBlocking :
+      'a class
+       -> string list
+       -> bool
+       -> 'b cancellable_class option
+       -> LargeInt.int
     val setBlocking :
       'a class
        -> bool

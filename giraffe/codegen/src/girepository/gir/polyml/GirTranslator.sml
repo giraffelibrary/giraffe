@@ -273,8 +273,8 @@ local
 in
   fun makeVFuncOverride (s : string) : t =
     case s of
-      "always" => MUSTOVERRIDE
-    | "never"  => MUSTNOTOVERRIDE
+      "always" => MUST_OVERRIDE
+    | "never"  => MUST_NOT_OVERRIDE
     | _        =>
         raise GIRFail (
           [HText.concat ["override=\"", s, "\" invalid"]]
@@ -283,9 +283,9 @@ end
 
 fun makeSignalRun (s : string) : GObjectSignalFlags.t =
   case s of
-    "first"   => GObjectSignalFlags.RUNFIRST
-  | "last"    => GObjectSignalFlags.RUNLAST
-  | "cleanup" => GObjectSignalFlags.RUNCLEANUP
+    "first"   => GObjectSignalFlags.RUN_FIRST
+  | "last"    => GObjectSignalFlags.RUN_LAST
+  | "cleanup" => GObjectSignalFlags.RUN_CLEANUP
   | _         => 
       raise GIRFail (
         [HText.concat ["when=\"", s, "\" invalid"]]
@@ -544,7 +544,9 @@ and arrayTypeBaseData containerData elemDicts typelib (arrayType, param) =
               GIRFail (HText.concat ("attribute" :: " " :: fmtQuoted "fixed-size") :: ms)
 
     val arrayZeroTerminated =
-      withDefault false makeValueBool (#zeroTerminated arrayType)
+      withDefault (arrayLength = NONE andalso arrayFixedSize = NONE)
+        makeValueBool
+        (#zeroTerminated arrayType)
         handle
           GIRFail ms =>
             raise
@@ -813,9 +815,9 @@ and makeFunction
         open GIRepositoryFunctionInfoFlags
       in
         case elem of
-          FECONSTRUCTOR => ISCONSTRUCTOR
+          FECONSTRUCTOR => IS_CONSTRUCTOR
         | FEFUNCTION    => flags []
-        | FEMETHOD      => ISMETHOD
+        | FEMETHOD      => IS_METHOD
       end
 
     val flags' =
@@ -907,7 +909,7 @@ and makeVFunc
             GIRFail ms =>
               raise GIRFail (HText.concat ("attribute " :: fmtQuoted "must-chain-up") :: ms)
       then
-        GIRepositoryVFuncInfoFlags.flags [flags'1, GIRepositoryVFuncInfoFlags.MUSTCHAINUP]
+        GIRepositoryVFuncInfoFlags.flags [flags'1, GIRepositoryVFuncInfoFlags.MUST_CHAIN_UP]
       else flags'1
 
     val flags =
@@ -983,7 +985,7 @@ and makeSignal
           handle
             GIRFail ms =>
               raise GIRFail (HText.concat ("attribute " :: fmtQuoted "no-recurse") :: ms)
-      then GObjectSignalFlags.flags [flags'1, GObjectSignalFlags.NORECURSE]
+      then GObjectSignalFlags.flags [flags'1, GObjectSignalFlags.NO_RECURSE]
       else flags'1
 
     val flags'3 =
@@ -1010,7 +1012,7 @@ and makeSignal
           handle
             GIRFail ms =>
               raise GIRFail (HText.concat ("attribute " :: fmtQuoted "no-hooks") :: ms)
-      then GObjectSignalFlags.flags [flags'4, GObjectSignalFlags.NOHOOKS]
+      then GObjectSignalFlags.flags [flags'4, GObjectSignalFlags.NO_HOOKS]
       else flags'4
 
     val hasClassClosure =
@@ -1102,7 +1104,7 @@ and makeProperty
           handle
             GIRFail ms =>
               raise GIRFail (HText.concat ("attribute " :: fmtQuoted "construct-only") :: ms)
-      then GObjectParamFlags.flags [flags'3, GObjectParamFlags.CONSTRUCTONLY]
+      then GObjectParamFlags.flags [flags'3, GObjectParamFlags.CONSTRUCT_ONLY]
       else flags'3
 
     val transferOwnership =

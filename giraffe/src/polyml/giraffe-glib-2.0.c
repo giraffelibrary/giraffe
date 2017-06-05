@@ -9,6 +9,7 @@
  * GLib C interface support for Poly/ML
  */
 
+#include <string.h>
 #include <glib.h>
 
 #include "polyml/giraffe-glib-2.0.h"
@@ -43,16 +44,22 @@ giraffe_g_time_val_new (void)
   return g_slice_new (GTimeVal);
 }
 
-GTimeVal *
-giraffe_g_time_val_copy (const GTimeVal *time)
+void
+giraffe_g_time_val_copy (const GTimeVal *src, GTimeVal *dest)
 {
-  return g_slice_dup (GTimeVal, time);
+  memcpy (dest, src, sizeof (GTimeVal));
 }
 
 void
 giraffe_g_time_val_free (GTimeVal *time)
 {
   g_slice_free (GTimeVal, time);
+}
+
+guint
+giraffe_g_time_val_size (void)
+{
+  return sizeof (GTimeVal);
 }
 
 

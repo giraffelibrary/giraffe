@@ -17,7 +17,7 @@ structure GIRepositoryConstantInfo :>
           (load_sym libgirepository "g_constant_info_get_value")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> GIRepositoryArgument.PolyML.cPtr
-            --> FFI.Int32.PolyML.cVal);
+            --> GInt32.PolyML.cVal);
     end
 
 
@@ -28,7 +28,7 @@ structure GIRepositoryConstantInfo :>
 
     val getType =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypeInfoClass.C.fromPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
           getType_
           info
 
@@ -37,9 +37,9 @@ structure GIRepositoryConstantInfo :>
         let
           val tag = GIRepositoryTypeInfo.getTag (getType info)
           val value & _ =
-            (GIRepositoryBaseInfoClass.C.withPtr
-              &&&> GIRepositoryArgument.C.withNewPtr
-              ---> GIRepositoryArgument.C.fromPtr tag && I)
+            (GIRepositoryBaseInfoClass.FFI.withPtr
+              &&&> GIRepositoryArgument.FFI.withNewPtr
+              ---> GIRepositoryArgument.FFI.fromPtr tag && I)
               getValue_
               (info & ())
         in

@@ -14,13 +14,13 @@ structure GtkImageMenuItem :>
       val newFromStock_ = call (load_sym libgtk "gtk_image_menu_item_new_from_stock") (Utf8.PolyML.cInPtr &&> GtkAccelGroupClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithLabel_ = call (load_sym libgtk "gtk_image_menu_item_new_with_label") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithMnemonic_ = call (load_sym libgtk "gtk_image_menu_item_new_with_mnemonic") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getAlwaysShowImage_ = call (load_sym libgtk "gtk_image_menu_item_get_always_show_image") (GtkImageMenuItemClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getAlwaysShowImage_ = call (load_sym libgtk "gtk_image_menu_item_get_always_show_image") (GtkImageMenuItemClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getImage_ = call (load_sym libgtk "gtk_image_menu_item_get_image") (GtkImageMenuItemClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getUseStock_ = call (load_sym libgtk "gtk_image_menu_item_get_use_stock") (GtkImageMenuItemClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getUseStock_ = call (load_sym libgtk "gtk_image_menu_item_get_use_stock") (GtkImageMenuItemClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setAccelGroup_ = call (load_sym libgtk "gtk_image_menu_item_set_accel_group") (GtkImageMenuItemClass.PolyML.cPtr &&> GtkAccelGroupClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setAlwaysShowImage_ = call (load_sym libgtk "gtk_image_menu_item_set_always_show_image") (GtkImageMenuItemClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setAlwaysShowImage_ = call (load_sym libgtk "gtk_image_menu_item_set_always_show_image") (GtkImageMenuItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setImage_ = call (load_sym libgtk "gtk_image_menu_item_set_image") (GtkImageMenuItemClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setUseStock_ = call (load_sym libgtk "gtk_image_menu_item_set_use_stock") (GtkImageMenuItemClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setUseStock_ = call (load_sym libgtk "gtk_image_menu_item_set_use_stock") (GtkImageMenuItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkImageMenuItemClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
@@ -28,21 +28,21 @@ structure GtkImageMenuItem :>
     type 'a accel_group_class = 'a GtkAccelGroupClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkImageMenuItemClass.C.fromPtr false) new_ ()
-    fun newFromStock stockId accelGroup = (Utf8.C.withPtr &&&> GtkAccelGroupClass.C.withOptPtr ---> GtkImageMenuItemClass.C.fromPtr false) newFromStock_ (stockId & accelGroup)
-    fun newWithLabel label = (Utf8.C.withPtr ---> GtkImageMenuItemClass.C.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (Utf8.C.withPtr ---> GtkImageMenuItemClass.C.fromPtr false) newWithMnemonic_ label
-    fun getAlwaysShowImage self = (GtkImageMenuItemClass.C.withPtr ---> FFI.Bool.C.fromVal) getAlwaysShowImage_ self
-    fun getImage self = (GtkImageMenuItemClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getImage_ self
-    fun getUseStock self = (GtkImageMenuItemClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseStock_ self
-    fun setAccelGroup self accelGroup = (GtkImageMenuItemClass.C.withPtr &&&> GtkAccelGroupClass.C.withPtr ---> I) setAccelGroup_ (self & accelGroup)
-    fun setAlwaysShowImage self alwaysShow = (GtkImageMenuItemClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAlwaysShowImage_ (self & alwaysShow)
-    fun setImage self image = (GtkImageMenuItemClass.C.withPtr &&&> GtkWidgetClass.C.withOptPtr ---> I) setImage_ (self & image)
-    fun setUseStock self useStock = (GtkImageMenuItemClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseStock_ (self & useStock)
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkImageMenuItemClass.FFI.fromPtr false) new_ ()
+    fun newFromStock stockId accelGroup = (Utf8.FFI.withPtr &&&> GtkAccelGroupClass.FFI.withOptPtr ---> GtkImageMenuItemClass.FFI.fromPtr false) newFromStock_ (stockId & accelGroup)
+    fun newWithLabel label = (Utf8.FFI.withPtr ---> GtkImageMenuItemClass.FFI.fromPtr false) newWithLabel_ label
+    fun newWithMnemonic label = (Utf8.FFI.withPtr ---> GtkImageMenuItemClass.FFI.fromPtr false) newWithMnemonic_ label
+    fun getAlwaysShowImage self = (GtkImageMenuItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getAlwaysShowImage_ self
+    fun getImage self = (GtkImageMenuItemClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getImage_ self
+    fun getUseStock self = (GtkImageMenuItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseStock_ self
+    fun setAccelGroup self accelGroup = (GtkImageMenuItemClass.FFI.withPtr &&&> GtkAccelGroupClass.FFI.withPtr ---> I) setAccelGroup_ (self & accelGroup)
+    fun setAlwaysShowImage self alwaysShow = (GtkImageMenuItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAlwaysShowImage_ (self & alwaysShow)
+    fun setImage self image = (GtkImageMenuItemClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setImage_ (self & image)
+    fun setUseStock self useStock = (GtkImageMenuItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseStock_ (self & useStock)
     local
       open Property
     in

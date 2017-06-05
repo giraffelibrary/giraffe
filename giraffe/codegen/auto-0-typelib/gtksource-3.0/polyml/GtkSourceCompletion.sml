@@ -16,7 +16,7 @@ structure GtkSourceCompletion :>
             GtkSourceCompletionClass.PolyML.cPtr
              &&> GtkSourceCompletionProviderClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val blockInteractive_ = call (load_sym libgtksourceview "gtk_source_completion_block_interactive") (GtkSourceCompletionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val createContext_ = call (load_sym libgtksourceview "gtk_source_completion_create_context") (GtkSourceCompletionClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cOptPtr --> GtkSourceCompletionContextClass.PolyML.cPtr)
@@ -30,7 +30,7 @@ structure GtkSourceCompletion :>
             GtkSourceCompletionClass.PolyML.cPtr
              &&> GtkSourceCompletionProviderClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val unblockInteractive_ = call (load_sym libgtksourceview "gtk_source_completion_unblock_interactive") (GtkSourceCompletionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
@@ -40,13 +40,13 @@ structure GtkSourceCompletion :>
     type 'a completion_context_class = 'a GtkSourceCompletionContextClass.class
     type 'a view_class = 'a GtkSourceViewClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun addProvider self provider =
       (
-        GtkSourceCompletionClass.C.withPtr
-         &&&> GtkSourceCompletionProviderClass.C.withPtr
+        GtkSourceCompletionClass.FFI.withPtr
+         &&&> GtkSourceCompletionProviderClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         addProvider_
         (
@@ -54,18 +54,18 @@ structure GtkSourceCompletion :>
            & provider
            & []
         )
-    fun blockInteractive self = (GtkSourceCompletionClass.C.withPtr ---> I) blockInteractive_ self
-    fun createContext self position = (GtkSourceCompletionClass.C.withPtr &&&> GtkTextIterRecord.C.withOptPtr ---> GtkSourceCompletionContextClass.C.fromPtr true) createContext_ (self & position)
-    fun getInfoWindow self = (GtkSourceCompletionClass.C.withPtr ---> GtkSourceCompletionInfoClass.C.fromPtr false) getInfoWindow_ self
-    fun getView self = (GtkSourceCompletionClass.C.withPtr ---> GtkSourceViewClass.C.fromPtr false) getView_ self
-    fun hide self = (GtkSourceCompletionClass.C.withPtr ---> I) hide_ self
-    fun moveWindow self iter = (GtkSourceCompletionClass.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> I) moveWindow_ (self & iter)
+    fun blockInteractive self = (GtkSourceCompletionClass.FFI.withPtr ---> I) blockInteractive_ self
+    fun createContext self position = (GtkSourceCompletionClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withOptPtr ---> GtkSourceCompletionContextClass.FFI.fromPtr true) createContext_ (self & position)
+    fun getInfoWindow self = (GtkSourceCompletionClass.FFI.withPtr ---> GtkSourceCompletionInfoClass.FFI.fromPtr false) getInfoWindow_ self
+    fun getView self = (GtkSourceCompletionClass.FFI.withPtr ---> GtkSourceViewClass.FFI.fromPtr false) getView_ self
+    fun hide self = (GtkSourceCompletionClass.FFI.withPtr ---> I) hide_ self
+    fun moveWindow self iter = (GtkSourceCompletionClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> I) moveWindow_ (self & iter)
     fun removeProvider self provider =
       (
-        GtkSourceCompletionClass.C.withPtr
-         &&&> GtkSourceCompletionProviderClass.C.withPtr
+        GtkSourceCompletionClass.FFI.withPtr
+         &&&> GtkSourceCompletionProviderClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         removeProvider_
         (
@@ -73,7 +73,7 @@ structure GtkSourceCompletion :>
            & provider
            & []
         )
-    fun unblockInteractive self = (GtkSourceCompletionClass.C.withPtr ---> I) unblockInteractive_ self
+    fun unblockInteractive self = (GtkSourceCompletionClass.FFI.withPtr ---> I) unblockInteractive_ self
     local
       open ClosureMarshal Signal
     in

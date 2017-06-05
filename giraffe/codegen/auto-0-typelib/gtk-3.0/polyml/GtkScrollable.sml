@@ -21,15 +21,15 @@ structure GtkScrollable :>
     type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type scrollable_policy_t = GtkScrollablePolicy.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getHadjustment self = (GtkScrollableClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getHadjustment_ self
-    fun getHscrollPolicy self = (GtkScrollableClass.C.withPtr ---> GtkScrollablePolicy.C.fromVal) getHscrollPolicy_ self
-    fun getVadjustment self = (GtkScrollableClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getVadjustment_ self
-    fun getVscrollPolicy self = (GtkScrollableClass.C.withPtr ---> GtkScrollablePolicy.C.fromVal) getVscrollPolicy_ self
-    fun setHadjustment self hadjustment = (GtkScrollableClass.C.withPtr &&&> GtkAdjustmentClass.C.withOptPtr ---> I) setHadjustment_ (self & hadjustment)
-    fun setHscrollPolicy self policy = (GtkScrollableClass.C.withPtr &&&> GtkScrollablePolicy.C.withVal ---> I) setHscrollPolicy_ (self & policy)
-    fun setVadjustment self vadjustment = (GtkScrollableClass.C.withPtr &&&> GtkAdjustmentClass.C.withOptPtr ---> I) setVadjustment_ (self & vadjustment)
-    fun setVscrollPolicy self policy = (GtkScrollableClass.C.withPtr &&&> GtkScrollablePolicy.C.withVal ---> I) setVscrollPolicy_ (self & policy)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getHadjustment self = (GtkScrollableClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
+    fun getHscrollPolicy self = (GtkScrollableClass.FFI.withPtr ---> GtkScrollablePolicy.FFI.fromVal) getHscrollPolicy_ self
+    fun getVadjustment self = (GtkScrollableClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
+    fun getVscrollPolicy self = (GtkScrollableClass.FFI.withPtr ---> GtkScrollablePolicy.FFI.fromVal) getVscrollPolicy_ self
+    fun setHadjustment self hadjustment = (GtkScrollableClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setHadjustment_ (self & hadjustment)
+    fun setHscrollPolicy self policy = (GtkScrollableClass.FFI.withPtr &&&> GtkScrollablePolicy.FFI.withVal ---> I) setHscrollPolicy_ (self & policy)
+    fun setVadjustment self vadjustment = (GtkScrollableClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setVadjustment_ (self & vadjustment)
+    fun setVscrollPolicy self policy = (GtkScrollableClass.FFI.withPtr &&&> GtkScrollablePolicy.FFI.withVal ---> I) setVscrollPolicy_ (self & policy)
     local
       open Property
     in

@@ -4,18 +4,18 @@ structure GtkSourceCompletionContext :>
     where type completion_activation_t = GtkSourceCompletionActivation.t
     where type 'a completion_class = 'a GtkSourceCompletionClass.class =
   struct
-    val getType_ = _import "gtk_source_completion_context_get_type" : unit -> GObjectType.C.val_;
-    val getActivation_ = _import "gtk_source_completion_context_get_activation" : GtkSourceCompletionContextClass.C.notnull GtkSourceCompletionContextClass.C.p -> GtkSourceCompletionActivation.C.val_;
-    val getIter_ = fn x1 & x2 => (_import "gtk_source_completion_context_get_iter" : GtkSourceCompletionContextClass.C.notnull GtkSourceCompletionContextClass.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> unit;) (x1, x2)
+    val getType_ = _import "gtk_source_completion_context_get_type" : unit -> GObjectType.FFI.val_;
+    val getActivation_ = _import "gtk_source_completion_context_get_activation" : GtkSourceCompletionContextClass.FFI.notnull GtkSourceCompletionContextClass.FFI.p -> GtkSourceCompletionActivation.FFI.val_;
+    val getIter_ = fn x1 & x2 => (_import "gtk_source_completion_context_get_iter" : GtkSourceCompletionContextClass.FFI.notnull GtkSourceCompletionContextClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkSourceCompletionContextClass.class
     type completion_activation_t = GtkSourceCompletionActivation.t
     type 'a completion_class = 'a GtkSourceCompletionClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getActivation self = (GtkSourceCompletionContextClass.C.withPtr ---> GtkSourceCompletionActivation.C.fromVal) getActivation_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getActivation self = (GtkSourceCompletionContextClass.FFI.withPtr ---> GtkSourceCompletionActivation.FFI.fromVal) getActivation_ self
     fun getIter self =
       let
-        val iter & () = (GtkSourceCompletionContextClass.C.withPtr &&&> GtkTextIterRecord.C.withNewPtr ---> GtkTextIterRecord.C.fromPtr true && I) getIter_ (self & ())
+        val iter & () = (GtkSourceCompletionContextClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withNewPtr ---> GtkTextIterRecord.FFI.fromPtr true && I) getIter_ (self & ())
       in
         iter
       end

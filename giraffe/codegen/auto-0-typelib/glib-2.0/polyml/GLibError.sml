@@ -10,19 +10,19 @@ structure GLibError :>
         call (load_sym libglib "g_error_matches")
           (
             GLibErrorRecord.PolyML.cPtr
-             &&> FFI.UInt32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
     end
     type t = GLibErrorRecord.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun matches self domain code =
       (
-        GLibErrorRecord.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GLibErrorRecord.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         matches_
         (

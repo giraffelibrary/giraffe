@@ -1,27 +1,26 @@
 structure GtkIconSourceRecord :> GTK_ICON_SOURCE_RECORD =
   struct
-    structure Pointer = CPointer
+    structure Pointer = CPointerInternal
     type notnull = Pointer.notnull
     type 'a p = 'a Pointer.p
 
-    val new_ = _import "gtk_icon_source_new" : unit -> notnull p;
-    val copy_ = _import "gtk_icon_source_copy" : notnull p -> notnull p;
+    val dup_ = _import "gtk_icon_source_copy" : notnull p -> notnull p;
     val free_ = _import "gtk_icon_source_free" : notnull p -> unit;
-    val getType_ = _import "gtk_icon_source_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "gtk_icon_source_get_type" : unit -> GObjectType.FFI.val_;
 
     structure Record =
-      BoxedNewRecord (
+      BoxedRecord(
+        structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
-        val new_ = new_
+        val dup_ = dup_
         val take_ = ignore
-        val copy_ = copy_
         val free_ = free_
       )
     open Record
 
     structure Type =
-      BoxedType (
+      BoxedType(
         structure Record = Record
         type t = t
         val getType_ = getType_

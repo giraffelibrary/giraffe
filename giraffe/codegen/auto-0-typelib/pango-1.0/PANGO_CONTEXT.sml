@@ -2,6 +2,7 @@ signature PANGO_CONTEXT =
   sig
     type 'a class
     type font_metrics_t
+    type 'a font_family_class
     type 'a font_class
     type 'a fontset_class
     type direction_t
@@ -27,6 +28,7 @@ signature PANGO_CONTEXT =
        -> font_description_t option
        -> language_t option
        -> font_metrics_t
+    val listFamilies : 'a class -> base font_family_class vector
     val loadFont :
       'a class
        -> font_description_t

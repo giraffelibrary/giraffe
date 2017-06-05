@@ -10,6 +10,6 @@ structure GioAsyncResult :>
     end
     type 'a class = 'a GioAsyncResultClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getSourceObject self = (GioAsyncResultClass.C.withPtr ---> GObjectObjectClass.C.fromPtr true) getSourceObject_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getSourceObject self = (GioAsyncResultClass.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr true) getSourceObject_ self
   end

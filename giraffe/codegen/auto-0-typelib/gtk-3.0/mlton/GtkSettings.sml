@@ -10,10 +10,10 @@ structure GtkSettings :>
     where type toolbar_style_t = GtkToolbarStyle.t
     where type policy_type_t = GtkPolicyType.t =
   struct
-    val getType_ = _import "gtk_settings_get_type" : unit -> GObjectType.C.val_;
-    val getDefault_ = _import "gtk_settings_get_default" : unit -> GtkSettingsClass.C.notnull GtkSettingsClass.C.p;
-    val getForScreen_ = _import "gtk_settings_get_for_screen" : GdkScreenClass.C.notnull GdkScreenClass.C.p -> GtkSettingsClass.C.notnull GtkSettingsClass.C.p;
-    val installProperty_ = _import "gtk_settings_install_property" : GObjectParamSpecClass.C.notnull GObjectParamSpecClass.C.p -> unit;
+    val getType_ = _import "gtk_settings_get_type" : unit -> GObjectType.FFI.val_;
+    val getDefault_ = _import "gtk_settings_get_default" : unit -> GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p;
+    val getForScreen_ = _import "gtk_settings_get_for_screen" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p;
+    val installProperty_ = _import "gtk_settings_install_property" : GObjectParamSpecClass.FFI.notnull GObjectParamSpecClass.FFI.p -> unit;
     val setDoubleProperty_ =
       fn
         x1
@@ -22,12 +22,12 @@ structure GtkSettings :>
          & (x5, x6) =>
           (
             _import "mlton_gtk_settings_set_double_property" :
-              GtkSettingsClass.C.notnull GtkSettingsClass.C.p
+              GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Double.C.val_
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GDouble.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -46,12 +46,12 @@ structure GtkSettings :>
          & (x5, x6) =>
           (
             _import "mlton_gtk_settings_set_long_property" :
-              GtkSettingsClass.C.notnull GtkSettingsClass.C.p
+              GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int64.C.val_
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt64.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -69,10 +69,10 @@ structure GtkSettings :>
          & x4 =>
           (
             _import "mlton_gtk_settings_set_property_value" :
-              GtkSettingsClass.C.notnull GtkSettingsClass.C.p
+              GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * GtkSettingsValueRecord.C.notnull GtkSettingsValueRecord.C.p
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GtkSettingsValueRecord.FFI.notnull GtkSettingsValueRecord.FFI.p
                -> unit;
           )
             (
@@ -89,13 +89,13 @@ structure GtkSettings :>
          & (x6, x7) =>
           (
             _import "mlton_gtk_settings_set_string_property" :
-              GtkSettingsClass.C.notnull GtkSettingsClass.C.p
+              GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -117,17 +117,17 @@ structure GtkSettings :>
     type toolbar_style_t = GtkToolbarStyle.t
     type policy_type_t = GtkPolicyType.t
     type t = base class
-    fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getDefault () = (I ---> GtkSettingsClass.C.fromPtr false) getDefault_ ()
-    fun getForScreen screen = (GdkScreenClass.C.withPtr ---> GtkSettingsClass.C.fromPtr false) getForScreen_ screen
-    fun installProperty pspec = (GObjectParamSpecClass.C.withPtr ---> I) installProperty_ pspec
+    fun asStyleProvider self = (GObjectObjectClass.FFI.withPtr ---> GtkStyleProviderClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getDefault () = (I ---> GtkSettingsClass.FFI.fromPtr false) getDefault_ ()
+    fun getForScreen screen = (GdkScreenClass.FFI.withPtr ---> GtkSettingsClass.FFI.fromPtr false) getForScreen_ screen
+    fun installProperty pspec = (GObjectParamSpecClass.FFI.withPtr ---> I) installProperty_ pspec
     fun setDoubleProperty self name vDouble origin =
       (
-        GtkSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> Utf8.C.withPtr
+        GtkSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         setDoubleProperty_
@@ -139,10 +139,10 @@ structure GtkSettings :>
         )
     fun setLongProperty self name vLong origin =
       (
-        GtkSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int64.C.withVal
-         &&&> Utf8.C.withPtr
+        GtkSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt64.FFI.withVal
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         setLongProperty_
@@ -154,9 +154,9 @@ structure GtkSettings :>
         )
     fun setPropertyValue self name svalue =
       (
-        GtkSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GtkSettingsValueRecord.C.withPtr
+        GtkSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GtkSettingsValueRecord.FFI.withPtr
          ---> I
       )
         setPropertyValue_
@@ -167,10 +167,10 @@ structure GtkSettings :>
         )
     fun setStringProperty self name vString origin =
       (
-        GtkSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
+        GtkSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         setStringProperty_

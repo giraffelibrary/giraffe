@@ -19,14 +19,14 @@ structure GtkCellView :>
       val newWithPixbuf_ = call (load_sym libgtk "gtk_cell_view_new_with_pixbuf") (GdkPixbufPixbufClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithText_ = call (load_sym libgtk "gtk_cell_view_new_with_text") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val getDisplayedRow_ = call (load_sym libgtk "gtk_cell_view_get_displayed_row") (GtkCellViewClass.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
-      val getDrawSensitive_ = call (load_sym libgtk "gtk_cell_view_get_draw_sensitive") (GtkCellViewClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getFitModel_ = call (load_sym libgtk "gtk_cell_view_get_fit_model") (GtkCellViewClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getDrawSensitive_ = call (load_sym libgtk "gtk_cell_view_get_draw_sensitive") (GtkCellViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getFitModel_ = call (load_sym libgtk "gtk_cell_view_get_fit_model") (GtkCellViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getModel_ = call (load_sym libgtk "gtk_cell_view_get_model") (GtkCellViewClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
       val setBackgroundColor_ = call (load_sym libgtk "gtk_cell_view_set_background_color") (GtkCellViewClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val setBackgroundRgba_ = call (load_sym libgtk "gtk_cell_view_set_background_rgba") (GtkCellViewClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val setDisplayedRow_ = call (load_sym libgtk "gtk_cell_view_set_displayed_row") (GtkCellViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setDrawSensitive_ = call (load_sym libgtk "gtk_cell_view_set_draw_sensitive") (GtkCellViewClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setFitModel_ = call (load_sym libgtk "gtk_cell_view_set_fit_model") (GtkCellViewClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDrawSensitive_ = call (load_sym libgtk "gtk_cell_view_set_draw_sensitive") (GtkCellViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setFitModel_ = call (load_sym libgtk "gtk_cell_view_set_fit_model") (GtkCellViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setModel_ = call (load_sym libgtk "gtk_cell_view_set_model") (GtkCellViewClass.PolyML.cPtr &&> GtkTreeModelClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkCellViewClass.class
@@ -38,26 +38,26 @@ structure GtkCellView :>
     type 'a cell_area_context_class = 'a GtkCellAreaContextClass.class
     type 'a tree_model_class = 'a GtkTreeModelClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkCellViewClass.C.fromPtr false) new_ ()
-    fun newWithContext area context = (GtkCellAreaClass.C.withPtr &&&> GtkCellAreaContextClass.C.withPtr ---> GtkCellViewClass.C.fromPtr false) newWithContext_ (area & context)
-    fun newWithMarkup markup = (Utf8.C.withPtr ---> GtkCellViewClass.C.fromPtr false) newWithMarkup_ markup
-    fun newWithPixbuf pixbuf = (GdkPixbufPixbufClass.C.withPtr ---> GtkCellViewClass.C.fromPtr false) newWithPixbuf_ pixbuf
-    fun newWithText text = (Utf8.C.withPtr ---> GtkCellViewClass.C.fromPtr false) newWithText_ text
-    fun getDisplayedRow self = (GtkCellViewClass.C.withPtr ---> GtkTreePathRecord.C.fromPtr true) getDisplayedRow_ self
-    fun getDrawSensitive self = (GtkCellViewClass.C.withPtr ---> FFI.Bool.C.fromVal) getDrawSensitive_ self
-    fun getFitModel self = (GtkCellViewClass.C.withPtr ---> FFI.Bool.C.fromVal) getFitModel_ self
-    fun getModel self = (GtkCellViewClass.C.withPtr ---> GtkTreeModelClass.C.fromPtr false) getModel_ self
-    fun setBackgroundColor self color = (GtkCellViewClass.C.withPtr &&&> GdkColorRecord.C.withPtr ---> I) setBackgroundColor_ (self & color)
-    fun setBackgroundRgba self rgba = (GtkCellViewClass.C.withPtr &&&> GdkRgbaRecord.C.withPtr ---> I) setBackgroundRgba_ (self & rgba)
-    fun setDisplayedRow self path = (GtkCellViewClass.C.withPtr &&&> GtkTreePathRecord.C.withOptPtr ---> I) setDisplayedRow_ (self & path)
-    fun setDrawSensitive self drawSensitive = (GtkCellViewClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setDrawSensitive_ (self & drawSensitive)
-    fun setFitModel self fitModel = (GtkCellViewClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setFitModel_ (self & fitModel)
-    fun setModel self model = (GtkCellViewClass.C.withPtr &&&> GtkTreeModelClass.C.withOptPtr ---> I) setModel_ (self & model)
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asCellLayout self = (GObjectObjectClass.FFI.withPtr ---> GtkCellLayoutClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkCellViewClass.FFI.fromPtr false) new_ ()
+    fun newWithContext area context = (GtkCellAreaClass.FFI.withPtr &&&> GtkCellAreaContextClass.FFI.withPtr ---> GtkCellViewClass.FFI.fromPtr false) newWithContext_ (area & context)
+    fun newWithMarkup markup = (Utf8.FFI.withPtr ---> GtkCellViewClass.FFI.fromPtr false) newWithMarkup_ markup
+    fun newWithPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withPtr ---> GtkCellViewClass.FFI.fromPtr false) newWithPixbuf_ pixbuf
+    fun newWithText text = (Utf8.FFI.withPtr ---> GtkCellViewClass.FFI.fromPtr false) newWithText_ text
+    fun getDisplayedRow self = (GtkCellViewClass.FFI.withPtr ---> GtkTreePathRecord.FFI.fromPtr true) getDisplayedRow_ self
+    fun getDrawSensitive self = (GtkCellViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getDrawSensitive_ self
+    fun getFitModel self = (GtkCellViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getFitModel_ self
+    fun getModel self = (GtkCellViewClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
+    fun setBackgroundColor self color = (GtkCellViewClass.FFI.withPtr &&&> GdkColorRecord.FFI.withPtr ---> I) setBackgroundColor_ (self & color)
+    fun setBackgroundRgba self rgba = (GtkCellViewClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setBackgroundRgba_ (self & rgba)
+    fun setDisplayedRow self path = (GtkCellViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withOptPtr ---> I) setDisplayedRow_ (self & path)
+    fun setDrawSensitive self drawSensitive = (GtkCellViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDrawSensitive_ (self & drawSensitive)
+    fun setFitModel self fitModel = (GtkCellViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setFitModel_ (self & fitModel)
+    fun setModel self model = (GtkCellViewClass.FFI.withPtr &&&> GtkTreeModelClass.FFI.withOptPtr ---> I) setModel_ (self & model)
     local
       open Property
     in

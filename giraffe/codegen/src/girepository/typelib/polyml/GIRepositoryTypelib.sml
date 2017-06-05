@@ -15,7 +15,7 @@ structure GIRepositoryTypelib :>
 
     val getNamespace =
       fn typelib =>
-        (GIRepositoryTypelibType.C.withPtr ---> Utf8.C.fromPtr false)
+        (GIRepositoryTypelibType.FFI.withPtr ---> Utf8.FFI.fromPtr 0)
           getNamespace_
           typelib
   end

@@ -1,25 +1,26 @@
 structure PangoLayoutLineRecord :> PANGO_LAYOUT_LINE_RECORD =
   struct
-    structure Pointer = CPointer
+    structure Pointer = CPointerInternal
     type notnull = Pointer.notnull
     type 'a p = 'a Pointer.p
 
-    val copy_ = _import "pango_layout_line_ref" : notnull p -> notnull p;
+    val dup_ = _import "pango_layout_line_ref" : notnull p -> notnull p;
     val free_ = _import "pango_layout_line_unref" : notnull p -> unit;
-    val getType_ = _import "pango_layout_line_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "pango_layout_line_get_type" : unit -> GObjectType.FFI.val_;
 
     structure Record =
-      BoxedRecord (
+      BoxedRecord(
+        structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
+        val dup_ = dup_
         val take_ = ignore
-        val copy_ = copy_
         val free_ = free_
       )
     open Record
 
     structure Type =
-      BoxedType (
+      BoxedType(
         structure Record = Record
         type t = t
         val getType_ = getType_

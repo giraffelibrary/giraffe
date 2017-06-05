@@ -1,14 +1,6 @@
-structure GtkMovementStep :>
-  sig
-    include GTK_MOVEMENT_STEP
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkMovementStep :> GTK_MOVEMENT_STEP =
   struct
-    datatype t =
+    datatype enum =
       LOGICAL_POSITIONS
     | VISUAL_POSITIONS
     | WORDS
@@ -19,25 +11,24 @@ structure GtkMovementStep :>
     | PAGES
     | BUFFER_ENDS
     | HORIZONTAL_PAGES
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = LOGICAL_POSITIONS
+        val toInt =
           fn
-            LOGICAL_POSITIONS => f 0
-          | VISUAL_POSITIONS => f 1
-          | WORDS => f 2
-          | DISPLAY_LINES => f 3
-          | DISPLAY_LINE_ENDS => f 4
-          | PARAGRAPHS => f 5
-          | PARAGRAPH_ENDS => f 6
-          | PAGES => f 7
-          | BUFFER_ENDS => f 8
-          | HORIZONTAL_PAGES => f 9
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            LOGICAL_POSITIONS => 0
+          | VISUAL_POSITIONS => 1
+          | WORDS => 2
+          | DISPLAY_LINES => 3
+          | DISPLAY_LINE_ENDS => 4
+          | PARAGRAPHS => 5
+          | PARAGRAPH_ENDS => 6
+          | PAGES => 7
+          | BUFFER_ENDS => 8
+          | HORIZONTAL_PAGES => 9
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => LOGICAL_POSITIONS
           | 1 => VISUAL_POSITIONS
@@ -50,12 +41,8 @@ structure GtkMovementStep :>
           | 8 => BUFFER_ENDS
           | 9 => HORIZONTAL_PAGES
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -66,10 +53,9 @@ structure GtkMovementStep :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = LOGICAL_POSITIONS
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

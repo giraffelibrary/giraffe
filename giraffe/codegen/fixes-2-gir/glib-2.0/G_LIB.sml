@@ -25,6 +25,7 @@ signature G_LIB =
     structure SourceRecord : G_LIB_SOURCE_RECORD
     structure SpawnFlags : G_LIB_SPAWN_FLAGS
     structure TimeValRecord : G_LIB_TIME_VAL_RECORD
+    structure UserDirectory : G_LIB_USER_DIRECTORY
     structure ChildWatchFunc :
       G_LIB_CHILD_WATCH_FUNC
         where type pid_t = Pid.t
@@ -121,6 +122,14 @@ signature G_LIB =
     val PRIORITY_LOW : LargeInt.int
     val URI_RESERVED_CHARS_GENERIC_DELIMITERS : string
     val URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS : string
+    val base64Decode : string -> Word8Vector.vector
+    val base64Encode : Word8Vector.vector -> string
+    val buildFilenamev : string list -> string
+    val buildPathv :
+      string
+       -> string list
+       -> string
+    val chdir : string -> LargeInt.int
     val checkVersion :
       LargeInt.int
        -> LargeInt.int
@@ -143,6 +152,28 @@ signature G_LIB =
       string
        -> string option
        -> string
+    val getApplicationName : unit -> string
+    val getCurrentDir : unit -> string
+    val getCurrentTime : TimeValRecord.t -> unit
+    val getEnviron : unit -> string list
+    val getHomeDir : unit -> string
+    val getHostName : unit -> string
+    val getLanguageNames : unit -> string list
+    val getLocaleVariants : string -> string list
+    val getMonotonicTime : unit -> LargeInt.int
+    val getPrgname : unit -> string
+    val getRealName : unit -> string
+    val getRealTime : unit -> LargeInt.int
+    val getSystemConfigDirs : unit -> string list
+    val getSystemDataDirs : unit -> string list
+    val getTmpDir : unit -> string
+    val getUserCacheDir : unit -> string
+    val getUserConfigDir : unit -> string
+    val getUserDataDir : unit -> string
+    val getUserName : unit -> string
+    val getUserRuntimeDir : unit -> string
+    val getUserSpecialDir : UserDirectory.t -> string
+    val getenv : string -> string
     val idleAdd : LargeInt.int -> SourceFunc.t -> LargeInt.int
     val ioAddWatch :
       IOChannelRecord.t

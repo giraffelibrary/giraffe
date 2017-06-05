@@ -26,12 +26,12 @@ structure GObjectBinding :>
     type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
     type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getFlags self = (GObjectBindingClass.C.withPtr ---> GObjectBindingFlags.C.fromVal) getFlags_ self
-    fun getSource self = (GObjectBindingClass.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getSource_ self
-    fun getSourceProperty self = (GObjectBindingClass.C.withPtr ---> Utf8.C.fromPtr false) getSourceProperty_ self
-    fun getTarget self = (GObjectBindingClass.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getTarget_ self
-    fun getTargetProperty self = (GObjectBindingClass.C.withPtr ---> Utf8.C.fromPtr false) getTargetProperty_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getFlags self = (GObjectBindingClass.FFI.withPtr ---> GObjectBindingFlags.FFI.fromVal) getFlags_ self
+    fun getSource self = (GObjectBindingClass.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getSource_ self
+    fun getSourceProperty self = (GObjectBindingClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSourceProperty_ self
+    fun getTarget self = (GObjectBindingClass.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getTarget_ self
+    fun getTargetProperty self = (GObjectBindingClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTargetProperty_ self
     local
       open Property
     in

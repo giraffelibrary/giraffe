@@ -13,6 +13,13 @@ signature GTK_SCALE_BUTTON =
     val asBuildable : 'a class -> base buildable_class
     val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
+    val new :
+      LargeInt.int
+       -> real
+       -> real
+       -> real
+       -> string list option
+       -> base class
     val getAdjustment : 'a class -> base adjustment_class
     val getMinusButton : 'a class -> base widget_class
     val getPlusButton : 'a class -> base widget_class
@@ -21,6 +28,10 @@ signature GTK_SCALE_BUTTON =
     val setAdjustment :
       'a class
        -> 'b adjustment_class
+       -> unit
+    val setIcons :
+      'a class
+       -> string list
        -> unit
     val setValue :
       'a class

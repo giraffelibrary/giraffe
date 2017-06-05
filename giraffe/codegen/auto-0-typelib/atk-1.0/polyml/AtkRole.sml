@@ -1,14 +1,6 @@
-structure AtkRole :>
-  sig
-    include ATK_ROLE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure AtkRole :> ATK_ROLE =
   struct
-    datatype t =
+    datatype enum =
       INVALID
     | ACCEL_LABEL
     | ALERT
@@ -111,117 +103,116 @@ structure AtkRole :>
     | NOTIFICATION
     | INFO_BAR
     | LAST_DEFINED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = INVALID
+        val toInt =
           fn
-            INVALID => f 0
-          | ACCEL_LABEL => f 1
-          | ALERT => f 2
-          | ANIMATION => f 3
-          | ARROW => f 4
-          | CALENDAR => f 5
-          | CANVAS => f 6
-          | CHECK_BOX => f 7
-          | CHECK_MENU_ITEM => f 8
-          | COLOR_CHOOSER => f 9
-          | COLUMN_HEADER => f 10
-          | COMBO_BOX => f 11
-          | DATE_EDITOR => f 12
-          | DESKTOP_ICON => f 13
-          | DESKTOP_FRAME => f 14
-          | DIAL => f 15
-          | DIALOG => f 16
-          | DIRECTORY_PANE => f 17
-          | DRAWING_AREA => f 18
-          | FILE_CHOOSER => f 19
-          | FILLER => f 20
-          | FONT_CHOOSER => f 21
-          | FRAME => f 22
-          | GLASS_PANE => f 23
-          | HTML_CONTAINER => f 24
-          | ICON => f 25
-          | IMAGE => f 26
-          | INTERNAL_FRAME => f 27
-          | LABEL => f 28
-          | LAYERED_PANE => f 29
-          | LIST => f 30
-          | LIST_ITEM => f 31
-          | MENU => f 32
-          | MENU_BAR => f 33
-          | MENU_ITEM => f 34
-          | OPTION_PANE => f 35
-          | PAGE_TAB => f 36
-          | PAGE_TAB_LIST => f 37
-          | PANEL => f 38
-          | PASSWORD_TEXT => f 39
-          | POPUP_MENU => f 40
-          | PROGRESS_BAR => f 41
-          | PUSH_BUTTON => f 42
-          | RADIO_BUTTON => f 43
-          | RADIO_MENU_ITEM => f 44
-          | ROOT_PANE => f 45
-          | ROW_HEADER => f 46
-          | SCROLL_BAR => f 47
-          | SCROLL_PANE => f 48
-          | SEPARATOR => f 49
-          | SLIDER => f 50
-          | SPLIT_PANE => f 51
-          | SPIN_BUTTON => f 52
-          | STATUSBAR => f 53
-          | TABLE => f 54
-          | TABLE_CELL => f 55
-          | TABLE_COLUMN_HEADER => f 56
-          | TABLE_ROW_HEADER => f 57
-          | TEAR_OFF_MENU_ITEM => f 58
-          | TERMINAL => f 59
-          | TEXT => f 60
-          | TOGGLE_BUTTON => f 61
-          | TOOL_BAR => f 62
-          | TOOL_TIP => f 63
-          | TREE => f 64
-          | TREE_TABLE => f 65
-          | UNKNOWN => f 66
-          | VIEWPORT => f 67
-          | WINDOW => f 68
-          | HEADER => f 69
-          | FOOTER => f 70
-          | PARAGRAPH => f 71
-          | RULER => f 72
-          | APPLICATION => f 73
-          | AUTOCOMPLETE => f 74
-          | EDITBAR => f 75
-          | EMBEDDED => f 76
-          | ENTRY => f 77
-          | CHART => f 78
-          | CAPTION => f 79
-          | DOCUMENT_FRAME => f 80
-          | HEADING => f 81
-          | PAGE => f 82
-          | SECTION => f 83
-          | REDUNDANT_OBJECT => f 84
-          | FORM => f 85
-          | LINK => f 86
-          | INPUT_METHOD_WINDOW => f 87
-          | TABLE_ROW => f 88
-          | TREE_ITEM => f 89
-          | DOCUMENT_SPREADSHEET => f 90
-          | DOCUMENT_PRESENTATION => f 91
-          | DOCUMENT_TEXT => f 92
-          | DOCUMENT_WEB => f 93
-          | DOCUMENT_EMAIL => f 94
-          | COMMENT => f 95
-          | LIST_BOX => f 96
-          | GROUPING => f 97
-          | IMAGE_MAP => f 98
-          | NOTIFICATION => f 99
-          | INFO_BAR => f 100
-          | LAST_DEFINED => f 101
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            INVALID => 0
+          | ACCEL_LABEL => 1
+          | ALERT => 2
+          | ANIMATION => 3
+          | ARROW => 4
+          | CALENDAR => 5
+          | CANVAS => 6
+          | CHECK_BOX => 7
+          | CHECK_MENU_ITEM => 8
+          | COLOR_CHOOSER => 9
+          | COLUMN_HEADER => 10
+          | COMBO_BOX => 11
+          | DATE_EDITOR => 12
+          | DESKTOP_ICON => 13
+          | DESKTOP_FRAME => 14
+          | DIAL => 15
+          | DIALOG => 16
+          | DIRECTORY_PANE => 17
+          | DRAWING_AREA => 18
+          | FILE_CHOOSER => 19
+          | FILLER => 20
+          | FONT_CHOOSER => 21
+          | FRAME => 22
+          | GLASS_PANE => 23
+          | HTML_CONTAINER => 24
+          | ICON => 25
+          | IMAGE => 26
+          | INTERNAL_FRAME => 27
+          | LABEL => 28
+          | LAYERED_PANE => 29
+          | LIST => 30
+          | LIST_ITEM => 31
+          | MENU => 32
+          | MENU_BAR => 33
+          | MENU_ITEM => 34
+          | OPTION_PANE => 35
+          | PAGE_TAB => 36
+          | PAGE_TAB_LIST => 37
+          | PANEL => 38
+          | PASSWORD_TEXT => 39
+          | POPUP_MENU => 40
+          | PROGRESS_BAR => 41
+          | PUSH_BUTTON => 42
+          | RADIO_BUTTON => 43
+          | RADIO_MENU_ITEM => 44
+          | ROOT_PANE => 45
+          | ROW_HEADER => 46
+          | SCROLL_BAR => 47
+          | SCROLL_PANE => 48
+          | SEPARATOR => 49
+          | SLIDER => 50
+          | SPLIT_PANE => 51
+          | SPIN_BUTTON => 52
+          | STATUSBAR => 53
+          | TABLE => 54
+          | TABLE_CELL => 55
+          | TABLE_COLUMN_HEADER => 56
+          | TABLE_ROW_HEADER => 57
+          | TEAR_OFF_MENU_ITEM => 58
+          | TERMINAL => 59
+          | TEXT => 60
+          | TOGGLE_BUTTON => 61
+          | TOOL_BAR => 62
+          | TOOL_TIP => 63
+          | TREE => 64
+          | TREE_TABLE => 65
+          | UNKNOWN => 66
+          | VIEWPORT => 67
+          | WINDOW => 68
+          | HEADER => 69
+          | FOOTER => 70
+          | PARAGRAPH => 71
+          | RULER => 72
+          | APPLICATION => 73
+          | AUTOCOMPLETE => 74
+          | EDITBAR => 75
+          | EMBEDDED => 76
+          | ENTRY => 77
+          | CHART => 78
+          | CAPTION => 79
+          | DOCUMENT_FRAME => 80
+          | HEADING => 81
+          | PAGE => 82
+          | SECTION => 83
+          | REDUNDANT_OBJECT => 84
+          | FORM => 85
+          | LINK => 86
+          | INPUT_METHOD_WINDOW => 87
+          | TABLE_ROW => 88
+          | TREE_ITEM => 89
+          | DOCUMENT_SPREADSHEET => 90
+          | DOCUMENT_PRESENTATION => 91
+          | DOCUMENT_TEXT => 92
+          | DOCUMENT_WEB => 93
+          | DOCUMENT_EMAIL => 94
+          | COMMENT => 95
+          | LIST_BOX => 96
+          | GROUPING => 97
+          | IMAGE_MAP => 98
+          | NOTIFICATION => 99
+          | INFO_BAR => 100
+          | LAST_DEFINED => 101
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => INVALID
           | 1 => ACCEL_LABEL
@@ -326,12 +317,8 @@ structure AtkRole :>
           | 100 => INFO_BAR
           | 101 => LAST_DEFINED
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -342,11 +329,10 @@ structure AtkRole :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = INVALID
     local
       open PolyMLFFI
     in
@@ -355,9 +341,9 @@ structure AtkRole :>
       val getName_ = call (load_sym libatk "atk_role_get_name") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val register_ = call (load_sym libatk "atk_role_register") (Utf8.PolyML.cInPtr --> PolyML.cVal)
     end
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (Utf8.C.withPtr ---> C.fromVal) forName_ name
-    fun getLocalizedName role = (C.withVal ---> Utf8.C.fromPtr false) getLocalizedName_ role
-    fun getName role = (C.withVal ---> Utf8.C.fromPtr false) getName_ role
-    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun forName name = (Utf8.FFI.withPtr ---> FFI.fromVal) forName_ name
+    fun getLocalizedName role = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getLocalizedName_ role
+    fun getName role = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ role
+    fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
   end

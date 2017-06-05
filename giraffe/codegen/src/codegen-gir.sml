@@ -293,10 +293,28 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         makeSig "G_OBJECT_VALUE" []
       ],
       [
+        (* CVector and CVectorN are manually generated modules that extend
+         * existing functors (of the same name) with GValue accessors for
+         * arrays.  Therefore their spec and strdec lists are empty but
+         * dependencies are included to ensure that they are loaded first. *)
+        (
+          "CVector",
+          (
+            (false, ([], [])),
+            ["GObjectValueRecord", "GObjectValue"]
+          )
+        ),
+        (
+          "CVectorN",
+          (
+            (false, ([], [])),
+            ["GObjectValueRecord", "GObjectValue"]
+          )
+        ),
         (* ClosureMarshal, Signal and Property are special supporting
          * structures outside the Gtk structure.  Therefore their spec and
          * strdec lists are empty but dependencies are included to ensure
-         * that they are loaded before the modules that require them. *)
+         * that they are loaded first. *)
         (
           "ClosureMarshal",
           (

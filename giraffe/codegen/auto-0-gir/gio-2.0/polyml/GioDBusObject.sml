@@ -13,9 +13,9 @@ structure GioDBusObject :>
     type 'a class = 'a GioDBusObjectClass.class
     type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getInterface self interfaceName = (GioDBusObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> GioDBusInterfaceClass.C.fromPtr true) getInterface_ (self & interfaceName)
-    fun getObjectPath self = (GioDBusObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getObjectPath_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getInterface self interfaceName = (GioDBusObjectClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioDBusInterfaceClass.FFI.fromPtr true) getInterface_ (self & interfaceName)
+    fun getObjectPath self = (GioDBusObjectClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
     local
       open ClosureMarshal Signal
     in

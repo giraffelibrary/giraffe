@@ -8,5 +8,5 @@ structure CairoContext :>
       val getType_ = call (load_sym libcairogobject "cairo_gobject_context_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
     end
     type t = CairoContextRecord.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

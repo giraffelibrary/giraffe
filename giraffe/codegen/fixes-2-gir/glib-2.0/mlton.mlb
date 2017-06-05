@@ -11,6 +11,7 @@ in
   G_LIB_I_O_FUNC.sml
   G_LIB_DATE_DAY.sml
   G_LIB_DATE_YEAR.sml
+  G_LIB_PID_TYPE.sml
   G_LIB_PID.sml
   G_LIB_QUARK.sml
   G_LIB_TIME.sml
@@ -45,11 +46,13 @@ in
   G_LIB_SPAWN_FLAGS.sml
   G_LIB_TIME_VAL_RECORD.sml
   G_LIB_TIME_VAL.sml
+  G_LIB_USER_DIRECTORY.sml
   G_LIB.sml
   mlton/GLibSourceFunc.sml
   mlton/GLibSpawnChildSetupFunc.sml
   mlton/GLibDateDay.sml
   mlton/GLibDateYear.sml
+  mlton/GLibPidType.sml
   mlton/GLibPid.sml
   mlton/GLibQuark.sml
   mlton/GLibTime.sml
@@ -71,6 +74,7 @@ in
   mlton/GLibSourceRecord.sml
   mlton/GLibSpawnFlags.sml
   mlton/GLibTimeValRecord.sml
+  mlton/GLibUserDirectory.sml
   mlton/GLibChildWatchFunc.sml
   mlton/GLibIOFunc.sml
   mlton/GLibErrorRecord.sml

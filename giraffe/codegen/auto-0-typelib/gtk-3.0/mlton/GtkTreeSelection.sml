@@ -7,9 +7,9 @@ structure GtkTreeSelection :>
     where type tree_path_t = GtkTreePathRecord.t
     where type selection_mode_t = GtkSelectionMode.t =
   struct
-    val getType_ = _import "gtk_tree_selection_get_type" : unit -> GObjectType.C.val_;
-    val countSelectedRows_ = _import "gtk_tree_selection_count_selected_rows" : GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p -> FFI.Int32.C.val_;
-    val getMode_ = _import "gtk_tree_selection_get_mode" : GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p -> GtkSelectionMode.C.val_;
+    val getType_ = _import "gtk_tree_selection_get_type" : unit -> GObjectType.FFI.val_;
+    val countSelectedRows_ = _import "gtk_tree_selection_count_selected_rows" : GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p -> GInt32.FFI.val_;
+    val getMode_ = _import "gtk_tree_selection_get_mode" : GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p -> GtkSelectionMode.FFI.val_;
     val getSelected_ =
       fn
         x1
@@ -17,22 +17,22 @@ structure GtkTreeSelection :>
          & x3 =>
           (
             _import "gtk_tree_selection_get_selected" :
-              GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p
-               * (unit, GtkTreeModelClass.C.notnull) GtkTreeModelClass.C.r
-               * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p
-               -> FFI.Bool.C.val_;
+              GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p
+               * (unit, GtkTreeModelClass.FFI.notnull) GtkTreeModelClass.FFI.r
+               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+               -> GBool.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val getTreeView_ = _import "gtk_tree_selection_get_tree_view" : GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p -> GtkTreeViewClass.C.notnull GtkTreeViewClass.C.p;
-    val iterIsSelected_ = fn x1 & x2 => (_import "gtk_tree_selection_iter_is_selected" : GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val pathIsSelected_ = fn x1 & x2 => (_import "gtk_tree_selection_path_is_selected" : GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val selectAll_ = _import "gtk_tree_selection_select_all" : GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p -> unit;
-    val selectIter_ = fn x1 & x2 => (_import "gtk_tree_selection_select_iter" : GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> unit;) (x1, x2)
-    val selectPath_ = fn x1 & x2 => (_import "gtk_tree_selection_select_path" : GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> unit;) (x1, x2)
+    val getTreeView_ = _import "gtk_tree_selection_get_tree_view" : GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p -> GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p;
+    val iterIsSelected_ = fn x1 & x2 => (_import "gtk_tree_selection_iter_is_selected" : GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val pathIsSelected_ = fn x1 & x2 => (_import "gtk_tree_selection_path_is_selected" : GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val selectAll_ = _import "gtk_tree_selection_select_all" : GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p -> unit;
+    val selectIter_ = fn x1 & x2 => (_import "gtk_tree_selection_select_iter" : GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
+    val selectPath_ = fn x1 & x2 => (_import "gtk_tree_selection_select_path" : GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> unit;) (x1, x2)
     val selectRange_ =
       fn
         x1
@@ -40,9 +40,9 @@ structure GtkTreeSelection :>
          & x3 =>
           (
             _import "gtk_tree_selection_select_range" :
-              GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p
-               * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p
-               * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p
+              GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p
+               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
+               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
                -> unit;
           )
             (
@@ -50,10 +50,10 @@ structure GtkTreeSelection :>
               x2,
               x3
             )
-    val setMode_ = fn x1 & x2 => (_import "gtk_tree_selection_set_mode" : GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p * GtkSelectionMode.C.val_ -> unit;) (x1, x2)
-    val unselectAll_ = _import "gtk_tree_selection_unselect_all" : GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p -> unit;
-    val unselectIter_ = fn x1 & x2 => (_import "gtk_tree_selection_unselect_iter" : GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p * GtkTreeIterRecord.C.notnull GtkTreeIterRecord.C.p -> unit;) (x1, x2)
-    val unselectPath_ = fn x1 & x2 => (_import "gtk_tree_selection_unselect_path" : GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p -> unit;) (x1, x2)
+    val setMode_ = fn x1 & x2 => (_import "gtk_tree_selection_set_mode" : GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p * GtkSelectionMode.FFI.val_ -> unit;) (x1, x2)
+    val unselectAll_ = _import "gtk_tree_selection_unselect_all" : GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p -> unit;
+    val unselectIter_ = fn x1 & x2 => (_import "gtk_tree_selection_unselect_iter" : GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
+    val unselectPath_ = fn x1 & x2 => (_import "gtk_tree_selection_unselect_path" : GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> unit;) (x1, x2)
     val unselectRange_ =
       fn
         x1
@@ -61,9 +61,9 @@ structure GtkTreeSelection :>
          & x3 =>
           (
             _import "gtk_tree_selection_unselect_range" :
-              GtkTreeSelectionClass.C.notnull GtkTreeSelectionClass.C.p
-               * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p
-               * GtkTreePathRecord.C.notnull GtkTreePathRecord.C.p
+              GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p
+               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
+               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
                -> unit;
           )
             (
@@ -78,21 +78,21 @@ structure GtkTreeSelection :>
     type tree_path_t = GtkTreePathRecord.t
     type selection_mode_t = GtkSelectionMode.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun countSelectedRows self = (GtkTreeSelectionClass.C.withPtr ---> FFI.Int32.C.fromVal) countSelectedRows_ self
-    fun getMode self = (GtkTreeSelectionClass.C.withPtr ---> GtkSelectionMode.C.fromVal) getMode_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun countSelectedRows self = (GtkTreeSelectionClass.FFI.withPtr ---> GInt32.FFI.fromVal) countSelectedRows_ self
+    fun getMode self = (GtkTreeSelectionClass.FFI.withPtr ---> GtkSelectionMode.FFI.fromVal) getMode_ self
     fun getSelected self =
       let
         val model
          & iter
          & retVal =
           (
-            GtkTreeSelectionClass.C.withPtr
-             &&&> GtkTreeModelClass.C.withRefOptPtr
-             &&&> GtkTreeIterRecord.C.withNewPtr
-             ---> GtkTreeModelClass.C.fromPtr false
-                   && GtkTreeIterRecord.C.fromPtr true
-                   && FFI.Bool.C.fromVal
+            GtkTreeSelectionClass.FFI.withPtr
+             &&&> GtkTreeModelClass.FFI.withRefOptPtr
+             &&&> GtkTreeIterRecord.FFI.withNewPtr
+             ---> GtkTreeModelClass.FFI.fromPtr false
+                   && GtkTreeIterRecord.FFI.fromPtr true
+                   && GBool.FFI.fromVal
           )
             getSelected_
             (
@@ -103,17 +103,17 @@ structure GtkTreeSelection :>
       in
         if retVal then SOME (model, iter) else NONE
       end
-    fun getTreeView self = (GtkTreeSelectionClass.C.withPtr ---> GtkTreeViewClass.C.fromPtr false) getTreeView_ self
-    fun iterIsSelected self iter = (GtkTreeSelectionClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) iterIsSelected_ (self & iter)
-    fun pathIsSelected self path = (GtkTreeSelectionClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> FFI.Bool.C.fromVal) pathIsSelected_ (self & path)
-    fun selectAll self = (GtkTreeSelectionClass.C.withPtr ---> I) selectAll_ self
-    fun selectIter self iter = (GtkTreeSelectionClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> I) selectIter_ (self & iter)
-    fun selectPath self path = (GtkTreeSelectionClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> I) selectPath_ (self & path)
+    fun getTreeView self = (GtkTreeSelectionClass.FFI.withPtr ---> GtkTreeViewClass.FFI.fromPtr false) getTreeView_ self
+    fun iterIsSelected self iter = (GtkTreeSelectionClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) iterIsSelected_ (self & iter)
+    fun pathIsSelected self path = (GtkTreeSelectionClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GBool.FFI.fromVal) pathIsSelected_ (self & path)
+    fun selectAll self = (GtkTreeSelectionClass.FFI.withPtr ---> I) selectAll_ self
+    fun selectIter self iter = (GtkTreeSelectionClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> I) selectIter_ (self & iter)
+    fun selectPath self path = (GtkTreeSelectionClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) selectPath_ (self & path)
     fun selectRange self startPath endPath =
       (
-        GtkTreeSelectionClass.C.withPtr
-         &&&> GtkTreePathRecord.C.withPtr
-         &&&> GtkTreePathRecord.C.withPtr
+        GtkTreeSelectionClass.FFI.withPtr
+         &&&> GtkTreePathRecord.FFI.withPtr
+         &&&> GtkTreePathRecord.FFI.withPtr
          ---> I
       )
         selectRange_
@@ -122,15 +122,15 @@ structure GtkTreeSelection :>
            & startPath
            & endPath
         )
-    fun setMode self type' = (GtkTreeSelectionClass.C.withPtr &&&> GtkSelectionMode.C.withVal ---> I) setMode_ (self & type')
-    fun unselectAll self = (GtkTreeSelectionClass.C.withPtr ---> I) unselectAll_ self
-    fun unselectIter self iter = (GtkTreeSelectionClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> I) unselectIter_ (self & iter)
-    fun unselectPath self path = (GtkTreeSelectionClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> I) unselectPath_ (self & path)
+    fun setMode self type' = (GtkTreeSelectionClass.FFI.withPtr &&&> GtkSelectionMode.FFI.withVal ---> I) setMode_ (self & type')
+    fun unselectAll self = (GtkTreeSelectionClass.FFI.withPtr ---> I) unselectAll_ self
+    fun unselectIter self iter = (GtkTreeSelectionClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> I) unselectIter_ (self & iter)
+    fun unselectPath self path = (GtkTreeSelectionClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) unselectPath_ (self & path)
     fun unselectRange self startPath endPath =
       (
-        GtkTreeSelectionClass.C.withPtr
-         &&&> GtkTreePathRecord.C.withPtr
-         &&&> GtkTreePathRecord.C.withPtr
+        GtkTreeSelectionClass.FFI.withPtr
+         &&&> GtkTreePathRecord.FFI.withPtr
+         &&&> GtkTreePathRecord.FFI.withPtr
          ---> I
       )
         unselectRange_

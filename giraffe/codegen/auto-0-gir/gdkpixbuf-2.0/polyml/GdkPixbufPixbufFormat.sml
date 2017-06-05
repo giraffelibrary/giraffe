@@ -2,27 +2,37 @@ structure GdkPixbufPixbufFormat :>
   GDK_PIXBUF_PIXBUF_FORMAT
     where type t = GdkPixbufPixbufFormatRecord.t =
   struct
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val copy_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_copy") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> GdkPixbufPixbufFormatRecord.PolyML.cPtr)
       val getDescription_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_get_description") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getExtensions_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_get_extensions") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val getLicense_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_get_license") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getMimeTypes_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_get_mime_types") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val getName_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_get_name") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val isDisabled_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_is_disabled") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val isScalable_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_is_scalable") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val isWritable_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_is_writable") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setDisabled_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_set_disabled") (GdkPixbufPixbufFormatRecord.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val isDisabled_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_is_disabled") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isScalable_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_is_scalable") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isWritable_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_is_writable") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setDisabled_ = call (load_sym libgdkpixbuf "gdk_pixbuf_format_set_disabled") (GdkPixbufPixbufFormatRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type t = GdkPixbufPixbufFormatRecord.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun copy self = (GdkPixbufPixbufFormatRecord.C.withPtr ---> GdkPixbufPixbufFormatRecord.C.fromPtr true) copy_ self
-    fun getDescription self = (GdkPixbufPixbufFormatRecord.C.withPtr ---> Utf8.C.fromPtr true) getDescription_ self
-    fun getLicense self = (GdkPixbufPixbufFormatRecord.C.withPtr ---> Utf8.C.fromPtr true) getLicense_ self
-    fun getName self = (GdkPixbufPixbufFormatRecord.C.withPtr ---> Utf8.C.fromPtr true) getName_ self
-    fun isDisabled self = (GdkPixbufPixbufFormatRecord.C.withPtr ---> FFI.Bool.C.fromVal) isDisabled_ self
-    fun isScalable self = (GdkPixbufPixbufFormatRecord.C.withPtr ---> FFI.Bool.C.fromVal) isScalable_ self
-    fun isWritable self = (GdkPixbufPixbufFormatRecord.C.withPtr ---> FFI.Bool.C.fromVal) isWritable_ self
-    fun setDisabled self disabled = (GdkPixbufPixbufFormatRecord.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setDisabled_ (self & disabled)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun copy self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> GdkPixbufPixbufFormatRecord.FFI.fromPtr true) copy_ self
+    fun getDescription self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getDescription_ self
+    fun getExtensions self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getExtensions_ self
+    fun getLicense self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getLicense_ self
+    fun getMimeTypes self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getMimeTypes_ self
+    fun getName self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getName_ self
+    fun isDisabled self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> GBool.FFI.fromVal) isDisabled_ self
+    fun isScalable self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> GBool.FFI.fromVal) isScalable_ self
+    fun isWritable self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> GBool.FFI.fromVal) isWritable_ self
+    fun setDisabled self disabled = (GdkPixbufPixbufFormatRecord.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDisabled_ (self & disabled)
   end

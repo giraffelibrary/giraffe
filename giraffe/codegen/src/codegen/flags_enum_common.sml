@@ -74,11 +74,11 @@ fun addFlagsEnumMethodStrDecsHighLevel repo enumIRef =
     (makeFunctionStrDecHighLevel repo (SOME (enumIRef, enumIRef)))
 
 (*
- *     structure PolyML :                          -.
- *       sig                                        |
- *         val cVal : C.val_ PolyMLFFI.conversion   | Poly/ML only
- *         val cRef : C.ref_ PolyMLFFI.conversion   |
- *       end                                       -'
+ *     structure PolyML :                            -.
+ *       sig                                          |
+ *         val cVal : FFI.val_ PolyMLFFI.conversion   | Poly/ML only
+ *         val cRef : FFI.ref_ PolyMLFFI.conversion   |
+ *       end                                         -'
  *)
 val structPolyMLSpec =
   mkPolyMLStructSpec [

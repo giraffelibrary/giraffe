@@ -166,7 +166,7 @@ in
           end
         else (strDecs'1, [])
 
-      val struct1 = mkStructBody strDecs'2
+      val struct1 = mkBodyStruct strDecs'2
 
       (* sig *)
       val sig1 = SigName interfaceClassSigId
@@ -381,14 +381,14 @@ fun addInterfaceMethodStrDecsHighLevel repo interfaceRootIRef interfaceIRef =
     (makeFunctionStrDecHighLevel repo (SOME (interfaceRootIRef, interfaceIRef)))
 
 fun addInterfaceSignalStrDecs repo interfaceIRef =
-  fn (interfaceInfo, (strDecs, iRefs, errs)) =>
+  fn (interfaceInfo, (strDecs, x, errs)) =>
     let
-      val (localStrDecs, iRefs', errs') =
+      val (localStrDecs, x', errs') =
         revFoldMapInfosWithErrs
           InterfaceInfo.getNSignals
           InterfaceInfo.getSignal
           (makeSignalStrDec repo interfaceIRef)
-          (interfaceInfo, ([], iRefs, errs))
+          (interfaceInfo, ([], x, errs))
     in
       case localStrDecs of
         _ :: _ =>
@@ -408,20 +408,20 @@ fun addInterfaceSignalStrDecs repo interfaceIRef =
                 mkStrDecs localStrDecs
               )
           in
-            (strDec :: strDecs, iRefs', errs')
+            (strDec :: strDecs, x', errs')
           end
-      | _      => (strDecs, iRefs', errs')
+      | _      => (strDecs, x', errs')
     end
 
 fun addInterfacePropertyStrDecs repo interfaceIRef =
-  fn (interfaceInfo, (strDecs, iRefs, errs)) =>
+  fn (interfaceInfo, (strDecs, x, errs)) =>
     let
-      val (localStrDecs, iRefs', errs') =
+      val (localStrDecs, x', errs') =
         revFoldMapInfosWithErrs
           InterfaceInfo.getNProperties
           InterfaceInfo.getProperty
           (makePropertyStrDec repo interfaceIRef)
-          (interfaceInfo, ([], iRefs, errs))
+          (interfaceInfo, ([], x, errs))
     in
       case localStrDecs of
         _ :: _ =>
@@ -440,9 +440,9 @@ fun addInterfacePropertyStrDecs repo interfaceIRef =
                 mkStrDecs localStrDecs
               )
           in
-            (strDec :: strDecs, iRefs', errs')
+            (strDec :: strDecs, x', errs')
           end
-      | _      => (strDecs, iRefs', errs')
+      | _      => (strDecs, x', errs')
     end
 
 fun makeInterfaceStr
@@ -483,9 +483,9 @@ fun makeInterfaceStr
     (* module *)
     val acc'0
       : strdec list
-         * interfaceref list
+         * (interfaceref list * struct1 ListDict.t)
          * infoerrorhier list =
-      ([], [], errs'0)
+      ([], ([], ListDict.empty), errs'0)
     val acc'1 =
       addInterfacePropertyStrDecs repo interfaceIRef (interfaceInfo, acc'0)
     val acc'2 =
@@ -499,7 +499,7 @@ fun makeInterfaceStr
     val acc'4 = addGetTypeFunctionStrDecHighLevel typeIRef acc'3
     val acc'5 = addInterfaceConstantStrDecs (interfaceInfo, acc'4)
     val acc'6 = acc'5
-    val (strDecs'6, iRefs'6, errs'6) = acc'6
+    val (strDecs'6, (iRefs'6, structDeps'6), errs'6) = acc'6
 
     val strIRefs =
       interfaceIRef :: iRefs'6
@@ -532,7 +532,7 @@ fun makeInterfaceStr
 
     fun mkModule isPolyML =
       let
-        val (strDecs, _) =
+        val (strDecs'10, _) =
           addInterfaceMethodStrDecsLowLevel
             isPolyML
             repo
@@ -549,7 +549,11 @@ fun makeInterfaceStr
             interfaceIRef
             (interfaceInfo, (strDecs'9, errs'6))
 
-        val struct1 = mkStructBody strDecs
+        val strDecs'11 =
+          revMapAppend mkStructStrDec
+            (ListDict.toList structDeps'6, strDecs'10)
+
+        val struct1 = mkBodyStruct strDecs'11
 
         (* sig *)
         val sig1 = SigName interfaceSigId

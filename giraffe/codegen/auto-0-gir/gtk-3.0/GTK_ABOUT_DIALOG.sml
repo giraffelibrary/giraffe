@@ -8,8 +8,11 @@ signature GTK_ABOUT_DIALOG =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
+    val getArtists : 'a class -> string list
+    val getAuthors : 'a class -> string list
     val getComments : 'a class -> string
     val getCopyright : 'a class -> string
+    val getDocumenters : 'a class -> string list
     val getLicense : 'a class -> string
     val getLicenseType : 'a class -> license_t
     val getLogo : 'a class -> base GdkPixbuf.PixbufClass.class
@@ -20,6 +23,14 @@ signature GTK_ABOUT_DIALOG =
     val getWebsite : 'a class -> string
     val getWebsiteLabel : 'a class -> string
     val getWrapLicense : 'a class -> bool
+    val setArtists :
+      'a class
+       -> string list
+       -> unit
+    val setAuthors :
+      'a class
+       -> string list
+       -> unit
     val setComments :
       'a class
        -> string option
@@ -27,6 +38,10 @@ signature GTK_ABOUT_DIALOG =
     val setCopyright :
       'a class
        -> string
+       -> unit
+    val setDocumenters :
+      'a class
+       -> string list
        -> unit
     val setLicense :
       'a class

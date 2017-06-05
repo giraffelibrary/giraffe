@@ -1,7 +1,4 @@
-structure GLibMarkupCollectType :>
-  sig
-    include G_LIB_MARKUP_COLLECT_TYPE
-  end =
+structure GLibMarkupCollectType :> G_LIB_MARKUP_COLLECT_TYPE =
   struct
     val INVALID = 0w0
     val STRING = 0w1
@@ -18,18 +15,9 @@ structure GLibMarkupCollectType :>
         TRISTATE,
         OPTIONAL
       ]
-    structure BitFlags =
-      Word32BitFlags (
+    structure Flags =
+      Flags(
         val allFlags = allFlags
       )
-    open BitFlags
-    type t = flags
-    structure C =
-      struct
-        type val_ = FFI.Flags.C.val_
-        type ref_ = FFI.Flags.C.ref_
-        fun withVal f = f
-        fun withRefVal f = withVal (FFI.Flags.C.withRef f)
-        fun fromVal w = w
-      end
+    open Flags
   end

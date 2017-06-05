@@ -13,8 +13,8 @@ structure GtkPaperSize :>
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              &&> GtkUnit.PolyML.cVal
              --> GtkPaperSizeRecord.PolyML.cPtr
           )
@@ -31,28 +31,28 @@ structure GtkPaperSize :>
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> GtkPaperSizeRecord.PolyML.cPtr
           )
       val copy_ = call (load_sym libgtk "gtk_paper_size_copy") (GtkPaperSizeRecord.PolyML.cPtr --> GtkPaperSizeRecord.PolyML.cPtr)
-      val getDefaultBottomMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_bottom_margin") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
-      val getDefaultLeftMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_left_margin") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
-      val getDefaultRightMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_right_margin") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
-      val getDefaultTopMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_top_margin") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val getDefaultBottomMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_bottom_margin") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val getDefaultLeftMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_left_margin") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val getDefaultRightMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_right_margin") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val getDefaultTopMargin_ = call (load_sym libgtk "gtk_paper_size_get_default_top_margin") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
       val getDisplayName_ = call (load_sym libgtk "gtk_paper_size_get_display_name") (GtkPaperSizeRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getHeight_ = call (load_sym libgtk "gtk_paper_size_get_height") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
+      val getHeight_ = call (load_sym libgtk "gtk_paper_size_get_height") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
       val getName_ = call (load_sym libgtk "gtk_paper_size_get_name") (GtkPaperSizeRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getPpdName_ = call (load_sym libgtk "gtk_paper_size_get_ppd_name") (GtkPaperSizeRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getWidth_ = call (load_sym libgtk "gtk_paper_size_get_width") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> FFI.Double.PolyML.cVal)
-      val isCustom_ = call (load_sym libgtk "gtk_paper_size_is_custom") (GtkPaperSizeRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val isEqual_ = call (load_sym libgtk "gtk_paper_size_is_equal") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getWidth_ = call (load_sym libgtk "gtk_paper_size_get_width") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val isCustom_ = call (load_sym libgtk "gtk_paper_size_is_custom") (GtkPaperSizeRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isEqual_ = call (load_sym libgtk "gtk_paper_size_is_equal") (GtkPaperSizeRecord.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val setSize_ =
         call (load_sym libgtk "gtk_paper_size_set_size")
           (
             GtkPaperSizeRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              &&> GtkUnit.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
@@ -68,16 +68,16 @@ structure GtkPaperSize :>
     end
     type t = GtkPaperSizeRecord.t
     type unit_t = GtkUnit.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name = (Utf8.C.withOptPtr ---> GtkPaperSizeRecord.C.fromPtr true) new_ name
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new name = (Utf8.FFI.withOptPtr ---> GtkPaperSizeRecord.FFI.fromPtr true) new_ name
     fun newCustom name displayName width height unit =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> GtkUnit.C.withVal
-         ---> GtkPaperSizeRecord.C.fromPtr true
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GtkUnit.FFI.withVal
+         ---> GtkPaperSizeRecord.FFI.fromPtr true
       )
         newCustom_
         (
@@ -89,10 +89,10 @@ structure GtkPaperSize :>
         )
     fun newFromKeyFile keyFile groupName =
       (
-        GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withPtr
+        GLibKeyFileRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GtkPaperSizeRecord.C.fromPtr true
+         ---> GtkPaperSizeRecord.FFI.fromPtr true
       )
         newFromKeyFile_
         (
@@ -102,11 +102,11 @@ structure GtkPaperSize :>
         )
     fun newFromPpd ppdName ppdDisplayName width height =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         ---> GtkPaperSizeRecord.C.fromPtr true
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> GtkPaperSizeRecord.FFI.fromPtr true
       )
         newFromPpd_
         (
@@ -115,24 +115,24 @@ structure GtkPaperSize :>
            & width
            & height
         )
-    fun copy self = (GtkPaperSizeRecord.C.withPtr ---> GtkPaperSizeRecord.C.fromPtr true) copy_ self
-    fun getDefaultBottomMargin self unit = (GtkPaperSizeRecord.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getDefaultBottomMargin_ (self & unit)
-    fun getDefaultLeftMargin self unit = (GtkPaperSizeRecord.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getDefaultLeftMargin_ (self & unit)
-    fun getDefaultRightMargin self unit = (GtkPaperSizeRecord.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getDefaultRightMargin_ (self & unit)
-    fun getDefaultTopMargin self unit = (GtkPaperSizeRecord.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getDefaultTopMargin_ (self & unit)
-    fun getDisplayName self = (GtkPaperSizeRecord.C.withPtr ---> Utf8.C.fromPtr false) getDisplayName_ self
-    fun getHeight self unit = (GtkPaperSizeRecord.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getHeight_ (self & unit)
-    fun getName self = (GtkPaperSizeRecord.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun getPpdName self = (GtkPaperSizeRecord.C.withPtr ---> Utf8.C.fromPtr false) getPpdName_ self
-    fun getWidth self unit = (GtkPaperSizeRecord.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getWidth_ (self & unit)
-    fun isCustom self = (GtkPaperSizeRecord.C.withPtr ---> FFI.Bool.C.fromVal) isCustom_ self
-    fun isEqual self size2 = (GtkPaperSizeRecord.C.withPtr &&&> GtkPaperSizeRecord.C.withPtr ---> FFI.Bool.C.fromVal) isEqual_ (self & size2)
+    fun copy self = (GtkPaperSizeRecord.FFI.withPtr ---> GtkPaperSizeRecord.FFI.fromPtr true) copy_ self
+    fun getDefaultBottomMargin self unit = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultBottomMargin_ (self & unit)
+    fun getDefaultLeftMargin self unit = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultLeftMargin_ (self & unit)
+    fun getDefaultRightMargin self unit = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultRightMargin_ (self & unit)
+    fun getDefaultTopMargin self unit = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultTopMargin_ (self & unit)
+    fun getDisplayName self = (GtkPaperSizeRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
+    fun getHeight self unit = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getHeight_ (self & unit)
+    fun getName self = (GtkPaperSizeRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getPpdName self = (GtkPaperSizeRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPpdName_ self
+    fun getWidth self unit = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getWidth_ (self & unit)
+    fun isCustom self = (GtkPaperSizeRecord.FFI.withPtr ---> GBool.FFI.fromVal) isCustom_ self
+    fun isEqual self size2 = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkPaperSizeRecord.FFI.withPtr ---> GBool.FFI.fromVal) isEqual_ (self & size2)
     fun setSize self width height unit =
       (
-        GtkPaperSizeRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> GtkUnit.C.withVal
+        GtkPaperSizeRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GtkUnit.FFI.withVal
          ---> I
       )
         setSize_
@@ -144,9 +144,9 @@ structure GtkPaperSize :>
         )
     fun toKeyFile self keyFile groupName =
       (
-        GtkPaperSizeRecord.C.withPtr
-         &&&> GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withPtr
+        GtkPaperSizeRecord.FFI.withPtr
+         &&&> GLibKeyFileRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         toKeyFile_
@@ -155,5 +155,5 @@ structure GtkPaperSize :>
            & keyFile
            & groupName
         )
-    fun getDefault () = (I ---> Utf8.C.fromPtr false) getDefault_ ()
+    fun getDefault () = (I ---> Utf8.FFI.fromPtr 0) getDefault_ ()
   end

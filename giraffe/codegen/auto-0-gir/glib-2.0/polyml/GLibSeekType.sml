@@ -1,39 +1,25 @@
-structure GLibSeekType :>
-  sig
-    include G_LIB_SEEK_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GLibSeekType :> G_LIB_SEEK_TYPE =
   struct
-    datatype t =
+    datatype enum =
       CUR
     | SET
     | END
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = CUR
+        val toInt =
           fn
-            CUR => f 0
-          | SET => f 1
-          | END => f 2
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            CUR => 0
+          | SET => 1
+          | END => 2
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => CUR
           | 1 => SET
           | 2 => END
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
-    val null = CUR
+      )
+    open Enum
   end

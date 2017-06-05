@@ -1,1 +1,1 @@
-structure AtkState = FFI.UInt64
+structure AtkState = GUInt64

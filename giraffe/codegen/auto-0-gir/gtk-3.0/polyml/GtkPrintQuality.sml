@@ -1,43 +1,30 @@
-structure GtkPrintQuality :>
-  sig
-    include GTK_PRINT_QUALITY
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkPrintQuality :> GTK_PRINT_QUALITY =
   struct
-    datatype t =
+    datatype enum =
       LOW
     | NORMAL
     | HIGH
     | DRAFT
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = LOW
+        val toInt =
           fn
-            LOW => f 0
-          | NORMAL => f 1
-          | HIGH => f 2
-          | DRAFT => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            LOW => 0
+          | NORMAL => 1
+          | HIGH => 2
+          | DRAFT => 3
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => LOW
           | 1 => NORMAL
           | 2 => HIGH
           | 3 => DRAFT
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -48,10 +35,9 @@ structure GtkPrintQuality :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = LOW
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

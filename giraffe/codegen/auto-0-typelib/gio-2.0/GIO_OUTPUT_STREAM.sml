@@ -1,9 +1,9 @@
 signature GIO_OUTPUT_STREAM =
   sig
     type 'a class
-    type 'a cancellable_class
     type output_stream_splice_flags_t
     type 'a input_stream_class
+    type 'a cancellable_class
     type 'a async_result_class
     type t = base class
     val getType : unit -> GObject.Type.t
@@ -38,6 +38,16 @@ signature GIO_OUTPUT_STREAM =
       'a class
        -> 'b async_result_class
        -> LargeInt.int
+    val write :
+      'a class
+       -> Word8Vector.vector
+       -> 'b cancellable_class option
+       -> LargeInt.int
+    val writeAll :
+      'a class
+       -> Word8Vector.vector
+       -> 'b cancellable_class option
+       -> LargeInt.int option
     val writeFinish :
       'a class
        -> 'b async_result_class

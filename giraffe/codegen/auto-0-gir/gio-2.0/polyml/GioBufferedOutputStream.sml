@@ -8,22 +8,22 @@ structure GioBufferedOutputStream :>
     in
       val getType_ = call (load_sym libgio "g_buffered_output_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgio "g_buffered_output_stream_new") (GioOutputStreamClass.PolyML.cPtr --> GioOutputStreamClass.PolyML.cPtr)
-      val newSized_ = call (load_sym libgio "g_buffered_output_stream_new_sized") (GioOutputStreamClass.PolyML.cPtr &&> FFI.Size.PolyML.cVal --> GioOutputStreamClass.PolyML.cPtr)
-      val getAutoGrow_ = call (load_sym libgio "g_buffered_output_stream_get_auto_grow") (GioBufferedOutputStreamClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getBufferSize_ = call (load_sym libgio "g_buffered_output_stream_get_buffer_size") (GioBufferedOutputStreamClass.PolyML.cPtr --> FFI.Size.PolyML.cVal)
-      val setAutoGrow_ = call (load_sym libgio "g_buffered_output_stream_set_auto_grow") (GioBufferedOutputStreamClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setBufferSize_ = call (load_sym libgio "g_buffered_output_stream_set_buffer_size") (GioBufferedOutputStreamClass.PolyML.cPtr &&> FFI.Size.PolyML.cVal --> PolyMLFFI.cVoid)
+      val newSized_ = call (load_sym libgio "g_buffered_output_stream_new_sized") (GioOutputStreamClass.PolyML.cPtr &&> GSize.PolyML.cVal --> GioOutputStreamClass.PolyML.cPtr)
+      val getAutoGrow_ = call (load_sym libgio "g_buffered_output_stream_get_auto_grow") (GioBufferedOutputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getBufferSize_ = call (load_sym libgio "g_buffered_output_stream_get_buffer_size") (GioBufferedOutputStreamClass.PolyML.cPtr --> GSize.PolyML.cVal)
+      val setAutoGrow_ = call (load_sym libgio "g_buffered_output_stream_set_auto_grow") (GioBufferedOutputStreamClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setBufferSize_ = call (load_sym libgio "g_buffered_output_stream_set_buffer_size") (GioBufferedOutputStreamClass.PolyML.cPtr &&> GSize.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioBufferedOutputStreamClass.class
     type 'a output_stream_class = 'a GioOutputStreamClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new baseStream = (GioOutputStreamClass.C.withPtr ---> GioBufferedOutputStreamClass.C.fromPtr true) new_ baseStream
-    fun newSized baseStream size = (GioOutputStreamClass.C.withPtr &&&> FFI.Size.C.withVal ---> GioBufferedOutputStreamClass.C.fromPtr true) newSized_ (baseStream & size)
-    fun getAutoGrow self = (GioBufferedOutputStreamClass.C.withPtr ---> FFI.Bool.C.fromVal) getAutoGrow_ self
-    fun getBufferSize self = (GioBufferedOutputStreamClass.C.withPtr ---> FFI.Size.C.fromVal) getBufferSize_ self
-    fun setAutoGrow self autoGrow = (GioBufferedOutputStreamClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAutoGrow_ (self & autoGrow)
-    fun setBufferSize self size = (GioBufferedOutputStreamClass.C.withPtr &&&> FFI.Size.C.withVal ---> I) setBufferSize_ (self & size)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new baseStream = (GioOutputStreamClass.FFI.withPtr ---> GioBufferedOutputStreamClass.FFI.fromPtr true) new_ baseStream
+    fun newSized baseStream size = (GioOutputStreamClass.FFI.withPtr &&&> GSize.FFI.withVal ---> GioBufferedOutputStreamClass.FFI.fromPtr true) newSized_ (baseStream & size)
+    fun getAutoGrow self = (GioBufferedOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) getAutoGrow_ self
+    fun getBufferSize self = (GioBufferedOutputStreamClass.FFI.withPtr ---> GSize.FFI.fromVal) getBufferSize_ self
+    fun setAutoGrow self autoGrow = (GioBufferedOutputStreamClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAutoGrow_ (self & autoGrow)
+    fun setBufferSize self size = (GioBufferedOutputStreamClass.FFI.withPtr &&&> GSize.FFI.withVal ---> I) setBufferSize_ (self & size)
     local
       open Property
     in

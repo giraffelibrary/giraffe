@@ -15,6 +15,7 @@ signature GIO_DRIVE =
       'a class
        -> 'b async_result_class
        -> bool
+    val enumerateIdentifiers : 'a class -> string list
     val getIcon : 'a class -> base icon_class
     val getIdentifier :
       'a class

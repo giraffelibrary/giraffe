@@ -11,9 +11,9 @@ structure PangoRenderer :>
     where type render_part_t = PangoRenderPart.t
     where type matrix_t = PangoMatrixRecord.t =
   struct
-    val getType_ = _import "pango_renderer_get_type" : unit -> GObjectType.C.val_;
-    val activate_ = _import "pango_renderer_activate" : PangoRendererClass.C.notnull PangoRendererClass.C.p -> unit;
-    val deactivate_ = _import "pango_renderer_deactivate" : PangoRendererClass.C.notnull PangoRendererClass.C.p -> unit;
+    val getType_ = _import "pango_renderer_get_type" : unit -> GObjectType.FFI.val_;
+    val activate_ = _import "pango_renderer_activate" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> unit;
+    val deactivate_ = _import "pango_renderer_deactivate" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> unit;
     val drawErrorUnderline_ =
       fn
         x1
@@ -23,11 +23,11 @@ structure PangoRenderer :>
          & x5 =>
           (
             _import "pango_renderer_draw_error_underline" :
-              PangoRendererClass.C.notnull PangoRendererClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
+              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -46,11 +46,11 @@ structure PangoRenderer :>
          & x5 =>
           (
             _import "pango_renderer_draw_glyph" :
-              PangoRendererClass.C.notnull PangoRendererClass.C.p
-               * PangoFontClass.C.notnull PangoFontClass.C.p
-               * PangoGlyph.C.val_
-               * FFI.Double.C.val_
-               * FFI.Double.C.val_
+              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+               * PangoFontClass.FFI.notnull PangoFontClass.FFI.p
+               * PangoGlyph.FFI.val_
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
                -> unit;
           )
             (
@@ -69,12 +69,12 @@ structure PangoRenderer :>
          & x6 =>
           (
             _import "mlton_pango_renderer_draw_glyph_item" :
-              PangoRendererClass.C.notnull PangoRendererClass.C.p
+              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               * PangoGlyphItemRecord.C.notnull PangoGlyphItemRecord.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
+               * PangoGlyphItemRecord.FFI.notnull PangoGlyphItemRecord.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -94,11 +94,11 @@ structure PangoRenderer :>
          & x5 =>
           (
             _import "pango_renderer_draw_glyphs" :
-              PangoRendererClass.C.notnull PangoRendererClass.C.p
-               * PangoFontClass.C.notnull PangoFontClass.C.p
-               * PangoGlyphStringRecord.C.notnull PangoGlyphStringRecord.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
+              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+               * PangoFontClass.FFI.notnull PangoFontClass.FFI.p
+               * PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -116,10 +116,10 @@ structure PangoRenderer :>
          & x4 =>
           (
             _import "pango_renderer_draw_layout" :
-              PangoRendererClass.C.notnull PangoRendererClass.C.p
-               * PangoLayoutClass.C.notnull PangoLayoutClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
+              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+               * PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -136,10 +136,10 @@ structure PangoRenderer :>
          & x4 =>
           (
             _import "pango_renderer_draw_layout_line" :
-              PangoRendererClass.C.notnull PangoRendererClass.C.p
-               * PangoLayoutLineRecord.C.notnull PangoLayoutLineRecord.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
+              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+               * PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -158,12 +158,12 @@ structure PangoRenderer :>
          & x6 =>
           (
             _import "pango_renderer_draw_rectangle" :
-              PangoRendererClass.C.notnull PangoRendererClass.C.p
-               * PangoRenderPart.C.val_
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
+              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+               * PangoRenderPart.FFI.val_
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -186,14 +186,14 @@ structure PangoRenderer :>
          & x8 =>
           (
             _import "pango_renderer_draw_trapezoid" :
-              PangoRendererClass.C.notnull PangoRendererClass.C.p
-               * PangoRenderPart.C.val_
-               * FFI.Double.C.val_
-               * FFI.Double.C.val_
-               * FFI.Double.C.val_
-               * FFI.Double.C.val_
-               * FFI.Double.C.val_
-               * FFI.Double.C.val_
+              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+               * PangoRenderPart.FFI.val_
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
                -> unit;
           )
             (
@@ -206,11 +206,11 @@ structure PangoRenderer :>
               x7,
               x8
             )
-    val getColor_ = fn x1 & x2 => (_import "pango_renderer_get_color" : PangoRendererClass.C.notnull PangoRendererClass.C.p * PangoRenderPart.C.val_ -> PangoColorRecord.C.notnull PangoColorRecord.C.p;) (x1, x2)
-    val getLayout_ = _import "pango_renderer_get_layout" : PangoRendererClass.C.notnull PangoRendererClass.C.p -> PangoLayoutClass.C.notnull PangoLayoutClass.C.p;
-    val getLayoutLine_ = _import "pango_renderer_get_layout_line" : PangoRendererClass.C.notnull PangoRendererClass.C.p -> PangoLayoutLineRecord.C.notnull PangoLayoutLineRecord.C.p;
-    val getMatrix_ = _import "pango_renderer_get_matrix" : PangoRendererClass.C.notnull PangoRendererClass.C.p -> PangoMatrixRecord.C.notnull PangoMatrixRecord.C.p;
-    val partChanged_ = fn x1 & x2 => (_import "pango_renderer_part_changed" : PangoRendererClass.C.notnull PangoRendererClass.C.p * PangoRenderPart.C.val_ -> unit;) (x1, x2)
+    val getColor_ = fn x1 & x2 => (_import "pango_renderer_get_color" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p * PangoRenderPart.FFI.val_ -> PangoColorRecord.FFI.notnull PangoColorRecord.FFI.p;) (x1, x2)
+    val getLayout_ = _import "pango_renderer_get_layout" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p;
+    val getLayoutLine_ = _import "pango_renderer_get_layout_line" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p;
+    val getMatrix_ = _import "pango_renderer_get_matrix" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p;
+    val partChanged_ = fn x1 & x2 => (_import "pango_renderer_part_changed" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p * PangoRenderPart.FFI.val_ -> unit;) (x1, x2)
     val setColor_ =
       fn
         x1
@@ -218,9 +218,9 @@ structure PangoRenderer :>
          & x3 =>
           (
             _import "pango_renderer_set_color" :
-              PangoRendererClass.C.notnull PangoRendererClass.C.p
-               * PangoRenderPart.C.val_
-               * unit PangoColorRecord.C.p
+              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+               * PangoRenderPart.FFI.val_
+               * unit PangoColorRecord.FFI.p
                -> unit;
           )
             (
@@ -228,7 +228,7 @@ structure PangoRenderer :>
               x2,
               x3
             )
-    val setMatrix_ = fn x1 & x2 => (_import "pango_renderer_set_matrix" : PangoRendererClass.C.notnull PangoRendererClass.C.p * unit PangoMatrixRecord.C.p -> unit;) (x1, x2)
+    val setMatrix_ = fn x1 & x2 => (_import "pango_renderer_set_matrix" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p * unit PangoMatrixRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a PangoRendererClass.class
     type glyph_t = PangoGlyph.t
     type glyph_item_t = PangoGlyphItemRecord.t
@@ -240,16 +240,16 @@ structure PangoRenderer :>
     type render_part_t = PangoRenderPart.t
     type matrix_t = PangoMatrixRecord.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun activate self = (PangoRendererClass.C.withPtr ---> I) activate_ self
-    fun deactivate self = (PangoRendererClass.C.withPtr ---> I) deactivate_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun activate self = (PangoRendererClass.FFI.withPtr ---> I) activate_ self
+    fun deactivate self = (PangoRendererClass.FFI.withPtr ---> I) deactivate_ self
     fun drawErrorUnderline self x y width height =
       (
-        PangoRendererClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        PangoRendererClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         drawErrorUnderline_
@@ -262,11 +262,11 @@ structure PangoRenderer :>
         )
     fun drawGlyph self font glyph x y =
       (
-        PangoRendererClass.C.withPtr
-         &&&> PangoFontClass.C.withPtr
-         &&&> PangoGlyph.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        PangoRendererClass.FFI.withPtr
+         &&&> PangoFontClass.FFI.withPtr
+         &&&> PangoGlyph.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         drawGlyph_
@@ -279,11 +279,11 @@ structure PangoRenderer :>
         )
     fun drawGlyphItem self text glyphItem x y =
       (
-        PangoRendererClass.C.withPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> PangoGlyphItemRecord.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        PangoRendererClass.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> PangoGlyphItemRecord.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         drawGlyphItem_
@@ -296,11 +296,11 @@ structure PangoRenderer :>
         )
     fun drawGlyphs self font glyphs x y =
       (
-        PangoRendererClass.C.withPtr
-         &&&> PangoFontClass.C.withPtr
-         &&&> PangoGlyphStringRecord.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        PangoRendererClass.FFI.withPtr
+         &&&> PangoFontClass.FFI.withPtr
+         &&&> PangoGlyphStringRecord.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         drawGlyphs_
@@ -313,10 +313,10 @@ structure PangoRenderer :>
         )
     fun drawLayout self layout x y =
       (
-        PangoRendererClass.C.withPtr
-         &&&> PangoLayoutClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        PangoRendererClass.FFI.withPtr
+         &&&> PangoLayoutClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         drawLayout_
@@ -328,10 +328,10 @@ structure PangoRenderer :>
         )
     fun drawLayoutLine self line x y =
       (
-        PangoRendererClass.C.withPtr
-         &&&> PangoLayoutLineRecord.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        PangoRendererClass.FFI.withPtr
+         &&&> PangoLayoutLineRecord.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         drawLayoutLine_
@@ -343,12 +343,12 @@ structure PangoRenderer :>
         )
     fun drawRectangle self part x y width height =
       (
-        PangoRendererClass.C.withPtr
-         &&&> PangoRenderPart.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        PangoRendererClass.FFI.withPtr
+         &&&> PangoRenderPart.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         drawRectangle_
@@ -362,14 +362,14 @@ structure PangoRenderer :>
         )
     fun drawTrapezoid self part y1 x11 x21 y2 x12 x22 =
       (
-        PangoRendererClass.C.withPtr
-         &&&> PangoRenderPart.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        PangoRendererClass.FFI.withPtr
+         &&&> PangoRenderPart.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         drawTrapezoid_
@@ -383,16 +383,16 @@ structure PangoRenderer :>
            & x12
            & x22
         )
-    fun getColor self part = (PangoRendererClass.C.withPtr &&&> PangoRenderPart.C.withVal ---> PangoColorRecord.C.fromPtr true) getColor_ (self & part)
-    fun getLayout self = (PangoRendererClass.C.withPtr ---> PangoLayoutClass.C.fromPtr false) getLayout_ self
-    fun getLayoutLine self = (PangoRendererClass.C.withPtr ---> PangoLayoutLineRecord.C.fromPtr true) getLayoutLine_ self
-    fun getMatrix self = (PangoRendererClass.C.withPtr ---> PangoMatrixRecord.C.fromPtr false) getMatrix_ self
-    fun partChanged self part = (PangoRendererClass.C.withPtr &&&> PangoRenderPart.C.withVal ---> I) partChanged_ (self & part)
+    fun getColor self part = (PangoRendererClass.FFI.withPtr &&&> PangoRenderPart.FFI.withVal ---> PangoColorRecord.FFI.fromPtr true) getColor_ (self & part)
+    fun getLayout self = (PangoRendererClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self
+    fun getLayoutLine self = (PangoRendererClass.FFI.withPtr ---> PangoLayoutLineRecord.FFI.fromPtr true) getLayoutLine_ self
+    fun getMatrix self = (PangoRendererClass.FFI.withPtr ---> PangoMatrixRecord.FFI.fromPtr false) getMatrix_ self
+    fun partChanged self part = (PangoRendererClass.FFI.withPtr &&&> PangoRenderPart.FFI.withVal ---> I) partChanged_ (self & part)
     fun setColor self part color =
       (
-        PangoRendererClass.C.withPtr
-         &&&> PangoRenderPart.C.withVal
-         &&&> PangoColorRecord.C.withOptPtr
+        PangoRendererClass.FFI.withPtr
+         &&&> PangoRenderPart.FFI.withVal
+         &&&> PangoColorRecord.FFI.withOptPtr
          ---> I
       )
         setColor_
@@ -401,5 +401,5 @@ structure PangoRenderer :>
            & part
            & color
         )
-    fun setMatrix self matrix = (PangoRendererClass.C.withPtr &&&> PangoMatrixRecord.C.withOptPtr ---> I) setMatrix_ (self & matrix)
+    fun setMatrix self matrix = (PangoRendererClass.FFI.withPtr &&&> PangoMatrixRecord.FFI.withOptPtr ---> I) setMatrix_ (self & matrix)
   end

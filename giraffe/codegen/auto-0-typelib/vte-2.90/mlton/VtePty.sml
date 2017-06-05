@@ -3,12 +3,12 @@ structure VtePty :>
     where type 'a class = 'a VtePtyClass.class
     where type pty_flags_t = VtePtyFlags.t =
   struct
-    val getType_ = _import "vte_pty_get_type" : unit -> GObjectType.C.val_;
-    val new_ = fn x1 & x2 => (_import "vte_pty_new" : VtePtyFlags.C.val_ * (unit, unit) GLibErrorRecord.C.r -> VtePtyClass.C.notnull VtePtyClass.C.p;) (x1, x2)
-    val newForeign_ = fn x1 & x2 => (_import "vte_pty_new_foreign" : FFI.Int32.C.val_ * (unit, unit) GLibErrorRecord.C.r -> VtePtyClass.C.notnull VtePtyClass.C.p;) (x1, x2)
-    val childSetup_ = _import "vte_pty_child_setup" : VtePtyClass.C.notnull VtePtyClass.C.p -> unit;
-    val close_ = _import "vte_pty_close" : VtePtyClass.C.notnull VtePtyClass.C.p -> unit;
-    val getFd_ = _import "vte_pty_get_fd" : VtePtyClass.C.notnull VtePtyClass.C.p -> FFI.Int32.C.val_;
+    val getType_ = _import "vte_pty_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = fn x1 & x2 => (_import "vte_pty_new" : VtePtyFlags.FFI.val_ * (unit, unit) GLibErrorRecord.FFI.r -> VtePtyClass.FFI.notnull VtePtyClass.FFI.p;) (x1, x2)
+    val newForeign_ = fn x1 & x2 => (_import "vte_pty_new_foreign" : GInt32.FFI.val_ * (unit, unit) GLibErrorRecord.FFI.r -> VtePtyClass.FFI.notnull VtePtyClass.FFI.p;) (x1, x2)
+    val childSetup_ = _import "vte_pty_child_setup" : VtePtyClass.FFI.notnull VtePtyClass.FFI.p -> unit;
+    val close_ = _import "vte_pty_close" : VtePtyClass.FFI.notnull VtePtyClass.FFI.p -> unit;
+    val getFd_ = _import "vte_pty_get_fd" : VtePtyClass.FFI.notnull VtePtyClass.FFI.p -> GInt32.FFI.val_;
     val getSize_ =
       fn
         x1
@@ -17,11 +17,11 @@ structure VtePty :>
          & x4 =>
           (
             _import "vte_pty_get_size" :
-              VtePtyClass.C.notnull VtePtyClass.C.p
-               * FFI.Int32.C.ref_
-               * FFI.Int32.C.ref_
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              VtePtyClass.FFI.notnull VtePtyClass.FFI.p
+               * GInt32.FFI.ref_
+               * GInt32.FFI.ref_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -37,11 +37,11 @@ structure VtePty :>
          & x4 =>
           (
             _import "vte_pty_set_size" :
-              VtePtyClass.C.notnull VtePtyClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              VtePtyClass.FFI.notnull VtePtyClass.FFI.p
+               * GInt32.FFI.val_
+               * GInt32.FFI.val_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -54,7 +54,7 @@ structure VtePty :>
         x1 & (x2, x3) =>
           (
             _import "mlton_vte_pty_set_term" :
-              VtePtyClass.C.notnull VtePtyClass.C.p
+              VtePtyClass.FFI.notnull VtePtyClass.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                -> unit;
@@ -71,10 +71,10 @@ structure VtePty :>
          & x3 =>
           (
             _import "vte_pty_set_utf8" :
-              VtePtyClass.C.notnull VtePtyClass.C.p
-               * FFI.Bool.C.val_
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              VtePtyClass.FFI.notnull VtePtyClass.FFI.p
+               * GBool.FFI.val_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -84,32 +84,32 @@ structure VtePty :>
     type 'a class = 'a VtePtyClass.class
     type pty_flags_t = VtePtyFlags.t
     type t = base class
-    fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new flags = (VtePtyFlags.C.withVal &&&> GLibErrorRecord.handleError ---> VtePtyClass.C.fromPtr true) new_ (flags & [])
-    fun newForeign fd = (FFI.Int32.C.withVal &&&> GLibErrorRecord.handleError ---> VtePtyClass.C.fromPtr true) newForeign_ (fd & [])
-    fun childSetup self = (VtePtyClass.C.withPtr ---> I) childSetup_ self
-    fun close self = (VtePtyClass.C.withPtr ---> I) close_ self
-    fun getFd self = (VtePtyClass.C.withPtr ---> FFI.Int32.C.fromVal) getFd_ self
+    fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new flags = (VtePtyFlags.FFI.withVal &&&> GLibErrorRecord.handleError ---> VtePtyClass.FFI.fromPtr true) new_ (flags & [])
+    fun newForeign fd = (GInt32.FFI.withVal &&&> GLibErrorRecord.handleError ---> VtePtyClass.FFI.fromPtr true) newForeign_ (fd & [])
+    fun childSetup self = (VtePtyClass.FFI.withPtr ---> I) childSetup_ self
+    fun close self = (VtePtyClass.FFI.withPtr ---> I) close_ self
+    fun getFd self = (VtePtyClass.FFI.withPtr ---> GInt32.FFI.fromVal) getFd_ self
     fun getSize self =
       let
         val rows
          & columns
          & retVal =
           (
-            VtePtyClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
+            VtePtyClass.FFI.withPtr
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
-                   && FFI.Bool.C.fromVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && GBool.FFI.fromVal
           )
             getSize_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & GInt32.null
+               & GInt32.null
                & []
             )
       in
@@ -117,11 +117,11 @@ structure VtePty :>
       end
     fun setSize self rows columns =
       (
-        VtePtyClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        VtePtyClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         setSize_
         (
@@ -130,13 +130,13 @@ structure VtePty :>
            & columns
            & []
         )
-    fun setTerm self emulation = (VtePtyClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTerm_ (self & emulation)
+    fun setTerm self emulation = (VtePtyClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTerm_ (self & emulation)
     fun setUtf8 self utf8 =
       (
-        VtePtyClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        VtePtyClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         setUtf8_
         (

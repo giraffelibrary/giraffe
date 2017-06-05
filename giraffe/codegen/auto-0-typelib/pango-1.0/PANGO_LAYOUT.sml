@@ -5,6 +5,7 @@ signature PANGO_LAYOUT =
     type 'a context_class
     type layout_iter_t
     type layout_line_t
+    type log_attr_t
     type rectangle_t
     type alignment_t
     type ellipsize_mode_t
@@ -42,6 +43,7 @@ signature PANGO_LAYOUT =
       'a class
        -> LargeInt.int
        -> layout_line_t
+    val getLogAttrs : 'a class -> log_attr_t vector
     val getPixelExtents : 'a class -> rectangle_t * rectangle_t
     val getPixelSize : 'a class -> LargeInt.int * LargeInt.int
     val getSingleParagraphMode : 'a class -> bool

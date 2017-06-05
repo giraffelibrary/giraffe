@@ -29,6 +29,32 @@ signature G_LIB_REGEX =
        -> string
        -> regex_match_flags_t
        -> match_info_t option
+    val matchAllFull :
+      t
+       -> string list
+       -> LargeInt.int
+       -> regex_match_flags_t
+       -> match_info_t option
+    val matchFull :
+      t
+       -> string list
+       -> LargeInt.int
+       -> regex_match_flags_t
+       -> match_info_t option
+    val replace :
+      t
+       -> string list
+       -> LargeInt.int
+       -> string
+       -> regex_match_flags_t
+       -> string
+    val replaceLiteral :
+      t
+       -> string list
+       -> LargeInt.int
+       -> string
+       -> regex_match_flags_t
+       -> string
     val checkReplacement : string -> bool option
     val escapeNul :
       string

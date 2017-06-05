@@ -7,49 +7,49 @@ structure PangoTabArray :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libpango "pango_tab_array_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libpango "pango_tab_array_new") (FFI.Int32.PolyML.cVal &&> FFI.Bool.PolyML.cVal --> PangoTabArrayRecord.PolyML.cPtr)
+      val new_ = call (load_sym libpango "pango_tab_array_new") (GInt32.PolyML.cVal &&> GBool.PolyML.cVal --> PangoTabArrayRecord.PolyML.cPtr)
       val copy_ = call (load_sym libpango "pango_tab_array_copy") (PangoTabArrayRecord.PolyML.cPtr --> PangoTabArrayRecord.PolyML.cPtr)
-      val getPositionsInPixels_ = call (load_sym libpango "pango_tab_array_get_positions_in_pixels") (PangoTabArrayRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getSize_ = call (load_sym libpango "pango_tab_array_get_size") (PangoTabArrayRecord.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getPositionsInPixels_ = call (load_sym libpango "pango_tab_array_get_positions_in_pixels") (PangoTabArrayRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getSize_ = call (load_sym libpango "pango_tab_array_get_size") (PangoTabArrayRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getTab_ =
         call (load_sym libpango "pango_tab_array_get_tab")
           (
             PangoTabArrayRecord.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              &&> PangoTabAlign.PolyML.cRef
-             &&> FFI.Int32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val resize_ = call (load_sym libpango "pango_tab_array_resize") (PangoTabArrayRecord.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val resize_ = call (load_sym libpango "pango_tab_array_resize") (PangoTabArrayRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val setTab_ =
         call (load_sym libpango "pango_tab_array_set_tab")
           (
             PangoTabArrayRecord.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              &&> PangoTabAlign.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
     end
     type t = PangoTabArrayRecord.t
     type tab_align_t = PangoTabAlign.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new initialSize positionsInPixels = (FFI.Int32.C.withVal &&&> FFI.Bool.C.withVal ---> PangoTabArrayRecord.C.fromPtr true) new_ (initialSize & positionsInPixels)
-    fun copy self = (PangoTabArrayRecord.C.withPtr ---> PangoTabArrayRecord.C.fromPtr true) copy_ self
-    fun getPositionsInPixels self = (PangoTabArrayRecord.C.withPtr ---> FFI.Bool.C.fromVal) getPositionsInPixels_ self
-    fun getSize self = (PangoTabArrayRecord.C.withPtr ---> FFI.Int32.C.fromVal) getSize_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new initialSize positionsInPixels = (GInt32.FFI.withVal &&&> GBool.FFI.withVal ---> PangoTabArrayRecord.FFI.fromPtr true) new_ (initialSize & positionsInPixels)
+    fun copy self = (PangoTabArrayRecord.FFI.withPtr ---> PangoTabArrayRecord.FFI.fromPtr true) copy_ self
+    fun getPositionsInPixels self = (PangoTabArrayRecord.FFI.withPtr ---> GBool.FFI.fromVal) getPositionsInPixels_ self
+    fun getSize self = (PangoTabArrayRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getSize_ self
     fun getTab self tabIndex =
       let
         val alignment
          & location
          & () =
           (
-            PangoTabArrayRecord.C.withPtr
-             &&&> FFI.Int32.C.withVal
-             &&&> PangoTabAlign.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
-             ---> PangoTabAlign.C.fromVal
-                   && FFI.Int32.C.fromVal
+            PangoTabArrayRecord.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> PangoTabAlign.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> PangoTabAlign.FFI.fromVal
+                   && GInt32.FFI.fromVal
                    && I
           )
             getTab_
@@ -57,18 +57,18 @@ structure PangoTabArray :>
               self
                & tabIndex
                & PangoTabAlign.null
-               & FFI.Int32.null
+               & GInt32.null
             )
       in
         (alignment, location)
       end
-    fun resize self newSize = (PangoTabArrayRecord.C.withPtr &&&> FFI.Int32.C.withVal ---> I) resize_ (self & newSize)
+    fun resize self newSize = (PangoTabArrayRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) resize_ (self & newSize)
     fun setTab self tabIndex alignment location =
       (
-        PangoTabArrayRecord.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> PangoTabAlign.C.withVal
-         &&&> FFI.Int32.C.withVal
+        PangoTabArrayRecord.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> PangoTabAlign.FFI.withVal
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         setTab_

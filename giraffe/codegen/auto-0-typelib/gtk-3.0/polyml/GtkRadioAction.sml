@@ -14,26 +14,26 @@ structure GtkRadioAction :>
              &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> GtkRadioActionClass.PolyML.cPtr
           )
-      val getCurrentValue_ = call (load_sym libgtk "gtk_radio_action_get_current_value") (GtkRadioActionClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getCurrentValue_ = call (load_sym libgtk "gtk_radio_action_get_current_value") (GtkRadioActionClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val joinGroup_ = call (load_sym libgtk "gtk_radio_action_join_group") (GtkRadioActionClass.PolyML.cPtr &&> GtkRadioActionClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setCurrentValue_ = call (load_sym libgtk "gtk_radio_action_set_current_value") (GtkRadioActionClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setCurrentValue_ = call (load_sym libgtk "gtk_radio_action_set_current_value") (GtkRadioActionClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkRadioActionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new name label tooltip stockId value =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int32.C.withVal
-         ---> GtkRadioActionClass.C.fromPtr true
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt32.FFI.withVal
+         ---> GtkRadioActionClass.FFI.fromPtr true
       )
         new_
         (
@@ -43,9 +43,9 @@ structure GtkRadioAction :>
            & stockId
            & value
         )
-    fun getCurrentValue self = (GtkRadioActionClass.C.withPtr ---> FFI.Int32.C.fromVal) getCurrentValue_ self
-    fun joinGroup self groupSource = (GtkRadioActionClass.C.withPtr &&&> GtkRadioActionClass.C.withOptPtr ---> I) joinGroup_ (self & groupSource)
-    fun setCurrentValue self currentValue = (GtkRadioActionClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setCurrentValue_ (self & currentValue)
+    fun getCurrentValue self = (GtkRadioActionClass.FFI.withPtr ---> GInt32.FFI.fromVal) getCurrentValue_ self
+    fun joinGroup self groupSource = (GtkRadioActionClass.FFI.withPtr &&&> GtkRadioActionClass.FFI.withOptPtr ---> I) joinGroup_ (self & groupSource)
+    fun setCurrentValue self currentValue = (GtkRadioActionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setCurrentValue_ (self & currentValue)
     local
       open ClosureMarshal Signal
     in

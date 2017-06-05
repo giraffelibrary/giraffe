@@ -1,1 +1,1 @@
-structure XlibAtom = FFI.ULong
+structure XlibAtom = GULong

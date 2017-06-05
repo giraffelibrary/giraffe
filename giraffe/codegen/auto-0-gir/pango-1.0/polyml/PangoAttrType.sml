@@ -1,14 +1,6 @@
-structure PangoAttrType :>
-  sig
-    include PANGO_ATTR_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure PangoAttrType :> PANGO_ATTR_TYPE =
   struct
-    datatype t =
+    datatype enum =
       INVALID
     | LANGUAGE
     | FAMILY
@@ -32,38 +24,37 @@ structure PangoAttrType :>
     | ABSOLUTE_SIZE
     | GRAVITY
     | GRAVITY_HINT
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = INVALID
+        val toInt =
           fn
-            INVALID => f 0
-          | LANGUAGE => f 1
-          | FAMILY => f 2
-          | STYLE => f 3
-          | WEIGHT => f 4
-          | VARIANT => f 5
-          | STRETCH => f 6
-          | SIZE => f 7
-          | FONT_DESC => f 8
-          | FOREGROUND => f 9
-          | BACKGROUND => f 10
-          | UNDERLINE => f 11
-          | STRIKETHROUGH => f 12
-          | RISE => f 13
-          | SHAPE => f 14
-          | SCALE => f 15
-          | FALLBACK => f 16
-          | LETTER_SPACING => f 17
-          | UNDERLINE_COLOR => f 18
-          | STRIKETHROUGH_COLOR => f 19
-          | ABSOLUTE_SIZE => f 20
-          | GRAVITY => f 21
-          | GRAVITY_HINT => f 22
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            INVALID => 0
+          | LANGUAGE => 1
+          | FAMILY => 2
+          | STYLE => 3
+          | WEIGHT => 4
+          | VARIANT => 5
+          | STRETCH => 6
+          | SIZE => 7
+          | FONT_DESC => 8
+          | FOREGROUND => 9
+          | BACKGROUND => 10
+          | UNDERLINE => 11
+          | STRIKETHROUGH => 12
+          | RISE => 13
+          | SHAPE => 14
+          | SCALE => 15
+          | FALLBACK => 16
+          | LETTER_SPACING => 17
+          | UNDERLINE_COLOR => 18
+          | STRIKETHROUGH_COLOR => 19
+          | ABSOLUTE_SIZE => 20
+          | GRAVITY => 21
+          | GRAVITY_HINT => 22
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => INVALID
           | 1 => LANGUAGE
@@ -89,12 +80,8 @@ structure PangoAttrType :>
           | 21 => GRAVITY
           | 22 => GRAVITY_HINT
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -105,18 +92,17 @@ structure PangoAttrType :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = INVALID
     local
       open PolyMLFFI
     in
       val getName_ = call (load_sym libpango "pango_attr_type_get_name") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val register_ = call (load_sym libpango "pango_attr_type_register") (Utf8.PolyML.cInPtr --> PolyML.cVal)
     end
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getName type' = (C.withVal ---> Utf8.C.fromPtr false) getName_ type'
-    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getName type' = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ type'
+    fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
   end

@@ -29,7 +29,7 @@ structure GLibSpawnChildSetupFunc :>
       dispatch
     end
 
-    structure C =
+    structure FFI =
       struct
         type callback = SpawnChildSetupCallback.id
 

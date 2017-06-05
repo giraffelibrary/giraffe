@@ -5,7 +5,7 @@ signature G_LIB_I_O_FUNC =
 
     type t = i_o_channel_t * i_o_condition_t -> bool
 
-    structure C :
+    structure FFI :
       sig
         type callback
         val withCallback : (callback -> 'a) -> t -> 'a

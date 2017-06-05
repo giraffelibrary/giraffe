@@ -25,7 +25,7 @@ structure GioDBusServer :>
       val getClientAddress_ = call (load_sym libgio "g_dbus_server_get_client_address") (GioDBusServerClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getFlags_ = call (load_sym libgio "g_dbus_server_get_flags") (GioDBusServerClass.PolyML.cPtr --> GioDBusServerFlags.PolyML.cVal)
       val getGuid_ = call (load_sym libgio "g_dbus_server_get_guid") (GioDBusServerClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val isActive_ = call (load_sym libgio "g_dbus_server_is_active") (GioDBusServerClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val isActive_ = call (load_sym libgio "g_dbus_server_is_active") (GioDBusServerClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val start_ = call (load_sym libgio "g_dbus_server_start") (GioDBusServerClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val stop_ = call (load_sym libgio "g_dbus_server_stop") (GioDBusServerClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
@@ -36,17 +36,17 @@ structure GioDBusServer :>
     type 'a d_bus_auth_observer_class = 'a GioDBusAuthObserverClass.class
     type d_bus_server_flags_t = GioDBusServerFlags.t
     type t = base class
-    fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newSync address flags guid observer cancellable =
       (
-        Utf8.C.withPtr
-         &&&> GioDBusServerFlags.C.withVal
-         &&&> Utf8.C.withPtr
-         &&&> GioDBusAuthObserverClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        Utf8.FFI.withPtr
+         &&&> GioDBusServerFlags.FFI.withVal
+         &&&> Utf8.FFI.withPtr
+         &&&> GioDBusAuthObserverClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioDBusServerClass.C.fromPtr true
+         ---> GioDBusServerClass.FFI.fromPtr true
       )
         newSync_
         (
@@ -57,12 +57,12 @@ structure GioDBusServer :>
            & cancellable
            & []
         )
-    fun getClientAddress self = (GioDBusServerClass.C.withPtr ---> Utf8.C.fromPtr false) getClientAddress_ self
-    fun getFlags self = (GioDBusServerClass.C.withPtr ---> GioDBusServerFlags.C.fromVal) getFlags_ self
-    fun getGuid self = (GioDBusServerClass.C.withPtr ---> Utf8.C.fromPtr false) getGuid_ self
-    fun isActive self = (GioDBusServerClass.C.withPtr ---> FFI.Bool.C.fromVal) isActive_ self
-    fun start self = (GioDBusServerClass.C.withPtr ---> I) start_ self
-    fun stop self = (GioDBusServerClass.C.withPtr ---> I) stop_ self
+    fun getClientAddress self = (GioDBusServerClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getClientAddress_ self
+    fun getFlags self = (GioDBusServerClass.FFI.withPtr ---> GioDBusServerFlags.FFI.fromVal) getFlags_ self
+    fun getGuid self = (GioDBusServerClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getGuid_ self
+    fun isActive self = (GioDBusServerClass.FFI.withPtr ---> GBool.FFI.fromVal) isActive_ self
+    fun start self = (GioDBusServerClass.FFI.withPtr ---> I) start_ self
+    fun stop self = (GioDBusServerClass.FFI.withPtr ---> I) stop_ self
     local
       open ClosureMarshal Signal
     in

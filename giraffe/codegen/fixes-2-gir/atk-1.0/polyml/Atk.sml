@@ -12,10 +12,10 @@ structure Atk : ATK =
     end
     structure ImplementorIfaceClass = AtkImplementorIfaceClass
     structure ObjectClass = AtkObjectClass
-    fun focusTrackerNotify object = (AtkObjectClass.C.withPtr ---> I) focusTrackerNotify_ object
-    fun getFocusObject () = (I ---> AtkObjectClass.C.fromPtr false) getFocusObject_ ()
-    fun getRoot () = (I ---> AtkObjectClass.C.fromPtr false) getRoot_ ()
-    fun getToolkitName () = (I ---> Utf8.C.fromPtr false) getToolkitName_ ()
-    fun getToolkitVersion () = (I ---> Utf8.C.fromPtr false) getToolkitVersion_ ()
-    fun getVersion () = (I ---> Utf8.C.fromPtr false) getVersion_ ()
+    fun focusTrackerNotify object = (AtkObjectClass.FFI.withPtr ---> I) focusTrackerNotify_ object
+    fun getFocusObject () = (I ---> AtkObjectClass.FFI.fromPtr false) getFocusObject_ ()
+    fun getRoot () = (I ---> AtkObjectClass.FFI.fromPtr false) getRoot_ ()
+    fun getToolkitName () = (I ---> Utf8.FFI.fromPtr 0) getToolkitName_ ()
+    fun getToolkitVersion () = (I ---> Utf8.FFI.fromPtr 0) getToolkitVersion_ ()
+    fun getVersion () = (I ---> Utf8.FFI.fromPtr 0) getVersion_ ()
   end

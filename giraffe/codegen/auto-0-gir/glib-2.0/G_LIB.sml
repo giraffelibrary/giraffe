@@ -331,6 +331,8 @@ signature G_LIB =
        -> string
        -> string
        -> unit
+    val base64Decode : string -> Word8Vector.vector
+    val base64Encode : Word8Vector.vector -> string
     val basename : string -> string
     val bitNthLsf :
       LargeInt.int
@@ -343,6 +345,11 @@ signature G_LIB =
     val bitStorage : LargeInt.int -> LargeInt.int
     val blowChunks : unit -> unit
     val bookmarkFileErrorQuark : unit -> Quark.t
+    val buildFilenamev : string list -> string
+    val buildPathv :
+      string
+       -> string list
+       -> string
     val chdir : string -> LargeInt.int
     val checkVersion :
       LargeInt.int
@@ -354,6 +361,12 @@ signature G_LIB =
     val clearError : unit -> unit
     val computeChecksumForString :
       ChecksumType.t
+       -> string
+       -> LargeInt.int
+       -> string
+    val computeHmacForString :
+      ChecksumType.t
+       -> Word8Vector.vector
        -> string
        -> LargeInt.int
        -> string
@@ -380,9 +393,9 @@ signature G_LIB =
     val dateGetDaysInMonth :
       DateMonth.t
        -> DateYear.t
-       -> LargeInt.int
-    val dateGetMondayWeeksInYear : DateYear.t -> LargeInt.int
-    val dateGetSundayWeeksInYear : DateYear.t -> LargeInt.int
+       -> Word8.word
+    val dateGetMondayWeeksInYear : DateYear.t -> Word8.word
+    val dateGetSundayWeeksInYear : DateYear.t -> Word8.word
     val dateIsLeapYear : DateYear.t -> bool
     val dateStrftime :
       string
@@ -431,6 +444,10 @@ signature G_LIB =
     val fileErrorQuark : unit -> Quark.t
     val fileOpenTmp : string option -> LargeInt.int * string
     val fileReadLink : string -> string
+    val fileSetContents :
+      string
+       -> Word8Vector.vector
+       -> bool
     val fileTest :
       string
        -> FileTest.t
@@ -456,13 +473,18 @@ signature G_LIB =
     val getCharset : string -> bool
     val getCurrentDir : unit -> string
     val getCurrentTime : TimeValRecord.t -> unit
+    val getEnviron : unit -> string list
     val getFilenameCharsets : string -> bool
     val getHomeDir : unit -> string
     val getHostName : unit -> string
+    val getLanguageNames : unit -> string list
+    val getLocaleVariants : string -> string list
     val getMonotonicTime : unit -> LargeInt.int
     val getPrgname : unit -> string
     val getRealName : unit -> string
     val getRealTime : unit -> LargeInt.int
+    val getSystemConfigDirs : unit -> string list
+    val getSystemDataDirs : unit -> string list
     val getTmpDir : unit -> string
     val getUserCacheDir : unit -> string
     val getUserConfigDir : unit -> string
@@ -512,6 +534,7 @@ signature G_LIB =
        -> SourceRecord.t
     val keyFileErrorQuark : unit -> Quark.t
     val listPopAllocator : unit -> unit
+    val listenv : unit -> string list
     val logRemoveHandler :
       string
        -> LargeInt.int
@@ -636,6 +659,7 @@ signature G_LIB =
        -> bool
        -> bool
     val shellErrorQuark : unit -> Quark.t
+    val shellParseArgv : string -> string list option
     val shellQuote : string -> string
     val shellUnquote : string -> string
     val sliceGetConfig : SliceConfig.t -> LargeInt.int

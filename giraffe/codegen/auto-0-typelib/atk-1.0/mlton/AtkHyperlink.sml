@@ -4,27 +4,27 @@ structure AtkHyperlink :>
     where type 'a action_class = 'a AtkActionClass.class
     where type 'a object_class = 'a AtkObjectClass.class =
   struct
-    val getType_ = _import "atk_hyperlink_get_type" : unit -> GObjectType.C.val_;
-    val getEndIndex_ = _import "atk_hyperlink_get_end_index" : AtkHyperlinkClass.C.notnull AtkHyperlinkClass.C.p -> FFI.Int32.C.val_;
-    val getNAnchors_ = _import "atk_hyperlink_get_n_anchors" : AtkHyperlinkClass.C.notnull AtkHyperlinkClass.C.p -> FFI.Int32.C.val_;
-    val getObject_ = fn x1 & x2 => (_import "atk_hyperlink_get_object" : AtkHyperlinkClass.C.notnull AtkHyperlinkClass.C.p * FFI.Int32.C.val_ -> AtkObjectClass.C.notnull AtkObjectClass.C.p;) (x1, x2)
-    val getStartIndex_ = _import "atk_hyperlink_get_start_index" : AtkHyperlinkClass.C.notnull AtkHyperlinkClass.C.p -> FFI.Int32.C.val_;
-    val getUri_ = fn x1 & x2 => (_import "atk_hyperlink_get_uri" : AtkHyperlinkClass.C.notnull AtkHyperlinkClass.C.p * FFI.Int32.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
-    val isInline_ = _import "atk_hyperlink_is_inline" : AtkHyperlinkClass.C.notnull AtkHyperlinkClass.C.p -> FFI.Bool.C.val_;
-    val isValid_ = _import "atk_hyperlink_is_valid" : AtkHyperlinkClass.C.notnull AtkHyperlinkClass.C.p -> FFI.Bool.C.val_;
+    val getType_ = _import "atk_hyperlink_get_type" : unit -> GObjectType.FFI.val_;
+    val getEndIndex_ = _import "atk_hyperlink_get_end_index" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GInt32.FFI.val_;
+    val getNAnchors_ = _import "atk_hyperlink_get_n_anchors" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GInt32.FFI.val_;
+    val getObject_ = fn x1 & x2 => (_import "atk_hyperlink_get_object" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p * GInt32.FFI.val_ -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;) (x1, x2)
+    val getStartIndex_ = _import "atk_hyperlink_get_start_index" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GInt32.FFI.val_;
+    val getUri_ = fn x1 & x2 => (_import "atk_hyperlink_get_uri" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p * GInt32.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val isInline_ = _import "atk_hyperlink_is_inline" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GBool.FFI.val_;
+    val isValid_ = _import "atk_hyperlink_is_valid" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a AtkHyperlinkClass.class
     type 'a action_class = 'a AtkActionClass.class
     type 'a object_class = 'a AtkObjectClass.class
     type t = base class
-    fun asAction self = (GObjectObjectClass.C.withPtr ---> AtkActionClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getEndIndex self = (AtkHyperlinkClass.C.withPtr ---> FFI.Int32.C.fromVal) getEndIndex_ self
-    fun getNAnchors self = (AtkHyperlinkClass.C.withPtr ---> FFI.Int32.C.fromVal) getNAnchors_ self
-    fun getObject self i = (AtkHyperlinkClass.C.withPtr &&&> FFI.Int32.C.withVal ---> AtkObjectClass.C.fromPtr false) getObject_ (self & i)
-    fun getStartIndex self = (AtkHyperlinkClass.C.withPtr ---> FFI.Int32.C.fromVal) getStartIndex_ self
-    fun getUri self i = (AtkHyperlinkClass.C.withPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr true) getUri_ (self & i)
-    fun isInline self = (AtkHyperlinkClass.C.withPtr ---> FFI.Bool.C.fromVal) isInline_ self
-    fun isValid self = (AtkHyperlinkClass.C.withPtr ---> FFI.Bool.C.fromVal) isValid_ self
+    fun asAction self = (GObjectObjectClass.FFI.withPtr ---> AtkActionClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getEndIndex self = (AtkHyperlinkClass.FFI.withPtr ---> GInt32.FFI.fromVal) getEndIndex_ self
+    fun getNAnchors self = (AtkHyperlinkClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNAnchors_ self
+    fun getObject self i = (AtkHyperlinkClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> AtkObjectClass.FFI.fromPtr false) getObject_ (self & i)
+    fun getStartIndex self = (AtkHyperlinkClass.FFI.withPtr ---> GInt32.FFI.fromVal) getStartIndex_ self
+    fun getUri self i = (AtkHyperlinkClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 1) getUri_ (self & i)
+    fun isInline self = (AtkHyperlinkClass.FFI.withPtr ---> GBool.FFI.fromVal) isInline_ self
+    fun isValid self = (AtkHyperlinkClass.FFI.withPtr ---> GBool.FFI.fromVal) isValid_ self
     local
       open ClosureMarshal Signal
     in

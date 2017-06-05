@@ -5,17 +5,17 @@ structure GioVolumeMonitor :>
     where type 'a mount_class = 'a GioMountClass.class
     where type 'a volume_class = 'a GioVolumeClass.class =
   struct
-    val getType_ = _import "g_volume_monitor_get_type" : unit -> GObjectType.C.val_;
-    val get_ = _import "g_volume_monitor_get" : unit -> GioVolumeMonitorClass.C.notnull GioVolumeMonitorClass.C.p;
+    val getType_ = _import "g_volume_monitor_get_type" : unit -> GObjectType.FFI.val_;
+    val get_ = _import "g_volume_monitor_get" : unit -> GioVolumeMonitorClass.FFI.notnull GioVolumeMonitorClass.FFI.p;
     val getMountForUuid_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_volume_monitor_get_mount_for_uuid" :
-              GioVolumeMonitorClass.C.notnull GioVolumeMonitorClass.C.p
+              GioVolumeMonitorClass.FFI.notnull GioVolumeMonitorClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> GioMountClass.C.notnull GioMountClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GioMountClass.FFI.notnull GioMountClass.FFI.p;
           )
             (
               x1,
@@ -27,10 +27,10 @@ structure GioVolumeMonitor :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_volume_monitor_get_volume_for_uuid" :
-              GioVolumeMonitorClass.C.notnull GioVolumeMonitorClass.C.p
+              GioVolumeMonitorClass.FFI.notnull GioVolumeMonitorClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> GioVolumeClass.C.notnull GioVolumeClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p;
           )
             (
               x1,
@@ -42,10 +42,10 @@ structure GioVolumeMonitor :>
     type 'a mount_class = 'a GioMountClass.class
     type 'a volume_class = 'a GioVolumeClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun get () = (I ---> GioVolumeMonitorClass.C.fromPtr true) get_ ()
-    fun getMountForUuid self uuid = (GioVolumeMonitorClass.C.withPtr &&&> Utf8.C.withPtr ---> GioMountClass.C.fromPtr true) getMountForUuid_ (self & uuid)
-    fun getVolumeForUuid self uuid = (GioVolumeMonitorClass.C.withPtr &&&> Utf8.C.withPtr ---> GioVolumeClass.C.fromPtr true) getVolumeForUuid_ (self & uuid)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun get () = (I ---> GioVolumeMonitorClass.FFI.fromPtr true) get_ ()
+    fun getMountForUuid self uuid = (GioVolumeMonitorClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioMountClass.FFI.fromPtr true) getMountForUuid_ (self & uuid)
+    fun getVolumeForUuid self uuid = (GioVolumeMonitorClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioVolumeClass.FFI.fromPtr true) getVolumeForUuid_ (self & uuid)
     local
       open ClosureMarshal Signal
     in

@@ -1,35 +1,26 @@
-structure GLibSliceConfig :>
-  sig
-    include G_LIB_SLICE_CONFIG
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GLibSliceConfig :> G_LIB_SLICE_CONFIG =
   struct
-    datatype t =
+    datatype enum =
       ALWAYS_MALLOC
     | BYPASS_MAGAZINES
     | WORKING_SET_MSECS
     | COLOR_INCREMENT
     | CHUNK_SIZES
     | CONTENTION_COUNTER
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = ALWAYS_MALLOC
+        val toInt =
           fn
-            ALWAYS_MALLOC => f 1
-          | BYPASS_MAGAZINES => f 2
-          | WORKING_SET_MSECS => f 3
-          | COLOR_INCREMENT => f 4
-          | CHUNK_SIZES => f 5
-          | CONTENTION_COUNTER => f 6
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            ALWAYS_MALLOC => 1
+          | BYPASS_MAGAZINES => 2
+          | WORKING_SET_MSECS => 3
+          | COLOR_INCREMENT => 4
+          | CHUNK_SIZES => 5
+          | CONTENTION_COUNTER => 6
+        exception Value of GInt32.t
+        val fromInt =
           fn
             1 => ALWAYS_MALLOC
           | 2 => BYPASS_MAGAZINES
@@ -38,11 +29,6 @@ structure GLibSliceConfig :>
           | 5 => CHUNK_SIZES
           | 6 => CONTENTION_COUNTER
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
-    val null = ALWAYS_MALLOC
+      )
+    open Enum
   end

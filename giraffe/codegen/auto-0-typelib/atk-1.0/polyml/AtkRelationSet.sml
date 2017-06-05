@@ -19,9 +19,9 @@ structure AtkRelationSet :>
              &&> AtkObjectClass.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val contains_ = call (load_sym libatk "atk_relation_set_contains") (AtkRelationSetClass.PolyML.cPtr &&> AtkRelationType.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val getNRelations_ = call (load_sym libatk "atk_relation_set_get_n_relations") (AtkRelationSetClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
-      val getRelation_ = call (load_sym libatk "atk_relation_set_get_relation") (AtkRelationSetClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> AtkRelationClass.PolyML.cPtr)
+      val contains_ = call (load_sym libatk "atk_relation_set_contains") (AtkRelationSetClass.PolyML.cPtr &&> AtkRelationType.PolyML.cVal --> GBool.PolyML.cVal)
+      val getNRelations_ = call (load_sym libatk "atk_relation_set_get_n_relations") (AtkRelationSetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getRelation_ = call (load_sym libatk "atk_relation_set_get_relation") (AtkRelationSetClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> AtkRelationClass.PolyML.cPtr)
       val getRelationByType_ = call (load_sym libatk "atk_relation_set_get_relation_by_type") (AtkRelationSetClass.PolyML.cPtr &&> AtkRelationType.PolyML.cVal --> AtkRelationClass.PolyML.cPtr)
       val remove_ = call (load_sym libatk "atk_relation_set_remove") (AtkRelationSetClass.PolyML.cPtr &&> AtkRelationClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
@@ -30,14 +30,14 @@ structure AtkRelationSet :>
     type relation_type_t = AtkRelationType.t
     type 'a relation_class = 'a AtkRelationClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> AtkRelationSetClass.C.fromPtr true) new_ ()
-    fun add self relation = (AtkRelationSetClass.C.withPtr &&&> AtkRelationClass.C.withPtr ---> I) add_ (self & relation)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> AtkRelationSetClass.FFI.fromPtr true) new_ ()
+    fun add self relation = (AtkRelationSetClass.FFI.withPtr &&&> AtkRelationClass.FFI.withPtr ---> I) add_ (self & relation)
     fun addRelationByType self relationship target =
       (
-        AtkRelationSetClass.C.withPtr
-         &&&> AtkRelationType.C.withVal
-         &&&> AtkObjectClass.C.withPtr
+        AtkRelationSetClass.FFI.withPtr
+         &&&> AtkRelationType.FFI.withVal
+         &&&> AtkObjectClass.FFI.withPtr
          ---> I
       )
         addRelationByType_
@@ -46,9 +46,9 @@ structure AtkRelationSet :>
            & relationship
            & target
         )
-    fun contains self relationship = (AtkRelationSetClass.C.withPtr &&&> AtkRelationType.C.withVal ---> FFI.Bool.C.fromVal) contains_ (self & relationship)
-    fun getNRelations self = (AtkRelationSetClass.C.withPtr ---> FFI.Int32.C.fromVal) getNRelations_ self
-    fun getRelation self i = (AtkRelationSetClass.C.withPtr &&&> FFI.Int32.C.withVal ---> AtkRelationClass.C.fromPtr false) getRelation_ (self & i)
-    fun getRelationByType self relationship = (AtkRelationSetClass.C.withPtr &&&> AtkRelationType.C.withVal ---> AtkRelationClass.C.fromPtr false) getRelationByType_ (self & relationship)
-    fun remove self relation = (AtkRelationSetClass.C.withPtr &&&> AtkRelationClass.C.withPtr ---> I) remove_ (self & relation)
+    fun contains self relationship = (AtkRelationSetClass.FFI.withPtr &&&> AtkRelationType.FFI.withVal ---> GBool.FFI.fromVal) contains_ (self & relationship)
+    fun getNRelations self = (AtkRelationSetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNRelations_ self
+    fun getRelation self i = (AtkRelationSetClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> AtkRelationClass.FFI.fromPtr false) getRelation_ (self & i)
+    fun getRelationByType self relationship = (AtkRelationSetClass.FFI.withPtr &&&> AtkRelationType.FFI.withVal ---> AtkRelationClass.FFI.fromPtr false) getRelationByType_ (self & relationship)
+    fun remove self relation = (AtkRelationSetClass.FFI.withPtr &&&> AtkRelationClass.FFI.withPtr ---> I) remove_ (self & relation)
   end

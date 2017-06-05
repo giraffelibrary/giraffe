@@ -1,43 +1,30 @@
-structure GtkUnit :>
-  sig
-    include GTK_UNIT
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkUnit :> GTK_UNIT =
   struct
-    datatype t =
+    datatype enum =
       PIXEL
     | POINTS
     | INCH
     | MM
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = PIXEL
+        val toInt =
           fn
-            PIXEL => f 0
-          | POINTS => f 1
-          | INCH => f 2
-          | MM => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            PIXEL => 0
+          | POINTS => 1
+          | INCH => 2
+          | MM => 3
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => PIXEL
           | 1 => POINTS
           | 2 => INCH
           | 3 => MM
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -48,10 +35,9 @@ structure GtkUnit :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = PIXEL
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

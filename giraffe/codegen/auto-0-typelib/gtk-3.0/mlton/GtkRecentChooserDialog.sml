@@ -4,13 +4,13 @@ structure GtkRecentChooserDialog :>
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a recent_chooser_class = 'a GtkRecentChooserClass.class =
   struct
-    val getType_ = _import "gtk_recent_chooser_dialog_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "gtk_recent_chooser_dialog_get_type" : unit -> GObjectType.FFI.val_;
     type 'a class = 'a GtkRecentChooserDialogClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a recent_chooser_class = 'a GtkRecentChooserClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asRecentChooser self = (GObjectObjectClass.C.withPtr ---> GtkRecentChooserClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asRecentChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkRecentChooserClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

@@ -1,43 +1,30 @@
-structure GtkPrintError :>
-  sig
-    include GTK_PRINT_ERROR
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkPrintError :> GTK_PRINT_ERROR =
   struct
-    datatype t =
+    datatype enum =
       GENERAL
     | INTERNAL_ERROR
     | NOMEM
     | INVALID_FILE
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = GENERAL
+        val toInt =
           fn
-            GENERAL => f 0
-          | INTERNAL_ERROR => f 1
-          | NOMEM => f 2
-          | INVALID_FILE => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            GENERAL => 0
+          | INTERNAL_ERROR => 1
+          | NOMEM => 2
+          | INVALID_FILE => 3
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => GENERAL
           | 1 => INTERNAL_ERROR
           | 2 => NOMEM
           | 3 => INVALID_FILE
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -48,18 +35,18 @@ structure GtkPrintError :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
     exception Error of t
     val handler =
       GLibErrorRecord.makeHandler
         (
           "gtk-print-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end
 exception GtkPrintError = GtkPrintError.Error

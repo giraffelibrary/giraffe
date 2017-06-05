@@ -1,10 +1,8 @@
-structure GIRepositoryTransfer :>
-  sig
-    include G_I_REPOSITORY_TRANSFER
-  end =
-  struct 
-    datatype t =
+structure GIRepositoryTransfer :> G_I_REPOSITORY_TRANSFER =
+  struct
+    datatype enum =
       NOTHING
     | CONTAINER
     | EVERYTHING
+    datatype t = datatype enum
   end

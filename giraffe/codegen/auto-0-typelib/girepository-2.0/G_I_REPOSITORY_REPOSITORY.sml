@@ -22,11 +22,16 @@ signature G_I_REPOSITORY_REPOSITORY =
       'a class
        -> string
        -> string
+    val getDependencies :
+      'a class
+       -> string
+       -> string list
     val getInfo :
       'a class
        -> string
        -> LargeInt.int
        -> base_info_t
+    val getLoadedNamespaces : 'a class -> string list
     val getNInfos :
       'a class
        -> string

@@ -1,14 +1,6 @@
-structure AtkRelationType :>
-  sig
-    include ATK_RELATION_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure AtkRelationType :> ATK_RELATION_TYPE =
   struct
-    datatype t =
+    datatype enum =
       NULL
     | CONTROLLED_BY
     | CONTROLLER_FOR
@@ -27,33 +19,32 @@ structure AtkRelationType :>
     | DESCRIPTION_FOR
     | NODE_PARENT_OF
     | LAST_DEFINED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NULL
+        val toInt =
           fn
-            NULL => f 0
-          | CONTROLLED_BY => f 1
-          | CONTROLLER_FOR => f 2
-          | LABEL_FOR => f 3
-          | LABELLED_BY => f 4
-          | MEMBER_OF => f 5
-          | NODE_CHILD_OF => f 6
-          | FLOWS_TO => f 7
-          | FLOWS_FROM => f 8
-          | SUBWINDOW_OF => f 9
-          | EMBEDS => f 10
-          | EMBEDDED_BY => f 11
-          | POPUP_FOR => f 12
-          | PARENT_WINDOW_OF => f 13
-          | DESCRIBED_BY => f 14
-          | DESCRIPTION_FOR => f 15
-          | NODE_PARENT_OF => f 16
-          | LAST_DEFINED => f 17
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NULL => 0
+          | CONTROLLED_BY => 1
+          | CONTROLLER_FOR => 2
+          | LABEL_FOR => 3
+          | LABELLED_BY => 4
+          | MEMBER_OF => 5
+          | NODE_CHILD_OF => 6
+          | FLOWS_TO => 7
+          | FLOWS_FROM => 8
+          | SUBWINDOW_OF => 9
+          | EMBEDS => 10
+          | EMBEDDED_BY => 11
+          | POPUP_FOR => 12
+          | PARENT_WINDOW_OF => 13
+          | DESCRIBED_BY => 14
+          | DESCRIPTION_FOR => 15
+          | NODE_PARENT_OF => 16
+          | LAST_DEFINED => 17
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => NULL
           | 1 => CONTROLLED_BY
@@ -74,12 +65,8 @@ structure AtkRelationType :>
           | 16 => NODE_PARENT_OF
           | 17 => LAST_DEFINED
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -90,11 +77,10 @@ structure AtkRelationType :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = NULL
     local
       open PolyMLFFI
     in
@@ -102,8 +88,8 @@ structure AtkRelationType :>
       val getName_ = call (load_sym libatk "atk_relation_type_get_name") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val register_ = call (load_sym libatk "atk_relation_type_register") (Utf8.PolyML.cInPtr --> PolyML.cVal)
     end
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (Utf8.C.withPtr ---> C.fromVal) forName_ name
-    fun getName type' = (C.withVal ---> Utf8.C.fromPtr false) getName_ type'
-    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun forName name = (Utf8.FFI.withPtr ---> FFI.fromVal) forName_ name
+    fun getName type' = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ type'
+    fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
   end

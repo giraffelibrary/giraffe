@@ -18,6 +18,6 @@ signature C_ARRAY =
         (* It is necessary to expose the following type representations because
          * the tuple elements must occur as individual elements in the tuple
          * argument of the imported C function. *)
-        where type 'a C.in_p = MLton.p1 * 'a MLton.p2
-        where type ('a, 'b) C.r = MLton.r1 * ('a, 'b) MLton.r2
+        where type 'a FFI.in_p = MLton.p1 * 'a MLton.p2
+        where type ('a, 'b) FFI.r = MLton.r1 * ('a, 'b) MLton.r2
   end

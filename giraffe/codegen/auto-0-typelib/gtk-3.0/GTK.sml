@@ -582,7 +582,6 @@ signature GTK =
       GTK_TEXT_ITER
         where type t = TextIterRecord.t
         where type text_search_flags_t = TextSearchFlags.t
-        where type text_attributes_t = TextAttributesRecord.t
         where type 'a text_buffer_class = 'a TextBufferClass.class
         where type 'a text_child_anchor_class = 'a TextChildAnchorClass.class
         where type 'a text_tag_class = 'a TextTagClass.class
@@ -2200,6 +2199,8 @@ signature GTK =
        -> LargeInt.int
        -> unit
     val iconThemeErrorQuark : unit -> LargeInt.int
+    val init : string list -> string list
+    val initCheck : string list -> bool * string list
     val keySnooperRemove : LargeInt.int -> unit
     val main : unit -> unit
     val mainDoEvent : 'a Gdk.Event.union -> unit
@@ -2451,6 +2452,7 @@ signature GTK =
        -> LargeInt.int
        -> unit
     val paperSizeGetDefault : unit -> string
+    val parseArgs : string list -> bool * string list
     val printErrorQuark : unit -> LargeInt.int
     val printRunPageSetupDialog :
       'a WindowClass.class option
@@ -2462,7 +2464,9 @@ signature GTK =
        -> 'b Gdk.Event.union
        -> unit
     val rcAddDefaultFile : string -> unit
+    val rcGetDefaultFiles : unit -> string list
     val rcGetStyle : 'a WidgetClass.class -> base StyleClass.class
+    val rcSetDefaultFiles : string list -> unit
     val recentChooserErrorQuark : unit -> LargeInt.int
     val recentManagerErrorQuark : unit -> LargeInt.int
     val renderActivity :
@@ -2635,6 +2639,16 @@ signature GTK =
        -> LargeInt.int
        -> bool
     val stockLookup : string -> StockItemRecord.t option
+    val targetsIncludeImage :
+      Gdk.AtomRecord.t vector
+       -> bool
+       -> bool
+    val targetsIncludeRichText :
+      Gdk.AtomRecord.t vector
+       -> 'a TextBufferClass.class
+       -> bool
+    val targetsIncludeText : Gdk.AtomRecord.t vector -> bool
+    val targetsIncludeUri : Gdk.AtomRecord.t vector -> bool
     val testCreateSimpleWindow :
       string
        -> string

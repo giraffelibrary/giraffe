@@ -2,10 +2,10 @@ structure AtkWindow :>
   ATK_WINDOW
     where type 'a class = 'a AtkWindowClass.class =
   struct
-    val getType_ = _import "atk_window_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "atk_window_get_type" : unit -> GObjectType.FFI.val_;
     type 'a class = 'a AtkWindowClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     local
       open ClosureMarshal Signal
     in

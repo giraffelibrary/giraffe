@@ -2,18 +2,54 @@ structure GioSocketControlMessage :>
   GIO_SOCKET_CONTROL_MESSAGE
     where type 'a class = 'a GioSocketControlMessageClass.class =
   struct
+    structure GUInt8CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GUInt8Type
+        structure ElemSequence = MonoVectorSequence(Word8Vector)
+      )
+    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_socket_control_message_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getLevel_ = call (load_sym libgio "g_socket_control_message_get_level") (GioSocketControlMessageClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getMsgType_ = call (load_sym libgio "g_socket_control_message_get_msg_type") (GioSocketControlMessageClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getSize_ = call (load_sym libgio "g_socket_control_message_get_size") (GioSocketControlMessageClass.PolyML.cPtr --> FFI.Size.PolyML.cVal)
+      val deserialize_ =
+        call (load_sym libgio "g_socket_control_message_deserialize")
+          (
+            GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GSize.PolyML.cVal
+             &&> GUInt8CVectorN.PolyML.cInPtr
+             --> GioSocketControlMessageClass.PolyML.cPtr
+          )
+      val getLevel_ = call (load_sym libgio "g_socket_control_message_get_level") (GioSocketControlMessageClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getMsgType_ = call (load_sym libgio "g_socket_control_message_get_msg_type") (GioSocketControlMessageClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getSize_ = call (load_sym libgio "g_socket_control_message_get_size") (GioSocketControlMessageClass.PolyML.cPtr --> GSize.PolyML.cVal)
     end
     type 'a class = 'a GioSocketControlMessageClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getLevel self = (GioSocketControlMessageClass.C.withPtr ---> FFI.Int.C.fromVal) getLevel_ self
-    fun getMsgType self = (GioSocketControlMessageClass.C.withPtr ---> FFI.Int.C.fromVal) getMsgType_ self
-    fun getSize self = (GioSocketControlMessageClass.C.withPtr ---> FFI.Size.C.fromVal) getSize_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun deserialize level type' data =
+      let
+        val size = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val retVal =
+          (
+            GInt.FFI.withVal
+             &&&> GInt.FFI.withVal
+             &&&> GSize.FFI.withVal
+             &&&> GUInt8CVectorN.FFI.withPtr
+             ---> GioSocketControlMessageClass.FFI.fromPtr true
+          )
+            deserialize_
+            (
+              level
+               & type'
+               & size
+               & data
+            )
+      in
+        retVal
+      end
+    fun getLevel self = (GioSocketControlMessageClass.FFI.withPtr ---> GInt.FFI.fromVal) getLevel_ self
+    fun getMsgType self = (GioSocketControlMessageClass.FFI.withPtr ---> GInt.FFI.fromVal) getMsgType_ self
+    fun getSize self = (GioSocketControlMessageClass.FFI.withPtr ---> GSize.FFI.fromVal) getSize_ self
   end

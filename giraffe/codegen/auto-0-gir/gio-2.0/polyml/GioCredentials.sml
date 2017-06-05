@@ -7,36 +7,36 @@ structure GioCredentials :>
     in
       val getType_ = call (load_sym libgio "g_credentials_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgio "g_credentials_new") (PolyMLFFI.cVoid --> GioCredentialsClass.PolyML.cPtr)
-      val getUnixUser_ = call (load_sym libgio "g_credentials_get_unix_user") (GioCredentialsClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.UInt.PolyML.cVal)
+      val getUnixUser_ = call (load_sym libgio "g_credentials_get_unix_user") (GioCredentialsClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GUInt.PolyML.cVal)
       val isSameUser_ =
         call (load_sym libgio "g_credentials_is_same_user")
           (
             GioCredentialsClass.PolyML.cPtr
              &&> GioCredentialsClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val setUnixUser_ =
         call (load_sym libgio "g_credentials_set_unix_user")
           (
             GioCredentialsClass.PolyML.cPtr
-             &&> FFI.UInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val toString_ = call (load_sym libgio "g_credentials_to_string") (GioCredentialsClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class = 'a GioCredentialsClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GioCredentialsClass.C.fromPtr true) new_ ()
-    fun getUnixUser self = (GioCredentialsClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.UInt.C.fromVal) getUnixUser_ (self & [])
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GioCredentialsClass.FFI.fromPtr true) new_ ()
+    fun getUnixUser self = (GioCredentialsClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GUInt.FFI.fromVal) getUnixUser_ (self & [])
     fun isSameUser self otherCredentials =
       (
-        GioCredentialsClass.C.withPtr
-         &&&> GioCredentialsClass.C.withPtr
+        GioCredentialsClass.FFI.withPtr
+         &&&> GioCredentialsClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         isSameUser_
         (
@@ -46,10 +46,10 @@ structure GioCredentials :>
         )
     fun setUnixUser self uid =
       (
-        GioCredentialsClass.C.withPtr
-         &&&> FFI.UInt.C.withVal
+        GioCredentialsClass.FFI.withPtr
+         &&&> GUInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         setUnixUser_
         (
@@ -57,5 +57,5 @@ structure GioCredentials :>
            & uid
            & []
         )
-    fun toString self = (GioCredentialsClass.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
+    fun toString self = (GioCredentialsClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
   end

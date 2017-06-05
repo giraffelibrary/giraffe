@@ -1,1 +1,1 @@
-structure XlibXid = FFI.ULong
+structure XlibXid = GULong

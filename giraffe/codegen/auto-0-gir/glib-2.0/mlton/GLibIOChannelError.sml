@@ -1,11 +1,8 @@
 structure GLibIOChannelError :>
-  sig
-    include
-      G_LIB_I_O_CHANNEL_ERROR
-        where type error_handler = GLibErrorRecord.handler
-  end =
+  G_LIB_I_O_CHANNEL_ERROR
+    where type error_handler = GLibErrorRecord.handler =
   struct
-    datatype t =
+    datatype enum =
       FBIG
     | INVAL
     | IO
@@ -15,24 +12,23 @@ structure GLibIOChannelError :>
     | OVERFLOW
     | PIPE
     | FAILED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = FBIG
+        val toInt =
           fn
-            FBIG => f 0
-          | INVAL => f 1
-          | IO => f 2
-          | ISDIR => f 3
-          | NOSPC => f 4
-          | NXIO => f 5
-          | OVERFLOW => f 6
-          | PIPE => f 7
-          | FAILED => f 8
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            FBIG => 0
+          | INVAL => 1
+          | IO => 2
+          | ISDIR => 3
+          | NOSPC => 4
+          | NXIO => 5
+          | OVERFLOW => 6
+          | PIPE => 7
+          | FAILED => 8
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => FBIG
           | 1 => INVAL
@@ -44,14 +40,15 @@ structure GLibIOChannelError :>
           | 7 => PIPE
           | 8 => FAILED
           | n => raise Value n
-      end
+      )
+    open Enum
     exception Error of t
     type error_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (
           "g-io-channel-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
   end

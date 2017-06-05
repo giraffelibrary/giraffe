@@ -1,9 +1,6 @@
-structure AtkRelationType :>
-  sig
-    include ATK_RELATION_TYPE
-  end =
+structure AtkRelationType :> ATK_RELATION_TYPE =
   struct
-    datatype t =
+    datatype enum =
       NULL
     | CONTROLLED_BY
     | CONTROLLER_FOR
@@ -22,33 +19,32 @@ structure AtkRelationType :>
     | DESCRIPTION_FOR
     | NODE_PARENT_OF
     | LAST_DEFINED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NULL
+        val toInt =
           fn
-            NULL => f 0
-          | CONTROLLED_BY => f 1
-          | CONTROLLER_FOR => f 2
-          | LABEL_FOR => f 3
-          | LABELLED_BY => f 4
-          | MEMBER_OF => f 5
-          | NODE_CHILD_OF => f 6
-          | FLOWS_TO => f 7
-          | FLOWS_FROM => f 8
-          | SUBWINDOW_OF => f 9
-          | EMBEDS => f 10
-          | EMBEDDED_BY => f 11
-          | POPUP_FOR => f 12
-          | PARENT_WINDOW_OF => f 13
-          | DESCRIBED_BY => f 14
-          | DESCRIPTION_FOR => f 15
-          | NODE_PARENT_OF => f 16
-          | LAST_DEFINED => f 17
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NULL => 0
+          | CONTROLLED_BY => 1
+          | CONTROLLER_FOR => 2
+          | LABEL_FOR => 3
+          | LABELLED_BY => 4
+          | MEMBER_OF => 5
+          | NODE_CHILD_OF => 6
+          | FLOWS_TO => 7
+          | FLOWS_FROM => 8
+          | SUBWINDOW_OF => 9
+          | EMBEDS => 10
+          | EMBEDDED_BY => 11
+          | POPUP_FOR => 12
+          | PARENT_WINDOW_OF => 13
+          | DESCRIBED_BY => 14
+          | DESCRIPTION_FOR => 15
+          | NODE_PARENT_OF => 16
+          | LAST_DEFINED => 17
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => NULL
           | 1 => CONTROLLED_BY
@@ -69,23 +65,23 @@ structure AtkRelationType :>
           | 16 => NODE_PARENT_OF
           | 17 => LAST_DEFINED
           | n => raise Value n
-      end
-    val getType_ = _import "atk_relation_type_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "atk_relation_type_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = NULL
-    val forName_ = _import "mlton_atk_relation_type_for_name" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> C.val_;
-    val getName_ = _import "atk_relation_type_get_name" : C.val_ -> Utf8.C.notnull Utf8.C.out_p;
-    val register_ = _import "mlton_atk_relation_type_register" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> C.val_;
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (Utf8.C.withPtr ---> C.fromVal) forName_ name
-    fun getName type' = (C.withVal ---> Utf8.C.fromPtr false) getName_ type'
-    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
+    val forName_ = _import "mlton_atk_relation_type_for_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> FFI.val_;
+    val getName_ = _import "atk_relation_type_get_name" : FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val register_ = _import "mlton_atk_relation_type_register" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> FFI.val_;
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun forName name = (Utf8.FFI.withPtr ---> FFI.fromVal) forName_ name
+    fun getName type' = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ type'
+    fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
   end

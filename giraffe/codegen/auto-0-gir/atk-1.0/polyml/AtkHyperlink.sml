@@ -8,27 +8,27 @@ structure AtkHyperlink :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libatk "atk_hyperlink_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getEndIndex_ = call (load_sym libatk "atk_hyperlink_get_end_index") (AtkHyperlinkClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getNAnchors_ = call (load_sym libatk "atk_hyperlink_get_n_anchors") (AtkHyperlinkClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getObject_ = call (load_sym libatk "atk_hyperlink_get_object") (AtkHyperlinkClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
-      val getStartIndex_ = call (load_sym libatk "atk_hyperlink_get_start_index") (AtkHyperlinkClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getUri_ = call (load_sym libatk "atk_hyperlink_get_uri") (AtkHyperlinkClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val isInline_ = call (load_sym libatk "atk_hyperlink_is_inline") (AtkHyperlinkClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val isValid_ = call (load_sym libatk "atk_hyperlink_is_valid") (AtkHyperlinkClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getEndIndex_ = call (load_sym libatk "atk_hyperlink_get_end_index") (AtkHyperlinkClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getNAnchors_ = call (load_sym libatk "atk_hyperlink_get_n_anchors") (AtkHyperlinkClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getObject_ = call (load_sym libatk "atk_hyperlink_get_object") (AtkHyperlinkClass.PolyML.cPtr &&> GInt.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
+      val getStartIndex_ = call (load_sym libatk "atk_hyperlink_get_start_index") (AtkHyperlinkClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getUri_ = call (load_sym libatk "atk_hyperlink_get_uri") (AtkHyperlinkClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val isInline_ = call (load_sym libatk "atk_hyperlink_is_inline") (AtkHyperlinkClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isValid_ = call (load_sym libatk "atk_hyperlink_is_valid") (AtkHyperlinkClass.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a AtkHyperlinkClass.class
     type 'a action_class = 'a AtkActionClass.class
     type 'a object_class = 'a AtkObjectClass.class
     type t = base class
-    fun asAction self = (GObjectObjectClass.C.withPtr ---> AtkActionClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getEndIndex self = (AtkHyperlinkClass.C.withPtr ---> FFI.Int.C.fromVal) getEndIndex_ self
-    fun getNAnchors self = (AtkHyperlinkClass.C.withPtr ---> FFI.Int.C.fromVal) getNAnchors_ self
-    fun getObject self i = (AtkHyperlinkClass.C.withPtr &&&> FFI.Int.C.withVal ---> AtkObjectClass.C.fromPtr false) getObject_ (self & i)
-    fun getStartIndex self = (AtkHyperlinkClass.C.withPtr ---> FFI.Int.C.fromVal) getStartIndex_ self
-    fun getUri self i = (AtkHyperlinkClass.C.withPtr &&&> FFI.Int.C.withVal ---> Utf8.C.fromPtr true) getUri_ (self & i)
-    fun isInline self = (AtkHyperlinkClass.C.withPtr ---> FFI.Bool.C.fromVal) isInline_ self
-    fun isValid self = (AtkHyperlinkClass.C.withPtr ---> FFI.Bool.C.fromVal) isValid_ self
+    fun asAction self = (GObjectObjectClass.FFI.withPtr ---> AtkActionClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getEndIndex self = (AtkHyperlinkClass.FFI.withPtr ---> GInt.FFI.fromVal) getEndIndex_ self
+    fun getNAnchors self = (AtkHyperlinkClass.FFI.withPtr ---> GInt.FFI.fromVal) getNAnchors_ self
+    fun getObject self i = (AtkHyperlinkClass.FFI.withPtr &&&> GInt.FFI.withVal ---> AtkObjectClass.FFI.fromPtr false) getObject_ (self & i)
+    fun getStartIndex self = (AtkHyperlinkClass.FFI.withPtr ---> GInt.FFI.fromVal) getStartIndex_ self
+    fun getUri self i = (AtkHyperlinkClass.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) getUri_ (self & i)
+    fun isInline self = (AtkHyperlinkClass.FFI.withPtr ---> GBool.FFI.fromVal) isInline_ self
+    fun isValid self = (AtkHyperlinkClass.FFI.withPtr ---> GBool.FFI.fromVal) isValid_ self
     local
       open ClosureMarshal Signal
     in

@@ -43,9 +43,9 @@ fun makeInterfaceConvSpec
      *)
     val tyVarIdx'0 = 0
     val (containerTy, tyVarIdx'1) =
-       makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'0)
+       makeIRefLocalTypeRef (makeRefVarTy false) (containerIRef, tyVarIdx'0)
     val (interfaceTy, _) =
-       makeIRefLocalTypeRef makeRefBaseTy (interfaceIRef, tyVarIdx'1)
+       makeIRefLocalTypeRef (makeRefBaseTy false) (interfaceIRef, tyVarIdx'1)
     val interfaceConvTy = TyFun (containerTy, interfaceTy)
   in
     (mkValSpec (interfaceConvId, interfaceConvTy), (iRefs'1, errs))
@@ -58,8 +58,8 @@ fun makeInterfaceConvStrDec
   _
   rootObjectIRef
   ({namespace = containerNamespace, ...} : interfaceref)
-  (interfaceInfo, (iRefs, errs))
-  : strdec * (interfaceref list * infoerrorhier list) =
+  (interfaceInfo, ((iRefs, structDeps), errs))
+  : strdec * ((interfaceref list * struct1 ListDict.t) * infoerrorhier list) =
   let
     val () = checkDeprecated interfaceInfo
 
@@ -87,23 +87,23 @@ fun makeInterfaceConvStrDec
       | _                  => insert (interfaceIRef, iRefs)
 
     (*
-     *   <RootObjectNamespace><RootObjectName>Class.C.withPtr
+     *   <RootObjectNamespace><RootObjectName>Class.FFI.withPtr
      *)
     val withFunExp =
-      mkLIdLNameExp (prefixInterfaceStrId rootObjectIRef ["C", withPtrId])
+      mkLIdLNameExp (prefixInterfaceStrId rootObjectIRef [ffiStrId, withPtrId])
 
     (*
-     *   <InterfaceNamespace><InterfaceName>Class.C.fromPtr false
+     *   <InterfaceNamespace><InterfaceName>Class.FFI.fromPtr false
      *)
     val fromFunExp =
       ExpApp (
-        mkLIdLNameExp (prefixInterfaceStrId interfaceIRef ["C", fromPtrId]),
+        mkLIdLNameExp (prefixInterfaceStrId interfaceIRef [ffiStrId, fromPtrId]),
         falseExp
       )
 
     (*
-     *   (<RootObjectNamespace><RootObjectName>Class.C.withPtr
-     *     ---> <InterfaceNamespace><InterfaceName>Class.C.fromPtr false)
+     *   (<RootObjectNamespace><RootObjectName>Class.FFI.withPtr
+     *     ---> <InterfaceNamespace><InterfaceName>Class.FFI.fromPtr false)
      *     I
      *     self
      *)
@@ -132,6 +132,6 @@ fun makeInterfaceConvStrDec
           ]
         )
       ),
-      (iRefs'1, errs)
+      ((iRefs'1, structDeps), errs)
     )
   end

@@ -1,28 +1,24 @@
-structure VteEraseBinding :>
-  sig
-    include VTE_ERASE_BINDING
-  end =
+structure VteEraseBinding :> VTE_ERASE_BINDING =
   struct
-    datatype t =
+    datatype enum =
       AUTO
     | ASCII_BACKSPACE
     | ASCII_DELETE
     | DELETE_SEQUENCE
     | TTY
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = AUTO
+        val toInt =
           fn
-            AUTO => f 0
-          | ASCII_BACKSPACE => f 1
-          | ASCII_DELETE => f 2
-          | DELETE_SEQUENCE => f 3
-          | TTY => f 4
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            AUTO => 0
+          | ASCII_BACKSPACE => 1
+          | ASCII_DELETE => 2
+          | DELETE_SEQUENCE => 3
+          | TTY => 4
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => AUTO
           | 1 => ASCII_BACKSPACE
@@ -30,17 +26,17 @@ structure VteEraseBinding :>
           | 3 => DELETE_SEQUENCE
           | 4 => TTY
           | n => raise Value n
-      end
-    val getType_ = _import "vte_erase_binding_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "vte_erase_binding_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = AUTO
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

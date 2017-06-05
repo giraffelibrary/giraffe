@@ -1,7 +1,4 @@
-structure GLibKeyFileFlags :>
-  sig
-    include G_LIB_KEY_FILE_FLAGS
-  end =
+structure GLibKeyFileFlags :> G_LIB_KEY_FILE_FLAGS =
   struct
     local
       fun NONE () = 0w0
@@ -16,18 +13,9 @@ structure GLibKeyFileFlags :>
         KEEP_COMMENTS,
         KEEP_TRANSLATIONS
       ]
-    structure BitFlags =
-      Word32BitFlags (
+    structure Flags =
+      Flags(
         val allFlags = allFlags
       )
-    open BitFlags
-    type t = flags
-    structure C =
-      struct
-        type val_ = FFI.Flags.C.val_
-        type ref_ = FFI.Flags.C.ref_
-        fun withVal f = f
-        fun withRefVal f = withVal (FFI.Flags.C.withRef f)
-        fun fromVal w = w
-      end
+    open Flags
   end

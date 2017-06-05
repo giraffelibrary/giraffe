@@ -2,8 +2,29 @@ structure GioUnixFDList :>
   GIO_UNIX_F_D_LIST
     where type 'a class = 'a GioUnixFDListClass.class =
   struct
-    val getType_ = _import "g_unix_fd_list_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "g_unix_fd_list_new" : unit -> GioUnixFDListClass.C.notnull GioUnixFDListClass.C.p;
+    structure GIntCVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GIntType
+        structure ElemSequence = CValueVectorSequence(GIntType)
+      )
+    structure GIntCVectorN = CVectorN(GIntCVectorNType)
+    val getType_ = _import "g_unix_fd_list_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "g_unix_fd_list_new" : unit -> GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p;
+    val newFromArray_ =
+      fn
+        (x1, x2) & x3 =>
+          (
+            _import "mlton_g_unix_fd_list_new_from_array" :
+              GIntCVectorN.MLton.p1
+               * GIntCVectorN.FFI.notnull GIntCVectorN.MLton.p2
+               * GInt.FFI.val_
+               -> GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val append_ =
       fn
         x1
@@ -11,10 +32,10 @@ structure GioUnixFDList :>
          & x3 =>
           (
             _import "g_unix_fd_list_append" :
-              GioUnixFDListClass.C.notnull GioUnixFDListClass.C.p
-               * FFI.Int.C.val_
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int.C.val_;
+              GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p
+               * GInt.FFI.val_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GInt.FFI.val_;
           )
             (
               x1,
@@ -28,27 +49,36 @@ structure GioUnixFDList :>
          & x3 =>
           (
             _import "g_unix_fd_list_get" :
-              GioUnixFDListClass.C.notnull GioUnixFDListClass.C.p
-               * FFI.Int.C.val_
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Int.C.val_;
+              GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p
+               * GInt.FFI.val_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GInt.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val getLength_ = _import "g_unix_fd_list_get_length" : GioUnixFDListClass.C.notnull GioUnixFDListClass.C.p -> FFI.Int.C.val_;
+    val getLength_ = _import "g_unix_fd_list_get_length" : GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p -> GInt.FFI.val_;
+    val peekFds_ = fn x1 & x2 => (_import "g_unix_fd_list_peek_fds" : GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p * GInt.FFI.ref_ -> GIntCVectorN.FFI.notnull GIntCVectorN.FFI.out_p;) (x1, x2)
+    val stealFds_ = fn x1 & x2 => (_import "g_unix_fd_list_steal_fds" : GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p * GInt.FFI.ref_ -> GIntCVectorN.FFI.notnull GIntCVectorN.FFI.out_p;) (x1, x2)
     type 'a class = 'a GioUnixFDListClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GioUnixFDListClass.C.fromPtr true) new_ ()
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GioUnixFDListClass.FFI.fromPtr true) new_ ()
+    fun newFromArray fds =
+      let
+        val nFds = LargeInt.fromInt (GIntCVectorN.length fds)
+        val retVal = (GIntCVectorN.FFI.withPtr &&&> GInt.FFI.withVal ---> GioUnixFDListClass.FFI.fromPtr true) newFromArray_ (fds & nFds)
+      in
+        retVal
+      end
     fun append self fd =
       (
-        GioUnixFDListClass.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GioUnixFDListClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Int.C.fromVal
+         ---> GInt.FFI.fromVal
       )
         append_
         (
@@ -58,10 +88,10 @@ structure GioUnixFDList :>
         )
     fun get self index =
       (
-        GioUnixFDListClass.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GioUnixFDListClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Int.C.fromVal
+         ---> GInt.FFI.fromVal
       )
         get_
         (
@@ -69,5 +99,17 @@ structure GioUnixFDList :>
            & index
            & []
         )
-    fun getLength self = (GioUnixFDListClass.C.withPtr ---> FFI.Int.C.fromVal) getLength_ self
+    fun getLength self = (GioUnixFDListClass.FFI.withPtr ---> GInt.FFI.fromVal) getLength_ self
+    fun peekFds self =
+      let
+        val length & retVal = (GioUnixFDListClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCVectorN.FFI.fromPtr 0) peekFds_ (self & GInt.null)
+      in
+        retVal (LargeInt.toInt length)
+      end
+    fun stealFds self =
+      let
+        val length & retVal = (GioUnixFDListClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCVectorN.FFI.fromPtr 1) stealFds_ (self & GInt.null)
+      in
+        retVal (LargeInt.toInt length)
+      end
   end

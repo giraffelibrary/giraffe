@@ -1,1 +1,1 @@
-structure GObjectType = FFI.Size
+structure GObjectType = GSize

@@ -7,12 +7,12 @@ structure GioNetworkAddress :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_network_address_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_network_address_new") (Utf8.PolyML.cInPtr &&> FFI.UInt16.PolyML.cVal --> GioSocketConnectableClass.PolyML.cPtr)
+      val new_ = call (load_sym libgio "g_network_address_new") (Utf8.PolyML.cInPtr &&> GUInt16.PolyML.cVal --> GioSocketConnectableClass.PolyML.cPtr)
       val parse_ =
         call (load_sym libgio "g_network_address_parse")
           (
             Utf8.PolyML.cInPtr
-             &&> FFI.UInt16.PolyML.cVal
+             &&> GUInt16.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioSocketConnectableClass.PolyML.cPtr
           )
@@ -20,26 +20,26 @@ structure GioNetworkAddress :>
         call (load_sym libgio "g_network_address_parse_uri")
           (
             Utf8.PolyML.cInPtr
-             &&> FFI.UInt16.PolyML.cVal
+             &&> GUInt16.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioSocketConnectableClass.PolyML.cPtr
           )
       val getHostname_ = call (load_sym libgio "g_network_address_get_hostname") (GioNetworkAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getPort_ = call (load_sym libgio "g_network_address_get_port") (GioNetworkAddressClass.PolyML.cPtr --> FFI.UInt16.PolyML.cVal)
+      val getPort_ = call (load_sym libgio "g_network_address_get_port") (GioNetworkAddressClass.PolyML.cPtr --> GUInt16.PolyML.cVal)
       val getScheme_ = call (load_sym libgio "g_network_address_get_scheme") (GioNetworkAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class = 'a GioNetworkAddressClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type t = base class
-    fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new hostname port = (Utf8.C.withPtr &&&> FFI.UInt16.C.withVal ---> GioSocketConnectableClass.C.fromPtr true) new_ (hostname & port)
+    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new hostname port = (Utf8.FFI.withPtr &&&> GUInt16.FFI.withVal ---> GioSocketConnectableClass.FFI.fromPtr true) new_ (hostname & port)
     fun parse hostAndPort defaultPort =
       (
-        Utf8.C.withPtr
-         &&&> FFI.UInt16.C.withVal
+        Utf8.FFI.withPtr
+         &&&> GUInt16.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GioSocketConnectableClass.C.fromPtr true
+         ---> GioSocketConnectableClass.FFI.fromPtr true
       )
         parse_
         (
@@ -49,10 +49,10 @@ structure GioNetworkAddress :>
         )
     fun parseUri uri defaultPort =
       (
-        Utf8.C.withPtr
-         &&&> FFI.UInt16.C.withVal
+        Utf8.FFI.withPtr
+         &&&> GUInt16.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GioSocketConnectableClass.C.fromPtr true
+         ---> GioSocketConnectableClass.FFI.fromPtr true
       )
         parseUri_
         (
@@ -60,9 +60,9 @@ structure GioNetworkAddress :>
            & defaultPort
            & []
         )
-    fun getHostname self = (GioNetworkAddressClass.C.withPtr ---> Utf8.C.fromPtr false) getHostname_ self
-    fun getPort self = (GioNetworkAddressClass.C.withPtr ---> FFI.UInt16.C.fromVal) getPort_ self
-    fun getScheme self = (GioNetworkAddressClass.C.withPtr ---> Utf8.C.fromPtr false) getScheme_ self
+    fun getHostname self = (GioNetworkAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getHostname_ self
+    fun getPort self = (GioNetworkAddressClass.FFI.withPtr ---> GUInt16.FFI.fromVal) getPort_ self
+    fun getScheme self = (GioNetworkAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getScheme_ self
     local
       open Property
     in

@@ -1,33 +1,24 @@
-structure GioSocketProtocol :>
-  sig
-    include GIO_SOCKET_PROTOCOL
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GioSocketProtocol :> GIO_SOCKET_PROTOCOL =
   struct
-    datatype t =
+    datatype enum =
       UNKNOWN
     | DEFAULT
     | TCP
     | UDP
     | SCTP
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = UNKNOWN
+        val toInt =
           fn
-            UNKNOWN => f ~1
-          | DEFAULT => f 0
-          | TCP => f 6
-          | UDP => f 17
-          | SCTP => f 132
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            UNKNOWN => ~1
+          | DEFAULT => 0
+          | TCP => 6
+          | UDP => 17
+          | SCTP => 132
+        exception Value of GInt32.t
+        val fromInt =
           fn
             ~1 => UNKNOWN
           | 0 => DEFAULT
@@ -35,12 +26,8 @@ structure GioSocketProtocol :>
           | 17 => UDP
           | 132 => SCTP
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -51,10 +38,9 @@ structure GioSocketProtocol :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = UNKNOWN
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

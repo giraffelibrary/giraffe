@@ -1,1 +1,1 @@
-structure XlibVisualID = FFI.ULong
+structure XlibVisualID = GULong

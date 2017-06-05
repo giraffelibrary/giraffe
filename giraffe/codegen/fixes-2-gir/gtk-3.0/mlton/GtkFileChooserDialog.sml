@@ -6,16 +6,16 @@ structure GtkFileChooserDialog :>
     where type 'a window_class = 'a GtkWindowClass.class
     where type file_chooser_action_t = GtkFileChooserAction.t =
   struct
-    val getType_ = _import "gtk_file_chooser_dialog_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "gtk_file_chooser_dialog_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
         (x1, x2) & x3 & x4 =>
           (
             _import "giraffe_gtk_file_chooser_dialog_new" :
               Utf8.MLton.p1 * unit Utf8.MLton.p2
-               * unit GtkWindowClass.C.p
-               * GtkFileChooserAction.C.val_
-               -> GtkFileChooserDialogClass.C.notnull GtkFileChooserDialogClass.C.p;
+               * unit GtkWindowClass.FFI.p
+               * GtkFileChooserAction.FFI.val_
+               -> GtkFileChooserDialogClass.FFI.notnull GtkFileChooserDialogClass.FFI.p;
           )
             (
               x1,
@@ -29,16 +29,16 @@ structure GtkFileChooserDialog :>
     type 'a window_class = 'a GtkWindowClass.class
     type file_chooser_action_t = GtkFileChooserAction.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asFileChooser self = (GObjectObjectClass.C.withPtr ---> GtkFileChooserClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asFileChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkFileChooserClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new title parent action =
       (
-        Utf8.C.withOptPtr
-         &&&> GtkWindowClass.C.withOptPtr
-         &&&> GtkFileChooserAction.C.withVal
-         ---> GtkFileChooserDialogClass.C.fromPtr false
+        Utf8.FFI.withOptPtr
+         &&&> GtkWindowClass.FFI.withOptPtr
+         &&&> GtkFileChooserAction.FFI.withVal
+         ---> GtkFileChooserDialogClass.FFI.fromPtr false
       )
         new_
         (

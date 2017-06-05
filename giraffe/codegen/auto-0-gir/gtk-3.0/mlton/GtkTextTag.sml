@@ -6,8 +6,8 @@ structure GtkTextTag :>
     where type justification_t = GtkJustification.t
     where type wrap_mode_t = GtkWrapMode.t =
   struct
-    val getType_ = _import "gtk_text_tag_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_text_tag_new" : Utf8.MLton.p1 * unit Utf8.MLton.p2 -> GtkTextTagClass.C.notnull GtkTextTagClass.C.p;
+    val getType_ = _import "gtk_text_tag_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "mlton_gtk_text_tag_new" : Utf8.MLton.p1 * unit Utf8.MLton.p2 -> GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p;
     val event_ =
       fn
         x1
@@ -16,11 +16,11 @@ structure GtkTextTag :>
          & x4 =>
           (
             _import "gtk_text_tag_event" :
-              GtkTextTagClass.C.notnull GtkTextTagClass.C.p
-               * GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-               * GdkEvent.C.notnull GdkEvent.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               -> FFI.Bool.C.val_;
+              GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p
+               * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+               * GdkEvent.FFI.notnull GdkEvent.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -28,23 +28,23 @@ structure GtkTextTag :>
               x3,
               x4
             )
-    val getPriority_ = _import "gtk_text_tag_get_priority" : GtkTextTagClass.C.notnull GtkTextTagClass.C.p -> FFI.Int.C.val_;
-    val setPriority_ = fn x1 & x2 => (_import "gtk_text_tag_set_priority" : GtkTextTagClass.C.notnull GtkTextTagClass.C.p * FFI.Int.C.val_ -> unit;) (x1, x2)
+    val getPriority_ = _import "gtk_text_tag_get_priority" : GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p -> GInt.FFI.val_;
+    val setPriority_ = fn x1 & x2 => (_import "gtk_text_tag_set_priority" : GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkTextTagClass.class
     type text_iter_t = GtkTextIterRecord.t
     type text_direction_t = GtkTextDirection.t
     type justification_t = GtkJustification.t
     type wrap_mode_t = GtkWrapMode.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name = (Utf8.C.withOptPtr ---> GtkTextTagClass.C.fromPtr true) new_ name
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new name = (Utf8.FFI.withOptPtr ---> GtkTextTagClass.FFI.fromPtr true) new_ name
     fun event self eventObject event iter =
       (
-        GtkTextTagClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> GdkEvent.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         ---> FFI.Bool.C.fromVal
+        GtkTextTagClass.FFI.withPtr
+         &&&> GObjectObjectClass.FFI.withPtr
+         &&&> GdkEvent.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         ---> GBool.FFI.fromVal
       )
         event_
         (
@@ -53,8 +53,8 @@ structure GtkTextTag :>
            & event
            & iter
         )
-    fun getPriority self = (GtkTextTagClass.C.withPtr ---> FFI.Int.C.fromVal) getPriority_ self
-    fun setPriority self priority = (GtkTextTagClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setPriority_ (self & priority)
+    fun getPriority self = (GtkTextTagClass.FFI.withPtr ---> GInt.FFI.fromVal) getPriority_ self
+    fun setPriority self priority = (GtkTextTagClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setPriority_ (self & priority)
     local
       open ClosureMarshal Signal
     in

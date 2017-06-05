@@ -4,14 +4,14 @@ structure GtkCellRendererCombo :>
     where type tree_iter_t = GtkTreeIterRecord.t
     where type 'a tree_model_class = 'a GtkTreeModelClass.class =
   struct
-    val getType_ = _import "gtk_cell_renderer_combo_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_cell_renderer_combo_new" : unit -> GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p;
+    val getType_ = _import "gtk_cell_renderer_combo_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_cell_renderer_combo_new" : unit -> GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p;
     type 'a class = 'a GtkCellRendererComboClass.class
     type tree_iter_t = GtkTreeIterRecord.t
     type 'a tree_model_class = 'a GtkTreeModelClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkCellRendererComboClass.C.fromPtr false) new_ ()
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkCellRendererComboClass.FFI.fromPtr false) new_ ()
     local
       open ClosureMarshal Signal
     in

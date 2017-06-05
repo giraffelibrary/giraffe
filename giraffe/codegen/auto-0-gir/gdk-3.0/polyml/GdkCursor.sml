@@ -16,8 +16,8 @@ structure GdkCursor :>
           (
             GdkDisplayClass.PolyML.cPtr
              &&> GdkPixbufPixbufClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> GdkCursorClass.PolyML.cPtr
           )
       val getCursorType_ = call (load_sym libgdk "gdk_cursor_get_cursor_type") (GdkCursorClass.PolyML.cPtr --> GdkCursorType.PolyML.cVal)
@@ -28,17 +28,17 @@ structure GdkCursor :>
     type cursor_type_t = GdkCursorType.t
     type 'a display_class = 'a GdkDisplayClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new cursorType = (GdkCursorType.C.withVal ---> GdkCursorClass.C.fromPtr true) new_ cursorType
-    fun newForDisplay display cursorType = (GdkDisplayClass.C.withPtr &&&> GdkCursorType.C.withVal ---> GdkCursorClass.C.fromPtr true) newForDisplay_ (display & cursorType)
-    fun newFromName display name = (GdkDisplayClass.C.withPtr &&&> Utf8.C.withPtr ---> GdkCursorClass.C.fromPtr true) newFromName_ (display & name)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new cursorType = (GdkCursorType.FFI.withVal ---> GdkCursorClass.FFI.fromPtr true) new_ cursorType
+    fun newForDisplay display cursorType = (GdkDisplayClass.FFI.withPtr &&&> GdkCursorType.FFI.withVal ---> GdkCursorClass.FFI.fromPtr true) newForDisplay_ (display & cursorType)
+    fun newFromName display name = (GdkDisplayClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GdkCursorClass.FFI.fromPtr true) newFromName_ (display & name)
     fun newFromPixbuf display pixbuf x y =
       (
-        GdkDisplayClass.C.withPtr
-         &&&> GdkPixbufPixbufClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         ---> GdkCursorClass.C.fromPtr true
+        GdkDisplayClass.FFI.withPtr
+         &&&> GdkPixbufPixbufClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GdkCursorClass.FFI.fromPtr true
       )
         newFromPixbuf_
         (
@@ -47,9 +47,9 @@ structure GdkCursor :>
            & x
            & y
         )
-    fun getCursorType self = (GdkCursorClass.C.withPtr ---> GdkCursorType.C.fromVal) getCursorType_ self
-    fun getDisplay self = (GdkCursorClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self
-    fun getImage self = (GdkCursorClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr true) getImage_ self
+    fun getCursorType self = (GdkCursorClass.FFI.withPtr ---> GdkCursorType.FFI.fromVal) getCursorType_ self
+    fun getDisplay self = (GdkCursorClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getImage self = (GdkCursorClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) getImage_ self
     local
       open Property
     in

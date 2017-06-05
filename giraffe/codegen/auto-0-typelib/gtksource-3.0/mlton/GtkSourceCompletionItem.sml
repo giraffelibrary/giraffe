@@ -3,7 +3,7 @@ structure GtkSourceCompletionItem :>
     where type 'a class = 'a GtkSourceCompletionItemClass.class
     where type 'a completion_proposal_class = 'a GtkSourceCompletionProposalClass.class =
   struct
-    val getType_ = _import "gtk_source_completion_item_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "gtk_source_completion_item_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
         (x1, x2)
@@ -13,13 +13,13 @@ structure GtkSourceCompletionItem :>
           (
             _import "mlton_gtk_source_completion_item_new" :
               Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * unit GdkPixbufPixbufClass.C.p
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit GdkPixbufPixbufClass.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GtkSourceCompletionItemClass.C.notnull GtkSourceCompletionItemClass.C.p;
+               -> GtkSourceCompletionItemClass.FFI.notnull GtkSourceCompletionItemClass.FFI.p;
           )
             (
               x1,
@@ -41,12 +41,12 @@ structure GtkSourceCompletionItem :>
               Utf8.MLton.p1
                * unit Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GtkSourceCompletionItemClass.C.notnull GtkSourceCompletionItemClass.C.p;
+               -> GtkSourceCompletionItemClass.FFI.notnull GtkSourceCompletionItemClass.FFI.p;
           )
             (
               x1,
@@ -67,13 +67,13 @@ structure GtkSourceCompletionItem :>
           (
             _import "mlton_gtk_source_completion_item_new_with_markup" :
               Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * unit GdkPixbufPixbufClass.C.p
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit GdkPixbufPixbufClass.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GtkSourceCompletionItemClass.C.notnull GtkSourceCompletionItemClass.C.p;
+               -> GtkSourceCompletionItemClass.FFI.notnull GtkSourceCompletionItemClass.FFI.p;
           )
             (
               x1,
@@ -87,15 +87,15 @@ structure GtkSourceCompletionItem :>
     type 'a class = 'a GtkSourceCompletionItemClass.class
     type 'a completion_proposal_class = 'a GtkSourceCompletionProposalClass.class
     type t = base class
-    fun asCompletionProposal self = (GObjectObjectClass.C.withPtr ---> GtkSourceCompletionProposalClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asCompletionProposal self = (GObjectObjectClass.FFI.withPtr ---> GtkSourceCompletionProposalClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new label text icon info =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GdkPixbufPixbufClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         ---> GtkSourceCompletionItemClass.C.fromPtr true
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GdkPixbufPixbufClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         ---> GtkSourceCompletionItemClass.FFI.fromPtr true
       )
         new_
         (
@@ -106,11 +106,11 @@ structure GtkSourceCompletionItem :>
         )
     fun newFromStock label text stock info =
       (
-        Utf8.C.withOptPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withOptPtr
-         ---> GtkSourceCompletionItemClass.C.fromPtr true
+        Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         ---> GtkSourceCompletionItemClass.FFI.fromPtr true
       )
         newFromStock_
         (
@@ -121,11 +121,11 @@ structure GtkSourceCompletionItem :>
         )
     fun newWithMarkup markup text icon info =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GdkPixbufPixbufClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         ---> GtkSourceCompletionItemClass.C.fromPtr true
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GdkPixbufPixbufClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         ---> GtkSourceCompletionItemClass.FFI.fromPtr true
       )
         newWithMarkup_
         (

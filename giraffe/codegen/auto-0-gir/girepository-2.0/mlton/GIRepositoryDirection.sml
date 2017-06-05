@@ -1,29 +1,25 @@
-structure GIRepositoryDirection :>
-  sig
-    include G_I_REPOSITORY_DIRECTION
-  end =
+structure GIRepositoryDirection :> G_I_REPOSITORY_DIRECTION =
   struct
-    datatype t =
+    datatype enum =
       IN
     | OUT
     | INOUT
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = IN
+        val toInt =
           fn
-            IN => f 0
-          | OUT => f 1
-          | INOUT => f 2
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            IN => 0
+          | OUT => 1
+          | INOUT => 2
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => IN
           | 1 => OUT
           | 2 => INOUT
           | n => raise Value n
-      end
-    val null = IN
+      )
+    open Enum
   end

@@ -22,15 +22,15 @@ structure GtkViewport :>
     type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type shadow_type_t = GtkShadowType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new hadjustment vadjustment = (GtkAdjustmentClass.C.withPtr &&&> GtkAdjustmentClass.C.withPtr ---> GtkViewportClass.C.fromPtr false) new_ (hadjustment & vadjustment)
-    fun getBinWindow self = (GtkViewportClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getBinWindow_ self
-    fun getShadowType self = (GtkViewportClass.C.withPtr ---> GtkShadowType.C.fromVal) getShadowType_ self
-    fun getViewWindow self = (GtkViewportClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getViewWindow_ self
-    fun setShadowType self type' = (GtkViewportClass.C.withPtr &&&> GtkShadowType.C.withVal ---> I) setShadowType_ (self & type')
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asScrollable self = (GObjectObjectClass.FFI.withPtr ---> GtkScrollableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new hadjustment vadjustment = (GtkAdjustmentClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> GtkViewportClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
+    fun getBinWindow self = (GtkViewportClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self
+    fun getShadowType self = (GtkViewportClass.FFI.withPtr ---> GtkShadowType.FFI.fromVal) getShadowType_ self
+    fun getViewWindow self = (GtkViewportClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getViewWindow_ self
+    fun setShadowType self type' = (GtkViewportClass.FFI.withPtr &&&> GtkShadowType.FFI.withVal ---> I) setShadowType_ (self & type')
     local
       open Property
     in

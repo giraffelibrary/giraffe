@@ -1,1 +1,1 @@
-structure GLibTime = FFI.Int32
+structure GLibTime = GInt32

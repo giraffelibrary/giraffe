@@ -1,1 +1,1 @@
-structure GLibDateYear = FFI.UInt16
+structure GLibDateYear = GUInt16

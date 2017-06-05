@@ -4,22 +4,22 @@ structure GLibSourceFunc :>
 
     structure PolyML :
       sig
-        val CALLBACK : C.callback PolyMLFFI.conversion
+        val CALLBACK : FFI.callback PolyMLFFI.conversion
       end
   end =
   struct
     type t = unit -> bool
 
-    structure C =
+    structure FFI =
       struct
-        type callback = (unit -> FFI.Bool.C.val_) PolyMLFFI.closure
+        type callback = (unit -> GBool.FFI.val_) PolyMLFFI.closure
         local
           open PolyMLFFI
         in
-          val makeClosure = closure (PolyMLFFI.cVoid --> FFI.Bool.PolyML.cVal)
+          val makeClosure = closure (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
         end
         fun withCallback f callback =
-          f (makeClosure (fn () => FFI.Bool.C.withVal I (callback ())))
+          f (makeClosure (fn () => GBool.FFI.withVal I (callback ())))
       end
 
     structure PolyML =

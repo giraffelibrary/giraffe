@@ -1,14 +1,6 @@
-structure GLibVariantClass :>
-  sig
-    include G_LIB_VARIANT_CLASS
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GLibVariantClass :> G_LIB_VARIANT_CLASS =
   struct
-    datatype t =
+    datatype enum =
       BOOLEAN
     | BYTE
     | INT_16
@@ -27,33 +19,32 @@ structure GLibVariantClass :>
     | ARRAY
     | TUPLE
     | DICT_ENTRY
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = BOOLEAN
+        val toInt =
           fn
-            BOOLEAN => f 98
-          | BYTE => f 121
-          | INT_16 => f 110
-          | UINT_16 => f 113
-          | INT_32 => f 105
-          | UINT_32 => f 117
-          | INT_64 => f 120
-          | UINT_64 => f 116
-          | HANDLE => f 104
-          | DOUBLE => f 100
-          | STRING => f 115
-          | OBJECT_PATH => f 111
-          | SIGNATURE => f 103
-          | VARIANT => f 118
-          | MAYBE => f 109
-          | ARRAY => f 97
-          | TUPLE => f 40
-          | DICT_ENTRY => f 123
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            BOOLEAN => 98
+          | BYTE => 121
+          | INT_16 => 110
+          | UINT_16 => 113
+          | INT_32 => 105
+          | UINT_32 => 117
+          | INT_64 => 120
+          | UINT_64 => 116
+          | HANDLE => 104
+          | DOUBLE => 100
+          | STRING => 115
+          | OBJECT_PATH => 111
+          | SIGNATURE => 103
+          | VARIANT => 118
+          | MAYBE => 109
+          | ARRAY => 97
+          | TUPLE => 40
+          | DICT_ENTRY => 123
+        exception Value of GInt32.t
+        val fromInt =
           fn
             98 => BOOLEAN
           | 121 => BYTE
@@ -74,11 +65,6 @@ structure GLibVariantClass :>
           | 40 => TUPLE
           | 123 => DICT_ENTRY
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
-    val null = BOOLEAN
+      )
+    open Enum
   end

@@ -5,12 +5,12 @@ structure GLibTimeVal :>
     local
       open PolyMLFFI
     in
-      val add_ = call (load_sym libglib "g_time_val_add") (GLibTimeValRecord.PolyML.cPtr &&> FFI.Long.PolyML.cVal --> PolyMLFFI.cVoid)
+      val add_ = call (load_sym libglib "g_time_val_add") (GLibTimeValRecord.PolyML.cPtr &&> GLong.PolyML.cVal --> PolyMLFFI.cVoid)
       val toIso8601_ = call (load_sym libglib "g_time_val_to_iso8601") (GLibTimeValRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val fromIso8601_ = call (load_sym libglib "g_time_val_from_iso8601") (Utf8.PolyML.cInPtr &&> GLibTimeValRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val fromIso8601_ = call (load_sym libglib "g_time_val_from_iso8601") (Utf8.PolyML.cInPtr &&> GLibTimeValRecord.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type t = GLibTimeValRecord.t
-    fun add self microseconds = (GLibTimeValRecord.C.withPtr &&&> FFI.Long.C.withVal ---> I) add_ (self & microseconds)
-    fun toIso8601 self = (GLibTimeValRecord.C.withPtr ---> Utf8.C.fromPtr true) toIso8601_ self
-    fun fromIso8601 isoDate time = (Utf8.C.withPtr &&&> GLibTimeValRecord.C.withPtr ---> FFI.Bool.C.fromVal) fromIso8601_ (isoDate & time)
+    fun add self microseconds = (GLibTimeValRecord.FFI.withPtr &&&> GLong.FFI.withVal ---> I) add_ (self & microseconds)
+    fun toIso8601 self = (GLibTimeValRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toIso8601_ self
+    fun fromIso8601 isoDate time = (Utf8.FFI.withPtr &&&> GLibTimeValRecord.FFI.withPtr ---> GBool.FFI.fromVal) fromIso8601_ (isoDate & time)
   end

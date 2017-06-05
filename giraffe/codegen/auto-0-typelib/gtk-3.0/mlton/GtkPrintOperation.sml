@@ -12,20 +12,20 @@ structure GtkPrintOperation :>
     where type print_status_t = GtkPrintStatus.t
     where type unit_t = GtkUnit.t =
   struct
-    val getType_ = _import "gtk_print_operation_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_print_operation_new" : unit -> GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p;
-    val cancel_ = _import "gtk_print_operation_cancel" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p -> unit;
-    val drawPageFinish_ = _import "gtk_print_operation_draw_page_finish" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p -> unit;
-    val getDefaultPageSetup_ = _import "gtk_print_operation_get_default_page_setup" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p -> GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p;
-    val getEmbedPageSetup_ = _import "gtk_print_operation_get_embed_page_setup" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p -> FFI.Bool.C.val_;
-    val getError_ = fn x1 & x2 => (_import "gtk_print_operation_get_error" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p * (unit, unit) GLibErrorRecord.C.r -> unit;) (x1, x2)
-    val getHasSelection_ = _import "gtk_print_operation_get_has_selection" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p -> FFI.Bool.C.val_;
-    val getNPagesToPrint_ = _import "gtk_print_operation_get_n_pages_to_print" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p -> FFI.Int32.C.val_;
-    val getPrintSettings_ = _import "gtk_print_operation_get_print_settings" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p -> GtkPrintSettingsClass.C.notnull GtkPrintSettingsClass.C.p;
-    val getStatus_ = _import "gtk_print_operation_get_status" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p -> GtkPrintStatus.C.val_;
-    val getStatusString_ = _import "gtk_print_operation_get_status_string" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getSupportSelection_ = _import "gtk_print_operation_get_support_selection" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p -> FFI.Bool.C.val_;
-    val isFinished_ = _import "gtk_print_operation_is_finished" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p -> FFI.Bool.C.val_;
+    val getType_ = _import "gtk_print_operation_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_print_operation_new" : unit -> GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p;
+    val cancel_ = _import "gtk_print_operation_cancel" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p -> unit;
+    val drawPageFinish_ = _import "gtk_print_operation_draw_page_finish" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p -> unit;
+    val getDefaultPageSetup_ = _import "gtk_print_operation_get_default_page_setup" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p -> GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p;
+    val getEmbedPageSetup_ = _import "gtk_print_operation_get_embed_page_setup" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p -> GBool.FFI.val_;
+    val getError_ = fn x1 & x2 => (_import "gtk_print_operation_get_error" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> unit;) (x1, x2)
+    val getHasSelection_ = _import "gtk_print_operation_get_has_selection" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p -> GBool.FFI.val_;
+    val getNPagesToPrint_ = _import "gtk_print_operation_get_n_pages_to_print" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p -> GInt32.FFI.val_;
+    val getPrintSettings_ = _import "gtk_print_operation_get_print_settings" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p -> GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p;
+    val getStatus_ = _import "gtk_print_operation_get_status" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p -> GtkPrintStatus.FFI.val_;
+    val getStatusString_ = _import "gtk_print_operation_get_status_string" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getSupportSelection_ = _import "gtk_print_operation_get_support_selection" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p -> GBool.FFI.val_;
+    val isFinished_ = _import "gtk_print_operation_is_finished" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p -> GBool.FFI.val_;
     val run_ =
       fn
         x1
@@ -34,11 +34,11 @@ structure GtkPrintOperation :>
          & x4 =>
           (
             _import "gtk_print_operation_run" :
-              GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p
-               * GtkPrintOperationAction.C.val_
-               * unit GtkWindowClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GtkPrintOperationResult.C.val_;
+              GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p
+               * GtkPrintOperationAction.FFI.val_
+               * unit GtkWindowClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GtkPrintOperationResult.FFI.val_;
           )
             (
               x1,
@@ -46,14 +46,14 @@ structure GtkPrintOperation :>
               x3,
               x4
             )
-    val setAllowAsync_ = fn x1 & x2 => (_import "gtk_print_operation_set_allow_async" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setCurrentPage_ = fn x1 & x2 => (_import "gtk_print_operation_set_current_page" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val setAllowAsync_ = fn x1 & x2 => (_import "gtk_print_operation_set_allow_async" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setCurrentPage_ = fn x1 & x2 => (_import "gtk_print_operation_set_current_page" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val setCustomTabLabel_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_operation_set_custom_tab_label" :
-              GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p
+              GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                -> unit;
@@ -63,17 +63,17 @@ structure GtkPrintOperation :>
               x2,
               x3
             )
-    val setDefaultPageSetup_ = fn x1 & x2 => (_import "gtk_print_operation_set_default_page_setup" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p * unit GtkPageSetupClass.C.p -> unit;) (x1, x2)
-    val setDeferDrawing_ = _import "gtk_print_operation_set_defer_drawing" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p -> unit;
-    val setEmbedPageSetup_ = fn x1 & x2 => (_import "gtk_print_operation_set_embed_page_setup" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setDefaultPageSetup_ = fn x1 & x2 => (_import "gtk_print_operation_set_default_page_setup" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p * unit GtkPageSetupClass.FFI.p -> unit;) (x1, x2)
+    val setDeferDrawing_ = _import "gtk_print_operation_set_defer_drawing" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p -> unit;
+    val setEmbedPageSetup_ = fn x1 & x2 => (_import "gtk_print_operation_set_embed_page_setup" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setExportFilename_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_operation_set_export_filename" :
-              GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p
+              GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -81,15 +81,15 @@ structure GtkPrintOperation :>
               x2,
               x3
             )
-    val setHasSelection_ = fn x1 & x2 => (_import "gtk_print_operation_set_has_selection" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setHasSelection_ = fn x1 & x2 => (_import "gtk_print_operation_set_has_selection" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setJobName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_operation_set_job_name" :
-              GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p
+              GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -97,13 +97,13 @@ structure GtkPrintOperation :>
               x2,
               x3
             )
-    val setNPages_ = fn x1 & x2 => (_import "gtk_print_operation_set_n_pages" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    val setPrintSettings_ = fn x1 & x2 => (_import "gtk_print_operation_set_print_settings" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p * unit GtkPrintSettingsClass.C.p -> unit;) (x1, x2)
-    val setShowProgress_ = fn x1 & x2 => (_import "gtk_print_operation_set_show_progress" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setSupportSelection_ = fn x1 & x2 => (_import "gtk_print_operation_set_support_selection" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setTrackPrintStatus_ = fn x1 & x2 => (_import "gtk_print_operation_set_track_print_status" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setUnit_ = fn x1 & x2 => (_import "gtk_print_operation_set_unit" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p * GtkUnit.C.val_ -> unit;) (x1, x2)
-    val setUseFullPage_ = fn x1 & x2 => (_import "gtk_print_operation_set_use_full_page" : GtkPrintOperationClass.C.notnull GtkPrintOperationClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setNPages_ = fn x1 & x2 => (_import "gtk_print_operation_set_n_pages" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setPrintSettings_ = fn x1 & x2 => (_import "gtk_print_operation_set_print_settings" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p * unit GtkPrintSettingsClass.FFI.p -> unit;) (x1, x2)
+    val setShowProgress_ = fn x1 & x2 => (_import "gtk_print_operation_set_show_progress" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSupportSelection_ = fn x1 & x2 => (_import "gtk_print_operation_set_support_selection" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setTrackPrintStatus_ = fn x1 & x2 => (_import "gtk_print_operation_set_track_print_status" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setUnit_ = fn x1 & x2 => (_import "gtk_print_operation_set_unit" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p * GtkUnit.FFI.val_ -> unit;) (x1, x2)
+    val setUseFullPage_ = fn x1 & x2 => (_import "gtk_print_operation_set_use_full_page" : GtkPrintOperationClass.FFI.notnull GtkPrintOperationClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkPrintOperationClass.class
     type print_operation_action_t = GtkPrintOperationAction.t
     type print_operation_result_t = GtkPrintOperationResult.t
@@ -116,28 +116,28 @@ structure GtkPrintOperation :>
     type print_status_t = GtkPrintStatus.t
     type unit_t = GtkUnit.t
     type t = base class
-    fun asPrintOperationPreview self = (GObjectObjectClass.C.withPtr ---> GtkPrintOperationPreviewClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkPrintOperationClass.C.fromPtr true) new_ ()
-    fun cancel self = (GtkPrintOperationClass.C.withPtr ---> I) cancel_ self
-    fun drawPageFinish self = (GtkPrintOperationClass.C.withPtr ---> I) drawPageFinish_ self
-    fun getDefaultPageSetup self = (GtkPrintOperationClass.C.withPtr ---> GtkPageSetupClass.C.fromPtr false) getDefaultPageSetup_ self
-    fun getEmbedPageSetup self = (GtkPrintOperationClass.C.withPtr ---> FFI.Bool.C.fromVal) getEmbedPageSetup_ self
-    fun getError self = (GtkPrintOperationClass.C.withPtr &&&> GLibErrorRecord.handleError ---> I) getError_ (self & [])
-    fun getHasSelection self = (GtkPrintOperationClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasSelection_ self
-    fun getNPagesToPrint self = (GtkPrintOperationClass.C.withPtr ---> FFI.Int32.C.fromVal) getNPagesToPrint_ self
-    fun getPrintSettings self = (GtkPrintOperationClass.C.withPtr ---> GtkPrintSettingsClass.C.fromPtr false) getPrintSettings_ self
-    fun getStatus self = (GtkPrintOperationClass.C.withPtr ---> GtkPrintStatus.C.fromVal) getStatus_ self
-    fun getStatusString self = (GtkPrintOperationClass.C.withPtr ---> Utf8.C.fromPtr false) getStatusString_ self
-    fun getSupportSelection self = (GtkPrintOperationClass.C.withPtr ---> FFI.Bool.C.fromVal) getSupportSelection_ self
-    fun isFinished self = (GtkPrintOperationClass.C.withPtr ---> FFI.Bool.C.fromVal) isFinished_ self
+    fun asPrintOperationPreview self = (GObjectObjectClass.FFI.withPtr ---> GtkPrintOperationPreviewClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkPrintOperationClass.FFI.fromPtr true) new_ ()
+    fun cancel self = (GtkPrintOperationClass.FFI.withPtr ---> I) cancel_ self
+    fun drawPageFinish self = (GtkPrintOperationClass.FFI.withPtr ---> I) drawPageFinish_ self
+    fun getDefaultPageSetup self = (GtkPrintOperationClass.FFI.withPtr ---> GtkPageSetupClass.FFI.fromPtr false) getDefaultPageSetup_ self
+    fun getEmbedPageSetup self = (GtkPrintOperationClass.FFI.withPtr ---> GBool.FFI.fromVal) getEmbedPageSetup_ self
+    fun getError self = (GtkPrintOperationClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> I) getError_ (self & [])
+    fun getHasSelection self = (GtkPrintOperationClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasSelection_ self
+    fun getNPagesToPrint self = (GtkPrintOperationClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNPagesToPrint_ self
+    fun getPrintSettings self = (GtkPrintOperationClass.FFI.withPtr ---> GtkPrintSettingsClass.FFI.fromPtr false) getPrintSettings_ self
+    fun getStatus self = (GtkPrintOperationClass.FFI.withPtr ---> GtkPrintStatus.FFI.fromVal) getStatus_ self
+    fun getStatusString self = (GtkPrintOperationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStatusString_ self
+    fun getSupportSelection self = (GtkPrintOperationClass.FFI.withPtr ---> GBool.FFI.fromVal) getSupportSelection_ self
+    fun isFinished self = (GtkPrintOperationClass.FFI.withPtr ---> GBool.FFI.fromVal) isFinished_ self
     fun run self action parent =
       (
-        GtkPrintOperationClass.C.withPtr
-         &&&> GtkPrintOperationAction.C.withVal
-         &&&> GtkWindowClass.C.withOptPtr
+        GtkPrintOperationClass.FFI.withPtr
+         &&&> GtkPrintOperationAction.FFI.withVal
+         &&&> GtkWindowClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GtkPrintOperationResult.C.fromVal
+         ---> GtkPrintOperationResult.FFI.fromVal
       )
         run_
         (
@@ -146,22 +146,22 @@ structure GtkPrintOperation :>
            & parent
            & []
         )
-    fun setAllowAsync self allowAsync = (GtkPrintOperationClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setAllowAsync_ (self & allowAsync)
-    fun setCurrentPage self currentPage = (GtkPrintOperationClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setCurrentPage_ (self & currentPage)
-    fun setCustomTabLabel self label = (GtkPrintOperationClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setCustomTabLabel_ (self & label)
-    fun setDefaultPageSetup self defaultPageSetup = (GtkPrintOperationClass.C.withPtr &&&> GtkPageSetupClass.C.withOptPtr ---> I) setDefaultPageSetup_ (self & defaultPageSetup)
-    fun setDeferDrawing self = (GtkPrintOperationClass.C.withPtr ---> I) setDeferDrawing_ self
-    fun setEmbedPageSetup self embed = (GtkPrintOperationClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setEmbedPageSetup_ (self & embed)
-    fun setExportFilename self filename = (GtkPrintOperationClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setExportFilename_ (self & filename)
-    fun setHasSelection self hasSelection = (GtkPrintOperationClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setHasSelection_ (self & hasSelection)
-    fun setJobName self jobName = (GtkPrintOperationClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setJobName_ (self & jobName)
-    fun setNPages self nPages = (GtkPrintOperationClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setNPages_ (self & nPages)
-    fun setPrintSettings self printSettings = (GtkPrintOperationClass.C.withPtr &&&> GtkPrintSettingsClass.C.withOptPtr ---> I) setPrintSettings_ (self & printSettings)
-    fun setShowProgress self showProgress = (GtkPrintOperationClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowProgress_ (self & showProgress)
-    fun setSupportSelection self supportSelection = (GtkPrintOperationClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSupportSelection_ (self & supportSelection)
-    fun setTrackPrintStatus self trackStatus = (GtkPrintOperationClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setTrackPrintStatus_ (self & trackStatus)
-    fun setUnit self unit = (GtkPrintOperationClass.C.withPtr &&&> GtkUnit.C.withVal ---> I) setUnit_ (self & unit)
-    fun setUseFullPage self fullPage = (GtkPrintOperationClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseFullPage_ (self & fullPage)
+    fun setAllowAsync self allowAsync = (GtkPrintOperationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAllowAsync_ (self & allowAsync)
+    fun setCurrentPage self currentPage = (GtkPrintOperationClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setCurrentPage_ (self & currentPage)
+    fun setCustomTabLabel self label = (GtkPrintOperationClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setCustomTabLabel_ (self & label)
+    fun setDefaultPageSetup self defaultPageSetup = (GtkPrintOperationClass.FFI.withPtr &&&> GtkPageSetupClass.FFI.withOptPtr ---> I) setDefaultPageSetup_ (self & defaultPageSetup)
+    fun setDeferDrawing self = (GtkPrintOperationClass.FFI.withPtr ---> I) setDeferDrawing_ self
+    fun setEmbedPageSetup self embed = (GtkPrintOperationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setEmbedPageSetup_ (self & embed)
+    fun setExportFilename self filename = (GtkPrintOperationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setExportFilename_ (self & filename)
+    fun setHasSelection self hasSelection = (GtkPrintOperationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasSelection_ (self & hasSelection)
+    fun setJobName self jobName = (GtkPrintOperationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setJobName_ (self & jobName)
+    fun setNPages self nPages = (GtkPrintOperationClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setNPages_ (self & nPages)
+    fun setPrintSettings self printSettings = (GtkPrintOperationClass.FFI.withPtr &&&> GtkPrintSettingsClass.FFI.withOptPtr ---> I) setPrintSettings_ (self & printSettings)
+    fun setShowProgress self showProgress = (GtkPrintOperationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowProgress_ (self & showProgress)
+    fun setSupportSelection self supportSelection = (GtkPrintOperationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSupportSelection_ (self & supportSelection)
+    fun setTrackPrintStatus self trackStatus = (GtkPrintOperationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setTrackPrintStatus_ (self & trackStatus)
+    fun setUnit self unit = (GtkPrintOperationClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> I) setUnit_ (self & unit)
+    fun setUseFullPage self fullPage = (GtkPrintOperationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseFullPage_ (self & fullPage)
     local
       open ClosureMarshal Signal
     in

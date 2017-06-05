@@ -1,14 +1,6 @@
-structure GtkBuilderError :>
-  sig
-    include GTK_BUILDER_ERROR
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkBuilderError :> GTK_BUILDER_ERROR =
   struct
-    datatype t =
+    datatype enum =
       INVALID_TYPE_FUNCTION
     | UNHANDLED_TAG
     | MISSING_ATTRIBUTE
@@ -18,24 +10,23 @@ structure GtkBuilderError :>
     | INVALID_VALUE
     | VERSION_MISMATCH
     | DUPLICATE_ID
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = INVALID_TYPE_FUNCTION
+        val toInt =
           fn
-            INVALID_TYPE_FUNCTION => f 0
-          | UNHANDLED_TAG => f 1
-          | MISSING_ATTRIBUTE => f 2
-          | INVALID_ATTRIBUTE => f 3
-          | INVALID_TAG => f 4
-          | MISSING_PROPERTY_VALUE => f 5
-          | INVALID_VALUE => f 6
-          | VERSION_MISMATCH => f 7
-          | DUPLICATE_ID => f 8
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            INVALID_TYPE_FUNCTION => 0
+          | UNHANDLED_TAG => 1
+          | MISSING_ATTRIBUTE => 2
+          | INVALID_ATTRIBUTE => 3
+          | INVALID_TAG => 4
+          | MISSING_PROPERTY_VALUE => 5
+          | INVALID_VALUE => 6
+          | VERSION_MISMATCH => 7
+          | DUPLICATE_ID => 8
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => INVALID_TYPE_FUNCTION
           | 1 => UNHANDLED_TAG
@@ -47,12 +38,8 @@ structure GtkBuilderError :>
           | 7 => VERSION_MISMATCH
           | 8 => DUPLICATE_ID
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -63,18 +50,18 @@ structure GtkBuilderError :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
     exception Error of t
     val handler =
       GLibErrorRecord.makeHandler
         (
           "gtk-builder-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end
 exception GtkBuilderError = GtkBuilderError.Error

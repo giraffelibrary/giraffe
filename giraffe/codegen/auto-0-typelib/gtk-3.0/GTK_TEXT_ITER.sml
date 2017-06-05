@@ -2,7 +2,6 @@ signature GTK_TEXT_ITER =
   sig
     type t
     type text_search_flags_t
-    type text_attributes_t
     type 'a text_buffer_class
     type 'a text_child_anchor_class
     type 'a text_tag_class
@@ -141,7 +140,6 @@ signature GTK_TEXT_ITER =
       t
        -> LargeInt.int
        -> bool
-    val getAttributes : t -> text_attributes_t option
     val getBuffer : t -> base text_buffer_class
     val getBytesInLine : t -> LargeInt.int
     val getChar : t -> char

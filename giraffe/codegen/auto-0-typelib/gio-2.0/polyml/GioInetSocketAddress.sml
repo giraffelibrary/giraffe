@@ -8,19 +8,19 @@ structure GioInetSocketAddress :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_inet_socket_address_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_inet_socket_address_new") (GioInetAddressClass.PolyML.cPtr &&> FFI.UInt16.PolyML.cVal --> GioSocketAddressClass.PolyML.cPtr)
+      val new_ = call (load_sym libgio "g_inet_socket_address_new") (GioInetAddressClass.PolyML.cPtr &&> GUInt16.PolyML.cVal --> GioSocketAddressClass.PolyML.cPtr)
       val getAddress_ = call (load_sym libgio "g_inet_socket_address_get_address") (GioInetSocketAddressClass.PolyML.cPtr --> GioInetAddressClass.PolyML.cPtr)
-      val getPort_ = call (load_sym libgio "g_inet_socket_address_get_port") (GioInetSocketAddressClass.PolyML.cPtr --> FFI.UInt16.PolyML.cVal)
+      val getPort_ = call (load_sym libgio "g_inet_socket_address_get_port") (GioInetSocketAddressClass.PolyML.cPtr --> GUInt16.PolyML.cVal)
     end
     type 'a class = 'a GioInetSocketAddressClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type 'a inet_address_class = 'a GioInetAddressClass.class
     type t = base class
-    fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new address port = (GioInetAddressClass.C.withPtr &&&> FFI.UInt16.C.withVal ---> GioInetSocketAddressClass.C.fromPtr true) new_ (address & port)
-    fun getAddress self = (GioInetSocketAddressClass.C.withPtr ---> GioInetAddressClass.C.fromPtr false) getAddress_ self
-    fun getPort self = (GioInetSocketAddressClass.C.withPtr ---> FFI.UInt16.C.fromVal) getPort_ self
+    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new address port = (GioInetAddressClass.FFI.withPtr &&&> GUInt16.FFI.withVal ---> GioInetSocketAddressClass.FFI.fromPtr true) new_ (address & port)
+    fun getAddress self = (GioInetSocketAddressClass.FFI.withPtr ---> GioInetAddressClass.FFI.fromPtr false) getAddress_ self
+    fun getPort self = (GioInetSocketAddressClass.FFI.withPtr ---> GUInt16.FFI.fromVal) getPort_ self
     local
       open Property
     in

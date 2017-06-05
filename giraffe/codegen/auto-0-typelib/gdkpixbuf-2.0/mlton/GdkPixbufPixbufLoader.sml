@@ -5,17 +5,23 @@ structure GdkPixbufPixbufLoader :>
     where type pixbuf_format_t = GdkPixbufPixbufFormatRecord.t
     where type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class =
   struct
-    val getType_ = _import "gdk_pixbuf_loader_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gdk_pixbuf_loader_new" : unit -> GdkPixbufPixbufLoaderClass.C.notnull GdkPixbufPixbufLoaderClass.C.p;
+    structure GUInt8CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GUInt8Type
+        structure ElemSequence = MonoVectorSequence(Word8Vector)
+      )
+    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
+    val getType_ = _import "gdk_pixbuf_loader_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gdk_pixbuf_loader_new" : unit -> GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p;
     val newWithMimeType_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gdk_pixbuf_loader_new_with_mime_type" :
               Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GdkPixbufPixbufLoaderClass.C.notnull GdkPixbufPixbufLoaderClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p;
           )
             (
               x1,
@@ -28,19 +34,19 @@ structure GdkPixbufPixbufLoader :>
           (
             _import "mlton_gdk_pixbuf_loader_new_with_type" :
               Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GdkPixbufPixbufLoaderClass.C.notnull GdkPixbufPixbufLoaderClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val close_ = fn x1 & x2 => (_import "gdk_pixbuf_loader_close" : GdkPixbufPixbufLoaderClass.C.notnull GdkPixbufPixbufLoaderClass.C.p * (unit, unit) GLibErrorRecord.C.r -> FFI.Bool.C.val_;) (x1, x2)
-    val getAnimation_ = _import "gdk_pixbuf_loader_get_animation" : GdkPixbufPixbufLoaderClass.C.notnull GdkPixbufPixbufLoaderClass.C.p -> GdkPixbufPixbufAnimationClass.C.notnull GdkPixbufPixbufAnimationClass.C.p;
-    val getFormat_ = _import "gdk_pixbuf_loader_get_format" : GdkPixbufPixbufLoaderClass.C.notnull GdkPixbufPixbufLoaderClass.C.p -> GdkPixbufPixbufFormatRecord.C.notnull GdkPixbufPixbufFormatRecord.C.p;
-    val getPixbuf_ = _import "gdk_pixbuf_loader_get_pixbuf" : GdkPixbufPixbufLoaderClass.C.notnull GdkPixbufPixbufLoaderClass.C.p -> GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p;
+    val close_ = fn x1 & x2 => (_import "gdk_pixbuf_loader_close" : GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
+    val getAnimation_ = _import "gdk_pixbuf_loader_get_animation" : GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p -> GdkPixbufPixbufAnimationClass.FFI.notnull GdkPixbufPixbufAnimationClass.FFI.p;
+    val getFormat_ = _import "gdk_pixbuf_loader_get_format" : GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p -> GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p;
+    val getPixbuf_ = _import "gdk_pixbuf_loader_get_pixbuf" : GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
     val setSize_ =
       fn
         x1
@@ -48,9 +54,9 @@ structure GdkPixbufPixbufLoader :>
          & x3 =>
           (
             _import "gdk_pixbuf_loader_set_size" :
-              GdkPixbufPixbufLoaderClass.C.notnull GdkPixbufPixbufLoaderClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+              GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p
+               * GInt32.FFI.val_
+               * GInt32.FFI.val_
                -> unit;
           )
             (
@@ -58,24 +64,46 @@ structure GdkPixbufPixbufLoader :>
               x2,
               x3
             )
+    val write_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5 =>
+          (
+            _import "mlton_gdk_pixbuf_loader_write" :
+              GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p
+               * GUInt8CVectorN.MLton.p1
+               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt64.FFI.val_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
     type 'a class = 'a GdkPixbufPixbufLoaderClass.class
     type 'a pixbuf_animation_class = 'a GdkPixbufPixbufAnimationClass.class
     type pixbuf_format_t = GdkPixbufPixbufFormatRecord.t
     type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GdkPixbufPixbufLoaderClass.C.fromPtr true) new_ ()
-    fun newWithMimeType mimeType = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.C.fromPtr true) newWithMimeType_ (mimeType & [])
-    fun newWithType imageType = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.C.fromPtr true) newWithType_ (imageType & [])
-    fun close self = (GdkPixbufPixbufLoaderClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) close_ (self & [])
-    fun getAnimation self = (GdkPixbufPixbufLoaderClass.C.withPtr ---> GdkPixbufPixbufAnimationClass.C.fromPtr false) getAnimation_ self
-    fun getFormat self = (GdkPixbufPixbufLoaderClass.C.withPtr ---> GdkPixbufPixbufFormatRecord.C.fromPtr true) getFormat_ self
-    fun getPixbuf self = (GdkPixbufPixbufLoaderClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr false) getPixbuf_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GdkPixbufPixbufLoaderClass.FFI.fromPtr true) new_ ()
+    fun newWithMimeType mimeType = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.FFI.fromPtr true) newWithMimeType_ (mimeType & [])
+    fun newWithType imageType = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.FFI.fromPtr true) newWithType_ (imageType & [])
+    fun close self = (GdkPixbufPixbufLoaderClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) close_ (self & [])
+    fun getAnimation self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr false) getAnimation_ self
+    fun getFormat self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufFormatRecord.FFI.fromPtr true) getFormat_ self
+    fun getPixbuf self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
     fun setSize self width height =
       (
-        GdkPixbufPixbufLoaderClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        GdkPixbufPixbufLoaderClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         setSize_
@@ -84,6 +112,27 @@ structure GdkPixbufPixbufLoader :>
            & width
            & height
         )
+    fun write self buf =
+      let
+        val count = LargeInt.fromInt (GUInt8CVectorN.length buf)
+        val retVal =
+          (
+            GdkPixbufPixbufLoaderClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt64.FFI.withVal
+             &&&> GLibErrorRecord.handleError
+             ---> GBool.FFI.fromVal
+          )
+            write_
+            (
+              self
+               & buf
+               & count
+               & []
+            )
+      in
+        retVal
+      end
     local
       open ClosureMarshal Signal
     in

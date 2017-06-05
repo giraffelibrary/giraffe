@@ -6,7 +6,7 @@
  */
 
 /*
- * GLib C interface support for MLton
+ * GLib C interface support for Poly/ML
  */
 
 

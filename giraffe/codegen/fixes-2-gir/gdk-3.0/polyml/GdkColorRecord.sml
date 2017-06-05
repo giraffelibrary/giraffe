@@ -1,6 +1,6 @@
 structure GdkColorRecord :> GDK_COLOR_RECORD =
   struct
-    structure Pointer = CPointer
+    structure Pointer = CPointerInternal
     type notnull = Pointer.notnull
     type 'a p = 'a Pointer.p
 
@@ -12,37 +12,45 @@ structure GdkColorRecord :> GDK_COLOR_RECORD =
       val new_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_color_new")
-          (PolyMLFFI.cVoid --> cPtr)
+          (cVoid --> cPtr)
 
       val copy_ =
         call
-          (load_sym libgdk "gdk_color_copy")
-          (cPtr --> cPtr)
+          (load_sym libgiraffegdk "giraffe_gdk_color_copy")
+          (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
-          (load_sym libgdk "gdk_color_free")
-          (cPtr --> PolyMLFFI.cVoid)
+          (load_sym libgiraffegdk "giraffe_gdk_color_free")
+          (cPtr --> cVoid)
+
+      val size_ =
+        call
+          (load_sym libgiraffegdk "giraffe_gdk_color_size")
+          (cVoid --> GUInt.PolyML.cVal)
 
       val getType_ =
         call
           (load_sym libgdk "gdk_color_get_type")
-          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
+          (cVoid --> GObjectType.PolyML.cVal);
     end
 
     structure Record =
-      BoxedNewRecord (
+      BoxedValueRecord(
+        structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
         val new_ = new_
-        val take_ = ignore
         val copy_ = copy_
+        val take_ = ignore
+        val clear_ = ignore
         val free_ = free_
+        val size_ = size_
       )
     open Record
 
     structure Type =
-      BoxedType (
+      BoxedType(
         structure Record = Record
         type t = t
         val getType_ = getType_

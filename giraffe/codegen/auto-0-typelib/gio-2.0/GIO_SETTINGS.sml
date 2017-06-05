@@ -19,6 +19,8 @@ signature GIO_SETTINGS =
       string
        -> string
        -> base class
+    val listRelocatableSchemas : unit -> string list
+    val listSchemas : unit -> string list
     val sync : unit -> unit
     val apply : 'a class -> unit
     val bind :
@@ -69,6 +71,10 @@ signature GIO_SETTINGS =
       'a class
        -> string
        -> string
+    val getStrv :
+      'a class
+       -> string
+       -> string list
     val getUint :
       'a class
        -> string
@@ -81,6 +87,8 @@ signature GIO_SETTINGS =
       'a class
        -> string
        -> bool
+    val listChildren : 'a class -> string list
+    val listKeys : 'a class -> string list
     val rangeCheck :
       'a class
        -> string
@@ -121,6 +129,11 @@ signature GIO_SETTINGS =
        -> string
        -> string
        -> bool
+    val setStrv :
+      'a class
+       -> string
+       -> string list option
+       -> bool
     val setUint :
       'a class
        -> string
@@ -131,6 +144,7 @@ signature GIO_SETTINGS =
        -> string
        -> GLib.VariantRecord.t
        -> bool
+    val changeEventSig : (LargeInt.int vector option -> bool) -> 'a class Signal.signal
     val changedSig : (string -> unit) -> 'a class Signal.signal
     val writableChangeEventSig : (LargeInt.int -> bool) -> 'a class Signal.signal
     val writableChangedSig : (string -> unit) -> 'a class Signal.signal

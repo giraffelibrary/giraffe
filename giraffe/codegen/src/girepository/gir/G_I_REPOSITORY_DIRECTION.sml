@@ -1,7 +1,8 @@
 signature G_I_REPOSITORY_DIRECTION =
   sig
-    datatype t =
+    datatype enum =
       IN
     | OUT
     | INOUT
+    type t = enum
   end

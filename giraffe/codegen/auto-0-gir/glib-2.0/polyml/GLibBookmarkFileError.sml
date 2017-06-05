@@ -1,16 +1,8 @@
 structure GLibBookmarkFileError :>
-  sig
-    include
-      G_LIB_BOOKMARK_FILE_ERROR
-        where type error_handler = GLibErrorRecord.handler
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+  G_LIB_BOOKMARK_FILE_ERROR
+    where type error_handler = GLibErrorRecord.handler =
   struct
-    datatype t =
+    datatype enum =
       INVALID_URI
     | INVALID_VALUE
     | APP_NOT_REGISTERED
@@ -19,23 +11,22 @@ structure GLibBookmarkFileError :>
     | UNKNOWN_ENCODING
     | WRITE
     | FILE_NOT_FOUND
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = INVALID_URI
+        val toInt =
           fn
-            INVALID_URI => f 0
-          | INVALID_VALUE => f 1
-          | APP_NOT_REGISTERED => f 2
-          | URI_NOT_FOUND => f 3
-          | READ => f 4
-          | UNKNOWN_ENCODING => f 5
-          | WRITE => f 6
-          | FILE_NOT_FOUND => f 7
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            INVALID_URI => 0
+          | INVALID_VALUE => 1
+          | APP_NOT_REGISTERED => 2
+          | URI_NOT_FOUND => 3
+          | READ => 4
+          | UNKNOWN_ENCODING => 5
+          | WRITE => 6
+          | FILE_NOT_FOUND => 7
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => INVALID_URI
           | 1 => INVALID_VALUE
@@ -46,19 +37,15 @@ structure GLibBookmarkFileError :>
           | 6 => WRITE
           | 7 => FILE_NOT_FOUND
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     exception Error of t
     type error_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (
           "g-bookmark-file-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
   end

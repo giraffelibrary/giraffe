@@ -14,11 +14,11 @@ structure GtkApplication :>
     type 'a class = 'a GtkApplicationClass.class
     type 'a window_class = 'a GtkWindowClass.class
     type t = base class
-    fun asActionGroup self = (GObjectObjectClass.C.withPtr ---> GioActionGroupClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new applicationId flags = (Utf8.C.withPtr &&&> GioApplicationFlags.C.withVal ---> GtkApplicationClass.C.fromPtr true) new_ (applicationId & flags)
-    fun addWindow self window = (GtkApplicationClass.C.withPtr &&&> GtkWindowClass.C.withPtr ---> I) addWindow_ (self & window)
-    fun removeWindow self window = (GtkApplicationClass.C.withPtr &&&> GtkWindowClass.C.withPtr ---> I) removeWindow_ (self & window)
+    fun asActionGroup self = (GObjectObjectClass.FFI.withPtr ---> GioActionGroupClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new applicationId flags = (Utf8.FFI.withPtr &&&> GioApplicationFlags.FFI.withVal ---> GtkApplicationClass.FFI.fromPtr true) new_ (applicationId & flags)
+    fun addWindow self window = (GtkApplicationClass.FFI.withPtr &&&> GtkWindowClass.FFI.withPtr ---> I) addWindow_ (self & window)
+    fun removeWindow self window = (GtkApplicationClass.FFI.withPtr &&&> GtkWindowClass.FFI.withPtr ---> I) removeWindow_ (self & window)
     local
       open ClosureMarshal Signal
     in

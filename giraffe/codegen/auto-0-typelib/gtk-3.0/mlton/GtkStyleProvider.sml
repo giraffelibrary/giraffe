@@ -6,9 +6,9 @@ structure GtkStyleProvider :>
     where type state_flags_t = GtkStateFlags.t
     where type widget_path_t = GtkWidgetPathRecord.t =
   struct
-    val getType_ = _import "gtk_style_provider_get_type" : unit -> GObjectType.C.val_;
-    val getIconFactory_ = fn x1 & x2 => (_import "gtk_style_provider_get_icon_factory" : GtkStyleProviderClass.C.notnull GtkStyleProviderClass.C.p * GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p -> GtkIconFactoryClass.C.notnull GtkIconFactoryClass.C.p;) (x1, x2)
-    val getStyle_ = fn x1 & x2 => (_import "gtk_style_provider_get_style" : GtkStyleProviderClass.C.notnull GtkStyleProviderClass.C.p * GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p -> GtkStylePropertiesClass.C.notnull GtkStylePropertiesClass.C.p;) (x1, x2)
+    val getType_ = _import "gtk_style_provider_get_type" : unit -> GObjectType.FFI.val_;
+    val getIconFactory_ = fn x1 & x2 => (_import "gtk_style_provider_get_icon_factory" : GtkStyleProviderClass.FFI.notnull GtkStyleProviderClass.FFI.p * GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> GtkIconFactoryClass.FFI.notnull GtkIconFactoryClass.FFI.p;) (x1, x2)
+    val getStyle_ = fn x1 & x2 => (_import "gtk_style_provider_get_style" : GtkStyleProviderClass.FFI.notnull GtkStyleProviderClass.FFI.p * GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> GtkStylePropertiesClass.FFI.notnull GtkStylePropertiesClass.FFI.p;) (x1, x2)
     val getStyleProperty_ =
       fn
         x1
@@ -18,12 +18,12 @@ structure GtkStyleProvider :>
          & x5 =>
           (
             _import "gtk_style_provider_get_style_property" :
-              GtkStyleProviderClass.C.notnull GtkStyleProviderClass.C.p
-               * GtkWidgetPathRecord.C.notnull GtkWidgetPathRecord.C.p
-               * GtkStateFlags.C.val_
-               * GObjectParamSpecClass.C.notnull GObjectParamSpecClass.C.p
-               * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
-               -> FFI.Bool.C.val_;
+              GtkStyleProviderClass.FFI.notnull GtkStyleProviderClass.FFI.p
+               * GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+               * GtkStateFlags.FFI.val_
+               * GObjectParamSpecClass.FFI.notnull GObjectParamSpecClass.FFI.p
+               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -38,19 +38,19 @@ structure GtkStyleProvider :>
     type state_flags_t = GtkStateFlags.t
     type widget_path_t = GtkWidgetPathRecord.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getIconFactory self path = (GtkStyleProviderClass.C.withPtr &&&> GtkWidgetPathRecord.C.withPtr ---> GtkIconFactoryClass.C.fromPtr false) getIconFactory_ (self & path)
-    fun getStyle self path = (GtkStyleProviderClass.C.withPtr &&&> GtkWidgetPathRecord.C.withPtr ---> GtkStylePropertiesClass.C.fromPtr true) getStyle_ (self & path)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getIconFactory self path = (GtkStyleProviderClass.FFI.withPtr &&&> GtkWidgetPathRecord.FFI.withPtr ---> GtkIconFactoryClass.FFI.fromPtr false) getIconFactory_ (self & path)
+    fun getStyle self path = (GtkStyleProviderClass.FFI.withPtr &&&> GtkWidgetPathRecord.FFI.withPtr ---> GtkStylePropertiesClass.FFI.fromPtr true) getStyle_ (self & path)
     fun getStyleProperty self path state pspec =
       let
         val value & retVal =
           (
-            GtkStyleProviderClass.C.withPtr
-             &&&> GtkWidgetPathRecord.C.withPtr
-             &&&> GtkStateFlags.C.withVal
-             &&&> GObjectParamSpecClass.C.withPtr
-             &&&> GObjectValueRecord.C.withNewPtr
-             ---> GObjectValueRecord.C.fromPtr true && FFI.Bool.C.fromVal
+            GtkStyleProviderClass.FFI.withPtr
+             &&&> GtkWidgetPathRecord.FFI.withPtr
+             &&&> GtkStateFlags.FFI.withVal
+             &&&> GObjectParamSpecClass.FFI.withPtr
+             &&&> GObjectValueRecord.FFI.withNewPtr
+             ---> GObjectValueRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
             getStyleProperty_
             (

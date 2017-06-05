@@ -17,7 +17,18 @@ signature GTK_ICON_THEME =
       'a class
        -> string
        -> unit
+    val chooseIcon :
+      'a class
+       -> string list
+       -> LargeInt.int
+       -> icon_lookup_flags_t
+       -> icon_info_t
     val getExampleIconName : 'a class -> string
+    val getIconSizes :
+      'a class
+       -> string
+       -> LargeInt.int vector
+    val getSearchPath : 'a class -> string list
     val hasIcon :
       'a class
        -> string
@@ -52,6 +63,10 @@ signature GTK_ICON_THEME =
     val setScreen :
       'a class
        -> 'b Gdk.ScreenClass.class
+       -> unit
+    val setSearchPath :
+      'a class
+       -> string list
        -> unit
     val changedSig : (unit -> unit) -> 'a class Signal.signal
   end

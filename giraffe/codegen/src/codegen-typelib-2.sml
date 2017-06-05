@@ -56,7 +56,7 @@ val _ = require repo "Vte" "2.91" flags
 
 val () = print "Generating code for namespaces\n"
 val errorLog'2 = List.foldl insert errorLog'1 [
-  gen outDir repo ("Vte", "2.91") ([("GObject", "2.0")], [], [])
+  gen outDir repo ("Vte", "2.91") ([], [], [])
 ]
 
 

@@ -18,7 +18,7 @@ structure PangoFont :>
         call (load_sym libpango "pango_font_get_glyph_extents")
           (
             PangoFontClass.PolyML.cPtr
-             &&> FFI.UInt32.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
              &&> PangoRectangleRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
@@ -32,22 +32,22 @@ structure PangoFont :>
     type font_metrics_t = PangoFontMetricsRecord.t
     type language_t = PangoLanguageRecord.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun describe self = (PangoFontClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) describe_ self
-    fun describeWithAbsoluteSize self = (PangoFontClass.C.withPtr ---> PangoFontDescriptionRecord.C.fromPtr true) describeWithAbsoluteSize_ self
-    fun getFontMap self = (PangoFontClass.C.withPtr ---> PangoFontMapClass.C.fromPtr false) getFontMap_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun describe self = (PangoFontClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr true) describe_ self
+    fun describeWithAbsoluteSize self = (PangoFontClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr true) describeWithAbsoluteSize_ self
+    fun getFontMap self = (PangoFontClass.FFI.withPtr ---> PangoFontMapClass.FFI.fromPtr false) getFontMap_ self
     fun getGlyphExtents self glyph =
       let
         val inkRect
          & logicalRect
          & () =
           (
-            PangoFontClass.C.withPtr
-             &&&> FFI.UInt32.C.withVal
-             &&&> PangoRectangleRecord.C.withNewPtr
-             &&&> PangoRectangleRecord.C.withNewPtr
-             ---> PangoRectangleRecord.C.fromPtr true
-                   && PangoRectangleRecord.C.fromPtr true
+            PangoFontClass.FFI.withPtr
+             &&&> GUInt32.FFI.withVal
+             &&&> PangoRectangleRecord.FFI.withNewPtr
+             &&&> PangoRectangleRecord.FFI.withNewPtr
+             ---> PangoRectangleRecord.FFI.fromPtr true
+                   && PangoRectangleRecord.FFI.fromPtr true
                    && I
           )
             getGlyphExtents_
@@ -60,5 +60,5 @@ structure PangoFont :>
       in
         (inkRect, logicalRect)
       end
-    fun getMetrics self language = (PangoFontClass.C.withPtr &&&> PangoLanguageRecord.C.withOptPtr ---> PangoFontMetricsRecord.C.fromPtr true) getMetrics_ (self & language)
+    fun getMetrics self language = (PangoFontClass.FFI.withPtr &&&> PangoLanguageRecord.FFI.withOptPtr ---> PangoFontMetricsRecord.FFI.fromPtr true) getMetrics_ (self & language)
   end

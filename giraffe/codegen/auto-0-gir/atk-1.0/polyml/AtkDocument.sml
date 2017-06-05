@@ -15,21 +15,21 @@ structure AtkDocument :>
             AtkDocumentClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
     end
     type 'a class = 'a AtkDocumentClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getAttributeValue self attributeName = (AtkDocumentClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getAttributeValue_ (self & attributeName)
-    fun getDocumentType self = (AtkDocumentClass.C.withPtr ---> Utf8.C.fromPtr false) getDocumentType_ self
-    fun getLocale self = (AtkDocumentClass.C.withPtr ---> Utf8.C.fromPtr false) getLocale_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getAttributeValue self attributeName = (AtkDocumentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAttributeValue_ (self & attributeName)
+    fun getDocumentType self = (AtkDocumentClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDocumentType_ self
+    fun getLocale self = (AtkDocumentClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLocale_ self
     fun setAttributeValue self attributeName attributeValue =
       (
-        AtkDocumentClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         ---> FFI.Bool.C.fromVal
+        AtkDocumentClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> GBool.FFI.fromVal
       )
         setAttributeValue_
         (

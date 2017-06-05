@@ -141,7 +141,10 @@ signature GTK_TEXT_ITER =
       t
        -> LargeInt.int
        -> bool
-    val getAttributes : t -> text_attributes_t option
+    val getAttributes :
+      t
+       -> text_attributes_t
+       -> bool
     val getBuffer : t -> base text_buffer_class
     val getBytesInLine : t -> LargeInt.int
     val getChar : t -> char

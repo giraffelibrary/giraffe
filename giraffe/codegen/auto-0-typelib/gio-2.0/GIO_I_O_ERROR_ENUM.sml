@@ -1,6 +1,6 @@
 signature GIO_I_O_ERROR_ENUM =
   sig
-    datatype t =
+    datatype enum =
       FAILED
     | NOT_FOUND
     | EXISTS
@@ -45,23 +45,11 @@ signature GIO_I_O_ERROR_ENUM =
     | PROXY_AUTH_FAILED
     | PROXY_NEED_AUTH
     | PROXY_NOT_ALLOWED
+    include
+      ENUM
+        where type t = enum
     exception Error of t
     val handler : GLib.ErrorRecord.handler
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
-    structure C :
-      sig
-        type val_
-        type ref_
-        val withVal :
-          (val_ -> 'a)
-           -> t
-           -> 'a
-        val withRefVal :
-          (ref_ -> 'a)
-           -> t
-           -> (val_, 'a) pair
-        val fromVal : val_ -> t
-        exception Value of FFI.Enum.C.val_
-      end
   end

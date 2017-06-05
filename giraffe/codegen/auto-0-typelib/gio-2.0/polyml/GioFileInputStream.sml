@@ -34,15 +34,15 @@ structure GioFileInputStream :>
     type 'a file_info_class = 'a GioFileInfoClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
-    fun asSeekable self = (GObjectObjectClass.C.withPtr ---> GioSeekableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asSeekable self = (GObjectObjectClass.FFI.withPtr ---> GioSeekableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun queryInfo self attributes cancellable =
       (
-        GioFileInputStreamClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileInputStreamClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileInfoClass.C.fromPtr true
+         ---> GioFileInfoClass.FFI.fromPtr true
       )
         queryInfo_
         (
@@ -53,10 +53,10 @@ structure GioFileInputStream :>
         )
     fun queryInfoFinish self result =
       (
-        GioFileInputStreamClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileInputStreamClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileInfoClass.C.fromPtr true
+         ---> GioFileInfoClass.FFI.fromPtr true
       )
         queryInfoFinish_
         (

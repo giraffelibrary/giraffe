@@ -5,7 +5,7 @@ structure GObject :
     where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite =
   struct
     val typeInit_ = _import "g_type_init" : unit -> unit;
-    val typeInitWithDebugFlags_ = _import "g_type_init_with_debug_flags" : GObjectTypeDebugFlags.C.val_ -> unit;
+    val typeInitWithDebugFlags_ = _import "g_type_init_with_debug_flags" : GObjectTypeDebugFlags.FFI.val_ -> unit;
     type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
     type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite
@@ -96,5 +96,5 @@ structure GObject :
     val VALUE_COLLECT_FORMAT_MAX_LENGTH = 8
     val VALUE_NOCOPY_CONTENTS = 134217728
     fun typeInit () = (I ---> I) typeInit_ ()
-    fun typeInitWithDebugFlags debugFlags = (GObjectTypeDebugFlags.C.withVal ---> I) typeInitWithDebugFlags_ debugFlags
+    fun typeInitWithDebugFlags debugFlags = (GObjectTypeDebugFlags.FFI.withVal ---> I) typeInitWithDebugFlags_ debugFlags
   end

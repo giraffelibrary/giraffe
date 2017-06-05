@@ -4,16 +4,16 @@ structure GioConverterInputStream :>
     where type 'a input_stream_class = 'a GioInputStreamClass.class
     where type 'a converter_class = 'a GioConverterClass.class =
   struct
-    val getType_ = _import "g_converter_input_stream_get_type" : unit -> GObjectType.C.val_;
-    val new_ = fn x1 & x2 => (_import "g_converter_input_stream_new" : GioInputStreamClass.C.notnull GioInputStreamClass.C.p * GioConverterClass.C.notnull GioConverterClass.C.p -> GioInputStreamClass.C.notnull GioInputStreamClass.C.p;) (x1, x2)
-    val getConverter_ = _import "g_converter_input_stream_get_converter" : GioConverterInputStreamClass.C.notnull GioConverterInputStreamClass.C.p -> GioConverterClass.C.notnull GioConverterClass.C.p;
+    val getType_ = _import "g_converter_input_stream_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = fn x1 & x2 => (_import "g_converter_input_stream_new" : GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p * GioConverterClass.FFI.notnull GioConverterClass.FFI.p -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;) (x1, x2)
+    val getConverter_ = _import "g_converter_input_stream_get_converter" : GioConverterInputStreamClass.FFI.notnull GioConverterInputStreamClass.FFI.p -> GioConverterClass.FFI.notnull GioConverterClass.FFI.p;
     type 'a class = 'a GioConverterInputStreamClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class
     type 'a converter_class = 'a GioConverterClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new baseStream converter = (GioInputStreamClass.C.withPtr &&&> GioConverterClass.C.withPtr ---> GioConverterInputStreamClass.C.fromPtr true) new_ (baseStream & converter)
-    fun getConverter self = (GioConverterInputStreamClass.C.withPtr ---> GioConverterClass.C.fromPtr false) getConverter_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new baseStream converter = (GioInputStreamClass.FFI.withPtr &&&> GioConverterClass.FFI.withPtr ---> GioConverterInputStreamClass.FFI.fromPtr true) new_ (baseStream & converter)
+    fun getConverter self = (GioConverterInputStreamClass.FFI.withPtr ---> GioConverterClass.FFI.fromPtr false) getConverter_ self
     local
       open Property
     in

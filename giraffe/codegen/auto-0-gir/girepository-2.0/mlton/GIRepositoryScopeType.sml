@@ -1,32 +1,28 @@
-structure GIRepositoryScopeType :>
-  sig
-    include G_I_REPOSITORY_SCOPE_TYPE
-  end =
+structure GIRepositoryScopeType :> G_I_REPOSITORY_SCOPE_TYPE =
   struct
-    datatype t =
+    datatype enum =
       INVALID
     | CALL
     | ASYNC
     | NOTIFIED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = INVALID
+        val toInt =
           fn
-            INVALID => f 0
-          | CALL => f 1
-          | ASYNC => f 2
-          | NOTIFIED => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            INVALID => 0
+          | CALL => 1
+          | ASYNC => 2
+          | NOTIFIED => 3
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => INVALID
           | 1 => CALL
           | 2 => ASYNC
           | 3 => NOTIFIED
           | n => raise Value n
-      end
-    val null = INVALID
+      )
+    open Enum
   end

@@ -20,6 +20,14 @@ GIRepository.Override.argInfoMayBeNull := [
 ];
 
 let
+  open GIRepository.Direction
+in
+  GIRepository.Override.argInfoDirection := [
+    (("Gtk", SOME "TextIter", "get_attributes", "values"), IN)
+  ]
+end;
+
+let
   open GIRepository.Transfer
 in
   GIRepository.Override.callableInfoCallerOwns := [

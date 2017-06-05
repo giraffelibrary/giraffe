@@ -3,6 +3,12 @@ structure GioUnixFDMessage :>
     where type 'a class = 'a GioUnixFDMessageClass.class
     where type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class =
   struct
+    structure GIntCVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GIntType
+        structure ElemSequence = CValueVectorSequence(GIntType)
+      )
+    structure GIntCVectorN = CVectorN(GIntCVectorNType)
     local
       open PolyMLFFI
     in
@@ -13,24 +19,25 @@ structure GioUnixFDMessage :>
         call (load_sym libgio "g_unix_fd_message_append_fd")
           (
             GioUnixFDMessageClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val getFdList_ = call (load_sym libgio "g_unix_fd_message_get_fd_list") (GioUnixFDMessageClass.PolyML.cPtr --> GioUnixFDListClass.PolyML.cPtr)
+      val stealFds_ = call (load_sym libgio "g_unix_fd_message_steal_fds") (GioUnixFDMessageClass.PolyML.cPtr &&> GInt.PolyML.cRef --> GIntCVectorN.PolyML.cOutPtr)
     end
     type 'a class = 'a GioUnixFDMessageClass.class
     type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GioUnixFDMessageClass.C.fromPtr true) new_ ()
-    fun newWithFdList fdList = (GioUnixFDListClass.C.withPtr ---> GioUnixFDMessageClass.C.fromPtr true) newWithFdList_ fdList
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GioUnixFDMessageClass.FFI.fromPtr true) new_ ()
+    fun newWithFdList fdList = (GioUnixFDListClass.FFI.withPtr ---> GioUnixFDMessageClass.FFI.fromPtr true) newWithFdList_ fdList
     fun appendFd self fd =
       (
-        GioUnixFDMessageClass.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GioUnixFDMessageClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         appendFd_
         (
@@ -38,7 +45,13 @@ structure GioUnixFDMessage :>
            & fd
            & []
         )
-    fun getFdList self = (GioUnixFDMessageClass.C.withPtr ---> GioUnixFDListClass.C.fromPtr false) getFdList_ self
+    fun getFdList self = (GioUnixFDMessageClass.FFI.withPtr ---> GioUnixFDListClass.FFI.fromPtr false) getFdList_ self
+    fun stealFds self =
+      let
+        val length & retVal = (GioUnixFDMessageClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCVectorN.FFI.fromPtr 1) stealFds_ (self & GInt.null)
+      in
+        retVal (LargeInt.toInt length)
+      end
     local
       open Property
     in

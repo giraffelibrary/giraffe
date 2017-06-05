@@ -8,67 +8,67 @@ structure VtePty :>
     in
       val getType_ = call (load_sym libvte "vte_pty_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libvte "vte_pty_new") (VtePtyFlags.PolyML.cVal &&> GLibErrorRecord.PolyML.cOutOptRef --> VtePtyClass.PolyML.cPtr)
-      val newForeign_ = call (load_sym libvte "vte_pty_new_foreign") (FFI.Int32.PolyML.cVal &&> GLibErrorRecord.PolyML.cOutOptRef --> VtePtyClass.PolyML.cPtr)
+      val newForeign_ = call (load_sym libvte "vte_pty_new_foreign") (GInt32.PolyML.cVal &&> GLibErrorRecord.PolyML.cOutOptRef --> VtePtyClass.PolyML.cPtr)
       val childSetup_ = call (load_sym libvte "vte_pty_child_setup") (VtePtyClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val close_ = call (load_sym libvte "vte_pty_close") (VtePtyClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getFd_ = call (load_sym libvte "vte_pty_get_fd") (VtePtyClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
+      val getFd_ = call (load_sym libvte "vte_pty_get_fd") (VtePtyClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getSize_ =
         call (load_sym libvte "vte_pty_get_size")
           (
             VtePtyClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cRef
-             &&> FFI.Int32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val setSize_ =
         call (load_sym libvte "vte_pty_set_size")
           (
             VtePtyClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val setTerm_ = call (load_sym libvte "vte_pty_set_term") (VtePtyClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
       val setUtf8_ =
         call (load_sym libvte "vte_pty_set_utf8")
           (
             VtePtyClass.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
     end
     type 'a class = 'a VtePtyClass.class
     type pty_flags_t = VtePtyFlags.t
     type t = base class
-    fun asInitable self = (GObjectObjectClass.C.withPtr ---> GioInitableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new flags = (VtePtyFlags.C.withVal &&&> GLibErrorRecord.handleError ---> VtePtyClass.C.fromPtr true) new_ (flags & [])
-    fun newForeign fd = (FFI.Int32.C.withVal &&&> GLibErrorRecord.handleError ---> VtePtyClass.C.fromPtr true) newForeign_ (fd & [])
-    fun childSetup self = (VtePtyClass.C.withPtr ---> I) childSetup_ self
-    fun close self = (VtePtyClass.C.withPtr ---> I) close_ self
-    fun getFd self = (VtePtyClass.C.withPtr ---> FFI.Int32.C.fromVal) getFd_ self
+    fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new flags = (VtePtyFlags.FFI.withVal &&&> GLibErrorRecord.handleError ---> VtePtyClass.FFI.fromPtr true) new_ (flags & [])
+    fun newForeign fd = (GInt32.FFI.withVal &&&> GLibErrorRecord.handleError ---> VtePtyClass.FFI.fromPtr true) newForeign_ (fd & [])
+    fun childSetup self = (VtePtyClass.FFI.withPtr ---> I) childSetup_ self
+    fun close self = (VtePtyClass.FFI.withPtr ---> I) close_ self
+    fun getFd self = (VtePtyClass.FFI.withPtr ---> GInt32.FFI.fromVal) getFd_ self
     fun getSize self =
       let
         val rows
          & columns
          & retVal =
           (
-            VtePtyClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> FFI.Int32.C.withRefVal
+            VtePtyClass.FFI.withPtr
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> FFI.Int32.C.fromVal
-                   && FFI.Int32.C.fromVal
-                   && FFI.Bool.C.fromVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && GBool.FFI.fromVal
           )
             getSize_
             (
               self
-               & FFI.Int32.null
-               & FFI.Int32.null
+               & GInt32.null
+               & GInt32.null
                & []
             )
       in
@@ -76,11 +76,11 @@ structure VtePty :>
       end
     fun setSize self rows columns =
       (
-        VtePtyClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        VtePtyClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         setSize_
         (
@@ -89,13 +89,13 @@ structure VtePty :>
            & columns
            & []
         )
-    fun setTerm self emulation = (VtePtyClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setTerm_ (self & emulation)
+    fun setTerm self emulation = (VtePtyClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTerm_ (self & emulation)
     fun setUtf8 self utf8 =
       (
-        VtePtyClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        VtePtyClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         setUtf8_
         (

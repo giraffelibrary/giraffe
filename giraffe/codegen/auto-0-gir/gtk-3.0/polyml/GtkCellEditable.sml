@@ -12,10 +12,10 @@ structure GtkCellEditable :>
     end
     type 'a class = 'a GtkCellEditableClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun editingDone self = (GtkCellEditableClass.C.withPtr ---> I) editingDone_ self
-    fun removeWidget self = (GtkCellEditableClass.C.withPtr ---> I) removeWidget_ self
-    fun startEditing self event = (GtkCellEditableClass.C.withPtr &&&> GdkEvent.C.withOptPtr ---> I) startEditing_ (self & event)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun editingDone self = (GtkCellEditableClass.FFI.withPtr ---> I) editingDone_ self
+    fun removeWidget self = (GtkCellEditableClass.FFI.withPtr ---> I) removeWidget_ self
+    fun startEditing self event = (GtkCellEditableClass.FFI.withPtr &&&> GdkEvent.FFI.withOptPtr ---> I) startEditing_ (self & event)
     local
       open ClosureMarshal Signal
     in

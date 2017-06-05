@@ -60,5 +60,5 @@ structure GtkSource : GTK_SOURCE =
     structure GutterRendererText = GtkSourceGutterRendererText
     val COMPLETION_CAPABILITY_AUTOMATIC = "standard::automatic"
     val COMPLETION_CAPABILITY_INTERACTIVE = "standard::interactive"
-    fun completionErrorQuark () = (I ---> GLibQuark.C.fromVal) completionErrorQuark_ ()
+    fun completionErrorQuark () = (I ---> GLibQuark.FFI.fromVal) completionErrorQuark_ ()
   end

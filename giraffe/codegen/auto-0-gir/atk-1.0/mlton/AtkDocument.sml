@@ -2,24 +2,24 @@ structure AtkDocument :>
   ATK_DOCUMENT
     where type 'a class = 'a AtkDocumentClass.class =
   struct
-    val getType_ = _import "atk_document_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "atk_document_get_type" : unit -> GObjectType.FFI.val_;
     val getAttributeValue_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_atk_document_get_attribute_value" :
-              AtkDocumentClass.C.notnull AtkDocumentClass.C.p
+              AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> Utf8.C.notnull Utf8.C.out_p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> Utf8.FFI.notnull Utf8.FFI.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getDocumentType_ = _import "atk_document_get_document_type" : AtkDocumentClass.C.notnull AtkDocumentClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getLocale_ = _import "atk_document_get_locale" : AtkDocumentClass.C.notnull AtkDocumentClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getDocumentType_ = _import "atk_document_get_document_type" : AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getLocale_ = _import "atk_document_get_locale" : AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val setAttributeValue_ =
       fn
         x1
@@ -27,12 +27,12 @@ structure AtkDocument :>
          & (x4, x5) =>
           (
             _import "mlton_atk_document_set_attribute_value" :
-              AtkDocumentClass.C.notnull AtkDocumentClass.C.p
+              AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> FFI.Bool.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -43,16 +43,16 @@ structure AtkDocument :>
             )
     type 'a class = 'a AtkDocumentClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getAttributeValue self attributeName = (AtkDocumentClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr false) getAttributeValue_ (self & attributeName)
-    fun getDocumentType self = (AtkDocumentClass.C.withPtr ---> Utf8.C.fromPtr false) getDocumentType_ self
-    fun getLocale self = (AtkDocumentClass.C.withPtr ---> Utf8.C.fromPtr false) getLocale_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getAttributeValue self attributeName = (AtkDocumentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAttributeValue_ (self & attributeName)
+    fun getDocumentType self = (AtkDocumentClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDocumentType_ self
+    fun getLocale self = (AtkDocumentClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLocale_ self
     fun setAttributeValue self attributeName attributeValue =
       (
-        AtkDocumentClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         ---> FFI.Bool.C.fromVal
+        AtkDocumentClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> GBool.FFI.fromVal
       )
         setAttributeValue_
         (

@@ -1,14 +1,6 @@
-structure GdkWindowEdge :>
-  sig
-    include GDK_WINDOW_EDGE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GdkWindowEdge :> GDK_WINDOW_EDGE =
   struct
-    datatype t =
+    datatype enum =
       NORTH_WEST
     | NORTH
     | NORTH_EAST
@@ -17,23 +9,22 @@ structure GdkWindowEdge :>
     | SOUTH_WEST
     | SOUTH
     | SOUTH_EAST
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NORTH_WEST
+        val toInt =
           fn
-            NORTH_WEST => f 0
-          | NORTH => f 1
-          | NORTH_EAST => f 2
-          | WEST => f 3
-          | EAST => f 4
-          | SOUTH_WEST => f 5
-          | SOUTH => f 6
-          | SOUTH_EAST => f 7
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NORTH_WEST => 0
+          | NORTH => 1
+          | NORTH_EAST => 2
+          | WEST => 3
+          | EAST => 4
+          | SOUTH_WEST => 5
+          | SOUTH => 6
+          | SOUTH_EAST => 7
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => NORTH_WEST
           | 1 => NORTH
@@ -44,12 +35,8 @@ structure GdkWindowEdge :>
           | 6 => SOUTH
           | 7 => SOUTH_EAST
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -60,10 +47,9 @@ structure GdkWindowEdge :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = NORTH_WEST
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

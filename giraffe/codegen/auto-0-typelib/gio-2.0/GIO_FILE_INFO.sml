@@ -47,6 +47,10 @@ signature GIO_FILE_INFO =
       'a class
        -> string
        -> string
+    val getAttributeStringv :
+      'a class
+       -> string
+       -> string list
     val getAttributeType :
       'a class
        -> string
@@ -84,6 +88,10 @@ signature GIO_FILE_INFO =
       'a class
        -> string
        -> bool
+    val listAttributes :
+      'a class
+       -> string
+       -> string list
     val removeAttribute :
       'a class
        -> string

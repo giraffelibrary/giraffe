@@ -10,14 +10,14 @@ structure AtkValue :>
       val getMaximumValue_ = call (load_sym libatk "atk_value_get_maximum_value") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getMinimumIncrement_ = call (load_sym libatk "atk_value_get_minimum_increment") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getMinimumValue_ = call (load_sym libatk "atk_value_get_minimum_value") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setCurrentValue_ = call (load_sym libatk "atk_value_set_current_value") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val setCurrentValue_ = call (load_sym libatk "atk_value_set_current_value") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a AtkValueClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getCurrentValue self value = (AtkValueClass.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> I) getCurrentValue_ (self & value)
-    fun getMaximumValue self value = (AtkValueClass.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> I) getMaximumValue_ (self & value)
-    fun getMinimumIncrement self value = (AtkValueClass.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> I) getMinimumIncrement_ (self & value)
-    fun getMinimumValue self value = (AtkValueClass.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> I) getMinimumValue_ (self & value)
-    fun setCurrentValue self value = (AtkValueClass.C.withPtr &&&> GObjectValueRecord.C.withPtr ---> FFI.Bool.C.fromVal) setCurrentValue_ (self & value)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getCurrentValue self value = (AtkValueClass.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> I) getCurrentValue_ (self & value)
+    fun getMaximumValue self value = (AtkValueClass.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> I) getMaximumValue_ (self & value)
+    fun getMinimumIncrement self value = (AtkValueClass.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> I) getMinimumIncrement_ (self & value)
+    fun getMinimumValue self value = (AtkValueClass.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> I) getMinimumValue_ (self & value)
+    fun setCurrentValue self value = (AtkValueClass.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> GBool.FFI.fromVal) setCurrentValue_ (self & value)
   end

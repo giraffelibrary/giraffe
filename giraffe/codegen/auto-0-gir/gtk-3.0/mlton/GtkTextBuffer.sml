@@ -9,8 +9,20 @@ structure GtkTextBuffer :>
     where type target_list_t = GtkTargetListRecord.t
     where type 'a text_tag_table_class = 'a GtkTextTagTableClass.class =
   struct
-    val getType_ = _import "gtk_text_buffer_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_text_buffer_new" : unit GtkTextTagTableClass.C.p -> GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p;
+    structure GdkAtomRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GdkAtomRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
+    structure GUInt8CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GUInt8Type
+        structure ElemSequence = MonoVectorSequence(Word8Vector)
+      )
+    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
+    val getType_ = _import "gtk_text_buffer_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_text_buffer_new" : unit GtkTextTagTableClass.FFI.p -> GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p;
     val addMark_ =
       fn
         x1
@@ -18,9 +30,9 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_add_mark" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -28,7 +40,7 @@ structure GtkTextBuffer :>
               x2,
               x3
             )
-    val addSelectionClipboard_ = fn x1 & x2 => (_import "gtk_text_buffer_add_selection_clipboard" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p * GtkClipboardClass.C.notnull GtkClipboardClass.C.p -> unit;) (x1, x2)
+    val addSelectionClipboard_ = fn x1 & x2 => (_import "gtk_text_buffer_add_selection_clipboard" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> unit;) (x1, x2)
     val applyTag_ =
       fn
         x1
@@ -37,10 +49,10 @@ structure GtkTextBuffer :>
          & x4 =>
           (
             _import "gtk_text_buffer_apply_tag" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextTagClass.C.notnull GtkTextTagClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -57,11 +69,11 @@ structure GtkTextBuffer :>
          & x5 =>
           (
             _import "mlton_gtk_text_buffer_apply_tag_by_name" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -79,11 +91,11 @@ structure GtkTextBuffer :>
          & x4 =>
           (
             _import "gtk_text_buffer_backspace" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Bool.C.val_
-               * FFI.Bool.C.val_
-               -> FFI.Bool.C.val_;
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GBool.FFI.val_
+               * GBool.FFI.val_
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -91,9 +103,9 @@ structure GtkTextBuffer :>
               x3,
               x4
             )
-    val beginUserAction_ = _import "gtk_text_buffer_begin_user_action" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p -> unit;
-    val copyClipboard_ = fn x1 & x2 => (_import "gtk_text_buffer_copy_clipboard" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p * GtkClipboardClass.C.notnull GtkClipboardClass.C.p -> unit;) (x1, x2)
-    val createChildAnchor_ = fn x1 & x2 => (_import "gtk_text_buffer_create_child_anchor" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> GtkTextChildAnchorClass.C.notnull GtkTextChildAnchorClass.C.p;) (x1, x2)
+    val beginUserAction_ = _import "gtk_text_buffer_begin_user_action" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> unit;
+    val copyClipboard_ = fn x1 & x2 => (_import "gtk_text_buffer_copy_clipboard" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> unit;) (x1, x2)
+    val createChildAnchor_ = fn x1 & x2 => (_import "gtk_text_buffer_create_child_anchor" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GtkTextChildAnchorClass.FFI.notnull GtkTextChildAnchorClass.FFI.p;) (x1, x2)
     val createMark_ =
       fn
         x1
@@ -102,12 +114,12 @@ structure GtkTextBuffer :>
          & x5 =>
           (
             _import "mlton_gtk_text_buffer_create_mark" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Bool.C.val_
-               -> GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p;
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GBool.FFI.val_
+               -> GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p;
           )
             (
               x1,
@@ -123,9 +135,9 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_cut_clipboard" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkClipboardClass.C.notnull GtkClipboardClass.C.p
-               * FFI.Bool.C.val_
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p
+               * GBool.FFI.val_
                -> unit;
           )
             (
@@ -140,9 +152,9 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_delete" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -158,11 +170,11 @@ structure GtkTextBuffer :>
          & x4 =>
           (
             _import "gtk_text_buffer_delete_interactive" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Bool.C.val_
-               -> FFI.Bool.C.val_;
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GBool.FFI.val_
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -170,15 +182,15 @@ structure GtkTextBuffer :>
               x3,
               x4
             )
-    val deleteMark_ = fn x1 & x2 => (_import "gtk_text_buffer_delete_mark" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p * GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p -> unit;) (x1, x2)
+    val deleteMark_ = fn x1 & x2 => (_import "gtk_text_buffer_delete_mark" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p -> unit;) (x1, x2)
     val deleteMarkByName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_text_buffer_delete_mark_by_name" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -193,17 +205,48 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_delete_selection" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * FFI.Bool.C.val_
-               * FFI.Bool.C.val_
-               -> FFI.Bool.C.val_;
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GBool.FFI.val_
+               * GBool.FFI.val_
+               -> GBool.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val deserializeGetCanCreateTags_ = fn x1 & x2 => (_import "gtk_text_buffer_deserialize_get_can_create_tags" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val deserialize_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & (x5, x6)
+         & x7
+         & x8 =>
+          (
+            _import "mlton_gtk_text_buffer_deserialize" :
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GUInt8CVectorN.MLton.p1
+               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GSize.FFI.val_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7,
+              x8
+            )
+    val deserializeGetCanCreateTags_ = fn x1 & x2 => (_import "gtk_text_buffer_deserialize_get_can_create_tags" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val deserializeSetCanCreateTags_ =
       fn
         x1
@@ -211,9 +254,9 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_deserialize_set_can_create_tags" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GdkAtomRecord.C.notnull GdkAtomRecord.C.p
-               * FFI.Bool.C.val_
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+               * GBool.FFI.val_
                -> unit;
           )
             (
@@ -221,7 +264,7 @@ structure GtkTextBuffer :>
               x2,
               x3
             )
-    val endUserAction_ = _import "gtk_text_buffer_end_user_action" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p -> unit;
+    val endUserAction_ = _import "gtk_text_buffer_end_user_action" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> unit;
     val getBounds_ =
       fn
         x1
@@ -229,9 +272,9 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_get_bounds" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -239,11 +282,12 @@ structure GtkTextBuffer :>
               x2,
               x3
             )
-    val getCharCount_ = _import "gtk_text_buffer_get_char_count" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p -> FFI.Int.C.val_;
-    val getCopyTargetList_ = _import "gtk_text_buffer_get_copy_target_list" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p -> GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p;
-    val getEndIter_ = fn x1 & x2 => (_import "gtk_text_buffer_get_end_iter" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> unit;) (x1, x2)
-    val getHasSelection_ = _import "gtk_text_buffer_get_has_selection" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p -> FFI.Bool.C.val_;
-    val getInsert_ = _import "gtk_text_buffer_get_insert" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p -> GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p;
+    val getCharCount_ = _import "gtk_text_buffer_get_char_count" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GInt.FFI.val_;
+    val getCopyTargetList_ = _import "gtk_text_buffer_get_copy_target_list" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p;
+    val getDeserializeFormats_ = fn x1 & x2 => (_import "gtk_text_buffer_get_deserialize_formats" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GInt.FFI.ref_ -> GdkAtomRecordCVectorN.FFI.notnull GdkAtomRecordCVectorN.FFI.out_p;) (x1, x2)
+    val getEndIter_ = fn x1 & x2 => (_import "gtk_text_buffer_get_end_iter" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> unit;) (x1, x2)
+    val getHasSelection_ = _import "gtk_text_buffer_get_has_selection" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GBool.FFI.val_;
+    val getInsert_ = _import "gtk_text_buffer_get_insert" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p;
     val getIterAtChildAnchor_ =
       fn
         x1
@@ -251,9 +295,9 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_get_iter_at_child_anchor" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextChildAnchorClass.C.notnull GtkTextChildAnchorClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextChildAnchorClass.FFI.notnull GtkTextChildAnchorClass.FFI.p
                -> unit;
           )
             (
@@ -268,9 +312,9 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_get_iter_at_line" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Int.C.val_
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -286,10 +330,10 @@ structure GtkTextBuffer :>
          & x4 =>
           (
             _import "gtk_text_buffer_get_iter_at_line_index" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -306,10 +350,10 @@ structure GtkTextBuffer :>
          & x4 =>
           (
             _import "gtk_text_buffer_get_iter_at_line_offset" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -325,9 +369,9 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_get_iter_at_mark" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p
                -> unit;
           )
             (
@@ -342,9 +386,9 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_get_iter_at_offset" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Int.C.val_
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -352,25 +396,25 @@ structure GtkTextBuffer :>
               x2,
               x3
             )
-    val getLineCount_ = _import "gtk_text_buffer_get_line_count" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p -> FFI.Int.C.val_;
+    val getLineCount_ = _import "gtk_text_buffer_get_line_count" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GInt.FFI.val_;
     val getMark_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_text_buffer_get_mark" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getModified_ = _import "gtk_text_buffer_get_modified" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p -> FFI.Bool.C.val_;
-    val getPasteTargetList_ = _import "gtk_text_buffer_get_paste_target_list" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p -> GtkTargetListRecord.C.notnull GtkTargetListRecord.C.p;
-    val getSelectionBound_ = _import "gtk_text_buffer_get_selection_bound" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p -> GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p;
+    val getModified_ = _import "gtk_text_buffer_get_modified" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GBool.FFI.val_;
+    val getPasteTargetList_ = _import "gtk_text_buffer_get_paste_target_list" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p;
+    val getSelectionBound_ = _import "gtk_text_buffer_get_selection_bound" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p;
     val getSelectionBounds_ =
       fn
         x1
@@ -378,16 +422,17 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_get_selection_bounds" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               -> FFI.Bool.C.val_;
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               -> GBool.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
+    val getSerializeFormats_ = fn x1 & x2 => (_import "gtk_text_buffer_get_serialize_formats" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GInt.FFI.ref_ -> GdkAtomRecordCVectorN.FFI.notnull GdkAtomRecordCVectorN.FFI.out_p;) (x1, x2)
     val getSlice_ =
       fn
         x1
@@ -396,11 +441,11 @@ structure GtkTextBuffer :>
          & x4 =>
           (
             _import "gtk_text_buffer_get_slice" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Bool.C.val_
-               -> Utf8.C.notnull Utf8.C.out_p;
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GBool.FFI.val_
+               -> Utf8.FFI.notnull Utf8.FFI.out_p;
           )
             (
               x1,
@@ -408,8 +453,8 @@ structure GtkTextBuffer :>
               x3,
               x4
             )
-    val getStartIter_ = fn x1 & x2 => (_import "gtk_text_buffer_get_start_iter" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> unit;) (x1, x2)
-    val getTagTable_ = _import "gtk_text_buffer_get_tag_table" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p -> GtkTextTagTableClass.C.notnull GtkTextTagTableClass.C.p;
+    val getStartIter_ = fn x1 & x2 => (_import "gtk_text_buffer_get_start_iter" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> unit;) (x1, x2)
+    val getTagTable_ = _import "gtk_text_buffer_get_tag_table" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GtkTextTagTableClass.FFI.notnull GtkTextTagTableClass.FFI.p;
     val getText_ =
       fn
         x1
@@ -418,11 +463,11 @@ structure GtkTextBuffer :>
          & x4 =>
           (
             _import "gtk_text_buffer_get_text" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Bool.C.val_
-               -> Utf8.C.notnull Utf8.C.out_p;
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GBool.FFI.val_
+               -> Utf8.FFI.notnull Utf8.FFI.out_p;
           )
             (
               x1,
@@ -438,11 +483,11 @@ structure GtkTextBuffer :>
          & x5 =>
           (
             _import "mlton_gtk_text_buffer_insert" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int.C.val_
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -459,10 +504,10 @@ structure GtkTextBuffer :>
          & x4 =>
           (
             _import "mlton_gtk_text_buffer_insert_at_cursor" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int.C.val_
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -478,9 +523,9 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_insert_child_anchor" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextChildAnchorClass.C.notnull GtkTextChildAnchorClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextChildAnchorClass.FFI.notnull GtkTextChildAnchorClass.FFI.p
                -> unit;
           )
             (
@@ -497,13 +542,13 @@ structure GtkTextBuffer :>
          & x6 =>
           (
             _import "mlton_gtk_text_buffer_insert_interactive" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int.C.val_
-               * FFI.Bool.C.val_
-               -> FFI.Bool.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt.FFI.val_
+               * GBool.FFI.val_
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -521,12 +566,12 @@ structure GtkTextBuffer :>
          & x5 =>
           (
             _import "mlton_gtk_text_buffer_insert_interactive_at_cursor" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int.C.val_
-               * FFI.Bool.C.val_
-               -> FFI.Bool.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt.FFI.val_
+               * GBool.FFI.val_
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -542,9 +587,9 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_insert_pixbuf" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p
                -> unit;
           )
             (
@@ -560,10 +605,10 @@ structure GtkTextBuffer :>
          & x4 =>
           (
             _import "gtk_text_buffer_insert_range" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -581,12 +626,12 @@ structure GtkTextBuffer :>
          & x5 =>
           (
             _import "gtk_text_buffer_insert_range_interactive" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * FFI.Bool.C.val_
-               -> FFI.Bool.C.val_;
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GBool.FFI.val_
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -602,9 +647,9 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_move_mark" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -619,10 +664,10 @@ structure GtkTextBuffer :>
          & x4 =>
           (
             _import "mlton_gtk_text_buffer_move_mark_by_name" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -639,10 +684,10 @@ structure GtkTextBuffer :>
          & x4 =>
           (
             _import "gtk_text_buffer_paste_clipboard" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkClipboardClass.C.notnull GtkClipboardClass.C.p
-               * unit GtkTextIterRecord.C.p
-               * FFI.Bool.C.val_
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p
+               * unit GtkTextIterRecord.FFI.p
+               * GBool.FFI.val_
                -> unit;
           )
             (
@@ -651,16 +696,16 @@ structure GtkTextBuffer :>
               x3,
               x4
             )
-    val placeCursor_ = fn x1 & x2 => (_import "gtk_text_buffer_place_cursor" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p -> unit;) (x1, x2)
+    val placeCursor_ = fn x1 & x2 => (_import "gtk_text_buffer_place_cursor" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> unit;) (x1, x2)
     val registerDeserializeTagset_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_text_buffer_register_deserialize_tagset" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
+               -> GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p;
           )
             (
               x1,
@@ -672,10 +717,10 @@ structure GtkTextBuffer :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_text_buffer_register_serialize_tagset" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GdkAtomRecord.C.notnull GdkAtomRecord.C.p;
+               -> GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p;
           )
             (
               x1,
@@ -689,9 +734,9 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_remove_all_tags" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -699,7 +744,7 @@ structure GtkTextBuffer :>
               x2,
               x3
             )
-    val removeSelectionClipboard_ = fn x1 & x2 => (_import "gtk_text_buffer_remove_selection_clipboard" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p * GtkClipboardClass.C.notnull GtkClipboardClass.C.p -> unit;) (x1, x2)
+    val removeSelectionClipboard_ = fn x1 & x2 => (_import "gtk_text_buffer_remove_selection_clipboard" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> unit;) (x1, x2)
     val removeTag_ =
       fn
         x1
@@ -708,10 +753,10 @@ structure GtkTextBuffer :>
          & x4 =>
           (
             _import "gtk_text_buffer_remove_tag" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextTagClass.C.notnull GtkTextTagClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -728,11 +773,11 @@ structure GtkTextBuffer :>
          & x5 =>
           (
             _import "mlton_gtk_text_buffer_remove_tag_by_name" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -749,9 +794,9 @@ structure GtkTextBuffer :>
          & x3 =>
           (
             _import "gtk_text_buffer_select_range" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
-               * GtkTextIterRecord.C.notnull GtkTextIterRecord.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -759,7 +804,33 @@ structure GtkTextBuffer :>
               x2,
               x3
             )
-    val setModified_ = fn x1 & x2 => (_import "gtk_text_buffer_set_modified" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val serialize_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6 =>
+          (
+            _import "gtk_text_buffer_serialize" :
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GSize.FFI.ref_
+               -> GUInt8CVectorN.FFI.notnull GUInt8CVectorN.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
+    val setModified_ = fn x1 & x2 => (_import "gtk_text_buffer_set_modified" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setText_ =
       fn
         x1
@@ -767,10 +838,10 @@ structure GtkTextBuffer :>
          & x4 =>
           (
             _import "mlton_gtk_text_buffer_set_text" :
-              GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int.C.val_
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -779,8 +850,8 @@ structure GtkTextBuffer :>
               x3,
               x4
             )
-    val unregisterDeserializeFormat_ = fn x1 & x2 => (_import "gtk_text_buffer_unregister_deserialize_format" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> unit;) (x1, x2)
-    val unregisterSerializeFormat_ = fn x1 & x2 => (_import "gtk_text_buffer_unregister_serialize_format" : GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> unit;) (x1, x2)
+    val unregisterDeserializeFormat_ = fn x1 & x2 => (_import "gtk_text_buffer_unregister_deserialize_format" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> unit;) (x1, x2)
+    val unregisterSerializeFormat_ = fn x1 & x2 => (_import "gtk_text_buffer_unregister_serialize_format" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkTextBufferClass.class
     type 'a text_child_anchor_class = 'a GtkTextChildAnchorClass.class
     type 'a text_mark_class = 'a GtkTextMarkClass.class
@@ -790,13 +861,13 @@ structure GtkTextBuffer :>
     type target_list_t = GtkTargetListRecord.t
     type 'a text_tag_table_class = 'a GtkTextTagTableClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new table = (GtkTextTagTableClass.C.withOptPtr ---> GtkTextBufferClass.C.fromPtr true) new_ table
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new table = (GtkTextTagTableClass.FFI.withOptPtr ---> GtkTextBufferClass.FFI.fromPtr true) new_ table
     fun addMark self mark where' =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextMarkClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextMarkClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
          ---> I
       )
         addMark_
@@ -805,13 +876,13 @@ structure GtkTextBuffer :>
            & mark
            & where'
         )
-    fun addSelectionClipboard self clipboard = (GtkTextBufferClass.C.withPtr &&&> GtkClipboardClass.C.withPtr ---> I) addSelectionClipboard_ (self & clipboard)
+    fun addSelectionClipboard self clipboard = (GtkTextBufferClass.FFI.withPtr &&&> GtkClipboardClass.FFI.withPtr ---> I) addSelectionClipboard_ (self & clipboard)
     fun applyTag self tag start end' =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextTagClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextTagClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
          ---> I
       )
         applyTag_
@@ -823,10 +894,10 @@ structure GtkTextBuffer :>
         )
     fun applyTagByName self name start end' =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
+        GtkTextBufferClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
          ---> I
       )
         applyTagByName_
@@ -838,11 +909,11 @@ structure GtkTextBuffer :>
         )
     fun backspace self iter interactive defaultEditable =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.Bool.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> GBool.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         backspace_
         (
@@ -851,16 +922,16 @@ structure GtkTextBuffer :>
            & interactive
            & defaultEditable
         )
-    fun beginUserAction self = (GtkTextBufferClass.C.withPtr ---> I) beginUserAction_ self
-    fun copyClipboard self clipboard = (GtkTextBufferClass.C.withPtr &&&> GtkClipboardClass.C.withPtr ---> I) copyClipboard_ (self & clipboard)
-    fun createChildAnchor self iter = (GtkTextBufferClass.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> GtkTextChildAnchorClass.C.fromPtr false) createChildAnchor_ (self & iter)
+    fun beginUserAction self = (GtkTextBufferClass.FFI.withPtr ---> I) beginUserAction_ self
+    fun copyClipboard self clipboard = (GtkTextBufferClass.FFI.withPtr &&&> GtkClipboardClass.FFI.withPtr ---> I) copyClipboard_ (self & clipboard)
+    fun createChildAnchor self iter = (GtkTextBufferClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GtkTextChildAnchorClass.FFI.fromPtr false) createChildAnchor_ (self & iter)
     fun createMark self markName where' leftGravity =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         ---> GtkTextMarkClass.C.fromPtr false
+        GtkTextBufferClass.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         ---> GtkTextMarkClass.FFI.fromPtr false
       )
         createMark_
         (
@@ -871,9 +942,9 @@ structure GtkTextBuffer :>
         )
     fun cutClipboard self clipboard defaultEditable =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkClipboardClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkClipboardClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         cutClipboard_
@@ -884,9 +955,9 @@ structure GtkTextBuffer :>
         )
     fun delete self start end' =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
          ---> I
       )
         delete_
@@ -897,11 +968,11 @@ structure GtkTextBuffer :>
         )
     fun deleteInteractive self startIter endIter defaultEditable =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         deleteInteractive_
         (
@@ -910,14 +981,14 @@ structure GtkTextBuffer :>
            & endIter
            & defaultEditable
         )
-    fun deleteMark self mark = (GtkTextBufferClass.C.withPtr &&&> GtkTextMarkClass.C.withPtr ---> I) deleteMark_ (self & mark)
-    fun deleteMarkByName self name = (GtkTextBufferClass.C.withPtr &&&> Utf8.C.withPtr ---> I) deleteMarkByName_ (self & name)
+    fun deleteMark self mark = (GtkTextBufferClass.FFI.withPtr &&&> GtkTextMarkClass.FFI.withPtr ---> I) deleteMark_ (self & mark)
+    fun deleteMarkByName self name = (GtkTextBufferClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) deleteMarkByName_ (self & name)
     fun deleteSelection self interactive defaultEditable =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.Bool.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> GBool.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         deleteSelection_
         (
@@ -925,12 +996,39 @@ structure GtkTextBuffer :>
            & interactive
            & defaultEditable
         )
-    fun deserializeGetCanCreateTags self format = (GtkTextBufferClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> FFI.Bool.C.fromVal) deserializeGetCanCreateTags_ (self & format)
+    fun deserialize self contentBuffer format iter data =
+      let
+        val length = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val retVal =
+          (
+            GtkTextBufferClass.FFI.withPtr
+             &&&> GtkTextBufferClass.FFI.withPtr
+             &&&> GdkAtomRecord.FFI.withPtr
+             &&&> GtkTextIterRecord.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GSize.FFI.withVal
+             &&&> GLibErrorRecord.handleError
+             ---> GBool.FFI.fromVal
+          )
+            deserialize_
+            (
+              self
+               & contentBuffer
+               & format
+               & iter
+               & data
+               & length
+               & []
+            )
+      in
+        retVal
+      end
+    fun deserializeGetCanCreateTags self format = (GtkTextBufferClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GBool.FFI.fromVal) deserializeGetCanCreateTags_ (self & format)
     fun deserializeSetCanCreateTags self format canCreateTags =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GdkAtomRecord.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         deserializeSetCanCreateTags_
@@ -939,18 +1037,18 @@ structure GtkTextBuffer :>
            & format
            & canCreateTags
         )
-    fun endUserAction self = (GtkTextBufferClass.C.withPtr ---> I) endUserAction_ self
+    fun endUserAction self = (GtkTextBufferClass.FFI.withPtr ---> I) endUserAction_ self
     fun getBounds self =
       let
         val start
          & end'
          & () =
           (
-            GtkTextBufferClass.C.withPtr
-             &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> GtkTextIterRecord.C.withNewPtr
-             ---> GtkTextIterRecord.C.fromPtr true
-                   && GtkTextIterRecord.C.fromPtr true
+            GtkTextBufferClass.FFI.withPtr
+             &&&> GtkTextIterRecord.FFI.withNewPtr
+             &&&> GtkTextIterRecord.FFI.withNewPtr
+             ---> GtkTextIterRecord.FFI.fromPtr true
+                   && GtkTextIterRecord.FFI.fromPtr true
                    && I
           )
             getBounds_
@@ -962,24 +1060,30 @@ structure GtkTextBuffer :>
       in
         (start, end')
       end
-    fun getCharCount self = (GtkTextBufferClass.C.withPtr ---> FFI.Int.C.fromVal) getCharCount_ self
-    fun getCopyTargetList self = (GtkTextBufferClass.C.withPtr ---> GtkTargetListRecord.C.fromPtr false) getCopyTargetList_ self
+    fun getCharCount self = (GtkTextBufferClass.FFI.withPtr ---> GInt.FFI.fromVal) getCharCount_ self
+    fun getCopyTargetList self = (GtkTextBufferClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) getCopyTargetList_ self
+    fun getDeserializeFormats self =
+      let
+        val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GdkAtomRecordCVectorN.FFI.fromPtr 1) getDeserializeFormats_ (self & GInt.null)
+      in
+        retVal (LargeInt.toInt nFormats)
+      end
     fun getEndIter self =
       let
-        val iter & () = (GtkTextBufferClass.C.withPtr &&&> GtkTextIterRecord.C.withNewPtr ---> GtkTextIterRecord.C.fromPtr true && I) getEndIter_ (self & ())
+        val iter & () = (GtkTextBufferClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withNewPtr ---> GtkTextIterRecord.FFI.fromPtr true && I) getEndIter_ (self & ())
       in
         iter
       end
-    fun getHasSelection self = (GtkTextBufferClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasSelection_ self
-    fun getInsert self = (GtkTextBufferClass.C.withPtr ---> GtkTextMarkClass.C.fromPtr false) getInsert_ self
+    fun getHasSelection self = (GtkTextBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasSelection_ self
+    fun getInsert self = (GtkTextBufferClass.FFI.withPtr ---> GtkTextMarkClass.FFI.fromPtr false) getInsert_ self
     fun getIterAtChildAnchor self anchor =
       let
         val iter & () =
           (
-            GtkTextBufferClass.C.withPtr
-             &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> GtkTextChildAnchorClass.C.withPtr
-             ---> GtkTextIterRecord.C.fromPtr true && I
+            GtkTextBufferClass.FFI.withPtr
+             &&&> GtkTextIterRecord.FFI.withNewPtr
+             &&&> GtkTextChildAnchorClass.FFI.withPtr
+             ---> GtkTextIterRecord.FFI.fromPtr true && I
           )
             getIterAtChildAnchor_
             (
@@ -994,10 +1098,10 @@ structure GtkTextBuffer :>
       let
         val iter & () =
           (
-            GtkTextBufferClass.C.withPtr
-             &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> FFI.Int.C.withVal
-             ---> GtkTextIterRecord.C.fromPtr true && I
+            GtkTextBufferClass.FFI.withPtr
+             &&&> GtkTextIterRecord.FFI.withNewPtr
+             &&&> GInt.FFI.withVal
+             ---> GtkTextIterRecord.FFI.fromPtr true && I
           )
             getIterAtLine_
             (
@@ -1012,11 +1116,11 @@ structure GtkTextBuffer :>
       let
         val iter & () =
           (
-            GtkTextBufferClass.C.withPtr
-             &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> FFI.Int.C.withVal
-             &&&> FFI.Int.C.withVal
-             ---> GtkTextIterRecord.C.fromPtr true && I
+            GtkTextBufferClass.FFI.withPtr
+             &&&> GtkTextIterRecord.FFI.withNewPtr
+             &&&> GInt.FFI.withVal
+             &&&> GInt.FFI.withVal
+             ---> GtkTextIterRecord.FFI.fromPtr true && I
           )
             getIterAtLineIndex_
             (
@@ -1032,11 +1136,11 @@ structure GtkTextBuffer :>
       let
         val iter & () =
           (
-            GtkTextBufferClass.C.withPtr
-             &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> FFI.Int.C.withVal
-             &&&> FFI.Int.C.withVal
-             ---> GtkTextIterRecord.C.fromPtr true && I
+            GtkTextBufferClass.FFI.withPtr
+             &&&> GtkTextIterRecord.FFI.withNewPtr
+             &&&> GInt.FFI.withVal
+             &&&> GInt.FFI.withVal
+             ---> GtkTextIterRecord.FFI.fromPtr true && I
           )
             getIterAtLineOffset_
             (
@@ -1052,10 +1156,10 @@ structure GtkTextBuffer :>
       let
         val iter & () =
           (
-            GtkTextBufferClass.C.withPtr
-             &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> GtkTextMarkClass.C.withPtr
-             ---> GtkTextIterRecord.C.fromPtr true && I
+            GtkTextBufferClass.FFI.withPtr
+             &&&> GtkTextIterRecord.FFI.withNewPtr
+             &&&> GtkTextMarkClass.FFI.withPtr
+             ---> GtkTextIterRecord.FFI.fromPtr true && I
           )
             getIterAtMark_
             (
@@ -1070,10 +1174,10 @@ structure GtkTextBuffer :>
       let
         val iter & () =
           (
-            GtkTextBufferClass.C.withPtr
-             &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> FFI.Int.C.withVal
-             ---> GtkTextIterRecord.C.fromPtr true && I
+            GtkTextBufferClass.FFI.withPtr
+             &&&> GtkTextIterRecord.FFI.withNewPtr
+             &&&> GInt.FFI.withVal
+             ---> GtkTextIterRecord.FFI.fromPtr true && I
           )
             getIterAtOffset_
             (
@@ -1084,23 +1188,23 @@ structure GtkTextBuffer :>
       in
         iter
       end
-    fun getLineCount self = (GtkTextBufferClass.C.withPtr ---> FFI.Int.C.fromVal) getLineCount_ self
-    fun getMark self name = (GtkTextBufferClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkTextMarkClass.C.fromPtr false) getMark_ (self & name)
-    fun getModified self = (GtkTextBufferClass.C.withPtr ---> FFI.Bool.C.fromVal) getModified_ self
-    fun getPasteTargetList self = (GtkTextBufferClass.C.withPtr ---> GtkTargetListRecord.C.fromPtr false) getPasteTargetList_ self
-    fun getSelectionBound self = (GtkTextBufferClass.C.withPtr ---> GtkTextMarkClass.C.fromPtr false) getSelectionBound_ self
+    fun getLineCount self = (GtkTextBufferClass.FFI.withPtr ---> GInt.FFI.fromVal) getLineCount_ self
+    fun getMark self name = (GtkTextBufferClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkTextMarkClass.FFI.fromPtr false) getMark_ (self & name)
+    fun getModified self = (GtkTextBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getModified_ self
+    fun getPasteTargetList self = (GtkTextBufferClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) getPasteTargetList_ self
+    fun getSelectionBound self = (GtkTextBufferClass.FFI.withPtr ---> GtkTextMarkClass.FFI.fromPtr false) getSelectionBound_ self
     fun getSelectionBounds self =
       let
         val start
          & end'
          & retVal =
           (
-            GtkTextBufferClass.C.withPtr
-             &&&> GtkTextIterRecord.C.withNewPtr
-             &&&> GtkTextIterRecord.C.withNewPtr
-             ---> GtkTextIterRecord.C.fromPtr true
-                   && GtkTextIterRecord.C.fromPtr true
-                   && FFI.Bool.C.fromVal
+            GtkTextBufferClass.FFI.withPtr
+             &&&> GtkTextIterRecord.FFI.withNewPtr
+             &&&> GtkTextIterRecord.FFI.withNewPtr
+             ---> GtkTextIterRecord.FFI.fromPtr true
+                   && GtkTextIterRecord.FFI.fromPtr true
+                   && GBool.FFI.fromVal
           )
             getSelectionBounds_
             (
@@ -1111,13 +1215,19 @@ structure GtkTextBuffer :>
       in
         if retVal then SOME (start, end') else NONE
       end
+    fun getSerializeFormats self =
+      let
+        val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GdkAtomRecordCVectorN.FFI.fromPtr 1) getSerializeFormats_ (self & GInt.null)
+      in
+        retVal (LargeInt.toInt nFormats)
+      end
     fun getSlice self start end' includeHiddenChars =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         ---> Utf8.C.fromPtr true
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         ---> Utf8.FFI.fromPtr 1
       )
         getSlice_
         (
@@ -1128,18 +1238,18 @@ structure GtkTextBuffer :>
         )
     fun getStartIter self =
       let
-        val iter & () = (GtkTextBufferClass.C.withPtr &&&> GtkTextIterRecord.C.withNewPtr ---> GtkTextIterRecord.C.fromPtr true && I) getStartIter_ (self & ())
+        val iter & () = (GtkTextBufferClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withNewPtr ---> GtkTextIterRecord.FFI.fromPtr true && I) getStartIter_ (self & ())
       in
         iter
       end
-    fun getTagTable self = (GtkTextBufferClass.C.withPtr ---> GtkTextTagTableClass.C.fromPtr false) getTagTable_ self
+    fun getTagTable self = (GtkTextBufferClass.FFI.withPtr ---> GtkTextTagTableClass.FFI.fromPtr false) getTagTable_ self
     fun getText self start end' includeHiddenChars =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         ---> Utf8.C.fromPtr true
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         ---> Utf8.FFI.fromPtr 1
       )
         getText_
         (
@@ -1150,10 +1260,10 @@ structure GtkTextBuffer :>
         )
     fun insert self iter text len =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         insert_
@@ -1165,9 +1275,9 @@ structure GtkTextBuffer :>
         )
     fun insertAtCursor self text len =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkTextBufferClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         insertAtCursor_
@@ -1178,9 +1288,9 @@ structure GtkTextBuffer :>
         )
     fun insertChildAnchor self iter anchor =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextChildAnchorClass.C.withPtr
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextChildAnchorClass.FFI.withPtr
          ---> I
       )
         insertChildAnchor_
@@ -1191,12 +1301,12 @@ structure GtkTextBuffer :>
         )
     fun insertInteractive self iter text len defaultEditable =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Bool.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GBool.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         insertInteractive_
         (
@@ -1208,11 +1318,11 @@ structure GtkTextBuffer :>
         )
     fun insertInteractiveAtCursor self text len defaultEditable =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Bool.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GtkTextBufferClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GBool.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         insertInteractiveAtCursor_
         (
@@ -1223,9 +1333,9 @@ structure GtkTextBuffer :>
         )
     fun insertPixbuf self iter pixbuf =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GdkPixbufPixbufClass.C.withPtr
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GdkPixbufPixbufClass.FFI.withPtr
          ---> I
       )
         insertPixbuf_
@@ -1236,10 +1346,10 @@ structure GtkTextBuffer :>
         )
     fun insertRange self iter start end' =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
          ---> I
       )
         insertRange_
@@ -1251,12 +1361,12 @@ structure GtkTextBuffer :>
         )
     fun insertRangeInteractive self iter start end' defaultEditable =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         insertRangeInteractive_
         (
@@ -1268,9 +1378,9 @@ structure GtkTextBuffer :>
         )
     fun moveMark self mark where' =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextMarkClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextMarkClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
          ---> I
       )
         moveMark_
@@ -1281,9 +1391,9 @@ structure GtkTextBuffer :>
         )
     fun moveMarkByName self name where' =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
+        GtkTextBufferClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
          ---> I
       )
         moveMarkByName_
@@ -1294,10 +1404,10 @@ structure GtkTextBuffer :>
         )
     fun pasteClipboard self clipboard overrideLocation defaultEditable =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkClipboardClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withOptPtr
-         &&&> FFI.Bool.C.withVal
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkClipboardClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withOptPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         pasteClipboard_
@@ -1307,14 +1417,14 @@ structure GtkTextBuffer :>
            & overrideLocation
            & defaultEditable
         )
-    fun placeCursor self where' = (GtkTextBufferClass.C.withPtr &&&> GtkTextIterRecord.C.withPtr ---> I) placeCursor_ (self & where')
-    fun registerDeserializeTagset self tagsetName = (GtkTextBufferClass.C.withPtr &&&> Utf8.C.withOptPtr ---> GdkAtomRecord.C.fromPtr false) registerDeserializeTagset_ (self & tagsetName)
-    fun registerSerializeTagset self tagsetName = (GtkTextBufferClass.C.withPtr &&&> Utf8.C.withOptPtr ---> GdkAtomRecord.C.fromPtr false) registerSerializeTagset_ (self & tagsetName)
+    fun placeCursor self where' = (GtkTextBufferClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> I) placeCursor_ (self & where')
+    fun registerDeserializeTagset self tagsetName = (GtkTextBufferClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GdkAtomRecord.FFI.fromPtr false) registerDeserializeTagset_ (self & tagsetName)
+    fun registerSerializeTagset self tagsetName = (GtkTextBufferClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GdkAtomRecord.FFI.fromPtr false) registerSerializeTagset_ (self & tagsetName)
     fun removeAllTags self start end' =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
          ---> I
       )
         removeAllTags_
@@ -1323,13 +1433,13 @@ structure GtkTextBuffer :>
            & start
            & end'
         )
-    fun removeSelectionClipboard self clipboard = (GtkTextBufferClass.C.withPtr &&&> GtkClipboardClass.C.withPtr ---> I) removeSelectionClipboard_ (self & clipboard)
+    fun removeSelectionClipboard self clipboard = (GtkTextBufferClass.FFI.withPtr &&&> GtkClipboardClass.FFI.withPtr ---> I) removeSelectionClipboard_ (self & clipboard)
     fun removeTag self tag start end' =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextTagClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextTagClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
          ---> I
       )
         removeTag_
@@ -1341,10 +1451,10 @@ structure GtkTextBuffer :>
         )
     fun removeTagByName self name start end' =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
+        GtkTextBufferClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
          ---> I
       )
         removeTagByName_
@@ -1356,9 +1466,9 @@ structure GtkTextBuffer :>
         )
     fun selectRange self ins bound =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
-         &&&> GtkTextIterRecord.C.withPtr
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
          ---> I
       )
         selectRange_
@@ -1367,12 +1477,36 @@ structure GtkTextBuffer :>
            & ins
            & bound
         )
-    fun setModified self setting = (GtkTextBufferClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setModified_ (self & setting)
+    fun serialize self contentBuffer format start end' =
+      let
+        val length & retVal =
+          (
+            GtkTextBufferClass.FFI.withPtr
+             &&&> GtkTextBufferClass.FFI.withPtr
+             &&&> GdkAtomRecord.FFI.withPtr
+             &&&> GtkTextIterRecord.FFI.withPtr
+             &&&> GtkTextIterRecord.FFI.withPtr
+             &&&> GSize.FFI.withRefVal
+             ---> GSize.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 1
+          )
+            serialize_
+            (
+              self
+               & contentBuffer
+               & format
+               & start
+               & end'
+               & GSize.null
+            )
+      in
+        retVal (LargeInt.toInt length)
+      end
+    fun setModified self setting = (GtkTextBufferClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setModified_ (self & setting)
     fun setText self text len =
       (
-        GtkTextBufferClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkTextBufferClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         setText_
@@ -1381,8 +1515,8 @@ structure GtkTextBuffer :>
            & text
            & len
         )
-    fun unregisterDeserializeFormat self format = (GtkTextBufferClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> I) unregisterDeserializeFormat_ (self & format)
-    fun unregisterSerializeFormat self format = (GtkTextBufferClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> I) unregisterSerializeFormat_ (self & format)
+    fun unregisterDeserializeFormat self format = (GtkTextBufferClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) unregisterDeserializeFormat_ (self & format)
+    fun unregisterSerializeFormat self format = (GtkTextBufferClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) unregisterSerializeFormat_ (self & format)
     local
       open ClosureMarshal Signal
     in

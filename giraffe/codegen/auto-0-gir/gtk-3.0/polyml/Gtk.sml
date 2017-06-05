@@ -1,5 +1,23 @@
 structure Gtk : GTK =
   struct
+    structure GdkAtomRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GdkAtomRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
+    structure Utf8CVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -7,26 +25,26 @@ structure Gtk : GTK =
         call (load_sym libgtk "gtk_accel_groups_activate")
           (
             GObjectObjectClass.PolyML.cPtr
-             &&> FFI.UInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              &&> GdkModifierType.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val acceleratorGetDefaultModMask_ = call (load_sym libgtk "gtk_accelerator_get_default_mod_mask") (PolyMLFFI.cVoid --> GdkModifierType.PolyML.cVal)
-      val acceleratorGetLabel_ = call (load_sym libgtk "gtk_accelerator_get_label") (FFI.UInt.PolyML.cVal &&> GdkModifierType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val acceleratorName_ = call (load_sym libgtk "gtk_accelerator_name") (FFI.UInt.PolyML.cVal &&> GdkModifierType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val acceleratorGetLabel_ = call (load_sym libgtk "gtk_accelerator_get_label") (GUInt.PolyML.cVal &&> GdkModifierType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val acceleratorName_ = call (load_sym libgtk "gtk_accelerator_name") (GUInt.PolyML.cVal &&> GdkModifierType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val acceleratorParse_ =
         call (load_sym libgtk "gtk_accelerator_parse")
           (
             Utf8.PolyML.cInPtr
-             &&> FFI.UInt.PolyML.cRef
+             &&> GUInt.PolyML.cRef
              &&> GdkModifierType.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
       val acceleratorSetDefaultModMask_ = call (load_sym libgtk "gtk_accelerator_set_default_mod_mask") (GdkModifierType.PolyML.cVal --> PolyMLFFI.cVoid)
-      val acceleratorValid_ = call (load_sym libgtk "gtk_accelerator_valid") (FFI.UInt.PolyML.cVal &&> GdkModifierType.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val alternativeDialogButtonOrder_ = call (load_sym libgtk "gtk_alternative_dialog_button_order") (GdkScreenClass.PolyML.cOptPtr --> FFI.Bool.PolyML.cVal)
+      val acceleratorValid_ = call (load_sym libgtk "gtk_accelerator_valid") (GUInt.PolyML.cVal &&> GdkModifierType.PolyML.cVal --> GBool.PolyML.cVal)
+      val alternativeDialogButtonOrder_ = call (load_sym libgtk "gtk_alternative_dialog_button_order") (GdkScreenClass.PolyML.cOptPtr --> GBool.PolyML.cVal)
       val builderErrorQuark_ = call (load_sym libgtk "gtk_builder_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
-      val cairoShouldDrawWindow_ = call (load_sym libgtk "gtk_cairo_should_draw_window") (CairoContextRecord.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val cairoShouldDrawWindow_ = call (load_sym libgtk "gtk_cairo_should_draw_window") (CairoContextRecord.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val cairoTransformToWindow_ =
         call (load_sym libgtk "gtk_cairo_transform_to_window")
           (
@@ -38,9 +56,9 @@ structure Gtk : GTK =
       val checkVersion_ =
         call (load_sym libgtk "gtk_check_version")
           (
-            FFI.UInt.PolyML.cVal
-             &&> FFI.UInt.PolyML.cVal
-             &&> FFI.UInt.PolyML.cVal
+            GUInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
       val cssProviderErrorQuark_ = call (load_sym libgtk "gtk_css_provider_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
@@ -49,7 +67,7 @@ structure Gtk : GTK =
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GdkDeviceClass.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val deviceGrabRemove_ = call (load_sym libgtk "gtk_device_grab_remove") (GtkWidgetClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> PolyMLFFI.cVoid)
@@ -58,9 +76,9 @@ structure Gtk : GTK =
         call (load_sym libgtk "gtk_drag_finish")
           (
             GdkDragContextClass.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
-             &&> FFI.UInt32.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val dragGetSourceWidget_ = call (load_sym libgtk "gtk_drag_get_source_widget") (GdkDragContextClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
@@ -70,8 +88,8 @@ structure Gtk : GTK =
           (
             GdkDragContextClass.PolyML.cPtr
              &&> GioIconClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val dragSetIconName_ =
@@ -79,8 +97,8 @@ structure Gtk : GTK =
           (
             GdkDragContextClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val dragSetIconPixbuf_ =
@@ -88,8 +106,8 @@ structure Gtk : GTK =
           (
             GdkDragContextClass.PolyML.cPtr
              &&> GdkPixbufPixbufClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val dragSetIconStock_ =
@@ -97,8 +115,8 @@ structure Gtk : GTK =
           (
             GdkDragContextClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val dragSetIconSurface_ = call (load_sym libgtk "gtk_drag_set_icon_surface") (GdkDragContextClass.PolyML.cPtr &&> CairoSurfaceRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
@@ -107,8 +125,8 @@ structure Gtk : GTK =
           (
             GdkDragContextClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val drawInsertionCursor_ =
@@ -117,61 +135,63 @@ structure Gtk : GTK =
             GtkWidgetClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              &&> GtkTextDirection.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val eventsPending_ = call (load_sym libgtk "gtk_events_pending") (PolyMLFFI.cVoid --> FFI.Bool.PolyML.cVal)
+      val eventsPending_ = call (load_sym libgtk "gtk_events_pending") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
       val fileChooserErrorQuark_ = call (load_sym libgtk "gtk_file_chooser_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
-      val getBinaryAge_ = call (load_sym libgtk "gtk_get_binary_age") (PolyMLFFI.cVoid --> FFI.UInt.PolyML.cVal)
+      val getBinaryAge_ = call (load_sym libgtk "gtk_get_binary_age") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
       val getCurrentEvent_ = call (load_sym libgtk "gtk_get_current_event") (PolyMLFFI.cVoid --> GdkEvent.PolyML.cPtr)
       val getCurrentEventDevice_ = call (load_sym libgtk "gtk_get_current_event_device") (PolyMLFFI.cVoid --> GdkDeviceClass.PolyML.cPtr)
-      val getCurrentEventState_ = call (load_sym libgtk "gtk_get_current_event_state") (GdkModifierType.PolyML.cRef --> FFI.Bool.PolyML.cVal)
-      val getCurrentEventTime_ = call (load_sym libgtk "gtk_get_current_event_time") (PolyMLFFI.cVoid --> FFI.UInt32.PolyML.cVal)
-      val getDebugFlags_ = call (load_sym libgtk "gtk_get_debug_flags") (PolyMLFFI.cVoid --> FFI.UInt.PolyML.cVal)
+      val getCurrentEventState_ = call (load_sym libgtk "gtk_get_current_event_state") (GdkModifierType.PolyML.cRef --> GBool.PolyML.cVal)
+      val getCurrentEventTime_ = call (load_sym libgtk "gtk_get_current_event_time") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val getDebugFlags_ = call (load_sym libgtk "gtk_get_debug_flags") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
       val getDefaultLanguage_ = call (load_sym libgtk "gtk_get_default_language") (PolyMLFFI.cVoid --> PangoLanguageRecord.PolyML.cPtr)
       val getEventWidget_ = call (load_sym libgtk "gtk_get_event_widget") (GdkEvent.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getInterfaceAge_ = call (load_sym libgtk "gtk_get_interface_age") (PolyMLFFI.cVoid --> FFI.UInt.PolyML.cVal)
-      val getMajorVersion_ = call (load_sym libgtk "gtk_get_major_version") (PolyMLFFI.cVoid --> FFI.UInt.PolyML.cVal)
-      val getMicroVersion_ = call (load_sym libgtk "gtk_get_micro_version") (PolyMLFFI.cVoid --> FFI.UInt.PolyML.cVal)
-      val getMinorVersion_ = call (load_sym libgtk "gtk_get_minor_version") (PolyMLFFI.cVoid --> FFI.UInt.PolyML.cVal)
+      val getInterfaceAge_ = call (load_sym libgtk "gtk_get_interface_age") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
+      val getMajorVersion_ = call (load_sym libgtk "gtk_get_major_version") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
+      val getMicroVersion_ = call (load_sym libgtk "gtk_get_micro_version") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
+      val getMinorVersion_ = call (load_sym libgtk "gtk_get_minor_version") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
       val grabGetCurrent_ = call (load_sym libgtk "gtk_grab_get_current") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val iconSizeFromName_ = call (load_sym libgtk "gtk_icon_size_from_name") (Utf8.PolyML.cInPtr --> FFI.Int.PolyML.cVal)
-      val iconSizeGetName_ = call (load_sym libgtk "gtk_icon_size_get_name") (FFI.Int.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val iconSizeFromName_ = call (load_sym libgtk "gtk_icon_size_from_name") (Utf8.PolyML.cInPtr --> GInt.PolyML.cVal)
+      val iconSizeGetName_ = call (load_sym libgtk "gtk_icon_size_get_name") (GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val iconSizeLookup_ =
         call (load_sym libgtk "gtk_icon_size_lookup")
           (
-            FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cRef
-             &&> FFI.Int.PolyML.cRef
-             --> FFI.Bool.PolyML.cVal
+            GInt.PolyML.cVal
+             &&> GInt.PolyML.cRef
+             &&> GInt.PolyML.cRef
+             --> GBool.PolyML.cVal
           )
       val iconSizeLookupForSettings_ =
         call (load_sym libgtk "gtk_icon_size_lookup_for_settings")
           (
             GtkSettingsClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cRef
-             &&> FFI.Int.PolyML.cRef
-             --> FFI.Bool.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cRef
+             &&> GInt.PolyML.cRef
+             --> GBool.PolyML.cVal
           )
       val iconSizeRegister_ =
         call (load_sym libgtk "gtk_icon_size_register")
           (
             Utf8.PolyML.cInPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             --> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> GInt.PolyML.cVal
           )
-      val iconSizeRegisterAlias_ = call (load_sym libgtk "gtk_icon_size_register_alias") (Utf8.PolyML.cInPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val iconSizeRegisterAlias_ = call (load_sym libgtk "gtk_icon_size_register_alias") (Utf8.PolyML.cInPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val iconThemeErrorQuark_ = call (load_sym libgtk "gtk_icon_theme_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
-      val keySnooperRemove_ = call (load_sym libgtk "gtk_key_snooper_remove") (FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val init_ = call (load_sym libgtk "gtk_init") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> PolyMLFFI.cVoid)
+      val initCheck_ = call (load_sym libgtk "gtk_init_check") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> GBool.PolyML.cVal)
+      val keySnooperRemove_ = call (load_sym libgtk "gtk_key_snooper_remove") (GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val main_ = call (load_sym libgtk "gtk_main") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
       val mainDoEvent_ = call (load_sym libgtk "gtk_main_do_event") (GdkEvent.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val mainIteration_ = call (load_sym libgtk "gtk_main_iteration") (PolyMLFFI.cVoid --> FFI.Bool.PolyML.cVal)
-      val mainIterationDo_ = call (load_sym libgtk "gtk_main_iteration_do") (FFI.Bool.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val mainLevel_ = call (load_sym libgtk "gtk_main_level") (PolyMLFFI.cVoid --> FFI.UInt.PolyML.cVal)
+      val mainIteration_ = call (load_sym libgtk "gtk_main_iteration") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
+      val mainIterationDo_ = call (load_sym libgtk "gtk_main_iteration_do") (GBool.PolyML.cVal --> GBool.PolyML.cVal)
+      val mainLevel_ = call (load_sym libgtk "gtk_main_level") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
       val mainQuit_ = call (load_sym libgtk "gtk_main_quit") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
       val paintArrow_ =
         call (load_sym libgtk "gtk_paint_arrow")
@@ -183,11 +203,11 @@ structure Gtk : GTK =
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> GtkArrowType.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paintBox_ =
@@ -199,10 +219,10 @@ structure Gtk : GTK =
              &&> GtkShadowType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paintBoxGap_ =
@@ -214,13 +234,13 @@ structure Gtk : GTK =
              &&> GtkShadowType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> GtkPositionType.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paintCheck_ =
@@ -232,10 +252,10 @@ structure Gtk : GTK =
              &&> GtkShadowType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paintDiamond_ =
@@ -247,10 +267,10 @@ structure Gtk : GTK =
              &&> GtkShadowType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paintExpander_ =
@@ -261,8 +281,8 @@ structure Gtk : GTK =
              &&> GtkStateType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> GtkExpanderStyle.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
@@ -275,10 +295,10 @@ structure Gtk : GTK =
              &&> GtkShadowType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> GtkPositionType.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
@@ -291,10 +311,10 @@ structure Gtk : GTK =
              &&> GtkShadowType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paintFocus_ =
@@ -305,10 +325,10 @@ structure Gtk : GTK =
              &&> GtkStateType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paintHandle_ =
@@ -320,10 +340,10 @@ structure Gtk : GTK =
              &&> GtkShadowType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> GtkOrientation.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
@@ -335,9 +355,9 @@ structure Gtk : GTK =
              &&> GtkStateType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paintLayout_ =
@@ -346,11 +366,11 @@ structure Gtk : GTK =
             GtkStyleClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
              &&> GtkStateType.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> PangoLayoutClass.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
@@ -363,10 +383,10 @@ structure Gtk : GTK =
              &&> GtkShadowType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paintResizeGrip_ =
@@ -378,10 +398,10 @@ structure Gtk : GTK =
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> GdkWindowEdge.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paintShadow_ =
@@ -393,10 +413,10 @@ structure Gtk : GTK =
              &&> GtkShadowType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paintShadowGap_ =
@@ -408,13 +428,13 @@ structure Gtk : GTK =
              &&> GtkShadowType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> GtkPositionType.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paintSlider_ =
@@ -426,10 +446,10 @@ structure Gtk : GTK =
              &&> GtkShadowType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              &&> GtkOrientation.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
@@ -441,11 +461,11 @@ structure Gtk : GTK =
              &&> GtkStateType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.UInt.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GUInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paintTab_ =
@@ -457,10 +477,10 @@ structure Gtk : GTK =
              &&> GtkShadowType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paintVline_ =
@@ -471,12 +491,13 @@ structure Gtk : GTK =
              &&> GtkStateType.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val paperSizeGetDefault_ = call (load_sym libgtk "gtk_paper_size_get_default") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val parseArgs_ = call (load_sym libgtk "gtk_parse_args") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> GBool.PolyML.cVal)
       val printErrorQuark_ = call (load_sym libgtk "gtk_print_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
       val printRunPageSetupDialog_ =
         call (load_sym libgtk "gtk_print_run_page_setup_dialog")
@@ -488,7 +509,9 @@ structure Gtk : GTK =
           )
       val propagateEvent_ = call (load_sym libgtk "gtk_propagate_event") (GtkWidgetClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> PolyMLFFI.cVoid)
       val rcAddDefaultFile_ = call (load_sym libgtk "gtk_rc_add_default_file") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val rcGetDefaultFiles_ = call (load_sym libgtk "gtk_rc_get_default_files") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
       val rcGetStyle_ = call (load_sym libgtk "gtk_rc_get_style") (GtkWidgetClass.PolyML.cPtr --> GtkStyleClass.PolyML.cPtr)
+      val rcSetDefaultFiles_ = call (load_sym libgtk "gtk_rc_set_default_files") (Utf8CVector.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val recentChooserErrorQuark_ = call (load_sym libgtk "gtk_recent_chooser_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
       val recentManagerErrorQuark_ = call (load_sym libgtk "gtk_recent_manager_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
       val renderActivity_ =
@@ -496,10 +519,10 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val renderArrow_ =
@@ -507,10 +530,10 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val renderBackground_ =
@@ -518,10 +541,10 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val renderCheck_ =
@@ -529,10 +552,10 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val renderExpander_ =
@@ -540,10 +563,10 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val renderExtension_ =
@@ -551,10 +574,10 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              &&> GtkPositionType.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
@@ -563,10 +586,10 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val renderFrame_ =
@@ -574,10 +597,10 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val renderFrameGap_ =
@@ -585,13 +608,13 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              &&> GtkPositionType.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val renderHandle_ =
@@ -599,10 +622,10 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val renderIcon_ =
@@ -611,8 +634,8 @@ structure Gtk : GTK =
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
              &&> GdkPixbufPixbufClass.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val renderIconPixbuf_ =
@@ -620,7 +643,7 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> GtkIconSourceRecord.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
       val renderLayout_ =
@@ -628,8 +651,8 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              &&> PangoLayoutClass.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
@@ -638,10 +661,10 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val renderOption_ =
@@ -649,10 +672,10 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val renderSlider_ =
@@ -660,22 +683,22 @@ structure Gtk : GTK =
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              &&> GtkOrientation.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val rgbToHsv_ =
         call (load_sym libgtk "gtk_rgb_to_hsv")
           (
-            FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cRef
-             &&> FFI.Double.PolyML.cRef
-             &&> FFI.Double.PolyML.cRef
+            GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cRef
+             &&> GDouble.PolyML.cRef
+             &&> GDouble.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
       val selectionAddTarget_ =
@@ -684,7 +707,7 @@ structure Gtk : GTK =
             GtkWidgetClass.PolyML.cPtr
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GdkAtomRecord.PolyML.cPtr
-             &&> FFI.UInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val selectionClearTargets_ = call (load_sym libgtk "gtk_selection_clear_targets") (GtkWidgetClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
@@ -694,16 +717,16 @@ structure Gtk : GTK =
             GtkWidgetClass.PolyML.cPtr
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GdkAtomRecord.PolyML.cPtr
-             &&> FFI.UInt32.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val selectionOwnerSet_ =
         call (load_sym libgtk "gtk_selection_owner_set")
           (
             GtkWidgetClass.PolyML.cOptPtr
              &&> GdkAtomRecord.PolyML.cPtr
-             &&> FFI.UInt32.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val selectionOwnerSetForDisplay_ =
         call (load_sym libgtk "gtk_selection_owner_set_for_display")
@@ -711,33 +734,51 @@ structure Gtk : GTK =
             GdkDisplayClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cOptPtr
              &&> GdkAtomRecord.PolyML.cPtr
-             &&> FFI.UInt32.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val selectionRemoveAll_ = call (load_sym libgtk "gtk_selection_remove_all") (GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setDebugFlags_ = call (load_sym libgtk "gtk_set_debug_flags") (FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDebugFlags_ = call (load_sym libgtk "gtk_set_debug_flags") (GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val showUri_ =
         call (load_sym libgtk "gtk_show_uri")
           (
             GdkScreenClass.PolyML.cOptPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.UInt32.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
-      val stockLookup_ = call (load_sym libgtk "gtk_stock_lookup") (Utf8.PolyML.cInPtr &&> GtkStockItemRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val stockLookup_ = call (load_sym libgtk "gtk_stock_lookup") (Utf8.PolyML.cInPtr &&> GtkStockItemRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val targetsIncludeImage_ =
+        call (load_sym libgtk "gtk_targets_include_image")
+          (
+            GdkAtomRecordCVectorN.PolyML.cInPtr
+             &&> GInt.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             --> GBool.PolyML.cVal
+          )
+      val targetsIncludeRichText_ =
+        call (load_sym libgtk "gtk_targets_include_rich_text")
+          (
+            GdkAtomRecordCVectorN.PolyML.cInPtr
+             &&> GInt.PolyML.cVal
+             &&> GtkTextBufferClass.PolyML.cPtr
+             --> GBool.PolyML.cVal
+          )
+      val targetsIncludeText_ = call (load_sym libgtk "gtk_targets_include_text") (GdkAtomRecordCVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val targetsIncludeUri_ = call (load_sym libgtk "gtk_targets_include_uri") (GdkAtomRecordCVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
       val testCreateSimpleWindow_ = call (load_sym libgtk "gtk_test_create_simple_window") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val testFindLabel_ = call (load_sym libgtk "gtk_test_find_label") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val testRegisterAllTypes_ = call (load_sym libgtk "gtk_test_register_all_types") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val testSliderGetValue_ = call (load_sym libgtk "gtk_test_slider_get_value") (GtkWidgetClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
-      val testSliderSetPerc_ = call (load_sym libgtk "gtk_test_slider_set_perc") (GtkWidgetClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> PolyMLFFI.cVoid)
+      val testSliderGetValue_ = call (load_sym libgtk "gtk_test_slider_get_value") (GtkWidgetClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val testSliderSetPerc_ = call (load_sym libgtk "gtk_test_slider_set_perc") (GtkWidgetClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
       val testSpinButtonClick_ =
         call (load_sym libgtk "gtk_test_spin_button_click")
           (
             GtkSpinButtonClass.PolyML.cPtr
-             &&> FFI.UInt.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GUInt.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val testTextGet_ = call (load_sym libgtk "gtk_test_text_get") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val testTextSet_ = call (load_sym libgtk "gtk_test_text_set") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
@@ -745,17 +786,17 @@ structure Gtk : GTK =
         call (load_sym libgtk "gtk_test_widget_click")
           (
             GtkWidgetClass.PolyML.cPtr
-             &&> FFI.UInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              &&> GdkModifierType.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val testWidgetSendKey_ =
         call (load_sym libgtk "gtk_test_widget_send_key")
           (
             GtkWidgetClass.PolyML.cPtr
-             &&> FFI.UInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              &&> GdkModifierType.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val treeGetRowDragData_ =
         call (load_sym libgtk "gtk_tree_get_row_drag_data")
@@ -763,7 +804,7 @@ structure Gtk : GTK =
             GtkSelectionDataRecord.PolyML.cPtr
              &&> GtkTreeModelClass.PolyML.cOutRef
              &&> GtkTreePathRecord.PolyML.cOutRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val treeRowReferenceDeleted_ = call (load_sym libgtk "gtk_tree_row_reference_deleted") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val treeRowReferenceInserted_ = call (load_sym libgtk "gtk_tree_row_reference_inserted") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
@@ -773,7 +814,7 @@ structure Gtk : GTK =
             GtkSelectionDataRecord.PolyML.cPtr
              &&> GtkTreeModelClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cPtr
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
     end
     structure ActionEntry = GtkActionEntry
@@ -1530,10 +1571,10 @@ structure Gtk : GTK =
     val TEXT_VIEW_PRIORITY_VALIDATE = 5
     fun accelGroupsActivate object accelKey accelMods =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> FFI.UInt.C.withVal
-         &&&> GdkModifierType.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GObjectObjectClass.FFI.withPtr
+         &&&> GUInt.FFI.withVal
+         &&&> GdkModifierType.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         accelGroupsActivate_
         (
@@ -1541,41 +1582,41 @@ structure Gtk : GTK =
            & accelKey
            & accelMods
         )
-    fun acceleratorGetDefaultModMask () = (I ---> GdkModifierType.C.fromVal) acceleratorGetDefaultModMask_ ()
-    fun acceleratorGetLabel acceleratorKey acceleratorMods = (FFI.UInt.C.withVal &&&> GdkModifierType.C.withVal ---> Utf8.C.fromPtr true) acceleratorGetLabel_ (acceleratorKey & acceleratorMods)
-    fun acceleratorName acceleratorKey acceleratorMods = (FFI.UInt.C.withVal &&&> GdkModifierType.C.withVal ---> Utf8.C.fromPtr true) acceleratorName_ (acceleratorKey & acceleratorMods)
+    fun acceleratorGetDefaultModMask () = (I ---> GdkModifierType.FFI.fromVal) acceleratorGetDefaultModMask_ ()
+    fun acceleratorGetLabel acceleratorKey acceleratorMods = (GUInt.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> Utf8.FFI.fromPtr 1) acceleratorGetLabel_ (acceleratorKey & acceleratorMods)
+    fun acceleratorName acceleratorKey acceleratorMods = (GUInt.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> Utf8.FFI.fromPtr 1) acceleratorName_ (acceleratorKey & acceleratorMods)
     fun acceleratorParse accelerator =
       let
         val acceleratorKey
          & acceleratorMods
          & () =
           (
-            Utf8.C.withPtr
-             &&&> FFI.UInt.C.withRefVal
-             &&&> GdkModifierType.C.withRefVal
-             ---> FFI.UInt.C.fromVal
-                   && GdkModifierType.C.fromVal
+            Utf8.FFI.withPtr
+             &&&> GUInt.FFI.withRefVal
+             &&&> GdkModifierType.FFI.withRefVal
+             ---> GUInt.FFI.fromVal
+                   && GdkModifierType.FFI.fromVal
                    && I
           )
             acceleratorParse_
             (
               accelerator
-               & FFI.UInt.null
+               & GUInt.null
                & GdkModifierType.flags []
             )
       in
         (acceleratorKey, acceleratorMods)
       end
-    fun acceleratorSetDefaultModMask defaultModMask = (GdkModifierType.C.withVal ---> I) acceleratorSetDefaultModMask_ defaultModMask
-    fun acceleratorValid keyval modifiers = (FFI.UInt.C.withVal &&&> GdkModifierType.C.withVal ---> FFI.Bool.C.fromVal) acceleratorValid_ (keyval & modifiers)
-    fun alternativeDialogButtonOrder screen = (GdkScreenClass.C.withOptPtr ---> FFI.Bool.C.fromVal) alternativeDialogButtonOrder_ screen
-    fun builderErrorQuark () = (I ---> GLibQuark.C.fromVal) builderErrorQuark_ ()
-    fun cairoShouldDrawWindow cr window = (CairoContextRecord.C.withPtr &&&> GdkWindowClass.C.withPtr ---> FFI.Bool.C.fromVal) cairoShouldDrawWindow_ (cr & window)
+    fun acceleratorSetDefaultModMask defaultModMask = (GdkModifierType.FFI.withVal ---> I) acceleratorSetDefaultModMask_ defaultModMask
+    fun acceleratorValid keyval modifiers = (GUInt.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> GBool.FFI.fromVal) acceleratorValid_ (keyval & modifiers)
+    fun alternativeDialogButtonOrder screen = (GdkScreenClass.FFI.withOptPtr ---> GBool.FFI.fromVal) alternativeDialogButtonOrder_ screen
+    fun builderErrorQuark () = (I ---> GLibQuark.FFI.fromVal) builderErrorQuark_ ()
+    fun cairoShouldDrawWindow cr window = (CairoContextRecord.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) cairoShouldDrawWindow_ (cr & window)
     fun cairoTransformToWindow cr widget window =
       (
-        CairoContextRecord.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> GdkWindowClass.C.withPtr
+        CairoContextRecord.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GdkWindowClass.FFI.withPtr
          ---> I
       )
         cairoTransformToWindow_
@@ -1586,10 +1627,10 @@ structure Gtk : GTK =
         )
     fun checkVersion requiredMajor requiredMinor requiredMicro =
       (
-        FFI.UInt.C.withVal
-         &&&> FFI.UInt.C.withVal
-         &&&> FFI.UInt.C.withVal
-         ---> Utf8.C.fromPtr false
+        GUInt.FFI.withVal
+         &&&> GUInt.FFI.withVal
+         &&&> GUInt.FFI.withVal
+         ---> Utf8.FFI.fromPtr 0
       )
         checkVersion_
         (
@@ -1597,12 +1638,12 @@ structure Gtk : GTK =
            & requiredMinor
            & requiredMicro
         )
-    fun cssProviderErrorQuark () = (I ---> GLibQuark.C.fromVal) cssProviderErrorQuark_ ()
+    fun cssProviderErrorQuark () = (I ---> GLibQuark.FFI.fromVal) cssProviderErrorQuark_ ()
     fun deviceGrabAdd widget device blockOthers =
       (
-        GtkWidgetClass.C.withPtr
-         &&&> GdkDeviceClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GtkWidgetClass.FFI.withPtr
+         &&&> GdkDeviceClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         deviceGrabAdd_
@@ -1611,14 +1652,14 @@ structure Gtk : GTK =
            & device
            & blockOthers
         )
-    fun deviceGrabRemove widget device = (GtkWidgetClass.C.withPtr &&&> GdkDeviceClass.C.withPtr ---> I) deviceGrabRemove_ (widget & device)
+    fun deviceGrabRemove widget device = (GtkWidgetClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> I) deviceGrabRemove_ (widget & device)
     fun disableSetlocale () = (I ---> I) disableSetlocale_ ()
     fun dragFinish context success del time =
       (
-        GdkDragContextClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.UInt32.C.withVal
+        GdkDragContextClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> GBool.FFI.withVal
+         &&&> GUInt32.FFI.withVal
          ---> I
       )
         dragFinish_
@@ -1628,14 +1669,14 @@ structure Gtk : GTK =
            & del
            & time
         )
-    fun dragGetSourceWidget context = (GdkDragContextClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) dragGetSourceWidget_ context
-    fun dragSetIconDefault context = (GdkDragContextClass.C.withPtr ---> I) dragSetIconDefault_ context
+    fun dragGetSourceWidget context = (GdkDragContextClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) dragGetSourceWidget_ context
+    fun dragSetIconDefault context = (GdkDragContextClass.FFI.withPtr ---> I) dragSetIconDefault_ context
     fun dragSetIconGicon context icon hotX hotY =
       (
-        GdkDragContextClass.C.withPtr
-         &&&> GioIconClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GdkDragContextClass.FFI.withPtr
+         &&&> GioIconClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         dragSetIconGicon_
@@ -1647,10 +1688,10 @@ structure Gtk : GTK =
         )
     fun dragSetIconName context iconName hotX hotY =
       (
-        GdkDragContextClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GdkDragContextClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         dragSetIconName_
@@ -1662,10 +1703,10 @@ structure Gtk : GTK =
         )
     fun dragSetIconPixbuf context pixbuf hotX hotY =
       (
-        GdkDragContextClass.C.withPtr
-         &&&> GdkPixbufPixbufClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GdkDragContextClass.FFI.withPtr
+         &&&> GdkPixbufPixbufClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         dragSetIconPixbuf_
@@ -1677,10 +1718,10 @@ structure Gtk : GTK =
         )
     fun dragSetIconStock context stockId hotX hotY =
       (
-        GdkDragContextClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GdkDragContextClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         dragSetIconStock_
@@ -1690,13 +1731,13 @@ structure Gtk : GTK =
            & hotX
            & hotY
         )
-    fun dragSetIconSurface context surface = (GdkDragContextClass.C.withPtr &&&> CairoSurfaceRecord.C.withPtr ---> I) dragSetIconSurface_ (context & surface)
+    fun dragSetIconSurface context surface = (GdkDragContextClass.FFI.withPtr &&&> CairoSurfaceRecord.FFI.withPtr ---> I) dragSetIconSurface_ (context & surface)
     fun dragSetIconWidget context widget hotX hotY =
       (
-        GdkDragContextClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GdkDragContextClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         dragSetIconWidget_
@@ -1708,12 +1749,12 @@ structure Gtk : GTK =
         )
     fun drawInsertionCursor widget cr location isPrimary direction drawArrow =
       (
-        GtkWidgetClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GdkRectangleRecord.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         &&&> GtkTextDirection.C.withVal
-         &&&> FFI.Bool.C.withVal
+        GtkWidgetClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> GtkTextDirection.FFI.withVal
+         &&&> GBool.FFI.withVal
          ---> I
       )
         drawInsertionCursor_
@@ -1725,46 +1766,46 @@ structure Gtk : GTK =
            & direction
            & drawArrow
         )
-    fun eventsPending () = (I ---> FFI.Bool.C.fromVal) eventsPending_ ()
-    fun fileChooserErrorQuark () = (I ---> GLibQuark.C.fromVal) fileChooserErrorQuark_ ()
-    fun getBinaryAge () = (I ---> FFI.UInt.C.fromVal) getBinaryAge_ ()
-    fun getCurrentEvent () = (I ---> GdkEvent.C.fromPtr true) getCurrentEvent_ ()
-    fun getCurrentEventDevice () = (I ---> GdkDeviceClass.C.fromPtr false) getCurrentEventDevice_ ()
+    fun eventsPending () = (I ---> GBool.FFI.fromVal) eventsPending_ ()
+    fun fileChooserErrorQuark () = (I ---> GLibQuark.FFI.fromVal) fileChooserErrorQuark_ ()
+    fun getBinaryAge () = (I ---> GUInt.FFI.fromVal) getBinaryAge_ ()
+    fun getCurrentEvent () = (I ---> GdkEvent.FFI.fromPtr true) getCurrentEvent_ ()
+    fun getCurrentEventDevice () = (I ---> GdkDeviceClass.FFI.fromPtr false) getCurrentEventDevice_ ()
     fun getCurrentEventState () =
       let
-        val state & retVal = (GdkModifierType.C.withRefVal ---> GdkModifierType.C.fromVal && FFI.Bool.C.fromVal) getCurrentEventState_ (GdkModifierType.flags [])
+        val state & retVal = (GdkModifierType.FFI.withRefVal ---> GdkModifierType.FFI.fromVal && GBool.FFI.fromVal) getCurrentEventState_ (GdkModifierType.flags [])
       in
         if retVal then SOME state else NONE
       end
-    fun getCurrentEventTime () = (I ---> FFI.UInt32.C.fromVal) getCurrentEventTime_ ()
-    fun getDebugFlags () = (I ---> FFI.UInt.C.fromVal) getDebugFlags_ ()
-    fun getDefaultLanguage () = (I ---> PangoLanguageRecord.C.fromPtr true) getDefaultLanguage_ ()
-    fun getEventWidget event = (GdkEvent.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getEventWidget_ event
-    fun getInterfaceAge () = (I ---> FFI.UInt.C.fromVal) getInterfaceAge_ ()
-    fun getMajorVersion () = (I ---> FFI.UInt.C.fromVal) getMajorVersion_ ()
-    fun getMicroVersion () = (I ---> FFI.UInt.C.fromVal) getMicroVersion_ ()
-    fun getMinorVersion () = (I ---> FFI.UInt.C.fromVal) getMinorVersion_ ()
-    fun grabGetCurrent () = (I ---> GtkWidgetClass.C.fromPtr false) grabGetCurrent_ ()
-    fun iconSizeFromName name = (Utf8.C.withPtr ---> FFI.Int.C.fromVal) iconSizeFromName_ name
-    fun iconSizeGetName size = (FFI.Int.C.withVal ---> Utf8.C.fromPtr false) iconSizeGetName_ size
+    fun getCurrentEventTime () = (I ---> GUInt32.FFI.fromVal) getCurrentEventTime_ ()
+    fun getDebugFlags () = (I ---> GUInt.FFI.fromVal) getDebugFlags_ ()
+    fun getDefaultLanguage () = (I ---> PangoLanguageRecord.FFI.fromPtr true) getDefaultLanguage_ ()
+    fun getEventWidget event = (GdkEvent.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getEventWidget_ event
+    fun getInterfaceAge () = (I ---> GUInt.FFI.fromVal) getInterfaceAge_ ()
+    fun getMajorVersion () = (I ---> GUInt.FFI.fromVal) getMajorVersion_ ()
+    fun getMicroVersion () = (I ---> GUInt.FFI.fromVal) getMicroVersion_ ()
+    fun getMinorVersion () = (I ---> GUInt.FFI.fromVal) getMinorVersion_ ()
+    fun grabGetCurrent () = (I ---> GtkWidgetClass.FFI.fromPtr false) grabGetCurrent_ ()
+    fun iconSizeFromName name = (Utf8.FFI.withPtr ---> GInt.FFI.fromVal) iconSizeFromName_ name
+    fun iconSizeGetName size = (GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) iconSizeGetName_ size
     fun iconSizeLookup size =
       let
         val width
          & height
          & retVal =
           (
-            FFI.Int.C.withVal
-             &&&> FFI.Int.C.withRefVal
-             &&&> FFI.Int.C.withRefVal
-             ---> FFI.Int.C.fromVal
-                   && FFI.Int.C.fromVal
-                   && FFI.Bool.C.fromVal
+            GInt.FFI.withVal
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && GBool.FFI.fromVal
           )
             iconSizeLookup_
             (
               size
-               & FFI.Int.null
-               & FFI.Int.null
+               & GInt.null
+               & GInt.null
             )
       in
         if retVal then SOME (width, height) else NONE
@@ -1775,30 +1816,30 @@ structure Gtk : GTK =
          & height
          & retVal =
           (
-            GtkSettingsClass.C.withPtr
-             &&&> FFI.Int.C.withVal
-             &&&> FFI.Int.C.withRefVal
-             &&&> FFI.Int.C.withRefVal
-             ---> FFI.Int.C.fromVal
-                   && FFI.Int.C.fromVal
-                   && FFI.Bool.C.fromVal
+            GtkSettingsClass.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && GBool.FFI.fromVal
           )
             iconSizeLookupForSettings_
             (
               settings
                & size
-               & FFI.Int.null
-               & FFI.Int.null
+               & GInt.null
+               & GInt.null
             )
       in
         if retVal then SOME (width, height) else NONE
       end
     fun iconSizeRegister name width height =
       (
-        Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         ---> FFI.Int.C.fromVal
+        Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GInt.FFI.fromVal
       )
         iconSizeRegister_
         (
@@ -1806,29 +1847,63 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun iconSizeRegisterAlias alias target = (Utf8.C.withPtr &&&> FFI.Int.C.withVal ---> I) iconSizeRegisterAlias_ (alias & target)
-    fun iconThemeErrorQuark () = (I ---> GLibQuark.C.fromVal) iconThemeErrorQuark_ ()
-    fun keySnooperRemove snooperHandlerId = (FFI.UInt.C.withVal ---> I) keySnooperRemove_ snooperHandlerId
+    fun iconSizeRegisterAlias alias target = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> I) iconSizeRegisterAlias_ (alias & target)
+    fun iconThemeErrorQuark () = (I ---> GLibQuark.FFI.fromVal) iconThemeErrorQuark_ ()
+    fun init argv =
+      let
+        val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
+        val argc
+         & argv
+         & () =
+          (
+            GInt.FFI.withRefVal &&&> Utf8CVectorN.FFI.withRefDupPtr 2
+             ---> GInt.FFI.fromVal
+                   && Utf8CVectorN.FFI.fromPtr 2
+                   && I
+          )
+            init_
+            (argc & argv)
+      in
+        argv (LargeInt.toInt argc)
+      end
+    fun initCheck argv =
+      let
+        val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
+        val argc
+         & argv
+         & retVal =
+          (
+            GInt.FFI.withRefVal &&&> Utf8CVectorN.FFI.withRefDupPtr 2
+             ---> GInt.FFI.fromVal
+                   && Utf8CVectorN.FFI.fromPtr 2
+                   && GBool.FFI.fromVal
+          )
+            initCheck_
+            (argc & argv)
+      in
+        (retVal, argv (LargeInt.toInt argc))
+      end
+    fun keySnooperRemove snooperHandlerId = (GUInt.FFI.withVal ---> I) keySnooperRemove_ snooperHandlerId
     fun main () = (I ---> I) main_ ()
-    fun mainDoEvent event = (GdkEvent.C.withPtr ---> I) mainDoEvent_ event
-    fun mainIteration () = (I ---> FFI.Bool.C.fromVal) mainIteration_ ()
-    fun mainIterationDo blocking = (FFI.Bool.C.withVal ---> FFI.Bool.C.fromVal) mainIterationDo_ blocking
-    fun mainLevel () = (I ---> FFI.UInt.C.fromVal) mainLevel_ ()
+    fun mainDoEvent event = (GdkEvent.FFI.withPtr ---> I) mainDoEvent_ event
+    fun mainIteration () = (I ---> GBool.FFI.fromVal) mainIteration_ ()
+    fun mainIterationDo blocking = (GBool.FFI.withVal ---> GBool.FFI.fromVal) mainIterationDo_ blocking
+    fun mainLevel () = (I ---> GUInt.FFI.fromVal) mainLevel_ ()
     fun mainQuit () = (I ---> I) mainQuit_ ()
     fun paintArrow style cr stateType shadowType widget detail arrowType fill x y width height =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkShadowType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> GtkArrowType.C.withVal
-         &&&> FFI.Bool.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkShadowType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkArrowType.FFI.withVal
+         &&&> GBool.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintArrow_
@@ -1848,16 +1923,16 @@ structure Gtk : GTK =
         )
     fun paintBox style cr stateType shadowType widget detail x y width height =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkShadowType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkShadowType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintBox_
@@ -1875,19 +1950,19 @@ structure Gtk : GTK =
         )
     fun paintBoxGap style cr stateType shadowType widget detail x y width height gapSide gapX gapWidth =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkShadowType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> GtkPositionType.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkShadowType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GtkPositionType.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintBoxGap_
@@ -1908,16 +1983,16 @@ structure Gtk : GTK =
         )
     fun paintCheck style cr stateType shadowType widget detail x y width height =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkShadowType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkShadowType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintCheck_
@@ -1935,16 +2010,16 @@ structure Gtk : GTK =
         )
     fun paintDiamond style cr stateType shadowType widget detail x y width height =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkShadowType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkShadowType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintDiamond_
@@ -1962,14 +2037,14 @@ structure Gtk : GTK =
         )
     fun paintExpander style cr stateType widget detail x y expanderStyle =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> GtkExpanderStyle.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GtkExpanderStyle.FFI.withVal
          ---> I
       )
         paintExpander_
@@ -1985,17 +2060,17 @@ structure Gtk : GTK =
         )
     fun paintExtension style cr stateType shadowType widget detail x y width height gapSide =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkShadowType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> GtkPositionType.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkShadowType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GtkPositionType.FFI.withVal
          ---> I
       )
         paintExtension_
@@ -2014,16 +2089,16 @@ structure Gtk : GTK =
         )
     fun paintFlatBox style cr stateType shadowType widget detail x y width height =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkShadowType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkShadowType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintFlatBox_
@@ -2041,15 +2116,15 @@ structure Gtk : GTK =
         )
     fun paintFocus style cr stateType widget detail x y width height =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintFocus_
@@ -2066,17 +2141,17 @@ structure Gtk : GTK =
         )
     fun paintHandle style cr stateType shadowType widget detail x y width height orientation =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkShadowType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> GtkOrientation.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkShadowType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GtkOrientation.FFI.withVal
          ---> I
       )
         paintHandle_
@@ -2095,14 +2170,14 @@ structure Gtk : GTK =
         )
     fun paintHline style cr stateType widget detail x1 x2 y =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintHline_
@@ -2118,15 +2193,15 @@ structure Gtk : GTK =
         )
     fun paintLayout style cr stateType useText widget detail x y layout =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> FFI.Bool.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> PangoLayoutClass.C.withPtr
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GBool.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> PangoLayoutClass.FFI.withPtr
          ---> I
       )
         paintLayout_
@@ -2143,16 +2218,16 @@ structure Gtk : GTK =
         )
     fun paintOption style cr stateType shadowType widget detail x y width height =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkShadowType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkShadowType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintOption_
@@ -2170,16 +2245,16 @@ structure Gtk : GTK =
         )
     fun paintResizeGrip style cr stateType widget detail edge x y width height =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> GdkWindowEdge.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GdkWindowEdge.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintResizeGrip_
@@ -2197,16 +2272,16 @@ structure Gtk : GTK =
         )
     fun paintShadow style cr stateType shadowType widget detail x y width height =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkShadowType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkShadowType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintShadow_
@@ -2224,19 +2299,19 @@ structure Gtk : GTK =
         )
     fun paintShadowGap style cr stateType shadowType widget detail x y width height gapSide gapX gapWidth =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkShadowType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> GtkPositionType.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkShadowType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GtkPositionType.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintShadowGap_
@@ -2257,17 +2332,17 @@ structure Gtk : GTK =
         )
     fun paintSlider style cr stateType shadowType widget detail x y width height orientation =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkShadowType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> GtkOrientation.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkShadowType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GtkOrientation.FFI.withVal
          ---> I
       )
         paintSlider_
@@ -2286,16 +2361,16 @@ structure Gtk : GTK =
         )
     fun paintSpinner style cr stateType widget detail step x y width height =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.UInt.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GUInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintSpinner_
@@ -2313,16 +2388,16 @@ structure Gtk : GTK =
         )
     fun paintTab style cr stateType shadowType widget detail x y width height =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkShadowType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkShadowType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintTab_
@@ -2340,14 +2415,14 @@ structure Gtk : GTK =
         )
     fun paintVline style cr stateType widget detail y1 y2 x =
       (
-        GtkStyleClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GtkStateType.C.withVal
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        GtkStyleClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GtkStateType.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         paintVline_
@@ -2361,14 +2436,31 @@ structure Gtk : GTK =
            & y2
            & x
         )
-    fun paperSizeGetDefault () = (I ---> Utf8.C.fromPtr false) paperSizeGetDefault_ ()
-    fun printErrorQuark () = (I ---> GLibQuark.C.fromVal) printErrorQuark_ ()
+    fun paperSizeGetDefault () = (I ---> Utf8.FFI.fromPtr 0) paperSizeGetDefault_ ()
+    fun parseArgs argv =
+      let
+        val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
+        val argc
+         & argv
+         & retVal =
+          (
+            GInt.FFI.withRefVal &&&> Utf8CVectorN.FFI.withRefDupPtr 2
+             ---> GInt.FFI.fromVal
+                   && Utf8CVectorN.FFI.fromPtr 2
+                   && GBool.FFI.fromVal
+          )
+            parseArgs_
+            (argc & argv)
+      in
+        (retVal, argv (LargeInt.toInt argc))
+      end
+    fun printErrorQuark () = (I ---> GLibQuark.FFI.fromVal) printErrorQuark_ ()
     fun printRunPageSetupDialog parent pageSetup settings =
       (
-        GtkWindowClass.C.withOptPtr
-         &&&> GtkPageSetupClass.C.withOptPtr
-         &&&> GtkPrintSettingsClass.C.withPtr
-         ---> GtkPageSetupClass.C.fromPtr true
+        GtkWindowClass.FFI.withOptPtr
+         &&&> GtkPageSetupClass.FFI.withOptPtr
+         &&&> GtkPrintSettingsClass.FFI.withPtr
+         ---> GtkPageSetupClass.FFI.fromPtr true
       )
         printRunPageSetupDialog_
         (
@@ -2376,19 +2468,21 @@ structure Gtk : GTK =
            & pageSetup
            & settings
         )
-    fun propagateEvent widget event = (GtkWidgetClass.C.withPtr &&&> GdkEvent.C.withPtr ---> I) propagateEvent_ (widget & event)
-    fun rcAddDefaultFile filename = (Utf8.C.withPtr ---> I) rcAddDefaultFile_ filename
-    fun rcGetStyle widget = (GtkWidgetClass.C.withPtr ---> GtkStyleClass.C.fromPtr false) rcGetStyle_ widget
-    fun recentChooserErrorQuark () = (I ---> GLibQuark.C.fromVal) recentChooserErrorQuark_ ()
-    fun recentManagerErrorQuark () = (I ---> GLibQuark.C.fromVal) recentManagerErrorQuark_ ()
+    fun propagateEvent widget event = (GtkWidgetClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> I) propagateEvent_ (widget & event)
+    fun rcAddDefaultFile filename = (Utf8.FFI.withPtr ---> I) rcAddDefaultFile_ filename
+    fun rcGetDefaultFiles () = (I ---> Utf8CVector.FFI.fromPtr 0) rcGetDefaultFiles_ ()
+    fun rcGetStyle widget = (GtkWidgetClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr false) rcGetStyle_ widget
+    fun rcSetDefaultFiles filenames = (Utf8CVector.FFI.withPtr ---> I) rcSetDefaultFiles_ filenames
+    fun recentChooserErrorQuark () = (I ---> GLibQuark.FFI.fromVal) recentChooserErrorQuark_ ()
+    fun recentManagerErrorQuark () = (I ---> GLibQuark.FFI.fromVal) recentManagerErrorQuark_ ()
     fun renderActivity context cr x y width height =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         renderActivity_
@@ -2402,12 +2496,12 @@ structure Gtk : GTK =
         )
     fun renderArrow context cr angle x y size =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         renderArrow_
@@ -2421,12 +2515,12 @@ structure Gtk : GTK =
         )
     fun renderBackground context cr x y width height =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         renderBackground_
@@ -2440,12 +2534,12 @@ structure Gtk : GTK =
         )
     fun renderCheck context cr x y width height =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         renderCheck_
@@ -2459,12 +2553,12 @@ structure Gtk : GTK =
         )
     fun renderExpander context cr x y width height =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         renderExpander_
@@ -2478,13 +2572,13 @@ structure Gtk : GTK =
         )
     fun renderExtension context cr x y width height gapSide =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> GtkPositionType.C.withVal
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GtkPositionType.FFI.withVal
          ---> I
       )
         renderExtension_
@@ -2499,12 +2593,12 @@ structure Gtk : GTK =
         )
     fun renderFocus context cr x y width height =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         renderFocus_
@@ -2518,12 +2612,12 @@ structure Gtk : GTK =
         )
     fun renderFrame context cr x y width height =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         renderFrame_
@@ -2537,15 +2631,15 @@ structure Gtk : GTK =
         )
     fun renderFrameGap context cr x y width height gapSide xy0Gap xy1Gap =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> GtkPositionType.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GtkPositionType.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         renderFrameGap_
@@ -2562,12 +2656,12 @@ structure Gtk : GTK =
         )
     fun renderHandle context cr x y width height =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         renderHandle_
@@ -2581,11 +2675,11 @@ structure Gtk : GTK =
         )
     fun renderIcon context cr pixbuf x y =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> GdkPixbufPixbufClass.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GdkPixbufPixbufClass.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         renderIcon_
@@ -2598,10 +2692,10 @@ structure Gtk : GTK =
         )
     fun renderIconPixbuf context source size =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> GtkIconSourceRecord.C.withPtr
-         &&&> FFI.Int.C.withVal
-         ---> GdkPixbufPixbufClass.C.fromPtr true
+        GtkStyleContextClass.FFI.withPtr
+         &&&> GtkIconSourceRecord.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         ---> GdkPixbufPixbufClass.FFI.fromPtr true
       )
         renderIconPixbuf_
         (
@@ -2611,11 +2705,11 @@ structure Gtk : GTK =
         )
     fun renderLayout context cr x y layout =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> PangoLayoutClass.C.withPtr
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> PangoLayoutClass.FFI.withPtr
          ---> I
       )
         renderLayout_
@@ -2628,12 +2722,12 @@ structure Gtk : GTK =
         )
     fun renderLine context cr x0 y0 x1 y1 =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         renderLine_
@@ -2647,12 +2741,12 @@ structure Gtk : GTK =
         )
     fun renderOption context cr x y width height =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         renderOption_
@@ -2666,13 +2760,13 @@ structure Gtk : GTK =
         )
     fun renderSlider context cr x y width height orientation =
       (
-        GtkStyleContextClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> GtkOrientation.C.withVal
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GtkOrientation.FFI.withVal
          ---> I
       )
         renderSlider_
@@ -2692,15 +2786,15 @@ structure Gtk : GTK =
          & v
          & () =
           (
-            FFI.Double.C.withVal
-             &&&> FFI.Double.C.withVal
-             &&&> FFI.Double.C.withVal
-             &&&> FFI.Double.C.withRefVal
-             &&&> FFI.Double.C.withRefVal
-             &&&> FFI.Double.C.withRefVal
-             ---> FFI.Double.C.fromVal
-                   && FFI.Double.C.fromVal
-                   && FFI.Double.C.fromVal
+            GDouble.FFI.withVal
+             &&&> GDouble.FFI.withVal
+             &&&> GDouble.FFI.withVal
+             &&&> GDouble.FFI.withRefVal
+             &&&> GDouble.FFI.withRefVal
+             &&&> GDouble.FFI.withRefVal
+             ---> GDouble.FFI.fromVal
+                   && GDouble.FFI.fromVal
+                   && GDouble.FFI.fromVal
                    && I
           )
             rgbToHsv_
@@ -2708,9 +2802,9 @@ structure Gtk : GTK =
               r
                & g
                & b
-               & FFI.Double.null
-               & FFI.Double.null
-               & FFI.Double.null
+               & GDouble.null
+               & GDouble.null
+               & GDouble.null
             )
       in
         (
@@ -2721,10 +2815,10 @@ structure Gtk : GTK =
       end
     fun selectionAddTarget widget selection target info =
       (
-        GtkWidgetClass.C.withPtr
-         &&&> GdkAtomRecord.C.withPtr
-         &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.UInt.C.withVal
+        GtkWidgetClass.FFI.withPtr
+         &&&> GdkAtomRecord.FFI.withPtr
+         &&&> GdkAtomRecord.FFI.withPtr
+         &&&> GUInt.FFI.withVal
          ---> I
       )
         selectionAddTarget_
@@ -2734,14 +2828,14 @@ structure Gtk : GTK =
            & target
            & info
         )
-    fun selectionClearTargets widget selection = (GtkWidgetClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> I) selectionClearTargets_ (widget & selection)
+    fun selectionClearTargets widget selection = (GtkWidgetClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) selectionClearTargets_ (widget & selection)
     fun selectionConvert widget selection target time =
       (
-        GtkWidgetClass.C.withPtr
-         &&&> GdkAtomRecord.C.withPtr
-         &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GtkWidgetClass.FFI.withPtr
+         &&&> GdkAtomRecord.FFI.withPtr
+         &&&> GdkAtomRecord.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         selectionConvert_
         (
@@ -2752,10 +2846,10 @@ structure Gtk : GTK =
         )
     fun selectionOwnerSet widget selection time =
       (
-        GtkWidgetClass.C.withOptPtr
-         &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GtkWidgetClass.FFI.withOptPtr
+         &&&> GdkAtomRecord.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         selectionOwnerSet_
         (
@@ -2765,11 +2859,11 @@ structure Gtk : GTK =
         )
     fun selectionOwnerSetForDisplay display widget selection time =
       (
-        GdkDisplayClass.C.withPtr
-         &&&> GtkWidgetClass.C.withOptPtr
-         &&&> GdkAtomRecord.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GdkDisplayClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> GdkAtomRecord.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         selectionOwnerSetForDisplay_
         (
@@ -2778,15 +2872,15 @@ structure Gtk : GTK =
            & selection
            & time
         )
-    fun selectionRemoveAll widget = (GtkWidgetClass.C.withPtr ---> I) selectionRemoveAll_ widget
-    fun setDebugFlags flags = (FFI.UInt.C.withVal ---> I) setDebugFlags_ flags
+    fun selectionRemoveAll widget = (GtkWidgetClass.FFI.withPtr ---> I) selectionRemoveAll_ widget
+    fun setDebugFlags flags = (GUInt.FFI.withVal ---> I) setDebugFlags_ flags
     fun showUri screen uri timestamp =
       (
-        GdkScreenClass.C.withOptPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.UInt32.C.withVal
+        GdkScreenClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         showUri_
         (
@@ -2797,21 +2891,73 @@ structure Gtk : GTK =
         )
     fun stockLookup stockId =
       let
-        val item & retVal = (Utf8.C.withPtr &&&> GtkStockItemRecord.C.withNewPtr ---> GtkStockItemRecord.C.fromPtr true && FFI.Bool.C.fromVal) stockLookup_ (stockId & ())
+        val item & retVal = (Utf8.FFI.withPtr &&&> GtkStockItemRecord.FFI.withNewPtr ---> GtkStockItemRecord.FFI.fromPtr true && GBool.FFI.fromVal) stockLookup_ (stockId & ())
       in
         if retVal then SOME item else NONE
       end
-    fun testCreateSimpleWindow windowTitle dialogText = (Utf8.C.withPtr &&&> Utf8.C.withPtr ---> GtkWidgetClass.C.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
-    fun testFindLabel widget labelPattern = (GtkWidgetClass.C.withPtr &&&> Utf8.C.withPtr ---> GtkWidgetClass.C.fromPtr false) testFindLabel_ (widget & labelPattern)
+    fun targetsIncludeImage targets writable =
+      let
+        val nTargets = LargeInt.fromInt (GdkAtomRecordCVectorN.length targets)
+        val retVal =
+          (
+            GdkAtomRecordCVectorN.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             &&&> GBool.FFI.withVal
+             ---> GBool.FFI.fromVal
+          )
+            targetsIncludeImage_
+            (
+              targets
+               & nTargets
+               & writable
+            )
+      in
+        retVal
+      end
+    fun targetsIncludeRichText targets buffer =
+      let
+        val nTargets = LargeInt.fromInt (GdkAtomRecordCVectorN.length targets)
+        val retVal =
+          (
+            GdkAtomRecordCVectorN.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             &&&> GtkTextBufferClass.FFI.withPtr
+             ---> GBool.FFI.fromVal
+          )
+            targetsIncludeRichText_
+            (
+              targets
+               & nTargets
+               & buffer
+            )
+      in
+        retVal
+      end
+    fun targetsIncludeText targets =
+      let
+        val nTargets = LargeInt.fromInt (GdkAtomRecordCVectorN.length targets)
+        val retVal = (GdkAtomRecordCVectorN.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeText_ (targets & nTargets)
+      in
+        retVal
+      end
+    fun targetsIncludeUri targets =
+      let
+        val nTargets = LargeInt.fromInt (GdkAtomRecordCVectorN.length targets)
+        val retVal = (GdkAtomRecordCVectorN.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeUri_ (targets & nTargets)
+      in
+        retVal
+      end
+    fun testCreateSimpleWindow windowTitle dialogText = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
+    fun testFindLabel widget labelPattern = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) testFindLabel_ (widget & labelPattern)
     fun testRegisterAllTypes () = (I ---> I) testRegisterAllTypes_ ()
-    fun testSliderGetValue widget = (GtkWidgetClass.C.withPtr ---> FFI.Double.C.fromVal) testSliderGetValue_ widget
-    fun testSliderSetPerc widget percentage = (GtkWidgetClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) testSliderSetPerc_ (widget & percentage)
+    fun testSliderGetValue widget = (GtkWidgetClass.FFI.withPtr ---> GDouble.FFI.fromVal) testSliderGetValue_ widget
+    fun testSliderSetPerc widget percentage = (GtkWidgetClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) testSliderSetPerc_ (widget & percentage)
     fun testSpinButtonClick spinner button upwards =
       (
-        GtkSpinButtonClass.C.withPtr
-         &&&> FFI.UInt.C.withVal
-         &&&> FFI.Bool.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GtkSpinButtonClass.FFI.withPtr
+         &&&> GUInt.FFI.withVal
+         &&&> GBool.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         testSpinButtonClick_
         (
@@ -2819,14 +2965,14 @@ structure Gtk : GTK =
            & button
            & upwards
         )
-    fun testTextGet widget = (GtkWidgetClass.C.withPtr ---> Utf8.C.fromPtr true) testTextGet_ widget
-    fun testTextSet widget string = (GtkWidgetClass.C.withPtr &&&> Utf8.C.withPtr ---> I) testTextSet_ (widget & string)
+    fun testTextGet widget = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) testTextGet_ widget
+    fun testTextSet widget string = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) testTextSet_ (widget & string)
     fun testWidgetClick widget button modifiers =
       (
-        GtkWidgetClass.C.withPtr
-         &&&> FFI.UInt.C.withVal
-         &&&> GdkModifierType.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GtkWidgetClass.FFI.withPtr
+         &&&> GUInt.FFI.withVal
+         &&&> GdkModifierType.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         testWidgetClick_
         (
@@ -2836,10 +2982,10 @@ structure Gtk : GTK =
         )
     fun testWidgetSendKey widget keyval modifiers =
       (
-        GtkWidgetClass.C.withPtr
-         &&&> FFI.UInt.C.withVal
-         &&&> GdkModifierType.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GtkWidgetClass.FFI.withPtr
+         &&&> GUInt.FFI.withVal
+         &&&> GdkModifierType.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         testWidgetSendKey_
         (
@@ -2853,12 +2999,12 @@ structure Gtk : GTK =
          & path
          & retVal =
           (
-            GtkSelectionDataRecord.C.withPtr
-             &&&> GtkTreeModelClass.C.withRefOptPtr
-             &&&> GtkTreePathRecord.C.withRefOptPtr
-             ---> GtkTreeModelClass.C.fromPtr true
-                   && GtkTreePathRecord.C.fromPtr true
-                   && FFI.Bool.C.fromVal
+            GtkSelectionDataRecord.FFI.withPtr
+             &&&> GtkTreeModelClass.FFI.withRefOptPtr
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr
+             ---> GtkTreeModelClass.FFI.fromPtr true
+                   && GtkTreePathRecord.FFI.fromPtr true
+                   && GBool.FFI.fromVal
           )
             treeGetRowDragData_
             (
@@ -2869,14 +3015,14 @@ structure Gtk : GTK =
       in
         if retVal then SOME (treeModel, path) else NONE
       end
-    fun treeRowReferenceDeleted proxy path = (GObjectObjectClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> I) treeRowReferenceDeleted_ (proxy & path)
-    fun treeRowReferenceInserted proxy path = (GObjectObjectClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> I) treeRowReferenceInserted_ (proxy & path)
+    fun treeRowReferenceDeleted proxy path = (GObjectObjectClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) treeRowReferenceDeleted_ (proxy & path)
+    fun treeRowReferenceInserted proxy path = (GObjectObjectClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) treeRowReferenceInserted_ (proxy & path)
     fun treeSetRowDragData selectionData treeModel path =
       (
-        GtkSelectionDataRecord.C.withPtr
-         &&&> GtkTreeModelClass.C.withPtr
-         &&&> GtkTreePathRecord.C.withPtr
-         ---> FFI.Bool.C.fromVal
+        GtkSelectionDataRecord.FFI.withPtr
+         &&&> GtkTreeModelClass.FFI.withPtr
+         &&&> GtkTreePathRecord.FFI.withPtr
+         ---> GBool.FFI.fromVal
       )
         treeSetRowDragData_
         (

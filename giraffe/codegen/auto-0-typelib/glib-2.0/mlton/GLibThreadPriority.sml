@@ -1,32 +1,28 @@
-structure GLibThreadPriority :>
-  sig
-    include G_LIB_THREAD_PRIORITY
-  end =
+structure GLibThreadPriority :> G_LIB_THREAD_PRIORITY =
   struct
-    datatype t =
+    datatype enum =
       LOW
     | NORMAL
     | HIGH
     | URGENT
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = LOW
+        val toInt =
           fn
-            LOW => f 0
-          | NORMAL => f 1
-          | HIGH => f 2
-          | URGENT => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            LOW => 0
+          | NORMAL => 1
+          | HIGH => 2
+          | URGENT => 3
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => LOW
           | 1 => NORMAL
           | 2 => HIGH
           | 3 => URGENT
           | n => raise Value n
-      end
-    val null = LOW
+      )
+    open Enum
   end

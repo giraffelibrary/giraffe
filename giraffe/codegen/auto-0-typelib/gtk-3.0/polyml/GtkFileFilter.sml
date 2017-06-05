@@ -13,7 +13,7 @@ structure GtkFileFilter :>
       val addMimeType_ = call (load_sym libgtk "gtk_file_filter_add_mime_type") (GtkFileFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val addPattern_ = call (load_sym libgtk "gtk_file_filter_add_pattern") (GtkFileFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val addPixbufFormats_ = call (load_sym libgtk "gtk_file_filter_add_pixbuf_formats") (GtkFileFilterClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val filter_ = call (load_sym libgtk "gtk_file_filter_filter") (GtkFileFilterClass.PolyML.cPtr &&> GtkFileFilterInfoRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val filter_ = call (load_sym libgtk "gtk_file_filter_filter") (GtkFileFilterClass.PolyML.cPtr &&> GtkFileFilterInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getName_ = call (load_sym libgtk "gtk_file_filter_get_name") (GtkFileFilterClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getNeeded_ = call (load_sym libgtk "gtk_file_filter_get_needed") (GtkFileFilterClass.PolyML.cPtr --> GtkFileFilterFlags.PolyML.cVal)
       val setName_ = call (load_sym libgtk "gtk_file_filter_set_name") (GtkFileFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
@@ -23,14 +23,14 @@ structure GtkFileFilter :>
     type file_filter_info_t = GtkFileFilterInfoRecord.t
     type file_filter_flags_t = GtkFileFilterFlags.t
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkFileFilterClass.C.fromPtr false) new_ ()
-    fun addMimeType self mimeType = (GtkFileFilterClass.C.withPtr &&&> Utf8.C.withPtr ---> I) addMimeType_ (self & mimeType)
-    fun addPattern self pattern = (GtkFileFilterClass.C.withPtr &&&> Utf8.C.withPtr ---> I) addPattern_ (self & pattern)
-    fun addPixbufFormats self = (GtkFileFilterClass.C.withPtr ---> I) addPixbufFormats_ self
-    fun filter self filterInfo = (GtkFileFilterClass.C.withPtr &&&> GtkFileFilterInfoRecord.C.withPtr ---> FFI.Bool.C.fromVal) filter_ (self & filterInfo)
-    fun getName self = (GtkFileFilterClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun getNeeded self = (GtkFileFilterClass.C.withPtr ---> GtkFileFilterFlags.C.fromVal) getNeeded_ self
-    fun setName self name = (GtkFileFilterClass.C.withPtr &&&> Utf8.C.withOptPtr ---> I) setName_ (self & name)
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkFileFilterClass.FFI.fromPtr false) new_ ()
+    fun addMimeType self mimeType = (GtkFileFilterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addMimeType_ (self & mimeType)
+    fun addPattern self pattern = (GtkFileFilterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addPattern_ (self & pattern)
+    fun addPixbufFormats self = (GtkFileFilterClass.FFI.withPtr ---> I) addPixbufFormats_ self
+    fun filter self filterInfo = (GtkFileFilterClass.FFI.withPtr &&&> GtkFileFilterInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) filter_ (self & filterInfo)
+    fun getName self = (GtkFileFilterClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getNeeded self = (GtkFileFilterClass.FFI.withPtr ---> GtkFileFilterFlags.FFI.fromVal) getNeeded_ self
+    fun setName self name = (GtkFileFilterClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setName_ (self & name)
   end

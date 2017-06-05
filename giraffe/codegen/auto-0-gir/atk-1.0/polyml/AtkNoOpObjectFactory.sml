@@ -10,6 +10,6 @@ structure AtkNoOpObjectFactory :>
     end
     type 'a class = 'a AtkNoOpObjectFactoryClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> AtkNoOpObjectFactoryClass.C.fromPtr true) new_ ()
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> AtkNoOpObjectFactoryClass.FFI.fromPtr true) new_ ()
   end

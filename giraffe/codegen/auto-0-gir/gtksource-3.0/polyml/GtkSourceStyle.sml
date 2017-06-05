@@ -10,8 +10,8 @@ structure GtkSourceStyle :>
     end
     type 'a class = 'a GtkSourceStyleClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun copy self = (GtkSourceStyleClass.C.withPtr ---> GtkSourceStyleClass.C.fromPtr true) copy_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun copy self = (GtkSourceStyleClass.FFI.withPtr ---> GtkSourceStyleClass.FFI.fromPtr true) copy_ self
     local
       open Property
     in

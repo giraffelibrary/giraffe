@@ -1,43 +1,30 @@
-structure PangoRenderPart :>
-  sig
-    include PANGO_RENDER_PART
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure PangoRenderPart :> PANGO_RENDER_PART =
   struct
-    datatype t =
+    datatype enum =
       FOREGROUND
     | BACKGROUND
     | UNDERLINE
     | STRIKETHROUGH
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = FOREGROUND
+        val toInt =
           fn
-            FOREGROUND => f 0
-          | BACKGROUND => f 1
-          | UNDERLINE => f 2
-          | STRIKETHROUGH => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            FOREGROUND => 0
+          | BACKGROUND => 1
+          | UNDERLINE => 2
+          | STRIKETHROUGH => 3
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => FOREGROUND
           | 1 => BACKGROUND
           | 2 => UNDERLINE
           | 3 => STRIKETHROUGH
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -48,10 +35,9 @@ structure PangoRenderPart :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = FOREGROUND
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

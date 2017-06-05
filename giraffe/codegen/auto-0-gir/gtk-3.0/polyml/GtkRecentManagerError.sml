@@ -1,14 +1,6 @@
-structure GtkRecentManagerError :>
-  sig
-    include GTK_RECENT_MANAGER_ERROR
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkRecentManagerError :> GTK_RECENT_MANAGER_ERROR =
   struct
-    datatype t =
+    datatype enum =
       NOT_FOUND
     | INVALID_URI
     | INVALID_ENCODING
@@ -16,22 +8,21 @@ structure GtkRecentManagerError :>
     | READ
     | WRITE
     | UNKNOWN
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NOT_FOUND
+        val toInt =
           fn
-            NOT_FOUND => f 0
-          | INVALID_URI => f 1
-          | INVALID_ENCODING => f 2
-          | NOT_REGISTERED => f 3
-          | READ => f 4
-          | WRITE => f 5
-          | UNKNOWN => f 6
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NOT_FOUND => 0
+          | INVALID_URI => 1
+          | INVALID_ENCODING => 2
+          | NOT_REGISTERED => 3
+          | READ => 4
+          | WRITE => 5
+          | UNKNOWN => 6
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => NOT_FOUND
           | 1 => INVALID_URI
@@ -41,12 +32,8 @@ structure GtkRecentManagerError :>
           | 5 => WRITE
           | 6 => UNKNOWN
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -57,18 +44,18 @@ structure GtkRecentManagerError :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
     exception Error of t
     val handler =
       GLibErrorRecord.makeHandler
         (
           "gtk-recent-manager-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end
 exception GtkRecentManagerError = GtkRecentManagerError.Error

@@ -9,5 +9,5 @@ structure GioDesktopAppInfoLookup :>
     end
     type 'a class = 'a GioDesktopAppInfoLookupClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

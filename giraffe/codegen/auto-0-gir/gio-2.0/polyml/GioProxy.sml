@@ -29,7 +29,7 @@ structure GioProxy :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioIOStreamClass.PolyML.cPtr
           )
-      val supportsHostname_ = call (load_sym libgio "g_proxy_supports_hostname") (GioProxyClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val supportsHostname_ = call (load_sym libgio "g_proxy_supports_hostname") (GioProxyClass.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a GioProxyClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
@@ -37,16 +37,16 @@ structure GioProxy :>
     type 'a i_o_stream_class = 'a GioIOStreamClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getDefaultForProtocol protocol = (Utf8.C.withPtr ---> GioProxyClass.C.fromPtr true) getDefaultForProtocol_ protocol
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getDefaultForProtocol protocol = (Utf8.FFI.withPtr ---> GioProxyClass.FFI.fromPtr true) getDefaultForProtocol_ protocol
     fun connect self connection proxyAddress cancellable =
       (
-        GioProxyClass.C.withPtr
-         &&&> GioIOStreamClass.C.withPtr
-         &&&> GioProxyAddressClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioProxyClass.FFI.withPtr
+         &&&> GioIOStreamClass.FFI.withPtr
+         &&&> GioProxyAddressClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioIOStreamClass.C.fromPtr true
+         ---> GioIOStreamClass.FFI.fromPtr true
       )
         connect_
         (
@@ -58,10 +58,10 @@ structure GioProxy :>
         )
     fun connectFinish self result =
       (
-        GioProxyClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioProxyClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioIOStreamClass.C.fromPtr true
+         ---> GioIOStreamClass.FFI.fromPtr true
       )
         connectFinish_
         (
@@ -69,5 +69,5 @@ structure GioProxy :>
            & result
            & []
         )
-    fun supportsHostname self = (GioProxyClass.C.withPtr ---> FFI.Bool.C.fromVal) supportsHostname_ self
+    fun supportsHostname self = (GioProxyClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsHostname_ self
   end

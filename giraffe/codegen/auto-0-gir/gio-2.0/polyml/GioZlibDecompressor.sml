@@ -17,10 +17,10 @@ structure GioZlibDecompressor :>
     type 'a file_info_class = 'a GioFileInfoClass.class
     type zlib_compressor_format_t = GioZlibCompressorFormat.t
     type t = base class
-    fun asConverter self = (GObjectObjectClass.C.withPtr ---> GioConverterClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new format = (GioZlibCompressorFormat.C.withVal ---> GioZlibDecompressorClass.C.fromPtr true) new_ format
-    fun getFileInfo self = (GioZlibDecompressorClass.C.withPtr ---> GioFileInfoClass.C.fromPtr false) getFileInfo_ self
+    fun asConverter self = (GObjectObjectClass.FFI.withPtr ---> GioConverterClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new format = (GioZlibCompressorFormat.FFI.withVal ---> GioZlibDecompressorClass.FFI.fromPtr true) new_ format
+    fun getFileInfo self = (GioZlibDecompressorClass.FFI.withPtr ---> GioFileInfoClass.FFI.fromPtr false) getFileInfo_ self
     local
       open Property
     in

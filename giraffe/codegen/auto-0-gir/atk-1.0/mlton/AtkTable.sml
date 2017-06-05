@@ -3,12 +3,12 @@ structure AtkTable :>
     where type 'a class = 'a AtkTableClass.class
     where type 'a object_class = 'a AtkObjectClass.class =
   struct
-    val getType_ = _import "atk_table_get_type" : unit -> GObjectType.C.val_;
-    val addColumnSelection_ = fn x1 & x2 => (_import "atk_table_add_column_selection" : AtkTableClass.C.notnull AtkTableClass.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
-    val addRowSelection_ = fn x1 & x2 => (_import "atk_table_add_row_selection" : AtkTableClass.C.notnull AtkTableClass.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
-    val getCaption_ = _import "atk_table_get_caption" : AtkTableClass.C.notnull AtkTableClass.C.p -> AtkObjectClass.C.notnull AtkObjectClass.C.p;
-    val getColumnAtIndex_ = fn x1 & x2 => (_import "atk_table_get_column_at_index" : AtkTableClass.C.notnull AtkTableClass.C.p * FFI.Int.C.val_ -> FFI.Int.C.val_;) (x1, x2)
-    val getColumnDescription_ = fn x1 & x2 => (_import "atk_table_get_column_description" : AtkTableClass.C.notnull AtkTableClass.C.p * FFI.Int.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
+    val getType_ = _import "atk_table_get_type" : unit -> GObjectType.FFI.val_;
+    val addColumnSelection_ = fn x1 & x2 => (_import "atk_table_add_column_selection" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val addRowSelection_ = fn x1 & x2 => (_import "atk_table_add_row_selection" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val getCaption_ = _import "atk_table_get_caption" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
+    val getColumnAtIndex_ = fn x1 & x2 => (_import "atk_table_get_column_at_index" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt.FFI.val_ -> GInt.FFI.val_;) (x1, x2)
+    val getColumnDescription_ = fn x1 & x2 => (_import "atk_table_get_column_description" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
     val getColumnExtentAt_ =
       fn
         x1
@@ -16,17 +16,17 @@ structure AtkTable :>
          & x3 =>
           (
             _import "atk_table_get_column_extent_at" :
-              AtkTableClass.C.notnull AtkTableClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               -> FFI.Int.C.val_;
+              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               -> GInt.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val getColumnHeader_ = fn x1 & x2 => (_import "atk_table_get_column_header" : AtkTableClass.C.notnull AtkTableClass.C.p * FFI.Int.C.val_ -> AtkObjectClass.C.notnull AtkObjectClass.C.p;) (x1, x2)
+    val getColumnHeader_ = fn x1 & x2 => (_import "atk_table_get_column_header" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt.FFI.val_ -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;) (x1, x2)
     val getIndexAt_ =
       fn
         x1
@@ -34,20 +34,20 @@ structure AtkTable :>
          & x3 =>
           (
             _import "atk_table_get_index_at" :
-              AtkTableClass.C.notnull AtkTableClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               -> FFI.Int.C.val_;
+              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               -> GInt.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val getNColumns_ = _import "atk_table_get_n_columns" : AtkTableClass.C.notnull AtkTableClass.C.p -> FFI.Int.C.val_;
-    val getNRows_ = _import "atk_table_get_n_rows" : AtkTableClass.C.notnull AtkTableClass.C.p -> FFI.Int.C.val_;
-    val getRowAtIndex_ = fn x1 & x2 => (_import "atk_table_get_row_at_index" : AtkTableClass.C.notnull AtkTableClass.C.p * FFI.Int.C.val_ -> FFI.Int.C.val_;) (x1, x2)
-    val getRowDescription_ = fn x1 & x2 => (_import "atk_table_get_row_description" : AtkTableClass.C.notnull AtkTableClass.C.p * FFI.Int.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
+    val getNColumns_ = _import "atk_table_get_n_columns" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p -> GInt.FFI.val_;
+    val getNRows_ = _import "atk_table_get_n_rows" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p -> GInt.FFI.val_;
+    val getRowAtIndex_ = fn x1 & x2 => (_import "atk_table_get_row_at_index" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt.FFI.val_ -> GInt.FFI.val_;) (x1, x2)
+    val getRowDescription_ = fn x1 & x2 => (_import "atk_table_get_row_description" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
     val getRowExtentAt_ =
       fn
         x1
@@ -55,20 +55,20 @@ structure AtkTable :>
          & x3 =>
           (
             _import "atk_table_get_row_extent_at" :
-              AtkTableClass.C.notnull AtkTableClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               -> FFI.Int.C.val_;
+              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               -> GInt.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val getRowHeader_ = fn x1 & x2 => (_import "atk_table_get_row_header" : AtkTableClass.C.notnull AtkTableClass.C.p * FFI.Int.C.val_ -> AtkObjectClass.C.notnull AtkObjectClass.C.p;) (x1, x2)
-    val getSummary_ = _import "atk_table_get_summary" : AtkTableClass.C.notnull AtkTableClass.C.p -> AtkObjectClass.C.notnull AtkObjectClass.C.p;
-    val isColumnSelected_ = fn x1 & x2 => (_import "atk_table_is_column_selected" : AtkTableClass.C.notnull AtkTableClass.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
-    val isRowSelected_ = fn x1 & x2 => (_import "atk_table_is_row_selected" : AtkTableClass.C.notnull AtkTableClass.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
+    val getRowHeader_ = fn x1 & x2 => (_import "atk_table_get_row_header" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt.FFI.val_ -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;) (x1, x2)
+    val getSummary_ = _import "atk_table_get_summary" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
+    val isColumnSelected_ = fn x1 & x2 => (_import "atk_table_is_column_selected" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val isRowSelected_ = fn x1 & x2 => (_import "atk_table_is_row_selected" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val isSelected_ =
       fn
         x1
@@ -76,10 +76,10 @@ structure AtkTable :>
          & x3 =>
           (
             _import "atk_table_is_selected" :
-              AtkTableClass.C.notnull AtkTableClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               -> FFI.Bool.C.val_;
+              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -93,19 +93,19 @@ structure AtkTable :>
          & x3 =>
           (
             _import "atk_table_ref_at" :
-              AtkTableClass.C.notnull AtkTableClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               -> AtkObjectClass.C.notnull AtkObjectClass.C.p;
+              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val removeColumnSelection_ = fn x1 & x2 => (_import "atk_table_remove_column_selection" : AtkTableClass.C.notnull AtkTableClass.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
-    val removeRowSelection_ = fn x1 & x2 => (_import "atk_table_remove_row_selection" : AtkTableClass.C.notnull AtkTableClass.C.p * FFI.Int.C.val_ -> FFI.Bool.C.val_;) (x1, x2)
-    val setCaption_ = fn x1 & x2 => (_import "atk_table_set_caption" : AtkTableClass.C.notnull AtkTableClass.C.p * AtkObjectClass.C.notnull AtkObjectClass.C.p -> unit;) (x1, x2)
+    val removeColumnSelection_ = fn x1 & x2 => (_import "atk_table_remove_column_selection" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val removeRowSelection_ = fn x1 & x2 => (_import "atk_table_remove_row_selection" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val setCaption_ = fn x1 & x2 => (_import "atk_table_set_caption" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> unit;) (x1, x2)
     val setColumnDescription_ =
       fn
         x1
@@ -113,10 +113,10 @@ structure AtkTable :>
          & (x3, x4) =>
           (
             _import "mlton_atk_table_set_column_description" :
-              AtkTableClass.C.notnull AtkTableClass.C.p
-               * FFI.Int.C.val_
+              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+               * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -132,9 +132,9 @@ structure AtkTable :>
          & x3 =>
           (
             _import "atk_table_set_column_header" :
-              AtkTableClass.C.notnull AtkTableClass.C.p
-               * FFI.Int.C.val_
-               * AtkObjectClass.C.notnull AtkObjectClass.C.p
+              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+               * GInt.FFI.val_
+               * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
                -> unit;
           )
             (
@@ -149,10 +149,10 @@ structure AtkTable :>
          & (x3, x4) =>
           (
             _import "mlton_atk_table_set_row_description" :
-              AtkTableClass.C.notnull AtkTableClass.C.p
-               * FFI.Int.C.val_
+              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+               * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -168,9 +168,9 @@ structure AtkTable :>
          & x3 =>
           (
             _import "atk_table_set_row_header" :
-              AtkTableClass.C.notnull AtkTableClass.C.p
-               * FFI.Int.C.val_
-               * AtkObjectClass.C.notnull AtkObjectClass.C.p
+              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+               * GInt.FFI.val_
+               * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
                -> unit;
           )
             (
@@ -178,22 +178,22 @@ structure AtkTable :>
               x2,
               x3
             )
-    val setSummary_ = fn x1 & x2 => (_import "atk_table_set_summary" : AtkTableClass.C.notnull AtkTableClass.C.p * AtkObjectClass.C.notnull AtkObjectClass.C.p -> unit;) (x1, x2)
+    val setSummary_ = fn x1 & x2 => (_import "atk_table_set_summary" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a AtkTableClass.class
     type 'a object_class = 'a AtkObjectClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun addColumnSelection self column = (AtkTableClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) addColumnSelection_ (self & column)
-    fun addRowSelection self row = (AtkTableClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) addRowSelection_ (self & row)
-    fun getCaption self = (AtkTableClass.C.withPtr ---> AtkObjectClass.C.fromPtr false) getCaption_ self
-    fun getColumnAtIndex self index = (AtkTableClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Int.C.fromVal) getColumnAtIndex_ (self & index)
-    fun getColumnDescription self column = (AtkTableClass.C.withPtr &&&> FFI.Int.C.withVal ---> Utf8.C.fromPtr false) getColumnDescription_ (self & column)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun addColumnSelection self column = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) addColumnSelection_ (self & column)
+    fun addRowSelection self row = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) addRowSelection_ (self & row)
+    fun getCaption self = (AtkTableClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr false) getCaption_ self
+    fun getColumnAtIndex self index = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) getColumnAtIndex_ (self & index)
+    fun getColumnDescription self column = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) getColumnDescription_ (self & column)
     fun getColumnExtentAt self row column =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         ---> FFI.Int.C.fromVal
+        AtkTableClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GInt.FFI.fromVal
       )
         getColumnExtentAt_
         (
@@ -201,13 +201,13 @@ structure AtkTable :>
            & row
            & column
         )
-    fun getColumnHeader self column = (AtkTableClass.C.withPtr &&&> FFI.Int.C.withVal ---> AtkObjectClass.C.fromPtr false) getColumnHeader_ (self & column)
+    fun getColumnHeader self column = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> AtkObjectClass.FFI.fromPtr false) getColumnHeader_ (self & column)
     fun getIndexAt self row column =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         ---> FFI.Int.C.fromVal
+        AtkTableClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GInt.FFI.fromVal
       )
         getIndexAt_
         (
@@ -215,16 +215,16 @@ structure AtkTable :>
            & row
            & column
         )
-    fun getNColumns self = (AtkTableClass.C.withPtr ---> FFI.Int.C.fromVal) getNColumns_ self
-    fun getNRows self = (AtkTableClass.C.withPtr ---> FFI.Int.C.fromVal) getNRows_ self
-    fun getRowAtIndex self index = (AtkTableClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Int.C.fromVal) getRowAtIndex_ (self & index)
-    fun getRowDescription self row = (AtkTableClass.C.withPtr &&&> FFI.Int.C.withVal ---> Utf8.C.fromPtr false) getRowDescription_ (self & row)
+    fun getNColumns self = (AtkTableClass.FFI.withPtr ---> GInt.FFI.fromVal) getNColumns_ self
+    fun getNRows self = (AtkTableClass.FFI.withPtr ---> GInt.FFI.fromVal) getNRows_ self
+    fun getRowAtIndex self index = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) getRowAtIndex_ (self & index)
+    fun getRowDescription self row = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) getRowDescription_ (self & row)
     fun getRowExtentAt self row column =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         ---> FFI.Int.C.fromVal
+        AtkTableClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GInt.FFI.fromVal
       )
         getRowExtentAt_
         (
@@ -232,16 +232,16 @@ structure AtkTable :>
            & row
            & column
         )
-    fun getRowHeader self row = (AtkTableClass.C.withPtr &&&> FFI.Int.C.withVal ---> AtkObjectClass.C.fromPtr false) getRowHeader_ (self & row)
-    fun getSummary self = (AtkTableClass.C.withPtr ---> AtkObjectClass.C.fromPtr true) getSummary_ self
-    fun isColumnSelected self column = (AtkTableClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) isColumnSelected_ (self & column)
-    fun isRowSelected self row = (AtkTableClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) isRowSelected_ (self & row)
+    fun getRowHeader self row = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> AtkObjectClass.FFI.fromPtr false) getRowHeader_ (self & row)
+    fun getSummary self = (AtkTableClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr true) getSummary_ self
+    fun isColumnSelected self column = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) isColumnSelected_ (self & column)
+    fun isRowSelected self row = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) isRowSelected_ (self & row)
     fun isSelected self row column =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         ---> FFI.Bool.C.fromVal
+        AtkTableClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         isSelected_
         (
@@ -251,10 +251,10 @@ structure AtkTable :>
         )
     fun refAt self row column =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         ---> AtkObjectClass.C.fromPtr true
+        AtkTableClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> AtkObjectClass.FFI.fromPtr true
       )
         refAt_
         (
@@ -262,14 +262,14 @@ structure AtkTable :>
            & row
            & column
         )
-    fun removeColumnSelection self column = (AtkTableClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) removeColumnSelection_ (self & column)
-    fun removeRowSelection self row = (AtkTableClass.C.withPtr &&&> FFI.Int.C.withVal ---> FFI.Bool.C.fromVal) removeRowSelection_ (self & row)
-    fun setCaption self caption = (AtkTableClass.C.withPtr &&&> AtkObjectClass.C.withPtr ---> I) setCaption_ (self & caption)
+    fun removeColumnSelection self column = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) removeColumnSelection_ (self & column)
+    fun removeRowSelection self row = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) removeRowSelection_ (self & row)
+    fun setCaption self caption = (AtkTableClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> I) setCaption_ (self & caption)
     fun setColumnDescription self column description =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> Utf8.C.withPtr
+        AtkTableClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         setColumnDescription_
@@ -280,9 +280,9 @@ structure AtkTable :>
         )
     fun setColumnHeader self column header =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> AtkObjectClass.C.withPtr
+        AtkTableClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> AtkObjectClass.FFI.withPtr
          ---> I
       )
         setColumnHeader_
@@ -293,9 +293,9 @@ structure AtkTable :>
         )
     fun setRowDescription self row description =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> Utf8.C.withPtr
+        AtkTableClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         setRowDescription_
@@ -306,9 +306,9 @@ structure AtkTable :>
         )
     fun setRowHeader self row header =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> AtkObjectClass.C.withPtr
+        AtkTableClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> AtkObjectClass.FFI.withPtr
          ---> I
       )
         setRowHeader_
@@ -317,7 +317,7 @@ structure AtkTable :>
            & row
            & header
         )
-    fun setSummary self accessible = (AtkTableClass.C.withPtr &&&> AtkObjectClass.C.withPtr ---> I) setSummary_ (self & accessible)
+    fun setSummary self accessible = (AtkTableClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> I) setSummary_ (self & accessible)
     local
       open ClosureMarshal Signal
     in

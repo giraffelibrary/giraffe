@@ -1,14 +1,6 @@
-structure GtkLicense :>
-  sig
-    include GTK_LICENSE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkLicense :> GTK_LICENSE =
   struct
-    datatype t =
+    datatype enum =
       UNKNOWN
     | CUSTOM
     | GPL_2_0
@@ -18,24 +10,23 @@ structure GtkLicense :>
     | BSD
     | MIT_X_11
     | ARTISTIC
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = UNKNOWN
+        val toInt =
           fn
-            UNKNOWN => f 0
-          | CUSTOM => f 1
-          | GPL_2_0 => f 2
-          | GPL_3_0 => f 3
-          | LGPL_2_1 => f 4
-          | LGPL_3_0 => f 5
-          | BSD => f 6
-          | MIT_X_11 => f 7
-          | ARTISTIC => f 8
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            UNKNOWN => 0
+          | CUSTOM => 1
+          | GPL_2_0 => 2
+          | GPL_3_0 => 3
+          | LGPL_2_1 => 4
+          | LGPL_3_0 => 5
+          | BSD => 6
+          | MIT_X_11 => 7
+          | ARTISTIC => 8
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => UNKNOWN
           | 1 => CUSTOM
@@ -47,12 +38,8 @@ structure GtkLicense :>
           | 7 => MIT_X_11
           | 8 => ARTISTIC
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -63,10 +50,9 @@ structure GtkLicense :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = UNKNOWN
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

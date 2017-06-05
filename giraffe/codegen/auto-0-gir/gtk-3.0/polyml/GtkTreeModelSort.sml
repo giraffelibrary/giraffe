@@ -18,7 +18,7 @@ structure GtkTreeModelSort :>
             GtkTreeModelSortClass.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val convertChildPathToPath_ = call (load_sym libgtk "gtk_tree_model_sort_convert_child_path_to_path") (GtkTreeModelSortClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
       val convertIterToChildIter_ =
@@ -31,7 +31,7 @@ structure GtkTreeModelSort :>
           )
       val convertPathToChildPath_ = call (load_sym libgtk "gtk_tree_model_sort_convert_path_to_child_path") (GtkTreeModelSortClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
       val getModel_ = call (load_sym libgtk "gtk_tree_model_sort_get_model") (GtkTreeModelSortClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
-      val iterIsValid_ = call (load_sym libgtk "gtk_tree_model_sort_iter_is_valid") (GtkTreeModelSortClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val iterIsValid_ = call (load_sym libgtk "gtk_tree_model_sort_iter_is_valid") (GtkTreeModelSortClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val resetDefaultSortFunc_ = call (load_sym libgtk "gtk_tree_model_sort_reset_default_sort_func") (GtkTreeModelSortClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkTreeModelSortClass.class
@@ -41,19 +41,19 @@ structure GtkTreeModelSort :>
     type tree_iter_t = GtkTreeIterRecord.t
     type 'a tree_model_class = 'a GtkTreeModelClass.class
     type t = base class
-    fun asTreeDragSource self = (GObjectObjectClass.C.withPtr ---> GtkTreeDragSourceClass.C.fromPtr false) I self
-    fun asTreeModel self = (GObjectObjectClass.C.withPtr ---> GtkTreeModelClass.C.fromPtr false) I self
-    fun asTreeSortable self = (GObjectObjectClass.C.withPtr ---> GtkTreeSortableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun clearCache self = (GtkTreeModelSortClass.C.withPtr ---> I) clearCache_ self
+    fun asTreeDragSource self = (GObjectObjectClass.FFI.withPtr ---> GtkTreeDragSourceClass.FFI.fromPtr false) I self
+    fun asTreeModel self = (GObjectObjectClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) I self
+    fun asTreeSortable self = (GObjectObjectClass.FFI.withPtr ---> GtkTreeSortableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun clearCache self = (GtkTreeModelSortClass.FFI.withPtr ---> I) clearCache_ self
     fun convertChildIterToIter self childIter =
       let
         val sortIter & retVal =
           (
-            GtkTreeModelSortClass.C.withPtr
-             &&&> GtkTreeIterRecord.C.withNewPtr
-             &&&> GtkTreeIterRecord.C.withPtr
-             ---> GtkTreeIterRecord.C.fromPtr true && FFI.Bool.C.fromVal
+            GtkTreeModelSortClass.FFI.withPtr
+             &&&> GtkTreeIterRecord.FFI.withNewPtr
+             &&&> GtkTreeIterRecord.FFI.withPtr
+             ---> GtkTreeIterRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
             convertChildIterToIter_
             (
@@ -64,15 +64,15 @@ structure GtkTreeModelSort :>
       in
         if retVal then SOME sortIter else NONE
       end
-    fun convertChildPathToPath self childPath = (GtkTreeModelSortClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> GtkTreePathRecord.C.fromPtr true) convertChildPathToPath_ (self & childPath)
+    fun convertChildPathToPath self childPath = (GtkTreeModelSortClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GtkTreePathRecord.FFI.fromPtr true) convertChildPathToPath_ (self & childPath)
     fun convertIterToChildIter self sortedIter =
       let
         val childIter & () =
           (
-            GtkTreeModelSortClass.C.withPtr
-             &&&> GtkTreeIterRecord.C.withNewPtr
-             &&&> GtkTreeIterRecord.C.withPtr
-             ---> GtkTreeIterRecord.C.fromPtr true && I
+            GtkTreeModelSortClass.FFI.withPtr
+             &&&> GtkTreeIterRecord.FFI.withNewPtr
+             &&&> GtkTreeIterRecord.FFI.withPtr
+             ---> GtkTreeIterRecord.FFI.fromPtr true && I
           )
             convertIterToChildIter_
             (
@@ -83,10 +83,10 @@ structure GtkTreeModelSort :>
       in
         childIter
       end
-    fun convertPathToChildPath self sortedPath = (GtkTreeModelSortClass.C.withPtr &&&> GtkTreePathRecord.C.withPtr ---> GtkTreePathRecord.C.fromPtr true) convertPathToChildPath_ (self & sortedPath)
-    fun getModel self = (GtkTreeModelSortClass.C.withPtr ---> GtkTreeModelClass.C.fromPtr false) getModel_ self
-    fun iterIsValid self iter = (GtkTreeModelSortClass.C.withPtr &&&> GtkTreeIterRecord.C.withPtr ---> FFI.Bool.C.fromVal) iterIsValid_ (self & iter)
-    fun resetDefaultSortFunc self = (GtkTreeModelSortClass.C.withPtr ---> I) resetDefaultSortFunc_ self
+    fun convertPathToChildPath self sortedPath = (GtkTreeModelSortClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GtkTreePathRecord.FFI.fromPtr true) convertPathToChildPath_ (self & sortedPath)
+    fun getModel self = (GtkTreeModelSortClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
+    fun iterIsValid self iter = (GtkTreeModelSortClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) iterIsValid_ (self & iter)
+    fun resetDefaultSortFunc self = (GtkTreeModelSortClass.FFI.withPtr ---> I) resetDefaultSortFunc_ self
     local
       open Property
     in

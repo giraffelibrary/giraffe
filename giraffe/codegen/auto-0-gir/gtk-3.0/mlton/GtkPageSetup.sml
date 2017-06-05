@@ -5,17 +5,17 @@ structure GtkPageSetup :>
     where type paper_size_t = GtkPaperSizeRecord.t
     where type unit_t = GtkUnit.t =
   struct
-    val getType_ = _import "gtk_page_setup_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_page_setup_new" : unit -> GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p;
+    val getType_ = _import "gtk_page_setup_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_page_setup_new" : unit -> GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p;
     val newFromFile_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_page_setup_new_from_file" :
               Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p;
           )
             (
               x1,
@@ -29,11 +29,11 @@ structure GtkPageSetup :>
          & x4 =>
           (
             _import "mlton_gtk_page_setup_new_from_key_file" :
-              GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
+              GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p;
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p;
           )
             (
               x1,
@@ -41,17 +41,17 @@ structure GtkPageSetup :>
               x3,
               x4
             )
-    val copy_ = _import "gtk_page_setup_copy" : GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p -> GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p;
-    val getBottomMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_bottom_margin" : GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p * GtkUnit.C.val_ -> FFI.Double.C.val_;) (x1, x2)
-    val getLeftMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_left_margin" : GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p * GtkUnit.C.val_ -> FFI.Double.C.val_;) (x1, x2)
-    val getOrientation_ = _import "gtk_page_setup_get_orientation" : GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p -> GtkPageOrientation.C.val_;
-    val getPageHeight_ = fn x1 & x2 => (_import "gtk_page_setup_get_page_height" : GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p * GtkUnit.C.val_ -> FFI.Double.C.val_;) (x1, x2)
-    val getPageWidth_ = fn x1 & x2 => (_import "gtk_page_setup_get_page_width" : GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p * GtkUnit.C.val_ -> FFI.Double.C.val_;) (x1, x2)
-    val getPaperHeight_ = fn x1 & x2 => (_import "gtk_page_setup_get_paper_height" : GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p * GtkUnit.C.val_ -> FFI.Double.C.val_;) (x1, x2)
-    val getPaperSize_ = _import "gtk_page_setup_get_paper_size" : GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p -> GtkPaperSizeRecord.C.notnull GtkPaperSizeRecord.C.p;
-    val getPaperWidth_ = fn x1 & x2 => (_import "gtk_page_setup_get_paper_width" : GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p * GtkUnit.C.val_ -> FFI.Double.C.val_;) (x1, x2)
-    val getRightMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_right_margin" : GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p * GtkUnit.C.val_ -> FFI.Double.C.val_;) (x1, x2)
-    val getTopMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_top_margin" : GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p * GtkUnit.C.val_ -> FFI.Double.C.val_;) (x1, x2)
+    val copy_ = _import "gtk_page_setup_copy" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p -> GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p;
+    val getBottomMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_bottom_margin" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getLeftMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_left_margin" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getOrientation_ = _import "gtk_page_setup_get_orientation" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p -> GtkPageOrientation.FFI.val_;
+    val getPageHeight_ = fn x1 & x2 => (_import "gtk_page_setup_get_page_height" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getPageWidth_ = fn x1 & x2 => (_import "gtk_page_setup_get_page_width" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getPaperHeight_ = fn x1 & x2 => (_import "gtk_page_setup_get_paper_height" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getPaperSize_ = _import "gtk_page_setup_get_paper_size" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p -> GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p;
+    val getPaperWidth_ = fn x1 & x2 => (_import "gtk_page_setup_get_paper_width" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getRightMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_right_margin" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getTopMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_top_margin" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
     val loadFile_ =
       fn
         x1
@@ -59,11 +59,11 @@ structure GtkPageSetup :>
          & x4 =>
           (
             _import "mlton_gtk_page_setup_load_file" :
-              GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p
+              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -79,12 +79,12 @@ structure GtkPageSetup :>
          & x5 =>
           (
             _import "mlton_gtk_page_setup_load_key_file" :
-              GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p
-               * GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
+              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
+               * GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -100,9 +100,9 @@ structure GtkPageSetup :>
          & x3 =>
           (
             _import "gtk_page_setup_set_bottom_margin" :
-              GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p
-               * FFI.Double.C.val_
-               * GtkUnit.C.val_
+              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
+               * GDouble.FFI.val_
+               * GtkUnit.FFI.val_
                -> unit;
           )
             (
@@ -117,9 +117,9 @@ structure GtkPageSetup :>
          & x3 =>
           (
             _import "gtk_page_setup_set_left_margin" :
-              GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p
-               * FFI.Double.C.val_
-               * GtkUnit.C.val_
+              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
+               * GDouble.FFI.val_
+               * GtkUnit.FFI.val_
                -> unit;
           )
             (
@@ -127,9 +127,9 @@ structure GtkPageSetup :>
               x2,
               x3
             )
-    val setOrientation_ = fn x1 & x2 => (_import "gtk_page_setup_set_orientation" : GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p * GtkPageOrientation.C.val_ -> unit;) (x1, x2)
-    val setPaperSize_ = fn x1 & x2 => (_import "gtk_page_setup_set_paper_size" : GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p * GtkPaperSizeRecord.C.notnull GtkPaperSizeRecord.C.p -> unit;) (x1, x2)
-    val setPaperSizeAndDefaultMargins_ = fn x1 & x2 => (_import "gtk_page_setup_set_paper_size_and_default_margins" : GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p * GtkPaperSizeRecord.C.notnull GtkPaperSizeRecord.C.p -> unit;) (x1, x2)
+    val setOrientation_ = fn x1 & x2 => (_import "gtk_page_setup_set_orientation" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkPageOrientation.FFI.val_ -> unit;) (x1, x2)
+    val setPaperSize_ = fn x1 & x2 => (_import "gtk_page_setup_set_paper_size" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p -> unit;) (x1, x2)
+    val setPaperSizeAndDefaultMargins_ = fn x1 & x2 => (_import "gtk_page_setup_set_paper_size_and_default_margins" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p -> unit;) (x1, x2)
     val setRightMargin_ =
       fn
         x1
@@ -137,9 +137,9 @@ structure GtkPageSetup :>
          & x3 =>
           (
             _import "gtk_page_setup_set_right_margin" :
-              GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p
-               * FFI.Double.C.val_
-               * GtkUnit.C.val_
+              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
+               * GDouble.FFI.val_
+               * GtkUnit.FFI.val_
                -> unit;
           )
             (
@@ -154,9 +154,9 @@ structure GtkPageSetup :>
          & x3 =>
           (
             _import "gtk_page_setup_set_top_margin" :
-              GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p
-               * FFI.Double.C.val_
-               * GtkUnit.C.val_
+              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
+               * GDouble.FFI.val_
+               * GtkUnit.FFI.val_
                -> unit;
           )
             (
@@ -171,11 +171,11 @@ structure GtkPageSetup :>
          & x4 =>
           (
             _import "mlton_gtk_page_setup_to_file" :
-              GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p
+              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -190,10 +190,10 @@ structure GtkPageSetup :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_page_setup_to_key_file" :
-              GtkPageSetupClass.C.notnull GtkPageSetupClass.C.p
-               * GLibKeyFileRecord.C.notnull GLibKeyFileRecord.C.p
+              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
+               * GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -207,15 +207,15 @@ structure GtkPageSetup :>
     type paper_size_t = GtkPaperSizeRecord.t
     type unit_t = GtkUnit.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkPageSetupClass.C.fromPtr true) new_ ()
-    fun newFromFile fileName = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GtkPageSetupClass.C.fromPtr true) newFromFile_ (fileName & [])
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkPageSetupClass.FFI.fromPtr true) new_ ()
+    fun newFromFile fileName = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GtkPageSetupClass.FFI.fromPtr true) newFromFile_ (fileName & [])
     fun newFromKeyFile keyFile groupName =
       (
-        GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withOptPtr
+        GLibKeyFileRecord.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GtkPageSetupClass.C.fromPtr true
+         ---> GtkPageSetupClass.FFI.fromPtr true
       )
         newFromKeyFile_
         (
@@ -223,23 +223,23 @@ structure GtkPageSetup :>
            & groupName
            & []
         )
-    fun copy self = (GtkPageSetupClass.C.withPtr ---> GtkPageSetupClass.C.fromPtr true) copy_ self
-    fun getBottomMargin self unit = (GtkPageSetupClass.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getBottomMargin_ (self & unit)
-    fun getLeftMargin self unit = (GtkPageSetupClass.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getLeftMargin_ (self & unit)
-    fun getOrientation self = (GtkPageSetupClass.C.withPtr ---> GtkPageOrientation.C.fromVal) getOrientation_ self
-    fun getPageHeight self unit = (GtkPageSetupClass.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getPageHeight_ (self & unit)
-    fun getPageWidth self unit = (GtkPageSetupClass.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getPageWidth_ (self & unit)
-    fun getPaperHeight self unit = (GtkPageSetupClass.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getPaperHeight_ (self & unit)
-    fun getPaperSize self = (GtkPageSetupClass.C.withPtr ---> GtkPaperSizeRecord.C.fromPtr true) getPaperSize_ self
-    fun getPaperWidth self unit = (GtkPageSetupClass.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getPaperWidth_ (self & unit)
-    fun getRightMargin self unit = (GtkPageSetupClass.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getRightMargin_ (self & unit)
-    fun getTopMargin self unit = (GtkPageSetupClass.C.withPtr &&&> GtkUnit.C.withVal ---> FFI.Double.C.fromVal) getTopMargin_ (self & unit)
+    fun copy self = (GtkPageSetupClass.FFI.withPtr ---> GtkPageSetupClass.FFI.fromPtr true) copy_ self
+    fun getBottomMargin self unit = (GtkPageSetupClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getBottomMargin_ (self & unit)
+    fun getLeftMargin self unit = (GtkPageSetupClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getLeftMargin_ (self & unit)
+    fun getOrientation self = (GtkPageSetupClass.FFI.withPtr ---> GtkPageOrientation.FFI.fromVal) getOrientation_ self
+    fun getPageHeight self unit = (GtkPageSetupClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPageHeight_ (self & unit)
+    fun getPageWidth self unit = (GtkPageSetupClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPageWidth_ (self & unit)
+    fun getPaperHeight self unit = (GtkPageSetupClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPaperHeight_ (self & unit)
+    fun getPaperSize self = (GtkPageSetupClass.FFI.withPtr ---> GtkPaperSizeRecord.FFI.fromPtr true) getPaperSize_ self
+    fun getPaperWidth self unit = (GtkPageSetupClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPaperWidth_ (self & unit)
+    fun getRightMargin self unit = (GtkPageSetupClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getRightMargin_ (self & unit)
+    fun getTopMargin self unit = (GtkPageSetupClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getTopMargin_ (self & unit)
     fun loadFile self fileName =
       (
-        GtkPageSetupClass.C.withPtr
-         &&&> Utf8.C.withPtr
+        GtkPageSetupClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         loadFile_
         (
@@ -249,11 +249,11 @@ structure GtkPageSetup :>
         )
     fun loadKeyFile self keyFile groupName =
       (
-        GtkPageSetupClass.C.withPtr
-         &&&> GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withOptPtr
+        GtkPageSetupClass.FFI.withPtr
+         &&&> GLibKeyFileRecord.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         loadKeyFile_
         (
@@ -264,9 +264,9 @@ structure GtkPageSetup :>
         )
     fun setBottomMargin self margin unit =
       (
-        GtkPageSetupClass.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> GtkUnit.C.withVal
+        GtkPageSetupClass.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GtkUnit.FFI.withVal
          ---> I
       )
         setBottomMargin_
@@ -277,9 +277,9 @@ structure GtkPageSetup :>
         )
     fun setLeftMargin self margin unit =
       (
-        GtkPageSetupClass.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> GtkUnit.C.withVal
+        GtkPageSetupClass.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GtkUnit.FFI.withVal
          ---> I
       )
         setLeftMargin_
@@ -288,14 +288,14 @@ structure GtkPageSetup :>
            & margin
            & unit
         )
-    fun setOrientation self orientation = (GtkPageSetupClass.C.withPtr &&&> GtkPageOrientation.C.withVal ---> I) setOrientation_ (self & orientation)
-    fun setPaperSize self size = (GtkPageSetupClass.C.withPtr &&&> GtkPaperSizeRecord.C.withPtr ---> I) setPaperSize_ (self & size)
-    fun setPaperSizeAndDefaultMargins self size = (GtkPageSetupClass.C.withPtr &&&> GtkPaperSizeRecord.C.withPtr ---> I) setPaperSizeAndDefaultMargins_ (self & size)
+    fun setOrientation self orientation = (GtkPageSetupClass.FFI.withPtr &&&> GtkPageOrientation.FFI.withVal ---> I) setOrientation_ (self & orientation)
+    fun setPaperSize self size = (GtkPageSetupClass.FFI.withPtr &&&> GtkPaperSizeRecord.FFI.withPtr ---> I) setPaperSize_ (self & size)
+    fun setPaperSizeAndDefaultMargins self size = (GtkPageSetupClass.FFI.withPtr &&&> GtkPaperSizeRecord.FFI.withPtr ---> I) setPaperSizeAndDefaultMargins_ (self & size)
     fun setRightMargin self margin unit =
       (
-        GtkPageSetupClass.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> GtkUnit.C.withVal
+        GtkPageSetupClass.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GtkUnit.FFI.withVal
          ---> I
       )
         setRightMargin_
@@ -306,9 +306,9 @@ structure GtkPageSetup :>
         )
     fun setTopMargin self margin unit =
       (
-        GtkPageSetupClass.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> GtkUnit.C.withVal
+        GtkPageSetupClass.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GtkUnit.FFI.withVal
          ---> I
       )
         setTopMargin_
@@ -319,10 +319,10 @@ structure GtkPageSetup :>
         )
     fun toFile self fileName =
       (
-        GtkPageSetupClass.C.withPtr
-         &&&> Utf8.C.withPtr
+        GtkPageSetupClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         toFile_
         (
@@ -332,9 +332,9 @@ structure GtkPageSetup :>
         )
     fun toKeyFile self keyFile groupName =
       (
-        GtkPageSetupClass.C.withPtr
-         &&&> GLibKeyFileRecord.C.withPtr
-         &&&> Utf8.C.withPtr
+        GtkPageSetupClass.FFI.withPtr
+         &&&> GLibKeyFileRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         toKeyFile_

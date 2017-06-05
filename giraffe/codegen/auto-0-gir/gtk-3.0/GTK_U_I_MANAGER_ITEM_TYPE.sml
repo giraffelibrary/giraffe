@@ -1,9 +1,6 @@
 signature GTK_U_I_MANAGER_ITEM_TYPE =
   sig
-    eqtype t
-    include
-      BIT_FLAGS
-        where type flags = t
+    include FLAGS
     val AUTO : t
     val MENUBAR : t
     val MENU : t
@@ -17,18 +14,4 @@ signature GTK_U_I_MANAGER_ITEM_TYPE =
     val POPUP_WITH_ACCELS : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
-    structure C :
-      sig
-        type val_
-        type ref_
-        val withVal :
-          (val_ -> 'a)
-           -> t
-           -> 'a
-        val withRefVal :
-          (ref_ -> 'a)
-           -> t
-           -> (val_, 'a) pair
-        val fromVal : val_ -> t
-      end
   end

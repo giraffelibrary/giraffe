@@ -1,16 +1,8 @@
 structure GLibSpawnError :>
-  sig
-    include
-      G_LIB_SPAWN_ERROR
-        where type error_handler = GLibErrorRecord.handler
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+  G_LIB_SPAWN_ERROR
+    where type error_handler = GLibErrorRecord.handler =
   struct
-    datatype t =
+    datatype enum =
       FORK
     | READ
     | CHDIR
@@ -31,35 +23,34 @@ structure GLibSpawnError :>
     | ISDIR
     | LIBBAD
     | FAILED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = FORK
+        val toInt =
           fn
-            FORK => f 0
-          | READ => f 1
-          | CHDIR => f 2
-          | ACCES => f 3
-          | PERM => f 4
-          | TOO_BIG => f 5
-          | NOEXEC => f 6
-          | NAMETOOLONG => f 7
-          | NOENT => f 8
-          | NOMEM => f 9
-          | NOTDIR => f 10
-          | LOOP => f 11
-          | TXTBUSY => f 12
-          | IO => f 13
-          | NFILE => f 14
-          | MFILE => f 15
-          | INVAL => f 16
-          | ISDIR => f 17
-          | LIBBAD => f 18
-          | FAILED => f 19
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            FORK => 0
+          | READ => 1
+          | CHDIR => 2
+          | ACCES => 3
+          | PERM => 4
+          | TOO_BIG => 5
+          | NOEXEC => 6
+          | NAMETOOLONG => 7
+          | NOENT => 8
+          | NOMEM => 9
+          | NOTDIR => 10
+          | LOOP => 11
+          | TXTBUSY => 12
+          | IO => 13
+          | NFILE => 14
+          | MFILE => 15
+          | INVAL => 16
+          | ISDIR => 17
+          | LIBBAD => 18
+          | FAILED => 19
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => FORK
           | 1 => READ
@@ -82,19 +73,15 @@ structure GLibSpawnError :>
           | 18 => LIBBAD
           | 19 => FAILED
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     exception Error of t
     type error_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (
           "g-exec-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
   end

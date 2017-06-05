@@ -1,16 +1,8 @@
 structure GLibMarkupError :>
-  sig
-    include
-      G_LIB_MARKUP_ERROR
-        where type error_handler = GLibErrorRecord.handler
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+  G_LIB_MARKUP_ERROR
+    where type error_handler = GLibErrorRecord.handler =
   struct
-    datatype t =
+    datatype enum =
       BAD_UTF_8
     | EMPTY
     | PARSE
@@ -18,22 +10,21 @@ structure GLibMarkupError :>
     | UNKNOWN_ATTRIBUTE
     | INVALID_CONTENT
     | MISSING_ATTRIBUTE
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = BAD_UTF_8
+        val toInt =
           fn
-            BAD_UTF_8 => f 0
-          | EMPTY => f 1
-          | PARSE => f 2
-          | UNKNOWN_ELEMENT => f 3
-          | UNKNOWN_ATTRIBUTE => f 4
-          | INVALID_CONTENT => f 5
-          | MISSING_ATTRIBUTE => f 6
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            BAD_UTF_8 => 0
+          | EMPTY => 1
+          | PARSE => 2
+          | UNKNOWN_ELEMENT => 3
+          | UNKNOWN_ATTRIBUTE => 4
+          | INVALID_CONTENT => 5
+          | MISSING_ATTRIBUTE => 6
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => BAD_UTF_8
           | 1 => EMPTY
@@ -43,19 +34,15 @@ structure GLibMarkupError :>
           | 5 => INVALID_CONTENT
           | 6 => MISSING_ATTRIBUTE
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     exception Error of t
     type error_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (
           "g-markup-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
   end

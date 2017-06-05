@@ -1,1 +1,1 @@
-structure GLibQuark = FFI.UInt32
+structure GLibQuark = GUInt32

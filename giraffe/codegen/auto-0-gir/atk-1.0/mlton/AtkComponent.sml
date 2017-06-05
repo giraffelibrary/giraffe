@@ -6,7 +6,7 @@ structure AtkComponent :>
     where type coord_type_t = AtkCoordType.t
     where type rectangle_t = AtkRectangleRecord.t =
   struct
-    val getType_ = _import "atk_component_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "atk_component_get_type" : unit -> GObjectType.FFI.val_;
     val contains_ =
       fn
         x1
@@ -15,11 +15,11 @@ structure AtkComponent :>
          & x4 =>
           (
             _import "atk_component_contains" :
-              AtkComponentClass.C.notnull AtkComponentClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               * AtkCoordType.C.val_
-               -> FFI.Bool.C.val_;
+              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * AtkCoordType.FFI.val_
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -27,10 +27,10 @@ structure AtkComponent :>
               x3,
               x4
             )
-    val getAlpha_ = _import "atk_component_get_alpha" : AtkComponentClass.C.notnull AtkComponentClass.C.p -> FFI.Double.C.val_;
-    val getLayer_ = _import "atk_component_get_layer" : AtkComponentClass.C.notnull AtkComponentClass.C.p -> AtkLayer.C.val_;
-    val getMdiZorder_ = _import "atk_component_get_mdi_zorder" : AtkComponentClass.C.notnull AtkComponentClass.C.p -> FFI.Int.C.val_;
-    val grabFocus_ = _import "atk_component_grab_focus" : AtkComponentClass.C.notnull AtkComponentClass.C.p -> FFI.Bool.C.val_;
+    val getAlpha_ = _import "atk_component_get_alpha" : AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p -> GDouble.FFI.val_;
+    val getLayer_ = _import "atk_component_get_layer" : AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p -> AtkLayer.FFI.val_;
+    val getMdiZorder_ = _import "atk_component_get_mdi_zorder" : AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p -> GInt.FFI.val_;
+    val grabFocus_ = _import "atk_component_grab_focus" : AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p -> GBool.FFI.val_;
     val refAccessibleAtPoint_ =
       fn
         x1
@@ -39,11 +39,11 @@ structure AtkComponent :>
          & x4 =>
           (
             _import "atk_component_ref_accessible_at_point" :
-              AtkComponentClass.C.notnull AtkComponentClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               * AtkCoordType.C.val_
-               -> AtkObjectClass.C.notnull AtkObjectClass.C.p;
+              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * AtkCoordType.FFI.val_
+               -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
           )
             (
               x1,
@@ -51,7 +51,7 @@ structure AtkComponent :>
               x3,
               x4
             )
-    val removeFocusHandler_ = fn x1 & x2 => (_import "atk_component_remove_focus_handler" : AtkComponentClass.C.notnull AtkComponentClass.C.p * FFI.UInt.C.val_ -> unit;) (x1, x2)
+    val removeFocusHandler_ = fn x1 & x2 => (_import "atk_component_remove_focus_handler" : AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     val setExtents_ =
       fn
         x1
@@ -62,13 +62,13 @@ structure AtkComponent :>
          & x6 =>
           (
             _import "atk_component_set_extents" :
-              AtkComponentClass.C.notnull AtkComponentClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               * AtkCoordType.C.val_
-               -> FFI.Bool.C.val_;
+              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * AtkCoordType.FFI.val_
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -86,11 +86,11 @@ structure AtkComponent :>
          & x4 =>
           (
             _import "atk_component_set_position" :
-              AtkComponentClass.C.notnull AtkComponentClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               * AtkCoordType.C.val_
-               -> FFI.Bool.C.val_;
+              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * AtkCoordType.FFI.val_
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -105,10 +105,10 @@ structure AtkComponent :>
          & x3 =>
           (
             _import "atk_component_set_size" :
-              AtkComponentClass.C.notnull AtkComponentClass.C.p
-               * FFI.Int.C.val_
-               * FFI.Int.C.val_
-               -> FFI.Bool.C.val_;
+              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -121,14 +121,14 @@ structure AtkComponent :>
     type coord_type_t = AtkCoordType.t
     type rectangle_t = AtkRectangleRecord.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun contains self x y coordType =
       (
-        AtkComponentClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> AtkCoordType.C.withVal
-         ---> FFI.Bool.C.fromVal
+        AtkComponentClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> AtkCoordType.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         contains_
         (
@@ -137,17 +137,17 @@ structure AtkComponent :>
            & y
            & coordType
         )
-    fun getAlpha self = (AtkComponentClass.C.withPtr ---> FFI.Double.C.fromVal) getAlpha_ self
-    fun getLayer self = (AtkComponentClass.C.withPtr ---> AtkLayer.C.fromVal) getLayer_ self
-    fun getMdiZorder self = (AtkComponentClass.C.withPtr ---> FFI.Int.C.fromVal) getMdiZorder_ self
-    fun grabFocus self = (AtkComponentClass.C.withPtr ---> FFI.Bool.C.fromVal) grabFocus_ self
+    fun getAlpha self = (AtkComponentClass.FFI.withPtr ---> GDouble.FFI.fromVal) getAlpha_ self
+    fun getLayer self = (AtkComponentClass.FFI.withPtr ---> AtkLayer.FFI.fromVal) getLayer_ self
+    fun getMdiZorder self = (AtkComponentClass.FFI.withPtr ---> GInt.FFI.fromVal) getMdiZorder_ self
+    fun grabFocus self = (AtkComponentClass.FFI.withPtr ---> GBool.FFI.fromVal) grabFocus_ self
     fun refAccessibleAtPoint self x y coordType =
       (
-        AtkComponentClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> AtkCoordType.C.withVal
-         ---> AtkObjectClass.C.fromPtr true
+        AtkComponentClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> AtkCoordType.FFI.withVal
+         ---> AtkObjectClass.FFI.fromPtr true
       )
         refAccessibleAtPoint_
         (
@@ -156,16 +156,16 @@ structure AtkComponent :>
            & y
            & coordType
         )
-    fun removeFocusHandler self handlerId = (AtkComponentClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) removeFocusHandler_ (self & handlerId)
+    fun removeFocusHandler self handlerId = (AtkComponentClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) removeFocusHandler_ (self & handlerId)
     fun setExtents self x y width height coordType =
       (
-        AtkComponentClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> AtkCoordType.C.withVal
-         ---> FFI.Bool.C.fromVal
+        AtkComponentClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> AtkCoordType.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         setExtents_
         (
@@ -178,11 +178,11 @@ structure AtkComponent :>
         )
     fun setPosition self x y coordType =
       (
-        AtkComponentClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         &&&> AtkCoordType.C.withVal
-         ---> FFI.Bool.C.fromVal
+        AtkComponentClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> AtkCoordType.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         setPosition_
         (
@@ -193,10 +193,10 @@ structure AtkComponent :>
         )
     fun setSize self width height =
       (
-        AtkComponentClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         ---> FFI.Bool.C.fromVal
+        AtkComponentClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         setSize_
         (

@@ -3,19 +3,19 @@ structure GioSocketService :>
     where type 'a class = 'a GioSocketServiceClass.class
     where type 'a socket_connection_class = 'a GioSocketConnectionClass.class =
   struct
-    val getType_ = _import "g_socket_service_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "g_socket_service_new" : unit -> GioSocketServiceClass.C.notnull GioSocketServiceClass.C.p;
-    val isActive_ = _import "g_socket_service_is_active" : GioSocketServiceClass.C.notnull GioSocketServiceClass.C.p -> FFI.Bool.C.val_;
-    val start_ = _import "g_socket_service_start" : GioSocketServiceClass.C.notnull GioSocketServiceClass.C.p -> unit;
-    val stop_ = _import "g_socket_service_stop" : GioSocketServiceClass.C.notnull GioSocketServiceClass.C.p -> unit;
+    val getType_ = _import "g_socket_service_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "g_socket_service_new" : unit -> GioSocketServiceClass.FFI.notnull GioSocketServiceClass.FFI.p;
+    val isActive_ = _import "g_socket_service_is_active" : GioSocketServiceClass.FFI.notnull GioSocketServiceClass.FFI.p -> GBool.FFI.val_;
+    val start_ = _import "g_socket_service_start" : GioSocketServiceClass.FFI.notnull GioSocketServiceClass.FFI.p -> unit;
+    val stop_ = _import "g_socket_service_stop" : GioSocketServiceClass.FFI.notnull GioSocketServiceClass.FFI.p -> unit;
     type 'a class = 'a GioSocketServiceClass.class
     type 'a socket_connection_class = 'a GioSocketConnectionClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GioSocketServiceClass.C.fromPtr true) new_ ()
-    fun isActive self = (GioSocketServiceClass.C.withPtr ---> FFI.Bool.C.fromVal) isActive_ self
-    fun start self = (GioSocketServiceClass.C.withPtr ---> I) start_ self
-    fun stop self = (GioSocketServiceClass.C.withPtr ---> I) stop_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GioSocketServiceClass.FFI.fromPtr true) new_ ()
+    fun isActive self = (GioSocketServiceClass.FFI.withPtr ---> GBool.FFI.fromVal) isActive_ self
+    fun start self = (GioSocketServiceClass.FFI.withPtr ---> I) start_ self
+    fun stop self = (GioSocketServiceClass.FFI.withPtr ---> I) stop_ self
     local
       open ClosureMarshal Signal
     in

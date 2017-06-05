@@ -37,7 +37,7 @@ structure GLibSourceFunc :>
     val _ = _export "giraffe_source_destroy_smlside" : (SourceCallback.id -> unit) -> unit; 
     SourceCallback.remove
 
-    structure C =
+    structure FFI =
       struct
         type callback = SourceCallback.id
         fun withCallback f callback =

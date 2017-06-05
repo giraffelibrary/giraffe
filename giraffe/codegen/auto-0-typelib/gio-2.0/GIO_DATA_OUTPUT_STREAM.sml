@@ -10,7 +10,7 @@ signature GIO_DATA_OUTPUT_STREAM =
     val getByteOrder : 'a class -> data_stream_byte_order_t
     val putByte :
       'a class
-       -> LargeInt.int
+       -> Word8.word
        -> 'b cancellable_class option
        -> bool
     val putInt16 :

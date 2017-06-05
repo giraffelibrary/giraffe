@@ -4,7 +4,9 @@ signature GDK_PIXBUF_PIXBUF_FORMAT =
     val getType : unit -> GObject.Type.t
     val copy : t -> t
     val getDescription : t -> string
+    val getExtensions : t -> string list
     val getLicense : t -> string
+    val getMimeTypes : t -> string list
     val getName : t -> string
     val isDisabled : t -> bool
     val isScalable : t -> bool

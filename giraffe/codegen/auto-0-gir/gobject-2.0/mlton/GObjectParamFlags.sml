@@ -1,7 +1,4 @@
-structure GObjectParamFlags :>
-  sig
-    include G_OBJECT_PARAM_FLAGS
-  end =
+structure GObjectParamFlags :> G_OBJECT_PARAM_FLAGS =
   struct
     val READABLE = 0w1
     val WRITABLE = 0w2
@@ -26,18 +23,9 @@ structure GObjectParamFlags :>
         STATIC_BLURB,
         DEPRECATED
       ]
-    structure BitFlags =
-      Word32BitFlags (
+    structure Flags =
+      Flags(
         val allFlags = allFlags
       )
-    open BitFlags
-    type t = flags
-    structure C =
-      struct
-        type val_ = FFI.Flags.C.val_
-        type ref_ = FFI.Flags.C.ref_
-        fun withVal f = f
-        fun withRefVal f = withVal (FFI.Flags.C.withRef f)
-        fun fromVal w = w
-      end
+    open Flags
   end

@@ -3,7 +3,7 @@ structure GtkRadioAction :>
     where type 'a class = 'a GtkRadioActionClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
-    val getType_ = _import "gtk_radio_action_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "gtk_radio_action_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
         (x1, x2)
@@ -14,15 +14,15 @@ structure GtkRadioAction :>
           (
             _import "mlton_gtk_radio_action_new" :
               Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               * FFI.Int32.C.val_
-               -> GtkRadioActionClass.C.notnull GtkRadioActionClass.C.p;
+               * GInt32.FFI.val_
+               -> GtkRadioActionClass.FFI.notnull GtkRadioActionClass.FFI.p;
           )
             (
               x1,
@@ -35,22 +35,22 @@ structure GtkRadioAction :>
               x8,
               x9
             )
-    val getCurrentValue_ = _import "gtk_radio_action_get_current_value" : GtkRadioActionClass.C.notnull GtkRadioActionClass.C.p -> FFI.Int32.C.val_;
-    val joinGroup_ = fn x1 & x2 => (_import "gtk_radio_action_join_group" : GtkRadioActionClass.C.notnull GtkRadioActionClass.C.p * unit GtkRadioActionClass.C.p -> unit;) (x1, x2)
-    val setCurrentValue_ = fn x1 & x2 => (_import "gtk_radio_action_set_current_value" : GtkRadioActionClass.C.notnull GtkRadioActionClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val getCurrentValue_ = _import "gtk_radio_action_get_current_value" : GtkRadioActionClass.FFI.notnull GtkRadioActionClass.FFI.p -> GInt32.FFI.val_;
+    val joinGroup_ = fn x1 & x2 => (_import "gtk_radio_action_join_group" : GtkRadioActionClass.FFI.notnull GtkRadioActionClass.FFI.p * unit GtkRadioActionClass.FFI.p -> unit;) (x1, x2)
+    val setCurrentValue_ = fn x1 & x2 => (_import "gtk_radio_action_set_current_value" : GtkRadioActionClass.FFI.notnull GtkRadioActionClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkRadioActionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new name label tooltip stockId value =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> FFI.Int32.C.withVal
-         ---> GtkRadioActionClass.C.fromPtr true
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GInt32.FFI.withVal
+         ---> GtkRadioActionClass.FFI.fromPtr true
       )
         new_
         (
@@ -60,9 +60,9 @@ structure GtkRadioAction :>
            & stockId
            & value
         )
-    fun getCurrentValue self = (GtkRadioActionClass.C.withPtr ---> FFI.Int32.C.fromVal) getCurrentValue_ self
-    fun joinGroup self groupSource = (GtkRadioActionClass.C.withPtr &&&> GtkRadioActionClass.C.withOptPtr ---> I) joinGroup_ (self & groupSource)
-    fun setCurrentValue self currentValue = (GtkRadioActionClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setCurrentValue_ (self & currentValue)
+    fun getCurrentValue self = (GtkRadioActionClass.FFI.withPtr ---> GInt32.FFI.fromVal) getCurrentValue_ self
+    fun joinGroup self groupSource = (GtkRadioActionClass.FFI.withPtr &&&> GtkRadioActionClass.FFI.withOptPtr ---> I) joinGroup_ (self & groupSource)
+    fun setCurrentValue self currentValue = (GtkRadioActionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setCurrentValue_ (self & currentValue)
     local
       open ClosureMarshal Signal
     in

@@ -1,1 +1,1 @@
-signature G_LIB_TIME_SPAN = F_F_I_SCALAR
+signature G_LIB_TIME_SPAN = C_SCALAR

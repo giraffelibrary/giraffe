@@ -3,7 +3,7 @@ structure GtkSource : GTK_SOURCE =
     local
       open PolyMLFFI
     in
-      val completionErrorQuark_ = call (load_sym libgtksourceview "gtk_source_completion_error_quark") (PolyMLFFI.cVoid --> FFI.UInt32.PolyML.cVal)
+      val completionErrorQuark_ = call (load_sym libgtksourceview "gtk_source_completion_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
     end
     structure BracketMatchType = GtkSourceBracketMatchType
     structure BufferClass = GtkSourceBufferClass
@@ -60,5 +60,5 @@ structure GtkSource : GTK_SOURCE =
     structure GutterRendererText = GtkSourceGutterRendererText
     val COMPLETION_CAPABILITY_AUTOMATIC = "standard::automatic"
     val COMPLETION_CAPABILITY_INTERACTIVE = "standard::interactive"
-    fun completionErrorQuark () = (I ---> FFI.UInt32.C.fromVal) completionErrorQuark_ ()
+    fun completionErrorQuark () = (I ---> GUInt32.FFI.fromVal) completionErrorQuark_ ()
   end

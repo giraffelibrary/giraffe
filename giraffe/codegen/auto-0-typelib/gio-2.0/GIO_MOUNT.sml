@@ -5,6 +5,7 @@ signature GIO_MOUNT =
     type 'a icon_class
     type 'a file_class
     type 'a volume_class
+    type 'a cancellable_class
     type 'a async_result_class
     type t = base class
     val getType : unit -> GObject.Type.t
@@ -21,6 +22,15 @@ signature GIO_MOUNT =
     val getRoot : 'a class -> base file_class
     val getUuid : 'a class -> string
     val getVolume : 'a class -> base volume_class
+    val guessContentTypeFinish :
+      'a class
+       -> 'b async_result_class
+       -> string list
+    val guessContentTypeSync :
+      'a class
+       -> bool
+       -> 'b cancellable_class option
+       -> string list
     val isShadowed : 'a class -> bool
     val remountFinish :
       'a class

@@ -15,9 +15,9 @@ structure GdkDeviceManager :>
     type 'a device_class = 'a GdkDeviceClass.class
     type 'a display_class = 'a GdkDisplayClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getClientPointer self = (GdkDeviceManagerClass.C.withPtr ---> GdkDeviceClass.C.fromPtr false) getClientPointer_ self
-    fun getDisplay self = (GdkDeviceManagerClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getClientPointer self = (GdkDeviceManagerClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromPtr false) getClientPointer_ self
+    fun getDisplay self = (GdkDeviceManagerClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
     local
       open ClosureMarshal Signal
     in

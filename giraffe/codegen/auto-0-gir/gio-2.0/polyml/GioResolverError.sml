@@ -1,40 +1,27 @@
-structure GioResolverError :>
-  sig
-    include GIO_RESOLVER_ERROR
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GioResolverError :> GIO_RESOLVER_ERROR =
   struct
-    datatype t =
+    datatype enum =
       NOT_FOUND
     | TEMPORARY_FAILURE
     | INTERNAL
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NOT_FOUND
+        val toInt =
           fn
-            NOT_FOUND => f 0
-          | TEMPORARY_FAILURE => f 1
-          | INTERNAL => f 2
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NOT_FOUND => 0
+          | TEMPORARY_FAILURE => 1
+          | INTERNAL => 2
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => NOT_FOUND
           | 1 => TEMPORARY_FAILURE
           | 2 => INTERNAL
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -45,18 +32,18 @@ structure GioResolverError :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
     exception Error of t
     val handler =
       GLibErrorRecord.makeHandler
         (
           "g-resolver-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end
 exception GioResolverError = GioResolverError.Error

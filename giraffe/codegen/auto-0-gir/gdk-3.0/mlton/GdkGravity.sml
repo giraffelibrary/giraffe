@@ -1,9 +1,6 @@
-structure GdkGravity :>
-  sig
-    include GDK_GRAVITY
-  end =
+structure GdkGravity :> GDK_GRAVITY =
   struct
-    datatype t =
+    datatype enum =
       NORTH_WEST
     | NORTH
     | NORTH_EAST
@@ -14,25 +11,24 @@ structure GdkGravity :>
     | SOUTH
     | SOUTH_EAST
     | STATIC
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NORTH_WEST
+        val toInt =
           fn
-            NORTH_WEST => f 1
-          | NORTH => f 2
-          | NORTH_EAST => f 3
-          | WEST => f 4
-          | CENTER => f 5
-          | EAST => f 6
-          | SOUTH_WEST => f 7
-          | SOUTH => f 8
-          | SOUTH_EAST => f 9
-          | STATIC => f 10
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NORTH_WEST => 1
+          | NORTH => 2
+          | NORTH_EAST => 3
+          | WEST => 4
+          | CENTER => 5
+          | EAST => 6
+          | SOUTH_WEST => 7
+          | SOUTH => 8
+          | SOUTH_EAST => 9
+          | STATIC => 10
+        exception Value of GInt.t
+        val fromInt =
           fn
             1 => NORTH_WEST
           | 2 => NORTH
@@ -45,17 +41,17 @@ structure GdkGravity :>
           | 9 => SOUTH_EAST
           | 10 => STATIC
           | n => raise Value n
-      end
-    val getType_ = _import "gdk_gravity_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "gdk_gravity_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = NORTH_WEST
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

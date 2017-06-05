@@ -36,12 +36,12 @@ fun makeAliasSig
     fun scalarSigId optSourceRef _ =
       case optSourceRef of
         SOME sourceRef => makeSourceRefSig sourceRef
-      | NONE           => ("F_F_I_SCALAR", SIMPLE, [])
+      | NONE           => ("C_SCALAR", SIMPLE, [])
 
     fun utf8SigId optSourceRef =
       case optSourceRef of
         SOME sourceRef => makeSourceRefSig sourceRef
-      | NONE           => ("F_F_I_STRING", SIMPLE, [])
+      | NONE           => ("UTF8", SIMPLE, [])
 
     fun resolveType optSourceRef typeInfo =
       let
@@ -180,12 +180,12 @@ fun makeAliasStr
     fun scalarStrIds optSourceRef ty =
       case optSourceRef of
         SOME sourceRef => makeSourceRefStr sourceRef
-      | NONE           => (("FFI", [scalarStrId ty]), SIMPLE, [])
+      | NONE           => ((gStrId ^ scalarStrId ty, []), SIMPLE, [])
 
     fun utf8StrIds optSourceRef =
       case optSourceRef of
         SOME sourceRef => makeSourceRefStr sourceRef
-      | NONE           => (("FFI", ["String"]), SIMPLE, [])
+      | NONE           => (("Utf8", []), SIMPLE, [])
 
     fun resolveType optSourceRef typeInfo =
       let

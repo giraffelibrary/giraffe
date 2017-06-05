@@ -18,10 +18,10 @@ structure GtkWindowGroup :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type 'a window_class = 'a GtkWindowClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkWindowGroupClass.C.fromPtr true) new_ ()
-    fun addWindow self window = (GtkWindowGroupClass.C.withPtr &&&> GtkWindowClass.C.withPtr ---> I) addWindow_ (self & window)
-    fun getCurrentDeviceGrab self device = (GtkWindowGroupClass.C.withPtr &&&> GdkDeviceClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getCurrentDeviceGrab_ (self & device)
-    fun getCurrentGrab self = (GtkWindowGroupClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getCurrentGrab_ self
-    fun removeWindow self window = (GtkWindowGroupClass.C.withPtr &&&> GtkWindowClass.C.withPtr ---> I) removeWindow_ (self & window)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkWindowGroupClass.FFI.fromPtr true) new_ ()
+    fun addWindow self window = (GtkWindowGroupClass.FFI.withPtr &&&> GtkWindowClass.FFI.withPtr ---> I) addWindow_ (self & window)
+    fun getCurrentDeviceGrab self device = (GtkWindowGroupClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getCurrentDeviceGrab_ (self & device)
+    fun getCurrentGrab self = (GtkWindowGroupClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getCurrentGrab_ self
+    fun removeWindow self window = (GtkWindowGroupClass.FFI.withPtr &&&> GtkWindowClass.FFI.withPtr ---> I) removeWindow_ (self & window)
   end

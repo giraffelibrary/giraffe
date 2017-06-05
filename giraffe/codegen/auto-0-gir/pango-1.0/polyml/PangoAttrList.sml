@@ -17,25 +17,25 @@ structure PangoAttrList :>
           (
             PangoAttrListRecord.PolyML.cPtr
              &&> PangoAttrListRecord.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
     end
     type t = PangoAttrListRecord.t
     type attribute_t = PangoAttributeRecord.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> PangoAttrListRecord.C.fromPtr true) new_ ()
-    fun change self attr = (PangoAttrListRecord.C.withPtr &&&> PangoAttributeRecord.C.withPtr ---> I) change_ (self & attr)
-    fun copy self = (PangoAttrListRecord.C.withPtr ---> PangoAttrListRecord.C.fromPtr true) copy_ self
-    fun insert self attr = (PangoAttrListRecord.C.withPtr &&&> PangoAttributeRecord.C.withPtr ---> I) insert_ (self & attr)
-    fun insertBefore self attr = (PangoAttrListRecord.C.withPtr &&&> PangoAttributeRecord.C.withPtr ---> I) insertBefore_ (self & attr)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> PangoAttrListRecord.FFI.fromPtr true) new_ ()
+    fun change self attr = (PangoAttrListRecord.FFI.withPtr &&&> PangoAttributeRecord.FFI.withPtr ---> I) change_ (self & attr)
+    fun copy self = (PangoAttrListRecord.FFI.withPtr ---> PangoAttrListRecord.FFI.fromPtr true) copy_ self
+    fun insert self attr = (PangoAttrListRecord.FFI.withPtr &&&> PangoAttributeRecord.FFI.withPtr ---> I) insert_ (self & attr)
+    fun insertBefore self attr = (PangoAttrListRecord.FFI.withPtr &&&> PangoAttributeRecord.FFI.withPtr ---> I) insertBefore_ (self & attr)
     fun splice self other pos len =
       (
-        PangoAttrListRecord.C.withPtr
-         &&&> PangoAttrListRecord.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
+        PangoAttrListRecord.FFI.withPtr
+         &&&> PangoAttrListRecord.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
          ---> I
       )
         splice_

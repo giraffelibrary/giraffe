@@ -1,35 +1,26 @@
-structure GdkNotifyType :>
-  sig
-    include GDK_NOTIFY_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GdkNotifyType :> GDK_NOTIFY_TYPE =
   struct
-    datatype t =
+    datatype enum =
       ANCESTOR
     | VIRTUAL
     | INFERIOR
     | NONLINEAR
     | NONLINEAR_VIRTUAL
     | UNKNOWN
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = ANCESTOR
+        val toInt =
           fn
-            ANCESTOR => f 0
-          | VIRTUAL => f 1
-          | INFERIOR => f 2
-          | NONLINEAR => f 3
-          | NONLINEAR_VIRTUAL => f 4
-          | UNKNOWN => f 5
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            ANCESTOR => 0
+          | VIRTUAL => 1
+          | INFERIOR => 2
+          | NONLINEAR => 3
+          | NONLINEAR_VIRTUAL => 4
+          | UNKNOWN => 5
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => ANCESTOR
           | 1 => VIRTUAL
@@ -38,12 +29,8 @@ structure GdkNotifyType :>
           | 4 => NONLINEAR_VIRTUAL
           | 5 => UNKNOWN
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -54,10 +41,9 @@ structure GdkNotifyType :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = ANCESTOR
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

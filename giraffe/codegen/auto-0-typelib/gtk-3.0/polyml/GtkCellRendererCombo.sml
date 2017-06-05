@@ -14,8 +14,8 @@ structure GtkCellRendererCombo :>
     type tree_iter_t = GtkTreeIterRecord.t
     type 'a tree_model_class = 'a GtkTreeModelClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkCellRendererComboClass.C.fromPtr false) new_ ()
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkCellRendererComboClass.FFI.fromPtr false) new_ ()
     local
       open ClosureMarshal Signal
     in

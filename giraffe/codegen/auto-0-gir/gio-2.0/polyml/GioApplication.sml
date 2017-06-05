@@ -3,59 +3,111 @@ structure GioApplication :>
     where type 'a class = 'a GioApplicationClass.class
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a application_command_line_class = 'a GioApplicationCommandLineClass.class
+    where type 'a file_class = 'a GioFileClass.class
     where type 'a action_group_class = 'a GioActionGroupClass.class
     where type application_flags_t = GioApplicationFlags.t =
   struct
+    structure Utf8CVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
+    structure GioFileClassCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GioFileClass.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GioFileClassCVectorN = CVectorN(GioFileClassCVectorNType)
     local
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_application_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgio "g_application_new") (Utf8.PolyML.cInPtr &&> GioApplicationFlags.PolyML.cVal --> GioApplicationClass.PolyML.cPtr)
-      val idIsValid_ = call (load_sym libgio "g_application_id_is_valid") (Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val idIsValid_ = call (load_sym libgio "g_application_id_is_valid") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val activate_ = call (load_sym libgio "g_application_activate") (GioApplicationClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getApplicationId_ = call (load_sym libgio "g_application_get_application_id") (GioApplicationClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getFlags_ = call (load_sym libgio "g_application_get_flags") (GioApplicationClass.PolyML.cPtr --> GioApplicationFlags.PolyML.cVal)
-      val getInactivityTimeout_ = call (load_sym libgio "g_application_get_inactivity_timeout") (GioApplicationClass.PolyML.cPtr --> FFI.UInt.PolyML.cVal)
-      val getIsRegistered_ = call (load_sym libgio "g_application_get_is_registered") (GioApplicationClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getIsRemote_ = call (load_sym libgio "g_application_get_is_remote") (GioApplicationClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getInactivityTimeout_ = call (load_sym libgio "g_application_get_inactivity_timeout") (GioApplicationClass.PolyML.cPtr --> GUInt.PolyML.cVal)
+      val getIsRegistered_ = call (load_sym libgio "g_application_get_is_registered") (GioApplicationClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getIsRemote_ = call (load_sym libgio "g_application_get_is_remote") (GioApplicationClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val hold_ = call (load_sym libgio "g_application_hold") (GioApplicationClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val open_ =
+        call (load_sym libgio "g_application_open")
+          (
+            GioApplicationClass.PolyML.cPtr
+             &&> GioFileClassCVectorN.PolyML.cInPtr
+             &&> GInt.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             --> PolyMLFFI.cVoid
+          )
       val register_ =
         call (load_sym libgio "g_application_register")
           (
             GioApplicationClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val release_ = call (load_sym libgio "g_application_release") (GioApplicationClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val run_ =
+        call (load_sym libgio "g_application_run")
+          (
+            GioApplicationClass.PolyML.cPtr
+             &&> GInt.PolyML.cVal
+             &&> Utf8CVectorN.PolyML.cInOptPtr
+             --> GInt.PolyML.cVal
+          )
       val setActionGroup_ = call (load_sym libgio "g_application_set_action_group") (GioApplicationClass.PolyML.cPtr &&> GioActionGroupClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
       val setApplicationId_ = call (load_sym libgio "g_application_set_application_id") (GioApplicationClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val setFlags_ = call (load_sym libgio "g_application_set_flags") (GioApplicationClass.PolyML.cPtr &&> GioApplicationFlags.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setInactivityTimeout_ = call (load_sym libgio "g_application_set_inactivity_timeout") (GioApplicationClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setInactivityTimeout_ = call (load_sym libgio "g_application_set_inactivity_timeout") (GioApplicationClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioApplicationClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a application_command_line_class = 'a GioApplicationCommandLineClass.class
+    type 'a file_class = 'a GioFileClass.class
     type 'a action_group_class = 'a GioActionGroupClass.class
     type application_flags_t = GioApplicationFlags.t
     type t = base class
-    fun asActionGroup self = (GObjectObjectClass.C.withPtr ---> GioActionGroupClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new applicationId flags = (Utf8.C.withPtr &&&> GioApplicationFlags.C.withVal ---> GioApplicationClass.C.fromPtr true) new_ (applicationId & flags)
-    fun idIsValid applicationId = (Utf8.C.withPtr ---> FFI.Bool.C.fromVal) idIsValid_ applicationId
-    fun activate self = (GioApplicationClass.C.withPtr ---> I) activate_ self
-    fun getApplicationId self = (GioApplicationClass.C.withPtr ---> Utf8.C.fromPtr false) getApplicationId_ self
-    fun getFlags self = (GioApplicationClass.C.withPtr ---> GioApplicationFlags.C.fromVal) getFlags_ self
-    fun getInactivityTimeout self = (GioApplicationClass.C.withPtr ---> FFI.UInt.C.fromVal) getInactivityTimeout_ self
-    fun getIsRegistered self = (GioApplicationClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsRegistered_ self
-    fun getIsRemote self = (GioApplicationClass.C.withPtr ---> FFI.Bool.C.fromVal) getIsRemote_ self
-    fun hold self = (GioApplicationClass.C.withPtr ---> I) hold_ self
+    fun asActionGroup self = (GObjectObjectClass.FFI.withPtr ---> GioActionGroupClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new applicationId flags = (Utf8.FFI.withPtr &&&> GioApplicationFlags.FFI.withVal ---> GioApplicationClass.FFI.fromPtr true) new_ (applicationId & flags)
+    fun idIsValid applicationId = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) idIsValid_ applicationId
+    fun activate self = (GioApplicationClass.FFI.withPtr ---> I) activate_ self
+    fun getApplicationId self = (GioApplicationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getApplicationId_ self
+    fun getFlags self = (GioApplicationClass.FFI.withPtr ---> GioApplicationFlags.FFI.fromVal) getFlags_ self
+    fun getInactivityTimeout self = (GioApplicationClass.FFI.withPtr ---> GUInt.FFI.fromVal) getInactivityTimeout_ self
+    fun getIsRegistered self = (GioApplicationClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsRegistered_ self
+    fun getIsRemote self = (GioApplicationClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsRemote_ self
+    fun hold self = (GioApplicationClass.FFI.withPtr ---> I) hold_ self
+    fun open' self files hint =
+      let
+        val nFiles = LargeInt.fromInt (GioFileClassCVectorN.length files)
+        val () =
+          (
+            GioApplicationClass.FFI.withPtr
+             &&&> GioFileClassCVectorN.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             &&&> Utf8.FFI.withPtr
+             ---> I
+          )
+            open_
+            (
+              self
+               & files
+               & nFiles
+               & hint
+            )
+      in
+        ()
+      end
     fun register self cancellable =
       (
-        GioApplicationClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioApplicationClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         register_
         (
@@ -63,16 +115,53 @@ structure GioApplication :>
            & cancellable
            & []
         )
-    fun release self = (GioApplicationClass.C.withPtr ---> I) release_ self
-    fun setActionGroup self actionGroup = (GioApplicationClass.C.withPtr &&&> GioActionGroupClass.C.withOptPtr ---> I) setActionGroup_ (self & actionGroup)
-    fun setApplicationId self applicationId = (GioApplicationClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setApplicationId_ (self & applicationId)
-    fun setFlags self flags = (GioApplicationClass.C.withPtr &&&> GioApplicationFlags.C.withVal ---> I) setFlags_ (self & flags)
-    fun setInactivityTimeout self inactivityTimeout = (GioApplicationClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) setInactivityTimeout_ (self & inactivityTimeout)
+    fun release self = (GioApplicationClass.FFI.withPtr ---> I) release_ self
+    fun run self argv =
+      let
+        val argc =
+          case argv of
+            SOME argv => LargeInt.fromInt (Utf8CVectorN.length argv)
+          | NONE => GInt.null
+        val retVal =
+          (
+            GioApplicationClass.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             &&&> Utf8CVectorN.FFI.withOptPtr
+             ---> GInt.FFI.fromVal
+          )
+            run_
+            (
+              self
+               & argc
+               & argv
+            )
+      in
+        retVal
+      end
+    fun setActionGroup self actionGroup = (GioApplicationClass.FFI.withPtr &&&> GioActionGroupClass.FFI.withOptPtr ---> I) setActionGroup_ (self & actionGroup)
+    fun setApplicationId self applicationId = (GioApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setApplicationId_ (self & applicationId)
+    fun setFlags self flags = (GioApplicationClass.FFI.withPtr &&&> GioApplicationFlags.FFI.withVal ---> I) setFlags_ (self & flags)
+    fun setInactivityTimeout self inactivityTimeout = (GioApplicationClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setInactivityTimeout_ (self & inactivityTimeout)
     local
       open ClosureMarshal Signal
     in
       fun activateSig f = signal "activate" (void ---> ret_void) f
       fun commandLineSig f = signal "command-line" (get 0w1 GioApplicationCommandLineClass.t ---> ret int) f
+      fun openSig f =
+        signal "open"
+          (
+            get 0w1 GioFileClassCVectorN.t
+             &&&> get 0w2 int
+             &&&> get 0w3 string
+             ---> ret_void
+          )
+          (
+            fn
+              files
+               & nFiles
+               & hint =>
+                f (files (LargeInt.toInt nFiles)) hint
+          )
       fun startupSig f = signal "startup" (void ---> ret_void) f
     end
     local

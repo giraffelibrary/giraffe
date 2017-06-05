@@ -1,11 +1,8 @@
 structure GLibRegexError :>
-  sig
-    include
-      G_LIB_REGEX_ERROR
-        where type error_handler = GLibErrorRecord.handler
-  end =
+  G_LIB_REGEX_ERROR
+    where type error_handler = GLibErrorRecord.handler =
   struct
-    datatype t =
+    datatype enum =
       COMPILE
     | OPTIMIZE
     | REPLACE
@@ -48,57 +45,56 @@ structure GLibRegexError :>
     | DEFINE_REPETION
     | INCONSISTENT_NEWLINE_OPTIONS
     | MISSING_BACK_REFERENCE
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = COMPILE
+        val toInt =
           fn
-            COMPILE => f 0
-          | OPTIMIZE => f 1
-          | REPLACE => f 2
-          | MATCH => f 3
-          | INTERNAL => f 4
-          | STRAY_BACKSLASH => f 101
-          | MISSING_CONTROL_CHAR => f 102
-          | UNRECOGNIZED_ESCAPE => f 103
-          | QUANTIFIERS_OUT_OF_ORDER => f 104
-          | QUANTIFIER_TOO_BIG => f 105
-          | UNTERMINATED_CHARACTER_CLASS => f 106
-          | INVALID_ESCAPE_IN_CHARACTER_CLASS => f 107
-          | RANGE_OUT_OF_ORDER => f 108
-          | NOTHING_TO_REPEAT => f 109
-          | UNRECOGNIZED_CHARACTER => f 112
-          | POSIX_NAMED_CLASS_OUTSIDE_CLASS => f 113
-          | UNMATCHED_PARENTHESIS => f 114
-          | INEXISTENT_SUBPATTERN_REFERENCE => f 115
-          | UNTERMINATED_COMMENT => f 118
-          | EXPRESSION_TOO_LARGE => f 120
-          | MEMORY_ERROR => f 121
-          | VARIABLE_LENGTH_LOOKBEHIND => f 125
-          | MALFORMED_CONDITION => f 126
-          | TOO_MANY_CONDITIONAL_BRANCHES => f 127
-          | ASSERTION_EXPECTED => f 128
-          | UNKNOWN_POSIX_CLASS_NAME => f 130
-          | POSIX_COLLATING_ELEMENTS_NOT_SUPPORTED => f 131
-          | HEX_CODE_TOO_LARGE => f 134
-          | INVALID_CONDITION => f 135
-          | SINGLE_BYTE_MATCH_IN_LOOKBEHIND => f 136
-          | INFINITE_LOOP => f 140
-          | MISSING_SUBPATTERN_NAME_TERMINATOR => f 142
-          | DUPLICATE_SUBPATTERN_NAME => f 143
-          | MALFORMED_PROPERTY => f 146
-          | UNKNOWN_PROPERTY => f 147
-          | SUBPATTERN_NAME_TOO_LONG => f 148
-          | TOO_MANY_SUBPATTERNS => f 149
-          | INVALID_OCTAL_VALUE => f 151
-          | TOO_MANY_BRANCHES_IN_DEFINE => f 154
-          | DEFINE_REPETION => f 155
-          | INCONSISTENT_NEWLINE_OPTIONS => f 156
-          | MISSING_BACK_REFERENCE => f 157
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            COMPILE => 0
+          | OPTIMIZE => 1
+          | REPLACE => 2
+          | MATCH => 3
+          | INTERNAL => 4
+          | STRAY_BACKSLASH => 101
+          | MISSING_CONTROL_CHAR => 102
+          | UNRECOGNIZED_ESCAPE => 103
+          | QUANTIFIERS_OUT_OF_ORDER => 104
+          | QUANTIFIER_TOO_BIG => 105
+          | UNTERMINATED_CHARACTER_CLASS => 106
+          | INVALID_ESCAPE_IN_CHARACTER_CLASS => 107
+          | RANGE_OUT_OF_ORDER => 108
+          | NOTHING_TO_REPEAT => 109
+          | UNRECOGNIZED_CHARACTER => 112
+          | POSIX_NAMED_CLASS_OUTSIDE_CLASS => 113
+          | UNMATCHED_PARENTHESIS => 114
+          | INEXISTENT_SUBPATTERN_REFERENCE => 115
+          | UNTERMINATED_COMMENT => 118
+          | EXPRESSION_TOO_LARGE => 120
+          | MEMORY_ERROR => 121
+          | VARIABLE_LENGTH_LOOKBEHIND => 125
+          | MALFORMED_CONDITION => 126
+          | TOO_MANY_CONDITIONAL_BRANCHES => 127
+          | ASSERTION_EXPECTED => 128
+          | UNKNOWN_POSIX_CLASS_NAME => 130
+          | POSIX_COLLATING_ELEMENTS_NOT_SUPPORTED => 131
+          | HEX_CODE_TOO_LARGE => 134
+          | INVALID_CONDITION => 135
+          | SINGLE_BYTE_MATCH_IN_LOOKBEHIND => 136
+          | INFINITE_LOOP => 140
+          | MISSING_SUBPATTERN_NAME_TERMINATOR => 142
+          | DUPLICATE_SUBPATTERN_NAME => 143
+          | MALFORMED_PROPERTY => 146
+          | UNKNOWN_PROPERTY => 147
+          | SUBPATTERN_NAME_TOO_LONG => 148
+          | TOO_MANY_SUBPATTERNS => 149
+          | INVALID_OCTAL_VALUE => 151
+          | TOO_MANY_BRANCHES_IN_DEFINE => 154
+          | DEFINE_REPETION => 155
+          | INCONSISTENT_NEWLINE_OPTIONS => 156
+          | MISSING_BACK_REFERENCE => 157
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => COMPILE
           | 1 => OPTIMIZE
@@ -143,14 +139,15 @@ structure GLibRegexError :>
           | 156 => INCONSISTENT_NEWLINE_OPTIONS
           | 157 => MISSING_BACK_REFERENCE
           | n => raise Value n
-      end
+      )
+    open Enum
     exception Error of t
     type error_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (
           "g-regex-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
   end

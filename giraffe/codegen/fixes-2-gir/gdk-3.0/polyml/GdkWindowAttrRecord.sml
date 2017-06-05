@@ -1,6 +1,6 @@
 structure GdkWindowAttrRecord :> GDK_WINDOW_ATTR_RECORD =
   struct
-    structure Pointer = CPointer
+    structure Pointer = CPointerInternal
     type notnull = Pointer.notnull
     type 'a p = 'a Pointer.p
 
@@ -9,7 +9,7 @@ structure GdkWindowAttrRecord :> GDK_WINDOW_ATTR_RECORD =
     local
       open PolyMLFFI
     in
-      val copy_ =
+      val dup_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_window_attr_copy")
           (cPtr --> cPtr)
@@ -17,15 +17,16 @@ structure GdkWindowAttrRecord :> GDK_WINDOW_ATTR_RECORD =
       val free_ =
         call
           (load_sym libgiraffegdk "giraffe_gdk_window_attr_free")
-          (cPtr --> PolyMLFFI.cVoid)
+          (cPtr --> cVoid)
     end
 
     structure Record =
-      BoxedRecord (
+      BoxedRecord(
+        structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
+        val dup_ = dup_
         val take_ = ignore
-        val copy_ = copy_
         val free_ = free_
       )
     open Record

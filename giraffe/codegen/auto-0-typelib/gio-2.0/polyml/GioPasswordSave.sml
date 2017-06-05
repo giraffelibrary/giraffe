@@ -1,40 +1,27 @@
-structure GioPasswordSave :>
-  sig
-    include GIO_PASSWORD_SAVE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GioPasswordSave :> GIO_PASSWORD_SAVE =
   struct
-    datatype t =
+    datatype enum =
       NEVER
     | FOR_SESSION
     | PERMANENTLY
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NEVER
+        val toInt =
           fn
-            NEVER => f 0
-          | FOR_SESSION => f 1
-          | PERMANENTLY => f 2
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NEVER => 0
+          | FOR_SESSION => 1
+          | PERMANENTLY => 2
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => NEVER
           | 1 => FOR_SESSION
           | 2 => PERMANENTLY
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -45,10 +32,9 @@ structure GioPasswordSave :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = NEVER
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

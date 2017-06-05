@@ -4,6 +4,18 @@ structure GioSettings :>
     where type settings_backend_t = GioSettingsBackendRecord.t
     where type settings_bind_flags_t = GioSettingsBindFlags.t =
   struct
+    structure GUInt32CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GUInt32Type
+        structure ElemSequence = CValueVectorSequence(GUInt32Type)
+      )
+    structure GUInt32CVectorN = CVectorN(GUInt32CVectorNType)
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -19,6 +31,8 @@ structure GioSettings :>
              --> GioSettingsClass.PolyML.cPtr
           )
       val newWithPath_ = call (load_sym libgio "g_settings_new_with_path") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GioSettingsClass.PolyML.cPtr)
+      val listRelocatableSchemas_ = call (load_sym libgio "g_settings_list_relocatable_schemas") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val listSchemas_ = call (load_sym libgio "g_settings_list_schemas") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
       val sync_ = call (load_sym libgio "g_settings_sync") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
       val apply_ = call (load_sym libgio "g_settings_apply") (GioSettingsClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val bind_ =
@@ -38,29 +52,32 @@ structure GioSettings :>
              &&> Utf8.PolyML.cInPtr
              &&> GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val delay_ = call (load_sym libgio "g_settings_delay") (GioSettingsClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getBoolean_ = call (load_sym libgio "g_settings_get_boolean") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val getBoolean_ = call (load_sym libgio "g_settings_get_boolean") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val getChild_ = call (load_sym libgio "g_settings_get_child") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioSettingsClass.PolyML.cPtr)
-      val getDouble_ = call (load_sym libgio "g_settings_get_double") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Double.PolyML.cVal)
-      val getEnum_ = call (load_sym libgio "g_settings_get_enum") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Int32.PolyML.cVal)
-      val getFlags_ = call (load_sym libgio "g_settings_get_flags") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.UInt32.PolyML.cVal)
-      val getHasUnapplied_ = call (load_sym libgio "g_settings_get_has_unapplied") (GioSettingsClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getInt_ = call (load_sym libgio "g_settings_get_int") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Int32.PolyML.cVal)
+      val getDouble_ = call (load_sym libgio "g_settings_get_double") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GDouble.PolyML.cVal)
+      val getEnum_ = call (load_sym libgio "g_settings_get_enum") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
+      val getFlags_ = call (load_sym libgio "g_settings_get_flags") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt32.PolyML.cVal)
+      val getHasUnapplied_ = call (load_sym libgio "g_settings_get_has_unapplied") (GioSettingsClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getInt_ = call (load_sym libgio "g_settings_get_int") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
       val getRange_ = call (load_sym libgio "g_settings_get_range") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
       val getString_ = call (load_sym libgio "g_settings_get_string") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val getUint_ = call (load_sym libgio "g_settings_get_uint") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.UInt32.PolyML.cVal)
+      val getStrv_ = call (load_sym libgio "g_settings_get_strv") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getUint_ = call (load_sym libgio "g_settings_get_uint") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt32.PolyML.cVal)
       val getValue_ = call (load_sym libgio "g_settings_get_value") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
-      val isWritable_ = call (load_sym libgio "g_settings_is_writable") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> FFI.Bool.PolyML.cVal)
+      val isWritable_ = call (load_sym libgio "g_settings_is_writable") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val listChildren_ = call (load_sym libgio "g_settings_list_children") (GioSettingsClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val listKeys_ = call (load_sym libgio "g_settings_list_keys") (GioSettingsClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val rangeCheck_ =
         call (load_sym libgio "g_settings_range_check")
           (
             GioSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibVariantRecord.PolyML.cPtr
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val reset_ = call (load_sym libgio "g_settings_reset") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val revert_ = call (load_sym libgio "g_settings_revert") (GioSettingsClass.PolyML.cPtr --> PolyMLFFI.cVoid)
@@ -69,40 +86,40 @@ structure GioSettings :>
           (
             GioSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Bool.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val setDouble_ =
         call (load_sym libgio "g_settings_set_double")
           (
             GioSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Double.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val setEnum_ =
         call (load_sym libgio "g_settings_set_enum")
           (
             GioSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Int32.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val setFlags_ =
         call (load_sym libgio "g_settings_set_flags")
           (
             GioSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.UInt32.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val setInt_ =
         call (load_sym libgio "g_settings_set_int")
           (
             GioSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Int32.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val setString_ =
         call (load_sym libgio "g_settings_set_string")
@@ -110,15 +127,23 @@ structure GioSettings :>
             GioSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
+          )
+      val setStrv_ =
+        call (load_sym libgio "g_settings_set_strv")
+          (
+            GioSettingsClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8CVector.PolyML.cInOptPtr
+             --> GBool.PolyML.cVal
           )
       val setUint_ =
         call (load_sym libgio "g_settings_set_uint")
           (
             GioSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.UInt32.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val setValue_ =
         call (load_sym libgio "g_settings_set_value")
@@ -126,22 +151,22 @@ structure GioSettings :>
             GioSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibVariantRecord.PolyML.cPtr
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
     end
     type 'a class = 'a GioSettingsClass.class
     type settings_backend_t = GioSettingsBackendRecord.t
     type settings_bind_flags_t = GioSettingsBindFlags.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new schema = (Utf8.C.withPtr ---> GioSettingsClass.C.fromPtr true) new_ schema
-    fun newWithBackend schema backend = (Utf8.C.withPtr &&&> GioSettingsBackendRecord.C.withPtr ---> GioSettingsClass.C.fromPtr true) newWithBackend_ (schema & backend)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new schema = (Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) new_ schema
+    fun newWithBackend schema backend = (Utf8.FFI.withPtr &&&> GioSettingsBackendRecord.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithBackend_ (schema & backend)
     fun newWithBackendAndPath schema backend path =
       (
-        Utf8.C.withPtr
-         &&&> GioSettingsBackendRecord.C.withPtr
-         &&&> Utf8.C.withPtr
-         ---> GioSettingsClass.C.fromPtr true
+        Utf8.FFI.withPtr
+         &&&> GioSettingsBackendRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> GioSettingsClass.FFI.fromPtr true
       )
         newWithBackendAndPath_
         (
@@ -149,16 +174,18 @@ structure GioSettings :>
            & backend
            & path
         )
-    fun newWithPath schema path = (Utf8.C.withPtr &&&> Utf8.C.withPtr ---> GioSettingsClass.C.fromPtr true) newWithPath_ (schema & path)
+    fun newWithPath schema path = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithPath_ (schema & path)
+    fun listRelocatableSchemas () = (I ---> Utf8CVector.FFI.fromPtr 0) listRelocatableSchemas_ ()
+    fun listSchemas () = (I ---> Utf8CVector.FFI.fromPtr 0) listSchemas_ ()
     fun sync () = (I ---> I) sync_ ()
-    fun apply self = (GioSettingsClass.C.withPtr ---> I) apply_ self
+    fun apply self = (GioSettingsClass.FFI.withPtr ---> I) apply_ self
     fun bind self key object property flags =
       (
-        GioSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioSettingsBindFlags.C.withVal
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioSettingsBindFlags.FFI.withVal
          ---> I
       )
         bind_
@@ -171,11 +198,11 @@ structure GioSettings :>
         )
     fun bindWritable self key object property inverted =
       (
-        GioSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         bindWritable_
@@ -186,25 +213,28 @@ structure GioSettings :>
            & property
            & inverted
         )
-    fun delay self = (GioSettingsClass.C.withPtr ---> I) delay_ self
-    fun getBoolean self key = (GioSettingsClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) getBoolean_ (self & key)
-    fun getChild self name = (GioSettingsClass.C.withPtr &&&> Utf8.C.withPtr ---> GioSettingsClass.C.fromPtr true) getChild_ (self & name)
-    fun getDouble self key = (GioSettingsClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Double.C.fromVal) getDouble_ (self & key)
-    fun getEnum self key = (GioSettingsClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Int32.C.fromVal) getEnum_ (self & key)
-    fun getFlags self key = (GioSettingsClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.UInt32.C.fromVal) getFlags_ (self & key)
-    fun getHasUnapplied self = (GioSettingsClass.C.withPtr ---> FFI.Bool.C.fromVal) getHasUnapplied_ self
-    fun getInt self key = (GioSettingsClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Int32.C.fromVal) getInt_ (self & key)
-    fun getRange self key = (GioSettingsClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getRange_ (self & key)
-    fun getString self key = (GioSettingsClass.C.withPtr &&&> Utf8.C.withPtr ---> Utf8.C.fromPtr true) getString_ (self & key)
-    fun getUint self key = (GioSettingsClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.UInt32.C.fromVal) getUint_ (self & key)
-    fun getValue self key = (GioSettingsClass.C.withPtr &&&> Utf8.C.withPtr ---> GLibVariantRecord.C.fromPtr true) getValue_ (self & key)
-    fun isWritable self name = (GioSettingsClass.C.withPtr &&&> Utf8.C.withPtr ---> FFI.Bool.C.fromVal) isWritable_ (self & name)
+    fun delay self = (GioSettingsClass.FFI.withPtr ---> I) delay_ self
+    fun getBoolean self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) getBoolean_ (self & key)
+    fun getChild self name = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) getChild_ (self & name)
+    fun getDouble self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GDouble.FFI.fromVal) getDouble_ (self & key)
+    fun getEnum self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt32.FFI.fromVal) getEnum_ (self & key)
+    fun getFlags self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt32.FFI.fromVal) getFlags_ (self & key)
+    fun getHasUnapplied self = (GioSettingsClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasUnapplied_ self
+    fun getInt self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt32.FFI.fromVal) getInt_ (self & key)
+    fun getRange self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getRange_ (self & key)
+    fun getString self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getString_ (self & key)
+    fun getStrv self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getStrv_ (self & key)
+    fun getUint self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt32.FFI.fromVal) getUint_ (self & key)
+    fun getValue self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getValue_ (self & key)
+    fun isWritable self name = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) isWritable_ (self & name)
+    fun listChildren self = (GioSettingsClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listChildren_ self
+    fun listKeys self = (GioSettingsClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listKeys_ self
     fun rangeCheck self key value =
       (
-        GioSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GLibVariantRecord.C.withPtr
-         ---> FFI.Bool.C.fromVal
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibVariantRecord.FFI.withPtr
+         ---> GBool.FFI.fromVal
       )
         rangeCheck_
         (
@@ -212,14 +242,14 @@ structure GioSettings :>
            & key
            & value
         )
-    fun reset self key = (GioSettingsClass.C.withPtr &&&> Utf8.C.withPtr ---> I) reset_ (self & key)
-    fun revert self = (GioSettingsClass.C.withPtr ---> I) revert_ self
+    fun reset self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) reset_ (self & key)
+    fun revert self = (GioSettingsClass.FFI.withPtr ---> I) revert_ self
     fun setBoolean self key value =
       (
-        GioSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Bool.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         setBoolean_
         (
@@ -229,10 +259,10 @@ structure GioSettings :>
         )
     fun setDouble self key value =
       (
-        GioSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Double.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         setDouble_
         (
@@ -242,10 +272,10 @@ structure GioSettings :>
         )
     fun setEnum self key value =
       (
-        GioSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         setEnum_
         (
@@ -255,10 +285,10 @@ structure GioSettings :>
         )
     fun setFlags self key value =
       (
-        GioSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         setFlags_
         (
@@ -268,10 +298,10 @@ structure GioSettings :>
         )
     fun setInt self key value =
       (
-        GioSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         setInt_
         (
@@ -281,10 +311,10 @@ structure GioSettings :>
         )
     fun setString self key value =
       (
-        GioSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         ---> FFI.Bool.C.fromVal
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> GBool.FFI.fromVal
       )
         setString_
         (
@@ -292,12 +322,25 @@ structure GioSettings :>
            & key
            & value
         )
+    fun setStrv self key value =
+      (
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8CVector.FFI.withOptPtr
+         ---> GBool.FFI.fromVal
+      )
+        setStrv_
+        (
+          self
+           & key
+           & value
+        )
     fun setUint self key value =
       (
-        GioSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.UInt32.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         setUint_
         (
@@ -307,10 +350,10 @@ structure GioSettings :>
         )
     fun setValue self key value =
       (
-        GioSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GLibVariantRecord.C.withPtr
-         ---> FFI.Bool.C.fromVal
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibVariantRecord.FFI.withPtr
+         ---> GBool.FFI.fromVal
       )
         setValue_
         (
@@ -321,6 +364,7 @@ structure GioSettings :>
     local
       open ClosureMarshal Signal
     in
+      fun changeEventSig f = signal "change-event" (get 0w1 GUInt32CVectorN.tOpt &&&> get 0w2 int ---> ret boolean) (fn keys & nKeys => f (keys (LargeInt.toInt nKeys)))
       fun changedSig f = signal "changed" (get 0w1 string ---> ret_void) f
       fun writableChangeEventSig f = signal "writable-change-event" (get 0w1 uint ---> ret boolean) f
       fun writableChangedSig f = signal "writable-changed" (get 0w1 string ---> ret_void) f

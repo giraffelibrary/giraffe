@@ -10,8 +10,8 @@ structure GtkCellRendererPixbuf :>
     end
     type 'a class = 'a GtkCellRendererPixbufClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkCellRendererPixbufClass.C.fromPtr false) new_ ()
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkCellRendererPixbufClass.FFI.fromPtr false) new_ ()
     local
       open Property
     in

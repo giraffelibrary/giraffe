@@ -39,7 +39,7 @@ structure GtkContainer :>
              &&> GObjectValueRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val getBorderWidth_ = call (load_sym libgtk "gtk_container_get_border_width") (GtkContainerClass.PolyML.cPtr --> FFI.UInt.PolyML.cVal)
+      val getBorderWidth_ = call (load_sym libgtk "gtk_container_get_border_width") (GtkContainerClass.PolyML.cPtr --> GUInt.PolyML.cVal)
       val getFocusChild_ = call (load_sym libgtk "gtk_container_get_focus_child") (GtkContainerClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getFocusHadjustment_ = call (load_sym libgtk "gtk_container_get_focus_hadjustment") (GtkContainerClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getFocusVadjustment_ = call (load_sym libgtk "gtk_container_get_focus_vadjustment") (GtkContainerClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
@@ -55,11 +55,11 @@ structure GtkContainer :>
           )
       val remove_ = call (load_sym libgtk "gtk_container_remove") (GtkContainerClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val resizeChildren_ = call (load_sym libgtk "gtk_container_resize_children") (GtkContainerClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setBorderWidth_ = call (load_sym libgtk "gtk_container_set_border_width") (GtkContainerClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setBorderWidth_ = call (load_sym libgtk "gtk_container_set_border_width") (GtkContainerClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setFocusChild_ = call (load_sym libgtk "gtk_container_set_focus_child") (GtkContainerClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
       val setFocusHadjustment_ = call (load_sym libgtk "gtk_container_set_focus_hadjustment") (GtkContainerClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val setFocusVadjustment_ = call (load_sym libgtk "gtk_container_set_focus_vadjustment") (GtkContainerClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setReallocateRedraws_ = call (load_sym libgtk "gtk_container_set_reallocate_redraws") (GtkContainerClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setReallocateRedraws_ = call (load_sym libgtk "gtk_container_set_reallocate_redraws") (GtkContainerClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setResizeMode_ = call (load_sym libgtk "gtk_container_set_resize_mode") (GtkContainerClass.PolyML.cPtr &&> GtkResizeMode.PolyML.cVal --> PolyMLFFI.cVoid)
       val unsetFocusChain_ = call (load_sym libgtk "gtk_container_unset_focus_chain") (GtkContainerClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
@@ -70,17 +70,17 @@ structure GtkContainer :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type resize_mode_t = GtkResizeMode.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun add self widget = (GtkContainerClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) add_ (self & widget)
-    fun checkResize self = (GtkContainerClass.C.withPtr ---> I) checkResize_ self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun add self widget = (GtkContainerClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) add_ (self & widget)
+    fun checkResize self = (GtkContainerClass.FFI.withPtr ---> I) checkResize_ self
     fun childGetProperty self child propertyName value =
       (
-        GtkContainerClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GObjectValueRecord.C.withPtr
+        GtkContainerClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectValueRecord.FFI.withPtr
          ---> I
       )
         childGetProperty_
@@ -92,9 +92,9 @@ structure GtkContainer :>
         )
     fun childNotify self child childProperty =
       (
-        GtkContainerClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> Utf8.C.withPtr
+        GtkContainerClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         childNotify_
@@ -105,10 +105,10 @@ structure GtkContainer :>
         )
     fun childSetProperty self child propertyName value =
       (
-        GtkContainerClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GObjectValueRecord.C.withPtr
+        GtkContainerClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectValueRecord.FFI.withPtr
          ---> I
       )
         childSetProperty_
@@ -118,17 +118,17 @@ structure GtkContainer :>
            & propertyName
            & value
         )
-    fun getBorderWidth self = (GtkContainerClass.C.withPtr ---> FFI.UInt.C.fromVal) getBorderWidth_ self
-    fun getFocusChild self = (GtkContainerClass.C.withPtr ---> GtkWidgetClass.C.fromOptPtr false) getFocusChild_ self
-    fun getFocusHadjustment self = (GtkContainerClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getFocusHadjustment_ self
-    fun getFocusVadjustment self = (GtkContainerClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getFocusVadjustment_ self
-    fun getPathForChild self child = (GtkContainerClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> GtkWidgetPathRecord.C.fromPtr true) getPathForChild_ (self & child)
-    fun getResizeMode self = (GtkContainerClass.C.withPtr ---> GtkResizeMode.C.fromVal) getResizeMode_ self
+    fun getBorderWidth self = (GtkContainerClass.FFI.withPtr ---> GUInt.FFI.fromVal) getBorderWidth_ self
+    fun getFocusChild self = (GtkContainerClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getFocusChild_ self
+    fun getFocusHadjustment self = (GtkContainerClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getFocusHadjustment_ self
+    fun getFocusVadjustment self = (GtkContainerClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getFocusVadjustment_ self
+    fun getPathForChild self child = (GtkContainerClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr true) getPathForChild_ (self & child)
+    fun getResizeMode self = (GtkContainerClass.FFI.withPtr ---> GtkResizeMode.FFI.fromVal) getResizeMode_ self
     fun propagateDraw self child cr =
       (
-        GtkContainerClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> CairoContextRecord.C.withPtr
+        GtkContainerClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
          ---> I
       )
         propagateDraw_
@@ -137,15 +137,15 @@ structure GtkContainer :>
            & child
            & cr
         )
-    fun remove self widget = (GtkContainerClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) remove_ (self & widget)
-    fun resizeChildren self = (GtkContainerClass.C.withPtr ---> I) resizeChildren_ self
-    fun setBorderWidth self borderWidth = (GtkContainerClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) setBorderWidth_ (self & borderWidth)
-    fun setFocusChild self child = (GtkContainerClass.C.withPtr &&&> GtkWidgetClass.C.withOptPtr ---> I) setFocusChild_ (self & child)
-    fun setFocusHadjustment self adjustment = (GtkContainerClass.C.withPtr &&&> GtkAdjustmentClass.C.withPtr ---> I) setFocusHadjustment_ (self & adjustment)
-    fun setFocusVadjustment self adjustment = (GtkContainerClass.C.withPtr &&&> GtkAdjustmentClass.C.withPtr ---> I) setFocusVadjustment_ (self & adjustment)
-    fun setReallocateRedraws self needsRedraws = (GtkContainerClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setReallocateRedraws_ (self & needsRedraws)
-    fun setResizeMode self resizeMode = (GtkContainerClass.C.withPtr &&&> GtkResizeMode.C.withVal ---> I) setResizeMode_ (self & resizeMode)
-    fun unsetFocusChain self = (GtkContainerClass.C.withPtr ---> I) unsetFocusChain_ self
+    fun remove self widget = (GtkContainerClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) remove_ (self & widget)
+    fun resizeChildren self = (GtkContainerClass.FFI.withPtr ---> I) resizeChildren_ self
+    fun setBorderWidth self borderWidth = (GtkContainerClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setBorderWidth_ (self & borderWidth)
+    fun setFocusChild self child = (GtkContainerClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setFocusChild_ (self & child)
+    fun setFocusHadjustment self adjustment = (GtkContainerClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setFocusHadjustment_ (self & adjustment)
+    fun setFocusVadjustment self adjustment = (GtkContainerClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setFocusVadjustment_ (self & adjustment)
+    fun setReallocateRedraws self needsRedraws = (GtkContainerClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setReallocateRedraws_ (self & needsRedraws)
+    fun setResizeMode self resizeMode = (GtkContainerClass.FFI.withPtr &&&> GtkResizeMode.FFI.withVal ---> I) setResizeMode_ (self & resizeMode)
+    fun unsetFocusChain self = (GtkContainerClass.FFI.withPtr ---> I) unsetFocusChain_ self
     local
       open ClosureMarshal Signal
     in

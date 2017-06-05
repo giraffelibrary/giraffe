@@ -16,37 +16,37 @@ structure GIRepositoryInterfaceInfo :>
         call
           (load_sym libgirepository
              "g_interface_info_get_n_prerequisites")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getPrerequisite_ =
         call
           (load_sym libgirepository "g_interface_info_get_prerequisite")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
-            &&> FFI.Int32.PolyML.cVal
+            &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNProperties_ =
         call
           (load_sym libgirepository "g_interface_info_get_n_properties")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getProperty_ =
         call
           (load_sym libgirepository "g_interface_info_get_property")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
-            &&> FFI.Int32.PolyML.cVal
+            &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNMethods_ =
         call
           (load_sym libgirepository "g_interface_info_get_n_methods")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getMethod_ =
         call
           (load_sym libgirepository "g_interface_info_get_method")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
-            &&> FFI.Int32.PolyML.cVal
+            &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val findMethod_ =
@@ -59,37 +59,37 @@ structure GIRepositoryInterfaceInfo :>
       val getNSignals_ =
         call
           (load_sym libgirepository "g_interface_info_get_n_signals")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getSignal_ =
         call
           (load_sym libgirepository "g_interface_info_get_signal")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
-            &&> FFI.Int32.PolyML.cVal
+            &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNVfuncs_ =
         call
           (load_sym libgirepository "g_interface_info_get_n_vfuncs")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getVfunc_ =
         call
           (load_sym libgirepository "g_interface_info_get_vfunc")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
-            &&> FFI.Int32.PolyML.cVal
+            &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNConstants_ =
         call
           (load_sym libgirepository "g_interface_info_get_n_constants")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getConstant_ =
         call
           (load_sym libgirepository "g_interface_info_get_constant")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
-            &&> FFI.Int32.PolyML.cVal
+            &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getIfaceStruct_ =
@@ -117,40 +117,40 @@ structure GIRepositoryInterfaceInfo :>
 
 
     val getNPrerequisites =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getNPrerequisites_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNPrerequisites_ info
 
     val getPrerequisite =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.C.withPtr
-           &&&> FFI.Int32.C.withVal
-           ---> GIRepositoryBaseInfoClass.C.fromPtr true
+          GIRepositoryBaseInfoClass.FFI.withPtr
+           &&&> GInt32.FFI.withVal
+           ---> GIRepositoryBaseInfoClass.FFI.fromPtr true
         )
           getPrerequisite_
           (info & n)
 
     val getNProperties =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getNProperties_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNProperties_ info
 
     val getProperty =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.C.withPtr
-           &&&> FFI.Int32.C.withVal
-           ---> GIRepositoryPropertyInfoClass.C.fromPtr true
+          GIRepositoryBaseInfoClass.FFI.withPtr
+           &&&> GInt32.FFI.withVal
+           ---> GIRepositoryPropertyInfoClass.FFI.fromPtr true
         )
           getProperty_
           (info & n)
 
     val getNMethods =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getNMethods_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNMethods_ info
 
     val getMethod =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.C.withPtr
-           &&&> FFI.Int32.C.withVal
-           ---> GIRepositoryFunctionInfoClass.C.fromPtr true
+          GIRepositoryBaseInfoClass.FFI.withPtr
+           &&&> GInt32.FFI.withVal
+           ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
         )
           getMethod_
           (info & n)
@@ -158,64 +158,64 @@ structure GIRepositoryInterfaceInfo :>
     val findMethod =
       fn info => fn name =>
         (
-          GIRepositoryBaseInfoClass.C.withPtr
-           &&&> Utf8.C.withPtr
-           ---> GIRepositoryFunctionInfoClass.C.fromPtr true
+          GIRepositoryBaseInfoClass.FFI.withPtr
+           &&&> Utf8.FFI.withPtr
+           ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
         )
           findMethod_
           (info & name)
 
     val getNSignals =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getNSignals_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNSignals_ info
 
     val getSignal =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.C.withPtr
-           &&&> FFI.Int32.C.withVal
-           ---> GIRepositorySignalInfoClass.C.fromPtr true
+          GIRepositoryBaseInfoClass.FFI.withPtr
+           &&&> GInt32.FFI.withVal
+           ---> GIRepositorySignalInfoClass.FFI.fromPtr true
         )
           getSignal_
           (info & n)
 
     val getNVfuncs =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getNVfuncs_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNVfuncs_ info
 
     val getVfunc =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.C.withPtr
-           &&&> FFI.Int32.C.withVal
-           ---> GIRepositoryVFuncInfoClass.C.fromPtr true
+          GIRepositoryBaseInfoClass.FFI.withPtr
+           &&&> GInt32.FFI.withVal
+           ---> GIRepositoryVFuncInfoClass.FFI.fromPtr true
         )
           getVfunc_
           (info & n)
 
     val getNConstants =
-      fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getNConstants_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNConstants_ info
 
     val getConstant =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.C.withPtr
-           &&&> FFI.Int32.C.withVal
-           ---> GIRepositoryConstantInfoClass.C.fromPtr true
+          GIRepositoryBaseInfoClass.FFI.withPtr
+           &&&> GInt32.FFI.withVal
+           ---> GIRepositoryConstantInfoClass.FFI.fromPtr true
         )
           getConstant_
           (info & n)
 
     val getIfaceStruct =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryStructInfoClass.C.fromOptPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryStructInfoClass.FFI.fromOptPtr true)
         getIfaceStruct_
         info
 
     val findVfunc =
       fn info => fn name =>
         (
-          GIRepositoryBaseInfoClass.C.withPtr
-           &&&> Utf8.C.withPtr
-           ---> GIRepositoryVFuncInfoClass.C.fromPtr true
+          GIRepositoryBaseInfoClass.FFI.withPtr
+           &&&> Utf8.FFI.withPtr
+           ---> GIRepositoryVFuncInfoClass.FFI.fromPtr true
         )
           findVfunc_
           (info & name)

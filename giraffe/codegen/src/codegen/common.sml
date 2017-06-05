@@ -18,7 +18,7 @@ fun addGetTypeFunctionSpec (typeIRef : interfaceref) (specs, iRefs, errs) =
 
 fun addGetTypeFunctionStrDecHighLevel
   (typeIRef : interfaceref)
-  (strDecs, iRefs, errs) =
+  (strDecs, (iRefs, structDeps), errs) =
   let
     val strDecs' = getTypeStrDecHighLevel :: strDecs
 
@@ -29,7 +29,7 @@ fun addGetTypeFunctionStrDecHighLevel
       | LOCALINTERFACESELF => iRefs
       | _                  => insert (iRef, iRefs)
   in
-    (strDecs', iRefs', errs)
+    (strDecs', (iRefs', structDeps), errs)
   end
 
 fun addGetTypeFunctionStrDecLowLevel
@@ -312,23 +312,23 @@ end
  *                                                           -'
  *                                                           -.
  *     val getType_ =                                         |
- *       _import "<getTypeSymbol>" : unit -> GObjectType.C.val_;
+ *       _import "<getTypeSymbol>" : unit -> GObjectType.FFI.val_;
  *                                                            |
  *     val getValue_ =                                        |
  *       _import "g_value_get_<valueType>" :                  |
- *         GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> <retType>;
+ *         GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> <retType>;
  *                                                            |
  *                                           -.               |
  *     val getOptValue_ =                     |               |
  *       _import "g_value_get_<valueType>" :  | isPtr         |
- *         GObjectValueRecord.C.notnull GObjectValueRecord.C.p
+ *         GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
  *          -> <retOptType>;                  |               | MLton only
  *                                           -'               |
  *                                                            |
  *     val setValue_ =                                        |
  *       fn x1 & x2 =>                                        |
  *         (_import "g_value_set_<valueType>" :               |
- *            GObjectValueRecord.C.notnull GObjectValueRecord.C.p
+ *            GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
  *             * <parType>                                    |
  *             -> unit;)                                      |
  *         (x1, x2)                                           |
@@ -337,7 +337,7 @@ end
  *     val setOptValue_ =                     | isPtr         |
  *       fn x1 & x2 =>                        |               |
  *         (_import "g_value_set_<valueType>" :               |
- *            GObjectValueRecord.C.notnull GObjectValueRecord.C.p
+ *            GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
  *             * <parOptType>                 |               |
  *             -> unit;)                      |               |
  *         (x1, x2)                           |               |
@@ -348,7 +348,7 @@ end
  *                                                           -'
  *     val t =
  *       GObjectValue.C.createAccessor {
- *         getType  = (I ---> GObjectType.C.fromVal) getType_,
+ *         getType  = (I ---> GObjectType.FFI.fromVal) getType_,
  *         getValue = (I ---> <fromFun>) getValue_,
  *         setValue = (I &&&> <withFun> ---> I) setValue_
  *       }
@@ -356,7 +356,7 @@ end
  *                                           -.
  *     val tOpt =                             | isPtr
  *       GObjectValue.C.createAccessor {      |
- *         getType  = (I ---> GObjectType.C.fromVal) getType_,
+ *         getType  = (I ---> GObjectType.FFI.fromVal) getType_,
  *         getValue = (I ---> <fromOptFun>) getOptValue_,
  *         setValue = (I &&&> <withOptFun> ---> I) setOptValue_
  *       }                                    |
@@ -423,7 +423,7 @@ local
   (*
    *     val t<Opt> =
    *       GObjectValue.C.createAccessor {
-   *         getType  = (I ---> GObjectType.C.fromVal) getType_,
+   *         getType  = (I ---> GObjectType.FFI.fromVal) getType_,
    *         getValue = (I ---> <from<Opt>Fun>) get<Opt>Value_,
    *         setValue = (I &&&> <with<Opt>Fun> ---> I) set<Opt>Value_
    *       }
@@ -431,7 +431,7 @@ local
   val getTypeExp =
     ExpApp (
       mkParenExp (
-        mkDDDRExp (iExp, mkLIdLNameExp ["GObjectType", "C", fromValId])
+        mkDDDRExp (iExp, mkLIdLNameExp ["GObjectType", ffiStrId, fromValId])
       ),
       mkIdLNameExp getTypeUId
     )
@@ -439,10 +439,10 @@ local
     let
       val fromFunExp =
         case ptrOpt of
-          NONE       => mkLIdLNameExp ["C", fromValId]
+          NONE       => mkLIdLNameExp [ffiStrId, fromValId]
         | SOME isOpt =>
             ExpApp (
-              mkLIdLNameExp ["C", if isOpt then fromOptPtrId else fromPtrId],
+              mkLIdLNameExp [ffiStrId, if isOpt then fromOptPtrId else fromPtrId],
               mkIdLNameExp "false"
           )
     in
@@ -459,9 +459,9 @@ local
     let
       val withFunExp =
         case ptrOpt of
-          NONE       => mkLIdLNameExp ["C", withValId]
-        | SOME false => mkLIdLNameExp ["C", withPtrId]
-        | SOME true  => mkLIdLNameExp ["C", withOptPtrId]
+          NONE       => mkLIdLNameExp [ffiStrId, withValId]
+        | SOME false => mkLIdLNameExp [ffiStrId, withPtrId]
+        | SOME true  => mkLIdLNameExp [ffiStrId, withOptPtrId]
     in
       ExpApp (
         mkParenExp (mkDDDRExp (mkAAARExp (iExp, withFunExp), iExp)),
@@ -477,7 +477,7 @@ local
       mkIdValDec (
         case ptrOpt of SOME true => tOptId | _ => tId,
         ExpApp (
-          mkLIdLNameExp ["GObjectValue", "C", "createAccessor"],
+          mkLIdLNameExp ["GObjectValue", cStrId, "createAccessor"],
           ExpRec [
             (getTypeId, getTypeExp),
             (getValueId, getValueExp ptrOpt),
@@ -493,16 +493,16 @@ local
   (*
    *     val getValue_ =
    *       _import "g_value_get_<valueType>" :
-   *         GObjectValueRecord.C.notnull GObjectValueRecord.C.p
+   *         GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
    *          -> <retType>;
    *)
   fun getValueStrDecLowLevelMLton (valueIRef, valueType) ptrOpt =
     let
       val retTy =
-        makeLowLevelTy false [CId] (
+        makeLowLevelTy false [ffiStrId] (
           case ptrOpt of
             NONE       => VAL
-          | SOME isOpt => PTR {optIsRet = NONE, isOpt = isOpt}
+          | SOME isOpt => PTR {optDir = NONE, isOpt = isOpt}
         )
     in
       StrDecDec (
@@ -511,8 +511,8 @@ local
           callMLtonFFIExp ("g_value_get_" ^ valueType) (
             [
               makeLowLevelTy false
-                (prefixInterfaceStrId valueIRef [CId])
-                (PTR {optIsRet = NONE, isOpt = false})
+                (prefixInterfaceStrId valueIRef [ffiStrId])
+                (PTR {optDir = NONE, isOpt = false})
             ],
             retTy
           )
@@ -523,16 +523,16 @@ local
   (*
    *     val setValue_ =
    *       _import "g_value_set_<valueType>" :
-   *         GObjectValueRecord.C.notnull GObjectValueRecord.C.p * <parType>
+   *         GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * <parType>
    *          -> unit;
    *)
   fun setValueStrDecLowLevelMLton (valueIRef, valueType) ptrOpt =
     let
       val parTy =
-        makeLowLevelTy false [CId] (
+        makeLowLevelTy false [ffiStrId] (
           case ptrOpt of
             NONE       => VAL
-          | SOME isOpt => PTR {optIsRet = NONE, isOpt = isOpt}
+          | SOME isOpt => PTR {optDir = NONE, isOpt = isOpt}
         )
     in
       StrDecDec (
@@ -541,8 +541,8 @@ local
           callMLtonFFIExp ("g_value_set_" ^ valueType) (
             [
               makeLowLevelTy false
-                (prefixInterfaceStrId valueIRef [CId])
-                (PTR {optIsRet = NONE, isOpt = false}),
+                (prefixInterfaceStrId valueIRef [ffiStrId])
+                (PTR {optDir = NONE, isOpt = false}),
               parTy
             ],
             unitTy
@@ -589,12 +589,12 @@ local
       val parConvs =
         makeConv
           (prefixInterfaceStrId valueIRef [PolyMLId])
-          (PTR {optIsRet = NONE, isOpt = false})
+          (PTR {optDir = NONE, isOpt = false})
       val retConv =
         makeConv [PolyMLId] (
           case ptrOpt of
             NONE       => VAL
-          | SOME isOpt => PTR {optIsRet = NONE, isOpt = isOpt}
+          | SOME isOpt => PTR {optDir = NONE, isOpt = isOpt}
         )
       val getTypeSymbol = "g_value_get_" ^ valueType
     in
@@ -618,13 +618,13 @@ local
         makeConv [PolyMLId] (
           case ptrOpt of
             NONE       => VAL
-          | SOME isOpt => PTR {optIsRet = NONE, isOpt = isOpt}
+          | SOME isOpt => PTR {optDir = NONE, isOpt = isOpt}
         )
       val parConvs =
         mkAARExp (
           makeConv
             (prefixInterfaceStrId valueIRef [PolyMLId])
-            (PTR {optIsRet = NONE, isOpt = false}),
+            (PTR {optDir = NONE, isOpt = false}),
           parConv
         )
       val retConv = cVoidConv

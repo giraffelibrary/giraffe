@@ -105,55 +105,55 @@ structure ClassifyEvent :>
     | GRAB_BROKEN  of event_grab_broken_t  * event_grab_broken_record_event
 
 
-    val eventType_ = _import "giraffe_gdk_get_event_type" : GdkEvent.C.notnull GdkEvent.C.p -> GdkEventType.C.val_;
+    val eventType_ = _import "giraffe_gdk_get_event_type" : GdkEvent.FFI.notnull GdkEvent.FFI.p -> GdkEventType.FFI.val_;
 
 
     fun eventType self =
-      (GdkEvent.C.withPtr ---> GdkEventType.C.fromVal) eventType_ self
+      (GdkEvent.FFI.withPtr ---> GdkEventType.FFI.fromVal) eventType_ self
 
 
     local
-      fun mkT (con, fromPtr, ty) event = con (GdkEvent.C.withPtr (fromPtr false) event, ty)
+      fun mkT (con, fromPtr, ty) event = con (GdkEvent.FFI.withPtr (fromPtr false) event, ty)
     in
       fun classify e =
         case eventType e of
           GdkEventType.NOTHING             => NONE
-        | GdkEventType.DELETE              => SOME (mkT (ANY, GdkEventAnyRecord.C.fromPtr, GdkEventAnyRecord.DELETE) e)
-        | GdkEventType.DESTROY             => SOME (mkT (ANY, GdkEventAnyRecord.C.fromPtr, GdkEventAnyRecord.DESTROY) e)
-        | GdkEventType.EXPOSE              => SOME (mkT (EXPOSE, GdkEventExposeRecord.C.fromPtr, GdkEventExposeRecord.EXPOSE) e)
-        | GdkEventType.MOTION_NOTIFY       => SOME (mkT (MOTION, GdkEventMotionRecord.C.fromPtr, GdkEventMotionRecord.MOTION_NOTIFY) e)
-        | GdkEventType.BUTTON_PRESS        => SOME (mkT (BUTTON, GdkEventButtonRecord.C.fromPtr, GdkEventButtonRecord.BUTTON_PRESS) e)
-        | GdkEventType.DOUBLE_BUTTON_PRESS => SOME (mkT (BUTTON, GdkEventButtonRecord.C.fromPtr, GdkEventButtonRecord.DOUBLE_BUTTON_PRESS) e)
-        | GdkEventType.TRIPLE_BUTTON_PRESS => SOME (mkT (BUTTON, GdkEventButtonRecord.C.fromPtr, GdkEventButtonRecord.TRIPLE_BUTTON_PRESS) e)
-        | GdkEventType.BUTTON_RELEASE      => SOME (mkT (BUTTON, GdkEventButtonRecord.C.fromPtr, GdkEventButtonRecord.BUTTON_RELEASE) e)
-        | GdkEventType.KEY_PRESS           => SOME (mkT (KEY, GdkEventKeyRecord.C.fromPtr, GdkEventKeyRecord.KEY_PRESS) e)
-        | GdkEventType.KEY_RELEASE         => SOME (mkT (KEY, GdkEventKeyRecord.C.fromPtr, GdkEventKeyRecord.KEY_RELEASE) e)
-        | GdkEventType.ENTER_NOTIFY        => SOME (mkT (CROSSING, GdkEventCrossingRecord.C.fromPtr, GdkEventCrossingRecord.ENTER_NOTIFY) e)
-        | GdkEventType.LEAVE_NOTIFY        => SOME (mkT (CROSSING, GdkEventCrossingRecord.C.fromPtr, GdkEventCrossingRecord.LEAVE_NOTIFY) e)
-        | GdkEventType.FOCUS_CHANGE        => SOME (mkT (FOCUS, GdkEventFocusRecord.C.fromPtr, GdkEventFocusRecord.FOCUS_CHANGE) e)
-        | GdkEventType.CONFIGURE           => SOME (mkT (CONFIGURE, GdkEventConfigureRecord.C.fromPtr, GdkEventConfigureRecord.CONFIGURE) e)
-        | GdkEventType.MAP                 => SOME (mkT (ANY, GdkEventAnyRecord.C.fromPtr, GdkEventAnyRecord.MAP) e)
-        | GdkEventType.UNMAP               => SOME (mkT (ANY, GdkEventAnyRecord.C.fromPtr, GdkEventAnyRecord.UNMAP) e)
-        | GdkEventType.PROPERTY_NOTIFY     => SOME (mkT (PROPERTY, GdkEventPropertyRecord.C.fromPtr, GdkEventPropertyRecord.PROPERTY_NOTIFY) e)
-        | GdkEventType.SELECTION_CLEAR     => SOME (mkT (SELECTION, GdkEventSelectionRecord.C.fromPtr, GdkEventSelectionRecord.SELECTION_CLEAR) e)
-        | GdkEventType.SELECTION_REQUEST   => SOME (mkT (SELECTION, GdkEventSelectionRecord.C.fromPtr, GdkEventSelectionRecord.SELECTION_REQUEST) e)
-        | GdkEventType.SELECTION_NOTIFY    => SOME (mkT (SELECTION, GdkEventSelectionRecord.C.fromPtr, GdkEventSelectionRecord.SELECTION_NOTIFY) e)
-        | GdkEventType.PROXIMITY_IN        => SOME (mkT (PROXIMITY, GdkEventProximityRecord.C.fromPtr, GdkEventProximityRecord.PROXIMITY_IN) e)
-        | GdkEventType.PROXIMITY_OUT       => SOME (mkT (PROXIMITY, GdkEventProximityRecord.C.fromPtr, GdkEventProximityRecord.PROXIMITY_OUT) e)
-        | GdkEventType.DRAG_ENTER          => SOME (mkT (DND, GdkEventDNDRecord.C.fromPtr, GdkEventDNDRecord.DRAG_ENTER) e)
-        | GdkEventType.DRAG_LEAVE          => SOME (mkT (DND, GdkEventDNDRecord.C.fromPtr, GdkEventDNDRecord.DRAG_LEAVE) e)
-        | GdkEventType.DRAG_MOTION         => SOME (mkT (DND, GdkEventDNDRecord.C.fromPtr, GdkEventDNDRecord.DRAG_MOTION) e)
-        | GdkEventType.DRAG_STATUS         => SOME (mkT (DND, GdkEventDNDRecord.C.fromPtr, GdkEventDNDRecord.DRAG_STATUS) e)
-        | GdkEventType.DROP_START          => SOME (mkT (DND, GdkEventDNDRecord.C.fromPtr, GdkEventDNDRecord.DROP_START) e)
-        | GdkEventType.DROP_FINISHED       => SOME (mkT (DND, GdkEventDNDRecord.C.fromPtr, GdkEventDNDRecord.DROP_FINISHED) e)
-        | GdkEventType.CLIENT_EVENT        => SOME (mkT (ANY, GdkEventAnyRecord.C.fromPtr, GdkEventAnyRecord.CLIENT_EVENT) e)
-        | GdkEventType.VISIBILITY_NOTIFY   => SOME (mkT (VISIBILITY, GdkEventVisibilityRecord.C.fromPtr, GdkEventVisibilityRecord.VISIBILITY_NOTIFY) e)
-        | GdkEventType.SCROLL              => SOME (mkT (SCROLL, GdkEventScrollRecord.C.fromPtr, GdkEventScrollRecord.SCROLL) e)
-        | GdkEventType.WINDOW_STATE        => SOME (mkT (WINDOW_STATE, GdkEventWindowStateRecord.C.fromPtr, GdkEventWindowStateRecord.WINDOW_STATE) e)
-        | GdkEventType.SETTING             => SOME (mkT (SETTING, GdkEventSettingRecord.C.fromPtr, GdkEventSettingRecord.SETTING) e)
-        | GdkEventType.OWNER_CHANGE        => SOME (mkT (OWNER_CHANGE, GdkEventOwnerChangeRecord.C.fromPtr, GdkEventOwnerChangeRecord.OWNER_CHANGE) e)
-        | GdkEventType.GRAB_BROKEN         => SOME (mkT (GRAB_BROKEN, GdkEventGrabBrokenRecord.C.fromPtr, GdkEventGrabBrokenRecord.GRAB_BROKEN) e)
-        | GdkEventType.DAMAGE              => SOME (mkT (EXPOSE, GdkEventExposeRecord.C.fromPtr, GdkEventExposeRecord.DAMAGE) e)
+        | GdkEventType.DELETE              => SOME (mkT (ANY, GdkEventAnyRecord.FFI.fromPtr, GdkEventAnyRecord.DELETE) e)
+        | GdkEventType.DESTROY             => SOME (mkT (ANY, GdkEventAnyRecord.FFI.fromPtr, GdkEventAnyRecord.DESTROY) e)
+        | GdkEventType.EXPOSE              => SOME (mkT (EXPOSE, GdkEventExposeRecord.FFI.fromPtr, GdkEventExposeRecord.EXPOSE) e)
+        | GdkEventType.MOTION_NOTIFY       => SOME (mkT (MOTION, GdkEventMotionRecord.FFI.fromPtr, GdkEventMotionRecord.MOTION_NOTIFY) e)
+        | GdkEventType.BUTTON_PRESS        => SOME (mkT (BUTTON, GdkEventButtonRecord.FFI.fromPtr, GdkEventButtonRecord.BUTTON_PRESS) e)
+        | GdkEventType.DOUBLE_BUTTON_PRESS => SOME (mkT (BUTTON, GdkEventButtonRecord.FFI.fromPtr, GdkEventButtonRecord.DOUBLE_BUTTON_PRESS) e)
+        | GdkEventType.TRIPLE_BUTTON_PRESS => SOME (mkT (BUTTON, GdkEventButtonRecord.FFI.fromPtr, GdkEventButtonRecord.TRIPLE_BUTTON_PRESS) e)
+        | GdkEventType.BUTTON_RELEASE      => SOME (mkT (BUTTON, GdkEventButtonRecord.FFI.fromPtr, GdkEventButtonRecord.BUTTON_RELEASE) e)
+        | GdkEventType.KEY_PRESS           => SOME (mkT (KEY, GdkEventKeyRecord.FFI.fromPtr, GdkEventKeyRecord.KEY_PRESS) e)
+        | GdkEventType.KEY_RELEASE         => SOME (mkT (KEY, GdkEventKeyRecord.FFI.fromPtr, GdkEventKeyRecord.KEY_RELEASE) e)
+        | GdkEventType.ENTER_NOTIFY        => SOME (mkT (CROSSING, GdkEventCrossingRecord.FFI.fromPtr, GdkEventCrossingRecord.ENTER_NOTIFY) e)
+        | GdkEventType.LEAVE_NOTIFY        => SOME (mkT (CROSSING, GdkEventCrossingRecord.FFI.fromPtr, GdkEventCrossingRecord.LEAVE_NOTIFY) e)
+        | GdkEventType.FOCUS_CHANGE        => SOME (mkT (FOCUS, GdkEventFocusRecord.FFI.fromPtr, GdkEventFocusRecord.FOCUS_CHANGE) e)
+        | GdkEventType.CONFIGURE           => SOME (mkT (CONFIGURE, GdkEventConfigureRecord.FFI.fromPtr, GdkEventConfigureRecord.CONFIGURE) e)
+        | GdkEventType.MAP                 => SOME (mkT (ANY, GdkEventAnyRecord.FFI.fromPtr, GdkEventAnyRecord.MAP) e)
+        | GdkEventType.UNMAP               => SOME (mkT (ANY, GdkEventAnyRecord.FFI.fromPtr, GdkEventAnyRecord.UNMAP) e)
+        | GdkEventType.PROPERTY_NOTIFY     => SOME (mkT (PROPERTY, GdkEventPropertyRecord.FFI.fromPtr, GdkEventPropertyRecord.PROPERTY_NOTIFY) e)
+        | GdkEventType.SELECTION_CLEAR     => SOME (mkT (SELECTION, GdkEventSelectionRecord.FFI.fromPtr, GdkEventSelectionRecord.SELECTION_CLEAR) e)
+        | GdkEventType.SELECTION_REQUEST   => SOME (mkT (SELECTION, GdkEventSelectionRecord.FFI.fromPtr, GdkEventSelectionRecord.SELECTION_REQUEST) e)
+        | GdkEventType.SELECTION_NOTIFY    => SOME (mkT (SELECTION, GdkEventSelectionRecord.FFI.fromPtr, GdkEventSelectionRecord.SELECTION_NOTIFY) e)
+        | GdkEventType.PROXIMITY_IN        => SOME (mkT (PROXIMITY, GdkEventProximityRecord.FFI.fromPtr, GdkEventProximityRecord.PROXIMITY_IN) e)
+        | GdkEventType.PROXIMITY_OUT       => SOME (mkT (PROXIMITY, GdkEventProximityRecord.FFI.fromPtr, GdkEventProximityRecord.PROXIMITY_OUT) e)
+        | GdkEventType.DRAG_ENTER          => SOME (mkT (DND, GdkEventDNDRecord.FFI.fromPtr, GdkEventDNDRecord.DRAG_ENTER) e)
+        | GdkEventType.DRAG_LEAVE          => SOME (mkT (DND, GdkEventDNDRecord.FFI.fromPtr, GdkEventDNDRecord.DRAG_LEAVE) e)
+        | GdkEventType.DRAG_MOTION         => SOME (mkT (DND, GdkEventDNDRecord.FFI.fromPtr, GdkEventDNDRecord.DRAG_MOTION) e)
+        | GdkEventType.DRAG_STATUS         => SOME (mkT (DND, GdkEventDNDRecord.FFI.fromPtr, GdkEventDNDRecord.DRAG_STATUS) e)
+        | GdkEventType.DROP_START          => SOME (mkT (DND, GdkEventDNDRecord.FFI.fromPtr, GdkEventDNDRecord.DROP_START) e)
+        | GdkEventType.DROP_FINISHED       => SOME (mkT (DND, GdkEventDNDRecord.FFI.fromPtr, GdkEventDNDRecord.DROP_FINISHED) e)
+        | GdkEventType.CLIENT_EVENT        => SOME (mkT (ANY, GdkEventAnyRecord.FFI.fromPtr, GdkEventAnyRecord.CLIENT_EVENT) e)
+        | GdkEventType.VISIBILITY_NOTIFY   => SOME (mkT (VISIBILITY, GdkEventVisibilityRecord.FFI.fromPtr, GdkEventVisibilityRecord.VISIBILITY_NOTIFY) e)
+        | GdkEventType.SCROLL              => SOME (mkT (SCROLL, GdkEventScrollRecord.FFI.fromPtr, GdkEventScrollRecord.SCROLL) e)
+        | GdkEventType.WINDOW_STATE        => SOME (mkT (WINDOW_STATE, GdkEventWindowStateRecord.FFI.fromPtr, GdkEventWindowStateRecord.WINDOW_STATE) e)
+        | GdkEventType.SETTING             => SOME (mkT (SETTING, GdkEventSettingRecord.FFI.fromPtr, GdkEventSettingRecord.SETTING) e)
+        | GdkEventType.OWNER_CHANGE        => SOME (mkT (OWNER_CHANGE, GdkEventOwnerChangeRecord.FFI.fromPtr, GdkEventOwnerChangeRecord.OWNER_CHANGE) e)
+        | GdkEventType.GRAB_BROKEN         => SOME (mkT (GRAB_BROKEN, GdkEventGrabBrokenRecord.FFI.fromPtr, GdkEventGrabBrokenRecord.GRAB_BROKEN) e)
+        | GdkEventType.DAMAGE              => SOME (mkT (EXPOSE, GdkEventExposeRecord.FFI.fromPtr, GdkEventExposeRecord.DAMAGE) e)
         | GdkEventType.EVENT_LAST          => NONE
     end
   end

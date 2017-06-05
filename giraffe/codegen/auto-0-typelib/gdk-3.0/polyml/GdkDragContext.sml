@@ -25,13 +25,13 @@ structure GdkDragContext :>
     type drag_action_t = GdkDragAction.t
     type 'a device_class = 'a GdkDeviceClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getActions self = (GdkDragContextClass.C.withPtr ---> GdkDragAction.C.fromVal) getActions_ self
-    fun getDestWindow self = (GdkDragContextClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getDestWindow_ self
-    fun getDevice self = (GdkDragContextClass.C.withPtr ---> GdkDeviceClass.C.fromPtr false) getDevice_ self
-    fun getProtocol self = (GdkDragContextClass.C.withPtr ---> GdkDragProtocol.C.fromVal) getProtocol_ self
-    fun getSelectedAction self = (GdkDragContextClass.C.withPtr ---> GdkDragAction.C.fromVal) getSelectedAction_ self
-    fun getSourceWindow self = (GdkDragContextClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getSourceWindow_ self
-    fun getSuggestedAction self = (GdkDragContextClass.C.withPtr ---> GdkDragAction.C.fromVal) getSuggestedAction_ self
-    fun setDevice self device = (GdkDragContextClass.C.withPtr &&&> GdkDeviceClass.C.withPtr ---> I) setDevice_ (self & device)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getActions self = (GdkDragContextClass.FFI.withPtr ---> GdkDragAction.FFI.fromVal) getActions_ self
+    fun getDestWindow self = (GdkDragContextClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getDestWindow_ self
+    fun getDevice self = (GdkDragContextClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromPtr false) getDevice_ self
+    fun getProtocol self = (GdkDragContextClass.FFI.withPtr ---> GdkDragProtocol.FFI.fromVal) getProtocol_ self
+    fun getSelectedAction self = (GdkDragContextClass.FFI.withPtr ---> GdkDragAction.FFI.fromVal) getSelectedAction_ self
+    fun getSourceWindow self = (GdkDragContextClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getSourceWindow_ self
+    fun getSuggestedAction self = (GdkDragContextClass.FFI.withPtr ---> GdkDragAction.FFI.fromVal) getSuggestedAction_ self
+    fun setDevice self device = (GdkDragContextClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> I) setDevice_ (self & device)
   end

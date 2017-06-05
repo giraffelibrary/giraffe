@@ -7,68 +7,68 @@ structure AtkTable :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libatk "atk_table_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val addColumnSelection_ = call (load_sym libatk "atk_table_add_column_selection") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val addRowSelection_ = call (load_sym libatk "atk_table_add_row_selection") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val addColumnSelection_ = call (load_sym libatk "atk_table_add_column_selection") (AtkTableClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GBool.PolyML.cVal)
+      val addRowSelection_ = call (load_sym libatk "atk_table_add_row_selection") (AtkTableClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GBool.PolyML.cVal)
       val getCaption_ = call (load_sym libatk "atk_table_get_caption") (AtkTableClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
-      val getColumnAtIndex_ = call (load_sym libatk "atk_table_get_column_at_index") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Int32.PolyML.cVal)
-      val getColumnDescription_ = call (load_sym libatk "atk_table_get_column_description") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getColumnAtIndex_ = call (load_sym libatk "atk_table_get_column_at_index") (AtkTableClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
+      val getColumnDescription_ = call (load_sym libatk "atk_table_get_column_description") (AtkTableClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val getColumnExtentAt_ =
         call (load_sym libatk "atk_table_get_column_extent_at")
           (
             AtkTableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
-             --> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             --> GInt32.PolyML.cVal
           )
-      val getColumnHeader_ = call (load_sym libatk "atk_table_get_column_header") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
+      val getColumnHeader_ = call (load_sym libatk "atk_table_get_column_header") (AtkTableClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
       val getIndexAt_ =
         call (load_sym libatk "atk_table_get_index_at")
           (
             AtkTableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
-             --> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             --> GInt32.PolyML.cVal
           )
-      val getNColumns_ = call (load_sym libatk "atk_table_get_n_columns") (AtkTableClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
-      val getNRows_ = call (load_sym libatk "atk_table_get_n_rows") (AtkTableClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal)
-      val getRowAtIndex_ = call (load_sym libatk "atk_table_get_row_at_index") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Int32.PolyML.cVal)
-      val getRowDescription_ = call (load_sym libatk "atk_table_get_row_description") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getNColumns_ = call (load_sym libatk "atk_table_get_n_columns") (AtkTableClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getNRows_ = call (load_sym libatk "atk_table_get_n_rows") (AtkTableClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getRowAtIndex_ = call (load_sym libatk "atk_table_get_row_at_index") (AtkTableClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
+      val getRowDescription_ = call (load_sym libatk "atk_table_get_row_description") (AtkTableClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val getRowExtentAt_ =
         call (load_sym libatk "atk_table_get_row_extent_at")
           (
             AtkTableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
-             --> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             --> GInt32.PolyML.cVal
           )
-      val getRowHeader_ = call (load_sym libatk "atk_table_get_row_header") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
+      val getRowHeader_ = call (load_sym libatk "atk_table_get_row_header") (AtkTableClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
       val getSummary_ = call (load_sym libatk "atk_table_get_summary") (AtkTableClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
-      val isColumnSelected_ = call (load_sym libatk "atk_table_is_column_selected") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val isRowSelected_ = call (load_sym libatk "atk_table_is_row_selected") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val isColumnSelected_ = call (load_sym libatk "atk_table_is_column_selected") (AtkTableClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GBool.PolyML.cVal)
+      val isRowSelected_ = call (load_sym libatk "atk_table_is_row_selected") (AtkTableClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GBool.PolyML.cVal)
       val isSelected_ =
         call (load_sym libatk "atk_table_is_selected")
           (
             AtkTableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
-             --> FFI.Bool.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val refAt_ =
         call (load_sym libatk "atk_table_ref_at")
           (
             AtkTableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> AtkObjectClass.PolyML.cPtr
           )
-      val removeColumnSelection_ = call (load_sym libatk "atk_table_remove_column_selection") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val removeRowSelection_ = call (load_sym libatk "atk_table_remove_row_selection") (AtkTableClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
+      val removeColumnSelection_ = call (load_sym libatk "atk_table_remove_column_selection") (AtkTableClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GBool.PolyML.cVal)
+      val removeRowSelection_ = call (load_sym libatk "atk_table_remove_row_selection") (AtkTableClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GBool.PolyML.cVal)
       val setCaption_ = call (load_sym libatk "atk_table_set_caption") (AtkTableClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val setColumnDescription_ =
         call (load_sym libatk "atk_table_set_column_description")
           (
             AtkTableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
@@ -76,7 +76,7 @@ structure AtkTable :>
         call (load_sym libatk "atk_table_set_column_header")
           (
             AtkTableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              &&> AtkObjectClass.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
@@ -84,7 +84,7 @@ structure AtkTable :>
         call (load_sym libatk "atk_table_set_row_description")
           (
             AtkTableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
@@ -92,7 +92,7 @@ structure AtkTable :>
         call (load_sym libatk "atk_table_set_row_header")
           (
             AtkTableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              &&> AtkObjectClass.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
@@ -101,18 +101,18 @@ structure AtkTable :>
     type 'a class = 'a AtkTableClass.class
     type 'a object_class = 'a AtkObjectClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun addColumnSelection self column = (AtkTableClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) addColumnSelection_ (self & column)
-    fun addRowSelection self row = (AtkTableClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) addRowSelection_ (self & row)
-    fun getCaption self = (AtkTableClass.C.withPtr ---> AtkObjectClass.C.fromPtr false) getCaption_ self
-    fun getColumnAtIndex self index = (AtkTableClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) getColumnAtIndex_ (self & index)
-    fun getColumnDescription self column = (AtkTableClass.C.withPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) getColumnDescription_ (self & column)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun addColumnSelection self column = (AtkTableClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) addColumnSelection_ (self & column)
+    fun addRowSelection self row = (AtkTableClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) addRowSelection_ (self & row)
+    fun getCaption self = (AtkTableClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr false) getCaption_ self
+    fun getColumnAtIndex self index = (AtkTableClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) getColumnAtIndex_ (self & index)
+    fun getColumnDescription self column = (AtkTableClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) getColumnDescription_ (self & column)
     fun getColumnExtentAt self row column =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         ---> FFI.Int32.C.fromVal
+        AtkTableClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         ---> GInt32.FFI.fromVal
       )
         getColumnExtentAt_
         (
@@ -120,13 +120,13 @@ structure AtkTable :>
            & row
            & column
         )
-    fun getColumnHeader self column = (AtkTableClass.C.withPtr &&&> FFI.Int32.C.withVal ---> AtkObjectClass.C.fromPtr false) getColumnHeader_ (self & column)
+    fun getColumnHeader self column = (AtkTableClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> AtkObjectClass.FFI.fromPtr false) getColumnHeader_ (self & column)
     fun getIndexAt self row column =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         ---> FFI.Int32.C.fromVal
+        AtkTableClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         ---> GInt32.FFI.fromVal
       )
         getIndexAt_
         (
@@ -134,16 +134,16 @@ structure AtkTable :>
            & row
            & column
         )
-    fun getNColumns self = (AtkTableClass.C.withPtr ---> FFI.Int32.C.fromVal) getNColumns_ self
-    fun getNRows self = (AtkTableClass.C.withPtr ---> FFI.Int32.C.fromVal) getNRows_ self
-    fun getRowAtIndex self index = (AtkTableClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Int32.C.fromVal) getRowAtIndex_ (self & index)
-    fun getRowDescription self row = (AtkTableClass.C.withPtr &&&> FFI.Int32.C.withVal ---> Utf8.C.fromPtr false) getRowDescription_ (self & row)
+    fun getNColumns self = (AtkTableClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNColumns_ self
+    fun getNRows self = (AtkTableClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNRows_ self
+    fun getRowAtIndex self index = (AtkTableClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) getRowAtIndex_ (self & index)
+    fun getRowDescription self row = (AtkTableClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) getRowDescription_ (self & row)
     fun getRowExtentAt self row column =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         ---> FFI.Int32.C.fromVal
+        AtkTableClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         ---> GInt32.FFI.fromVal
       )
         getRowExtentAt_
         (
@@ -151,16 +151,16 @@ structure AtkTable :>
            & row
            & column
         )
-    fun getRowHeader self row = (AtkTableClass.C.withPtr &&&> FFI.Int32.C.withVal ---> AtkObjectClass.C.fromPtr false) getRowHeader_ (self & row)
-    fun getSummary self = (AtkTableClass.C.withPtr ---> AtkObjectClass.C.fromPtr true) getSummary_ self
-    fun isColumnSelected self column = (AtkTableClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) isColumnSelected_ (self & column)
-    fun isRowSelected self row = (AtkTableClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) isRowSelected_ (self & row)
+    fun getRowHeader self row = (AtkTableClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> AtkObjectClass.FFI.fromPtr false) getRowHeader_ (self & row)
+    fun getSummary self = (AtkTableClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr true) getSummary_ self
+    fun isColumnSelected self column = (AtkTableClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) isColumnSelected_ (self & column)
+    fun isRowSelected self row = (AtkTableClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) isRowSelected_ (self & row)
     fun isSelected self row column =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         ---> FFI.Bool.C.fromVal
+        AtkTableClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         isSelected_
         (
@@ -170,10 +170,10 @@ structure AtkTable :>
         )
     fun refAt self row column =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         ---> AtkObjectClass.C.fromPtr true
+        AtkTableClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         ---> AtkObjectClass.FFI.fromPtr true
       )
         refAt_
         (
@@ -181,14 +181,14 @@ structure AtkTable :>
            & row
            & column
         )
-    fun removeColumnSelection self column = (AtkTableClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) removeColumnSelection_ (self & column)
-    fun removeRowSelection self row = (AtkTableClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) removeRowSelection_ (self & row)
-    fun setCaption self caption = (AtkTableClass.C.withPtr &&&> AtkObjectClass.C.withPtr ---> I) setCaption_ (self & caption)
+    fun removeColumnSelection self column = (AtkTableClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) removeColumnSelection_ (self & column)
+    fun removeRowSelection self row = (AtkTableClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) removeRowSelection_ (self & row)
+    fun setCaption self caption = (AtkTableClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> I) setCaption_ (self & caption)
     fun setColumnDescription self column description =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withPtr
+        AtkTableClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         setColumnDescription_
@@ -199,9 +199,9 @@ structure AtkTable :>
         )
     fun setColumnHeader self column header =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> AtkObjectClass.C.withPtr
+        AtkTableClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> AtkObjectClass.FFI.withPtr
          ---> I
       )
         setColumnHeader_
@@ -212,9 +212,9 @@ structure AtkTable :>
         )
     fun setRowDescription self row description =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> Utf8.C.withPtr
+        AtkTableClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         setRowDescription_
@@ -225,9 +225,9 @@ structure AtkTable :>
         )
     fun setRowHeader self row header =
       (
-        AtkTableClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> AtkObjectClass.C.withPtr
+        AtkTableClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> AtkObjectClass.FFI.withPtr
          ---> I
       )
         setRowHeader_
@@ -236,7 +236,7 @@ structure AtkTable :>
            & row
            & header
         )
-    fun setSummary self accessible = (AtkTableClass.C.withPtr &&&> AtkObjectClass.C.withPtr ---> I) setSummary_ (self & accessible)
+    fun setSummary self accessible = (AtkTableClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> I) setSummary_ (self & accessible)
     local
       open ClosureMarshal Signal
     in

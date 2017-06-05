@@ -12,19 +12,19 @@ structure PangoGlyphItem :>
           (
             PangoGlyphItemRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> PangoGlyphItemRecord.PolyML.cPtr
           )
     end
     type t = PangoGlyphItemRecord.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun copy self = (PangoGlyphItemRecord.C.withPtr ---> PangoGlyphItemRecord.C.fromPtr true) copy_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun copy self = (PangoGlyphItemRecord.FFI.withPtr ---> PangoGlyphItemRecord.FFI.fromPtr true) copy_ self
     fun split self text splitIndex =
       (
-        PangoGlyphItemRecord.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         ---> PangoGlyphItemRecord.C.fromPtr true
+        PangoGlyphItemRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         ---> PangoGlyphItemRecord.FFI.fromPtr true
       )
         split_
         (

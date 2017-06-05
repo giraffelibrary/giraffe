@@ -1,10 +1,8 @@
-structure GIRepositoryTypeTag :>
-  sig
-    include G_I_REPOSITORY_TYPE_TAG
-  end =
+structure GIRepositoryTypeTag :> G_I_REPOSITORY_TYPE_TAG =
   struct
-    datatype t =
-      BOOLEAN
+    datatype enum =
+      VOID
+    | BOOLEAN
     | CHAR            (* GIR only, not TYPELIB *)
     | UCHAR           (* GIR only, not TYPELIB *)
     | INT             (* GIR only, not TYPELIB *)
@@ -28,10 +26,9 @@ structure GIRepositoryTypeTag :>
     | OFFSET          (* GIR only, not TYPELIB *)
     | INTPTR          (* GIR only, not TYPELIB *)
     | UINTPTR         (* GIR only, not TYPELIB *)
+    | GTYPE
     | UTF8
     | FILENAME
-    | VOID
-    | GTYPE
     | ARRAY
     | INTERFACE
     | GLIST
@@ -39,6 +36,7 @@ structure GIRepositoryTypeTag :>
     | GHASH
     | ERROR
     | UNICHAR
+    datatype t = datatype enum
     val toString =
       fn
         BOOLEAN      => "gboolean"

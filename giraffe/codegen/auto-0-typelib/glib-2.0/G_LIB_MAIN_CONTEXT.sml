@@ -26,6 +26,12 @@ signature G_LIB_MAIN_CONTEXT =
     val pending : t -> bool
     val popThreadDefault : t -> unit
     val pushThreadDefault : t -> unit
+    val query :
+      t
+       -> LargeInt.int
+       -> LargeInt.int
+           * LargeInt.int
+           * poll_f_d_t vector
     val release : t -> unit
     val removePoll :
       t

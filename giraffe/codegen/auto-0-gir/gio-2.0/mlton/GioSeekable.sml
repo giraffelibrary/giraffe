@@ -3,9 +3,9 @@ structure GioSeekable :>
     where type 'a class = 'a GioSeekableClass.class
     where type 'a cancellable_class = 'a GioCancellableClass.class =
   struct
-    val getType_ = _import "g_seekable_get_type" : unit -> GObjectType.C.val_;
-    val canSeek_ = _import "g_seekable_can_seek" : GioSeekableClass.C.notnull GioSeekableClass.C.p -> FFI.Bool.C.val_;
-    val canTruncate_ = _import "g_seekable_can_truncate" : GioSeekableClass.C.notnull GioSeekableClass.C.p -> FFI.Bool.C.val_;
+    val getType_ = _import "g_seekable_get_type" : unit -> GObjectType.FFI.val_;
+    val canSeek_ = _import "g_seekable_can_seek" : GioSeekableClass.FFI.notnull GioSeekableClass.FFI.p -> GBool.FFI.val_;
+    val canTruncate_ = _import "g_seekable_can_truncate" : GioSeekableClass.FFI.notnull GioSeekableClass.FFI.p -> GBool.FFI.val_;
     val seek_ =
       fn
         x1
@@ -15,12 +15,12 @@ structure GioSeekable :>
          & x5 =>
           (
             _import "g_seekable_seek" :
-              GioSeekableClass.C.notnull GioSeekableClass.C.p
-               * FFI.Int64.C.val_
-               * GLibSeekType.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioSeekableClass.FFI.notnull GioSeekableClass.FFI.p
+               * GInt64.FFI.val_
+               * GLibSeekType.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -29,7 +29,7 @@ structure GioSeekable :>
               x4,
               x5
             )
-    val tell_ = _import "g_seekable_tell" : GioSeekableClass.C.notnull GioSeekableClass.C.p -> FFI.Int64.C.val_;
+    val tell_ = _import "g_seekable_tell" : GioSeekableClass.FFI.notnull GioSeekableClass.FFI.p -> GInt64.FFI.val_;
     val truncate_ =
       fn
         x1
@@ -38,11 +38,11 @@ structure GioSeekable :>
          & x4 =>
           (
             _import "g_seekable_truncate" :
-              GioSeekableClass.C.notnull GioSeekableClass.C.p
-               * FFI.Int64.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioSeekableClass.FFI.notnull GioSeekableClass.FFI.p
+               * GInt64.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -53,17 +53,17 @@ structure GioSeekable :>
     type 'a class = 'a GioSeekableClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun canSeek self = (GioSeekableClass.C.withPtr ---> FFI.Bool.C.fromVal) canSeek_ self
-    fun canTruncate self = (GioSeekableClass.C.withPtr ---> FFI.Bool.C.fromVal) canTruncate_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun canSeek self = (GioSeekableClass.FFI.withPtr ---> GBool.FFI.fromVal) canSeek_ self
+    fun canTruncate self = (GioSeekableClass.FFI.withPtr ---> GBool.FFI.fromVal) canTruncate_ self
     fun seek self offset type' cancellable =
       (
-        GioSeekableClass.C.withPtr
-         &&&> FFI.Int64.C.withVal
-         &&&> GLibSeekType.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioSeekableClass.FFI.withPtr
+         &&&> GInt64.FFI.withVal
+         &&&> GLibSeekType.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         seek_
         (
@@ -73,14 +73,14 @@ structure GioSeekable :>
            & cancellable
            & []
         )
-    fun tell self = (GioSeekableClass.C.withPtr ---> FFI.Int64.C.fromVal) tell_ self
+    fun tell self = (GioSeekableClass.FFI.withPtr ---> GInt64.FFI.fromVal) tell_ self
     fun truncate self offset cancellable =
       (
-        GioSeekableClass.C.withPtr
-         &&&> FFI.Int64.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioSeekableClass.FFI.withPtr
+         &&&> GInt64.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         truncate_
         (

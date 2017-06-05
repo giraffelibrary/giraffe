@@ -11,32 +11,32 @@ structure GtkToggleButton :>
       val new_ = call (load_sym libgtk "gtk_toggle_button_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val newWithLabel_ = call (load_sym libgtk "gtk_toggle_button_new_with_label") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithMnemonic_ = call (load_sym libgtk "gtk_toggle_button_new_with_mnemonic") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getActive_ = call (load_sym libgtk "gtk_toggle_button_get_active") (GtkToggleButtonClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getInconsistent_ = call (load_sym libgtk "gtk_toggle_button_get_inconsistent") (GtkToggleButtonClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getMode_ = call (load_sym libgtk "gtk_toggle_button_get_mode") (GtkToggleButtonClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setActive_ = call (load_sym libgtk "gtk_toggle_button_set_active") (GtkToggleButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setInconsistent_ = call (load_sym libgtk "gtk_toggle_button_set_inconsistent") (GtkToggleButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setMode_ = call (load_sym libgtk "gtk_toggle_button_set_mode") (GtkToggleButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getActive_ = call (load_sym libgtk "gtk_toggle_button_get_active") (GtkToggleButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getInconsistent_ = call (load_sym libgtk "gtk_toggle_button_get_inconsistent") (GtkToggleButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getMode_ = call (load_sym libgtk "gtk_toggle_button_get_mode") (GtkToggleButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setActive_ = call (load_sym libgtk "gtk_toggle_button_set_active") (GtkToggleButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setInconsistent_ = call (load_sym libgtk "gtk_toggle_button_set_inconsistent") (GtkToggleButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMode_ = call (load_sym libgtk "gtk_toggle_button_set_mode") (GtkToggleButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val toggled_ = call (load_sym libgtk "gtk_toggle_button_toggled") (GtkToggleButtonClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkToggleButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkToggleButtonClass.C.fromPtr false) new_ ()
-    fun newWithLabel label = (Utf8.C.withPtr ---> GtkToggleButtonClass.C.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (Utf8.C.withPtr ---> GtkToggleButtonClass.C.fromPtr false) newWithMnemonic_ label
-    fun getActive self = (GtkToggleButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getActive_ self
-    fun getInconsistent self = (GtkToggleButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getInconsistent_ self
-    fun getMode self = (GtkToggleButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getMode_ self
-    fun setActive self isActive = (GtkToggleButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setActive_ (self & isActive)
-    fun setInconsistent self setting = (GtkToggleButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setInconsistent_ (self & setting)
-    fun setMode self drawIndicator = (GtkToggleButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setMode_ (self & drawIndicator)
-    fun toggled self = (GtkToggleButtonClass.C.withPtr ---> I) toggled_ self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkToggleButtonClass.FFI.fromPtr false) new_ ()
+    fun newWithLabel label = (Utf8.FFI.withPtr ---> GtkToggleButtonClass.FFI.fromPtr false) newWithLabel_ label
+    fun newWithMnemonic label = (Utf8.FFI.withPtr ---> GtkToggleButtonClass.FFI.fromPtr false) newWithMnemonic_ label
+    fun getActive self = (GtkToggleButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getActive_ self
+    fun getInconsistent self = (GtkToggleButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getInconsistent_ self
+    fun getMode self = (GtkToggleButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getMode_ self
+    fun setActive self isActive = (GtkToggleButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setActive_ (self & isActive)
+    fun setInconsistent self setting = (GtkToggleButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setInconsistent_ (self & setting)
+    fun setMode self drawIndicator = (GtkToggleButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setMode_ (self & drawIndicator)
+    fun toggled self = (GtkToggleButtonClass.FFI.withPtr ---> I) toggled_ self
     local
       open ClosureMarshal Signal
     in

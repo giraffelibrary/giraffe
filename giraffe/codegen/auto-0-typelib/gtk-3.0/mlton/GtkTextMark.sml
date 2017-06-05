@@ -3,7 +3,7 @@ structure GtkTextMark :>
     where type 'a class = 'a GtkTextMarkClass.class
     where type 'a text_buffer_class = 'a GtkTextBufferClass.class =
   struct
-    val getType_ = _import "gtk_text_mark_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "gtk_text_mark_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
         (x1, x2) & x3 =>
@@ -11,31 +11,31 @@ structure GtkTextMark :>
             _import "mlton_gtk_text_mark_new" :
               Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               * FFI.Bool.C.val_
-               -> GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p;
+               * GBool.FFI.val_
+               -> GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getBuffer_ = _import "gtk_text_mark_get_buffer" : GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p -> GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p;
-    val getDeleted_ = _import "gtk_text_mark_get_deleted" : GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p -> FFI.Bool.C.val_;
-    val getLeftGravity_ = _import "gtk_text_mark_get_left_gravity" : GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p -> FFI.Bool.C.val_;
-    val getName_ = _import "gtk_text_mark_get_name" : GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getVisible_ = _import "gtk_text_mark_get_visible" : GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p -> FFI.Bool.C.val_;
-    val setVisible_ = fn x1 & x2 => (_import "gtk_text_mark_set_visible" : GtkTextMarkClass.C.notnull GtkTextMarkClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val getBuffer_ = _import "gtk_text_mark_get_buffer" : GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p -> GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p;
+    val getDeleted_ = _import "gtk_text_mark_get_deleted" : GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p -> GBool.FFI.val_;
+    val getLeftGravity_ = _import "gtk_text_mark_get_left_gravity" : GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p -> GBool.FFI.val_;
+    val getName_ = _import "gtk_text_mark_get_name" : GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getVisible_ = _import "gtk_text_mark_get_visible" : GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p -> GBool.FFI.val_;
+    val setVisible_ = fn x1 & x2 => (_import "gtk_text_mark_set_visible" : GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkTextMarkClass.class
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new name leftGravity = (Utf8.C.withOptPtr &&&> FFI.Bool.C.withVal ---> GtkTextMarkClass.C.fromPtr true) new_ (name & leftGravity)
-    fun getBuffer self = (GtkTextMarkClass.C.withPtr ---> GtkTextBufferClass.C.fromPtr false) getBuffer_ self
-    fun getDeleted self = (GtkTextMarkClass.C.withPtr ---> FFI.Bool.C.fromVal) getDeleted_ self
-    fun getLeftGravity self = (GtkTextMarkClass.C.withPtr ---> FFI.Bool.C.fromVal) getLeftGravity_ self
-    fun getName self = (GtkTextMarkClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun getVisible self = (GtkTextMarkClass.C.withPtr ---> FFI.Bool.C.fromVal) getVisible_ self
-    fun setVisible self setting = (GtkTextMarkClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setVisible_ (self & setting)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new name leftGravity = (Utf8.FFI.withOptPtr &&&> GBool.FFI.withVal ---> GtkTextMarkClass.FFI.fromPtr true) new_ (name & leftGravity)
+    fun getBuffer self = (GtkTextMarkClass.FFI.withPtr ---> GtkTextBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun getDeleted self = (GtkTextMarkClass.FFI.withPtr ---> GBool.FFI.fromVal) getDeleted_ self
+    fun getLeftGravity self = (GtkTextMarkClass.FFI.withPtr ---> GBool.FFI.fromVal) getLeftGravity_ self
+    fun getName self = (GtkTextMarkClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getVisible self = (GtkTextMarkClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
+    fun setVisible self setting = (GtkTextMarkClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisible_ (self & setting)
     local
       open Property
     in

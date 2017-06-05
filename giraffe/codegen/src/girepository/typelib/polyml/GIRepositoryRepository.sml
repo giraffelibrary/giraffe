@@ -5,6 +5,12 @@ structure GIRepositoryRepository :>
     where type loadflags_t = GIRepositoryRepositoryLoadFlags.flags
     where type typelibtype_t = GIRepositoryTypelibType.t =
   struct
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -49,14 +55,14 @@ structure GIRepositoryRepository :>
           (load_sym libgirepository "g_irepository_get_n_infos")
           (GObjectObjectClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
-            --> FFI.Int32.PolyML.cVal)
+            --> GInt32.PolyML.cVal)
 
       val getInfo_ =
         call
           (load_sym libgirepository "g_irepository_get_info")
           (GObjectObjectClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
-            &&> FFI.Int32.PolyML.cVal
+            &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr)
 
       val getSharedLibrary_ =
@@ -100,85 +106,85 @@ structure GIRepositoryRepository :>
      * suffix '1'. *)
 
     fun getDefault () =
-      (I ---> GIRepositoryRepositoryClass.C.fromPtr false) getDefault_ ()
+      (I ---> GIRepositoryRepositoryClass.FFI.fromPtr false) getDefault_ ()
 
     fun loadTypelib repository typelib flags =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> GIRepositoryTypelibType.C.withPtr
-         &&&> GIRepositoryRepositoryLoadFlags.C.withVal
+        GObjectObjectClass.FFI.withPtr
+         &&&> GIRepositoryTypelibType.FFI.withPtr
+         &&&> GIRepositoryRepositoryLoadFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> Utf8.C.fromPtr false
+         ---> Utf8.FFI.fromPtr 0
       )
         loadTypelib_
         (repository & typelib & flags & [])
 
     fun prependSearchPath directory =
-      (Utf8.C.withPtr ---> I) prependSearchPath_ directory
+      (Utf8.FFI.withPtr ---> I) prependSearchPath_ directory
 
     fun require1 repository namespace_ version flags =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GIRepositoryRepositoryLoadFlags.C.withVal
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GIRepositoryRepositoryLoadFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GIRepositoryTypelibType.C.fromPtr false
+         ---> GIRepositoryTypelibType.FFI.fromPtr false
       )
         require_
         (repository & namespace_ & version & flags & [])
 
     fun getDependencies1 repository namespace_ =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         ---> Utf8CVector.C.fromOptPtr true
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> Utf8CVector.FFI.fromOptPtr 2
       )
         getDependencies_
         (repository & namespace_)
 
     fun getNInfos1 repository namespace_ =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         ---> FFI.Int32.C.fromVal
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> GInt32.FFI.fromVal
       )
         getNInfos_
         (repository & namespace_)
 
     fun getInfo1 repository namespace_ index =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         ---> GIRepositoryBaseInfoClass.C.fromPtr true
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositoryBaseInfoClass.FFI.fromPtr true
       )
         getInfo_
         (repository & namespace_ & index)
 
     fun getSharedLibrary1 repository namespace =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         ---> Utf8.C.fromOptPtr false
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> Utf8.FFI.fromOptPtr 0
       )
         getSharedLibrary_
         (repository & namespace)
 
     fun getVersion1 repository namespace =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         ---> Utf8.C.fromOptPtr false
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> Utf8.FFI.fromOptPtr 0
       )
         getVersion_
         (repository & namespace)
 
     fun getCPrefix1 repository namespace_ =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         ---> Utf8.C.fromOptPtr false
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> Utf8.FFI.fromOptPtr 0
       )
         getCPrefix_
         (repository & namespace_)

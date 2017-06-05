@@ -6,7 +6,7 @@ signature G_LIB_ERROR_RECORD =
 
     type quark_t
     val domain : {get : t -> quark_t}
-    val code : {get : t -> Int32.int}
+    val code : {get : t -> LargeInt.int}
     val message : {get : t -> string}
 
     (**
@@ -53,7 +53,7 @@ signature G_LIB_ERROR_RECORD =
      *
      *)
     type handler
-    val handleError : ((unit, unit) C.r -> 'a) -> handler list -> 'a
+    val handleError : ((unit, unit) FFI.r -> 'a) -> handler list -> 'a
 
-    val makeHandler : string * (FFI.Enum.C.val_ -> 'a) * ('a -> exn) -> handler
+    val makeHandler : string * (GInt.FFI.val_ -> 'a) * ('a -> exn) -> handler
   end

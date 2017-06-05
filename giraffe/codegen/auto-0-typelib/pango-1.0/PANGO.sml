@@ -25,6 +25,7 @@ signature PANGO =
     structure LayoutClass : PANGO_LAYOUT_CLASS
     structure LayoutIterRecord : PANGO_LAYOUT_ITER_RECORD
     structure LayoutLineRecord : PANGO_LAYOUT_LINE_RECORD
+    structure LogAttrRecord : PANGO_LOG_ATTR_RECORD
     structure MatrixRecord : PANGO_MATRIX_RECORD
     structure RectangleRecord : PANGO_RECTANGLE_RECORD
     structure RenderPart : PANGO_RENDER_PART
@@ -62,9 +63,11 @@ signature PANGO =
     structure FontFamily :
       PANGO_FONT_FAMILY
         where type 'a class = 'a FontFamilyClass.class
+        where type 'a font_face_class = 'a FontFaceClass.class
     structure FontMap :
       PANGO_FONT_MAP
         where type 'a class = 'a FontMapClass.class
+        where type 'a font_family_class = 'a FontFamilyClass.class
         where type 'a font_class = 'a FontClass.class
         where type 'a fontset_class = 'a FontsetClass.class
         where type language_t = LanguageRecord.t
@@ -93,6 +96,7 @@ signature PANGO =
         where type 'a context_class = 'a ContextClass.class
         where type layout_iter_t = LayoutIterRecord.t
         where type layout_line_t = LayoutLineRecord.t
+        where type log_attr_t = LogAttrRecord.t
         where type rectangle_t = RectangleRecord.t
         where type alignment_t = Alignment.t
         where type ellipsize_mode_t = EllipsizeMode.t
@@ -110,6 +114,9 @@ signature PANGO =
       PANGO_LAYOUT_LINE
         where type t = LayoutLineRecord.t
         where type rectangle_t = RectangleRecord.t
+    structure LogAttr :
+      PANGO_LOG_ATTR
+        where type t = LogAttrRecord.t
     structure Matrix :
       PANGO_MATRIX
         where type t = MatrixRecord.t
@@ -147,6 +154,7 @@ signature PANGO =
       PANGO_CONTEXT
         where type 'a class = 'a ContextClass.class
         where type font_metrics_t = FontMetricsRecord.t
+        where type 'a font_family_class = 'a FontFamilyClass.class
         where type 'a font_class = 'a FontClass.class
         where type 'a fontset_class = 'a FontsetClass.class
         where type direction_t = Direction.t
@@ -215,7 +223,7 @@ signature PANGO =
        -> LargeInt.int * LargeInt.int
     val scriptForUnichar : char -> Script.t
     val scriptGetSampleLanguage : Script.t -> LanguageRecord.t
-    val skipSpace : string -> bool * string
+    val splitFileList : string -> string list
     val trimString : string -> string
     val unicharDirection : char -> Direction.t
     val unitsFromDouble : real -> LargeInt.int

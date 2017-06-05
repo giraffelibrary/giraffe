@@ -44,9 +44,9 @@ signature GDK_PIXBUF_PIXBUF =
     val addAlpha :
       'a class
        -> bool
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       -> Word8.word
+       -> Word8.word
+       -> Word8.word
        -> base class
     val applyEmbeddedOrientation : 'a class -> base class
     val composite :
@@ -139,6 +139,13 @@ signature GDK_PIXBUF_PIXBUF =
        -> real
        -> bool
        -> unit
+    val savev :
+      'a class
+       -> string
+       -> string
+       -> string list
+       -> string list
+       -> bool
     val scale :
       'a class
        -> 'b class

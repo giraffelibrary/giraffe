@@ -1,4 +1,4 @@
 signature GTK_RECENT_DATA_RECORD =
   sig
-    include NEW_RECORD
+    include VALUE_RECORD
   end

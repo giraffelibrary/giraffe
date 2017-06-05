@@ -4,7 +4,7 @@ structure AtkRelation :>
     where type 'a object_class = 'a AtkObjectClass.class
     where type relation_type_t = AtkRelationType.t =
   struct
-    val getType_ = _import "atk_relation_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "atk_relation_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
         x1
@@ -12,30 +12,30 @@ structure AtkRelation :>
          & x3 =>
           (
             _import "atk_relation_new" :
-              AtkObjectClass.C.notnull AtkObjectClass.C.p
-               * FFI.Int.C.val_
-               * AtkRelationType.C.val_
-               -> AtkRelationClass.C.notnull AtkRelationClass.C.p;
+              AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+               * GInt.FFI.val_
+               * AtkRelationType.FFI.val_
+               -> AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val addTarget_ = fn x1 & x2 => (_import "atk_relation_add_target" : AtkRelationClass.C.notnull AtkRelationClass.C.p * AtkObjectClass.C.notnull AtkObjectClass.C.p -> unit;) (x1, x2)
-    val getRelationType_ = _import "atk_relation_get_relation_type" : AtkRelationClass.C.notnull AtkRelationClass.C.p -> AtkRelationType.C.val_;
-    val removeTarget_ = fn x1 & x2 => (_import "atk_relation_remove_target" : AtkRelationClass.C.notnull AtkRelationClass.C.p * AtkObjectClass.C.notnull AtkObjectClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
+    val addTarget_ = fn x1 & x2 => (_import "atk_relation_add_target" : AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> unit;) (x1, x2)
+    val getRelationType_ = _import "atk_relation_get_relation_type" : AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p -> AtkRelationType.FFI.val_;
+    val removeTarget_ = fn x1 & x2 => (_import "atk_relation_remove_target" : AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     type 'a class = 'a AtkRelationClass.class
     type 'a object_class = 'a AtkObjectClass.class
     type relation_type_t = AtkRelationType.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new targets nTargets relationship =
       (
-        AtkObjectClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> AtkRelationType.C.withVal
-         ---> AtkRelationClass.C.fromPtr true
+        AtkObjectClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> AtkRelationType.FFI.withVal
+         ---> AtkRelationClass.FFI.fromPtr true
       )
         new_
         (
@@ -43,9 +43,9 @@ structure AtkRelation :>
            & nTargets
            & relationship
         )
-    fun addTarget self target = (AtkRelationClass.C.withPtr &&&> AtkObjectClass.C.withPtr ---> I) addTarget_ (self & target)
-    fun getRelationType self = (AtkRelationClass.C.withPtr ---> AtkRelationType.C.fromVal) getRelationType_ self
-    fun removeTarget self target = (AtkRelationClass.C.withPtr &&&> AtkObjectClass.C.withPtr ---> FFI.Bool.C.fromVal) removeTarget_ (self & target)
+    fun addTarget self target = (AtkRelationClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> I) addTarget_ (self & target)
+    fun getRelationType self = (AtkRelationClass.FFI.withPtr ---> AtkRelationType.FFI.fromVal) getRelationType_ self
+    fun removeTarget self target = (AtkRelationClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> GBool.FFI.fromVal) removeTarget_ (self & target)
     local
       open Property
     in

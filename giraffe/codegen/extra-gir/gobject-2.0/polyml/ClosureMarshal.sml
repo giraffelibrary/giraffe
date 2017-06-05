@@ -12,17 +12,33 @@ structure ClosureMarshal :>
 
     structure PolyML :
       sig
-        val CALLBACK : C.callback PolyMLFFI.conversion
+        val CALLBACK : FFI.callback PolyMLFFI.conversion
       end
   end =
   struct
     type ('a, 'b) accessor = ('a, 'b) GObjectValue.accessor
 
+    structure GObjectValueRecordArray = 
+      struct
+        structure C =
+          struct
+            structure Pointer = CTypedPointer (GObjectValueRecord.C.ValueType)
+            type notnull = Pointer.notnull
+            type 'a p = 'a Pointer.p
+            fun get a vs n = GObjectValue.C.get a (Pointer.get (vs, n))
+            fun set a vs n = GObjectValue.C.set a (Pointer.get (vs, n))
+          end
+        structure PolyML =
+          struct
+            val cPtr = C.Pointer.PolyML.cVal	
+          end
+      end
+
     type state = (
       GObjectValueRecord.C.notnull GObjectValueRecord.C.p,
       (
-        GObjectValueRecord.C.notnull GObjectValueRecord.C.Array.array_p,
-        FFI.UInt32.C.val_
+        GObjectValueRecordArray.C.notnull GObjectValueRecordArray.C.p,
+        GUInt32.FFI.val_
       ) pair
     ) pair
     type c_callback = state -> unit
@@ -31,8 +47,8 @@ structure ClosureMarshal :>
     type 'a set = state -> 'a -> unit
     type 'a ret = state -> 'a -> unit
 
-    fun get n a (_ & vs & _) = GObjectValue.C.Array.get a vs n
-    fun set n a (_ & vs & _) = GObjectValue.C.Array.set a vs n
+    fun get n a (_ & vs & _) = GObjectValueRecordArray.C.get a vs (Word.toInt n)
+    fun set n a (_ & vs & _) = GObjectValueRecordArray.C.set a vs (Word.toInt n)
     fun ret a (v & _ & _) = GObjectValue.C.set a v
 
     type 'a marshaller = 'a -> c_callback
@@ -52,7 +68,7 @@ structure ClosureMarshal :>
     fun check f x =
       f x handle e => GiraffeLog.critical (exnMessage e)
 
-    structure C =
+    structure FFI =
       struct
         type callback = c_callback PolyMLFFI.closure
 
@@ -62,8 +78,8 @@ structure ClosureMarshal :>
           val makeClosure : c_callback -> c_callback closure =
             closure
               (GObjectValueRecord.PolyML.cPtr
-                &&> GObjectValueRecord.PolyML.Array.cPtr
-                &&> FFI.UInt32.PolyML.cVal
+                &&> GObjectValueRecordArray.PolyML.cPtr
+                &&> GUInt32.PolyML.cVal
                 --> PolyMLFFI.cVoid)
         end
 
@@ -73,6 +89,6 @@ structure ClosureMarshal :>
 
     structure PolyML =
       struct
-        val CALLBACK : C.callback PolyMLFFI.conversion = PolyMLFFI.cFunction
+        val CALLBACK : FFI.callback PolyMLFFI.conversion = PolyMLFFI.cFunction
       end
   end

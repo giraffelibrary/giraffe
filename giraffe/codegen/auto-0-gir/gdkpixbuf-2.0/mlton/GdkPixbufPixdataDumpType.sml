@@ -1,7 +1,4 @@
-structure GdkPixbufPixdataDumpType :>
-  sig
-    include GDK_PIXBUF_PIXDATA_DUMP_TYPE
-  end =
+structure GdkPixbufPixdataDumpType :> GDK_PIXBUF_PIXDATA_DUMP_TYPE =
   struct
     val PIXDATA_STREAM = 0w0
     val PIXDATA_STRUCT = 0w1
@@ -22,18 +19,9 @@ structure GdkPixbufPixdataDumpType :>
         CONST,
         RLE_DECODER
       ]
-    structure BitFlags =
-      Word32BitFlags (
+    structure Flags =
+      Flags(
         val allFlags = allFlags
       )
-    open BitFlags
-    type t = flags
-    structure C =
-      struct
-        type val_ = FFI.Flags.C.val_
-        type ref_ = FFI.Flags.C.ref_
-        fun withVal f = f
-        fun withRefVal f = withVal (FFI.Flags.C.withRef f)
-        fun fromVal w = w
-      end
+    open Flags
   end

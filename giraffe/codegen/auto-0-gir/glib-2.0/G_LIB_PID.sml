@@ -1,1 +1,1 @@
-signature G_LIB_PID = F_F_I_SCALAR
+signature G_LIB_PID = C_SCALAR

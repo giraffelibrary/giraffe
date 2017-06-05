@@ -16,13 +16,13 @@ structure GLibIOFunc :>
     local
       fun dispatch
         (
-          channel : GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p,
-          condition : GLibIOCondition.C.val_,
+          channel : GLibIOChannelRecord.FFI.notnull GLibIOChannelRecord.FFI.p,
+          condition : GLibIOCondition.FFI.val_,
           id : IOCallback.id
         ) : bool =
         case IOCallback.lookup id of
           SOME f => (
-            f (GLibIOChannelRecord.C.fromPtr false channel, GLibIOCondition.C.fromVal condition)
+            f (GLibIOChannelRecord.FFI.fromPtr false channel, GLibIOCondition.FFI.fromVal condition)
               handle
                 e => (
                   GiraffeLog.critical (exnMessage e);
@@ -43,8 +43,8 @@ structure GLibIOFunc :>
     in
       val _ =
         _export "giraffe_io_dispatch_smlside"
-          : (GLibIOChannelRecord.C.notnull GLibIOChannelRecord.C.p
-              * GLibIOCondition.C.val_
+          : (GLibIOChannelRecord.FFI.notnull GLibIOChannelRecord.FFI.p
+              * GLibIOCondition.FFI.val_
               * IOCallback.id
               -> bool)
              -> unit;
@@ -54,7 +54,7 @@ structure GLibIOFunc :>
     val _ = _export "giraffe_io_destroy_smlside" : (IOCallback.id -> unit) -> unit; 
     IOCallback.remove
 
-    structure C =
+    structure FFI =
       struct
         type callback = IOCallback.id
         fun withCallback f callback =

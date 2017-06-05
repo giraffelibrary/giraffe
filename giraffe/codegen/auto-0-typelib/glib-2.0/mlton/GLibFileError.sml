@@ -1,11 +1,8 @@
 structure GLibFileError :>
-  sig
-    include
-      G_LIB_FILE_ERROR
-        where type error_handler = GLibErrorRecord.handler
-  end =
+  G_LIB_FILE_ERROR
+    where type error_handler = GLibErrorRecord.handler =
   struct
-    datatype t =
+    datatype enum =
       EXIST
     | ISDIR
     | ACCES
@@ -31,40 +28,39 @@ structure GLibFileError :>
     | PERM
     | NOSYS
     | FAILED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = EXIST
+        val toInt =
           fn
-            EXIST => f 0
-          | ISDIR => f 1
-          | ACCES => f 2
-          | NAMETOOLONG => f 3
-          | NOENT => f 4
-          | NOTDIR => f 5
-          | NXIO => f 6
-          | NODEV => f 7
-          | ROFS => f 8
-          | TXTBSY => f 9
-          | FAULT => f 10
-          | LOOP => f 11
-          | NOSPC => f 12
-          | NOMEM => f 13
-          | MFILE => f 14
-          | NFILE => f 15
-          | BADF => f 16
-          | INVAL => f 17
-          | PIPE => f 18
-          | AGAIN => f 19
-          | INTR => f 20
-          | IO => f 21
-          | PERM => f 22
-          | NOSYS => f 23
-          | FAILED => f 24
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            EXIST => 0
+          | ISDIR => 1
+          | ACCES => 2
+          | NAMETOOLONG => 3
+          | NOENT => 4
+          | NOTDIR => 5
+          | NXIO => 6
+          | NODEV => 7
+          | ROFS => 8
+          | TXTBSY => 9
+          | FAULT => 10
+          | LOOP => 11
+          | NOSPC => 12
+          | NOMEM => 13
+          | MFILE => 14
+          | NFILE => 15
+          | BADF => 16
+          | INVAL => 17
+          | PIPE => 18
+          | AGAIN => 19
+          | INTR => 20
+          | IO => 21
+          | PERM => 22
+          | NOSYS => 23
+          | FAILED => 24
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => EXIST
           | 1 => ISDIR
@@ -92,14 +88,15 @@ structure GLibFileError :>
           | 23 => NOSYS
           | 24 => FAILED
           | n => raise Value n
-      end
+      )
+    open Enum
     exception Error of t
     type error_handler = GLibErrorRecord.handler
     val handler =
       GLibErrorRecord.makeHandler
         (
           "g-file-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
   end

@@ -17,12 +17,12 @@ structure Signal :>
       fn x1 & (x2, x3) & x4 & x5 =>
         (
           _import "mlton_g_signal_connect_closure" :
-            GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+            GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
              * Utf8.MLton.p1
-             * Utf8.C.notnull Utf8.MLton.p2
-             * GObjectClosureRecord.C.notnull GObjectClosureRecord.C.p
-             * FFI.Bool.C.val_
-             -> FFI.ULong.C.val_;
+             * Utf8.FFI.notnull Utf8.MLton.p2
+             * GObjectClosureRecord.FFI.notnull GObjectClosureRecord.FFI.p
+             * GBool.FFI.val_
+             -> GULong.FFI.val_;
         )
           (x1, x2, x3, x4, x5)
 
@@ -30,8 +30,8 @@ structure Signal :>
       fn x1 & x2 =>
         (
           _import "g_signal_handler_disconnect" :
-            GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-             * FFI.ULong.C.val_
+            GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+             * GULong.FFI.val_
              -> unit;
         )
           (x1, x2)
@@ -40,9 +40,9 @@ structure Signal :>
       fn x1 & x2 =>
         (
           _import "g_signal_handler_is_connected" :
-            GObjectObjectClass.C.notnull GObjectObjectClass.C.p
-             * FFI.ULong.C.val_
-             -> FFI.Bool.C.val_;
+            GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+             * GULong.FFI.val_
+             -> GBool.FFI.val_;
         )
           (x1, x2)
 
@@ -51,14 +51,14 @@ structure Signal :>
     fun signal detailedSignal marshaller callback =
       (detailedSignal, GObjectClosure.new marshaller callback)
 
-    type signal_id = FFI.ULong.C.val_
+    type signal_id = GULong.FFI.val_
 
     fun signalConnectClosure instance detailedSignal closure after =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GObjectClosureRecord.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectClosureRecord.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         signalConnectClosure_
@@ -71,7 +71,7 @@ structure Signal :>
 
     fun signalHandlerDisconnect instance handlerId =
       (
-        GObjectObjectClass.C.withPtr
+        GObjectObjectClass.FFI.withPtr
          &&&> I
          ---> I
       )
@@ -80,9 +80,9 @@ structure Signal :>
 
     fun signalHandlerIsConnected instance handlerId =
       (
-        GObjectObjectClass.C.withPtr
+        GObjectObjectClass.FFI.withPtr
          &&&> I
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         signalHandlerIsConnected_
         (instance & handlerId)

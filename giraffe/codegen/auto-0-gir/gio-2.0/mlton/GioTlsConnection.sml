@@ -10,7 +10,7 @@ structure GioTlsConnection :>
     where type tls_certificate_flags_t = GioTlsCertificateFlags.t
     where type tls_rehandshake_mode_t = GioTlsRehandshakeMode.t =
   struct
-    val getType_ = _import "g_tls_connection_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "g_tls_connection_get_type" : unit -> GObjectType.FFI.val_;
     val emitAcceptCertificate_ =
       fn
         x1
@@ -18,23 +18,23 @@ structure GioTlsConnection :>
          & x3 =>
           (
             _import "g_tls_connection_emit_accept_certificate" :
-              GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p
-               * GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p
-               * GioTlsCertificateFlags.C.val_
-               -> FFI.Bool.C.val_;
+              GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p
+               * GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p
+               * GioTlsCertificateFlags.FFI.val_
+               -> GBool.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val getCertificate_ = _import "g_tls_connection_get_certificate" : GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p -> GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p;
-    val getDatabase_ = _import "g_tls_connection_get_database" : GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p -> GioTlsDatabaseClass.C.notnull GioTlsDatabaseClass.C.p;
-    val getInteraction_ = _import "g_tls_connection_get_interaction" : GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p -> GioTlsInteractionClass.C.notnull GioTlsInteractionClass.C.p;
-    val getPeerCertificate_ = _import "g_tls_connection_get_peer_certificate" : GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p -> GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p;
-    val getPeerCertificateErrors_ = _import "g_tls_connection_get_peer_certificate_errors" : GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p -> GioTlsCertificateFlags.C.val_;
-    val getRehandshakeMode_ = _import "g_tls_connection_get_rehandshake_mode" : GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p -> GioTlsRehandshakeMode.C.val_;
-    val getRequireCloseNotify_ = _import "g_tls_connection_get_require_close_notify" : GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p -> FFI.Bool.C.val_;
+    val getCertificate_ = _import "g_tls_connection_get_certificate" : GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
+    val getDatabase_ = _import "g_tls_connection_get_database" : GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p -> GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p;
+    val getInteraction_ = _import "g_tls_connection_get_interaction" : GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p -> GioTlsInteractionClass.FFI.notnull GioTlsInteractionClass.FFI.p;
+    val getPeerCertificate_ = _import "g_tls_connection_get_peer_certificate" : GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
+    val getPeerCertificateErrors_ = _import "g_tls_connection_get_peer_certificate_errors" : GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p -> GioTlsCertificateFlags.FFI.val_;
+    val getRehandshakeMode_ = _import "g_tls_connection_get_rehandshake_mode" : GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p -> GioTlsRehandshakeMode.FFI.val_;
+    val getRequireCloseNotify_ = _import "g_tls_connection_get_require_close_notify" : GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p -> GBool.FFI.val_;
     val handshake_ =
       fn
         x1
@@ -42,10 +42,10 @@ structure GioTlsConnection :>
          & x3 =>
           (
             _import "g_tls_connection_handshake" :
-              GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -59,21 +59,21 @@ structure GioTlsConnection :>
          & x3 =>
           (
             _import "g_tls_connection_handshake_finish" :
-              GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> FFI.Bool.C.val_;
+              GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val setCertificate_ = fn x1 & x2 => (_import "g_tls_connection_set_certificate" : GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p * GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p -> unit;) (x1, x2)
-    val setDatabase_ = fn x1 & x2 => (_import "g_tls_connection_set_database" : GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p * GioTlsDatabaseClass.C.notnull GioTlsDatabaseClass.C.p -> unit;) (x1, x2)
-    val setInteraction_ = fn x1 & x2 => (_import "g_tls_connection_set_interaction" : GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p * unit GioTlsInteractionClass.C.p -> unit;) (x1, x2)
-    val setRehandshakeMode_ = fn x1 & x2 => (_import "g_tls_connection_set_rehandshake_mode" : GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p * GioTlsRehandshakeMode.C.val_ -> unit;) (x1, x2)
-    val setRequireCloseNotify_ = fn x1 & x2 => (_import "g_tls_connection_set_require_close_notify" : GioTlsConnectionClass.C.notnull GioTlsConnectionClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setCertificate_ = fn x1 & x2 => (_import "g_tls_connection_set_certificate" : GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p * GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p -> unit;) (x1, x2)
+    val setDatabase_ = fn x1 & x2 => (_import "g_tls_connection_set_database" : GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p * GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p -> unit;) (x1, x2)
+    val setInteraction_ = fn x1 & x2 => (_import "g_tls_connection_set_interaction" : GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p * unit GioTlsInteractionClass.FFI.p -> unit;) (x1, x2)
+    val setRehandshakeMode_ = fn x1 & x2 => (_import "g_tls_connection_set_rehandshake_mode" : GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p * GioTlsRehandshakeMode.FFI.val_ -> unit;) (x1, x2)
+    val setRequireCloseNotify_ = fn x1 & x2 => (_import "g_tls_connection_set_require_close_notify" : GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioTlsConnectionClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
@@ -84,13 +84,13 @@ structure GioTlsConnection :>
     type tls_certificate_flags_t = GioTlsCertificateFlags.t
     type tls_rehandshake_mode_t = GioTlsRehandshakeMode.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun emitAcceptCertificate self peerCert errors =
       (
-        GioTlsConnectionClass.C.withPtr
-         &&&> GioTlsCertificateClass.C.withPtr
-         &&&> GioTlsCertificateFlags.C.withVal
-         ---> FFI.Bool.C.fromVal
+        GioTlsConnectionClass.FFI.withPtr
+         &&&> GioTlsCertificateClass.FFI.withPtr
+         &&&> GioTlsCertificateFlags.FFI.withVal
+         ---> GBool.FFI.fromVal
       )
         emitAcceptCertificate_
         (
@@ -98,19 +98,19 @@ structure GioTlsConnection :>
            & peerCert
            & errors
         )
-    fun getCertificate self = (GioTlsConnectionClass.C.withPtr ---> GioTlsCertificateClass.C.fromPtr false) getCertificate_ self
-    fun getDatabase self = (GioTlsConnectionClass.C.withPtr ---> GioTlsDatabaseClass.C.fromPtr false) getDatabase_ self
-    fun getInteraction self = (GioTlsConnectionClass.C.withPtr ---> GioTlsInteractionClass.C.fromPtr false) getInteraction_ self
-    fun getPeerCertificate self = (GioTlsConnectionClass.C.withPtr ---> GioTlsCertificateClass.C.fromPtr false) getPeerCertificate_ self
-    fun getPeerCertificateErrors self = (GioTlsConnectionClass.C.withPtr ---> GioTlsCertificateFlags.C.fromVal) getPeerCertificateErrors_ self
-    fun getRehandshakeMode self = (GioTlsConnectionClass.C.withPtr ---> GioTlsRehandshakeMode.C.fromVal) getRehandshakeMode_ self
-    fun getRequireCloseNotify self = (GioTlsConnectionClass.C.withPtr ---> FFI.Bool.C.fromVal) getRequireCloseNotify_ self
+    fun getCertificate self = (GioTlsConnectionClass.FFI.withPtr ---> GioTlsCertificateClass.FFI.fromPtr false) getCertificate_ self
+    fun getDatabase self = (GioTlsConnectionClass.FFI.withPtr ---> GioTlsDatabaseClass.FFI.fromPtr false) getDatabase_ self
+    fun getInteraction self = (GioTlsConnectionClass.FFI.withPtr ---> GioTlsInteractionClass.FFI.fromPtr false) getInteraction_ self
+    fun getPeerCertificate self = (GioTlsConnectionClass.FFI.withPtr ---> GioTlsCertificateClass.FFI.fromPtr false) getPeerCertificate_ self
+    fun getPeerCertificateErrors self = (GioTlsConnectionClass.FFI.withPtr ---> GioTlsCertificateFlags.FFI.fromVal) getPeerCertificateErrors_ self
+    fun getRehandshakeMode self = (GioTlsConnectionClass.FFI.withPtr ---> GioTlsRehandshakeMode.FFI.fromVal) getRehandshakeMode_ self
+    fun getRequireCloseNotify self = (GioTlsConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) getRequireCloseNotify_ self
     fun handshake self cancellable =
       (
-        GioTlsConnectionClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioTlsConnectionClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         handshake_
         (
@@ -120,10 +120,10 @@ structure GioTlsConnection :>
         )
     fun handshakeFinish self result =
       (
-        GioTlsConnectionClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioTlsConnectionClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         handshakeFinish_
         (
@@ -131,11 +131,11 @@ structure GioTlsConnection :>
            & result
            & []
         )
-    fun setCertificate self certificate = (GioTlsConnectionClass.C.withPtr &&&> GioTlsCertificateClass.C.withPtr ---> I) setCertificate_ (self & certificate)
-    fun setDatabase self database = (GioTlsConnectionClass.C.withPtr &&&> GioTlsDatabaseClass.C.withPtr ---> I) setDatabase_ (self & database)
-    fun setInteraction self interaction = (GioTlsConnectionClass.C.withPtr &&&> GioTlsInteractionClass.C.withOptPtr ---> I) setInteraction_ (self & interaction)
-    fun setRehandshakeMode self mode = (GioTlsConnectionClass.C.withPtr &&&> GioTlsRehandshakeMode.C.withVal ---> I) setRehandshakeMode_ (self & mode)
-    fun setRequireCloseNotify self requireCloseNotify = (GioTlsConnectionClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setRequireCloseNotify_ (self & requireCloseNotify)
+    fun setCertificate self certificate = (GioTlsConnectionClass.FFI.withPtr &&&> GioTlsCertificateClass.FFI.withPtr ---> I) setCertificate_ (self & certificate)
+    fun setDatabase self database = (GioTlsConnectionClass.FFI.withPtr &&&> GioTlsDatabaseClass.FFI.withPtr ---> I) setDatabase_ (self & database)
+    fun setInteraction self interaction = (GioTlsConnectionClass.FFI.withPtr &&&> GioTlsInteractionClass.FFI.withOptPtr ---> I) setInteraction_ (self & interaction)
+    fun setRehandshakeMode self mode = (GioTlsConnectionClass.FFI.withPtr &&&> GioTlsRehandshakeMode.FFI.withVal ---> I) setRehandshakeMode_ (self & mode)
+    fun setRequireCloseNotify self requireCloseNotify = (GioTlsConnectionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRequireCloseNotify_ (self & requireCloseNotify)
     local
       open ClosureMarshal Signal
     in

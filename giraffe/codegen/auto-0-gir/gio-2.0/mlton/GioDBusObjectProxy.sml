@@ -4,31 +4,31 @@ structure GioDBusObjectProxy :>
     where type 'a d_bus_object_class = 'a GioDBusObjectClass.class
     where type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class =
   struct
-    val getType_ = _import "g_dbus_object_proxy_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "g_dbus_object_proxy_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_dbus_object_proxy_new" :
-              GioDBusConnectionClass.C.notnull GioDBusConnectionClass.C.p
+              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> GioDBusObjectProxyClass.C.notnull GioDBusObjectProxyClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GioDBusObjectProxyClass.FFI.notnull GioDBusObjectProxyClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getConnection_ = _import "g_dbus_object_proxy_get_connection" : GioDBusObjectProxyClass.C.notnull GioDBusObjectProxyClass.C.p -> GioDBusConnectionClass.C.notnull GioDBusConnectionClass.C.p;
+    val getConnection_ = _import "g_dbus_object_proxy_get_connection" : GioDBusObjectProxyClass.FFI.notnull GioDBusObjectProxyClass.FFI.p -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;
     type 'a class = 'a GioDBusObjectProxyClass.class
     type 'a d_bus_object_class = 'a GioDBusObjectClass.class
     type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
     type t = base class
-    fun asDBusObject self = (GObjectObjectClass.C.withPtr ---> GioDBusObjectClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new connection objectPath = (GioDBusConnectionClass.C.withPtr &&&> Utf8.C.withPtr ---> GioDBusObjectProxyClass.C.fromPtr true) new_ (connection & objectPath)
-    fun getConnection self = (GioDBusObjectProxyClass.C.withPtr ---> GioDBusConnectionClass.C.fromPtr false) getConnection_ self
+    fun asDBusObject self = (GObjectObjectClass.FFI.withPtr ---> GioDBusObjectClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new connection objectPath = (GioDBusConnectionClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioDBusObjectProxyClass.FFI.fromPtr true) new_ (connection & objectPath)
+    fun getConnection self = (GioDBusObjectProxyClass.FFI.withPtr ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
     local
       open Property
     in

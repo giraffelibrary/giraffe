@@ -3,9 +3,9 @@ structure GtkSymbolicColor :>
     where type t = GtkSymbolicColorRecord.t
     where type 'a style_properties_class = 'a GtkStylePropertiesClass.class =
   struct
-    val getType_ = _import "gtk_symbolic_color_get_type" : unit -> GObjectType.C.val_;
-    val newAlpha_ = fn x1 & x2 => (_import "gtk_symbolic_color_new_alpha" : GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p * FFI.Double.C.val_ -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;) (x1, x2)
-    val newLiteral_ = _import "gtk_symbolic_color_new_literal" : GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;
+    val getType_ = _import "gtk_symbolic_color_get_type" : unit -> GObjectType.FFI.val_;
+    val newAlpha_ = fn x1 & x2 => (_import "gtk_symbolic_color_new_alpha" : GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p * GDouble.FFI.val_ -> GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p;) (x1, x2)
+    val newLiteral_ = _import "gtk_symbolic_color_new_literal" : GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p;
     val newMix_ =
       fn
         x1
@@ -13,18 +13,18 @@ structure GtkSymbolicColor :>
          & x3 =>
           (
             _import "gtk_symbolic_color_new_mix" :
-              GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p
-               * GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p
-               * FFI.Double.C.val_
-               -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;
+              GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p
+               * GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p
+               * GDouble.FFI.val_
+               -> GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newName_ = _import "mlton_gtk_symbolic_color_new_name" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;
-    val newShade_ = fn x1 & x2 => (_import "gtk_symbolic_color_new_shade" : GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p * FFI.Double.C.val_ -> GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p;) (x1, x2)
+    val newName_ = _import "mlton_gtk_symbolic_color_new_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p;
+    val newShade_ = fn x1 & x2 => (_import "gtk_symbolic_color_new_shade" : GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p * GDouble.FFI.val_ -> GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p;) (x1, x2)
     val resolve_ =
       fn
         x1
@@ -32,28 +32,28 @@ structure GtkSymbolicColor :>
          & x3 =>
           (
             _import "gtk_symbolic_color_resolve" :
-              GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p
-               * unit GtkStylePropertiesClass.C.p
-               * GdkRgbaRecord.C.notnull GdkRgbaRecord.C.p
-               -> FFI.Bool.C.val_;
+              GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p
+               * unit GtkStylePropertiesClass.FFI.p
+               * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p
+               -> GBool.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val toString_ = _import "gtk_symbolic_color_to_string" : GtkSymbolicColorRecord.C.notnull GtkSymbolicColorRecord.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val toString_ = _import "gtk_symbolic_color_to_string" : GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     type t = GtkSymbolicColorRecord.t
     type 'a style_properties_class = 'a GtkStylePropertiesClass.class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newAlpha color factor = (GtkSymbolicColorRecord.C.withPtr &&&> FFI.Double.C.withVal ---> GtkSymbolicColorRecord.C.fromPtr true) newAlpha_ (color & factor)
-    fun newLiteral color = (GdkRgbaRecord.C.withPtr ---> GtkSymbolicColorRecord.C.fromPtr true) newLiteral_ color
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun newAlpha color factor = (GtkSymbolicColorRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newAlpha_ (color & factor)
+    fun newLiteral color = (GdkRgbaRecord.FFI.withPtr ---> GtkSymbolicColorRecord.FFI.fromPtr true) newLiteral_ color
     fun newMix color1 color2 factor =
       (
-        GtkSymbolicColorRecord.C.withPtr
-         &&&> GtkSymbolicColorRecord.C.withPtr
-         &&&> FFI.Double.C.withVal
-         ---> GtkSymbolicColorRecord.C.fromPtr true
+        GtkSymbolicColorRecord.FFI.withPtr
+         &&&> GtkSymbolicColorRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         ---> GtkSymbolicColorRecord.FFI.fromPtr true
       )
         newMix_
         (
@@ -61,16 +61,16 @@ structure GtkSymbolicColor :>
            & color2
            & factor
         )
-    fun newName name = (Utf8.C.withPtr ---> GtkSymbolicColorRecord.C.fromPtr true) newName_ name
-    fun newShade color factor = (GtkSymbolicColorRecord.C.withPtr &&&> FFI.Double.C.withVal ---> GtkSymbolicColorRecord.C.fromPtr true) newShade_ (color & factor)
+    fun newName name = (Utf8.FFI.withPtr ---> GtkSymbolicColorRecord.FFI.fromPtr true) newName_ name
+    fun newShade color factor = (GtkSymbolicColorRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newShade_ (color & factor)
     fun resolve self props =
       let
         val resolvedColor & retVal =
           (
-            GtkSymbolicColorRecord.C.withPtr
-             &&&> GtkStylePropertiesClass.C.withOptPtr
-             &&&> GdkRgbaRecord.C.withNewPtr
-             ---> GdkRgbaRecord.C.fromPtr true && FFI.Bool.C.fromVal
+            GtkSymbolicColorRecord.FFI.withPtr
+             &&&> GtkStylePropertiesClass.FFI.withOptPtr
+             &&&> GdkRgbaRecord.FFI.withNewPtr
+             ---> GdkRgbaRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
             resolve_
             (
@@ -81,5 +81,5 @@ structure GtkSymbolicColor :>
       in
         if retVal then SOME resolvedColor else NONE
       end
-    fun toString self = (GtkSymbolicColorRecord.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
+    fun toString self = (GtkSymbolicColorRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
   end

@@ -3,9 +3,9 @@ structure Vte : VTE =
     local
       open PolyMLFFI
     in
-      val getMajorVersion_ = call (load_sym libvte "vte_get_major_version") (PolyMLFFI.cVoid --> FFI.UInt32.PolyML.cVal)
-      val getMicroVersion_ = call (load_sym libvte "vte_get_micro_version") (PolyMLFFI.cVoid --> FFI.UInt32.PolyML.cVal)
-      val getMinorVersion_ = call (load_sym libvte "vte_get_minor_version") (PolyMLFFI.cVoid --> FFI.UInt32.PolyML.cVal)
+      val getMajorVersion_ = call (load_sym libvte "vte_get_major_version") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val getMicroVersion_ = call (load_sym libvte "vte_get_micro_version") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val getMinorVersion_ = call (load_sym libvte "vte_get_minor_version") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
       val getUserShell_ = call (load_sym libvte "vte_get_user_shell") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
     end
     structure CursorBlinkMode = VteCursorBlinkMode
@@ -23,8 +23,8 @@ structure Vte : VTE =
     val MICRO_VERSION = 1
     val MINOR_VERSION = 39
     val SPAWN_NO_PARENT_ENVV = 33554432
-    fun getMajorVersion () = (I ---> FFI.UInt32.C.fromVal) getMajorVersion_ ()
-    fun getMicroVersion () = (I ---> FFI.UInt32.C.fromVal) getMicroVersion_ ()
-    fun getMinorVersion () = (I ---> FFI.UInt32.C.fromVal) getMinorVersion_ ()
-    fun getUserShell () = (I ---> Utf8.C.fromPtr true) getUserShell_ ()
+    fun getMajorVersion () = (I ---> GUInt32.FFI.fromVal) getMajorVersion_ ()
+    fun getMicroVersion () = (I ---> GUInt32.FFI.fromVal) getMicroVersion_ ()
+    fun getMinorVersion () = (I ---> GUInt32.FFI.fromVal) getMinorVersion_ ()
+    fun getUserShell () = (I ---> Utf8.FFI.fromPtr 1) getUserShell_ ()
   end

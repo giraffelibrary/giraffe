@@ -5,66 +5,36 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-structure GObjectValueRecord :>
-  sig
-    include G_OBJECT_VALUE_RECORD
-  end =
+structure GObjectValueRecord :> G_OBJECT_VALUE_RECORD =
   struct
-    type notnull = CPointer.notnull
-    type 'a p = 'a CPointer.p
+    structure Pointer = CPointerInternal
+    type notnull = Pointer.notnull
+    type 'a p = 'a Pointer.p
 
     val new_ = _import "giraffe_g_value_new" : unit -> notnull p;
 
-    val copy_ = _import "giraffe_g_value_copy" : notnull p -> notnull p;
-
     val free_ = _import "giraffe_g_value_free" : notnull p -> unit;
 
-    val size_ = _import "giraffe_g_value_size" : unit -> FFI.UInt.C.val_;
+    val copy_ =
+      fn x1 & x2 =>
+        (_import "g_value_copy" : notnull p * notnull p -> unit;)
+        (x1, x2)
 
-    type t = notnull p Finalizable.t
+    val clear_ = _import "g_value_unset" : notnull p -> unit;
 
-    structure C =
-      struct
-        structure Pointer = CPointer
+    val size_ = _import "giraffe_g_value_size" : unit -> GUInt.FFI.val_;
+
+    structure Record =
+      BoxedValueRecord(
+        structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
-
-        fun withPtr f ptr = Finalizable.withValue (ptr, Pointer.withVal f)
-
-        fun withOptPtr f =
-          fn
-            SOME ptr => Finalizable.withValue (ptr, Pointer.withOptVal f o SOME)
-          | NONE     => Pointer.withOptVal f NONE
-
-        fun withNewPtr f () =
-          let
-            val ptr = new_ ()
-          in
-            ptr & f ptr
-          end
-
-        fun fromPtr transfer ptr =
-          let
-            val object =
-              Finalizable.new (
-                if transfer
-                then ptr  (* take the existing reference *)
-                else copy_ ptr
-              )
-          in
-            Finalizable.addFinalizer (object, free_);
-            object
-          end
-
-        fun fromOptPtr transfer optptr =
-          Option.map (fromPtr transfer) (Pointer.fromOptVal optptr)
-
-        val size = Word.fromLargeInt (FFI.UInt.C.fromVal (size_ ()))
-
-        structure Array =
-          struct
-            type 'a array_p = 'a p
-            fun sub p w = Pointer.add (p, w * size)
-          end
-      end
+        val new_ = new_
+        val copy_ = copy_
+        val take_ = ignore
+        val clear_ = clear_
+        val free_ = free_
+        val size_ = size_
+      )
+    open Record
   end

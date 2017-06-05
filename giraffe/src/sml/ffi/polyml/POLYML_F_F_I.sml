@@ -20,24 +20,25 @@ signature POLYML_F_F_I =
             val sub : t * word -> t
           end
 
-        val getWord8  : Pointer.t * word -> Word8.word
-        val getWord16 : Pointer.t * word -> Word.word
-        val getWord32 : Pointer.t * word -> Word32.word
-        val getWord64 : Pointer.t * word -> SysWord.word
-        val setWord8  : Pointer.t * word * Word8.word -> unit
-        val setWord16 : Pointer.t * word * Word.word -> unit
-        val setWord32 : Pointer.t * word * Word32.word -> unit
-        val setWord64 : Pointer.t * word * SysWord.word -> unit
+        val getWord8  : Pointer.t * int -> Word8.word
+        val getWord16 : Pointer.t * int -> Word.word
+        val getWord32 : Pointer.t * int -> Word32.word
+        val getWord64 : Pointer.t * int -> SysWord.word
+        val setWord8  : Pointer.t * int * Word8.word -> unit
+        val setWord16 : Pointer.t * int * Word.word -> unit
+        val setWord32 : Pointer.t * int * Word32.word -> unit
+        val setWord64 : Pointer.t * int * SysWord.word -> unit
 
-        val getFloat  : Pointer.t * word -> real
-        val getDouble : Pointer.t * word -> real
-        val setFloat  : Pointer.t * word * real -> unit
-        val setDouble : Pointer.t * word * real -> unit
+        val getFloat  : Pointer.t * int -> real
+        val getDouble : Pointer.t * int -> real
+        val setFloat  : Pointer.t * int * real -> unit
+        val setDouble : Pointer.t * int * real -> unit
 
-        val getPointer : Pointer.t * word -> Pointer.t
-        val setPointer : Pointer.t * word * Pointer.t -> unit
+        val getPointer : Pointer.t * int -> Pointer.t
+        val setPointer : Pointer.t * int * Pointer.t -> unit
 
         val malloc : word -> Pointer.t
+        val copy : Pointer.t * Pointer.t * int -> unit
         val free : Pointer.t -> unit
       end
 

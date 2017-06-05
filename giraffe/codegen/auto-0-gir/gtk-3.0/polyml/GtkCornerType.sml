@@ -1,43 +1,30 @@
-structure GtkCornerType :>
-  sig
-    include GTK_CORNER_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkCornerType :> GTK_CORNER_TYPE =
   struct
-    datatype t =
+    datatype enum =
       TOP_LEFT
     | BOTTOM_LEFT
     | TOP_RIGHT
     | BOTTOM_RIGHT
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = TOP_LEFT
+        val toInt =
           fn
-            TOP_LEFT => f 0
-          | BOTTOM_LEFT => f 1
-          | TOP_RIGHT => f 2
-          | BOTTOM_RIGHT => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            TOP_LEFT => 0
+          | BOTTOM_LEFT => 1
+          | TOP_RIGHT => 2
+          | BOTTOM_RIGHT => 3
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => TOP_LEFT
           | 1 => BOTTOM_LEFT
           | 2 => TOP_RIGHT
           | 3 => BOTTOM_RIGHT
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -48,10 +35,9 @@ structure GtkCornerType :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = TOP_LEFT
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

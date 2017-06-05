@@ -4,16 +4,16 @@ structure GdkDeviceManager :>
     where type 'a device_class = 'a GdkDeviceClass.class
     where type 'a display_class = 'a GdkDisplayClass.class =
   struct
-    val getType_ = _import "gdk_device_manager_get_type" : unit -> GObjectType.C.val_;
-    val getClientPointer_ = _import "gdk_device_manager_get_client_pointer" : GdkDeviceManagerClass.C.notnull GdkDeviceManagerClass.C.p -> GdkDeviceClass.C.notnull GdkDeviceClass.C.p;
-    val getDisplay_ = _import "gdk_device_manager_get_display" : GdkDeviceManagerClass.C.notnull GdkDeviceManagerClass.C.p -> GdkDisplayClass.C.notnull GdkDisplayClass.C.p;
+    val getType_ = _import "gdk_device_manager_get_type" : unit -> GObjectType.FFI.val_;
+    val getClientPointer_ = _import "gdk_device_manager_get_client_pointer" : GdkDeviceManagerClass.FFI.notnull GdkDeviceManagerClass.FFI.p -> GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p;
+    val getDisplay_ = _import "gdk_device_manager_get_display" : GdkDeviceManagerClass.FFI.notnull GdkDeviceManagerClass.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
     type 'a class = 'a GdkDeviceManagerClass.class
     type 'a device_class = 'a GdkDeviceClass.class
     type 'a display_class = 'a GdkDisplayClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getClientPointer self = (GdkDeviceManagerClass.C.withPtr ---> GdkDeviceClass.C.fromPtr false) getClientPointer_ self
-    fun getDisplay self = (GdkDeviceManagerClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getClientPointer self = (GdkDeviceManagerClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromPtr false) getClientPointer_ self
+    fun getDisplay self = (GdkDeviceManagerClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
     local
       open ClosureMarshal Signal
     in

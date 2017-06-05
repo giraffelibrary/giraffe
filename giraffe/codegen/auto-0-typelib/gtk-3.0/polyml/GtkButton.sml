@@ -20,33 +20,33 @@ structure GtkButton :>
         call (load_sym libgtk "gtk_button_get_alignment")
           (
             GtkButtonClass.PolyML.cPtr
-             &&> FFI.Float.PolyML.cRef
-             &&> FFI.Float.PolyML.cRef
+             &&> GFloat.PolyML.cRef
+             &&> GFloat.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
       val getEventWindow_ = call (load_sym libgtk "gtk_button_get_event_window") (GtkButtonClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
-      val getFocusOnClick_ = call (load_sym libgtk "gtk_button_get_focus_on_click") (GtkButtonClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getFocusOnClick_ = call (load_sym libgtk "gtk_button_get_focus_on_click") (GtkButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getImage_ = call (load_sym libgtk "gtk_button_get_image") (GtkButtonClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getImagePosition_ = call (load_sym libgtk "gtk_button_get_image_position") (GtkButtonClass.PolyML.cPtr --> GtkPositionType.PolyML.cVal)
       val getLabel_ = call (load_sym libgtk "gtk_button_get_label") (GtkButtonClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getRelief_ = call (load_sym libgtk "gtk_button_get_relief") (GtkButtonClass.PolyML.cPtr --> GtkReliefStyle.PolyML.cVal)
-      val getUseStock_ = call (load_sym libgtk "gtk_button_get_use_stock") (GtkButtonClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getUseUnderline_ = call (load_sym libgtk "gtk_button_get_use_underline") (GtkButtonClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getUseStock_ = call (load_sym libgtk "gtk_button_get_use_stock") (GtkButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getUseUnderline_ = call (load_sym libgtk "gtk_button_get_use_underline") (GtkButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setAlignment_ =
         call (load_sym libgtk "gtk_button_set_alignment")
           (
             GtkButtonClass.PolyML.cPtr
-             &&> FFI.Float.PolyML.cVal
-             &&> FFI.Float.PolyML.cVal
+             &&> GFloat.PolyML.cVal
+             &&> GFloat.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setFocusOnClick_ = call (load_sym libgtk "gtk_button_set_focus_on_click") (GtkButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setFocusOnClick_ = call (load_sym libgtk "gtk_button_set_focus_on_click") (GtkButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setImage_ = call (load_sym libgtk "gtk_button_set_image") (GtkButtonClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val setImagePosition_ = call (load_sym libgtk "gtk_button_set_image_position") (GtkButtonClass.PolyML.cPtr &&> GtkPositionType.PolyML.cVal --> PolyMLFFI.cVoid)
       val setLabel_ = call (load_sym libgtk "gtk_button_set_label") (GtkButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val setRelief_ = call (load_sym libgtk "gtk_button_set_relief") (GtkButtonClass.PolyML.cPtr &&> GtkReliefStyle.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setUseStock_ = call (load_sym libgtk "gtk_button_set_use_stock") (GtkButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setUseUnderline_ = call (load_sym libgtk "gtk_button_set_use_underline") (GtkButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setUseStock_ = call (load_sym libgtk "gtk_button_set_use_stock") (GtkButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setUseUnderline_ = call (load_sym libgtk "gtk_button_set_use_underline") (GtkButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
@@ -55,50 +55,50 @@ structure GtkButton :>
     type position_type_t = GtkPositionType.t
     type relief_style_t = GtkReliefStyle.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkButtonClass.C.fromPtr false) new_ ()
-    fun newFromStock stockId = (Utf8.C.withPtr ---> GtkButtonClass.C.fromPtr false) newFromStock_ stockId
-    fun newWithLabel label = (Utf8.C.withPtr ---> GtkButtonClass.C.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (Utf8.C.withPtr ---> GtkButtonClass.C.fromPtr false) newWithMnemonic_ label
-    fun clicked self = (GtkButtonClass.C.withPtr ---> I) clicked_ self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkButtonClass.FFI.fromPtr false) new_ ()
+    fun newFromStock stockId = (Utf8.FFI.withPtr ---> GtkButtonClass.FFI.fromPtr false) newFromStock_ stockId
+    fun newWithLabel label = (Utf8.FFI.withPtr ---> GtkButtonClass.FFI.fromPtr false) newWithLabel_ label
+    fun newWithMnemonic label = (Utf8.FFI.withPtr ---> GtkButtonClass.FFI.fromPtr false) newWithMnemonic_ label
+    fun clicked self = (GtkButtonClass.FFI.withPtr ---> I) clicked_ self
     fun getAlignment self =
       let
         val xalign
          & yalign
          & () =
           (
-            GtkButtonClass.C.withPtr
-             &&&> FFI.Float.C.withRefVal
-             &&&> FFI.Float.C.withRefVal
-             ---> FFI.Float.C.fromVal
-                   && FFI.Float.C.fromVal
+            GtkButtonClass.FFI.withPtr
+             &&&> GFloat.FFI.withRefVal
+             &&&> GFloat.FFI.withRefVal
+             ---> GFloat.FFI.fromVal
+                   && GFloat.FFI.fromVal
                    && I
           )
             getAlignment_
             (
               self
-               & FFI.Float.null
-               & FFI.Float.null
+               & GFloat.null
+               & GFloat.null
             )
       in
         (xalign, yalign)
       end
-    fun getEventWindow self = (GtkButtonClass.C.withPtr ---> GdkWindowClass.C.fromPtr false) getEventWindow_ self
-    fun getFocusOnClick self = (GtkButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getFocusOnClick_ self
-    fun getImage self = (GtkButtonClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getImage_ self
-    fun getImagePosition self = (GtkButtonClass.C.withPtr ---> GtkPositionType.C.fromVal) getImagePosition_ self
-    fun getLabel self = (GtkButtonClass.C.withPtr ---> Utf8.C.fromPtr false) getLabel_ self
-    fun getRelief self = (GtkButtonClass.C.withPtr ---> GtkReliefStyle.C.fromVal) getRelief_ self
-    fun getUseStock self = (GtkButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseStock_ self
-    fun getUseUnderline self = (GtkButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseUnderline_ self
+    fun getEventWindow self = (GtkButtonClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getEventWindow_ self
+    fun getFocusOnClick self = (GtkButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getFocusOnClick_ self
+    fun getImage self = (GtkButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getImage_ self
+    fun getImagePosition self = (GtkButtonClass.FFI.withPtr ---> GtkPositionType.FFI.fromVal) getImagePosition_ self
+    fun getLabel self = (GtkButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLabel_ self
+    fun getRelief self = (GtkButtonClass.FFI.withPtr ---> GtkReliefStyle.FFI.fromVal) getRelief_ self
+    fun getUseStock self = (GtkButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseStock_ self
+    fun getUseUnderline self = (GtkButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseUnderline_ self
     fun setAlignment self xalign yalign =
       (
-        GtkButtonClass.C.withPtr
-         &&&> FFI.Float.C.withVal
-         &&&> FFI.Float.C.withVal
+        GtkButtonClass.FFI.withPtr
+         &&&> GFloat.FFI.withVal
+         &&&> GFloat.FFI.withVal
          ---> I
       )
         setAlignment_
@@ -107,13 +107,13 @@ structure GtkButton :>
            & xalign
            & yalign
         )
-    fun setFocusOnClick self focusOnClick = (GtkButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setFocusOnClick_ (self & focusOnClick)
-    fun setImage self image = (GtkButtonClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) setImage_ (self & image)
-    fun setImagePosition self position = (GtkButtonClass.C.withPtr &&&> GtkPositionType.C.withVal ---> I) setImagePosition_ (self & position)
-    fun setLabel self label = (GtkButtonClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setLabel_ (self & label)
-    fun setRelief self newstyle = (GtkButtonClass.C.withPtr &&&> GtkReliefStyle.C.withVal ---> I) setRelief_ (self & newstyle)
-    fun setUseStock self useStock = (GtkButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseStock_ (self & useStock)
-    fun setUseUnderline self useUnderline = (GtkButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseUnderline_ (self & useUnderline)
+    fun setFocusOnClick self focusOnClick = (GtkButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setFocusOnClick_ (self & focusOnClick)
+    fun setImage self image = (GtkButtonClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) setImage_ (self & image)
+    fun setImagePosition self position = (GtkButtonClass.FFI.withPtr &&&> GtkPositionType.FFI.withVal ---> I) setImagePosition_ (self & position)
+    fun setLabel self label = (GtkButtonClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setLabel_ (self & label)
+    fun setRelief self newstyle = (GtkButtonClass.FFI.withPtr &&&> GtkReliefStyle.FFI.withVal ---> I) setRelief_ (self & newstyle)
+    fun setUseStock self useStock = (GtkButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseStock_ (self & useStock)
+    fun setUseUnderline self useUnderline = (GtkButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseUnderline_ (self & useUnderline)
     local
       open ClosureMarshal Signal
     in

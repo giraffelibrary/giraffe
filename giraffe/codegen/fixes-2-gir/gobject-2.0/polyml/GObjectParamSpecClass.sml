@@ -16,6 +16,8 @@ structure GObjectParamSpecClass :>
     local
       open PolyMLFFI
     in
+      val take_ = ignore
+
       val ref_ =
         call
           (load_sym libgobject "g_param_spec_ref_sink")
@@ -27,11 +29,43 @@ structure GObjectParamSpecClass :>
           (cPtr --> PolyMLFFI.cVoid)
     end
 
+    structure C =
+      struct
+        structure Pointer = CPointer
+        type notnull = notnull
+        type 'a p = 'a p
+        type ('a, 'b) r = ('a, 'b) Pointer.r
+
+        structure PointerType =
+          struct
+            structure Pointer = Pointer
+            type notnull = Pointer.notnull
+            type 'a p = 'a Pointer.p
+
+            type t = notnull p Finalizable.t
+
+            fun dup d = if d <> 0 then ref_ else Fn.id
+
+            fun free d = if d <> 0 then unref_ else ignore
+
+            fun toC p = (* FFI.withPtr (dup ~1) p *)
+              Finalizable.withValue (p, Pointer.withVal ref_)
+
+            fun fromC p = (* FFI.fromPtr false p *)
+              let
+                val object = Finalizable.new (ref_ p)
+              in
+                Finalizable.addFinalizer (object, unref_);
+                object
+              end
+          end
+      end
+
     type 'a class = notnull p Finalizable.t
     type t = base class
     fun toBase obj = obj
 
-    structure C =
+    structure FFI =
       struct
         structure Pointer = CPointer
         type notnull = notnull
@@ -57,7 +91,7 @@ structure GObjectParamSpecClass :>
             val object =
               Finalizable.new (
                 if transfer
-                then ptr  (* take the existing reference *)
+                then (take_ ptr; ptr)  (* take the existing reference *)
                 else ref_ ptr
               )
           in
@@ -112,15 +146,15 @@ structure GObjectParamSpecClass :>
 
     val t =
       GObjectValue.C.createAccessor {
-        getType  = (I ---> GObjectType.C.fromVal) getType_,
-        getValue = (I ---> C.fromPtr false) getValue_,
-        setValue = (I &&&> C.withPtr ---> I) setValue_
+        getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+        getValue = (I ---> FFI.fromPtr false) getValue_,
+        setValue = (I &&&> FFI.withPtr ---> I) setValue_
       }
 
     val tOpt =
       GObjectValue.C.createAccessor {
-        getType  = (I ---> GObjectType.C.fromVal) getType_,
-        getValue = (I ---> C.fromOptPtr false) getOptValue_,
-        setValue = (I &&&> C.withOptPtr ---> I) setOptValue_
+        getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+        getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
+        setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_
       }
   end

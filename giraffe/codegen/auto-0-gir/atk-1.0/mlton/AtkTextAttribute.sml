@@ -1,9 +1,6 @@
-structure AtkTextAttribute :>
-  sig
-    include ATK_TEXT_ATTRIBUTE
-  end =
+structure AtkTextAttribute :> ATK_TEXT_ATTRIBUTE =
   struct
-    datatype t =
+    datatype enum =
       INVALID
     | LEFT_MARGIN
     | RIGHT_MARGIN
@@ -33,44 +30,43 @@ structure AtkTextAttribute :>
     | VARIANT
     | STYLE
     | LAST_DEFINED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = INVALID
+        val toInt =
           fn
-            INVALID => f 0
-          | LEFT_MARGIN => f 1
-          | RIGHT_MARGIN => f 2
-          | INDENT => f 3
-          | INVISIBLE => f 4
-          | EDITABLE => f 5
-          | PIXELS_ABOVE_LINES => f 6
-          | PIXELS_BELOW_LINES => f 7
-          | PIXELS_INSIDE_WRAP => f 8
-          | BG_FULL_HEIGHT => f 9
-          | RISE => f 10
-          | UNDERLINE => f 11
-          | STRIKETHROUGH => f 12
-          | SIZE => f 13
-          | SCALE => f 14
-          | WEIGHT => f 15
-          | LANGUAGE => f 16
-          | FAMILY_NAME => f 17
-          | BG_COLOR => f 18
-          | FG_COLOR => f 19
-          | BG_STIPPLE => f 20
-          | FG_STIPPLE => f 21
-          | WRAP_MODE => f 22
-          | DIRECTION => f 23
-          | JUSTIFICATION => f 24
-          | STRETCH => f 25
-          | VARIANT => f 26
-          | STYLE => f 27
-          | LAST_DEFINED => f 28
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            INVALID => 0
+          | LEFT_MARGIN => 1
+          | RIGHT_MARGIN => 2
+          | INDENT => 3
+          | INVISIBLE => 4
+          | EDITABLE => 5
+          | PIXELS_ABOVE_LINES => 6
+          | PIXELS_BELOW_LINES => 7
+          | PIXELS_INSIDE_WRAP => 8
+          | BG_FULL_HEIGHT => 9
+          | RISE => 10
+          | UNDERLINE => 11
+          | STRIKETHROUGH => 12
+          | SIZE => 13
+          | SCALE => 14
+          | WEIGHT => 15
+          | LANGUAGE => 16
+          | FAMILY_NAME => 17
+          | BG_COLOR => 18
+          | FG_COLOR => 19
+          | BG_STIPPLE => 20
+          | FG_STIPPLE => 21
+          | WRAP_MODE => 22
+          | DIRECTION => 23
+          | JUSTIFICATION => 24
+          | STRETCH => 25
+          | VARIANT => 26
+          | STYLE => 27
+          | LAST_DEFINED => 28
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => INVALID
           | 1 => LEFT_MARGIN
@@ -102,25 +98,25 @@ structure AtkTextAttribute :>
           | 27 => STYLE
           | 28 => LAST_DEFINED
           | n => raise Value n
-      end
-    val getType_ = _import "atk_text_attribute_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "atk_text_attribute_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = INVALID
-    val forName_ = _import "mlton_atk_text_attribute_for_name" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> C.val_;
-    val getName_ = _import "atk_text_attribute_get_name" : C.val_ -> Utf8.C.notnull Utf8.C.out_p;
-    val getValue_ = fn x1 & x2 => (_import "atk_text_attribute_get_value" : C.val_ * FFI.Int.C.val_ -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
-    val register_ = _import "mlton_atk_text_attribute_register" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> C.val_;
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (Utf8.C.withPtr ---> C.fromVal) forName_ name
-    fun getName attr = (C.withVal ---> Utf8.C.fromPtr false) getName_ attr
-    fun getValue attr index = (C.withVal &&&> FFI.Int.C.withVal ---> Utf8.C.fromPtr false) getValue_ (attr & index)
-    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
+    val forName_ = _import "mlton_atk_text_attribute_for_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> FFI.val_;
+    val getName_ = _import "atk_text_attribute_get_name" : FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getValue_ = fn x1 & x2 => (_import "atk_text_attribute_get_value" : FFI.val_ * GInt.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val register_ = _import "mlton_atk_text_attribute_register" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> FFI.val_;
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun forName name = (Utf8.FFI.withPtr ---> FFI.fromVal) forName_ name
+    fun getName attr = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ attr
+    fun getValue attr index = (FFI.withVal &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) getValue_ (attr & index)
+    fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
   end

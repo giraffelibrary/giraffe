@@ -1,14 +1,6 @@
-structure GLibTestLogType :>
-  sig
-    include G_LIB_TEST_LOG_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GLibTestLogType :> G_LIB_TEST_LOG_TYPE =
   struct
-    datatype t =
+    datatype enum =
       NONE
     | ERROR
     | START_BINARY
@@ -19,25 +11,24 @@ structure GLibTestLogType :>
     | MIN_RESULT
     | MAX_RESULT
     | MESSAGE
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NONE
+        val toInt =
           fn
-            NONE => f 0
-          | ERROR => f 1
-          | START_BINARY => f 2
-          | LIST_CASE => f 3
-          | SKIP_CASE => f 4
-          | START_CASE => f 5
-          | STOP_CASE => f 6
-          | MIN_RESULT => f 7
-          | MAX_RESULT => f 8
-          | MESSAGE => f 9
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NONE => 0
+          | ERROR => 1
+          | START_BINARY => 2
+          | LIST_CASE => 3
+          | SKIP_CASE => 4
+          | START_CASE => 5
+          | STOP_CASE => 6
+          | MIN_RESULT => 7
+          | MAX_RESULT => 8
+          | MESSAGE => 9
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => NONE
           | 1 => ERROR
@@ -50,11 +41,6 @@ structure GLibTestLogType :>
           | 8 => MAX_RESULT
           | 9 => MESSAGE
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
-    val null = NONE
+      )
+    open Enum
   end

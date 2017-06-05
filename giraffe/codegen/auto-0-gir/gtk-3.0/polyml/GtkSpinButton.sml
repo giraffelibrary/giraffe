@@ -17,16 +17,16 @@ structure GtkSpinButton :>
         call (load_sym libgtk "gtk_spin_button_new")
           (
             GtkAdjustmentClass.PolyML.cOptPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.UInt.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              --> GtkWidgetClass.PolyML.cPtr
           )
       val newWithRange_ =
         call (load_sym libgtk "gtk_spin_button_new_with_range")
           (
-            FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+            GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> GtkWidgetClass.PolyML.cPtr
           )
       val configure_ =
@@ -34,63 +34,63 @@ structure GtkSpinButton :>
           (
             GtkSpinButtonClass.PolyML.cPtr
              &&> GtkAdjustmentClass.PolyML.cOptPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.UInt.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val getAdjustment_ = call (load_sym libgtk "gtk_spin_button_get_adjustment") (GtkSpinButtonClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
-      val getDigits_ = call (load_sym libgtk "gtk_spin_button_get_digits") (GtkSpinButtonClass.PolyML.cPtr --> FFI.UInt.PolyML.cVal)
+      val getDigits_ = call (load_sym libgtk "gtk_spin_button_get_digits") (GtkSpinButtonClass.PolyML.cPtr --> GUInt.PolyML.cVal)
       val getIncrements_ =
         call (load_sym libgtk "gtk_spin_button_get_increments")
           (
             GtkSpinButtonClass.PolyML.cPtr
-             &&> FFI.Double.PolyML.cRef
-             &&> FFI.Double.PolyML.cRef
+             &&> GDouble.PolyML.cRef
+             &&> GDouble.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getNumeric_ = call (load_sym libgtk "gtk_spin_button_get_numeric") (GtkSpinButtonClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getNumeric_ = call (load_sym libgtk "gtk_spin_button_get_numeric") (GtkSpinButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getRange_ =
         call (load_sym libgtk "gtk_spin_button_get_range")
           (
             GtkSpinButtonClass.PolyML.cPtr
-             &&> FFI.Double.PolyML.cRef
-             &&> FFI.Double.PolyML.cRef
+             &&> GDouble.PolyML.cRef
+             &&> GDouble.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getSnapToTicks_ = call (load_sym libgtk "gtk_spin_button_get_snap_to_ticks") (GtkSpinButtonClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getSnapToTicks_ = call (load_sym libgtk "gtk_spin_button_get_snap_to_ticks") (GtkSpinButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getUpdatePolicy_ = call (load_sym libgtk "gtk_spin_button_get_update_policy") (GtkSpinButtonClass.PolyML.cPtr --> GtkSpinButtonUpdatePolicy.PolyML.cVal)
-      val getValue_ = call (load_sym libgtk "gtk_spin_button_get_value") (GtkSpinButtonClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
-      val getValueAsInt_ = call (load_sym libgtk "gtk_spin_button_get_value_as_int") (GtkSpinButtonClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getWrap_ = call (load_sym libgtk "gtk_spin_button_get_wrap") (GtkSpinButtonClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getValue_ = call (load_sym libgtk "gtk_spin_button_get_value") (GtkSpinButtonClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getValueAsInt_ = call (load_sym libgtk "gtk_spin_button_get_value_as_int") (GtkSpinButtonClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getWrap_ = call (load_sym libgtk "gtk_spin_button_get_wrap") (GtkSpinButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setAdjustment_ = call (load_sym libgtk "gtk_spin_button_set_adjustment") (GtkSpinButtonClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setDigits_ = call (load_sym libgtk "gtk_spin_button_set_digits") (GtkSpinButtonClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDigits_ = call (load_sym libgtk "gtk_spin_button_set_digits") (GtkSpinButtonClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setIncrements_ =
         call (load_sym libgtk "gtk_spin_button_set_increments")
           (
             GtkSpinButtonClass.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setNumeric_ = call (load_sym libgtk "gtk_spin_button_set_numeric") (GtkSpinButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setNumeric_ = call (load_sym libgtk "gtk_spin_button_set_numeric") (GtkSpinButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setRange_ =
         call (load_sym libgtk "gtk_spin_button_set_range")
           (
             GtkSpinButtonClass.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setSnapToTicks_ = call (load_sym libgtk "gtk_spin_button_set_snap_to_ticks") (GtkSpinButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSnapToTicks_ = call (load_sym libgtk "gtk_spin_button_set_snap_to_ticks") (GtkSpinButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setUpdatePolicy_ = call (load_sym libgtk "gtk_spin_button_set_update_policy") (GtkSpinButtonClass.PolyML.cPtr &&> GtkSpinButtonUpdatePolicy.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setValue_ = call (load_sym libgtk "gtk_spin_button_set_value") (GtkSpinButtonClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setWrap_ = call (load_sym libgtk "gtk_spin_button_set_wrap") (GtkSpinButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setValue_ = call (load_sym libgtk "gtk_spin_button_set_value") (GtkSpinButtonClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setWrap_ = call (load_sym libgtk "gtk_spin_button_set_wrap") (GtkSpinButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val spin_ =
         call (load_sym libgtk "gtk_spin_button_spin")
           (
             GtkSpinButtonClass.PolyML.cPtr
              &&> GtkSpinType.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val update_ = call (load_sym libgtk "gtk_spin_button_update") (GtkSpinButtonClass.PolyML.cPtr --> PolyMLFFI.cVoid)
@@ -104,17 +104,17 @@ structure GtkSpinButton :>
     type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type spin_button_update_policy_t = GtkSpinButtonUpdatePolicy.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asCellEditable self = (GObjectObjectClass.C.withPtr ---> GtkCellEditableClass.C.fromPtr false) I self
-    fun asEditable self = (GObjectObjectClass.C.withPtr ---> GtkEditableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asCellEditable self = (GObjectObjectClass.FFI.withPtr ---> GtkCellEditableClass.FFI.fromPtr false) I self
+    fun asEditable self = (GObjectObjectClass.FFI.withPtr ---> GtkEditableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new adjustment climbRate digits =
       (
-        GtkAdjustmentClass.C.withOptPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.UInt.C.withVal
-         ---> GtkSpinButtonClass.C.fromPtr false
+        GtkAdjustmentClass.FFI.withOptPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GUInt.FFI.withVal
+         ---> GtkSpinButtonClass.FFI.fromPtr false
       )
         new_
         (
@@ -124,10 +124,10 @@ structure GtkSpinButton :>
         )
     fun newWithRange min max step =
       (
-        FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
-         ---> GtkSpinButtonClass.C.fromPtr false
+        GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> GtkSpinButtonClass.FFI.fromPtr false
       )
         newWithRange_
         (
@@ -137,10 +137,10 @@ structure GtkSpinButton :>
         )
     fun configure self adjustment climbRate digits =
       (
-        GtkSpinButtonClass.C.withPtr
-         &&&> GtkAdjustmentClass.C.withOptPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.UInt.C.withVal
+        GtkSpinButtonClass.FFI.withPtr
+         &&&> GtkAdjustmentClass.FFI.withOptPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GUInt.FFI.withVal
          ---> I
       )
         configure_
@@ -150,65 +150,65 @@ structure GtkSpinButton :>
            & climbRate
            & digits
         )
-    fun getAdjustment self = (GtkSpinButtonClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getAdjustment_ self
-    fun getDigits self = (GtkSpinButtonClass.C.withPtr ---> FFI.UInt.C.fromVal) getDigits_ self
+    fun getAdjustment self = (GtkSpinButtonClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self
+    fun getDigits self = (GtkSpinButtonClass.FFI.withPtr ---> GUInt.FFI.fromVal) getDigits_ self
     fun getIncrements self =
       let
         val step
          & page
          & () =
           (
-            GtkSpinButtonClass.C.withPtr
-             &&&> FFI.Double.C.withRefVal
-             &&&> FFI.Double.C.withRefVal
-             ---> FFI.Double.C.fromVal
-                   && FFI.Double.C.fromVal
+            GtkSpinButtonClass.FFI.withPtr
+             &&&> GDouble.FFI.withRefVal
+             &&&> GDouble.FFI.withRefVal
+             ---> GDouble.FFI.fromVal
+                   && GDouble.FFI.fromVal
                    && I
           )
             getIncrements_
             (
               self
-               & FFI.Double.null
-               & FFI.Double.null
+               & GDouble.null
+               & GDouble.null
             )
       in
         (step, page)
       end
-    fun getNumeric self = (GtkSpinButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getNumeric_ self
+    fun getNumeric self = (GtkSpinButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getNumeric_ self
     fun getRange self =
       let
         val min
          & max
          & () =
           (
-            GtkSpinButtonClass.C.withPtr
-             &&&> FFI.Double.C.withRefVal
-             &&&> FFI.Double.C.withRefVal
-             ---> FFI.Double.C.fromVal
-                   && FFI.Double.C.fromVal
+            GtkSpinButtonClass.FFI.withPtr
+             &&&> GDouble.FFI.withRefVal
+             &&&> GDouble.FFI.withRefVal
+             ---> GDouble.FFI.fromVal
+                   && GDouble.FFI.fromVal
                    && I
           )
             getRange_
             (
               self
-               & FFI.Double.null
-               & FFI.Double.null
+               & GDouble.null
+               & GDouble.null
             )
       in
         (min, max)
       end
-    fun getSnapToTicks self = (GtkSpinButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getSnapToTicks_ self
-    fun getUpdatePolicy self = (GtkSpinButtonClass.C.withPtr ---> GtkSpinButtonUpdatePolicy.C.fromVal) getUpdatePolicy_ self
-    fun getValue self = (GtkSpinButtonClass.C.withPtr ---> FFI.Double.C.fromVal) getValue_ self
-    fun getValueAsInt self = (GtkSpinButtonClass.C.withPtr ---> FFI.Int.C.fromVal) getValueAsInt_ self
-    fun getWrap self = (GtkSpinButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getWrap_ self
-    fun setAdjustment self adjustment = (GtkSpinButtonClass.C.withPtr &&&> GtkAdjustmentClass.C.withPtr ---> I) setAdjustment_ (self & adjustment)
-    fun setDigits self digits = (GtkSpinButtonClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) setDigits_ (self & digits)
+    fun getSnapToTicks self = (GtkSpinButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getSnapToTicks_ self
+    fun getUpdatePolicy self = (GtkSpinButtonClass.FFI.withPtr ---> GtkSpinButtonUpdatePolicy.FFI.fromVal) getUpdatePolicy_ self
+    fun getValue self = (GtkSpinButtonClass.FFI.withPtr ---> GDouble.FFI.fromVal) getValue_ self
+    fun getValueAsInt self = (GtkSpinButtonClass.FFI.withPtr ---> GInt.FFI.fromVal) getValueAsInt_ self
+    fun getWrap self = (GtkSpinButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getWrap_ self
+    fun setAdjustment self adjustment = (GtkSpinButtonClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setAdjustment_ (self & adjustment)
+    fun setDigits self digits = (GtkSpinButtonClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setDigits_ (self & digits)
     fun setIncrements self step page =
       (
-        GtkSpinButtonClass.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkSpinButtonClass.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         setIncrements_
@@ -217,12 +217,12 @@ structure GtkSpinButton :>
            & step
            & page
         )
-    fun setNumeric self numeric = (GtkSpinButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setNumeric_ (self & numeric)
+    fun setNumeric self numeric = (GtkSpinButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setNumeric_ (self & numeric)
     fun setRange self min max =
       (
-        GtkSpinButtonClass.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkSpinButtonClass.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         setRange_
@@ -231,15 +231,15 @@ structure GtkSpinButton :>
            & min
            & max
         )
-    fun setSnapToTicks self snapToTicks = (GtkSpinButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSnapToTicks_ (self & snapToTicks)
-    fun setUpdatePolicy self policy = (GtkSpinButtonClass.C.withPtr &&&> GtkSpinButtonUpdatePolicy.C.withVal ---> I) setUpdatePolicy_ (self & policy)
-    fun setValue self value = (GtkSpinButtonClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setValue_ (self & value)
-    fun setWrap self wrap = (GtkSpinButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setWrap_ (self & wrap)
+    fun setSnapToTicks self snapToTicks = (GtkSpinButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSnapToTicks_ (self & snapToTicks)
+    fun setUpdatePolicy self policy = (GtkSpinButtonClass.FFI.withPtr &&&> GtkSpinButtonUpdatePolicy.FFI.withVal ---> I) setUpdatePolicy_ (self & policy)
+    fun setValue self value = (GtkSpinButtonClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setValue_ (self & value)
+    fun setWrap self wrap = (GtkSpinButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setWrap_ (self & wrap)
     fun spin self direction increment =
       (
-        GtkSpinButtonClass.C.withPtr
-         &&&> GtkSpinType.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkSpinButtonClass.FFI.withPtr
+         &&&> GtkSpinType.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         spin_
@@ -248,7 +248,7 @@ structure GtkSpinButton :>
            & direction
            & increment
         )
-    fun update self = (GtkSpinButtonClass.C.withPtr ---> I) update_ self
+    fun update self = (GtkSpinButtonClass.FFI.withPtr ---> I) update_ self
     local
       open ClosureMarshal Signal
     in

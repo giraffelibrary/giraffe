@@ -3,11 +3,11 @@ signature GDK_DISPLAY =
     type 'a class
     type 'a device_class
     type 'a app_launch_context_class
-    type 'a window_class
     type 'a device_manager_class
     type 'a screen_class
     type 'a event_union
     type atom_t
+    type 'a window_class
     type t = base class
     val getType : unit -> GObject.Type.t
     val getDefault : unit -> base class
@@ -55,6 +55,12 @@ signature GDK_DISPLAY =
     val setDoubleClickTime :
       'a class
        -> LargeInt.int
+       -> unit
+    val storeClipboard :
+      'a class
+       -> 'b window_class
+       -> LargeInt.int
+       -> atom_t vector
        -> unit
     val supportsClipboardPersistence : 'a class -> bool
     val supportsComposite : 'a class -> bool

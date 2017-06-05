@@ -2,8 +2,8 @@ structure GtkSourceGutterRendererText :>
   GTK_SOURCE_GUTTER_RENDERER_TEXT
     where type 'a class = 'a GtkSourceGutterRendererTextClass.class =
   struct
-    val getType_ = _import "gtk_source_gutter_renderer_text_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_source_gutter_renderer_text_new" : unit -> GtkSourceGutterRendererClass.C.notnull GtkSourceGutterRendererClass.C.p;
+    val getType_ = _import "gtk_source_gutter_renderer_text_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_source_gutter_renderer_text_new" : unit -> GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p;
     val setMarkup_ =
       fn
         x1
@@ -11,10 +11,10 @@ structure GtkSourceGutterRendererText :>
          & x4 =>
           (
             _import "mlton_gtk_source_gutter_renderer_text_set_markup" :
-              GtkSourceGutterRendererTextClass.C.notnull GtkSourceGutterRendererTextClass.C.p
+              GtkSourceGutterRendererTextClass.FFI.notnull GtkSourceGutterRendererTextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int.C.val_
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -30,10 +30,10 @@ structure GtkSourceGutterRendererText :>
          & x4 =>
           (
             _import "mlton_gtk_source_gutter_renderer_text_set_text" :
-              GtkSourceGutterRendererTextClass.C.notnull GtkSourceGutterRendererTextClass.C.p
+              GtkSourceGutterRendererTextClass.FFI.notnull GtkSourceGutterRendererTextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int.C.val_
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -44,13 +44,13 @@ structure GtkSourceGutterRendererText :>
             )
     type 'a class = 'a GtkSourceGutterRendererTextClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkSourceGutterRendererTextClass.C.fromPtr true) new_ ()
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkSourceGutterRendererTextClass.FFI.fromPtr true) new_ ()
     fun setMarkup self markup length =
       (
-        GtkSourceGutterRendererTextClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkSourceGutterRendererTextClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         setMarkup_
@@ -61,9 +61,9 @@ structure GtkSourceGutterRendererText :>
         )
     fun setText self text length =
       (
-        GtkSourceGutterRendererTextClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkSourceGutterRendererTextClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         setText_

@@ -48,13 +48,13 @@ structure GtkBuildable :>
     type 'a class = 'a GtkBuildableClass.class
     type 'a builder_class = 'a GtkBuilderClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun addChild self builder child type' =
       (
-        GtkBuildableClass.C.withPtr
-         &&&> GtkBuilderClass.C.withPtr
-         &&&> GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withOptPtr
+        GtkBuildableClass.FFI.withPtr
+         &&&> GtkBuilderClass.FFI.withPtr
+         &&&> GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
          ---> I
       )
         addChild_
@@ -66,10 +66,10 @@ structure GtkBuildable :>
         )
     fun constructChild self builder name =
       (
-        GtkBuildableClass.C.withPtr
-         &&&> GtkBuilderClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         ---> GObjectObjectClass.C.fromPtr true
+        GtkBuildableClass.FFI.withPtr
+         &&&> GtkBuilderClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> GObjectObjectClass.FFI.fromPtr true
       )
         constructChild_
         (
@@ -79,10 +79,10 @@ structure GtkBuildable :>
         )
     fun getInternalChild self builder childname =
       (
-        GtkBuildableClass.C.withPtr
-         &&&> GtkBuilderClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         ---> GObjectObjectClass.C.fromPtr false
+        GtkBuildableClass.FFI.withPtr
+         &&&> GtkBuilderClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> GObjectObjectClass.FFI.fromPtr false
       )
         getInternalChild_
         (
@@ -90,14 +90,14 @@ structure GtkBuildable :>
            & builder
            & childname
         )
-    fun getName self = (GtkBuildableClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun parserFinished self builder = (GtkBuildableClass.C.withPtr &&&> GtkBuilderClass.C.withPtr ---> I) parserFinished_ (self & builder)
+    fun getName self = (GtkBuildableClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun parserFinished self builder = (GtkBuildableClass.FFI.withPtr &&&> GtkBuilderClass.FFI.withPtr ---> I) parserFinished_ (self & builder)
     fun setBuildableProperty self builder name value =
       (
-        GtkBuildableClass.C.withPtr
-         &&&> GtkBuilderClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GObjectValueRecord.C.withPtr
+        GtkBuildableClass.FFI.withPtr
+         &&&> GtkBuilderClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectValueRecord.FFI.withPtr
          ---> I
       )
         setBuildableProperty_
@@ -107,5 +107,5 @@ structure GtkBuildable :>
            & name
            & value
         )
-    fun setName self name = (GtkBuildableClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setName_ (self & name)
+    fun setName self name = (GtkBuildableClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setName_ (self & name)
   end

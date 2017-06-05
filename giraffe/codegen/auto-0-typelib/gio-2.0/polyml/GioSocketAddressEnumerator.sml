@@ -31,13 +31,13 @@ structure GioSocketAddressEnumerator :>
     type 'a socket_address_class = 'a GioSocketAddressClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun next self cancellable =
       (
-        GioSocketAddressEnumeratorClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioSocketAddressEnumeratorClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioSocketAddressClass.C.fromPtr true
+         ---> GioSocketAddressClass.FFI.fromPtr true
       )
         next_
         (
@@ -47,10 +47,10 @@ structure GioSocketAddressEnumerator :>
         )
     fun nextFinish self result =
       (
-        GioSocketAddressEnumeratorClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioSocketAddressEnumeratorClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioSocketAddressClass.C.fromPtr true
+         ---> GioSocketAddressClass.FFI.fromPtr true
       )
         nextFinish_
         (

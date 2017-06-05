@@ -5,7 +5,7 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-functor Word32BitFlags (val allFlags : Word32.word list) :>
+functor Word32BitFlags(val allFlags : Word32.word list) :>
   BIT_FLAGS
     where type flags = Word32.word =
   struct

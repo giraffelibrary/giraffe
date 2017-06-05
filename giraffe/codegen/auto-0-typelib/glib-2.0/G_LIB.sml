@@ -249,7 +249,7 @@ signature G_LIB =
       string
        -> LargeInt.int
        -> LargeInt.int
-    val asciiDigitValue : LargeInt.int -> LargeInt.int
+    val asciiDigitValue : Word8.word -> LargeInt.int
     val asciiDtostr :
       string
        -> LargeInt.int
@@ -292,9 +292,9 @@ signature G_LIB =
       string
        -> LargeInt.int
        -> string
-    val asciiTolower : LargeInt.int -> LargeInt.int
-    val asciiToupper : LargeInt.int -> LargeInt.int
-    val asciiXdigitValue : LargeInt.int -> LargeInt.int
+    val asciiTolower : Word8.word -> Word8.word
+    val asciiToupper : Word8.word -> Word8.word
+    val asciiXdigitValue : Word8.word -> LargeInt.int
     val assertWarning :
       string
        -> string
@@ -326,6 +326,8 @@ signature G_LIB =
        -> string
        -> string
        -> unit
+    val base64Decode : string -> Word8Vector.vector
+    val base64Encode : Word8Vector.vector -> string
     val basename : string -> string
     val bitNthLsf :
       LargeInt.int
@@ -338,6 +340,11 @@ signature G_LIB =
     val bitStorage : LargeInt.int -> LargeInt.int
     val blowChunks : unit -> unit
     val bookmarkFileErrorQuark : unit -> LargeInt.int
+    val buildFilenamev : string list -> string
+    val buildPathv :
+      string
+       -> string list
+       -> string
     val chdir : string -> LargeInt.int
     val checkVersion :
       LargeInt.int
@@ -349,6 +356,12 @@ signature G_LIB =
     val clearError : unit -> unit
     val computeChecksumForString :
       ChecksumType.t
+       -> string
+       -> LargeInt.int
+       -> string
+    val computeHmacForString :
+      ChecksumType.t
+       -> Word8Vector.vector
        -> string
        -> LargeInt.int
        -> string
@@ -375,9 +388,9 @@ signature G_LIB =
     val dateGetDaysInMonth :
       DateMonth.t
        -> LargeInt.int
-       -> LargeInt.int
-    val dateGetMondayWeeksInYear : LargeInt.int -> LargeInt.int
-    val dateGetSundayWeeksInYear : LargeInt.int -> LargeInt.int
+       -> Word8.word
+    val dateGetMondayWeeksInYear : LargeInt.int -> Word8.word
+    val dateGetSundayWeeksInYear : LargeInt.int -> Word8.word
     val dateIsLeapYear : LargeInt.int -> bool
     val dateStrftime :
       string
@@ -385,9 +398,9 @@ signature G_LIB =
        -> string
        -> DateRecord.t
        -> LargeInt.int
-    val dateValidDay : LargeInt.int -> bool
+    val dateValidDay : Word8.word -> bool
     val dateValidDmy :
-      LargeInt.int
+      Word8.word
        -> DateMonth.t
        -> LargeInt.int
        -> bool
@@ -424,8 +437,13 @@ signature G_LIB =
     val dummyDecl : unit -> unit
     val fileErrorFromErrno : LargeInt.int -> FileError.t
     val fileErrorQuark : unit -> LargeInt.int
+    val fileGetContents : string -> Word8Vector.vector option
     val fileOpenTmp : string option -> LargeInt.int * string
     val fileReadLink : string -> string
+    val fileSetContents :
+      string
+       -> Word8Vector.vector
+       -> bool
     val fileTest :
       string
        -> FileTest.t
@@ -451,13 +469,18 @@ signature G_LIB =
     val getCharset : string -> bool
     val getCurrentDir : unit -> string
     val getCurrentTime : TimeValRecord.t -> unit
+    val getEnviron : unit -> string list
     val getFilenameCharsets : string -> bool
     val getHomeDir : unit -> string
     val getHostName : unit -> string
+    val getLanguageNames : unit -> string list
+    val getLocaleVariants : string -> string list
     val getMonotonicTime : unit -> LargeInt.int
     val getPrgname : unit -> string
     val getRealName : unit -> string
     val getRealTime : unit -> LargeInt.int
+    val getSystemConfigDirs : unit -> string list
+    val getSystemDataDirs : unit -> string list
     val getTmpDir : unit -> string
     val getUserCacheDir : unit -> string
     val getUserConfigDir : unit -> string
@@ -507,6 +530,7 @@ signature G_LIB =
        -> SourceRecord.t
     val keyFileErrorQuark : unit -> LargeInt.int
     val listPopAllocator : unit -> unit
+    val listenv : unit -> string list
     val logRemoveHandler :
       string
        -> LargeInt.int
@@ -631,6 +655,7 @@ signature G_LIB =
        -> bool
        -> bool
     val shellErrorQuark : unit -> LargeInt.int
+    val shellParseArgv : string -> string list option
     val shellQuote : string -> string
     val shellUnquote : string -> string
     val sliceGetConfig : SliceConfig.t -> LargeInt.int
@@ -646,6 +671,12 @@ signature G_LIB =
     val spacedPrimesClosest : LargeInt.int -> LargeInt.int
     val spawnClosePid : LargeInt.int -> unit
     val spawnCommandLineAsync : string -> bool
+    val spawnCommandLineSync :
+      string
+       -> (Word8Vector.vector
+            * Word8Vector.vector
+            * LargeInt.int)
+            option
     val spawnErrorQuark : unit -> LargeInt.int
     val stpcpy :
       string
@@ -662,7 +693,7 @@ signature G_LIB =
     val strcanon :
       string
        -> string
-       -> LargeInt.int
+       -> Word8.word
        -> string
     val strcasecmp :
       string
@@ -678,7 +709,7 @@ signature G_LIB =
     val strdelimit :
       string
        -> string
-       -> LargeInt.int
+       -> Word8.word
        -> string
     val strdown : string -> string
     val strdup : string -> string
@@ -723,7 +754,7 @@ signature G_LIB =
        -> string
     val strnfill :
       LargeInt.int
-       -> LargeInt.int
+       -> Word8.word
        -> string
     val strreverse : string -> string
     val strrstr :

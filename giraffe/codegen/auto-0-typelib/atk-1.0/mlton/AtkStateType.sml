@@ -1,9 +1,6 @@
-structure AtkStateType :>
-  sig
-    include ATK_STATE_TYPE
-  end =
+structure AtkStateType :> ATK_STATE_TYPE =
   struct
-    datatype t =
+    datatype enum =
       INVALID
     | ACTIVE
     | ARMED
@@ -44,55 +41,54 @@ structure AtkStateType :>
     | ANIMATED
     | VISITED
     | LAST_DEFINED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = INVALID
+        val toInt =
           fn
-            INVALID => f 0
-          | ACTIVE => f 1
-          | ARMED => f 2
-          | BUSY => f 3
-          | CHECKED => f 4
-          | DEFUNCT => f 5
-          | EDITABLE => f 6
-          | ENABLED => f 7
-          | EXPANDABLE => f 8
-          | EXPANDED => f 9
-          | FOCUSABLE => f 10
-          | FOCUSED => f 11
-          | HORIZONTAL => f 12
-          | ICONIFIED => f 13
-          | MODAL => f 14
-          | MULTI_LINE => f 15
-          | MULTISELECTABLE => f 16
-          | OPAQUE => f 17
-          | PRESSED => f 18
-          | RESIZABLE => f 19
-          | SELECTABLE => f 20
-          | SELECTED => f 21
-          | SENSITIVE => f 22
-          | SHOWING => f 23
-          | SINGLE_LINE => f 24
-          | STALE => f 25
-          | TRANSIENT => f 26
-          | VERTICAL => f 27
-          | VISIBLE => f 28
-          | MANAGES_DESCENDANTS => f 29
-          | INDETERMINATE => f 30
-          | TRUNCATED => f 31
-          | REQUIRED => f 32
-          | INVALID_ENTRY => f 33
-          | SUPPORTS_AUTOCOMPLETION => f 34
-          | SELECTABLE_TEXT => f 35
-          | DEFAULT => f 36
-          | ANIMATED => f 37
-          | VISITED => f 38
-          | LAST_DEFINED => f 39
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            INVALID => 0
+          | ACTIVE => 1
+          | ARMED => 2
+          | BUSY => 3
+          | CHECKED => 4
+          | DEFUNCT => 5
+          | EDITABLE => 6
+          | ENABLED => 7
+          | EXPANDABLE => 8
+          | EXPANDED => 9
+          | FOCUSABLE => 10
+          | FOCUSED => 11
+          | HORIZONTAL => 12
+          | ICONIFIED => 13
+          | MODAL => 14
+          | MULTI_LINE => 15
+          | MULTISELECTABLE => 16
+          | OPAQUE => 17
+          | PRESSED => 18
+          | RESIZABLE => 19
+          | SELECTABLE => 20
+          | SELECTED => 21
+          | SENSITIVE => 22
+          | SHOWING => 23
+          | SINGLE_LINE => 24
+          | STALE => 25
+          | TRANSIENT => 26
+          | VERTICAL => 27
+          | VISIBLE => 28
+          | MANAGES_DESCENDANTS => 29
+          | INDETERMINATE => 30
+          | TRUNCATED => 31
+          | REQUIRED => 32
+          | INVALID_ENTRY => 33
+          | SUPPORTS_AUTOCOMPLETION => 34
+          | SELECTABLE_TEXT => 35
+          | DEFAULT => 36
+          | ANIMATED => 37
+          | VISITED => 38
+          | LAST_DEFINED => 39
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => INVALID
           | 1 => ACTIVE
@@ -135,23 +131,23 @@ structure AtkStateType :>
           | 38 => VISITED
           | 39 => LAST_DEFINED
           | n => raise Value n
-      end
-    val getType_ = _import "atk_state_type_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "atk_state_type_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = INVALID
-    val forName_ = _import "mlton_atk_state_type_for_name" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> C.val_;
-    val getName_ = _import "atk_state_type_get_name" : C.val_ -> Utf8.C.notnull Utf8.C.out_p;
-    val register_ = _import "mlton_atk_state_type_register" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> C.val_;
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun forName name = (Utf8.C.withPtr ---> C.fromVal) forName_ name
-    fun getName type' = (C.withVal ---> Utf8.C.fromPtr false) getName_ type'
-    fun register name = (Utf8.C.withPtr ---> C.fromVal) register_ name
+    val forName_ = _import "mlton_atk_state_type_for_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> FFI.val_;
+    val getName_ = _import "atk_state_type_get_name" : FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val register_ = _import "mlton_atk_state_type_register" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> FFI.val_;
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun forName name = (Utf8.FFI.withPtr ---> FFI.fromVal) forName_ name
+    fun getName type' = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ type'
+    fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
   end

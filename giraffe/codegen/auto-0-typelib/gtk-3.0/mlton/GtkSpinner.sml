@@ -3,19 +3,19 @@ structure GtkSpinner :>
     where type 'a class = 'a GtkSpinnerClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
-    val getType_ = _import "gtk_spinner_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_spinner_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
-    val start_ = _import "gtk_spinner_start" : GtkSpinnerClass.C.notnull GtkSpinnerClass.C.p -> unit;
-    val stop_ = _import "gtk_spinner_stop" : GtkSpinnerClass.C.notnull GtkSpinnerClass.C.p -> unit;
+    val getType_ = _import "gtk_spinner_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_spinner_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val start_ = _import "gtk_spinner_start" : GtkSpinnerClass.FFI.notnull GtkSpinnerClass.FFI.p -> unit;
+    val stop_ = _import "gtk_spinner_stop" : GtkSpinnerClass.FFI.notnull GtkSpinnerClass.FFI.p -> unit;
     type 'a class = 'a GtkSpinnerClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkSpinnerClass.C.fromPtr false) new_ ()
-    fun start self = (GtkSpinnerClass.C.withPtr ---> I) start_ self
-    fun stop self = (GtkSpinnerClass.C.withPtr ---> I) stop_ self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkSpinnerClass.FFI.fromPtr false) new_ ()
+    fun start self = (GtkSpinnerClass.FFI.withPtr ---> I) start_ self
+    fun stop self = (GtkSpinnerClass.FFI.withPtr ---> I) stop_ self
     local
       open Property
     in

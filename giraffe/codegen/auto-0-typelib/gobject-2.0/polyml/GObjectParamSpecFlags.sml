@@ -11,5 +11,5 @@ structure GObjectParamSpecFlags :>
     type 'a class = 'a GObjectParamSpecFlagsClass.class
     type type_t = GObjectType.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

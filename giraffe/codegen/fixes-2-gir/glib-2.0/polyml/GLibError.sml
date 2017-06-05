@@ -11,5 +11,5 @@ structure GLibError :>
           (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
     end
     type t = GLibErrorRecord.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

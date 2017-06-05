@@ -6,65 +6,65 @@ structure GtkEntryBuffer :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgtk "gtk_entry_buffer_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_entry_buffer_new") (Utf8.PolyML.cInOptPtr &&> FFI.Int.PolyML.cVal --> GtkEntryBufferClass.PolyML.cPtr)
+      val new_ = call (load_sym libgtk "gtk_entry_buffer_new") (Utf8.PolyML.cInOptPtr &&> GInt.PolyML.cVal --> GtkEntryBufferClass.PolyML.cPtr)
       val deleteText_ =
         call (load_sym libgtk "gtk_entry_buffer_delete_text")
           (
             GtkEntryBufferClass.PolyML.cPtr
-             &&> FFI.UInt.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
-             --> FFI.UInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> GUInt.PolyML.cVal
           )
       val emitDeletedText_ =
         call (load_sym libgtk "gtk_entry_buffer_emit_deleted_text")
           (
             GtkEntryBufferClass.PolyML.cPtr
-             &&> FFI.UInt.PolyML.cVal
-             &&> FFI.UInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val emitInsertedText_ =
         call (load_sym libgtk "gtk_entry_buffer_emit_inserted_text")
           (
             GtkEntryBufferClass.PolyML.cPtr
-             &&> FFI.UInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.UInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val getBytes_ = call (load_sym libgtk "gtk_entry_buffer_get_bytes") (GtkEntryBufferClass.PolyML.cPtr --> FFI.Size.PolyML.cVal)
-      val getLength_ = call (load_sym libgtk "gtk_entry_buffer_get_length") (GtkEntryBufferClass.PolyML.cPtr --> FFI.UInt.PolyML.cVal)
-      val getMaxLength_ = call (load_sym libgtk "gtk_entry_buffer_get_max_length") (GtkEntryBufferClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getBytes_ = call (load_sym libgtk "gtk_entry_buffer_get_bytes") (GtkEntryBufferClass.PolyML.cPtr --> GSize.PolyML.cVal)
+      val getLength_ = call (load_sym libgtk "gtk_entry_buffer_get_length") (GtkEntryBufferClass.PolyML.cPtr --> GUInt.PolyML.cVal)
+      val getMaxLength_ = call (load_sym libgtk "gtk_entry_buffer_get_max_length") (GtkEntryBufferClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getText_ = call (load_sym libgtk "gtk_entry_buffer_get_text") (GtkEntryBufferClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val insertText_ =
         call (load_sym libgtk "gtk_entry_buffer_insert_text")
           (
             GtkEntryBufferClass.PolyML.cPtr
-             &&> FFI.UInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Int.PolyML.cVal
-             --> FFI.UInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> GUInt.PolyML.cVal
           )
-      val setMaxLength_ = call (load_sym libgtk "gtk_entry_buffer_set_max_length") (GtkEntryBufferClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMaxLength_ = call (load_sym libgtk "gtk_entry_buffer_set_max_length") (GtkEntryBufferClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setText_ =
         call (load_sym libgtk "gtk_entry_buffer_set_text")
           (
             GtkEntryBufferClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GtkEntryBufferClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new initialChars nInitialChars = (Utf8.C.withOptPtr &&&> FFI.Int.C.withVal ---> GtkEntryBufferClass.C.fromPtr true) new_ (initialChars & nInitialChars)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new initialChars nInitialChars = (Utf8.FFI.withOptPtr &&&> GInt.FFI.withVal ---> GtkEntryBufferClass.FFI.fromPtr true) new_ (initialChars & nInitialChars)
     fun deleteText self position nChars =
       (
-        GtkEntryBufferClass.C.withPtr
-         &&&> FFI.UInt.C.withVal
-         &&&> FFI.Int.C.withVal
-         ---> FFI.UInt.C.fromVal
+        GtkEntryBufferClass.FFI.withPtr
+         &&&> GUInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GUInt.FFI.fromVal
       )
         deleteText_
         (
@@ -74,9 +74,9 @@ structure GtkEntryBuffer :>
         )
     fun emitDeletedText self position nChars =
       (
-        GtkEntryBufferClass.C.withPtr
-         &&&> FFI.UInt.C.withVal
-         &&&> FFI.UInt.C.withVal
+        GtkEntryBufferClass.FFI.withPtr
+         &&&> GUInt.FFI.withVal
+         &&&> GUInt.FFI.withVal
          ---> I
       )
         emitDeletedText_
@@ -87,10 +87,10 @@ structure GtkEntryBuffer :>
         )
     fun emitInsertedText self position chars nChars =
       (
-        GtkEntryBufferClass.C.withPtr
-         &&&> FFI.UInt.C.withVal
-         &&&> Utf8.C.withPtr
-         &&&> FFI.UInt.C.withVal
+        GtkEntryBufferClass.FFI.withPtr
+         &&&> GUInt.FFI.withVal
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt.FFI.withVal
          ---> I
       )
         emitInsertedText_
@@ -100,17 +100,17 @@ structure GtkEntryBuffer :>
            & chars
            & nChars
         )
-    fun getBytes self = (GtkEntryBufferClass.C.withPtr ---> FFI.Size.C.fromVal) getBytes_ self
-    fun getLength self = (GtkEntryBufferClass.C.withPtr ---> FFI.UInt.C.fromVal) getLength_ self
-    fun getMaxLength self = (GtkEntryBufferClass.C.withPtr ---> FFI.Int.C.fromVal) getMaxLength_ self
-    fun getText self = (GtkEntryBufferClass.C.withPtr ---> Utf8.C.fromPtr false) getText_ self
+    fun getBytes self = (GtkEntryBufferClass.FFI.withPtr ---> GSize.FFI.fromVal) getBytes_ self
+    fun getLength self = (GtkEntryBufferClass.FFI.withPtr ---> GUInt.FFI.fromVal) getLength_ self
+    fun getMaxLength self = (GtkEntryBufferClass.FFI.withPtr ---> GInt.FFI.fromVal) getMaxLength_ self
+    fun getText self = (GtkEntryBufferClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getText_ self
     fun insertText self position chars nChars =
       (
-        GtkEntryBufferClass.C.withPtr
-         &&&> FFI.UInt.C.withVal
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
-         ---> FFI.UInt.C.fromVal
+        GtkEntryBufferClass.FFI.withPtr
+         &&&> GUInt.FFI.withVal
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         ---> GUInt.FFI.fromVal
       )
         insertText_
         (
@@ -119,12 +119,12 @@ structure GtkEntryBuffer :>
            & chars
            & nChars
         )
-    fun setMaxLength self maxLength = (GtkEntryBufferClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMaxLength_ (self & maxLength)
+    fun setMaxLength self maxLength = (GtkEntryBufferClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMaxLength_ (self & maxLength)
     fun setText self chars nChars =
       (
-        GtkEntryBufferClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkEntryBufferClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         setText_

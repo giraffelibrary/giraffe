@@ -26,7 +26,7 @@ signature G_I_REPOSITORY_ARGUMENT =
 
     type typetag_t
 
-    structure C :
+    structure FFI :
       sig
         type notnull
         type 'a p

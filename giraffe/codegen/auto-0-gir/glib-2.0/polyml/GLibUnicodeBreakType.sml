@@ -1,14 +1,6 @@
-structure GLibUnicodeBreakType :>
-  sig
-    include G_LIB_UNICODE_BREAK_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GLibUnicodeBreakType :> G_LIB_UNICODE_BREAK_TYPE =
   struct
-    datatype t =
+    datatype enum =
       MANDATORY
     | CARRIAGE_RETURN
     | LINE_FEED
@@ -46,52 +38,51 @@ structure GLibUnicodeBreakType :>
     | HANGUL_LV_SYLLABLE
     | HANGUL_LVT_SYLLABLE
     | CLOSE_PARANTHESIS
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = MANDATORY
+        val toInt =
           fn
-            MANDATORY => f 0
-          | CARRIAGE_RETURN => f 1
-          | LINE_FEED => f 2
-          | COMBINING_MARK => f 3
-          | SURROGATE => f 4
-          | ZERO_WIDTH_SPACE => f 5
-          | INSEPARABLE => f 6
-          | NON_BREAKING_GLUE => f 7
-          | CONTINGENT => f 8
-          | SPACE => f 9
-          | AFTER => f 10
-          | BEFORE => f 11
-          | BEFORE_AND_AFTER => f 12
-          | HYPHEN => f 13
-          | NON_STARTER => f 14
-          | OPEN_PUNCTUATION => f 15
-          | CLOSE_PUNCTUATION => f 16
-          | QUOTATION => f 17
-          | EXCLAMATION => f 18
-          | IDEOGRAPHIC => f 19
-          | NUMERIC => f 20
-          | INFIX_SEPARATOR => f 21
-          | SYMBOL => f 22
-          | ALPHABETIC => f 23
-          | PREFIX => f 24
-          | POSTFIX => f 25
-          | COMPLEX_CONTEXT => f 26
-          | AMBIGUOUS => f 27
-          | UNKNOWN => f 28
-          | NEXT_LINE => f 29
-          | WORD_JOINER => f 30
-          | HANGUL_L_JAMO => f 31
-          | HANGUL_V_JAMO => f 32
-          | HANGUL_T_JAMO => f 33
-          | HANGUL_LV_SYLLABLE => f 34
-          | HANGUL_LVT_SYLLABLE => f 35
-          | CLOSE_PARANTHESIS => f 36
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            MANDATORY => 0
+          | CARRIAGE_RETURN => 1
+          | LINE_FEED => 2
+          | COMBINING_MARK => 3
+          | SURROGATE => 4
+          | ZERO_WIDTH_SPACE => 5
+          | INSEPARABLE => 6
+          | NON_BREAKING_GLUE => 7
+          | CONTINGENT => 8
+          | SPACE => 9
+          | AFTER => 10
+          | BEFORE => 11
+          | BEFORE_AND_AFTER => 12
+          | HYPHEN => 13
+          | NON_STARTER => 14
+          | OPEN_PUNCTUATION => 15
+          | CLOSE_PUNCTUATION => 16
+          | QUOTATION => 17
+          | EXCLAMATION => 18
+          | IDEOGRAPHIC => 19
+          | NUMERIC => 20
+          | INFIX_SEPARATOR => 21
+          | SYMBOL => 22
+          | ALPHABETIC => 23
+          | PREFIX => 24
+          | POSTFIX => 25
+          | COMPLEX_CONTEXT => 26
+          | AMBIGUOUS => 27
+          | UNKNOWN => 28
+          | NEXT_LINE => 29
+          | WORD_JOINER => 30
+          | HANGUL_L_JAMO => 31
+          | HANGUL_V_JAMO => 32
+          | HANGUL_T_JAMO => 33
+          | HANGUL_LV_SYLLABLE => 34
+          | HANGUL_LVT_SYLLABLE => 35
+          | CLOSE_PARANTHESIS => 36
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => MANDATORY
           | 1 => CARRIAGE_RETURN
@@ -131,11 +122,6 @@ structure GLibUnicodeBreakType :>
           | 35 => HANGUL_LVT_SYLLABLE
           | 36 => CLOSE_PARANTHESIS
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
-    val null = MANDATORY
+      )
+    open Enum
   end

@@ -2,28 +2,28 @@ structure GioIcon :>
   GIO_ICON
     where type 'a class = 'a GioIconClass.class =
   struct
-    val getType_ = _import "g_icon_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "g_icon_get_type" : unit -> GObjectType.FFI.val_;
     val newForString_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_icon_new_for_string" :
               Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioIconClass.C.notnull GioIconClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val equal_ = fn x1 & x2 => (_import "g_icon_equal" : GioIconClass.C.notnull GioIconClass.C.p * GioIconClass.C.notnull GioIconClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val toString_ = _import "g_icon_to_string" : GioIconClass.C.notnull GioIconClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val equal_ = fn x1 & x2 => (_import "g_icon_equal" : GioIconClass.FFI.notnull GioIconClass.FFI.p * GioIconClass.FFI.notnull GioIconClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val toString_ = _import "g_icon_to_string" : GioIconClass.FFI.notnull GioIconClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     type 'a class = 'a GioIconClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun newForString str = (Utf8.C.withPtr &&&> GLibErrorRecord.handleError ---> GioIconClass.C.fromPtr true) newForString_ (str & [])
-    fun equal self icon2 = (GioIconClass.C.withPtr &&&> GioIconClass.C.withPtr ---> FFI.Bool.C.fromVal) equal_ (self & icon2)
-    fun toString self = (GioIconClass.C.withPtr ---> Utf8.C.fromPtr true) toString_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun newForString str = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioIconClass.FFI.fromPtr true) newForString_ (str & [])
+    fun equal self icon2 = (GioIconClass.FFI.withPtr &&&> GioIconClass.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & icon2)
+    fun toString self = (GioIconClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
   end

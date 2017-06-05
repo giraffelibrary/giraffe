@@ -1,3 +1,4 @@
+use "gir/FLAGS.sml";
 use "gir/G_OBJECT_PARAM_FLAGS.sml";
 use "gir/G_OBJECT_SIGNAL_FLAGS.sml";
 use "gir/polyml/GObjectParamFlags.sml";

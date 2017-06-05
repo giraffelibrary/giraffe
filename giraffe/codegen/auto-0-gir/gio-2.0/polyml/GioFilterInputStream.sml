@@ -8,16 +8,16 @@ structure GioFilterInputStream :>
     in
       val getType_ = call (load_sym libgio "g_filter_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getBaseStream_ = call (load_sym libgio "g_filter_input_stream_get_base_stream") (GioFilterInputStreamClass.PolyML.cPtr --> GioInputStreamClass.PolyML.cPtr)
-      val getCloseBaseStream_ = call (load_sym libgio "g_filter_input_stream_get_close_base_stream") (GioFilterInputStreamClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setCloseBaseStream_ = call (load_sym libgio "g_filter_input_stream_set_close_base_stream") (GioFilterInputStreamClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getCloseBaseStream_ = call (load_sym libgio "g_filter_input_stream_get_close_base_stream") (GioFilterInputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setCloseBaseStream_ = call (load_sym libgio "g_filter_input_stream_set_close_base_stream") (GioFilterInputStreamClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioFilterInputStreamClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getBaseStream self = (GioFilterInputStreamClass.C.withPtr ---> GioInputStreamClass.C.fromPtr false) getBaseStream_ self
-    fun getCloseBaseStream self = (GioFilterInputStreamClass.C.withPtr ---> FFI.Bool.C.fromVal) getCloseBaseStream_ self
-    fun setCloseBaseStream self closeBase = (GioFilterInputStreamClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCloseBaseStream_ (self & closeBase)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getBaseStream self = (GioFilterInputStreamClass.FFI.withPtr ---> GioInputStreamClass.FFI.fromPtr false) getBaseStream_ self
+    fun getCloseBaseStream self = (GioFilterInputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) getCloseBaseStream_ self
+    fun setCloseBaseStream self closeBase = (GioFilterInputStreamClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCloseBaseStream_ (self & closeBase)
     local
       open Property
     in

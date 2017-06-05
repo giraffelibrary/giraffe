@@ -5,7 +5,7 @@ structure GioSocketAddressEnumerator :>
     where type 'a socket_address_class = 'a GioSocketAddressClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
-    val getType_ = _import "g_socket_address_enumerator_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "g_socket_address_enumerator_get_type" : unit -> GObjectType.FFI.val_;
     val next_ =
       fn
         x1
@@ -13,10 +13,10 @@ structure GioSocketAddressEnumerator :>
          & x3 =>
           (
             _import "g_socket_address_enumerator_next" :
-              GioSocketAddressEnumeratorClass.C.notnull GioSocketAddressEnumeratorClass.C.p
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioSocketAddressClass.C.notnull GioSocketAddressClass.C.p;
+              GioSocketAddressEnumeratorClass.FFI.notnull GioSocketAddressEnumeratorClass.FFI.p
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
           )
             (
               x1,
@@ -30,10 +30,10 @@ structure GioSocketAddressEnumerator :>
          & x3 =>
           (
             _import "g_socket_address_enumerator_next_finish" :
-              GioSocketAddressEnumeratorClass.C.notnull GioSocketAddressEnumeratorClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioSocketAddressClass.C.notnull GioSocketAddressClass.C.p;
+              GioSocketAddressEnumeratorClass.FFI.notnull GioSocketAddressEnumeratorClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
           )
             (
               x1,
@@ -45,13 +45,13 @@ structure GioSocketAddressEnumerator :>
     type 'a socket_address_class = 'a GioSocketAddressClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun next self cancellable =
       (
-        GioSocketAddressEnumeratorClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioSocketAddressEnumeratorClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioSocketAddressClass.C.fromPtr true
+         ---> GioSocketAddressClass.FFI.fromPtr true
       )
         next_
         (
@@ -61,10 +61,10 @@ structure GioSocketAddressEnumerator :>
         )
     fun nextFinish self result =
       (
-        GioSocketAddressEnumeratorClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioSocketAddressEnumeratorClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioSocketAddressClass.C.fromPtr true
+         ---> GioSocketAddressClass.FFI.fromPtr true
       )
         nextFinish_
         (

@@ -9,21 +9,21 @@ structure GtkActivatable :>
       val getType_ = call (load_sym libgtk "gtk_activatable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val doSetRelatedAction_ = call (load_sym libgtk "gtk_activatable_do_set_related_action") (GtkActivatableClass.PolyML.cPtr &&> GtkActionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getRelatedAction_ = call (load_sym libgtk "gtk_activatable_get_related_action") (GtkActivatableClass.PolyML.cPtr --> GtkActionClass.PolyML.cPtr)
-      val getUseActionAppearance_ = call (load_sym libgtk "gtk_activatable_get_use_action_appearance") (GtkActivatableClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getUseActionAppearance_ = call (load_sym libgtk "gtk_activatable_get_use_action_appearance") (GtkActivatableClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setRelatedAction_ = call (load_sym libgtk "gtk_activatable_set_related_action") (GtkActivatableClass.PolyML.cPtr &&> GtkActionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setUseActionAppearance_ = call (load_sym libgtk "gtk_activatable_set_use_action_appearance") (GtkActivatableClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setUseActionAppearance_ = call (load_sym libgtk "gtk_activatable_set_use_action_appearance") (GtkActivatableClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val syncActionProperties_ = call (load_sym libgtk "gtk_activatable_sync_action_properties") (GtkActivatableClass.PolyML.cPtr &&> GtkActionClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkActivatableClass.class
     type 'a action_class = 'a GtkActionClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun doSetRelatedAction self action = (GtkActivatableClass.C.withPtr &&&> GtkActionClass.C.withPtr ---> I) doSetRelatedAction_ (self & action)
-    fun getRelatedAction self = (GtkActivatableClass.C.withPtr ---> GtkActionClass.C.fromPtr false) getRelatedAction_ self
-    fun getUseActionAppearance self = (GtkActivatableClass.C.withPtr ---> FFI.Bool.C.fromVal) getUseActionAppearance_ self
-    fun setRelatedAction self action = (GtkActivatableClass.C.withPtr &&&> GtkActionClass.C.withPtr ---> I) setRelatedAction_ (self & action)
-    fun setUseActionAppearance self useAppearance = (GtkActivatableClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setUseActionAppearance_ (self & useAppearance)
-    fun syncActionProperties self action = (GtkActivatableClass.C.withPtr &&&> GtkActionClass.C.withOptPtr ---> I) syncActionProperties_ (self & action)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun doSetRelatedAction self action = (GtkActivatableClass.FFI.withPtr &&&> GtkActionClass.FFI.withPtr ---> I) doSetRelatedAction_ (self & action)
+    fun getRelatedAction self = (GtkActivatableClass.FFI.withPtr ---> GtkActionClass.FFI.fromPtr false) getRelatedAction_ self
+    fun getUseActionAppearance self = (GtkActivatableClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseActionAppearance_ self
+    fun setRelatedAction self action = (GtkActivatableClass.FFI.withPtr &&&> GtkActionClass.FFI.withPtr ---> I) setRelatedAction_ (self & action)
+    fun setUseActionAppearance self useAppearance = (GtkActivatableClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseActionAppearance_ (self & useAppearance)
+    fun syncActionProperties self action = (GtkActivatableClass.FFI.withPtr &&&> GtkActionClass.FFI.withOptPtr ---> I) syncActionProperties_ (self & action)
     local
       open Property
     in

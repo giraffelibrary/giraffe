@@ -1,14 +1,6 @@
-structure GioTlsError :>
-  sig
-    include GIO_TLS_ERROR
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GioTlsError :> GIO_TLS_ERROR =
   struct
-    datatype t =
+    datatype enum =
       UNAVAILABLE
     | MISC
     | BAD_CERTIFICATE
@@ -16,22 +8,21 @@ structure GioTlsError :>
     | HANDSHAKE
     | CERTIFICATE_REQUIRED
     | EOF
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = UNAVAILABLE
+        val toInt =
           fn
-            UNAVAILABLE => f 0
-          | MISC => f 1
-          | BAD_CERTIFICATE => f 2
-          | NOT_TLS => f 3
-          | HANDSHAKE => f 4
-          | CERTIFICATE_REQUIRED => f 5
-          | EOF => f 6
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            UNAVAILABLE => 0
+          | MISC => 1
+          | BAD_CERTIFICATE => 2
+          | NOT_TLS => 3
+          | HANDSHAKE => 4
+          | CERTIFICATE_REQUIRED => 5
+          | EOF => 6
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => UNAVAILABLE
           | 1 => MISC
@@ -41,12 +32,8 @@ structure GioTlsError :>
           | 5 => CERTIFICATE_REQUIRED
           | 6 => EOF
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -57,18 +44,18 @@ structure GioTlsError :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
     exception Error of t
     val handler =
       GLibErrorRecord.makeHandler
         (
           "g-tls-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end
 exception GioTlsError = GioTlsError.Error

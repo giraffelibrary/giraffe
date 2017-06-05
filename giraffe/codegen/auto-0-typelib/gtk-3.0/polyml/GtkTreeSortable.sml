@@ -11,16 +11,16 @@ structure GtkTreeSortable :>
         call (load_sym libgtk "gtk_tree_sortable_get_sort_column_id")
           (
             GtkTreeSortableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
              &&> GtkSortType.PolyML.cRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
-      val hasDefaultSortFunc_ = call (load_sym libgtk "gtk_tree_sortable_has_default_sort_func") (GtkTreeSortableClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val hasDefaultSortFunc_ = call (load_sym libgtk "gtk_tree_sortable_has_default_sort_func") (GtkTreeSortableClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setSortColumnId_ =
         call (load_sym libgtk "gtk_tree_sortable_set_sort_column_id")
           (
             GtkTreeSortableClass.PolyML.cPtr
-             &&> FFI.Int32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              &&> GtkSortType.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
@@ -29,35 +29,35 @@ structure GtkTreeSortable :>
     type 'a class = 'a GtkTreeSortableClass.class
     type sort_type_t = GtkSortType.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getSortColumnId self =
       let
         val sortColumnId
          & order
          & retVal =
           (
-            GtkTreeSortableClass.C.withPtr
-             &&&> FFI.Int32.C.withRefVal
-             &&&> GtkSortType.C.withRefVal
-             ---> FFI.Int32.C.fromVal
-                   && GtkSortType.C.fromVal
-                   && FFI.Bool.C.fromVal
+            GtkTreeSortableClass.FFI.withPtr
+             &&&> GInt32.FFI.withRefVal
+             &&&> GtkSortType.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GtkSortType.FFI.fromVal
+                   && GBool.FFI.fromVal
           )
             getSortColumnId_
             (
               self
-               & FFI.Int32.null
+               & GInt32.null
                & GtkSortType.null
             )
       in
         if retVal then SOME (sortColumnId, order) else NONE
       end
-    fun hasDefaultSortFunc self = (GtkTreeSortableClass.C.withPtr ---> FFI.Bool.C.fromVal) hasDefaultSortFunc_ self
+    fun hasDefaultSortFunc self = (GtkTreeSortableClass.FFI.withPtr ---> GBool.FFI.fromVal) hasDefaultSortFunc_ self
     fun setSortColumnId self sortColumnId order =
       (
-        GtkTreeSortableClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> GtkSortType.C.withVal
+        GtkTreeSortableClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GtkSortType.FFI.withVal
          ---> I
       )
         setSortColumnId_
@@ -66,7 +66,7 @@ structure GtkTreeSortable :>
            & sortColumnId
            & order
         )
-    fun sortColumnChanged self = (GtkTreeSortableClass.C.withPtr ---> I) sortColumnChanged_ self
+    fun sortColumnChanged self = (GtkTreeSortableClass.FFI.withPtr ---> I) sortColumnChanged_ self
     local
       open ClosureMarshal Signal
     in

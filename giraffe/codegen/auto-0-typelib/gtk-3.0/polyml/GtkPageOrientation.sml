@@ -1,43 +1,30 @@
-structure GtkPageOrientation :>
-  sig
-    include GTK_PAGE_ORIENTATION
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkPageOrientation :> GTK_PAGE_ORIENTATION =
   struct
-    datatype t =
+    datatype enum =
       PORTRAIT
     | LANDSCAPE
     | REVERSE_PORTRAIT
     | REVERSE_LANDSCAPE
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = PORTRAIT
+        val toInt =
           fn
-            PORTRAIT => f 0
-          | LANDSCAPE => f 1
-          | REVERSE_PORTRAIT => f 2
-          | REVERSE_LANDSCAPE => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            PORTRAIT => 0
+          | LANDSCAPE => 1
+          | REVERSE_PORTRAIT => 2
+          | REVERSE_LANDSCAPE => 3
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => PORTRAIT
           | 1 => LANDSCAPE
           | 2 => REVERSE_PORTRAIT
           | 3 => REVERSE_LANDSCAPE
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -48,10 +35,9 @@ structure GtkPageOrientation :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = PORTRAIT
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

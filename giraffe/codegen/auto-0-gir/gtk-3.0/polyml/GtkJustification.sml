@@ -1,43 +1,30 @@
-structure GtkJustification :>
-  sig
-    include GTK_JUSTIFICATION
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkJustification :> GTK_JUSTIFICATION =
   struct
-    datatype t =
+    datatype enum =
       LEFT
     | RIGHT
     | CENTER
     | FILL
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = LEFT
+        val toInt =
           fn
-            LEFT => f 0
-          | RIGHT => f 1
-          | CENTER => f 2
-          | FILL => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            LEFT => 0
+          | RIGHT => 1
+          | CENTER => 2
+          | FILL => 3
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => LEFT
           | 1 => RIGHT
           | 2 => CENTER
           | 3 => FILL
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -48,10 +35,9 @@ structure GtkJustification :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = LEFT
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

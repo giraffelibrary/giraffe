@@ -8,16 +8,16 @@ structure GioFilterOutputStream :>
     in
       val getType_ = call (load_sym libgio "g_filter_output_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getBaseStream_ = call (load_sym libgio "g_filter_output_stream_get_base_stream") (GioFilterOutputStreamClass.PolyML.cPtr --> GioOutputStreamClass.PolyML.cPtr)
-      val getCloseBaseStream_ = call (load_sym libgio "g_filter_output_stream_get_close_base_stream") (GioFilterOutputStreamClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setCloseBaseStream_ = call (load_sym libgio "g_filter_output_stream_set_close_base_stream") (GioFilterOutputStreamClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getCloseBaseStream_ = call (load_sym libgio "g_filter_output_stream_get_close_base_stream") (GioFilterOutputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setCloseBaseStream_ = call (load_sym libgio "g_filter_output_stream_set_close_base_stream") (GioFilterOutputStreamClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioFilterOutputStreamClass.class
     type 'a output_stream_class = 'a GioOutputStreamClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getBaseStream self = (GioFilterOutputStreamClass.C.withPtr ---> GioOutputStreamClass.C.fromPtr false) getBaseStream_ self
-    fun getCloseBaseStream self = (GioFilterOutputStreamClass.C.withPtr ---> FFI.Bool.C.fromVal) getCloseBaseStream_ self
-    fun setCloseBaseStream self closeBase = (GioFilterOutputStreamClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCloseBaseStream_ (self & closeBase)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getBaseStream self = (GioFilterOutputStreamClass.FFI.withPtr ---> GioOutputStreamClass.FFI.fromPtr false) getBaseStream_ self
+    fun getCloseBaseStream self = (GioFilterOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) getCloseBaseStream_ self
+    fun setCloseBaseStream self closeBase = (GioFilterOutputStreamClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCloseBaseStream_ (self & closeBase)
     local
       open Property
     in

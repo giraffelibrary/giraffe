@@ -17,12 +17,12 @@ structure GioEmblem :>
     type 'a icon_class = 'a GioIconClass.class
     type emblem_origin_t = GioEmblemOrigin.t
     type t = base class
-    fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new icon = (GioIconClass.C.withPtr ---> GioEmblemClass.C.fromPtr true) new_ icon
-    fun newWithOrigin icon origin = (GioIconClass.C.withPtr &&&> GioEmblemOrigin.C.withVal ---> GioEmblemClass.C.fromPtr true) newWithOrigin_ (icon & origin)
-    fun getIcon self = (GioEmblemClass.C.withPtr ---> GioIconClass.C.fromPtr false) getIcon_ self
-    fun getOrigin self = (GioEmblemClass.C.withPtr ---> GioEmblemOrigin.C.fromVal) getOrigin_ self
+    fun asIcon self = (GObjectObjectClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new icon = (GioIconClass.FFI.withPtr ---> GioEmblemClass.FFI.fromPtr true) new_ icon
+    fun newWithOrigin icon origin = (GioIconClass.FFI.withPtr &&&> GioEmblemOrigin.FFI.withVal ---> GioEmblemClass.FFI.fromPtr true) newWithOrigin_ (icon & origin)
+    fun getIcon self = (GioEmblemClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getIcon_ self
+    fun getOrigin self = (GioEmblemClass.FFI.withPtr ---> GioEmblemOrigin.FFI.fromVal) getOrigin_ self
     local
       open Property
     in

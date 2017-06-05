@@ -29,17 +29,41 @@ structure PolyMLFFI :> POLYML_F_F_I =
             val sub = --
           end
 
-        val getWord8 = get8
-        val getWord16 = get16
-        val getWord32 = get32
-        val getWord64 = get64
-        val setWord8 = set8
-        val setWord16 = set16
-        val setWord32 = set32
-        val setWord64 = set64
+        fun getWord8 (p, i) = get8 (p, Word.fromInt i)
+        fun getWord16 (p, i) = get16 (p, Word.fromInt i)
+        fun getWord32 (p, i) = get32 (p, Word.fromInt i)
+        fun getWord64 (p, i) = get64 (p, Word.fromInt i)
+        fun setWord8 (p, i, x) = set8 (p, Word.fromInt i, x)
+        fun setWord16 (p, i, x) = set16 (p, Word.fromInt i, x)
+        fun setWord32 (p, i, x) = set32 (p, Word.fromInt i, x)
+        fun setWord64 (p, i, x) = set64 (p, Word.fromInt i, x)
 
-        val getPointer = getAddress
-        val setPointer = setAddress
+        fun getFloat (p, i) = Memory.getFloat (p, Word.fromInt i)
+        fun getDouble (p, i) = Memory.getDouble (p, Word.fromInt i)
+        fun setFloat (p, i, x) = Memory.setFloat (p, Word.fromInt i, x)
+        fun setDouble (p, i, x) = Memory.setDouble (p, Word.fromInt i, x)
+
+        fun getPointer (p, i) = getAddress (p, Word.fromInt i)
+        fun setPointer (p, i, x) = setAddress (p, Word.fromInt i, x)
+
+        fun copy (dest, src, numWord8) =
+          let
+            val numWord32 = numWord8 div 4
+            fun copyWord8 i = setWord8 (dest, i, getWord8 (src, i))
+            fun copyWord32 i = setWord32 (dest, i, getWord32 (src, i))
+            fun copy32 i =
+              if i < numWord32
+              then (copyWord32 i; copy32 (i + 1))
+              else ()
+            fun copy8 i =
+              if i < numWord8
+              then (copyWord8 i; copy8 (i + 1))
+              else ()
+            val () = copy32 0
+            val () = copy8 (numWord32 * 4)
+          in
+            ()
+          end
       end
 
 

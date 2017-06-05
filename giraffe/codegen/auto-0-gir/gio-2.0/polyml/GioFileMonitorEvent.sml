@@ -1,14 +1,6 @@
-structure GioFileMonitorEvent :>
-  sig
-    include GIO_FILE_MONITOR_EVENT
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GioFileMonitorEvent :> GIO_FILE_MONITOR_EVENT =
   struct
-    datatype t =
+    datatype enum =
       CHANGED
     | CHANGES_DONE_HINT
     | DELETED
@@ -17,23 +9,22 @@ structure GioFileMonitorEvent :>
     | PRE_UNMOUNT
     | UNMOUNTED
     | MOVED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = CHANGED
+        val toInt =
           fn
-            CHANGED => f 0
-          | CHANGES_DONE_HINT => f 1
-          | DELETED => f 2
-          | CREATED => f 3
-          | ATTRIBUTE_CHANGED => f 4
-          | PRE_UNMOUNT => f 5
-          | UNMOUNTED => f 6
-          | MOVED => f 7
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            CHANGED => 0
+          | CHANGES_DONE_HINT => 1
+          | DELETED => 2
+          | CREATED => 3
+          | ATTRIBUTE_CHANGED => 4
+          | PRE_UNMOUNT => 5
+          | UNMOUNTED => 6
+          | MOVED => 7
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => CHANGED
           | 1 => CHANGES_DONE_HINT
@@ -44,12 +35,8 @@ structure GioFileMonitorEvent :>
           | 6 => UNMOUNTED
           | 7 => MOVED
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -60,10 +47,9 @@ structure GioFileMonitorEvent :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = CHANGED
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

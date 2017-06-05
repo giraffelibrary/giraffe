@@ -1,14 +1,6 @@
-structure GdkWindowTypeHint :>
-  sig
-    include GDK_WINDOW_TYPE_HINT
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GdkWindowTypeHint :> GDK_WINDOW_TYPE_HINT =
   struct
-    datatype t =
+    datatype enum =
       NORMAL
     | DIALOG
     | MENU
@@ -23,29 +15,28 @@ structure GdkWindowTypeHint :>
     | NOTIFICATION
     | COMBO
     | DND
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NORMAL
+        val toInt =
           fn
-            NORMAL => f 0
-          | DIALOG => f 1
-          | MENU => f 2
-          | TOOLBAR => f 3
-          | SPLASHSCREEN => f 4
-          | UTILITY => f 5
-          | DOCK => f 6
-          | DESKTOP => f 7
-          | DROPDOWN_MENU => f 8
-          | POPUP_MENU => f 9
-          | TOOLTIP => f 10
-          | NOTIFICATION => f 11
-          | COMBO => f 12
-          | DND => f 13
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NORMAL => 0
+          | DIALOG => 1
+          | MENU => 2
+          | TOOLBAR => 3
+          | SPLASHSCREEN => 4
+          | UTILITY => 5
+          | DOCK => 6
+          | DESKTOP => 7
+          | DROPDOWN_MENU => 8
+          | POPUP_MENU => 9
+          | TOOLTIP => 10
+          | NOTIFICATION => 11
+          | COMBO => 12
+          | DND => 13
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => NORMAL
           | 1 => DIALOG
@@ -62,12 +53,8 @@ structure GdkWindowTypeHint :>
           | 12 => COMBO
           | 13 => DND
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -78,10 +65,9 @@ structure GdkWindowTypeHint :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = NORMAL
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

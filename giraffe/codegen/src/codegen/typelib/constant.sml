@@ -65,8 +65,8 @@ fun makeConstantSpec
 (* Declaration *)
 
 fun makeConstantStrDec
-  (constantInfo, (iRefs, errs))
-  : strdec * (interfaceref list * infoerrorhier list) =
+  (constantInfo, ((iRefs, structs), errs))
+  : strdec * ((interfaceref list * struct1 ListDict.t) * infoerrorhier list) =
   let
     val () = checkDeprecated constantInfo
 
@@ -107,6 +107,6 @@ fun makeConstantStrDec
   in
     (
       StrDecDec (mkIdValDec (constantNameId, constantExp)),
-      (iRefs'1, errs)
+      ((iRefs'1, structs), errs)
     )
   end

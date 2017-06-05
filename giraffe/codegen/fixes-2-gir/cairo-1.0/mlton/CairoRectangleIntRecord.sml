@@ -1,27 +1,34 @@
 structure CairoRectangleIntRecord :> CAIRO_RECTANGLE_INT_RECORD =
   struct
-    structure Pointer = CPointer
+    structure Pointer = CPointerInternal
     type notnull = Pointer.notnull
     type 'a p = 'a Pointer.p
 
     val new_ = _import "giraffe_cairo_rectangle_int_t_new" : unit -> notnull p;
-    val copy_ = _import "giraffe_cairo_rectangle_int_t_copy" : notnull p -> notnull p;
+    val copy_ =
+      fn x1 & x2 =>
+        (_import "giraffe_cairo_rectangle_int_t_copy" : notnull p * notnull p -> unit;)
+        (x1, x2)
     val free_ = _import "giraffe_cairo_rectangle_int_t_free" : notnull p -> unit;
-    val getType_ = _import "cairo_gobject_rectangle_int_get_type" : unit -> GObjectType.C.val_;
+    val size_ = _import "giraffe_cairo_rectangle_int_t_size" : unit -> GUInt.FFI.val_;
+    val getType_ = _import "cairo_gobject_rectangle_int_get_type" : unit -> GObjectType.FFI.val_;
 
     structure Record =
-      BoxedNewRecord (
+      BoxedValueRecord(
+        structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
         val new_ = new_
-        val take_ = ignore
         val copy_ = copy_
+        val take_ = ignore
+        val clear_ = ignore
         val free_ = free_
+        val size_ = size_
       )
     open Record
 
     structure Type =
-      BoxedType (
+      BoxedType(
         structure Record = Record
         type t = t
         val getType_ = getType_

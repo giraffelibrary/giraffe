@@ -63,6 +63,7 @@ val structNames = [
   ("Pango", "Language"),
   ("Pango", "LayoutIter"),
   ("Pango", "LayoutLine"),
+  ("Pango", "LogAttr"),
   ("Pango", "Matrix"),
   ("Pango", "Rectangle"),
   ("Pango", "TabArray")
@@ -95,7 +96,8 @@ fun translateInfo
           strs'0 : ((bool * (spec list * strdec list)) * id list) ListDict.t
         ),
         constants'0,
-        functions'0
+        functions'0,
+        structDeps'0
       ),
       errs'0
     )
@@ -156,7 +158,7 @@ fun translateInfo
           )
         val modules'1 = (files'1, sigs'1, strs'1)
       in
-        ((modules'1, constants'0, functions'0), errs'2)
+        ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
       end
   | InfoType.INTERFACE interfaceInfo =>
       let
@@ -213,7 +215,7 @@ fun translateInfo
           )
         val modules'1 = (files'1, sigs'1, strs'1)
       in
-        ((modules'1, constants'0, functions'0), errs'2)
+        ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
       end
   | InfoType.STRUCT structInfo       =>
       if
@@ -279,7 +281,7 @@ fun translateInfo
             )
           val modules'1 = (files'1, sigs'1, strs'1)
         in
-          ((modules'1, constants'0, functions'0), errs'2)
+          ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
         end
       else
         acc
@@ -322,7 +324,7 @@ fun translateInfo
             )
           val modules'1 = (files'1, sigs'1, strs'1)
         in
-          ((modules'1, constants'0, functions'0), errs'2)
+          ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
         end
       else
         acc
@@ -358,7 +360,7 @@ fun translateInfo
           )
         val modules'1 = (files'1, sigs'1, strs'1)
       in
-        ((modules'1, constants'0, functions'0), errs'2)
+        ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
       end
   | InfoType.ENUM enumInfo           =>
       let
@@ -392,20 +394,20 @@ fun translateInfo
           )
         val modules'1 = (files'1, sigs'1, strs'1)
       in
-        ((modules'1, constants'0, functions'0), errs'2)
+        ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
       end
   | InfoType.CONSTANT constantInfo   =>
       let
         val (spec, (_, errs'1)) =
           makeConstantSpec (constantInfo, ([], errs'0))
 
-        val (strDec, (_, errs'2)) =
-          makeConstantStrDec (constantInfo, ([], errs'1))
+        val (strDec, ((_, structDeps'1), errs'2)) =
+          makeConstantStrDec (constantInfo, (([], structDeps'0), errs'1))
 
         val (specs'0, strDecs'0) = constants'0
         val constants'1 = (spec :: specs'0, strDec :: strDecs'0)
       in
-        ((modules'0, constants'1, functions'0), errs'2)
+        ((modules'0, constants'1, functions'0, structDeps'1), errs'2)
       end
   | InfoType.FUNCTION functionInfo   =>
       let
@@ -414,9 +416,9 @@ fun translateInfo
         val (spec, (_, errs'1)) =
           makeFunctionSpec repo NONE (functionInfo, ([], errs'0))
 
-        val (strDecHighLevel, (_, errs'2)) =
+        val (strDecHighLevel, ((_, structDeps'1), errs'2)) =
           makeFunctionStrDecHighLevel repo NONE
-            (functionInfo, ([], errs'1))
+            (functionInfo, (([], structDeps'0), errs'1))
 
         val (strDecLowLevelPolyML, errs'3) =
           makeFunctionStrDecLowLevelPolyML repo libId NONE
@@ -439,7 +441,7 @@ fun translateInfo
           strDecLowLevelPolyML :: strDecsLowLevelPolyML'0
         )
       in
-        ((modules'0, constants'0, functions'1), errs'4)
+        ((modules'0, constants'0, functions'1, structDeps'1), errs'4)
       end
   | _                                => acc
 
@@ -451,11 +453,12 @@ fun translateLoadedNamespace repo vers namespace =
     val modules'0 = (ListDict.empty, ListDict.empty, ListDict.empty)
     val constants'0 = ([], [])
     val functions'0 = ([], [], [], [])
+    val structDeps'0 = ListDict.empty
     val errs'0 = []
   in
     revFoldInfosWithErrs
       (Repository.getNInfos repo vers)
       (Repository.getInfo repo vers)
       (translateInfo repo vers getLibId namespace)
-      (namespace, ((modules'0, constants'0, functions'0), errs'0))
+      (namespace, ((modules'0, constants'0, functions'0, structDeps'0), errs'0))
   end

@@ -1,10 +1,8 @@
-structure GIRepositoryDirection :>
-  sig
-    include G_I_REPOSITORY_DIRECTION
-  end =
-  struct 
-    datatype t =
+structure GIRepositoryDirection :> G_I_REPOSITORY_DIRECTION =
+  struct
+    datatype enum =
       IN
     | OUT
     | INOUT
+    datatype t = datatype enum
   end

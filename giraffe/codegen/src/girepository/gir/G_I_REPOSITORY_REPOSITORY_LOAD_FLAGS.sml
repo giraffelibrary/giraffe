@@ -1,8 +1,5 @@
 signature G_I_REPOSITORY_REPOSITORY_LOAD_FLAGS =
   sig
-    eqtype t
-    include
-      BIT_FLAGS
-        where type flags = t
-    val IREPOSITORYLOADFLAGLAZY : t
+    include FLAGS
+    val IREPOSITORY_LOAD_FLAG_LAZY : t
   end

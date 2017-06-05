@@ -6,11 +6,13 @@ signature GIO_THEMED_ICON =
     val asIcon : 'a class -> base icon_class
     val getType : unit -> GObject.Type.t
     val new : string -> base icon_class
+    val newFromNames : string list -> base icon_class
     val newWithDefaultFallbacks : string -> base icon_class
     val appendName :
       'a class
        -> string
        -> unit
+    val getNames : 'a class -> string list
     val prependName :
       'a class
        -> string

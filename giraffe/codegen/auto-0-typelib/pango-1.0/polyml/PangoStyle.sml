@@ -1,40 +1,27 @@
-structure PangoStyle :>
-  sig
-    include PANGO_STYLE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure PangoStyle :> PANGO_STYLE =
   struct
-    datatype t =
+    datatype enum =
       NORMAL
     | OBLIQUE
     | ITALIC
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NORMAL
+        val toInt =
           fn
-            NORMAL => f 0
-          | OBLIQUE => f 1
-          | ITALIC => f 2
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NORMAL => 0
+          | OBLIQUE => 1
+          | ITALIC => 2
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => NORMAL
           | 1 => OBLIQUE
           | 2 => ITALIC
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -45,10 +32,9 @@ structure PangoStyle :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = NORMAL
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

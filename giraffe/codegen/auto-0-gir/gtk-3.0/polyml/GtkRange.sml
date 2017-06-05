@@ -12,54 +12,54 @@ structure GtkRange :>
     in
       val getType_ = call (load_sym libgtk "gtk_range_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getAdjustment_ = call (load_sym libgtk "gtk_range_get_adjustment") (GtkRangeClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
-      val getFillLevel_ = call (load_sym libgtk "gtk_range_get_fill_level") (GtkRangeClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
-      val getFlippable_ = call (load_sym libgtk "gtk_range_get_flippable") (GtkRangeClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getInverted_ = call (load_sym libgtk "gtk_range_get_inverted") (GtkRangeClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getFillLevel_ = call (load_sym libgtk "gtk_range_get_fill_level") (GtkRangeClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getFlippable_ = call (load_sym libgtk "gtk_range_get_flippable") (GtkRangeClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getInverted_ = call (load_sym libgtk "gtk_range_get_inverted") (GtkRangeClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getLowerStepperSensitivity_ = call (load_sym libgtk "gtk_range_get_lower_stepper_sensitivity") (GtkRangeClass.PolyML.cPtr --> GtkSensitivityType.PolyML.cVal)
-      val getMinSliderSize_ = call (load_sym libgtk "gtk_range_get_min_slider_size") (GtkRangeClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getMinSliderSize_ = call (load_sym libgtk "gtk_range_get_min_slider_size") (GtkRangeClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getRangeRect_ = call (load_sym libgtk "gtk_range_get_range_rect") (GtkRangeClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getRestrictToFillLevel_ = call (load_sym libgtk "gtk_range_get_restrict_to_fill_level") (GtkRangeClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getRoundDigits_ = call (load_sym libgtk "gtk_range_get_round_digits") (GtkRangeClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getShowFillLevel_ = call (load_sym libgtk "gtk_range_get_show_fill_level") (GtkRangeClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getRestrictToFillLevel_ = call (load_sym libgtk "gtk_range_get_restrict_to_fill_level") (GtkRangeClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getRoundDigits_ = call (load_sym libgtk "gtk_range_get_round_digits") (GtkRangeClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getShowFillLevel_ = call (load_sym libgtk "gtk_range_get_show_fill_level") (GtkRangeClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSliderRange_ =
         call (load_sym libgtk "gtk_range_get_slider_range")
           (
             GtkRangeClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cRef
-             &&> FFI.Int.PolyML.cRef
+             &&> GInt.PolyML.cRef
+             &&> GInt.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getSliderSizeFixed_ = call (load_sym libgtk "gtk_range_get_slider_size_fixed") (GtkRangeClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val getSliderSizeFixed_ = call (load_sym libgtk "gtk_range_get_slider_size_fixed") (GtkRangeClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getUpperStepperSensitivity_ = call (load_sym libgtk "gtk_range_get_upper_stepper_sensitivity") (GtkRangeClass.PolyML.cPtr --> GtkSensitivityType.PolyML.cVal)
-      val getValue_ = call (load_sym libgtk "gtk_range_get_value") (GtkRangeClass.PolyML.cPtr --> FFI.Double.PolyML.cVal)
+      val getValue_ = call (load_sym libgtk "gtk_range_get_value") (GtkRangeClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val setAdjustment_ = call (load_sym libgtk "gtk_range_set_adjustment") (GtkRangeClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setFillLevel_ = call (load_sym libgtk "gtk_range_set_fill_level") (GtkRangeClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setFlippable_ = call (load_sym libgtk "gtk_range_set_flippable") (GtkRangeClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setFillLevel_ = call (load_sym libgtk "gtk_range_set_fill_level") (GtkRangeClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setFlippable_ = call (load_sym libgtk "gtk_range_set_flippable") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setIncrements_ =
         call (load_sym libgtk "gtk_range_set_increments")
           (
             GtkRangeClass.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setInverted_ = call (load_sym libgtk "gtk_range_set_inverted") (GtkRangeClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setInverted_ = call (load_sym libgtk "gtk_range_set_inverted") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setLowerStepperSensitivity_ = call (load_sym libgtk "gtk_range_set_lower_stepper_sensitivity") (GtkRangeClass.PolyML.cPtr &&> GtkSensitivityType.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setMinSliderSize_ = call (load_sym libgtk "gtk_range_set_min_slider_size") (GtkRangeClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMinSliderSize_ = call (load_sym libgtk "gtk_range_set_min_slider_size") (GtkRangeClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setRange_ =
         call (load_sym libgtk "gtk_range_set_range")
           (
             GtkRangeClass.PolyML.cPtr
-             &&> FFI.Double.PolyML.cVal
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setRestrictToFillLevel_ = call (load_sym libgtk "gtk_range_set_restrict_to_fill_level") (GtkRangeClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setRoundDigits_ = call (load_sym libgtk "gtk_range_set_round_digits") (GtkRangeClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setShowFillLevel_ = call (load_sym libgtk "gtk_range_set_show_fill_level") (GtkRangeClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSliderSizeFixed_ = call (load_sym libgtk "gtk_range_set_slider_size_fixed") (GtkRangeClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setRestrictToFillLevel_ = call (load_sym libgtk "gtk_range_set_restrict_to_fill_level") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setRoundDigits_ = call (load_sym libgtk "gtk_range_set_round_digits") (GtkRangeClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setShowFillLevel_ = call (load_sym libgtk "gtk_range_set_show_fill_level") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSliderSizeFixed_ = call (load_sym libgtk "gtk_range_set_slider_size_fixed") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setUpperStepperSensitivity_ = call (load_sym libgtk "gtk_range_set_upper_stepper_sensitivity") (GtkRangeClass.PolyML.cPtr &&> GtkSensitivityType.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setValue_ = call (load_sym libgtk "gtk_range_set_value") (GtkRangeClass.PolyML.cPtr &&> FFI.Double.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setValue_ = call (load_sym libgtk "gtk_range_set_value") (GtkRangeClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkRangeClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -68,58 +68,58 @@ structure GtkRange :>
     type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type sensitivity_type_t = GtkSensitivityType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getAdjustment self = (GtkRangeClass.C.withPtr ---> GtkAdjustmentClass.C.fromPtr false) getAdjustment_ self
-    fun getFillLevel self = (GtkRangeClass.C.withPtr ---> FFI.Double.C.fromVal) getFillLevel_ self
-    fun getFlippable self = (GtkRangeClass.C.withPtr ---> FFI.Bool.C.fromVal) getFlippable_ self
-    fun getInverted self = (GtkRangeClass.C.withPtr ---> FFI.Bool.C.fromVal) getInverted_ self
-    fun getLowerStepperSensitivity self = (GtkRangeClass.C.withPtr ---> GtkSensitivityType.C.fromVal) getLowerStepperSensitivity_ self
-    fun getMinSliderSize self = (GtkRangeClass.C.withPtr ---> FFI.Int.C.fromVal) getMinSliderSize_ self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getAdjustment self = (GtkRangeClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self
+    fun getFillLevel self = (GtkRangeClass.FFI.withPtr ---> GDouble.FFI.fromVal) getFillLevel_ self
+    fun getFlippable self = (GtkRangeClass.FFI.withPtr ---> GBool.FFI.fromVal) getFlippable_ self
+    fun getInverted self = (GtkRangeClass.FFI.withPtr ---> GBool.FFI.fromVal) getInverted_ self
+    fun getLowerStepperSensitivity self = (GtkRangeClass.FFI.withPtr ---> GtkSensitivityType.FFI.fromVal) getLowerStepperSensitivity_ self
+    fun getMinSliderSize self = (GtkRangeClass.FFI.withPtr ---> GInt.FFI.fromVal) getMinSliderSize_ self
     fun getRangeRect self =
       let
-        val rangeRect & () = (GtkRangeClass.C.withPtr &&&> GdkRectangleRecord.C.withNewPtr ---> GdkRectangleRecord.C.fromPtr true && I) getRangeRect_ (self & ())
+        val rangeRect & () = (GtkRangeClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getRangeRect_ (self & ())
       in
         rangeRect
       end
-    fun getRestrictToFillLevel self = (GtkRangeClass.C.withPtr ---> FFI.Bool.C.fromVal) getRestrictToFillLevel_ self
-    fun getRoundDigits self = (GtkRangeClass.C.withPtr ---> FFI.Int.C.fromVal) getRoundDigits_ self
-    fun getShowFillLevel self = (GtkRangeClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowFillLevel_ self
+    fun getRestrictToFillLevel self = (GtkRangeClass.FFI.withPtr ---> GBool.FFI.fromVal) getRestrictToFillLevel_ self
+    fun getRoundDigits self = (GtkRangeClass.FFI.withPtr ---> GInt.FFI.fromVal) getRoundDigits_ self
+    fun getShowFillLevel self = (GtkRangeClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowFillLevel_ self
     fun getSliderRange self =
       let
         val sliderStart
          & sliderEnd
          & () =
           (
-            GtkRangeClass.C.withPtr
-             &&&> FFI.Int.C.withRefVal
-             &&&> FFI.Int.C.withRefVal
-             ---> FFI.Int.C.fromVal
-                   && FFI.Int.C.fromVal
+            GtkRangeClass.FFI.withPtr
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
                    && I
           )
             getSliderRange_
             (
               self
-               & FFI.Int.null
-               & FFI.Int.null
+               & GInt.null
+               & GInt.null
             )
       in
         (sliderStart, sliderEnd)
       end
-    fun getSliderSizeFixed self = (GtkRangeClass.C.withPtr ---> FFI.Bool.C.fromVal) getSliderSizeFixed_ self
-    fun getUpperStepperSensitivity self = (GtkRangeClass.C.withPtr ---> GtkSensitivityType.C.fromVal) getUpperStepperSensitivity_ self
-    fun getValue self = (GtkRangeClass.C.withPtr ---> FFI.Double.C.fromVal) getValue_ self
-    fun setAdjustment self adjustment = (GtkRangeClass.C.withPtr &&&> GtkAdjustmentClass.C.withPtr ---> I) setAdjustment_ (self & adjustment)
-    fun setFillLevel self fillLevel = (GtkRangeClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setFillLevel_ (self & fillLevel)
-    fun setFlippable self flippable = (GtkRangeClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setFlippable_ (self & flippable)
+    fun getSliderSizeFixed self = (GtkRangeClass.FFI.withPtr ---> GBool.FFI.fromVal) getSliderSizeFixed_ self
+    fun getUpperStepperSensitivity self = (GtkRangeClass.FFI.withPtr ---> GtkSensitivityType.FFI.fromVal) getUpperStepperSensitivity_ self
+    fun getValue self = (GtkRangeClass.FFI.withPtr ---> GDouble.FFI.fromVal) getValue_ self
+    fun setAdjustment self adjustment = (GtkRangeClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setAdjustment_ (self & adjustment)
+    fun setFillLevel self fillLevel = (GtkRangeClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setFillLevel_ (self & fillLevel)
+    fun setFlippable self flippable = (GtkRangeClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setFlippable_ (self & flippable)
     fun setIncrements self step page =
       (
-        GtkRangeClass.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkRangeClass.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         setIncrements_
@@ -128,14 +128,14 @@ structure GtkRange :>
            & step
            & page
         )
-    fun setInverted self setting = (GtkRangeClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setInverted_ (self & setting)
-    fun setLowerStepperSensitivity self sensitivity = (GtkRangeClass.C.withPtr &&&> GtkSensitivityType.C.withVal ---> I) setLowerStepperSensitivity_ (self & sensitivity)
-    fun setMinSliderSize self minSize = (GtkRangeClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setMinSliderSize_ (self & minSize)
+    fun setInverted self setting = (GtkRangeClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setInverted_ (self & setting)
+    fun setLowerStepperSensitivity self sensitivity = (GtkRangeClass.FFI.withPtr &&&> GtkSensitivityType.FFI.withVal ---> I) setLowerStepperSensitivity_ (self & sensitivity)
+    fun setMinSliderSize self minSize = (GtkRangeClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMinSliderSize_ (self & minSize)
     fun setRange self min max =
       (
-        GtkRangeClass.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> FFI.Double.C.withVal
+        GtkRangeClass.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
          ---> I
       )
         setRange_
@@ -144,12 +144,12 @@ structure GtkRange :>
            & min
            & max
         )
-    fun setRestrictToFillLevel self restrictToFillLevel = (GtkRangeClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setRestrictToFillLevel_ (self & restrictToFillLevel)
-    fun setRoundDigits self roundDigits = (GtkRangeClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setRoundDigits_ (self & roundDigits)
-    fun setShowFillLevel self showFillLevel = (GtkRangeClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowFillLevel_ (self & showFillLevel)
-    fun setSliderSizeFixed self sizeFixed = (GtkRangeClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setSliderSizeFixed_ (self & sizeFixed)
-    fun setUpperStepperSensitivity self sensitivity = (GtkRangeClass.C.withPtr &&&> GtkSensitivityType.C.withVal ---> I) setUpperStepperSensitivity_ (self & sensitivity)
-    fun setValue self value = (GtkRangeClass.C.withPtr &&&> FFI.Double.C.withVal ---> I) setValue_ (self & value)
+    fun setRestrictToFillLevel self restrictToFillLevel = (GtkRangeClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRestrictToFillLevel_ (self & restrictToFillLevel)
+    fun setRoundDigits self roundDigits = (GtkRangeClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setRoundDigits_ (self & roundDigits)
+    fun setShowFillLevel self showFillLevel = (GtkRangeClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowFillLevel_ (self & showFillLevel)
+    fun setSliderSizeFixed self sizeFixed = (GtkRangeClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSliderSizeFixed_ (self & sizeFixed)
+    fun setUpperStepperSensitivity self sensitivity = (GtkRangeClass.FFI.withPtr &&&> GtkSensitivityType.FFI.withVal ---> I) setUpperStepperSensitivity_ (self & sensitivity)
+    fun setValue self value = (GtkRangeClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setValue_ (self & value)
     local
       open ClosureMarshal Signal
     in

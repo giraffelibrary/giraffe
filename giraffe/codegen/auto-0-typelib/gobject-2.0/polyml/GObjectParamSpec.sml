@@ -15,9 +15,9 @@ structure GObjectParamSpec :>
     type 'a class = 'a GObjectParamSpecClass.class
     type type_t = GObjectType.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getBlurb self = (GObjectParamSpecClass.C.withPtr ---> Utf8.C.fromPtr false) getBlurb_ self
-    fun getName self = (GObjectParamSpecClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun getNick self = (GObjectParamSpecClass.C.withPtr ---> Utf8.C.fromPtr false) getNick_ self
-    fun getRedirectTarget self = (GObjectParamSpecClass.C.withPtr ---> GObjectParamSpecClass.C.fromPtr false) getRedirectTarget_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getBlurb self = (GObjectParamSpecClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getBlurb_ self
+    fun getName self = (GObjectParamSpecClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getNick self = (GObjectParamSpecClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getNick_ self
+    fun getRedirectTarget self = (GObjectParamSpecClass.FFI.withPtr ---> GObjectParamSpecClass.FFI.fromPtr false) getRedirectTarget_ self
   end

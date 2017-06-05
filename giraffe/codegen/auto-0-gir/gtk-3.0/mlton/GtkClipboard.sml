@@ -4,13 +4,31 @@ structure GtkClipboard :>
     where type selection_data_t = GtkSelectionDataRecord.t
     where type 'a text_buffer_class = 'a GtkTextBufferClass.class =
   struct
-    val getType_ = _import "gtk_clipboard_get_type" : unit -> GObjectType.C.val_;
-    val get_ = _import "gtk_clipboard_get" : GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> GtkClipboardClass.C.notnull GtkClipboardClass.C.p;
-    val getForDisplay_ = fn x1 & x2 => (_import "gtk_clipboard_get_for_display" : GdkDisplayClass.C.notnull GdkDisplayClass.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> GtkClipboardClass.C.notnull GtkClipboardClass.C.p;) (x1, x2)
-    val clear_ = _import "gtk_clipboard_clear" : GtkClipboardClass.C.notnull GtkClipboardClass.C.p -> unit;
-    val getDisplay_ = _import "gtk_clipboard_get_display" : GtkClipboardClass.C.notnull GtkClipboardClass.C.p -> GdkDisplayClass.C.notnull GdkDisplayClass.C.p;
-    val getOwner_ = _import "gtk_clipboard_get_owner" : GtkClipboardClass.C.notnull GtkClipboardClass.C.p -> GObjectObjectClass.C.notnull GObjectObjectClass.C.p;
-    val setImage_ = fn x1 & x2 => (_import "gtk_clipboard_set_image" : GtkClipboardClass.C.notnull GtkClipboardClass.C.p * GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p -> unit;) (x1, x2)
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
+    structure GdkAtomRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GdkAtomRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
+    structure GUInt8CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GUInt8Type
+        structure ElemSequence = MonoVectorSequence(Word8Vector)
+      )
+    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
+    val getType_ = _import "gtk_clipboard_get_type" : unit -> GObjectType.FFI.val_;
+    val get_ = _import "gtk_clipboard_get" : GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p;
+    val getForDisplay_ = fn x1 & x2 => (_import "gtk_clipboard_get_for_display" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p;) (x1, x2)
+    val clear_ = _import "gtk_clipboard_clear" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> unit;
+    val getDisplay_ = _import "gtk_clipboard_get_display" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
+    val getOwner_ = _import "gtk_clipboard_get_owner" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
+    val setImage_ = fn x1 & x2 => (_import "gtk_clipboard_set_image" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
     val setText_ =
       fn
         x1
@@ -18,10 +36,10 @@ structure GtkClipboard :>
          & x4 =>
           (
             _import "mlton_gtk_clipboard_set_text" :
-              GtkClipboardClass.C.notnull GtkClipboardClass.C.p
+              GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int.C.val_
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -30,31 +48,71 @@ structure GtkClipboard :>
               x3,
               x4
             )
-    val store_ = _import "gtk_clipboard_store" : GtkClipboardClass.C.notnull GtkClipboardClass.C.p -> unit;
-    val waitForContents_ = fn x1 & x2 => (_import "gtk_clipboard_wait_for_contents" : GtkClipboardClass.C.notnull GtkClipboardClass.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> GtkSelectionDataRecord.C.notnull GtkSelectionDataRecord.C.p;) (x1, x2)
-    val waitForImage_ = _import "gtk_clipboard_wait_for_image" : GtkClipboardClass.C.notnull GtkClipboardClass.C.p -> GdkPixbufPixbufClass.C.notnull GdkPixbufPixbufClass.C.p;
-    val waitForText_ = _import "gtk_clipboard_wait_for_text" : GtkClipboardClass.C.notnull GtkClipboardClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val waitIsImageAvailable_ = _import "gtk_clipboard_wait_is_image_available" : GtkClipboardClass.C.notnull GtkClipboardClass.C.p -> FFI.Bool.C.val_;
-    val waitIsRichTextAvailable_ = fn x1 & x2 => (_import "gtk_clipboard_wait_is_rich_text_available" : GtkClipboardClass.C.notnull GtkClipboardClass.C.p * GtkTextBufferClass.C.notnull GtkTextBufferClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val waitIsTargetAvailable_ = fn x1 & x2 => (_import "gtk_clipboard_wait_is_target_available" : GtkClipboardClass.C.notnull GtkClipboardClass.C.p * GdkAtomRecord.C.notnull GdkAtomRecord.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val waitIsTextAvailable_ = _import "gtk_clipboard_wait_is_text_available" : GtkClipboardClass.C.notnull GtkClipboardClass.C.p -> FFI.Bool.C.val_;
-    val waitIsUrisAvailable_ = _import "gtk_clipboard_wait_is_uris_available" : GtkClipboardClass.C.notnull GtkClipboardClass.C.p -> FFI.Bool.C.val_;
+    val store_ = _import "gtk_clipboard_store" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> unit;
+    val waitForContents_ = fn x1 & x2 => (_import "gtk_clipboard_wait_for_contents" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p;) (x1, x2)
+    val waitForImage_ = _import "gtk_clipboard_wait_for_image" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+    val waitForRichText_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4 =>
+          (
+            _import "gtk_clipboard_wait_for_rich_text" :
+              GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p
+               * GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * (unit, GdkAtomRecord.FFI.notnull) GdkAtomRecord.FFI.r
+               * GSize.FFI.ref_
+               -> GUInt8CVectorN.FFI.notnull GUInt8CVectorN.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
+    val waitForTargets_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4 =>
+          (
+            _import "mlton_gtk_clipboard_wait_for_targets" :
+              GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p
+               * GdkAtomRecordCVectorN.MLton.r1
+               * (unit, GdkAtomRecordCVectorN.FFI.notnull) GdkAtomRecordCVectorN.MLton.r2
+               * GInt.FFI.ref_
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
+    val waitForText_ = _import "gtk_clipboard_wait_for_text" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val waitForUris_ = _import "gtk_clipboard_wait_for_uris" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+    val waitIsImageAvailable_ = _import "gtk_clipboard_wait_is_image_available" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> GBool.FFI.val_;
+    val waitIsRichTextAvailable_ = fn x1 & x2 => (_import "gtk_clipboard_wait_is_rich_text_available" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p * GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val waitIsTargetAvailable_ = fn x1 & x2 => (_import "gtk_clipboard_wait_is_target_available" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val waitIsTextAvailable_ = _import "gtk_clipboard_wait_is_text_available" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> GBool.FFI.val_;
+    val waitIsUrisAvailable_ = _import "gtk_clipboard_wait_is_uris_available" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a GtkClipboardClass.class
     type selection_data_t = GtkSelectionDataRecord.t
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun get selection = (GdkAtomRecord.C.withPtr ---> GtkClipboardClass.C.fromPtr false) get_ selection
-    fun getForDisplay display selection = (GdkDisplayClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> GtkClipboardClass.C.fromPtr false) getForDisplay_ (display & selection)
-    fun clear self = (GtkClipboardClass.C.withPtr ---> I) clear_ self
-    fun getDisplay self = (GtkClipboardClass.C.withPtr ---> GdkDisplayClass.C.fromPtr false) getDisplay_ self
-    fun getOwner self = (GtkClipboardClass.C.withPtr ---> GObjectObjectClass.C.fromPtr false) getOwner_ self
-    fun setImage self pixbuf = (GtkClipboardClass.C.withPtr &&&> GdkPixbufPixbufClass.C.withPtr ---> I) setImage_ (self & pixbuf)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun get selection = (GdkAtomRecord.FFI.withPtr ---> GtkClipboardClass.FFI.fromPtr false) get_ selection
+    fun getForDisplay display selection = (GdkDisplayClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GtkClipboardClass.FFI.fromPtr false) getForDisplay_ (display & selection)
+    fun clear self = (GtkClipboardClass.FFI.withPtr ---> I) clear_ self
+    fun getDisplay self = (GtkClipboardClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getOwner self = (GtkClipboardClass.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getOwner_ self
+    fun setImage self pixbuf = (GtkClipboardClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> I) setImage_ (self & pixbuf)
     fun setText self text len =
       (
-        GtkClipboardClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkClipboardClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         setText_
@@ -63,15 +121,62 @@ structure GtkClipboard :>
            & text
            & len
         )
-    fun store self = (GtkClipboardClass.C.withPtr ---> I) store_ self
-    fun waitForContents self target = (GtkClipboardClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> GtkSelectionDataRecord.C.fromPtr true) waitForContents_ (self & target)
-    fun waitForImage self = (GtkClipboardClass.C.withPtr ---> GdkPixbufPixbufClass.C.fromPtr true) waitForImage_ self
-    fun waitForText self = (GtkClipboardClass.C.withPtr ---> Utf8.C.fromPtr true) waitForText_ self
-    fun waitIsImageAvailable self = (GtkClipboardClass.C.withPtr ---> FFI.Bool.C.fromVal) waitIsImageAvailable_ self
-    fun waitIsRichTextAvailable self buffer = (GtkClipboardClass.C.withPtr &&&> GtkTextBufferClass.C.withPtr ---> FFI.Bool.C.fromVal) waitIsRichTextAvailable_ (self & buffer)
-    fun waitIsTargetAvailable self target = (GtkClipboardClass.C.withPtr &&&> GdkAtomRecord.C.withPtr ---> FFI.Bool.C.fromVal) waitIsTargetAvailable_ (self & target)
-    fun waitIsTextAvailable self = (GtkClipboardClass.C.withPtr ---> FFI.Bool.C.fromVal) waitIsTextAvailable_ self
-    fun waitIsUrisAvailable self = (GtkClipboardClass.C.withPtr ---> FFI.Bool.C.fromVal) waitIsUrisAvailable_ self
+    fun store self = (GtkClipboardClass.FFI.withPtr ---> I) store_ self
+    fun waitForContents self target = (GtkClipboardClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GtkSelectionDataRecord.FFI.fromPtr true) waitForContents_ (self & target)
+    fun waitForImage self = (GtkClipboardClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) waitForImage_ self
+    fun waitForRichText self buffer =
+      let
+        val format
+         & length
+         & retVal =
+          (
+            GtkClipboardClass.FFI.withPtr
+             &&&> GtkTextBufferClass.FFI.withPtr
+             &&&> GdkAtomRecord.FFI.withRefOptPtr
+             &&&> GSize.FFI.withRefVal
+             ---> GdkAtomRecord.FFI.fromPtr false
+                   && GSize.FFI.fromVal
+                   && GUInt8CVectorN.FFI.fromPtr 1
+          )
+            waitForRichText_
+            (
+              self
+               & buffer
+               & NONE
+               & GSize.null
+            )
+      in
+        (retVal (LargeInt.toInt length), format)
+      end
+    fun waitForTargets self =
+      let
+        val targets
+         & nTargets
+         & retVal =
+          (
+            GtkClipboardClass.FFI.withPtr
+             &&&> GdkAtomRecordCVectorN.FFI.withRefOptPtr
+             &&&> GInt.FFI.withRefVal
+             ---> GdkAtomRecordCVectorN.FFI.fromPtr 1
+                   && GInt.FFI.fromVal
+                   && GBool.FFI.fromVal
+          )
+            waitForTargets_
+            (
+              self
+               & NONE
+               & GInt.null
+            )
+      in
+        if retVal then SOME (targets (LargeInt.toInt nTargets)) else NONE
+      end
+    fun waitForText self = (GtkClipboardClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) waitForText_ self
+    fun waitForUris self = (GtkClipboardClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) waitForUris_ self
+    fun waitIsImageAvailable self = (GtkClipboardClass.FFI.withPtr ---> GBool.FFI.fromVal) waitIsImageAvailable_ self
+    fun waitIsRichTextAvailable self buffer = (GtkClipboardClass.FFI.withPtr &&&> GtkTextBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) waitIsRichTextAvailable_ (self & buffer)
+    fun waitIsTargetAvailable self target = (GtkClipboardClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GBool.FFI.fromVal) waitIsTargetAvailable_ (self & target)
+    fun waitIsTextAvailable self = (GtkClipboardClass.FFI.withPtr ---> GBool.FFI.fromVal) waitIsTextAvailable_ self
+    fun waitIsUrisAvailable self = (GtkClipboardClass.FFI.withPtr ---> GBool.FFI.fromVal) waitIsUrisAvailable_ self
     local
       open ClosureMarshal Signal
     in

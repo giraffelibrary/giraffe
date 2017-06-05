@@ -10,6 +10,6 @@ structure GtkIMContextSimple :>
     end
     type 'a class = 'a GtkIMContextSimpleClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkIMContextSimpleClass.C.fromPtr true) new_ ()
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkIMContextSimpleClass.FFI.fromPtr true) new_ ()
   end

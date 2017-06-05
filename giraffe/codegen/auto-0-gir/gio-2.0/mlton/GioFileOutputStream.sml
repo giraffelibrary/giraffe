@@ -6,8 +6,8 @@ structure GioFileOutputStream :>
     where type 'a file_info_class = 'a GioFileInfoClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
-    val getType_ = _import "g_file_output_stream_get_type" : unit -> GObjectType.C.val_;
-    val getEtag_ = _import "g_file_output_stream_get_etag" : GioFileOutputStreamClass.C.notnull GioFileOutputStreamClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getType_ = _import "g_file_output_stream_get_type" : unit -> GObjectType.FFI.val_;
+    val getEtag_ = _import "g_file_output_stream_get_etag" : GioFileOutputStreamClass.FFI.notnull GioFileOutputStreamClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val queryInfo_ =
       fn
         x1
@@ -16,12 +16,12 @@ structure GioFileOutputStream :>
          & x5 =>
           (
             _import "mlton_g_file_output_stream_query_info" :
-              GioFileOutputStreamClass.C.notnull GioFileOutputStreamClass.C.p
+              GioFileOutputStreamClass.FFI.notnull GioFileOutputStreamClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileInfoClass.C.notnull GioFileInfoClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
           )
             (
               x1,
@@ -37,10 +37,10 @@ structure GioFileOutputStream :>
          & x3 =>
           (
             _import "g_file_output_stream_query_info_finish" :
-              GioFileOutputStreamClass.C.notnull GioFileOutputStreamClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioFileInfoClass.C.notnull GioFileInfoClass.C.p;
+              GioFileOutputStreamClass.FFI.notnull GioFileOutputStreamClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
           )
             (
               x1,
@@ -53,16 +53,16 @@ structure GioFileOutputStream :>
     type 'a file_info_class = 'a GioFileInfoClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
-    fun asSeekable self = (GObjectObjectClass.C.withPtr ---> GioSeekableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getEtag self = (GioFileOutputStreamClass.C.withPtr ---> Utf8.C.fromPtr true) getEtag_ self
+    fun asSeekable self = (GObjectObjectClass.FFI.withPtr ---> GioSeekableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getEtag self = (GioFileOutputStreamClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getEtag_ self
     fun queryInfo self attributes cancellable =
       (
-        GioFileOutputStreamClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioFileOutputStreamClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileInfoClass.C.fromPtr true
+         ---> GioFileInfoClass.FFI.fromPtr true
       )
         queryInfo_
         (
@@ -73,10 +73,10 @@ structure GioFileOutputStream :>
         )
     fun queryInfoFinish self result =
       (
-        GioFileOutputStreamClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioFileOutputStreamClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileInfoClass.C.fromPtr true
+         ---> GioFileInfoClass.FFI.fromPtr true
       )
         queryInfoFinish_
         (

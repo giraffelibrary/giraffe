@@ -1,1 +1,1 @@
-signature ATK_STATE = F_F_I_SCALAR
+signature ATK_STATE = C_SCALAR

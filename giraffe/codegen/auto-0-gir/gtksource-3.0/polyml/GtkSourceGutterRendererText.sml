@@ -12,7 +12,7 @@ structure GtkSourceGutterRendererText :>
           (
             GtkSourceGutterRendererTextClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val setText_ =
@@ -20,19 +20,19 @@ structure GtkSourceGutterRendererText :>
           (
             GtkSourceGutterRendererTextClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
     end
     type 'a class = 'a GtkSourceGutterRendererTextClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkSourceGutterRendererTextClass.C.fromPtr true) new_ ()
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkSourceGutterRendererTextClass.FFI.fromPtr true) new_ ()
     fun setMarkup self markup length =
       (
-        GtkSourceGutterRendererTextClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkSourceGutterRendererTextClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         setMarkup_
@@ -43,9 +43,9 @@ structure GtkSourceGutterRendererText :>
         )
     fun setText self text length =
       (
-        GtkSourceGutterRendererTextClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkSourceGutterRendererTextClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         setText_

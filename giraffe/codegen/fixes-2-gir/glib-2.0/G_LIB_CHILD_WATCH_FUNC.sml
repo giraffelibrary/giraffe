@@ -3,7 +3,7 @@ signature G_LIB_CHILD_WATCH_FUNC =
     type pid_t
     type t = pid_t * LargeInt.int -> unit
 
-    structure C :
+    structure FFI :
       sig
         type callback
         val withCallback : (callback -> 'a) -> t -> 'a

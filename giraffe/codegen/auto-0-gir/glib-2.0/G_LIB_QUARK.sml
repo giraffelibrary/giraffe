@@ -1,1 +1,1 @@
-signature G_LIB_QUARK = F_F_I_SCALAR
+signature G_LIB_QUARK = C_SCALAR

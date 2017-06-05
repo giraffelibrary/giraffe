@@ -1,4 +1,4 @@
 signature PANGO_RECTANGLE_RECORD =
   sig
-    include NEW_RECORD
+    include VALUE_RECORD
   end

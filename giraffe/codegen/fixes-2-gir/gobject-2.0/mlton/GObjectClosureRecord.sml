@@ -2,7 +2,7 @@ structure GObjectClosureRecord :>
   G_OBJECT_CLOSURE_RECORD
     where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor =
   struct
-    structure Pointer = CPointer
+    structure Pointer = CPointerInternal
     type notnull = Pointer.notnull
     type 'a p = 'a Pointer.p
 
@@ -15,7 +15,7 @@ structure GObjectClosureRecord :>
 
     val sink_ = _import "g_closure_sink" : notnull p -> unit;
 
-    val copy_ =
+    val dup_ =
       if GiraffeDebug.isEnabled
       then _import "giraffe_debug_closure_ref_sink" : notnull p -> notnull p;
       else fn ptr => ref_ ptr before sink_ ptr  (* must do ref before sink *)
@@ -25,22 +25,23 @@ structure GObjectClosureRecord :>
       then _import "giraffe_debug_g_closure_unref" : notnull p -> unit;
       else _import "g_closure_unref" : notnull p -> unit;
 
-    val getType_ = _import "g_closure_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "g_closure_get_type" : unit -> GObjectType.FFI.val_;
 
     type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
 
     structure Record =
-      BoxedRecord (
+      BoxedRecord(
+        structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
+        val dup_ = dup_
         val take_ = take_
-        val copy_ = copy_
         val free_ = free_
       )
     open Record
 
     structure Type =
-      BoxedType (
+      BoxedType(
         structure Record = Record
         type t = t
         val getType_ = getType_

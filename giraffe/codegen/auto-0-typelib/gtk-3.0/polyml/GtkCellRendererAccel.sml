@@ -12,8 +12,8 @@ structure GtkCellRendererAccel :>
     type 'a class = 'a GtkCellRendererAccelClass.class
     type cell_renderer_accel_mode_t = GtkCellRendererAccelMode.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkCellRendererAccelClass.C.fromPtr false) new_ ()
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkCellRendererAccelClass.FFI.fromPtr false) new_ ()
     local
       open ClosureMarshal Signal
     in

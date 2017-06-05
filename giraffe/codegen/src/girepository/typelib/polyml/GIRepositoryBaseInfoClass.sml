@@ -27,11 +27,43 @@ structure GIRepositoryBaseInfoClass :> G_I_REPOSITORY_BASE_INFO_CLASS =
           (cPtr --> PolyMLFFI.cVoid)
     end
 
+    structure C =
+      struct
+        structure Pointer = CPointer
+        type notnull = notnull
+        type 'a p = 'a p
+        type ('a, 'b) r = ('a, 'b) Pointer.r
+
+        structure PointerType =
+          struct
+            structure Pointer = Pointer
+            type notnull = Pointer.notnull
+            type 'a p = 'a Pointer.p
+
+            type t = notnull p Finalizable.t
+
+            fun dup d = if d <> 0 then ref_ else Fn.id
+
+            fun free d = if d <> 0 then unref_ else ignore
+
+            fun toC p = (* FFI.withPtr (dup ~1) p *)
+              Finalizable.withValue (p, Pointer.withVal ref_)
+
+            fun fromC p = (* FFI.fromPtr false p *)
+              let
+                val object = Finalizable.new (ref_ p)
+              in
+                Finalizable.addFinalizer (object, unref_);
+                object
+              end
+          end
+      end
+
     type 'a class = notnull p Finalizable.t
     type t = base class
     fun toBase obj = obj
 
-    structure C =
+    structure FFI =
       struct
         structure Pointer = CPointer
         type notnull = notnull

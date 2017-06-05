@@ -10,7 +10,7 @@ structure GtkBorder :>
       val copy_ = call (load_sym libgtk "gtk_border_copy") (GtkBorderRecord.PolyML.cPtr --> GtkBorderRecord.PolyML.cPtr)
     end
     type t = GtkBorderRecord.t
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkBorderRecord.C.fromPtr true) new_ ()
-    fun copy self = (GtkBorderRecord.C.withPtr ---> GtkBorderRecord.C.fromPtr true) copy_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkBorderRecord.FFI.fromPtr true) new_ ()
+    fun copy self = (GtkBorderRecord.FFI.withPtr ---> GtkBorderRecord.FFI.fromPtr true) copy_ self
   end

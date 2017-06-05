@@ -3,7 +3,9 @@ signature GIO_APPLICATION_COMMAND_LINE =
     type 'a class
     type t = base class
     val getType : unit -> GObject.Type.t
+    val getArguments : 'a class -> string list
     val getCwd : 'a class -> string
+    val getEnviron : 'a class -> string list
     val getExitStatus : 'a class -> LargeInt.int
     val getIsRemote : 'a class -> bool
     val getPlatformData : 'a class -> GLib.VariantRecord.t

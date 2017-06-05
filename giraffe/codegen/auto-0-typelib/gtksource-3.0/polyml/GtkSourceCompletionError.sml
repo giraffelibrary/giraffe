@@ -1,37 +1,24 @@
-structure GtkSourceCompletionError :>
-  sig
-    include GTK_SOURCE_COMPLETION_ERROR
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkSourceCompletionError :> GTK_SOURCE_COMPLETION_ERROR =
   struct
-    datatype t =
+    datatype enum =
       ALREADY_BOUND
     | NOT_BOUND
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = ALREADY_BOUND
+        val toInt =
           fn
-            ALREADY_BOUND => f 0
-          | NOT_BOUND => f 1
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            ALREADY_BOUND => 0
+          | NOT_BOUND => 1
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => ALREADY_BOUND
           | 1 => NOT_BOUND
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -42,18 +29,18 @@ structure GtkSourceCompletionError :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
     exception Error of t
     val handler =
       GLibErrorRecord.makeHandler
         (
           "gtk-source-completion-error-quark",
-          C.fromVal,
+          FFI.fromVal,
           Error
         )
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end
 exception GtkSourceCompletionError = GtkSourceCompletionError.Error

@@ -3,13 +3,13 @@ structure GioSocketConnectable :>
     where type 'a class = 'a GioSocketConnectableClass.class
     where type 'a socket_address_enumerator_class = 'a GioSocketAddressEnumeratorClass.class =
   struct
-    val getType_ = _import "g_socket_connectable_get_type" : unit -> GObjectType.C.val_;
-    val enumerate_ = _import "g_socket_connectable_enumerate" : GioSocketConnectableClass.C.notnull GioSocketConnectableClass.C.p -> GioSocketAddressEnumeratorClass.C.notnull GioSocketAddressEnumeratorClass.C.p;
-    val proxyEnumerate_ = _import "g_socket_connectable_proxy_enumerate" : GioSocketConnectableClass.C.notnull GioSocketConnectableClass.C.p -> GioSocketAddressEnumeratorClass.C.notnull GioSocketAddressEnumeratorClass.C.p;
+    val getType_ = _import "g_socket_connectable_get_type" : unit -> GObjectType.FFI.val_;
+    val enumerate_ = _import "g_socket_connectable_enumerate" : GioSocketConnectableClass.FFI.notnull GioSocketConnectableClass.FFI.p -> GioSocketAddressEnumeratorClass.FFI.notnull GioSocketAddressEnumeratorClass.FFI.p;
+    val proxyEnumerate_ = _import "g_socket_connectable_proxy_enumerate" : GioSocketConnectableClass.FFI.notnull GioSocketConnectableClass.FFI.p -> GioSocketAddressEnumeratorClass.FFI.notnull GioSocketAddressEnumeratorClass.FFI.p;
     type 'a class = 'a GioSocketConnectableClass.class
     type 'a socket_address_enumerator_class = 'a GioSocketAddressEnumeratorClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun enumerate self = (GioSocketConnectableClass.C.withPtr ---> GioSocketAddressEnumeratorClass.C.fromPtr true) enumerate_ self
-    fun proxyEnumerate self = (GioSocketConnectableClass.C.withPtr ---> GioSocketAddressEnumeratorClass.C.fromPtr true) proxyEnumerate_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun enumerate self = (GioSocketConnectableClass.FFI.withPtr ---> GioSocketAddressEnumeratorClass.FFI.fromPtr true) enumerate_ self
+    fun proxyEnumerate self = (GioSocketConnectableClass.FFI.withPtr ---> GioSocketAddressEnumeratorClass.FFI.fromPtr true) proxyEnumerate_ self
   end

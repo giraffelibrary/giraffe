@@ -4,7 +4,7 @@ structure GtkCellLayout :>
     where type 'a cell_area_class = 'a GtkCellAreaClass.class
     where type 'a cell_renderer_class = 'a GtkCellRendererClass.class =
   struct
-    val getType_ = _import "gtk_cell_layout_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "gtk_cell_layout_get_type" : unit -> GObjectType.FFI.val_;
     val addAttribute_ =
       fn
         x1
@@ -13,11 +13,11 @@ structure GtkCellLayout :>
          & x5 =>
           (
             _import "mlton_gtk_cell_layout_add_attribute" :
-              GtkCellLayoutClass.C.notnull GtkCellLayoutClass.C.p
-               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
+              GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p
+               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * FFI.Int.C.val_
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -27,9 +27,9 @@ structure GtkCellLayout :>
               x4,
               x5
             )
-    val clear_ = _import "gtk_cell_layout_clear" : GtkCellLayoutClass.C.notnull GtkCellLayoutClass.C.p -> unit;
-    val clearAttributes_ = fn x1 & x2 => (_import "gtk_cell_layout_clear_attributes" : GtkCellLayoutClass.C.notnull GtkCellLayoutClass.C.p * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p -> unit;) (x1, x2)
-    val getArea_ = _import "gtk_cell_layout_get_area" : GtkCellLayoutClass.C.notnull GtkCellLayoutClass.C.p -> GtkCellAreaClass.C.notnull GtkCellAreaClass.C.p;
+    val clear_ = _import "gtk_cell_layout_clear" : GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p -> unit;
+    val clearAttributes_ = fn x1 & x2 => (_import "gtk_cell_layout_clear_attributes" : GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p -> unit;) (x1, x2)
+    val getArea_ = _import "gtk_cell_layout_get_area" : GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p -> GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p;
     val packEnd_ =
       fn
         x1
@@ -37,9 +37,9 @@ structure GtkCellLayout :>
          & x3 =>
           (
             _import "gtk_cell_layout_pack_end" :
-              GtkCellLayoutClass.C.notnull GtkCellLayoutClass.C.p
-               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
-               * FFI.Bool.C.val_
+              GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p
+               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+               * GBool.FFI.val_
                -> unit;
           )
             (
@@ -54,9 +54,9 @@ structure GtkCellLayout :>
          & x3 =>
           (
             _import "gtk_cell_layout_pack_start" :
-              GtkCellLayoutClass.C.notnull GtkCellLayoutClass.C.p
-               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
-               * FFI.Bool.C.val_
+              GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p
+               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+               * GBool.FFI.val_
                -> unit;
           )
             (
@@ -71,9 +71,9 @@ structure GtkCellLayout :>
          & x3 =>
           (
             _import "gtk_cell_layout_reorder" :
-              GtkCellLayoutClass.C.notnull GtkCellLayoutClass.C.p
-               * GtkCellRendererClass.C.notnull GtkCellRendererClass.C.p
-               * FFI.Int.C.val_
+              GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p
+               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+               * GInt.FFI.val_
                -> unit;
           )
             (
@@ -85,13 +85,13 @@ structure GtkCellLayout :>
     type 'a cell_area_class = 'a GtkCellAreaClass.class
     type 'a cell_renderer_class = 'a GtkCellRendererClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun addAttribute self cell attribute column =
       (
-        GtkCellLayoutClass.C.withPtr
-         &&&> GtkCellRendererClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkCellLayoutClass.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         addAttribute_
@@ -101,14 +101,14 @@ structure GtkCellLayout :>
            & attribute
            & column
         )
-    fun clear self = (GtkCellLayoutClass.C.withPtr ---> I) clear_ self
-    fun clearAttributes self cell = (GtkCellLayoutClass.C.withPtr &&&> GtkCellRendererClass.C.withPtr ---> I) clearAttributes_ (self & cell)
-    fun getArea self = (GtkCellLayoutClass.C.withPtr ---> GtkCellAreaClass.C.fromPtr false) getArea_ self
+    fun clear self = (GtkCellLayoutClass.FFI.withPtr ---> I) clear_ self
+    fun clearAttributes self cell = (GtkCellLayoutClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> I) clearAttributes_ (self & cell)
+    fun getArea self = (GtkCellLayoutClass.FFI.withPtr ---> GtkCellAreaClass.FFI.fromPtr false) getArea_ self
     fun packEnd self cell expand =
       (
-        GtkCellLayoutClass.C.withPtr
-         &&&> GtkCellRendererClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GtkCellLayoutClass.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         packEnd_
@@ -119,9 +119,9 @@ structure GtkCellLayout :>
         )
     fun packStart self cell expand =
       (
-        GtkCellLayoutClass.C.withPtr
-         &&&> GtkCellRendererClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GtkCellLayoutClass.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         packStart_
@@ -132,9 +132,9 @@ structure GtkCellLayout :>
         )
     fun reorder self cell position =
       (
-        GtkCellLayoutClass.C.withPtr
-         &&&> GtkCellRendererClass.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkCellLayoutClass.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         reorder_

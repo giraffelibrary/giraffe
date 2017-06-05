@@ -1,1 +1,1 @@
-signature XLIB_TIME = F_F_I_SCALAR
+signature XLIB_TIME = C_SCALAR

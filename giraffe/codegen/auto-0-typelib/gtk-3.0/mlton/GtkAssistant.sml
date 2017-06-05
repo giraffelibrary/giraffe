@@ -5,17 +5,17 @@ structure GtkAssistant :>
     where type assistant_page_type_t = GtkAssistantPageType.t
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
-    val getType_ = _import "gtk_assistant_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_assistant_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
-    val addActionWidget_ = fn x1 & x2 => (_import "gtk_assistant_add_action_widget" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p * GtkWidgetClass.C.notnull GtkWidgetClass.C.p -> unit;) (x1, x2)
-    val appendPage_ = fn x1 & x2 => (_import "gtk_assistant_append_page" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p * GtkWidgetClass.C.notnull GtkWidgetClass.C.p -> FFI.Int32.C.val_;) (x1, x2)
-    val commit_ = _import "gtk_assistant_commit" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p -> unit;
-    val getCurrentPage_ = _import "gtk_assistant_get_current_page" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p -> FFI.Int32.C.val_;
-    val getNPages_ = _import "gtk_assistant_get_n_pages" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p -> FFI.Int32.C.val_;
-    val getNthPage_ = fn x1 & x2 => (_import "gtk_assistant_get_nth_page" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p * FFI.Int32.C.val_ -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;) (x1, x2)
-    val getPageComplete_ = fn x1 & x2 => (_import "gtk_assistant_get_page_complete" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p * GtkWidgetClass.C.notnull GtkWidgetClass.C.p -> FFI.Bool.C.val_;) (x1, x2)
-    val getPageTitle_ = fn x1 & x2 => (_import "gtk_assistant_get_page_title" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p * GtkWidgetClass.C.notnull GtkWidgetClass.C.p -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
-    val getPageType_ = fn x1 & x2 => (_import "gtk_assistant_get_page_type" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p * GtkWidgetClass.C.notnull GtkWidgetClass.C.p -> GtkAssistantPageType.C.val_;) (x1, x2)
+    val getType_ = _import "gtk_assistant_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_assistant_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val addActionWidget_ = fn x1 & x2 => (_import "gtk_assistant_add_action_widget" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val appendPage_ = fn x1 & x2 => (_import "gtk_assistant_append_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GInt32.FFI.val_;) (x1, x2)
+    val commit_ = _import "gtk_assistant_commit" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> unit;
+    val getCurrentPage_ = _import "gtk_assistant_get_current_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> GInt32.FFI.val_;
+    val getNPages_ = _import "gtk_assistant_get_n_pages" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> GInt32.FFI.val_;
+    val getNthPage_ = fn x1 & x2 => (_import "gtk_assistant_get_nth_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GInt32.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
+    val getPageComplete_ = fn x1 & x2 => (_import "gtk_assistant_get_page_complete" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getPageTitle_ = fn x1 & x2 => (_import "gtk_assistant_get_page_title" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val getPageType_ = fn x1 & x2 => (_import "gtk_assistant_get_page_type" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkAssistantPageType.FFI.val_;) (x1, x2)
     val insertPage_ =
       fn
         x1
@@ -23,22 +23,22 @@ structure GtkAssistant :>
          & x3 =>
           (
             _import "gtk_assistant_insert_page" :
-              GtkAssistantClass.C.notnull GtkAssistantClass.C.p
-               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
-               * FFI.Int32.C.val_
-               -> FFI.Int32.C.val_;
+              GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p
+               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * GInt32.FFI.val_
+               -> GInt32.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val nextPage_ = _import "gtk_assistant_next_page" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p -> unit;
-    val prependPage_ = fn x1 & x2 => (_import "gtk_assistant_prepend_page" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p * GtkWidgetClass.C.notnull GtkWidgetClass.C.p -> FFI.Int32.C.val_;) (x1, x2)
-    val previousPage_ = _import "gtk_assistant_previous_page" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p -> unit;
-    val removeActionWidget_ = fn x1 & x2 => (_import "gtk_assistant_remove_action_widget" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p * GtkWidgetClass.C.notnull GtkWidgetClass.C.p -> unit;) (x1, x2)
-    val removePage_ = fn x1 & x2 => (_import "gtk_assistant_remove_page" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
-    val setCurrentPage_ = fn x1 & x2 => (_import "gtk_assistant_set_current_page" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p * FFI.Int32.C.val_ -> unit;) (x1, x2)
+    val nextPage_ = _import "gtk_assistant_next_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> unit;
+    val prependPage_ = fn x1 & x2 => (_import "gtk_assistant_prepend_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GInt32.FFI.val_;) (x1, x2)
+    val previousPage_ = _import "gtk_assistant_previous_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> unit;
+    val removeActionWidget_ = fn x1 & x2 => (_import "gtk_assistant_remove_action_widget" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val removePage_ = fn x1 & x2 => (_import "gtk_assistant_remove_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setCurrentPage_ = fn x1 & x2 => (_import "gtk_assistant_set_current_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val setPageComplete_ =
       fn
         x1
@@ -46,9 +46,9 @@ structure GtkAssistant :>
          & x3 =>
           (
             _import "gtk_assistant_set_page_complete" :
-              GtkAssistantClass.C.notnull GtkAssistantClass.C.p
-               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
-               * FFI.Bool.C.val_
+              GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p
+               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * GBool.FFI.val_
                -> unit;
           )
             (
@@ -63,10 +63,10 @@ structure GtkAssistant :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_assistant_set_page_title" :
-              GtkAssistantClass.C.notnull GtkAssistantClass.C.p
-               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
+              GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p
+               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -82,9 +82,9 @@ structure GtkAssistant :>
          & x3 =>
           (
             _import "gtk_assistant_set_page_type" :
-              GtkAssistantClass.C.notnull GtkAssistantClass.C.p
-               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
-               * GtkAssistantPageType.C.val_
+              GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p
+               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * GtkAssistantPageType.FFI.val_
                -> unit;
           )
             (
@@ -92,31 +92,31 @@ structure GtkAssistant :>
               x2,
               x3
             )
-    val updateButtonsState_ = _import "gtk_assistant_update_buttons_state" : GtkAssistantClass.C.notnull GtkAssistantClass.C.p -> unit;
+    val updateButtonsState_ = _import "gtk_assistant_update_buttons_state" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> unit;
     type 'a class = 'a GtkAssistantClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type assistant_page_type_t = GtkAssistantPageType.t
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkAssistantClass.C.fromPtr false) new_ ()
-    fun addActionWidget self child = (GtkAssistantClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) addActionWidget_ (self & child)
-    fun appendPage self page = (GtkAssistantClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> FFI.Int32.C.fromVal) appendPage_ (self & page)
-    fun commit self = (GtkAssistantClass.C.withPtr ---> I) commit_ self
-    fun getCurrentPage self = (GtkAssistantClass.C.withPtr ---> FFI.Int32.C.fromVal) getCurrentPage_ self
-    fun getNPages self = (GtkAssistantClass.C.withPtr ---> FFI.Int32.C.fromVal) getNPages_ self
-    fun getNthPage self pageNum = (GtkAssistantClass.C.withPtr &&&> FFI.Int32.C.withVal ---> GtkWidgetClass.C.fromPtr false) getNthPage_ (self & pageNum)
-    fun getPageComplete self page = (GtkAssistantClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> FFI.Bool.C.fromVal) getPageComplete_ (self & page)
-    fun getPageTitle self page = (GtkAssistantClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> Utf8.C.fromPtr false) getPageTitle_ (self & page)
-    fun getPageType self page = (GtkAssistantClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> GtkAssistantPageType.C.fromVal) getPageType_ (self & page)
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkAssistantClass.FFI.fromPtr false) new_ ()
+    fun addActionWidget self child = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) addActionWidget_ (self & child)
+    fun appendPage self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) appendPage_ (self & page)
+    fun commit self = (GtkAssistantClass.FFI.withPtr ---> I) commit_ self
+    fun getCurrentPage self = (GtkAssistantClass.FFI.withPtr ---> GInt32.FFI.fromVal) getCurrentPage_ self
+    fun getNPages self = (GtkAssistantClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNPages_ self
+    fun getNthPage self pageNum = (GtkAssistantClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getNthPage_ (self & pageNum)
+    fun getPageComplete self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getPageComplete_ (self & page)
+    fun getPageTitle self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPageTitle_ (self & page)
+    fun getPageType self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GtkAssistantPageType.FFI.fromVal) getPageType_ (self & page)
     fun insertPage self page position =
       (
-        GtkAssistantClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         ---> FFI.Int32.C.fromVal
+        GtkAssistantClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         ---> GInt32.FFI.fromVal
       )
         insertPage_
         (
@@ -124,17 +124,17 @@ structure GtkAssistant :>
            & page
            & position
         )
-    fun nextPage self = (GtkAssistantClass.C.withPtr ---> I) nextPage_ self
-    fun prependPage self page = (GtkAssistantClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> FFI.Int32.C.fromVal) prependPage_ (self & page)
-    fun previousPage self = (GtkAssistantClass.C.withPtr ---> I) previousPage_ self
-    fun removeActionWidget self child = (GtkAssistantClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) removeActionWidget_ (self & child)
-    fun removePage self pageNum = (GtkAssistantClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) removePage_ (self & pageNum)
-    fun setCurrentPage self pageNum = (GtkAssistantClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) setCurrentPage_ (self & pageNum)
+    fun nextPage self = (GtkAssistantClass.FFI.withPtr ---> I) nextPage_ self
+    fun prependPage self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) prependPage_ (self & page)
+    fun previousPage self = (GtkAssistantClass.FFI.withPtr ---> I) previousPage_ self
+    fun removeActionWidget self child = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) removeActionWidget_ (self & child)
+    fun removePage self pageNum = (GtkAssistantClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) removePage_ (self & pageNum)
+    fun setCurrentPage self pageNum = (GtkAssistantClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setCurrentPage_ (self & pageNum)
     fun setPageComplete self page complete =
       (
-        GtkAssistantClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GtkAssistantClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         setPageComplete_
@@ -145,9 +145,9 @@ structure GtkAssistant :>
         )
     fun setPageTitle self page title =
       (
-        GtkAssistantClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> Utf8.C.withPtr
+        GtkAssistantClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         setPageTitle_
@@ -158,9 +158,9 @@ structure GtkAssistant :>
         )
     fun setPageType self page type' =
       (
-        GtkAssistantClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> GtkAssistantPageType.C.withVal
+        GtkAssistantClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkAssistantPageType.FFI.withVal
          ---> I
       )
         setPageType_
@@ -169,7 +169,7 @@ structure GtkAssistant :>
            & page
            & type'
         )
-    fun updateButtonsState self = (GtkAssistantClass.C.withPtr ---> I) updateButtonsState_ self
+    fun updateButtonsState self = (GtkAssistantClass.FFI.withPtr ---> I) updateButtonsState_ self
     local
       open ClosureMarshal Signal
     in

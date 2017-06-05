@@ -15,6 +15,10 @@ signature VTE_TERMINAL =
     val new : unit -> base class
     val copyClipboard : 'a class -> unit
     val copyPrimary : 'a class -> unit
+    val feed :
+      'a class
+       -> Word8Vector.vector
+       -> unit
     val feedChild :
       'a class
        -> string

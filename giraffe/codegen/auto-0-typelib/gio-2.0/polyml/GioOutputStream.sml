@@ -1,11 +1,17 @@
 structure GioOutputStream :>
   GIO_OUTPUT_STREAM
     where type 'a class = 'a GioOutputStreamClass.class
-    where type 'a cancellable_class = 'a GioCancellableClass.class
     where type output_stream_splice_flags_t = GioOutputStreamSpliceFlags.t
     where type 'a input_stream_class = 'a GioInputStreamClass.class
+    where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
+    structure GUInt8CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GUInt8Type
+        structure ElemSequence = MonoVectorSequence(Word8Vector)
+      )
+    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -17,7 +23,7 @@ structure GioOutputStream :>
             GioOutputStreamClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val closeFinish_ =
         call (load_sym libgio "g_output_stream_close_finish")
@@ -25,7 +31,7 @@ structure GioOutputStream :>
             GioOutputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val flush_ =
         call (load_sym libgio "g_output_stream_flush")
@@ -33,7 +39,7 @@ structure GioOutputStream :>
             GioOutputStreamClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val flushFinish_ =
         call (load_sym libgio "g_output_stream_flush_finish")
@@ -41,12 +47,12 @@ structure GioOutputStream :>
             GioOutputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
-      val hasPending_ = call (load_sym libgio "g_output_stream_has_pending") (GioOutputStreamClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val isClosed_ = call (load_sym libgio "g_output_stream_is_closed") (GioOutputStreamClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val isClosing_ = call (load_sym libgio "g_output_stream_is_closing") (GioOutputStreamClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setPending_ = call (load_sym libgio "g_output_stream_set_pending") (GioOutputStreamClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
+      val hasPending_ = call (load_sym libgio "g_output_stream_has_pending") (GioOutputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isClosed_ = call (load_sym libgio "g_output_stream_is_closed") (GioOutputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isClosing_ = call (load_sym libgio "g_output_stream_is_closing") (GioOutputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setPending_ = call (load_sym libgio "g_output_stream_set_pending") (GioOutputStreamClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val splice_ =
         call (load_sym libgio "g_output_stream_splice")
           (
@@ -55,7 +61,7 @@ structure GioOutputStream :>
              &&> GioOutputStreamSpliceFlags.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Int64.PolyML.cVal
+             --> GInt64.PolyML.cVal
           )
       val spliceFinish_ =
         call (load_sym libgio "g_output_stream_splice_finish")
@@ -63,7 +69,28 @@ structure GioOutputStream :>
             GioOutputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Int64.PolyML.cVal
+             --> GInt64.PolyML.cVal
+          )
+      val write_ =
+        call (load_sym libgio "g_output_stream_write")
+          (
+            GioOutputStreamClass.PolyML.cPtr
+             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt64.PolyML.cVal
+             &&> GioCancellableClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GInt64.PolyML.cVal
+          )
+      val writeAll_ =
+        call (load_sym libgio "g_output_stream_write_all")
+          (
+            GioOutputStreamClass.PolyML.cPtr
+             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt64.PolyML.cVal
+             &&> GUInt64.PolyML.cRef
+             &&> GioCancellableClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
           )
       val writeFinish_ =
         call (load_sym libgio "g_output_stream_write_finish")
@@ -71,23 +98,23 @@ structure GioOutputStream :>
             GioOutputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Int64.PolyML.cVal
+             --> GInt64.PolyML.cVal
           )
     end
     type 'a class = 'a GioOutputStreamClass.class
-    type 'a cancellable_class = 'a GioCancellableClass.class
     type output_stream_splice_flags_t = GioOutputStreamSpliceFlags.t
     type 'a input_stream_class = 'a GioInputStreamClass.class
+    type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun clearPending self = (GioOutputStreamClass.C.withPtr ---> I) clearPending_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun clearPending self = (GioOutputStreamClass.FFI.withPtr ---> I) clearPending_ self
     fun close self cancellable =
       (
-        GioOutputStreamClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioOutputStreamClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         close_
         (
@@ -97,10 +124,10 @@ structure GioOutputStream :>
         )
     fun closeFinish self result =
       (
-        GioOutputStreamClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioOutputStreamClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         closeFinish_
         (
@@ -110,10 +137,10 @@ structure GioOutputStream :>
         )
     fun flush self cancellable =
       (
-        GioOutputStreamClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioOutputStreamClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         flush_
         (
@@ -123,10 +150,10 @@ structure GioOutputStream :>
         )
     fun flushFinish self result =
       (
-        GioOutputStreamClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioOutputStreamClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         flushFinish_
         (
@@ -134,18 +161,18 @@ structure GioOutputStream :>
            & result
            & []
         )
-    fun hasPending self = (GioOutputStreamClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
-    fun isClosed self = (GioOutputStreamClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
-    fun isClosing self = (GioOutputStreamClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosing_ self
-    fun setPending self = (GioOutputStreamClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) setPending_ (self & [])
+    fun hasPending self = (GioOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) hasPending_ self
+    fun isClosed self = (GioOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
+    fun isClosing self = (GioOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosing_ self
+    fun setPending self = (GioOutputStreamClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) setPending_ (self & [])
     fun splice self source flags cancellable =
       (
-        GioOutputStreamClass.C.withPtr
-         &&&> GioInputStreamClass.C.withPtr
-         &&&> GioOutputStreamSpliceFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioOutputStreamClass.FFI.withPtr
+         &&&> GioInputStreamClass.FFI.withPtr
+         &&&> GioOutputStreamSpliceFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> GInt64.FFI.fromVal
       )
         splice_
         (
@@ -157,10 +184,10 @@ structure GioOutputStream :>
         )
     fun spliceFinish self result =
       (
-        GioOutputStreamClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioOutputStreamClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> GInt64.FFI.fromVal
       )
         spliceFinish_
         (
@@ -168,12 +195,60 @@ structure GioOutputStream :>
            & result
            & []
         )
+    fun write self buffer cancellable =
+      let
+        val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val retVal =
+          (
+            GioOutputStreamClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt64.FFI.withVal
+             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GInt64.FFI.fromVal
+          )
+            write_
+            (
+              self
+               & buffer
+               & count
+               & cancellable
+               & []
+            )
+      in
+        retVal
+      end
+    fun writeAll self buffer cancellable =
+      let
+        val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val bytesWritten & retVal =
+          (
+            GioOutputStreamClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt64.FFI.withVal
+             &&&> GUInt64.FFI.withRefVal
+             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GUInt64.FFI.fromVal && GBool.FFI.fromVal
+          )
+            writeAll_
+            (
+              self
+               & buffer
+               & count
+               & GUInt64.null
+               & cancellable
+               & []
+            )
+      in
+        if retVal then SOME bytesWritten else NONE
+      end
     fun writeFinish self result =
       (
-        GioOutputStreamClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioOutputStreamClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> GInt64.FFI.fromVal
       )
         writeFinish_
         (

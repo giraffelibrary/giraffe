@@ -9,6 +9,7 @@
  * Gdk C interface support for Poly/ML
  */
 
+#include <string.h>
 #include <gdk/gdk.h>
 
 
@@ -20,16 +21,22 @@ giraffe_gdk_geometry_new (void)
   return g_slice_new (GdkGeometry);
 }
 
-GdkGeometry *
-giraffe_gdk_geometry_copy (const GdkGeometry *geometry)
+void
+giraffe_gdk_geometry_copy (const GdkGeometry *src, GdkGeometry *dest)
 {
-  return g_slice_dup (GdkGeometry, geometry);
+  memcpy (dest, src, sizeof (GdkGeometry));
 }
 
 void
 giraffe_gdk_geometry_free (GdkGeometry *geometry)
 {
   g_slice_free (GdkGeometry, geometry);
+}
+
+guint
+giraffe_gdk_geometry_size (void)
+{
+  return sizeof (GdkGeometry);
 }
 
 
@@ -71,6 +78,24 @@ giraffe_gdk_color_new (void)
   return g_slice_new (GdkColor);
 }
 
+void
+giraffe_gdk_color_copy (const GdkColor *src, GdkColor *dest)
+{
+  memcpy (dest, src, sizeof (GdkColor));
+}
+
+void
+giraffe_gdk_color_free (GdkColor *color)
+{
+  g_slice_free (GdkColor, color);
+}
+
+guint
+giraffe_gdk_color_size (void)
+{
+  return sizeof (GdkColor);
+}
+
 
 /* GdkRGBA */
 
@@ -78,6 +103,24 @@ GdkRGBA *
 giraffe_gdk_rgba_new (void)
 {
   return g_slice_new (GdkRGBA);
+}
+
+void
+giraffe_gdk_rgba_copy (const GdkRGBA *src, GdkRGBA *dest)
+{
+  memcpy (dest, src, sizeof (GdkRGBA));
+}
+
+void
+giraffe_gdk_rgba_free (GdkRGBA *rgba)
+{
+  g_slice_free (GdkRGBA, rgba);
+}
+
+guint
+giraffe_gdk_rgba_size (void)
+{
+  return sizeof (GdkRGBA);
 }
 
 

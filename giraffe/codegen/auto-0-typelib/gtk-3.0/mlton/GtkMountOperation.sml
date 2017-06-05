@@ -3,23 +3,23 @@ structure GtkMountOperation :>
     where type 'a class = 'a GtkMountOperationClass.class
     where type 'a window_class = 'a GtkWindowClass.class =
   struct
-    val getType_ = _import "gtk_mount_operation_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_mount_operation_new" : unit GtkWindowClass.C.p -> GioMountOperationClass.C.notnull GioMountOperationClass.C.p;
-    val getParent_ = _import "gtk_mount_operation_get_parent" : GtkMountOperationClass.C.notnull GtkMountOperationClass.C.p -> GtkWindowClass.C.notnull GtkWindowClass.C.p;
-    val getScreen_ = _import "gtk_mount_operation_get_screen" : GtkMountOperationClass.C.notnull GtkMountOperationClass.C.p -> GdkScreenClass.C.notnull GdkScreenClass.C.p;
-    val isShowing_ = _import "gtk_mount_operation_is_showing" : GtkMountOperationClass.C.notnull GtkMountOperationClass.C.p -> FFI.Bool.C.val_;
-    val setParent_ = fn x1 & x2 => (_import "gtk_mount_operation_set_parent" : GtkMountOperationClass.C.notnull GtkMountOperationClass.C.p * unit GtkWindowClass.C.p -> unit;) (x1, x2)
-    val setScreen_ = fn x1 & x2 => (_import "gtk_mount_operation_set_screen" : GtkMountOperationClass.C.notnull GtkMountOperationClass.C.p * GdkScreenClass.C.notnull GdkScreenClass.C.p -> unit;) (x1, x2)
+    val getType_ = _import "gtk_mount_operation_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_mount_operation_new" : unit GtkWindowClass.FFI.p -> GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p;
+    val getParent_ = _import "gtk_mount_operation_get_parent" : GtkMountOperationClass.FFI.notnull GtkMountOperationClass.FFI.p -> GtkWindowClass.FFI.notnull GtkWindowClass.FFI.p;
+    val getScreen_ = _import "gtk_mount_operation_get_screen" : GtkMountOperationClass.FFI.notnull GtkMountOperationClass.FFI.p -> GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p;
+    val isShowing_ = _import "gtk_mount_operation_is_showing" : GtkMountOperationClass.FFI.notnull GtkMountOperationClass.FFI.p -> GBool.FFI.val_;
+    val setParent_ = fn x1 & x2 => (_import "gtk_mount_operation_set_parent" : GtkMountOperationClass.FFI.notnull GtkMountOperationClass.FFI.p * unit GtkWindowClass.FFI.p -> unit;) (x1, x2)
+    val setScreen_ = fn x1 & x2 => (_import "gtk_mount_operation_set_screen" : GtkMountOperationClass.FFI.notnull GtkMountOperationClass.FFI.p * GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkMountOperationClass.class
     type 'a window_class = 'a GtkWindowClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new parent = (GtkWindowClass.C.withOptPtr ---> GtkMountOperationClass.C.fromPtr true) new_ parent
-    fun getParent self = (GtkMountOperationClass.C.withPtr ---> GtkWindowClass.C.fromPtr false) getParent_ self
-    fun getScreen self = (GtkMountOperationClass.C.withPtr ---> GdkScreenClass.C.fromPtr false) getScreen_ self
-    fun isShowing self = (GtkMountOperationClass.C.withPtr ---> FFI.Bool.C.fromVal) isShowing_ self
-    fun setParent self parent = (GtkMountOperationClass.C.withPtr &&&> GtkWindowClass.C.withOptPtr ---> I) setParent_ (self & parent)
-    fun setScreen self screen = (GtkMountOperationClass.C.withPtr &&&> GdkScreenClass.C.withPtr ---> I) setScreen_ (self & screen)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new parent = (GtkWindowClass.FFI.withOptPtr ---> GtkMountOperationClass.FFI.fromPtr true) new_ parent
+    fun getParent self = (GtkMountOperationClass.FFI.withPtr ---> GtkWindowClass.FFI.fromPtr false) getParent_ self
+    fun getScreen self = (GtkMountOperationClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
+    fun isShowing self = (GtkMountOperationClass.FFI.withPtr ---> GBool.FFI.fromVal) isShowing_ self
+    fun setParent self parent = (GtkMountOperationClass.FFI.withPtr &&&> GtkWindowClass.FFI.withOptPtr ---> I) setParent_ (self & parent)
+    fun setScreen self screen = (GtkMountOperationClass.FFI.withPtr &&&> GdkScreenClass.FFI.withPtr ---> I) setScreen_ (self & screen)
     local
       open Property
     in

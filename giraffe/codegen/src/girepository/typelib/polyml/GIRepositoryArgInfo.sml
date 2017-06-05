@@ -17,22 +17,22 @@ structure GIRepositoryArgInfo :>
       val isCallerAllocates_ =
         call
           (load_sym libgirepository "g_arg_info_is_caller_allocates")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GBool.PolyML.cVal);
 
       val isReturnValue_ =
         call
           (load_sym libgirepository "g_arg_info_is_return_value")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GBool.PolyML.cVal);
 
       val isOptional_ =
         call
           (load_sym libgirepository "g_arg_info_is_optional")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GBool.PolyML.cVal);
 
       val mayBeNull_ =
         call
           (load_sym libgirepository "g_arg_info_may_be_null")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GBool.PolyML.cVal);
 
       val getOwnershipTransfer_ =
         call
@@ -47,12 +47,12 @@ structure GIRepositoryArgInfo :>
       val getClosure_ =
         call
           (load_sym libgirepository "g_arg_info_get_closure")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getDestroy_ =
         call
           (load_sym libgirepository "g_arg_info_get_destroy")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getType_ =
         call
@@ -70,49 +70,49 @@ structure GIRepositoryArgInfo :>
 
     val getDirection =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryDirection.C.fromVal) getDirection_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryDirection.FFI.fromVal) getDirection_ info
 
     val isCallerAllocates =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) isCallerAllocates_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isCallerAllocates_ info
 
     val isReturnValue =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) isReturnValue_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isReturnValue_ info
 
     val isOptional =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) isOptional_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isOptional_ info
 
     val mayBeNull =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Bool.C.fromVal) mayBeNull_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) mayBeNull_ info
 
     val getOwnershipTransfer =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTransfer.C.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTransfer.FFI.fromVal)
           getOwnershipTransfer_
           info
 
     val getScope =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryScopeType.C.fromVal) getScope_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryScopeType.FFI.fromVal) getScope_ info
 
     val getClosure =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> (fn ~1 => NONE | n => SOME n) o FFI.Int32.C.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> (fn ~1 => NONE | n => SOME n) o GInt32.FFI.fromVal)
           getClosure_
           info
 
     val getDestroy =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> (fn ~1 => NONE | n => SOME n) o FFI.Int32.C.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> (fn ~1 => NONE | n => SOME n) o GInt32.FFI.fromVal)
           getDestroy_
           info
 
     val getType =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypeInfoClass.C.fromPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
           getType_
           info
   end

@@ -14,39 +14,39 @@ structure GtkCalendar :>
         call (load_sym libgtk "gtk_calendar_get_date")
           (
             GtkCalendarClass.PolyML.cPtr
-             &&> FFI.UInt.PolyML.cRef
-             &&> FFI.UInt.PolyML.cRef
-             &&> FFI.UInt.PolyML.cRef
+             &&> GUInt.PolyML.cRef
+             &&> GUInt.PolyML.cRef
+             &&> GUInt.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getDayIsMarked_ = call (load_sym libgtk "gtk_calendar_get_day_is_marked") (GtkCalendarClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val getDetailHeightRows_ = call (load_sym libgtk "gtk_calendar_get_detail_height_rows") (GtkCalendarClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getDetailWidthChars_ = call (load_sym libgtk "gtk_calendar_get_detail_width_chars") (GtkCalendarClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getDayIsMarked_ = call (load_sym libgtk "gtk_calendar_get_day_is_marked") (GtkCalendarClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val getDetailHeightRows_ = call (load_sym libgtk "gtk_calendar_get_detail_height_rows") (GtkCalendarClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getDetailWidthChars_ = call (load_sym libgtk "gtk_calendar_get_detail_width_chars") (GtkCalendarClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getDisplayOptions_ = call (load_sym libgtk "gtk_calendar_get_display_options") (GtkCalendarClass.PolyML.cPtr --> GtkCalendarDisplayOptions.PolyML.cVal)
-      val markDay_ = call (load_sym libgtk "gtk_calendar_mark_day") (GtkCalendarClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val selectDay_ = call (load_sym libgtk "gtk_calendar_select_day") (GtkCalendarClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val markDay_ = call (load_sym libgtk "gtk_calendar_mark_day") (GtkCalendarClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val selectDay_ = call (load_sym libgtk "gtk_calendar_select_day") (GtkCalendarClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val selectMonth_ =
         call (load_sym libgtk "gtk_calendar_select_month")
           (
             GtkCalendarClass.PolyML.cPtr
-             &&> FFI.UInt.PolyML.cVal
-             &&> FFI.UInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
+             &&> GUInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setDetailHeightRows_ = call (load_sym libgtk "gtk_calendar_set_detail_height_rows") (GtkCalendarClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDetailWidthChars_ = call (load_sym libgtk "gtk_calendar_set_detail_width_chars") (GtkCalendarClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDetailHeightRows_ = call (load_sym libgtk "gtk_calendar_set_detail_height_rows") (GtkCalendarClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDetailWidthChars_ = call (load_sym libgtk "gtk_calendar_set_detail_width_chars") (GtkCalendarClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setDisplayOptions_ = call (load_sym libgtk "gtk_calendar_set_display_options") (GtkCalendarClass.PolyML.cPtr &&> GtkCalendarDisplayOptions.PolyML.cVal --> PolyMLFFI.cVoid)
-      val unmarkDay_ = call (load_sym libgtk "gtk_calendar_unmark_day") (GtkCalendarClass.PolyML.cPtr &&> FFI.UInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val unmarkDay_ = call (load_sym libgtk "gtk_calendar_unmark_day") (GtkCalendarClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkCalendarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type calendar_display_options_t = GtkCalendarDisplayOptions.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkCalendarClass.C.fromPtr false) new_ ()
-    fun clearMarks self = (GtkCalendarClass.C.withPtr ---> I) clearMarks_ self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkCalendarClass.FFI.fromPtr false) new_ ()
+    fun clearMarks self = (GtkCalendarClass.FFI.withPtr ---> I) clearMarks_ self
     fun getDate self =
       let
         val year
@@ -54,21 +54,21 @@ structure GtkCalendar :>
          & day
          & () =
           (
-            GtkCalendarClass.C.withPtr
-             &&&> FFI.UInt.C.withRefVal
-             &&&> FFI.UInt.C.withRefVal
-             &&&> FFI.UInt.C.withRefVal
-             ---> FFI.UInt.C.fromVal
-                   && FFI.UInt.C.fromVal
-                   && FFI.UInt.C.fromVal
+            GtkCalendarClass.FFI.withPtr
+             &&&> GUInt.FFI.withRefVal
+             &&&> GUInt.FFI.withRefVal
+             &&&> GUInt.FFI.withRefVal
+             ---> GUInt.FFI.fromVal
+                   && GUInt.FFI.fromVal
+                   && GUInt.FFI.fromVal
                    && I
           )
             getDate_
             (
               self
-               & FFI.UInt.null
-               & FFI.UInt.null
-               & FFI.UInt.null
+               & GUInt.null
+               & GUInt.null
+               & GUInt.null
             )
       in
         (
@@ -77,17 +77,17 @@ structure GtkCalendar :>
           day
         )
       end
-    fun getDayIsMarked self day = (GtkCalendarClass.C.withPtr &&&> FFI.UInt.C.withVal ---> FFI.Bool.C.fromVal) getDayIsMarked_ (self & day)
-    fun getDetailHeightRows self = (GtkCalendarClass.C.withPtr ---> FFI.Int.C.fromVal) getDetailHeightRows_ self
-    fun getDetailWidthChars self = (GtkCalendarClass.C.withPtr ---> FFI.Int.C.fromVal) getDetailWidthChars_ self
-    fun getDisplayOptions self = (GtkCalendarClass.C.withPtr ---> GtkCalendarDisplayOptions.C.fromVal) getDisplayOptions_ self
-    fun markDay self day = (GtkCalendarClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) markDay_ (self & day)
-    fun selectDay self day = (GtkCalendarClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) selectDay_ (self & day)
+    fun getDayIsMarked self day = (GtkCalendarClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GBool.FFI.fromVal) getDayIsMarked_ (self & day)
+    fun getDetailHeightRows self = (GtkCalendarClass.FFI.withPtr ---> GInt.FFI.fromVal) getDetailHeightRows_ self
+    fun getDetailWidthChars self = (GtkCalendarClass.FFI.withPtr ---> GInt.FFI.fromVal) getDetailWidthChars_ self
+    fun getDisplayOptions self = (GtkCalendarClass.FFI.withPtr ---> GtkCalendarDisplayOptions.FFI.fromVal) getDisplayOptions_ self
+    fun markDay self day = (GtkCalendarClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) markDay_ (self & day)
+    fun selectDay self day = (GtkCalendarClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) selectDay_ (self & day)
     fun selectMonth self month year =
       (
-        GtkCalendarClass.C.withPtr
-         &&&> FFI.UInt.C.withVal
-         &&&> FFI.UInt.C.withVal
+        GtkCalendarClass.FFI.withPtr
+         &&&> GUInt.FFI.withVal
+         &&&> GUInt.FFI.withVal
          ---> I
       )
         selectMonth_
@@ -96,10 +96,10 @@ structure GtkCalendar :>
            & month
            & year
         )
-    fun setDetailHeightRows self rows = (GtkCalendarClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setDetailHeightRows_ (self & rows)
-    fun setDetailWidthChars self chars = (GtkCalendarClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setDetailWidthChars_ (self & chars)
-    fun setDisplayOptions self flags = (GtkCalendarClass.C.withPtr &&&> GtkCalendarDisplayOptions.C.withVal ---> I) setDisplayOptions_ (self & flags)
-    fun unmarkDay self day = (GtkCalendarClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) unmarkDay_ (self & day)
+    fun setDetailHeightRows self rows = (GtkCalendarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setDetailHeightRows_ (self & rows)
+    fun setDetailWidthChars self chars = (GtkCalendarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setDetailWidthChars_ (self & chars)
+    fun setDisplayOptions self flags = (GtkCalendarClass.FFI.withPtr &&&> GtkCalendarDisplayOptions.FFI.withVal ---> I) setDisplayOptions_ (self & flags)
+    fun unmarkDay self day = (GtkCalendarClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) unmarkDay_ (self & day)
     local
       open ClosureMarshal Signal
     in

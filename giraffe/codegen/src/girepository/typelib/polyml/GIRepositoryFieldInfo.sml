@@ -15,12 +15,12 @@ structure GIRepositoryFieldInfo :>
       val getSize_ =
         call
           (load_sym libgirepository "g_field_info_get_size")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getOffset_ =
         call
           (load_sym libgirepository "g_field_info_get_offset")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> FFI.Int32.PolyML.cVal);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getType_ =
         call
@@ -36,15 +36,15 @@ structure GIRepositoryFieldInfo :>
 
     val getFlags =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryFieldInfoFlags.C.fromVal) getFlags_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryFieldInfoFlags.FFI.fromVal) getFlags_ info
 
-    val getSize = fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getSize_ info
+    val getSize = fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getSize_ info
 
-    val getOffset = fn info => (GIRepositoryBaseInfoClass.C.withPtr ---> FFI.Int32.C.fromVal) getOffset_ info
+    val getOffset = fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getOffset_ info
 
     val getType =
       fn info =>
-        (GIRepositoryBaseInfoClass.C.withPtr ---> GIRepositoryTypeInfoClass.C.fromPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
           getType_
           info
   end

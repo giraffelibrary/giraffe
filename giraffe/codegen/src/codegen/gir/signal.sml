@@ -36,12 +36,14 @@ fun makeSignalSpec
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo true repo signalNamespace (SOME containerName))
+        (getParInfo true repo signalNamespace (SOME containerName) signalInfo)
         (signalInfo, [])
 
     val retInfo =
       getRetInfo true repo signalNamespace (SOME containerName)
         signalInfo
+
+    val parInfos = updateParInfos retInfo parInfos
 
     val tyVarIdx'0 = 0
     val (revInTys'1, tyVarIdx'1) = ([], tyVarIdx'0)
@@ -82,7 +84,6 @@ fun makeSignalSpec
             val retTys =
               case retInfo of
                 RIVOID => outParamTys
-
               | _      => retValTy :: outParamTys
           in
             mkProdTy0 retTys  (* `length retTys > 0` so result not unit type *)
@@ -94,7 +95,7 @@ fun makeSignalSpec
      * <functionTy> -> <var> class Signal.signal
      *)
     val (containerTy, _) =
-      makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'3)
+      makeIRefLocalTypeRef (makeRefVarTy false) (containerIRef, tyVarIdx'3)
     val signalTy = TyFun (TyParen functionTy, signalTy containerTy)
   in
     (mkValSpec (signalNameId, signalTy), (iRefs'3, errs))
@@ -105,23 +106,28 @@ fun makeSignalSpec
 
 (* `addParInfo` accumulates function components in the parameter
  *
- *   `(ks, ls, iRefs)`
+ *   `(js, ls, ks, iRefs)`
  *
- * The lists `ks` and `ls` accumulate the components of the vectors of
- * sizes K and L, respectively, in the CODEGEN for SignalDec.
+ * The lists `js`, `ls` and `ks` accumulate the components of the vectors of
+ * sizes J, L and K, respectively, in the CODEGEN for SignalDec.
  *
- * `ks` and `ls` are built up in reverse.  After iterating over all
+ * `js`, `ls` and `ks` are built up in reverse.  After iterating over all
  * `parInfo` values, the final values are as follows:
  *
  *
- *   the k<th> element of `ks` contains
+ *   the j<th> element of `js` contains
  *
- *     (<setFun[k]>, <outParamName[k]>)
+ *     <inParamExp[j]>
  *
  *
  *   the l<th> element of `ls` contains
  *
  *     (<getFun[l]>, <inParamName[l]>)
+ *
+ *
+ *   the k<th> element of `ks` contains
+ *
+ *     (<setFun[k]>, <outParamName[k]>)
  *
  *
  * `iRefs` accumulates the references to interfaces for generating type
@@ -130,10 +136,10 @@ fun makeSignalSpec
  *)
 
 local
-  fun mkFunScalar funExp ({ty, ...} : scalarinfo) =
+  fun mkFunScalar funExp ({ty, ...} : scalar_info) =
     ExpApp (funExp , mkIdLNameExp (scalarAccessorId ty))
 
-  fun mkFunUtf8 funExp ({isOpt, ...} : utf8info) =
+  fun mkFunUtf8 funExp ({isOpt, ...} : utf8_info) =
     ExpApp (
       funExp,
       if isOpt
@@ -141,7 +147,13 @@ local
       else mkIdLNameExp "string"
     )
 
-  fun mkFunInterface funExp ({iRef, isOpt, ...} : interfaceinfo) =
+  fun mkFunArray (funExp, arrayStrId) ({isOpt, ...} : array_info) =
+    ExpApp (
+      funExp,
+      mkLIdLNameExp [arrayStrId, if isOpt then tOptId else tId]
+    )
+
+  fun mkFunInterface funExp ({iRef, isOpt, ...} : interface_info) =
     let
       val accId = if isOpt then tOptId else tId
       val accExp = mkLIdLNameExp (prefixInterfaceStrId iRef [accId])
@@ -157,12 +169,16 @@ local
 
   fun getFunUtf8 n = mkFunUtf8 (indexAppExp getExp n)
 
+  fun getFunArray (n, arrayStrId) = mkFunArray (indexAppExp getExp n, arrayStrId)
+
   fun getFunInterface n = mkFunInterface (indexAppExp getExp n)
 
 
   fun setFunScalar n = mkFunScalar (indexAppExp setExp n)
 
   fun setFunUtf8 n = mkFunUtf8 (indexAppExp setExp n)
+
+  fun setFunArray (n, arrayStrId) = mkFunArray (indexAppExp setExp n, arrayStrId)
 
   fun setFunInterface n = mkFunInterface (indexAppExp setExp n)
 
@@ -173,82 +189,97 @@ local
 
   val retFunUtf8 = mkFunUtf8 retExp
 
+  fun retFunArray arrayStrId = mkFunArray (retExp, arrayStrId)
+
   val retFunInterface = mkFunInterface retExp
-
-
-  fun parNameScalar ({name, ...} : scalarinfo) = name
-
-  fun parNameUtf8 ({name, ...} : utf8info) = name
-
-  fun parNameInterface ({name, ...} : interfaceinfo) = name
 in
-  fun addParInfo (parInfo, acc as (n, ks, ls, iRefs)) =
+  fun addParInfo (parInfo, acc as (n, js, ls, ks, iRefs, structDeps)) =
     case parInfo of
-      PIVOID => acc
-    | PISCALAR (dir, scalarParInfo) =>
+      PIVOID                          => acc
+    | PISOME {name, dir, array, info} =>
         let
-          val parName = parNameScalar scalarParInfo
-          fun makeK n = (setFunScalar n scalarParInfo, parName)
-          fun makeL n = (getFunScalar n scalarParInfo, parName)
+          val (inParamExp, getFun, setFun, structDeps'1) =
+            case info of
+              ISCALAR scalarParInfo       =>
+                let
+                  fun inParamExp () = mkIdLNameExp name
+                  fun getFun n = getFunScalar n scalarParInfo
+                  fun setFun n = setFunScalar n scalarParInfo
+                in
+                  (inParamExp, getFun, setFun, structDeps)
+                end
+            | IUTF8 utf8ParInfo           =>
+                let
+                  fun inParamExp () = mkIdLNameExp name
+                  fun getFun n = getFunUtf8 n utf8ParInfo
+                  fun setFun n = setFunUtf8 n utf8ParInfo
+                in
+                  (inParamExp, getFun, setFun, structDeps)
+                end
+            | IARRAY arrayParInfo         =>
+                let
+                  val {length, elem, ...} = arrayParInfo
+                  val (arrayStrId, structDeps'1) =
+                    cArrayStrIdStructDeps length elem structDeps
+                  fun inParamExp () = mkArrayLenExp length (mkIdLNameExp name)
 
-          val (ks', ls') =
-            case dir of
-              OUT _ => (makeK n :: ks, ls)
-            | INOUT => (makeK n :: ks, makeL n :: ls)
-            | IN    => (ks,            makeL n :: ls)
-        in
-          (n + 1, ks', ls', iRefs)
-        end
-    | PIUTF8 (dir, utf8ParInfo) =>
-        let
-          val parName = parNameUtf8 utf8ParInfo
-          fun makeK n = (setFunUtf8 n utf8ParInfo, parName)
-          fun makeL n = (getFunUtf8 n utf8ParInfo, parName)
-          val (ks', ls') =
-            case dir of
-              OUT _ => (makeK n :: ks, ls)
-            | INOUT => (makeK n :: ks, makeL n :: ls)
-            | IN    => (ks,            makeL n :: ls)
-        in
-          (n + 1, ks', ls', iRefs)
-        end
-    | PIINTERFACE (dir, interfaceParInfo as {iRef, ...}) =>
-        let
-          val parName = parNameInterface interfaceParInfo
-          fun makeK n = (setFunInterface n interfaceParInfo, parName)
-          fun makeL n = (getFunInterface n interfaceParInfo, parName)
-          val (ks', ls') =
-            case dir of
-              OUT _ => (makeK n :: ks, ls)
-            | INOUT => (makeK n :: ks, makeL n :: ls)
-            | IN    => (ks,            makeL n :: ls)
+                  fun getFun n = getFunArray (n, arrayStrId) arrayParInfo
+                  fun setFun n = setFunArray (n, arrayStrId) arrayParInfo
+                in
+                  (inParamExp, getFun, setFun, structDeps'1)
+                end
+            | IINTERFACE interfaceParInfo =>
+                let
+                  fun inParamExp () = mkIdLNameExp name
+                  fun getFun n = getFunInterface n interfaceParInfo
+                  fun setFun n = setFunInterface n interfaceParInfo
+                in
+                  (inParamExp, getFun, setFun, structDeps)
+                end
 
-          val {scope, ...} = iRef
-          val iRefs' =
-            case scope of
-              GLOBAL             => iRefs
-            | LOCALINTERFACESELF => iRefs
-            | _                  => insert (iRef, iRefs)
+          fun addJ js =
+            case array of
+              SOME _ => js
+            | NONE   => inParamExp () :: js
+          fun addL ls = (getFun n, name) :: ls
+          fun addK ks = (setFun n, name) :: ks
+
+          val (js', ls', ks') =
+            case dir of
+              OUT _ => (js,      ls,      addK ks)
+            | INOUT => (addJ js, addL ls, addK ks)
+            | IN    => (addJ js, addL ls, ks)
+
+          val structDeps' = structDeps'1
+          val n' = n + 1
+
+          val iRefs' = addIRef (info, iRefs)
         in
-          (n + 1, ks', ls', iRefs')
+          (n', js', ls', ks', iRefs', structDeps')
         end
 
-  fun addRetInfo (retInfo, iRefs) =
+  fun addRetInfo (retInfo, iRefs, structDeps) =
     case retInfo of
-      RIVOID                    => (retFunVoid, iRefs)
-    | RISCALAR scalarRetInfo    => (retFunScalar scalarRetInfo, iRefs)
-    | RIUTF8 utf8RetInfo        => (retFunUtf8 utf8RetInfo, iRefs)
-    | RIINTERFACE interfaceInfo =>
+      RIVOID        => (retFunVoid, iRefs, structDeps)
+    | RISOME {info} =>
         let
-          val {iRef, ...} = interfaceInfo
-          val {scope, ...} = iRef
-          val iRefs' =
-            case scope of
-              GLOBAL             => iRefs
-            | LOCALINTERFACESELF => iRefs
-            | _                  => insert (iRef, iRefs)
+          val (retFun, structDeps') =
+            case info of
+              ISCALAR scalarRetInfo    => (retFunScalar scalarRetInfo, structDeps)
+            | IUTF8 utf8RetInfo        => (retFunUtf8 utf8RetInfo, structDeps)
+            | IARRAY arrayRetInfo      =>
+                let
+                  val {length, elem, ...} = arrayRetInfo
+                  val (arrayStrId, structDeps'1) =
+                    cArrayStrIdStructDeps length elem structDeps
+                in
+                  (retFunArray arrayStrId arrayRetInfo, structDeps'1)
+                end
+            | IINTERFACE interfaceInfo => (retFunInterface interfaceInfo, structDeps)
+
+          val iRefs' = addIRef (info, iRefs)
         in
-          (retFunInterface interfaceInfo, iRefs')
+          (retFun, iRefs', structDeps')
         end
 end
 
@@ -256,8 +287,8 @@ end
 fun makeSignalStrDec
   repo
   ({name = containerName, ...} : interfaceref)
-  (signalInfo, (iRefs, errs))
-  : strdec * (interfaceref list * infoerrorhier list) =
+  (signalInfo, ((iRefs, structs), errs))
+  : strdec * ((interfaceref list * struct1 ListDict.t) * infoerrorhier list) =
   let
     val () = checkDeprecated signalInfo
 
@@ -285,27 +316,32 @@ fun makeSignalStrDec
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo true repo signalNamespace (SOME containerName))
+        (getParInfo true repo signalNamespace (SOME containerName) signalInfo)
         (signalInfo, [])
 
     val retInfo =
       getRetInfo true repo signalNamespace (SOME containerName)
         signalInfo
 
+    val parInfos = updateParInfos retInfo parInfos
+
+    val revJs'1 = []
     val revLs'1 = []
     val revKs'1 = []
     val iRefs'1 = iRefs
+    val structs'1 = structs
 
-    (* Construct K and L vectors in forward pass over parameter infos.
+    (* Construct J, L and K vectors in forward pass over parameter infos.
      * As for a function spec, `iRefs` should be generated in a forwards
      * pass over the parameter infos so types appear in order of first
      * appearance. *)
-    val (_, revKs'2, revLs'2, iRefs'2) =
-      foldl addParInfo (1, revKs'1, revLs'1, iRefs'1) parInfos
+    val (_, revJs'2, revLs'2, revKs'2, iRefs'2, structs'2) =
+      foldl addParInfo (1, revJs'1, revLs'1, revKs'1, iRefs'1, structs'1) parInfos
 
-    val (retFun, iRefs'3) = addRetInfo (retInfo, iRefs'2)
+    val (retFun, iRefs'3, structs'3) = addRetInfo (retInfo, iRefs'2, structs'2)
 
 
+    val revInParamExps = revJs'2
     val (revGetFuns, revInParamNames) = ListPair.unzip revLs'2
     val (revSetFuns, revOutParamNames) = ListPair.unzip revKs'2
 
@@ -336,7 +372,7 @@ fun makeSignalStrDec
      *   (
      *     fn inParamName[1] & ... & inParamName[L] =>
      *       let
-     *         val <retPat> = f inParamName[1] ... inParamName[L]
+     *         val <retPat> = f inParamExp[1] ... inParamExp[J]
      *       in
      *         outParamName[1] & ... & outParamName[K] & <retVal>
      *       end
@@ -355,7 +391,7 @@ fun makeSignalStrDec
      *
      *   (
      *     fn inParamName[1] & ... & inParamName[L] =>
-     *       f inParamName[1] ... inParamName[L]
+     *       f inParamExp[1] ... inParamExp[J]
      *   )
      *     if K = 0 and L > 1
      *
@@ -382,17 +418,18 @@ fun makeSignalStrDec
 
             (* Construct expression
              *
-             *   f inParamName[1] ... inParamName[L]
+             *   f inParamExp[1] ... inParamExp[J]
              *     if L > 0
              *
              *   f ()
              *     if L = 0
              *)
-            val inParamNameExps =
-              case revMap mkIdLNameExp revInParamNames of
+            fun mkParenAppExp e = case e of ExpApp _ => mkParenExp e | _ => e
+            val inParamExps =
+              case revMap mkParenAppExp revInParamExps of
                 [] => [ExpConst ConstUnit]
               | es => es
-            val funAppExp = foldl mkRevAppExp fExp inParamNameExps
+            val funAppExp = foldl mkRevAppExp fExp inParamExps
 
             val funExp =
               case revMap mkIdVarPat revOutParamNames of
@@ -447,7 +484,7 @@ fun makeSignalStrDec
           ]
         )
       ),
-      (iRefs'3, errs)
+      ((iRefs'3, structs'3), errs)
     )
   end
 
@@ -461,17 +498,17 @@ val containerOrEverythingForProp =
   "ownership transfer CONTAINER or EVERYTHING for property not supported"
 
 
-type scalarinfo =
+type scalar_info =
   {
     ty    : scalartype
   }
 
-type utf8info =
+type utf8_info =
   {
     isOpt : bool
   }
 
-type interfaceinfo =
+type interface_info =
   {
     iRef     : interfaceref,
     infoType : InfoType.t,
@@ -484,9 +521,9 @@ datatype mode =
 | READWRITE
 
 datatype paraminfo =
-  PISCALAR of mode * scalarinfo
-| PIUTF8 of mode * utf8info
-| PIINTERFACE of mode * interfaceinfo
+  PISCALAR of mode * scalar_info
+| PIUTF8 of mode * utf8_info
+| PIINTERFACE of mode * interface_info
 
 
 fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
@@ -683,8 +720,8 @@ fun mkParamTy isOpt ((isReadType, interfaceTyRef), tyVarIdx) =
   let
     val (ty, tyVarIdx') =
       if isReadType
-      then makeRefBaseTy (interfaceTyRef, tyVarIdx)
-      else makeRefVarTy (interfaceTyRef, tyVarIdx)
+      then makeRefBaseTy false (interfaceTyRef, tyVarIdx)
+      else makeRefVarTy false (interfaceTyRef, tyVarIdx)
   in
     (if isOpt then optionTy ty else ty, tyVarIdx')
   end
@@ -707,7 +744,7 @@ fun makePropertySpec
 
     val tyVarIdx'0 = 0
     val (containerTy, tyVarIdx'1) =
-      makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'0)
+      makeIRefLocalTypeRef (makeRefVarTy false) (containerIRef, tyVarIdx'0)
 
     fun mkTy mode isOpt (tyRef, tyVarIdx) =
       let
@@ -760,8 +797,8 @@ fun makePropertySpec
 fun makePropertyStrDec
   repo
   (containerIRef : interfaceref)
-  (propertyInfo, (iRefs, errs))
-  : strdec * (interfaceref list * infoerrorhier list) =
+  (propertyInfo, ((iRefs, structs), errs))
+  : strdec * ((interfaceref list * struct1 ListDict.t) * infoerrorhier list) =
   let
     val () = checkDeprecated propertyInfo
 
@@ -826,6 +863,6 @@ fun makePropertyStrDec
   in
     (
       StrDecDec (mkIdValDec (propertyNameId, propertyExp)),
-      (iRefs'1, errs)
+      ((iRefs'1, structs), errs)
     )
   end

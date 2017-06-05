@@ -100,5 +100,5 @@ structure GObject :
     val VALUE_COLLECT_FORMAT_MAX_LENGTH = 8
     val VALUE_NOCOPY_CONTENTS = 134217728
     fun typeInit () = (I ---> I) typeInit_ ()
-    fun typeInitWithDebugFlags debugFlags = (GObjectTypeDebugFlags.C.withVal ---> I) typeInitWithDebugFlags_ debugFlags
+    fun typeInitWithDebugFlags debugFlags = (GObjectTypeDebugFlags.FFI.withVal ---> I) typeInitWithDebugFlags_ debugFlags
   end

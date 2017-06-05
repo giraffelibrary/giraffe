@@ -36,22 +36,22 @@ structure GtkToolPalette :>
         call (load_sym libgtk "gtk_tool_palette_get_drop_group")
           (
             GtkToolPaletteClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> GtkToolItemGroupClass.PolyML.cPtr
           )
       val getDropItem_ =
         call (load_sym libgtk "gtk_tool_palette_get_drop_item")
           (
             GtkToolPaletteClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> GtkToolItemClass.PolyML.cPtr
           )
-      val getExclusive_ = call (load_sym libgtk "gtk_tool_palette_get_exclusive") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolItemGroupClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getExpand_ = call (load_sym libgtk "gtk_tool_palette_get_expand") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolItemGroupClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getGroupPosition_ = call (load_sym libgtk "gtk_tool_palette_get_group_position") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolItemGroupClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
-      val getIconSize_ = call (load_sym libgtk "gtk_tool_palette_get_icon_size") (GtkToolPaletteClass.PolyML.cPtr --> FFI.Int.PolyML.cVal)
+      val getExclusive_ = call (load_sym libgtk "gtk_tool_palette_get_exclusive") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolItemGroupClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getExpand_ = call (load_sym libgtk "gtk_tool_palette_get_expand") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolItemGroupClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getGroupPosition_ = call (load_sym libgtk "gtk_tool_palette_get_group_position") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolItemGroupClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getIconSize_ = call (load_sym libgtk "gtk_tool_palette_get_icon_size") (GtkToolPaletteClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getStyle_ = call (load_sym libgtk "gtk_tool_palette_get_style") (GtkToolPaletteClass.PolyML.cPtr --> GtkToolbarStyle.PolyML.cVal)
       val setDragSource_ = call (load_sym libgtk "gtk_tool_palette_set_drag_source") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolPaletteDragTargets.PolyML.cVal --> PolyMLFFI.cVoid)
       val setExclusive_ =
@@ -59,7 +59,7 @@ structure GtkToolPalette :>
           (
             GtkToolPaletteClass.PolyML.cPtr
              &&> GtkToolItemGroupClass.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val setExpand_ =
@@ -67,7 +67,7 @@ structure GtkToolPalette :>
           (
             GtkToolPaletteClass.PolyML.cPtr
              &&> GtkToolItemGroupClass.PolyML.cPtr
-             &&> FFI.Bool.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val setGroupPosition_ =
@@ -75,10 +75,10 @@ structure GtkToolPalette :>
           (
             GtkToolPaletteClass.PolyML.cPtr
              &&> GtkToolItemGroupClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setIconSize_ = call (load_sym libgtk "gtk_tool_palette_set_icon_size") (GtkToolPaletteClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setIconSize_ = call (load_sym libgtk "gtk_tool_palette_set_icon_size") (GtkToolPaletteClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setStyle_ = call (load_sym libgtk "gtk_tool_palette_set_style") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolbarStyle.PolyML.cVal --> PolyMLFFI.cVoid)
       val unsetIconSize_ = call (load_sym libgtk "gtk_tool_palette_unset_icon_size") (GtkToolPaletteClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val unsetStyle_ = call (load_sym libgtk "gtk_tool_palette_unset_style") (GtkToolPaletteClass.PolyML.cPtr --> PolyMLFFI.cVoid)
@@ -97,21 +97,21 @@ structure GtkToolPalette :>
     type icon_size_t = GtkIconSize.t
     type toolbar_style_t = GtkToolbarStyle.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
-    fun asScrollable self = (GObjectObjectClass.C.withPtr ---> GtkScrollableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkToolPaletteClass.C.fromPtr false) new_ ()
-    fun getDragTargetGroup () = (I ---> GtkTargetEntryRecord.C.fromPtr false) getDragTargetGroup_ ()
-    fun getDragTargetItem () = (I ---> GtkTargetEntryRecord.C.fromPtr false) getDragTargetItem_ ()
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asScrollable self = (GObjectObjectClass.FFI.withPtr ---> GtkScrollableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkToolPaletteClass.FFI.fromPtr false) new_ ()
+    fun getDragTargetGroup () = (I ---> GtkTargetEntryRecord.FFI.fromPtr false) getDragTargetGroup_ ()
+    fun getDragTargetItem () = (I ---> GtkTargetEntryRecord.FFI.fromPtr false) getDragTargetItem_ ()
     fun addDragDest self widget flags targets actions =
       (
-        GtkToolPaletteClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> GtkDestDefaults.C.withVal
-         &&&> GtkToolPaletteDragTargets.C.withVal
-         &&&> GdkDragAction.C.withVal
+        GtkToolPaletteClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkDestDefaults.FFI.withVal
+         &&&> GtkToolPaletteDragTargets.FFI.withVal
+         &&&> GdkDragAction.FFI.withVal
          ---> I
       )
         addDragDest_
@@ -122,13 +122,13 @@ structure GtkToolPalette :>
            & targets
            & actions
         )
-    fun getDragItem self selection = (GtkToolPaletteClass.C.withPtr &&&> GtkSelectionDataRecord.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getDragItem_ (self & selection)
+    fun getDragItem self selection = (GtkToolPaletteClass.FFI.withPtr &&&> GtkSelectionDataRecord.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getDragItem_ (self & selection)
     fun getDropGroup self x y =
       (
-        GtkToolPaletteClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         ---> GtkToolItemGroupClass.C.fromPtr false
+        GtkToolPaletteClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GtkToolItemGroupClass.FFI.fromPtr false
       )
         getDropGroup_
         (
@@ -138,10 +138,10 @@ structure GtkToolPalette :>
         )
     fun getDropItem self x y =
       (
-        GtkToolPaletteClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Int.C.withVal
-         ---> GtkToolItemClass.C.fromPtr false
+        GtkToolPaletteClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GtkToolItemClass.FFI.fromPtr false
       )
         getDropItem_
         (
@@ -149,17 +149,17 @@ structure GtkToolPalette :>
            & x
            & y
         )
-    fun getExclusive self group = (GtkToolPaletteClass.C.withPtr &&&> GtkToolItemGroupClass.C.withPtr ---> FFI.Bool.C.fromVal) getExclusive_ (self & group)
-    fun getExpand self group = (GtkToolPaletteClass.C.withPtr &&&> GtkToolItemGroupClass.C.withPtr ---> FFI.Bool.C.fromVal) getExpand_ (self & group)
-    fun getGroupPosition self group = (GtkToolPaletteClass.C.withPtr &&&> GtkToolItemGroupClass.C.withPtr ---> FFI.Int.C.fromVal) getGroupPosition_ (self & group)
-    fun getIconSize self = (GtkToolPaletteClass.C.withPtr ---> FFI.Int.C.fromVal) getIconSize_ self
-    fun getStyle self = (GtkToolPaletteClass.C.withPtr ---> GtkToolbarStyle.C.fromVal) getStyle_ self
-    fun setDragSource self targets = (GtkToolPaletteClass.C.withPtr &&&> GtkToolPaletteDragTargets.C.withVal ---> I) setDragSource_ (self & targets)
+    fun getExclusive self group = (GtkToolPaletteClass.FFI.withPtr &&&> GtkToolItemGroupClass.FFI.withPtr ---> GBool.FFI.fromVal) getExclusive_ (self & group)
+    fun getExpand self group = (GtkToolPaletteClass.FFI.withPtr &&&> GtkToolItemGroupClass.FFI.withPtr ---> GBool.FFI.fromVal) getExpand_ (self & group)
+    fun getGroupPosition self group = (GtkToolPaletteClass.FFI.withPtr &&&> GtkToolItemGroupClass.FFI.withPtr ---> GInt.FFI.fromVal) getGroupPosition_ (self & group)
+    fun getIconSize self = (GtkToolPaletteClass.FFI.withPtr ---> GInt.FFI.fromVal) getIconSize_ self
+    fun getStyle self = (GtkToolPaletteClass.FFI.withPtr ---> GtkToolbarStyle.FFI.fromVal) getStyle_ self
+    fun setDragSource self targets = (GtkToolPaletteClass.FFI.withPtr &&&> GtkToolPaletteDragTargets.FFI.withVal ---> I) setDragSource_ (self & targets)
     fun setExclusive self group exclusive =
       (
-        GtkToolPaletteClass.C.withPtr
-         &&&> GtkToolItemGroupClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GtkToolPaletteClass.FFI.withPtr
+         &&&> GtkToolItemGroupClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         setExclusive_
@@ -170,9 +170,9 @@ structure GtkToolPalette :>
         )
     fun setExpand self group expand =
       (
-        GtkToolPaletteClass.C.withPtr
-         &&&> GtkToolItemGroupClass.C.withPtr
-         &&&> FFI.Bool.C.withVal
+        GtkToolPaletteClass.FFI.withPtr
+         &&&> GtkToolItemGroupClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
          ---> I
       )
         setExpand_
@@ -183,9 +183,9 @@ structure GtkToolPalette :>
         )
     fun setGroupPosition self group position =
       (
-        GtkToolPaletteClass.C.withPtr
-         &&&> GtkToolItemGroupClass.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkToolPaletteClass.FFI.withPtr
+         &&&> GtkToolItemGroupClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         setGroupPosition_
@@ -194,10 +194,10 @@ structure GtkToolPalette :>
            & group
            & position
         )
-    fun setIconSize self iconSize = (GtkToolPaletteClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setIconSize_ (self & iconSize)
-    fun setStyle self style = (GtkToolPaletteClass.C.withPtr &&&> GtkToolbarStyle.C.withVal ---> I) setStyle_ (self & style)
-    fun unsetIconSize self = (GtkToolPaletteClass.C.withPtr ---> I) unsetIconSize_ self
-    fun unsetStyle self = (GtkToolPaletteClass.C.withPtr ---> I) unsetStyle_ self
+    fun setIconSize self iconSize = (GtkToolPaletteClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setIconSize_ (self & iconSize)
+    fun setStyle self style = (GtkToolPaletteClass.FFI.withPtr &&&> GtkToolbarStyle.FFI.withVal ---> I) setStyle_ (self & style)
+    fun unsetIconSize self = (GtkToolPaletteClass.FFI.withPtr ---> I) unsetIconSize_ self
+    fun unsetStyle self = (GtkToolPaletteClass.FFI.withPtr ---> I) unsetStyle_ self
     local
       open Property
     in

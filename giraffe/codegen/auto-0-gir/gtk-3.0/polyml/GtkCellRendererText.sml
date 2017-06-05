@@ -7,13 +7,13 @@ structure GtkCellRendererText :>
     in
       val getType_ = call (load_sym libgtk "gtk_cell_renderer_text_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_cell_renderer_text_new") (PolyMLFFI.cVoid --> GtkCellRendererClass.PolyML.cPtr)
-      val setFixedHeightFromFont_ = call (load_sym libgtk "gtk_cell_renderer_text_set_fixed_height_from_font") (GtkCellRendererTextClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setFixedHeightFromFont_ = call (load_sym libgtk "gtk_cell_renderer_text_set_fixed_height_from_font") (GtkCellRendererTextClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkCellRendererTextClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkCellRendererTextClass.C.fromPtr false) new_ ()
-    fun setFixedHeightFromFont self numberOfRows = (GtkCellRendererTextClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setFixedHeightFromFont_ (self & numberOfRows)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkCellRendererTextClass.FFI.fromPtr false) new_ ()
+    fun setFixedHeightFromFont self numberOfRows = (GtkCellRendererTextClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setFixedHeightFromFont_ (self & numberOfRows)
     local
       open ClosureMarshal Signal
     in

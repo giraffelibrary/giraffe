@@ -1,42 +1,28 @@
-structure GLibTraverseType :>
-  sig
-    include G_LIB_TRAVERSE_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GLibTraverseType :> G_LIB_TRAVERSE_TYPE =
   struct
-    datatype t =
+    datatype enum =
       IN_ORDER
     | PRE_ORDER
     | POST_ORDER
     | LEVEL_ORDER
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = IN_ORDER
+        val toInt =
           fn
-            IN_ORDER => f 0
-          | PRE_ORDER => f 1
-          | POST_ORDER => f 2
-          | LEVEL_ORDER => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            IN_ORDER => 0
+          | PRE_ORDER => 1
+          | POST_ORDER => 2
+          | LEVEL_ORDER => 3
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => IN_ORDER
           | 1 => PRE_ORDER
           | 2 => POST_ORDER
           | 3 => LEVEL_ORDER
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
-    val null = IN_ORDER
+      )
+    open Enum
   end

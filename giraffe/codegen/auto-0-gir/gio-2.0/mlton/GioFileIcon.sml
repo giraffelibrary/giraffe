@@ -5,17 +5,17 @@ structure GioFileIcon :>
     where type 'a loadable_icon_class = 'a GioLoadableIconClass.class
     where type 'a file_class = 'a GioFileClass.class =
   struct
-    val getType_ = _import "g_file_icon_get_type" : unit -> GObjectType.C.val_;
-    val getFile_ = _import "g_file_icon_get_file" : GioFileIconClass.C.notnull GioFileIconClass.C.p -> GioFileClass.C.notnull GioFileClass.C.p;
+    val getType_ = _import "g_file_icon_get_type" : unit -> GObjectType.FFI.val_;
+    val getFile_ = _import "g_file_icon_get_file" : GioFileIconClass.FFI.notnull GioFileIconClass.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
     type 'a class = 'a GioFileIconClass.class
     type 'a icon_class = 'a GioIconClass.class
     type 'a loadable_icon_class = 'a GioLoadableIconClass.class
     type 'a file_class = 'a GioFileClass.class
     type t = base class
-    fun asIcon self = (GObjectObjectClass.C.withPtr ---> GioIconClass.C.fromPtr false) I self
-    fun asLoadableIcon self = (GObjectObjectClass.C.withPtr ---> GioLoadableIconClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getFile self = (GioFileIconClass.C.withPtr ---> GioFileClass.C.fromPtr false) getFile_ self
+    fun asIcon self = (GObjectObjectClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) I self
+    fun asLoadableIcon self = (GObjectObjectClass.FFI.withPtr ---> GioLoadableIconClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getFile self = (GioFileIconClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr false) getFile_ self
     local
       open Property
     in

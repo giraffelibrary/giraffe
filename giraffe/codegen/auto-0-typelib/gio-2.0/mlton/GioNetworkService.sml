@@ -3,7 +3,7 @@ structure GioNetworkService :>
     where type 'a class = 'a GioNetworkServiceClass.class
     where type 'a socket_connectable_class = 'a GioSocketConnectableClass.class =
   struct
-    val getType_ = _import "g_network_service_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "g_network_service_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
         (x1, x2)
@@ -12,12 +12,12 @@ structure GioNetworkService :>
           (
             _import "mlton_g_network_service_new" :
               Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               -> GioSocketConnectableClass.C.notnull GioSocketConnectableClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GioSocketConnectableClass.FFI.notnull GioSocketConnectableClass.FFI.p;
           )
             (
               x1,
@@ -27,18 +27,18 @@ structure GioNetworkService :>
               x5,
               x6
             )
-    val getDomain_ = _import "g_network_service_get_domain" : GioNetworkServiceClass.C.notnull GioNetworkServiceClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getProtocol_ = _import "g_network_service_get_protocol" : GioNetworkServiceClass.C.notnull GioNetworkServiceClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getScheme_ = _import "g_network_service_get_scheme" : GioNetworkServiceClass.C.notnull GioNetworkServiceClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getService_ = _import "g_network_service_get_service" : GioNetworkServiceClass.C.notnull GioNetworkServiceClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
+    val getDomain_ = _import "g_network_service_get_domain" : GioNetworkServiceClass.FFI.notnull GioNetworkServiceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getProtocol_ = _import "g_network_service_get_protocol" : GioNetworkServiceClass.FFI.notnull GioNetworkServiceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getScheme_ = _import "g_network_service_get_scheme" : GioNetworkServiceClass.FFI.notnull GioNetworkServiceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getService_ = _import "g_network_service_get_service" : GioNetworkServiceClass.FFI.notnull GioNetworkServiceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val setScheme_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_network_service_set_scheme" :
-              GioNetworkServiceClass.C.notnull GioNetworkServiceClass.C.p
+              GioNetworkServiceClass.FFI.notnull GioNetworkServiceClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -49,14 +49,14 @@ structure GioNetworkService :>
     type 'a class = 'a GioNetworkServiceClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type t = base class
-    fun asSocketConnectable self = (GObjectObjectClass.C.withPtr ---> GioSocketConnectableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new service protocol domain =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         ---> GioSocketConnectableClass.C.fromPtr true
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> GioSocketConnectableClass.FFI.fromPtr true
       )
         new_
         (
@@ -64,11 +64,11 @@ structure GioNetworkService :>
            & protocol
            & domain
         )
-    fun getDomain self = (GioNetworkServiceClass.C.withPtr ---> Utf8.C.fromPtr false) getDomain_ self
-    fun getProtocol self = (GioNetworkServiceClass.C.withPtr ---> Utf8.C.fromPtr false) getProtocol_ self
-    fun getScheme self = (GioNetworkServiceClass.C.withPtr ---> Utf8.C.fromPtr false) getScheme_ self
-    fun getService self = (GioNetworkServiceClass.C.withPtr ---> Utf8.C.fromPtr false) getService_ self
-    fun setScheme self scheme = (GioNetworkServiceClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setScheme_ (self & scheme)
+    fun getDomain self = (GioNetworkServiceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDomain_ self
+    fun getProtocol self = (GioNetworkServiceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getProtocol_ self
+    fun getScheme self = (GioNetworkServiceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getScheme_ self
+    fun getService self = (GioNetworkServiceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getService_ self
+    fun setScheme self scheme = (GioNetworkServiceClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setScheme_ (self & scheme)
     local
       open Property
     in

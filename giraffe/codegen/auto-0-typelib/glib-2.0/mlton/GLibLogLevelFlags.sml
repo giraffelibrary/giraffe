@@ -1,7 +1,4 @@
-structure GLibLogLevelFlags :>
-  sig
-    include G_LIB_LOG_LEVEL_FLAGS
-  end =
+structure GLibLogLevelFlags :> G_LIB_LOG_LEVEL_FLAGS =
   struct
     val FLAG_RECURSION = 0w1
     val FLAG_FATAL = 0w2
@@ -24,18 +21,9 @@ structure GLibLogLevelFlags :>
         LEVEL_DEBUG,
         LEVEL_MASK
       ]
-    structure BitFlags =
-      Word32BitFlags (
+    structure Flags =
+      Flags(
         val allFlags = allFlags
       )
-    open BitFlags
-    type t = flags
-    structure C =
-      struct
-        type val_ = FFI.Flags.C.val_
-        type ref_ = FFI.Flags.C.ref_
-        fun withVal f = f
-        fun withRefVal f = withVal (FFI.Flags.C.withRef f)
-        fun fromVal w = w
-      end
+    open Flags
   end

@@ -1,14 +1,6 @@
-structure GLibVariantParseError :>
-  sig
-    include G_LIB_VARIANT_PARSE_ERROR
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GLibVariantParseError :> G_LIB_VARIANT_PARSE_ERROR =
   struct
-    datatype t =
+    datatype enum =
       FAILED
     | BASIC_TYPE_EXPECTED
     | CANNOT_INFER_TYPE
@@ -27,33 +19,32 @@ structure GLibVariantParseError :>
     | UNKNOWN_KEYWORD
     | UNTERMINATED_STRING_CONSTANT
     | VALUE_EXPECTED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = FAILED
+        val toInt =
           fn
-            FAILED => f 0
-          | BASIC_TYPE_EXPECTED => f 1
-          | CANNOT_INFER_TYPE => f 2
-          | DEFINITE_TYPE_EXPECTED => f 3
-          | INPUT_NOT_AT_END => f 4
-          | INVALID_CHARACTER => f 5
-          | INVALID_FORMAT_STRING => f 6
-          | INVALID_OBJECT_PATH => f 7
-          | INVALID_SIGNATURE => f 8
-          | INVALID_TYPE_STRING => f 9
-          | NO_COMMON_TYPE => f 10
-          | NUMBER_OUT_OF_RANGE => f 11
-          | NUMBER_TOO_BIG => f 12
-          | TYPE_ERROR => f 13
-          | UNEXPECTED_TOKEN => f 14
-          | UNKNOWN_KEYWORD => f 15
-          | UNTERMINATED_STRING_CONSTANT => f 16
-          | VALUE_EXPECTED => f 17
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            FAILED => 0
+          | BASIC_TYPE_EXPECTED => 1
+          | CANNOT_INFER_TYPE => 2
+          | DEFINITE_TYPE_EXPECTED => 3
+          | INPUT_NOT_AT_END => 4
+          | INVALID_CHARACTER => 5
+          | INVALID_FORMAT_STRING => 6
+          | INVALID_OBJECT_PATH => 7
+          | INVALID_SIGNATURE => 8
+          | INVALID_TYPE_STRING => 9
+          | NO_COMMON_TYPE => 10
+          | NUMBER_OUT_OF_RANGE => 11
+          | NUMBER_TOO_BIG => 12
+          | TYPE_ERROR => 13
+          | UNEXPECTED_TOKEN => 14
+          | UNKNOWN_KEYWORD => 15
+          | UNTERMINATED_STRING_CONSTANT => 16
+          | VALUE_EXPECTED => 17
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => FAILED
           | 1 => BASIC_TYPE_EXPECTED
@@ -74,11 +65,6 @@ structure GLibVariantParseError :>
           | 16 => UNTERMINATED_STRING_CONSTANT
           | 17 => VALUE_EXPECTED
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
-    val null = FAILED
+      )
+    open Enum
   end

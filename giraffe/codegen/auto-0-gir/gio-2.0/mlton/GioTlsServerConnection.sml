@@ -5,7 +5,7 @@ structure GioTlsServerConnection :>
     where type 'a i_o_stream_class = 'a GioIOStreamClass.class
     where type tls_authentication_mode_t = GioTlsAuthenticationMode.t =
   struct
-    val getType_ = _import "g_tls_server_connection_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "g_tls_server_connection_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
         x1
@@ -13,10 +13,10 @@ structure GioTlsServerConnection :>
          & x3 =>
           (
             _import "g_tls_server_connection_new" :
-              GioIOStreamClass.C.notnull GioIOStreamClass.C.p
-               * unit GioTlsCertificateClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioIOStreamClass.C.notnull GioIOStreamClass.C.p;
+              GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p
+               * unit GioTlsCertificateClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p;
           )
             (
               x1,
@@ -28,13 +28,13 @@ structure GioTlsServerConnection :>
     type 'a i_o_stream_class = 'a GioIOStreamClass.class
     type tls_authentication_mode_t = GioTlsAuthenticationMode.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new baseIoStream certificate =
       (
-        GioIOStreamClass.C.withPtr
-         &&&> GioTlsCertificateClass.C.withOptPtr
+        GioIOStreamClass.FFI.withPtr
+         &&&> GioTlsCertificateClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioIOStreamClass.C.fromPtr true
+         ---> GioIOStreamClass.FFI.fromPtr true
       )
         new_
         (

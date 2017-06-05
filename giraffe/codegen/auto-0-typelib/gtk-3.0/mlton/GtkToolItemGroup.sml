@@ -7,9 +7,9 @@ structure GtkToolItemGroup :>
     where type relief_style_t = GtkReliefStyle.t
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
-    val getType_ = _import "gtk_tool_item_group_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_tool_item_group_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
-    val getCollapsed_ = _import "gtk_tool_item_group_get_collapsed" : GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p -> FFI.Bool.C.val_;
+    val getType_ = _import "gtk_tool_item_group_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "mlton_gtk_tool_item_group_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getCollapsed_ = _import "gtk_tool_item_group_get_collapsed" : GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p -> GBool.FFI.val_;
     val getDropItem_ =
       fn
         x1
@@ -17,23 +17,23 @@ structure GtkToolItemGroup :>
          & x3 =>
           (
             _import "gtk_tool_item_group_get_drop_item" :
-              GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
-               -> GtkToolItemClass.C.notnull GtkToolItemClass.C.p;
+              GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p
+               * GInt32.FFI.val_
+               * GInt32.FFI.val_
+               -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getEllipsize_ = _import "gtk_tool_item_group_get_ellipsize" : GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p -> PangoEllipsizeMode.C.val_;
-    val getHeaderRelief_ = _import "gtk_tool_item_group_get_header_relief" : GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p -> GtkReliefStyle.C.val_;
-    val getItemPosition_ = fn x1 & x2 => (_import "gtk_tool_item_group_get_item_position" : GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p * GtkToolItemClass.C.notnull GtkToolItemClass.C.p -> FFI.Int32.C.val_;) (x1, x2)
-    val getLabel_ = _import "gtk_tool_item_group_get_label" : GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getLabelWidget_ = _import "gtk_tool_item_group_get_label_widget" : GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
-    val getNItems_ = _import "gtk_tool_item_group_get_n_items" : GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p -> FFI.UInt32.C.val_;
-    val getNthItem_ = fn x1 & x2 => (_import "gtk_tool_item_group_get_nth_item" : GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p * FFI.UInt32.C.val_ -> GtkToolItemClass.C.notnull GtkToolItemClass.C.p;) (x1, x2)
+    val getEllipsize_ = _import "gtk_tool_item_group_get_ellipsize" : GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p -> PangoEllipsizeMode.FFI.val_;
+    val getHeaderRelief_ = _import "gtk_tool_item_group_get_header_relief" : GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p -> GtkReliefStyle.FFI.val_;
+    val getItemPosition_ = fn x1 & x2 => (_import "gtk_tool_item_group_get_item_position" : GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p * GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GInt32.FFI.val_;) (x1, x2)
+    val getLabel_ = _import "gtk_tool_item_group_get_label" : GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getLabelWidget_ = _import "gtk_tool_item_group_get_label_widget" : GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getNItems_ = _import "gtk_tool_item_group_get_n_items" : GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p -> GUInt32.FFI.val_;
+    val getNthItem_ = fn x1 & x2 => (_import "gtk_tool_item_group_get_nth_item" : GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p * GUInt32.FFI.val_ -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;) (x1, x2)
     val insert_ =
       fn
         x1
@@ -41,9 +41,9 @@ structure GtkToolItemGroup :>
          & x3 =>
           (
             _import "gtk_tool_item_group_insert" :
-              GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p
-               * GtkToolItemClass.C.notnull GtkToolItemClass.C.p
-               * FFI.Int32.C.val_
+              GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p
+               * GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p
+               * GInt32.FFI.val_
                -> unit;
           )
             (
@@ -51,9 +51,9 @@ structure GtkToolItemGroup :>
               x2,
               x3
             )
-    val setCollapsed_ = fn x1 & x2 => (_import "gtk_tool_item_group_set_collapsed" : GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setEllipsize_ = fn x1 & x2 => (_import "gtk_tool_item_group_set_ellipsize" : GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p * PangoEllipsizeMode.C.val_ -> unit;) (x1, x2)
-    val setHeaderRelief_ = fn x1 & x2 => (_import "gtk_tool_item_group_set_header_relief" : GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p * GtkReliefStyle.C.val_ -> unit;) (x1, x2)
+    val setCollapsed_ = fn x1 & x2 => (_import "gtk_tool_item_group_set_collapsed" : GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setEllipsize_ = fn x1 & x2 => (_import "gtk_tool_item_group_set_ellipsize" : GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p * PangoEllipsizeMode.FFI.val_ -> unit;) (x1, x2)
+    val setHeaderRelief_ = fn x1 & x2 => (_import "gtk_tool_item_group_set_header_relief" : GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p * GtkReliefStyle.FFI.val_ -> unit;) (x1, x2)
     val setItemPosition_ =
       fn
         x1
@@ -61,9 +61,9 @@ structure GtkToolItemGroup :>
          & x3 =>
           (
             _import "gtk_tool_item_group_set_item_position" :
-              GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p
-               * GtkToolItemClass.C.notnull GtkToolItemClass.C.p
-               * FFI.Int32.C.val_
+              GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p
+               * GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p
+               * GInt32.FFI.val_
                -> unit;
           )
             (
@@ -76,9 +76,9 @@ structure GtkToolItemGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_tool_item_group_set_label" :
-              GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p
+              GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -86,7 +86,7 @@ structure GtkToolItemGroup :>
               x2,
               x3
             )
-    val setLabelWidget_ = fn x1 & x2 => (_import "gtk_tool_item_group_set_label_widget" : GtkToolItemGroupClass.C.notnull GtkToolItemGroupClass.C.p * GtkWidgetClass.C.notnull GtkWidgetClass.C.p -> unit;) (x1, x2)
+    val setLabelWidget_ = fn x1 & x2 => (_import "gtk_tool_item_group_set_label_widget" : GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkToolItemGroupClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a tool_shell_class = 'a GtkToolShellClass.class
@@ -94,18 +94,18 @@ structure GtkToolItemGroup :>
     type relief_style_t = GtkReliefStyle.t
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asToolShell self = (GObjectObjectClass.C.withPtr ---> GtkToolShellClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new label = (Utf8.C.withPtr ---> GtkToolItemGroupClass.C.fromPtr false) new_ label
-    fun getCollapsed self = (GtkToolItemGroupClass.C.withPtr ---> FFI.Bool.C.fromVal) getCollapsed_ self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asToolShell self = (GObjectObjectClass.FFI.withPtr ---> GtkToolShellClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new label = (Utf8.FFI.withPtr ---> GtkToolItemGroupClass.FFI.fromPtr false) new_ label
+    fun getCollapsed self = (GtkToolItemGroupClass.FFI.withPtr ---> GBool.FFI.fromVal) getCollapsed_ self
     fun getDropItem self x y =
       (
-        GtkToolItemGroupClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
-         ---> GtkToolItemClass.C.fromPtr false
+        GtkToolItemGroupClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         ---> GtkToolItemClass.FFI.fromPtr false
       )
         getDropItem_
         (
@@ -113,18 +113,18 @@ structure GtkToolItemGroup :>
            & x
            & y
         )
-    fun getEllipsize self = (GtkToolItemGroupClass.C.withPtr ---> PangoEllipsizeMode.C.fromVal) getEllipsize_ self
-    fun getHeaderRelief self = (GtkToolItemGroupClass.C.withPtr ---> GtkReliefStyle.C.fromVal) getHeaderRelief_ self
-    fun getItemPosition self item = (GtkToolItemGroupClass.C.withPtr &&&> GtkToolItemClass.C.withPtr ---> FFI.Int32.C.fromVal) getItemPosition_ (self & item)
-    fun getLabel self = (GtkToolItemGroupClass.C.withPtr ---> Utf8.C.fromPtr false) getLabel_ self
-    fun getLabelWidget self = (GtkToolItemGroupClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getLabelWidget_ self
-    fun getNItems self = (GtkToolItemGroupClass.C.withPtr ---> FFI.UInt32.C.fromVal) getNItems_ self
-    fun getNthItem self index = (GtkToolItemGroupClass.C.withPtr &&&> FFI.UInt32.C.withVal ---> GtkToolItemClass.C.fromPtr false) getNthItem_ (self & index)
+    fun getEllipsize self = (GtkToolItemGroupClass.FFI.withPtr ---> PangoEllipsizeMode.FFI.fromVal) getEllipsize_ self
+    fun getHeaderRelief self = (GtkToolItemGroupClass.FFI.withPtr ---> GtkReliefStyle.FFI.fromVal) getHeaderRelief_ self
+    fun getItemPosition self item = (GtkToolItemGroupClass.FFI.withPtr &&&> GtkToolItemClass.FFI.withPtr ---> GInt32.FFI.fromVal) getItemPosition_ (self & item)
+    fun getLabel self = (GtkToolItemGroupClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLabel_ self
+    fun getLabelWidget self = (GtkToolItemGroupClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getLabelWidget_ self
+    fun getNItems self = (GtkToolItemGroupClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getNItems_ self
+    fun getNthItem self index = (GtkToolItemGroupClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> GtkToolItemClass.FFI.fromPtr false) getNthItem_ (self & index)
     fun insert self item position =
       (
-        GtkToolItemGroupClass.C.withPtr
-         &&&> GtkToolItemClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+        GtkToolItemGroupClass.FFI.withPtr
+         &&&> GtkToolItemClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         insert_
@@ -133,14 +133,14 @@ structure GtkToolItemGroup :>
            & item
            & position
         )
-    fun setCollapsed self collapsed = (GtkToolItemGroupClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setCollapsed_ (self & collapsed)
-    fun setEllipsize self ellipsize = (GtkToolItemGroupClass.C.withPtr &&&> PangoEllipsizeMode.C.withVal ---> I) setEllipsize_ (self & ellipsize)
-    fun setHeaderRelief self style = (GtkToolItemGroupClass.C.withPtr &&&> GtkReliefStyle.C.withVal ---> I) setHeaderRelief_ (self & style)
+    fun setCollapsed self collapsed = (GtkToolItemGroupClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCollapsed_ (self & collapsed)
+    fun setEllipsize self ellipsize = (GtkToolItemGroupClass.FFI.withPtr &&&> PangoEllipsizeMode.FFI.withVal ---> I) setEllipsize_ (self & ellipsize)
+    fun setHeaderRelief self style = (GtkToolItemGroupClass.FFI.withPtr &&&> GtkReliefStyle.FFI.withVal ---> I) setHeaderRelief_ (self & style)
     fun setItemPosition self item position =
       (
-        GtkToolItemGroupClass.C.withPtr
-         &&&> GtkToolItemClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
+        GtkToolItemGroupClass.FFI.withPtr
+         &&&> GtkToolItemClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         setItemPosition_
@@ -149,8 +149,8 @@ structure GtkToolItemGroup :>
            & item
            & position
         )
-    fun setLabel self label = (GtkToolItemGroupClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setLabel_ (self & label)
-    fun setLabelWidget self labelWidget = (GtkToolItemGroupClass.C.withPtr &&&> GtkWidgetClass.C.withPtr ---> I) setLabelWidget_ (self & labelWidget)
+    fun setLabel self label = (GtkToolItemGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setLabel_ (self & label)
+    fun setLabelWidget self labelWidget = (GtkToolItemGroupClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) setLabelWidget_ (self & labelWidget)
     local
       open Property
     in

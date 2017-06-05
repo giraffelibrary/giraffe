@@ -11,21 +11,24 @@ signature C_ARRAY_TYPE =
 
     structure CVector :
       sig
-        type t
-        val v1 : t    (* len v1 = 1 *)
-        val v2 : t    (* len v2 = 2 *)
-        val v3 : t    (* len v3 = 3 *)
+        type cvector
+        val v : cvector
+        val v1 : cvector    (* len v1 = 1 *)
+        val v2 : cvector    (* len v2 = 2 *)
+        val v3 : cvector    (* len v3 = 3 *)
+
+        val free : cvector -> unit
 
         exception NoSMLValue
 
-        val len : t -> int
-        val sub : t -> int -> elem
+        val clen : cvector -> int
+        val csub : cvector -> int -> elem
 
         (* `free ~1` must be applied to the pointer returned by
-         * `toPointer t` once it is not required. *)
-        val fromPointer : (C.notnull C.p -> t) C.from_p
-        val toPointer   : t -> C.notnull C.p
-        val fromVector  : vector -> t
-        val toVector    : t -> vector
+         * `toPointer c` once it is not required. *)
+        val fromPointer : (notnull p -> cvector) from_p
+        val toPointer   : cvector -> notnull p
+        val fromVal     : t -> cvector
+        val toVal       : cvector -> t
       end
   end

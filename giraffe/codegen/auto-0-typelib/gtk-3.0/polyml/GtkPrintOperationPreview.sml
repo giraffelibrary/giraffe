@@ -9,17 +9,17 @@ structure GtkPrintOperationPreview :>
     in
       val getType_ = call (load_sym libgtk "gtk_print_operation_preview_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val endPreview_ = call (load_sym libgtk "gtk_print_operation_preview_end_preview") (GtkPrintOperationPreviewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val isSelected_ = call (load_sym libgtk "gtk_print_operation_preview_is_selected") (GtkPrintOperationPreviewClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> FFI.Bool.PolyML.cVal)
-      val renderPage_ = call (load_sym libgtk "gtk_print_operation_preview_render_page") (GtkPrintOperationPreviewClass.PolyML.cPtr &&> FFI.Int32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val isSelected_ = call (load_sym libgtk "gtk_print_operation_preview_is_selected") (GtkPrintOperationPreviewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GBool.PolyML.cVal)
+      val renderPage_ = call (load_sym libgtk "gtk_print_operation_preview_render_page") (GtkPrintOperationPreviewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkPrintOperationPreviewClass.class
     type 'a page_setup_class = 'a GtkPageSetupClass.class
     type 'a print_context_class = 'a GtkPrintContextClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun endPreview self = (GtkPrintOperationPreviewClass.C.withPtr ---> I) endPreview_ self
-    fun isSelected self pageNr = (GtkPrintOperationPreviewClass.C.withPtr &&&> FFI.Int32.C.withVal ---> FFI.Bool.C.fromVal) isSelected_ (self & pageNr)
-    fun renderPage self pageNr = (GtkPrintOperationPreviewClass.C.withPtr &&&> FFI.Int32.C.withVal ---> I) renderPage_ (self & pageNr)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun endPreview self = (GtkPrintOperationPreviewClass.FFI.withPtr ---> I) endPreview_ self
+    fun isSelected self pageNr = (GtkPrintOperationPreviewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) isSelected_ (self & pageNr)
+    fun renderPage self pageNr = (GtkPrintOperationPreviewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) renderPage_ (self & pageNr)
     local
       open ClosureMarshal Signal
     in

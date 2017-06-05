@@ -16,7 +16,7 @@ structure GtkInfoBar :>
           (
             GtkInfoBarClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
       val addButton_ =
@@ -24,21 +24,21 @@ structure GtkInfoBar :>
           (
             GtkInfoBarClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Int.PolyML.cVal
+             &&> GInt.PolyML.cVal
              --> GtkWidgetClass.PolyML.cPtr
           )
       val getActionArea_ = call (load_sym libgtk "gtk_info_bar_get_action_area") (GtkInfoBarClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getContentArea_ = call (load_sym libgtk "gtk_info_bar_get_content_area") (GtkInfoBarClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getMessageType_ = call (load_sym libgtk "gtk_info_bar_get_message_type") (GtkInfoBarClass.PolyML.cPtr --> GtkMessageType.PolyML.cVal)
-      val response_ = call (load_sym libgtk "gtk_info_bar_response") (GtkInfoBarClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDefaultResponse_ = call (load_sym libgtk "gtk_info_bar_set_default_response") (GtkInfoBarClass.PolyML.cPtr &&> FFI.Int.PolyML.cVal --> PolyMLFFI.cVoid)
+      val response_ = call (load_sym libgtk "gtk_info_bar_response") (GtkInfoBarClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDefaultResponse_ = call (load_sym libgtk "gtk_info_bar_set_default_response") (GtkInfoBarClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setMessageType_ = call (load_sym libgtk "gtk_info_bar_set_message_type") (GtkInfoBarClass.PolyML.cPtr &&> GtkMessageType.PolyML.cVal --> PolyMLFFI.cVoid)
       val setResponseSensitive_ =
         call (load_sym libgtk "gtk_info_bar_set_response_sensitive")
           (
             GtkInfoBarClass.PolyML.cPtr
-             &&> FFI.Int.PolyML.cVal
-             &&> FFI.Bool.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
     end
@@ -48,16 +48,16 @@ structure GtkInfoBar :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type message_type_t = GtkMessageType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.C.withPtr ---> GtkOrientableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkInfoBarClass.C.fromPtr false) new_ ()
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkInfoBarClass.FFI.fromPtr false) new_ ()
     fun addActionWidget self child responseId =
       (
-        GtkInfoBarClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Int.C.withVal
+        GtkInfoBarClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
          ---> I
       )
         addActionWidget_
@@ -68,10 +68,10 @@ structure GtkInfoBar :>
         )
     fun addButton self buttonText responseId =
       (
-        GtkInfoBarClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int.C.withVal
-         ---> GtkWidgetClass.C.fromPtr false
+        GtkInfoBarClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         ---> GtkWidgetClass.FFI.fromPtr false
       )
         addButton_
         (
@@ -79,17 +79,17 @@ structure GtkInfoBar :>
            & buttonText
            & responseId
         )
-    fun getActionArea self = (GtkInfoBarClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getActionArea_ self
-    fun getContentArea self = (GtkInfoBarClass.C.withPtr ---> GtkWidgetClass.C.fromPtr false) getContentArea_ self
-    fun getMessageType self = (GtkInfoBarClass.C.withPtr ---> GtkMessageType.C.fromVal) getMessageType_ self
-    fun response self responseId = (GtkInfoBarClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) response_ (self & responseId)
-    fun setDefaultResponse self responseId = (GtkInfoBarClass.C.withPtr &&&> FFI.Int.C.withVal ---> I) setDefaultResponse_ (self & responseId)
-    fun setMessageType self messageType = (GtkInfoBarClass.C.withPtr &&&> GtkMessageType.C.withVal ---> I) setMessageType_ (self & messageType)
+    fun getActionArea self = (GtkInfoBarClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getActionArea_ self
+    fun getContentArea self = (GtkInfoBarClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getContentArea_ self
+    fun getMessageType self = (GtkInfoBarClass.FFI.withPtr ---> GtkMessageType.FFI.fromVal) getMessageType_ self
+    fun response self responseId = (GtkInfoBarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) response_ (self & responseId)
+    fun setDefaultResponse self responseId = (GtkInfoBarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setDefaultResponse_ (self & responseId)
+    fun setMessageType self messageType = (GtkInfoBarClass.FFI.withPtr &&&> GtkMessageType.FFI.withVal ---> I) setMessageType_ (self & messageType)
     fun setResponseSensitive self responseId setting =
       (
-        GtkInfoBarClass.C.withPtr
-         &&&> FFI.Int.C.withVal
-         &&&> FFI.Bool.C.withVal
+        GtkInfoBarClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GBool.FFI.withVal
          ---> I
       )
         setResponseSensitive_

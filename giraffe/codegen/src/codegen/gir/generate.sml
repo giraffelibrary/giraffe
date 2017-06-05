@@ -319,7 +319,7 @@ fun createNamespaceDir (namespace, version) =
 
 fun makeNamespaceSigStr
   namespace
-  (revStrs, constants, functions) =
+  (revStrs, constants, functions, structDeps) =
   let
     val namespaceStrId = toUCC namespace
     val namespaceSigId = toUCU namespace
@@ -371,6 +371,9 @@ fun makeNamespaceSigStr
     fun mkModule functionStrDecsLowLevel =
       let
         val strDecs'5 = mkStrDecs functionStrDecsLowLevel @ strDecs'4
+        val strDecs'6 =
+          revMapAppend (noSemi o mkStructStrDec)
+            (ListDict.toList structDeps, strDecs'5)
         val sigQual'1 = revMap makeLocalTypeStrModuleQual revPropLocalTypes
         val namespaceQSig = (SigName namespaceSigId, sigQual'1)
       in
@@ -381,7 +384,7 @@ fun makeNamespaceSigStr
                 (
                   namespaceStrId,
                   SOME (false, namespaceQSig),
-                  StructBody strDecs'5
+                  StructBody strDecs'6
                 )
               ]
             )
@@ -429,7 +432,7 @@ fun generate dir repo (namespace, version) (extraVers, extraSigs, extraStrs) =
         getOpt (Repository.getDependencies repo vers namespace, [])
 
       (* generate code for the entire namespace *)
-      val ((modules, constants, functions), errs) =
+      val ((modules, constants, functions, structDeps), errs) =
         translateLoadedNamespace repo vers namespace
 
       val (files'1, sigs'1, strs'1) = modules
@@ -445,7 +448,8 @@ fun generate dir repo (namespace, version) (extraVers, extraSigs, extraStrs) =
        *
        *   2. Generate the signature and structure for the namespace module,
        *      as `namespaceSig` and `namespaceStr` respectively, using
-       *      `strSpecsDecs'2` from step 1, `constants` and `functions`.
+       *      `strSpecsDecs'2` from step 1, `constants`, `functions` and
+       *      `structDeps`.
        *
        *   3. Extend `sigs'1` with `extraSigs` and sort the result to
        *      satisfy dependencies, giving `sigFiles'2`.
@@ -483,7 +487,7 @@ fun generate dir repo (namespace, version) (extraVers, extraSigs, extraStrs) =
         namespaceStr as (namespaceStrId, namespaceStrProgram)
       ) =
         makeNamespaceSigStr namespace
-          (revStrSpecsDecs'2, constants, functions)
+          (revStrSpecsDecs'2, constants, functions, structDeps)
 
       (* Step 3 *)
       val revSigFiles'2 =

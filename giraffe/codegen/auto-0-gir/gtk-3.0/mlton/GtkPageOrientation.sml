@@ -1,43 +1,39 @@
-structure GtkPageOrientation :>
-  sig
-    include GTK_PAGE_ORIENTATION
-  end =
+structure GtkPageOrientation :> GTK_PAGE_ORIENTATION =
   struct
-    datatype t =
+    datatype enum =
       PORTRAIT
     | LANDSCAPE
     | REVERSE_PORTRAIT
     | REVERSE_LANDSCAPE
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = PORTRAIT
+        val toInt =
           fn
-            PORTRAIT => f 0
-          | LANDSCAPE => f 1
-          | REVERSE_PORTRAIT => f 2
-          | REVERSE_LANDSCAPE => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            PORTRAIT => 0
+          | LANDSCAPE => 1
+          | REVERSE_PORTRAIT => 2
+          | REVERSE_LANDSCAPE => 3
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => PORTRAIT
           | 1 => LANDSCAPE
           | 2 => REVERSE_PORTRAIT
           | 3 => REVERSE_LANDSCAPE
           | n => raise Value n
-      end
-    val getType_ = _import "gtk_page_orientation_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "gtk_page_orientation_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = PORTRAIT
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

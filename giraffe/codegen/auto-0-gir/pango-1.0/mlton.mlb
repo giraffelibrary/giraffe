@@ -52,6 +52,8 @@ in
   PANGO_LAYOUT_ITER.sml
   PANGO_LAYOUT_LINE_RECORD.sml
   PANGO_LAYOUT_LINE.sml
+  PANGO_LOG_ATTR_RECORD.sml
+  PANGO_LOG_ATTR.sml
   PANGO_MATRIX_RECORD.sml
   PANGO_MATRIX.sml
   PANGO_RECTANGLE_RECORD.sml
@@ -98,6 +100,7 @@ in
   mlton/PangoLayoutClass.sml
   mlton/PangoLayoutIterRecord.sml
   mlton/PangoLayoutLineRecord.sml
+  mlton/PangoLogAttrRecord.sml
   mlton/PangoMatrixRecord.sml
   mlton/PangoRectangleRecord.sml
   mlton/PangoRenderPart.sml
@@ -124,6 +127,7 @@ in
   mlton/PangoGlyphString.sml
   mlton/PangoLayout.sml
   mlton/PangoLayoutLine.sml
+  mlton/PangoLogAttr.sml
   mlton/PangoMatrix.sml
   mlton/PangoRectangle.sml
   mlton/PangoRenderer.sml

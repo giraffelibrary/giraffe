@@ -1,27 +1,10 @@
 signature GIO_D_BUS_PROXY_FLAGS =
   sig
-    eqtype t
-    include
-      BIT_FLAGS
-        where type flags = t
+    include FLAGS
     val NONE : t
     val DO_NOT_LOAD_PROPERTIES : t
     val DO_NOT_CONNECT_SIGNALS : t
     val DO_NOT_AUTO_START : t
     val t : (t, t) GObject.Value.accessor
     val getType : unit -> GObject.Type.t
-    structure C :
-      sig
-        type val_
-        type ref_
-        val withVal :
-          (val_ -> 'a)
-           -> t
-           -> 'a
-        val withRefVal :
-          (ref_ -> 'a)
-           -> t
-           -> (val_, 'a) pair
-        val fromVal : val_ -> t
-      end
   end

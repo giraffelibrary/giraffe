@@ -6,8 +6,8 @@ structure GtkAppChooserButton :>
     where type 'a cell_editable_class = 'a GtkCellEditableClass.class
     where type 'a cell_layout_class = 'a GtkCellLayoutClass.class =
   struct
-    val getType_ = _import "gtk_app_chooser_button_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "mlton_gtk_app_chooser_button_new" : Utf8.MLton.p1 * Utf8.C.notnull Utf8.MLton.p2 -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val getType_ = _import "gtk_app_chooser_button_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "mlton_gtk_app_chooser_button_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val appendCustomItem_ =
       fn
         x1
@@ -16,12 +16,12 @@ structure GtkAppChooserButton :>
          & x6 =>
           (
             _import "mlton_gtk_app_chooser_button_append_custom_item" :
-              GtkAppChooserButtonClass.C.notnull GtkAppChooserButtonClass.C.p
+              GtkAppChooserButtonClass.FFI.notnull GtkAppChooserButtonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * GioIconClass.C.notnull GioIconClass.C.p
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GioIconClass.FFI.notnull GioIconClass.FFI.p
                -> unit;
           )
             (
@@ -32,18 +32,18 @@ structure GtkAppChooserButton :>
               x5,
               x6
             )
-    val appendSeparator_ = _import "gtk_app_chooser_button_append_separator" : GtkAppChooserButtonClass.C.notnull GtkAppChooserButtonClass.C.p -> unit;
-    val getHeading_ = _import "gtk_app_chooser_button_get_heading" : GtkAppChooserButtonClass.C.notnull GtkAppChooserButtonClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getShowDefaultItem_ = _import "gtk_app_chooser_button_get_show_default_item" : GtkAppChooserButtonClass.C.notnull GtkAppChooserButtonClass.C.p -> FFI.Bool.C.val_;
-    val getShowDialogItem_ = _import "gtk_app_chooser_button_get_show_dialog_item" : GtkAppChooserButtonClass.C.notnull GtkAppChooserButtonClass.C.p -> FFI.Bool.C.val_;
+    val appendSeparator_ = _import "gtk_app_chooser_button_append_separator" : GtkAppChooserButtonClass.FFI.notnull GtkAppChooserButtonClass.FFI.p -> unit;
+    val getHeading_ = _import "gtk_app_chooser_button_get_heading" : GtkAppChooserButtonClass.FFI.notnull GtkAppChooserButtonClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getShowDefaultItem_ = _import "gtk_app_chooser_button_get_show_default_item" : GtkAppChooserButtonClass.FFI.notnull GtkAppChooserButtonClass.FFI.p -> GBool.FFI.val_;
+    val getShowDialogItem_ = _import "gtk_app_chooser_button_get_show_dialog_item" : GtkAppChooserButtonClass.FFI.notnull GtkAppChooserButtonClass.FFI.p -> GBool.FFI.val_;
     val setActiveCustomItem_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_app_chooser_button_set_active_custom_item" :
-              GtkAppChooserButtonClass.C.notnull GtkAppChooserButtonClass.C.p
+              GtkAppChooserButtonClass.FFI.notnull GtkAppChooserButtonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -56,9 +56,9 @@ structure GtkAppChooserButton :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_app_chooser_button_set_heading" :
-              GtkAppChooserButtonClass.C.notnull GtkAppChooserButtonClass.C.p
+              GtkAppChooserButtonClass.FFI.notnull GtkAppChooserButtonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -66,27 +66,27 @@ structure GtkAppChooserButton :>
               x2,
               x3
             )
-    val setShowDefaultItem_ = fn x1 & x2 => (_import "gtk_app_chooser_button_set_show_default_item" : GtkAppChooserButtonClass.C.notnull GtkAppChooserButtonClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
-    val setShowDialogItem_ = fn x1 & x2 => (_import "gtk_app_chooser_button_set_show_dialog_item" : GtkAppChooserButtonClass.C.notnull GtkAppChooserButtonClass.C.p * FFI.Bool.C.val_ -> unit;) (x1, x2)
+    val setShowDefaultItem_ = fn x1 & x2 => (_import "gtk_app_chooser_button_set_show_default_item" : GtkAppChooserButtonClass.FFI.notnull GtkAppChooserButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowDialogItem_ = fn x1 & x2 => (_import "gtk_app_chooser_button_set_show_dialog_item" : GtkAppChooserButtonClass.FFI.notnull GtkAppChooserButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkAppChooserButtonClass.class
     type 'a app_chooser_class = 'a GtkAppChooserClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_editable_class = 'a GtkCellEditableClass.class
     type 'a cell_layout_class = 'a GtkCellLayoutClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asAppChooser self = (GObjectObjectClass.C.withPtr ---> GtkAppChooserClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    fun asCellEditable self = (GObjectObjectClass.C.withPtr ---> GtkCellEditableClass.C.fromPtr false) I self
-    fun asCellLayout self = (GObjectObjectClass.C.withPtr ---> GtkCellLayoutClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new contentType = (Utf8.C.withPtr ---> GtkAppChooserButtonClass.C.fromPtr false) new_ contentType
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asAppChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkAppChooserClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asCellEditable self = (GObjectObjectClass.FFI.withPtr ---> GtkCellEditableClass.FFI.fromPtr false) I self
+    fun asCellLayout self = (GObjectObjectClass.FFI.withPtr ---> GtkCellLayoutClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new contentType = (Utf8.FFI.withPtr ---> GtkAppChooserButtonClass.FFI.fromPtr false) new_ contentType
     fun appendCustomItem self name label icon =
       (
-        GtkAppChooserButtonClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioIconClass.C.withPtr
+        GtkAppChooserButtonClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioIconClass.FFI.withPtr
          ---> I
       )
         appendCustomItem_
@@ -96,14 +96,14 @@ structure GtkAppChooserButton :>
            & label
            & icon
         )
-    fun appendSeparator self = (GtkAppChooserButtonClass.C.withPtr ---> I) appendSeparator_ self
-    fun getHeading self = (GtkAppChooserButtonClass.C.withPtr ---> Utf8.C.fromPtr false) getHeading_ self
-    fun getShowDefaultItem self = (GtkAppChooserButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowDefaultItem_ self
-    fun getShowDialogItem self = (GtkAppChooserButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getShowDialogItem_ self
-    fun setActiveCustomItem self name = (GtkAppChooserButtonClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setActiveCustomItem_ (self & name)
-    fun setHeading self heading = (GtkAppChooserButtonClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setHeading_ (self & heading)
-    fun setShowDefaultItem self setting = (GtkAppChooserButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowDefaultItem_ (self & setting)
-    fun setShowDialogItem self setting = (GtkAppChooserButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setShowDialogItem_ (self & setting)
+    fun appendSeparator self = (GtkAppChooserButtonClass.FFI.withPtr ---> I) appendSeparator_ self
+    fun getHeading self = (GtkAppChooserButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getHeading_ self
+    fun getShowDefaultItem self = (GtkAppChooserButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowDefaultItem_ self
+    fun getShowDialogItem self = (GtkAppChooserButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowDialogItem_ self
+    fun setActiveCustomItem self name = (GtkAppChooserButtonClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setActiveCustomItem_ (self & name)
+    fun setHeading self heading = (GtkAppChooserButtonClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setHeading_ (self & heading)
+    fun setShowDefaultItem self setting = (GtkAppChooserButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowDefaultItem_ (self & setting)
+    fun setShowDialogItem self setting = (GtkAppChooserButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowDialogItem_ (self & setting)
     local
       open ClosureMarshal Signal
     in

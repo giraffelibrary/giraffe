@@ -1,33 +1,24 @@
-structure VteEraseBinding :>
-  sig
-    include VTE_ERASE_BINDING
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure VteEraseBinding :> VTE_ERASE_BINDING =
   struct
-    datatype t =
+    datatype enum =
       AUTO
     | ASCII_BACKSPACE
     | ASCII_DELETE
     | DELETE_SEQUENCE
     | TTY
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = AUTO
+        val toInt =
           fn
-            AUTO => f 0
-          | ASCII_BACKSPACE => f 1
-          | ASCII_DELETE => f 2
-          | DELETE_SEQUENCE => f 3
-          | TTY => f 4
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            AUTO => 0
+          | ASCII_BACKSPACE => 1
+          | ASCII_DELETE => 2
+          | DELETE_SEQUENCE => 3
+          | TTY => 4
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => AUTO
           | 1 => ASCII_BACKSPACE
@@ -35,12 +26,8 @@ structure VteEraseBinding :>
           | 3 => DELETE_SEQUENCE
           | 4 => TTY
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -51,10 +38,9 @@ structure VteEraseBinding :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = AUTO
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

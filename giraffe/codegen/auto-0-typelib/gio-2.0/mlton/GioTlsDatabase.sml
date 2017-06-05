@@ -10,8 +10,8 @@ structure GioTlsDatabase :>
     where type tls_certificate_flags_t = GioTlsCertificateFlags.t
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
-    val getType_ = _import "g_tls_database_get_type" : unit -> GObjectType.C.val_;
-    val createCertificateHandle_ = fn x1 & x2 => (_import "g_tls_database_create_certificate_handle" : GioTlsDatabaseClass.C.notnull GioTlsDatabaseClass.C.p * GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p -> Utf8.C.notnull Utf8.C.out_p;) (x1, x2)
+    val getType_ = _import "g_tls_database_get_type" : unit -> GObjectType.FFI.val_;
+    val createCertificateHandle_ = fn x1 & x2 => (_import "g_tls_database_create_certificate_handle" : GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p * GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
     val lookupCertificateForHandle_ =
       fn
         x1
@@ -22,14 +22,14 @@ structure GioTlsDatabase :>
          & x7 =>
           (
             _import "mlton_g_tls_database_lookup_certificate_for_handle" :
-              GioTlsDatabaseClass.C.notnull GioTlsDatabaseClass.C.p
+              GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * unit GioTlsInteractionClass.C.p
-               * GioTlsDatabaseLookupFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit GioTlsInteractionClass.FFI.p
+               * GioTlsDatabaseLookupFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
           )
             (
               x1,
@@ -47,10 +47,10 @@ structure GioTlsDatabase :>
          & x3 =>
           (
             _import "g_tls_database_lookup_certificate_for_handle_finish" :
-              GioTlsDatabaseClass.C.notnull GioTlsDatabaseClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p;
+              GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
           )
             (
               x1,
@@ -67,13 +67,13 @@ structure GioTlsDatabase :>
          & x6 =>
           (
             _import "g_tls_database_lookup_certificate_issuer" :
-              GioTlsDatabaseClass.C.notnull GioTlsDatabaseClass.C.p
-               * GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p
-               * unit GioTlsInteractionClass.C.p
-               * GioTlsDatabaseLookupFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p;
+              GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p
+               * GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p
+               * unit GioTlsInteractionClass.FFI.p
+               * GioTlsDatabaseLookupFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
           )
             (
               x1,
@@ -90,10 +90,10 @@ structure GioTlsDatabase :>
          & x3 =>
           (
             _import "g_tls_database_lookup_certificate_issuer_finish" :
-              GioTlsDatabaseClass.C.notnull GioTlsDatabaseClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p;
+              GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
           )
             (
               x1,
@@ -112,16 +112,16 @@ structure GioTlsDatabase :>
          & x9 =>
           (
             _import "mlton_g_tls_database_verify_chain" :
-              GioTlsDatabaseClass.C.notnull GioTlsDatabaseClass.C.p
-               * GioTlsCertificateClass.C.notnull GioTlsCertificateClass.C.p
+              GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p
+               * GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * unit GioSocketConnectableClass.C.p
-               * unit GioTlsInteractionClass.C.p
-               * GioTlsDatabaseVerifyFlags.C.val_
-               * unit GioCancellableClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioTlsCertificateFlags.C.val_;
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit GioSocketConnectableClass.FFI.p
+               * unit GioTlsInteractionClass.FFI.p
+               * GioTlsDatabaseVerifyFlags.FFI.val_
+               * unit GioCancellableClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioTlsCertificateFlags.FFI.val_;
           )
             (
               x1,
@@ -141,10 +141,10 @@ structure GioTlsDatabase :>
          & x3 =>
           (
             _import "g_tls_database_verify_chain_finish" :
-              GioTlsDatabaseClass.C.notnull GioTlsDatabaseClass.C.p
-               * GioAsyncResultClass.C.notnull GioAsyncResultClass.C.p
-               * (unit, unit) GLibErrorRecord.C.r
-               -> GioTlsCertificateFlags.C.val_;
+              GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioTlsCertificateFlags.FFI.val_;
           )
             (
               x1,
@@ -161,17 +161,17 @@ structure GioTlsDatabase :>
     type tls_certificate_flags_t = GioTlsCertificateFlags.t
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun createCertificateHandle self certificate = (GioTlsDatabaseClass.C.withPtr &&&> GioTlsCertificateClass.C.withPtr ---> Utf8.C.fromPtr true) createCertificateHandle_ (self & certificate)
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun createCertificateHandle self certificate = (GioTlsDatabaseClass.FFI.withPtr &&&> GioTlsCertificateClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) createCertificateHandle_ (self & certificate)
     fun lookupCertificateForHandle self handle' interaction flags cancellable =
       (
-        GioTlsDatabaseClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioTlsInteractionClass.C.withOptPtr
-         &&&> GioTlsDatabaseLookupFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioTlsDatabaseClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioTlsInteractionClass.FFI.withOptPtr
+         &&&> GioTlsDatabaseLookupFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioTlsCertificateClass.C.fromPtr true
+         ---> GioTlsCertificateClass.FFI.fromPtr true
       )
         lookupCertificateForHandle_
         (
@@ -184,10 +184,10 @@ structure GioTlsDatabase :>
         )
     fun lookupCertificateForHandleFinish self result =
       (
-        GioTlsDatabaseClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioTlsDatabaseClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioTlsCertificateClass.C.fromPtr true
+         ---> GioTlsCertificateClass.FFI.fromPtr true
       )
         lookupCertificateForHandleFinish_
         (
@@ -197,13 +197,13 @@ structure GioTlsDatabase :>
         )
     fun lookupCertificateIssuer self certificate interaction flags cancellable =
       (
-        GioTlsDatabaseClass.C.withPtr
-         &&&> GioTlsCertificateClass.C.withPtr
-         &&&> GioTlsInteractionClass.C.withOptPtr
-         &&&> GioTlsDatabaseLookupFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioTlsDatabaseClass.FFI.withPtr
+         &&&> GioTlsCertificateClass.FFI.withPtr
+         &&&> GioTlsInteractionClass.FFI.withOptPtr
+         &&&> GioTlsDatabaseLookupFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioTlsCertificateClass.C.fromPtr true
+         ---> GioTlsCertificateClass.FFI.fromPtr true
       )
         lookupCertificateIssuer_
         (
@@ -216,10 +216,10 @@ structure GioTlsDatabase :>
         )
     fun lookupCertificateIssuerFinish self result =
       (
-        GioTlsDatabaseClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioTlsDatabaseClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioTlsCertificateClass.C.fromPtr true
+         ---> GioTlsCertificateClass.FFI.fromPtr true
       )
         lookupCertificateIssuerFinish_
         (
@@ -229,15 +229,15 @@ structure GioTlsDatabase :>
         )
     fun verifyChain self chain purpose identity interaction flags cancellable =
       (
-        GioTlsDatabaseClass.C.withPtr
-         &&&> GioTlsCertificateClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GioSocketConnectableClass.C.withOptPtr
-         &&&> GioTlsInteractionClass.C.withOptPtr
-         &&&> GioTlsDatabaseVerifyFlags.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioTlsDatabaseClass.FFI.withPtr
+         &&&> GioTlsCertificateClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioSocketConnectableClass.FFI.withOptPtr
+         &&&> GioTlsInteractionClass.FFI.withOptPtr
+         &&&> GioTlsDatabaseVerifyFlags.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioTlsCertificateFlags.C.fromVal
+         ---> GioTlsCertificateFlags.FFI.fromVal
       )
         verifyChain_
         (
@@ -252,10 +252,10 @@ structure GioTlsDatabase :>
         )
     fun verifyChainFinish self result =
       (
-        GioTlsDatabaseClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioTlsDatabaseClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioTlsCertificateFlags.C.fromVal
+         ---> GioTlsCertificateFlags.FFI.fromVal
       )
         verifyChainFinish_
         (

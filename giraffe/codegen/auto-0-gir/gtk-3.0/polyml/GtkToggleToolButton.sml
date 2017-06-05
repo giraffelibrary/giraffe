@@ -10,21 +10,21 @@ structure GtkToggleToolButton :>
       val getType_ = call (load_sym libgtk "gtk_toggle_tool_button_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (load_sym libgtk "gtk_toggle_tool_button_new") (PolyMLFFI.cVoid --> GtkToolItemClass.PolyML.cPtr)
       val newFromStock_ = call (load_sym libgtk "gtk_toggle_tool_button_new_from_stock") (Utf8.PolyML.cInPtr --> GtkToolItemClass.PolyML.cPtr)
-      val getActive_ = call (load_sym libgtk "gtk_toggle_tool_button_get_active") (GtkToggleToolButtonClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setActive_ = call (load_sym libgtk "gtk_toggle_tool_button_set_active") (GtkToggleToolButtonClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getActive_ = call (load_sym libgtk "gtk_toggle_tool_button_get_active") (GtkToggleToolButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setActive_ = call (load_sym libgtk "gtk_toggle_tool_button_set_active") (GtkToggleToolButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkToggleToolButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.C.withPtr ---> GtkActivatableClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkToggleToolButtonClass.C.fromPtr false) new_ ()
-    fun newFromStock stockId = (Utf8.C.withPtr ---> GtkToggleToolButtonClass.C.fromPtr false) newFromStock_ stockId
-    fun getActive self = (GtkToggleToolButtonClass.C.withPtr ---> FFI.Bool.C.fromVal) getActive_ self
-    fun setActive self isActive = (GtkToggleToolButtonClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setActive_ (self & isActive)
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkToggleToolButtonClass.FFI.fromPtr false) new_ ()
+    fun newFromStock stockId = (Utf8.FFI.withPtr ---> GtkToggleToolButtonClass.FFI.fromPtr false) newFromStock_ stockId
+    fun getActive self = (GtkToggleToolButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getActive_ self
+    fun setActive self isActive = (GtkToggleToolButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setActive_ (self & isActive)
     local
       open ClosureMarshal Signal
     in

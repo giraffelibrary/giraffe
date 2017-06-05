@@ -4,8 +4,8 @@ structure GtkFixed :>
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
-    val getType_ = _import "gtk_fixed_get_type" : unit -> GObjectType.C.val_;
-    val new_ = _import "gtk_fixed_new" : unit -> GtkWidgetClass.C.notnull GtkWidgetClass.C.p;
+    val getType_ = _import "gtk_fixed_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_fixed_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val move_ =
       fn
         x1
@@ -14,10 +14,10 @@ structure GtkFixed :>
          & x4 =>
           (
             _import "gtk_fixed_move" :
-              GtkFixedClass.C.notnull GtkFixedClass.C.p
-               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+              GtkFixedClass.FFI.notnull GtkFixedClass.FFI.p
+               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * GInt32.FFI.val_
+               * GInt32.FFI.val_
                -> unit;
           )
             (
@@ -34,10 +34,10 @@ structure GtkFixed :>
          & x4 =>
           (
             _import "gtk_fixed_put" :
-              GtkFixedClass.C.notnull GtkFixedClass.C.p
-               * GtkWidgetClass.C.notnull GtkWidgetClass.C.p
-               * FFI.Int32.C.val_
-               * FFI.Int32.C.val_
+              GtkFixedClass.FFI.notnull GtkFixedClass.FFI.p
+               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * GInt32.FFI.val_
+               * GInt32.FFI.val_
                -> unit;
           )
             (
@@ -50,16 +50,16 @@ structure GtkFixed :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.C.withPtr ---> AtkImplementorIfaceClass.C.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new () = (I ---> GtkFixedClass.C.fromPtr false) new_ ()
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkFixedClass.FFI.fromPtr false) new_ ()
     fun move self widget x y =
       (
-        GtkFixedClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        GtkFixedClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         move_
@@ -71,10 +71,10 @@ structure GtkFixed :>
         )
     fun put self widget x y =
       (
-        GtkFixedClass.C.withPtr
-         &&&> GtkWidgetClass.C.withPtr
-         &&&> FFI.Int32.C.withVal
-         &&&> FFI.Int32.C.withVal
+        GtkFixedClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
          ---> I
       )
         put_

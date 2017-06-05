@@ -94,6 +94,15 @@ signature C_POINTER =
     (**
      * `add (p, w)` returns a pointer `w` bytes after `p`.
      * `sub (p, w)` returns a pointer `w` bytes before `p`.
+     * If the type word is not wide enough to represent the full address
+     * space, `w` is sign-extended to the type of addresses.
+     * 
+     * Poly/ML note: `ForeignMemory.++` (that is used to implement `add`)
+     * does not appear to sign-extend the offset:
+     *     fun s ++ w = s + SysWord.fromLarge(Word.toLarge w)
+     * Similarly for `ForeignMemory.--` (that is used to implement `sub`).
+     * On a 64 bit platform, SysWord.wordSize = 64 and Word.wordSize = 63
+     * so a negative offset is not properly handled.
      *)
     val add : 'a p * word -> 'a p
     val sub : 'a p * word -> 'a p
@@ -130,6 +139,12 @@ signature C_POINTER =
     (**
      * C type representation of a pointer
      *)
-    structure NotNullType : C_TYPE where type t = notnull p
-    structure OptNullType : C_TYPE where type t = unit p
+    structure NotNullType :
+      C_VALUE_TYPE
+        where type t = notnull p
+        where type v = notnull p
+    structure OptNullType :
+      C_VALUE_TYPE
+        where type t = unit p
+        where type v = unit p
   end

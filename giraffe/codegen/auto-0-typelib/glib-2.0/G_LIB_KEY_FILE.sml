@@ -7,6 +7,11 @@ signature G_LIB_KEY_FILE =
        -> string
        -> string
        -> bool
+    val getBooleanList :
+      t
+       -> string
+       -> string
+       -> bool vector
     val getComment :
       t
        -> string
@@ -17,6 +22,11 @@ signature G_LIB_KEY_FILE =
        -> string
        -> string
        -> real
+    val getDoubleList :
+      t
+       -> string
+       -> string
+       -> real vector
     val getInt64 :
       t
        -> string
@@ -27,18 +37,34 @@ signature G_LIB_KEY_FILE =
        -> string
        -> string
        -> LargeInt.int
+    val getIntegerList :
+      t
+       -> string
+       -> string
+       -> LargeInt.int vector
     val getLocaleString :
       t
        -> string
        -> string
        -> string option
        -> string
+    val getLocaleStringList :
+      t
+       -> string
+       -> string
+       -> string option
+       -> string list
     val getStartGroup : t -> string
     val getString :
       t
        -> string
        -> string
        -> string
+    val getStringList :
+      t
+       -> string
+       -> string
+       -> string list
     val getUint64 :
       t
        -> string
@@ -144,7 +170,7 @@ signature G_LIB_KEY_FILE =
        -> unit
     val setListSeparator :
       t
-       -> LargeInt.int
+       -> Word8.word
        -> unit
     val setLocaleString :
       t
@@ -166,6 +192,12 @@ signature G_LIB_KEY_FILE =
        -> string
        -> string
        -> string
+       -> unit
+    val setStringList :
+      t
+       -> string
+       -> string
+       -> string list
        -> unit
     val setUint64 :
       t

@@ -3,14 +3,17 @@ signature GTK_SOURCE_LANGUAGE =
     type 'a class
     type t = base class
     val getType : unit -> GObject.Type.t
+    val getGlobs : 'a class -> string list
     val getHidden : 'a class -> bool
     val getId : 'a class -> string
     val getMetadata :
       'a class
        -> string
        -> string
+    val getMimeTypes : 'a class -> string list
     val getName : 'a class -> string
     val getSection : 'a class -> string
+    val getStyleIds : 'a class -> string list
     val getStyleName :
       'a class
        -> string

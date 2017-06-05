@@ -17,5 +17,5 @@ structure Vte : VTE =
     structure TerminalWriteFlags = VteTerminalWriteFlags
     structure Pty = VtePty
     structure Terminal = VteTerminal
-    fun getUserShell () = (I ---> Utf8.C.fromPtr true) getUserShell_ ()
+    fun getUserShell () = (I ---> Utf8.FFI.fromPtr 1) getUserShell_ ()
   end

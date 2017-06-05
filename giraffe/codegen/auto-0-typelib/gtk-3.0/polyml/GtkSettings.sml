@@ -22,7 +22,7 @@ structure GtkSettings :>
           (
             GtkSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Double.PolyML.cVal
+             &&> GDouble.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
@@ -31,7 +31,7 @@ structure GtkSettings :>
           (
             GtkSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> FFI.Int64.PolyML.cVal
+             &&> GInt64.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
@@ -63,17 +63,17 @@ structure GtkSettings :>
     type toolbar_style_t = GtkToolbarStyle.t
     type policy_type_t = GtkPolicyType.t
     type t = base class
-    fun asStyleProvider self = (GObjectObjectClass.C.withPtr ---> GtkStyleProviderClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getDefault () = (I ---> GtkSettingsClass.C.fromPtr false) getDefault_ ()
-    fun getForScreen screen = (GdkScreenClass.C.withPtr ---> GtkSettingsClass.C.fromPtr false) getForScreen_ screen
-    fun installProperty pspec = (GObjectParamSpecClass.C.withPtr ---> I) installProperty_ pspec
+    fun asStyleProvider self = (GObjectObjectClass.FFI.withPtr ---> GtkStyleProviderClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getDefault () = (I ---> GtkSettingsClass.FFI.fromPtr false) getDefault_ ()
+    fun getForScreen screen = (GdkScreenClass.FFI.withPtr ---> GtkSettingsClass.FFI.fromPtr false) getForScreen_ screen
+    fun installProperty pspec = (GObjectParamSpecClass.FFI.withPtr ---> I) installProperty_ pspec
     fun setDoubleProperty self name vDouble origin =
       (
-        GtkSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Double.C.withVal
-         &&&> Utf8.C.withPtr
+        GtkSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         setDoubleProperty_
@@ -85,10 +85,10 @@ structure GtkSettings :>
         )
     fun setLongProperty self name vLong origin =
       (
-        GtkSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> FFI.Int64.C.withVal
-         &&&> Utf8.C.withPtr
+        GtkSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt64.FFI.withVal
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         setLongProperty_
@@ -100,9 +100,9 @@ structure GtkSettings :>
         )
     fun setPropertyValue self name svalue =
       (
-        GtkSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GtkSettingsValueRecord.C.withPtr
+        GtkSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GtkSettingsValueRecord.FFI.withPtr
          ---> I
       )
         setPropertyValue_
@@ -113,10 +113,10 @@ structure GtkSettings :>
         )
     fun setStringProperty self name vString origin =
       (
-        GtkSettingsClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> Utf8.C.withPtr
+        GtkSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
          ---> I
       )
         setStringProperty_

@@ -16,24 +16,24 @@ structure GtkToggleAction :>
              &&> Utf8.PolyML.cInOptPtr
              --> GtkToggleActionClass.PolyML.cPtr
           )
-      val getActive_ = call (load_sym libgtk "gtk_toggle_action_get_active") (GtkToggleActionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val getDrawAsRadio_ = call (load_sym libgtk "gtk_toggle_action_get_draw_as_radio") (GtkToggleActionClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val setActive_ = call (load_sym libgtk "gtk_toggle_action_set_active") (GtkToggleActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDrawAsRadio_ = call (load_sym libgtk "gtk_toggle_action_set_draw_as_radio") (GtkToggleActionClass.PolyML.cPtr &&> FFI.Bool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getActive_ = call (load_sym libgtk "gtk_toggle_action_get_active") (GtkToggleActionClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getDrawAsRadio_ = call (load_sym libgtk "gtk_toggle_action_get_draw_as_radio") (GtkToggleActionClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setActive_ = call (load_sym libgtk "gtk_toggle_action_set_active") (GtkToggleActionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDrawAsRadio_ = call (load_sym libgtk "gtk_toggle_action_set_draw_as_radio") (GtkToggleActionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val toggled_ = call (load_sym libgtk "gtk_toggle_action_toggled") (GtkToggleActionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkToggleActionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.C.withPtr ---> GtkBuildableClass.C.fromPtr false) I self
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new name label tooltip stockId =
       (
-        Utf8.C.withPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         &&&> Utf8.C.withOptPtr
-         ---> GtkToggleActionClass.C.fromPtr true
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         ---> GtkToggleActionClass.FFI.fromPtr true
       )
         new_
         (
@@ -42,11 +42,11 @@ structure GtkToggleAction :>
            & tooltip
            & stockId
         )
-    fun getActive self = (GtkToggleActionClass.C.withPtr ---> FFI.Bool.C.fromVal) getActive_ self
-    fun getDrawAsRadio self = (GtkToggleActionClass.C.withPtr ---> FFI.Bool.C.fromVal) getDrawAsRadio_ self
-    fun setActive self isActive = (GtkToggleActionClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setActive_ (self & isActive)
-    fun setDrawAsRadio self drawAsRadio = (GtkToggleActionClass.C.withPtr &&&> FFI.Bool.C.withVal ---> I) setDrawAsRadio_ (self & drawAsRadio)
-    fun toggled self = (GtkToggleActionClass.C.withPtr ---> I) toggled_ self
+    fun getActive self = (GtkToggleActionClass.FFI.withPtr ---> GBool.FFI.fromVal) getActive_ self
+    fun getDrawAsRadio self = (GtkToggleActionClass.FFI.withPtr ---> GBool.FFI.fromVal) getDrawAsRadio_ self
+    fun setActive self isActive = (GtkToggleActionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setActive_ (self & isActive)
+    fun setDrawAsRadio self drawAsRadio = (GtkToggleActionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDrawAsRadio_ (self & drawAsRadio)
+    fun toggled self = (GtkToggleActionClass.FFI.withPtr ---> I) toggled_ self
     local
       open ClosureMarshal Signal
     in

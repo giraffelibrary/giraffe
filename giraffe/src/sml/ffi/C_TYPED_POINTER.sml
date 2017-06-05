@@ -15,13 +15,13 @@ signature C_TYPED_POINTER =
     type e
 
     (**
-     * `offset (p, n)` returns a pointer offset by `n` elements from `p`.
+     * `offset (p, i)` returns a pointer offset by `i` elements from `p`.
      *)
     val offset : t * int -> t
 
     (**
-     * `get (p, n)` gets the element offset by `n` elements from `p`.
-     * `set (p, n, v)` sets the element offset by `n` elements from `p` to `v`.
+     * `get (p, i)` gets the element offset by `i` elements from `p`.
+     * `set (p, i, v)` sets the element offset by `i` elements from `p` to `v`.
      *)
     val get : t * int -> e
     val set : t * int * e -> unit

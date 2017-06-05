@@ -7,13 +7,13 @@ structure GioThreadedSocketService :>
       open PolyMLFFI
     in
       val getType_ = call (load_sym libgio "g_threaded_socket_service_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_threaded_socket_service_new") (FFI.Int.PolyML.cVal --> GioSocketServiceClass.PolyML.cPtr)
+      val new_ = call (load_sym libgio "g_threaded_socket_service_new") (GInt.PolyML.cVal --> GioSocketServiceClass.PolyML.cPtr)
     end
     type 'a class = 'a GioThreadedSocketServiceClass.class
     type 'a socket_connection_class = 'a GioSocketConnectionClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun new maxThreads = (FFI.Int.C.withVal ---> GioThreadedSocketServiceClass.C.fromPtr true) new_ maxThreads
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new maxThreads = (GInt.FFI.withVal ---> GioThreadedSocketServiceClass.FFI.fromPtr true) new_ maxThreads
     local
       open ClosureMarshal Signal
     in

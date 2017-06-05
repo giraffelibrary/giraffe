@@ -10,6 +10,6 @@ structure PangoCairoFont :>
     end
     type 'a class = 'a PangoCairoFontClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun getScaledFont self = (PangoCairoFontClass.C.withPtr ---> CairoScaledFontRecord.C.fromPtr true) getScaledFont_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun getScaledFont self = (PangoCairoFontClass.FFI.withPtr ---> CairoScaledFontRecord.FFI.fromPtr true) getScaledFont_ self
   end

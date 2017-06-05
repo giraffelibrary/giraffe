@@ -1,7 +1,4 @@
-structure GLibAsciiType :>
-  sig
-    include G_LIB_ASCII_TYPE
-  end =
+structure GLibAsciiType :> G_LIB_ASCII_TYPE =
   struct
     val ALNUM = 0w1
     val ALPHA = 0w2
@@ -28,18 +25,9 @@ structure GLibAsciiType :>
         UPPER,
         XDIGIT
       ]
-    structure BitFlags =
-      Word32BitFlags (
+    structure Flags =
+      Flags(
         val allFlags = allFlags
       )
-    open BitFlags
-    type t = flags
-    structure C =
-      struct
-        type val_ = FFI.Flags.C.val_
-        type ref_ = FFI.Flags.C.ref_
-        fun withVal f = f
-        fun withRefVal f = withVal (FFI.Flags.C.withRef f)
-        fun fromVal w = w
-      end
+    open Flags
   end

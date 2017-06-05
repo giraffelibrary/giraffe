@@ -1,43 +1,30 @@
-structure GioEmblemOrigin :>
-  sig
-    include GIO_EMBLEM_ORIGIN
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GioEmblemOrigin :> GIO_EMBLEM_ORIGIN =
   struct
-    datatype t =
+    datatype enum =
       UNKNOWN
     | DEVICE
     | LIVEMETADATA
     | TAG
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = UNKNOWN
+        val toInt =
           fn
-            UNKNOWN => f 0
-          | DEVICE => f 1
-          | LIVEMETADATA => f 2
-          | TAG => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            UNKNOWN => 0
+          | DEVICE => 1
+          | LIVEMETADATA => 2
+          | TAG => 3
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => UNKNOWN
           | 1 => DEVICE
           | 2 => LIVEMETADATA
           | 3 => TAG
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -48,10 +35,9 @@ structure GioEmblemOrigin :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = UNKNOWN
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

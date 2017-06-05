@@ -4,13 +4,13 @@ structure GLibSpawnChildSetupFunc :>
 
     structure PolyML :
       sig
-        val CALLBACK : C.callback PolyMLFFI.conversion
+        val CALLBACK : FFI.callback PolyMLFFI.conversion
       end
   end =
   struct
     type t = unit -> unit
 
-    structure C =
+    structure FFI =
       struct
         type callback = (unit -> unit) PolyMLFFI.closure
         local

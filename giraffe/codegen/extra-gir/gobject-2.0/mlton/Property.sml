@@ -17,10 +17,10 @@ structure Property :>
          & x4 =>
           (
             _import "mlton_g_object_get_property" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
                -> unit;
           )
             (
@@ -37,10 +37,10 @@ structure Property :>
          & x4 =>
           (
             _import "mlton_g_object_set_property" :
-              GObjectObjectClass.C.notnull GObjectObjectClass.C.p
+              GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
-               * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
                -> unit;
           )
             (
@@ -55,9 +55,9 @@ structure Property :>
 
     fun getProperty self propertyName value =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GObjectValueRecord.C.withPtr
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectValueRecord.FFI.withPtr
          ---> I
       )
         getProperty_
@@ -69,9 +69,9 @@ structure Property :>
 
     fun setProperty self propertyName value =
       (
-        GObjectObjectClass.C.withPtr
-         &&&> Utf8.C.withPtr
-         &&&> GObjectValueRecord.C.withPtr
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectValueRecord.FFI.withPtr
          ---> I
       )
         setProperty_

@@ -22,6 +22,7 @@ signature GIO_BUFFERED_INPUT_STREAM =
        -> LargeInt.int
     val getAvailable : 'a class -> LargeInt.int
     val getBufferSize : 'a class -> LargeInt.int
+    val peekBuffer : 'a class -> Word8Vector.vector
     val readByte :
       'a class
        -> 'b cancellable_class option

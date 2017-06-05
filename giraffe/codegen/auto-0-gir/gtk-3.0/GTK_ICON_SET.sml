@@ -11,6 +11,7 @@ signature GTK_ICON_SET =
        -> icon_source_t
        -> unit
     val copy : t -> t
+    val getSizes : t -> LargeInt.int vector
     val renderIconPixbuf :
       t
        -> 'a style_context_class

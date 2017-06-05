@@ -1,43 +1,30 @@
-structure GtkPackDirection :>
-  sig
-    include GTK_PACK_DIRECTION
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkPackDirection :> GTK_PACK_DIRECTION =
   struct
-    datatype t =
+    datatype enum =
       LTR
     | RTL
     | TTB
     | BTT
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = LTR
+        val toInt =
           fn
-            LTR => f 0
-          | RTL => f 1
-          | TTB => f 2
-          | BTT => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            LTR => 0
+          | RTL => 1
+          | TTB => 2
+          | BTT => 3
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => LTR
           | 1 => RTL
           | 2 => TTB
           | 3 => BTT
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -48,10 +35,9 @@ structure GtkPackDirection :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = LTR
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

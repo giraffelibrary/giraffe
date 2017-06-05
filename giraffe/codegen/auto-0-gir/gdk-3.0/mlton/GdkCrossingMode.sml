@@ -1,30 +1,26 @@
-structure GdkCrossingMode :>
-  sig
-    include GDK_CROSSING_MODE
-  end =
+structure GdkCrossingMode :> GDK_CROSSING_MODE =
   struct
-    datatype t =
+    datatype enum =
       NORMAL
     | GRAB
     | UNGRAB
     | GTK_GRAB
     | GTK_UNGRAB
     | STATE_CHANGED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = NORMAL
+        val toInt =
           fn
-            NORMAL => f 0
-          | GRAB => f 1
-          | UNGRAB => f 2
-          | GTK_GRAB => f 3
-          | GTK_UNGRAB => f 4
-          | STATE_CHANGED => f 5
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            NORMAL => 0
+          | GRAB => 1
+          | UNGRAB => 2
+          | GTK_GRAB => 3
+          | GTK_UNGRAB => 4
+          | STATE_CHANGED => 5
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => NORMAL
           | 1 => GRAB
@@ -33,17 +29,17 @@ structure GdkCrossingMode :>
           | 4 => GTK_UNGRAB
           | 5 => STATE_CHANGED
           | n => raise Value n
-      end
-    val getType_ = _import "gdk_crossing_mode_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "gdk_crossing_mode_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = NORMAL
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

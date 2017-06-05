@@ -13,20 +13,32 @@ structure ClosureMarshal :>
   struct
     type ('a, 'b) accessor = ('a, 'b) GObjectValue.accessor
 
+    structure GObjectValueRecordArray = 
+      struct
+        structure C =
+          struct
+            structure Pointer = CTypedPointer (GObjectValueRecord.C.ValueType)
+            type notnull = Pointer.notnull
+            type 'a p = 'a Pointer.p
+            fun get a vs n = GObjectValue.C.get a (Pointer.get (vs, n))
+            fun set a vs n = GObjectValue.C.set a (Pointer.get (vs, n))
+          end
+      end
+
     type state =
       GObjectValueRecord.C.notnull GObjectValueRecord.C.p
-       * GObjectValueRecord.C.notnull GObjectValueRecord.C.Array.array_p
-       * FFI.UInt32.C.val_
-    type callback = state -> unit
+       * GObjectValueRecordArray.C.notnull GObjectValueRecordArray.C.p
+       * GUInt32.FFI.val_
+    type c_callback = state -> unit
 
-    structure ClosureCallback = Callback (struct type callback = callback end)
+    structure ClosureCallback = Callback (struct type callback = c_callback end)
 
     local
       val dispatch :
         ClosureCallback.id
          * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
-         * GObjectValueRecord.C.notnull GObjectValueRecord.C.Array.array_p
-         * FFI.UInt32.C.val_
+         * GObjectValueRecordArray.C.notnull GObjectValueRecordArray.C.p
+         * GUInt32.FFI.val_
          -> unit =
         fn (id, v, vs, size) =>
           case ClosureCallback.lookup id of
@@ -47,8 +59,8 @@ structure ClosureMarshal :>
         _export "giraffe_closure_dispatch_smlside" :
           (ClosureCallback.id
             * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
-            * GObjectValueRecord.C.notnull GObjectValueRecord.C.Array.array_p
-            * FFI.UInt32.C.val_
+            * GObjectValueRecordArray.C.notnull GObjectValueRecordArray.C.p
+            * GUInt32.FFI.val_
             -> unit)
            -> unit;
       dispatch
@@ -64,11 +76,11 @@ structure ClosureMarshal :>
     type 'a set = state -> 'a -> unit
     type 'a ret = state -> 'a -> unit
 
-    fun get n a (_, vs, _) = GObjectValue.C.Array.get a vs n
-    fun set n a (_, vs, _) = GObjectValue.C.Array.set a vs n
+    fun get n a (_, vs, _) = GObjectValueRecordArray.C.get a vs (Word.toInt n)
+    fun set n a (_, vs, _) = GObjectValueRecordArray.C.set a vs (Word.toInt n)
     fun ret a (v, _, _) = GObjectValue.C.set a v
 
-    type 'a marshaller = 'a -> callback
+    type 'a marshaller = 'a -> c_callback
 
     fun (f &&&> g) state = f state & g state
     fun (f ---> g) h state = g state (h (f state))
@@ -82,7 +94,7 @@ structure ClosureMarshal :>
       else raise Fail "GIRAFFE internal error: ret_void used \
                       \for callback that has return value";
 
-    structure C =
+    structure FFI =
       struct
         type callback = ClosureCallback.id
 

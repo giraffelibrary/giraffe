@@ -7,7 +7,7 @@ structure AtkObject :>
     where type relation_type_t = AtkRelationType.t
     where type role_t = AtkRole.t =
   struct
-    val getType_ = _import "atk_object_get_type" : unit -> GObjectType.C.val_;
+    val getType_ = _import "atk_object_get_type" : unit -> GObjectType.FFI.val_;
     val addRelationship_ =
       fn
         x1
@@ -15,22 +15,22 @@ structure AtkObject :>
          & x3 =>
           (
             _import "atk_object_add_relationship" :
-              AtkObjectClass.C.notnull AtkObjectClass.C.p
-               * AtkRelationType.C.val_
-               * AtkObjectClass.C.notnull AtkObjectClass.C.p
-               -> FFI.Bool.C.val_;
+              AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+               * AtkRelationType.FFI.val_
+               * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+               -> GBool.FFI.val_;
           )
             (
               x1,
               x2,
               x3
             )
-    val getDescription_ = _import "atk_object_get_description" : AtkObjectClass.C.notnull AtkObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getIndexInParent_ = _import "atk_object_get_index_in_parent" : AtkObjectClass.C.notnull AtkObjectClass.C.p -> FFI.Int.C.val_;
-    val getNAccessibleChildren_ = _import "atk_object_get_n_accessible_children" : AtkObjectClass.C.notnull AtkObjectClass.C.p -> FFI.Int.C.val_;
-    val getName_ = _import "atk_object_get_name" : AtkObjectClass.C.notnull AtkObjectClass.C.p -> Utf8.C.notnull Utf8.C.out_p;
-    val getParent_ = _import "atk_object_get_parent" : AtkObjectClass.C.notnull AtkObjectClass.C.p -> AtkObjectClass.C.notnull AtkObjectClass.C.p;
-    val getRole_ = _import "atk_object_get_role" : AtkObjectClass.C.notnull AtkObjectClass.C.p -> AtkRole.C.val_;
+    val getDescription_ = _import "atk_object_get_description" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getIndexInParent_ = _import "atk_object_get_index_in_parent" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> GInt.FFI.val_;
+    val getNAccessibleChildren_ = _import "atk_object_get_n_accessible_children" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> GInt.FFI.val_;
+    val getName_ = _import "atk_object_get_name" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getParent_ = _import "atk_object_get_parent" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
+    val getRole_ = _import "atk_object_get_role" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkRole.FFI.val_;
     val notifyStateChange_ =
       fn
         x1
@@ -38,9 +38,9 @@ structure AtkObject :>
          & x3 =>
           (
             _import "atk_object_notify_state_change" :
-              AtkObjectClass.C.notnull AtkObjectClass.C.p
-               * AtkState.C.val_
-               * FFI.Bool.C.val_
+              AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+               * AtkState.FFI.val_
+               * GBool.FFI.val_
                -> unit;
           )
             (
@@ -48,10 +48,10 @@ structure AtkObject :>
               x2,
               x3
             )
-    val refAccessibleChild_ = fn x1 & x2 => (_import "atk_object_ref_accessible_child" : AtkObjectClass.C.notnull AtkObjectClass.C.p * FFI.Int.C.val_ -> AtkObjectClass.C.notnull AtkObjectClass.C.p;) (x1, x2)
-    val refRelationSet_ = _import "atk_object_ref_relation_set" : AtkObjectClass.C.notnull AtkObjectClass.C.p -> AtkRelationSetClass.C.notnull AtkRelationSetClass.C.p;
-    val refStateSet_ = _import "atk_object_ref_state_set" : AtkObjectClass.C.notnull AtkObjectClass.C.p -> AtkStateSetClass.C.notnull AtkStateSetClass.C.p;
-    val removePropertyChangeHandler_ = fn x1 & x2 => (_import "atk_object_remove_property_change_handler" : AtkObjectClass.C.notnull AtkObjectClass.C.p * FFI.UInt.C.val_ -> unit;) (x1, x2)
+    val refAccessibleChild_ = fn x1 & x2 => (_import "atk_object_ref_accessible_child" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p * GInt.FFI.val_ -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;) (x1, x2)
+    val refRelationSet_ = _import "atk_object_ref_relation_set" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p;
+    val refStateSet_ = _import "atk_object_ref_state_set" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p;
+    val removePropertyChangeHandler_ = fn x1 & x2 => (_import "atk_object_remove_property_change_handler" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     val removeRelationship_ =
       fn
         x1
@@ -59,10 +59,10 @@ structure AtkObject :>
          & x3 =>
           (
             _import "atk_object_remove_relationship" :
-              AtkObjectClass.C.notnull AtkObjectClass.C.p
-               * AtkRelationType.C.val_
-               * AtkObjectClass.C.notnull AtkObjectClass.C.p
-               -> FFI.Bool.C.val_;
+              AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+               * AtkRelationType.FFI.val_
+               * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+               -> GBool.FFI.val_;
           )
             (
               x1,
@@ -74,9 +74,9 @@ structure AtkObject :>
         x1 & (x2, x3) =>
           (
             _import "mlton_atk_object_set_description" :
-              AtkObjectClass.C.notnull AtkObjectClass.C.p
+              AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -89,9 +89,9 @@ structure AtkObject :>
         x1 & (x2, x3) =>
           (
             _import "mlton_atk_object_set_name" :
-              AtkObjectClass.C.notnull AtkObjectClass.C.p
+              AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.C.notnull Utf8.MLton.p2
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -99,8 +99,8 @@ structure AtkObject :>
               x2,
               x3
             )
-    val setParent_ = fn x1 & x2 => (_import "atk_object_set_parent" : AtkObjectClass.C.notnull AtkObjectClass.C.p * AtkObjectClass.C.notnull AtkObjectClass.C.p -> unit;) (x1, x2)
-    val setRole_ = fn x1 & x2 => (_import "atk_object_set_role" : AtkObjectClass.C.notnull AtkObjectClass.C.p * AtkRole.C.val_ -> unit;) (x1, x2)
+    val setParent_ = fn x1 & x2 => (_import "atk_object_set_parent" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> unit;) (x1, x2)
+    val setRole_ = fn x1 & x2 => (_import "atk_object_set_role" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p * AtkRole.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a AtkObjectClass.class
     type state_t = AtkState.t
     type 'a relation_set_class = 'a AtkRelationSetClass.class
@@ -108,13 +108,13 @@ structure AtkObject :>
     type relation_type_t = AtkRelationType.t
     type role_t = AtkRole.t
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun addRelationship self relationship target =
       (
-        AtkObjectClass.C.withPtr
-         &&&> AtkRelationType.C.withVal
-         &&&> AtkObjectClass.C.withPtr
-         ---> FFI.Bool.C.fromVal
+        AtkObjectClass.FFI.withPtr
+         &&&> AtkRelationType.FFI.withVal
+         &&&> AtkObjectClass.FFI.withPtr
+         ---> GBool.FFI.fromVal
       )
         addRelationship_
         (
@@ -122,17 +122,17 @@ structure AtkObject :>
            & relationship
            & target
         )
-    fun getDescription self = (AtkObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getDescription_ self
-    fun getIndexInParent self = (AtkObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getIndexInParent_ self
-    fun getNAccessibleChildren self = (AtkObjectClass.C.withPtr ---> FFI.Int.C.fromVal) getNAccessibleChildren_ self
-    fun getName self = (AtkObjectClass.C.withPtr ---> Utf8.C.fromPtr false) getName_ self
-    fun getParent self = (AtkObjectClass.C.withPtr ---> AtkObjectClass.C.fromPtr false) getParent_ self
-    fun getRole self = (AtkObjectClass.C.withPtr ---> AtkRole.C.fromVal) getRole_ self
+    fun getDescription self = (AtkObjectClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDescription_ self
+    fun getIndexInParent self = (AtkObjectClass.FFI.withPtr ---> GInt.FFI.fromVal) getIndexInParent_ self
+    fun getNAccessibleChildren self = (AtkObjectClass.FFI.withPtr ---> GInt.FFI.fromVal) getNAccessibleChildren_ self
+    fun getName self = (AtkObjectClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getParent self = (AtkObjectClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr false) getParent_ self
+    fun getRole self = (AtkObjectClass.FFI.withPtr ---> AtkRole.FFI.fromVal) getRole_ self
     fun notifyStateChange self state value =
       (
-        AtkObjectClass.C.withPtr
-         &&&> AtkState.C.withVal
-         &&&> FFI.Bool.C.withVal
+        AtkObjectClass.FFI.withPtr
+         &&&> AtkState.FFI.withVal
+         &&&> GBool.FFI.withVal
          ---> I
       )
         notifyStateChange_
@@ -141,16 +141,16 @@ structure AtkObject :>
            & state
            & value
         )
-    fun refAccessibleChild self i = (AtkObjectClass.C.withPtr &&&> FFI.Int.C.withVal ---> AtkObjectClass.C.fromPtr true) refAccessibleChild_ (self & i)
-    fun refRelationSet self = (AtkObjectClass.C.withPtr ---> AtkRelationSetClass.C.fromPtr true) refRelationSet_ self
-    fun refStateSet self = (AtkObjectClass.C.withPtr ---> AtkStateSetClass.C.fromPtr true) refStateSet_ self
-    fun removePropertyChangeHandler self handlerId = (AtkObjectClass.C.withPtr &&&> FFI.UInt.C.withVal ---> I) removePropertyChangeHandler_ (self & handlerId)
+    fun refAccessibleChild self i = (AtkObjectClass.FFI.withPtr &&&> GInt.FFI.withVal ---> AtkObjectClass.FFI.fromPtr true) refAccessibleChild_ (self & i)
+    fun refRelationSet self = (AtkObjectClass.FFI.withPtr ---> AtkRelationSetClass.FFI.fromPtr true) refRelationSet_ self
+    fun refStateSet self = (AtkObjectClass.FFI.withPtr ---> AtkStateSetClass.FFI.fromPtr true) refStateSet_ self
+    fun removePropertyChangeHandler self handlerId = (AtkObjectClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) removePropertyChangeHandler_ (self & handlerId)
     fun removeRelationship self relationship target =
       (
-        AtkObjectClass.C.withPtr
-         &&&> AtkRelationType.C.withVal
-         &&&> AtkObjectClass.C.withPtr
-         ---> FFI.Bool.C.fromVal
+        AtkObjectClass.FFI.withPtr
+         &&&> AtkRelationType.FFI.withVal
+         &&&> AtkObjectClass.FFI.withPtr
+         ---> GBool.FFI.fromVal
       )
         removeRelationship_
         (
@@ -158,10 +158,10 @@ structure AtkObject :>
            & relationship
            & target
         )
-    fun setDescription self description = (AtkObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setDescription_ (self & description)
-    fun setName self name = (AtkObjectClass.C.withPtr &&&> Utf8.C.withPtr ---> I) setName_ (self & name)
-    fun setParent self parent = (AtkObjectClass.C.withPtr &&&> AtkObjectClass.C.withPtr ---> I) setParent_ (self & parent)
-    fun setRole self role = (AtkObjectClass.C.withPtr &&&> AtkRole.C.withVal ---> I) setRole_ (self & role)
+    fun setDescription self description = (AtkObjectClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDescription_ (self & description)
+    fun setName self name = (AtkObjectClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setName_ (self & name)
+    fun setParent self parent = (AtkObjectClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> I) setParent_ (self & parent)
+    fun setRole self role = (AtkObjectClass.FFI.withPtr &&&> AtkRole.FFI.withVal ---> I) setRole_ (self & role)
     local
       open ClosureMarshal Signal
     in

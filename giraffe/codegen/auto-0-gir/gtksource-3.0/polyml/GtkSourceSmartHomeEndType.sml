@@ -1,43 +1,30 @@
-structure GtkSourceSmartHomeEndType :>
-  sig
-    include GTK_SOURCE_SMART_HOME_END_TYPE
-    structure PolyML :
-      sig
-        val cVal : C.val_ PolyMLFFI.conversion
-        val cRef : C.ref_ PolyMLFFI.conversion
-      end
-  end =
+structure GtkSourceSmartHomeEndType :> GTK_SOURCE_SMART_HOME_END_TYPE =
   struct
-    datatype t =
+    datatype enum =
       DISABLED
     | BEFORE
     | AFTER
     | ALWAYS
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = DISABLED
+        val toInt =
           fn
-            DISABLED => f 0
-          | BEFORE => f 1
-          | AFTER => f 2
-          | ALWAYS => f 3
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            DISABLED => 0
+          | BEFORE => 1
+          | AFTER => 2
+          | ALWAYS => 3
+        exception Value of GInt.t
+        val fromInt =
           fn
             0 => DISABLED
           | 1 => BEFORE
           | 2 => AFTER
           | 3 => ALWAYS
           | n => raise Value n
-      end
-    structure PolyML =
-      struct
-        val cVal = FFI.Enum.PolyML.cVal
-        val cRef = FFI.Enum.PolyML.cRef
-      end
+      )
+    open Enum
     local
       open PolyMLFFI
     in
@@ -48,10 +35,9 @@ structure GtkSourceSmartHomeEndType :>
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = DISABLED
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

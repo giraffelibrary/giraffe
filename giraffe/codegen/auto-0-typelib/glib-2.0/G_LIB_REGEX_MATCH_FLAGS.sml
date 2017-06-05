@@ -1,9 +1,6 @@
 signature G_LIB_REGEX_MATCH_FLAGS =
   sig
-    eqtype t
-    include
-      BIT_FLAGS
-        where type flags = t
+    include FLAGS
     val ANCHORED : t
     val NOTBOL : t
     val NOTEOL : t
@@ -13,18 +10,4 @@ signature G_LIB_REGEX_MATCH_FLAGS =
     val NEWLINE_LF : t
     val NEWLINE_CRLF : t
     val NEWLINE_ANY : t
-    structure C :
-      sig
-        type val_
-        type ref_
-        val withVal :
-          (val_ -> 'a)
-           -> t
-           -> 'a
-        val withRefVal :
-          (ref_ -> 'a)
-           -> t
-           -> (val_, 'a) pair
-        val fromVal : val_ -> t
-      end
   end

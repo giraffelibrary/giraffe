@@ -15,7 +15,7 @@ structure GioInputStream :>
             GioInputStreamClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
       val closeFinish_ =
         call (load_sym libgio "g_input_stream_close_finish")
@@ -23,27 +23,27 @@ structure GioInputStream :>
             GioInputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Bool.PolyML.cVal
+             --> GBool.PolyML.cVal
           )
-      val hasPending_ = call (load_sym libgio "g_input_stream_has_pending") (GioInputStreamClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
-      val isClosed_ = call (load_sym libgio "g_input_stream_is_closed") (GioInputStreamClass.PolyML.cPtr --> FFI.Bool.PolyML.cVal)
+      val hasPending_ = call (load_sym libgio "g_input_stream_has_pending") (GioInputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isClosed_ = call (load_sym libgio "g_input_stream_is_closed") (GioInputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val readFinish_ =
         call (load_sym libgio "g_input_stream_read_finish")
           (
             GioInputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Int64.PolyML.cVal
+             --> GInt64.PolyML.cVal
           )
-      val setPending_ = call (load_sym libgio "g_input_stream_set_pending") (GioInputStreamClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> FFI.Bool.PolyML.cVal)
+      val setPending_ = call (load_sym libgio "g_input_stream_set_pending") (GioInputStreamClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val skip_ =
         call (load_sym libgio "g_input_stream_skip")
           (
             GioInputStreamClass.PolyML.cPtr
-             &&> FFI.UInt64.PolyML.cVal
+             &&> GUInt64.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Int64.PolyML.cVal
+             --> GInt64.PolyML.cVal
           )
       val skipFinish_ =
         call (load_sym libgio "g_input_stream_skip_finish")
@@ -51,21 +51,21 @@ structure GioInputStream :>
             GioInputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> FFI.Int64.PolyML.cVal
+             --> GInt64.PolyML.cVal
           )
     end
     type 'a class = 'a GioInputStreamClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-    fun clearPending self = (GioInputStreamClass.C.withPtr ---> I) clearPending_ self
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun clearPending self = (GioInputStreamClass.FFI.withPtr ---> I) clearPending_ self
     fun close self cancellable =
       (
-        GioInputStreamClass.C.withPtr
-         &&&> GioCancellableClass.C.withOptPtr
+        GioInputStreamClass.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         close_
         (
@@ -75,10 +75,10 @@ structure GioInputStream :>
         )
     fun closeFinish self result =
       (
-        GioInputStreamClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioInputStreamClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Bool.C.fromVal
+         ---> GBool.FFI.fromVal
       )
         closeFinish_
         (
@@ -86,14 +86,14 @@ structure GioInputStream :>
            & result
            & []
         )
-    fun hasPending self = (GioInputStreamClass.C.withPtr ---> FFI.Bool.C.fromVal) hasPending_ self
-    fun isClosed self = (GioInputStreamClass.C.withPtr ---> FFI.Bool.C.fromVal) isClosed_ self
+    fun hasPending self = (GioInputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) hasPending_ self
+    fun isClosed self = (GioInputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
     fun readFinish self result =
       (
-        GioInputStreamClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioInputStreamClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> GInt64.FFI.fromVal
       )
         readFinish_
         (
@@ -101,14 +101,14 @@ structure GioInputStream :>
            & result
            & []
         )
-    fun setPending self = (GioInputStreamClass.C.withPtr &&&> GLibErrorRecord.handleError ---> FFI.Bool.C.fromVal) setPending_ (self & [])
+    fun setPending self = (GioInputStreamClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) setPending_ (self & [])
     fun skip self count cancellable =
       (
-        GioInputStreamClass.C.withPtr
-         &&&> FFI.UInt64.C.withVal
-         &&&> GioCancellableClass.C.withOptPtr
+        GioInputStreamClass.FFI.withPtr
+         &&&> GUInt64.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> GInt64.FFI.fromVal
       )
         skip_
         (
@@ -119,10 +119,10 @@ structure GioInputStream :>
         )
     fun skipFinish self result =
       (
-        GioInputStreamClass.C.withPtr
-         &&&> GioAsyncResultClass.C.withPtr
+        GioInputStreamClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> FFI.Int64.C.fromVal
+         ---> GInt64.FFI.fromVal
       )
         skipFinish_
         (

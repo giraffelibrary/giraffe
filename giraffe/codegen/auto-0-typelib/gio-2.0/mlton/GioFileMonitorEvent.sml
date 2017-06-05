@@ -1,9 +1,6 @@
-structure GioFileMonitorEvent :>
-  sig
-    include GIO_FILE_MONITOR_EVENT
-  end =
+structure GioFileMonitorEvent :> GIO_FILE_MONITOR_EVENT =
   struct
-    datatype t =
+    datatype enum =
       CHANGED
     | CHANGES_DONE_HINT
     | DELETED
@@ -12,23 +9,22 @@ structure GioFileMonitorEvent :>
     | PRE_UNMOUNT
     | UNMOUNTED
     | MOVED
-    structure C =
-      struct
-        type val_ = FFI.Enum.C.val_
-        type ref_ = FFI.Enum.C.ref_
-        exception Value of FFI.Enum.C.val_
-        fun withVal f =
+    structure Enum =
+      Enum(
+        type enum = enum
+        val null = CHANGED
+        val toInt =
           fn
-            CHANGED => f 0
-          | CHANGES_DONE_HINT => f 1
-          | DELETED => f 2
-          | CREATED => f 3
-          | ATTRIBUTE_CHANGED => f 4
-          | PRE_UNMOUNT => f 5
-          | UNMOUNTED => f 6
-          | MOVED => f 7
-        fun withRefVal f = withVal (FFI.Enum.C.withRef f)
-        val fromVal =
+            CHANGED => 0
+          | CHANGES_DONE_HINT => 1
+          | DELETED => 2
+          | CREATED => 3
+          | ATTRIBUTE_CHANGED => 4
+          | PRE_UNMOUNT => 5
+          | UNMOUNTED => 6
+          | MOVED => 7
+        exception Value of GInt32.t
+        val fromInt =
           fn
             0 => CHANGED
           | 1 => CHANGES_DONE_HINT
@@ -39,17 +35,17 @@ structure GioFileMonitorEvent :>
           | 6 => UNMOUNTED
           | 7 => MOVED
           | n => raise Value n
-      end
-    val getType_ = _import "g_file_monitor_event_get_type" : unit -> GObjectType.C.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p -> C.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.C.notnull GObjectValueRecord.C.p * C.val_ -> unit;) (x1, x2)
+      )
+    open Enum
+    val getType_ = _import "g_file_monitor_event_get_type" : unit -> GObjectType.FFI.val_;
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       GObjectValue.C.createAccessor
         {
-          getType = (I ---> GObjectType.C.fromVal) getType_,
-          getValue = (I ---> C.fromVal) getValue_,
-          setValue = (I &&&> C.withVal ---> I) setValue_
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromVal) getValue_,
+          setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val null = CHANGED
-    val getType = (I ---> GObjectType.C.fromVal) getType_
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end
