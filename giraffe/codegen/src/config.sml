@@ -27,6 +27,10 @@ let
   open GIRepository.Direction
 in
   GIRepository.Override.argInfoDirection := [
+    (* bug 783392 *)
+    (("Gio", SOME "DBusInterfaceInfo", "generate_xml", "string_builder"), IN),
+
+    (* bug 770421 *)
     (("Gtk", SOME "TextIter", "get_attributes", "values"), IN)
   ]
 end;
@@ -52,10 +56,27 @@ structNames := [
   ("GLib", "KeyFile"),
   ("GLib", "MainContext"),
   ("GLib", "MatchInfo"),
+  ("GLib", "PollFD"),
   ("GLib", "Regex"),
   ("GLib", "Source"),
+  ("GLib", "String"),
   ("GLib", "TimeVal"),
+  ("GLib", "Variant"),
+  ("GLib", "VariantType"),
   ("GObject", "Closure"),
+  ("Gio", "DBusAnnotationInfo"),
+  ("Gio", "DBusInterfaceInfo"),
+  ("Gio", "DBusMethodInfo"),
+  ("Gio", "DBusPropertyInfo"),
+  ("Gio", "DBusSignalInfo"),
+  ("Gio", "FileAttributeInfo"),
+  ("Gio", "FileAttributeInfoList"),
+  ("Gio", "FileAttributeMatcher"),
+  ("Gio", "IOExtension"),
+  ("Gio", "IOExtensionPoint"),
+  ("Gio", "IOModuleScope"),
+  ("Gio", "SettingsBackend"),
+  ("Gio", "UnixMountEntry"),
   ("Gdk", "Atom"),
   ("Gdk", "Color"),
   ("Gdk", "Geometry"),

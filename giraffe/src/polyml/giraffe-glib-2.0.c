@@ -36,6 +36,33 @@ giraffe_get_g_error_message (GError *error)
 }
 
 
+/* GPollFD */
+
+GPollFD *
+giraffe_g_pollfd_new (void)
+{
+  return g_slice_new (GPollFD);
+}
+
+void
+giraffe_g_pollfd_copy (const GPollFD *src, GPollFD *dest)
+{
+  memcpy (dest, src, sizeof (GPollFD));
+}
+
+void
+giraffe_g_pollfd_free (GPollFD *pollfd)
+{
+  g_slice_free (GPollFD, pollfd);
+}
+
+guint
+giraffe_g_pollfd_size (void)
+{
+  return sizeof (GPollFD);
+}
+
+
 /* GTimeVal */
 
 GTimeVal *

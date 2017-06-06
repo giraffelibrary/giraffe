@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2016-2017 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -45,6 +45,8 @@ structure GObjectType :> G_OBJECT_TYPE =
 
     val pointer_ = _import "giraffe_g_pointer_get_type" : unit -> FFI.val_;
 
+    val variant_ = _import "giraffe_g_variant_get_type" : unit -> FFI.val_;
+
 
     val isValueType =
       fn gtype =>
@@ -83,4 +85,6 @@ structure GObjectType :> G_OBJECT_TYPE =
     val string = fn () => (I ---> FFI.fromVal) string_ ()
 
     val pointer = fn () => (I ---> FFI.fromVal) pointer_ ()
+
+    val variant = fn () => (I ---> FFI.fromVal) variant_ ()
   end

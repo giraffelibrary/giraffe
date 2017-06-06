@@ -1,4 +1,6 @@
-structure GLibQuark :> G_LIB_QUARK =
+(* GLibQuark is an alias for GUInt32 so transparent signature matching is used.
+ *)
+structure GLibQuark : G_LIB_QUARK =
   struct
     open GUInt32
     type quark = t

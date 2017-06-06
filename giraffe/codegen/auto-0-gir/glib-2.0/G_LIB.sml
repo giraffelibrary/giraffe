@@ -33,6 +33,7 @@ signature G_LIB =
     structure OnceStatus : G_LIB_ONCE_STATUS
     structure OptionArg : G_LIB_OPTION_ARG
     structure OptionFlags : G_LIB_OPTION_FLAGS
+    structure PollFDRecord : G_LIB_POLL_F_D_RECORD
     structure RegexRecord : G_LIB_REGEX_RECORD
     structure RegexCompileFlags : G_LIB_REGEX_COMPILE_FLAGS
     structure RegexMatchFlags : G_LIB_REGEX_MATCH_FLAGS
@@ -40,6 +41,7 @@ signature G_LIB =
     structure SliceConfig : G_LIB_SLICE_CONFIG
     structure SourceRecord : G_LIB_SOURCE_RECORD
     structure SpawnFlags : G_LIB_SPAWN_FLAGS
+    structure StringRecord : G_LIB_STRING_RECORD
     structure TestLogType : G_LIB_TEST_LOG_TYPE
     structure TestTrapFlags : G_LIB_TEST_TRAP_FLAGS
     structure ThreadPriority : G_LIB_THREAD_PRIORITY
@@ -52,8 +54,10 @@ signature G_LIB =
     structure UnicodeScript : G_LIB_UNICODE_SCRIPT
     structure UnicodeType : G_LIB_UNICODE_TYPE
     structure UserDirectory : G_LIB_USER_DIRECTORY
+    structure VariantRecord : G_LIB_VARIANT_RECORD
     structure VariantClass : G_LIB_VARIANT_CLASS
     structure VariantParseError : G_LIB_VARIANT_PARSE_ERROR
+    structure VariantTypeRecord : G_LIB_VARIANT_TYPE_RECORD
     structure ChildWatchFunc :
       G_LIB_CHILD_WATCH_FUNC
         where type pid_t = Pid.t
@@ -70,6 +74,9 @@ signature G_LIB =
       G_LIB_MATCH_INFO
         where type t = MatchInfoRecord.t
         where type regex_t = RegexRecord.t
+    structure PollFD :
+      G_LIB_POLL_F_D
+        where type t = PollFDRecord.t
     structure Regex :
       G_LIB_REGEX
         where type t = RegexRecord.t
@@ -80,9 +87,21 @@ signature G_LIB =
       G_LIB_SOURCE
         where type t = SourceRecord.t
         where type main_context_t = MainContextRecord.t
+    structure String :
+      G_LIB_STRING
+        where type t = StringRecord.t
     structure TimeVal :
       G_LIB_TIME_VAL
         where type t = TimeValRecord.t
+    structure Variant :
+      G_LIB_VARIANT
+        where type t = VariantRecord.t
+        where type variant_class_t = VariantClass.t
+        where type variant_type_t = VariantTypeRecord.t
+        where type quark_t = Quark.t
+    structure VariantType :
+      G_LIB_VARIANT_TYPE
+        where type t = VariantTypeRecord.t
     structure BookmarkFileError :
       G_LIB_BOOKMARK_FILE_ERROR
         where type error_handler = ErrorRecord.handler

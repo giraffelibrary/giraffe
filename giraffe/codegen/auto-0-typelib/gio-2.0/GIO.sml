@@ -21,6 +21,7 @@ signature GIO =
     structure ConverterResult : GIO_CONVERTER_RESULT
     structure CredentialsClass : GIO_CREDENTIALS_CLASS
     structure CredentialsType : GIO_CREDENTIALS_TYPE
+    structure DBusAnnotationInfoRecord : GIO_D_BUS_ANNOTATION_INFO_RECORD
     structure DBusAuthObserverClass : GIO_D_BUS_AUTH_OBSERVER_CLASS
     structure DBusCallFlags : GIO_D_BUS_CALL_FLAGS
     structure DBusCapabilityFlags : GIO_D_BUS_CAPABILITY_FLAGS
@@ -28,6 +29,7 @@ signature GIO =
     structure DBusConnectionFlags : GIO_D_BUS_CONNECTION_FLAGS
     structure DBusError : GIO_D_BUS_ERROR
     structure DBusInterfaceClass : GIO_D_BUS_INTERFACE_CLASS
+    structure DBusInterfaceInfoRecord : GIO_D_BUS_INTERFACE_INFO_RECORD
     structure DBusInterfaceSkeletonClass : GIO_D_BUS_INTERFACE_SKELETON_CLASS
     structure DBusInterfaceSkeletonFlags : GIO_D_BUS_INTERFACE_SKELETON_FLAGS
     structure DBusMessageClass : GIO_D_BUS_MESSAGE_CLASS
@@ -35,6 +37,7 @@ signature GIO =
     structure DBusMessageFlags : GIO_D_BUS_MESSAGE_FLAGS
     structure DBusMessageHeaderField : GIO_D_BUS_MESSAGE_HEADER_FIELD
     structure DBusMessageType : GIO_D_BUS_MESSAGE_TYPE
+    structure DBusMethodInfoRecord : GIO_D_BUS_METHOD_INFO_RECORD
     structure DBusMethodInvocationClass : GIO_D_BUS_METHOD_INVOCATION_CLASS
     structure DBusObjectClass : GIO_D_BUS_OBJECT_CLASS
     structure DBusObjectManagerClass : GIO_D_BUS_OBJECT_MANAGER_CLASS
@@ -43,6 +46,7 @@ signature GIO =
     structure DBusObjectManagerServerClass : GIO_D_BUS_OBJECT_MANAGER_SERVER_CLASS
     structure DBusObjectProxyClass : GIO_D_BUS_OBJECT_PROXY_CLASS
     structure DBusObjectSkeletonClass : GIO_D_BUS_OBJECT_SKELETON_CLASS
+    structure DBusPropertyInfoRecord : GIO_D_BUS_PROPERTY_INFO_RECORD
     structure DBusPropertyInfoFlags : GIO_D_BUS_PROPERTY_INFO_FLAGS
     structure DBusProxyClass : GIO_D_BUS_PROXY_CLASS
     structure DBusProxyFlags : GIO_D_BUS_PROXY_FLAGS
@@ -50,6 +54,7 @@ signature GIO =
     structure DBusServerClass : GIO_D_BUS_SERVER_CLASS
     structure DBusServerFlags : GIO_D_BUS_SERVER_FLAGS
     structure DBusSignalFlags : GIO_D_BUS_SIGNAL_FLAGS
+    structure DBusSignalInfoRecord : GIO_D_BUS_SIGNAL_INFO_RECORD
     structure DBusSubtreeFlags : GIO_D_BUS_SUBTREE_FLAGS
     structure DataStreamByteOrder : GIO_DATA_STREAM_BYTE_ORDER
     structure DataStreamNewlineType : GIO_DATA_STREAM_NEWLINE_TYPE
@@ -62,7 +67,10 @@ signature GIO =
     structure EmblemOrigin : GIO_EMBLEM_ORIGIN
     structure EmblemedIconClass : GIO_EMBLEMED_ICON_CLASS
     structure FileClass : GIO_FILE_CLASS
+    structure FileAttributeInfoRecord : GIO_FILE_ATTRIBUTE_INFO_RECORD
     structure FileAttributeInfoFlags : GIO_FILE_ATTRIBUTE_INFO_FLAGS
+    structure FileAttributeInfoListRecord : GIO_FILE_ATTRIBUTE_INFO_LIST_RECORD
+    structure FileAttributeMatcherRecord : GIO_FILE_ATTRIBUTE_MATCHER_RECORD
     structure FileAttributeStatus : GIO_FILE_ATTRIBUTE_STATUS
     structure FileAttributeType : GIO_FILE_ATTRIBUTE_TYPE
     structure FileCopyFlags : GIO_FILE_COPY_FLAGS
@@ -80,7 +88,10 @@ signature GIO =
     structure FilesystemPreviewType : GIO_FILESYSTEM_PREVIEW_TYPE
     structure IOErrorEnum : GIO_I_O_ERROR_ENUM
     exception IOErrorEnum of IOErrorEnum.t
+    structure IOExtensionRecord : GIO_I_O_EXTENSION_RECORD
+    structure IOExtensionPointRecord : GIO_I_O_EXTENSION_POINT_RECORD
     structure IOModuleClass : GIO_I_O_MODULE_CLASS
+    structure IOModuleScopeRecord : GIO_I_O_MODULE_SCOPE_RECORD
     structure IOModuleScopeFlags : GIO_I_O_MODULE_SCOPE_FLAGS
     structure IOStreamClass : GIO_I_O_STREAM_CLASS
     structure IOStreamSpliceFlags : GIO_I_O_STREAM_SPLICE_FLAGS
@@ -109,6 +120,7 @@ signature GIO =
     exception ResolverError of ResolverError.t
     structure SeekableClass : GIO_SEEKABLE_CLASS
     structure SettingsClass : GIO_SETTINGS_CLASS
+    structure SettingsBackendRecord : GIO_SETTINGS_BACKEND_RECORD
     structure SettingsBindFlags : GIO_SETTINGS_BIND_FLAGS
     structure SimpleActionClass : GIO_SIMPLE_ACTION_CLASS
     structure SimpleActionGroupClass : GIO_SIMPLE_ACTION_GROUP_CLASS
@@ -143,6 +155,7 @@ signature GIO =
     structure TlsRehandshakeMode : GIO_TLS_REHANDSHAKE_MODE
     structure TlsServerConnectionClass : GIO_TLS_SERVER_CONNECTION_CLASS
     structure UnixFDListClass : GIO_UNIX_F_D_LIST_CLASS
+    structure UnixMountEntryRecord : GIO_UNIX_MOUNT_ENTRY_RECORD
     structure UnixMountMonitorClass : GIO_UNIX_MOUNT_MONITOR_CLASS
     structure UnixSocketAddressType : GIO_UNIX_SOCKET_ADDRESS_TYPE
     structure VfsClass : GIO_VFS_CLASS
@@ -198,6 +211,9 @@ signature GIO =
     structure Credentials :
       GIO_CREDENTIALS
         where type 'a class = 'a CredentialsClass.class
+    structure DBusAnnotationInfo :
+      GIO_D_BUS_ANNOTATION_INFO
+        where type t = DBusAnnotationInfoRecord.t
     structure DBusAuthObserver :
       GIO_D_BUS_AUTH_OBSERVER
         where type 'a class = 'a DBusAuthObserverClass.class
@@ -219,6 +235,25 @@ signature GIO =
         where type d_bus_capability_flags_t = DBusCapabilityFlags.t
         where type d_bus_connection_flags_t = DBusConnectionFlags.t
         where type 'a i_o_stream_class = 'a IOStreamClass.class
+    structure DBusInterface :
+      GIO_D_BUS_INTERFACE
+        where type 'a class = 'a DBusInterfaceClass.class
+        where type d_bus_interface_info_t = DBusInterfaceInfoRecord.t
+        where type 'a d_bus_object_class = 'a DBusObjectClass.class
+    structure DBusInterfaceInfo :
+      GIO_D_BUS_INTERFACE_INFO
+        where type t = DBusInterfaceInfoRecord.t
+        where type d_bus_method_info_t = DBusMethodInfoRecord.t
+        where type d_bus_property_info_t = DBusPropertyInfoRecord.t
+        where type d_bus_signal_info_t = DBusSignalInfoRecord.t
+    structure DBusInterfaceSkeleton :
+      GIO_D_BUS_INTERFACE_SKELETON
+        where type 'a class = 'a DBusInterfaceSkeletonClass.class
+        where type 'a d_bus_interface_class = 'a DBusInterfaceClass.class
+        where type 'a d_bus_connection_class = 'a DBusConnectionClass.class
+        where type d_bus_interface_info_t = DBusInterfaceInfoRecord.t
+        where type 'a d_bus_method_invocation_class = 'a DBusMethodInvocationClass.class
+        where type d_bus_interface_skeleton_flags_t = DBusInterfaceSkeletonFlags.t
     structure DBusMessage :
       GIO_D_BUS_MESSAGE
         where type 'a class = 'a DBusMessageClass.class
@@ -226,6 +261,16 @@ signature GIO =
         where type d_bus_message_flags_t = DBusMessageFlags.t
         where type d_bus_message_header_field_t = DBusMessageHeaderField.t
         where type d_bus_message_type_t = DBusMessageType.t
+        where type 'a unix_f_d_list_class = 'a UnixFDListClass.class
+    structure DBusMethodInfo :
+      GIO_D_BUS_METHOD_INFO
+        where type t = DBusMethodInfoRecord.t
+    structure DBusMethodInvocation :
+      GIO_D_BUS_METHOD_INVOCATION
+        where type 'a class = 'a DBusMethodInvocationClass.class
+        where type 'a d_bus_connection_class = 'a DBusConnectionClass.class
+        where type 'a d_bus_message_class = 'a DBusMessageClass.class
+        where type d_bus_method_info_t = DBusMethodInfoRecord.t
         where type 'a unix_f_d_list_class = 'a UnixFDListClass.class
     structure DBusObject :
       GIO_D_BUS_OBJECT
@@ -265,6 +310,23 @@ signature GIO =
         where type 'a d_bus_object_class = 'a DBusObjectClass.class
         where type 'a d_bus_method_invocation_class = 'a DBusMethodInvocationClass.class
         where type 'a d_bus_interface_skeleton_class = 'a DBusInterfaceSkeletonClass.class
+    structure DBusPropertyInfo :
+      GIO_D_BUS_PROPERTY_INFO
+        where type t = DBusPropertyInfoRecord.t
+    structure DBusProxy :
+      GIO_D_BUS_PROXY
+        where type 'a class = 'a DBusProxyClass.class
+        where type 'a async_initable_class = 'a AsyncInitableClass.class
+        where type 'a d_bus_interface_class = 'a DBusInterfaceClass.class
+        where type 'a initable_class = 'a InitableClass.class
+        where type 'a async_result_class = 'a AsyncResultClass.class
+        where type 'a cancellable_class = 'a CancellableClass.class
+        where type 'a unix_f_d_list_class = 'a UnixFDListClass.class
+        where type d_bus_call_flags_t = DBusCallFlags.t
+        where type bus_type_t = BusType.t
+        where type 'a d_bus_connection_class = 'a DBusConnectionClass.class
+        where type d_bus_proxy_flags_t = DBusProxyFlags.t
+        where type d_bus_interface_info_t = DBusInterfaceInfoRecord.t
     structure DBusServer :
       GIO_D_BUS_SERVER
         where type 'a class = 'a DBusServerClass.class
@@ -273,6 +335,9 @@ signature GIO =
         where type 'a d_bus_connection_class = 'a DBusConnectionClass.class
         where type 'a d_bus_auth_observer_class = 'a DBusAuthObserverClass.class
         where type d_bus_server_flags_t = DBusServerFlags.t
+    structure DBusSignalInfo :
+      GIO_D_BUS_SIGNAL_INFO
+        where type t = DBusSignalInfoRecord.t
     structure DesktopAppInfo :
       GIO_DESKTOP_APP_INFO
         where type 'a class = 'a DesktopAppInfoClass.class
@@ -296,6 +361,18 @@ signature GIO =
         where type 'a class = 'a EmblemedIconClass.class
         where type 'a emblem_class = 'a EmblemClass.class
         where type 'a icon_class = 'a IconClass.class
+    structure FileAttributeInfo :
+      GIO_FILE_ATTRIBUTE_INFO
+        where type t = FileAttributeInfoRecord.t
+    structure FileAttributeInfoList :
+      GIO_FILE_ATTRIBUTE_INFO_LIST
+        where type t = FileAttributeInfoListRecord.t
+        where type file_attribute_info_flags_t = FileAttributeInfoFlags.t
+        where type file_attribute_type_t = FileAttributeType.t
+        where type file_attribute_info_t = FileAttributeInfoRecord.t
+    structure FileAttributeMatcher :
+      GIO_FILE_ATTRIBUTE_MATCHER
+        where type t = FileAttributeMatcherRecord.t
     structure FileDescriptorBased :
       GIO_FILE_DESCRIPTOR_BASED
         where type 'a class = 'a FileDescriptorBasedClass.class
@@ -315,6 +392,14 @@ signature GIO =
         where type 'a icon_class = 'a IconClass.class
         where type 'a loadable_icon_class = 'a LoadableIconClass.class
         where type 'a file_class = 'a FileClass.class
+    structure FileInfo :
+      GIO_FILE_INFO
+        where type 'a class = 'a FileInfoClass.class
+        where type file_attribute_type_t = FileAttributeType.t
+        where type file_attribute_matcher_t = FileAttributeMatcherRecord.t
+        where type file_attribute_status_t = FileAttributeStatus.t
+        where type file_type_t = FileType.t
+        where type 'a icon_class = 'a IconClass.class
     structure FileInputStreamClass :
       GIO_FILE_INPUT_STREAM_CLASS
         where type 'a input_stream_class = 'a InputStreamClass.class
@@ -335,9 +420,19 @@ signature GIO =
     structure FilterOutputStreamClass :
       GIO_FILTER_OUTPUT_STREAM_CLASS
         where type 'a output_stream_class = 'a OutputStreamClass.class
+    structure IOExtension :
+      GIO_I_O_EXTENSION
+        where type t = IOExtensionRecord.t
+    structure IOExtensionPoint :
+      GIO_I_O_EXTENSION_POINT
+        where type t = IOExtensionPointRecord.t
+        where type i_o_extension_t = IOExtensionRecord.t
     structure IOModule :
       GIO_I_O_MODULE
         where type 'a class = 'a IOModuleClass.class
+    structure IOModuleScope :
+      GIO_I_O_MODULE_SCOPE
+        where type t = IOModuleScopeRecord.t
     structure IOStream :
       GIO_I_O_STREAM
         where type 'a class = 'a IOStreamClass.class
@@ -439,6 +534,14 @@ signature GIO =
       GIO_SEEKABLE
         where type 'a class = 'a SeekableClass.class
         where type 'a cancellable_class = 'a CancellableClass.class
+    structure Settings :
+      GIO_SETTINGS
+        where type 'a class = 'a SettingsClass.class
+        where type settings_backend_t = SettingsBackendRecord.t
+        where type settings_bind_flags_t = SettingsBindFlags.t
+    structure SettingsBackend :
+      GIO_SETTINGS_BACKEND
+        where type t = SettingsBackendRecord.t
     structure SimpleAction :
       GIO_SIMPLE_ACTION
         where type 'a class = 'a SimpleActionClass.class
@@ -545,6 +648,9 @@ signature GIO =
     structure UnixInputStreamClass :
       GIO_UNIX_INPUT_STREAM_CLASS
         where type 'a input_stream_class = 'a InputStreamClass.class
+    structure UnixMountEntry :
+      GIO_UNIX_MOUNT_ENTRY
+        where type t = UnixMountEntryRecord.t
     structure UnixMountMonitor :
       GIO_UNIX_MOUNT_MONITOR
         where type 'a class = 'a UnixMountMonitorClass.class
@@ -599,6 +705,26 @@ signature GIO =
     structure DataOutputStreamClass :
       GIO_DATA_OUTPUT_STREAM_CLASS
         where type 'a filter_output_stream_class = 'a FilterOutputStreamClass.class
+    structure File :
+      GIO_FILE
+        where type 'a class = 'a FileClass.class
+        where type file_copy_flags_t = FileCopyFlags.t
+        where type 'a file_enumerator_class = 'a FileEnumeratorClass.class
+        where type 'a mount_class = 'a MountClass.class
+        where type 'a icon_class = 'a IconClass.class
+        where type 'a file_monitor_class = 'a FileMonitorClass.class
+        where type file_monitor_flags_t = FileMonitorFlags.t
+        where type 'a app_info_class = 'a AppInfoClass.class
+        where type file_type_t = FileType.t
+        where type file_attribute_info_list_t = FileAttributeInfoListRecord.t
+        where type 'a file_input_stream_class = 'a FileInputStreamClass.class
+        where type 'a file_output_stream_class = 'a FileOutputStreamClass.class
+        where type file_create_flags_t = FileCreateFlags.t
+        where type 'a file_i_o_stream_class = 'a FileIOStreamClass.class
+        where type file_query_info_flags_t = FileQueryInfoFlags.t
+        where type 'a file_info_class = 'a FileInfoClass.class
+        where type 'a cancellable_class = 'a CancellableClass.class
+        where type 'a async_result_class = 'a AsyncResultClass.class
     structure FileIOStream :
       GIO_FILE_I_O_STREAM
         where type 'a class = 'a FileIOStreamClass.class

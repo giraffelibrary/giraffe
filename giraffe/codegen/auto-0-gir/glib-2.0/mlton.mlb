@@ -52,6 +52,8 @@ in
   G_LIB_OPTION_ARG.sml
   G_LIB_OPTION_ERROR.sml
   G_LIB_OPTION_FLAGS.sml
+  G_LIB_POLL_F_D_RECORD.sml
+  G_LIB_POLL_F_D.sml
   G_LIB_REGEX_RECORD.sml
   G_LIB_REGEX.sml
   G_LIB_REGEX_COMPILE_FLAGS.sml
@@ -64,6 +66,8 @@ in
   G_LIB_SOURCE.sml
   G_LIB_SPAWN_ERROR.sml
   G_LIB_SPAWN_FLAGS.sml
+  G_LIB_STRING_RECORD.sml
+  G_LIB_STRING.sml
   G_LIB_TEST_LOG_TYPE.sml
   G_LIB_TEST_TRAP_FLAGS.sml
   G_LIB_THREAD_ERROR.sml
@@ -78,8 +82,12 @@ in
   G_LIB_UNICODE_SCRIPT.sml
   G_LIB_UNICODE_TYPE.sml
   G_LIB_USER_DIRECTORY.sml
+  G_LIB_VARIANT_RECORD.sml
+  G_LIB_VARIANT.sml
   G_LIB_VARIANT_CLASS.sml
   G_LIB_VARIANT_PARSE_ERROR.sml
+  G_LIB_VARIANT_TYPE_RECORD.sml
+  G_LIB_VARIANT_TYPE.sml
   G_LIB.sml
   mlton/GLibSourceFunc.sml
   mlton/GLibSpawnChildSetupFunc.sml
@@ -114,6 +122,7 @@ in
   mlton/GLibOnceStatus.sml
   mlton/GLibOptionArg.sml
   mlton/GLibOptionFlags.sml
+  mlton/GLibPollFDRecord.sml
   mlton/GLibRegexRecord.sml
   mlton/GLibRegexCompileFlags.sml
   mlton/GLibRegexMatchFlags.sml
@@ -121,6 +130,7 @@ in
   mlton/GLibSliceConfig.sml
   mlton/GLibSourceRecord.sml
   mlton/GLibSpawnFlags.sml
+  mlton/GLibStringRecord.sml
   mlton/GLibTestLogType.sml
   mlton/GLibTestTrapFlags.sml
   mlton/GLibThreadPriority.sml
@@ -133,16 +143,22 @@ in
   mlton/GLibUnicodeScript.sml
   mlton/GLibUnicodeType.sml
   mlton/GLibUserDirectory.sml
+  mlton/GLibVariantRecord.sml
   mlton/GLibVariantClass.sml
   mlton/GLibVariantParseError.sml
+  mlton/GLibVariantTypeRecord.sml
   mlton/GLibChildWatchFunc.sml
   mlton/GLibIOFunc.sml
   mlton/GLibErrorRecord.sml
   mlton/GLibKeyFile.sml
   mlton/GLibMatchInfo.sml
+  mlton/GLibPollFD.sml
   mlton/GLibRegex.sml
   mlton/GLibSource.sml
+  mlton/GLibString.sml
   mlton/GLibTimeVal.sml
+  mlton/GLibVariant.sml
+  mlton/GLibVariantType.sml
   mlton/GLibBookmarkFileError.sml
   mlton/GLibConvertError.sml
   mlton/GLibError.sml

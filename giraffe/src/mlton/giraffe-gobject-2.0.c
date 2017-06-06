@@ -111,6 +111,12 @@ giraffe_g_pointer_get_type (void)
 }
 
 GType
+giraffe_g_variant_get_type (void)
+{
+  return G_TYPE_VARIANT;
+}
+
+GType
 giraffe_g_param_get_type (void)
 {
   return G_TYPE_PARAM;

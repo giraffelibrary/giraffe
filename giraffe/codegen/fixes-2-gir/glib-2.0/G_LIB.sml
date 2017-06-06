@@ -18,14 +18,18 @@ signature G_LIB =
     structure LogLevelFlags : G_LIB_LOG_LEVEL_FLAGS
     structure MainContextRecord : G_LIB_MAIN_CONTEXT_RECORD
     structure MatchInfoRecord : G_LIB_MATCH_INFO_RECORD
+    structure PollFDRecord : G_LIB_POLL_F_D_RECORD
     structure RegexRecord : G_LIB_REGEX_RECORD
     structure RegexCompileFlags : G_LIB_REGEX_COMPILE_FLAGS
     structure RegexMatchFlags : G_LIB_REGEX_MATCH_FLAGS
     structure SeekType : G_LIB_SEEK_TYPE
     structure SourceRecord : G_LIB_SOURCE_RECORD
     structure SpawnFlags : G_LIB_SPAWN_FLAGS
+    structure StringRecord : G_LIB_STRING_RECORD
     structure TimeValRecord : G_LIB_TIME_VAL_RECORD
     structure UserDirectory : G_LIB_USER_DIRECTORY
+    structure VariantRecord : G_LIB_VARIANT_RECORD
+    structure VariantTypeRecord : G_LIB_VARIANT_TYPE_RECORD
     structure ChildWatchFunc :
       G_LIB_CHILD_WATCH_FUNC
         where type pid_t = Pid.t
