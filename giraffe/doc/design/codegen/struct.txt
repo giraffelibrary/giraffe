@@ -8,6 +8,20 @@ Context
   structInfo
     the struct typelib info
 
+  structType
+    extra information provided as part of codegen configuration indicating the
+    struct type as follows:
+
+      ValueRecord         - the struct can be used like a value in C (and
+                            therefore also like a reference in C via a pointer);
+
+      Record {dup, free}  - the struct can only be used like a reference in C
+                            via a pointer, where C functions `dup` and `free`
+                            duplicate (or ref) and free (or unref) such a struct
+                            in C;
+
+      DisguisedRecord     - the struct is opaque and is just a pointer in C.
+
 
 Placeholders
 
@@ -27,10 +41,194 @@ Conditions
 
 ==Record signature==
 
+signature <STRUCT_NAMESPACE>_<STRUCT_NAME>_RECORD =
+  sig
+                                                               -.
+    include VALUE_RECORD                                        | structType = ValueRecord
+                                                               -'
+                                                               -.
+    include RECORD                                              | structType <> ValueRecord
+                                                               -'
+                                                               -.                -.
+    type ('a, 'b) value_accessor                                |                 |
+    val t : (t, t) value_accessor                               | isGObject       |
+    val tOpt : (t option, t option) value_accessor              |                 |
+                                                               -'                 | optGetTypeSymbol is SOME _
+                                                               -.                 |
+    val t : (t, t) GObject.Value.accessor                       | not isGObject   |
+    val tOpt : (t option, t option) GObject.Value.accessor      |                 |
+                                                               -'                -'
+  end
 
 
 ==Record structure==
 
+structure <StructNamespace><StructName>Record :>
+  <STRUCT_NAMESPACE>_<STRUCT_NAME>_RECORD
+                                                                          -.
+    where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor    | isGObject
+                                                                          -'
+=
+  struct
+                                                                                                                -.
+    structure Pointer = CPointerInternal                                                                         |
+    type notnull = Pointer.notnull                                                                               | structType is ValueRecord | Record _
+    type 'a p = 'a Pointer.p                                                                                     |
+                                                                                                                -'
+                                                                                                                -.
+    val cPtr = Pointer.PolyML.cVal : notnull p PolyMLFFI.conversion                                              |
+                                                                                                                 |
+    local                                                                                                        |
+      open PolyMLFFI                                                                                             |
+    in                                                                                                           |
+                                                                                          -.                     |
+      val new_ =                                                                           |                     |
+        call                                                                               |                     |
+          (getSymbol "giraffe_<struct_namespace>_<struct_name>_new")                       |                     |
+          (cVoid --> cPtr)                                                                 |                     |
+                                                                                           |                     |
+      val copy_ =                                                                          |                     |
+        call                                                                               |                     |
+          (getSymbol "giraffe_<struct_namespace>_<struct_name>_copy")                      |                     |
+          (cPtr &&> cPtr --> cVoid)                                                        |                     |
+                                                                                           | structType is       |
+      val free_ =                                                                          |  ValueRecord        |
+        call                                                                               |                     |
+          (getSymbol "giraffe_<struct_namespace>_<struct_name>_free")                      |                     |
+          (cPtr --> cVoid)                                                                 |                     |
+                                                                                           |                     |
+      val size_ =                                                                          |                     | Poly/ML only
+        call                                                                               |                     |
+          (getSymbol "giraffe_<struct_namespace>_<struct_name>_size")                      |                     | structType is ValueRecord | Record _
+          (cVoid --> GUInt.PolyML.cVal)                                                    |                     |
+                                                                                          -'                     |
+                                                                                          -.                     |
+      val dup_ =                                                                           |                     |
+        call                                                                               |                     |
+          (getSymbol "<dup>")                                                              |                     |
+          (cPtr --> cPtr)                                                                  | structType is       |
+                                                                                           |  Record {dup, free} |
+      val free_ =                                                                          |                     |
+        call                                                                               |                     |
+          (getSymbol "<free>")                                                             |                     |
+          (cPtr --> cVoid)                                                                 |                     |
+                                                                                          -'                     |
+    end                                                                                                          |
+                                                                                                                -'
+                                                                                          -.                    -.
+    val new_ =                                                                             |                     |
+      _import "giraffe_<struct_namespace>_<struct_name>_new" : unit -> notnull p;          |                     |
+                                                                                           |                     |
+    val copy_ =                                                                            |                     |
+      fn x1 & x2 =>                                                                        |                     |
+        (_import "giraffe_<struct_namespace>_<struct_name>_copy" : notnull p * notnull p -> unit;)               |
+        (x1, x2)                                                                           |                     |
+                                                                                           | structType is       |
+    val free_ =                                                                            |  ValueRecord        | MLton only
+      _import "giraffe_<struct_namespace>_<struct_name>_free" : notnull p -> unit;         |                     |
+                                                                                           |                     |
+    val size_ =                                                                            |                     |
+      _import "giraffe_<struct_namespace>_<struct_name>_size" : unit -> GUInt.FFI.val_;    |                     |
+                                                                                          -'                     |
+                                                                                          -.                     |
+    val dup_ = _import "<dup>" : notnull p -> notnull p;                                   | structType is       |
+                                                                                           |  Record {dup, free} |
+    val free_ = _import "<free>" : notnull p -> unit;                                      |                     |
+                                                                                          -'                    -'
+                                                                                          -.
+    structure Record =                                                                     |
+      BoxedValueRecord(                                                                    |
+        structure Pointer = Pointer                                                        |
+        type notnull = notnull                                                             |
+        type 'a p = 'a p                                                                   |
+        val new_ = new_                                                                    |
+        val copy_ = copy_                                                                  | structType is ValueRecord
+        val take_ = ignore                                                                 |
+        val clear_ = ignore                                                                |
+        val free_ = free_                                                                  |
+        val size_ = size_                                                                  |
+      )                                                                                    |
+                                                                                          -'
+                                                                                          -.
+    structure Record =                                                                     |
+      BoxedRecord(                                                                         |
+        structure Pointer = Pointer                                                        |
+        type notnull = notnull                                                             |
+        type 'a p = 'a p                                                                   | structType is Record _
+        val dup_ = dup_                                                                    |
+        val take_ = ignore                                                                 |
+        val free_ = free_                                                                  |
+      )                                                                                    |
+                                                                                          -'
+                                                                                          -.
+    structure Record =                                                                     |
+      PointerRecord(                                                                       |
+        val name = "<StructNamespace>.<StructName>"                                        | structType is DisguisedRecord
+      )                                                                                    |
+                                                                                          -'
+    open Record
+                                                                            -.              -.
+    local                                                                    |               |
+      open PolyMLFFI                                                         |               |
+    in                                                                       |               |
+      val getType_ =                                                         |               |
+        call                                                                 |               |
+          (getSymbol "<getTypeSymbol>")                                      | Poly/ML only  |
+          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);                     |               |
+                                                                             |               |
+      val getValue_ =                                                        |               |
+        call                                                                 |               |
+          (getSymbol "g_value_get_boxed")                                    |               |
+          (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr);                  |               |
+                                                                             |               |
+      val getOptValue_ =                                                     |               |
+        call                                                                 |               |
+          (getSymbol "g_value_get_boxed")                                    |               |
+          (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);               |               |
+                                                                             |               |
+      val setValue_ =                                                        |               |
+        call                                                                 |               |
+          (getSymbol "g_value_set_boxed")                                    |               |
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid);              |
+                                                                             |               |
+      val setOptValue_ =                                                     |               |
+        call                                                                 |               |
+          (getSymbol "g_value_set_boxed")                                    |               |
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid);           |
+    end                                                                      |               | optGetTypeSymbol
+                                                                            -'               |  is SOME getTypeSymbol
+                                                                            -.               |
+    val getType_ = _import "<getTypeSymbol>" : unit -> GObjectType.FFI.val_; |               |
+                                                                             |               |
+    val getValue_ =                                                          |               |
+      _import "g_value_get_boxed" : GObjectValueRecord.FFI.p -> FFI.notnull FFI.p;           |
+                                                                             |               |
+    val getOptValue_ =                                                       |               |
+      _import "g_value_get_boxed" : GObjectValueRecord.FFI.p -> unit FFI.p;  | MLton only    |
+                                                                             |               |
+    val setValue_ =                                                          |               |
+      _import "g_value_set_boxed" : GObjectValueRecord.FFI.p * FFI.notnull FFI.p -> unit;    |
+                                                                             |               |
+    val setOptValue_ =                                                       |               |
+      _import "g_value_set_boxed" : GObjectValueRecord.FFI.p * unit FFI.p -> unit;           |
+                                                                            -'               |
+                                                                            -.               |
+    type ('a, 'b) value_accessor = ('a, 'b) GObject.Value.accessor           | isGObject     |
+                                                                            -'               |
+    val t =                                                                                  |
+      GObjectValue.C.createAccessor {                                                        |
+        getType  = (I ---> GObjectType.FFI.fromVal) getType_,                                |
+        getValue = (I ---> FFI.fromPtr false) getValue_,                                     |
+        setValue = (I &&&> FFI.withPtr ---> I) setValue_                                     |
+      }                                                                                      |
+    val tOpt =                                                                               |
+      GObjectValue.C.createAccessor {                                                        |
+        getType  = (I ---> GObjectType.FFI.fromVal) getType_,                                |
+        getValue = (I ---> FFI.fromOptPtr false) getOptValue_,                               |
+        setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_                               |
+      }                                                                                      |
+                                                                                            -'
+  end
 
 
 ==Struct signature==

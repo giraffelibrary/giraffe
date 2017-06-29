@@ -2584,33 +2584,29 @@ local
    *   <A>.cOut<Opt>Ref
    *   <A>.cInOut<Opt>Ref
    *)
-  fun convExp prefixIds spec =
-    let
-      val convId =
-        case spec of
-          VAL                         => "cVal"
-        | PTR {optDir, isOpt}         =>
-            let
-              val dirStr =
-               case optDir of
-                  NONE     => ""
-                | SOME In  => "In"
-                | SOME Out => "Out"
-              val optStr = if isOpt then "Opt" else ""
-            in
-              concat ["c", dirStr, optStr, "Ptr"]
-            end
-        | REF NONE                    => "cRef"
-        | REF (SOME {isInOut, isOpt}) =>
-            let
-              val inOutStr = if isInOut then "InOut" else "Out"
-              val optStr = if isOpt then "Opt" else ""
-            in
-              concat ["c", inOutStr, optStr, "Ref"]
-            end
-    in
-      mkLIdLNameExp (prefixIds @ [convId])
-    end
+  fun convId spec =
+    case spec of
+      VAL                         => "cVal"
+    | PTR {optDir, isOpt}         =>
+        let
+          val dirStr =
+            case optDir of
+              NONE     => ""
+            | SOME In  => "In"
+            | SOME Out => "Out"
+          val optStr = if isOpt then "Opt" else ""
+        in
+          concat ["c", dirStr, optStr, "Ptr"]
+        end
+    | REF NONE                    => "cRef"
+    | REF (SOME {isInOut, isOpt}) =>
+        let
+          val inOutStr = if isInOut then "InOut" else "Out"
+          val optStr = if isOpt then "Opt" else ""
+        in
+          concat ["c", inOutStr, optStr, "Ref"]
+        end
+  fun convExp prefixIds spec = mkLIdLNameExp (prefixIds @ [convId spec])
 
   val retVoidConv = cVoidConv
 
@@ -2618,8 +2614,8 @@ local
     let
       val prefixIds =
         case optIRef of
-          NONE      => [gStrId ^ scalarStrId ty, PolyMLId]
-        | SOME iRef => prefixInterfaceStrId iRef [PolyMLId]
+          NONE      => [gStrId ^ scalarStrId ty, polyMLStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [polyMLStrId]
     in
       convExp prefixIds (
         if dir <> IN
@@ -2634,8 +2630,8 @@ local
     let
       val prefixIds =
         case optIRef of
-          NONE      => [gStrId ^ scalarStrId ty, PolyMLId]
-        | SOME iRef => prefixInterfaceStrId iRef [PolyMLId]
+          NONE      => [gStrId ^ scalarStrId ty, polyMLStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [polyMLStrId]
     in
       convExp prefixIds VAL
     end
@@ -2644,8 +2640,8 @@ local
     let
       val prefixIds =
         case optIRef of
-          NONE      => [utf8StrId, PolyMLId]
-        | SOME iRef => prefixInterfaceStrId iRef [PolyMLId]
+          NONE      => [utf8StrId, polyMLStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [polyMLStrId]
     in
       convExp prefixIds (
         if dir <> IN
@@ -2668,8 +2664,8 @@ local
     let
       val prefixIds =
         case optIRef of
-          NONE      => [utf8StrId, PolyMLId]
-        | SOME iRef => prefixInterfaceStrId iRef [PolyMLId]
+          NONE      => [utf8StrId, polyMLStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [polyMLStrId]
     in
       convExp prefixIds (
         PTR {
@@ -2683,8 +2679,8 @@ local
     let
       val prefixIds =
         case optIRef of
-          NONE      => [cArrayStrId length elem, PolyMLId]
-        | SOME iRef => prefixInterfaceStrId iRef [PolyMLId]
+          NONE      => [cArrayStrId length elem, polyMLStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [polyMLStrId]
     in
       convExp prefixIds (
         if dir <> IN
@@ -2707,8 +2703,8 @@ local
     let
       val prefixIds =
         case optIRef of
-          NONE      => [cArrayStrId length elem, PolyMLId]
-        | SOME iRef => prefixInterfaceStrId iRef [PolyMLId]
+          NONE      => [cArrayStrId length elem, polyMLStrId]
+        | SOME iRef => prefixInterfaceStrId iRef [polyMLStrId]
     in
       convExp prefixIds (
         PTR {
@@ -2727,18 +2723,18 @@ local
       open InfoType
       val prefixIds =
         case infoType of
-          OBJECT _    => prefixInterfaceStrId iRef [PolyMLId]
-        | INTERFACE _ => prefixInterfaceStrId iRef [PolyMLId]
-        | STRUCT _    => prefixInterfaceStrId iRef [PolyMLId]
+          OBJECT _    => prefixInterfaceStrId iRef [polyMLStrId]
+        | INTERFACE _ => prefixInterfaceStrId iRef [polyMLStrId]
+        | STRUCT _    => prefixInterfaceStrId iRef [polyMLStrId]
         | _           =>
             if isSelf
-            then [PolyMLId]
-            else prefixInterfaceStrId iRef [PolyMLId]
+            then [polyMLStrId]
+            else prefixInterfaceStrId iRef [polyMLStrId]
  * Is above really needed?
  * Doesn't `prefixInterfaceStrId` handle SIMPLE case for LOCALINTERFACESELF?
  * Let's see...
  *)
-      val prefixIds = prefixInterfaceStrId iRef [PolyMLId]
+      val prefixIds = prefixInterfaceStrId iRef [polyMLStrId]
 
       open InfoType
     in
@@ -2779,19 +2775,19 @@ local
       open InfoType
       val prefixIds =
         case infoType of
-          OBJECT _    => prefixInterfaceStrId iRef [PolyMLId]
-        | INTERFACE _ => prefixInterfaceStrId iRef [PolyMLId]
-        | STRUCT _    => prefixInterfaceStrId iRef [PolyMLId]
+          OBJECT _    => prefixInterfaceStrId iRef [polyMLStrId]
+        | INTERFACE _ => prefixInterfaceStrId iRef [polyMLStrId]
+        | STRUCT _    => prefixInterfaceStrId iRef [polyMLStrId]
         | _           =>
             if isSelf
-            then [PolyMLId]
-            else prefixInterfaceStrId iRef [PolyMLId]
+            then [polyMLStrId]
+            else prefixInterfaceStrId iRef [polyMLStrId]
 
  * Is above really needed?
  * Doesn't `prefixInterfaceStrId` handle SIMPLE case for LOCALINTERFACESELF?
  * Let's see...
  *)
-      val prefixIds = prefixInterfaceStrId iRef [PolyMLId]
+      val prefixIds = prefixInterfaceStrId iRef [polyMLStrId]
 
       open InfoType
     in
@@ -2811,6 +2807,7 @@ local
       )
     end
 in
+  val makeConvId = convId
   val makeConv = convExp
 
   fun addParInfo (parInfo, acc) =
@@ -2855,7 +2852,7 @@ in
 
   fun parSelfConv iRef =
     convExp
-      (prefixInterfaceStrId iRef [PolyMLId])
+      (prefixInterfaceStrId iRef [polyMLStrId])
       (
         PTR {
           optDir = NONE,
@@ -2865,7 +2862,7 @@ in
 
   fun parErrConv namespace optName =
     convExp
-      (prefixInterfaceStrId (makeErrorIRef namespace optName) [PolyMLId])
+      (prefixInterfaceStrId (makeErrorIRef namespace optName) [polyMLStrId])
       (
         REF (
           SOME {
@@ -2997,7 +2994,7 @@ fun makeFunctionStrDecLowLevelPolyML
 fun getTypeStrDecLowLevelPolyML getTypeSymbol =
   let
     val parConvs = cVoidConv
-    val retConv = makeConv ["GObjectType", PolyMLId] VAL
+    val retConv = makeConv ["GObjectType", polyMLStrId] VAL
   in
     StrDecDec (
       mkIdValDec (
@@ -3667,7 +3664,7 @@ fun getTypeStrDecLowLevelMLton getTypeSymbol =
 fun mkPolyMLFFILocalStrDec strDecs =
   StrDecLocal (
     mkStrDecs [
-      StrDecDec (DecOpen (toList1 [toList1 [PolyMLFFIId]]))
+      StrDecDec (DecOpen (toList1 [toList1 [polyMLFFIStrId]]))
     ],
     mkStrDecs strDecs
   )

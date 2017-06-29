@@ -1,3 +1,10 @@
+(* Copyright (C) 2013, 2015-2017 Phil Clayton <phil.clayton@veonix.com>
+ *
+ * This file is part of the Giraffe Library runtime.  For your rights to use
+ * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+ * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+ *)
+
 structure GObjectClosureRecord :>
   G_OBJECT_CLOSURE_RECORD
     where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor =
@@ -5,9 +12,7 @@ structure GObjectClosureRecord :>
     structure Pointer = CPointerInternal
     type notnull = Pointer.notnull
     type 'a p = 'a Pointer.p
-
-    val cPtr = Pointer.PolyML.cVal : notnull p PolyMLFFI.conversion
-
+    val cPtr = Pointer.PolyML.cVal
     local
       open PolyMLFFI
     in
@@ -49,15 +54,7 @@ structure GObjectClosureRecord :>
           call
             (getSymbol "g_closure_unref")
             (cPtr --> cVoid)
-
-      val getType_ =
-        call
-          (getSymbol "g_closure_get_type")
-          (cVoid --> GObjectType.PolyML.cVal);
     end
-
-    type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
-
     structure Record =
       BoxedRecord(
         structure Pointer = Pointer
@@ -68,12 +65,28 @@ structure GObjectClosureRecord :>
         val free_ = free_
       )
     open Record
-
-    structure Type =
-      BoxedType(
-        structure Record = Record
-        type t = t
-        val getType_ = getType_
-      )
-    open Type
+    local
+      open PolyMLFFI
+    in
+      val getType_ = call (getSymbol "g_closure_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getValue_ = call (getSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr)
+      val getOptValue_ = call (getSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr)
+      val setValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setOptValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid)
+    end
+    type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
+    val t =
+      GObjectValue.C.createAccessor
+        {
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromPtr false) getValue_,
+          setValue = (I &&&> FFI.withPtr ---> I) setValue_
+        }
+    val tOpt =
+      GObjectValue.C.createAccessor
+        {
+          getType = (I ---> GObjectType.FFI.fromVal) getType_,
+          getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
+          setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_
+        }
   end

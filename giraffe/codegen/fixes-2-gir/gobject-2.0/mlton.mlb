@@ -92,7 +92,6 @@ in
   mlton/GObjectBindingFlags.sml
   mlton/CVector.sml
   mlton/CVectorN.sml
-  mlton/BoxedType.sml
   mlton/ClosureMarshal.sml
   mlton/GObjectClosureRecord.sml
   mlton/GObjectObjectClass.sml

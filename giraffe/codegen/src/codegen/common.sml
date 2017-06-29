@@ -279,25 +279,25 @@ end
  *       val getValue_ =                                      |
  *         call                                               |
  *           (getSymbol "g_value_get_<valueType>")            |
- *           (GObjectValue.PolyML.cPtr --> <retConv>);        |
+ *           (GObjectValueRecord.PolyML.cPtr --> <retConv>);  |
  *                                                            |
  *                                             -.             |
  *       val getOptValue_ =                     | isPtr       |
  *         call                                 |             | Poly/ML only
  *           (getSymbol "g_value_get_<valueType>")            |
- *           (GObjectValue.PolyML.cPtr --> <retOptConv>);     |
+ *           (GObjectValueRecord.PolyML.cPtr --> <retOptConv>);
  *                                             -'             |
  *                                                            |
  *       val setValue_ =                                      |
  *         call                                               |
  *           (getSymbol "g_value_set_<valueType>")            |
- *           (GObjectValue.PolyML.cPtr &&> <parConv> --> PolyMLFFI.cVoid);
+ *           (GObjectValueRecord.PolyML.cPtr &&> <parConv> --> PolyMLFFI.cVoid);
  *                                                            |
  *                                             -.             |
  *       val setOptValue_ =                     | isPtr       |
  *         call                                 |             |
  *           (getSymbol "g_value_set_<valueType>")            |
- *           (GObjectValue.PolyML.cPtr &&> <parOptConv> --> PolyMLFFI.cVoid);
+ *           (GObjectValueRecord.PolyML.cPtr &&> <parOptConv> --> PolyMLFFI.cVoid);
  *                                             -'             |
  *     end                                                    |
  *                                                           -'
@@ -478,7 +478,7 @@ local
   (* Low-level MLton *)
 
   (*
-   *     val getValue_ =
+   *     val get<Opt>Value_ =
    *       _import "g_value_get_<valueType>" :
    *         GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
    *          -> <retType>;
@@ -494,7 +494,7 @@ local
     in
       StrDecDec (
         mkIdValDec (
-          getValueUId,
+          case ptrOpt of SOME true => getOptValueUId | _ => getValueUId,
           callMLtonFFIExp ("g_value_get_" ^ valueType) (
             [
               makeLowLevelTy false
@@ -508,7 +508,7 @@ local
     end
 
   (*
-   *     val setValue_ =
+   *     val set<Opt>Value_ =
    *       _import "g_value_set_<valueType>" :
    *         GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * <parType>
    *          -> unit;
@@ -524,7 +524,7 @@ local
     in
       StrDecDec (
         mkIdValDec (
-          setValueUId,
+          case ptrOpt of SOME true => setOptValueUId | _ => setValueUId,
           callMLtonFFIExp ("g_value_set_" ^ valueType) (
             [
               makeLowLevelTy false
@@ -566,7 +566,7 @@ local
   (* Low-level Poly/ML *)
 
   (*
-   *     val getValue_ =
+   *     val get<Opt>Value_ =
    *       call
    *         (getSymbol "g_value_get_<valueType>")
    *         (GObjectValueRecord.PolyML.cPtr --> <retConv>);
@@ -575,10 +575,10 @@ local
     let
       val parConvs =
         makeConv
-          (prefixInterfaceStrId valueIRef [PolyMLId])
+          (prefixInterfaceStrId valueIRef [polyMLStrId])
           (PTR {optDir = NONE, isOpt = false})
       val retConv =
-        makeConv [PolyMLId] (
+        makeConv [polyMLStrId] (
           case ptrOpt of
             NONE       => VAL
           | SOME isOpt => PTR {optDir = NONE, isOpt = isOpt}
@@ -587,14 +587,14 @@ local
     in
       StrDecDec (
         mkIdValDec (
-          getValueUId,
+          case ptrOpt of SOME true => getOptValueUId | _ => getValueUId,
           callPolyMLFFIExp getTypeSymbol (parConvs, retConv)
         )
       )
     end
 
   (*
-   *     val setValue_ =
+   *     val set<Opt>Value_ =
    *       call
    *         (getSymbol "g_value_set_<valueType>")
    *         (GObjectValueRecord.PolyML.cPtr &&> <parConv> --> PolyMLFFI.cVoid);
@@ -602,7 +602,7 @@ local
   fun setValueStrDecLowLevelPolyML (valueIRef, valueType) ptrOpt =
     let
       val parConv =
-        makeConv [PolyMLId] (
+        makeConv [polyMLStrId] (
           case ptrOpt of
             NONE       => VAL
           | SOME isOpt => PTR {optDir = NONE, isOpt = isOpt}
@@ -610,7 +610,7 @@ local
       val parConvs =
         mkAARExp (
           makeConv
-            (prefixInterfaceStrId valueIRef [PolyMLId])
+            (prefixInterfaceStrId valueIRef [polyMLStrId])
             (PTR {optDir = NONE, isOpt = false}),
           parConv
         )
@@ -619,7 +619,7 @@ local
     in
       StrDecDec (
         mkIdValDec (
-          setValueUId,
+          case ptrOpt of SOME true => setOptValueUId | _ => setValueUId,
           callPolyMLFFIExp getTypeSymbol (parConvs, retConv)
         )
       )

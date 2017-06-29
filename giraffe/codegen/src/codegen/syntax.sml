@@ -300,7 +300,8 @@ fun pairTy (ty1, ty2) : ty = TyRef ([ty1, ty2], toList1 [pairId])
 
 val valId : id = "val_"
 val refId : id = "ref_"
-val selfId = "self"
+val selfId : id = "self"
+val ignoreId : id = "ignore"
 val flagsId : id = "flags"
 val nullId : id = "null"
 val cStrId : id = "C"
@@ -337,6 +338,9 @@ val flagsTy : ty = mkIdTy flagsId
 val fId : id = "f"
 val fExp : exp = mkIdLNameExp fId
 val classId : id = "class"
+val recordStrId : id = "Record"
+val valueStrId : id = "Value"
+val pointerStrId : id = "Pointer"
 val tId : id = "t"
 fun classTy ty : ty = TyRef ([ty], toList1 [classId])
 fun tTy ty : ty = TyRef ([ty], toList1 [tId])
@@ -347,8 +351,8 @@ val tTyLName : tylname = ([], toList1 [tId])
 val tOptId : id = "tOpt"
 val aId : id = "a"
 val bId : id = "b"
-val aTyVar = (false, aId)
-val bTyVar = (false, bId)
+val aTyVar : tyvar = (false, aId)
+val bTyVar : tyvar = (false, bId)
 val aVarTy : ty = TyVar aTyVar
 val bVarTy : ty = TyVar bTyVar
 val ptrId : id = "p"
@@ -360,6 +364,7 @@ val notnullTy : ty = mkIdTy notnullId
 fun mkNotnullTy prefixIds = TyRef ([], toList1 (prefixIds @ [notnullId]))
 fun ptrTyName (tyVar : tyvar) : tyname = ([tyVar], ptrId)
 fun ptrTy (varTy : ty) : ty = TyRef ([varTy], ptrLId)
+fun mkPtrTy prefixIds (varTy : ty) = TyRef ([varTy], toList1 (prefixIds @ [ptrId]))
 val withPtrId : id = "withPtr"
 val withOptPtrId : id = "withOptPtr"
 val fromPtrId : id = "fromPtr"
@@ -380,6 +385,22 @@ val errorHandlerId : id = "error_handler"
 val errorHandlerTyName : tyname = ([], errorHandlerId)
 val errorHandlerTyLName : tylname = ([], toList1 [errorHandlerId])
 val makeHandlerId : id = "makeHandler"
+
+val giraffeId : id = "giraffe"
+val newId : id = "new"
+val newUId : id = newId ^ "_"
+val copyId : id = "copy"
+val copyUId : id = copyId ^ "_"
+val dupId : id = "dup"
+val dupUId : id = dupId ^ "_"
+val takeId : id = "take"
+val takeUId : id = takeId ^ "_"
+val clearId : id = "clear"
+val clearUId : id = clearId ^ "_"
+val freeId : id = "free"
+val freeUId : id = freeId ^ "_"
+val sizeId : id = "size"
+val sizeUId : id = sizeId ^ "_"
 
 val getTypeId : id = "getType"
 val getTypeUId : id = getTypeId ^ "_"
@@ -433,22 +454,23 @@ fun mkCStructStrDec strDecs : strdec =
 
 (* PolyML-specific reusable components *)
 
-val PolyMLFFIId : id = "PolyMLFFI"
+val polyMLFFIStrId : id = "PolyMLFFI"
 val callId : id = "call"
 val getSymbolId : id = "getSymbol"
 
-val PolyMLId : id = "PolyML"
+val polyMLStrId : id = "PolyML"
 val cValId : id = "cVal"
 val cRefId : id = "cRef"
+val cPtrId : id = "cPtr"
 val cVoidId : id = "cVoid"
 
-val cVoidConv = mkLIdLNameExp [PolyMLFFIId, cVoidId]
+val cVoidConv = mkLIdLNameExp [polyMLFFIStrId, cVoidId]
 
 
 val cValTy : ty = TyRef ([], toList1 [ffiStrId, valId])
 val cRefTy : ty = TyRef ([], toList1 [ffiStrId, refId])
 
-fun mkConversionTy ty = TyRef ([ty], toList1 [PolyMLFFIId, "conversion"])
+fun mkConversionTy ty = TyRef ([ty], toList1 [polyMLFFIStrId, "conversion"])
 
 
 
@@ -459,7 +481,7 @@ fun mkConversionTy ty = TyRef ([ty], toList1 [PolyMLFFIId, "conversion"])
  *       end
  *)
 fun mkPolyMLStructSpec specs : spec =
-  SpecStruct (toList1 [(PolyMLId, (mkSigSpec specs, []))])
+  SpecStruct (toList1 [(polyMLStrId, (mkSigSpec specs, []))])
 
 (*
  *     structure PolyML =
@@ -468,4 +490,4 @@ fun mkPolyMLStructSpec specs : spec =
  *       end
  *)
 fun mkPolyMLStructStrDec strDecs : strdec =
-  StrDecStruct (toList1 [(PolyMLId, NONE, mkBodyStruct strDecs)])
+  StrDecStruct (toList1 [(polyMLStrId, NONE, mkBodyStruct strDecs)])

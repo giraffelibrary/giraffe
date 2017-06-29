@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2017 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -43,22 +43,34 @@ giraffe_gdk_geometry_size (void)
 /* GdkKeymapKey */
 
 GdkKeymapKey *
-giraffe_gdk_keymap_key_copy (const GdkKeymapKey *key)
+giraffe_gdk_keymap_key_new (void)
 {
-  return g_slice_dup (GdkKeymapKey, key);
+  return g_slice_new (GdkKeymapKey);
 }
 
 void
-giraffe_gdk_keymap_key_free (GdkKeymapKey *key)
+giraffe_gdk_keymap_key_copy (const GdkKeymapKey *src, GdkKeymapKey *dest)
 {
-  g_slice_free (GdkKeymapKey, key);
+  memcpy (dest, src, sizeof (GdkKeymapKey));
+}
+
+void
+giraffe_gdk_keymap_key_free (GdkKeymapKey *keymap_key)
+{
+  g_slice_free (GdkKeymapKey, keymap_key);
+}
+
+guint
+giraffe_gdk_keymap_key_size (void)
+{
+  return sizeof (GdkKeymapKey);
 }
 
 
 /* GdkWindowAttr */
 
 GdkWindowAttr *
-giraffe_gdk_window_attr_copy (const GdkWindowAttr *attributes)
+giraffe_gdk_window_attr_dup (const GdkWindowAttr *attributes)
 {
   return g_slice_dup (GdkWindowAttr, attributes);
 }

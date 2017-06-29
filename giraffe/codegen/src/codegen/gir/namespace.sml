@@ -2,7 +2,6 @@
  * Namespace
  * -------------------------------------------------------------------------- *)
 
-val structNames = ref []
 val unionNames = ref []
 
 fun dupSig id _ = raise Fail (String.concat ["duplicate signature ", id])
@@ -143,71 +142,60 @@ fun translateInfo
         ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
       end
   | InfoType.STRUCT structInfo       =>
-      if
-        let
-          val structName = getName structInfo
-          val structNamespace = namespace
-          fun isName x = x = (structNamespace, structName)
-        in
-          List.exists isName (!structNames)
-        end
-      then
-        let
-          val (recordSigId, recordSigProgram, recordSigDeps) =
-            makeStructRecordSig repo namespace structInfo
+      let
+        val (recordSigId, recordSigProgram, recordSigDeps) =
+          makeStructRecordSig repo namespace structInfo
 
-          val (
-            recordStrId,
-            recordStrSpecDec,
-            recordStrProgram,
-            recordStrIRefs
-          ) =
-            makeStructRecordStr repo namespace structInfo
+        val (
+          recordStrId,
+          recordStrSpecDec,
+          recordStrProgram,
+          recordStrIRefs
+        ) =
+          makeStructRecordStr repo vers namespace structInfo
 
-          val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-            makeStructStr repo vers namespace structInfo errs'0
+        val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
+          makeStructStr repo vers namespace structInfo errs'0
 
-          val recordStrDeps = map makeIRefInterfaceOtherStrId recordStrIRefs
-          val strDeps = map makeIRefInterfaceOtherStrId strIRefs
+        val recordStrDeps = map makeIRefInterfaceOtherStrId recordStrIRefs
+        val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
-          val (sigId, sigProgram, sigDeps, errs'2) =
-            makeStructSig repo namespace structInfo errs'1
+        val (sigId, sigProgram, sigDeps, errs'2) =
+          makeStructSig repo namespace structInfo errs'1
 
-          val isRecordSigPortable = isPortable recordSigProgram
-          val isRecordStrPortable = isPortable recordStrProgram
-          val isSigPortable = isPortable sigProgram
-          val isStrPortable = isPortable strProgram
+        val isRecordSigPortable = isPortable recordSigProgram
+        val isRecordStrPortable = isPortable recordStrProgram
+        val isSigPortable = isPortable sigProgram
+        val isStrPortable = isPortable strProgram
 
-          val sigs'1 =
-            insertNewList dupSig (
-              [
-                (recordSigId, (isRecordSigPortable, recordSigDeps)),
-                (sigId,       (isSigPortable,       sigDeps))
-              ],
-              sigs'0
-            )
-          val strs'1 =
-            insertNewList dupStr (
-              [
-                (recordStrId, ((isRecordStrPortable, recordStrSpecDec), recordStrDeps)),
-                (strId,       ((isStrPortable,       strSpecDec),       strDeps))
-              ],
-              strs'0
-            )
-          val files'1 =
-            insertNewList dupFile (
-              [
-                (recordSigId, recordSigProgram), (sigId, sigProgram),
-                (recordStrId, recordStrProgram), (strId, strProgram)
-              ],
-              files'0
-            )
-          val modules'1 = (files'1, sigs'1, strs'1)
-        in
-          ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
-        end
-      else
-        acc
+        val sigs'1 =
+          insertNewList dupSig (
+            [
+              (recordSigId, (isRecordSigPortable, recordSigDeps)),
+              (sigId,       (isSigPortable,       sigDeps))
+            ],
+            sigs'0
+          )
+        val strs'1 =
+          insertNewList dupStr (
+            [
+              (recordStrId, ((isRecordStrPortable, recordStrSpecDec), recordStrDeps)),
+              (strId,       ((isStrPortable,       strSpecDec),       strDeps))
+            ],
+            strs'0
+          )
+        val files'1 =
+          insertNewList dupFile (
+            [
+              (recordSigId, recordSigProgram), (sigId, sigProgram),
+              (recordStrId, recordStrProgram), (strId, strProgram)
+            ],
+            files'0
+          )
+        val modules'1 = (files'1, sigs'1, strs'1)
+      in
+        ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
+      end
   | InfoType.UNION unionInfo         =>
       if
         let

@@ -244,3 +244,8 @@ fun checkDeprecated info =
   if BaseInfo.isDeprecated info
   then infoError "deprecated"
   else ()
+
+fun checkNonClassStruct structInfo =
+  if StructInfo.isGtypeStruct structInfo
+  then infoError "class struct"
+  else ()
