@@ -15,10 +15,10 @@ structure GioOutputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_output_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val clearPending_ = call (load_sym libgio "g_output_stream_clear_pending") (GioOutputStreamClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_output_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val clearPending_ = call (getSymbol "g_output_stream_clear_pending") (GioOutputStreamClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val close_ =
-        call (load_sym libgio "g_output_stream_close")
+        call (getSymbol "g_output_stream_close")
           (
             GioOutputStreamClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -26,7 +26,7 @@ structure GioOutputStream :>
              --> GBool.PolyML.cVal
           )
       val closeFinish_ =
-        call (load_sym libgio "g_output_stream_close_finish")
+        call (getSymbol "g_output_stream_close_finish")
           (
             GioOutputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -34,7 +34,7 @@ structure GioOutputStream :>
              --> GBool.PolyML.cVal
           )
       val flush_ =
-        call (load_sym libgio "g_output_stream_flush")
+        call (getSymbol "g_output_stream_flush")
           (
             GioOutputStreamClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -42,19 +42,19 @@ structure GioOutputStream :>
              --> GBool.PolyML.cVal
           )
       val flushFinish_ =
-        call (load_sym libgio "g_output_stream_flush_finish")
+        call (getSymbol "g_output_stream_flush_finish")
           (
             GioOutputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val hasPending_ = call (load_sym libgio "g_output_stream_has_pending") (GioOutputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isClosed_ = call (load_sym libgio "g_output_stream_is_closed") (GioOutputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isClosing_ = call (load_sym libgio "g_output_stream_is_closing") (GioOutputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setPending_ = call (load_sym libgio "g_output_stream_set_pending") (GioOutputStreamClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
+      val hasPending_ = call (getSymbol "g_output_stream_has_pending") (GioOutputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isClosed_ = call (getSymbol "g_output_stream_is_closed") (GioOutputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isClosing_ = call (getSymbol "g_output_stream_is_closing") (GioOutputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setPending_ = call (getSymbol "g_output_stream_set_pending") (GioOutputStreamClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val splice_ =
-        call (load_sym libgio "g_output_stream_splice")
+        call (getSymbol "g_output_stream_splice")
           (
             GioOutputStreamClass.PolyML.cPtr
              &&> GioInputStreamClass.PolyML.cPtr
@@ -64,7 +64,7 @@ structure GioOutputStream :>
              --> GSSize.PolyML.cVal
           )
       val spliceFinish_ =
-        call (load_sym libgio "g_output_stream_splice_finish")
+        call (getSymbol "g_output_stream_splice_finish")
           (
             GioOutputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -72,7 +72,7 @@ structure GioOutputStream :>
              --> GSSize.PolyML.cVal
           )
       val write_ =
-        call (load_sym libgio "g_output_stream_write")
+        call (getSymbol "g_output_stream_write")
           (
             GioOutputStreamClass.PolyML.cPtr
              &&> GUInt8CVectorN.PolyML.cInPtr
@@ -82,7 +82,7 @@ structure GioOutputStream :>
              --> GSSize.PolyML.cVal
           )
       val writeAll_ =
-        call (load_sym libgio "g_output_stream_write_all")
+        call (getSymbol "g_output_stream_write_all")
           (
             GioOutputStreamClass.PolyML.cPtr
              &&> GUInt8CVectorN.PolyML.cInPtr
@@ -93,7 +93,7 @@ structure GioOutputStream :>
              --> GBool.PolyML.cVal
           )
       val writeFinish_ =
-        call (load_sym libgio "g_output_stream_write_finish")
+        call (getSymbol "g_output_stream_write_finish")
           (
             GioOutputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr

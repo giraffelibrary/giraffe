@@ -6,10 +6,10 @@ structure GtkSourceCompletionWords :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_words_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtksourceview "gtk_source_completion_words_new") (Utf8.PolyML.cInOptPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> GtkSourceCompletionWordsClass.PolyML.cPtr)
-      val register_ = call (load_sym libgtksourceview "gtk_source_completion_words_register") (GtkSourceCompletionWordsClass.PolyML.cPtr &&> GtkTextBufferClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val unregister_ = call (load_sym libgtksourceview "gtk_source_completion_words_unregister") (GtkSourceCompletionWordsClass.PolyML.cPtr &&> GtkTextBufferClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gtk_source_completion_words_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_source_completion_words_new") (Utf8.PolyML.cInOptPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> GtkSourceCompletionWordsClass.PolyML.cPtr)
+      val register_ = call (getSymbol "gtk_source_completion_words_register") (GtkSourceCompletionWordsClass.PolyML.cPtr &&> GtkTextBufferClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unregister_ = call (getSymbol "gtk_source_completion_words_unregister") (GtkSourceCompletionWordsClass.PolyML.cPtr &&> GtkTextBufferClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkSourceCompletionWordsClass.class
     type 'a completion_provider_class = 'a GtkSourceCompletionProviderClass.class

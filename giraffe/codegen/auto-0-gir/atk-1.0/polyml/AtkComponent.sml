@@ -9,9 +9,9 @@ structure AtkComponent :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_component_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "atk_component_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val contains_ =
-        call (load_sym libatk "atk_component_contains")
+        call (getSymbol "atk_component_contains")
           (
             AtkComponentClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -19,12 +19,12 @@ structure AtkComponent :>
              &&> AtkCoordType.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val getAlpha_ = call (load_sym libatk "atk_component_get_alpha") (AtkComponentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val getLayer_ = call (load_sym libatk "atk_component_get_layer") (AtkComponentClass.PolyML.cPtr --> AtkLayer.PolyML.cVal)
-      val getMdiZorder_ = call (load_sym libatk "atk_component_get_mdi_zorder") (AtkComponentClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val grabFocus_ = call (load_sym libatk "atk_component_grab_focus") (AtkComponentClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getAlpha_ = call (getSymbol "atk_component_get_alpha") (AtkComponentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getLayer_ = call (getSymbol "atk_component_get_layer") (AtkComponentClass.PolyML.cPtr --> AtkLayer.PolyML.cVal)
+      val getMdiZorder_ = call (getSymbol "atk_component_get_mdi_zorder") (AtkComponentClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val grabFocus_ = call (getSymbol "atk_component_grab_focus") (AtkComponentClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val refAccessibleAtPoint_ =
-        call (load_sym libatk "atk_component_ref_accessible_at_point")
+        call (getSymbol "atk_component_ref_accessible_at_point")
           (
             AtkComponentClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -32,9 +32,9 @@ structure AtkComponent :>
              &&> AtkCoordType.PolyML.cVal
              --> AtkObjectClass.PolyML.cPtr
           )
-      val removeFocusHandler_ = call (load_sym libatk "atk_component_remove_focus_handler") (AtkComponentClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val removeFocusHandler_ = call (getSymbol "atk_component_remove_focus_handler") (AtkComponentClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setExtents_ =
-        call (load_sym libatk "atk_component_set_extents")
+        call (getSymbol "atk_component_set_extents")
           (
             AtkComponentClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -45,7 +45,7 @@ structure AtkComponent :>
              --> GBool.PolyML.cVal
           )
       val setPosition_ =
-        call (load_sym libatk "atk_component_set_position")
+        call (getSymbol "atk_component_set_position")
           (
             AtkComponentClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -54,7 +54,7 @@ structure AtkComponent :>
              --> GBool.PolyML.cVal
           )
       val setSize_ =
-        call (load_sym libatk "atk_component_set_size")
+        call (getSymbol "atk_component_set_size")
           (
             AtkComponentClass.PolyML.cPtr
              &&> GInt.PolyML.cVal

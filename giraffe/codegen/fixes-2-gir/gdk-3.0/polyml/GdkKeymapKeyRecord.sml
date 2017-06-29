@@ -11,12 +11,12 @@ structure GdkKeymapKeyRecord :> GDK_KEYMAP_KEY_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_keymap_key_copy")
+          (getSymbol "giraffe_gdk_keymap_key_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_keymap_key_free")
+          (getSymbol "giraffe_gdk_keymap_key_free")
           (cPtr --> cVoid)
     end
 

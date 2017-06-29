@@ -322,9 +322,9 @@ structure AtkRole :> ATK_ROLE =
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_role_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getValue_ = call (load_sym libgobject "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
-      val setValue_ = call (load_sym libgobject "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "atk_role_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getValue_ = call (getSymbol "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
+      val setValue_ = call (getSymbol "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid)
     end
     val t =
       GObjectValue.C.createAccessor
@@ -336,10 +336,10 @@ structure AtkRole :> ATK_ROLE =
     local
       open PolyMLFFI
     in
-      val forName_ = call (load_sym libatk "atk_role_for_name") (Utf8.PolyML.cInPtr --> PolyML.cVal)
-      val getLocalizedName_ = call (load_sym libatk "atk_role_get_localized_name") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val getName_ = call (load_sym libatk "atk_role_get_name") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val register_ = call (load_sym libatk "atk_role_register") (Utf8.PolyML.cInPtr --> PolyML.cVal)
+      val forName_ = call (getSymbol "atk_role_for_name") (Utf8.PolyML.cInPtr --> PolyML.cVal)
+      val getLocalizedName_ = call (getSymbol "atk_role_get_localized_name") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getName_ = call (getSymbol "atk_role_get_name") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val register_ = call (getSymbol "atk_role_register") (Utf8.PolyML.cInPtr --> PolyML.cVal)
     end
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun forName name = (Utf8.FFI.withPtr ---> FFI.fromVal) forName_ name

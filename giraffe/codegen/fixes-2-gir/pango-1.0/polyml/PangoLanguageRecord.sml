@@ -11,17 +11,17 @@ structure PangoLanguageRecord :> PANGO_LANGUAGE_RECORD =
     in
       val dup_ =
         call
-          (load_sym libpango "pango_language_copy")
+          (getSymbol "pango_language_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libpango "pango_language_free")
+          (getSymbol "pango_language_free")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libpango "pango_language_get_type")
+          (getSymbol "pango_language_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

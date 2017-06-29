@@ -9,30 +9,30 @@ structure GtkSourceCompletion :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_source_completion_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val addProvider_ =
-        call (load_sym libgtksourceview "gtk_source_completion_add_provider")
+        call (getSymbol "gtk_source_completion_add_provider")
           (
             GtkSourceCompletionClass.PolyML.cPtr
              &&> GtkSourceCompletionProviderClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val blockInteractive_ = call (load_sym libgtksourceview "gtk_source_completion_block_interactive") (GtkSourceCompletionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val createContext_ = call (load_sym libgtksourceview "gtk_source_completion_create_context") (GtkSourceCompletionClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cOptPtr --> GtkSourceCompletionContextClass.PolyML.cPtr)
-      val getInfoWindow_ = call (load_sym libgtksourceview "gtk_source_completion_get_info_window") (GtkSourceCompletionClass.PolyML.cPtr --> GtkSourceCompletionInfoClass.PolyML.cPtr)
-      val getView_ = call (load_sym libgtksourceview "gtk_source_completion_get_view") (GtkSourceCompletionClass.PolyML.cPtr --> GtkSourceViewClass.PolyML.cPtr)
-      val hide_ = call (load_sym libgtksourceview "gtk_source_completion_hide") (GtkSourceCompletionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val moveWindow_ = call (load_sym libgtksourceview "gtk_source_completion_move_window") (GtkSourceCompletionClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val blockInteractive_ = call (getSymbol "gtk_source_completion_block_interactive") (GtkSourceCompletionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val createContext_ = call (getSymbol "gtk_source_completion_create_context") (GtkSourceCompletionClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cOptPtr --> GtkSourceCompletionContextClass.PolyML.cPtr)
+      val getInfoWindow_ = call (getSymbol "gtk_source_completion_get_info_window") (GtkSourceCompletionClass.PolyML.cPtr --> GtkSourceCompletionInfoClass.PolyML.cPtr)
+      val getView_ = call (getSymbol "gtk_source_completion_get_view") (GtkSourceCompletionClass.PolyML.cPtr --> GtkSourceViewClass.PolyML.cPtr)
+      val hide_ = call (getSymbol "gtk_source_completion_hide") (GtkSourceCompletionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val moveWindow_ = call (getSymbol "gtk_source_completion_move_window") (GtkSourceCompletionClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val removeProvider_ =
-        call (load_sym libgtksourceview "gtk_source_completion_remove_provider")
+        call (getSymbol "gtk_source_completion_remove_provider")
           (
             GtkSourceCompletionClass.PolyML.cPtr
              &&> GtkSourceCompletionProviderClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val unblockInteractive_ = call (load_sym libgtksourceview "gtk_source_completion_unblock_interactive") (GtkSourceCompletionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unblockInteractive_ = call (getSymbol "gtk_source_completion_unblock_interactive") (GtkSourceCompletionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkSourceCompletionClass.class
     type 'a completion_info_class = 'a GtkSourceCompletionInfoClass.class

@@ -7,10 +7,10 @@ structure GtkHsv :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_hsv_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_hsv_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_hsv_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_hsv_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val toRgb_ =
-        call (load_sym libgtk "gtk_hsv_to_rgb")
+        call (getSymbol "gtk_hsv_to_rgb")
           (
             GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
@@ -21,7 +21,7 @@ structure GtkHsv :>
              --> PolyMLFFI.cVoid
           )
       val getColor_ =
-        call (load_sym libgtk "gtk_hsv_get_color")
+        call (getSymbol "gtk_hsv_get_color")
           (
             GtkHsvClass.PolyML.cPtr
              &&> GDouble.PolyML.cRef
@@ -30,16 +30,16 @@ structure GtkHsv :>
              --> PolyMLFFI.cVoid
           )
       val getMetrics_ =
-        call (load_sym libgtk "gtk_hsv_get_metrics")
+        call (getSymbol "gtk_hsv_get_metrics")
           (
             GtkHsvClass.PolyML.cPtr
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val isAdjusting_ = call (load_sym libgtk "gtk_hsv_is_adjusting") (GtkHsvClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isAdjusting_ = call (getSymbol "gtk_hsv_is_adjusting") (GtkHsvClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setColor_ =
-        call (load_sym libgtk "gtk_hsv_set_color")
+        call (getSymbol "gtk_hsv_set_color")
           (
             GtkHsvClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -48,7 +48,7 @@ structure GtkHsv :>
              --> PolyMLFFI.cVoid
           )
       val setMetrics_ =
-        call (load_sym libgtk "gtk_hsv_set_metrics")
+        call (getSymbol "gtk_hsv_set_metrics")
           (
             GtkHsvClass.PolyML.cPtr
              &&> GInt.PolyML.cVal

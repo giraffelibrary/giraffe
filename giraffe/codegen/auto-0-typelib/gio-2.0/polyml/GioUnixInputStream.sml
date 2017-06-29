@@ -6,11 +6,11 @@ structure GioUnixInputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_unix_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_unix_input_stream_new") (GInt32.PolyML.cVal &&> GBool.PolyML.cVal --> GioInputStreamClass.PolyML.cPtr)
-      val getCloseFd_ = call (load_sym libgio "g_unix_input_stream_get_close_fd") (GioUnixInputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getFd_ = call (load_sym libgio "g_unix_input_stream_get_fd") (GioUnixInputStreamClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val setCloseFd_ = call (load_sym libgio "g_unix_input_stream_set_close_fd") (GioUnixInputStreamClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_unix_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_unix_input_stream_new") (GInt32.PolyML.cVal &&> GBool.PolyML.cVal --> GioInputStreamClass.PolyML.cPtr)
+      val getCloseFd_ = call (getSymbol "g_unix_input_stream_get_close_fd") (GioUnixInputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getFd_ = call (getSymbol "g_unix_input_stream_get_fd") (GioUnixInputStreamClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val setCloseFd_ = call (getSymbol "g_unix_input_stream_set_close_fd") (GioUnixInputStreamClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioUnixInputStreamClass.class
     type 'a pollable_input_stream_class = 'a GioPollableInputStreamClass.class

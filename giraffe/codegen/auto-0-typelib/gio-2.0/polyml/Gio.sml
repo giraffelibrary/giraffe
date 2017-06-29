@@ -16,7 +16,7 @@ structure Gio : GIO =
       open PolyMLFFI
     in
       val appInfoCreateFromCommandline_ =
-        call (load_sym libgio "g_app_info_create_from_commandline")
+        call (getSymbol "g_app_info_create_from_commandline")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInOptPtr
@@ -24,20 +24,20 @@ structure Gio : GIO =
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioAppInfoClass.PolyML.cPtr
           )
-      val appInfoGetDefaultForType_ = call (load_sym libgio "g_app_info_get_default_for_type") (Utf8.PolyML.cInPtr &&> GBool.PolyML.cVal --> GioAppInfoClass.PolyML.cPtr)
-      val appInfoGetDefaultForUriScheme_ = call (load_sym libgio "g_app_info_get_default_for_uri_scheme") (Utf8.PolyML.cInPtr --> GioAppInfoClass.PolyML.cPtr)
+      val appInfoGetDefaultForType_ = call (getSymbol "g_app_info_get_default_for_type") (Utf8.PolyML.cInPtr &&> GBool.PolyML.cVal --> GioAppInfoClass.PolyML.cPtr)
+      val appInfoGetDefaultForUriScheme_ = call (getSymbol "g_app_info_get_default_for_uri_scheme") (Utf8.PolyML.cInPtr --> GioAppInfoClass.PolyML.cPtr)
       val appInfoLaunchDefaultForUri_ =
-        call (load_sym libgio "g_app_info_launch_default_for_uri")
+        call (getSymbol "g_app_info_launch_default_for_uri")
           (
             Utf8.PolyML.cInPtr
              &&> GioAppLaunchContextClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val appInfoResetTypeAssociations_ = call (load_sym libgio "g_app_info_reset_type_associations") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val busGetFinish_ = call (load_sym libgio "g_bus_get_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioDBusConnectionClass.PolyML.cPtr)
+      val appInfoResetTypeAssociations_ = call (getSymbol "g_app_info_reset_type_associations") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val busGetFinish_ = call (getSymbol "g_bus_get_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioDBusConnectionClass.PolyML.cPtr)
       val busGetSync_ =
-        call (load_sym libgio "g_bus_get_sync")
+        call (getSymbol "g_bus_get_sync")
           (
             GioBusType.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -45,7 +45,7 @@ structure Gio : GIO =
              --> GioDBusConnectionClass.PolyML.cPtr
           )
       val busOwnNameOnConnection_ =
-        call (load_sym libgio "g_bus_own_name_on_connection_with_closures")
+        call (getSymbol "g_bus_own_name_on_connection_with_closures")
           (
             GioDBusConnectionClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -55,7 +55,7 @@ structure Gio : GIO =
              --> GUInt32.PolyML.cVal
           )
       val busOwnName_ =
-        call (load_sym libgio "g_bus_own_name_with_closures")
+        call (getSymbol "g_bus_own_name_with_closures")
           (
             GioBusType.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
@@ -65,10 +65,10 @@ structure Gio : GIO =
              &&> GObjectClosureRecord.PolyML.cOptPtr
              --> GUInt32.PolyML.cVal
           )
-      val busUnownName_ = call (load_sym libgio "g_bus_unown_name") (GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val busUnwatchName_ = call (load_sym libgio "g_bus_unwatch_name") (GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val busUnownName_ = call (getSymbol "g_bus_unown_name") (GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val busUnwatchName_ = call (getSymbol "g_bus_unwatch_name") (GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val busWatchNameOnConnection_ =
-        call (load_sym libgio "g_bus_watch_name_on_connection_with_closures")
+        call (getSymbol "g_bus_watch_name_on_connection_with_closures")
           (
             GioDBusConnectionClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -78,7 +78,7 @@ structure Gio : GIO =
              --> GUInt32.PolyML.cVal
           )
       val busWatchName_ =
-        call (load_sym libgio "g_bus_watch_name_with_closures")
+        call (getSymbol "g_bus_watch_name_with_closures")
           (
             GioBusType.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
@@ -87,14 +87,14 @@ structure Gio : GIO =
              &&> GObjectClosureRecord.PolyML.cOptPtr
              --> GUInt32.PolyML.cVal
           )
-      val contentTypeCanBeExecutable_ = call (load_sym libgio "g_content_type_can_be_executable") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val contentTypeEquals_ = call (load_sym libgio "g_content_type_equals") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val contentTypeFromMimeType_ = call (load_sym libgio "g_content_type_from_mime_type") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val contentTypeGetDescription_ = call (load_sym libgio "g_content_type_get_description") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val contentTypeGetIcon_ = call (load_sym libgio "g_content_type_get_icon") (Utf8.PolyML.cInPtr --> GioIconClass.PolyML.cPtr)
-      val contentTypeGetMimeType_ = call (load_sym libgio "g_content_type_get_mime_type") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val contentTypeCanBeExecutable_ = call (getSymbol "g_content_type_can_be_executable") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val contentTypeEquals_ = call (getSymbol "g_content_type_equals") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val contentTypeFromMimeType_ = call (getSymbol "g_content_type_from_mime_type") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val contentTypeGetDescription_ = call (getSymbol "g_content_type_get_description") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val contentTypeGetIcon_ = call (getSymbol "g_content_type_get_icon") (Utf8.PolyML.cInPtr --> GioIconClass.PolyML.cPtr)
+      val contentTypeGetMimeType_ = call (getSymbol "g_content_type_get_mime_type") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val contentTypeGuess_ =
-        call (load_sym libgio "g_content_type_guess")
+        call (getSymbol "g_content_type_guess")
           (
             Utf8.PolyML.cInOptPtr
              &&> GUInt8CVectorN.PolyML.cInOptPtr
@@ -102,11 +102,11 @@ structure Gio : GIO =
              &&> GBool.PolyML.cRef
              --> Utf8.PolyML.cOutPtr
           )
-      val contentTypeGuessForTree_ = call (load_sym libgio "g_content_type_guess_for_tree") (GioFileClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
-      val contentTypeIsA_ = call (load_sym libgio "g_content_type_is_a") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val contentTypeIsUnknown_ = call (load_sym libgio "g_content_type_is_unknown") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val contentTypeGuessForTree_ = call (getSymbol "g_content_type_guess_for_tree") (GioFileClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val contentTypeIsA_ = call (getSymbol "g_content_type_is_a") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val contentTypeIsUnknown_ = call (getSymbol "g_content_type_is_unknown") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val dbusAddressGetForBusSync_ =
-        call (load_sym libgio "g_dbus_address_get_for_bus_sync")
+        call (getSymbol "g_dbus_address_get_for_bus_sync")
           (
             GioBusType.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -114,7 +114,7 @@ structure Gio : GIO =
              --> Utf8.PolyML.cOutPtr
           )
       val dbusAddressGetStreamFinish_ =
-        call (load_sym libgio "g_dbus_address_get_stream_finish")
+        call (getSymbol "g_dbus_address_get_stream_finish")
           (
             GioAsyncResultClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -122,7 +122,7 @@ structure Gio : GIO =
              --> GioIOStreamClass.PolyML.cPtr
           )
       val dbusAddressGetStreamSync_ =
-        call (load_sym libgio "g_dbus_address_get_stream_sync")
+        call (getSymbol "g_dbus_address_get_stream_sync")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -130,66 +130,66 @@ structure Gio : GIO =
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioIOStreamClass.PolyML.cPtr
           )
-      val dbusAnnotationInfoLookup_ = call (load_sym libgio "g_dbus_annotation_info_lookup") (GioDBusAnnotationInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val dbusErrorQuark_ = call (load_sym libgio "g_dbus_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val dbusGenerateGuid_ = call (load_sym libgio "g_dbus_generate_guid") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val dbusGvalueToGvariant_ = call (load_sym libgio "g_dbus_gvalue_to_gvariant") (GObjectValueRecord.PolyML.cPtr &&> GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
-      val dbusGvariantToGvalue_ = call (load_sym libgio "g_dbus_gvariant_to_gvalue") (GLibVariantRecord.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val dbusIsAddress_ = call (load_sym libgio "g_dbus_is_address") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val dbusIsGuid_ = call (load_sym libgio "g_dbus_is_guid") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val dbusIsInterfaceName_ = call (load_sym libgio "g_dbus_is_interface_name") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val dbusIsMemberName_ = call (load_sym libgio "g_dbus_is_member_name") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val dbusIsName_ = call (load_sym libgio "g_dbus_is_name") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val dbusIsSupportedAddress_ = call (load_sym libgio "g_dbus_is_supported_address") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
-      val dbusIsUniqueName_ = call (load_sym libgio "g_dbus_is_unique_name") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val fileNewForCommandlineArg_ = call (load_sym libgio "g_file_new_for_commandline_arg") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
-      val fileNewForPath_ = call (load_sym libgio "g_file_new_for_path") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
-      val fileNewForUri_ = call (load_sym libgio "g_file_new_for_uri") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
-      val fileParseName_ = call (load_sym libgio "g_file_parse_name") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
-      val iconNewForString_ = call (load_sym libgio "g_icon_new_for_string") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioIconClass.PolyML.cPtr)
-      val ioErrorFromErrno_ = call (load_sym libgio "g_io_error_from_errno") (GInt32.PolyML.cVal --> GioIOErrorEnum.PolyML.cVal)
-      val ioErrorQuark_ = call (load_sym libgio "g_io_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val ioExtensionPointLookup_ = call (load_sym libgio "g_io_extension_point_lookup") (Utf8.PolyML.cInPtr --> GioIOExtensionPointRecord.PolyML.cPtr)
-      val ioExtensionPointRegister_ = call (load_sym libgio "g_io_extension_point_register") (Utf8.PolyML.cInPtr --> GioIOExtensionPointRecord.PolyML.cPtr)
-      val ioModulesScanAllInDirectory_ = call (load_sym libgio "g_io_modules_scan_all_in_directory") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val ioModulesScanAllInDirectoryWithScope_ = call (load_sym libgio "g_io_modules_scan_all_in_directory_with_scope") (Utf8.PolyML.cInPtr &&> GioIOModuleScopeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val ioSchedulerCancelAllJobs_ = call (load_sym libgio "g_io_scheduler_cancel_all_jobs") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val proxyGetDefaultForProtocol_ = call (load_sym libgio "g_proxy_get_default_for_protocol") (Utf8.PolyML.cInPtr --> GioProxyClass.PolyML.cPtr)
-      val proxyResolverGetDefault_ = call (load_sym libgio "g_proxy_resolver_get_default") (PolyMLFFI.cVoid --> GioProxyResolverClass.PolyML.cPtr)
-      val resolverErrorQuark_ = call (load_sym libgio "g_resolver_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val tlsBackendGetDefault_ = call (load_sym libgio "g_tls_backend_get_default") (PolyMLFFI.cVoid --> GioTlsBackendClass.PolyML.cPtr)
+      val dbusAnnotationInfoLookup_ = call (getSymbol "g_dbus_annotation_info_lookup") (GioDBusAnnotationInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val dbusErrorQuark_ = call (getSymbol "g_dbus_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val dbusGenerateGuid_ = call (getSymbol "g_dbus_generate_guid") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val dbusGvalueToGvariant_ = call (getSymbol "g_dbus_gvalue_to_gvariant") (GObjectValueRecord.PolyML.cPtr &&> GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
+      val dbusGvariantToGvalue_ = call (getSymbol "g_dbus_gvariant_to_gvalue") (GLibVariantRecord.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val dbusIsAddress_ = call (getSymbol "g_dbus_is_address") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val dbusIsGuid_ = call (getSymbol "g_dbus_is_guid") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val dbusIsInterfaceName_ = call (getSymbol "g_dbus_is_interface_name") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val dbusIsMemberName_ = call (getSymbol "g_dbus_is_member_name") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val dbusIsName_ = call (getSymbol "g_dbus_is_name") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val dbusIsSupportedAddress_ = call (getSymbol "g_dbus_is_supported_address") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
+      val dbusIsUniqueName_ = call (getSymbol "g_dbus_is_unique_name") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val fileNewForCommandlineArg_ = call (getSymbol "g_file_new_for_commandline_arg") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
+      val fileNewForPath_ = call (getSymbol "g_file_new_for_path") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
+      val fileNewForUri_ = call (getSymbol "g_file_new_for_uri") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
+      val fileParseName_ = call (getSymbol "g_file_parse_name") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
+      val iconNewForString_ = call (getSymbol "g_icon_new_for_string") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioIconClass.PolyML.cPtr)
+      val ioErrorFromErrno_ = call (getSymbol "g_io_error_from_errno") (GInt32.PolyML.cVal --> GioIOErrorEnum.PolyML.cVal)
+      val ioErrorQuark_ = call (getSymbol "g_io_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val ioExtensionPointLookup_ = call (getSymbol "g_io_extension_point_lookup") (Utf8.PolyML.cInPtr --> GioIOExtensionPointRecord.PolyML.cPtr)
+      val ioExtensionPointRegister_ = call (getSymbol "g_io_extension_point_register") (Utf8.PolyML.cInPtr --> GioIOExtensionPointRecord.PolyML.cPtr)
+      val ioModulesScanAllInDirectory_ = call (getSymbol "g_io_modules_scan_all_in_directory") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val ioModulesScanAllInDirectoryWithScope_ = call (getSymbol "g_io_modules_scan_all_in_directory_with_scope") (Utf8.PolyML.cInPtr &&> GioIOModuleScopeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val ioSchedulerCancelAllJobs_ = call (getSymbol "g_io_scheduler_cancel_all_jobs") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val proxyGetDefaultForProtocol_ = call (getSymbol "g_proxy_get_default_for_protocol") (Utf8.PolyML.cInPtr --> GioProxyClass.PolyML.cPtr)
+      val proxyResolverGetDefault_ = call (getSymbol "g_proxy_resolver_get_default") (PolyMLFFI.cVoid --> GioProxyResolverClass.PolyML.cPtr)
+      val resolverErrorQuark_ = call (getSymbol "g_resolver_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val tlsBackendGetDefault_ = call (getSymbol "g_tls_backend_get_default") (PolyMLFFI.cVoid --> GioTlsBackendClass.PolyML.cPtr)
       val tlsClientConnectionNew_ =
-        call (load_sym libgio "g_tls_client_connection_new")
+        call (getSymbol "g_tls_client_connection_new")
           (
             GioIOStreamClass.PolyML.cPtr
              &&> GioSocketConnectableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioIOStreamClass.PolyML.cPtr
           )
-      val tlsErrorQuark_ = call (load_sym libgio "g_tls_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val tlsFileDatabaseNew_ = call (load_sym libgio "g_tls_file_database_new") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioTlsDatabaseClass.PolyML.cPtr)
+      val tlsErrorQuark_ = call (getSymbol "g_tls_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val tlsFileDatabaseNew_ = call (getSymbol "g_tls_file_database_new") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioTlsDatabaseClass.PolyML.cPtr)
       val tlsServerConnectionNew_ =
-        call (load_sym libgio "g_tls_server_connection_new")
+        call (getSymbol "g_tls_server_connection_new")
           (
             GioIOStreamClass.PolyML.cPtr
              &&> GioTlsCertificateClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioIOStreamClass.PolyML.cPtr
           )
-      val unixIsMountPathSystemInternal_ = call (load_sym libgio "g_unix_is_mount_path_system_internal") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val unixMountCompare_ = call (load_sym libgio "g_unix_mount_compare") (GioUnixMountEntryRecord.PolyML.cPtr &&> GioUnixMountEntryRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val unixMountFree_ = call (load_sym libgio "g_unix_mount_free") (GioUnixMountEntryRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val unixMountGetDevicePath_ = call (load_sym libgio "g_unix_mount_get_device_path") (GioUnixMountEntryRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val unixMountGetFsType_ = call (load_sym libgio "g_unix_mount_get_fs_type") (GioUnixMountEntryRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val unixMountGetMountPath_ = call (load_sym libgio "g_unix_mount_get_mount_path") (GioUnixMountEntryRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val unixMountGuessCanEject_ = call (load_sym libgio "g_unix_mount_guess_can_eject") (GioUnixMountEntryRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val unixMountGuessIcon_ = call (load_sym libgio "g_unix_mount_guess_icon") (GioUnixMountEntryRecord.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
-      val unixMountGuessName_ = call (load_sym libgio "g_unix_mount_guess_name") (GioUnixMountEntryRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val unixMountGuessShouldDisplay_ = call (load_sym libgio "g_unix_mount_guess_should_display") (GioUnixMountEntryRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val unixMountIsReadonly_ = call (load_sym libgio "g_unix_mount_is_readonly") (GioUnixMountEntryRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val unixMountIsSystemInternal_ = call (load_sym libgio "g_unix_mount_is_system_internal") (GioUnixMountEntryRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val unixMountPointsChangedSince_ = call (load_sym libgio "g_unix_mount_points_changed_since") (GUInt64.PolyML.cVal --> GBool.PolyML.cVal)
-      val unixMountsChangedSince_ = call (load_sym libgio "g_unix_mounts_changed_since") (GUInt64.PolyML.cVal --> GBool.PolyML.cVal)
+      val unixIsMountPathSystemInternal_ = call (getSymbol "g_unix_is_mount_path_system_internal") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val unixMountCompare_ = call (getSymbol "g_unix_mount_compare") (GioUnixMountEntryRecord.PolyML.cPtr &&> GioUnixMountEntryRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val unixMountFree_ = call (getSymbol "g_unix_mount_free") (GioUnixMountEntryRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unixMountGetDevicePath_ = call (getSymbol "g_unix_mount_get_device_path") (GioUnixMountEntryRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val unixMountGetFsType_ = call (getSymbol "g_unix_mount_get_fs_type") (GioUnixMountEntryRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val unixMountGetMountPath_ = call (getSymbol "g_unix_mount_get_mount_path") (GioUnixMountEntryRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val unixMountGuessCanEject_ = call (getSymbol "g_unix_mount_guess_can_eject") (GioUnixMountEntryRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val unixMountGuessIcon_ = call (getSymbol "g_unix_mount_guess_icon") (GioUnixMountEntryRecord.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
+      val unixMountGuessName_ = call (getSymbol "g_unix_mount_guess_name") (GioUnixMountEntryRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val unixMountGuessShouldDisplay_ = call (getSymbol "g_unix_mount_guess_should_display") (GioUnixMountEntryRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val unixMountIsReadonly_ = call (getSymbol "g_unix_mount_is_readonly") (GioUnixMountEntryRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val unixMountIsSystemInternal_ = call (getSymbol "g_unix_mount_is_system_internal") (GioUnixMountEntryRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val unixMountPointsChangedSince_ = call (getSymbol "g_unix_mount_points_changed_since") (GUInt64.PolyML.cVal --> GBool.PolyML.cVal)
+      val unixMountsChangedSince_ = call (getSymbol "g_unix_mounts_changed_since") (GUInt64.PolyML.cVal --> GBool.PolyML.cVal)
     end
     structure ActionClass = GioActionClass
     structure ActionGroupClass = GioActionGroupClass

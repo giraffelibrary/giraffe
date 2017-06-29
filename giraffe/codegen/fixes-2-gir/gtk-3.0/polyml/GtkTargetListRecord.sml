@@ -11,17 +11,17 @@ structure GtkTargetListRecord :> GTK_TARGET_LIST_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgtk "gtk_target_list_ref")
+          (getSymbol "gtk_target_list_ref")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgtk "gtk_target_list_unref")
+          (getSymbol "gtk_target_list_unref")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgtk "gtk_target_list_get_type")
+          (getSymbol "gtk_target_list_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

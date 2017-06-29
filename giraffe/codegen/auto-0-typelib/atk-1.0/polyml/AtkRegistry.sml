@@ -5,7 +5,7 @@ structure AtkRegistry :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_registry_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "atk_registry_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class = 'a AtkRegistryClass.class
     type t = base class

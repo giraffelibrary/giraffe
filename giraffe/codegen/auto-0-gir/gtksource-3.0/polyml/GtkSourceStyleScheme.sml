@@ -12,13 +12,13 @@ structure GtkSourceStyleScheme :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getAuthors_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_authors") (GtkSourceStyleSchemeClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
-      val getDescription_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_description") (GtkSourceStyleSchemeClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getFilename_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_filename") (GtkSourceStyleSchemeClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getId_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_id") (GtkSourceStyleSchemeClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getName_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_name") (GtkSourceStyleSchemeClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getStyle_ = call (load_sym libgtksourceview "gtk_source_style_scheme_get_style") (GtkSourceStyleSchemeClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkSourceStyleClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_source_style_scheme_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getAuthors_ = call (getSymbol "gtk_source_style_scheme_get_authors") (GtkSourceStyleSchemeClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getDescription_ = call (getSymbol "gtk_source_style_scheme_get_description") (GtkSourceStyleSchemeClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getFilename_ = call (getSymbol "gtk_source_style_scheme_get_filename") (GtkSourceStyleSchemeClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getId_ = call (getSymbol "gtk_source_style_scheme_get_id") (GtkSourceStyleSchemeClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getName_ = call (getSymbol "gtk_source_style_scheme_get_name") (GtkSourceStyleSchemeClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getStyle_ = call (getSymbol "gtk_source_style_scheme_get_style") (GtkSourceStyleSchemeClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkSourceStyleClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkSourceStyleSchemeClass.class
     type 'a style_class = 'a GtkSourceStyleClass.class

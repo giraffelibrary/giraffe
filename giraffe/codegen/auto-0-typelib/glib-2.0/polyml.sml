@@ -1,4 +1,3 @@
-val libglib = PolyMLFFI.load_lib "";
 use "G_LIB_QUARK.sml";
 use "G_LIB_PID.sml";
 use "G_LIB_SOURCE_FUNC.sml";

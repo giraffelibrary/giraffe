@@ -6,10 +6,10 @@ structure AtkHypertext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_hypertext_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getLink_ = call (load_sym libatk "atk_hypertext_get_link") (AtkHypertextClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> AtkHyperlinkClass.PolyML.cPtr)
-      val getLinkIndex_ = call (load_sym libatk "atk_hypertext_get_link_index") (AtkHypertextClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
-      val getNLinks_ = call (load_sym libatk "atk_hypertext_get_n_links") (AtkHypertextClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getType_ = call (getSymbol "atk_hypertext_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getLink_ = call (getSymbol "atk_hypertext_get_link") (AtkHypertextClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> AtkHyperlinkClass.PolyML.cPtr)
+      val getLinkIndex_ = call (getSymbol "atk_hypertext_get_link_index") (AtkHypertextClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
+      val getNLinks_ = call (getSymbol "atk_hypertext_get_n_links") (AtkHypertextClass.PolyML.cPtr --> GInt32.PolyML.cVal)
     end
     type 'a class = 'a AtkHypertextClass.class
     type 'a hyperlink_class = 'a AtkHyperlinkClass.class

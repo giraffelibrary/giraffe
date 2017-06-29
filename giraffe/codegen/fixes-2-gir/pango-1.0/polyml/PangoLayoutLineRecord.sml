@@ -11,17 +11,17 @@ structure PangoLayoutLineRecord :> PANGO_LAYOUT_LINE_RECORD =
     in
       val dup_ =
         call
-          (load_sym libpango "pango_layout_line_ref")
+          (getSymbol "pango_layout_line_ref")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libpango "pango_layout_line_unref")
+          (getSymbol "pango_layout_line_unref")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libpango "pango_layout_line_get_type")
+          (getSymbol "pango_layout_line_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

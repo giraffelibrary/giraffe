@@ -11,17 +11,17 @@ structure PangoTabArrayRecord :> PANGO_TAB_ARRAY_RECORD =
     in
       val dup_ =
         call
-          (load_sym libpango "pango_tab_array_copy")
+          (getSymbol "pango_tab_array_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libpango "pango_tab_array_free")
+          (getSymbol "pango_tab_array_free")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libpango "pango_tab_array_get_type")
+          (getSymbol "pango_tab_array_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

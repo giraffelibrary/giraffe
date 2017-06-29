@@ -1,4 +1,3 @@
-val libcairogobject = PolyMLFFI.load_lib "";
 use "CAIRO_CONTEXT_RECORD.sml";
 use "CAIRO_CONTEXT.sml";
 use "CAIRO_SURFACE_RECORD.sml";

@@ -5,15 +5,15 @@ structure AtkAction :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_action_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val doAction_ = call (load_sym libatk "atk_action_do_action") (AtkActionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
-      val getDescription_ = call (load_sym libatk "atk_action_get_description") (AtkActionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val getKeybinding_ = call (load_sym libatk "atk_action_get_keybinding") (AtkActionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val getLocalizedName_ = call (load_sym libatk "atk_action_get_localized_name") (AtkActionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val getNActions_ = call (load_sym libatk "atk_action_get_n_actions") (AtkActionClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getName_ = call (load_sym libatk "atk_action_get_name") (AtkActionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getType_ = call (getSymbol "atk_action_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val doAction_ = call (getSymbol "atk_action_do_action") (AtkActionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val getDescription_ = call (getSymbol "atk_action_get_description") (AtkActionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getKeybinding_ = call (getSymbol "atk_action_get_keybinding") (AtkActionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getLocalizedName_ = call (getSymbol "atk_action_get_localized_name") (AtkActionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getNActions_ = call (getSymbol "atk_action_get_n_actions") (AtkActionClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getName_ = call (getSymbol "atk_action_get_name") (AtkActionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val setDescription_ =
-        call (load_sym libatk "atk_action_set_description")
+        call (getSymbol "atk_action_set_description")
           (
             AtkActionClass.PolyML.cPtr
              &&> GInt.PolyML.cVal

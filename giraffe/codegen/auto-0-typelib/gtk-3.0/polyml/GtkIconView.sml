@@ -18,12 +18,12 @@ structure GtkIconView :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_icon_view_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_icon_view_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val newWithArea_ = call (load_sym libgtk "gtk_icon_view_new_with_area") (GtkCellAreaClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val newWithModel_ = call (load_sym libgtk "gtk_icon_view_new_with_model") (GtkTreeModelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_icon_view_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_icon_view_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val newWithArea_ = call (getSymbol "gtk_icon_view_new_with_area") (GtkCellAreaClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val newWithModel_ = call (getSymbol "gtk_icon_view_new_with_model") (GtkTreeModelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val convertWidgetToBinWindowCoords_ =
-        call (load_sym libgtk "gtk_icon_view_convert_widget_to_bin_window_coords")
+        call (getSymbol "gtk_icon_view_convert_widget_to_bin_window_coords")
           (
             GtkIconViewClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -32,11 +32,11 @@ structure GtkIconView :>
              &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val createDragIcon_ = call (load_sym libgtk "gtk_icon_view_create_drag_icon") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
-      val getColumnSpacing_ = call (load_sym libgtk "gtk_icon_view_get_column_spacing") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getColumns_ = call (load_sym libgtk "gtk_icon_view_get_columns") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val createDragIcon_ = call (getSymbol "gtk_icon_view_create_drag_icon") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
+      val getColumnSpacing_ = call (getSymbol "gtk_icon_view_get_column_spacing") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getColumns_ = call (getSymbol "gtk_icon_view_get_columns") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getCursor_ =
-        call (load_sym libgtk "gtk_icon_view_get_cursor")
+        call (getSymbol "gtk_icon_view_get_cursor")
           (
             GtkIconViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cOutRef
@@ -44,7 +44,7 @@ structure GtkIconView :>
              --> GBool.PolyML.cVal
           )
       val getDestItemAtPos_ =
-        call (load_sym libgtk "gtk_icon_view_get_dest_item_at_pos")
+        call (getSymbol "gtk_icon_view_get_dest_item_at_pos")
           (
             GtkIconViewClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -54,7 +54,7 @@ structure GtkIconView :>
              --> GBool.PolyML.cVal
           )
       val getDragDestItem_ =
-        call (load_sym libgtk "gtk_icon_view_get_drag_dest_item")
+        call (getSymbol "gtk_icon_view_get_drag_dest_item")
           (
             GtkIconViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cOutRef
@@ -62,7 +62,7 @@ structure GtkIconView :>
              --> PolyMLFFI.cVoid
           )
       val getItemAtPos_ =
-        call (load_sym libgtk "gtk_icon_view_get_item_at_pos")
+        call (getSymbol "gtk_icon_view_get_item_at_pos")
           (
             GtkIconViewClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -71,31 +71,31 @@ structure GtkIconView :>
              &&> GtkCellRendererClass.PolyML.cOutRef
              --> GBool.PolyML.cVal
           )
-      val getItemColumn_ = call (load_sym libgtk "gtk_icon_view_get_item_column") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getItemOrientation_ = call (load_sym libgtk "gtk_icon_view_get_item_orientation") (GtkIconViewClass.PolyML.cPtr --> GtkOrientation.PolyML.cVal)
-      val getItemPadding_ = call (load_sym libgtk "gtk_icon_view_get_item_padding") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getItemRow_ = call (load_sym libgtk "gtk_icon_view_get_item_row") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getItemWidth_ = call (load_sym libgtk "gtk_icon_view_get_item_width") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getMargin_ = call (load_sym libgtk "gtk_icon_view_get_margin") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getMarkupColumn_ = call (load_sym libgtk "gtk_icon_view_get_markup_column") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getModel_ = call (load_sym libgtk "gtk_icon_view_get_model") (GtkIconViewClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
+      val getItemColumn_ = call (getSymbol "gtk_icon_view_get_item_column") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getItemOrientation_ = call (getSymbol "gtk_icon_view_get_item_orientation") (GtkIconViewClass.PolyML.cPtr --> GtkOrientation.PolyML.cVal)
+      val getItemPadding_ = call (getSymbol "gtk_icon_view_get_item_padding") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getItemRow_ = call (getSymbol "gtk_icon_view_get_item_row") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getItemWidth_ = call (getSymbol "gtk_icon_view_get_item_width") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getMargin_ = call (getSymbol "gtk_icon_view_get_margin") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getMarkupColumn_ = call (getSymbol "gtk_icon_view_get_markup_column") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getModel_ = call (getSymbol "gtk_icon_view_get_model") (GtkIconViewClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
       val getPathAtPos_ =
-        call (load_sym libgtk "gtk_icon_view_get_path_at_pos")
+        call (getSymbol "gtk_icon_view_get_path_at_pos")
           (
             GtkIconViewClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
              --> GtkTreePathRecord.PolyML.cPtr
           )
-      val getPixbufColumn_ = call (load_sym libgtk "gtk_icon_view_get_pixbuf_column") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getReorderable_ = call (load_sym libgtk "gtk_icon_view_get_reorderable") (GtkIconViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getRowSpacing_ = call (load_sym libgtk "gtk_icon_view_get_row_spacing") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getSelectionMode_ = call (load_sym libgtk "gtk_icon_view_get_selection_mode") (GtkIconViewClass.PolyML.cPtr --> GtkSelectionMode.PolyML.cVal)
-      val getSpacing_ = call (load_sym libgtk "gtk_icon_view_get_spacing") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getTextColumn_ = call (load_sym libgtk "gtk_icon_view_get_text_column") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getTooltipColumn_ = call (load_sym libgtk "gtk_icon_view_get_tooltip_column") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getPixbufColumn_ = call (getSymbol "gtk_icon_view_get_pixbuf_column") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getReorderable_ = call (getSymbol "gtk_icon_view_get_reorderable") (GtkIconViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getRowSpacing_ = call (getSymbol "gtk_icon_view_get_row_spacing") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getSelectionMode_ = call (getSymbol "gtk_icon_view_get_selection_mode") (GtkIconViewClass.PolyML.cPtr --> GtkSelectionMode.PolyML.cVal)
+      val getSpacing_ = call (getSymbol "gtk_icon_view_get_spacing") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getTextColumn_ = call (getSymbol "gtk_icon_view_get_text_column") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getTooltipColumn_ = call (getSymbol "gtk_icon_view_get_tooltip_column") (GtkIconViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getTooltipContext_ =
-        call (load_sym libgtk "gtk_icon_view_get_tooltip_context")
+        call (getSymbol "gtk_icon_view_get_tooltip_context")
           (
             GtkIconViewClass.PolyML.cPtr
              &&> GInt32.PolyML.cRef
@@ -107,17 +107,17 @@ structure GtkIconView :>
              --> GBool.PolyML.cVal
           )
       val getVisibleRange_ =
-        call (load_sym libgtk "gtk_icon_view_get_visible_range")
+        call (getSymbol "gtk_icon_view_get_visible_range")
           (
             GtkIconViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cOutRef
              &&> GtkTreePathRecord.PolyML.cOutRef
              --> GBool.PolyML.cVal
           )
-      val itemActivated_ = call (load_sym libgtk "gtk_icon_view_item_activated") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val pathIsSelected_ = call (load_sym libgtk "gtk_icon_view_path_is_selected") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val itemActivated_ = call (getSymbol "gtk_icon_view_item_activated") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val pathIsSelected_ = call (getSymbol "gtk_icon_view_path_is_selected") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val scrollToPath_ =
-        call (load_sym libgtk "gtk_icon_view_scroll_to_path")
+        call (getSymbol "gtk_icon_view_scroll_to_path")
           (
             GtkIconViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cPtr
@@ -126,12 +126,12 @@ structure GtkIconView :>
              &&> GFloat.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val selectAll_ = call (load_sym libgtk "gtk_icon_view_select_all") (GtkIconViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val selectPath_ = call (load_sym libgtk "gtk_icon_view_select_path") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setColumnSpacing_ = call (load_sym libgtk "gtk_icon_view_set_column_spacing") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setColumns_ = call (load_sym libgtk "gtk_icon_view_set_columns") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val selectAll_ = call (getSymbol "gtk_icon_view_select_all") (GtkIconViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val selectPath_ = call (getSymbol "gtk_icon_view_select_path") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setColumnSpacing_ = call (getSymbol "gtk_icon_view_set_column_spacing") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setColumns_ = call (getSymbol "gtk_icon_view_set_columns") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val setCursor_ =
-        call (load_sym libgtk "gtk_icon_view_set_cursor")
+        call (getSymbol "gtk_icon_view_set_cursor")
           (
             GtkIconViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cPtr
@@ -140,27 +140,27 @@ structure GtkIconView :>
              --> PolyMLFFI.cVoid
           )
       val setDragDestItem_ =
-        call (load_sym libgtk "gtk_icon_view_set_drag_dest_item")
+        call (getSymbol "gtk_icon_view_set_drag_dest_item")
           (
             GtkIconViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cOptPtr
              &&> GtkIconViewDropPosition.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setItemOrientation_ = call (load_sym libgtk "gtk_icon_view_set_item_orientation") (GtkIconViewClass.PolyML.cPtr &&> GtkOrientation.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setItemPadding_ = call (load_sym libgtk "gtk_icon_view_set_item_padding") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setItemWidth_ = call (load_sym libgtk "gtk_icon_view_set_item_width") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setMargin_ = call (load_sym libgtk "gtk_icon_view_set_margin") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setMarkupColumn_ = call (load_sym libgtk "gtk_icon_view_set_markup_column") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setModel_ = call (load_sym libgtk "gtk_icon_view_set_model") (GtkIconViewClass.PolyML.cPtr &&> GtkTreeModelClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setPixbufColumn_ = call (load_sym libgtk "gtk_icon_view_set_pixbuf_column") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setReorderable_ = call (load_sym libgtk "gtk_icon_view_set_reorderable") (GtkIconViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setRowSpacing_ = call (load_sym libgtk "gtk_icon_view_set_row_spacing") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSelectionMode_ = call (load_sym libgtk "gtk_icon_view_set_selection_mode") (GtkIconViewClass.PolyML.cPtr &&> GtkSelectionMode.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSpacing_ = call (load_sym libgtk "gtk_icon_view_set_spacing") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setTextColumn_ = call (load_sym libgtk "gtk_icon_view_set_text_column") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setItemOrientation_ = call (getSymbol "gtk_icon_view_set_item_orientation") (GtkIconViewClass.PolyML.cPtr &&> GtkOrientation.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setItemPadding_ = call (getSymbol "gtk_icon_view_set_item_padding") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setItemWidth_ = call (getSymbol "gtk_icon_view_set_item_width") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMargin_ = call (getSymbol "gtk_icon_view_set_margin") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMarkupColumn_ = call (getSymbol "gtk_icon_view_set_markup_column") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setModel_ = call (getSymbol "gtk_icon_view_set_model") (GtkIconViewClass.PolyML.cPtr &&> GtkTreeModelClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setPixbufColumn_ = call (getSymbol "gtk_icon_view_set_pixbuf_column") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setReorderable_ = call (getSymbol "gtk_icon_view_set_reorderable") (GtkIconViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setRowSpacing_ = call (getSymbol "gtk_icon_view_set_row_spacing") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSelectionMode_ = call (getSymbol "gtk_icon_view_set_selection_mode") (GtkIconViewClass.PolyML.cPtr &&> GtkSelectionMode.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSpacing_ = call (getSymbol "gtk_icon_view_set_spacing") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setTextColumn_ = call (getSymbol "gtk_icon_view_set_text_column") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val setTooltipCell_ =
-        call (load_sym libgtk "gtk_icon_view_set_tooltip_cell")
+        call (getSymbol "gtk_icon_view_set_tooltip_cell")
           (
             GtkIconViewClass.PolyML.cPtr
              &&> GtkTooltipClass.PolyML.cPtr
@@ -168,19 +168,19 @@ structure GtkIconView :>
              &&> GtkCellRendererClass.PolyML.cOptPtr
              --> PolyMLFFI.cVoid
           )
-      val setTooltipColumn_ = call (load_sym libgtk "gtk_icon_view_set_tooltip_column") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setTooltipColumn_ = call (getSymbol "gtk_icon_view_set_tooltip_column") (GtkIconViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val setTooltipItem_ =
-        call (load_sym libgtk "gtk_icon_view_set_tooltip_item")
+        call (getSymbol "gtk_icon_view_set_tooltip_item")
           (
             GtkIconViewClass.PolyML.cPtr
              &&> GtkTooltipClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val unselectAll_ = call (load_sym libgtk "gtk_icon_view_unselect_all") (GtkIconViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val unselectPath_ = call (load_sym libgtk "gtk_icon_view_unselect_path") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val unsetModelDragDest_ = call (load_sym libgtk "gtk_icon_view_unset_model_drag_dest") (GtkIconViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val unsetModelDragSource_ = call (load_sym libgtk "gtk_icon_view_unset_model_drag_source") (GtkIconViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unselectAll_ = call (getSymbol "gtk_icon_view_unselect_all") (GtkIconViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unselectPath_ = call (getSymbol "gtk_icon_view_unselect_path") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unsetModelDragDest_ = call (getSymbol "gtk_icon_view_unset_model_drag_dest") (GtkIconViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unsetModelDragSource_ = call (getSymbol "gtk_icon_view_unset_model_drag_source") (GtkIconViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkIconViewClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

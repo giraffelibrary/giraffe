@@ -17,26 +17,26 @@ structure GioMount :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_mount_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val canEject_ = call (load_sym libgio "g_mount_can_eject") (GioMountClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val canUnmount_ = call (load_sym libgio "g_mount_can_unmount") (GioMountClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getType_ = call (getSymbol "g_mount_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val canEject_ = call (getSymbol "g_mount_can_eject") (GioMountClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val canUnmount_ = call (getSymbol "g_mount_can_unmount") (GioMountClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val ejectWithOperationFinish_ =
-        call (load_sym libgio "g_mount_eject_with_operation_finish")
+        call (getSymbol "g_mount_eject_with_operation_finish")
           (
             GioMountClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val getDefaultLocation_ = call (load_sym libgio "g_mount_get_default_location") (GioMountClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
-      val getDrive_ = call (load_sym libgio "g_mount_get_drive") (GioMountClass.PolyML.cPtr --> GioDriveClass.PolyML.cPtr)
-      val getIcon_ = call (load_sym libgio "g_mount_get_icon") (GioMountClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
-      val getName_ = call (load_sym libgio "g_mount_get_name") (GioMountClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getRoot_ = call (load_sym libgio "g_mount_get_root") (GioMountClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
-      val getUuid_ = call (load_sym libgio "g_mount_get_uuid") (GioMountClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getVolume_ = call (load_sym libgio "g_mount_get_volume") (GioMountClass.PolyML.cPtr --> GioVolumeClass.PolyML.cPtr)
+      val getDefaultLocation_ = call (getSymbol "g_mount_get_default_location") (GioMountClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
+      val getDrive_ = call (getSymbol "g_mount_get_drive") (GioMountClass.PolyML.cPtr --> GioDriveClass.PolyML.cPtr)
+      val getIcon_ = call (getSymbol "g_mount_get_icon") (GioMountClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
+      val getName_ = call (getSymbol "g_mount_get_name") (GioMountClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getRoot_ = call (getSymbol "g_mount_get_root") (GioMountClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
+      val getUuid_ = call (getSymbol "g_mount_get_uuid") (GioMountClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getVolume_ = call (getSymbol "g_mount_get_volume") (GioMountClass.PolyML.cPtr --> GioVolumeClass.PolyML.cPtr)
       val guessContentTypeFinish_ =
-        call (load_sym libgio "g_mount_guess_content_type_finish")
+        call (getSymbol "g_mount_guess_content_type_finish")
           (
             GioMountClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -44,7 +44,7 @@ structure GioMount :>
              --> Utf8CVector.PolyML.cOutPtr
           )
       val guessContentTypeSync_ =
-        call (load_sym libgio "g_mount_guess_content_type_sync")
+        call (getSymbol "g_mount_guess_content_type_sync")
           (
             GioMountClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
@@ -52,25 +52,25 @@ structure GioMount :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8CVector.PolyML.cOutPtr
           )
-      val isShadowed_ = call (load_sym libgio "g_mount_is_shadowed") (GioMountClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isShadowed_ = call (getSymbol "g_mount_is_shadowed") (GioMountClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val remountFinish_ =
-        call (load_sym libgio "g_mount_remount_finish")
+        call (getSymbol "g_mount_remount_finish")
           (
             GioMountClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val shadow_ = call (load_sym libgio "g_mount_shadow") (GioMountClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val shadow_ = call (getSymbol "g_mount_shadow") (GioMountClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val unmountWithOperationFinish_ =
-        call (load_sym libgio "g_mount_unmount_with_operation_finish")
+        call (getSymbol "g_mount_unmount_with_operation_finish")
           (
             GioMountClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val unshadow_ = call (load_sym libgio "g_mount_unshadow") (GioMountClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unshadow_ = call (getSymbol "g_mount_unshadow") (GioMountClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioMountClass.class
     type 'a drive_class = 'a GioDriveClass.class

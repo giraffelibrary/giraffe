@@ -14,7 +14,7 @@ structure Property :>
       open PolyMLFFI
     in
       val getProperty_ =
-        call (load_sym libgobject "g_object_get_property")
+        call (getSymbol "g_object_get_property")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -23,7 +23,7 @@ structure Property :>
           )
 
       val setProperty_ =
-        call (load_sym libgobject "g_object_set_property")
+        call (getSymbol "g_object_set_property")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr

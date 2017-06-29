@@ -8,9 +8,9 @@ structure GioTlsServerConnection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tls_server_connection_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_tls_server_connection_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgio "g_tls_server_connection_new")
+        call (getSymbol "g_tls_server_connection_new")
           (
             GioIOStreamClass.PolyML.cPtr
              &&> GioTlsCertificateClass.PolyML.cOptPtr

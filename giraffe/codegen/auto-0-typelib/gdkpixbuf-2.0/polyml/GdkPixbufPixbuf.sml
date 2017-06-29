@@ -14,9 +14,9 @@ structure GdkPixbufPixbuf :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gdk_pixbuf_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_new")
+        call (getSymbol "gdk_pixbuf_new")
           (
             GdkPixbufColorspace.PolyML.cVal
              &&> GBool.PolyML.cVal
@@ -25,9 +25,9 @@ structure GdkPixbufPixbuf :>
              &&> GInt32.PolyML.cVal
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
-      val newFromFile_ = call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val newFromFile_ = call (getSymbol "gdk_pixbuf_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GdkPixbufPixbufClass.PolyML.cPtr)
       val newFromFileAtScale_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_file_at_scale")
+        call (getSymbol "gdk_pixbuf_new_from_file_at_scale")
           (
             Utf8.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
@@ -37,7 +37,7 @@ structure GdkPixbufPixbuf :>
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
       val newFromFileAtSize_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_file_at_size")
+        call (getSymbol "gdk_pixbuf_new_from_file_at_size")
           (
             Utf8.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
@@ -46,7 +46,7 @@ structure GdkPixbufPixbuf :>
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
       val newFromStream_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_stream")
+        call (getSymbol "gdk_pixbuf_new_from_stream")
           (
             GioInputStreamClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -54,7 +54,7 @@ structure GdkPixbufPixbuf :>
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
       val newFromStreamAtScale_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_stream_at_scale")
+        call (getSymbol "gdk_pixbuf_new_from_stream_at_scale")
           (
             GioInputStreamClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -64,12 +64,12 @@ structure GdkPixbufPixbuf :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
-      val newFromStreamFinish_ = call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_stream_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GdkPixbufPixbufClass.PolyML.cPtr)
-      val newFromXpmData_ = call (load_sym libgdkpixbuf "gdk_pixbuf_new_from_xpm_data") (Utf8.PolyML.cInPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
-      val gettext_ = call (load_sym libgdkpixbuf "gdk_pixbuf_gettext") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val saveToStreamFinish_ = call (load_sym libgdkpixbuf "gdk_pixbuf_save_to_stream_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
+      val newFromStreamFinish_ = call (getSymbol "gdk_pixbuf_new_from_stream_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val newFromXpmData_ = call (getSymbol "gdk_pixbuf_new_from_xpm_data") (Utf8.PolyML.cInPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val gettext_ = call (getSymbol "gdk_pixbuf_gettext") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val saveToStreamFinish_ = call (getSymbol "gdk_pixbuf_save_to_stream_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val addAlpha_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_add_alpha")
+        call (getSymbol "gdk_pixbuf_add_alpha")
           (
             GdkPixbufPixbufClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
@@ -78,9 +78,9 @@ structure GdkPixbufPixbuf :>
              &&> GUInt8.PolyML.cVal
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
-      val applyEmbeddedOrientation_ = call (load_sym libgdkpixbuf "gdk_pixbuf_apply_embedded_orientation") (GdkPixbufPixbufClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val applyEmbeddedOrientation_ = call (getSymbol "gdk_pixbuf_apply_embedded_orientation") (GdkPixbufPixbufClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
       val composite_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_composite")
+        call (getSymbol "gdk_pixbuf_composite")
           (
             GdkPixbufPixbufClass.PolyML.cPtr
              &&> GdkPixbufPixbufClass.PolyML.cPtr
@@ -97,7 +97,7 @@ structure GdkPixbufPixbuf :>
              --> PolyMLFFI.cVoid
           )
       val compositeColor_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_composite_color")
+        call (getSymbol "gdk_pixbuf_composite_color")
           (
             GdkPixbufPixbufClass.PolyML.cPtr
              &&> GdkPixbufPixbufClass.PolyML.cPtr
@@ -119,7 +119,7 @@ structure GdkPixbufPixbuf :>
              --> PolyMLFFI.cVoid
           )
       val compositeColorSimple_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_composite_color_simple")
+        call (getSymbol "gdk_pixbuf_composite_color_simple")
           (
             GdkPixbufPixbufClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -131,9 +131,9 @@ structure GdkPixbufPixbuf :>
              &&> GUInt32.PolyML.cVal
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
-      val copy_ = call (load_sym libgdkpixbuf "gdk_pixbuf_copy") (GdkPixbufPixbufClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val copy_ = call (getSymbol "gdk_pixbuf_copy") (GdkPixbufPixbufClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
       val copyArea_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_copy_area")
+        call (getSymbol "gdk_pixbuf_copy_area")
           (
             GdkPixbufPixbufClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -145,18 +145,18 @@ structure GdkPixbufPixbuf :>
              &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val fill_ = call (load_sym libgdkpixbuf "gdk_pixbuf_fill") (GdkPixbufPixbufClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val flip_ = call (load_sym libgdkpixbuf "gdk_pixbuf_flip") (GdkPixbufPixbufClass.PolyML.cPtr &&> GBool.PolyML.cVal --> GdkPixbufPixbufClass.PolyML.cPtr)
-      val getBitsPerSample_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_bits_per_sample") (GdkPixbufPixbufClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getColorspace_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_colorspace") (GdkPixbufPixbufClass.PolyML.cPtr --> GdkPixbufColorspace.PolyML.cVal)
-      val getHasAlpha_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_has_alpha") (GdkPixbufPixbufClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getHeight_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_height") (GdkPixbufPixbufClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getNChannels_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_n_channels") (GdkPixbufPixbufClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getOption_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_option") (GdkPixbufPixbufClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val getRowstride_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_rowstride") (GdkPixbufPixbufClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getWidth_ = call (load_sym libgdkpixbuf "gdk_pixbuf_get_width") (GdkPixbufPixbufClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val fill_ = call (getSymbol "gdk_pixbuf_fill") (GdkPixbufPixbufClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val flip_ = call (getSymbol "gdk_pixbuf_flip") (GdkPixbufPixbufClass.PolyML.cPtr &&> GBool.PolyML.cVal --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val getBitsPerSample_ = call (getSymbol "gdk_pixbuf_get_bits_per_sample") (GdkPixbufPixbufClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getColorspace_ = call (getSymbol "gdk_pixbuf_get_colorspace") (GdkPixbufPixbufClass.PolyML.cPtr --> GdkPixbufColorspace.PolyML.cVal)
+      val getHasAlpha_ = call (getSymbol "gdk_pixbuf_get_has_alpha") (GdkPixbufPixbufClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getHeight_ = call (getSymbol "gdk_pixbuf_get_height") (GdkPixbufPixbufClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getNChannels_ = call (getSymbol "gdk_pixbuf_get_n_channels") (GdkPixbufPixbufClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getOption_ = call (getSymbol "gdk_pixbuf_get_option") (GdkPixbufPixbufClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getRowstride_ = call (getSymbol "gdk_pixbuf_get_rowstride") (GdkPixbufPixbufClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getWidth_ = call (getSymbol "gdk_pixbuf_get_width") (GdkPixbufPixbufClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val newSubpixbuf_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_new_subpixbuf")
+        call (getSymbol "gdk_pixbuf_new_subpixbuf")
           (
             GdkPixbufPixbufClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -165,9 +165,9 @@ structure GdkPixbufPixbuf :>
              &&> GInt32.PolyML.cVal
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
-      val rotateSimple_ = call (load_sym libgdkpixbuf "gdk_pixbuf_rotate_simple") (GdkPixbufPixbufClass.PolyML.cPtr &&> GdkPixbufPixbufRotation.PolyML.cVal --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val rotateSimple_ = call (getSymbol "gdk_pixbuf_rotate_simple") (GdkPixbufPixbufClass.PolyML.cPtr &&> GdkPixbufPixbufRotation.PolyML.cVal --> GdkPixbufPixbufClass.PolyML.cPtr)
       val saturateAndPixelate_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_saturate_and_pixelate")
+        call (getSymbol "gdk_pixbuf_saturate_and_pixelate")
           (
             GdkPixbufPixbufClass.PolyML.cPtr
              &&> GdkPixbufPixbufClass.PolyML.cPtr
@@ -176,7 +176,7 @@ structure GdkPixbufPixbuf :>
              --> PolyMLFFI.cVoid
           )
       val savev_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_savev")
+        call (getSymbol "gdk_pixbuf_savev")
           (
             GdkPixbufPixbufClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -187,7 +187,7 @@ structure GdkPixbufPixbuf :>
              --> GBool.PolyML.cVal
           )
       val scale_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_scale")
+        call (getSymbol "gdk_pixbuf_scale")
           (
             GdkPixbufPixbufClass.PolyML.cPtr
              &&> GdkPixbufPixbufClass.PolyML.cPtr
@@ -203,7 +203,7 @@ structure GdkPixbufPixbuf :>
              --> PolyMLFFI.cVoid
           )
       val scaleSimple_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_scale_simple")
+        call (getSymbol "gdk_pixbuf_scale_simple")
           (
             GdkPixbufPixbufClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal

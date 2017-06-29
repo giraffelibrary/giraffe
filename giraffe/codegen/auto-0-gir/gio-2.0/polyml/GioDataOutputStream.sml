@@ -8,11 +8,11 @@ structure GioDataOutputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_data_output_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_data_output_stream_new") (GioOutputStreamClass.PolyML.cPtr --> GioDataOutputStreamClass.PolyML.cPtr)
-      val getByteOrder_ = call (load_sym libgio "g_data_output_stream_get_byte_order") (GioDataOutputStreamClass.PolyML.cPtr --> GioDataStreamByteOrder.PolyML.cVal)
+      val getType_ = call (getSymbol "g_data_output_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_data_output_stream_new") (GioOutputStreamClass.PolyML.cPtr --> GioDataOutputStreamClass.PolyML.cPtr)
+      val getByteOrder_ = call (getSymbol "g_data_output_stream_get_byte_order") (GioDataOutputStreamClass.PolyML.cPtr --> GioDataStreamByteOrder.PolyML.cVal)
       val putByte_ =
-        call (load_sym libgio "g_data_output_stream_put_byte")
+        call (getSymbol "g_data_output_stream_put_byte")
           (
             GioDataOutputStreamClass.PolyML.cPtr
              &&> GUInt8.PolyML.cVal
@@ -21,7 +21,7 @@ structure GioDataOutputStream :>
              --> GBool.PolyML.cVal
           )
       val putInt16_ =
-        call (load_sym libgio "g_data_output_stream_put_int16")
+        call (getSymbol "g_data_output_stream_put_int16")
           (
             GioDataOutputStreamClass.PolyML.cPtr
              &&> GInt16.PolyML.cVal
@@ -30,7 +30,7 @@ structure GioDataOutputStream :>
              --> GBool.PolyML.cVal
           )
       val putInt32_ =
-        call (load_sym libgio "g_data_output_stream_put_int32")
+        call (getSymbol "g_data_output_stream_put_int32")
           (
             GioDataOutputStreamClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -39,7 +39,7 @@ structure GioDataOutputStream :>
              --> GBool.PolyML.cVal
           )
       val putInt64_ =
-        call (load_sym libgio "g_data_output_stream_put_int64")
+        call (getSymbol "g_data_output_stream_put_int64")
           (
             GioDataOutputStreamClass.PolyML.cPtr
              &&> GInt64.PolyML.cVal
@@ -48,7 +48,7 @@ structure GioDataOutputStream :>
              --> GBool.PolyML.cVal
           )
       val putString_ =
-        call (load_sym libgio "g_data_output_stream_put_string")
+        call (getSymbol "g_data_output_stream_put_string")
           (
             GioDataOutputStreamClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -57,7 +57,7 @@ structure GioDataOutputStream :>
              --> GBool.PolyML.cVal
           )
       val putUint16_ =
-        call (load_sym libgio "g_data_output_stream_put_uint16")
+        call (getSymbol "g_data_output_stream_put_uint16")
           (
             GioDataOutputStreamClass.PolyML.cPtr
              &&> GUInt16.PolyML.cVal
@@ -66,7 +66,7 @@ structure GioDataOutputStream :>
              --> GBool.PolyML.cVal
           )
       val putUint32_ =
-        call (load_sym libgio "g_data_output_stream_put_uint32")
+        call (getSymbol "g_data_output_stream_put_uint32")
           (
             GioDataOutputStreamClass.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
@@ -75,7 +75,7 @@ structure GioDataOutputStream :>
              --> GBool.PolyML.cVal
           )
       val putUint64_ =
-        call (load_sym libgio "g_data_output_stream_put_uint64")
+        call (getSymbol "g_data_output_stream_put_uint64")
           (
             GioDataOutputStreamClass.PolyML.cPtr
              &&> GUInt64.PolyML.cVal
@@ -83,7 +83,7 @@ structure GioDataOutputStream :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val setByteOrder_ = call (load_sym libgio "g_data_output_stream_set_byte_order") (GioDataOutputStreamClass.PolyML.cPtr &&> GioDataStreamByteOrder.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setByteOrder_ = call (getSymbol "g_data_output_stream_set_byte_order") (GioDataOutputStreamClass.PolyML.cPtr &&> GioDataStreamByteOrder.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioDataOutputStreamClass.class
     type 'a output_stream_class = 'a GioOutputStreamClass.class

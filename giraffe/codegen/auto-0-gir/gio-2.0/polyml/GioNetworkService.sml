@@ -6,20 +6,20 @@ structure GioNetworkService :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_network_service_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_network_service_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgio "g_network_service_new")
+        call (getSymbol "g_network_service_new")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              --> GioSocketConnectableClass.PolyML.cPtr
           )
-      val getDomain_ = call (load_sym libgio "g_network_service_get_domain") (GioNetworkServiceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getProtocol_ = call (load_sym libgio "g_network_service_get_protocol") (GioNetworkServiceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getScheme_ = call (load_sym libgio "g_network_service_get_scheme") (GioNetworkServiceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getService_ = call (load_sym libgio "g_network_service_get_service") (GioNetworkServiceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val setScheme_ = call (load_sym libgio "g_network_service_set_scheme") (GioNetworkServiceClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val getDomain_ = call (getSymbol "g_network_service_get_domain") (GioNetworkServiceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getProtocol_ = call (getSymbol "g_network_service_get_protocol") (GioNetworkServiceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getScheme_ = call (getSymbol "g_network_service_get_scheme") (GioNetworkServiceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getService_ = call (getSymbol "g_network_service_get_service") (GioNetworkServiceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val setScheme_ = call (getSymbol "g_network_service_set_scheme") (GioNetworkServiceClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioNetworkServiceClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class

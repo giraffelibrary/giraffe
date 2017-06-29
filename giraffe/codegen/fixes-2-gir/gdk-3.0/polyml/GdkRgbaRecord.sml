@@ -11,27 +11,27 @@ structure GdkRgbaRecord :> GDK_RGBA_RECORD =
     in
       val new_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_rgba_new")
+          (getSymbol "giraffe_gdk_rgba_new")
           (cVoid --> cPtr)
 
       val copy_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_rgba_copy")
+          (getSymbol "giraffe_gdk_rgba_copy")
           (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_rgba_free")
+          (getSymbol "giraffe_gdk_rgba_free")
           (cPtr --> cVoid)
 
       val size_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_rgba_size")
+          (getSymbol "giraffe_gdk_rgba_size")
           (cVoid --> GUInt.PolyML.cVal)
 
       val getType_ =
         call
-          (load_sym libgdk "gdk_rgba_get_type")
+          (getSymbol "gdk_rgba_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

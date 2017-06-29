@@ -162,14 +162,12 @@ fun makeStructSig
 fun addStructMethodStrDecsLowLevel
   isPolyML
   repo
-  libId
   addInitStrDecs
   structIRef =
   addFunctionStrDecsLowLevel
     (StructInfo.getNMethods, StructInfo.getMethod)
     isPolyML
     repo
-    libId
     addInitStrDecs
     (SOME (structIRef, structIRef))
 
@@ -181,8 +179,7 @@ fun addStructMethodStrDecsHighLevel repo structIRef =
 
 fun makeStructStr
   (repo            : 'a RepositoryClass.class)
-  (vers            : Repository.typelibvers_t)
-  (libId           : id)
+  (_               : Repository.typelibvers_t)
   (structNamespace : string)
   (structInfo      : 'b StructInfoClass.class)
   (errs'0          : infoerrorhier list)
@@ -209,13 +206,7 @@ fun makeStructStr
 
     val addStructGetTypeFunctionStrDecLowLevel =
       case optGetTypeSymbol of
-        SOME getTypeSymbol =>
-          addGetTypeFunctionStrDecLowLevel
-            repo
-            vers
-            libId
-            structNamespace
-            getTypeSymbol
+        SOME getTypeSymbol => addGetTypeFunctionStrDecLowLevel getTypeSymbol
       | NONE               => K I
 
     (* module *)
@@ -255,7 +246,6 @@ fun makeStructStr
           addStructMethodStrDecsLowLevel
             isPolyML
             repo
-            libId
             addStructGetTypeFunctionStrDecLowLevel
             structIRef
             (structInfo, (strDecs'3, errs'2))

@@ -8,12 +8,12 @@ structure GioDBusInterfaceInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_interface_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val cacheBuild_ = call (load_sym libgio "g_dbus_interface_info_cache_build") (GioDBusInterfaceInfoRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val cacheRelease_ = call (load_sym libgio "g_dbus_interface_info_cache_release") (GioDBusInterfaceInfoRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val lookupMethod_ = call (load_sym libgio "g_dbus_interface_info_lookup_method") (GioDBusInterfaceInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioDBusMethodInfoRecord.PolyML.cPtr)
-      val lookupProperty_ = call (load_sym libgio "g_dbus_interface_info_lookup_property") (GioDBusInterfaceInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioDBusPropertyInfoRecord.PolyML.cPtr)
-      val lookupSignal_ = call (load_sym libgio "g_dbus_interface_info_lookup_signal") (GioDBusInterfaceInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioDBusSignalInfoRecord.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_dbus_interface_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val cacheBuild_ = call (getSymbol "g_dbus_interface_info_cache_build") (GioDBusInterfaceInfoRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val cacheRelease_ = call (getSymbol "g_dbus_interface_info_cache_release") (GioDBusInterfaceInfoRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val lookupMethod_ = call (getSymbol "g_dbus_interface_info_lookup_method") (GioDBusInterfaceInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioDBusMethodInfoRecord.PolyML.cPtr)
+      val lookupProperty_ = call (getSymbol "g_dbus_interface_info_lookup_property") (GioDBusInterfaceInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioDBusPropertyInfoRecord.PolyML.cPtr)
+      val lookupSignal_ = call (getSymbol "g_dbus_interface_info_lookup_signal") (GioDBusInterfaceInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioDBusSignalInfoRecord.PolyML.cPtr)
     end
     type t = GioDBusInterfaceInfoRecord.t
     type d_bus_method_info_t = GioDBusMethodInfoRecord.t

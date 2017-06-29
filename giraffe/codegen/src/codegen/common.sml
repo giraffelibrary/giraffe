@@ -33,23 +33,14 @@ fun addGetTypeFunctionStrDecHighLevel
   end
 
 fun addGetTypeFunctionStrDecLowLevel
-  repo
-  vers
-  libId
-  namespace
   getTypeSymbol
   isPolyML
   (strDecs, errs) =
   let
-    val getTypeLibId =
-      if namespace = "GLib"
-      then getSharedLibraryId repo vers "GObject"
-      else libId
-
     val strDecs' =
       (
         if isPolyML
-        then getTypeStrDecLowLevelPolyML getTypeLibId getTypeSymbol
+        then getTypeStrDecLowLevelPolyML getTypeSymbol
         else getTypeStrDecLowLevelMLton getTypeSymbol
       ) :: strDecs
   in
@@ -267,7 +258,7 @@ in
 end
 
 (*
- * `addAccessorRootStrDecs repo libId namespace info` returns
+ * `addAccessorRootStrDecs namespace info` returns
  * `(add, revLocalTypes)` where `add (valueType, isPtr) isPolyML strDecs`
  * prepends the following to `strDecs` when `info` is a registered GType,
  * i.e.
@@ -282,30 +273,30 @@ end
  *     in                                                     |
  *       val getType_ =                                       |
  *         call                                               |
- *           (load_sym <libId> "<getTypeSymbol>")             |
+ *           (getSymbol "<getTypeSymbol>")                    |
  *           (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);   |
  *                                                            |
  *       val getValue_ =                                      |
  *         call                                               |
- *           (load_sym <valueLibId> "g_value_get_<valueType>")|
+ *           (getSymbol "g_value_get_<valueType>")            |
  *           (GObjectValue.PolyML.cPtr --> <retConv>);        |
  *                                                            |
  *                                             -.             |
  *       val getOptValue_ =                     | isPtr       |
  *         call                                 |             | Poly/ML only
- *           (load_sym <valueLibId> "g_value_get_<valueType>")|
+ *           (getSymbol "g_value_get_<valueType>")            |
  *           (GObjectValue.PolyML.cPtr --> <retOptConv>);     |
  *                                             -'             |
  *                                                            |
  *       val setValue_ =                                      |
  *         call                                               |
- *           (load_sym <valueLibId> "g_value_set_<valueType>")|
+ *           (getSymbol "g_value_set_<valueType>")            |
  *           (GObjectValue.PolyML.cPtr &&> <parConv> --> PolyMLFFI.cVoid);
  *                                                            |
  *                                             -.             |
  *       val setOptValue_ =                     | isPtr       |
  *         call                                 |             |
- *           (load_sym <valueLibId> "g_value_set_<valueType>")|
+ *           (getSymbol "g_value_set_<valueType>")            |
  *           (GObjectValue.PolyML.cPtr &&> <parOptConv> --> PolyMLFFI.cVoid);
  *                                             -'             |
  *     end                                                    |
@@ -413,10 +404,6 @@ end
  *
  *         C.withVal
  *           otherwise
- *
- *
- *   valueLibId
- *     is `getSharedLibraryId repo vers "GObject"`
  *
  *)
 local
@@ -581,10 +568,10 @@ local
   (*
    *     val getValue_ =
    *       call
-   *         (load_sym <valueLibId> "g_value_get_<valueType>")
+   *         (getSymbol "g_value_get_<valueType>")
    *         (GObjectValueRecord.PolyML.cPtr --> <retConv>);
    *)
-  fun getValueStrDecLowLevelPolyML (valueLibId, valueIRef, valueType) ptrOpt =
+  fun getValueStrDecLowLevelPolyML (valueIRef, valueType) ptrOpt =
     let
       val parConvs =
         makeConv
@@ -601,7 +588,7 @@ local
       StrDecDec (
         mkIdValDec (
           getValueUId,
-          callPolyMLFFIExp valueLibId getTypeSymbol (parConvs, retConv)
+          callPolyMLFFIExp getTypeSymbol (parConvs, retConv)
         )
       )
     end
@@ -609,10 +596,10 @@ local
   (*
    *     val setValue_ =
    *       call
-   *         (load_sym <valueLibId> "g_value_set_<valueType>")
+   *         (getSymbol "g_value_set_<valueType>")
    *         (GObjectValueRecord.PolyML.cPtr &&> <parConv> --> PolyMLFFI.cVoid);
    *)
-  fun setValueStrDecLowLevelPolyML (valueLibId, valueIRef, valueType) ptrOpt =
+  fun setValueStrDecLowLevelPolyML (valueIRef, valueType) ptrOpt =
     let
       val parConv =
         makeConv [PolyMLId] (
@@ -633,15 +620,12 @@ local
       StrDecDec (
         mkIdValDec (
           setValueUId,
-          callPolyMLFFIExp valueLibId getTypeSymbol (parConvs, retConv)
+          callPolyMLFFIExp getTypeSymbol (parConvs, retConv)
         )
       )
     end
 
   fun addStrDecsLowLevelPolyML
-    repo
-    vers
-    libId
     namespace
     getTypeSymbol
     valueType
@@ -649,17 +633,12 @@ local
     strDecs =
     let
       val valueIRef = makeValueIRef namespace (SOME "")
-      val gobjectLibId = getSharedLibraryId repo vers "GObject"
-      val getTypeLibId =
-        if namespace = "GLib"
-        then gobjectLibId
-        else libId
-      val valueArgs = (gobjectLibId, valueIRef, valueType)
+      val valueArgs = (valueIRef, valueType)
       val localStrDecs =
         if isPtr
         then
           [
-            getTypeStrDecLowLevelPolyML getTypeLibId getTypeSymbol,
+            getTypeStrDecLowLevelPolyML getTypeSymbol,
             getValueStrDecLowLevelPolyML valueArgs (SOME false),
             getValueStrDecLowLevelPolyML valueArgs (SOME true),
             setValueStrDecLowLevelPolyML valueArgs (SOME false),
@@ -667,7 +646,7 @@ local
           ]
         else
           [
-            getTypeStrDecLowLevelPolyML getTypeLibId getTypeSymbol,
+            getTypeStrDecLowLevelPolyML getTypeSymbol,
             getValueStrDecLowLevelPolyML valueArgs NONE,
             setValueStrDecLowLevelPolyML valueArgs NONE
           ]
@@ -676,9 +655,6 @@ local
     end
 in
   fun addAccessorRootStrDecs
-    repo
-    vers
-    libId
     namespace
     info =
     case RegisteredTypeInfo.getTypeInit info of
@@ -698,7 +674,7 @@ in
 
               val strDecs'3 = (
                 if isPolyML
-                then addStrDecsLowLevelPolyML repo vers libId
+                then addStrDecsLowLevelPolyML
                 else addStrDecsLowLevelMLton
               )
                 namespace getTypeSymbol valueType isPtr strDecs'2

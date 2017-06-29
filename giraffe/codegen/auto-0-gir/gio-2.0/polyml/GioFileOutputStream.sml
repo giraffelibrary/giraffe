@@ -9,10 +9,10 @@ structure GioFileOutputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_file_output_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getEtag_ = call (load_sym libgio "g_file_output_stream_get_etag") (GioFileOutputStreamClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getType_ = call (getSymbol "g_file_output_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getEtag_ = call (getSymbol "g_file_output_stream_get_etag") (GioFileOutputStreamClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val queryInfo_ =
-        call (load_sym libgio "g_file_output_stream_query_info")
+        call (getSymbol "g_file_output_stream_query_info")
           (
             GioFileOutputStreamClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -21,7 +21,7 @@ structure GioFileOutputStream :>
              --> GioFileInfoClass.PolyML.cPtr
           )
       val queryInfoFinish_ =
-        call (load_sym libgio "g_file_output_stream_query_info_finish")
+        call (getSymbol "g_file_output_stream_query_info_finish")
           (
             GioFileOutputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr

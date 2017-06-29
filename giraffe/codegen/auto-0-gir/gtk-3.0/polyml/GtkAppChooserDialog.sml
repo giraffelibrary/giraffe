@@ -10,9 +10,9 @@ structure GtkAppChooserDialog :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_app_chooser_dialog_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_app_chooser_dialog_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgtk "gtk_app_chooser_dialog_new")
+        call (getSymbol "gtk_app_chooser_dialog_new")
           (
             GtkWindowClass.PolyML.cOptPtr
              &&> GtkDialogFlags.PolyML.cVal
@@ -20,16 +20,16 @@ structure GtkAppChooserDialog :>
              --> GtkWidgetClass.PolyML.cPtr
           )
       val newForContentType_ =
-        call (load_sym libgtk "gtk_app_chooser_dialog_new_for_content_type")
+        call (getSymbol "gtk_app_chooser_dialog_new_for_content_type")
           (
             GtkWindowClass.PolyML.cOptPtr
              &&> GtkDialogFlags.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
              --> GtkWidgetClass.PolyML.cPtr
           )
-      val getHeading_ = call (load_sym libgtk "gtk_app_chooser_dialog_get_heading") (GtkAppChooserDialogClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getWidget_ = call (load_sym libgtk "gtk_app_chooser_dialog_get_widget") (GtkAppChooserDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val setHeading_ = call (load_sym libgtk "gtk_app_chooser_dialog_set_heading") (GtkAppChooserDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val getHeading_ = call (getSymbol "gtk_app_chooser_dialog_get_heading") (GtkAppChooserDialogClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getWidget_ = call (getSymbol "gtk_app_chooser_dialog_get_widget") (GtkAppChooserDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val setHeading_ = call (getSymbol "gtk_app_chooser_dialog_set_heading") (GtkAppChooserDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkAppChooserDialogClass.class
     type 'a app_chooser_class = 'a GtkAppChooserClass.class

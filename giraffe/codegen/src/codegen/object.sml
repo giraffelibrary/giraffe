@@ -501,7 +501,6 @@ fun addObjectConstantStrDecs x =
 fun addObjectMethodStrDecsLowLevel
   isPolyML
   repo
-  libId
   addInitStrDecs
   rootObjectIRef
   objectIRef =
@@ -509,7 +508,6 @@ fun addObjectMethodStrDecsLowLevel
     (ObjectInfo.getNMethods, ObjectInfo.getMethod)
     isPolyML
     repo
-    libId
     addInitStrDecs
     (SOME (rootObjectIRef, objectIRef))
 
@@ -586,8 +584,7 @@ fun addObjectPropertyStrDecs repo objectIRef =
 
 fun makeObjectStr
   (repo            : 'a RepositoryClass.class)
-  (vers            : Repository.typelibvers_t)
-  (libId           : id)
+  (_               : Repository.typelibvers_t)
   (objectNamespace : string)
   (objectInfo      : 'b ObjectInfoClass.class)
   (errs'0          : infoerrorhier list)
@@ -675,15 +672,7 @@ fun makeObjectStr
           addObjectMethodStrDecsLowLevel
             isPolyML
             repo
-            libId
-            (
-              addGetTypeFunctionStrDecLowLevel
-                repo
-                vers
-                libId
-                objectNamespace
-                getTypeSymbol
-            )
+            (addGetTypeFunctionStrDecLowLevel getTypeSymbol)
             rootObjectIRef
             objectIRef
             (objectInfo, (strDecs'9, errs'6))

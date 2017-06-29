@@ -8,10 +8,10 @@ structure GioFileAttributeInfoList :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_file_attribute_info_list_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_file_attribute_info_list_new") (PolyMLFFI.cVoid --> GioFileAttributeInfoListRecord.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_file_attribute_info_list_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_file_attribute_info_list_new") (PolyMLFFI.cVoid --> GioFileAttributeInfoListRecord.PolyML.cPtr)
       val add_ =
-        call (load_sym libgio "g_file_attribute_info_list_add")
+        call (getSymbol "g_file_attribute_info_list_add")
           (
             GioFileAttributeInfoListRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -19,8 +19,8 @@ structure GioFileAttributeInfoList :>
              &&> GioFileAttributeInfoFlags.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val dup_ = call (load_sym libgio "g_file_attribute_info_list_dup") (GioFileAttributeInfoListRecord.PolyML.cPtr --> GioFileAttributeInfoListRecord.PolyML.cPtr)
-      val lookup_ = call (load_sym libgio "g_file_attribute_info_list_lookup") (GioFileAttributeInfoListRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileAttributeInfoRecord.PolyML.cPtr)
+      val dup_ = call (getSymbol "g_file_attribute_info_list_dup") (GioFileAttributeInfoListRecord.PolyML.cPtr --> GioFileAttributeInfoListRecord.PolyML.cPtr)
+      val lookup_ = call (getSymbol "g_file_attribute_info_list_lookup") (GioFileAttributeInfoListRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileAttributeInfoRecord.PolyML.cPtr)
     end
     type t = GioFileAttributeInfoListRecord.t
     type file_attribute_info_flags_t = GioFileAttributeInfoFlags.t

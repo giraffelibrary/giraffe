@@ -8,10 +8,10 @@ structure GioVolumeMonitor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_volume_monitor_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val get_ = call (load_sym libgio "g_volume_monitor_get") (PolyMLFFI.cVoid --> GioVolumeMonitorClass.PolyML.cPtr)
-      val getMountForUuid_ = call (load_sym libgio "g_volume_monitor_get_mount_for_uuid") (GioVolumeMonitorClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioMountClass.PolyML.cPtr)
-      val getVolumeForUuid_ = call (load_sym libgio "g_volume_monitor_get_volume_for_uuid") (GioVolumeMonitorClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioVolumeClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_volume_monitor_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val get_ = call (getSymbol "g_volume_monitor_get") (PolyMLFFI.cVoid --> GioVolumeMonitorClass.PolyML.cPtr)
+      val getMountForUuid_ = call (getSymbol "g_volume_monitor_get_mount_for_uuid") (GioVolumeMonitorClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioMountClass.PolyML.cPtr)
+      val getVolumeForUuid_ = call (getSymbol "g_volume_monitor_get_volume_for_uuid") (GioVolumeMonitorClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioVolumeClass.PolyML.cPtr)
     end
     type 'a class = 'a GioVolumeMonitorClass.class
     type 'a drive_class = 'a GioDriveClass.class

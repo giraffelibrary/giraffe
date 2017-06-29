@@ -10,44 +10,44 @@ structure GIRepositoryTypeInfo :>
     in
       val isPointer_ =
         call
-          (load_sym libgirepository "g_type_info_is_pointer")
+          (getSymbol "g_type_info_is_pointer")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GBool.PolyML.cVal);
 
       val getTag_ =
         call
-          (load_sym libgirepository "g_type_info_get_tag")
+          (getSymbol "g_type_info_get_tag")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryTypeTag.PolyML.cVal);
 
       val getParamType_ =
         call
-          (load_sym libgirepository "g_type_info_get_param_type")
+          (getSymbol "g_type_info_get_param_type")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
 
       val getInterface_ =
         call
-          (load_sym libgirepository "g_type_info_get_interface")
+          (getSymbol "g_type_info_get_interface")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
 
       val getArrayLength_ =
         call
-          (load_sym libgirepository "g_type_info_get_array_length")
+          (getSymbol "g_type_info_get_array_length")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getArrayFixedSize_ =
         call
-          (load_sym libgirepository "g_type_info_get_array_fixed_size")
+          (getSymbol "g_type_info_get_array_fixed_size")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val isZeroTerminated_ =
         call
-          (load_sym libgirepository "g_type_info_is_zero_terminated")
+          (getSymbol "g_type_info_is_zero_terminated")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GBool.PolyML.cVal);
 
       val getArrayType_ =
         call
-          (load_sym libgirepository "g_type_info_get_array_type")
+          (getSymbol "g_type_info_get_array_type")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryArrayType.PolyML.cVal);
     end
 

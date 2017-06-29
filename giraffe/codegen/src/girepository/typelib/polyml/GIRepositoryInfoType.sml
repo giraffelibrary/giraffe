@@ -23,7 +23,7 @@ structure GIRepositoryInfoType :>
     in
       val getType_ =
         call
-          (load_sym libgirepository "g_base_info_get_type")
+          (getSymbol "g_base_info_get_type")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
     end
 

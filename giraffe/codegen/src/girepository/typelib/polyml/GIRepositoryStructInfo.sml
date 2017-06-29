@@ -9,53 +9,53 @@ structure GIRepositoryStructInfo :>
     in
       val getNFields_ =
         call
-          (load_sym libgirepository "g_struct_info_get_n_fields")
+          (getSymbol "g_struct_info_get_n_fields")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getField_ =
         call
-          (load_sym libgirepository "g_struct_info_get_field")
+          (getSymbol "g_struct_info_get_field")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNMethods_ =
         call
-          (load_sym libgirepository "g_struct_info_get_n_methods")
+          (getSymbol "g_struct_info_get_n_methods")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getMethod_ =
         call
-          (load_sym libgirepository "g_struct_info_get_method")
+          (getSymbol "g_struct_info_get_method")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val findMethod_ =
         call
-          (load_sym libgirepository "g_struct_info_find_method")
+          (getSymbol "g_struct_info_find_method")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getSize_ =
         call
-          (load_sym libgirepository "g_struct_info_get_size")
+          (getSymbol "g_struct_info_get_size")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GULong.PolyML.cVal);
 
       val getAlignment_ =
         call
-          (load_sym libgirepository "g_struct_info_get_alignment")
+          (getSymbol "g_struct_info_get_alignment")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GULong.PolyML.cVal);
 
       val isGtypeStruct_ =
         call
-          (load_sym libgirepository "g_struct_info_is_gtype_struct")
+          (getSymbol "g_struct_info_is_gtype_struct")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GBool.PolyML.cVal);
 
       val isForeign_ =
         call
-          (load_sym libgirepository "g_struct_info_is_foreign")
+          (getSymbol "g_struct_info_is_foreign")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GBool.PolyML.cVal);
     end
 

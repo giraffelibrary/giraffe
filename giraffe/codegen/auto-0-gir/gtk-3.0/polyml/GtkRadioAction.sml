@@ -6,9 +6,9 @@ structure GtkRadioAction :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_radio_action_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_radio_action_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgtk "gtk_radio_action_new")
+        call (getSymbol "gtk_radio_action_new")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInOptPtr
@@ -17,9 +17,9 @@ structure GtkRadioAction :>
              &&> GInt.PolyML.cVal
              --> GtkRadioActionClass.PolyML.cPtr
           )
-      val getCurrentValue_ = call (load_sym libgtk "gtk_radio_action_get_current_value") (GtkRadioActionClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val joinGroup_ = call (load_sym libgtk "gtk_radio_action_join_group") (GtkRadioActionClass.PolyML.cPtr &&> GtkRadioActionClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setCurrentValue_ = call (load_sym libgtk "gtk_radio_action_set_current_value") (GtkRadioActionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getCurrentValue_ = call (getSymbol "gtk_radio_action_get_current_value") (GtkRadioActionClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val joinGroup_ = call (getSymbol "gtk_radio_action_join_group") (GtkRadioActionClass.PolyML.cPtr &&> GtkRadioActionClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setCurrentValue_ = call (getSymbol "gtk_radio_action_set_current_value") (GtkRadioActionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkRadioActionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

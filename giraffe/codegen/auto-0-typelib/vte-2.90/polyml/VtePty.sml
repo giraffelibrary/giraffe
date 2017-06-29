@@ -6,14 +6,14 @@ structure VtePty :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libvte "vte_pty_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libvte "vte_pty_new") (VtePtyFlags.PolyML.cVal &&> GLibErrorRecord.PolyML.cOutOptRef --> VtePtyClass.PolyML.cPtr)
-      val newForeign_ = call (load_sym libvte "vte_pty_new_foreign") (GInt32.PolyML.cVal &&> GLibErrorRecord.PolyML.cOutOptRef --> VtePtyClass.PolyML.cPtr)
-      val childSetup_ = call (load_sym libvte "vte_pty_child_setup") (VtePtyClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val close_ = call (load_sym libvte "vte_pty_close") (VtePtyClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getFd_ = call (load_sym libvte "vte_pty_get_fd") (VtePtyClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getType_ = call (getSymbol "vte_pty_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "vte_pty_new") (VtePtyFlags.PolyML.cVal &&> GLibErrorRecord.PolyML.cOutOptRef --> VtePtyClass.PolyML.cPtr)
+      val newForeign_ = call (getSymbol "vte_pty_new_foreign") (GInt32.PolyML.cVal &&> GLibErrorRecord.PolyML.cOutOptRef --> VtePtyClass.PolyML.cPtr)
+      val childSetup_ = call (getSymbol "vte_pty_child_setup") (VtePtyClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val close_ = call (getSymbol "vte_pty_close") (VtePtyClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getFd_ = call (getSymbol "vte_pty_get_fd") (VtePtyClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getSize_ =
-        call (load_sym libvte "vte_pty_get_size")
+        call (getSymbol "vte_pty_get_size")
           (
             VtePtyClass.PolyML.cPtr
              &&> GInt32.PolyML.cRef
@@ -22,7 +22,7 @@ structure VtePty :>
              --> GBool.PolyML.cVal
           )
       val setSize_ =
-        call (load_sym libvte "vte_pty_set_size")
+        call (getSymbol "vte_pty_set_size")
           (
             VtePtyClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -30,9 +30,9 @@ structure VtePty :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val setTerm_ = call (load_sym libvte "vte_pty_set_term") (VtePtyClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setTerm_ = call (getSymbol "vte_pty_set_term") (VtePtyClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
       val setUtf8_ =
-        call (load_sym libvte "vte_pty_set_utf8")
+        call (getSymbol "vte_pty_set_utf8")
           (
             VtePtyClass.PolyML.cPtr
              &&> GBool.PolyML.cVal

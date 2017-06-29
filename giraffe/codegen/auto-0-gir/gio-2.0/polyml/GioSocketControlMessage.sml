@@ -11,9 +11,9 @@ structure GioSocketControlMessage :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_socket_control_message_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_socket_control_message_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val deserialize_ =
-        call (load_sym libgio "g_socket_control_message_deserialize")
+        call (getSymbol "g_socket_control_message_deserialize")
           (
             GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
@@ -21,9 +21,9 @@ structure GioSocketControlMessage :>
              &&> GUInt8CVectorN.PolyML.cInPtr
              --> GioSocketControlMessageClass.PolyML.cPtr
           )
-      val getLevel_ = call (load_sym libgio "g_socket_control_message_get_level") (GioSocketControlMessageClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getMsgType_ = call (load_sym libgio "g_socket_control_message_get_msg_type") (GioSocketControlMessageClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getSize_ = call (load_sym libgio "g_socket_control_message_get_size") (GioSocketControlMessageClass.PolyML.cPtr --> GSize.PolyML.cVal)
+      val getLevel_ = call (getSymbol "g_socket_control_message_get_level") (GioSocketControlMessageClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getMsgType_ = call (getSymbol "g_socket_control_message_get_msg_type") (GioSocketControlMessageClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getSize_ = call (getSymbol "g_socket_control_message_get_size") (GioSocketControlMessageClass.PolyML.cPtr --> GSize.PolyML.cVal)
     end
     type 'a class = 'a GioSocketControlMessageClass.class
     type t = base class

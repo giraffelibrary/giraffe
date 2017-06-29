@@ -11,17 +11,17 @@ structure GtkWidgetPathRecord :> GTK_WIDGET_PATH_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgtk "gtk_widget_path_ref")
+          (getSymbol "gtk_widget_path_ref")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgtk "gtk_widget_path_unref")
+          (getSymbol "gtk_widget_path_unref")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgtk "gtk_widget_path_get_type")
+          (getSymbol "gtk_widget_path_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

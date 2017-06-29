@@ -11,17 +11,17 @@ structure GLibIOChannelRecord :> G_LIB_I_O_CHANNEL_RECORD =
     in
       val dup_ =
         call
-          (load_sym libglib "g_io_channel_ref")
+          (getSymbol "g_io_channel_ref")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libglib "g_io_channel_unref")
+          (getSymbol "g_io_channel_unref")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libglib "g_io_channel_get_type")
+          (getSymbol "g_io_channel_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

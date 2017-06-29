@@ -11,12 +11,12 @@ structure GLibVariantRecord :> G_LIB_VARIANT_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgobject "g_variant_ref_sink")
+          (getSymbol "g_variant_ref_sink")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgobject "g_variant_unref")
+          (getSymbol "g_variant_unref")
           (cPtr --> cVoid)
     end
 
@@ -36,22 +36,22 @@ structure GLibVariantRecord :> G_LIB_VARIANT_RECORD =
     in
       val getValue_ =
         call
-          (load_sym libgobject "g_value_get_variant")
+          (getSymbol "g_value_get_variant")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr);
 
       val getOptValue_ =
         call
-          (load_sym libgobject "g_value_get_variant")
+          (getSymbol "g_value_get_variant")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);
 
       val setValue_ =
         call
-          (load_sym libgobject "g_value_set_variant")
+          (getSymbol "g_value_set_variant")
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid);
 
       val setOptValue_ =
         call
-          (load_sym libgobject "g_value_set_variant")
+          (getSymbol "g_value_set_variant")
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid);
     end
 

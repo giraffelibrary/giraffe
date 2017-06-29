@@ -11,22 +11,22 @@ structure GioFileAttributeInfoRecord :> GIO_FILE_ATTRIBUTE_INFO_RECORD =
     in
       val new_ =
         call
-          (load_sym libgiraffegio "giraffe_gio_file_attribute_info_new")
+          (getSymbol "giraffe_gio_file_attribute_info_new")
           (cVoid --> cPtr)
 
       val copy_ =
         call
-          (load_sym libgiraffegio "giraffe_gio_file_attribute_info_copy")
+          (getSymbol "giraffe_gio_file_attribute_info_copy")
           (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
-          (load_sym libgiraffegio "giraffe_gio_file_attribute_info_free")
+          (getSymbol "giraffe_gio_file_attribute_info_free")
           (cPtr --> cVoid)
 
       val size_ =
         call
-          (load_sym libgiraffegio "giraffe_gio_file_attribute_info_size")
+          (getSymbol "giraffe_gio_file_attribute_info_size")
           (cVoid --> GUInt.PolyML.cVal)
     end
 

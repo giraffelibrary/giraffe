@@ -7,7 +7,7 @@ structure GtkFileChooserDialog :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_file_chooser_dialog_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_file_chooser_dialog_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class = 'a GtkFileChooserDialogClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

@@ -6,28 +6,28 @@ structure GtkSourceMarkAttributes :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_new") (PolyMLFFI.cVoid --> GtkSourceMarkAttributesClass.PolyML.cPtr)
-      val getBackground_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_get_background") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getGicon_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_get_gicon") (GtkSourceMarkAttributesClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
-      val getIconName_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_get_icon_name") (GtkSourceMarkAttributesClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getPixbuf_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_get_pixbuf") (GtkSourceMarkAttributesClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
-      val getStockId_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_get_stock_id") (GtkSourceMarkAttributesClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getTooltipMarkup_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_get_tooltip_markup") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> GtkSourceMarkClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getTooltipText_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_get_tooltip_text") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> GtkSourceMarkClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getType_ = call (getSymbol "gtk_source_mark_attributes_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_source_mark_attributes_new") (PolyMLFFI.cVoid --> GtkSourceMarkAttributesClass.PolyML.cPtr)
+      val getBackground_ = call (getSymbol "gtk_source_mark_attributes_get_background") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getGicon_ = call (getSymbol "gtk_source_mark_attributes_get_gicon") (GtkSourceMarkAttributesClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
+      val getIconName_ = call (getSymbol "gtk_source_mark_attributes_get_icon_name") (GtkSourceMarkAttributesClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getPixbuf_ = call (getSymbol "gtk_source_mark_attributes_get_pixbuf") (GtkSourceMarkAttributesClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val getStockId_ = call (getSymbol "gtk_source_mark_attributes_get_stock_id") (GtkSourceMarkAttributesClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getTooltipMarkup_ = call (getSymbol "gtk_source_mark_attributes_get_tooltip_markup") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> GtkSourceMarkClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getTooltipText_ = call (getSymbol "gtk_source_mark_attributes_get_tooltip_text") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> GtkSourceMarkClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val renderIcon_ =
-        call (load_sym libgtksourceview "gtk_source_mark_attributes_render_icon")
+        call (getSymbol "gtk_source_mark_attributes_render_icon")
           (
             GtkSourceMarkAttributesClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
-      val setBackground_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_set_background") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setGicon_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_set_gicon") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> GioIconClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setIconName_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_set_icon_name") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setPixbuf_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_set_pixbuf") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setStockId_ = call (load_sym libgtksourceview "gtk_source_mark_attributes_set_stock_id") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setBackground_ = call (getSymbol "gtk_source_mark_attributes_set_background") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setGicon_ = call (getSymbol "gtk_source_mark_attributes_set_gicon") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> GioIconClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setIconName_ = call (getSymbol "gtk_source_mark_attributes_set_icon_name") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setPixbuf_ = call (getSymbol "gtk_source_mark_attributes_set_pixbuf") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setStockId_ = call (getSymbol "gtk_source_mark_attributes_set_stock_id") (GtkSourceMarkAttributesClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkSourceMarkAttributesClass.class
     type 'a mark_class = 'a GtkSourceMarkClass.class

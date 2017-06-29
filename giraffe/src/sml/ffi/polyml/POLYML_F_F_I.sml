@@ -1,4 +1,4 @@
-(* Copyright (C) 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2017 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -46,12 +46,9 @@ signature POLYML_F_F_I =
     type symbol
     val loadLibrary : string -> library
     val loadExecutable : unit -> library
-    val getSymbol : library -> string  -> symbol
+    val getSymbol : string -> symbol
+    val getSymbolFromLib : library -> string -> symbol
     val symbolAsAddress : symbol -> Memory.Pointer.t
-
-    (* for compatibility with codegen *)
-    val load_lib : string -> library
-    val load_sym : library -> string  -> symbol
 
     structure LowLevel :
       sig

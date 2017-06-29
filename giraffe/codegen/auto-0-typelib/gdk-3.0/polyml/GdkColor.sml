@@ -5,12 +5,12 @@ structure GdkColor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_color_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val copy_ = call (load_sym libgdk "gdk_color_copy") (GdkColorRecord.PolyML.cPtr --> GdkColorRecord.PolyML.cPtr)
-      val equal_ = call (load_sym libgdk "gdk_color_equal") (GdkColorRecord.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val hash_ = call (load_sym libgdk "gdk_color_hash") (GdkColorRecord.PolyML.cPtr --> GUInt32.PolyML.cVal)
-      val toString_ = call (load_sym libgdk "gdk_color_to_string") (GdkColorRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val parse_ = call (load_sym libgdk "gdk_color_parse") (Utf8.PolyML.cInPtr &&> GdkColorRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getType_ = call (getSymbol "gdk_color_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val copy_ = call (getSymbol "gdk_color_copy") (GdkColorRecord.PolyML.cPtr --> GdkColorRecord.PolyML.cPtr)
+      val equal_ = call (getSymbol "gdk_color_equal") (GdkColorRecord.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val hash_ = call (getSymbol "gdk_color_hash") (GdkColorRecord.PolyML.cPtr --> GUInt32.PolyML.cVal)
+      val toString_ = call (getSymbol "gdk_color_to_string") (GdkColorRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val parse_ = call (getSymbol "gdk_color_parse") (Utf8.PolyML.cInPtr &&> GdkColorRecord.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type t = GdkColorRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

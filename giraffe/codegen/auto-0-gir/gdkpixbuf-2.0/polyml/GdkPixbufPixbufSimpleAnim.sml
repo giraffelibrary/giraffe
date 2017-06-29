@@ -6,18 +6,18 @@ structure GdkPixbufPixbufSimpleAnim :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdkpixbuf "gdk_pixbuf_simple_anim_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gdk_pixbuf_simple_anim_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgdkpixbuf "gdk_pixbuf_simple_anim_new")
+        call (getSymbol "gdk_pixbuf_simple_anim_new")
           (
             GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GFloat.PolyML.cVal
              --> GdkPixbufPixbufSimpleAnimClass.PolyML.cPtr
           )
-      val addFrame_ = call (load_sym libgdkpixbuf "gdk_pixbuf_simple_anim_add_frame") (GdkPixbufPixbufSimpleAnimClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getLoop_ = call (load_sym libgdkpixbuf "gdk_pixbuf_simple_anim_get_loop") (GdkPixbufPixbufSimpleAnimClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setLoop_ = call (load_sym libgdkpixbuf "gdk_pixbuf_simple_anim_set_loop") (GdkPixbufPixbufSimpleAnimClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val addFrame_ = call (getSymbol "gdk_pixbuf_simple_anim_add_frame") (GdkPixbufPixbufSimpleAnimClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getLoop_ = call (getSymbol "gdk_pixbuf_simple_anim_get_loop") (GdkPixbufPixbufSimpleAnimClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setLoop_ = call (getSymbol "gdk_pixbuf_simple_anim_set_loop") (GdkPixbufPixbufSimpleAnimClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GdkPixbufPixbufSimpleAnimClass.class
     type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class

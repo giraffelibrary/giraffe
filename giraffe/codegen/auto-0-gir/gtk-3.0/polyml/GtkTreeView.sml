@@ -18,15 +18,15 @@ structure GtkTreeView :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tree_view_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_tree_view_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val newWithModel_ = call (load_sym libgtk "gtk_tree_view_new_with_model") (GtkTreeModelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val appendColumn_ = call (load_sym libgtk "gtk_tree_view_append_column") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreeViewColumnClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val collapseAll_ = call (load_sym libgtk "gtk_tree_view_collapse_all") (GtkTreeViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val collapseRow_ = call (load_sym libgtk "gtk_tree_view_collapse_row") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val columnsAutosize_ = call (load_sym libgtk "gtk_tree_view_columns_autosize") (GtkTreeViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gtk_tree_view_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_tree_view_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val newWithModel_ = call (getSymbol "gtk_tree_view_new_with_model") (GtkTreeModelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val appendColumn_ = call (getSymbol "gtk_tree_view_append_column") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreeViewColumnClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val collapseAll_ = call (getSymbol "gtk_tree_view_collapse_all") (GtkTreeViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val collapseRow_ = call (getSymbol "gtk_tree_view_collapse_row") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val columnsAutosize_ = call (getSymbol "gtk_tree_view_columns_autosize") (GtkTreeViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val convertBinWindowToTreeCoords_ =
-        call (load_sym libgtk "gtk_tree_view_convert_bin_window_to_tree_coords")
+        call (getSymbol "gtk_tree_view_convert_bin_window_to_tree_coords")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -36,7 +36,7 @@ structure GtkTreeView :>
              --> PolyMLFFI.cVoid
           )
       val convertBinWindowToWidgetCoords_ =
-        call (load_sym libgtk "gtk_tree_view_convert_bin_window_to_widget_coords")
+        call (getSymbol "gtk_tree_view_convert_bin_window_to_widget_coords")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -46,7 +46,7 @@ structure GtkTreeView :>
              --> PolyMLFFI.cVoid
           )
       val convertTreeToBinWindowCoords_ =
-        call (load_sym libgtk "gtk_tree_view_convert_tree_to_bin_window_coords")
+        call (getSymbol "gtk_tree_view_convert_tree_to_bin_window_coords")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -56,7 +56,7 @@ structure GtkTreeView :>
              --> PolyMLFFI.cVoid
           )
       val convertTreeToWidgetCoords_ =
-        call (load_sym libgtk "gtk_tree_view_convert_tree_to_widget_coords")
+        call (getSymbol "gtk_tree_view_convert_tree_to_widget_coords")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -66,7 +66,7 @@ structure GtkTreeView :>
              --> PolyMLFFI.cVoid
           )
       val convertWidgetToBinWindowCoords_ =
-        call (load_sym libgtk "gtk_tree_view_convert_widget_to_bin_window_coords")
+        call (getSymbol "gtk_tree_view_convert_widget_to_bin_window_coords")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -76,7 +76,7 @@ structure GtkTreeView :>
              --> PolyMLFFI.cVoid
           )
       val convertWidgetToTreeCoords_ =
-        call (load_sym libgtk "gtk_tree_view_convert_widget_to_tree_coords")
+        call (getSymbol "gtk_tree_view_convert_widget_to_tree_coords")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -85,19 +85,19 @@ structure GtkTreeView :>
              &&> GInt.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val createRowDragIcon_ = call (load_sym libgtk "gtk_tree_view_create_row_drag_icon") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
-      val expandAll_ = call (load_sym libgtk "gtk_tree_view_expand_all") (GtkTreeViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val createRowDragIcon_ = call (getSymbol "gtk_tree_view_create_row_drag_icon") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
+      val expandAll_ = call (getSymbol "gtk_tree_view_expand_all") (GtkTreeViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val expandRow_ =
-        call (load_sym libgtk "gtk_tree_view_expand_row")
+        call (getSymbol "gtk_tree_view_expand_row")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cPtr
              &&> GBool.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val expandToPath_ = call (load_sym libgtk "gtk_tree_view_expand_to_path") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val expandToPath_ = call (getSymbol "gtk_tree_view_expand_to_path") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getBackgroundArea_ =
-        call (load_sym libgtk "gtk_tree_view_get_background_area")
+        call (getSymbol "gtk_tree_view_get_background_area")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cOptPtr
@@ -105,9 +105,9 @@ structure GtkTreeView :>
              &&> GdkRectangleRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val getBinWindow_ = call (load_sym libgtk "gtk_tree_view_get_bin_window") (GtkTreeViewClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getBinWindow_ = call (getSymbol "gtk_tree_view_get_bin_window") (GtkTreeViewClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getCellArea_ =
-        call (load_sym libgtk "gtk_tree_view_get_cell_area")
+        call (getSymbol "gtk_tree_view_get_cell_area")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cOptPtr
@@ -115,9 +115,9 @@ structure GtkTreeView :>
              &&> GdkRectangleRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val getColumn_ = call (load_sym libgtk "gtk_tree_view_get_column") (GtkTreeViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkTreeViewColumnClass.PolyML.cPtr)
+      val getColumn_ = call (getSymbol "gtk_tree_view_get_column") (GtkTreeViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkTreeViewColumnClass.PolyML.cPtr)
       val getCursor_ =
-        call (load_sym libgtk "gtk_tree_view_get_cursor")
+        call (getSymbol "gtk_tree_view_get_cursor")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cOutRef
@@ -125,7 +125,7 @@ structure GtkTreeView :>
              --> PolyMLFFI.cVoid
           )
       val getDestRowAtPos_ =
-        call (load_sym libgtk "gtk_tree_view_get_dest_row_at_pos")
+        call (getSymbol "gtk_tree_view_get_dest_row_at_pos")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -135,26 +135,26 @@ structure GtkTreeView :>
              --> GBool.PolyML.cVal
           )
       val getDragDestRow_ =
-        call (load_sym libgtk "gtk_tree_view_get_drag_dest_row")
+        call (getSymbol "gtk_tree_view_get_drag_dest_row")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cOutRef
              &&> GtkTreeViewDropPosition.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getEnableSearch_ = call (load_sym libgtk "gtk_tree_view_get_enable_search") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getEnableTreeLines_ = call (load_sym libgtk "gtk_tree_view_get_enable_tree_lines") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getExpanderColumn_ = call (load_sym libgtk "gtk_tree_view_get_expander_column") (GtkTreeViewClass.PolyML.cPtr --> GtkTreeViewColumnClass.PolyML.cPtr)
-      val getFixedHeightMode_ = call (load_sym libgtk "gtk_tree_view_get_fixed_height_mode") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getGridLines_ = call (load_sym libgtk "gtk_tree_view_get_grid_lines") (GtkTreeViewClass.PolyML.cPtr --> GtkTreeViewGridLines.PolyML.cVal)
-      val getHeadersClickable_ = call (load_sym libgtk "gtk_tree_view_get_headers_clickable") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getHeadersVisible_ = call (load_sym libgtk "gtk_tree_view_get_headers_visible") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getHoverExpand_ = call (load_sym libgtk "gtk_tree_view_get_hover_expand") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getHoverSelection_ = call (load_sym libgtk "gtk_tree_view_get_hover_selection") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getLevelIndentation_ = call (load_sym libgtk "gtk_tree_view_get_level_indentation") (GtkTreeViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getModel_ = call (load_sym libgtk "gtk_tree_view_get_model") (GtkTreeViewClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
+      val getEnableSearch_ = call (getSymbol "gtk_tree_view_get_enable_search") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getEnableTreeLines_ = call (getSymbol "gtk_tree_view_get_enable_tree_lines") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getExpanderColumn_ = call (getSymbol "gtk_tree_view_get_expander_column") (GtkTreeViewClass.PolyML.cPtr --> GtkTreeViewColumnClass.PolyML.cPtr)
+      val getFixedHeightMode_ = call (getSymbol "gtk_tree_view_get_fixed_height_mode") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getGridLines_ = call (getSymbol "gtk_tree_view_get_grid_lines") (GtkTreeViewClass.PolyML.cPtr --> GtkTreeViewGridLines.PolyML.cVal)
+      val getHeadersClickable_ = call (getSymbol "gtk_tree_view_get_headers_clickable") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getHeadersVisible_ = call (getSymbol "gtk_tree_view_get_headers_visible") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getHoverExpand_ = call (getSymbol "gtk_tree_view_get_hover_expand") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getHoverSelection_ = call (getSymbol "gtk_tree_view_get_hover_selection") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getLevelIndentation_ = call (getSymbol "gtk_tree_view_get_level_indentation") (GtkTreeViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getModel_ = call (getSymbol "gtk_tree_view_get_model") (GtkTreeViewClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
       val getPathAtPos_ =
-        call (load_sym libgtk "gtk_tree_view_get_path_at_pos")
+        call (getSymbol "gtk_tree_view_get_path_at_pos")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -165,16 +165,16 @@ structure GtkTreeView :>
              &&> GInt.PolyML.cRef
              --> GBool.PolyML.cVal
           )
-      val getReorderable_ = call (load_sym libgtk "gtk_tree_view_get_reorderable") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getRubberBanding_ = call (load_sym libgtk "gtk_tree_view_get_rubber_banding") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getRulesHint_ = call (load_sym libgtk "gtk_tree_view_get_rules_hint") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getSearchColumn_ = call (load_sym libgtk "gtk_tree_view_get_search_column") (GtkTreeViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getSearchEntry_ = call (load_sym libgtk "gtk_tree_view_get_search_entry") (GtkTreeViewClass.PolyML.cPtr --> GtkEntryClass.PolyML.cPtr)
-      val getSelection_ = call (load_sym libgtk "gtk_tree_view_get_selection") (GtkTreeViewClass.PolyML.cPtr --> GtkTreeSelectionClass.PolyML.cPtr)
-      val getShowExpanders_ = call (load_sym libgtk "gtk_tree_view_get_show_expanders") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getTooltipColumn_ = call (load_sym libgtk "gtk_tree_view_get_tooltip_column") (GtkTreeViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getReorderable_ = call (getSymbol "gtk_tree_view_get_reorderable") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getRubberBanding_ = call (getSymbol "gtk_tree_view_get_rubber_banding") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getRulesHint_ = call (getSymbol "gtk_tree_view_get_rules_hint") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getSearchColumn_ = call (getSymbol "gtk_tree_view_get_search_column") (GtkTreeViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getSearchEntry_ = call (getSymbol "gtk_tree_view_get_search_entry") (GtkTreeViewClass.PolyML.cPtr --> GtkEntryClass.PolyML.cPtr)
+      val getSelection_ = call (getSymbol "gtk_tree_view_get_selection") (GtkTreeViewClass.PolyML.cPtr --> GtkTreeSelectionClass.PolyML.cPtr)
+      val getShowExpanders_ = call (getSymbol "gtk_tree_view_get_show_expanders") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getTooltipColumn_ = call (getSymbol "gtk_tree_view_get_tooltip_column") (GtkTreeViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getTooltipContext_ =
-        call (load_sym libgtk "gtk_tree_view_get_tooltip_context")
+        call (getSymbol "gtk_tree_view_get_tooltip_context")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GInt.PolyML.cRef
@@ -186,16 +186,16 @@ structure GtkTreeView :>
              --> GBool.PolyML.cVal
           )
       val getVisibleRange_ =
-        call (load_sym libgtk "gtk_tree_view_get_visible_range")
+        call (getSymbol "gtk_tree_view_get_visible_range")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cOutRef
              &&> GtkTreePathRecord.PolyML.cOutRef
              --> GBool.PolyML.cVal
           )
-      val getVisibleRect_ = call (load_sym libgtk "gtk_tree_view_get_visible_rect") (GtkTreeViewClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getVisibleRect_ = call (getSymbol "gtk_tree_view_get_visible_rect") (GtkTreeViewClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val insertColumn_ =
-        call (load_sym libgtk "gtk_tree_view_insert_column")
+        call (getSymbol "gtk_tree_view_insert_column")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreeViewColumnClass.PolyML.cPtr
@@ -203,7 +203,7 @@ structure GtkTreeView :>
              --> GInt.PolyML.cVal
           )
       val isBlankAtPos_ =
-        call (load_sym libgtk "gtk_tree_view_is_blank_at_pos")
+        call (getSymbol "gtk_tree_view_is_blank_at_pos")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -214,27 +214,27 @@ structure GtkTreeView :>
              &&> GInt.PolyML.cRef
              --> GBool.PolyML.cVal
           )
-      val isRubberBandingActive_ = call (load_sym libgtk "gtk_tree_view_is_rubber_banding_active") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isRubberBandingActive_ = call (getSymbol "gtk_tree_view_is_rubber_banding_active") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val moveColumnAfter_ =
-        call (load_sym libgtk "gtk_tree_view_move_column_after")
+        call (getSymbol "gtk_tree_view_move_column_after")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreeViewColumnClass.PolyML.cPtr
              &&> GtkTreeViewColumnClass.PolyML.cOptPtr
              --> PolyMLFFI.cVoid
           )
-      val removeColumn_ = call (load_sym libgtk "gtk_tree_view_remove_column") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreeViewColumnClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val removeColumn_ = call (getSymbol "gtk_tree_view_remove_column") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreeViewColumnClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val rowActivated_ =
-        call (load_sym libgtk "gtk_tree_view_row_activated")
+        call (getSymbol "gtk_tree_view_row_activated")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cPtr
              &&> GtkTreeViewColumnClass.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val rowExpanded_ = call (load_sym libgtk "gtk_tree_view_row_expanded") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val rowExpanded_ = call (getSymbol "gtk_tree_view_row_expanded") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val scrollToCell_ =
-        call (load_sym libgtk "gtk_tree_view_scroll_to_cell")
+        call (getSymbol "gtk_tree_view_scroll_to_cell")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cOptPtr
@@ -245,7 +245,7 @@ structure GtkTreeView :>
              --> PolyMLFFI.cVoid
           )
       val scrollToPoint_ =
-        call (load_sym libgtk "gtk_tree_view_scroll_to_point")
+        call (getSymbol "gtk_tree_view_scroll_to_point")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -253,7 +253,7 @@ structure GtkTreeView :>
              --> PolyMLFFI.cVoid
           )
       val setCursor_ =
-        call (load_sym libgtk "gtk_tree_view_set_cursor")
+        call (getSymbol "gtk_tree_view_set_cursor")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cPtr
@@ -262,7 +262,7 @@ structure GtkTreeView :>
              --> PolyMLFFI.cVoid
           )
       val setCursorOnCell_ =
-        call (load_sym libgtk "gtk_tree_view_set_cursor_on_cell")
+        call (getSymbol "gtk_tree_view_set_cursor_on_cell")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cPtr
@@ -272,32 +272,32 @@ structure GtkTreeView :>
              --> PolyMLFFI.cVoid
           )
       val setDragDestRow_ =
-        call (load_sym libgtk "gtk_tree_view_set_drag_dest_row")
+        call (getSymbol "gtk_tree_view_set_drag_dest_row")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cOptPtr
              &&> GtkTreeViewDropPosition.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setEnableSearch_ = call (load_sym libgtk "gtk_tree_view_set_enable_search") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setEnableTreeLines_ = call (load_sym libgtk "gtk_tree_view_set_enable_tree_lines") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setExpanderColumn_ = call (load_sym libgtk "gtk_tree_view_set_expander_column") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreeViewColumnClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setFixedHeightMode_ = call (load_sym libgtk "gtk_tree_view_set_fixed_height_mode") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setGridLines_ = call (load_sym libgtk "gtk_tree_view_set_grid_lines") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreeViewGridLines.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setHeadersClickable_ = call (load_sym libgtk "gtk_tree_view_set_headers_clickable") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setHeadersVisible_ = call (load_sym libgtk "gtk_tree_view_set_headers_visible") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setHoverExpand_ = call (load_sym libgtk "gtk_tree_view_set_hover_expand") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setHoverSelection_ = call (load_sym libgtk "gtk_tree_view_set_hover_selection") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setLevelIndentation_ = call (load_sym libgtk "gtk_tree_view_set_level_indentation") (GtkTreeViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setModel_ = call (load_sym libgtk "gtk_tree_view_set_model") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreeModelClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setReorderable_ = call (load_sym libgtk "gtk_tree_view_set_reorderable") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setRubberBanding_ = call (load_sym libgtk "gtk_tree_view_set_rubber_banding") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setRulesHint_ = call (load_sym libgtk "gtk_tree_view_set_rules_hint") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSearchColumn_ = call (load_sym libgtk "gtk_tree_view_set_search_column") (GtkTreeViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSearchEntry_ = call (load_sym libgtk "gtk_tree_view_set_search_entry") (GtkTreeViewClass.PolyML.cPtr &&> GtkEntryClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setShowExpanders_ = call (load_sym libgtk "gtk_tree_view_set_show_expanders") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setEnableSearch_ = call (getSymbol "gtk_tree_view_set_enable_search") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setEnableTreeLines_ = call (getSymbol "gtk_tree_view_set_enable_tree_lines") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setExpanderColumn_ = call (getSymbol "gtk_tree_view_set_expander_column") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreeViewColumnClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setFixedHeightMode_ = call (getSymbol "gtk_tree_view_set_fixed_height_mode") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setGridLines_ = call (getSymbol "gtk_tree_view_set_grid_lines") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreeViewGridLines.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setHeadersClickable_ = call (getSymbol "gtk_tree_view_set_headers_clickable") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setHeadersVisible_ = call (getSymbol "gtk_tree_view_set_headers_visible") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setHoverExpand_ = call (getSymbol "gtk_tree_view_set_hover_expand") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setHoverSelection_ = call (getSymbol "gtk_tree_view_set_hover_selection") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setLevelIndentation_ = call (getSymbol "gtk_tree_view_set_level_indentation") (GtkTreeViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setModel_ = call (getSymbol "gtk_tree_view_set_model") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreeModelClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setReorderable_ = call (getSymbol "gtk_tree_view_set_reorderable") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setRubberBanding_ = call (getSymbol "gtk_tree_view_set_rubber_banding") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setRulesHint_ = call (getSymbol "gtk_tree_view_set_rules_hint") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSearchColumn_ = call (getSymbol "gtk_tree_view_set_search_column") (GtkTreeViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSearchEntry_ = call (getSymbol "gtk_tree_view_set_search_entry") (GtkTreeViewClass.PolyML.cPtr &&> GtkEntryClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setShowExpanders_ = call (getSymbol "gtk_tree_view_set_show_expanders") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setTooltipCell_ =
-        call (load_sym libgtk "gtk_tree_view_set_tooltip_cell")
+        call (getSymbol "gtk_tree_view_set_tooltip_cell")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTooltipClass.PolyML.cPtr
@@ -306,17 +306,17 @@ structure GtkTreeView :>
              &&> GtkCellRendererClass.PolyML.cOptPtr
              --> PolyMLFFI.cVoid
           )
-      val setTooltipColumn_ = call (load_sym libgtk "gtk_tree_view_set_tooltip_column") (GtkTreeViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setTooltipColumn_ = call (getSymbol "gtk_tree_view_set_tooltip_column") (GtkTreeViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setTooltipRow_ =
-        call (load_sym libgtk "gtk_tree_view_set_tooltip_row")
+        call (getSymbol "gtk_tree_view_set_tooltip_row")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTooltipClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val unsetRowsDragDest_ = call (load_sym libgtk "gtk_tree_view_unset_rows_drag_dest") (GtkTreeViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val unsetRowsDragSource_ = call (load_sym libgtk "gtk_tree_view_unset_rows_drag_source") (GtkTreeViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unsetRowsDragDest_ = call (getSymbol "gtk_tree_view_unset_rows_drag_dest") (GtkTreeViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unsetRowsDragSource_ = call (getSymbol "gtk_tree_view_unset_rows_drag_source") (GtkTreeViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkTreeViewClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

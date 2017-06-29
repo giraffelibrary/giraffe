@@ -12,14 +12,14 @@ structure GioVfs :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_vfs_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (load_sym libgio "g_vfs_get_default") (PolyMLFFI.cVoid --> GioVfsClass.PolyML.cPtr)
-      val getLocal_ = call (load_sym libgio "g_vfs_get_local") (PolyMLFFI.cVoid --> GioVfsClass.PolyML.cPtr)
-      val getFileForPath_ = call (load_sym libgio "g_vfs_get_file_for_path") (GioVfsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
-      val getFileForUri_ = call (load_sym libgio "g_vfs_get_file_for_uri") (GioVfsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
-      val getSupportedUriSchemes_ = call (load_sym libgio "g_vfs_get_supported_uri_schemes") (GioVfsClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
-      val isActive_ = call (load_sym libgio "g_vfs_is_active") (GioVfsClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val parseName_ = call (load_sym libgio "g_vfs_parse_name") (GioVfsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_vfs_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (getSymbol "g_vfs_get_default") (PolyMLFFI.cVoid --> GioVfsClass.PolyML.cPtr)
+      val getLocal_ = call (getSymbol "g_vfs_get_local") (PolyMLFFI.cVoid --> GioVfsClass.PolyML.cPtr)
+      val getFileForPath_ = call (getSymbol "g_vfs_get_file_for_path") (GioVfsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
+      val getFileForUri_ = call (getSymbol "g_vfs_get_file_for_uri") (GioVfsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
+      val getSupportedUriSchemes_ = call (getSymbol "g_vfs_get_supported_uri_schemes") (GioVfsClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val isActive_ = call (getSymbol "g_vfs_is_active") (GioVfsClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val parseName_ = call (getSymbol "g_vfs_parse_name") (GioVfsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
     end
     type 'a class = 'a GioVfsClass.class
     type 'a file_class = 'a GioFileClass.class

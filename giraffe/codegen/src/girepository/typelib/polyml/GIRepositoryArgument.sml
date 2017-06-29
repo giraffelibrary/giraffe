@@ -13,72 +13,72 @@ structure GIRepositoryArgument :>
     in
       val new_ =
         call
-          (load_sym libgiraffegirepository "giraffe_gi_argument_new")
+          (getSymbol "giraffe_gi_argument_new")
           (PolyMLFFI.cVoid --> cPtr);
 
       val free_ =
         call
-          (load_sym libgiraffegirepository "giraffe_gi_argument_free")
+          (getSymbol "giraffe_gi_argument_free")
           (cPtr --> PolyMLFFI.cVoid);
 
       val from_boolean_ =
         call
-          (load_sym libgiraffegirepository "giraffe_gi_argument_from_boolean")
+          (getSymbol "giraffe_gi_argument_from_boolean")
           (cPtr --> GBool.PolyML.cVal);
 
       val from_int8_ =
         call
-          (load_sym libgiraffegirepository "giraffe_gi_argument_from_int8")
+          (getSymbol "giraffe_gi_argument_from_int8")
           (cPtr --> GInt8.PolyML.cVal);
 
       val from_uint8_ =
         call
-          (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint8")
+          (getSymbol "giraffe_gi_argument_from_uint8")
           (cPtr --> GUInt8.PolyML.cVal);
 
       val from_int16_ =
         call
-          (load_sym libgiraffegirepository "giraffe_gi_argument_from_int16")
+          (getSymbol "giraffe_gi_argument_from_int16")
           (cPtr --> GInt16.PolyML.cVal);
 
       val from_uint16_ =
         call
-          (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint16")
+          (getSymbol "giraffe_gi_argument_from_uint16")
           (cPtr --> GUInt16.PolyML.cVal);
 
       val from_int32_ =
         call
-          (load_sym libgiraffegirepository "giraffe_gi_argument_from_int32")
+          (getSymbol "giraffe_gi_argument_from_int32")
           (cPtr --> GInt32.PolyML.cVal);
 
       val from_uint32_ =
         call
-          (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint32")
+          (getSymbol "giraffe_gi_argument_from_uint32")
           (cPtr --> GUInt32.PolyML.cVal);
 
       val from_int64_ =
         call
-          (load_sym libgiraffegirepository "giraffe_gi_argument_from_int64")
+          (getSymbol "giraffe_gi_argument_from_int64")
           (cPtr --> GInt64.PolyML.cVal);
 
       val from_uint64_ =
         call
-          (load_sym libgiraffegirepository "giraffe_gi_argument_from_uint64")
+          (getSymbol "giraffe_gi_argument_from_uint64")
           (cPtr --> GUInt64.PolyML.cVal);
 
       val from_float_ =
         call
-          (load_sym libgiraffegirepository "giraffe_gi_argument_from_float")
+          (getSymbol "giraffe_gi_argument_from_float")
           (cPtr --> GFloat.PolyML.cVal);
 
       val from_double_ =
         call
-          (load_sym libgiraffegirepository "giraffe_gi_argument_from_double")
+          (getSymbol "giraffe_gi_argument_from_double")
           (cPtr --> GDouble.PolyML.cVal);
 
       val from_string_ =
         call
-          (load_sym libgiraffegirepository "giraffe_gi_argument_from_string")
+          (getSymbol "giraffe_gi_argument_from_string")
           (cPtr --> Utf8.PolyML.cOutPtr);
     end
 

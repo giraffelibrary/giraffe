@@ -7,9 +7,9 @@ structure PangoFontset :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_fontset_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getFont_ = call (load_sym libpango "pango_fontset_get_font") (PangoFontsetClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PangoFontClass.PolyML.cPtr)
-      val getMetrics_ = call (load_sym libpango "pango_fontset_get_metrics") (PangoFontsetClass.PolyML.cPtr --> PangoFontMetricsRecord.PolyML.cPtr)
+      val getType_ = call (getSymbol "pango_fontset_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getFont_ = call (getSymbol "pango_fontset_get_font") (PangoFontsetClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PangoFontClass.PolyML.cPtr)
+      val getMetrics_ = call (getSymbol "pango_fontset_get_metrics") (PangoFontsetClass.PolyML.cPtr --> PangoFontMetricsRecord.PolyML.cPtr)
     end
     type 'a class = 'a PangoFontsetClass.class
     type 'a font_class = 'a PangoFontClass.class

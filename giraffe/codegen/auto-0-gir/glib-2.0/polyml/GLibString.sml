@@ -5,20 +5,20 @@ structure GLibString :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "g_gstring_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val append_ = call (load_sym libglib "g_string_append") (GLibStringRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibStringRecord.PolyML.cPtr)
-      val appendC_ = call (load_sym libglib "g_string_append_c") (GLibStringRecord.PolyML.cPtr &&> GChar.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_gstring_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val append_ = call (getSymbol "g_string_append") (GLibStringRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibStringRecord.PolyML.cPtr)
+      val appendC_ = call (getSymbol "g_string_append_c") (GLibStringRecord.PolyML.cPtr &&> GChar.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
       val appendLen_ =
-        call (load_sym libglib "g_string_append_len")
+        call (getSymbol "g_string_append_len")
           (
             GLibStringRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GSSize.PolyML.cVal
              --> GLibStringRecord.PolyML.cPtr
           )
-      val appendUnichar_ = call (load_sym libglib "g_string_append_unichar") (GLibStringRecord.PolyML.cPtr &&> GChar.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
+      val appendUnichar_ = call (getSymbol "g_string_append_unichar") (GLibStringRecord.PolyML.cPtr &&> GChar.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
       val appendUriEscaped_ =
-        call (load_sym libglib "g_string_append_uri_escaped")
+        call (getSymbol "g_string_append_uri_escaped")
           (
             GLibStringRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -26,22 +26,22 @@ structure GLibString :>
              &&> GBool.PolyML.cVal
              --> GLibStringRecord.PolyML.cPtr
           )
-      val asciiDown_ = call (load_sym libglib "g_string_ascii_down") (GLibStringRecord.PolyML.cPtr --> GLibStringRecord.PolyML.cPtr)
-      val asciiUp_ = call (load_sym libglib "g_string_ascii_up") (GLibStringRecord.PolyML.cPtr --> GLibStringRecord.PolyML.cPtr)
-      val assign_ = call (load_sym libglib "g_string_assign") (GLibStringRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibStringRecord.PolyML.cPtr)
-      val down_ = call (load_sym libglib "g_string_down") (GLibStringRecord.PolyML.cPtr --> GLibStringRecord.PolyML.cPtr)
-      val equal_ = call (load_sym libglib "g_string_equal") (GLibStringRecord.PolyML.cPtr &&> GLibStringRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val asciiDown_ = call (getSymbol "g_string_ascii_down") (GLibStringRecord.PolyML.cPtr --> GLibStringRecord.PolyML.cPtr)
+      val asciiUp_ = call (getSymbol "g_string_ascii_up") (GLibStringRecord.PolyML.cPtr --> GLibStringRecord.PolyML.cPtr)
+      val assign_ = call (getSymbol "g_string_assign") (GLibStringRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibStringRecord.PolyML.cPtr)
+      val down_ = call (getSymbol "g_string_down") (GLibStringRecord.PolyML.cPtr --> GLibStringRecord.PolyML.cPtr)
+      val equal_ = call (getSymbol "g_string_equal") (GLibStringRecord.PolyML.cPtr &&> GLibStringRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val erase_ =
-        call (load_sym libglib "g_string_erase")
+        call (getSymbol "g_string_erase")
           (
             GLibStringRecord.PolyML.cPtr
              &&> GSSize.PolyML.cVal
              &&> GSSize.PolyML.cVal
              --> GLibStringRecord.PolyML.cPtr
           )
-      val hash_ = call (load_sym libglib "g_string_hash") (GLibStringRecord.PolyML.cPtr --> GUInt.PolyML.cVal)
+      val hash_ = call (getSymbol "g_string_hash") (GLibStringRecord.PolyML.cPtr --> GUInt.PolyML.cVal)
       val insert_ =
-        call (load_sym libglib "g_string_insert")
+        call (getSymbol "g_string_insert")
           (
             GLibStringRecord.PolyML.cPtr
              &&> GSSize.PolyML.cVal
@@ -49,7 +49,7 @@ structure GLibString :>
              --> GLibStringRecord.PolyML.cPtr
           )
       val insertC_ =
-        call (load_sym libglib "g_string_insert_c")
+        call (getSymbol "g_string_insert_c")
           (
             GLibStringRecord.PolyML.cPtr
              &&> GSSize.PolyML.cVal
@@ -57,7 +57,7 @@ structure GLibString :>
              --> GLibStringRecord.PolyML.cPtr
           )
       val insertLen_ =
-        call (load_sym libglib "g_string_insert_len")
+        call (getSymbol "g_string_insert_len")
           (
             GLibStringRecord.PolyML.cPtr
              &&> GSSize.PolyML.cVal
@@ -66,7 +66,7 @@ structure GLibString :>
              --> GLibStringRecord.PolyML.cPtr
           )
       val insertUnichar_ =
-        call (load_sym libglib "g_string_insert_unichar")
+        call (getSymbol "g_string_insert_unichar")
           (
             GLibStringRecord.PolyML.cPtr
              &&> GSSize.PolyML.cVal
@@ -74,7 +74,7 @@ structure GLibString :>
              --> GLibStringRecord.PolyML.cPtr
           )
       val overwrite_ =
-        call (load_sym libglib "g_string_overwrite")
+        call (getSymbol "g_string_overwrite")
           (
             GLibStringRecord.PolyML.cPtr
              &&> GSize.PolyML.cVal
@@ -82,7 +82,7 @@ structure GLibString :>
              --> GLibStringRecord.PolyML.cPtr
           )
       val overwriteLen_ =
-        call (load_sym libglib "g_string_overwrite_len")
+        call (getSymbol "g_string_overwrite_len")
           (
             GLibStringRecord.PolyML.cPtr
              &&> GSize.PolyML.cVal
@@ -90,20 +90,20 @@ structure GLibString :>
              &&> GSSize.PolyML.cVal
              --> GLibStringRecord.PolyML.cPtr
           )
-      val prepend_ = call (load_sym libglib "g_string_prepend") (GLibStringRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibStringRecord.PolyML.cPtr)
-      val prependC_ = call (load_sym libglib "g_string_prepend_c") (GLibStringRecord.PolyML.cPtr &&> GChar.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
+      val prepend_ = call (getSymbol "g_string_prepend") (GLibStringRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibStringRecord.PolyML.cPtr)
+      val prependC_ = call (getSymbol "g_string_prepend_c") (GLibStringRecord.PolyML.cPtr &&> GChar.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
       val prependLen_ =
-        call (load_sym libglib "g_string_prepend_len")
+        call (getSymbol "g_string_prepend_len")
           (
             GLibStringRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GSSize.PolyML.cVal
              --> GLibStringRecord.PolyML.cPtr
           )
-      val prependUnichar_ = call (load_sym libglib "g_string_prepend_unichar") (GLibStringRecord.PolyML.cPtr &&> GChar.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
-      val setSize_ = call (load_sym libglib "g_string_set_size") (GLibStringRecord.PolyML.cPtr &&> GSize.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
-      val truncate_ = call (load_sym libglib "g_string_truncate") (GLibStringRecord.PolyML.cPtr &&> GSize.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
-      val up_ = call (load_sym libglib "g_string_up") (GLibStringRecord.PolyML.cPtr --> GLibStringRecord.PolyML.cPtr)
+      val prependUnichar_ = call (getSymbol "g_string_prepend_unichar") (GLibStringRecord.PolyML.cPtr &&> GChar.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
+      val setSize_ = call (getSymbol "g_string_set_size") (GLibStringRecord.PolyML.cPtr &&> GSize.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
+      val truncate_ = call (getSymbol "g_string_truncate") (GLibStringRecord.PolyML.cPtr &&> GSize.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
+      val up_ = call (getSymbol "g_string_up") (GLibStringRecord.PolyML.cPtr --> GLibStringRecord.PolyML.cPtr)
     end
     type t = GLibStringRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

@@ -1,5 +1,10 @@
 structure Xlib : XLIB =
   struct
+    local
+      open PolyMLFFI
+    in
+      val openDisplay_ = call (getSymbol "XOpenDisplay") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+    end
     structure Atom = XlibAtom
     structure Colormap = XlibColormap
     structure Cursor = XlibCursor
@@ -12,4 +17,5 @@ structure Xlib : XLIB =
     structure Window = XlibWindow
     structure Xid = XlibXid
     structure Pixmap = XlibPixmap
+    fun openDisplay () = (I ---> I) openDisplay_ ()
   end

@@ -12,10 +12,10 @@ structure GioSocketListener :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_socket_listener_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_socket_listener_new") (PolyMLFFI.cVoid --> GioSocketListenerClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_socket_listener_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_socket_listener_new") (PolyMLFFI.cVoid --> GioSocketListenerClass.PolyML.cPtr)
       val accept_ =
-        call (load_sym libgio "g_socket_listener_accept")
+        call (getSymbol "g_socket_listener_accept")
           (
             GioSocketListenerClass.PolyML.cPtr
              &&> GObjectObjectClass.PolyML.cOutRef
@@ -24,7 +24,7 @@ structure GioSocketListener :>
              --> GioSocketConnectionClass.PolyML.cPtr
           )
       val acceptFinish_ =
-        call (load_sym libgio "g_socket_listener_accept_finish")
+        call (getSymbol "g_socket_listener_accept_finish")
           (
             GioSocketListenerClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -33,7 +33,7 @@ structure GioSocketListener :>
              --> GioSocketConnectionClass.PolyML.cPtr
           )
       val acceptSocket_ =
-        call (load_sym libgio "g_socket_listener_accept_socket")
+        call (getSymbol "g_socket_listener_accept_socket")
           (
             GioSocketListenerClass.PolyML.cPtr
              &&> GObjectObjectClass.PolyML.cOutRef
@@ -42,7 +42,7 @@ structure GioSocketListener :>
              --> GioSocketClass.PolyML.cPtr
           )
       val acceptSocketFinish_ =
-        call (load_sym libgio "g_socket_listener_accept_socket_finish")
+        call (getSymbol "g_socket_listener_accept_socket_finish")
           (
             GioSocketListenerClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -51,7 +51,7 @@ structure GioSocketListener :>
              --> GioSocketClass.PolyML.cPtr
           )
       val addAddress_ =
-        call (load_sym libgio "g_socket_listener_add_address")
+        call (getSymbol "g_socket_listener_add_address")
           (
             GioSocketListenerClass.PolyML.cPtr
              &&> GioSocketAddressClass.PolyML.cPtr
@@ -63,7 +63,7 @@ structure GioSocketListener :>
              --> GBool.PolyML.cVal
           )
       val addAnyInetPort_ =
-        call (load_sym libgio "g_socket_listener_add_any_inet_port")
+        call (getSymbol "g_socket_listener_add_any_inet_port")
           (
             GioSocketListenerClass.PolyML.cPtr
              &&> GObjectObjectClass.PolyML.cOptPtr
@@ -71,7 +71,7 @@ structure GioSocketListener :>
              --> GUInt16.PolyML.cVal
           )
       val addInetPort_ =
-        call (load_sym libgio "g_socket_listener_add_inet_port")
+        call (getSymbol "g_socket_listener_add_inet_port")
           (
             GioSocketListenerClass.PolyML.cPtr
              &&> GUInt16.PolyML.cVal
@@ -80,7 +80,7 @@ structure GioSocketListener :>
              --> GBool.PolyML.cVal
           )
       val addSocket_ =
-        call (load_sym libgio "g_socket_listener_add_socket")
+        call (getSymbol "g_socket_listener_add_socket")
           (
             GioSocketListenerClass.PolyML.cPtr
              &&> GioSocketClass.PolyML.cPtr
@@ -88,8 +88,8 @@ structure GioSocketListener :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val close_ = call (load_sym libgio "g_socket_listener_close") (GioSocketListenerClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setBacklog_ = call (load_sym libgio "g_socket_listener_set_backlog") (GioSocketListenerClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val close_ = call (getSymbol "g_socket_listener_close") (GioSocketListenerClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setBacklog_ = call (getSymbol "g_socket_listener_set_backlog") (GioSocketListenerClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioSocketListenerClass.class
     type 'a socket_connection_class = 'a GioSocketConnectionClass.class

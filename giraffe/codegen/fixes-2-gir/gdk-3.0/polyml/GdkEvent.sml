@@ -16,12 +16,12 @@ structure GdkEvent :> GDK_EVENT =
     in
       val dup_ =
         call
-          (load_sym libgdk "gdk_event_copy")
+          (getSymbol "gdk_event_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgdk "gdk_event_free")
+          (getSymbol "gdk_event_free")
           (cPtr --> PolyMLFFI.cVoid)
     end
 
@@ -114,27 +114,27 @@ structure GdkEvent :> GDK_EVENT =
     in
       val getType_ =
         call
-          (load_sym libgdk "gdk_event_get_type")
+          (getSymbol "gdk_event_get_type")
           (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
 
       val getValue_ =
         call
-          (load_sym libgobject "g_value_get_boxed")
+          (getSymbol "g_value_get_boxed")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr);
 
       val getOptValue_ =
         call
-          (load_sym libgobject "g_value_get_boxed")
+          (getSymbol "g_value_get_boxed")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);
 
       val setValue_ =
         call
-          (load_sym libgobject "g_value_set_boxed")
+          (getSymbol "g_value_set_boxed")
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid);
 
       val setOptValue_ =
         call
-          (load_sym libgobject "g_value_set_boxed")
+          (getSymbol "g_value_set_boxed")
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid);
     end
 

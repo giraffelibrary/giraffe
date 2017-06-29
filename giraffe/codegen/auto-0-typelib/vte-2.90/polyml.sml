@@ -1,4 +1,3 @@
-val libvte = PolyMLFFI.load_lib "";
 use "VTE_PTY_CLASS.sml";
 use "VTE_PTY.sml";
 use "VTE_PTY_ERROR.sml";

@@ -19,32 +19,32 @@ structure GObjectValue :>
     in
       val init_ =
         call
-          (load_sym libgobject "g_value_init")
+          (getSymbol "g_value_init")
           (GObjectValueRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GObjectValueRecord.PolyML.cPtr);
 
       val reset_ =
         call
-          (load_sym libgobject "g_value_reset")
+          (getSymbol "g_value_reset")
           (GObjectValueRecord.PolyML.cPtr --> GObjectValueRecord.PolyML.cPtr);
 
       val getType_ =
         call
-          (load_sym libgobject "g_value_get_type")
+          (getSymbol "g_value_get_type")
           (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
 
       val holds_ =
         call
-          (load_sym libgiraffegobject "giraffe_g_value_holds")
+          (getSymbol "giraffe_g_value_holds")
           (GObjectValueRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal);
 
       val gtypeOf_ =
         call
-          (load_sym libgiraffegobject "giraffe_g_value_type")
+          (getSymbol "giraffe_g_value_type")
           (GObjectValueRecord.PolyML.cPtr --> GObjectType.PolyML.cVal);
 
       val isValue_ =
         call
-          (load_sym libgiraffegobject "giraffe_g_is_value")
+          (getSymbol "giraffe_g_is_value")
           (GObjectValueRecord.PolyML.cPtr --> GBool.PolyML.cVal);
     end
 
@@ -115,62 +115,62 @@ local
 
     val get_boolean_ =
       call
-        (load_sym libgobject "g_value_get_boolean")
+        (getSymbol "g_value_get_boolean")
         (GET GBool.PolyML.cVal);
 
     val get_int_ =
       call
-        (load_sym libgobject "g_value_get_int")
+        (getSymbol "g_value_get_int")
         (GET GInt.PolyML.cVal);
 
     val get_uint_ =
       call
-        (load_sym libgobject "g_value_get_uint")
+        (getSymbol "g_value_get_uint")
         (GET GUInt.PolyML.cVal);
 
     val get_long_ =
       call
-        (load_sym libgobject "g_value_get_long")
+        (getSymbol "g_value_get_long")
         (GET GLong.PolyML.cVal);
 
     val get_ulong_ =
       call
-        (load_sym libgobject "g_value_get_ulong")
+        (getSymbol "g_value_get_ulong")
         (GET GULong.PolyML.cVal);
 
     val get_int64_ =
       call
-        (load_sym libgobject "g_value_get_int64")
+        (getSymbol "g_value_get_int64")
         (GET GInt64.PolyML.cVal);
 
     val get_uint64_ =
       call
-        (load_sym libgobject "g_value_get_uint64")
+        (getSymbol "g_value_get_uint64")
         (GET GUInt64.PolyML.cVal);
 
     val get_float_ =
       call
-        (load_sym libgobject "g_value_get_float")
+        (getSymbol "g_value_get_float")
         (GET GFloat.PolyML.cVal);
 
     val get_double_ =
       call
-        (load_sym libgobject "g_value_get_double")
+        (getSymbol "g_value_get_double")
         (GET GDouble.PolyML.cVal);
 
     val get_char_ =
       call
-        (load_sym libgobject "g_value_get_char")
+        (getSymbol "g_value_get_char")
         (GET GChar.PolyML.cVal);
 
     val get_string_ =
       call
-        (load_sym libgobject "g_value_get_string")
+        (getSymbol "g_value_get_string")
         (GET Utf8.PolyML.cOutPtr);
 
     val get_string_opt_ =
       call
-        (load_sym libgobject "g_value_get_string")
+        (getSymbol "g_value_get_string")
         (GET Utf8.PolyML.cOutOptPtr);
 
 
@@ -178,62 +178,62 @@ local
 
     val set_boolean_ =
       call
-        (load_sym libgobject "g_value_set_boolean")
+        (getSymbol "g_value_set_boolean")
         (SET GBool.PolyML.cVal);
 
     val set_int_ =
       call
-        (load_sym libgobject "g_value_set_int")
+        (getSymbol "g_value_set_int")
         (SET GInt.PolyML.cVal);
 
     val set_uint_ =
       call
-        (load_sym libgobject "g_value_set_uint")
+        (getSymbol "g_value_set_uint")
         (SET GUInt.PolyML.cVal);
 
     val set_long_ =
       call
-        (load_sym libgobject "g_value_set_long")
+        (getSymbol "g_value_set_long")
         (SET GLong.PolyML.cVal);
 
     val set_ulong_ =
       call
-        (load_sym libgobject "g_value_set_ulong")
+        (getSymbol "g_value_set_ulong")
         (SET GULong.PolyML.cVal);
 
     val set_int64_ =
       call
-        (load_sym libgobject "g_value_set_int64")
+        (getSymbol "g_value_set_int64")
         (SET GInt64.PolyML.cVal);
 
     val set_uint64_ =
       call
-        (load_sym libgobject "g_value_set_uint64")
+        (getSymbol "g_value_set_uint64")
         (SET GUInt64.PolyML.cVal);
 
     val set_float_ =
       call
-        (load_sym libgobject "g_value_set_float")
+        (getSymbol "g_value_set_float")
         (SET GFloat.PolyML.cVal);
 
     val set_double_ =
       call
-        (load_sym libgobject "g_value_set_double")
+        (getSymbol "g_value_set_double")
         (SET GDouble.PolyML.cVal);
 
     val set_char_ =
       call
-        (load_sym libgobject "g_value_set_char")
+        (getSymbol "g_value_set_char")
         (SET GChar.PolyML.cVal);
 
     val set_string_ =
       call
-        (load_sym libgobject "g_value_set_string")
+        (getSymbol "g_value_set_string")
         (SET Utf8.PolyML.cInPtr);
 
     val set_string_opt_ =
       call
-        (load_sym libgobject "g_value_set_string")
+        (getSymbol "g_value_set_string")
         (SET Utf8.PolyML.cInOptPtr);
   end
 in

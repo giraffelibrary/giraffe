@@ -343,8 +343,7 @@ fun mkEnumStructStrDec strDecs : strdec =
 in
   fun makeEnumStr
     (repo          : 'a RepositoryClass.class)
-    (vers          : Repository.typelibvers_t)
-    (libId         : id)
+    (_             : Repository.typelibvers_t)
     (enumNamespace : string)
     (enumInfo      : 'b EnumInfoClass.class)
     (errs'0        : infoerrorhier list)
@@ -390,7 +389,7 @@ in
       val strDecs'3 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'2)
 
       val (addAccessorStrDecs, revAccessorLocalTypes) =
-        addAccessorRootStrDecs repo vers libId enumNamespace enumInfo
+        addAccessorRootStrDecs enumNamespace enumInfo
 
       val (addErrorStrDecs, revErrorLocalTypes) =
         case optErrorDomain of
@@ -403,7 +402,6 @@ in
             addFlagsEnumMethodStrDecsLowLevel
               isPolyML
               repo
-              libId
               (K I)
               enumIRef
               (enumInfo, (strDecs'3, errs'2))

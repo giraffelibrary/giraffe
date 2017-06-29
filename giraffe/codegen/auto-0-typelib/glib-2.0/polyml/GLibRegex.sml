@@ -14,9 +14,9 @@ structure GLibRegex :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "g_regex_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_regex_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libglib "g_regex_new")
+        call (getSymbol "g_regex_new")
           (
             Utf8.PolyML.cInPtr
              &&> GLibRegexCompileFlags.PolyML.cVal
@@ -24,14 +24,14 @@ structure GLibRegex :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibRegexRecord.PolyML.cPtr
           )
-      val getCaptureCount_ = call (load_sym libglib "g_regex_get_capture_count") (GLibRegexRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getCompileFlags_ = call (load_sym libglib "g_regex_get_compile_flags") (GLibRegexRecord.PolyML.cPtr --> GLibRegexCompileFlags.PolyML.cVal)
-      val getMatchFlags_ = call (load_sym libglib "g_regex_get_match_flags") (GLibRegexRecord.PolyML.cPtr --> GLibRegexMatchFlags.PolyML.cVal)
-      val getMaxBackref_ = call (load_sym libglib "g_regex_get_max_backref") (GLibRegexRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getPattern_ = call (load_sym libglib "g_regex_get_pattern") (GLibRegexRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getStringNumber_ = call (load_sym libglib "g_regex_get_string_number") (GLibRegexRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
+      val getCaptureCount_ = call (getSymbol "g_regex_get_capture_count") (GLibRegexRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getCompileFlags_ = call (getSymbol "g_regex_get_compile_flags") (GLibRegexRecord.PolyML.cPtr --> GLibRegexCompileFlags.PolyML.cVal)
+      val getMatchFlags_ = call (getSymbol "g_regex_get_match_flags") (GLibRegexRecord.PolyML.cPtr --> GLibRegexMatchFlags.PolyML.cVal)
+      val getMaxBackref_ = call (getSymbol "g_regex_get_max_backref") (GLibRegexRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getPattern_ = call (getSymbol "g_regex_get_pattern") (GLibRegexRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getStringNumber_ = call (getSymbol "g_regex_get_string_number") (GLibRegexRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
       val match_ =
-        call (load_sym libglib "g_regex_match")
+        call (getSymbol "g_regex_match")
           (
             GLibRegexRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -40,7 +40,7 @@ structure GLibRegex :>
              --> GBool.PolyML.cVal
           )
       val matchAll_ =
-        call (load_sym libglib "g_regex_match_all")
+        call (getSymbol "g_regex_match_all")
           (
             GLibRegexRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -49,7 +49,7 @@ structure GLibRegex :>
              --> GBool.PolyML.cVal
           )
       val matchAllFull_ =
-        call (load_sym libglib "g_regex_match_all_full")
+        call (getSymbol "g_regex_match_all_full")
           (
             GLibRegexRecord.PolyML.cPtr
              &&> Utf8CVectorN.PolyML.cInPtr
@@ -61,7 +61,7 @@ structure GLibRegex :>
              --> GBool.PolyML.cVal
           )
       val matchFull_ =
-        call (load_sym libglib "g_regex_match_full")
+        call (getSymbol "g_regex_match_full")
           (
             GLibRegexRecord.PolyML.cPtr
              &&> Utf8CVectorN.PolyML.cInPtr
@@ -73,7 +73,7 @@ structure GLibRegex :>
              --> GBool.PolyML.cVal
           )
       val replace_ =
-        call (load_sym libglib "g_regex_replace")
+        call (getSymbol "g_regex_replace")
           (
             GLibRegexRecord.PolyML.cPtr
              &&> Utf8CVectorN.PolyML.cInPtr
@@ -85,7 +85,7 @@ structure GLibRegex :>
              --> Utf8.PolyML.cOutPtr
           )
       val replaceLiteral_ =
-        call (load_sym libglib "g_regex_replace_literal")
+        call (getSymbol "g_regex_replace_literal")
           (
             GLibRegexRecord.PolyML.cPtr
              &&> Utf8CVectorN.PolyML.cInPtr
@@ -97,16 +97,16 @@ structure GLibRegex :>
              --> Utf8.PolyML.cOutPtr
           )
       val checkReplacement_ =
-        call (load_sym libglib "g_regex_check_replacement")
+        call (getSymbol "g_regex_check_replacement")
           (
             Utf8.PolyML.cInPtr
              &&> GBool.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val escapeNul_ = call (load_sym libglib "g_regex_escape_nul") (Utf8.PolyML.cInPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val escapeNul_ = call (getSymbol "g_regex_escape_nul") (Utf8.PolyML.cInPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val matchSimple_ =
-        call (load_sym libglib "g_regex_match_simple")
+        call (getSymbol "g_regex_match_simple")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr

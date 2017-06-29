@@ -8,10 +8,10 @@ structure GtkArrow :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_arrow_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_arrow_new") (GtkArrowType.PolyML.cVal &&> GtkShadowType.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_arrow_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_arrow_new") (GtkArrowType.PolyML.cVal &&> GtkShadowType.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
       val set_ =
-        call (load_sym libgtk "gtk_arrow_set")
+        call (getSymbol "gtk_arrow_set")
           (
             GtkArrowClass.PolyML.cPtr
              &&> GtkArrowType.PolyML.cVal

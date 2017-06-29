@@ -5,7 +5,7 @@ structure CairoScaledFont :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libcairogobject "cairo_gobject_scaled_font_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "cairo_gobject_scaled_font_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
     end
     type t = CairoScaledFontRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

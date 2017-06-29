@@ -5,9 +5,9 @@ structure GioUnixMountMonitor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_unix_mount_monitor_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_unix_mount_monitor_new") (PolyMLFFI.cVoid --> GioUnixMountMonitorClass.PolyML.cPtr)
-      val setRateLimit_ = call (load_sym libgio "g_unix_mount_monitor_set_rate_limit") (GioUnixMountMonitorClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_unix_mount_monitor_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_unix_mount_monitor_new") (PolyMLFFI.cVoid --> GioUnixMountMonitorClass.PolyML.cPtr)
+      val setRateLimit_ = call (getSymbol "g_unix_mount_monitor_set_rate_limit") (GioUnixMountMonitorClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioUnixMountMonitorClass.class
     type t = base class

@@ -16,17 +16,17 @@ structure GIRepositoryRepository :>
     in
       val getDefault_ =
         call
-          (load_sym libgirepository "g_irepository_get_default")
+          (getSymbol "g_irepository_get_default")
           (PolyMLFFI.cVoid --> GObjectObjectClass.PolyML.cPtr)
 
       val prependSearchPath_ =
         call
-          (load_sym libgirepository "g_irepository_prepend_search_path")
+          (getSymbol "g_irepository_prepend_search_path")
           (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
 
       val loadTypelib_ =
         call
-          (load_sym libgirepository "g_irepository_load_typelib")
+          (getSymbol "g_irepository_load_typelib")
           (GObjectObjectClass.PolyML.cPtr
             &&> GIRepositoryTypelibType.PolyML.cPtr
             &&> GIRepositoryRepositoryLoadFlags.PolyML.cVal
@@ -35,7 +35,7 @@ structure GIRepositoryRepository :>
 
       val require_ =
         call
-          (load_sym libgirepository "g_irepository_require")
+          (getSymbol "g_irepository_require")
           (GObjectObjectClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
             &&> Utf8.PolyML.cInPtr
@@ -45,21 +45,21 @@ structure GIRepositoryRepository :>
 
       val getDependencies_ =
         call
-          (load_sym libgirepository "g_irepository_get_dependencies")
+          (getSymbol "g_irepository_get_dependencies")
           (GObjectObjectClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
             --> Utf8CVector.PolyML.cOutOptPtr)
 
       val getNInfos_ =
         call
-          (load_sym libgirepository "g_irepository_get_n_infos")
+          (getSymbol "g_irepository_get_n_infos")
           (GObjectObjectClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
             --> GInt32.PolyML.cVal)
 
       val getInfo_ =
         call
-          (load_sym libgirepository "g_irepository_get_info")
+          (getSymbol "g_irepository_get_info")
           (GObjectObjectClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
             &&> GInt32.PolyML.cVal
@@ -67,21 +67,21 @@ structure GIRepositoryRepository :>
 
       val getSharedLibrary_ =
         call
-          (load_sym libgirepository "g_irepository_get_shared_library")
+          (getSymbol "g_irepository_get_shared_library")
           (GObjectObjectClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
             --> Utf8.PolyML.cOutOptPtr)
 
       val getVersion_ =
         call
-          (load_sym libgirepository "g_irepository_get_version")
+          (getSymbol "g_irepository_get_version")
           (GObjectObjectClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
             --> Utf8.PolyML.cOutOptPtr)
 
       val getCPrefix_ =
         call
-          (load_sym libgirepository "g_irepository_get_c_prefix")
+          (getSymbol "g_irepository_get_c_prefix")
           (GObjectObjectClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
             --> Utf8.PolyML.cOutPtr)

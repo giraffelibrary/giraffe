@@ -1,4 +1,3 @@
-val libgio = PolyMLFFI.load_lib "";
 use "GIO_ACTION_CLASS.sml";
 use "GIO_ACTION.sml";
 use "GIO_ACTION_GROUP_CLASS.sml";

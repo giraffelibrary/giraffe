@@ -11,22 +11,22 @@ structure GtkFileFilterInfoRecord :> GTK_FILE_FILTER_INFO_RECORD =
     in
       val new_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_file_filter_info_new")
+          (getSymbol "giraffe_gtk_file_filter_info_new")
           (cVoid --> cPtr)
 
       val copy_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_file_filter_info_copy")
+          (getSymbol "giraffe_gtk_file_filter_info_copy")
           (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_file_filter_info_free")
+          (getSymbol "giraffe_gtk_file_filter_info_free")
           (cPtr --> cVoid)
 
       val size_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_file_filter_info_size")
+          (getSymbol "giraffe_gtk_file_filter_info_size")
           (cVoid --> GUInt.PolyML.cVal)
     end
 

@@ -11,17 +11,17 @@ structure GLibVariantTypeRecord :> G_LIB_VARIANT_TYPE_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgobject "g_variant_type_copy")
+          (getSymbol "g_variant_type_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgobject "g_variant_type_free")
+          (getSymbol "g_variant_type_free")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgobject "g_variant_type_get_gtype")
+          (getSymbol "g_variant_type_get_gtype")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

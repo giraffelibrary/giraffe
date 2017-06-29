@@ -20,17 +20,17 @@ structure GLibErrorRecord :>
     in
       val dup_ =
         call
-          (load_sym libglib "g_error_copy")
+          (getSymbol "g_error_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libglib "g_error_free")
+          (getSymbol "g_error_free")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libglib "g_error_get_type")
+          (getSymbol "g_error_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 
@@ -58,17 +58,17 @@ structure GLibErrorRecord :>
     in
       val getDomain_ =
         call
-          (load_sym libgiraffeglib "giraffe_get_g_error_domain")
+          (getSymbol "giraffe_get_g_error_domain")
           (PolyML.cPtr --> GLibQuark.PolyML.cVal)
 
       val getCode_ =
         call
-          (load_sym libgiraffeglib "giraffe_get_g_error_code")
+          (getSymbol "giraffe_get_g_error_code")
           (PolyML.cPtr --> GInt.PolyML.cVal)
 
       val getMessage_ =
         call
-          (load_sym libgiraffeglib "giraffe_get_g_error_message")
+          (getSymbol "giraffe_get_g_error_message")
           (PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
 

@@ -6,9 +6,9 @@ structure GtkToggleAction :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_toggle_action_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_toggle_action_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgtk "gtk_toggle_action_new")
+        call (getSymbol "gtk_toggle_action_new")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInOptPtr
@@ -16,11 +16,11 @@ structure GtkToggleAction :>
              &&> Utf8.PolyML.cInOptPtr
              --> GtkToggleActionClass.PolyML.cPtr
           )
-      val getActive_ = call (load_sym libgtk "gtk_toggle_action_get_active") (GtkToggleActionClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getDrawAsRadio_ = call (load_sym libgtk "gtk_toggle_action_get_draw_as_radio") (GtkToggleActionClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setActive_ = call (load_sym libgtk "gtk_toggle_action_set_active") (GtkToggleActionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDrawAsRadio_ = call (load_sym libgtk "gtk_toggle_action_set_draw_as_radio") (GtkToggleActionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val toggled_ = call (load_sym libgtk "gtk_toggle_action_toggled") (GtkToggleActionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getActive_ = call (getSymbol "gtk_toggle_action_get_active") (GtkToggleActionClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getDrawAsRadio_ = call (getSymbol "gtk_toggle_action_get_draw_as_radio") (GtkToggleActionClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setActive_ = call (getSymbol "gtk_toggle_action_set_active") (GtkToggleActionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDrawAsRadio_ = call (getSymbol "gtk_toggle_action_set_draw_as_radio") (GtkToggleActionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val toggled_ = call (getSymbol "gtk_toggle_action_toggled") (GtkToggleActionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkToggleActionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

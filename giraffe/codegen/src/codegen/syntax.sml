@@ -221,49 +221,6 @@ end
 
 
 
-(* Shared library file names vary between systems.  The following formats are
- * expected for a library called <name> with an optional compatibility
- * version number <version>.  <version> is one or more digits.  <name> may
- * contain the characters '-' and '.', for example "gtk-3.0".
- *
- *                     with version                without version
- *
- *   Linux, BSD etc.   <name>.so.<version>         <name>.so
- *   Darwin            <name>.<version>.dylib      <name>.dylib
- *   MinGW             <name>-<version>.dll        <name>.dll
- *
- * For MinGW, see the file listing here:
- * http://www.tarnyko.net/repo/gtk3_build_system/tutorial/gtk3_tutorial.htm
- *)
-
-(* `getSharedLibraryId repo vers namespace` returns an SML identifier for use
- * as a reference to the shared library name.
- *)
-local
-  fun getLibId s =
-    let
-      (* take alphabetic characters until digit or full-stop *)
-      fun take acc ss =
-        case Substring.getc ss of
-          SOME (c, ss') =>
-            if Char.isDigit c orelse c = #"."
-            then rev acc
-            else if Char.isAlpha c
-            then take (c :: acc) ss'
-            else take acc ss'
-        | NONE          => rev acc
-
-      val cs = take [] (Substring.full s)
-    in
-      mkId (String.implode cs)
-    end
-in
-  fun getSharedLibraryId repo vers =
-    getLibId o getSharedLibraryFileName repo vers
-end
-
-
-
 (* `mkIdValDec (id, exp)` constructs a single val binding that binds the
  * expression `exp` to the identifier `id` as follows:
  *
@@ -478,8 +435,7 @@ fun mkCStructStrDec strDecs : strdec =
 
 val PolyMLFFIId : id = "PolyMLFFI"
 val callId : id = "call"
-val loadSymId : id = "load_sym"
-val loadLibId : id = "load_lib"
+val getSymbolId : id = "getSymbol"
 
 val PolyMLId : id = "PolyML"
 val cValId : id = "cVal"

@@ -1,4 +1,3 @@
-val libgtk = PolyMLFFI.load_lib "";
 use "CHILD_SIGNAL.sml";
 use "GTK_ACTION_ENTRY.sml";
 use "GTK_ABOUT_DIALOG_CLASS.sml";

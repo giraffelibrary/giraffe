@@ -12,9 +12,9 @@ structure PangoLayoutLine :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_layout_line_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "pango_layout_line_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getExtents_ =
-        call (load_sym libpango "pango_layout_line_get_extents")
+        call (getSymbol "pango_layout_line_get_extents")
           (
             PangoLayoutLineRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
@@ -22,7 +22,7 @@ structure PangoLayoutLine :>
              --> PolyMLFFI.cVoid
           )
       val getPixelExtents_ =
-        call (load_sym libpango "pango_layout_line_get_pixel_extents")
+        call (getSymbol "pango_layout_line_get_pixel_extents")
           (
             PangoLayoutLineRecord.PolyML.cPtr
              &&> PangoRectangleRecord.PolyML.cPtr
@@ -30,7 +30,7 @@ structure PangoLayoutLine :>
              --> PolyMLFFI.cVoid
           )
       val getXRanges_ =
-        call (load_sym libpango "pango_layout_line_get_x_ranges")
+        call (getSymbol "pango_layout_line_get_x_ranges")
           (
             PangoLayoutLineRecord.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -40,7 +40,7 @@ structure PangoLayoutLine :>
              --> PolyMLFFI.cVoid
           )
       val indexToX_ =
-        call (load_sym libpango "pango_layout_line_index_to_x")
+        call (getSymbol "pango_layout_line_index_to_x")
           (
             PangoLayoutLineRecord.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -49,7 +49,7 @@ structure PangoLayoutLine :>
              --> PolyMLFFI.cVoid
           )
       val xToIndex_ =
-        call (load_sym libpango "pango_layout_line_x_to_index")
+        call (getSymbol "pango_layout_line_x_to_index")
           (
             PangoLayoutLineRecord.PolyML.cPtr
              &&> GInt.PolyML.cVal

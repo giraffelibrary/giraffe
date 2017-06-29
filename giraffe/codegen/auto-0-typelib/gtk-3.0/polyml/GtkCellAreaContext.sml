@@ -6,9 +6,9 @@ structure GtkCellAreaContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_cell_area_context_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_cell_area_context_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val allocate_ =
-        call (load_sym libgtk "gtk_cell_area_context_allocate")
+        call (getSymbol "gtk_cell_area_context_allocate")
           (
             GtkCellAreaContextClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -16,16 +16,16 @@ structure GtkCellAreaContext :>
              --> PolyMLFFI.cVoid
           )
       val getAllocation_ =
-        call (load_sym libgtk "gtk_cell_area_context_get_allocation")
+        call (getSymbol "gtk_cell_area_context_get_allocation")
           (
             GtkCellAreaContextClass.PolyML.cPtr
              &&> GInt32.PolyML.cRef
              &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getArea_ = call (load_sym libgtk "gtk_cell_area_context_get_area") (GtkCellAreaContextClass.PolyML.cPtr --> GtkCellAreaClass.PolyML.cPtr)
+      val getArea_ = call (getSymbol "gtk_cell_area_context_get_area") (GtkCellAreaContextClass.PolyML.cPtr --> GtkCellAreaClass.PolyML.cPtr)
       val getPreferredHeight_ =
-        call (load_sym libgtk "gtk_cell_area_context_get_preferred_height")
+        call (getSymbol "gtk_cell_area_context_get_preferred_height")
           (
             GtkCellAreaContextClass.PolyML.cPtr
              &&> GInt32.PolyML.cRef
@@ -33,7 +33,7 @@ structure GtkCellAreaContext :>
              --> PolyMLFFI.cVoid
           )
       val getPreferredHeightForWidth_ =
-        call (load_sym libgtk "gtk_cell_area_context_get_preferred_height_for_width")
+        call (getSymbol "gtk_cell_area_context_get_preferred_height_for_width")
           (
             GtkCellAreaContextClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -42,7 +42,7 @@ structure GtkCellAreaContext :>
              --> PolyMLFFI.cVoid
           )
       val getPreferredWidth_ =
-        call (load_sym libgtk "gtk_cell_area_context_get_preferred_width")
+        call (getSymbol "gtk_cell_area_context_get_preferred_width")
           (
             GtkCellAreaContextClass.PolyML.cPtr
              &&> GInt32.PolyML.cRef
@@ -50,7 +50,7 @@ structure GtkCellAreaContext :>
              --> PolyMLFFI.cVoid
           )
       val getPreferredWidthForHeight_ =
-        call (load_sym libgtk "gtk_cell_area_context_get_preferred_width_for_height")
+        call (getSymbol "gtk_cell_area_context_get_preferred_width_for_height")
           (
             GtkCellAreaContextClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -59,7 +59,7 @@ structure GtkCellAreaContext :>
              --> PolyMLFFI.cVoid
           )
       val pushPreferredHeight_ =
-        call (load_sym libgtk "gtk_cell_area_context_push_preferred_height")
+        call (getSymbol "gtk_cell_area_context_push_preferred_height")
           (
             GtkCellAreaContextClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -67,14 +67,14 @@ structure GtkCellAreaContext :>
              --> PolyMLFFI.cVoid
           )
       val pushPreferredWidth_ =
-        call (load_sym libgtk "gtk_cell_area_context_push_preferred_width")
+        call (getSymbol "gtk_cell_area_context_push_preferred_width")
           (
             GtkCellAreaContextClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val reset_ = call (load_sym libgtk "gtk_cell_area_context_reset") (GtkCellAreaContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val reset_ = call (getSymbol "gtk_cell_area_context_reset") (GtkCellAreaContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkCellAreaContextClass.class
     type 'a cell_area_class = 'a GtkCellAreaClass.class

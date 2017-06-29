@@ -11,17 +11,17 @@ structure GdkPixbufPixbufFormatRecord :> GDK_PIXBUF_PIXBUF_FORMAT_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgdkpixbuf "gdk_pixbuf_format_copy")
+          (getSymbol "gdk_pixbuf_format_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgdkpixbuf "gdk_pixbuf_format_free")
+          (getSymbol "gdk_pixbuf_format_free")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgdkpixbuf "gdk_pixbuf_format_get_type")
+          (getSymbol "gdk_pixbuf_format_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

@@ -7,21 +7,21 @@ structure GtkRecentManager :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_recent_manager_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_recent_manager_new") (PolyMLFFI.cVoid --> GtkRecentManagerClass.PolyML.cPtr)
-      val getDefault_ = call (load_sym libgtk "gtk_recent_manager_get_default") (PolyMLFFI.cVoid --> GtkRecentManagerClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_recent_manager_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_recent_manager_new") (PolyMLFFI.cVoid --> GtkRecentManagerClass.PolyML.cPtr)
+      val getDefault_ = call (getSymbol "gtk_recent_manager_get_default") (PolyMLFFI.cVoid --> GtkRecentManagerClass.PolyML.cPtr)
       val addFull_ =
-        call (load_sym libgtk "gtk_recent_manager_add_full")
+        call (getSymbol "gtk_recent_manager_add_full")
           (
             GtkRecentManagerClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkRecentDataRecord.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
-      val addItem_ = call (load_sym libgtk "gtk_recent_manager_add_item") (GtkRecentManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val hasItem_ = call (load_sym libgtk "gtk_recent_manager_has_item") (GtkRecentManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val addItem_ = call (getSymbol "gtk_recent_manager_add_item") (GtkRecentManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val hasItem_ = call (getSymbol "gtk_recent_manager_has_item") (GtkRecentManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val lookupItem_ =
-        call (load_sym libgtk "gtk_recent_manager_lookup_item")
+        call (getSymbol "gtk_recent_manager_lookup_item")
           (
             GtkRecentManagerClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -29,7 +29,7 @@ structure GtkRecentManager :>
              --> GtkRecentInfoRecord.PolyML.cPtr
           )
       val moveItem_ =
-        call (load_sym libgtk "gtk_recent_manager_move_item")
+        call (getSymbol "gtk_recent_manager_move_item")
           (
             GtkRecentManagerClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -37,9 +37,9 @@ structure GtkRecentManager :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val purgeItems_ = call (load_sym libgtk "gtk_recent_manager_purge_items") (GtkRecentManagerClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GInt.PolyML.cVal)
+      val purgeItems_ = call (getSymbol "gtk_recent_manager_purge_items") (GtkRecentManagerClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GInt.PolyML.cVal)
       val removeItem_ =
-        call (load_sym libgtk "gtk_recent_manager_remove_item")
+        call (getSymbol "gtk_recent_manager_remove_item")
           (
             GtkRecentManagerClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr

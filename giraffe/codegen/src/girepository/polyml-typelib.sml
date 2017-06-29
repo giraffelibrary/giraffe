@@ -1,7 +1,3 @@
-val libgirepository = PolyMLFFI.load_lib ""
-val libgiraffegirepository = PolyMLFFI.load_lib ""
-;
-
 use "typelib/G_I_REPOSITORY_FIELD_INFO_FLAGS.sml";
 use "typelib/G_I_REPOSITORY_V_FUNC_INFO_FLAGS.sml";
 use "typelib/G_I_REPOSITORY_FUNCTION_INFO_FLAGS.sml";

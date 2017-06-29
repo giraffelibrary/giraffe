@@ -1,4 +1,3 @@
-val libgdkpixbuf = PolyMLFFI.load_lib "";
 use "GDK_PIXBUF_COLORSPACE.sml";
 use "GDK_PIXBUF_INTERP_TYPE.sml";
 use "GDK_PIXBUF_PIXBUF_CLASS.sml";

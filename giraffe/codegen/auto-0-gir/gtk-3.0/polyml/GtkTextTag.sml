@@ -9,10 +9,10 @@ structure GtkTextTag :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_text_tag_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_text_tag_new") (Utf8.PolyML.cInOptPtr --> GtkTextTagClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_text_tag_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_text_tag_new") (Utf8.PolyML.cInOptPtr --> GtkTextTagClass.PolyML.cPtr)
       val event_ =
-        call (load_sym libgtk "gtk_text_tag_event")
+        call (getSymbol "gtk_text_tag_event")
           (
             GtkTextTagClass.PolyML.cPtr
              &&> GObjectObjectClass.PolyML.cPtr
@@ -20,8 +20,8 @@ structure GtkTextTag :>
              &&> GtkTextIterRecord.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
-      val getPriority_ = call (load_sym libgtk "gtk_text_tag_get_priority") (GtkTextTagClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val setPriority_ = call (load_sym libgtk "gtk_text_tag_set_priority") (GtkTextTagClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getPriority_ = call (getSymbol "gtk_text_tag_get_priority") (GtkTextTagClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val setPriority_ = call (getSymbol "gtk_text_tag_set_priority") (GtkTextTagClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkTextTagClass.class
     type text_iter_t = GtkTextIterRecord.t

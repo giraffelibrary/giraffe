@@ -12,21 +12,21 @@ structure GtkSourceLanguageManager :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_language_manager_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtksourceview "gtk_source_language_manager_new") (PolyMLFFI.cVoid --> GtkSourceLanguageManagerClass.PolyML.cPtr)
-      val getDefault_ = call (load_sym libgtksourceview "gtk_source_language_manager_get_default") (PolyMLFFI.cVoid --> GtkSourceLanguageManagerClass.PolyML.cPtr)
-      val getLanguage_ = call (load_sym libgtksourceview "gtk_source_language_manager_get_language") (GtkSourceLanguageManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkSourceLanguageClass.PolyML.cPtr)
-      val getLanguageIds_ = call (load_sym libgtksourceview "gtk_source_language_manager_get_language_ids") (GtkSourceLanguageManagerClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
-      val getSearchPath_ = call (load_sym libgtksourceview "gtk_source_language_manager_get_search_path") (GtkSourceLanguageManagerClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getType_ = call (getSymbol "gtk_source_language_manager_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_source_language_manager_new") (PolyMLFFI.cVoid --> GtkSourceLanguageManagerClass.PolyML.cPtr)
+      val getDefault_ = call (getSymbol "gtk_source_language_manager_get_default") (PolyMLFFI.cVoid --> GtkSourceLanguageManagerClass.PolyML.cPtr)
+      val getLanguage_ = call (getSymbol "gtk_source_language_manager_get_language") (GtkSourceLanguageManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkSourceLanguageClass.PolyML.cPtr)
+      val getLanguageIds_ = call (getSymbol "gtk_source_language_manager_get_language_ids") (GtkSourceLanguageManagerClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getSearchPath_ = call (getSymbol "gtk_source_language_manager_get_search_path") (GtkSourceLanguageManagerClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val guessLanguage_ =
-        call (load_sym libgtksourceview "gtk_source_language_manager_guess_language")
+        call (getSymbol "gtk_source_language_manager_guess_language")
           (
             GtkSourceLanguageManagerClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInOptPtr
              --> GtkSourceLanguageClass.PolyML.cPtr
           )
-      val setSearchPath_ = call (load_sym libgtksourceview "gtk_source_language_manager_set_search_path") (GtkSourceLanguageManagerClass.PolyML.cPtr &&> Utf8CVector.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setSearchPath_ = call (getSymbol "gtk_source_language_manager_set_search_path") (GtkSourceLanguageManagerClass.PolyML.cPtr &&> Utf8CVector.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkSourceLanguageManagerClass.class
     type 'a language_class = 'a GtkSourceLanguageClass.class

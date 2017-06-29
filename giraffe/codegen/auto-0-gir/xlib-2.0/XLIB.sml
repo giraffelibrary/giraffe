@@ -12,4 +12,5 @@ signature XLIB =
     structure Window : XLIB_WINDOW
     structure Xid : XLIB_XID
     structure Pixmap : XLIB_PIXMAP
+    val openDisplay : unit -> unit
   end

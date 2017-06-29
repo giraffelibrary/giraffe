@@ -7,10 +7,10 @@ structure GioSocketConnection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_socket_connection_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getLocalAddress_ = call (load_sym libgio "g_socket_connection_get_local_address") (GioSocketConnectionClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioSocketAddressClass.PolyML.cPtr)
-      val getRemoteAddress_ = call (load_sym libgio "g_socket_connection_get_remote_address") (GioSocketConnectionClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioSocketAddressClass.PolyML.cPtr)
-      val getSocket_ = call (load_sym libgio "g_socket_connection_get_socket") (GioSocketConnectionClass.PolyML.cPtr --> GioSocketClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_socket_connection_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getLocalAddress_ = call (getSymbol "g_socket_connection_get_local_address") (GioSocketConnectionClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioSocketAddressClass.PolyML.cPtr)
+      val getRemoteAddress_ = call (getSymbol "g_socket_connection_get_remote_address") (GioSocketConnectionClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioSocketAddressClass.PolyML.cPtr)
+      val getSocket_ = call (getSymbol "g_socket_connection_get_socket") (GioSocketConnectionClass.PolyML.cPtr --> GioSocketClass.PolyML.cPtr)
     end
     type 'a class = 'a GioSocketConnectionClass.class
     type 'a socket_address_class = 'a GioSocketAddressClass.class

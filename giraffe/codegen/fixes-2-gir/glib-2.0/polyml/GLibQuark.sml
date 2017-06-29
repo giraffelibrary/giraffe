@@ -8,8 +8,8 @@ structure GLibQuark : G_LIB_QUARK =
     local
       open PolyMLFFI
     in
-      val fromString_ = call (load_sym libglib "g_quark_from_string") (Utf8.PolyML.cInPtr --> PolyML.cVal)
-      val toString_ = call (load_sym libglib "g_quark_to_string") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val fromString_ = call (getSymbol "g_quark_from_string") (Utf8.PolyML.cInPtr --> PolyML.cVal)
+      val toString_ = call (getSymbol "g_quark_to_string") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
     end
 
     fun fromString string = (Utf8.FFI.withPtr ---> FFI.fromVal) fromString_ string

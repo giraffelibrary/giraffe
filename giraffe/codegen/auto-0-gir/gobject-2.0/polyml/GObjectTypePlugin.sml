@@ -6,9 +6,9 @@ structure GObjectTypePlugin :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "g_type_plugin_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val unuse_ = call (load_sym libgobject "g_type_plugin_unuse") (GObjectTypePluginClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val use_ = call (load_sym libgobject "g_type_plugin_use") (GObjectTypePluginClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_type_plugin_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val unuse_ = call (getSymbol "g_type_plugin_unuse") (GObjectTypePluginClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val use_ = call (getSymbol "g_type_plugin_use") (GObjectTypePluginClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GObjectTypePluginClass.class
     type type_t = GObjectType.t

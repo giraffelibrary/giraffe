@@ -11,27 +11,27 @@ structure GLibPollFDRecord :> G_LIB_POLL_F_D_RECORD =
     in
       val new_ =
         call
-          (load_sym libgiraffeglib "giraffe_g_pollfd_new")
+          (getSymbol "giraffe_g_pollfd_new")
           (cVoid --> cPtr)
 
       val copy_ =
         call
-          (load_sym libgiraffeglib "giraffe_g_pollfd_copy")
+          (getSymbol "giraffe_g_pollfd_copy")
           (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
-          (load_sym libgiraffeglib "giraffe_g_pollfd_free")
+          (getSymbol "giraffe_g_pollfd_free")
           (cPtr --> cVoid)
 
       val size_ =
         call
-          (load_sym libgiraffeglib "giraffe_g_pollfd_size")
+          (getSymbol "giraffe_g_pollfd_size")
           (cVoid --> GUInt.PolyML.cVal)
 
       val getType_ =
         call
-          (load_sym libgobject "g_pollfd_get_type")
+          (getSymbol "g_pollfd_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

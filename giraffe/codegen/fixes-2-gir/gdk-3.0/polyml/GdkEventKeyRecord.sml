@@ -19,42 +19,42 @@ structure GdkEventKeyRecord :>
     in
       val getWindow_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_event_key_get_window")
+          (getSymbol "giraffe_gdk_event_key_get_window")
           (PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr);
 
       val getSendEvent_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_event_key_get_send_event")
+          (getSymbol "giraffe_gdk_event_key_get_send_event")
           (PolyML.cPtr --> GBool.PolyML.cVal);
 
       val getTime_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_event_key_get_time")
+          (getSymbol "giraffe_gdk_event_key_get_time")
           (PolyML.cPtr --> GUInt32.PolyML.cVal);
 
       val getState_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_event_key_get_state")
+          (getSymbol "giraffe_gdk_event_key_get_state")
           (PolyML.cPtr --> GdkModifierType.PolyML.cVal);
 
       val getKeyval_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_event_key_get_keyval")
+          (getSymbol "giraffe_gdk_event_key_get_keyval")
           (PolyML.cPtr --> GUInt32.PolyML.cVal);
 
       val getHardwareKeycode_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_event_key_get_hardware_keycode")
+          (getSymbol "giraffe_gdk_event_key_get_hardware_keycode")
           (PolyML.cPtr --> GUInt32.PolyML.cVal);
 
       val getGroup_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_event_key_get_group")
+          (getSymbol "giraffe_gdk_event_key_get_group")
           (PolyML.cPtr --> GUInt8.PolyML.cVal);
 
       val getIsModifier_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_event_key_get_is_modifier")
+          (getSymbol "giraffe_gdk_event_key_get_is_modifier")
           (PolyML.cPtr --> GBool.PolyML.cVal);
     end
 

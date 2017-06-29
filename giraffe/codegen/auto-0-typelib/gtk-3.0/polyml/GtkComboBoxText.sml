@@ -8,21 +8,21 @@ structure GtkComboBoxText :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_combo_box_text_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_combo_box_text_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val newWithEntry_ = call (load_sym libgtk "gtk_combo_box_text_new_with_entry") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_combo_box_text_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_combo_box_text_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val newWithEntry_ = call (getSymbol "gtk_combo_box_text_new_with_entry") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val append_ =
-        call (load_sym libgtk "gtk_combo_box_text_append")
+        call (getSymbol "gtk_combo_box_text_append")
           (
             GtkComboBoxTextClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
-      val appendText_ = call (load_sym libgtk "gtk_combo_box_text_append_text") (GtkComboBoxTextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val getActiveText_ = call (load_sym libgtk "gtk_combo_box_text_get_active_text") (GtkComboBoxTextClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val appendText_ = call (getSymbol "gtk_combo_box_text_append_text") (GtkComboBoxTextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val getActiveText_ = call (getSymbol "gtk_combo_box_text_get_active_text") (GtkComboBoxTextClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val insert_ =
-        call (load_sym libgtk "gtk_combo_box_text_insert")
+        call (getSymbol "gtk_combo_box_text_insert")
           (
             GtkComboBoxTextClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -31,7 +31,7 @@ structure GtkComboBoxText :>
              --> PolyMLFFI.cVoid
           )
       val insertText_ =
-        call (load_sym libgtk "gtk_combo_box_text_insert_text")
+        call (getSymbol "gtk_combo_box_text_insert_text")
           (
             GtkComboBoxTextClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -39,16 +39,16 @@ structure GtkComboBoxText :>
              --> PolyMLFFI.cVoid
           )
       val prepend_ =
-        call (load_sym libgtk "gtk_combo_box_text_prepend")
+        call (getSymbol "gtk_combo_box_text_prepend")
           (
             GtkComboBoxTextClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
-      val prependText_ = call (load_sym libgtk "gtk_combo_box_text_prepend_text") (GtkComboBoxTextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val remove_ = call (load_sym libgtk "gtk_combo_box_text_remove") (GtkComboBoxTextClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val removeAll_ = call (load_sym libgtk "gtk_combo_box_text_remove_all") (GtkComboBoxTextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val prependText_ = call (getSymbol "gtk_combo_box_text_prepend_text") (GtkComboBoxTextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val remove_ = call (getSymbol "gtk_combo_box_text_remove") (GtkComboBoxTextClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val removeAll_ = call (getSymbol "gtk_combo_box_text_remove_all") (GtkComboBoxTextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkComboBoxTextClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

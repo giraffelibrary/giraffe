@@ -6,10 +6,10 @@ structure GioTlsBackend :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tls_backend_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (load_sym libgio "g_tls_backend_get_default") (PolyMLFFI.cVoid --> GioTlsBackendClass.PolyML.cPtr)
-      val getDefaultDatabase_ = call (load_sym libgio "g_tls_backend_get_default_database") (GioTlsBackendClass.PolyML.cPtr --> GioTlsDatabaseClass.PolyML.cPtr)
-      val supportsTls_ = call (load_sym libgio "g_tls_backend_supports_tls") (GioTlsBackendClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getType_ = call (getSymbol "g_tls_backend_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (getSymbol "g_tls_backend_get_default") (PolyMLFFI.cVoid --> GioTlsBackendClass.PolyML.cPtr)
+      val getDefaultDatabase_ = call (getSymbol "g_tls_backend_get_default_database") (GioTlsBackendClass.PolyML.cPtr --> GioTlsDatabaseClass.PolyML.cPtr)
+      val supportsTls_ = call (getSymbol "g_tls_backend_supports_tls") (GioTlsBackendClass.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a GioTlsBackendClass.class
     type 'a tls_database_class = 'a GioTlsDatabaseClass.class

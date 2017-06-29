@@ -21,11 +21,9 @@ structure Signal :>
           (
             if GiraffeDebug.isEnabled
             then
-              PolyMLFFI.load_sym
-                libgiraffegobject
-                "giraffe_debug_g_signal_connect_closure"
+              PolyMLFFI.getSymbol "giraffe_debug_g_signal_connect_closure"
             else
-              PolyMLFFI.load_sym libgobject "g_signal_connect_closure"
+              PolyMLFFI.getSymbol "g_signal_connect_closure"
           )
           (
             GObjectObjectClass.PolyML.cPtr
@@ -37,7 +35,7 @@ structure Signal :>
 
       val signalHandlerDisconnect_ =
         PolyMLFFI.call
-          (PolyMLFFI.load_sym libgobject "g_signal_handler_disconnect")
+          (PolyMLFFI.getSymbol "g_signal_handler_disconnect")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> GULong.PolyML.cVal
@@ -46,7 +44,7 @@ structure Signal :>
 
       val signalHandlerIsConnected_ =
         PolyMLFFI.call
-          (PolyMLFFI.load_sym libgobject "g_signal_handler_is_connected")
+          (PolyMLFFI.getSymbol "g_signal_handler_is_connected")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> GULong.PolyML.cVal

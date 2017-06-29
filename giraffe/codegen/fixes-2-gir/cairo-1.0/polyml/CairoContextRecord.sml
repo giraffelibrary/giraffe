@@ -11,17 +11,17 @@ structure CairoContextRecord :> CAIRO_CONTEXT_RECORD =
     in
       val dup_ =
         call
-          (load_sym libcairo "cairo_reference")
+          (getSymbol "cairo_reference")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libcairo "cairo_destroy")
+          (getSymbol "cairo_destroy")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libcairogobject "cairo_gobject_context_get_type")
+          (getSymbol "cairo_gobject_context_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

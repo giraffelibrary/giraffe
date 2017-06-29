@@ -7,14 +7,14 @@ structure AtkHyperlink :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_hyperlink_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getEndIndex_ = call (load_sym libatk "atk_hyperlink_get_end_index") (AtkHyperlinkClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getNAnchors_ = call (load_sym libatk "atk_hyperlink_get_n_anchors") (AtkHyperlinkClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getObject_ = call (load_sym libatk "atk_hyperlink_get_object") (AtkHyperlinkClass.PolyML.cPtr &&> GInt.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
-      val getStartIndex_ = call (load_sym libatk "atk_hyperlink_get_start_index") (AtkHyperlinkClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getUri_ = call (load_sym libatk "atk_hyperlink_get_uri") (AtkHyperlinkClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val isInline_ = call (load_sym libatk "atk_hyperlink_is_inline") (AtkHyperlinkClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isValid_ = call (load_sym libatk "atk_hyperlink_is_valid") (AtkHyperlinkClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getType_ = call (getSymbol "atk_hyperlink_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getEndIndex_ = call (getSymbol "atk_hyperlink_get_end_index") (AtkHyperlinkClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getNAnchors_ = call (getSymbol "atk_hyperlink_get_n_anchors") (AtkHyperlinkClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getObject_ = call (getSymbol "atk_hyperlink_get_object") (AtkHyperlinkClass.PolyML.cPtr &&> GInt.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
+      val getStartIndex_ = call (getSymbol "atk_hyperlink_get_start_index") (AtkHyperlinkClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getUri_ = call (getSymbol "atk_hyperlink_get_uri") (AtkHyperlinkClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val isInline_ = call (getSymbol "atk_hyperlink_is_inline") (AtkHyperlinkClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isValid_ = call (getSymbol "atk_hyperlink_is_valid") (AtkHyperlinkClass.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a AtkHyperlinkClass.class
     type 'a action_class = 'a AtkActionClass.class

@@ -5,9 +5,9 @@ structure GtkAdjustment :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_adjustment_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_adjustment_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgtk "gtk_adjustment_new")
+        call (getSymbol "gtk_adjustment_new")
           (
             GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
@@ -17,9 +17,9 @@ structure GtkAdjustment :>
              &&> GDouble.PolyML.cVal
              --> GtkAdjustmentClass.PolyML.cPtr
           )
-      val changed_ = call (load_sym libgtk "gtk_adjustment_changed") (GtkAdjustmentClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val changed_ = call (getSymbol "gtk_adjustment_changed") (GtkAdjustmentClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val clampPage_ =
-        call (load_sym libgtk "gtk_adjustment_clamp_page")
+        call (getSymbol "gtk_adjustment_clamp_page")
           (
             GtkAdjustmentClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -27,7 +27,7 @@ structure GtkAdjustment :>
              --> PolyMLFFI.cVoid
           )
       val configure_ =
-        call (load_sym libgtk "gtk_adjustment_configure")
+        call (getSymbol "gtk_adjustment_configure")
           (
             GtkAdjustmentClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -38,20 +38,20 @@ structure GtkAdjustment :>
              &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val getLower_ = call (load_sym libgtk "gtk_adjustment_get_lower") (GtkAdjustmentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val getMinimumIncrement_ = call (load_sym libgtk "gtk_adjustment_get_minimum_increment") (GtkAdjustmentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val getPageIncrement_ = call (load_sym libgtk "gtk_adjustment_get_page_increment") (GtkAdjustmentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val getPageSize_ = call (load_sym libgtk "gtk_adjustment_get_page_size") (GtkAdjustmentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val getStepIncrement_ = call (load_sym libgtk "gtk_adjustment_get_step_increment") (GtkAdjustmentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val getUpper_ = call (load_sym libgtk "gtk_adjustment_get_upper") (GtkAdjustmentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val getValue_ = call (load_sym libgtk "gtk_adjustment_get_value") (GtkAdjustmentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val setLower_ = call (load_sym libgtk "gtk_adjustment_set_lower") (GtkAdjustmentClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPageIncrement_ = call (load_sym libgtk "gtk_adjustment_set_page_increment") (GtkAdjustmentClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPageSize_ = call (load_sym libgtk "gtk_adjustment_set_page_size") (GtkAdjustmentClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setStepIncrement_ = call (load_sym libgtk "gtk_adjustment_set_step_increment") (GtkAdjustmentClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setUpper_ = call (load_sym libgtk "gtk_adjustment_set_upper") (GtkAdjustmentClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setValue_ = call (load_sym libgtk "gtk_adjustment_set_value") (GtkAdjustmentClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val valueChanged_ = call (load_sym libgtk "gtk_adjustment_value_changed") (GtkAdjustmentClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getLower_ = call (getSymbol "gtk_adjustment_get_lower") (GtkAdjustmentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getMinimumIncrement_ = call (getSymbol "gtk_adjustment_get_minimum_increment") (GtkAdjustmentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getPageIncrement_ = call (getSymbol "gtk_adjustment_get_page_increment") (GtkAdjustmentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getPageSize_ = call (getSymbol "gtk_adjustment_get_page_size") (GtkAdjustmentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getStepIncrement_ = call (getSymbol "gtk_adjustment_get_step_increment") (GtkAdjustmentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getUpper_ = call (getSymbol "gtk_adjustment_get_upper") (GtkAdjustmentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getValue_ = call (getSymbol "gtk_adjustment_get_value") (GtkAdjustmentClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val setLower_ = call (getSymbol "gtk_adjustment_set_lower") (GtkAdjustmentClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPageIncrement_ = call (getSymbol "gtk_adjustment_set_page_increment") (GtkAdjustmentClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPageSize_ = call (getSymbol "gtk_adjustment_set_page_size") (GtkAdjustmentClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setStepIncrement_ = call (getSymbol "gtk_adjustment_set_step_increment") (GtkAdjustmentClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setUpper_ = call (getSymbol "gtk_adjustment_set_upper") (GtkAdjustmentClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setValue_ = call (getSymbol "gtk_adjustment_set_value") (GtkAdjustmentClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val valueChanged_ = call (getSymbol "gtk_adjustment_value_changed") (GtkAdjustmentClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkAdjustmentClass.class
     type t = base class

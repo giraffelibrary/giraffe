@@ -11,27 +11,27 @@ structure CairoRectangleIntRecord :> CAIRO_RECTANGLE_INT_RECORD =
     in
       val new_ =
         call
-          (load_sym libgiraffecairo "giraffe_cairo_rectangle_int_t_new")
+          (getSymbol "giraffe_cairo_rectangle_int_t_new")
           (cVoid --> cPtr)
 
       val copy_ =
         call
-          (load_sym libgiraffecairo "giraffe_cairo_rectangle_int_t_copy")
+          (getSymbol "giraffe_cairo_rectangle_int_t_copy")
           (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
-          (load_sym libgiraffecairo "giraffe_cairo_rectangle_int_t_free")
+          (getSymbol "giraffe_cairo_rectangle_int_t_free")
           (cPtr --> cVoid)
 
       val size_ =
         call
-          (load_sym libgiraffeglib "giraffe_cairo_rectangle_int_t_size")
+          (getSymbol "giraffe_cairo_rectangle_int_t_size")
           (cVoid --> GUInt.PolyML.cVal)
 
       val getType_ =
         call
-          (load_sym libcairogobject "cairo_gobject_rectangle_int_get_type")
+          (getSymbol "cairo_gobject_rectangle_int_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

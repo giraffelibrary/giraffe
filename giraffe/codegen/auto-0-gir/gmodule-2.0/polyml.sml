@@ -1,4 +1,3 @@
-val libgmodule = PolyMLFFI.load_lib "";
 use "G_MODULE_MODULE_FLAGS.sml";
 use "G_MODULE.sml";
 use "polyml/GModuleModuleFlags.sml";

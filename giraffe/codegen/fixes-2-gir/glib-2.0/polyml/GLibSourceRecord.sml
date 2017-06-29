@@ -11,17 +11,17 @@ structure GLibSourceRecord :> G_LIB_SOURCE_RECORD =
     in
       val dup_ =
         call
-          (load_sym libglib "g_source_ref")
+          (getSymbol "g_source_ref")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libglib "g_source_unref")
+          (getSymbol "g_source_unref")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libglib "g_source_get_type")
+          (getSymbol "g_source_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

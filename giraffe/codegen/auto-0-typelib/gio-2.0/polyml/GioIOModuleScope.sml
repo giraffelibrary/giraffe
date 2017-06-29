@@ -5,7 +5,7 @@ structure GioIOModuleScope :>
     local
       open PolyMLFFI
     in
-      val block_ = call (load_sym libgio "g_io_module_scope_block") (GioIOModuleScopeRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val block_ = call (getSymbol "g_io_module_scope_block") (GioIOModuleScopeRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
     end
     type t = GioIOModuleScopeRecord.t
     fun block self basename = (GioIOModuleScopeRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) block_ (self & basename)

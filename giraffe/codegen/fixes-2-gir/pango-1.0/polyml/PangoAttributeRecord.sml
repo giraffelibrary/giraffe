@@ -11,12 +11,12 @@ structure PangoAttributeRecord :> PANGO_ATTRIBUTE_RECORD =
     in
       val dup_ =
         call
-          (load_sym libpango "pango_attribute_copy")
+          (getSymbol "pango_attribute_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libpango "pango_attribute_destroy")
+          (getSymbol "pango_attribute_destroy")
           (cPtr --> cVoid)
     end
 

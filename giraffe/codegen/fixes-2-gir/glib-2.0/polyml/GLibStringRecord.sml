@@ -11,17 +11,17 @@ structure GLibStringRecord :> G_LIB_STRING_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgobject "gstring_copy")
+          (getSymbol "gstring_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgobject "gstring_free")
+          (getSymbol "gstring_free")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgobject "g_gstring_get_type")
+          (getSymbol "g_gstring_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

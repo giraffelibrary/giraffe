@@ -6,17 +6,17 @@ structure GioDesktopAppInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_desktop_app_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_desktop_app_info_new") (Utf8.PolyML.cInPtr --> GioDesktopAppInfoClass.PolyML.cPtr)
-      val newFromFilename_ = call (load_sym libgio "g_desktop_app_info_new_from_filename") (Utf8.PolyML.cInPtr --> GioDesktopAppInfoClass.PolyML.cPtr)
-      val newFromKeyfile_ = call (load_sym libgio "g_desktop_app_info_new_from_keyfile") (GLibKeyFileRecord.PolyML.cPtr --> GioDesktopAppInfoClass.PolyML.cPtr)
-      val setDesktopEnv_ = call (load_sym libgio "g_desktop_app_info_set_desktop_env") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val getCategories_ = call (load_sym libgio "g_desktop_app_info_get_categories") (GioDesktopAppInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getFilename_ = call (load_sym libgio "g_desktop_app_info_get_filename") (GioDesktopAppInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getGenericName_ = call (load_sym libgio "g_desktop_app_info_get_generic_name") (GioDesktopAppInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getIsHidden_ = call (load_sym libgio "g_desktop_app_info_get_is_hidden") (GioDesktopAppInfoClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getNodisplay_ = call (load_sym libgio "g_desktop_app_info_get_nodisplay") (GioDesktopAppInfoClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getShowIn_ = call (load_sym libgio "g_desktop_app_info_get_show_in") (GioDesktopAppInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val getType_ = call (getSymbol "g_desktop_app_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_desktop_app_info_new") (Utf8.PolyML.cInPtr --> GioDesktopAppInfoClass.PolyML.cPtr)
+      val newFromFilename_ = call (getSymbol "g_desktop_app_info_new_from_filename") (Utf8.PolyML.cInPtr --> GioDesktopAppInfoClass.PolyML.cPtr)
+      val newFromKeyfile_ = call (getSymbol "g_desktop_app_info_new_from_keyfile") (GLibKeyFileRecord.PolyML.cPtr --> GioDesktopAppInfoClass.PolyML.cPtr)
+      val setDesktopEnv_ = call (getSymbol "g_desktop_app_info_set_desktop_env") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val getCategories_ = call (getSymbol "g_desktop_app_info_get_categories") (GioDesktopAppInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getFilename_ = call (getSymbol "g_desktop_app_info_get_filename") (GioDesktopAppInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getGenericName_ = call (getSymbol "g_desktop_app_info_get_generic_name") (GioDesktopAppInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getIsHidden_ = call (getSymbol "g_desktop_app_info_get_is_hidden") (GioDesktopAppInfoClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getNodisplay_ = call (getSymbol "g_desktop_app_info_get_nodisplay") (GioDesktopAppInfoClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getShowIn_ = call (getSymbol "g_desktop_app_info_get_show_in") (GioDesktopAppInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a GioDesktopAppInfoClass.class
     type 'a app_info_class = 'a GioAppInfoClass.class

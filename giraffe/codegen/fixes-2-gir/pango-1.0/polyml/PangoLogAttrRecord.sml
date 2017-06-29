@@ -11,22 +11,22 @@ structure PangoLogAttrRecord :> PANGO_LOG_ATTR_RECORD =
     in
       val new_ =
         call
-          (load_sym libgiraffepango "giraffe_pango_log_attr_new")
+          (getSymbol "giraffe_pango_log_attr_new")
           (cVoid --> cPtr)
 
       val copy_ =
         call
-          (load_sym libgiraffepango "giraffe_pango_log_attr_copy")
+          (getSymbol "giraffe_pango_log_attr_copy")
           (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
-          (load_sym libgiraffepango "giraffe_pango_log_attr_free")
+          (getSymbol "giraffe_pango_log_attr_free")
           (cPtr --> cVoid)
 
       val size_ =
         call
-          (load_sym libgiraffepango "giraffe_pango_log_attr_size")
+          (getSymbol "giraffe_pango_log_attr_size")
           (cVoid --> GUInt.PolyML.cVal)
     end
 

@@ -11,17 +11,17 @@ structure CairoScaledFontRecord :> CAIRO_SCALED_FONT_RECORD =
     in
       val dup_ =
         call
-          (load_sym libcairo "cairo_scaled_font_reference")
+          (getSymbol "cairo_scaled_font_reference")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libcairo "cairo_scaled_font_destroy")
+          (getSymbol "cairo_scaled_font_destroy")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libcairogobject "cairo_gobject_scaled_font_get_type")
+          (getSymbol "cairo_gobject_scaled_font_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

@@ -10,36 +10,36 @@ structure GIRepositoryEnumInfo :>
     in
       val getNValues_ =
         call
-          (load_sym libgirepository "g_enum_info_get_n_values")
+          (getSymbol "g_enum_info_get_n_values")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getValue_ =
         call
-          (load_sym libgirepository "g_enum_info_get_value")
+          (getSymbol "g_enum_info_get_value")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNMethods_ =
         call
-          (load_sym libgirepository "g_enum_info_get_n_methods")
+          (getSymbol "g_enum_info_get_n_methods")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getMethod_ =
         call
-          (load_sym libgirepository "g_enum_info_get_method")
+          (getSymbol "g_enum_info_get_method")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getStorageType_ =
         call
-          (load_sym libgirepository "g_enum_info_get_storage_type")
+          (getSymbol "g_enum_info_get_storage_type")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryTypeTag.PolyML.cVal);
 
       val getErrorDomain_ =
         call
-          (load_sym libgirepository "g_enum_info_get_error_domain")
+          (getSymbol "g_enum_info_get_error_domain")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr);
     end
 

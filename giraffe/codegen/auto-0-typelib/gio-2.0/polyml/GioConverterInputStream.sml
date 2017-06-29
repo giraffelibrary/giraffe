@@ -7,9 +7,9 @@ structure GioConverterInputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_converter_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_converter_input_stream_new") (GioInputStreamClass.PolyML.cPtr &&> GioConverterClass.PolyML.cPtr --> GioInputStreamClass.PolyML.cPtr)
-      val getConverter_ = call (load_sym libgio "g_converter_input_stream_get_converter") (GioConverterInputStreamClass.PolyML.cPtr --> GioConverterClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_converter_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_converter_input_stream_new") (GioInputStreamClass.PolyML.cPtr &&> GioConverterClass.PolyML.cPtr --> GioInputStreamClass.PolyML.cPtr)
+      val getConverter_ = call (getSymbol "g_converter_input_stream_get_converter") (GioConverterInputStreamClass.PolyML.cPtr --> GioConverterClass.PolyML.cPtr)
     end
     type 'a class = 'a GioConverterInputStreamClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class

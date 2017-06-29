@@ -19,9 +19,9 @@ structure GioSocket :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_socket_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_socket_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgio "g_socket_new")
+        call (getSymbol "g_socket_new")
           (
             GioSocketFamily.PolyML.cVal
              &&> GioSocketType.PolyML.cVal
@@ -29,9 +29,9 @@ structure GioSocket :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioSocketClass.PolyML.cPtr
           )
-      val newFromFd_ = call (load_sym libgio "g_socket_new_from_fd") (GInt32.PolyML.cVal &&> GLibErrorRecord.PolyML.cOutOptRef --> GioSocketClass.PolyML.cPtr)
+      val newFromFd_ = call (getSymbol "g_socket_new_from_fd") (GInt32.PolyML.cVal &&> GLibErrorRecord.PolyML.cOutOptRef --> GioSocketClass.PolyML.cPtr)
       val accept_ =
-        call (load_sym libgio "g_socket_accept")
+        call (getSymbol "g_socket_accept")
           (
             GioSocketClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -39,7 +39,7 @@ structure GioSocket :>
              --> GioSocketClass.PolyML.cPtr
           )
       val bind_ =
-        call (load_sym libgio "g_socket_bind")
+        call (getSymbol "g_socket_bind")
           (
             GioSocketClass.PolyML.cPtr
              &&> GioSocketAddressClass.PolyML.cPtr
@@ -47,11 +47,11 @@ structure GioSocket :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val checkConnectResult_ = call (load_sym libgio "g_socket_check_connect_result") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
-      val close_ = call (load_sym libgio "g_socket_close") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
-      val conditionCheck_ = call (load_sym libgio "g_socket_condition_check") (GioSocketClass.PolyML.cPtr &&> GLibIOCondition.PolyML.cVal --> GLibIOCondition.PolyML.cVal)
+      val checkConnectResult_ = call (getSymbol "g_socket_check_connect_result") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
+      val close_ = call (getSymbol "g_socket_close") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
+      val conditionCheck_ = call (getSymbol "g_socket_condition_check") (GioSocketClass.PolyML.cPtr &&> GLibIOCondition.PolyML.cVal --> GLibIOCondition.PolyML.cVal)
       val conditionWait_ =
-        call (load_sym libgio "g_socket_condition_wait")
+        call (getSymbol "g_socket_condition_wait")
           (
             GioSocketClass.PolyML.cPtr
              &&> GLibIOCondition.PolyML.cVal
@@ -60,7 +60,7 @@ structure GioSocket :>
              --> GBool.PolyML.cVal
           )
       val connect_ =
-        call (load_sym libgio "g_socket_connect")
+        call (getSymbol "g_socket_connect")
           (
             GioSocketClass.PolyML.cPtr
              &&> GioSocketAddressClass.PolyML.cPtr
@@ -68,23 +68,23 @@ structure GioSocket :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val connectionFactoryCreateConnection_ = call (load_sym libgio "g_socket_connection_factory_create_connection") (GioSocketClass.PolyML.cPtr --> GioSocketConnectionClass.PolyML.cPtr)
-      val getBlocking_ = call (load_sym libgio "g_socket_get_blocking") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getCredentials_ = call (load_sym libgio "g_socket_get_credentials") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioCredentialsClass.PolyML.cPtr)
-      val getFamily_ = call (load_sym libgio "g_socket_get_family") (GioSocketClass.PolyML.cPtr --> GioSocketFamily.PolyML.cVal)
-      val getFd_ = call (load_sym libgio "g_socket_get_fd") (GioSocketClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getKeepalive_ = call (load_sym libgio "g_socket_get_keepalive") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getListenBacklog_ = call (load_sym libgio "g_socket_get_listen_backlog") (GioSocketClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getLocalAddress_ = call (load_sym libgio "g_socket_get_local_address") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioSocketAddressClass.PolyML.cPtr)
-      val getProtocol_ = call (load_sym libgio "g_socket_get_protocol") (GioSocketClass.PolyML.cPtr --> GioSocketProtocol.PolyML.cVal)
-      val getRemoteAddress_ = call (load_sym libgio "g_socket_get_remote_address") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioSocketAddressClass.PolyML.cPtr)
-      val getSocketType_ = call (load_sym libgio "g_socket_get_socket_type") (GioSocketClass.PolyML.cPtr --> GioSocketType.PolyML.cVal)
-      val getTimeout_ = call (load_sym libgio "g_socket_get_timeout") (GioSocketClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
-      val isClosed_ = call (load_sym libgio "g_socket_is_closed") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isConnected_ = call (load_sym libgio "g_socket_is_connected") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val listen_ = call (load_sym libgio "g_socket_listen") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
+      val connectionFactoryCreateConnection_ = call (getSymbol "g_socket_connection_factory_create_connection") (GioSocketClass.PolyML.cPtr --> GioSocketConnectionClass.PolyML.cPtr)
+      val getBlocking_ = call (getSymbol "g_socket_get_blocking") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getCredentials_ = call (getSymbol "g_socket_get_credentials") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioCredentialsClass.PolyML.cPtr)
+      val getFamily_ = call (getSymbol "g_socket_get_family") (GioSocketClass.PolyML.cPtr --> GioSocketFamily.PolyML.cVal)
+      val getFd_ = call (getSymbol "g_socket_get_fd") (GioSocketClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getKeepalive_ = call (getSymbol "g_socket_get_keepalive") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getListenBacklog_ = call (getSymbol "g_socket_get_listen_backlog") (GioSocketClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getLocalAddress_ = call (getSymbol "g_socket_get_local_address") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioSocketAddressClass.PolyML.cPtr)
+      val getProtocol_ = call (getSymbol "g_socket_get_protocol") (GioSocketClass.PolyML.cPtr --> GioSocketProtocol.PolyML.cVal)
+      val getRemoteAddress_ = call (getSymbol "g_socket_get_remote_address") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioSocketAddressClass.PolyML.cPtr)
+      val getSocketType_ = call (getSymbol "g_socket_get_socket_type") (GioSocketClass.PolyML.cPtr --> GioSocketType.PolyML.cVal)
+      val getTimeout_ = call (getSymbol "g_socket_get_timeout") (GioSocketClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
+      val isClosed_ = call (getSymbol "g_socket_is_closed") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isConnected_ = call (getSymbol "g_socket_is_connected") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val listen_ = call (getSymbol "g_socket_listen") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val receive_ =
-        call (load_sym libgio "g_socket_receive")
+        call (getSymbol "g_socket_receive")
           (
             GioSocketClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -94,7 +94,7 @@ structure GioSocket :>
              --> GInt64.PolyML.cVal
           )
       val receiveFrom_ =
-        call (load_sym libgio "g_socket_receive_from")
+        call (getSymbol "g_socket_receive_from")
           (
             GioSocketClass.PolyML.cPtr
              &&> GioSocketAddressClass.PolyML.cPtr
@@ -105,7 +105,7 @@ structure GioSocket :>
              --> GInt64.PolyML.cVal
           )
       val receiveWithBlocking_ =
-        call (load_sym libgio "g_socket_receive_with_blocking")
+        call (getSymbol "g_socket_receive_with_blocking")
           (
             GioSocketClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -116,7 +116,7 @@ structure GioSocket :>
              --> GInt64.PolyML.cVal
           )
       val send_ =
-        call (load_sym libgio "g_socket_send")
+        call (getSymbol "g_socket_send")
           (
             GioSocketClass.PolyML.cPtr
              &&> Utf8CVectorN.PolyML.cInPtr
@@ -126,7 +126,7 @@ structure GioSocket :>
              --> GInt64.PolyML.cVal
           )
       val sendTo_ =
-        call (load_sym libgio "g_socket_send_to")
+        call (getSymbol "g_socket_send_to")
           (
             GioSocketClass.PolyML.cPtr
              &&> GioSocketAddressClass.PolyML.cPtr
@@ -137,7 +137,7 @@ structure GioSocket :>
              --> GInt64.PolyML.cVal
           )
       val sendWithBlocking_ =
-        call (load_sym libgio "g_socket_send_with_blocking")
+        call (getSymbol "g_socket_send_with_blocking")
           (
             GioSocketClass.PolyML.cPtr
              &&> Utf8CVectorN.PolyML.cInPtr
@@ -147,12 +147,12 @@ structure GioSocket :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GInt64.PolyML.cVal
           )
-      val setBlocking_ = call (load_sym libgio "g_socket_set_blocking") (GioSocketClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setKeepalive_ = call (load_sym libgio "g_socket_set_keepalive") (GioSocketClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setListenBacklog_ = call (load_sym libgio "g_socket_set_listen_backlog") (GioSocketClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setTimeout_ = call (load_sym libgio "g_socket_set_timeout") (GioSocketClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setBlocking_ = call (getSymbol "g_socket_set_blocking") (GioSocketClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setKeepalive_ = call (getSymbol "g_socket_set_keepalive") (GioSocketClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setListenBacklog_ = call (getSymbol "g_socket_set_listen_backlog") (GioSocketClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setTimeout_ = call (getSymbol "g_socket_set_timeout") (GioSocketClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val shutdown_ =
-        call (load_sym libgio "g_socket_shutdown")
+        call (getSymbol "g_socket_shutdown")
           (
             GioSocketClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
@@ -160,7 +160,7 @@ structure GioSocket :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val speaksIpv4_ = call (load_sym libgio "g_socket_speaks_ipv4") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val speaksIpv4_ = call (getSymbol "g_socket_speaks_ipv4") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a GioSocketClass.class
     type 'a initable_class = 'a GioInitableClass.class

@@ -5,7 +5,7 @@ structure GioDBusMethodInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_method_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_dbus_method_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
     end
     type t = GioDBusMethodInfoRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

@@ -14,31 +14,31 @@ structure GioDrive :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_drive_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val canEject_ = call (load_sym libgio "g_drive_can_eject") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val canPollForMedia_ = call (load_sym libgio "g_drive_can_poll_for_media") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val canStart_ = call (load_sym libgio "g_drive_can_start") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val canStartDegraded_ = call (load_sym libgio "g_drive_can_start_degraded") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val canStop_ = call (load_sym libgio "g_drive_can_stop") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getType_ = call (getSymbol "g_drive_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val canEject_ = call (getSymbol "g_drive_can_eject") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val canPollForMedia_ = call (getSymbol "g_drive_can_poll_for_media") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val canStart_ = call (getSymbol "g_drive_can_start") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val canStartDegraded_ = call (getSymbol "g_drive_can_start_degraded") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val canStop_ = call (getSymbol "g_drive_can_stop") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val ejectWithOperationFinish_ =
-        call (load_sym libgio "g_drive_eject_with_operation_finish")
+        call (getSymbol "g_drive_eject_with_operation_finish")
           (
             GioDriveClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val enumerateIdentifiers_ = call (load_sym libgio "g_drive_enumerate_identifiers") (GioDriveClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
-      val getIcon_ = call (load_sym libgio "g_drive_get_icon") (GioDriveClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
-      val getIdentifier_ = call (load_sym libgio "g_drive_get_identifier") (GioDriveClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val getName_ = call (load_sym libgio "g_drive_get_name") (GioDriveClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getStartStopType_ = call (load_sym libgio "g_drive_get_start_stop_type") (GioDriveClass.PolyML.cPtr --> GioDriveStartStopType.PolyML.cVal)
-      val hasMedia_ = call (load_sym libgio "g_drive_has_media") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val hasVolumes_ = call (load_sym libgio "g_drive_has_volumes") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isMediaCheckAutomatic_ = call (load_sym libgio "g_drive_is_media_check_automatic") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isMediaRemovable_ = call (load_sym libgio "g_drive_is_media_removable") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val enumerateIdentifiers_ = call (getSymbol "g_drive_enumerate_identifiers") (GioDriveClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getIcon_ = call (getSymbol "g_drive_get_icon") (GioDriveClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
+      val getIdentifier_ = call (getSymbol "g_drive_get_identifier") (GioDriveClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getName_ = call (getSymbol "g_drive_get_name") (GioDriveClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getStartStopType_ = call (getSymbol "g_drive_get_start_stop_type") (GioDriveClass.PolyML.cPtr --> GioDriveStartStopType.PolyML.cVal)
+      val hasMedia_ = call (getSymbol "g_drive_has_media") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val hasVolumes_ = call (getSymbol "g_drive_has_volumes") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isMediaCheckAutomatic_ = call (getSymbol "g_drive_is_media_check_automatic") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isMediaRemovable_ = call (getSymbol "g_drive_is_media_removable") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val pollForMediaFinish_ =
-        call (load_sym libgio "g_drive_poll_for_media_finish")
+        call (getSymbol "g_drive_poll_for_media_finish")
           (
             GioDriveClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -46,7 +46,7 @@ structure GioDrive :>
              --> GBool.PolyML.cVal
           )
       val startFinish_ =
-        call (load_sym libgio "g_drive_start_finish")
+        call (getSymbol "g_drive_start_finish")
           (
             GioDriveClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -54,7 +54,7 @@ structure GioDrive :>
              --> GBool.PolyML.cVal
           )
       val stopFinish_ =
-        call (load_sym libgio "g_drive_stop_finish")
+        call (getSymbol "g_drive_stop_finish")
           (
             GioDriveClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr

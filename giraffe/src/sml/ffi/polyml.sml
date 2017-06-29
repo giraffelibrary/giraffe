@@ -34,9 +34,6 @@ use "polyml/C_ARRAY.sml";
 use "C_ARRAY_LOW_LEVEL.sml";
 use "polyml/Finalizable.sml";
 
-val libc = PolyMLFFI.load_lib ""
-val libglib = PolyMLFFI.load_lib ""
-;
 use "polyml/CRef.sml";
 use "polyml/CPointerInternal.sml";
 use "CTypedPointer.sml";

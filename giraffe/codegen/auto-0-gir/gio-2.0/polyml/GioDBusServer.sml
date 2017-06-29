@@ -10,9 +10,9 @@ structure GioDBusServer :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_server_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_dbus_server_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val newSync_ =
-        call (load_sym libgio "g_dbus_server_new_sync")
+        call (getSymbol "g_dbus_server_new_sync")
           (
             Utf8.PolyML.cInPtr
              &&> GioDBusServerFlags.PolyML.cVal
@@ -22,12 +22,12 @@ structure GioDBusServer :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioDBusServerClass.PolyML.cPtr
           )
-      val getClientAddress_ = call (load_sym libgio "g_dbus_server_get_client_address") (GioDBusServerClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getFlags_ = call (load_sym libgio "g_dbus_server_get_flags") (GioDBusServerClass.PolyML.cPtr --> GioDBusServerFlags.PolyML.cVal)
-      val getGuid_ = call (load_sym libgio "g_dbus_server_get_guid") (GioDBusServerClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val isActive_ = call (load_sym libgio "g_dbus_server_is_active") (GioDBusServerClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val start_ = call (load_sym libgio "g_dbus_server_start") (GioDBusServerClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val stop_ = call (load_sym libgio "g_dbus_server_stop") (GioDBusServerClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getClientAddress_ = call (getSymbol "g_dbus_server_get_client_address") (GioDBusServerClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getFlags_ = call (getSymbol "g_dbus_server_get_flags") (GioDBusServerClass.PolyML.cPtr --> GioDBusServerFlags.PolyML.cVal)
+      val getGuid_ = call (getSymbol "g_dbus_server_get_guid") (GioDBusServerClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val isActive_ = call (getSymbol "g_dbus_server_is_active") (GioDBusServerClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val start_ = call (getSymbol "g_dbus_server_start") (GioDBusServerClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val stop_ = call (getSymbol "g_dbus_server_stop") (GioDBusServerClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioDBusServerClass.class
     type 'a initable_class = 'a GioInitableClass.class

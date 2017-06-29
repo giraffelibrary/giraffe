@@ -5,16 +5,16 @@ structure GtkTargetEntry :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_target_entry_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_target_entry_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgtk "gtk_target_entry_new")
+        call (getSymbol "gtk_target_entry_new")
           (
             Utf8.PolyML.cInPtr
              &&> GUInt32.PolyML.cVal
              &&> GUInt32.PolyML.cVal
              --> GtkTargetEntryRecord.PolyML.cPtr
           )
-      val copy_ = call (load_sym libgtk "gtk_target_entry_copy") (GtkTargetEntryRecord.PolyML.cPtr --> GtkTargetEntryRecord.PolyML.cPtr)
+      val copy_ = call (getSymbol "gtk_target_entry_copy") (GtkTargetEntryRecord.PolyML.cPtr --> GtkTargetEntryRecord.PolyML.cPtr)
     end
     type t = GtkTargetEntryRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

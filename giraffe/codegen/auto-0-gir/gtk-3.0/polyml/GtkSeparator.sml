@@ -8,8 +8,8 @@ structure GtkSeparator :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_separator_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_separator_new") (GtkOrientation.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_separator_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_separator_new") (GtkOrientation.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkSeparatorClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

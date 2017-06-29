@@ -8,30 +8,30 @@ structure GtkPageSetup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_page_setup_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_page_setup_new") (PolyMLFFI.cVoid --> GtkPageSetupClass.PolyML.cPtr)
-      val newFromFile_ = call (load_sym libgtk "gtk_page_setup_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GtkPageSetupClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_page_setup_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_page_setup_new") (PolyMLFFI.cVoid --> GtkPageSetupClass.PolyML.cPtr)
+      val newFromFile_ = call (getSymbol "gtk_page_setup_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GtkPageSetupClass.PolyML.cPtr)
       val newFromKeyFile_ =
-        call (load_sym libgtk "gtk_page_setup_new_from_key_file")
+        call (getSymbol "gtk_page_setup_new_from_key_file")
           (
             GLibKeyFileRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GtkPageSetupClass.PolyML.cPtr
           )
-      val copy_ = call (load_sym libgtk "gtk_page_setup_copy") (GtkPageSetupClass.PolyML.cPtr --> GtkPageSetupClass.PolyML.cPtr)
-      val getBottomMargin_ = call (load_sym libgtk "gtk_page_setup_get_bottom_margin") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
-      val getLeftMargin_ = call (load_sym libgtk "gtk_page_setup_get_left_margin") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
-      val getOrientation_ = call (load_sym libgtk "gtk_page_setup_get_orientation") (GtkPageSetupClass.PolyML.cPtr --> GtkPageOrientation.PolyML.cVal)
-      val getPageHeight_ = call (load_sym libgtk "gtk_page_setup_get_page_height") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
-      val getPageWidth_ = call (load_sym libgtk "gtk_page_setup_get_page_width") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
-      val getPaperHeight_ = call (load_sym libgtk "gtk_page_setup_get_paper_height") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
-      val getPaperSize_ = call (load_sym libgtk "gtk_page_setup_get_paper_size") (GtkPageSetupClass.PolyML.cPtr --> GtkPaperSizeRecord.PolyML.cPtr)
-      val getPaperWidth_ = call (load_sym libgtk "gtk_page_setup_get_paper_width") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
-      val getRightMargin_ = call (load_sym libgtk "gtk_page_setup_get_right_margin") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
-      val getTopMargin_ = call (load_sym libgtk "gtk_page_setup_get_top_margin") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val copy_ = call (getSymbol "gtk_page_setup_copy") (GtkPageSetupClass.PolyML.cPtr --> GtkPageSetupClass.PolyML.cPtr)
+      val getBottomMargin_ = call (getSymbol "gtk_page_setup_get_bottom_margin") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val getLeftMargin_ = call (getSymbol "gtk_page_setup_get_left_margin") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val getOrientation_ = call (getSymbol "gtk_page_setup_get_orientation") (GtkPageSetupClass.PolyML.cPtr --> GtkPageOrientation.PolyML.cVal)
+      val getPageHeight_ = call (getSymbol "gtk_page_setup_get_page_height") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val getPageWidth_ = call (getSymbol "gtk_page_setup_get_page_width") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val getPaperHeight_ = call (getSymbol "gtk_page_setup_get_paper_height") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val getPaperSize_ = call (getSymbol "gtk_page_setup_get_paper_size") (GtkPageSetupClass.PolyML.cPtr --> GtkPaperSizeRecord.PolyML.cPtr)
+      val getPaperWidth_ = call (getSymbol "gtk_page_setup_get_paper_width") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val getRightMargin_ = call (getSymbol "gtk_page_setup_get_right_margin") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val getTopMargin_ = call (getSymbol "gtk_page_setup_get_top_margin") (GtkPageSetupClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
       val loadFile_ =
-        call (load_sym libgtk "gtk_page_setup_load_file")
+        call (getSymbol "gtk_page_setup_load_file")
           (
             GtkPageSetupClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -39,7 +39,7 @@ structure GtkPageSetup :>
              --> GBool.PolyML.cVal
           )
       val loadKeyFile_ =
-        call (load_sym libgtk "gtk_page_setup_load_key_file")
+        call (getSymbol "gtk_page_setup_load_key_file")
           (
             GtkPageSetupClass.PolyML.cPtr
              &&> GLibKeyFileRecord.PolyML.cPtr
@@ -48,7 +48,7 @@ structure GtkPageSetup :>
              --> GBool.PolyML.cVal
           )
       val setBottomMargin_ =
-        call (load_sym libgtk "gtk_page_setup_set_bottom_margin")
+        call (getSymbol "gtk_page_setup_set_bottom_margin")
           (
             GtkPageSetupClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -56,18 +56,18 @@ structure GtkPageSetup :>
              --> PolyMLFFI.cVoid
           )
       val setLeftMargin_ =
-        call (load_sym libgtk "gtk_page_setup_set_left_margin")
+        call (getSymbol "gtk_page_setup_set_left_margin")
           (
             GtkPageSetupClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GtkUnit.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setOrientation_ = call (load_sym libgtk "gtk_page_setup_set_orientation") (GtkPageSetupClass.PolyML.cPtr &&> GtkPageOrientation.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPaperSize_ = call (load_sym libgtk "gtk_page_setup_set_paper_size") (GtkPageSetupClass.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setPaperSizeAndDefaultMargins_ = call (load_sym libgtk "gtk_page_setup_set_paper_size_and_default_margins") (GtkPageSetupClass.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setOrientation_ = call (getSymbol "gtk_page_setup_set_orientation") (GtkPageSetupClass.PolyML.cPtr &&> GtkPageOrientation.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPaperSize_ = call (getSymbol "gtk_page_setup_set_paper_size") (GtkPageSetupClass.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setPaperSizeAndDefaultMargins_ = call (getSymbol "gtk_page_setup_set_paper_size_and_default_margins") (GtkPageSetupClass.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val setRightMargin_ =
-        call (load_sym libgtk "gtk_page_setup_set_right_margin")
+        call (getSymbol "gtk_page_setup_set_right_margin")
           (
             GtkPageSetupClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -75,7 +75,7 @@ structure GtkPageSetup :>
              --> PolyMLFFI.cVoid
           )
       val setTopMargin_ =
-        call (load_sym libgtk "gtk_page_setup_set_top_margin")
+        call (getSymbol "gtk_page_setup_set_top_margin")
           (
             GtkPageSetupClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -83,7 +83,7 @@ structure GtkPageSetup :>
              --> PolyMLFFI.cVoid
           )
       val toFile_ =
-        call (load_sym libgtk "gtk_page_setup_to_file")
+        call (getSymbol "gtk_page_setup_to_file")
           (
             GtkPageSetupClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -91,7 +91,7 @@ structure GtkPageSetup :>
              --> GBool.PolyML.cVal
           )
       val toKeyFile_ =
-        call (load_sym libgtk "gtk_page_setup_to_key_file")
+        call (getSymbol "gtk_page_setup_to_key_file")
           (
             GtkPageSetupClass.PolyML.cPtr
              &&> GLibKeyFileRecord.PolyML.cPtr

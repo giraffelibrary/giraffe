@@ -5,9 +5,9 @@ structure GdkAtom :>
     local
       open PolyMLFFI
     in
-      val name_ = call (load_sym libgdk "gdk_atom_name") (GdkAtomRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val intern_ = call (load_sym libgdk "gdk_atom_intern") (Utf8.PolyML.cInPtr &&> GBool.PolyML.cVal --> GdkAtomRecord.PolyML.cPtr)
-      val internStaticString_ = call (load_sym libgdk "gdk_atom_intern_static_string") (Utf8.PolyML.cInPtr --> GdkAtomRecord.PolyML.cPtr)
+      val name_ = call (getSymbol "gdk_atom_name") (GdkAtomRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val intern_ = call (getSymbol "gdk_atom_intern") (Utf8.PolyML.cInPtr &&> GBool.PolyML.cVal --> GdkAtomRecord.PolyML.cPtr)
+      val internStaticString_ = call (getSymbol "gdk_atom_intern_static_string") (Utf8.PolyML.cInPtr --> GdkAtomRecord.PolyML.cPtr)
     end
     type t = GdkAtomRecord.t
     fun name self = (GdkAtomRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) name_ self

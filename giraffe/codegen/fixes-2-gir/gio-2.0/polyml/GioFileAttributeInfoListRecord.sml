@@ -11,17 +11,17 @@ structure GioFileAttributeInfoListRecord :> GIO_FILE_ATTRIBUTE_INFO_LIST_RECORD 
     in
       val dup_ =
         call
-          (load_sym libgio "g_file_attribute_info_list_dup")
+          (getSymbol "g_file_attribute_info_list_dup")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgio "g_file_attribute_info_list_unref")
+          (getSymbol "g_file_attribute_info_list_unref")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgio "g_file_attribute_info_list_get_type")
+          (getSymbol "g_file_attribute_info_list_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

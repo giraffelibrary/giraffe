@@ -11,16 +11,16 @@ structure GtkSourceLanguage :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_language_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getGlobs_ = call (load_sym libgtksourceview "gtk_source_language_get_globs") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
-      val getHidden_ = call (load_sym libgtksourceview "gtk_source_language_get_hidden") (GtkSourceLanguageClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getId_ = call (load_sym libgtksourceview "gtk_source_language_get_id") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getMetadata_ = call (load_sym libgtksourceview "gtk_source_language_get_metadata") (GtkSourceLanguageClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val getMimeTypes_ = call (load_sym libgtksourceview "gtk_source_language_get_mime_types") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
-      val getName_ = call (load_sym libgtksourceview "gtk_source_language_get_name") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getSection_ = call (load_sym libgtksourceview "gtk_source_language_get_section") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getStyleIds_ = call (load_sym libgtksourceview "gtk_source_language_get_style_ids") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
-      val getStyleName_ = call (load_sym libgtksourceview "gtk_source_language_get_style_name") (GtkSourceLanguageClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getType_ = call (getSymbol "gtk_source_language_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getGlobs_ = call (getSymbol "gtk_source_language_get_globs") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getHidden_ = call (getSymbol "gtk_source_language_get_hidden") (GtkSourceLanguageClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getId_ = call (getSymbol "gtk_source_language_get_id") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getMetadata_ = call (getSymbol "gtk_source_language_get_metadata") (GtkSourceLanguageClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getMimeTypes_ = call (getSymbol "gtk_source_language_get_mime_types") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getName_ = call (getSymbol "gtk_source_language_get_name") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getSection_ = call (getSymbol "gtk_source_language_get_section") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getStyleIds_ = call (getSymbol "gtk_source_language_get_style_ids") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getStyleName_ = call (getSymbol "gtk_source_language_get_style_name") (GtkSourceLanguageClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class = 'a GtkSourceLanguageClass.class
     type t = base class

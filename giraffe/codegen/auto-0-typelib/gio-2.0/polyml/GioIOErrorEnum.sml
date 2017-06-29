@@ -148,9 +148,9 @@ structure GioIOErrorEnum :> GIO_I_O_ERROR_ENUM =
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_io_error_enum_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getValue_ = call (load_sym libgobject "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
-      val setValue_ = call (load_sym libgobject "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_io_error_enum_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getValue_ = call (getSymbol "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
+      val setValue_ = call (getSymbol "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid)
     end
     val t =
       GObjectValue.C.createAccessor

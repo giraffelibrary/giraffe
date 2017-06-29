@@ -12,19 +12,19 @@ structure GtkWindow :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_window_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_window_new") (GtkWindowType.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
-      val getDefaultIconName_ = call (load_sym libgtk "gtk_window_get_default_icon_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val setAutoStartupNotification_ = call (load_sym libgtk "gtk_window_set_auto_startup_notification") (GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDefaultIcon_ = call (load_sym libgtk "gtk_window_set_default_icon") (GdkPixbufPixbufClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setDefaultIconFromFile_ = call (load_sym libgtk "gtk_window_set_default_icon_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
-      val setDefaultIconName_ = call (load_sym libgtk "gtk_window_set_default_icon_name") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val activateDefault_ = call (load_sym libgtk "gtk_window_activate_default") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val activateFocus_ = call (load_sym libgtk "gtk_window_activate_focus") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val activateKey_ = call (load_sym libgtk "gtk_window_activate_key") (GtkWindowClass.PolyML.cPtr &&> GdkEventKeyRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val addAccelGroup_ = call (load_sym libgtk "gtk_window_add_accel_group") (GtkWindowClass.PolyML.cPtr &&> GtkAccelGroupClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gtk_window_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_window_new") (GtkWindowType.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val getDefaultIconName_ = call (getSymbol "gtk_window_get_default_icon_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val setAutoStartupNotification_ = call (getSymbol "gtk_window_set_auto_startup_notification") (GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDefaultIcon_ = call (getSymbol "gtk_window_set_default_icon") (GdkPixbufPixbufClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setDefaultIconFromFile_ = call (getSymbol "gtk_window_set_default_icon_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
+      val setDefaultIconName_ = call (getSymbol "gtk_window_set_default_icon_name") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val activateDefault_ = call (getSymbol "gtk_window_activate_default") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val activateFocus_ = call (getSymbol "gtk_window_activate_focus") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val activateKey_ = call (getSymbol "gtk_window_activate_key") (GtkWindowClass.PolyML.cPtr &&> GdkEventKeyRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val addAccelGroup_ = call (getSymbol "gtk_window_add_accel_group") (GtkWindowClass.PolyML.cPtr &&> GtkAccelGroupClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val addMnemonic_ =
-        call (load_sym libgtk "gtk_window_add_mnemonic")
+        call (getSymbol "gtk_window_add_mnemonic")
           (
             GtkWindowClass.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
@@ -32,7 +32,7 @@ structure GtkWindow :>
              --> PolyMLFFI.cVoid
           )
       val beginMoveDrag_ =
-        call (load_sym libgtk "gtk_window_begin_move_drag")
+        call (getSymbol "gtk_window_begin_move_drag")
           (
             GtkWindowClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -42,7 +42,7 @@ structure GtkWindow :>
              --> PolyMLFFI.cVoid
           )
       val beginResizeDrag_ =
-        call (load_sym libgtk "gtk_window_begin_resize_drag")
+        call (getSymbol "gtk_window_begin_resize_drag")
           (
             GtkWindowClass.PolyML.cPtr
              &&> GdkWindowEdge.PolyML.cVal
@@ -52,68 +52,68 @@ structure GtkWindow :>
              &&> GUInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val deiconify_ = call (load_sym libgtk "gtk_window_deiconify") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val fullscreen_ = call (load_sym libgtk "gtk_window_fullscreen") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getAcceptFocus_ = call (load_sym libgtk "gtk_window_get_accept_focus") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getApplication_ = call (load_sym libgtk "gtk_window_get_application") (GtkWindowClass.PolyML.cPtr --> GtkApplicationClass.PolyML.cPtr)
-      val getDecorated_ = call (load_sym libgtk "gtk_window_get_decorated") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val deiconify_ = call (getSymbol "gtk_window_deiconify") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val fullscreen_ = call (getSymbol "gtk_window_fullscreen") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getAcceptFocus_ = call (getSymbol "gtk_window_get_accept_focus") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getApplication_ = call (getSymbol "gtk_window_get_application") (GtkWindowClass.PolyML.cPtr --> GtkApplicationClass.PolyML.cPtr)
+      val getDecorated_ = call (getSymbol "gtk_window_get_decorated") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getDefaultSize_ =
-        call (load_sym libgtk "gtk_window_get_default_size")
+        call (getSymbol "gtk_window_get_default_size")
           (
             GtkWindowClass.PolyML.cPtr
              &&> GInt32.PolyML.cRef
              &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getDefaultWidget_ = call (load_sym libgtk "gtk_window_get_default_widget") (GtkWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getDeletable_ = call (load_sym libgtk "gtk_window_get_deletable") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getDestroyWithParent_ = call (load_sym libgtk "gtk_window_get_destroy_with_parent") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getFocus_ = call (load_sym libgtk "gtk_window_get_focus") (GtkWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getFocusOnMap_ = call (load_sym libgtk "gtk_window_get_focus_on_map") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getFocusVisible_ = call (load_sym libgtk "gtk_window_get_focus_visible") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getGravity_ = call (load_sym libgtk "gtk_window_get_gravity") (GtkWindowClass.PolyML.cPtr --> GdkGravity.PolyML.cVal)
-      val getGroup_ = call (load_sym libgtk "gtk_window_get_group") (GtkWindowClass.PolyML.cPtr --> GtkWindowGroupClass.PolyML.cPtr)
-      val getHasResizeGrip_ = call (load_sym libgtk "gtk_window_get_has_resize_grip") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getIcon_ = call (load_sym libgtk "gtk_window_get_icon") (GtkWindowClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
-      val getIconName_ = call (load_sym libgtk "gtk_window_get_icon_name") (GtkWindowClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getMnemonicModifier_ = call (load_sym libgtk "gtk_window_get_mnemonic_modifier") (GtkWindowClass.PolyML.cPtr --> GdkModifierType.PolyML.cVal)
-      val getMnemonicsVisible_ = call (load_sym libgtk "gtk_window_get_mnemonics_visible") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getModal_ = call (load_sym libgtk "gtk_window_get_modal") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getOpacity_ = call (load_sym libgtk "gtk_window_get_opacity") (GtkWindowClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getDefaultWidget_ = call (getSymbol "gtk_window_get_default_widget") (GtkWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getDeletable_ = call (getSymbol "gtk_window_get_deletable") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getDestroyWithParent_ = call (getSymbol "gtk_window_get_destroy_with_parent") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getFocus_ = call (getSymbol "gtk_window_get_focus") (GtkWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getFocusOnMap_ = call (getSymbol "gtk_window_get_focus_on_map") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getFocusVisible_ = call (getSymbol "gtk_window_get_focus_visible") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getGravity_ = call (getSymbol "gtk_window_get_gravity") (GtkWindowClass.PolyML.cPtr --> GdkGravity.PolyML.cVal)
+      val getGroup_ = call (getSymbol "gtk_window_get_group") (GtkWindowClass.PolyML.cPtr --> GtkWindowGroupClass.PolyML.cPtr)
+      val getHasResizeGrip_ = call (getSymbol "gtk_window_get_has_resize_grip") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getIcon_ = call (getSymbol "gtk_window_get_icon") (GtkWindowClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val getIconName_ = call (getSymbol "gtk_window_get_icon_name") (GtkWindowClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getMnemonicModifier_ = call (getSymbol "gtk_window_get_mnemonic_modifier") (GtkWindowClass.PolyML.cPtr --> GdkModifierType.PolyML.cVal)
+      val getMnemonicsVisible_ = call (getSymbol "gtk_window_get_mnemonics_visible") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getModal_ = call (getSymbol "gtk_window_get_modal") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getOpacity_ = call (getSymbol "gtk_window_get_opacity") (GtkWindowClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val getPosition_ =
-        call (load_sym libgtk "gtk_window_get_position")
+        call (getSymbol "gtk_window_get_position")
           (
             GtkWindowClass.PolyML.cPtr
              &&> GInt32.PolyML.cRef
              &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getResizable_ = call (load_sym libgtk "gtk_window_get_resizable") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getResizeGripArea_ = call (load_sym libgtk "gtk_window_get_resize_grip_area") (GtkWindowClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getRole_ = call (load_sym libgtk "gtk_window_get_role") (GtkWindowClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getScreen_ = call (load_sym libgtk "gtk_window_get_screen") (GtkWindowClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
+      val getResizable_ = call (getSymbol "gtk_window_get_resizable") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getResizeGripArea_ = call (getSymbol "gtk_window_get_resize_grip_area") (GtkWindowClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getRole_ = call (getSymbol "gtk_window_get_role") (GtkWindowClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getScreen_ = call (getSymbol "gtk_window_get_screen") (GtkWindowClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
       val getSize_ =
-        call (load_sym libgtk "gtk_window_get_size")
+        call (getSymbol "gtk_window_get_size")
           (
             GtkWindowClass.PolyML.cPtr
              &&> GInt32.PolyML.cRef
              &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getSkipPagerHint_ = call (load_sym libgtk "gtk_window_get_skip_pager_hint") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getSkipTaskbarHint_ = call (load_sym libgtk "gtk_window_get_skip_taskbar_hint") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getTitle_ = call (load_sym libgtk "gtk_window_get_title") (GtkWindowClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getTransientFor_ = call (load_sym libgtk "gtk_window_get_transient_for") (GtkWindowClass.PolyML.cPtr --> GtkWindowClass.PolyML.cPtr)
-      val getTypeHint_ = call (load_sym libgtk "gtk_window_get_type_hint") (GtkWindowClass.PolyML.cPtr --> GdkWindowTypeHint.PolyML.cVal)
-      val getUrgencyHint_ = call (load_sym libgtk "gtk_window_get_urgency_hint") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getWindowType_ = call (load_sym libgtk "gtk_window_get_window_type") (GtkWindowClass.PolyML.cPtr --> GtkWindowType.PolyML.cVal)
-      val hasGroup_ = call (load_sym libgtk "gtk_window_has_group") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val hasToplevelFocus_ = call (load_sym libgtk "gtk_window_has_toplevel_focus") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val iconify_ = call (load_sym libgtk "gtk_window_iconify") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val isActive_ = call (load_sym libgtk "gtk_window_is_active") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val maximize_ = call (load_sym libgtk "gtk_window_maximize") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getSkipPagerHint_ = call (getSymbol "gtk_window_get_skip_pager_hint") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getSkipTaskbarHint_ = call (getSymbol "gtk_window_get_skip_taskbar_hint") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getTitle_ = call (getSymbol "gtk_window_get_title") (GtkWindowClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getTransientFor_ = call (getSymbol "gtk_window_get_transient_for") (GtkWindowClass.PolyML.cPtr --> GtkWindowClass.PolyML.cPtr)
+      val getTypeHint_ = call (getSymbol "gtk_window_get_type_hint") (GtkWindowClass.PolyML.cPtr --> GdkWindowTypeHint.PolyML.cVal)
+      val getUrgencyHint_ = call (getSymbol "gtk_window_get_urgency_hint") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getWindowType_ = call (getSymbol "gtk_window_get_window_type") (GtkWindowClass.PolyML.cPtr --> GtkWindowType.PolyML.cVal)
+      val hasGroup_ = call (getSymbol "gtk_window_has_group") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val hasToplevelFocus_ = call (getSymbol "gtk_window_has_toplevel_focus") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val iconify_ = call (getSymbol "gtk_window_iconify") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val isActive_ = call (getSymbol "gtk_window_is_active") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val maximize_ = call (getSymbol "gtk_window_maximize") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val mnemonicActivate_ =
-        call (load_sym libgtk "gtk_window_mnemonic_activate")
+        call (getSymbol "gtk_window_mnemonic_activate")
           (
             GtkWindowClass.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
@@ -121,50 +121,50 @@ structure GtkWindow :>
              --> GBool.PolyML.cVal
           )
       val move_ =
-        call (load_sym libgtk "gtk_window_move")
+        call (getSymbol "gtk_window_move")
           (
             GtkWindowClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val parseGeometry_ = call (load_sym libgtk "gtk_window_parse_geometry") (GtkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val present_ = call (load_sym libgtk "gtk_window_present") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val presentWithTime_ = call (load_sym libgtk "gtk_window_present_with_time") (GtkWindowClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val propagateKeyEvent_ = call (load_sym libgtk "gtk_window_propagate_key_event") (GtkWindowClass.PolyML.cPtr &&> GdkEventKeyRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val removeAccelGroup_ = call (load_sym libgtk "gtk_window_remove_accel_group") (GtkWindowClass.PolyML.cPtr &&> GtkAccelGroupClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val parseGeometry_ = call (getSymbol "gtk_window_parse_geometry") (GtkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val present_ = call (getSymbol "gtk_window_present") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val presentWithTime_ = call (getSymbol "gtk_window_present_with_time") (GtkWindowClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val propagateKeyEvent_ = call (getSymbol "gtk_window_propagate_key_event") (GtkWindowClass.PolyML.cPtr &&> GdkEventKeyRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val removeAccelGroup_ = call (getSymbol "gtk_window_remove_accel_group") (GtkWindowClass.PolyML.cPtr &&> GtkAccelGroupClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val removeMnemonic_ =
-        call (load_sym libgtk "gtk_window_remove_mnemonic")
+        call (getSymbol "gtk_window_remove_mnemonic")
           (
             GtkWindowClass.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
              &&> GtkWidgetClass.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val reshowWithInitialSize_ = call (load_sym libgtk "gtk_window_reshow_with_initial_size") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val reshowWithInitialSize_ = call (getSymbol "gtk_window_reshow_with_initial_size") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val resize_ =
-        call (load_sym libgtk "gtk_window_resize")
+        call (getSymbol "gtk_window_resize")
           (
             GtkWindowClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val resizeGripIsVisible_ = call (load_sym libgtk "gtk_window_resize_grip_is_visible") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val resizeGripIsVisible_ = call (getSymbol "gtk_window_resize_grip_is_visible") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val resizeToGeometry_ =
-        call (load_sym libgtk "gtk_window_resize_to_geometry")
+        call (getSymbol "gtk_window_resize_to_geometry")
           (
             GtkWindowClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setAcceptFocus_ = call (load_sym libgtk "gtk_window_set_accept_focus") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setApplication_ = call (load_sym libgtk "gtk_window_set_application") (GtkWindowClass.PolyML.cPtr &&> GtkApplicationClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setDecorated_ = call (load_sym libgtk "gtk_window_set_decorated") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDefault_ = call (load_sym libgtk "gtk_window_set_default") (GtkWindowClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setAcceptFocus_ = call (getSymbol "gtk_window_set_accept_focus") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setApplication_ = call (getSymbol "gtk_window_set_application") (GtkWindowClass.PolyML.cPtr &&> GtkApplicationClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setDecorated_ = call (getSymbol "gtk_window_set_decorated") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDefault_ = call (getSymbol "gtk_window_set_default") (GtkWindowClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
       val setDefaultGeometry_ =
-        call (load_sym libgtk "gtk_window_set_default_geometry")
+        call (getSymbol "gtk_window_set_default_geometry")
           (
             GtkWindowClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -172,20 +172,20 @@ structure GtkWindow :>
              --> PolyMLFFI.cVoid
           )
       val setDefaultSize_ =
-        call (load_sym libgtk "gtk_window_set_default_size")
+        call (getSymbol "gtk_window_set_default_size")
           (
             GtkWindowClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setDeletable_ = call (load_sym libgtk "gtk_window_set_deletable") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDestroyWithParent_ = call (load_sym libgtk "gtk_window_set_destroy_with_parent") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setFocus_ = call (load_sym libgtk "gtk_window_set_focus") (GtkWindowClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setFocusOnMap_ = call (load_sym libgtk "gtk_window_set_focus_on_map") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setFocusVisible_ = call (load_sym libgtk "gtk_window_set_focus_visible") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDeletable_ = call (getSymbol "gtk_window_set_deletable") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDestroyWithParent_ = call (getSymbol "gtk_window_set_destroy_with_parent") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setFocus_ = call (getSymbol "gtk_window_set_focus") (GtkWindowClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setFocusOnMap_ = call (getSymbol "gtk_window_set_focus_on_map") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setFocusVisible_ = call (getSymbol "gtk_window_set_focus_visible") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setGeometryHints_ =
-        call (load_sym libgtk "gtk_window_set_geometry_hints")
+        call (getSymbol "gtk_window_set_geometry_hints")
           (
             GtkWindowClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cOptPtr
@@ -193,48 +193,48 @@ structure GtkWindow :>
              &&> GdkWindowHints.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setGravity_ = call (load_sym libgtk "gtk_window_set_gravity") (GtkWindowClass.PolyML.cPtr &&> GdkGravity.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setHasResizeGrip_ = call (load_sym libgtk "gtk_window_set_has_resize_grip") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setHasUserRefCount_ = call (load_sym libgtk "gtk_window_set_has_user_ref_count") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setIcon_ = call (load_sym libgtk "gtk_window_set_icon") (GtkWindowClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setGravity_ = call (getSymbol "gtk_window_set_gravity") (GtkWindowClass.PolyML.cPtr &&> GdkGravity.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setHasResizeGrip_ = call (getSymbol "gtk_window_set_has_resize_grip") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setHasUserRefCount_ = call (getSymbol "gtk_window_set_has_user_ref_count") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setIcon_ = call (getSymbol "gtk_window_set_icon") (GtkWindowClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
       val setIconFromFile_ =
-        call (load_sym libgtk "gtk_window_set_icon_from_file")
+        call (getSymbol "gtk_window_set_icon_from_file")
           (
             GtkWindowClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val setIconName_ = call (load_sym libgtk "gtk_window_set_icon_name") (GtkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
-      val setKeepAbove_ = call (load_sym libgtk "gtk_window_set_keep_above") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setKeepBelow_ = call (load_sym libgtk "gtk_window_set_keep_below") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setMnemonicModifier_ = call (load_sym libgtk "gtk_window_set_mnemonic_modifier") (GtkWindowClass.PolyML.cPtr &&> GdkModifierType.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setMnemonicsVisible_ = call (load_sym libgtk "gtk_window_set_mnemonics_visible") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setModal_ = call (load_sym libgtk "gtk_window_set_modal") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setOpacity_ = call (load_sym libgtk "gtk_window_set_opacity") (GtkWindowClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPosition_ = call (load_sym libgtk "gtk_window_set_position") (GtkWindowClass.PolyML.cPtr &&> GtkWindowPosition.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setResizable_ = call (load_sym libgtk "gtk_window_set_resizable") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setRole_ = call (load_sym libgtk "gtk_window_set_role") (GtkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setScreen_ = call (load_sym libgtk "gtk_window_set_screen") (GtkWindowClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setSkipPagerHint_ = call (load_sym libgtk "gtk_window_set_skip_pager_hint") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSkipTaskbarHint_ = call (load_sym libgtk "gtk_window_set_skip_taskbar_hint") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setStartupId_ = call (load_sym libgtk "gtk_window_set_startup_id") (GtkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setTitle_ = call (load_sym libgtk "gtk_window_set_title") (GtkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setTransientFor_ = call (load_sym libgtk "gtk_window_set_transient_for") (GtkWindowClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setTypeHint_ = call (load_sym libgtk "gtk_window_set_type_hint") (GtkWindowClass.PolyML.cPtr &&> GdkWindowTypeHint.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setUrgencyHint_ = call (load_sym libgtk "gtk_window_set_urgency_hint") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setIconName_ = call (getSymbol "gtk_window_set_icon_name") (GtkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setKeepAbove_ = call (getSymbol "gtk_window_set_keep_above") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setKeepBelow_ = call (getSymbol "gtk_window_set_keep_below") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMnemonicModifier_ = call (getSymbol "gtk_window_set_mnemonic_modifier") (GtkWindowClass.PolyML.cPtr &&> GdkModifierType.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMnemonicsVisible_ = call (getSymbol "gtk_window_set_mnemonics_visible") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setModal_ = call (getSymbol "gtk_window_set_modal") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setOpacity_ = call (getSymbol "gtk_window_set_opacity") (GtkWindowClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPosition_ = call (getSymbol "gtk_window_set_position") (GtkWindowClass.PolyML.cPtr &&> GtkWindowPosition.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setResizable_ = call (getSymbol "gtk_window_set_resizable") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setRole_ = call (getSymbol "gtk_window_set_role") (GtkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setScreen_ = call (getSymbol "gtk_window_set_screen") (GtkWindowClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setSkipPagerHint_ = call (getSymbol "gtk_window_set_skip_pager_hint") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSkipTaskbarHint_ = call (getSymbol "gtk_window_set_skip_taskbar_hint") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setStartupId_ = call (getSymbol "gtk_window_set_startup_id") (GtkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setTitle_ = call (getSymbol "gtk_window_set_title") (GtkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setTransientFor_ = call (getSymbol "gtk_window_set_transient_for") (GtkWindowClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setTypeHint_ = call (getSymbol "gtk_window_set_type_hint") (GtkWindowClass.PolyML.cPtr &&> GdkWindowTypeHint.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setUrgencyHint_ = call (getSymbol "gtk_window_set_urgency_hint") (GtkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setWmclass_ =
-        call (load_sym libgtk "gtk_window_set_wmclass")
+        call (getSymbol "gtk_window_set_wmclass")
           (
             GtkWindowClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
-      val stick_ = call (load_sym libgtk "gtk_window_stick") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val unfullscreen_ = call (load_sym libgtk "gtk_window_unfullscreen") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val unmaximize_ = call (load_sym libgtk "gtk_window_unmaximize") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val unstick_ = call (load_sym libgtk "gtk_window_unstick") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val stick_ = call (getSymbol "gtk_window_stick") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unfullscreen_ = call (getSymbol "gtk_window_unfullscreen") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unmaximize_ = call (getSymbol "gtk_window_unmaximize") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unstick_ = call (getSymbol "gtk_window_unstick") (GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkWindowClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

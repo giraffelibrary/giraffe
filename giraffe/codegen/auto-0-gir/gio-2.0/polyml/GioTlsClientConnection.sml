@@ -8,21 +8,21 @@ structure GioTlsClientConnection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tls_client_connection_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_tls_client_connection_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgio "g_tls_client_connection_new")
+        call (getSymbol "g_tls_client_connection_new")
           (
             GioIOStreamClass.PolyML.cPtr
              &&> GioSocketConnectableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioIOStreamClass.PolyML.cPtr
           )
-      val getServerIdentity_ = call (load_sym libgio "g_tls_client_connection_get_server_identity") (GioTlsClientConnectionClass.PolyML.cPtr --> GioSocketConnectableClass.PolyML.cPtr)
-      val getUseSsl3_ = call (load_sym libgio "g_tls_client_connection_get_use_ssl3") (GioTlsClientConnectionClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getValidationFlags_ = call (load_sym libgio "g_tls_client_connection_get_validation_flags") (GioTlsClientConnectionClass.PolyML.cPtr --> GioTlsCertificateFlags.PolyML.cVal)
-      val setServerIdentity_ = call (load_sym libgio "g_tls_client_connection_set_server_identity") (GioTlsClientConnectionClass.PolyML.cPtr &&> GioSocketConnectableClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setUseSsl3_ = call (load_sym libgio "g_tls_client_connection_set_use_ssl3") (GioTlsClientConnectionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setValidationFlags_ = call (load_sym libgio "g_tls_client_connection_set_validation_flags") (GioTlsClientConnectionClass.PolyML.cPtr &&> GioTlsCertificateFlags.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getServerIdentity_ = call (getSymbol "g_tls_client_connection_get_server_identity") (GioTlsClientConnectionClass.PolyML.cPtr --> GioSocketConnectableClass.PolyML.cPtr)
+      val getUseSsl3_ = call (getSymbol "g_tls_client_connection_get_use_ssl3") (GioTlsClientConnectionClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getValidationFlags_ = call (getSymbol "g_tls_client_connection_get_validation_flags") (GioTlsClientConnectionClass.PolyML.cPtr --> GioTlsCertificateFlags.PolyML.cVal)
+      val setServerIdentity_ = call (getSymbol "g_tls_client_connection_set_server_identity") (GioTlsClientConnectionClass.PolyML.cPtr &&> GioSocketConnectableClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setUseSsl3_ = call (getSymbol "g_tls_client_connection_set_use_ssl3") (GioTlsClientConnectionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setValidationFlags_ = call (getSymbol "g_tls_client_connection_set_validation_flags") (GioTlsClientConnectionClass.PolyML.cPtr &&> GioTlsCertificateFlags.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioTlsClientConnectionClass.class
     type 'a i_o_stream_class = 'a GioIOStreamClass.class

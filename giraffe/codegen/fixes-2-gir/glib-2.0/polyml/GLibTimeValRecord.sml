@@ -11,22 +11,22 @@ structure GLibTimeValRecord :> G_LIB_TIME_VAL_RECORD =
     in
       val new_ =
         call
-          (load_sym libgiraffeglib "giraffe_g_time_val_new")
+          (getSymbol "giraffe_g_time_val_new")
           (cVoid --> cPtr)
 
       val copy_ =
         call
-          (load_sym libgiraffeglib "giraffe_g_time_val_copy")
+          (getSymbol "giraffe_g_time_val_copy")
           (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
-          (load_sym libgiraffeglib "giraffe_g_time_val_free")
+          (getSymbol "giraffe_g_time_val_free")
           (cPtr --> cVoid)
 
       val size_ =
         call
-          (load_sym libgiraffeglib "giraffe_g_time_val_size")
+          (getSymbol "giraffe_g_time_val_size")
           (cVoid --> GUInt.PolyML.cVal)
     end
 

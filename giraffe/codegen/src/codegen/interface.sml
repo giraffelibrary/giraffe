@@ -362,7 +362,6 @@ fun addInterfaceConstantStrDecs x =
 fun addInterfaceMethodStrDecsLowLevel
   isPolyML
   repo
-  libId
   addInitStrDecs
   interfaceRootIRef
   interfaceIRef =
@@ -370,7 +369,6 @@ fun addInterfaceMethodStrDecsLowLevel
     (InterfaceInfo.getNMethods, InterfaceInfo.getMethod)
     isPolyML
     repo
-    libId
     addInitStrDecs
     (SOME (interfaceRootIRef, interfaceIRef))
 
@@ -447,8 +445,7 @@ fun addInterfacePropertyStrDecs repo interfaceIRef =
 
 fun makeInterfaceStr
   (repo               : 'a RepositoryClass.class)
-  (vers               : Repository.typelibvers_t)
-  (libId              : id)
+  (_                  : Repository.typelibvers_t)
   (interfaceNamespace : string)
   (interfaceInfo      : 'b InterfaceInfoClass.class)
   (errs'0             : infoerrorhier list)
@@ -536,15 +533,7 @@ fun makeInterfaceStr
           addInterfaceMethodStrDecsLowLevel
             isPolyML
             repo
-            libId
-            (
-              addGetTypeFunctionStrDecLowLevel
-                repo
-                vers
-                libId
-                interfaceNamespace
-                getTypeSymbol
-            )
+            (addGetTypeFunctionStrDecLowLevel getTypeSymbol)
             interfaceRootIRef
             interfaceIRef
             (interfaceInfo, (strDecs'9, errs'6))

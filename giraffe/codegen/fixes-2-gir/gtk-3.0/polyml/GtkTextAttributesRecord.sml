@@ -11,17 +11,17 @@ structure GtkTextAttributesRecord :> GTK_TEXT_ATTRIBUTES_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgtk "gtk_text_attributes_ref")
+          (getSymbol "gtk_text_attributes_ref")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgtk "gtk_text_attributes_unref")
+          (getSymbol "gtk_text_attributes_unref")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgtk "gtk_text_attributes_get_type")
+          (getSymbol "gtk_text_attributes_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

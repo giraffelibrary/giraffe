@@ -7,18 +7,18 @@ structure GioCharsetConverter :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_charset_converter_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_charset_converter_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgio "g_charset_converter_new")
+        call (getSymbol "g_charset_converter_new")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioCharsetConverterClass.PolyML.cPtr
           )
-      val getNumFallbacks_ = call (load_sym libgio "g_charset_converter_get_num_fallbacks") (GioCharsetConverterClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
-      val getUseFallback_ = call (load_sym libgio "g_charset_converter_get_use_fallback") (GioCharsetConverterClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setUseFallback_ = call (load_sym libgio "g_charset_converter_set_use_fallback") (GioCharsetConverterClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getNumFallbacks_ = call (getSymbol "g_charset_converter_get_num_fallbacks") (GioCharsetConverterClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
+      val getUseFallback_ = call (getSymbol "g_charset_converter_get_use_fallback") (GioCharsetConverterClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setUseFallback_ = call (getSymbol "g_charset_converter_set_use_fallback") (GioCharsetConverterClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioCharsetConverterClass.class
     type 'a converter_class = 'a GioConverterClass.class

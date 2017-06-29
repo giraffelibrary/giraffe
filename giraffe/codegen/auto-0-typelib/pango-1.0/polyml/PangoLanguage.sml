@@ -6,13 +6,13 @@ structure PangoLanguage :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_language_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getSampleString_ = call (load_sym libpango "pango_language_get_sample_string") (PangoLanguageRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val includesScript_ = call (load_sym libpango "pango_language_includes_script") (PangoLanguageRecord.PolyML.cPtr &&> PangoScript.PolyML.cVal --> GBool.PolyML.cVal)
-      val matches_ = call (load_sym libpango "pango_language_matches") (PangoLanguageRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val toString_ = call (load_sym libpango "pango_language_to_string") (PangoLanguageRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val fromString_ = call (load_sym libpango "pango_language_from_string") (Utf8.PolyML.cInOptPtr --> PangoLanguageRecord.PolyML.cPtr)
-      val getDefault_ = call (load_sym libpango "pango_language_get_default") (PolyMLFFI.cVoid --> PangoLanguageRecord.PolyML.cPtr)
+      val getType_ = call (getSymbol "pango_language_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getSampleString_ = call (getSymbol "pango_language_get_sample_string") (PangoLanguageRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val includesScript_ = call (getSymbol "pango_language_includes_script") (PangoLanguageRecord.PolyML.cPtr &&> PangoScript.PolyML.cVal --> GBool.PolyML.cVal)
+      val matches_ = call (getSymbol "pango_language_matches") (PangoLanguageRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val toString_ = call (getSymbol "pango_language_to_string") (PangoLanguageRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val fromString_ = call (getSymbol "pango_language_from_string") (Utf8.PolyML.cInOptPtr --> PangoLanguageRecord.PolyML.cPtr)
+      val getDefault_ = call (getSymbol "pango_language_get_default") (PolyMLFFI.cVoid --> PangoLanguageRecord.PolyML.cPtr)
     end
     type t = PangoLanguageRecord.t
     type script_t = PangoScript.t

@@ -10,22 +10,22 @@ structure GIRepositoryFunctionInfo :>
     in
       val getSymbol_ =
         call
-          (load_sym libgirepository "g_function_info_get_symbol")
+          (getSymbol "g_function_info_get_symbol")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr);
 
       val getFlags_ =
         call
-          (load_sym libgirepository "g_function_info_get_flags")
+          (getSymbol "g_function_info_get_flags")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryFunctionInfoFlags.PolyML.cVal);
 
       val getProperty_ =
         call
-          (load_sym libgirepository "g_function_info_get_property")
+          (getSymbol "g_function_info_get_property")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
 
       val getVfunc_ =
         call
-          (load_sym libgirepository "g_function_info_get_vfunc")
+          (getSymbol "g_function_info_get_vfunc")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
     end
 

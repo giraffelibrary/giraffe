@@ -11,12 +11,12 @@ structure GObjectBinding :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "g_binding_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getFlags_ = call (load_sym libgobject "g_binding_get_flags") (GObjectBindingClass.PolyML.cPtr --> GObjectBindingFlags.PolyML.cVal)
-      val getSource_ = call (load_sym libgobject "g_binding_get_source") (GObjectBindingClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getSourceProperty_ = call (load_sym libgobject "g_binding_get_source_property") (GObjectBindingClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getTarget_ = call (load_sym libgobject "g_binding_get_target") (GObjectBindingClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getTargetProperty_ = call (load_sym libgobject "g_binding_get_target_property") (GObjectBindingClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getType_ = call (getSymbol "g_binding_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getFlags_ = call (getSymbol "g_binding_get_flags") (GObjectBindingClass.PolyML.cPtr --> GObjectBindingFlags.PolyML.cVal)
+      val getSource_ = call (getSymbol "g_binding_get_source") (GObjectBindingClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getSourceProperty_ = call (getSymbol "g_binding_get_source_property") (GObjectBindingClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getTarget_ = call (getSymbol "g_binding_get_target") (GObjectBindingClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getTargetProperty_ = call (getSymbol "g_binding_get_target_property") (GObjectBindingClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class = 'a GObjectBindingClass.class
     type type_t = GObjectType.t

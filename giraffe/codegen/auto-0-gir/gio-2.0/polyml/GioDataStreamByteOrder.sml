@@ -25,9 +25,9 @@ structure GioDataStreamByteOrder :> GIO_DATA_STREAM_BYTE_ORDER =
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_data_stream_byte_order_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getValue_ = call (load_sym libgobject "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
-      val setValue_ = call (load_sym libgobject "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_data_stream_byte_order_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getValue_ = call (getSymbol "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
+      val setValue_ = call (getSymbol "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid)
     end
     val t =
       GObjectValue.C.createAccessor

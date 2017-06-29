@@ -11,9 +11,9 @@ structure GtkStyle :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_style_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_style_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val applyDefaultBackground_ =
-        call (load_sym libgtk "gtk_style_apply_default_background")
+        call (getSymbol "gtk_style_apply_default_background")
           (
             GtkStyleClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
@@ -25,20 +25,20 @@ structure GtkStyle :>
              &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val copy_ = call (load_sym libgtk "gtk_style_copy") (GtkStyleClass.PolyML.cPtr --> GtkStyleClass.PolyML.cPtr)
-      val detach_ = call (load_sym libgtk "gtk_style_detach") (GtkStyleClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val hasContext_ = call (load_sym libgtk "gtk_style_has_context") (GtkStyleClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val copy_ = call (getSymbol "gtk_style_copy") (GtkStyleClass.PolyML.cPtr --> GtkStyleClass.PolyML.cPtr)
+      val detach_ = call (getSymbol "gtk_style_detach") (GtkStyleClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val hasContext_ = call (getSymbol "gtk_style_has_context") (GtkStyleClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val lookupColor_ =
-        call (load_sym libgtk "gtk_style_lookup_color")
+        call (getSymbol "gtk_style_lookup_color")
           (
             GtkStyleClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GdkColorRecord.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
-      val lookupIconSet_ = call (load_sym libgtk "gtk_style_lookup_icon_set") (GtkStyleClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkIconSetRecord.PolyML.cPtr)
+      val lookupIconSet_ = call (getSymbol "gtk_style_lookup_icon_set") (GtkStyleClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkIconSetRecord.PolyML.cPtr)
       val renderIcon_ =
-        call (load_sym libgtk "gtk_style_render_icon")
+        call (getSymbol "gtk_style_render_icon")
           (
             GtkStyleClass.PolyML.cPtr
              &&> GtkIconSourceRecord.PolyML.cPtr
@@ -50,7 +50,7 @@ structure GtkStyle :>
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
       val setBackground_ =
-        call (load_sym libgtk "gtk_style_set_background")
+        call (getSymbol "gtk_style_set_background")
           (
             GtkStyleClass.PolyML.cPtr
              &&> GdkWindowClass.PolyML.cPtr

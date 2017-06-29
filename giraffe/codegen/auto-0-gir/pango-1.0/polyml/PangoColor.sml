@@ -5,10 +5,10 @@ structure PangoColor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_color_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val copy_ = call (load_sym libpango "pango_color_copy") (PangoColorRecord.PolyML.cPtr --> PangoColorRecord.PolyML.cPtr)
-      val parse_ = call (load_sym libpango "pango_color_parse") (PangoColorRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val toString_ = call (load_sym libpango "pango_color_to_string") (PangoColorRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getType_ = call (getSymbol "pango_color_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val copy_ = call (getSymbol "pango_color_copy") (PangoColorRecord.PolyML.cPtr --> PangoColorRecord.PolyML.cPtr)
+      val parse_ = call (getSymbol "pango_color_parse") (PangoColorRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val toString_ = call (getSymbol "pango_color_to_string") (PangoColorRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type t = PangoColorRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

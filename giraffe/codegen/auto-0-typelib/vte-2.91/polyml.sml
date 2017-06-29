@@ -1,4 +1,3 @@
-val libvte = PolyMLFFI.load_lib "";
 use "VTE_CURSOR_BLINK_MODE.sml";
 use "VTE_CURSOR_SHAPE.sml";
 use "VTE_ERASE_BINDING.sml";

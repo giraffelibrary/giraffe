@@ -1839,7 +1839,7 @@ For J non-VOID parameters, LowLevelFunction has the form:
 
   val <functionName>_ =
     call
-      (load_sym lib<functionnamespace> "<function_symbol>")
+      (getSymbol "<function_symbol>")
       (<selfConv>
         &&> <paramConv[1]>
         &&> ...
@@ -1852,7 +1852,7 @@ For J non-VOID parameters, LowLevelFunction has the form:
 
   val <functionName>_ =
     call
-      (load_sym lib<functionnamespace> "<function_symbol>")
+      (getSymbol "<function_symbol>")
       (<paramConv[1]>
         &&> ...
         &&> <paramConv[J]>
@@ -1864,7 +1864,7 @@ For J non-VOID parameters, LowLevelFunction has the form:
 
   val <functionName>_ =
     call
-      (load_sym lib<functionnamespace> "<function_symbol>")
+      (getSymbol "<function_symbol>")
       (<selfConv> [&&> <paramConvErr>] --> <retConv>);
 
     if J = 0 and anySet (FunctionFlags, IS_METHOD)
@@ -1872,7 +1872,7 @@ For J non-VOID parameters, LowLevelFunction has the form:
 
   val <functionName>_ =
     call
-      (load_sym lib<functionnamespace> "<function_symbol>")
+      (getSymbol "<function_symbol>")
       (<paramConvErr> --> <retConv>);
 
     if J = 0 and not anySet (FunctionFlags, IS_METHOD)
@@ -1881,7 +1881,7 @@ For J non-VOID parameters, LowLevelFunction has the form:
 
   val <functionName>_ =
     call
-      (load_sym lib<functionnamespace> "<function_symbol>")
+      (getSymbol "<function_symbol>")
       (PolyMLFFI.cVoid --> <retConv>);
 
     if J = 0 and not anySet (FunctionFlags, IS_METHOD)

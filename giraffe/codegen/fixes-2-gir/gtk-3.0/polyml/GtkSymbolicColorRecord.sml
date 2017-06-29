@@ -11,17 +11,17 @@ structure GtkSymbolicColorRecord :> GTK_SYMBOLIC_COLOR_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgtk "gtk_symbolic_color_ref")
+          (getSymbol "gtk_symbolic_color_ref")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgtk "gtk_symbolic_color_unref")
+          (getSymbol "gtk_symbolic_color_unref")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgtk "gtk_symbolic_color_get_type")
+          (getSymbol "gtk_symbolic_color_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

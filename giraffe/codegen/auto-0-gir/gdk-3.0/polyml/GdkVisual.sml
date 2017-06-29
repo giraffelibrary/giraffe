@@ -8,17 +8,17 @@ structure GdkVisual :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_visual_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getBest_ = call (load_sym libgdk "gdk_visual_get_best") (PolyMLFFI.cVoid --> GdkVisualClass.PolyML.cPtr)
-      val getBestDepth_ = call (load_sym libgdk "gdk_visual_get_best_depth") (PolyMLFFI.cVoid --> GInt.PolyML.cVal)
-      val getBestType_ = call (load_sym libgdk "gdk_visual_get_best_type") (PolyMLFFI.cVoid --> GdkVisualType.PolyML.cVal)
-      val getBestWithBoth_ = call (load_sym libgdk "gdk_visual_get_best_with_both") (GInt.PolyML.cVal &&> GdkVisualType.PolyML.cVal --> GdkVisualClass.PolyML.cPtr)
-      val getBestWithDepth_ = call (load_sym libgdk "gdk_visual_get_best_with_depth") (GInt.PolyML.cVal --> GdkVisualClass.PolyML.cPtr)
-      val getBestWithType_ = call (load_sym libgdk "gdk_visual_get_best_with_type") (GdkVisualType.PolyML.cVal --> GdkVisualClass.PolyML.cPtr)
-      val getSystem_ = call (load_sym libgdk "gdk_visual_get_system") (PolyMLFFI.cVoid --> GdkVisualClass.PolyML.cPtr)
-      val getBitsPerRgb_ = call (load_sym libgdk "gdk_visual_get_bits_per_rgb") (GdkVisualClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getType_ = call (getSymbol "gdk_visual_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getBest_ = call (getSymbol "gdk_visual_get_best") (PolyMLFFI.cVoid --> GdkVisualClass.PolyML.cPtr)
+      val getBestDepth_ = call (getSymbol "gdk_visual_get_best_depth") (PolyMLFFI.cVoid --> GInt.PolyML.cVal)
+      val getBestType_ = call (getSymbol "gdk_visual_get_best_type") (PolyMLFFI.cVoid --> GdkVisualType.PolyML.cVal)
+      val getBestWithBoth_ = call (getSymbol "gdk_visual_get_best_with_both") (GInt.PolyML.cVal &&> GdkVisualType.PolyML.cVal --> GdkVisualClass.PolyML.cPtr)
+      val getBestWithDepth_ = call (getSymbol "gdk_visual_get_best_with_depth") (GInt.PolyML.cVal --> GdkVisualClass.PolyML.cPtr)
+      val getBestWithType_ = call (getSymbol "gdk_visual_get_best_with_type") (GdkVisualType.PolyML.cVal --> GdkVisualClass.PolyML.cPtr)
+      val getSystem_ = call (getSymbol "gdk_visual_get_system") (PolyMLFFI.cVoid --> GdkVisualClass.PolyML.cPtr)
+      val getBitsPerRgb_ = call (getSymbol "gdk_visual_get_bits_per_rgb") (GdkVisualClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getBluePixelDetails_ =
-        call (load_sym libgdk "gdk_visual_get_blue_pixel_details")
+        call (getSymbol "gdk_visual_get_blue_pixel_details")
           (
             GdkVisualClass.PolyML.cPtr
              &&> GUInt32.PolyML.cRef
@@ -26,11 +26,11 @@ structure GdkVisual :>
              &&> GInt.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getByteOrder_ = call (load_sym libgdk "gdk_visual_get_byte_order") (GdkVisualClass.PolyML.cPtr --> GdkByteOrder.PolyML.cVal)
-      val getColormapSize_ = call (load_sym libgdk "gdk_visual_get_colormap_size") (GdkVisualClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getDepth_ = call (load_sym libgdk "gdk_visual_get_depth") (GdkVisualClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getByteOrder_ = call (getSymbol "gdk_visual_get_byte_order") (GdkVisualClass.PolyML.cPtr --> GdkByteOrder.PolyML.cVal)
+      val getColormapSize_ = call (getSymbol "gdk_visual_get_colormap_size") (GdkVisualClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getDepth_ = call (getSymbol "gdk_visual_get_depth") (GdkVisualClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getGreenPixelDetails_ =
-        call (load_sym libgdk "gdk_visual_get_green_pixel_details")
+        call (getSymbol "gdk_visual_get_green_pixel_details")
           (
             GdkVisualClass.PolyML.cPtr
              &&> GUInt32.PolyML.cRef
@@ -39,7 +39,7 @@ structure GdkVisual :>
              --> PolyMLFFI.cVoid
           )
       val getRedPixelDetails_ =
-        call (load_sym libgdk "gdk_visual_get_red_pixel_details")
+        call (getSymbol "gdk_visual_get_red_pixel_details")
           (
             GdkVisualClass.PolyML.cPtr
              &&> GUInt32.PolyML.cRef
@@ -47,8 +47,8 @@ structure GdkVisual :>
              &&> GInt.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getScreen_ = call (load_sym libgdk "gdk_visual_get_screen") (GdkVisualClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
-      val getVisualType_ = call (load_sym libgdk "gdk_visual_get_visual_type") (GdkVisualClass.PolyML.cPtr --> GdkVisualType.PolyML.cVal)
+      val getScreen_ = call (getSymbol "gdk_visual_get_screen") (GdkVisualClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
+      val getVisualType_ = call (getSymbol "gdk_visual_get_visual_type") (GdkVisualClass.PolyML.cPtr --> GdkVisualType.PolyML.cVal)
     end
     type 'a class = 'a GdkVisualClass.class
     type byte_order_t = GdkByteOrder.t

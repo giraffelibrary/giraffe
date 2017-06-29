@@ -11,27 +11,27 @@ structure GtkTextIterRecord :> GTK_TEXT_ITER_RECORD =
     in
       val new_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_text_iter_new")
+          (getSymbol "giraffe_gtk_text_iter_new")
           (cVoid --> cPtr)
 
       val copy_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_text_iter_copy")
+          (getSymbol "giraffe_gtk_text_iter_copy")
           (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_text_iter_free")
+          (getSymbol "giraffe_gtk_text_iter_free")
           (cPtr --> cVoid)
 
       val size_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_text_iter_size")
+          (getSymbol "giraffe_gtk_text_iter_size")
           (cVoid --> GUInt.PolyML.cVal)
 
       val getType_ =
         call
-          (load_sym libgtk "gtk_text_iter_get_type")
+          (getSymbol "gtk_text_iter_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

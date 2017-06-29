@@ -27,10 +27,10 @@ structure GLib : G_LIB =
     local
       open PolyMLFFI
     in
-      val access_ = call (load_sym libglib "g_access") (Utf8.PolyML.cInPtr &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
-      val asciiDigitValue_ = call (load_sym libglib "g_ascii_digit_value") (GUInt8.PolyML.cVal --> GInt32.PolyML.cVal)
+      val access_ = call (getSymbol "g_access") (Utf8.PolyML.cInPtr &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
+      val asciiDigitValue_ = call (getSymbol "g_ascii_digit_value") (GUInt8.PolyML.cVal --> GInt32.PolyML.cVal)
       val asciiDtostr_ =
-        call (load_sym libglib "g_ascii_dtostr")
+        call (getSymbol "g_ascii_dtostr")
           (
             Utf8.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
@@ -38,7 +38,7 @@ structure GLib : G_LIB =
              --> Utf8.PolyML.cOutPtr
           )
       val asciiFormatd_ =
-        call (load_sym libglib "g_ascii_formatd")
+        call (getSymbol "g_ascii_formatd")
           (
             Utf8.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
@@ -46,19 +46,19 @@ structure GLib : G_LIB =
              &&> GDouble.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val asciiStrcasecmp_ = call (load_sym libglib "g_ascii_strcasecmp") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
-      val asciiStrdown_ = call (load_sym libglib "g_ascii_strdown") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val asciiStrcasecmp_ = call (getSymbol "g_ascii_strcasecmp") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
+      val asciiStrdown_ = call (getSymbol "g_ascii_strdown") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val asciiStrncasecmp_ =
-        call (load_sym libglib "g_ascii_strncasecmp")
+        call (getSymbol "g_ascii_strncasecmp")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              --> GInt32.PolyML.cVal
           )
-      val asciiStrtod_ = call (load_sym libglib "g_ascii_strtod") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GDouble.PolyML.cVal)
+      val asciiStrtod_ = call (getSymbol "g_ascii_strtod") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GDouble.PolyML.cVal)
       val asciiStrtoll_ =
-        call (load_sym libglib "g_ascii_strtoll")
+        call (getSymbol "g_ascii_strtoll")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -66,19 +66,19 @@ structure GLib : G_LIB =
              --> GInt64.PolyML.cVal
           )
       val asciiStrtoull_ =
-        call (load_sym libglib "g_ascii_strtoull")
+        call (getSymbol "g_ascii_strtoull")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GUInt32.PolyML.cVal
              --> GUInt64.PolyML.cVal
           )
-      val asciiStrup_ = call (load_sym libglib "g_ascii_strup") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val asciiTolower_ = call (load_sym libglib "g_ascii_tolower") (GUInt8.PolyML.cVal --> GUInt8.PolyML.cVal)
-      val asciiToupper_ = call (load_sym libglib "g_ascii_toupper") (GUInt8.PolyML.cVal --> GUInt8.PolyML.cVal)
-      val asciiXdigitValue_ = call (load_sym libglib "g_ascii_xdigit_value") (GUInt8.PolyML.cVal --> GInt32.PolyML.cVal)
+      val asciiStrup_ = call (getSymbol "g_ascii_strup") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val asciiTolower_ = call (getSymbol "g_ascii_tolower") (GUInt8.PolyML.cVal --> GUInt8.PolyML.cVal)
+      val asciiToupper_ = call (getSymbol "g_ascii_toupper") (GUInt8.PolyML.cVal --> GUInt8.PolyML.cVal)
+      val asciiXdigitValue_ = call (getSymbol "g_ascii_xdigit_value") (GUInt8.PolyML.cVal --> GInt32.PolyML.cVal)
       val assertWarning_ =
-        call (load_sym libglib "g_assert_warning")
+        call (getSymbol "g_assert_warning")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -88,7 +88,7 @@ structure GLib : G_LIB =
              --> PolyMLFFI.cVoid
           )
       val assertionMessage_ =
-        call (load_sym libglib "g_assertion_message")
+        call (getSymbol "g_assertion_message")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -98,7 +98,7 @@ structure GLib : G_LIB =
              --> PolyMLFFI.cVoid
           )
       val assertionMessageCmpstr_ =
-        call (load_sym libglib "g_assertion_message_cmpstr")
+        call (getSymbol "g_assertion_message_cmpstr")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -111,7 +111,7 @@ structure GLib : G_LIB =
              --> PolyMLFFI.cVoid
           )
       val assertionMessageExpr_ =
-        call (load_sym libglib "g_assertion_message_expr")
+        call (getSymbol "g_assertion_message_expr")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -120,30 +120,30 @@ structure GLib : G_LIB =
              &&> Utf8.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
-      val base64Decode_ = call (load_sym libglib "g_base64_decode") (Utf8.PolyML.cInPtr &&> GUInt64.PolyML.cRef --> GUInt8CVectorN.PolyML.cOutPtr)
-      val base64Encode_ = call (load_sym libglib "g_base64_encode") (GUInt8CVectorN.PolyML.cInPtr &&> GUInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val basename_ = call (load_sym libglib "g_basename") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val bitNthLsf_ = call (load_sym libglib "g_bit_nth_lsf") (GUInt64.PolyML.cVal &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
-      val bitNthMsf_ = call (load_sym libglib "g_bit_nth_msf") (GUInt64.PolyML.cVal &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
-      val bitStorage_ = call (load_sym libglib "g_bit_storage") (GUInt64.PolyML.cVal --> GUInt32.PolyML.cVal)
-      val blowChunks_ = call (load_sym libglib "g_blow_chunks") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val bookmarkFileErrorQuark_ = call (load_sym libglib "g_bookmark_file_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val buildFilenamev_ = call (load_sym libglib "g_build_filenamev") (Utf8CVector.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val buildPathv_ = call (load_sym libglib "g_build_pathv") (Utf8.PolyML.cInPtr &&> Utf8CVector.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val chdir_ = call (load_sym libglib "g_chdir") (Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
+      val base64Decode_ = call (getSymbol "g_base64_decode") (Utf8.PolyML.cInPtr &&> GUInt64.PolyML.cRef --> GUInt8CVectorN.PolyML.cOutPtr)
+      val base64Encode_ = call (getSymbol "g_base64_encode") (GUInt8CVectorN.PolyML.cInPtr &&> GUInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val basename_ = call (getSymbol "g_basename") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val bitNthLsf_ = call (getSymbol "g_bit_nth_lsf") (GUInt64.PolyML.cVal &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
+      val bitNthMsf_ = call (getSymbol "g_bit_nth_msf") (GUInt64.PolyML.cVal &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
+      val bitStorage_ = call (getSymbol "g_bit_storage") (GUInt64.PolyML.cVal --> GUInt32.PolyML.cVal)
+      val blowChunks_ = call (getSymbol "g_blow_chunks") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val bookmarkFileErrorQuark_ = call (getSymbol "g_bookmark_file_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val buildFilenamev_ = call (getSymbol "g_build_filenamev") (Utf8CVector.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val buildPathv_ = call (getSymbol "g_build_pathv") (Utf8.PolyML.cInPtr &&> Utf8CVector.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val chdir_ = call (getSymbol "g_chdir") (Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
       val checkVersion_ =
-        call (load_sym libglib "glib_check_version")
+        call (getSymbol "glib_check_version")
           (
             GUInt32.PolyML.cVal
              &&> GUInt32.PolyML.cVal
              &&> GUInt32.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val checksumTypeGetLength_ = call (load_sym libglib "g_checksum_type_get_length") (GLibChecksumType.PolyML.cVal --> GInt64.PolyML.cVal)
-      val childWatchSourceNew_ = call (load_sym libglib "g_child_watch_source_new") (GInt32.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
-      val clearError_ = call (load_sym libglib "g_clear_error") (GLibErrorRecord.PolyML.cOutOptRef --> PolyMLFFI.cVoid)
+      val checksumTypeGetLength_ = call (getSymbol "g_checksum_type_get_length") (GLibChecksumType.PolyML.cVal --> GInt64.PolyML.cVal)
+      val childWatchSourceNew_ = call (getSymbol "g_child_watch_source_new") (GInt32.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
+      val clearError_ = call (getSymbol "g_clear_error") (GLibErrorRecord.PolyML.cOutOptRef --> PolyMLFFI.cVoid)
       val computeChecksumForString_ =
-        call (load_sym libglib "g_compute_checksum_for_string")
+        call (getSymbol "g_compute_checksum_for_string")
           (
             GLibChecksumType.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
@@ -151,7 +151,7 @@ structure GLib : G_LIB =
              --> Utf8.PolyML.cOutPtr
           )
       val computeHmacForString_ =
-        call (load_sym libglib "g_compute_hmac_for_string")
+        call (getSymbol "g_compute_hmac_for_string")
           (
             GLibChecksumType.PolyML.cVal
              &&> GUInt8CVectorN.PolyML.cInPtr
@@ -161,7 +161,7 @@ structure GLib : G_LIB =
              --> Utf8.PolyML.cOutPtr
           )
       val convert_ =
-        call (load_sym libglib "g_convert")
+        call (getSymbol "g_convert")
           (
             Utf8.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
@@ -172,18 +172,18 @@ structure GLib : G_LIB =
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
-      val convertErrorQuark_ = call (load_sym libglib "g_convert_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val datalistClear_ = call (load_sym libglib "g_datalist_clear") (GLibDataRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val datalistGetFlags_ = call (load_sym libglib "g_datalist_get_flags") (GLibDataRecord.PolyML.cPtr --> GUInt32.PolyML.cVal)
-      val datalistInit_ = call (load_sym libglib "g_datalist_init") (GLibDataRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val datalistSetFlags_ = call (load_sym libglib "g_datalist_set_flags") (GLibDataRecord.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val datalistUnsetFlags_ = call (load_sym libglib "g_datalist_unset_flags") (GLibDataRecord.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val dateGetDaysInMonth_ = call (load_sym libglib "g_date_get_days_in_month") (GLibDateMonth.PolyML.cVal &&> GUInt16.PolyML.cVal --> GUInt8.PolyML.cVal)
-      val dateGetMondayWeeksInYear_ = call (load_sym libglib "g_date_get_monday_weeks_in_year") (GUInt16.PolyML.cVal --> GUInt8.PolyML.cVal)
-      val dateGetSundayWeeksInYear_ = call (load_sym libglib "g_date_get_sunday_weeks_in_year") (GUInt16.PolyML.cVal --> GUInt8.PolyML.cVal)
-      val dateIsLeapYear_ = call (load_sym libglib "g_date_is_leap_year") (GUInt16.PolyML.cVal --> GBool.PolyML.cVal)
+      val convertErrorQuark_ = call (getSymbol "g_convert_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val datalistClear_ = call (getSymbol "g_datalist_clear") (GLibDataRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val datalistGetFlags_ = call (getSymbol "g_datalist_get_flags") (GLibDataRecord.PolyML.cPtr --> GUInt32.PolyML.cVal)
+      val datalistInit_ = call (getSymbol "g_datalist_init") (GLibDataRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val datalistSetFlags_ = call (getSymbol "g_datalist_set_flags") (GLibDataRecord.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val datalistUnsetFlags_ = call (getSymbol "g_datalist_unset_flags") (GLibDataRecord.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val dateGetDaysInMonth_ = call (getSymbol "g_date_get_days_in_month") (GLibDateMonth.PolyML.cVal &&> GUInt16.PolyML.cVal --> GUInt8.PolyML.cVal)
+      val dateGetMondayWeeksInYear_ = call (getSymbol "g_date_get_monday_weeks_in_year") (GUInt16.PolyML.cVal --> GUInt8.PolyML.cVal)
+      val dateGetSundayWeeksInYear_ = call (getSymbol "g_date_get_sunday_weeks_in_year") (GUInt16.PolyML.cVal --> GUInt8.PolyML.cVal)
+      val dateIsLeapYear_ = call (getSymbol "g_date_is_leap_year") (GUInt16.PolyML.cVal --> GBool.PolyML.cVal)
       val dateStrftime_ =
-        call (load_sym libglib "g_date_strftime")
+        call (getSymbol "g_date_strftime")
           (
             Utf8.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
@@ -191,31 +191,31 @@ structure GLib : G_LIB =
              &&> GLibDateRecord.PolyML.cPtr
              --> GUInt64.PolyML.cVal
           )
-      val dateValidDay_ = call (load_sym libglib "g_date_valid_day") (GUInt8.PolyML.cVal --> GBool.PolyML.cVal)
+      val dateValidDay_ = call (getSymbol "g_date_valid_day") (GUInt8.PolyML.cVal --> GBool.PolyML.cVal)
       val dateValidDmy_ =
-        call (load_sym libglib "g_date_valid_dmy")
+        call (getSymbol "g_date_valid_dmy")
           (
             GUInt8.PolyML.cVal
              &&> GLibDateMonth.PolyML.cVal
              &&> GUInt16.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val dateValidJulian_ = call (load_sym libglib "g_date_valid_julian") (GUInt32.PolyML.cVal --> GBool.PolyML.cVal)
-      val dateValidMonth_ = call (load_sym libglib "g_date_valid_month") (GLibDateMonth.PolyML.cVal --> GBool.PolyML.cVal)
-      val dateValidWeekday_ = call (load_sym libglib "g_date_valid_weekday") (GLibDateWeekday.PolyML.cVal --> GBool.PolyML.cVal)
-      val dateValidYear_ = call (load_sym libglib "g_date_valid_year") (GUInt16.PolyML.cVal --> GBool.PolyML.cVal)
+      val dateValidJulian_ = call (getSymbol "g_date_valid_julian") (GUInt32.PolyML.cVal --> GBool.PolyML.cVal)
+      val dateValidMonth_ = call (getSymbol "g_date_valid_month") (GLibDateMonth.PolyML.cVal --> GBool.PolyML.cVal)
+      val dateValidWeekday_ = call (getSymbol "g_date_valid_weekday") (GLibDateWeekday.PolyML.cVal --> GBool.PolyML.cVal)
+      val dateValidYear_ = call (getSymbol "g_date_valid_year") (GUInt16.PolyML.cVal --> GBool.PolyML.cVal)
       val dcgettext_ =
-        call (load_sym libglib "g_dcgettext")
+        call (getSymbol "g_dcgettext")
           (
             Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val dgettext_ = call (load_sym libglib "g_dgettext") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val dirMakeTmp_ = call (load_sym libglib "g_dir_make_tmp") (Utf8.PolyML.cInOptPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> Utf8.PolyML.cOutPtr)
+      val dgettext_ = call (getSymbol "g_dgettext") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val dirMakeTmp_ = call (getSymbol "g_dir_make_tmp") (Utf8.PolyML.cInOptPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> Utf8.PolyML.cOutPtr)
       val dngettext_ =
-        call (load_sym libglib "g_dngettext")
+        call (getSymbol "g_dngettext")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -224,7 +224,7 @@ structure GLib : G_LIB =
              --> Utf8.PolyML.cOutPtr
           )
       val dpgettext_ =
-        call (load_sym libglib "g_dpgettext")
+        call (getSymbol "g_dpgettext")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -232,18 +232,18 @@ structure GLib : G_LIB =
              --> Utf8.PolyML.cOutPtr
           )
       val dpgettext2_ =
-        call (load_sym libglib "g_dpgettext2")
+        call (getSymbol "g_dpgettext2")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              --> Utf8.PolyML.cOutPtr
           )
-      val dummyDecl_ = call (load_sym libglib "glib_dummy_decl") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val fileErrorFromErrno_ = call (load_sym libglib "g_file_error_from_errno") (GInt32.PolyML.cVal --> GLibFileError.PolyML.cVal)
-      val fileErrorQuark_ = call (load_sym libglib "g_file_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val dummyDecl_ = call (getSymbol "glib_dummy_decl") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val fileErrorFromErrno_ = call (getSymbol "g_file_error_from_errno") (GInt32.PolyML.cVal --> GLibFileError.PolyML.cVal)
+      val fileErrorQuark_ = call (getSymbol "g_file_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
       val fileGetContents_ =
-        call (load_sym libglib "g_file_get_contents")
+        call (getSymbol "g_file_get_contents")
           (
             Utf8.PolyML.cInPtr
              &&> GUInt8CVectorN.PolyML.cOutRef
@@ -252,16 +252,16 @@ structure GLib : G_LIB =
              --> GBool.PolyML.cVal
           )
       val fileOpenTmp_ =
-        call (load_sym libglib "g_file_open_tmp")
+        call (getSymbol "g_file_open_tmp")
           (
             Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cOutRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GInt32.PolyML.cVal
           )
-      val fileReadLink_ = call (load_sym libglib "g_file_read_link") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> Utf8.PolyML.cOutPtr)
+      val fileReadLink_ = call (getSymbol "g_file_read_link") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> Utf8.PolyML.cOutPtr)
       val fileSetContents_ =
-        call (load_sym libglib "g_file_set_contents")
+        call (getSymbol "g_file_set_contents")
           (
             Utf8.PolyML.cInPtr
              &&> GUInt8CVectorN.PolyML.cInPtr
@@ -269,11 +269,11 @@ structure GLib : G_LIB =
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val fileTest_ = call (load_sym libglib "g_file_test") (Utf8.PolyML.cInPtr &&> GLibFileTest.PolyML.cVal --> GBool.PolyML.cVal)
-      val filenameDisplayBasename_ = call (load_sym libglib "g_filename_display_basename") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val filenameDisplayName_ = call (load_sym libglib "g_filename_display_name") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val fileTest_ = call (getSymbol "g_file_test") (Utf8.PolyML.cInPtr &&> GLibFileTest.PolyML.cVal --> GBool.PolyML.cVal)
+      val filenameDisplayBasename_ = call (getSymbol "g_filename_display_basename") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val filenameDisplayName_ = call (getSymbol "g_filename_display_name") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val filenameFromUri_ =
-        call (load_sym libglib "g_filename_from_uri")
+        call (getSymbol "g_filename_from_uri")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -281,103 +281,103 @@ structure GLib : G_LIB =
              --> Utf8.PolyML.cOutPtr
           )
       val filenameToUri_ =
-        call (load_sym libglib "g_filename_to_uri")
+        call (getSymbol "g_filename_to_uri")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
-      val findProgramInPath_ = call (load_sym libglib "g_find_program_in_path") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val formatSize_ = call (load_sym libglib "g_format_size") (GUInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val formatSizeForDisplay_ = call (load_sym libglib "g_format_size_for_display") (GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val formatSizeFull_ = call (load_sym libglib "g_format_size_full") (GUInt64.PolyML.cVal &&> GLibFormatSizeFlags.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val getApplicationName_ = call (load_sym libglib "g_get_application_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getCharset_ = call (load_sym libglib "g_get_charset") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val getCurrentDir_ = call (load_sym libglib "g_get_current_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getCurrentTime_ = call (load_sym libglib "g_get_current_time") (GLibTimeValRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getEnviron_ = call (load_sym libglib "g_get_environ") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
-      val getFilenameCharsets_ = call (load_sym libglib "g_get_filename_charsets") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val getHomeDir_ = call (load_sym libglib "g_get_home_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getHostName_ = call (load_sym libglib "g_get_host_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getLanguageNames_ = call (load_sym libglib "g_get_language_names") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
-      val getLocaleVariants_ = call (load_sym libglib "g_get_locale_variants") (Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
-      val getMonotonicTime_ = call (load_sym libglib "g_get_monotonic_time") (PolyMLFFI.cVoid --> GInt64.PolyML.cVal)
-      val getPrgname_ = call (load_sym libglib "g_get_prgname") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getRealName_ = call (load_sym libglib "g_get_real_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getRealTime_ = call (load_sym libglib "g_get_real_time") (PolyMLFFI.cVoid --> GInt64.PolyML.cVal)
-      val getSystemConfigDirs_ = call (load_sym libglib "g_get_system_config_dirs") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
-      val getSystemDataDirs_ = call (load_sym libglib "g_get_system_data_dirs") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
-      val getTmpDir_ = call (load_sym libglib "g_get_tmp_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getUserCacheDir_ = call (load_sym libglib "g_get_user_cache_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getUserConfigDir_ = call (load_sym libglib "g_get_user_config_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getUserDataDir_ = call (load_sym libglib "g_get_user_data_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getUserName_ = call (load_sym libglib "g_get_user_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getUserRuntimeDir_ = call (load_sym libglib "g_get_user_runtime_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getUserSpecialDir_ = call (load_sym libglib "g_get_user_special_dir") (GLibUserDirectory.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val getenv_ = call (load_sym libglib "g_getenv") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val hookDestroy_ = call (load_sym libglib "g_hook_destroy") (GLibHookListRecord.PolyML.cPtr &&> GUInt64.PolyML.cVal --> GBool.PolyML.cVal)
-      val hookDestroyLink_ = call (load_sym libglib "g_hook_destroy_link") (GLibHookListRecord.PolyML.cPtr &&> GLibHookRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val hookFree_ = call (load_sym libglib "g_hook_free") (GLibHookListRecord.PolyML.cPtr &&> GLibHookRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val findProgramInPath_ = call (getSymbol "g_find_program_in_path") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val formatSize_ = call (getSymbol "g_format_size") (GUInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val formatSizeForDisplay_ = call (getSymbol "g_format_size_for_display") (GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val formatSizeFull_ = call (getSymbol "g_format_size_full") (GUInt64.PolyML.cVal &&> GLibFormatSizeFlags.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getApplicationName_ = call (getSymbol "g_get_application_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getCharset_ = call (getSymbol "g_get_charset") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val getCurrentDir_ = call (getSymbol "g_get_current_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getCurrentTime_ = call (getSymbol "g_get_current_time") (GLibTimeValRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getEnviron_ = call (getSymbol "g_get_environ") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val getFilenameCharsets_ = call (getSymbol "g_get_filename_charsets") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val getHomeDir_ = call (getSymbol "g_get_home_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getHostName_ = call (getSymbol "g_get_host_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getLanguageNames_ = call (getSymbol "g_get_language_names") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val getLocaleVariants_ = call (getSymbol "g_get_locale_variants") (Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getMonotonicTime_ = call (getSymbol "g_get_monotonic_time") (PolyMLFFI.cVoid --> GInt64.PolyML.cVal)
+      val getPrgname_ = call (getSymbol "g_get_prgname") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getRealName_ = call (getSymbol "g_get_real_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getRealTime_ = call (getSymbol "g_get_real_time") (PolyMLFFI.cVoid --> GInt64.PolyML.cVal)
+      val getSystemConfigDirs_ = call (getSymbol "g_get_system_config_dirs") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val getSystemDataDirs_ = call (getSymbol "g_get_system_data_dirs") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val getTmpDir_ = call (getSymbol "g_get_tmp_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getUserCacheDir_ = call (getSymbol "g_get_user_cache_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getUserConfigDir_ = call (getSymbol "g_get_user_config_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getUserDataDir_ = call (getSymbol "g_get_user_data_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getUserName_ = call (getSymbol "g_get_user_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getUserRuntimeDir_ = call (getSymbol "g_get_user_runtime_dir") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getUserSpecialDir_ = call (getSymbol "g_get_user_special_dir") (GLibUserDirectory.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getenv_ = call (getSymbol "g_getenv") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val hookDestroy_ = call (getSymbol "g_hook_destroy") (GLibHookListRecord.PolyML.cPtr &&> GUInt64.PolyML.cVal --> GBool.PolyML.cVal)
+      val hookDestroyLink_ = call (getSymbol "g_hook_destroy_link") (GLibHookListRecord.PolyML.cPtr &&> GLibHookRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val hookFree_ = call (getSymbol "g_hook_free") (GLibHookListRecord.PolyML.cPtr &&> GLibHookRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val hookInsertBefore_ =
-        call (load_sym libglib "g_hook_insert_before")
+        call (getSymbol "g_hook_insert_before")
           (
             GLibHookListRecord.PolyML.cPtr
              &&> GLibHookRecord.PolyML.cPtr
              &&> GLibHookRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val hookPrepend_ = call (load_sym libglib "g_hook_prepend") (GLibHookListRecord.PolyML.cPtr &&> GLibHookRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val hookUnref_ = call (load_sym libglib "g_hook_unref") (GLibHookListRecord.PolyML.cPtr &&> GLibHookRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val hostnameIsAsciiEncoded_ = call (load_sym libglib "g_hostname_is_ascii_encoded") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val hostnameIsIpAddress_ = call (load_sym libglib "g_hostname_is_ip_address") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val hostnameIsNonAscii_ = call (load_sym libglib "g_hostname_is_non_ascii") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val hostnameToAscii_ = call (load_sym libglib "g_hostname_to_ascii") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val hostnameToUnicode_ = call (load_sym libglib "g_hostname_to_unicode") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val idleSourceNew_ = call (load_sym libglib "g_idle_source_new") (PolyMLFFI.cVoid --> GLibSourceRecord.PolyML.cPtr)
-      val internStaticString_ = call (load_sym libglib "g_intern_static_string") (Utf8.PolyML.cInOptPtr --> Utf8.PolyML.cOutPtr)
-      val internString_ = call (load_sym libglib "g_intern_string") (Utf8.PolyML.cInOptPtr --> Utf8.PolyML.cOutPtr)
-      val ioChannelErrorFromErrno_ = call (load_sym libglib "g_io_channel_error_from_errno") (GInt32.PolyML.cVal --> GLibIOChannelError.PolyML.cVal)
-      val ioChannelErrorQuark_ = call (load_sym libglib "g_io_channel_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val ioCreateWatch_ = call (load_sym libglib "g_io_create_watch") (GLibIOChannelRecord.PolyML.cPtr &&> GLibIOCondition.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
-      val keyFileErrorQuark_ = call (load_sym libglib "g_key_file_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val listPopAllocator_ = call (load_sym libglib "g_list_pop_allocator") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val listenv_ = call (load_sym libglib "g_listenv") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
-      val logRemoveHandler_ = call (load_sym libglib "g_log_remove_handler") (Utf8.PolyML.cInPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val logSetAlwaysFatal_ = call (load_sym libglib "g_log_set_always_fatal") (GLibLogLevelFlags.PolyML.cVal --> GLibLogLevelFlags.PolyML.cVal)
-      val logSetFatalMask_ = call (load_sym libglib "g_log_set_fatal_mask") (Utf8.PolyML.cInPtr &&> GLibLogLevelFlags.PolyML.cVal --> GLibLogLevelFlags.PolyML.cVal)
-      val mainContextDefault_ = call (load_sym libglib "g_main_context_default") (PolyMLFFI.cVoid --> GLibMainContextRecord.PolyML.cPtr)
-      val mainContextGetThreadDefault_ = call (load_sym libglib "g_main_context_get_thread_default") (PolyMLFFI.cVoid --> GLibMainContextRecord.PolyML.cPtr)
-      val mainCurrentSource_ = call (load_sym libglib "g_main_current_source") (PolyMLFFI.cVoid --> GLibSourceRecord.PolyML.cPtr)
-      val mainDepth_ = call (load_sym libglib "g_main_depth") (PolyMLFFI.cVoid --> GInt32.PolyML.cVal)
-      val markupErrorQuark_ = call (load_sym libglib "g_markup_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val markupEscapeText_ = call (load_sym libglib "g_markup_escape_text") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val memChunkInfo_ = call (load_sym libglib "g_mem_chunk_info") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val memIsSystemMalloc_ = call (load_sym libglib "g_mem_is_system_malloc") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
-      val memProfile_ = call (load_sym libglib "g_mem_profile") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val memSetVtable_ = call (load_sym libglib "g_mem_set_vtable") (GLibMemVTableRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val mkdirWithParents_ = call (load_sym libglib "g_mkdir_with_parents") (Utf8.PolyML.cInPtr &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
-      val mkdtemp_ = call (load_sym libglib "g_mkdtemp") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val mkdtempFull_ = call (load_sym libglib "g_mkdtemp_full") (Utf8.PolyML.cInPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val mkstemp_ = call (load_sym libglib "g_mkstemp") (Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
+      val hookPrepend_ = call (getSymbol "g_hook_prepend") (GLibHookListRecord.PolyML.cPtr &&> GLibHookRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val hookUnref_ = call (getSymbol "g_hook_unref") (GLibHookListRecord.PolyML.cPtr &&> GLibHookRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val hostnameIsAsciiEncoded_ = call (getSymbol "g_hostname_is_ascii_encoded") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val hostnameIsIpAddress_ = call (getSymbol "g_hostname_is_ip_address") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val hostnameIsNonAscii_ = call (getSymbol "g_hostname_is_non_ascii") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val hostnameToAscii_ = call (getSymbol "g_hostname_to_ascii") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val hostnameToUnicode_ = call (getSymbol "g_hostname_to_unicode") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val idleSourceNew_ = call (getSymbol "g_idle_source_new") (PolyMLFFI.cVoid --> GLibSourceRecord.PolyML.cPtr)
+      val internStaticString_ = call (getSymbol "g_intern_static_string") (Utf8.PolyML.cInOptPtr --> Utf8.PolyML.cOutPtr)
+      val internString_ = call (getSymbol "g_intern_string") (Utf8.PolyML.cInOptPtr --> Utf8.PolyML.cOutPtr)
+      val ioChannelErrorFromErrno_ = call (getSymbol "g_io_channel_error_from_errno") (GInt32.PolyML.cVal --> GLibIOChannelError.PolyML.cVal)
+      val ioChannelErrorQuark_ = call (getSymbol "g_io_channel_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val ioCreateWatch_ = call (getSymbol "g_io_create_watch") (GLibIOChannelRecord.PolyML.cPtr &&> GLibIOCondition.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
+      val keyFileErrorQuark_ = call (getSymbol "g_key_file_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val listPopAllocator_ = call (getSymbol "g_list_pop_allocator") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val listenv_ = call (getSymbol "g_listenv") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val logRemoveHandler_ = call (getSymbol "g_log_remove_handler") (Utf8.PolyML.cInPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val logSetAlwaysFatal_ = call (getSymbol "g_log_set_always_fatal") (GLibLogLevelFlags.PolyML.cVal --> GLibLogLevelFlags.PolyML.cVal)
+      val logSetFatalMask_ = call (getSymbol "g_log_set_fatal_mask") (Utf8.PolyML.cInPtr &&> GLibLogLevelFlags.PolyML.cVal --> GLibLogLevelFlags.PolyML.cVal)
+      val mainContextDefault_ = call (getSymbol "g_main_context_default") (PolyMLFFI.cVoid --> GLibMainContextRecord.PolyML.cPtr)
+      val mainContextGetThreadDefault_ = call (getSymbol "g_main_context_get_thread_default") (PolyMLFFI.cVoid --> GLibMainContextRecord.PolyML.cPtr)
+      val mainCurrentSource_ = call (getSymbol "g_main_current_source") (PolyMLFFI.cVoid --> GLibSourceRecord.PolyML.cPtr)
+      val mainDepth_ = call (getSymbol "g_main_depth") (PolyMLFFI.cVoid --> GInt32.PolyML.cVal)
+      val markupErrorQuark_ = call (getSymbol "g_markup_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val markupEscapeText_ = call (getSymbol "g_markup_escape_text") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val memChunkInfo_ = call (getSymbol "g_mem_chunk_info") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val memIsSystemMalloc_ = call (getSymbol "g_mem_is_system_malloc") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
+      val memProfile_ = call (getSymbol "g_mem_profile") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val memSetVtable_ = call (getSymbol "g_mem_set_vtable") (GLibMemVTableRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val mkdirWithParents_ = call (getSymbol "g_mkdir_with_parents") (Utf8.PolyML.cInPtr &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
+      val mkdtemp_ = call (getSymbol "g_mkdtemp") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val mkdtempFull_ = call (getSymbol "g_mkdtemp_full") (Utf8.PolyML.cInPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val mkstemp_ = call (getSymbol "g_mkstemp") (Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
       val mkstempFull_ =
-        call (load_sym libglib "g_mkstemp_full")
+        call (getSymbol "g_mkstemp_full")
           (
             Utf8.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
              --> GInt32.PolyML.cVal
           )
-      val nodePopAllocator_ = call (load_sym libglib "g_node_pop_allocator") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val onErrorQuery_ = call (load_sym libglib "g_on_error_query") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val onErrorStackTrace_ = call (load_sym libglib "g_on_error_stack_trace") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val optionErrorQuark_ = call (load_sym libglib "g_option_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val pathGetBasename_ = call (load_sym libglib "g_path_get_basename") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val pathGetDirname_ = call (load_sym libglib "g_path_get_dirname") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val pathIsAbsolute_ = call (load_sym libglib "g_path_is_absolute") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val pathSkipRoot_ = call (load_sym libglib "g_path_skip_root") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val nodePopAllocator_ = call (getSymbol "g_node_pop_allocator") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val onErrorQuery_ = call (getSymbol "g_on_error_query") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val onErrorStackTrace_ = call (getSymbol "g_on_error_stack_trace") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val optionErrorQuark_ = call (getSymbol "g_option_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val pathGetBasename_ = call (getSymbol "g_path_get_basename") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val pathGetDirname_ = call (getSymbol "g_path_get_dirname") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val pathIsAbsolute_ = call (getSymbol "g_path_is_absolute") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val pathSkipRoot_ = call (getSymbol "g_path_skip_root") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val patternMatch_ =
-        call (load_sym libglib "g_pattern_match")
+        call (getSymbol "g_pattern_match")
           (
             GLibPatternSpecRecord.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
@@ -385,37 +385,37 @@ structure GLib : G_LIB =
              &&> Utf8.PolyML.cInPtr
              --> GBool.PolyML.cVal
           )
-      val patternMatchSimple_ = call (load_sym libglib "g_pattern_match_simple") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val patternMatchString_ = call (load_sym libglib "g_pattern_match_string") (GLibPatternSpecRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val patternMatchSimple_ = call (getSymbol "g_pattern_match_simple") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val patternMatchString_ = call (getSymbol "g_pattern_match_string") (GLibPatternSpecRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val poll_ =
-        call (load_sym libglib "g_poll")
+        call (getSymbol "g_poll")
           (
             GLibPollFDRecord.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
              --> GInt32.PolyML.cVal
           )
-      val quarkFromStaticString_ = call (load_sym libglib "g_quark_from_static_string") (Utf8.PolyML.cInOptPtr --> GUInt32.PolyML.cVal)
-      val quarkFromString_ = call (load_sym libglib "g_quark_from_string") (Utf8.PolyML.cInOptPtr --> GUInt32.PolyML.cVal)
-      val quarkToString_ = call (load_sym libglib "g_quark_to_string") (GUInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val quarkTryString_ = call (load_sym libglib "g_quark_try_string") (Utf8.PolyML.cInOptPtr --> GUInt32.PolyML.cVal)
-      val randomDouble_ = call (load_sym libglib "g_random_double") (PolyMLFFI.cVoid --> GDouble.PolyML.cVal)
-      val randomDoubleRange_ = call (load_sym libglib "g_random_double_range") (GDouble.PolyML.cVal &&> GDouble.PolyML.cVal --> GDouble.PolyML.cVal)
-      val randomInt_ = call (load_sym libglib "g_random_int") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val randomIntRange_ = call (load_sym libglib "g_random_int_range") (GInt32.PolyML.cVal &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
-      val randomSetSeed_ = call (load_sym libglib "g_random_set_seed") (GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val quarkFromStaticString_ = call (getSymbol "g_quark_from_static_string") (Utf8.PolyML.cInOptPtr --> GUInt32.PolyML.cVal)
+      val quarkFromString_ = call (getSymbol "g_quark_from_string") (Utf8.PolyML.cInOptPtr --> GUInt32.PolyML.cVal)
+      val quarkToString_ = call (getSymbol "g_quark_to_string") (GUInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val quarkTryString_ = call (getSymbol "g_quark_try_string") (Utf8.PolyML.cInOptPtr --> GUInt32.PolyML.cVal)
+      val randomDouble_ = call (getSymbol "g_random_double") (PolyMLFFI.cVoid --> GDouble.PolyML.cVal)
+      val randomDoubleRange_ = call (getSymbol "g_random_double_range") (GDouble.PolyML.cVal &&> GDouble.PolyML.cVal --> GDouble.PolyML.cVal)
+      val randomInt_ = call (getSymbol "g_random_int") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val randomIntRange_ = call (getSymbol "g_random_int_range") (GInt32.PolyML.cVal &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
+      val randomSetSeed_ = call (getSymbol "g_random_set_seed") (GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val regexCheckReplacement_ =
-        call (load_sym libglib "g_regex_check_replacement")
+        call (getSymbol "g_regex_check_replacement")
           (
             Utf8.PolyML.cInPtr
              &&> GBool.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val regexErrorQuark_ = call (load_sym libglib "g_regex_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val regexEscapeNul_ = call (load_sym libglib "g_regex_escape_nul") (Utf8.PolyML.cInPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val regexErrorQuark_ = call (getSymbol "g_regex_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val regexEscapeNul_ = call (getSymbol "g_regex_escape_nul") (Utf8.PolyML.cInPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val regexMatchSimple_ =
-        call (load_sym libglib "g_regex_match_simple")
+        call (getSymbol "g_regex_match_simple")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -423,41 +423,41 @@ structure GLib : G_LIB =
              &&> GLibRegexMatchFlags.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val reloadUserSpecialDirsCache_ = call (load_sym libglib "g_reload_user_special_dirs_cache") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val reloadUserSpecialDirsCache_ = call (getSymbol "g_reload_user_special_dirs_cache") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
       val returnIfFailWarning_ =
-        call (load_sym libglib "g_return_if_fail_warning")
+        call (getSymbol "g_return_if_fail_warning")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
-      val rmdir_ = call (load_sym libglib "g_rmdir") (Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
-      val sequenceMove_ = call (load_sym libglib "g_sequence_move") (GLibSequenceIterRecord.PolyML.cPtr &&> GLibSequenceIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val rmdir_ = call (getSymbol "g_rmdir") (Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
+      val sequenceMove_ = call (getSymbol "g_sequence_move") (GLibSequenceIterRecord.PolyML.cPtr &&> GLibSequenceIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val sequenceMoveRange_ =
-        call (load_sym libglib "g_sequence_move_range")
+        call (getSymbol "g_sequence_move_range")
           (
             GLibSequenceIterRecord.PolyML.cPtr
              &&> GLibSequenceIterRecord.PolyML.cPtr
              &&> GLibSequenceIterRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val sequenceRemove_ = call (load_sym libglib "g_sequence_remove") (GLibSequenceIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val sequenceRemoveRange_ = call (load_sym libglib "g_sequence_remove_range") (GLibSequenceIterRecord.PolyML.cPtr &&> GLibSequenceIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val sequenceSwap_ = call (load_sym libglib "g_sequence_swap") (GLibSequenceIterRecord.PolyML.cPtr &&> GLibSequenceIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setApplicationName_ = call (load_sym libglib "g_set_application_name") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setPrgname_ = call (load_sym libglib "g_set_prgname") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val sequenceRemove_ = call (getSymbol "g_sequence_remove") (GLibSequenceIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val sequenceRemoveRange_ = call (getSymbol "g_sequence_remove_range") (GLibSequenceIterRecord.PolyML.cPtr &&> GLibSequenceIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val sequenceSwap_ = call (getSymbol "g_sequence_swap") (GLibSequenceIterRecord.PolyML.cPtr &&> GLibSequenceIterRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setApplicationName_ = call (getSymbol "g_set_application_name") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setPrgname_ = call (getSymbol "g_set_prgname") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val setenv_ =
-        call (load_sym libglib "g_setenv")
+        call (getSymbol "g_setenv")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GBool.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val shellErrorQuark_ = call (load_sym libglib "g_shell_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val shellErrorQuark_ = call (getSymbol "g_shell_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
       val shellParseArgv_ =
-        call (load_sym libglib "g_shell_parse_argv")
+        call (getSymbol "g_shell_parse_argv")
           (
             Utf8.PolyML.cInPtr
              &&> GInt32.PolyML.cRef
@@ -465,17 +465,17 @@ structure GLib : G_LIB =
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val shellQuote_ = call (load_sym libglib "g_shell_quote") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val shellUnquote_ = call (load_sym libglib "g_shell_unquote") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> Utf8.PolyML.cOutPtr)
-      val sliceGetConfig_ = call (load_sym libglib "g_slice_get_config") (GLibSliceConfig.PolyML.cVal --> GInt64.PolyML.cVal)
-      val sliceSetConfig_ = call (load_sym libglib "g_slice_set_config") (GLibSliceConfig.PolyML.cVal &&> GInt64.PolyML.cVal --> PolyMLFFI.cVoid)
-      val sourceRemove_ = call (load_sym libglib "g_source_remove") (GUInt32.PolyML.cVal --> GBool.PolyML.cVal)
-      val sourceSetNameById_ = call (load_sym libglib "g_source_set_name_by_id") (GUInt32.PolyML.cVal &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val spacedPrimesClosest_ = call (load_sym libglib "g_spaced_primes_closest") (GUInt32.PolyML.cVal --> GUInt32.PolyML.cVal)
-      val spawnClosePid_ = call (load_sym libglib "g_spawn_close_pid") (GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val spawnCommandLineAsync_ = call (load_sym libglib "g_spawn_command_line_async") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
+      val shellQuote_ = call (getSymbol "g_shell_quote") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val shellUnquote_ = call (getSymbol "g_shell_unquote") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> Utf8.PolyML.cOutPtr)
+      val sliceGetConfig_ = call (getSymbol "g_slice_get_config") (GLibSliceConfig.PolyML.cVal --> GInt64.PolyML.cVal)
+      val sliceSetConfig_ = call (getSymbol "g_slice_set_config") (GLibSliceConfig.PolyML.cVal &&> GInt64.PolyML.cVal --> PolyMLFFI.cVoid)
+      val sourceRemove_ = call (getSymbol "g_source_remove") (GUInt32.PolyML.cVal --> GBool.PolyML.cVal)
+      val sourceSetNameById_ = call (getSymbol "g_source_set_name_by_id") (GUInt32.PolyML.cVal &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val spacedPrimesClosest_ = call (getSymbol "g_spaced_primes_closest") (GUInt32.PolyML.cVal --> GUInt32.PolyML.cVal)
+      val spawnClosePid_ = call (getSymbol "g_spawn_close_pid") (GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val spawnCommandLineAsync_ = call (getSymbol "g_spawn_command_line_async") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val spawnCommandLineSync_ =
-        call (load_sym libglib "g_spawn_command_line_sync")
+        call (getSymbol "g_spawn_command_line_sync")
           (
             Utf8.PolyML.cInPtr
              &&> GUInt8CVector.PolyML.cOutRef
@@ -484,43 +484,43 @@ structure GLib : G_LIB =
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val spawnErrorQuark_ = call (load_sym libglib "g_spawn_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val stpcpy_ = call (load_sym libglib "g_stpcpy") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val strHasPrefix_ = call (load_sym libglib "g_str_has_prefix") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val strHasSuffix_ = call (load_sym libglib "g_str_has_suffix") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val spawnErrorQuark_ = call (getSymbol "g_spawn_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val stpcpy_ = call (getSymbol "g_stpcpy") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val strHasPrefix_ = call (getSymbol "g_str_has_prefix") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val strHasSuffix_ = call (getSymbol "g_str_has_suffix") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val strcanon_ =
-        call (load_sym libglib "g_strcanon")
+        call (getSymbol "g_strcanon")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GUInt8.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val strcasecmp_ = call (load_sym libglib "g_strcasecmp") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
-      val strchomp_ = call (load_sym libglib "g_strchomp") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val strchug_ = call (load_sym libglib "g_strchug") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val strcmp0_ = call (load_sym libglib "g_strcmp0") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
-      val strcompress_ = call (load_sym libglib "g_strcompress") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val strcasecmp_ = call (getSymbol "g_strcasecmp") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
+      val strchomp_ = call (getSymbol "g_strchomp") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val strchug_ = call (getSymbol "g_strchug") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val strcmp0_ = call (getSymbol "g_strcmp0") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
+      val strcompress_ = call (getSymbol "g_strcompress") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val strdelimit_ =
-        call (load_sym libglib "g_strdelimit")
+        call (getSymbol "g_strdelimit")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GUInt8.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val strdown_ = call (load_sym libglib "g_strdown") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val strdup_ = call (load_sym libglib "g_strdup") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val strerror_ = call (load_sym libglib "g_strerror") (GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val strescape_ = call (load_sym libglib "g_strescape") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val strfreev_ = call (load_sym libglib "g_strfreev") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val stringNew_ = call (load_sym libglib "g_string_new") (Utf8.PolyML.cInPtr --> GLibStringRecord.PolyML.cPtr)
-      val stringNewLen_ = call (load_sym libglib "g_string_new_len") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
-      val stringSizedNew_ = call (load_sym libglib "g_string_sized_new") (GUInt64.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
-      val stripContext_ = call (load_sym libglib "g_strip_context") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val strjoinv_ = call (load_sym libglib "g_strjoinv") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val strdown_ = call (getSymbol "g_strdown") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val strdup_ = call (getSymbol "g_strdup") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val strerror_ = call (getSymbol "g_strerror") (GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val strescape_ = call (getSymbol "g_strescape") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val strfreev_ = call (getSymbol "g_strfreev") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val stringNew_ = call (getSymbol "g_string_new") (Utf8.PolyML.cInPtr --> GLibStringRecord.PolyML.cPtr)
+      val stringNewLen_ = call (getSymbol "g_string_new_len") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
+      val stringSizedNew_ = call (getSymbol "g_string_sized_new") (GUInt64.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
+      val stripContext_ = call (getSymbol "g_strip_context") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val strjoinv_ = call (getSymbol "g_strjoinv") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val strlcat_ =
-        call (load_sym libglib "g_strlcat")
+        call (getSymbol "g_strlcat")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -528,7 +528,7 @@ structure GLib : G_LIB =
              --> GUInt64.PolyML.cVal
           )
       val strlcpy_ =
-        call (load_sym libglib "g_strlcpy")
+        call (getSymbol "g_strlcpy")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -536,52 +536,52 @@ structure GLib : G_LIB =
              --> GUInt64.PolyML.cVal
           )
       val strncasecmp_ =
-        call (load_sym libglib "g_strncasecmp")
+        call (getSymbol "g_strncasecmp")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GUInt32.PolyML.cVal
              --> GInt32.PolyML.cVal
           )
-      val strndup_ = call (load_sym libglib "g_strndup") (Utf8.PolyML.cInPtr &&> GUInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val strnfill_ = call (load_sym libglib "g_strnfill") (GUInt64.PolyML.cVal &&> GUInt8.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val strreverse_ = call (load_sym libglib "g_strreverse") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val strrstr_ = call (load_sym libglib "g_strrstr") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val strndup_ = call (getSymbol "g_strndup") (Utf8.PolyML.cInPtr &&> GUInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val strnfill_ = call (getSymbol "g_strnfill") (GUInt64.PolyML.cVal &&> GUInt8.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val strreverse_ = call (getSymbol "g_strreverse") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val strrstr_ = call (getSymbol "g_strrstr") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val strrstrLen_ =
-        call (load_sym libglib "g_strrstr_len")
+        call (getSymbol "g_strrstr_len")
           (
             Utf8.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
              --> Utf8.PolyML.cOutPtr
           )
-      val strsignal_ = call (load_sym libglib "g_strsignal") (GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val strsignal_ = call (getSymbol "g_strsignal") (GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val strstrLen_ =
-        call (load_sym libglib "g_strstr_len")
+        call (getSymbol "g_strstr_len")
           (
             Utf8.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
              --> Utf8.PolyML.cOutPtr
           )
-      val strtod_ = call (load_sym libglib "g_strtod") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GDouble.PolyML.cVal)
-      val strup_ = call (load_sym libglib "g_strup") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val strvLength_ = call (load_sym libglib "g_strv_length") (Utf8.PolyML.cInPtr --> GUInt32.PolyML.cVal)
-      val testBug_ = call (load_sym libglib "g_test_bug") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val testBugBase_ = call (load_sym libglib "g_test_bug_base") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val testFail_ = call (load_sym libglib "g_test_fail") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val testLogTypeName_ = call (load_sym libglib "g_test_log_type_name") (GLibTestLogType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val testRandDouble_ = call (load_sym libglib "g_test_rand_double") (PolyMLFFI.cVoid --> GDouble.PolyML.cVal)
-      val testRandDoubleRange_ = call (load_sym libglib "g_test_rand_double_range") (GDouble.PolyML.cVal &&> GDouble.PolyML.cVal --> GDouble.PolyML.cVal)
-      val testRandInt_ = call (load_sym libglib "g_test_rand_int") (PolyMLFFI.cVoid --> GInt32.PolyML.cVal)
-      val testRandIntRange_ = call (load_sym libglib "g_test_rand_int_range") (GInt32.PolyML.cVal &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
-      val testRun_ = call (load_sym libglib "g_test_run") (PolyMLFFI.cVoid --> GInt32.PolyML.cVal)
-      val testRunSuite_ = call (load_sym libglib "g_test_run_suite") (GLibTestSuiteRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val testTimerElapsed_ = call (load_sym libglib "g_test_timer_elapsed") (PolyMLFFI.cVoid --> GDouble.PolyML.cVal)
-      val testTimerLast_ = call (load_sym libglib "g_test_timer_last") (PolyMLFFI.cVoid --> GDouble.PolyML.cVal)
-      val testTimerStart_ = call (load_sym libglib "g_test_timer_start") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val strtod_ = call (getSymbol "g_strtod") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GDouble.PolyML.cVal)
+      val strup_ = call (getSymbol "g_strup") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val strvLength_ = call (getSymbol "g_strv_length") (Utf8.PolyML.cInPtr --> GUInt32.PolyML.cVal)
+      val testBug_ = call (getSymbol "g_test_bug") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val testBugBase_ = call (getSymbol "g_test_bug_base") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val testFail_ = call (getSymbol "g_test_fail") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val testLogTypeName_ = call (getSymbol "g_test_log_type_name") (GLibTestLogType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val testRandDouble_ = call (getSymbol "g_test_rand_double") (PolyMLFFI.cVoid --> GDouble.PolyML.cVal)
+      val testRandDoubleRange_ = call (getSymbol "g_test_rand_double_range") (GDouble.PolyML.cVal &&> GDouble.PolyML.cVal --> GDouble.PolyML.cVal)
+      val testRandInt_ = call (getSymbol "g_test_rand_int") (PolyMLFFI.cVoid --> GInt32.PolyML.cVal)
+      val testRandIntRange_ = call (getSymbol "g_test_rand_int_range") (GInt32.PolyML.cVal &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
+      val testRun_ = call (getSymbol "g_test_run") (PolyMLFFI.cVoid --> GInt32.PolyML.cVal)
+      val testRunSuite_ = call (getSymbol "g_test_run_suite") (GLibTestSuiteRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val testTimerElapsed_ = call (getSymbol "g_test_timer_elapsed") (PolyMLFFI.cVoid --> GDouble.PolyML.cVal)
+      val testTimerLast_ = call (getSymbol "g_test_timer_last") (PolyMLFFI.cVoid --> GDouble.PolyML.cVal)
+      val testTimerStart_ = call (getSymbol "g_test_timer_start") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
       val testTrapAssertions_ =
-        call (load_sym libglib "g_test_trap_assertions")
+        call (getSymbol "g_test_trap_assertions")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -591,105 +591,105 @@ structure GLib : G_LIB =
              &&> Utf8.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
-      val testTrapFork_ = call (load_sym libglib "g_test_trap_fork") (GUInt64.PolyML.cVal &&> GLibTestTrapFlags.PolyML.cVal --> GBool.PolyML.cVal)
-      val testTrapHasPassed_ = call (load_sym libglib "g_test_trap_has_passed") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
-      val testTrapReachedTimeout_ = call (load_sym libglib "g_test_trap_reached_timeout") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
-      val threadErrorQuark_ = call (load_sym libglib "g_thread_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val threadGetInitialized_ = call (load_sym libglib "g_thread_get_initialized") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
-      val threadInit_ = call (load_sym libglib "g_thread_init") (GLibThreadFunctionsRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val threadInitWithErrorcheckMutexes_ = call (load_sym libglib "g_thread_init_with_errorcheck_mutexes") (GLibThreadFunctionsRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val threadPoolGetMaxIdleTime_ = call (load_sym libglib "g_thread_pool_get_max_idle_time") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val threadPoolGetMaxUnusedThreads_ = call (load_sym libglib "g_thread_pool_get_max_unused_threads") (PolyMLFFI.cVoid --> GInt32.PolyML.cVal)
-      val threadPoolGetNumUnusedThreads_ = call (load_sym libglib "g_thread_pool_get_num_unused_threads") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val threadPoolSetMaxIdleTime_ = call (load_sym libglib "g_thread_pool_set_max_idle_time") (GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val threadPoolSetMaxUnusedThreads_ = call (load_sym libglib "g_thread_pool_set_max_unused_threads") (GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val threadPoolStopUnusedThreads_ = call (load_sym libglib "g_thread_pool_stop_unused_threads") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val timeValFromIso8601_ = call (load_sym libglib "g_time_val_from_iso8601") (Utf8.PolyML.cInPtr &&> GLibTimeValRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val timeoutSourceNew_ = call (load_sym libglib "g_timeout_source_new") (GUInt32.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
-      val timeoutSourceNewSeconds_ = call (load_sym libglib "g_timeout_source_new_seconds") (GUInt32.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
-      val trashStackHeight_ = call (load_sym libglib "g_trash_stack_height") (GLibTrashStackRecord.PolyML.cPtr --> GUInt32.PolyML.cVal)
-      val unicharBreakType_ = call (load_sym libglib "g_unichar_break_type") (GChar.PolyML.cVal --> GLibUnicodeBreakType.PolyML.cVal)
-      val unicharCombiningClass_ = call (load_sym libglib "g_unichar_combining_class") (GChar.PolyML.cVal --> GInt32.PolyML.cVal)
-      val unicharDigitValue_ = call (load_sym libglib "g_unichar_digit_value") (GChar.PolyML.cVal --> GInt32.PolyML.cVal)
-      val unicharGetScript_ = call (load_sym libglib "g_unichar_get_script") (GChar.PolyML.cVal --> GLibUnicodeScript.PolyML.cVal)
-      val unicharIsalnum_ = call (load_sym libglib "g_unichar_isalnum") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIsalpha_ = call (load_sym libglib "g_unichar_isalpha") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIscntrl_ = call (load_sym libglib "g_unichar_iscntrl") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIsdefined_ = call (load_sym libglib "g_unichar_isdefined") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIsdigit_ = call (load_sym libglib "g_unichar_isdigit") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIsgraph_ = call (load_sym libglib "g_unichar_isgraph") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIslower_ = call (load_sym libglib "g_unichar_islower") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIsmark_ = call (load_sym libglib "g_unichar_ismark") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIsprint_ = call (load_sym libglib "g_unichar_isprint") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIspunct_ = call (load_sym libglib "g_unichar_ispunct") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIsspace_ = call (load_sym libglib "g_unichar_isspace") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIstitle_ = call (load_sym libglib "g_unichar_istitle") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIsupper_ = call (load_sym libglib "g_unichar_isupper") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIswide_ = call (load_sym libglib "g_unichar_iswide") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIswideCjk_ = call (load_sym libglib "g_unichar_iswide_cjk") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIsxdigit_ = call (load_sym libglib "g_unichar_isxdigit") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharIszerowidth_ = call (load_sym libglib "g_unichar_iszerowidth") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharToUtf8_ = call (load_sym libglib "g_unichar_to_utf8") (GChar.PolyML.cVal &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
-      val unicharTolower_ = call (load_sym libglib "g_unichar_tolower") (GChar.PolyML.cVal --> GChar.PolyML.cVal)
-      val unicharTotitle_ = call (load_sym libglib "g_unichar_totitle") (GChar.PolyML.cVal --> GChar.PolyML.cVal)
-      val unicharToupper_ = call (load_sym libglib "g_unichar_toupper") (GChar.PolyML.cVal --> GChar.PolyML.cVal)
-      val unicharType_ = call (load_sym libglib "g_unichar_type") (GChar.PolyML.cVal --> GLibUnicodeType.PolyML.cVal)
-      val unicharValidate_ = call (load_sym libglib "g_unichar_validate") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
-      val unicharXdigitValue_ = call (load_sym libglib "g_unichar_xdigit_value") (GChar.PolyML.cVal --> GInt32.PolyML.cVal)
-      val unicodeScriptFromIso15924_ = call (load_sym libglib "g_unicode_script_from_iso15924") (GUInt32.PolyML.cVal --> GLibUnicodeScript.PolyML.cVal)
-      val unicodeScriptToIso15924_ = call (load_sym libglib "g_unicode_script_to_iso15924") (GLibUnicodeScript.PolyML.cVal --> GUInt32.PolyML.cVal)
-      val unlink_ = call (load_sym libglib "g_unlink") (Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
-      val unsetenv_ = call (load_sym libglib "g_unsetenv") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val testTrapFork_ = call (getSymbol "g_test_trap_fork") (GUInt64.PolyML.cVal &&> GLibTestTrapFlags.PolyML.cVal --> GBool.PolyML.cVal)
+      val testTrapHasPassed_ = call (getSymbol "g_test_trap_has_passed") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
+      val testTrapReachedTimeout_ = call (getSymbol "g_test_trap_reached_timeout") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
+      val threadErrorQuark_ = call (getSymbol "g_thread_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val threadGetInitialized_ = call (getSymbol "g_thread_get_initialized") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
+      val threadInit_ = call (getSymbol "g_thread_init") (GLibThreadFunctionsRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val threadInitWithErrorcheckMutexes_ = call (getSymbol "g_thread_init_with_errorcheck_mutexes") (GLibThreadFunctionsRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val threadPoolGetMaxIdleTime_ = call (getSymbol "g_thread_pool_get_max_idle_time") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val threadPoolGetMaxUnusedThreads_ = call (getSymbol "g_thread_pool_get_max_unused_threads") (PolyMLFFI.cVoid --> GInt32.PolyML.cVal)
+      val threadPoolGetNumUnusedThreads_ = call (getSymbol "g_thread_pool_get_num_unused_threads") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val threadPoolSetMaxIdleTime_ = call (getSymbol "g_thread_pool_set_max_idle_time") (GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val threadPoolSetMaxUnusedThreads_ = call (getSymbol "g_thread_pool_set_max_unused_threads") (GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val threadPoolStopUnusedThreads_ = call (getSymbol "g_thread_pool_stop_unused_threads") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val timeValFromIso8601_ = call (getSymbol "g_time_val_from_iso8601") (Utf8.PolyML.cInPtr &&> GLibTimeValRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val timeoutSourceNew_ = call (getSymbol "g_timeout_source_new") (GUInt32.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
+      val timeoutSourceNewSeconds_ = call (getSymbol "g_timeout_source_new_seconds") (GUInt32.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
+      val trashStackHeight_ = call (getSymbol "g_trash_stack_height") (GLibTrashStackRecord.PolyML.cPtr --> GUInt32.PolyML.cVal)
+      val unicharBreakType_ = call (getSymbol "g_unichar_break_type") (GChar.PolyML.cVal --> GLibUnicodeBreakType.PolyML.cVal)
+      val unicharCombiningClass_ = call (getSymbol "g_unichar_combining_class") (GChar.PolyML.cVal --> GInt32.PolyML.cVal)
+      val unicharDigitValue_ = call (getSymbol "g_unichar_digit_value") (GChar.PolyML.cVal --> GInt32.PolyML.cVal)
+      val unicharGetScript_ = call (getSymbol "g_unichar_get_script") (GChar.PolyML.cVal --> GLibUnicodeScript.PolyML.cVal)
+      val unicharIsalnum_ = call (getSymbol "g_unichar_isalnum") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIsalpha_ = call (getSymbol "g_unichar_isalpha") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIscntrl_ = call (getSymbol "g_unichar_iscntrl") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIsdefined_ = call (getSymbol "g_unichar_isdefined") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIsdigit_ = call (getSymbol "g_unichar_isdigit") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIsgraph_ = call (getSymbol "g_unichar_isgraph") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIslower_ = call (getSymbol "g_unichar_islower") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIsmark_ = call (getSymbol "g_unichar_ismark") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIsprint_ = call (getSymbol "g_unichar_isprint") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIspunct_ = call (getSymbol "g_unichar_ispunct") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIsspace_ = call (getSymbol "g_unichar_isspace") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIstitle_ = call (getSymbol "g_unichar_istitle") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIsupper_ = call (getSymbol "g_unichar_isupper") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIswide_ = call (getSymbol "g_unichar_iswide") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIswideCjk_ = call (getSymbol "g_unichar_iswide_cjk") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIsxdigit_ = call (getSymbol "g_unichar_isxdigit") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharIszerowidth_ = call (getSymbol "g_unichar_iszerowidth") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharToUtf8_ = call (getSymbol "g_unichar_to_utf8") (GChar.PolyML.cVal &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
+      val unicharTolower_ = call (getSymbol "g_unichar_tolower") (GChar.PolyML.cVal --> GChar.PolyML.cVal)
+      val unicharTotitle_ = call (getSymbol "g_unichar_totitle") (GChar.PolyML.cVal --> GChar.PolyML.cVal)
+      val unicharToupper_ = call (getSymbol "g_unichar_toupper") (GChar.PolyML.cVal --> GChar.PolyML.cVal)
+      val unicharType_ = call (getSymbol "g_unichar_type") (GChar.PolyML.cVal --> GLibUnicodeType.PolyML.cVal)
+      val unicharValidate_ = call (getSymbol "g_unichar_validate") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
+      val unicharXdigitValue_ = call (getSymbol "g_unichar_xdigit_value") (GChar.PolyML.cVal --> GInt32.PolyML.cVal)
+      val unicodeScriptFromIso15924_ = call (getSymbol "g_unicode_script_from_iso15924") (GUInt32.PolyML.cVal --> GLibUnicodeScript.PolyML.cVal)
+      val unicodeScriptToIso15924_ = call (getSymbol "g_unicode_script_to_iso15924") (GLibUnicodeScript.PolyML.cVal --> GUInt32.PolyML.cVal)
+      val unlink_ = call (getSymbol "g_unlink") (Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
+      val unsetenv_ = call (getSymbol "g_unsetenv") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val uriEscapeString_ =
-        call (load_sym libglib "g_uri_escape_string")
+        call (getSymbol "g_uri_escape_string")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GBool.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val uriParseScheme_ = call (load_sym libglib "g_uri_parse_scheme") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val uriParseScheme_ = call (getSymbol "g_uri_parse_scheme") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val uriUnescapeSegment_ =
-        call (load_sym libglib "g_uri_unescape_segment")
+        call (getSymbol "g_uri_unescape_segment")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              --> Utf8.PolyML.cOutPtr
           )
-      val uriUnescapeString_ = call (load_sym libglib "g_uri_unescape_string") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val usleep_ = call (load_sym libglib "g_usleep") (GUInt64.PolyML.cVal --> PolyMLFFI.cVoid)
-      val utf8Casefold_ = call (load_sym libglib "g_utf8_casefold") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val utf8Collate_ = call (load_sym libglib "g_utf8_collate") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
-      val utf8CollateKey_ = call (load_sym libglib "g_utf8_collate_key") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val utf8CollateKeyForFilename_ = call (load_sym libglib "g_utf8_collate_key_for_filename") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val utf8FindNextChar_ = call (load_sym libglib "g_utf8_find_next_char") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val utf8FindPrevChar_ = call (load_sym libglib "g_utf8_find_prev_char") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val utf8GetChar_ = call (load_sym libglib "g_utf8_get_char") (Utf8.PolyML.cInPtr --> GChar.PolyML.cVal)
-      val utf8GetCharValidated_ = call (load_sym libglib "g_utf8_get_char_validated") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> GChar.PolyML.cVal)
+      val uriUnescapeString_ = call (getSymbol "g_uri_unescape_string") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val usleep_ = call (getSymbol "g_usleep") (GUInt64.PolyML.cVal --> PolyMLFFI.cVoid)
+      val utf8Casefold_ = call (getSymbol "g_utf8_casefold") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val utf8Collate_ = call (getSymbol "g_utf8_collate") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
+      val utf8CollateKey_ = call (getSymbol "g_utf8_collate_key") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val utf8CollateKeyForFilename_ = call (getSymbol "g_utf8_collate_key_for_filename") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val utf8FindNextChar_ = call (getSymbol "g_utf8_find_next_char") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val utf8FindPrevChar_ = call (getSymbol "g_utf8_find_prev_char") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val utf8GetChar_ = call (getSymbol "g_utf8_get_char") (Utf8.PolyML.cInPtr --> GChar.PolyML.cVal)
+      val utf8GetCharValidated_ = call (getSymbol "g_utf8_get_char_validated") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> GChar.PolyML.cVal)
       val utf8Normalize_ =
-        call (load_sym libglib "g_utf8_normalize")
+        call (getSymbol "g_utf8_normalize")
           (
             Utf8.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
              &&> GLibNormalizeMode.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val utf8OffsetToPointer_ = call (load_sym libglib "g_utf8_offset_to_pointer") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val utf8PointerToOffset_ = call (load_sym libglib "g_utf8_pointer_to_offset") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GInt64.PolyML.cVal)
-      val utf8PrevChar_ = call (load_sym libglib "g_utf8_prev_char") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val utf8OffsetToPointer_ = call (getSymbol "g_utf8_offset_to_pointer") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val utf8PointerToOffset_ = call (getSymbol "g_utf8_pointer_to_offset") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GInt64.PolyML.cVal)
+      val utf8PrevChar_ = call (getSymbol "g_utf8_prev_char") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val utf8Strchr_ =
-        call (load_sym libglib "g_utf8_strchr")
+        call (getSymbol "g_utf8_strchr")
           (
             Utf8.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
              &&> GChar.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val utf8Strdown_ = call (load_sym libglib "g_utf8_strdown") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val utf8Strlen_ = call (load_sym libglib "g_utf8_strlen") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> GInt64.PolyML.cVal)
+      val utf8Strdown_ = call (getSymbol "g_utf8_strdown") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val utf8Strlen_ = call (getSymbol "g_utf8_strlen") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> GInt64.PolyML.cVal)
       val utf8Strncpy_ =
-        call (load_sym libglib "g_utf8_strncpy")
+        call (getSymbol "g_utf8_strncpy")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -697,17 +697,17 @@ structure GLib : G_LIB =
              --> Utf8.PolyML.cOutPtr
           )
       val utf8Strrchr_ =
-        call (load_sym libglib "g_utf8_strrchr")
+        call (getSymbol "g_utf8_strrchr")
           (
             Utf8.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
              &&> GChar.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val utf8Strreverse_ = call (load_sym libglib "g_utf8_strreverse") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val utf8Strup_ = call (load_sym libglib "g_utf8_strup") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val utf8Strreverse_ = call (getSymbol "g_utf8_strreverse") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val utf8Strup_ = call (getSymbol "g_utf8_strup") (Utf8.PolyML.cInPtr &&> GInt64.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val utf8Substring_ =
-        call (load_sym libglib "g_utf8_substring")
+        call (getSymbol "g_utf8_substring")
           (
             Utf8.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
@@ -715,18 +715,18 @@ structure GLib : G_LIB =
              --> Utf8.PolyML.cOutPtr
           )
       val utf8Validate_ =
-        call (load_sym libglib "g_utf8_validate")
+        call (getSymbol "g_utf8_validate")
           (
             Utf8.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
              &&> Utf8.PolyML.cOutRef
              --> GBool.PolyML.cVal
           )
-      val variantGetType_ = call (load_sym libglib "g_variant_get_type") (GLibVariantRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
-      val variantIsObjectPath_ = call (load_sym libglib "g_variant_is_object_path") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val variantIsSignature_ = call (load_sym libglib "g_variant_is_signature") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val variantGetType_ = call (getSymbol "g_variant_get_type") (GLibVariantRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
+      val variantIsObjectPath_ = call (getSymbol "g_variant_is_object_path") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val variantIsSignature_ = call (getSymbol "g_variant_is_signature") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val variantParse_ =
-        call (load_sym libglib "g_variant_parse")
+        call (getSymbol "g_variant_parse")
           (
             GLibVariantTypeRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -735,11 +735,11 @@ structure GLib : G_LIB =
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibVariantRecord.PolyML.cPtr
           )
-      val variantParserGetErrorQuark_ = call (load_sym libglib "g_variant_parser_get_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val variantTypeChecked_ = call (load_sym libglib "g_variant_type_checked_") (Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cPtr)
-      val variantTypeStringIsValid_ = call (load_sym libglib "g_variant_type_string_is_valid") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val variantParserGetErrorQuark_ = call (getSymbol "g_variant_parser_get_error_quark") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
+      val variantTypeChecked_ = call (getSymbol "g_variant_type_checked_") (Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cPtr)
+      val variantTypeStringIsValid_ = call (getSymbol "g_variant_type_string_is_valid") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val variantTypeStringScan_ =
-        call (load_sym libglib "g_variant_type_string_scan")
+        call (getSymbol "g_variant_type_string_scan")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInOptPtr
@@ -747,7 +747,7 @@ structure GLib : G_LIB =
              --> GBool.PolyML.cVal
           )
       val warnMessage_ =
-        call (load_sym libglib "g_warn_message")
+        call (getSymbol "g_warn_message")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr

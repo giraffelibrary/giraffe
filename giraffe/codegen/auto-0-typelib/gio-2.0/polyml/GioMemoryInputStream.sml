@@ -6,8 +6,8 @@ structure GioMemoryInputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_memory_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_memory_input_stream_new") (PolyMLFFI.cVoid --> GioInputStreamClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_memory_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_memory_input_stream_new") (PolyMLFFI.cVoid --> GioInputStreamClass.PolyML.cPtr)
     end
     type 'a class = 'a GioMemoryInputStreamClass.class
     type 'a seekable_class = 'a GioSeekableClass.class

@@ -8,9 +8,9 @@ structure GioLoadableIcon :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_loadable_icon_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_loadable_icon_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val load_ =
-        call (load_sym libgio "g_loadable_icon_load")
+        call (getSymbol "g_loadable_icon_load")
           (
             GioLoadableIconClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -20,7 +20,7 @@ structure GioLoadableIcon :>
              --> GioInputStreamClass.PolyML.cPtr
           )
       val loadFinish_ =
-        call (load_sym libgio "g_loadable_icon_load_finish")
+        call (getSymbol "g_loadable_icon_load_finish")
           (
             GioLoadableIconClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr

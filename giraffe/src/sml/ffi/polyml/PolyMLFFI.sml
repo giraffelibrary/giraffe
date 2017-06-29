@@ -1,4 +1,4 @@
-(* Copyright (C) 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2017 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,8 +11,8 @@ structure PolyMLFFI :> POLYML_F_F_I =
   struct
     open Foreign
 
-    val load_lib = loadLibrary
-    val load_sym = getSymbol
+    val getSymbolFromLib = getSymbol
+    val getSymbol = getSymbolFromLib (loadLibrary "")
 
     structure Memory =
       struct

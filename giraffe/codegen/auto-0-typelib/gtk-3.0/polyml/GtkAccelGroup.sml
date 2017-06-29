@@ -6,11 +6,11 @@ structure GtkAccelGroup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_accel_group_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_accel_group_new") (PolyMLFFI.cVoid --> GtkAccelGroupClass.PolyML.cPtr)
-      val fromAccelClosure_ = call (load_sym libgtk "gtk_accel_group_from_accel_closure") (GObjectClosureRecord.PolyML.cPtr --> GtkAccelGroupClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_accel_group_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_accel_group_new") (PolyMLFFI.cVoid --> GtkAccelGroupClass.PolyML.cPtr)
+      val fromAccelClosure_ = call (getSymbol "gtk_accel_group_from_accel_closure") (GObjectClosureRecord.PolyML.cPtr --> GtkAccelGroupClass.PolyML.cPtr)
       val activate_ =
-        call (load_sym libgtk "gtk_accel_group_activate")
+        call (getSymbol "gtk_accel_group_activate")
           (
             GtkAccelGroupClass.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
@@ -20,7 +20,7 @@ structure GtkAccelGroup :>
              --> GBool.PolyML.cVal
           )
       val connect_ =
-        call (load_sym libgtk "gtk_accel_group_connect")
+        call (getSymbol "gtk_accel_group_connect")
           (
             GtkAccelGroupClass.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
@@ -30,26 +30,26 @@ structure GtkAccelGroup :>
              --> PolyMLFFI.cVoid
           )
       val connectByPath_ =
-        call (load_sym libgtk "gtk_accel_group_connect_by_path")
+        call (getSymbol "gtk_accel_group_connect_by_path")
           (
             GtkAccelGroupClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GObjectClosureRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val disconnect_ = call (load_sym libgtk "gtk_accel_group_disconnect") (GtkAccelGroupClass.PolyML.cPtr &&> GObjectClosureRecord.PolyML.cOptPtr --> GBool.PolyML.cVal)
+      val disconnect_ = call (getSymbol "gtk_accel_group_disconnect") (GtkAccelGroupClass.PolyML.cPtr &&> GObjectClosureRecord.PolyML.cOptPtr --> GBool.PolyML.cVal)
       val disconnectKey_ =
-        call (load_sym libgtk "gtk_accel_group_disconnect_key")
+        call (getSymbol "gtk_accel_group_disconnect_key")
           (
             GtkAccelGroupClass.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
              &&> GdkModifierType.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val getIsLocked_ = call (load_sym libgtk "gtk_accel_group_get_is_locked") (GtkAccelGroupClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getModifierMask_ = call (load_sym libgtk "gtk_accel_group_get_modifier_mask") (GtkAccelGroupClass.PolyML.cPtr --> GdkModifierType.PolyML.cVal)
-      val lock_ = call (load_sym libgtk "gtk_accel_group_lock") (GtkAccelGroupClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val unlock_ = call (load_sym libgtk "gtk_accel_group_unlock") (GtkAccelGroupClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getIsLocked_ = call (getSymbol "gtk_accel_group_get_is_locked") (GtkAccelGroupClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getModifierMask_ = call (getSymbol "gtk_accel_group_get_modifier_mask") (GtkAccelGroupClass.PolyML.cPtr --> GdkModifierType.PolyML.cVal)
+      val lock_ = call (getSymbol "gtk_accel_group_lock") (GtkAccelGroupClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unlock_ = call (getSymbol "gtk_accel_group_unlock") (GtkAccelGroupClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkAccelGroupClass.class
     type accel_flags_t = GtkAccelFlags.t

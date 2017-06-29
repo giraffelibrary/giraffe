@@ -18,12 +18,12 @@ structure GIRepositoryBaseInfoClass :> G_I_REPOSITORY_BASE_INFO_CLASS =
 
       val ref_ =
         call
-          (load_sym libgirepository "g_base_info_ref")
+          (getSymbol "g_base_info_ref")
           (cPtr --> cPtr);
 
       val unref_ =
         call
-          (load_sym libgirepository "g_base_info_unref")
+          (getSymbol "g_base_info_unref")
           (cPtr --> PolyMLFFI.cVoid)
     end
 

@@ -13,13 +13,13 @@ structure GtkIconSet :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_icon_set_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_icon_set_new") (PolyMLFFI.cVoid --> GtkIconSetRecord.PolyML.cPtr)
-      val newFromPixbuf_ = call (load_sym libgtk "gtk_icon_set_new_from_pixbuf") (GdkPixbufPixbufClass.PolyML.cPtr --> GtkIconSetRecord.PolyML.cPtr)
-      val addSource_ = call (load_sym libgtk "gtk_icon_set_add_source") (GtkIconSetRecord.PolyML.cPtr &&> GtkIconSourceRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val copy_ = call (load_sym libgtk "gtk_icon_set_copy") (GtkIconSetRecord.PolyML.cPtr --> GtkIconSetRecord.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_icon_set_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_icon_set_new") (PolyMLFFI.cVoid --> GtkIconSetRecord.PolyML.cPtr)
+      val newFromPixbuf_ = call (getSymbol "gtk_icon_set_new_from_pixbuf") (GdkPixbufPixbufClass.PolyML.cPtr --> GtkIconSetRecord.PolyML.cPtr)
+      val addSource_ = call (getSymbol "gtk_icon_set_add_source") (GtkIconSetRecord.PolyML.cPtr &&> GtkIconSourceRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val copy_ = call (getSymbol "gtk_icon_set_copy") (GtkIconSetRecord.PolyML.cPtr --> GtkIconSetRecord.PolyML.cPtr)
       val getSizes_ =
-        call (load_sym libgtk "gtk_icon_set_get_sizes")
+        call (getSymbol "gtk_icon_set_get_sizes")
           (
             GtkIconSetRecord.PolyML.cPtr
              &&> GIntCVectorN.PolyML.cOutRef
@@ -27,7 +27,7 @@ structure GtkIconSet :>
              --> PolyMLFFI.cVoid
           )
       val renderIconPixbuf_ =
-        call (load_sym libgtk "gtk_icon_set_render_icon_pixbuf")
+        call (getSymbol "gtk_icon_set_render_icon_pixbuf")
           (
             GtkIconSetRecord.PolyML.cPtr
              &&> GtkStyleContextClass.PolyML.cPtr

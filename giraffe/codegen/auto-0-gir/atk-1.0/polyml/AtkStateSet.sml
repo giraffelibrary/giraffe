@@ -6,16 +6,16 @@ structure AtkStateSet :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_state_set_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libatk "atk_state_set_new") (PolyMLFFI.cVoid --> AtkStateSetClass.PolyML.cPtr)
-      val addState_ = call (load_sym libatk "atk_state_set_add_state") (AtkStateSetClass.PolyML.cPtr &&> AtkStateType.PolyML.cVal --> GBool.PolyML.cVal)
-      val andSets_ = call (load_sym libatk "atk_state_set_and_sets") (AtkStateSetClass.PolyML.cPtr &&> AtkStateSetClass.PolyML.cPtr --> AtkStateSetClass.PolyML.cPtr)
-      val clearStates_ = call (load_sym libatk "atk_state_set_clear_states") (AtkStateSetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val containsState_ = call (load_sym libatk "atk_state_set_contains_state") (AtkStateSetClass.PolyML.cPtr &&> AtkStateType.PolyML.cVal --> GBool.PolyML.cVal)
-      val isEmpty_ = call (load_sym libatk "atk_state_set_is_empty") (AtkStateSetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val orSets_ = call (load_sym libatk "atk_state_set_or_sets") (AtkStateSetClass.PolyML.cPtr &&> AtkStateSetClass.PolyML.cPtr --> AtkStateSetClass.PolyML.cPtr)
-      val removeState_ = call (load_sym libatk "atk_state_set_remove_state") (AtkStateSetClass.PolyML.cPtr &&> AtkStateType.PolyML.cVal --> GBool.PolyML.cVal)
-      val xorSets_ = call (load_sym libatk "atk_state_set_xor_sets") (AtkStateSetClass.PolyML.cPtr &&> AtkStateSetClass.PolyML.cPtr --> AtkStateSetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "atk_state_set_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "atk_state_set_new") (PolyMLFFI.cVoid --> AtkStateSetClass.PolyML.cPtr)
+      val addState_ = call (getSymbol "atk_state_set_add_state") (AtkStateSetClass.PolyML.cPtr &&> AtkStateType.PolyML.cVal --> GBool.PolyML.cVal)
+      val andSets_ = call (getSymbol "atk_state_set_and_sets") (AtkStateSetClass.PolyML.cPtr &&> AtkStateSetClass.PolyML.cPtr --> AtkStateSetClass.PolyML.cPtr)
+      val clearStates_ = call (getSymbol "atk_state_set_clear_states") (AtkStateSetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val containsState_ = call (getSymbol "atk_state_set_contains_state") (AtkStateSetClass.PolyML.cPtr &&> AtkStateType.PolyML.cVal --> GBool.PolyML.cVal)
+      val isEmpty_ = call (getSymbol "atk_state_set_is_empty") (AtkStateSetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val orSets_ = call (getSymbol "atk_state_set_or_sets") (AtkStateSetClass.PolyML.cPtr &&> AtkStateSetClass.PolyML.cPtr --> AtkStateSetClass.PolyML.cPtr)
+      val removeState_ = call (getSymbol "atk_state_set_remove_state") (AtkStateSetClass.PolyML.cPtr &&> AtkStateType.PolyML.cVal --> GBool.PolyML.cVal)
+      val xorSets_ = call (getSymbol "atk_state_set_xor_sets") (AtkStateSetClass.PolyML.cPtr &&> AtkStateSetClass.PolyML.cPtr --> AtkStateSetClass.PolyML.cPtr)
     end
     type 'a class = 'a AtkStateSetClass.class
     type state_type_t = AtkStateType.t

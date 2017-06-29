@@ -16,8 +16,8 @@ structure AtkNoOpObject :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_no_op_object_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libatk "atk_no_op_object_new") (GObjectObjectClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "atk_no_op_object_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "atk_no_op_object_new") (GObjectObjectClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
     end
     type 'a class = 'a AtkNoOpObjectClass.class
     type 'a action_class = 'a AtkActionClass.class

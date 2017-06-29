@@ -10,12 +10,12 @@ structure GtkBox :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_box_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_box_new") (GtkOrientation.PolyML.cVal &&> GInt32.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
-      val getHomogeneous_ = call (load_sym libgtk "gtk_box_get_homogeneous") (GtkBoxClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getSpacing_ = call (load_sym libgtk "gtk_box_get_spacing") (GtkBoxClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_box_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_box_new") (GtkOrientation.PolyML.cVal &&> GInt32.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val getHomogeneous_ = call (getSymbol "gtk_box_get_homogeneous") (GtkBoxClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getSpacing_ = call (getSymbol "gtk_box_get_spacing") (GtkBoxClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val packEnd_ =
-        call (load_sym libgtk "gtk_box_pack_end")
+        call (getSymbol "gtk_box_pack_end")
           (
             GtkBoxClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
@@ -25,7 +25,7 @@ structure GtkBox :>
              --> PolyMLFFI.cVoid
           )
       val packStart_ =
-        call (load_sym libgtk "gtk_box_pack_start")
+        call (getSymbol "gtk_box_pack_start")
           (
             GtkBoxClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
@@ -35,7 +35,7 @@ structure GtkBox :>
              --> PolyMLFFI.cVoid
           )
       val queryChildPacking_ =
-        call (load_sym libgtk "gtk_box_query_child_packing")
+        call (getSymbol "gtk_box_query_child_packing")
           (
             GtkBoxClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
@@ -46,7 +46,7 @@ structure GtkBox :>
              --> PolyMLFFI.cVoid
           )
       val reorderChild_ =
-        call (load_sym libgtk "gtk_box_reorder_child")
+        call (getSymbol "gtk_box_reorder_child")
           (
             GtkBoxClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
@@ -54,7 +54,7 @@ structure GtkBox :>
              --> PolyMLFFI.cVoid
           )
       val setChildPacking_ =
-        call (load_sym libgtk "gtk_box_set_child_packing")
+        call (getSymbol "gtk_box_set_child_packing")
           (
             GtkBoxClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
@@ -64,8 +64,8 @@ structure GtkBox :>
              &&> GtkPackType.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setHomogeneous_ = call (load_sym libgtk "gtk_box_set_homogeneous") (GtkBoxClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSpacing_ = call (load_sym libgtk "gtk_box_set_spacing") (GtkBoxClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setHomogeneous_ = call (getSymbol "gtk_box_set_homogeneous") (GtkBoxClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSpacing_ = call (getSymbol "gtk_box_set_spacing") (GtkBoxClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

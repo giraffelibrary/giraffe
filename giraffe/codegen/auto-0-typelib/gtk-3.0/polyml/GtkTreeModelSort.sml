@@ -10,29 +10,29 @@ structure GtkTreeModelSort :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_tree_model_sort_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val clearCache_ = call (load_sym libgtk "gtk_tree_model_sort_clear_cache") (GtkTreeModelSortClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gtk_tree_model_sort_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val clearCache_ = call (getSymbol "gtk_tree_model_sort_clear_cache") (GtkTreeModelSortClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val convertChildIterToIter_ =
-        call (load_sym libgtk "gtk_tree_model_sort_convert_child_iter_to_iter")
+        call (getSymbol "gtk_tree_model_sort_convert_child_iter_to_iter")
           (
             GtkTreeModelSortClass.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
-      val convertChildPathToPath_ = call (load_sym libgtk "gtk_tree_model_sort_convert_child_path_to_path") (GtkTreeModelSortClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
+      val convertChildPathToPath_ = call (getSymbol "gtk_tree_model_sort_convert_child_path_to_path") (GtkTreeModelSortClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
       val convertIterToChildIter_ =
-        call (load_sym libgtk "gtk_tree_model_sort_convert_iter_to_child_iter")
+        call (getSymbol "gtk_tree_model_sort_convert_iter_to_child_iter")
           (
             GtkTreeModelSortClass.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val convertPathToChildPath_ = call (load_sym libgtk "gtk_tree_model_sort_convert_path_to_child_path") (GtkTreeModelSortClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
-      val getModel_ = call (load_sym libgtk "gtk_tree_model_sort_get_model") (GtkTreeModelSortClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
-      val iterIsValid_ = call (load_sym libgtk "gtk_tree_model_sort_iter_is_valid") (GtkTreeModelSortClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val resetDefaultSortFunc_ = call (load_sym libgtk "gtk_tree_model_sort_reset_default_sort_func") (GtkTreeModelSortClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val convertPathToChildPath_ = call (getSymbol "gtk_tree_model_sort_convert_path_to_child_path") (GtkTreeModelSortClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
+      val getModel_ = call (getSymbol "gtk_tree_model_sort_get_model") (GtkTreeModelSortClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
+      val iterIsValid_ = call (getSymbol "gtk_tree_model_sort_iter_is_valid") (GtkTreeModelSortClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val resetDefaultSortFunc_ = call (getSymbol "gtk_tree_model_sort_reset_default_sort_func") (GtkTreeModelSortClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkTreeModelSortClass.class
     type 'a tree_drag_source_class = 'a GtkTreeDragSourceClass.class

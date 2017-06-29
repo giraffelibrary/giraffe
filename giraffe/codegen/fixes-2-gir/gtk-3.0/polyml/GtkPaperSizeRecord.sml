@@ -11,17 +11,17 @@ structure GtkPaperSizeRecord :> GTK_PAPER_SIZE_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgtk "gtk_paper_size_copy")
+          (getSymbol "gtk_paper_size_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgtk "gtk_paper_size_free")
+          (getSymbol "gtk_paper_size_free")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgtk "gtk_paper_size_get_type")
+          (getSymbol "gtk_paper_size_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

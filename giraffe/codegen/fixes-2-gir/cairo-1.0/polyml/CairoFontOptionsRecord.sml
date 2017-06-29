@@ -11,12 +11,12 @@ structure CairoFontOptionsRecord :> CAIRO_FONT_OPTIONS_RECORD =
     in
       val dup_ =
         call
-          (load_sym libcairo "cairo_font_options_copy")
+          (getSymbol "cairo_font_options_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libcairo "cairo_font_options_destroy")
+          (getSymbol "cairo_font_options_destroy")
           (cPtr --> cVoid)
     end
 

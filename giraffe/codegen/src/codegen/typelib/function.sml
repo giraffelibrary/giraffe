@@ -2295,23 +2295,20 @@ datatype low_level_spec =
 
 (* Low-level - Poly/ML *)
 
-(* `callPolyMLFFIExp libId functionSymbol (parConvs, retConv)` constructs
+(* `callPolyMLFFIExp functionSymbol (parConvs, retConv)` constructs
  * a Poly/ML low-level function call expression as follows:
  *
  *   call
- *     (load_sym <libId> "<functionSymbol>")
+ *     (getSymbol "<functionSymbol>")
  *     (<parConvs> --> <retConv>)
  *)
-fun callPolyMLFFIExp libId functionSymbol (parConvs, retConv) =
+fun callPolyMLFFIExp functionSymbol (parConvs, retConv) =
   ExpApp (
     ExpApp (
       mkIdLNameExp callId,
       mkParenExp (
         ExpApp (
-          ExpApp (
-            mkIdLNameExp loadSymId,
-            mkIdLNameExp libId
-          ),
+          mkIdLNameExp getSymbolId,
           ExpConst (ConstString functionSymbol)
         )
       )
@@ -2614,7 +2611,6 @@ end
 
 fun makeFunctionStrDecLowLevelPolyML
   repo
-  libId
   (optRootContainerIRef : (interfaceref * interfaceref) option)
   (functionInfo, errs)
   : strdec * infoerrorhier list =
@@ -2710,12 +2706,11 @@ fun makeFunctionStrDecLowLevelPolyML
     (* Construct the function body with the form:
      *
      *   call
-     *     (load_sym lib<functionnamespace> "<function_symbol>")
+     *     (getSymbol "<function_symbol>")
      *     (<parConvs> --> <retConv>)
      *)
     val functionExp =
       callPolyMLFFIExp
-        libId
         functionSymbolStr
         (parConvs, retConv)
   in
@@ -2728,10 +2723,10 @@ fun makeFunctionStrDecLowLevelPolyML
 (*
  *     val getType_ =
  *       call
- *         (load_sym <libId> "<getTypeSymbol>")
+ *         (getSymbol "<getTypeSymbol>")
  *         (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
  *)
-fun getTypeStrDecLowLevelPolyML libId getTypeSymbol =
+fun getTypeStrDecLowLevelPolyML getTypeSymbol =
   let
     val parConvs = cVoidConv
     val retConv = makeConv ["GObjectType", PolyMLId] VAL
@@ -2739,7 +2734,7 @@ fun getTypeStrDecLowLevelPolyML libId getTypeSymbol =
     StrDecDec (
       mkIdValDec (
         getTypeUId,
-        callPolyMLFFIExp libId getTypeSymbol (parConvs, retConv)
+        callPolyMLFFIExp getTypeSymbol (parConvs, retConv)
       )
     )
   end
@@ -3395,7 +3390,6 @@ fun addFunctionStrDecsLowLevel
   (getNMethods, getMethod)
   isPolyML
   repo
-  libId
   addInitStrDecs
   optRootContainerIRef =
   if isPolyML
@@ -3406,7 +3400,7 @@ fun addFunctionStrDecsLowLevel
           revMapInfosWithErrs
             getNMethods
             getMethod
-            (makeFunctionStrDecLowLevelPolyML repo libId optRootContainerIRef)
+            (makeFunctionStrDecLowLevelPolyML repo optRootContainerIRef)
             (containerInfo, ([], errs))
         val (localStrDecs'2, errs'2) = addInitStrDecs isPolyML acc'1
       in

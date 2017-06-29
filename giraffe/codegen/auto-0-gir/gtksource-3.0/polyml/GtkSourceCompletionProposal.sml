@@ -5,15 +5,15 @@ structure GtkSourceCompletionProposal :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val changed_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_changed") (GtkSourceCompletionProposalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val equal_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_equal") (GtkSourceCompletionProposalClass.PolyML.cPtr &&> GtkSourceCompletionProposalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getIcon_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_get_icon") (GtkSourceCompletionProposalClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
-      val getInfo_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_get_info") (GtkSourceCompletionProposalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getLabel_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_get_label") (GtkSourceCompletionProposalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getMarkup_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_get_markup") (GtkSourceCompletionProposalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getText_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_get_text") (GtkSourceCompletionProposalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val hash_ = call (load_sym libgtksourceview "gtk_source_completion_proposal_hash") (GtkSourceCompletionProposalClass.PolyML.cPtr --> GUInt.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_source_completion_proposal_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val changed_ = call (getSymbol "gtk_source_completion_proposal_changed") (GtkSourceCompletionProposalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val equal_ = call (getSymbol "gtk_source_completion_proposal_equal") (GtkSourceCompletionProposalClass.PolyML.cPtr &&> GtkSourceCompletionProposalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getIcon_ = call (getSymbol "gtk_source_completion_proposal_get_icon") (GtkSourceCompletionProposalClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val getInfo_ = call (getSymbol "gtk_source_completion_proposal_get_info") (GtkSourceCompletionProposalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getLabel_ = call (getSymbol "gtk_source_completion_proposal_get_label") (GtkSourceCompletionProposalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getMarkup_ = call (getSymbol "gtk_source_completion_proposal_get_markup") (GtkSourceCompletionProposalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getText_ = call (getSymbol "gtk_source_completion_proposal_get_text") (GtkSourceCompletionProposalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val hash_ = call (getSymbol "gtk_source_completion_proposal_hash") (GtkSourceCompletionProposalClass.PolyML.cPtr --> GUInt.PolyML.cVal)
     end
     type 'a class = 'a GtkSourceCompletionProposalClass.class
     type t = base class

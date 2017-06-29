@@ -7,10 +7,10 @@ structure GioInputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val clearPending_ = call (load_sym libgio "g_input_stream_clear_pending") (GioInputStreamClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val clearPending_ = call (getSymbol "g_input_stream_clear_pending") (GioInputStreamClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val close_ =
-        call (load_sym libgio "g_input_stream_close")
+        call (getSymbol "g_input_stream_close")
           (
             GioInputStreamClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -18,26 +18,26 @@ structure GioInputStream :>
              --> GBool.PolyML.cVal
           )
       val closeFinish_ =
-        call (load_sym libgio "g_input_stream_close_finish")
+        call (getSymbol "g_input_stream_close_finish")
           (
             GioInputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val hasPending_ = call (load_sym libgio "g_input_stream_has_pending") (GioInputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isClosed_ = call (load_sym libgio "g_input_stream_is_closed") (GioInputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val hasPending_ = call (getSymbol "g_input_stream_has_pending") (GioInputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isClosed_ = call (getSymbol "g_input_stream_is_closed") (GioInputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val readFinish_ =
-        call (load_sym libgio "g_input_stream_read_finish")
+        call (getSymbol "g_input_stream_read_finish")
           (
             GioInputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GInt64.PolyML.cVal
           )
-      val setPending_ = call (load_sym libgio "g_input_stream_set_pending") (GioInputStreamClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
+      val setPending_ = call (getSymbol "g_input_stream_set_pending") (GioInputStreamClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val skip_ =
-        call (load_sym libgio "g_input_stream_skip")
+        call (getSymbol "g_input_stream_skip")
           (
             GioInputStreamClass.PolyML.cPtr
              &&> GUInt64.PolyML.cVal
@@ -46,7 +46,7 @@ structure GioInputStream :>
              --> GInt64.PolyML.cVal
           )
       val skipFinish_ =
-        call (load_sym libgio "g_input_stream_skip_finish")
+        call (getSymbol "g_input_stream_skip_finish")
           (
             GioInputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr

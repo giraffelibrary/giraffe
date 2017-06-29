@@ -6,9 +6,9 @@ structure GtkSourceCompletionItem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_item_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_source_completion_item_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgtksourceview "gtk_source_completion_item_new")
+        call (getSymbol "gtk_source_completion_item_new")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -17,7 +17,7 @@ structure GtkSourceCompletionItem :>
              --> GtkSourceCompletionItemClass.PolyML.cPtr
           )
       val newFromStock_ =
-        call (load_sym libgtksourceview "gtk_source_completion_item_new_from_stock")
+        call (getSymbol "gtk_source_completion_item_new_from_stock")
           (
             Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInPtr
@@ -26,7 +26,7 @@ structure GtkSourceCompletionItem :>
              --> GtkSourceCompletionItemClass.PolyML.cPtr
           )
       val newWithMarkup_ =
-        call (load_sym libgtksourceview "gtk_source_completion_item_new_with_markup")
+        call (getSymbol "gtk_source_completion_item_new_with_markup")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr

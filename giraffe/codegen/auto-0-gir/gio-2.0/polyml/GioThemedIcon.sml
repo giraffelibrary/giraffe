@@ -18,13 +18,13 @@ structure GioThemedIcon :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_themed_icon_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_themed_icon_new") (Utf8.PolyML.cInPtr --> GioIconClass.PolyML.cPtr)
-      val newFromNames_ = call (load_sym libgio "g_themed_icon_new_from_names") (Utf8CVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GioIconClass.PolyML.cPtr)
-      val newWithDefaultFallbacks_ = call (load_sym libgio "g_themed_icon_new_with_default_fallbacks") (Utf8.PolyML.cInPtr --> GioIconClass.PolyML.cPtr)
-      val appendName_ = call (load_sym libgio "g_themed_icon_append_name") (GioThemedIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val getNames_ = call (load_sym libgio "g_themed_icon_get_names") (GioThemedIconClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
-      val prependName_ = call (load_sym libgio "g_themed_icon_prepend_name") (GioThemedIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_themed_icon_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_themed_icon_new") (Utf8.PolyML.cInPtr --> GioIconClass.PolyML.cPtr)
+      val newFromNames_ = call (getSymbol "g_themed_icon_new_from_names") (Utf8CVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GioIconClass.PolyML.cPtr)
+      val newWithDefaultFallbacks_ = call (getSymbol "g_themed_icon_new_with_default_fallbacks") (Utf8.PolyML.cInPtr --> GioIconClass.PolyML.cPtr)
+      val appendName_ = call (getSymbol "g_themed_icon_append_name") (GioThemedIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val getNames_ = call (getSymbol "g_themed_icon_get_names") (GioThemedIconClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val prependName_ = call (getSymbol "g_themed_icon_prepend_name") (GioThemedIconClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioThemedIconClass.class
     type 'a icon_class = 'a GioIconClass.class

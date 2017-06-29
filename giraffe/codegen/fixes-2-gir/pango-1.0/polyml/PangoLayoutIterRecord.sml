@@ -11,17 +11,17 @@ structure PangoLayoutIterRecord :> PANGO_LAYOUT_ITER_RECORD =
     in
       val dup_ =
         call
-          (load_sym libpango "pango_layout_iter_copy")
+          (getSymbol "pango_layout_iter_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libpango "pango_layout_iter_free")
+          (getSymbol "pango_layout_iter_free")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libpango "pango_layout_iter_get_type")
+          (getSymbol "pango_layout_iter_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

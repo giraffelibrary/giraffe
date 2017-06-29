@@ -6,9 +6,9 @@ structure GtkBuildable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_buildable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_buildable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val addChild_ =
-        call (load_sym libgtk "gtk_buildable_add_child")
+        call (getSymbol "gtk_buildable_add_child")
           (
             GtkBuildableClass.PolyML.cPtr
              &&> GtkBuilderClass.PolyML.cPtr
@@ -17,7 +17,7 @@ structure GtkBuildable :>
              --> PolyMLFFI.cVoid
           )
       val constructChild_ =
-        call (load_sym libgtk "gtk_buildable_construct_child")
+        call (getSymbol "gtk_buildable_construct_child")
           (
             GtkBuildableClass.PolyML.cPtr
              &&> GtkBuilderClass.PolyML.cPtr
@@ -25,17 +25,17 @@ structure GtkBuildable :>
              --> GObjectObjectClass.PolyML.cPtr
           )
       val getInternalChild_ =
-        call (load_sym libgtk "gtk_buildable_get_internal_child")
+        call (getSymbol "gtk_buildable_get_internal_child")
           (
             GtkBuildableClass.PolyML.cPtr
              &&> GtkBuilderClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              --> GObjectObjectClass.PolyML.cPtr
           )
-      val getName_ = call (load_sym libgtk "gtk_buildable_get_name") (GtkBuildableClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val parserFinished_ = call (load_sym libgtk "gtk_buildable_parser_finished") (GtkBuildableClass.PolyML.cPtr &&> GtkBuilderClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getName_ = call (getSymbol "gtk_buildable_get_name") (GtkBuildableClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val parserFinished_ = call (getSymbol "gtk_buildable_parser_finished") (GtkBuildableClass.PolyML.cPtr &&> GtkBuilderClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val setBuildableProperty_ =
-        call (load_sym libgtk "gtk_buildable_set_buildable_property")
+        call (getSymbol "gtk_buildable_set_buildable_property")
           (
             GtkBuildableClass.PolyML.cPtr
              &&> GtkBuilderClass.PolyML.cPtr
@@ -43,7 +43,7 @@ structure GtkBuildable :>
              &&> GObjectValueRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val setName_ = call (load_sym libgtk "gtk_buildable_set_name") (GtkBuildableClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setName_ = call (getSymbol "gtk_buildable_set_name") (GtkBuildableClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkBuildableClass.class
     type 'a builder_class = 'a GtkBuilderClass.class

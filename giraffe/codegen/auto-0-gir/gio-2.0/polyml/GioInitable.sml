@@ -6,9 +6,9 @@ structure GioInitable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_initable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_initable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val init_ =
-        call (load_sym libgio "g_initable_init")
+        call (getSymbol "g_initable_init")
           (
             GioInitableClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr

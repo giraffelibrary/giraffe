@@ -11,22 +11,22 @@ structure GtkSettingsValueRecord :> GTK_SETTINGS_VALUE_RECORD =
     in
       val new_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_settings_value_new")
+          (getSymbol "giraffe_gtk_settings_value_new")
           (cVoid --> cPtr)
 
       val copy_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_settings_value_copy")
+          (getSymbol "giraffe_gtk_settings_value_copy")
           (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_settings_value_free")
+          (getSymbol "giraffe_gtk_settings_value_free")
           (cPtr --> cVoid)
 
       val size_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_settings_value_size")
+          (getSymbol "giraffe_gtk_settings_value_size")
           (cVoid --> GUInt.PolyML.cVal)
     end
 

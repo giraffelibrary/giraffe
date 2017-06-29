@@ -9,34 +9,34 @@ structure GtkMenuShell :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_menu_shell_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_menu_shell_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val activateItem_ =
-        call (load_sym libgtk "gtk_menu_shell_activate_item")
+        call (getSymbol "gtk_menu_shell_activate_item")
           (
             GtkMenuShellClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val append_ = call (load_sym libgtk "gtk_menu_shell_append") (GtkMenuShellClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val cancel_ = call (load_sym libgtk "gtk_menu_shell_cancel") (GtkMenuShellClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val deactivate_ = call (load_sym libgtk "gtk_menu_shell_deactivate") (GtkMenuShellClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val deselect_ = call (load_sym libgtk "gtk_menu_shell_deselect") (GtkMenuShellClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getParentShell_ = call (load_sym libgtk "gtk_menu_shell_get_parent_shell") (GtkMenuShellClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getSelectedItem_ = call (load_sym libgtk "gtk_menu_shell_get_selected_item") (GtkMenuShellClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getTakeFocus_ = call (load_sym libgtk "gtk_menu_shell_get_take_focus") (GtkMenuShellClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val append_ = call (getSymbol "gtk_menu_shell_append") (GtkMenuShellClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val cancel_ = call (getSymbol "gtk_menu_shell_cancel") (GtkMenuShellClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val deactivate_ = call (getSymbol "gtk_menu_shell_deactivate") (GtkMenuShellClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val deselect_ = call (getSymbol "gtk_menu_shell_deselect") (GtkMenuShellClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getParentShell_ = call (getSymbol "gtk_menu_shell_get_parent_shell") (GtkMenuShellClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getSelectedItem_ = call (getSymbol "gtk_menu_shell_get_selected_item") (GtkMenuShellClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getTakeFocus_ = call (getSymbol "gtk_menu_shell_get_take_focus") (GtkMenuShellClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val insert_ =
-        call (load_sym libgtk "gtk_menu_shell_insert")
+        call (getSymbol "gtk_menu_shell_insert")
           (
             GtkMenuShellClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val prepend_ = call (load_sym libgtk "gtk_menu_shell_prepend") (GtkMenuShellClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val selectFirst_ = call (load_sym libgtk "gtk_menu_shell_select_first") (GtkMenuShellClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val selectItem_ = call (load_sym libgtk "gtk_menu_shell_select_item") (GtkMenuShellClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setTakeFocus_ = call (load_sym libgtk "gtk_menu_shell_set_take_focus") (GtkMenuShellClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val prepend_ = call (getSymbol "gtk_menu_shell_prepend") (GtkMenuShellClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val selectFirst_ = call (getSymbol "gtk_menu_shell_select_first") (GtkMenuShellClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val selectItem_ = call (getSymbol "gtk_menu_shell_select_item") (GtkMenuShellClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setTakeFocus_ = call (getSymbol "gtk_menu_shell_set_take_focus") (GtkMenuShellClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkMenuShellClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

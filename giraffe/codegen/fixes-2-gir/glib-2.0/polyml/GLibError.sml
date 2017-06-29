@@ -7,7 +7,7 @@ structure GLibError :>
     in
       val getType_ =
         call
-          (load_sym libgobject "g_error_get_type")
+          (getSymbol "g_error_get_type")
           (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
     end
     type t = GLibErrorRecord.t

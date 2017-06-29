@@ -6,11 +6,11 @@ structure GioSeekable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_seekable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val canSeek_ = call (load_sym libgio "g_seekable_can_seek") (GioSeekableClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val canTruncate_ = call (load_sym libgio "g_seekable_can_truncate") (GioSeekableClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getType_ = call (getSymbol "g_seekable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val canSeek_ = call (getSymbol "g_seekable_can_seek") (GioSeekableClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val canTruncate_ = call (getSymbol "g_seekable_can_truncate") (GioSeekableClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val seek_ =
-        call (load_sym libgio "g_seekable_seek")
+        call (getSymbol "g_seekable_seek")
           (
             GioSeekableClass.PolyML.cPtr
              &&> GInt64.PolyML.cVal
@@ -19,9 +19,9 @@ structure GioSeekable :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val tell_ = call (load_sym libgio "g_seekable_tell") (GioSeekableClass.PolyML.cPtr --> GInt64.PolyML.cVal)
+      val tell_ = call (getSymbol "g_seekable_tell") (GioSeekableClass.PolyML.cPtr --> GInt64.PolyML.cVal)
       val truncate_ =
-        call (load_sym libgio "g_seekable_truncate")
+        call (getSymbol "g_seekable_truncate")
           (
             GioSeekableClass.PolyML.cPtr
              &&> GInt64.PolyML.cVal

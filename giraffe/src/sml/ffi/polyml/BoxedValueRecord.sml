@@ -70,8 +70,8 @@ functor BoxedValueRecord(
             fun get p = p
             fun set (p, v) = copy_ (v & p)
             local
-              val malloc_ = call (getSymbol libglib "g_malloc0") (GULong.PolyML.cVal --> cPointer)
-              val free_ = call (getSymbol libglib "g_free") (cPointer --> cVoid)
+              val malloc_ = call (getSymbol "g_malloc0") (GULong.PolyML.cVal --> cPointer)
+              val free_ = call (getSymbol "g_free") (cPointer --> cVoid)
             in
               fun malloc n = (GULong.FFI.withVal ---> I) malloc_ (Word.toLargeInt n)
               fun free p = (I ---> I) free_ p

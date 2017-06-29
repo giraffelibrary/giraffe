@@ -11,17 +11,17 @@ structure CairoRegionRecord :> CAIRO_REGION_RECORD =
     in
       val dup_ =
         call
-          (load_sym libcairo "cairo_region_reference")
+          (getSymbol "cairo_region_reference")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libcairo "cairo_region_destroy")
+          (getSymbol "cairo_region_destroy")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libcairogobject "cairo_gobject_region_get_type")
+          (getSymbol "cairo_gobject_region_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

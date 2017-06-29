@@ -11,17 +11,17 @@ structure CairoSurfaceRecord :> CAIRO_SURFACE_RECORD =
     in
       val dup_ =
         call
-          (load_sym libcairo "cairo_surface_reference")
+          (getSymbol "cairo_surface_reference")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libcairo "cairo_surface_destroy")
+          (getSymbol "cairo_surface_destroy")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libcairogobject "cairo_gobject_surface_get_type")
+          (getSymbol "cairo_gobject_surface_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

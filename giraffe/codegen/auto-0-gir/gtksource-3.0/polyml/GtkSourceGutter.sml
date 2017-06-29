@@ -7,28 +7,28 @@ structure GtkSourceGutter :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_gutter_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_source_gutter_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val getRendererAtPos_ =
-        call (load_sym libgtksourceview "gtk_source_gutter_get_renderer_at_pos")
+        call (getSymbol "gtk_source_gutter_get_renderer_at_pos")
           (
             GtkSourceGutterClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              --> GtkSourceGutterRendererClass.PolyML.cPtr
           )
-      val getWindow_ = call (load_sym libgtksourceview "gtk_source_gutter_get_window") (GtkSourceGutterClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getWindow_ = call (getSymbol "gtk_source_gutter_get_window") (GtkSourceGutterClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val insert_ =
-        call (load_sym libgtksourceview "gtk_source_gutter_insert")
+        call (getSymbol "gtk_source_gutter_insert")
           (
             GtkSourceGutterClass.PolyML.cPtr
              &&> GtkSourceGutterRendererClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val queueDraw_ = call (load_sym libgtksourceview "gtk_source_gutter_queue_draw") (GtkSourceGutterClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val remove_ = call (load_sym libgtksourceview "gtk_source_gutter_remove") (GtkSourceGutterClass.PolyML.cPtr &&> GtkSourceGutterRendererClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val queueDraw_ = call (getSymbol "gtk_source_gutter_queue_draw") (GtkSourceGutterClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val remove_ = call (getSymbol "gtk_source_gutter_remove") (GtkSourceGutterClass.PolyML.cPtr &&> GtkSourceGutterRendererClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val reorder_ =
-        call (load_sym libgtksourceview "gtk_source_gutter_reorder")
+        call (getSymbol "gtk_source_gutter_reorder")
           (
             GtkSourceGutterClass.PolyML.cPtr
              &&> GtkSourceGutterRendererClass.PolyML.cPtr
@@ -36,7 +36,7 @@ structure GtkSourceGutter :>
              --> PolyMLFFI.cVoid
           )
       val setPadding_ =
-        call (load_sym libgtksourceview "gtk_source_gutter_set_padding")
+        call (getSymbol "gtk_source_gutter_set_padding")
           (
             GtkSourceGutterClass.PolyML.cPtr
              &&> GInt.PolyML.cVal

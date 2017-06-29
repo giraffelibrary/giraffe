@@ -214,7 +214,7 @@ structure <ObjectNamespace><ObjectName> :>
     in                                                                       |
       val getType_ =                                                         |
         call                                                                 |
-          (load_sym lib<objectnamespace> "<getTypeSymbol>")                  |
+          (getSymbol "<getTypeSymbol>")                                      |
           (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);                     |
                                                                              | Poly/ML only
       <LowLevelFunction[1]>                                                  |

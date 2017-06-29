@@ -39,9 +39,9 @@ structure GtkIconSize :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_icon_size_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getValue_ = call (load_sym libgobject "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
-      val setValue_ = call (load_sym libgobject "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gtk_icon_size_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getValue_ = call (getSymbol "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
+      val setValue_ = call (getSymbol "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid)
     end
     val t =
       GObjectValue.C.createAccessor
@@ -53,10 +53,10 @@ structure GtkIconSize :>
     local
       open PolyMLFFI
     in
-      val fromName_ = call (load_sym libgtk "gtk_icon_size_from_name") (Utf8.PolyML.cInPtr --> GInt.PolyML.cVal)
-      val getName_ = call (load_sym libgtk "gtk_icon_size_get_name") (GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val fromName_ = call (getSymbol "gtk_icon_size_from_name") (Utf8.PolyML.cInPtr --> GInt.PolyML.cVal)
+      val getName_ = call (getSymbol "gtk_icon_size_get_name") (GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val lookup_ =
-        call (load_sym libgtk "gtk_icon_size_lookup")
+        call (getSymbol "gtk_icon_size_lookup")
           (
             GInt.PolyML.cVal
              &&> GInt.PolyML.cRef
@@ -64,7 +64,7 @@ structure GtkIconSize :>
              --> GBool.PolyML.cVal
           )
       val lookupForSettings_ =
-        call (load_sym libgtk "gtk_icon_size_lookup_for_settings")
+        call (getSymbol "gtk_icon_size_lookup_for_settings")
           (
             GtkSettingsClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -73,14 +73,14 @@ structure GtkIconSize :>
              --> GBool.PolyML.cVal
           )
       val register_ =
-        call (load_sym libgtk "gtk_icon_size_register")
+        call (getSymbol "gtk_icon_size_register")
           (
             Utf8.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              --> GInt.PolyML.cVal
           )
-      val registerAlias_ = call (load_sym libgtk "gtk_icon_size_register_alias") (Utf8.PolyML.cInPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val registerAlias_ = call (getSymbol "gtk_icon_size_register_alias") (Utf8.PolyML.cInPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a settings_class = 'a GtkSettingsClass.class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

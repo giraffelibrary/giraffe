@@ -11,17 +11,17 @@ structure GtkIconSourceRecord :> GTK_ICON_SOURCE_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgtk "gtk_icon_source_copy")
+          (getSymbol "gtk_icon_source_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgtk "gtk_icon_source_free")
+          (getSymbol "gtk_icon_source_free")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgtk "gtk_icon_source_get_type")
+          (getSymbol "gtk_icon_source_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

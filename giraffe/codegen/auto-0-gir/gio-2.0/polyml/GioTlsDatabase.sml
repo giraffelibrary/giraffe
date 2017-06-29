@@ -13,10 +13,10 @@ structure GioTlsDatabase :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tls_database_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val createCertificateHandle_ = call (load_sym libgio "g_tls_database_create_certificate_handle") (GioTlsDatabaseClass.PolyML.cPtr &&> GioTlsCertificateClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getType_ = call (getSymbol "g_tls_database_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val createCertificateHandle_ = call (getSymbol "g_tls_database_create_certificate_handle") (GioTlsDatabaseClass.PolyML.cPtr &&> GioTlsCertificateClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val lookupCertificateForHandle_ =
-        call (load_sym libgio "g_tls_database_lookup_certificate_for_handle")
+        call (getSymbol "g_tls_database_lookup_certificate_for_handle")
           (
             GioTlsDatabaseClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -27,7 +27,7 @@ structure GioTlsDatabase :>
              --> GioTlsCertificateClass.PolyML.cPtr
           )
       val lookupCertificateForHandleFinish_ =
-        call (load_sym libgio "g_tls_database_lookup_certificate_for_handle_finish")
+        call (getSymbol "g_tls_database_lookup_certificate_for_handle_finish")
           (
             GioTlsDatabaseClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -35,7 +35,7 @@ structure GioTlsDatabase :>
              --> GioTlsCertificateClass.PolyML.cPtr
           )
       val lookupCertificateIssuer_ =
-        call (load_sym libgio "g_tls_database_lookup_certificate_issuer")
+        call (getSymbol "g_tls_database_lookup_certificate_issuer")
           (
             GioTlsDatabaseClass.PolyML.cPtr
              &&> GioTlsCertificateClass.PolyML.cPtr
@@ -46,7 +46,7 @@ structure GioTlsDatabase :>
              --> GioTlsCertificateClass.PolyML.cPtr
           )
       val lookupCertificateIssuerFinish_ =
-        call (load_sym libgio "g_tls_database_lookup_certificate_issuer_finish")
+        call (getSymbol "g_tls_database_lookup_certificate_issuer_finish")
           (
             GioTlsDatabaseClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -54,7 +54,7 @@ structure GioTlsDatabase :>
              --> GioTlsCertificateClass.PolyML.cPtr
           )
       val verifyChain_ =
-        call (load_sym libgio "g_tls_database_verify_chain")
+        call (getSymbol "g_tls_database_verify_chain")
           (
             GioTlsDatabaseClass.PolyML.cPtr
              &&> GioTlsCertificateClass.PolyML.cPtr
@@ -67,7 +67,7 @@ structure GioTlsDatabase :>
              --> GioTlsCertificateFlags.PolyML.cVal
           )
       val verifyChainFinish_ =
-        call (load_sym libgio "g_tls_database_verify_chain_finish")
+        call (getSymbol "g_tls_database_verify_chain_finish")
           (
             GioTlsDatabaseClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr

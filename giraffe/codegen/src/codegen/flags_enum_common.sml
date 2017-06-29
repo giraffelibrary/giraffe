@@ -56,14 +56,12 @@ fun addFlagsEnumMethodSpecs repo enumIRef =
 fun addFlagsEnumMethodStrDecsLowLevel
   isPolyML
   repo
-  libId
   addInitStrDecs
   enumIRef =
   addFunctionStrDecsLowLevel
     (EnumInfo.getNMethods, EnumInfo.getMethod)
     isPolyML
     repo
-    libId
     addInitStrDecs
     (SOME (enumIRef, enumIRef))
 

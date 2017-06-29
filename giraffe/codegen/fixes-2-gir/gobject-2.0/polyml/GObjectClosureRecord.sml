@@ -15,26 +15,26 @@ structure GObjectClosureRecord :>
         if GiraffeDebug.isEnabled
         then
           call
-            (load_sym libgiraffegobject "giraffe_debug_closure_take")
+            (getSymbol "giraffe_debug_closure_take")
             (cPtr --> cVoid)
         else
           ignore
 
       val ref_ =
         call
-          (load_sym libgobject "g_closure_ref")
+          (getSymbol "g_closure_ref")
           (cPtr --> cPtr)
 
       val sink_ =
         call
-          (load_sym libgobject "g_closure_sink")
+          (getSymbol "g_closure_sink")
           (cPtr --> cVoid)
 
       val dup_ =
         if GiraffeDebug.isEnabled
         then 
           call
-            (load_sym libgiraffegobject "giraffe_debug_closure_ref_sink")
+            (getSymbol "giraffe_debug_closure_ref_sink")
             (cPtr --> cPtr)
         else
           fn ptr => ref_ ptr before sink_ ptr  (* must do ref before sink *)
@@ -43,16 +43,16 @@ structure GObjectClosureRecord :>
         if GiraffeDebug.isEnabled
         then
           call
-            (load_sym libgiraffegobject "giraffe_debug_g_closure_unref")
+            (getSymbol "giraffe_debug_g_closure_unref")
             (cPtr --> cVoid)
         else
           call
-            (load_sym libgobject "g_closure_unref")
+            (getSymbol "g_closure_unref")
             (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgobject "g_closure_get_type")
+          (getSymbol "g_closure_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

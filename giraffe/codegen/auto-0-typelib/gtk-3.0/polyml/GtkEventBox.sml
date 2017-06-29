@@ -6,12 +6,12 @@ structure GtkEventBox :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_event_box_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_event_box_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val getAboveChild_ = call (load_sym libgtk "gtk_event_box_get_above_child") (GtkEventBoxClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getVisibleWindow_ = call (load_sym libgtk "gtk_event_box_get_visible_window") (GtkEventBoxClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setAboveChild_ = call (load_sym libgtk "gtk_event_box_set_above_child") (GtkEventBoxClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setVisibleWindow_ = call (load_sym libgtk "gtk_event_box_set_visible_window") (GtkEventBoxClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gtk_event_box_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_event_box_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getAboveChild_ = call (getSymbol "gtk_event_box_get_above_child") (GtkEventBoxClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getVisibleWindow_ = call (getSymbol "gtk_event_box_get_visible_window") (GtkEventBoxClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setAboveChild_ = call (getSymbol "gtk_event_box_set_above_child") (GtkEventBoxClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setVisibleWindow_ = call (getSymbol "gtk_event_box_set_visible_window") (GtkEventBoxClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkEventBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

@@ -11,17 +11,17 @@ structure GtkRecentInfoRecord :> GTK_RECENT_INFO_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgtk "gtk_recent_info_ref")
+          (getSymbol "gtk_recent_info_ref")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgtk "gtk_recent_info_unref")
+          (getSymbol "gtk_recent_info_unref")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgtk "gtk_recent_info_get_type")
+          (getSymbol "gtk_recent_info_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

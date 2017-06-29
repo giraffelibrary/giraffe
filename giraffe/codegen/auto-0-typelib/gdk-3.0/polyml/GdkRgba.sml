@@ -5,12 +5,12 @@ structure GdkRgba :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_rgba_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val copy_ = call (load_sym libgdk "gdk_rgba_copy") (GdkRgbaRecord.PolyML.cPtr --> GdkRgbaRecord.PolyML.cPtr)
-      val equal_ = call (load_sym libgdk "gdk_rgba_equal") (GdkRgbaRecord.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val hash_ = call (load_sym libgdk "gdk_rgba_hash") (GdkRgbaRecord.PolyML.cPtr --> GUInt32.PolyML.cVal)
-      val parse_ = call (load_sym libgdk "gdk_rgba_parse") (GdkRgbaRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val toString_ = call (load_sym libgdk "gdk_rgba_to_string") (GdkRgbaRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getType_ = call (getSymbol "gdk_rgba_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val copy_ = call (getSymbol "gdk_rgba_copy") (GdkRgbaRecord.PolyML.cPtr --> GdkRgbaRecord.PolyML.cPtr)
+      val equal_ = call (getSymbol "gdk_rgba_equal") (GdkRgbaRecord.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val hash_ = call (getSymbol "gdk_rgba_hash") (GdkRgbaRecord.PolyML.cPtr --> GUInt32.PolyML.cVal)
+      val parse_ = call (getSymbol "gdk_rgba_parse") (GdkRgbaRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val toString_ = call (getSymbol "gdk_rgba_to_string") (GdkRgbaRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type t = GdkRgbaRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

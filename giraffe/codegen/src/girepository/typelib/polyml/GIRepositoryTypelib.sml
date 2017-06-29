@@ -7,7 +7,7 @@ structure GIRepositoryTypelib :>
     in
       val getNamespace_ =
         call
-          (load_sym libgirepository "g_typelib_get_namespace")
+          (getSymbol "g_typelib_get_namespace")
           (GIRepositoryTypelibType.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
 

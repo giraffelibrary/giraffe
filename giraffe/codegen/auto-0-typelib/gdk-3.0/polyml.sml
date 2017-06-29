@@ -1,4 +1,3 @@
-val libgdk = PolyMLFFI.load_lib "";
 use "GDK_EVENT_ANY_RECORD.sml";
 use "GDK_EVENT_BUTTON_RECORD.sml";
 use "GDK_EVENT_CONFIGURE_RECORD.sml";

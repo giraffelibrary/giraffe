@@ -11,17 +11,17 @@ structure GtkSelectionDataRecord :> GTK_SELECTION_DATA_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgtk "gtk_selection_data_copy")
+          (getSymbol "gtk_selection_data_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgtk "gtk_selection_data_free")
+          (getSymbol "gtk_selection_data_free")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgtk "gtk_selection_data_get_type")
+          (getSymbol "gtk_selection_data_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

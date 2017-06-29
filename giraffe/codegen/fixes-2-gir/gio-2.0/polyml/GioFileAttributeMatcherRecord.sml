@@ -11,17 +11,17 @@ structure GioFileAttributeMatcherRecord :> GIO_FILE_ATTRIBUTE_MATCHER_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgio "g_file_attribute_matcher_ref")
+          (getSymbol "g_file_attribute_matcher_ref")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgio "g_file_attribute_matcher_unref")
+          (getSymbol "g_file_attribute_matcher_unref")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgio "g_file_attribute_matcher_get_type")
+          (getSymbol "g_file_attribute_matcher_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

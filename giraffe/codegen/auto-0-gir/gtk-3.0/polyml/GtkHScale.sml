@@ -7,7 +7,7 @@ structure GtkHScale :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_hscale_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_hscale_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class = 'a GtkHScaleClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

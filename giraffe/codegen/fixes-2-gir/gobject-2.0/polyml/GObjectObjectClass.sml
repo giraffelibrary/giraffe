@@ -18,8 +18,8 @@ structure GObjectObjectClass :>
       then
         let
           open PolyMLFFI
-          val debugClosureSym = load_sym libgiraffegobject "giraffe_debug_closure"
-          val debugRefCountSym = load_sym libgiraffegobject "giraffe_debug_ref_count"
+          val debugClosureSym = getSymbol "giraffe_debug_closure"
+          val debugRefCountSym = getSymbol "giraffe_debug_ref_count"
           fun set sym conv x =
             ignore (#store (breakConversion conv) x (symbolAsAddress sym))
           fun setBool sym x = GBool.FFI.withVal (set sym GBool.PolyML.cVal) x
@@ -37,7 +37,7 @@ structure GObjectObjectClass :>
         if GiraffeDebug.isEnabled
         then
           call
-            (load_sym libgiraffegobject "giraffe_debug_object_take")
+            (getSymbol "giraffe_debug_object_take")
             (cPtr --> PolyMLFFI.cVoid)
         else
           ignore
@@ -46,22 +46,22 @@ structure GObjectObjectClass :>
         if GiraffeDebug.isEnabled
         then 
           call
-            (load_sym libgiraffegobject "giraffe_debug_g_object_ref_sink")
+            (getSymbol "giraffe_debug_g_object_ref_sink")
             (cPtr --> cPtr)
         else
           call
-            (load_sym libgobject "g_object_ref_sink")
+            (getSymbol "g_object_ref_sink")
             (cPtr --> cPtr)
 
       val unref_ =
         if GiraffeDebug.isEnabled
         then
           call
-            (load_sym libgiraffegobject "giraffe_debug_g_object_unref")
+            (getSymbol "giraffe_debug_g_object_unref")
             (cPtr --> PolyMLFFI.cVoid)
         else
           call
-            (load_sym libgobject "g_object_unref")
+            (getSymbol "g_object_unref")
             (cPtr --> PolyMLFFI.cVoid)
     end
 
@@ -154,27 +154,27 @@ structure GObjectObjectClass :>
     in
       val getType_ =
         call
-          (load_sym libgobject "g_object_get_type")
+          (getSymbol "g_object_get_type")
           (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
 
       val getValue_ =
         call
-          (load_sym libgobject "g_value_get_object")
+          (getSymbol "g_value_get_object")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr);
 
       val getOptValue_ =
         call
-          (load_sym libgobject "g_value_get_object")
+          (getSymbol "g_value_get_object")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);
 
       val setValue_ =
         call
-          (load_sym libgobject "g_value_set_object")
+          (getSymbol "g_value_set_object")
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid);
 
       val setOptValue_ =
         call
-          (load_sym libgobject "g_value_set_object")
+          (getSymbol "g_value_set_object")
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid);
     end
 

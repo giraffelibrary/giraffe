@@ -11,17 +11,17 @@ structure PangoMatrixRecord :> PANGO_MATRIX_RECORD =
     in
       val dup_ =
         call
-          (load_sym libpango "pango_matrix_copy")
+          (getSymbol "pango_matrix_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libpango "pango_matrix_free")
+          (getSymbol "pango_matrix_free")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libpango "pango_matrix_get_type")
+          (getSymbol "pango_matrix_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

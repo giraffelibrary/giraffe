@@ -11,27 +11,27 @@ structure GdkColorRecord :> GDK_COLOR_RECORD =
     in
       val new_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_color_new")
+          (getSymbol "giraffe_gdk_color_new")
           (cVoid --> cPtr)
 
       val copy_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_color_copy")
+          (getSymbol "giraffe_gdk_color_copy")
           (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_color_free")
+          (getSymbol "giraffe_gdk_color_free")
           (cPtr --> cVoid)
 
       val size_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_color_size")
+          (getSymbol "giraffe_gdk_color_size")
           (cVoid --> GUInt.PolyML.cVal)
 
       val getType_ =
         call
-          (load_sym libgdk "gdk_color_get_type")
+          (getSymbol "gdk_color_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

@@ -5,8 +5,8 @@ structure GioDBusAnnotationInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_annotation_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val lookup_ = call (load_sym libgio "g_dbus_annotation_info_lookup") (GioDBusAnnotationInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getType_ = call (getSymbol "g_dbus_annotation_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val lookup_ = call (getSymbol "g_dbus_annotation_info_lookup") (GioDBusAnnotationInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
     end
     type t = GioDBusAnnotationInfoRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

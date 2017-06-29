@@ -7,9 +7,9 @@ structure GioPermission :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_permission_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_permission_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val acquire_ =
-        call (load_sym libgio "g_permission_acquire")
+        call (getSymbol "g_permission_acquire")
           (
             GioPermissionClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -17,18 +17,18 @@ structure GioPermission :>
              --> GBool.PolyML.cVal
           )
       val acquireFinish_ =
-        call (load_sym libgio "g_permission_acquire_finish")
+        call (getSymbol "g_permission_acquire_finish")
           (
             GioPermissionClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val getAllowed_ = call (load_sym libgio "g_permission_get_allowed") (GioPermissionClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getCanAcquire_ = call (load_sym libgio "g_permission_get_can_acquire") (GioPermissionClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getCanRelease_ = call (load_sym libgio "g_permission_get_can_release") (GioPermissionClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getAllowed_ = call (getSymbol "g_permission_get_allowed") (GioPermissionClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getCanAcquire_ = call (getSymbol "g_permission_get_can_acquire") (GioPermissionClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getCanRelease_ = call (getSymbol "g_permission_get_can_release") (GioPermissionClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val implUpdate_ =
-        call (load_sym libgio "g_permission_impl_update")
+        call (getSymbol "g_permission_impl_update")
           (
             GioPermissionClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
@@ -37,7 +37,7 @@ structure GioPermission :>
              --> PolyMLFFI.cVoid
           )
       val release_ =
-        call (load_sym libgio "g_permission_release")
+        call (getSymbol "g_permission_release")
           (
             GioPermissionClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -45,7 +45,7 @@ structure GioPermission :>
              --> GBool.PolyML.cVal
           )
       val releaseFinish_ =
-        call (load_sym libgio "g_permission_release_finish")
+        call (getSymbol "g_permission_release_finish")
           (
             GioPermissionClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr

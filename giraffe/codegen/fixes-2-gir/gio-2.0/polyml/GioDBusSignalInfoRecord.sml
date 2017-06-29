@@ -11,17 +11,17 @@ structure GioDBusSignalInfoRecord :> GIO_D_BUS_SIGNAL_INFO_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgio "g_dbus_signal_info_ref")
+          (getSymbol "g_dbus_signal_info_ref")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgio "g_dbus_signal_info_unref")
+          (getSymbol "g_dbus_signal_info_unref")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgio "g_dbus_signal_info_get_type")
+          (getSymbol "g_dbus_signal_info_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

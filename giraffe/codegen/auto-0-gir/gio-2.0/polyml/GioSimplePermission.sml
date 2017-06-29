@@ -5,8 +5,8 @@ structure GioSimplePermission :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_simple_permission_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_simple_permission_new") (GBool.PolyML.cVal --> GioPermissionClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_simple_permission_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_simple_permission_new") (GBool.PolyML.cVal --> GioPermissionClass.PolyML.cPtr)
     end
     type 'a class = 'a GioSimplePermissionClass.class
     type t = base class

@@ -6,7 +6,7 @@ structure GObjectParamSpecULong :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "intern") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "intern") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class = 'a GObjectParamSpecULongClass.class
     type type_t = GObjectType.t

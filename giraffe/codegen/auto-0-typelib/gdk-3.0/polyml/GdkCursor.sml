@@ -7,12 +7,12 @@ structure GdkCursor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_cursor_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgdk "gdk_cursor_new") (GdkCursorType.PolyML.cVal --> GdkCursorClass.PolyML.cPtr)
-      val newForDisplay_ = call (load_sym libgdk "gdk_cursor_new_for_display") (GdkDisplayClass.PolyML.cPtr &&> GdkCursorType.PolyML.cVal --> GdkCursorClass.PolyML.cPtr)
-      val newFromName_ = call (load_sym libgdk "gdk_cursor_new_from_name") (GdkDisplayClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GdkCursorClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gdk_cursor_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gdk_cursor_new") (GdkCursorType.PolyML.cVal --> GdkCursorClass.PolyML.cPtr)
+      val newForDisplay_ = call (getSymbol "gdk_cursor_new_for_display") (GdkDisplayClass.PolyML.cPtr &&> GdkCursorType.PolyML.cVal --> GdkCursorClass.PolyML.cPtr)
+      val newFromName_ = call (getSymbol "gdk_cursor_new_from_name") (GdkDisplayClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GdkCursorClass.PolyML.cPtr)
       val newFromPixbuf_ =
-        call (load_sym libgdk "gdk_cursor_new_from_pixbuf")
+        call (getSymbol "gdk_cursor_new_from_pixbuf")
           (
             GdkDisplayClass.PolyML.cPtr
              &&> GdkPixbufPixbufClass.PolyML.cPtr
@@ -20,9 +20,9 @@ structure GdkCursor :>
              &&> GInt32.PolyML.cVal
              --> GdkCursorClass.PolyML.cPtr
           )
-      val getCursorType_ = call (load_sym libgdk "gdk_cursor_get_cursor_type") (GdkCursorClass.PolyML.cPtr --> GdkCursorType.PolyML.cVal)
-      val getDisplay_ = call (load_sym libgdk "gdk_cursor_get_display") (GdkCursorClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
-      val getImage_ = call (load_sym libgdk "gdk_cursor_get_image") (GdkCursorClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val getCursorType_ = call (getSymbol "gdk_cursor_get_cursor_type") (GdkCursorClass.PolyML.cPtr --> GdkCursorType.PolyML.cVal)
+      val getDisplay_ = call (getSymbol "gdk_cursor_get_display") (GdkCursorClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
+      val getImage_ = call (getSymbol "gdk_cursor_get_image") (GdkCursorClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
     end
     type 'a class = 'a GdkCursorClass.class
     type cursor_type_t = GdkCursorType.t

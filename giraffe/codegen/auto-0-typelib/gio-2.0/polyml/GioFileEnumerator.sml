@@ -9,9 +9,9 @@ structure GioFileEnumerator :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_file_enumerator_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_file_enumerator_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val close_ =
-        call (load_sym libgio "g_file_enumerator_close")
+        call (getSymbol "g_file_enumerator_close")
           (
             GioFileEnumeratorClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -19,25 +19,25 @@ structure GioFileEnumerator :>
              --> GBool.PolyML.cVal
           )
       val closeFinish_ =
-        call (load_sym libgio "g_file_enumerator_close_finish")
+        call (getSymbol "g_file_enumerator_close_finish")
           (
             GioFileEnumeratorClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val getContainer_ = call (load_sym libgio "g_file_enumerator_get_container") (GioFileEnumeratorClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
-      val hasPending_ = call (load_sym libgio "g_file_enumerator_has_pending") (GioFileEnumeratorClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isClosed_ = call (load_sym libgio "g_file_enumerator_is_closed") (GioFileEnumeratorClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getContainer_ = call (getSymbol "g_file_enumerator_get_container") (GioFileEnumeratorClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
+      val hasPending_ = call (getSymbol "g_file_enumerator_has_pending") (GioFileEnumeratorClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isClosed_ = call (getSymbol "g_file_enumerator_is_closed") (GioFileEnumeratorClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val nextFile_ =
-        call (load_sym libgio "g_file_enumerator_next_file")
+        call (getSymbol "g_file_enumerator_next_file")
           (
             GioFileEnumeratorClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioFileInfoClass.PolyML.cPtr
           )
-      val setPending_ = call (load_sym libgio "g_file_enumerator_set_pending") (GioFileEnumeratorClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPending_ = call (getSymbol "g_file_enumerator_set_pending") (GioFileEnumeratorClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioFileEnumeratorClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class

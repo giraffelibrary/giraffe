@@ -6,11 +6,11 @@ structure GtkIMMulticontext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_im_multicontext_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_im_multicontext_new") (PolyMLFFI.cVoid --> GtkIMContextClass.PolyML.cPtr)
-      val appendMenuitems_ = call (load_sym libgtk "gtk_im_multicontext_append_menuitems") (GtkIMMulticontextClass.PolyML.cPtr &&> GtkMenuShellClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getContextId_ = call (load_sym libgtk "gtk_im_multicontext_get_context_id") (GtkIMMulticontextClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val setContextId_ = call (load_sym libgtk "gtk_im_multicontext_set_context_id") (GtkIMMulticontextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gtk_im_multicontext_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_im_multicontext_new") (PolyMLFFI.cVoid --> GtkIMContextClass.PolyML.cPtr)
+      val appendMenuitems_ = call (getSymbol "gtk_im_multicontext_append_menuitems") (GtkIMMulticontextClass.PolyML.cPtr &&> GtkMenuShellClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getContextId_ = call (getSymbol "gtk_im_multicontext_get_context_id") (GtkIMMulticontextClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val setContextId_ = call (getSymbol "gtk_im_multicontext_set_context_id") (GtkIMMulticontextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkIMMulticontextClass.class
     type 'a menu_shell_class = 'a GtkMenuShellClass.class

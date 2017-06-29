@@ -14,7 +14,6 @@ fun insertNewList f (xs, m) = List.foldr (insertNew f) m xs
 fun translateInfo
   repo
   vers
-  getLibId
   namespace
   (
     baseInfo,
@@ -35,8 +34,6 @@ fun translateInfo
   case InfoType.getType baseInfo of
     InfoType.OBJECT objectInfo       =>
       let
-        val libId = getLibId ()
-
         val (classSigId, classSigProgram, classSigDeps) =
           makeObjectClassSig repo namespace objectInfo
 
@@ -49,7 +46,7 @@ fun translateInfo
           makeObjectClassStr repo namespace objectInfo
 
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeObjectStr repo vers libId namespace objectInfo errs'0
+          makeObjectStr repo vers namespace objectInfo errs'0
 
         val classStrDeps = map makeIRefInterfaceOtherStrId classStrIRefs
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
@@ -92,8 +89,6 @@ fun translateInfo
       end
   | InfoType.INTERFACE interfaceInfo =>
       let
-        val libId = getLibId ()
-
         val (classSigId, classSigProgram, classSigDeps) =
           makeInterfaceClassSig repo namespace interfaceInfo
 
@@ -106,7 +101,7 @@ fun translateInfo
           makeInterfaceClassStr repo namespace interfaceInfo
 
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeInterfaceStr repo vers libId namespace interfaceInfo errs'0
+          makeInterfaceStr repo vers namespace interfaceInfo errs'0
 
         val classStrDeps = map makeIRefInterfaceOtherStrId classStrIRefs
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
@@ -158,8 +153,6 @@ fun translateInfo
         end
       then
         let
-          val libId = getLibId ()
-
           val (recordSigId, recordSigProgram, recordSigDeps) =
             makeStructRecordSig repo namespace structInfo
 
@@ -172,7 +165,7 @@ fun translateInfo
             makeStructRecordStr repo namespace structInfo
 
           val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-            makeStructStr repo vers libId namespace structInfo errs'0
+            makeStructStr repo vers namespace structInfo errs'0
 
           val recordStrDeps = map makeIRefInterfaceOtherStrId recordStrIRefs
           val strDeps = map makeIRefInterfaceOtherStrId strIRefs
@@ -260,10 +253,8 @@ fun translateInfo
         acc
   | InfoType.FLAGS enumInfo          =>
       let
-        val libId = getLibId ()
-
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeFlagsStr repo vers libId namespace enumInfo errs'0
+          makeFlagsStr repo vers namespace enumInfo errs'0
 
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
@@ -294,10 +285,8 @@ fun translateInfo
       end
   | InfoType.ENUM enumInfo           =>
       let
-        val libId = getLibId ()
-
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeEnumStr repo vers libId namespace enumInfo errs'0
+          makeEnumStr repo vers namespace enumInfo errs'0
 
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
@@ -341,8 +330,6 @@ fun translateInfo
       end
   | InfoType.FUNCTION functionInfo   =>
       let
-        val libId = getLibId ()
-
         val (spec, (_, errs'1)) =
           makeFunctionSpec repo NONE (functionInfo, ([], errs'0))
 
@@ -351,7 +338,7 @@ fun translateInfo
             (functionInfo, (([], structDeps'0), errs'1))
 
         val (strDecLowLevelPolyML, errs'3) =
-          makeFunctionStrDecLowLevelPolyML repo libId NONE
+          makeFunctionStrDecLowLevelPolyML repo NONE
             (functionInfo, errs'2)
 
         val (strDecLowLevelMLton, errs'4) =
@@ -378,8 +365,6 @@ fun translateInfo
 
 fun translateLoadedNamespace repo vers namespace =
   let
-    val getLibId = lazy (fn () => getSharedLibraryId repo vers namespace)
-
     val modules'0 = (ListDict.empty, ListDict.empty, ListDict.empty)
     val constants'0 = ([], [])
     val functions'0 = ([], [], [], [])
@@ -389,6 +374,6 @@ fun translateLoadedNamespace repo vers namespace =
     revFoldInfosWithErrs
       (Repository.getNInfos repo vers)
       (Repository.getInfo repo vers)
-      (translateInfo repo vers getLibId namespace)
+      (translateInfo repo vers namespace)
       (namespace, ((modules'0, constants'0, functions'0, structDeps'0), errs'0))
   end

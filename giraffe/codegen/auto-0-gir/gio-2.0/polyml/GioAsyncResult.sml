@@ -5,8 +5,8 @@ structure GioAsyncResult :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_async_result_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getSourceObject_ = call (load_sym libgio "g_async_result_get_source_object") (GioAsyncResultClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_async_result_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getSourceObject_ = call (getSymbol "g_async_result_get_source_object") (GioAsyncResultClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
     end
     type 'a class = 'a GioAsyncResultClass.class
     type t = base class

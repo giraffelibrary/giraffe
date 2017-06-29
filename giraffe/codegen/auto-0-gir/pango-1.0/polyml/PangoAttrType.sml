@@ -85,9 +85,9 @@ structure PangoAttrType :> PANGO_ATTR_TYPE =
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_attr_type_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getValue_ = call (load_sym libgobject "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
-      val setValue_ = call (load_sym libgobject "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "pango_attr_type_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getValue_ = call (getSymbol "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
+      val setValue_ = call (getSymbol "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid)
     end
     val t =
       GObjectValue.C.createAccessor
@@ -99,8 +99,8 @@ structure PangoAttrType :> PANGO_ATTR_TYPE =
     local
       open PolyMLFFI
     in
-      val getName_ = call (load_sym libpango "pango_attr_type_get_name") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val register_ = call (load_sym libpango "pango_attr_type_register") (Utf8.PolyML.cInPtr --> PolyML.cVal)
+      val getName_ = call (getSymbol "pango_attr_type_get_name") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val register_ = call (getSymbol "pango_attr_type_register") (Utf8.PolyML.cInPtr --> PolyML.cVal)
     end
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getName type' = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ type'

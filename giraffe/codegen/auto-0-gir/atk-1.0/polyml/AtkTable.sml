@@ -6,47 +6,47 @@ structure AtkTable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_table_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val addColumnSelection_ = call (load_sym libatk "atk_table_add_column_selection") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
-      val addRowSelection_ = call (load_sym libatk "atk_table_add_row_selection") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
-      val getCaption_ = call (load_sym libatk "atk_table_get_caption") (AtkTableClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
-      val getColumnAtIndex_ = call (load_sym libatk "atk_table_get_column_at_index") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GInt.PolyML.cVal)
-      val getColumnDescription_ = call (load_sym libatk "atk_table_get_column_description") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getType_ = call (getSymbol "atk_table_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val addColumnSelection_ = call (getSymbol "atk_table_add_column_selection") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val addRowSelection_ = call (getSymbol "atk_table_add_row_selection") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val getCaption_ = call (getSymbol "atk_table_get_caption") (AtkTableClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
+      val getColumnAtIndex_ = call (getSymbol "atk_table_get_column_at_index") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GInt.PolyML.cVal)
+      val getColumnDescription_ = call (getSymbol "atk_table_get_column_description") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val getColumnExtentAt_ =
-        call (load_sym libatk "atk_table_get_column_extent_at")
+        call (getSymbol "atk_table_get_column_extent_at")
           (
             AtkTableClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              --> GInt.PolyML.cVal
           )
-      val getColumnHeader_ = call (load_sym libatk "atk_table_get_column_header") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
+      val getColumnHeader_ = call (getSymbol "atk_table_get_column_header") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
       val getIndexAt_ =
-        call (load_sym libatk "atk_table_get_index_at")
+        call (getSymbol "atk_table_get_index_at")
           (
             AtkTableClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              --> GInt.PolyML.cVal
           )
-      val getNColumns_ = call (load_sym libatk "atk_table_get_n_columns") (AtkTableClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getNRows_ = call (load_sym libatk "atk_table_get_n_rows") (AtkTableClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getRowAtIndex_ = call (load_sym libatk "atk_table_get_row_at_index") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GInt.PolyML.cVal)
-      val getRowDescription_ = call (load_sym libatk "atk_table_get_row_description") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getNColumns_ = call (getSymbol "atk_table_get_n_columns") (AtkTableClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getNRows_ = call (getSymbol "atk_table_get_n_rows") (AtkTableClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getRowAtIndex_ = call (getSymbol "atk_table_get_row_at_index") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GInt.PolyML.cVal)
+      val getRowDescription_ = call (getSymbol "atk_table_get_row_description") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val getRowExtentAt_ =
-        call (load_sym libatk "atk_table_get_row_extent_at")
+        call (getSymbol "atk_table_get_row_extent_at")
           (
             AtkTableClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              --> GInt.PolyML.cVal
           )
-      val getRowHeader_ = call (load_sym libatk "atk_table_get_row_header") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
-      val getSummary_ = call (load_sym libatk "atk_table_get_summary") (AtkTableClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
-      val isColumnSelected_ = call (load_sym libatk "atk_table_is_column_selected") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
-      val isRowSelected_ = call (load_sym libatk "atk_table_is_row_selected") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val getRowHeader_ = call (getSymbol "atk_table_get_row_header") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
+      val getSummary_ = call (getSymbol "atk_table_get_summary") (AtkTableClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
+      val isColumnSelected_ = call (getSymbol "atk_table_is_column_selected") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val isRowSelected_ = call (getSymbol "atk_table_is_row_selected") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
       val isSelected_ =
-        call (load_sym libatk "atk_table_is_selected")
+        call (getSymbol "atk_table_is_selected")
           (
             AtkTableClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -54,18 +54,18 @@ structure AtkTable :>
              --> GBool.PolyML.cVal
           )
       val refAt_ =
-        call (load_sym libatk "atk_table_ref_at")
+        call (getSymbol "atk_table_ref_at")
           (
             AtkTableClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              --> AtkObjectClass.PolyML.cPtr
           )
-      val removeColumnSelection_ = call (load_sym libatk "atk_table_remove_column_selection") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
-      val removeRowSelection_ = call (load_sym libatk "atk_table_remove_row_selection") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
-      val setCaption_ = call (load_sym libatk "atk_table_set_caption") (AtkTableClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val removeColumnSelection_ = call (getSymbol "atk_table_remove_column_selection") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val removeRowSelection_ = call (getSymbol "atk_table_remove_row_selection") (AtkTableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val setCaption_ = call (getSymbol "atk_table_set_caption") (AtkTableClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val setColumnDescription_ =
-        call (load_sym libatk "atk_table_set_column_description")
+        call (getSymbol "atk_table_set_column_description")
           (
             AtkTableClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -73,7 +73,7 @@ structure AtkTable :>
              --> PolyMLFFI.cVoid
           )
       val setColumnHeader_ =
-        call (load_sym libatk "atk_table_set_column_header")
+        call (getSymbol "atk_table_set_column_header")
           (
             AtkTableClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -81,7 +81,7 @@ structure AtkTable :>
              --> PolyMLFFI.cVoid
           )
       val setRowDescription_ =
-        call (load_sym libatk "atk_table_set_row_description")
+        call (getSymbol "atk_table_set_row_description")
           (
             AtkTableClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -89,14 +89,14 @@ structure AtkTable :>
              --> PolyMLFFI.cVoid
           )
       val setRowHeader_ =
-        call (load_sym libatk "atk_table_set_row_header")
+        call (getSymbol "atk_table_set_row_header")
           (
             AtkTableClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> AtkObjectClass.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val setSummary_ = call (load_sym libatk "atk_table_set_summary") (AtkTableClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setSummary_ = call (getSymbol "atk_table_set_summary") (AtkTableClass.PolyML.cPtr &&> AtkObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a AtkTableClass.class
     type 'a object_class = 'a AtkObjectClass.class

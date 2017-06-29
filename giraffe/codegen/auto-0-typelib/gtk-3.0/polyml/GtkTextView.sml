@@ -20,11 +20,11 @@ structure GtkTextView :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_text_view_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_text_view_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val newWithBuffer_ = call (load_sym libgtk "gtk_text_view_new_with_buffer") (GtkTextBufferClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_text_view_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_text_view_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val newWithBuffer_ = call (getSymbol "gtk_text_view_new_with_buffer") (GtkTextBufferClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val addChildAtAnchor_ =
-        call (load_sym libgtk "gtk_text_view_add_child_at_anchor")
+        call (getSymbol "gtk_text_view_add_child_at_anchor")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
@@ -32,7 +32,7 @@ structure GtkTextView :>
              --> PolyMLFFI.cVoid
           )
       val addChildInWindow_ =
-        call (load_sym libgtk "gtk_text_view_add_child_in_window")
+        call (getSymbol "gtk_text_view_add_child_in_window")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
@@ -41,10 +41,10 @@ structure GtkTextView :>
              &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val backwardDisplayLine_ = call (load_sym libgtk "gtk_text_view_backward_display_line") (GtkTextViewClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val backwardDisplayLineStart_ = call (load_sym libgtk "gtk_text_view_backward_display_line_start") (GtkTextViewClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val backwardDisplayLine_ = call (getSymbol "gtk_text_view_backward_display_line") (GtkTextViewClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val backwardDisplayLineStart_ = call (getSymbol "gtk_text_view_backward_display_line_start") (GtkTextViewClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val bufferToWindowCoords_ =
-        call (load_sym libgtk "gtk_text_view_buffer_to_window_coords")
+        call (getSymbol "gtk_text_view_buffer_to_window_coords")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkTextWindowType.PolyML.cVal
@@ -54,13 +54,13 @@ structure GtkTextView :>
              &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val forwardDisplayLine_ = call (load_sym libgtk "gtk_text_view_forward_display_line") (GtkTextViewClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val forwardDisplayLineEnd_ = call (load_sym libgtk "gtk_text_view_forward_display_line_end") (GtkTextViewClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getAcceptsTab_ = call (load_sym libgtk "gtk_text_view_get_accepts_tab") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getBorderWindowSize_ = call (load_sym libgtk "gtk_text_view_get_border_window_size") (GtkTextViewClass.PolyML.cPtr &&> GtkTextWindowType.PolyML.cVal --> GInt32.PolyML.cVal)
-      val getBuffer_ = call (load_sym libgtk "gtk_text_view_get_buffer") (GtkTextViewClass.PolyML.cPtr --> GtkTextBufferClass.PolyML.cPtr)
+      val forwardDisplayLine_ = call (getSymbol "gtk_text_view_forward_display_line") (GtkTextViewClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val forwardDisplayLineEnd_ = call (getSymbol "gtk_text_view_forward_display_line_end") (GtkTextViewClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getAcceptsTab_ = call (getSymbol "gtk_text_view_get_accepts_tab") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getBorderWindowSize_ = call (getSymbol "gtk_text_view_get_border_window_size") (GtkTextViewClass.PolyML.cPtr &&> GtkTextWindowType.PolyML.cVal --> GInt32.PolyML.cVal)
+      val getBuffer_ = call (getSymbol "gtk_text_view_get_buffer") (GtkTextViewClass.PolyML.cPtr --> GtkTextBufferClass.PolyML.cPtr)
       val getCursorLocations_ =
-        call (load_sym libgtk "gtk_text_view_get_cursor_locations")
+        call (getSymbol "gtk_text_view_get_cursor_locations")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cOptPtr
@@ -68,12 +68,12 @@ structure GtkTextView :>
              &&> CairoRectangleIntRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val getCursorVisible_ = call (load_sym libgtk "gtk_text_view_get_cursor_visible") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getDefaultAttributes_ = call (load_sym libgtk "gtk_text_view_get_default_attributes") (GtkTextViewClass.PolyML.cPtr --> GtkTextAttributesRecord.PolyML.cPtr)
-      val getEditable_ = call (load_sym libgtk "gtk_text_view_get_editable") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getIndent_ = call (load_sym libgtk "gtk_text_view_get_indent") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getCursorVisible_ = call (getSymbol "gtk_text_view_get_cursor_visible") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getDefaultAttributes_ = call (getSymbol "gtk_text_view_get_default_attributes") (GtkTextViewClass.PolyML.cPtr --> GtkTextAttributesRecord.PolyML.cPtr)
+      val getEditable_ = call (getSymbol "gtk_text_view_get_editable") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getIndent_ = call (getSymbol "gtk_text_view_get_indent") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getIterAtLocation_ =
-        call (load_sym libgtk "gtk_text_view_get_iter_at_location")
+        call (getSymbol "gtk_text_view_get_iter_at_location")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
@@ -82,7 +82,7 @@ structure GtkTextView :>
              --> PolyMLFFI.cVoid
           )
       val getIterAtPosition_ =
-        call (load_sym libgtk "gtk_text_view_get_iter_at_position")
+        call (getSymbol "gtk_text_view_get_iter_at_position")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
@@ -92,17 +92,17 @@ structure GtkTextView :>
              --> PolyMLFFI.cVoid
           )
       val getIterLocation_ =
-        call (load_sym libgtk "gtk_text_view_get_iter_location")
+        call (getSymbol "gtk_text_view_get_iter_location")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> CairoRectangleIntRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val getJustification_ = call (load_sym libgtk "gtk_text_view_get_justification") (GtkTextViewClass.PolyML.cPtr --> GtkJustification.PolyML.cVal)
-      val getLeftMargin_ = call (load_sym libgtk "gtk_text_view_get_left_margin") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getJustification_ = call (getSymbol "gtk_text_view_get_justification") (GtkTextViewClass.PolyML.cPtr --> GtkJustification.PolyML.cVal)
+      val getLeftMargin_ = call (getSymbol "gtk_text_view_get_left_margin") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getLineAtY_ =
-        call (load_sym libgtk "gtk_text_view_get_line_at_y")
+        call (getSymbol "gtk_text_view_get_line_at_y")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
@@ -111,7 +111,7 @@ structure GtkTextView :>
              --> PolyMLFFI.cVoid
           )
       val getLineYrange_ =
-        call (load_sym libgtk "gtk_text_view_get_line_yrange")
+        call (getSymbol "gtk_text_view_get_line_yrange")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
@@ -119,19 +119,19 @@ structure GtkTextView :>
              &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getOverwrite_ = call (load_sym libgtk "gtk_text_view_get_overwrite") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getPixelsAboveLines_ = call (load_sym libgtk "gtk_text_view_get_pixels_above_lines") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getPixelsBelowLines_ = call (load_sym libgtk "gtk_text_view_get_pixels_below_lines") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getPixelsInsideWrap_ = call (load_sym libgtk "gtk_text_view_get_pixels_inside_wrap") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getRightMargin_ = call (load_sym libgtk "gtk_text_view_get_right_margin") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getTabs_ = call (load_sym libgtk "gtk_text_view_get_tabs") (GtkTextViewClass.PolyML.cPtr --> PangoTabArrayRecord.PolyML.cPtr)
-      val getVisibleRect_ = call (load_sym libgtk "gtk_text_view_get_visible_rect") (GtkTextViewClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getWindow_ = call (load_sym libgtk "gtk_text_view_get_window") (GtkTextViewClass.PolyML.cPtr &&> GtkTextWindowType.PolyML.cVal --> GdkWindowClass.PolyML.cPtr)
-      val getWindowType_ = call (load_sym libgtk "gtk_text_view_get_window_type") (GtkTextViewClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> GtkTextWindowType.PolyML.cVal)
-      val getWrapMode_ = call (load_sym libgtk "gtk_text_view_get_wrap_mode") (GtkTextViewClass.PolyML.cPtr --> GtkWrapMode.PolyML.cVal)
-      val imContextFilterKeypress_ = call (load_sym libgtk "gtk_text_view_im_context_filter_keypress") (GtkTextViewClass.PolyML.cPtr &&> GdkEventKeyRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getOverwrite_ = call (getSymbol "gtk_text_view_get_overwrite") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getPixelsAboveLines_ = call (getSymbol "gtk_text_view_get_pixels_above_lines") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getPixelsBelowLines_ = call (getSymbol "gtk_text_view_get_pixels_below_lines") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getPixelsInsideWrap_ = call (getSymbol "gtk_text_view_get_pixels_inside_wrap") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getRightMargin_ = call (getSymbol "gtk_text_view_get_right_margin") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getTabs_ = call (getSymbol "gtk_text_view_get_tabs") (GtkTextViewClass.PolyML.cPtr --> PangoTabArrayRecord.PolyML.cPtr)
+      val getVisibleRect_ = call (getSymbol "gtk_text_view_get_visible_rect") (GtkTextViewClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getWindow_ = call (getSymbol "gtk_text_view_get_window") (GtkTextViewClass.PolyML.cPtr &&> GtkTextWindowType.PolyML.cVal --> GdkWindowClass.PolyML.cPtr)
+      val getWindowType_ = call (getSymbol "gtk_text_view_get_window_type") (GtkTextViewClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> GtkTextWindowType.PolyML.cVal)
+      val getWrapMode_ = call (getSymbol "gtk_text_view_get_wrap_mode") (GtkTextViewClass.PolyML.cPtr --> GtkWrapMode.PolyML.cVal)
+      val imContextFilterKeypress_ = call (getSymbol "gtk_text_view_im_context_filter_keypress") (GtkTextViewClass.PolyML.cPtr &&> GdkEventKeyRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val moveChild_ =
-        call (load_sym libgtk "gtk_text_view_move_child")
+        call (getSymbol "gtk_text_view_move_child")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
@@ -139,20 +139,20 @@ structure GtkTextView :>
              &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val moveMarkOnscreen_ = call (load_sym libgtk "gtk_text_view_move_mark_onscreen") (GtkTextViewClass.PolyML.cPtr &&> GtkTextMarkClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val moveMarkOnscreen_ = call (getSymbol "gtk_text_view_move_mark_onscreen") (GtkTextViewClass.PolyML.cPtr &&> GtkTextMarkClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val moveVisually_ =
-        call (load_sym libgtk "gtk_text_view_move_visually")
+        call (getSymbol "gtk_text_view_move_visually")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val placeCursorOnscreen_ = call (load_sym libgtk "gtk_text_view_place_cursor_onscreen") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val resetImContext_ = call (load_sym libgtk "gtk_text_view_reset_im_context") (GtkTextViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val scrollMarkOnscreen_ = call (load_sym libgtk "gtk_text_view_scroll_mark_onscreen") (GtkTextViewClass.PolyML.cPtr &&> GtkTextMarkClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val placeCursorOnscreen_ = call (getSymbol "gtk_text_view_place_cursor_onscreen") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val resetImContext_ = call (getSymbol "gtk_text_view_reset_im_context") (GtkTextViewClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val scrollMarkOnscreen_ = call (getSymbol "gtk_text_view_scroll_mark_onscreen") (GtkTextViewClass.PolyML.cPtr &&> GtkTextMarkClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val scrollToIter_ =
-        call (load_sym libgtk "gtk_text_view_scroll_to_iter")
+        call (getSymbol "gtk_text_view_scroll_to_iter")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
@@ -163,7 +163,7 @@ structure GtkTextView :>
              --> GBool.PolyML.cVal
           )
       val scrollToMark_ =
-        call (load_sym libgtk "gtk_text_view_scroll_to_mark")
+        call (getSymbol "gtk_text_view_scroll_to_mark")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkTextMarkClass.PolyML.cPtr
@@ -173,31 +173,31 @@ structure GtkTextView :>
              &&> GDouble.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setAcceptsTab_ = call (load_sym libgtk "gtk_text_view_set_accepts_tab") (GtkTextViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setAcceptsTab_ = call (getSymbol "gtk_text_view_set_accepts_tab") (GtkTextViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setBorderWindowSize_ =
-        call (load_sym libgtk "gtk_text_view_set_border_window_size")
+        call (getSymbol "gtk_text_view_set_border_window_size")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkTextWindowType.PolyML.cVal
              &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setBuffer_ = call (load_sym libgtk "gtk_text_view_set_buffer") (GtkTextViewClass.PolyML.cPtr &&> GtkTextBufferClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setCursorVisible_ = call (load_sym libgtk "gtk_text_view_set_cursor_visible") (GtkTextViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setEditable_ = call (load_sym libgtk "gtk_text_view_set_editable") (GtkTextViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setIndent_ = call (load_sym libgtk "gtk_text_view_set_indent") (GtkTextViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setJustification_ = call (load_sym libgtk "gtk_text_view_set_justification") (GtkTextViewClass.PolyML.cPtr &&> GtkJustification.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setLeftMargin_ = call (load_sym libgtk "gtk_text_view_set_left_margin") (GtkTextViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setOverwrite_ = call (load_sym libgtk "gtk_text_view_set_overwrite") (GtkTextViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPixelsAboveLines_ = call (load_sym libgtk "gtk_text_view_set_pixels_above_lines") (GtkTextViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPixelsBelowLines_ = call (load_sym libgtk "gtk_text_view_set_pixels_below_lines") (GtkTextViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPixelsInsideWrap_ = call (load_sym libgtk "gtk_text_view_set_pixels_inside_wrap") (GtkTextViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setRightMargin_ = call (load_sym libgtk "gtk_text_view_set_right_margin") (GtkTextViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setTabs_ = call (load_sym libgtk "gtk_text_view_set_tabs") (GtkTextViewClass.PolyML.cPtr &&> PangoTabArrayRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setWrapMode_ = call (load_sym libgtk "gtk_text_view_set_wrap_mode") (GtkTextViewClass.PolyML.cPtr &&> GtkWrapMode.PolyML.cVal --> PolyMLFFI.cVoid)
-      val startsDisplayLine_ = call (load_sym libgtk "gtk_text_view_starts_display_line") (GtkTextViewClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setBuffer_ = call (getSymbol "gtk_text_view_set_buffer") (GtkTextViewClass.PolyML.cPtr &&> GtkTextBufferClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setCursorVisible_ = call (getSymbol "gtk_text_view_set_cursor_visible") (GtkTextViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setEditable_ = call (getSymbol "gtk_text_view_set_editable") (GtkTextViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setIndent_ = call (getSymbol "gtk_text_view_set_indent") (GtkTextViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setJustification_ = call (getSymbol "gtk_text_view_set_justification") (GtkTextViewClass.PolyML.cPtr &&> GtkJustification.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setLeftMargin_ = call (getSymbol "gtk_text_view_set_left_margin") (GtkTextViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setOverwrite_ = call (getSymbol "gtk_text_view_set_overwrite") (GtkTextViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPixelsAboveLines_ = call (getSymbol "gtk_text_view_set_pixels_above_lines") (GtkTextViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPixelsBelowLines_ = call (getSymbol "gtk_text_view_set_pixels_below_lines") (GtkTextViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPixelsInsideWrap_ = call (getSymbol "gtk_text_view_set_pixels_inside_wrap") (GtkTextViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setRightMargin_ = call (getSymbol "gtk_text_view_set_right_margin") (GtkTextViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setTabs_ = call (getSymbol "gtk_text_view_set_tabs") (GtkTextViewClass.PolyML.cPtr &&> PangoTabArrayRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setWrapMode_ = call (getSymbol "gtk_text_view_set_wrap_mode") (GtkTextViewClass.PolyML.cPtr &&> GtkWrapMode.PolyML.cVal --> PolyMLFFI.cVoid)
+      val startsDisplayLine_ = call (getSymbol "gtk_text_view_starts_display_line") (GtkTextViewClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val windowToBufferCoords_ =
-        call (load_sym libgtk "gtk_text_view_window_to_buffer_coords")
+        call (getSymbol "gtk_text_view_window_to_buffer_coords")
           (
             GtkTextViewClass.PolyML.cPtr
              &&> GtkTextWindowType.PolyML.cVal

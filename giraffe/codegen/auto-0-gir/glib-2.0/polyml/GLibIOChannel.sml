@@ -11,27 +11,27 @@ structure GLibIOChannel :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "g_io_channel_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_io_channel_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val newFile_ =
-        call (load_sym libglib "g_io_channel_new_file")
+        call (getSymbol "g_io_channel_new_file")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibIOChannelRecord.PolyML.cPtr
           )
-      val unixNew_ = call (load_sym libglib "g_io_channel_unix_new") (GInt.PolyML.cVal --> GLibIOChannelRecord.PolyML.cPtr)
-      val close_ = call (load_sym libglib "g_io_channel_close") (GLibIOChannelRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val flush_ = call (load_sym libglib "g_io_channel_flush") (GLibIOChannelRecord.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GLibIOStatus.PolyML.cVal)
-      val getBufferCondition_ = call (load_sym libglib "g_io_channel_get_buffer_condition") (GLibIOChannelRecord.PolyML.cPtr --> GLibIOCondition.PolyML.cVal)
-      val getBufferSize_ = call (load_sym libglib "g_io_channel_get_buffer_size") (GLibIOChannelRecord.PolyML.cPtr --> GSize.PolyML.cVal)
-      val getBuffered_ = call (load_sym libglib "g_io_channel_get_buffered") (GLibIOChannelRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getCloseOnUnref_ = call (load_sym libglib "g_io_channel_get_close_on_unref") (GLibIOChannelRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getEncoding_ = call (load_sym libglib "g_io_channel_get_encoding") (GLibIOChannelRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getFlags_ = call (load_sym libglib "g_io_channel_get_flags") (GLibIOChannelRecord.PolyML.cPtr --> GLibIOFlags.PolyML.cVal)
-      val init_ = call (load_sym libglib "g_io_channel_init") (GLibIOChannelRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unixNew_ = call (getSymbol "g_io_channel_unix_new") (GInt.PolyML.cVal --> GLibIOChannelRecord.PolyML.cPtr)
+      val close_ = call (getSymbol "g_io_channel_close") (GLibIOChannelRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val flush_ = call (getSymbol "g_io_channel_flush") (GLibIOChannelRecord.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GLibIOStatus.PolyML.cVal)
+      val getBufferCondition_ = call (getSymbol "g_io_channel_get_buffer_condition") (GLibIOChannelRecord.PolyML.cPtr --> GLibIOCondition.PolyML.cVal)
+      val getBufferSize_ = call (getSymbol "g_io_channel_get_buffer_size") (GLibIOChannelRecord.PolyML.cPtr --> GSize.PolyML.cVal)
+      val getBuffered_ = call (getSymbol "g_io_channel_get_buffered") (GLibIOChannelRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getCloseOnUnref_ = call (getSymbol "g_io_channel_get_close_on_unref") (GLibIOChannelRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getEncoding_ = call (getSymbol "g_io_channel_get_encoding") (GLibIOChannelRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getFlags_ = call (getSymbol "g_io_channel_get_flags") (GLibIOChannelRecord.PolyML.cPtr --> GLibIOFlags.PolyML.cVal)
+      val init_ = call (getSymbol "g_io_channel_init") (GLibIOChannelRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val seek_ =
-        call (load_sym libglib "g_io_channel_seek")
+        call (getSymbol "g_io_channel_seek")
           (
             GLibIOChannelRecord.PolyML.cPtr
              &&> GInt64.PolyML.cVal
@@ -39,7 +39,7 @@ structure GLibIOChannel :>
              --> GLibIOError.PolyML.cVal
           )
       val seekPosition_ =
-        call (load_sym libglib "g_io_channel_seek_position")
+        call (getSymbol "g_io_channel_seek_position")
           (
             GLibIOChannelRecord.PolyML.cPtr
              &&> GInt64.PolyML.cVal
@@ -47,11 +47,11 @@ structure GLibIOChannel :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibIOStatus.PolyML.cVal
           )
-      val setBufferSize_ = call (load_sym libglib "g_io_channel_set_buffer_size") (GLibIOChannelRecord.PolyML.cPtr &&> GSize.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setBuffered_ = call (load_sym libglib "g_io_channel_set_buffered") (GLibIOChannelRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setCloseOnUnref_ = call (load_sym libglib "g_io_channel_set_close_on_unref") (GLibIOChannelRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setBufferSize_ = call (getSymbol "g_io_channel_set_buffer_size") (GLibIOChannelRecord.PolyML.cPtr &&> GSize.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setBuffered_ = call (getSymbol "g_io_channel_set_buffered") (GLibIOChannelRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setCloseOnUnref_ = call (getSymbol "g_io_channel_set_close_on_unref") (GLibIOChannelRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setEncoding_ =
-        call (load_sym libglib "g_io_channel_set_encoding")
+        call (getSymbol "g_io_channel_set_encoding")
           (
             GLibIOChannelRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -59,7 +59,7 @@ structure GLibIOChannel :>
              --> GLibIOStatus.PolyML.cVal
           )
       val setFlags_ =
-        call (load_sym libglib "g_io_channel_set_flags")
+        call (getSymbol "g_io_channel_set_flags")
           (
             GLibIOChannelRecord.PolyML.cPtr
              &&> GLibIOFlags.PolyML.cVal
@@ -67,7 +67,7 @@ structure GLibIOChannel :>
              --> GLibIOStatus.PolyML.cVal
           )
       val setLineTerm_ =
-        call (load_sym libglib "g_io_channel_set_line_term")
+        call (getSymbol "g_io_channel_set_line_term")
           (
             GLibIOChannelRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -75,23 +75,23 @@ structure GLibIOChannel :>
              --> PolyMLFFI.cVoid
           )
       val shutdown_ =
-        call (load_sym libglib "g_io_channel_shutdown")
+        call (getSymbol "g_io_channel_shutdown")
           (
             GLibIOChannelRecord.PolyML.cPtr
              &&> GBool.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibIOStatus.PolyML.cVal
           )
-      val unixGetFd_ = call (load_sym libglib "g_io_channel_unix_get_fd") (GLibIOChannelRecord.PolyML.cPtr --> GInt.PolyML.cVal)
+      val unixGetFd_ = call (getSymbol "g_io_channel_unix_get_fd") (GLibIOChannelRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val writeUnichar_ =
-        call (load_sym libglib "g_io_channel_write_unichar")
+        call (getSymbol "g_io_channel_write_unichar")
           (
             GLibIOChannelRecord.PolyML.cPtr
              &&> GChar.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibIOStatus.PolyML.cVal
           )
-      val errorFromErrno_ = call (load_sym libglib "g_io_channel_error_from_errno") (GInt.PolyML.cVal --> GLibIOChannelError.PolyML.cVal)
+      val errorFromErrno_ = call (getSymbol "g_io_channel_error_from_errno") (GInt.PolyML.cVal --> GLibIOChannelError.PolyML.cVal)
     end
     type t = GLibIOChannelRecord.t
     type i_o_condition_t = GLibIOCondition.t

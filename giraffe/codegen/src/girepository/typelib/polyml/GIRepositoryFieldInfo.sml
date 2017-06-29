@@ -9,22 +9,22 @@ structure GIRepositoryFieldInfo :>
     in
       val getFlags_ =
         call
-          (load_sym libgirepository "g_field_info_get_flags")
+          (getSymbol "g_field_info_get_flags")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryFieldInfoFlags.PolyML.cVal);
 
       val getSize_ =
         call
-          (load_sym libgirepository "g_field_info_get_size")
+          (getSymbol "g_field_info_get_size")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getOffset_ =
         call
-          (load_sym libgirepository "g_field_info_get_offset")
+          (getSymbol "g_field_info_get_offset")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getType_ =
         call
-          (load_sym libgirepository "g_field_info_get_type")
+          (getSymbol "g_field_info_get_type")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cPtr);
     end
 

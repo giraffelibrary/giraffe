@@ -7,9 +7,9 @@ structure GioProxyAddress :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_proxy_address_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_proxy_address_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgio "g_proxy_address_new")
+        call (getSymbol "g_proxy_address_new")
           (
             GioInetAddressClass.PolyML.cPtr
              &&> GUInt16.PolyML.cVal
@@ -20,11 +20,11 @@ structure GioProxyAddress :>
              &&> Utf8.PolyML.cInOptPtr
              --> GioSocketAddressClass.PolyML.cPtr
           )
-      val getDestinationHostname_ = call (load_sym libgio "g_proxy_address_get_destination_hostname") (GioProxyAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getDestinationPort_ = call (load_sym libgio "g_proxy_address_get_destination_port") (GioProxyAddressClass.PolyML.cPtr --> GUInt16.PolyML.cVal)
-      val getPassword_ = call (load_sym libgio "g_proxy_address_get_password") (GioProxyAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getProtocol_ = call (load_sym libgio "g_proxy_address_get_protocol") (GioProxyAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getUsername_ = call (load_sym libgio "g_proxy_address_get_username") (GioProxyAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getDestinationHostname_ = call (getSymbol "g_proxy_address_get_destination_hostname") (GioProxyAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getDestinationPort_ = call (getSymbol "g_proxy_address_get_destination_port") (GioProxyAddressClass.PolyML.cPtr --> GUInt16.PolyML.cVal)
+      val getPassword_ = call (getSymbol "g_proxy_address_get_password") (GioProxyAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getProtocol_ = call (getSymbol "g_proxy_address_get_protocol") (GioProxyAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getUsername_ = call (getSymbol "g_proxy_address_get_username") (GioProxyAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class = 'a GioProxyAddressClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class

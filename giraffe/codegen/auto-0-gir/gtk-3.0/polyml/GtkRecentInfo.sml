@@ -11,20 +11,20 @@ structure GtkRecentInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_recent_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_recent_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val createAppInfo_ =
-        call (load_sym libgtk "gtk_recent_info_create_app_info")
+        call (getSymbol "gtk_recent_info_create_app_info")
           (
             GtkRecentInfoRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioAppInfoClass.PolyML.cPtr
           )
-      val exists_ = call (load_sym libgtk "gtk_recent_info_exists") (GtkRecentInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getAdded_ = call (load_sym libgtk "gtk_recent_info_get_added") (GtkRecentInfoRecord.PolyML.cPtr --> GLong.PolyML.cVal)
-      val getAge_ = call (load_sym libgtk "gtk_recent_info_get_age") (GtkRecentInfoRecord.PolyML.cPtr --> GInt.PolyML.cVal)
+      val exists_ = call (getSymbol "gtk_recent_info_exists") (GtkRecentInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getAdded_ = call (getSymbol "gtk_recent_info_get_added") (GtkRecentInfoRecord.PolyML.cPtr --> GLong.PolyML.cVal)
+      val getAge_ = call (getSymbol "gtk_recent_info_get_age") (GtkRecentInfoRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val getApplicationInfo_ =
-        call (load_sym libgtk "gtk_recent_info_get_application_info")
+        call (getSymbol "gtk_recent_info_get_application_info")
           (
             GtkRecentInfoRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -33,24 +33,24 @@ structure GtkRecentInfo :>
              &&> GLong.PolyML.cRef
              --> GBool.PolyML.cVal
           )
-      val getApplications_ = call (load_sym libgtk "gtk_recent_info_get_applications") (GtkRecentInfoRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CVectorN.PolyML.cOutPtr)
-      val getDescription_ = call (load_sym libgtk "gtk_recent_info_get_description") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getDisplayName_ = call (load_sym libgtk "gtk_recent_info_get_display_name") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getGicon_ = call (load_sym libgtk "gtk_recent_info_get_gicon") (GtkRecentInfoRecord.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
-      val getGroups_ = call (load_sym libgtk "gtk_recent_info_get_groups") (GtkRecentInfoRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CVectorN.PolyML.cOutPtr)
-      val getIcon_ = call (load_sym libgtk "gtk_recent_info_get_icon") (GtkRecentInfoRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> GdkPixbufPixbufClass.PolyML.cPtr)
-      val getMimeType_ = call (load_sym libgtk "gtk_recent_info_get_mime_type") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getModified_ = call (load_sym libgtk "gtk_recent_info_get_modified") (GtkRecentInfoRecord.PolyML.cPtr --> GLong.PolyML.cVal)
-      val getPrivateHint_ = call (load_sym libgtk "gtk_recent_info_get_private_hint") (GtkRecentInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getShortName_ = call (load_sym libgtk "gtk_recent_info_get_short_name") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getUri_ = call (load_sym libgtk "gtk_recent_info_get_uri") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getUriDisplay_ = call (load_sym libgtk "gtk_recent_info_get_uri_display") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getVisited_ = call (load_sym libgtk "gtk_recent_info_get_visited") (GtkRecentInfoRecord.PolyML.cPtr --> GLong.PolyML.cVal)
-      val hasApplication_ = call (load_sym libgtk "gtk_recent_info_has_application") (GtkRecentInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val hasGroup_ = call (load_sym libgtk "gtk_recent_info_has_group") (GtkRecentInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val isLocal_ = call (load_sym libgtk "gtk_recent_info_is_local") (GtkRecentInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val lastApplication_ = call (load_sym libgtk "gtk_recent_info_last_application") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val match_ = call (load_sym libgtk "gtk_recent_info_match") (GtkRecentInfoRecord.PolyML.cPtr &&> GtkRecentInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getApplications_ = call (getSymbol "gtk_recent_info_get_applications") (GtkRecentInfoRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CVectorN.PolyML.cOutPtr)
+      val getDescription_ = call (getSymbol "gtk_recent_info_get_description") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getDisplayName_ = call (getSymbol "gtk_recent_info_get_display_name") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getGicon_ = call (getSymbol "gtk_recent_info_get_gicon") (GtkRecentInfoRecord.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
+      val getGroups_ = call (getSymbol "gtk_recent_info_get_groups") (GtkRecentInfoRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CVectorN.PolyML.cOutPtr)
+      val getIcon_ = call (getSymbol "gtk_recent_info_get_icon") (GtkRecentInfoRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val getMimeType_ = call (getSymbol "gtk_recent_info_get_mime_type") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getModified_ = call (getSymbol "gtk_recent_info_get_modified") (GtkRecentInfoRecord.PolyML.cPtr --> GLong.PolyML.cVal)
+      val getPrivateHint_ = call (getSymbol "gtk_recent_info_get_private_hint") (GtkRecentInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getShortName_ = call (getSymbol "gtk_recent_info_get_short_name") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getUri_ = call (getSymbol "gtk_recent_info_get_uri") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getUriDisplay_ = call (getSymbol "gtk_recent_info_get_uri_display") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getVisited_ = call (getSymbol "gtk_recent_info_get_visited") (GtkRecentInfoRecord.PolyML.cPtr --> GLong.PolyML.cVal)
+      val hasApplication_ = call (getSymbol "gtk_recent_info_has_application") (GtkRecentInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val hasGroup_ = call (getSymbol "gtk_recent_info_has_group") (GtkRecentInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val isLocal_ = call (getSymbol "gtk_recent_info_is_local") (GtkRecentInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val lastApplication_ = call (getSymbol "gtk_recent_info_last_application") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val match_ = call (getSymbol "gtk_recent_info_match") (GtkRecentInfoRecord.PolyML.cPtr &&> GtkRecentInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type t = GtkRecentInfoRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

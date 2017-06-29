@@ -7,8 +7,8 @@ structure GtkSeparatorMenuItem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_separator_menu_item_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_separator_menu_item_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_separator_menu_item_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_separator_menu_item_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkSeparatorMenuItemClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

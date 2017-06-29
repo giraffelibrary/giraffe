@@ -9,10 +9,10 @@ structure GioProxy :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_proxy_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getDefaultForProtocol_ = call (load_sym libgio "g_proxy_get_default_for_protocol") (Utf8.PolyML.cInPtr --> GioProxyClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_proxy_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getDefaultForProtocol_ = call (getSymbol "g_proxy_get_default_for_protocol") (Utf8.PolyML.cInPtr --> GioProxyClass.PolyML.cPtr)
       val connect_ =
-        call (load_sym libgio "g_proxy_connect")
+        call (getSymbol "g_proxy_connect")
           (
             GioProxyClass.PolyML.cPtr
              &&> GioIOStreamClass.PolyML.cPtr
@@ -22,14 +22,14 @@ structure GioProxy :>
              --> GioIOStreamClass.PolyML.cPtr
           )
       val connectFinish_ =
-        call (load_sym libgio "g_proxy_connect_finish")
+        call (getSymbol "g_proxy_connect_finish")
           (
             GioProxyClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioIOStreamClass.PolyML.cPtr
           )
-      val supportsHostname_ = call (load_sym libgio "g_proxy_supports_hostname") (GioProxyClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val supportsHostname_ = call (getSymbol "g_proxy_supports_hostname") (GioProxyClass.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a GioProxyClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class

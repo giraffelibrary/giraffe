@@ -9,17 +9,17 @@ structure GioDBusMethodInvocation :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_dbus_method_invocation_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getConnection_ = call (load_sym libgio "g_dbus_method_invocation_get_connection") (GioDBusMethodInvocationClass.PolyML.cPtr --> GioDBusConnectionClass.PolyML.cPtr)
-      val getInterfaceName_ = call (load_sym libgio "g_dbus_method_invocation_get_interface_name") (GioDBusMethodInvocationClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getMessage_ = call (load_sym libgio "g_dbus_method_invocation_get_message") (GioDBusMethodInvocationClass.PolyML.cPtr --> GioDBusMessageClass.PolyML.cPtr)
-      val getMethodInfo_ = call (load_sym libgio "g_dbus_method_invocation_get_method_info") (GioDBusMethodInvocationClass.PolyML.cPtr --> GioDBusMethodInfoRecord.PolyML.cPtr)
-      val getMethodName_ = call (load_sym libgio "g_dbus_method_invocation_get_method_name") (GioDBusMethodInvocationClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getObjectPath_ = call (load_sym libgio "g_dbus_method_invocation_get_object_path") (GioDBusMethodInvocationClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getParameters_ = call (load_sym libgio "g_dbus_method_invocation_get_parameters") (GioDBusMethodInvocationClass.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
-      val getSender_ = call (load_sym libgio "g_dbus_method_invocation_get_sender") (GioDBusMethodInvocationClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getType_ = call (getSymbol "g_dbus_method_invocation_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getConnection_ = call (getSymbol "g_dbus_method_invocation_get_connection") (GioDBusMethodInvocationClass.PolyML.cPtr --> GioDBusConnectionClass.PolyML.cPtr)
+      val getInterfaceName_ = call (getSymbol "g_dbus_method_invocation_get_interface_name") (GioDBusMethodInvocationClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getMessage_ = call (getSymbol "g_dbus_method_invocation_get_message") (GioDBusMethodInvocationClass.PolyML.cPtr --> GioDBusMessageClass.PolyML.cPtr)
+      val getMethodInfo_ = call (getSymbol "g_dbus_method_invocation_get_method_info") (GioDBusMethodInvocationClass.PolyML.cPtr --> GioDBusMethodInfoRecord.PolyML.cPtr)
+      val getMethodName_ = call (getSymbol "g_dbus_method_invocation_get_method_name") (GioDBusMethodInvocationClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getObjectPath_ = call (getSymbol "g_dbus_method_invocation_get_object_path") (GioDBusMethodInvocationClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getParameters_ = call (getSymbol "g_dbus_method_invocation_get_parameters") (GioDBusMethodInvocationClass.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
+      val getSender_ = call (getSymbol "g_dbus_method_invocation_get_sender") (GioDBusMethodInvocationClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val returnDbusError_ =
-        call (load_sym libgio "g_dbus_method_invocation_return_dbus_error")
+        call (getSymbol "g_dbus_method_invocation_return_dbus_error")
           (
             GioDBusMethodInvocationClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -27,7 +27,7 @@ structure GioDBusMethodInvocation :>
              --> PolyMLFFI.cVoid
           )
       val returnErrorLiteral_ =
-        call (load_sym libgio "g_dbus_method_invocation_return_error_literal")
+        call (getSymbol "g_dbus_method_invocation_return_error_literal")
           (
             GioDBusMethodInvocationClass.PolyML.cPtr
              &&> GLibQuark.PolyML.cVal
@@ -35,9 +35,9 @@ structure GioDBusMethodInvocation :>
              &&> Utf8.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
-      val returnValue_ = call (load_sym libgio "g_dbus_method_invocation_return_value") (GioDBusMethodInvocationClass.PolyML.cPtr &&> GLibVariantRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val returnValue_ = call (getSymbol "g_dbus_method_invocation_return_value") (GioDBusMethodInvocationClass.PolyML.cPtr &&> GLibVariantRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
       val returnValueWithUnixFdList_ =
-        call (load_sym libgio "g_dbus_method_invocation_return_value_with_unix_fd_list")
+        call (getSymbol "g_dbus_method_invocation_return_value_with_unix_fd_list")
           (
             GioDBusMethodInvocationClass.PolyML.cPtr
              &&> GLibVariantRecord.PolyML.cOptPtr

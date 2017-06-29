@@ -7,11 +7,11 @@ structure PangoGlyphString :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_glyph_string_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libpango "pango_glyph_string_new") (PolyMLFFI.cVoid --> PangoGlyphStringRecord.PolyML.cPtr)
-      val copy_ = call (load_sym libpango "pango_glyph_string_copy") (PangoGlyphStringRecord.PolyML.cPtr --> PangoGlyphStringRecord.PolyML.cPtr)
+      val getType_ = call (getSymbol "pango_glyph_string_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "pango_glyph_string_new") (PolyMLFFI.cVoid --> PangoGlyphStringRecord.PolyML.cPtr)
+      val copy_ = call (getSymbol "pango_glyph_string_copy") (PangoGlyphStringRecord.PolyML.cPtr --> PangoGlyphStringRecord.PolyML.cPtr)
       val extents_ =
-        call (load_sym libpango "pango_glyph_string_extents")
+        call (getSymbol "pango_glyph_string_extents")
           (
             PangoGlyphStringRecord.PolyML.cPtr
              &&> PangoFontClass.PolyML.cPtr
@@ -20,7 +20,7 @@ structure PangoGlyphString :>
              --> PolyMLFFI.cVoid
           )
       val extentsRange_ =
-        call (load_sym libpango "pango_glyph_string_extents_range")
+        call (getSymbol "pango_glyph_string_extents_range")
           (
             PangoGlyphStringRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -30,8 +30,8 @@ structure PangoGlyphString :>
              &&> PangoRectangleRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val getWidth_ = call (load_sym libpango "pango_glyph_string_get_width") (PangoGlyphStringRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val setSize_ = call (load_sym libpango "pango_glyph_string_set_size") (PangoGlyphStringRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getWidth_ = call (getSymbol "pango_glyph_string_get_width") (PangoGlyphStringRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val setSize_ = call (getSymbol "pango_glyph_string_set_size") (PangoGlyphStringRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type t = PangoGlyphStringRecord.t
     type rectangle_t = PangoRectangleRecord.t

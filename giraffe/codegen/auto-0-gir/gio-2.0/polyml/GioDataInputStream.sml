@@ -16,12 +16,12 @@ structure GioDataInputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_data_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_data_input_stream_new") (GioInputStreamClass.PolyML.cPtr --> GioDataInputStreamClass.PolyML.cPtr)
-      val getByteOrder_ = call (load_sym libgio "g_data_input_stream_get_byte_order") (GioDataInputStreamClass.PolyML.cPtr --> GioDataStreamByteOrder.PolyML.cVal)
-      val getNewlineType_ = call (load_sym libgio "g_data_input_stream_get_newline_type") (GioDataInputStreamClass.PolyML.cPtr --> GioDataStreamNewlineType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_data_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_data_input_stream_new") (GioInputStreamClass.PolyML.cPtr --> GioDataInputStreamClass.PolyML.cPtr)
+      val getByteOrder_ = call (getSymbol "g_data_input_stream_get_byte_order") (GioDataInputStreamClass.PolyML.cPtr --> GioDataStreamByteOrder.PolyML.cVal)
+      val getNewlineType_ = call (getSymbol "g_data_input_stream_get_newline_type") (GioDataInputStreamClass.PolyML.cPtr --> GioDataStreamNewlineType.PolyML.cVal)
       val readByte_ =
-        call (load_sym libgio "g_data_input_stream_read_byte")
+        call (getSymbol "g_data_input_stream_read_byte")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -29,7 +29,7 @@ structure GioDataInputStream :>
              --> GUInt8.PolyML.cVal
           )
       val readInt16_ =
-        call (load_sym libgio "g_data_input_stream_read_int16")
+        call (getSymbol "g_data_input_stream_read_int16")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -37,7 +37,7 @@ structure GioDataInputStream :>
              --> GInt16.PolyML.cVal
           )
       val readInt32_ =
-        call (load_sym libgio "g_data_input_stream_read_int32")
+        call (getSymbol "g_data_input_stream_read_int32")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -45,7 +45,7 @@ structure GioDataInputStream :>
              --> GInt32.PolyML.cVal
           )
       val readInt64_ =
-        call (load_sym libgio "g_data_input_stream_read_int64")
+        call (getSymbol "g_data_input_stream_read_int64")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -53,7 +53,7 @@ structure GioDataInputStream :>
              --> GInt64.PolyML.cVal
           )
       val readLine_ =
-        call (load_sym libgio "g_data_input_stream_read_line")
+        call (getSymbol "g_data_input_stream_read_line")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> GSize.PolyML.cRef
@@ -62,7 +62,7 @@ structure GioDataInputStream :>
              --> GUInt8CVector.PolyML.cOutPtr
           )
       val readLineFinish_ =
-        call (load_sym libgio "g_data_input_stream_read_line_finish")
+        call (getSymbol "g_data_input_stream_read_line_finish")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -71,7 +71,7 @@ structure GioDataInputStream :>
              --> GUInt8CVector.PolyML.cOutPtr
           )
       val readLineFinishUtf8_ =
-        call (load_sym libgio "g_data_input_stream_read_line_finish_utf8")
+        call (getSymbol "g_data_input_stream_read_line_finish_utf8")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -80,7 +80,7 @@ structure GioDataInputStream :>
              --> Utf8.PolyML.cOutPtr
           )
       val readLineUtf8_ =
-        call (load_sym libgio "g_data_input_stream_read_line_utf8")
+        call (getSymbol "g_data_input_stream_read_line_utf8")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> GSize.PolyML.cRef
@@ -89,7 +89,7 @@ structure GioDataInputStream :>
              --> Utf8.PolyML.cOutPtr
           )
       val readUint16_ =
-        call (load_sym libgio "g_data_input_stream_read_uint16")
+        call (getSymbol "g_data_input_stream_read_uint16")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -97,7 +97,7 @@ structure GioDataInputStream :>
              --> GUInt16.PolyML.cVal
           )
       val readUint32_ =
-        call (load_sym libgio "g_data_input_stream_read_uint32")
+        call (getSymbol "g_data_input_stream_read_uint32")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -105,7 +105,7 @@ structure GioDataInputStream :>
              --> GUInt32.PolyML.cVal
           )
       val readUint64_ =
-        call (load_sym libgio "g_data_input_stream_read_uint64")
+        call (getSymbol "g_data_input_stream_read_uint64")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -113,7 +113,7 @@ structure GioDataInputStream :>
              --> GUInt64.PolyML.cVal
           )
       val readUntil_ =
-        call (load_sym libgio "g_data_input_stream_read_until")
+        call (getSymbol "g_data_input_stream_read_until")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -123,7 +123,7 @@ structure GioDataInputStream :>
              --> Utf8.PolyML.cOutPtr
           )
       val readUntilFinish_ =
-        call (load_sym libgio "g_data_input_stream_read_until_finish")
+        call (getSymbol "g_data_input_stream_read_until_finish")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -132,7 +132,7 @@ structure GioDataInputStream :>
              --> Utf8.PolyML.cOutPtr
           )
       val readUpto_ =
-        call (load_sym libgio "g_data_input_stream_read_upto")
+        call (getSymbol "g_data_input_stream_read_upto")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -143,7 +143,7 @@ structure GioDataInputStream :>
              --> Utf8.PolyML.cOutPtr
           )
       val readUptoFinish_ =
-        call (load_sym libgio "g_data_input_stream_read_upto_finish")
+        call (getSymbol "g_data_input_stream_read_upto_finish")
           (
             GioDataInputStreamClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -151,8 +151,8 @@ structure GioDataInputStream :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
-      val setByteOrder_ = call (load_sym libgio "g_data_input_stream_set_byte_order") (GioDataInputStreamClass.PolyML.cPtr &&> GioDataStreamByteOrder.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setNewlineType_ = call (load_sym libgio "g_data_input_stream_set_newline_type") (GioDataInputStreamClass.PolyML.cPtr &&> GioDataStreamNewlineType.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setByteOrder_ = call (getSymbol "g_data_input_stream_set_byte_order") (GioDataInputStreamClass.PolyML.cPtr &&> GioDataStreamByteOrder.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setNewlineType_ = call (getSymbol "g_data_input_stream_set_newline_type") (GioDataInputStreamClass.PolyML.cPtr &&> GioDataStreamNewlineType.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioDataInputStreamClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class

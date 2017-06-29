@@ -152,17 +152,17 @@ structure <EnumNamespace><EnumName> :>
     in                                                                       |               |
       val getType_ =                                                         |               |
         call                                                                 |               |
-          (load_sym lib<enumobjectnamespace> "<getTypeSymbol>")              | Poly/ML only  |
+          (getSymbol "<getTypeSymbol>")                                      | Poly/ML only  |
           (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);                     |               |
                                                                              |               |
       val getValue_ =                                                        |               |
         call                                                                 |               |
-          (load_sym libgobject "g_value_get_flags")                          |               |
+          (getSymbol "g_value_get_flags")                                    |               |
           (GObjectValueRecord.PolyML.PTR --> PolyML.cVal);                   |               |
                                                                              |               |
       val setValue_ =                                                        |               |
         call                                                                 |               |
-          (load_sym libgobject "g_value_set_flags")                          |               |
+          (getSymbol "g_value_set_flags")                                    |               |
           (GObjectValueRecord.PolyML.PTR &&> PolyML.cVal --> PolyMLFFI.cVoid);               |
     end                                                                      |               | optGetTypeSymbol
                                                                             -'               |  is SOME getTypeSymbol

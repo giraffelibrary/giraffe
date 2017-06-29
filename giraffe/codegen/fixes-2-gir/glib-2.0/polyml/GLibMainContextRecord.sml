@@ -11,17 +11,17 @@ structure GLibMainContextRecord :> G_LIB_MAIN_CONTEXT_RECORD =
     in
       val dup_ =
         call
-          (load_sym libglib "g_main_context_ref")
+          (getSymbol "g_main_context_ref")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libglib "g_main_context_unref")
+          (getSymbol "g_main_context_unref")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libglib "g_main_context_get_type")
+          (getSymbol "g_main_context_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

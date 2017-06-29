@@ -9,31 +9,31 @@ structure GObjectObject :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "g_object_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val forceFloating_ = call (load_sym libgobject "g_object_force_floating") (GObjectObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val freezeNotify_ = call (load_sym libgobject "g_object_freeze_notify") (GObjectObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_object_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val forceFloating_ = call (getSymbol "g_object_force_floating") (GObjectObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val freezeNotify_ = call (getSymbol "g_object_freeze_notify") (GObjectObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getProperty_ =
-        call (load_sym libgobject "g_object_get_property")
+        call (getSymbol "g_object_get_property")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GObjectValueRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val isFloating_ = call (load_sym libgobject "g_object_is_floating") (GObjectObjectClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val notify_ = call (load_sym libgobject "g_object_notify") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val notifyByPspec_ = call (load_sym libgobject "g_object_notify_by_pspec") (GObjectObjectClass.PolyML.cPtr &&> GObjectParamSpecClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val runDispose_ = call (load_sym libgobject "g_object_run_dispose") (GObjectObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val isFloating_ = call (getSymbol "g_object_is_floating") (GObjectObjectClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val notify_ = call (getSymbol "g_object_notify") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val notifyByPspec_ = call (getSymbol "g_object_notify_by_pspec") (GObjectObjectClass.PolyML.cPtr &&> GObjectParamSpecClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val runDispose_ = call (getSymbol "g_object_run_dispose") (GObjectObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val setProperty_ =
-        call (load_sym libgobject "g_object_set_property")
+        call (getSymbol "g_object_set_property")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GObjectValueRecord.PolyML.cPtr
              --> PolyMLFFI.cVoid
           )
-      val thawNotify_ = call (load_sym libgobject "g_object_thaw_notify") (GObjectObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val watchClosure_ = call (load_sym libgobject "g_object_watch_closure") (GObjectObjectClass.PolyML.cPtr &&> GObjectClosureRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val thawNotify_ = call (getSymbol "g_object_thaw_notify") (GObjectObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val watchClosure_ = call (getSymbol "g_object_watch_closure") (GObjectObjectClass.PolyML.cPtr &&> GObjectClosureRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GObjectObjectClass.class
     type type_t = GObjectType.t

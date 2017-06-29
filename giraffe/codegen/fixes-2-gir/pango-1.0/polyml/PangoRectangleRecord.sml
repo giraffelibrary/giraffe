@@ -11,22 +11,22 @@ structure PangoRectangleRecord :> PANGO_RECTANGLE_RECORD =
     in
       val new_ =
         call
-          (load_sym libgiraffepango "giraffe_pango_rectangle_new")
+          (getSymbol "giraffe_pango_rectangle_new")
           (cVoid --> cPtr)
 
       val copy_ =
         call
-          (load_sym libgiraffepango "giraffe_pango_rectangle_copy")
+          (getSymbol "giraffe_pango_rectangle_copy")
           (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
-          (load_sym libgiraffepango "giraffe_pango_rectangle_free")
+          (getSymbol "giraffe_pango_rectangle_free")
           (cPtr --> cVoid)
 
       val size_ =
         call
-          (load_sym libgiraffepango "giraffe_pango_rectangle_size")
+          (getSymbol "giraffe_pango_rectangle_size")
           (cVoid --> GUInt.PolyML.cVal)
     end
 

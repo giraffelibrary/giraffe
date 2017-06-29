@@ -8,9 +8,9 @@ structure GioSocketAddressEnumerator :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_socket_address_enumerator_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_socket_address_enumerator_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val next_ =
-        call (load_sym libgio "g_socket_address_enumerator_next")
+        call (getSymbol "g_socket_address_enumerator_next")
           (
             GioSocketAddressEnumeratorClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -18,7 +18,7 @@ structure GioSocketAddressEnumerator :>
              --> GioSocketAddressClass.PolyML.cPtr
           )
       val nextFinish_ =
-        call (load_sym libgio "g_socket_address_enumerator_next_finish")
+        call (getSymbol "g_socket_address_enumerator_next_finish")
           (
             GioSocketAddressEnumeratorClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr

@@ -35,9 +35,9 @@ structure PangoGravity :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_gravity_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getValue_ = call (load_sym libgobject "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
-      val setValue_ = call (load_sym libgobject "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "pango_gravity_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getValue_ = call (getSymbol "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
+      val setValue_ = call (getSymbol "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid)
     end
     val t =
       GObjectValue.C.createAccessor
@@ -49,9 +49,9 @@ structure PangoGravity :>
     local
       open PolyMLFFI
     in
-      val getForMatrix_ = call (load_sym libpango "pango_gravity_get_for_matrix") (PangoMatrixRecord.PolyML.cPtr --> PolyML.cVal)
+      val getForMatrix_ = call (getSymbol "pango_gravity_get_for_matrix") (PangoMatrixRecord.PolyML.cPtr --> PolyML.cVal)
       val getForScript_ =
-        call (load_sym libpango "pango_gravity_get_for_script")
+        call (getSymbol "pango_gravity_get_for_script")
           (
             PangoScript.PolyML.cVal
              &&> PolyML.cVal
@@ -59,7 +59,7 @@ structure PangoGravity :>
              --> PolyML.cVal
           )
       val getForScriptAndWidth_ =
-        call (load_sym libpango "pango_gravity_get_for_script_and_width")
+        call (getSymbol "pango_gravity_get_for_script_and_width")
           (
             PangoScript.PolyML.cVal
              &&> GBool.PolyML.cVal
@@ -67,7 +67,7 @@ structure PangoGravity :>
              &&> PangoGravityHint.PolyML.cVal
              --> PolyML.cVal
           )
-      val toRotation_ = call (load_sym libpango "pango_gravity_to_rotation") (PolyML.cVal --> GDouble.PolyML.cVal)
+      val toRotation_ = call (getSymbol "pango_gravity_to_rotation") (PolyML.cVal --> GDouble.PolyML.cVal)
     end
     type matrix_t = PangoMatrixRecord.t
     type gravity_hint_t = PangoGravityHint.t

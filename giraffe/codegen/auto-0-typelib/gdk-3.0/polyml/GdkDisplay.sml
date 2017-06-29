@@ -18,41 +18,41 @@ structure GdkDisplay :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_display_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (load_sym libgdk "gdk_display_get_default") (PolyMLFFI.cVoid --> GdkDisplayClass.PolyML.cPtr)
-      val open_ = call (load_sym libgdk "gdk_display_open") (Utf8.PolyML.cInPtr --> GdkDisplayClass.PolyML.cPtr)
-      val openDefaultLibgtkOnly_ = call (load_sym libgdk "gdk_display_open_default_libgtk_only") (PolyMLFFI.cVoid --> GdkDisplayClass.PolyML.cPtr)
-      val beep_ = call (load_sym libgdk "gdk_display_beep") (GdkDisplayClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val close_ = call (load_sym libgdk "gdk_display_close") (GdkDisplayClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val deviceIsGrabbed_ = call (load_sym libgdk "gdk_display_device_is_grabbed") (GdkDisplayClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val flush_ = call (load_sym libgdk "gdk_display_flush") (GdkDisplayClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getAppLaunchContext_ = call (load_sym libgdk "gdk_display_get_app_launch_context") (GdkDisplayClass.PolyML.cPtr --> GdkAppLaunchContextClass.PolyML.cPtr)
-      val getDefaultCursorSize_ = call (load_sym libgdk "gdk_display_get_default_cursor_size") (GdkDisplayClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
-      val getDefaultGroup_ = call (load_sym libgdk "gdk_display_get_default_group") (GdkDisplayClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
-      val getDefaultScreen_ = call (load_sym libgdk "gdk_display_get_default_screen") (GdkDisplayClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
-      val getDeviceManager_ = call (load_sym libgdk "gdk_display_get_device_manager") (GdkDisplayClass.PolyML.cPtr --> GdkDeviceManagerClass.PolyML.cPtr)
-      val getEvent_ = call (load_sym libgdk "gdk_display_get_event") (GdkDisplayClass.PolyML.cPtr --> GdkEvent.PolyML.cPtr)
+      val getType_ = call (getSymbol "gdk_display_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (getSymbol "gdk_display_get_default") (PolyMLFFI.cVoid --> GdkDisplayClass.PolyML.cPtr)
+      val open_ = call (getSymbol "gdk_display_open") (Utf8.PolyML.cInPtr --> GdkDisplayClass.PolyML.cPtr)
+      val openDefaultLibgtkOnly_ = call (getSymbol "gdk_display_open_default_libgtk_only") (PolyMLFFI.cVoid --> GdkDisplayClass.PolyML.cPtr)
+      val beep_ = call (getSymbol "gdk_display_beep") (GdkDisplayClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val close_ = call (getSymbol "gdk_display_close") (GdkDisplayClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val deviceIsGrabbed_ = call (getSymbol "gdk_display_device_is_grabbed") (GdkDisplayClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val flush_ = call (getSymbol "gdk_display_flush") (GdkDisplayClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getAppLaunchContext_ = call (getSymbol "gdk_display_get_app_launch_context") (GdkDisplayClass.PolyML.cPtr --> GdkAppLaunchContextClass.PolyML.cPtr)
+      val getDefaultCursorSize_ = call (getSymbol "gdk_display_get_default_cursor_size") (GdkDisplayClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
+      val getDefaultGroup_ = call (getSymbol "gdk_display_get_default_group") (GdkDisplayClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getDefaultScreen_ = call (getSymbol "gdk_display_get_default_screen") (GdkDisplayClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
+      val getDeviceManager_ = call (getSymbol "gdk_display_get_device_manager") (GdkDisplayClass.PolyML.cPtr --> GdkDeviceManagerClass.PolyML.cPtr)
+      val getEvent_ = call (getSymbol "gdk_display_get_event") (GdkDisplayClass.PolyML.cPtr --> GdkEvent.PolyML.cPtr)
       val getMaximalCursorSize_ =
-        call (load_sym libgdk "gdk_display_get_maximal_cursor_size")
+        call (getSymbol "gdk_display_get_maximal_cursor_size")
           (
             GdkDisplayClass.PolyML.cPtr
              &&> GUInt32.PolyML.cRef
              &&> GUInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getNScreens_ = call (load_sym libgdk "gdk_display_get_n_screens") (GdkDisplayClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getName_ = call (load_sym libgdk "gdk_display_get_name") (GdkDisplayClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getScreen_ = call (load_sym libgdk "gdk_display_get_screen") (GdkDisplayClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GdkScreenClass.PolyML.cPtr)
-      val hasPending_ = call (load_sym libgdk "gdk_display_has_pending") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isClosed_ = call (load_sym libgdk "gdk_display_is_closed") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val notifyStartupComplete_ = call (load_sym libgdk "gdk_display_notify_startup_complete") (GdkDisplayClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val peekEvent_ = call (load_sym libgdk "gdk_display_peek_event") (GdkDisplayClass.PolyML.cPtr --> GdkEvent.PolyML.cPtr)
-      val putEvent_ = call (load_sym libgdk "gdk_display_put_event") (GdkDisplayClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val requestSelectionNotification_ = call (load_sym libgdk "gdk_display_request_selection_notification") (GdkDisplayClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setDoubleClickDistance_ = call (load_sym libgdk "gdk_display_set_double_click_distance") (GdkDisplayClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDoubleClickTime_ = call (load_sym libgdk "gdk_display_set_double_click_time") (GdkDisplayClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getNScreens_ = call (getSymbol "gdk_display_get_n_screens") (GdkDisplayClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getName_ = call (getSymbol "gdk_display_get_name") (GdkDisplayClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getScreen_ = call (getSymbol "gdk_display_get_screen") (GdkDisplayClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GdkScreenClass.PolyML.cPtr)
+      val hasPending_ = call (getSymbol "gdk_display_has_pending") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isClosed_ = call (getSymbol "gdk_display_is_closed") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val notifyStartupComplete_ = call (getSymbol "gdk_display_notify_startup_complete") (GdkDisplayClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val peekEvent_ = call (getSymbol "gdk_display_peek_event") (GdkDisplayClass.PolyML.cPtr --> GdkEvent.PolyML.cPtr)
+      val putEvent_ = call (getSymbol "gdk_display_put_event") (GdkDisplayClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val requestSelectionNotification_ = call (getSymbol "gdk_display_request_selection_notification") (GdkDisplayClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setDoubleClickDistance_ = call (getSymbol "gdk_display_set_double_click_distance") (GdkDisplayClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDoubleClickTime_ = call (getSymbol "gdk_display_set_double_click_time") (GdkDisplayClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val storeClipboard_ =
-        call (load_sym libgdk "gdk_display_store_clipboard")
+        call (getSymbol "gdk_display_store_clipboard")
           (
             GdkDisplayClass.PolyML.cPtr
              &&> GdkWindowClass.PolyML.cPtr
@@ -61,14 +61,14 @@ structure GdkDisplay :>
              &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val supportsClipboardPersistence_ = call (load_sym libgdk "gdk_display_supports_clipboard_persistence") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val supportsComposite_ = call (load_sym libgdk "gdk_display_supports_composite") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val supportsCursorAlpha_ = call (load_sym libgdk "gdk_display_supports_cursor_alpha") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val supportsCursorColor_ = call (load_sym libgdk "gdk_display_supports_cursor_color") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val supportsInputShapes_ = call (load_sym libgdk "gdk_display_supports_input_shapes") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val supportsSelectionNotification_ = call (load_sym libgdk "gdk_display_supports_selection_notification") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val supportsShapes_ = call (load_sym libgdk "gdk_display_supports_shapes") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val sync_ = call (load_sym libgdk "gdk_display_sync") (GdkDisplayClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val supportsClipboardPersistence_ = call (getSymbol "gdk_display_supports_clipboard_persistence") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val supportsComposite_ = call (getSymbol "gdk_display_supports_composite") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val supportsCursorAlpha_ = call (getSymbol "gdk_display_supports_cursor_alpha") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val supportsCursorColor_ = call (getSymbol "gdk_display_supports_cursor_color") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val supportsInputShapes_ = call (getSymbol "gdk_display_supports_input_shapes") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val supportsSelectionNotification_ = call (getSymbol "gdk_display_supports_selection_notification") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val supportsShapes_ = call (getSymbol "gdk_display_supports_shapes") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val sync_ = call (getSymbol "gdk_display_sync") (GdkDisplayClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GdkDisplayClass.class
     type 'a device_class = 'a GdkDeviceClass.class

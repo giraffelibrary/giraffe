@@ -5,10 +5,10 @@ structure GtkEntryBuffer :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_entry_buffer_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_entry_buffer_new") (Utf8.PolyML.cInOptPtr &&> GInt.PolyML.cVal --> GtkEntryBufferClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_entry_buffer_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_entry_buffer_new") (Utf8.PolyML.cInOptPtr &&> GInt.PolyML.cVal --> GtkEntryBufferClass.PolyML.cPtr)
       val deleteText_ =
-        call (load_sym libgtk "gtk_entry_buffer_delete_text")
+        call (getSymbol "gtk_entry_buffer_delete_text")
           (
             GtkEntryBufferClass.PolyML.cPtr
              &&> GUInt.PolyML.cVal
@@ -16,7 +16,7 @@ structure GtkEntryBuffer :>
              --> GUInt.PolyML.cVal
           )
       val emitDeletedText_ =
-        call (load_sym libgtk "gtk_entry_buffer_emit_deleted_text")
+        call (getSymbol "gtk_entry_buffer_emit_deleted_text")
           (
             GtkEntryBufferClass.PolyML.cPtr
              &&> GUInt.PolyML.cVal
@@ -24,7 +24,7 @@ structure GtkEntryBuffer :>
              --> PolyMLFFI.cVoid
           )
       val emitInsertedText_ =
-        call (load_sym libgtk "gtk_entry_buffer_emit_inserted_text")
+        call (getSymbol "gtk_entry_buffer_emit_inserted_text")
           (
             GtkEntryBufferClass.PolyML.cPtr
              &&> GUInt.PolyML.cVal
@@ -32,12 +32,12 @@ structure GtkEntryBuffer :>
              &&> GUInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val getBytes_ = call (load_sym libgtk "gtk_entry_buffer_get_bytes") (GtkEntryBufferClass.PolyML.cPtr --> GSize.PolyML.cVal)
-      val getLength_ = call (load_sym libgtk "gtk_entry_buffer_get_length") (GtkEntryBufferClass.PolyML.cPtr --> GUInt.PolyML.cVal)
-      val getMaxLength_ = call (load_sym libgtk "gtk_entry_buffer_get_max_length") (GtkEntryBufferClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getText_ = call (load_sym libgtk "gtk_entry_buffer_get_text") (GtkEntryBufferClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getBytes_ = call (getSymbol "gtk_entry_buffer_get_bytes") (GtkEntryBufferClass.PolyML.cPtr --> GSize.PolyML.cVal)
+      val getLength_ = call (getSymbol "gtk_entry_buffer_get_length") (GtkEntryBufferClass.PolyML.cPtr --> GUInt.PolyML.cVal)
+      val getMaxLength_ = call (getSymbol "gtk_entry_buffer_get_max_length") (GtkEntryBufferClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getText_ = call (getSymbol "gtk_entry_buffer_get_text") (GtkEntryBufferClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val insertText_ =
-        call (load_sym libgtk "gtk_entry_buffer_insert_text")
+        call (getSymbol "gtk_entry_buffer_insert_text")
           (
             GtkEntryBufferClass.PolyML.cPtr
              &&> GUInt.PolyML.cVal
@@ -45,9 +45,9 @@ structure GtkEntryBuffer :>
              &&> GInt.PolyML.cVal
              --> GUInt.PolyML.cVal
           )
-      val setMaxLength_ = call (load_sym libgtk "gtk_entry_buffer_set_max_length") (GtkEntryBufferClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMaxLength_ = call (getSymbol "gtk_entry_buffer_set_max_length") (GtkEntryBufferClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setText_ =
-        call (load_sym libgtk "gtk_entry_buffer_set_text")
+        call (getSymbol "gtk_entry_buffer_set_text")
           (
             GtkEntryBufferClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr

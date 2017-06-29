@@ -5,8 +5,8 @@ structure AtkNoOpObjectFactory :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_no_op_object_factory_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libatk "atk_no_op_object_factory_new") (PolyMLFFI.cVoid --> AtkObjectFactoryClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "atk_no_op_object_factory_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "atk_no_op_object_factory_new") (PolyMLFFI.cVoid --> AtkObjectFactoryClass.PolyML.cPtr)
     end
     type 'a class = 'a AtkNoOpObjectFactoryClass.class
     type t = base class

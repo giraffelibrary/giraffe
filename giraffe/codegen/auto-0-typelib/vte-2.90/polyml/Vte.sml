@@ -3,7 +3,7 @@ structure Vte : VTE =
     local
       open PolyMLFFI
     in
-      val getUserShell_ = call (load_sym libvte "vte_get_user_shell") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val getUserShell_ = call (getSymbol "vte_get_user_shell") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
     end
     structure PtyClass = VtePtyClass
     structure PtyError = VtePtyError

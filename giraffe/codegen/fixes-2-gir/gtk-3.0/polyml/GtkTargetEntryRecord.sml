@@ -11,17 +11,17 @@ structure GtkTargetEntryRecord :> GTK_TARGET_ENTRY_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgtk "gtk_target_entry_copy")
+          (getSymbol "gtk_target_entry_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgtk "gtk_target_entry_free")
+          (getSymbol "gtk_target_entry_free")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libgtk "gtk_target_entry_get_type")
+          (getSymbol "gtk_target_entry_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

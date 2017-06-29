@@ -11,11 +11,11 @@ structure GioUnixFDList :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_unix_fd_list_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_unix_fd_list_new") (PolyMLFFI.cVoid --> GioUnixFDListClass.PolyML.cPtr)
-      val newFromArray_ = call (load_sym libgio "g_unix_fd_list_new_from_array") (GIntCVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GioUnixFDListClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_unix_fd_list_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_unix_fd_list_new") (PolyMLFFI.cVoid --> GioUnixFDListClass.PolyML.cPtr)
+      val newFromArray_ = call (getSymbol "g_unix_fd_list_new_from_array") (GIntCVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GioUnixFDListClass.PolyML.cPtr)
       val append_ =
-        call (load_sym libgio "g_unix_fd_list_append")
+        call (getSymbol "g_unix_fd_list_append")
           (
             GioUnixFDListClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -23,16 +23,16 @@ structure GioUnixFDList :>
              --> GInt.PolyML.cVal
           )
       val get_ =
-        call (load_sym libgio "g_unix_fd_list_get")
+        call (getSymbol "g_unix_fd_list_get")
           (
             GioUnixFDListClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GInt.PolyML.cVal
           )
-      val getLength_ = call (load_sym libgio "g_unix_fd_list_get_length") (GioUnixFDListClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val peekFds_ = call (load_sym libgio "g_unix_fd_list_peek_fds") (GioUnixFDListClass.PolyML.cPtr &&> GInt.PolyML.cRef --> GIntCVectorN.PolyML.cOutPtr)
-      val stealFds_ = call (load_sym libgio "g_unix_fd_list_steal_fds") (GioUnixFDListClass.PolyML.cPtr &&> GInt.PolyML.cRef --> GIntCVectorN.PolyML.cOutPtr)
+      val getLength_ = call (getSymbol "g_unix_fd_list_get_length") (GioUnixFDListClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val peekFds_ = call (getSymbol "g_unix_fd_list_peek_fds") (GioUnixFDListClass.PolyML.cPtr &&> GInt.PolyML.cRef --> GIntCVectorN.PolyML.cOutPtr)
+      val stealFds_ = call (getSymbol "g_unix_fd_list_steal_fds") (GioUnixFDListClass.PolyML.cPtr &&> GInt.PolyML.cRef --> GIntCVectorN.PolyML.cOutPtr)
     end
     type 'a class = 'a GioUnixFDListClass.class
     type t = base class

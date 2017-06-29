@@ -11,17 +11,17 @@ structure GLibMatchInfoRecord :> G_LIB_MATCH_INFO_RECORD =
     in
       val dup_ =
         call
-          (load_sym libglib "g_match_info_ref")
+          (getSymbol "g_match_info_ref")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libglib "g_match_info_unref")
+          (getSymbol "g_match_info_unref")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libglib "g_match_info_get_type")
+          (getSymbol "g_match_info_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

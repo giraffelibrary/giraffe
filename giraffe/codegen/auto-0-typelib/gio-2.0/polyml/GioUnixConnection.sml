@@ -7,9 +7,9 @@ structure GioUnixConnection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_unix_connection_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_unix_connection_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val receiveCredentials_ =
-        call (load_sym libgio "g_unix_connection_receive_credentials")
+        call (getSymbol "g_unix_connection_receive_credentials")
           (
             GioUnixConnectionClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -17,7 +17,7 @@ structure GioUnixConnection :>
              --> GioCredentialsClass.PolyML.cPtr
           )
       val receiveFd_ =
-        call (load_sym libgio "g_unix_connection_receive_fd")
+        call (getSymbol "g_unix_connection_receive_fd")
           (
             GioUnixConnectionClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -25,7 +25,7 @@ structure GioUnixConnection :>
              --> GInt32.PolyML.cVal
           )
       val sendCredentials_ =
-        call (load_sym libgio "g_unix_connection_send_credentials")
+        call (getSymbol "g_unix_connection_send_credentials")
           (
             GioUnixConnectionClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -33,7 +33,7 @@ structure GioUnixConnection :>
              --> GBool.PolyML.cVal
           )
       val sendFd_ =
-        call (load_sym libgio "g_unix_connection_send_fd")
+        call (getSymbol "g_unix_connection_send_fd")
           (
             GioUnixConnectionClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal

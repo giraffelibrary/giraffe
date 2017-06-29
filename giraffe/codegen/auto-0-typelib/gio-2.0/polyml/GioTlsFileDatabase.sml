@@ -6,8 +6,8 @@ structure GioTlsFileDatabase :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tls_file_database_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_tls_file_database_new") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioTlsDatabaseClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_tls_file_database_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_tls_file_database_new") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioTlsDatabaseClass.PolyML.cPtr)
     end
     type 'a class = 'a GioTlsFileDatabaseClass.class
     type 'a tls_database_class = 'a GioTlsDatabaseClass.class

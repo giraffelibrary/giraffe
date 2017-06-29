@@ -11,11 +11,11 @@ structure GioIOModule :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_io_module_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_io_module_new") (Utf8.PolyML.cInPtr --> GioIOModuleClass.PolyML.cPtr)
-      val query_ = call (load_sym libgio "g_io_module_query") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
-      val load_ = call (load_sym libgio "g_io_module_load") (GioIOModuleClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val unload_ = call (load_sym libgio "g_io_module_unload") (GioIOModuleClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_io_module_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_io_module_new") (Utf8.PolyML.cInPtr --> GioIOModuleClass.PolyML.cPtr)
+      val query_ = call (getSymbol "g_io_module_query") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val load_ = call (getSymbol "g_io_module_load") (GioIOModuleClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unload_ = call (getSymbol "g_io_module_unload") (GioIOModuleClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioIOModuleClass.class
     type t = base class

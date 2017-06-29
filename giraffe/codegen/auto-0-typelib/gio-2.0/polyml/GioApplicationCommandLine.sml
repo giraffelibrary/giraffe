@@ -17,15 +17,15 @@ structure GioApplicationCommandLine :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_application_command_line_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getArguments_ = call (load_sym libgio "g_application_command_line_get_arguments") (GioApplicationCommandLineClass.PolyML.cPtr &&> GInt32.PolyML.cRef --> Utf8CVectorN.PolyML.cOutPtr)
-      val getCwd_ = call (load_sym libgio "g_application_command_line_get_cwd") (GioApplicationCommandLineClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getEnviron_ = call (load_sym libgio "g_application_command_line_get_environ") (GioApplicationCommandLineClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
-      val getExitStatus_ = call (load_sym libgio "g_application_command_line_get_exit_status") (GioApplicationCommandLineClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getIsRemote_ = call (load_sym libgio "g_application_command_line_get_is_remote") (GioApplicationCommandLineClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getPlatformData_ = call (load_sym libgio "g_application_command_line_get_platform_data") (GioApplicationCommandLineClass.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
-      val getenv_ = call (load_sym libgio "g_application_command_line_getenv") (GioApplicationCommandLineClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val setExitStatus_ = call (load_sym libgio "g_application_command_line_set_exit_status") (GioApplicationCommandLineClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_application_command_line_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getArguments_ = call (getSymbol "g_application_command_line_get_arguments") (GioApplicationCommandLineClass.PolyML.cPtr &&> GInt32.PolyML.cRef --> Utf8CVectorN.PolyML.cOutPtr)
+      val getCwd_ = call (getSymbol "g_application_command_line_get_cwd") (GioApplicationCommandLineClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getEnviron_ = call (getSymbol "g_application_command_line_get_environ") (GioApplicationCommandLineClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getExitStatus_ = call (getSymbol "g_application_command_line_get_exit_status") (GioApplicationCommandLineClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getIsRemote_ = call (getSymbol "g_application_command_line_get_is_remote") (GioApplicationCommandLineClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getPlatformData_ = call (getSymbol "g_application_command_line_get_platform_data") (GioApplicationCommandLineClass.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
+      val getenv_ = call (getSymbol "g_application_command_line_getenv") (GioApplicationCommandLineClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val setExitStatus_ = call (getSymbol "g_application_command_line_set_exit_status") (GioApplicationCommandLineClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioApplicationCommandLineClass.class
     type t = base class

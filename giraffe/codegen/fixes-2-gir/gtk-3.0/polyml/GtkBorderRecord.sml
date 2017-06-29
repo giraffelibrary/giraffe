@@ -11,27 +11,27 @@ structure GtkBorderRecord :> GTK_BORDER_RECORD =
     in
       val new_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_border_new")
+          (getSymbol "giraffe_gtk_border_new")
           (cVoid --> cPtr)
 
       val copy_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_border_copy")
+          (getSymbol "giraffe_gtk_border_copy")
           (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_border_free")
+          (getSymbol "giraffe_gtk_border_free")
           (cPtr --> cVoid)
 
       val size_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_border_size")
+          (getSymbol "giraffe_gtk_border_size")
           (cVoid --> GUInt.PolyML.cVal)
 
       val getType_ =
         call
-          (load_sym libgtk "gtk_border_get_type")
+          (getSymbol "gtk_border_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

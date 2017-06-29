@@ -5,11 +5,11 @@ structure GioCredentials :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_credentials_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_credentials_new") (PolyMLFFI.cVoid --> GioCredentialsClass.PolyML.cPtr)
-      val getUnixUser_ = call (load_sym libgio "g_credentials_get_unix_user") (GioCredentialsClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GUInt32.PolyML.cVal)
+      val getType_ = call (getSymbol "g_credentials_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_credentials_new") (PolyMLFFI.cVoid --> GioCredentialsClass.PolyML.cPtr)
+      val getUnixUser_ = call (getSymbol "g_credentials_get_unix_user") (GioCredentialsClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GUInt32.PolyML.cVal)
       val isSameUser_ =
-        call (load_sym libgio "g_credentials_is_same_user")
+        call (getSymbol "g_credentials_is_same_user")
           (
             GioCredentialsClass.PolyML.cPtr
              &&> GioCredentialsClass.PolyML.cPtr
@@ -17,14 +17,14 @@ structure GioCredentials :>
              --> GBool.PolyML.cVal
           )
       val setUnixUser_ =
-        call (load_sym libgio "g_credentials_set_unix_user")
+        call (getSymbol "g_credentials_set_unix_user")
           (
             GioCredentialsClass.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val toString_ = call (load_sym libgio "g_credentials_to_string") (GioCredentialsClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val toString_ = call (getSymbol "g_credentials_to_string") (GioCredentialsClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class = 'a GioCredentialsClass.class
     type t = base class

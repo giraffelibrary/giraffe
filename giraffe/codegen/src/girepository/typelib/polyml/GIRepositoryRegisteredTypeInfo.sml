@@ -7,17 +7,17 @@ structure GIRepositoryRegisteredTypeInfo :>
     in
       val getTypeName_ =
         call
-          (load_sym libgirepository "g_registered_type_info_get_type_name")
+          (getSymbol "g_registered_type_info_get_type_name")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr);
 
       val getTypeInit_ =
         call
-          (load_sym libgirepository "g_registered_type_info_get_type_init")
+          (getSymbol "g_registered_type_info_get_type_init")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr);
 
       val getGType_ =
         call
-          (load_sym libgirepository "g_registered_type_info_get_g_type")
+          (getSymbol "g_registered_type_info_get_g_type")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GObjectType.PolyML.cVal);
     end
 

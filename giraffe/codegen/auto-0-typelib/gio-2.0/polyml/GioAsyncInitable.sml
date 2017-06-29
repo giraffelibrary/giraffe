@@ -6,9 +6,9 @@ structure GioAsyncInitable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_async_initable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_async_initable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val initFinish_ =
-        call (load_sym libgio "g_async_initable_init_finish")
+        call (getSymbol "g_async_initable_init_finish")
           (
             GioAsyncInitableClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -16,7 +16,7 @@ structure GioAsyncInitable :>
              --> GBool.PolyML.cVal
           )
       val newFinish_ =
-        call (load_sym libgio "g_async_initable_new_finish")
+        call (getSymbol "g_async_initable_new_finish")
           (
             GioAsyncInitableClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr

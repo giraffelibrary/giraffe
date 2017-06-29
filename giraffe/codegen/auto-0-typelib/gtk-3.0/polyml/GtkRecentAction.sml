@@ -8,9 +8,9 @@ structure GtkRecentAction :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_recent_action_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_recent_action_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgtk "gtk_recent_action_new")
+        call (getSymbol "gtk_recent_action_new")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInOptPtr
@@ -19,7 +19,7 @@ structure GtkRecentAction :>
              --> GtkActionClass.PolyML.cPtr
           )
       val newForManager_ =
-        call (load_sym libgtk "gtk_recent_action_new_for_manager")
+        call (getSymbol "gtk_recent_action_new_for_manager")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInOptPtr
@@ -28,8 +28,8 @@ structure GtkRecentAction :>
              &&> GtkRecentManagerClass.PolyML.cOptPtr
              --> GtkActionClass.PolyML.cPtr
           )
-      val getShowNumbers_ = call (load_sym libgtk "gtk_recent_action_get_show_numbers") (GtkRecentActionClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setShowNumbers_ = call (load_sym libgtk "gtk_recent_action_set_show_numbers") (GtkRecentActionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getShowNumbers_ = call (getSymbol "gtk_recent_action_get_show_numbers") (GtkRecentActionClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setShowNumbers_ = call (getSymbol "gtk_recent_action_set_show_numbers") (GtkRecentActionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkRecentActionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

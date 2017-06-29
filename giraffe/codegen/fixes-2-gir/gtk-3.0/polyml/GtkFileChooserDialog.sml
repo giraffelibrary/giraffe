@@ -9,9 +9,9 @@ structure GtkFileChooserDialog :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_file_chooser_dialog_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_file_chooser_dialog_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgiraffegtk "giraffe_gtk_file_chooser_dialog_new")
+        call (getSymbol "giraffe_gtk_file_chooser_dialog_new")
           (
             Utf8.PolyML.cInOptPtr
              &&> GtkWindowClass.PolyML.cOptPtr

@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016-2017 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -17,20 +17,20 @@ structure GObjectValueRecord :> G_OBJECT_VALUE_RECORD =
       open PolyMLFFI
     in
       val new_ =
-        call (getSymbol libgiraffegobject "giraffe_g_value_new") (cVoid --> cPtr)
+        call (getSymbol "giraffe_g_value_new") (cVoid --> cPtr)
 
       val free_ =
-        call (getSymbol libgiraffegobject "giraffe_g_value_free") (cPtr --> cVoid)
+        call (getSymbol "giraffe_g_value_free") (cPtr --> cVoid)
 
       val copy_ =
-        call (getSymbol libgobject "g_value_copy") (cPtr &&> cPtr --> cVoid)
+        call (getSymbol "g_value_copy") (cPtr &&> cPtr --> cVoid)
 
       val clear_ =
-        call (getSymbol libgobject "g_value_unset") (cPtr --> cVoid)
+        call (getSymbol "g_value_unset") (cPtr --> cVoid)
 
       val size_ =
         call
-          (getSymbol libgiraffegobject "giraffe_g_value_size")
+          (getSymbol "giraffe_g_value_size")
           (cVoid --> GUInt.PolyML.cVal)
     end
 

@@ -17,10 +17,10 @@ structure PangoFontMap :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libpango "pango_font_map_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val createContext_ = call (load_sym libpango "pango_font_map_create_context") (PangoFontMapClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "pango_font_map_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val createContext_ = call (getSymbol "pango_font_map_create_context") (PangoFontMapClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
       val listFamilies_ =
-        call (load_sym libpango "pango_font_map_list_families")
+        call (getSymbol "pango_font_map_list_families")
           (
             PangoFontMapClass.PolyML.cPtr
              &&> PangoFontFamilyClassCVectorN.PolyML.cOutRef
@@ -28,7 +28,7 @@ structure PangoFontMap :>
              --> PolyMLFFI.cVoid
           )
       val loadFont_ =
-        call (load_sym libpango "pango_font_map_load_font")
+        call (getSymbol "pango_font_map_load_font")
           (
             PangoFontMapClass.PolyML.cPtr
              &&> PangoContextClass.PolyML.cPtr
@@ -36,7 +36,7 @@ structure PangoFontMap :>
              --> PangoFontClass.PolyML.cPtr
           )
       val loadFontset_ =
-        call (load_sym libpango "pango_font_map_load_fontset")
+        call (getSymbol "pango_font_map_load_fontset")
           (
             PangoFontMapClass.PolyML.cPtr
              &&> PangoContextClass.PolyML.cPtr

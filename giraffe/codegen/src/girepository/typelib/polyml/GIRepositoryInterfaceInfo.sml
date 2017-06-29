@@ -14,92 +14,92 @@ structure GIRepositoryInterfaceInfo :>
     in
       val getNPrerequisites_ =
         call
-          (load_sym libgirepository
+          (getSymbol
              "g_interface_info_get_n_prerequisites")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getPrerequisite_ =
         call
-          (load_sym libgirepository "g_interface_info_get_prerequisite")
+          (getSymbol "g_interface_info_get_prerequisite")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNProperties_ =
         call
-          (load_sym libgirepository "g_interface_info_get_n_properties")
+          (getSymbol "g_interface_info_get_n_properties")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getProperty_ =
         call
-          (load_sym libgirepository "g_interface_info_get_property")
+          (getSymbol "g_interface_info_get_property")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNMethods_ =
         call
-          (load_sym libgirepository "g_interface_info_get_n_methods")
+          (getSymbol "g_interface_info_get_n_methods")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getMethod_ =
         call
-          (load_sym libgirepository "g_interface_info_get_method")
+          (getSymbol "g_interface_info_get_method")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val findMethod_ =
         call
-          (load_sym libgirepository "g_interface_info_find_method")
+          (getSymbol "g_interface_info_find_method")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNSignals_ =
         call
-          (load_sym libgirepository "g_interface_info_get_n_signals")
+          (getSymbol "g_interface_info_get_n_signals")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getSignal_ =
         call
-          (load_sym libgirepository "g_interface_info_get_signal")
+          (getSymbol "g_interface_info_get_signal")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNVfuncs_ =
         call
-          (load_sym libgirepository "g_interface_info_get_n_vfuncs")
+          (getSymbol "g_interface_info_get_n_vfuncs")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getVfunc_ =
         call
-          (load_sym libgirepository "g_interface_info_get_vfunc")
+          (getSymbol "g_interface_info_get_vfunc")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getNConstants_ =
         call
-          (load_sym libgirepository "g_interface_info_get_n_constants")
+          (getSymbol "g_interface_info_get_n_constants")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getConstant_ =
         call
-          (load_sym libgirepository "g_interface_info_get_constant")
+          (getSymbol "g_interface_info_get_constant")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> GInt32.PolyML.cVal
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);
 
       val getIfaceStruct_ =
         call
-          (load_sym libgirepository "g_interface_info_get_iface_struct")
+          (getSymbol "g_interface_info_get_iface_struct")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
 
       val findVfunc_ =
         call
-          (load_sym libgirepository "g_interface_info_find_vfunc")
+          (getSymbol "g_interface_info_find_vfunc")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
             --> GIRepositoryBaseInfoClass.PolyML.cPtr);

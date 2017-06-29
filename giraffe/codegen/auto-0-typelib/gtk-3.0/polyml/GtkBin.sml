@@ -7,8 +7,8 @@ structure GtkBin :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_bin_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getChild_ = call (load_sym libgtk "gtk_bin_get_child") (GtkBinClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_bin_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getChild_ = call (getSymbol "gtk_bin_get_child") (GtkBinClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkBinClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

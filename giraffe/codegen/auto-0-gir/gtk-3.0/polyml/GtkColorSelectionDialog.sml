@@ -7,9 +7,9 @@ structure GtkColorSelectionDialog :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_color_selection_dialog_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_color_selection_dialog_new") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getColorSelection_ = call (load_sym libgtk "gtk_color_selection_dialog_get_color_selection") (GtkColorSelectionDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_color_selection_dialog_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_color_selection_dialog_new") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getColorSelection_ = call (getSymbol "gtk_color_selection_dialog_get_color_selection") (GtkColorSelectionDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkColorSelectionDialogClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

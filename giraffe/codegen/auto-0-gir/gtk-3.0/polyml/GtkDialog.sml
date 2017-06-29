@@ -13,10 +13,10 @@ structure GtkDialog :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_dialog_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_dialog_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_dialog_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_dialog_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
       val addActionWidget_ =
-        call (load_sym libgtk "gtk_dialog_add_action_widget")
+        call (getSymbol "gtk_dialog_add_action_widget")
           (
             GtkDialogClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
@@ -24,30 +24,30 @@ structure GtkDialog :>
              --> PolyMLFFI.cVoid
           )
       val addButton_ =
-        call (load_sym libgtk "gtk_dialog_add_button")
+        call (getSymbol "gtk_dialog_add_button")
           (
             GtkDialogClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              --> GtkWidgetClass.PolyML.cPtr
           )
-      val getActionArea_ = call (load_sym libgtk "gtk_dialog_get_action_area") (GtkDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getContentArea_ = call (load_sym libgtk "gtk_dialog_get_content_area") (GtkDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getResponseForWidget_ = call (load_sym libgtk "gtk_dialog_get_response_for_widget") (GtkDialogClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getWidgetForResponse_ = call (load_sym libgtk "gtk_dialog_get_widget_for_response") (GtkDialogClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
-      val response_ = call (load_sym libgtk "gtk_dialog_response") (GtkDialogClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val run_ = call (load_sym libgtk "gtk_dialog_run") (GtkDialogClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getActionArea_ = call (getSymbol "gtk_dialog_get_action_area") (GtkDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getContentArea_ = call (getSymbol "gtk_dialog_get_content_area") (GtkDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getResponseForWidget_ = call (getSymbol "gtk_dialog_get_response_for_widget") (GtkDialogClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getWidgetForResponse_ = call (getSymbol "gtk_dialog_get_widget_for_response") (GtkDialogClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val response_ = call (getSymbol "gtk_dialog_response") (GtkDialogClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val run_ = call (getSymbol "gtk_dialog_run") (GtkDialogClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val setAlternativeButtonOrderFromArray_ =
-        call (load_sym libgtk "gtk_dialog_set_alternative_button_order_from_array")
+        call (getSymbol "gtk_dialog_set_alternative_button_order_from_array")
           (
             GtkDialogClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GIntCVectorN.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
-      val setDefaultResponse_ = call (load_sym libgtk "gtk_dialog_set_default_response") (GtkDialogClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDefaultResponse_ = call (getSymbol "gtk_dialog_set_default_response") (GtkDialogClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
       val setResponseSensitive_ =
-        call (load_sym libgtk "gtk_dialog_set_response_sensitive")
+        call (getSymbol "gtk_dialog_set_response_sensitive")
           (
             GtkDialogClass.PolyML.cPtr
              &&> GInt.PolyML.cVal

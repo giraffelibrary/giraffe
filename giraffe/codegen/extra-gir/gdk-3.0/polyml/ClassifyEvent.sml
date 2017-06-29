@@ -109,7 +109,7 @@ structure ClassifyEvent :>
       open PolyMLFFI
     in
       val eventType_ =
-        call (load_sym libgiraffegdk "giraffe_gdk_get_event_type")
+        call (getSymbol "giraffe_gdk_get_event_type")
           (GdkEvent.PolyML.cPtr --> GdkEventType.PolyML.cVal)
     end
 

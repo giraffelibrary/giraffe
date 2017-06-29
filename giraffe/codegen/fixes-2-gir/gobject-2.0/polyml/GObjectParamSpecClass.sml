@@ -20,12 +20,12 @@ structure GObjectParamSpecClass :>
 
       val ref_ =
         call
-          (load_sym libgobject "g_param_spec_ref_sink")
+          (getSymbol "g_param_spec_ref_sink")
           (cPtr --> cPtr)
 
       val unref_ =
         call
-          (load_sym libgobject "g_param_spec_unref")
+          (getSymbol "g_param_spec_unref")
           (cPtr --> PolyMLFFI.cVoid)
     end
 
@@ -118,27 +118,27 @@ structure GObjectParamSpecClass :>
     in
       val getType_ =
         call
-          (load_sym libgobject "giraffe_g_param_get_type")
+          (getSymbol "giraffe_g_param_get_type")
           (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
 
       val getValue_ =
         call
-          (load_sym libgobject "g_value_get_param")
+          (getSymbol "g_value_get_param")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr);
 
       val getOptValue_ =
         call
-          (load_sym libgobject "g_value_get_param")
+          (getSymbol "g_value_get_param")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);
 
       val setValue_ =
         call
-          (load_sym libgobject "g_value_set_param")
+          (getSymbol "g_value_set_param")
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid);
 
       val setOptValue_ =
         call
-          (load_sym libgobject "g_value_set_param")
+          (getSymbol "g_value_set_param")
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid);
     end
 

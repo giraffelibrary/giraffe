@@ -179,37 +179,14 @@ local
   fun mkUseTopLevelDec e = TopLevelDecExp (ExpApp (mkIdLNameExp "use", e))
   val useSigExp = mkUseTopLevelDec o ExpConst o ConstString o mkProgramFile true
   val useStrExp = mkUseTopLevelDec o ExpConst o ConstString o mkProgramFile true
-
-  (*
-   *   val <libId> = PolyMLFFI.load_lib "<libFile>";
-   *
-   * where <libFile> is the empty string (to pass NULL to dlopen).
-   *)
-  fun mkLibTopLevelDec repo vers namespace =
-    let
-      val libId = getSharedLibraryId repo vers namespace
-      val libFile = ""
-      val pat = mkIdVarPat libId
-      val exp =
-        ExpApp (
-          mkLIdLNameExp [PolyMLFFIId, loadLibId],
-          ExpConst (ConstString libFile)
-        )
-    in
-      TopLevelDecDec (DecVal (toList1 [([], false, pat, exp)]), true)
-    end
 in
-  fun fmtNamespaceBasisPolyML repo vers namespace (revSigs, revStrs)
+  fun fmtNamespaceBasisPolyML (revSigs, revStrs)
     : VTextTree.t =
     let
       val topLevelDecs'1 = revMap useStrExp revStrs
       val topLevelDecs'2 = revMapAppend useSigExp (revSigs, topLevelDecs'1)
-      val topLevelDecs'3 =
-        mkLibTopLevelDec repo vers namespace :: topLevelDecs'2
-          handle
-            InfoError _ => topLevelDecs'2
     in
-      PrettyPrint.fmtProgram topLevelDecs'3
+      PrettyPrint.fmtProgram topLevelDecs'2
     end
 end
 
@@ -251,32 +228,19 @@ fun writeBasisFileMLton namespaceDir namespaceDeps (revSigs, revStrs) =
     (mkFile (targetString MLton) mlb)
     (fmtNamespaceBasisMLton namespaceDeps (revSigs, revStrs))
 
-fun writeBasisFilePolyML
-  repo
-  vers
-  namespace
-  namespaceDir
-  (revSigs, revStrs) =
+fun writeBasisFilePolyML namespaceDir (revSigs, revStrs) =
   writeFile namespaceDir
     (mkFile (targetString PolyML) sml)
-    (fmtNamespaceBasisPolyML repo vers namespace (revSigs, revStrs))
+    (fmtNamespaceBasisPolyML (revSigs, revStrs))
 
 fun writeBasisFile
-  repo
-  vers
-  namespace
   namespaceDir
   namespaceDeps
   (revSigs, revStrs) =
   let
   in
     writeBasisFileMLton namespaceDir namespaceDeps (revSigs, revStrs);
-    writeBasisFilePolyML
-      repo
-      vers
-      namespace
-      namespaceDir
-      (revSigs, revStrs)
+    writeBasisFilePolyML namespaceDir (revSigs, revStrs)
   end
 
 
@@ -503,10 +467,7 @@ fun generate dir repo (namespace, version) (extraVers, extraSigs, extraStrs) =
 
       (* Step 6 *)
       val () =
-        writeBasisFile repo vers namespace
-          namespaceDir
-          namespaceDeps
-          (revSigFiles'3, revStrFiles'3)
+        writeBasisFile namespaceDir namespaceDeps (revSigFiles'3, revStrFiles'3)
 
       (* Step 7 *)
       val files'2 =

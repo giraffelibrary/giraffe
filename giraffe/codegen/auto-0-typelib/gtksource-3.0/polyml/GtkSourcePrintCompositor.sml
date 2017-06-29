@@ -7,47 +7,47 @@ structure GtkSourcePrintCompositor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtksourceview "gtk_source_print_compositor_new") (GtkSourceBufferClass.PolyML.cPtr --> GtkSourcePrintCompositorClass.PolyML.cPtr)
-      val newFromView_ = call (load_sym libgtksourceview "gtk_source_print_compositor_new_from_view") (GtkSourceViewClass.PolyML.cPtr --> GtkSourcePrintCompositorClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_source_print_compositor_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_source_print_compositor_new") (GtkSourceBufferClass.PolyML.cPtr --> GtkSourcePrintCompositorClass.PolyML.cPtr)
+      val newFromView_ = call (getSymbol "gtk_source_print_compositor_new_from_view") (GtkSourceViewClass.PolyML.cPtr --> GtkSourcePrintCompositorClass.PolyML.cPtr)
       val drawPage_ =
-        call (load_sym libgtksourceview "gtk_source_print_compositor_draw_page")
+        call (getSymbol "gtk_source_print_compositor_draw_page")
           (
             GtkSourcePrintCompositorClass.PolyML.cPtr
              &&> GtkPrintContextClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val getBodyFontName_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_body_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getBottomMargin_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_bottom_margin") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
-      val getBuffer_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_buffer") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GtkSourceBufferClass.PolyML.cPtr)
-      val getFooterFontName_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_footer_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getHeaderFontName_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_header_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getHighlightSyntax_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_highlight_syntax") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getLeftMargin_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_left_margin") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
-      val getLineNumbersFontName_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_line_numbers_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getNPages_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_n_pages") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getPaginationProgress_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_pagination_progress") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val getPrintFooter_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_print_footer") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getPrintHeader_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_print_header") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getPrintLineNumbers_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_print_line_numbers") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
-      val getRightMargin_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_right_margin") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
-      val getTabWidth_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_tab_width") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
-      val getTopMargin_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_top_margin") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
-      val getWrapMode_ = call (load_sym libgtksourceview "gtk_source_print_compositor_get_wrap_mode") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GtkWrapMode.PolyML.cVal)
-      val paginate_ = call (load_sym libgtksourceview "gtk_source_print_compositor_paginate") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GtkPrintContextClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setBodyFontName_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_body_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val getBodyFontName_ = call (getSymbol "gtk_source_print_compositor_get_body_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getBottomMargin_ = call (getSymbol "gtk_source_print_compositor_get_bottom_margin") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val getBuffer_ = call (getSymbol "gtk_source_print_compositor_get_buffer") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GtkSourceBufferClass.PolyML.cPtr)
+      val getFooterFontName_ = call (getSymbol "gtk_source_print_compositor_get_footer_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getHeaderFontName_ = call (getSymbol "gtk_source_print_compositor_get_header_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getHighlightSyntax_ = call (getSymbol "gtk_source_print_compositor_get_highlight_syntax") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getLeftMargin_ = call (getSymbol "gtk_source_print_compositor_get_left_margin") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val getLineNumbersFontName_ = call (getSymbol "gtk_source_print_compositor_get_line_numbers_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getNPages_ = call (getSymbol "gtk_source_print_compositor_get_n_pages") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getPaginationProgress_ = call (getSymbol "gtk_source_print_compositor_get_pagination_progress") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getPrintFooter_ = call (getSymbol "gtk_source_print_compositor_get_print_footer") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getPrintHeader_ = call (getSymbol "gtk_source_print_compositor_get_print_header") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getPrintLineNumbers_ = call (getSymbol "gtk_source_print_compositor_get_print_line_numbers") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
+      val getRightMargin_ = call (getSymbol "gtk_source_print_compositor_get_right_margin") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val getTabWidth_ = call (getSymbol "gtk_source_print_compositor_get_tab_width") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
+      val getTopMargin_ = call (getSymbol "gtk_source_print_compositor_get_top_margin") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
+      val getWrapMode_ = call (getSymbol "gtk_source_print_compositor_get_wrap_mode") (GtkSourcePrintCompositorClass.PolyML.cPtr --> GtkWrapMode.PolyML.cVal)
+      val paginate_ = call (getSymbol "gtk_source_print_compositor_paginate") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GtkPrintContextClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val setBodyFontName_ = call (getSymbol "gtk_source_print_compositor_set_body_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val setBottomMargin_ =
-        call (load_sym libgtksourceview "gtk_source_print_compositor_set_bottom_margin")
+        call (getSymbol "gtk_source_print_compositor_set_bottom_margin")
           (
             GtkSourcePrintCompositorClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GtkUnit.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setFooterFontName_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_footer_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setFooterFontName_ = call (getSymbol "gtk_source_print_compositor_set_footer_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
       val setFooterFormat_ =
-        call (load_sym libgtksourceview "gtk_source_print_compositor_set_footer_format")
+        call (getSymbol "gtk_source_print_compositor_set_footer_format")
           (
             GtkSourcePrintCompositorClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
@@ -56,9 +56,9 @@ structure GtkSourcePrintCompositor :>
              &&> Utf8.PolyML.cInOptPtr
              --> PolyMLFFI.cVoid
           )
-      val setHeaderFontName_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_header_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setHeaderFontName_ = call (getSymbol "gtk_source_print_compositor_set_header_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
       val setHeaderFormat_ =
-        call (load_sym libgtksourceview "gtk_source_print_compositor_set_header_format")
+        call (getSymbol "gtk_source_print_compositor_set_header_format")
           (
             GtkSourcePrintCompositorClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
@@ -67,37 +67,37 @@ structure GtkSourcePrintCompositor :>
              &&> Utf8.PolyML.cInOptPtr
              --> PolyMLFFI.cVoid
           )
-      val setHighlightSyntax_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_highlight_syntax") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setHighlightSyntax_ = call (getSymbol "gtk_source_print_compositor_set_highlight_syntax") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
       val setLeftMargin_ =
-        call (load_sym libgtksourceview "gtk_source_print_compositor_set_left_margin")
+        call (getSymbol "gtk_source_print_compositor_set_left_margin")
           (
             GtkSourcePrintCompositorClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GtkUnit.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setLineNumbersFontName_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_line_numbers_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
-      val setPrintFooter_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_print_footer") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPrintHeader_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_print_header") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPrintLineNumbers_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_print_line_numbers") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setLineNumbersFontName_ = call (getSymbol "gtk_source_print_compositor_set_line_numbers_font_name") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setPrintFooter_ = call (getSymbol "gtk_source_print_compositor_set_print_footer") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPrintHeader_ = call (getSymbol "gtk_source_print_compositor_set_print_header") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPrintLineNumbers_ = call (getSymbol "gtk_source_print_compositor_set_print_line_numbers") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val setRightMargin_ =
-        call (load_sym libgtksourceview "gtk_source_print_compositor_set_right_margin")
+        call (getSymbol "gtk_source_print_compositor_set_right_margin")
           (
             GtkSourcePrintCompositorClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GtkUnit.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setTabWidth_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_tab_width") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setTabWidth_ = call (getSymbol "gtk_source_print_compositor_set_tab_width") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val setTopMargin_ =
-        call (load_sym libgtksourceview "gtk_source_print_compositor_set_top_margin")
+        call (getSymbol "gtk_source_print_compositor_set_top_margin")
           (
             GtkSourcePrintCompositorClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GtkUnit.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setWrapMode_ = call (load_sym libgtksourceview "gtk_source_print_compositor_set_wrap_mode") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GtkWrapMode.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setWrapMode_ = call (getSymbol "gtk_source_print_compositor_set_wrap_mode") (GtkSourcePrintCompositorClass.PolyML.cPtr &&> GtkWrapMode.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkSourcePrintCompositorClass.class
     type 'a view_class = 'a GtkSourceViewClass.class

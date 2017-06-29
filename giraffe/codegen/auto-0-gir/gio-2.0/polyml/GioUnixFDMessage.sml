@@ -12,19 +12,19 @@ structure GioUnixFDMessage :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_unix_fd_message_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_unix_fd_message_new") (PolyMLFFI.cVoid --> GioSocketControlMessageClass.PolyML.cPtr)
-      val newWithFdList_ = call (load_sym libgio "g_unix_fd_message_new_with_fd_list") (GioUnixFDListClass.PolyML.cPtr --> GioSocketControlMessageClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_unix_fd_message_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_unix_fd_message_new") (PolyMLFFI.cVoid --> GioSocketControlMessageClass.PolyML.cPtr)
+      val newWithFdList_ = call (getSymbol "g_unix_fd_message_new_with_fd_list") (GioUnixFDListClass.PolyML.cPtr --> GioSocketControlMessageClass.PolyML.cPtr)
       val appendFd_ =
-        call (load_sym libgio "g_unix_fd_message_append_fd")
+        call (getSymbol "g_unix_fd_message_append_fd")
           (
             GioUnixFDMessageClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val getFdList_ = call (load_sym libgio "g_unix_fd_message_get_fd_list") (GioUnixFDMessageClass.PolyML.cPtr --> GioUnixFDListClass.PolyML.cPtr)
-      val stealFds_ = call (load_sym libgio "g_unix_fd_message_steal_fds") (GioUnixFDMessageClass.PolyML.cPtr &&> GInt.PolyML.cRef --> GIntCVectorN.PolyML.cOutPtr)
+      val getFdList_ = call (getSymbol "g_unix_fd_message_get_fd_list") (GioUnixFDMessageClass.PolyML.cPtr --> GioUnixFDListClass.PolyML.cPtr)
+      val stealFds_ = call (getSymbol "g_unix_fd_message_steal_fds") (GioUnixFDMessageClass.PolyML.cPtr &&> GInt.PolyML.cRef --> GIntCVectorN.PolyML.cOutPtr)
     end
     type 'a class = 'a GioUnixFDMessageClass.class
     type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class

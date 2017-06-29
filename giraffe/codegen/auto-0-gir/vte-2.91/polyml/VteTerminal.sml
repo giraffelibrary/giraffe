@@ -17,12 +17,12 @@ structure VteTerminal :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libvte "vte_terminal_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libvte "vte_terminal_new") (PolyMLFFI.cVoid --> VteTerminalClass.PolyML.cPtr)
-      val copyClipboard_ = call (load_sym libvte "vte_terminal_copy_clipboard") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val copyPrimary_ = call (load_sym libvte "vte_terminal_copy_primary") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "vte_terminal_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "vte_terminal_new") (PolyMLFFI.cVoid --> VteTerminalClass.PolyML.cPtr)
+      val copyClipboard_ = call (getSymbol "vte_terminal_copy_clipboard") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val copyPrimary_ = call (getSymbol "vte_terminal_copy_primary") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val feed_ =
-        call (load_sym libvte "vte_terminal_feed")
+        call (getSymbol "vte_terminal_feed")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GUInt8CVectorN.PolyML.cInPtr
@@ -30,36 +30,36 @@ structure VteTerminal :>
              --> PolyMLFFI.cVoid
           )
       val feedChild_ =
-        call (load_sym libvte "vte_terminal_feed_child")
+        call (getSymbol "vte_terminal_feed_child")
           (
             VteTerminalClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GSSize.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val getAllowBold_ = call (load_sym libvte "vte_terminal_get_allow_bold") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getAudibleBell_ = call (load_sym libvte "vte_terminal_get_audible_bell") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getCharHeight_ = call (load_sym libvte "vte_terminal_get_char_height") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
-      val getCharWidth_ = call (load_sym libvte "vte_terminal_get_char_width") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
-      val getCjkAmbiguousWidth_ = call (load_sym libvte "vte_terminal_get_cjk_ambiguous_width") (VteTerminalClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getColumnCount_ = call (load_sym libvte "vte_terminal_get_column_count") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
-      val getCurrentDirectoryUri_ = call (load_sym libvte "vte_terminal_get_current_directory_uri") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getCurrentFileUri_ = call (load_sym libvte "vte_terminal_get_current_file_uri") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getCursorBlinkMode_ = call (load_sym libvte "vte_terminal_get_cursor_blink_mode") (VteTerminalClass.PolyML.cPtr --> VteCursorBlinkMode.PolyML.cVal)
+      val getAllowBold_ = call (getSymbol "vte_terminal_get_allow_bold") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getAudibleBell_ = call (getSymbol "vte_terminal_get_audible_bell") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getCharHeight_ = call (getSymbol "vte_terminal_get_char_height") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
+      val getCharWidth_ = call (getSymbol "vte_terminal_get_char_width") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
+      val getCjkAmbiguousWidth_ = call (getSymbol "vte_terminal_get_cjk_ambiguous_width") (VteTerminalClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getColumnCount_ = call (getSymbol "vte_terminal_get_column_count") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
+      val getCurrentDirectoryUri_ = call (getSymbol "vte_terminal_get_current_directory_uri") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getCurrentFileUri_ = call (getSymbol "vte_terminal_get_current_file_uri") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getCursorBlinkMode_ = call (getSymbol "vte_terminal_get_cursor_blink_mode") (VteTerminalClass.PolyML.cPtr --> VteCursorBlinkMode.PolyML.cVal)
       val getCursorPosition_ =
-        call (load_sym libvte "vte_terminal_get_cursor_position")
+        call (getSymbol "vte_terminal_get_cursor_position")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GLong.PolyML.cRef
              &&> GLong.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getCursorShape_ = call (load_sym libvte "vte_terminal_get_cursor_shape") (VteTerminalClass.PolyML.cPtr --> VteCursorShape.PolyML.cVal)
-      val getEncoding_ = call (load_sym libvte "vte_terminal_get_encoding") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getFont_ = call (load_sym libvte "vte_terminal_get_font") (VteTerminalClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
-      val getFontScale_ = call (load_sym libvte "vte_terminal_get_font_scale") (VteTerminalClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getCursorShape_ = call (getSymbol "vte_terminal_get_cursor_shape") (VteTerminalClass.PolyML.cPtr --> VteCursorShape.PolyML.cVal)
+      val getEncoding_ = call (getSymbol "vte_terminal_get_encoding") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getFont_ = call (getSymbol "vte_terminal_get_font") (VteTerminalClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
+      val getFontScale_ = call (getSymbol "vte_terminal_get_font_scale") (VteTerminalClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val getGeometryHints_ =
-        call (load_sym libvte "vte_terminal_get_geometry_hints")
+        call (getSymbol "vte_terminal_get_geometry_hints")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GdkGeometryRecord.PolyML.cPtr
@@ -67,16 +67,16 @@ structure VteTerminal :>
              &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val getHasSelection_ = call (load_sym libvte "vte_terminal_get_has_selection") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getIconTitle_ = call (load_sym libvte "vte_terminal_get_icon_title") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getInputEnabled_ = call (load_sym libvte "vte_terminal_get_input_enabled") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getMouseAutohide_ = call (load_sym libvte "vte_terminal_get_mouse_autohide") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getPty_ = call (load_sym libvte "vte_terminal_get_pty") (VteTerminalClass.PolyML.cPtr --> VtePtyClass.PolyML.cPtr)
-      val getRewrapOnResize_ = call (load_sym libvte "vte_terminal_get_rewrap_on_resize") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getRowCount_ = call (load_sym libvte "vte_terminal_get_row_count") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
-      val getWindowTitle_ = call (load_sym libvte "vte_terminal_get_window_title") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getHasSelection_ = call (getSymbol "vte_terminal_get_has_selection") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getIconTitle_ = call (getSymbol "vte_terminal_get_icon_title") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getInputEnabled_ = call (getSymbol "vte_terminal_get_input_enabled") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getMouseAutohide_ = call (getSymbol "vte_terminal_get_mouse_autohide") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getPty_ = call (getSymbol "vte_terminal_get_pty") (VteTerminalClass.PolyML.cPtr --> VtePtyClass.PolyML.cPtr)
+      val getRewrapOnResize_ = call (getSymbol "vte_terminal_get_rewrap_on_resize") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getRowCount_ = call (getSymbol "vte_terminal_get_row_count") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
+      val getWindowTitle_ = call (getSymbol "vte_terminal_get_window_title") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val matchAddGregex_ =
-        call (load_sym libvte "vte_terminal_match_add_gregex")
+        call (getSymbol "vte_terminal_match_add_gregex")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GLibRegexRecord.PolyML.cPtr
@@ -84,7 +84,7 @@ structure VteTerminal :>
              --> GInt.PolyML.cVal
           )
       val matchCheck_ =
-        call (load_sym libvte "vte_terminal_match_check")
+        call (getSymbol "vte_terminal_match_check")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GLong.PolyML.cVal
@@ -93,17 +93,17 @@ structure VteTerminal :>
              --> Utf8.PolyML.cOutPtr
           )
       val matchCheckEvent_ =
-        call (load_sym libvte "vte_terminal_match_check_event")
+        call (getSymbol "vte_terminal_match_check_event")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GdkEvent.PolyML.cPtr
              &&> GInt.PolyML.cRef
              --> Utf8.PolyML.cOutPtr
           )
-      val matchRemove_ = call (load_sym libvte "vte_terminal_match_remove") (VteTerminalClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val matchRemoveAll_ = call (load_sym libvte "vte_terminal_match_remove_all") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val matchRemove_ = call (getSymbol "vte_terminal_match_remove") (VteTerminalClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val matchRemoveAll_ = call (getSymbol "vte_terminal_match_remove_all") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val matchSetCursorName_ =
-        call (load_sym libvte "vte_terminal_match_set_cursor_name")
+        call (getSymbol "vte_terminal_match_set_cursor_name")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -111,17 +111,17 @@ structure VteTerminal :>
              --> PolyMLFFI.cVoid
           )
       val matchSetCursorType_ =
-        call (load_sym libvte "vte_terminal_match_set_cursor_type")
+        call (getSymbol "vte_terminal_match_set_cursor_type")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GdkCursorType.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val pasteClipboard_ = call (load_sym libvte "vte_terminal_paste_clipboard") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val pastePrimary_ = call (load_sym libvte "vte_terminal_paste_primary") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val pasteClipboard_ = call (getSymbol "vte_terminal_paste_clipboard") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val pastePrimary_ = call (getSymbol "vte_terminal_paste_primary") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val ptyNewSync_ =
-        call (load_sym libvte "vte_terminal_pty_new_sync")
+        call (getSymbol "vte_terminal_pty_new_sync")
           (
             VteTerminalClass.PolyML.cPtr
              &&> VtePtyFlags.PolyML.cVal
@@ -130,71 +130,71 @@ structure VteTerminal :>
              --> VtePtyClass.PolyML.cPtr
           )
       val reset_ =
-        call (load_sym libvte "vte_terminal_reset")
+        call (getSymbol "vte_terminal_reset")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
              &&> GBool.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val searchFindNext_ = call (load_sym libvte "vte_terminal_search_find_next") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val searchFindPrevious_ = call (load_sym libvte "vte_terminal_search_find_previous") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val searchGetGregex_ = call (load_sym libvte "vte_terminal_search_get_gregex") (VteTerminalClass.PolyML.cPtr --> GLibRegexRecord.PolyML.cPtr)
-      val searchGetWrapAround_ = call (load_sym libvte "vte_terminal_search_get_wrap_around") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val searchFindNext_ = call (getSymbol "vte_terminal_search_find_next") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val searchFindPrevious_ = call (getSymbol "vte_terminal_search_find_previous") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val searchGetGregex_ = call (getSymbol "vte_terminal_search_get_gregex") (VteTerminalClass.PolyML.cPtr --> GLibRegexRecord.PolyML.cPtr)
+      val searchGetWrapAround_ = call (getSymbol "vte_terminal_search_get_wrap_around") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val searchSetGregex_ =
-        call (load_sym libvte "vte_terminal_search_set_gregex")
+        call (getSymbol "vte_terminal_search_set_gregex")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GLibRegexRecord.PolyML.cOptPtr
              &&> GLibRegexMatchFlags.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val searchSetWrapAround_ = call (load_sym libvte "vte_terminal_search_set_wrap_around") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val selectAll_ = call (load_sym libvte "vte_terminal_select_all") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setAllowBold_ = call (load_sym libvte "vte_terminal_set_allow_bold") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setAudibleBell_ = call (load_sym libvte "vte_terminal_set_audible_bell") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setBackspaceBinding_ = call (load_sym libvte "vte_terminal_set_backspace_binding") (VteTerminalClass.PolyML.cPtr &&> VteEraseBinding.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setCjkAmbiguousWidth_ = call (load_sym libvte "vte_terminal_set_cjk_ambiguous_width") (VteTerminalClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setColorBackground_ = call (load_sym libvte "vte_terminal_set_color_background") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setColorBold_ = call (load_sym libvte "vte_terminal_set_color_bold") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setColorCursor_ = call (load_sym libvte "vte_terminal_set_color_cursor") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setColorForeground_ = call (load_sym libvte "vte_terminal_set_color_foreground") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setColorHighlight_ = call (load_sym libvte "vte_terminal_set_color_highlight") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setColorHighlightForeground_ = call (load_sym libvte "vte_terminal_set_color_highlight_foreground") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setCursorBlinkMode_ = call (load_sym libvte "vte_terminal_set_cursor_blink_mode") (VteTerminalClass.PolyML.cPtr &&> VteCursorBlinkMode.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setCursorShape_ = call (load_sym libvte "vte_terminal_set_cursor_shape") (VteTerminalClass.PolyML.cPtr &&> VteCursorShape.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDefaultColors_ = call (load_sym libvte "vte_terminal_set_default_colors") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setDeleteBinding_ = call (load_sym libvte "vte_terminal_set_delete_binding") (VteTerminalClass.PolyML.cPtr &&> VteEraseBinding.PolyML.cVal --> PolyMLFFI.cVoid)
+      val searchSetWrapAround_ = call (getSymbol "vte_terminal_search_set_wrap_around") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val selectAll_ = call (getSymbol "vte_terminal_select_all") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setAllowBold_ = call (getSymbol "vte_terminal_set_allow_bold") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setAudibleBell_ = call (getSymbol "vte_terminal_set_audible_bell") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setBackspaceBinding_ = call (getSymbol "vte_terminal_set_backspace_binding") (VteTerminalClass.PolyML.cPtr &&> VteEraseBinding.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setCjkAmbiguousWidth_ = call (getSymbol "vte_terminal_set_cjk_ambiguous_width") (VteTerminalClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setColorBackground_ = call (getSymbol "vte_terminal_set_color_background") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setColorBold_ = call (getSymbol "vte_terminal_set_color_bold") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setColorCursor_ = call (getSymbol "vte_terminal_set_color_cursor") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setColorForeground_ = call (getSymbol "vte_terminal_set_color_foreground") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setColorHighlight_ = call (getSymbol "vte_terminal_set_color_highlight") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setColorHighlightForeground_ = call (getSymbol "vte_terminal_set_color_highlight_foreground") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setCursorBlinkMode_ = call (getSymbol "vte_terminal_set_cursor_blink_mode") (VteTerminalClass.PolyML.cPtr &&> VteCursorBlinkMode.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setCursorShape_ = call (getSymbol "vte_terminal_set_cursor_shape") (VteTerminalClass.PolyML.cPtr &&> VteCursorShape.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDefaultColors_ = call (getSymbol "vte_terminal_set_default_colors") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setDeleteBinding_ = call (getSymbol "vte_terminal_set_delete_binding") (VteTerminalClass.PolyML.cPtr &&> VteEraseBinding.PolyML.cVal --> PolyMLFFI.cVoid)
       val setEncoding_ =
-        call (load_sym libvte "vte_terminal_set_encoding")
+        call (getSymbol "vte_terminal_set_encoding")
           (
             VteTerminalClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val setFont_ = call (load_sym libvte "vte_terminal_set_font") (VteTerminalClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setFontScale_ = call (load_sym libvte "vte_terminal_set_font_scale") (VteTerminalClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setGeometryHintsForWindow_ = call (load_sym libvte "vte_terminal_set_geometry_hints_for_window") (VteTerminalClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setInputEnabled_ = call (load_sym libvte "vte_terminal_set_input_enabled") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setMouseAutohide_ = call (load_sym libvte "vte_terminal_set_mouse_autohide") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPty_ = call (load_sym libvte "vte_terminal_set_pty") (VteTerminalClass.PolyML.cPtr &&> VtePtyClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setRewrapOnResize_ = call (load_sym libvte "vte_terminal_set_rewrap_on_resize") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setScrollOnKeystroke_ = call (load_sym libvte "vte_terminal_set_scroll_on_keystroke") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setScrollOnOutput_ = call (load_sym libvte "vte_terminal_set_scroll_on_output") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setScrollbackLines_ = call (load_sym libvte "vte_terminal_set_scrollback_lines") (VteTerminalClass.PolyML.cPtr &&> GLong.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setFont_ = call (getSymbol "vte_terminal_set_font") (VteTerminalClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setFontScale_ = call (getSymbol "vte_terminal_set_font_scale") (VteTerminalClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setGeometryHintsForWindow_ = call (getSymbol "vte_terminal_set_geometry_hints_for_window") (VteTerminalClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setInputEnabled_ = call (getSymbol "vte_terminal_set_input_enabled") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMouseAutohide_ = call (getSymbol "vte_terminal_set_mouse_autohide") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPty_ = call (getSymbol "vte_terminal_set_pty") (VteTerminalClass.PolyML.cPtr &&> VtePtyClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setRewrapOnResize_ = call (getSymbol "vte_terminal_set_rewrap_on_resize") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setScrollOnKeystroke_ = call (getSymbol "vte_terminal_set_scroll_on_keystroke") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setScrollOnOutput_ = call (getSymbol "vte_terminal_set_scroll_on_output") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setScrollbackLines_ = call (getSymbol "vte_terminal_set_scrollback_lines") (VteTerminalClass.PolyML.cPtr &&> GLong.PolyML.cVal --> PolyMLFFI.cVoid)
       val setSize_ =
-        call (load_sym libvte "vte_terminal_set_size")
+        call (getSymbol "vte_terminal_set_size")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GLong.PolyML.cVal
              &&> GLong.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val unselectAll_ = call (load_sym libvte "vte_terminal_unselect_all") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val watchChild_ = call (load_sym libvte "vte_terminal_watch_child") (VteTerminalClass.PolyML.cPtr &&> GLibPid.PolyML.cVal --> PolyMLFFI.cVoid)
+      val unselectAll_ = call (getSymbol "vte_terminal_unselect_all") (VteTerminalClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val watchChild_ = call (getSymbol "vte_terminal_watch_child") (VteTerminalClass.PolyML.cPtr &&> GLibPid.PolyML.cVal --> PolyMLFFI.cVoid)
       val writeContentsSync_ =
-        call (load_sym libvte "vte_terminal_write_contents_sync")
+        call (getSymbol "vte_terminal_write_contents_sync")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GioOutputStreamClass.PolyML.cPtr

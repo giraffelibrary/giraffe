@@ -9,8 +9,8 @@ structure GtkScrollbar :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_scrollbar_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_scrollbar_new") (GtkOrientation.PolyML.cVal &&> GtkAdjustmentClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_scrollbar_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_scrollbar_new") (GtkOrientation.PolyML.cVal &&> GtkAdjustmentClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkScrollbarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

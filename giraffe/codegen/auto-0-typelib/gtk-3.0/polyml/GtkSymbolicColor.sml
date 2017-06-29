@@ -6,28 +6,28 @@ structure GtkSymbolicColor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_symbolic_color_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val newAlpha_ = call (load_sym libgtk "gtk_symbolic_color_new_alpha") (GtkSymbolicColorRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> GtkSymbolicColorRecord.PolyML.cPtr)
-      val newLiteral_ = call (load_sym libgtk "gtk_symbolic_color_new_literal") (GdkRgbaRecord.PolyML.cPtr --> GtkSymbolicColorRecord.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_symbolic_color_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val newAlpha_ = call (getSymbol "gtk_symbolic_color_new_alpha") (GtkSymbolicColorRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> GtkSymbolicColorRecord.PolyML.cPtr)
+      val newLiteral_ = call (getSymbol "gtk_symbolic_color_new_literal") (GdkRgbaRecord.PolyML.cPtr --> GtkSymbolicColorRecord.PolyML.cPtr)
       val newMix_ =
-        call (load_sym libgtk "gtk_symbolic_color_new_mix")
+        call (getSymbol "gtk_symbolic_color_new_mix")
           (
             GtkSymbolicColorRecord.PolyML.cPtr
              &&> GtkSymbolicColorRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              --> GtkSymbolicColorRecord.PolyML.cPtr
           )
-      val newName_ = call (load_sym libgtk "gtk_symbolic_color_new_name") (Utf8.PolyML.cInPtr --> GtkSymbolicColorRecord.PolyML.cPtr)
-      val newShade_ = call (load_sym libgtk "gtk_symbolic_color_new_shade") (GtkSymbolicColorRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> GtkSymbolicColorRecord.PolyML.cPtr)
+      val newName_ = call (getSymbol "gtk_symbolic_color_new_name") (Utf8.PolyML.cInPtr --> GtkSymbolicColorRecord.PolyML.cPtr)
+      val newShade_ = call (getSymbol "gtk_symbolic_color_new_shade") (GtkSymbolicColorRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> GtkSymbolicColorRecord.PolyML.cPtr)
       val resolve_ =
-        call (load_sym libgtk "gtk_symbolic_color_resolve")
+        call (getSymbol "gtk_symbolic_color_resolve")
           (
             GtkSymbolicColorRecord.PolyML.cPtr
              &&> GtkStylePropertiesClass.PolyML.cOptPtr
              &&> GdkRgbaRecord.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
-      val toString_ = call (load_sym libgtk "gtk_symbolic_color_to_string") (GtkSymbolicColorRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val toString_ = call (getSymbol "gtk_symbolic_color_to_string") (GtkSymbolicColorRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type t = GtkSymbolicColorRecord.t
     type 'a style_properties_class = 'a GtkStylePropertiesClass.class

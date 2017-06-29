@@ -7,20 +7,20 @@ structure GtkWidgetPath :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_widget_path_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtk "gtk_widget_path_new") (PolyMLFFI.cVoid --> GtkWidgetPathRecord.PolyML.cPtr)
-      val appendForWidget_ = call (load_sym libgtk "gtk_widget_path_append_for_widget") (GtkWidgetPathRecord.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_widget_path_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_widget_path_new") (PolyMLFFI.cVoid --> GtkWidgetPathRecord.PolyML.cPtr)
+      val appendForWidget_ = call (getSymbol "gtk_widget_path_append_for_widget") (GtkWidgetPathRecord.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val appendWithSiblings_ =
-        call (load_sym libgtk "gtk_widget_path_append_with_siblings")
+        call (getSymbol "gtk_widget_path_append_with_siblings")
           (
             GtkWidgetPathRecord.PolyML.cPtr
              &&> GtkWidgetPathRecord.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
              --> GInt32.PolyML.cVal
           )
-      val copy_ = call (load_sym libgtk "gtk_widget_path_copy") (GtkWidgetPathRecord.PolyML.cPtr --> GtkWidgetPathRecord.PolyML.cPtr)
+      val copy_ = call (getSymbol "gtk_widget_path_copy") (GtkWidgetPathRecord.PolyML.cPtr --> GtkWidgetPathRecord.PolyML.cPtr)
       val iterAddClass_ =
-        call (load_sym libgtk "gtk_widget_path_iter_add_class")
+        call (getSymbol "gtk_widget_path_iter_add_class")
           (
             GtkWidgetPathRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -28,7 +28,7 @@ structure GtkWidgetPath :>
              --> PolyMLFFI.cVoid
           )
       val iterAddRegion_ =
-        call (load_sym libgtk "gtk_widget_path_iter_add_region")
+        call (getSymbol "gtk_widget_path_iter_add_region")
           (
             GtkWidgetPathRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -36,13 +36,13 @@ structure GtkWidgetPath :>
              &&> GtkRegionFlags.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val iterClearClasses_ = call (load_sym libgtk "gtk_widget_path_iter_clear_classes") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val iterClearRegions_ = call (load_sym libgtk "gtk_widget_path_iter_clear_regions") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val iterGetName_ = call (load_sym libgtk "gtk_widget_path_iter_get_name") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val iterGetSiblingIndex_ = call (load_sym libgtk "gtk_widget_path_iter_get_sibling_index") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> GUInt32.PolyML.cVal)
-      val iterGetSiblings_ = call (load_sym libgtk "gtk_widget_path_iter_get_siblings") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> GtkWidgetPathRecord.PolyML.cPtr)
+      val iterClearClasses_ = call (getSymbol "gtk_widget_path_iter_clear_classes") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val iterClearRegions_ = call (getSymbol "gtk_widget_path_iter_clear_regions") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val iterGetName_ = call (getSymbol "gtk_widget_path_iter_get_name") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val iterGetSiblingIndex_ = call (getSymbol "gtk_widget_path_iter_get_sibling_index") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> GUInt32.PolyML.cVal)
+      val iterGetSiblings_ = call (getSymbol "gtk_widget_path_iter_get_siblings") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> GtkWidgetPathRecord.PolyML.cPtr)
       val iterHasClass_ =
-        call (load_sym libgtk "gtk_widget_path_iter_has_class")
+        call (getSymbol "gtk_widget_path_iter_has_class")
           (
             GtkWidgetPathRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -50,7 +50,7 @@ structure GtkWidgetPath :>
              --> GBool.PolyML.cVal
           )
       val iterHasName_ =
-        call (load_sym libgtk "gtk_widget_path_iter_has_name")
+        call (getSymbol "gtk_widget_path_iter_has_name")
           (
             GtkWidgetPathRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -58,7 +58,7 @@ structure GtkWidgetPath :>
              --> GBool.PolyML.cVal
           )
       val iterHasQclass_ =
-        call (load_sym libgtk "gtk_widget_path_iter_has_qclass")
+        call (getSymbol "gtk_widget_path_iter_has_qclass")
           (
             GtkWidgetPathRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -66,7 +66,7 @@ structure GtkWidgetPath :>
              --> GBool.PolyML.cVal
           )
       val iterHasQname_ =
-        call (load_sym libgtk "gtk_widget_path_iter_has_qname")
+        call (getSymbol "gtk_widget_path_iter_has_qname")
           (
             GtkWidgetPathRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -74,7 +74,7 @@ structure GtkWidgetPath :>
              --> GBool.PolyML.cVal
           )
       val iterHasQregion_ =
-        call (load_sym libgtk "gtk_widget_path_iter_has_qregion")
+        call (getSymbol "gtk_widget_path_iter_has_qregion")
           (
             GtkWidgetPathRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -83,7 +83,7 @@ structure GtkWidgetPath :>
              --> GBool.PolyML.cVal
           )
       val iterHasRegion_ =
-        call (load_sym libgtk "gtk_widget_path_iter_has_region")
+        call (getSymbol "gtk_widget_path_iter_has_region")
           (
             GtkWidgetPathRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -92,7 +92,7 @@ structure GtkWidgetPath :>
              --> GBool.PolyML.cVal
           )
       val iterRemoveClass_ =
-        call (load_sym libgtk "gtk_widget_path_iter_remove_class")
+        call (getSymbol "gtk_widget_path_iter_remove_class")
           (
             GtkWidgetPathRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -100,7 +100,7 @@ structure GtkWidgetPath :>
              --> PolyMLFFI.cVoid
           )
       val iterRemoveRegion_ =
-        call (load_sym libgtk "gtk_widget_path_iter_remove_region")
+        call (getSymbol "gtk_widget_path_iter_remove_region")
           (
             GtkWidgetPathRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
@@ -108,15 +108,15 @@ structure GtkWidgetPath :>
              --> PolyMLFFI.cVoid
           )
       val iterSetName_ =
-        call (load_sym libgtk "gtk_widget_path_iter_set_name")
+        call (getSymbol "gtk_widget_path_iter_set_name")
           (
             GtkWidgetPathRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
              --> PolyMLFFI.cVoid
           )
-      val length_ = call (load_sym libgtk "gtk_widget_path_length") (GtkWidgetPathRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val toString_ = call (load_sym libgtk "gtk_widget_path_to_string") (GtkWidgetPathRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val length_ = call (getSymbol "gtk_widget_path_length") (GtkWidgetPathRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val toString_ = call (getSymbol "gtk_widget_path_to_string") (GtkWidgetPathRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type t = GtkWidgetPathRecord.t
     type 'a widget_class = 'a GtkWidgetClass.class

@@ -6,9 +6,9 @@ structure GtkAspectFrame :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_aspect_frame_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_aspect_frame_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (load_sym libgtk "gtk_aspect_frame_new")
+        call (getSymbol "gtk_aspect_frame_new")
           (
             Utf8.PolyML.cInPtr
              &&> GFloat.PolyML.cVal
@@ -18,7 +18,7 @@ structure GtkAspectFrame :>
              --> GtkWidgetClass.PolyML.cPtr
           )
       val set_ =
-        call (load_sym libgtk "gtk_aspect_frame_set")
+        call (getSymbol "gtk_aspect_frame_set")
           (
             GtkAspectFrameClass.PolyML.cPtr
              &&> GFloat.PolyML.cVal

@@ -7,10 +7,10 @@ structure GioTlsCertificate :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tls_certificate_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val newFromFile_ = call (load_sym libgio "g_tls_certificate_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioTlsCertificateClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_tls_certificate_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val newFromFile_ = call (getSymbol "g_tls_certificate_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioTlsCertificateClass.PolyML.cPtr)
       val newFromFiles_ =
-        call (load_sym libgio "g_tls_certificate_new_from_files")
+        call (getSymbol "g_tls_certificate_new_from_files")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -18,16 +18,16 @@ structure GioTlsCertificate :>
              --> GioTlsCertificateClass.PolyML.cPtr
           )
       val newFromPem_ =
-        call (load_sym libgio "g_tls_certificate_new_from_pem")
+        call (getSymbol "g_tls_certificate_new_from_pem")
           (
             Utf8.PolyML.cInPtr
              &&> GSSize.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioTlsCertificateClass.PolyML.cPtr
           )
-      val getIssuer_ = call (load_sym libgio "g_tls_certificate_get_issuer") (GioTlsCertificateClass.PolyML.cPtr --> GioTlsCertificateClass.PolyML.cPtr)
+      val getIssuer_ = call (getSymbol "g_tls_certificate_get_issuer") (GioTlsCertificateClass.PolyML.cPtr --> GioTlsCertificateClass.PolyML.cPtr)
       val verify_ =
-        call (load_sym libgio "g_tls_certificate_verify")
+        call (getSymbol "g_tls_certificate_verify")
           (
             GioTlsCertificateClass.PolyML.cPtr
              &&> GioSocketConnectableClass.PolyML.cOptPtr

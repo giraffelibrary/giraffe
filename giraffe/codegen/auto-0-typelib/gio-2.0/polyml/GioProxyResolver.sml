@@ -13,11 +13,11 @@ structure GioProxyResolver :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_proxy_resolver_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (load_sym libgio "g_proxy_resolver_get_default") (PolyMLFFI.cVoid --> GioProxyResolverClass.PolyML.cPtr)
-      val isSupported_ = call (load_sym libgio "g_proxy_resolver_is_supported") (GioProxyResolverClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getType_ = call (getSymbol "g_proxy_resolver_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (getSymbol "g_proxy_resolver_get_default") (PolyMLFFI.cVoid --> GioProxyResolverClass.PolyML.cPtr)
+      val isSupported_ = call (getSymbol "g_proxy_resolver_is_supported") (GioProxyResolverClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val lookup_ =
-        call (load_sym libgio "g_proxy_resolver_lookup")
+        call (getSymbol "g_proxy_resolver_lookup")
           (
             GioProxyResolverClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -26,7 +26,7 @@ structure GioProxyResolver :>
              --> Utf8CVector.PolyML.cOutPtr
           )
       val lookupFinish_ =
-        call (load_sym libgio "g_proxy_resolver_lookup_finish")
+        call (getSymbol "g_proxy_resolver_lookup_finish")
           (
             GioProxyResolverClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr

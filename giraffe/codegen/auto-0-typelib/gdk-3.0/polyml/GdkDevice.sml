@@ -18,9 +18,9 @@ structure GdkDevice :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgdk "gdk_device_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gdk_device_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val grabInfoLibgtkOnly_ =
-        call (load_sym libgdk "gdk_device_grab_info_libgtk_only")
+        call (getSymbol "gdk_device_grab_info_libgtk_only")
           (
             GdkDisplayClass.PolyML.cPtr
              &&> GdkDeviceClass.PolyML.cPtr
@@ -28,13 +28,13 @@ structure GdkDevice :>
              &&> GBool.PolyML.cRef
              --> GBool.PolyML.cVal
           )
-      val getAssociatedDevice_ = call (load_sym libgdk "gdk_device_get_associated_device") (GdkDeviceClass.PolyML.cPtr --> GdkDeviceClass.PolyML.cPtr)
-      val getAxisUse_ = call (load_sym libgdk "gdk_device_get_axis_use") (GdkDeviceClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> GdkAxisUse.PolyML.cVal)
-      val getDeviceType_ = call (load_sym libgdk "gdk_device_get_device_type") (GdkDeviceClass.PolyML.cPtr --> GdkDeviceType.PolyML.cVal)
-      val getDisplay_ = call (load_sym libgdk "gdk_device_get_display") (GdkDeviceClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
-      val getHasCursor_ = call (load_sym libgdk "gdk_device_get_has_cursor") (GdkDeviceClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getAssociatedDevice_ = call (getSymbol "gdk_device_get_associated_device") (GdkDeviceClass.PolyML.cPtr --> GdkDeviceClass.PolyML.cPtr)
+      val getAxisUse_ = call (getSymbol "gdk_device_get_axis_use") (GdkDeviceClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> GdkAxisUse.PolyML.cVal)
+      val getDeviceType_ = call (getSymbol "gdk_device_get_device_type") (GdkDeviceClass.PolyML.cPtr --> GdkDeviceType.PolyML.cVal)
+      val getDisplay_ = call (getSymbol "gdk_device_get_display") (GdkDeviceClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
+      val getHasCursor_ = call (getSymbol "gdk_device_get_has_cursor") (GdkDeviceClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getKey_ =
-        call (load_sym libgdk "gdk_device_get_key")
+        call (getSymbol "gdk_device_get_key")
           (
             GdkDeviceClass.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
@@ -42,12 +42,12 @@ structure GdkDevice :>
              &&> GdkModifierType.PolyML.cRef
              --> GBool.PolyML.cVal
           )
-      val getMode_ = call (load_sym libgdk "gdk_device_get_mode") (GdkDeviceClass.PolyML.cPtr --> GdkInputMode.PolyML.cVal)
-      val getNAxes_ = call (load_sym libgdk "gdk_device_get_n_axes") (GdkDeviceClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getNKeys_ = call (load_sym libgdk "gdk_device_get_n_keys") (GdkDeviceClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getName_ = call (load_sym libgdk "gdk_device_get_name") (GdkDeviceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getMode_ = call (getSymbol "gdk_device_get_mode") (GdkDeviceClass.PolyML.cPtr --> GdkInputMode.PolyML.cVal)
+      val getNAxes_ = call (getSymbol "gdk_device_get_n_axes") (GdkDeviceClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getNKeys_ = call (getSymbol "gdk_device_get_n_keys") (GdkDeviceClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getName_ = call (getSymbol "gdk_device_get_name") (GdkDeviceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getPosition_ =
-        call (load_sym libgdk "gdk_device_get_position")
+        call (getSymbol "gdk_device_get_position")
           (
             GdkDeviceClass.PolyML.cPtr
              &&> GdkScreenClass.PolyML.cOutRef
@@ -55,9 +55,9 @@ structure GdkDevice :>
              &&> GInt32.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val getSource_ = call (load_sym libgdk "gdk_device_get_source") (GdkDeviceClass.PolyML.cPtr --> GdkInputSource.PolyML.cVal)
+      val getSource_ = call (getSymbol "gdk_device_get_source") (GdkDeviceClass.PolyML.cPtr --> GdkInputSource.PolyML.cVal)
       val getWindowAtPosition_ =
-        call (load_sym libgdk "gdk_device_get_window_at_position")
+        call (getSymbol "gdk_device_get_window_at_position")
           (
             GdkDeviceClass.PolyML.cPtr
              &&> GInt32.PolyML.cRef
@@ -65,7 +65,7 @@ structure GdkDevice :>
              --> GdkWindowClass.PolyML.cPtr
           )
       val grab_ =
-        call (load_sym libgdk "gdk_device_grab")
+        call (getSymbol "gdk_device_grab")
           (
             GdkDeviceClass.PolyML.cPtr
              &&> GdkWindowClass.PolyML.cPtr
@@ -77,7 +77,7 @@ structure GdkDevice :>
              --> GdkGrabStatus.PolyML.cVal
           )
       val setAxisUse_ =
-        call (load_sym libgdk "gdk_device_set_axis_use")
+        call (getSymbol "gdk_device_set_axis_use")
           (
             GdkDeviceClass.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
@@ -85,7 +85,7 @@ structure GdkDevice :>
              --> PolyMLFFI.cVoid
           )
       val setKey_ =
-        call (load_sym libgdk "gdk_device_set_key")
+        call (getSymbol "gdk_device_set_key")
           (
             GdkDeviceClass.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
@@ -93,10 +93,10 @@ structure GdkDevice :>
              &&> GdkModifierType.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setMode_ = call (load_sym libgdk "gdk_device_set_mode") (GdkDeviceClass.PolyML.cPtr &&> GdkInputMode.PolyML.cVal --> GBool.PolyML.cVal)
-      val ungrab_ = call (load_sym libgdk "gdk_device_ungrab") (GdkDeviceClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMode_ = call (getSymbol "gdk_device_set_mode") (GdkDeviceClass.PolyML.cPtr &&> GdkInputMode.PolyML.cVal --> GBool.PolyML.cVal)
+      val ungrab_ = call (getSymbol "gdk_device_ungrab") (GdkDeviceClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
       val warp_ =
-        call (load_sym libgdk "gdk_device_warp")
+        call (getSymbol "gdk_device_warp")
           (
             GdkDeviceClass.PolyML.cPtr
              &&> GdkScreenClass.PolyML.cPtr

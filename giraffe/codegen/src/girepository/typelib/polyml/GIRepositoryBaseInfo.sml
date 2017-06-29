@@ -8,39 +8,39 @@ structure GIRepositoryBaseInfo :>
     in
       val getName_ =
         call
-          (load_sym libgirepository "g_base_info_get_name")
+          (getSymbol "g_base_info_get_name")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr);
 
       val getNamespace_ =
         call
-          (load_sym libgirepository "g_base_info_get_namespace")
+          (getSymbol "g_base_info_get_namespace")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr);
 
       val isDeprecated_ =
         call
-          (load_sym libgirepository "g_base_info_is_deprecated")
+          (getSymbol "g_base_info_is_deprecated")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GBool.PolyML.cVal);
 
       val getAttribute_ =
         call
-          (load_sym libgirepository "g_base_info_get_attribute")
+          (getSymbol "g_base_info_get_attribute")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
             --> Utf8.PolyML.cOutOptPtr);
 
       val getContainer_ =
         call
-          (load_sym libgirepository "g_base_info_get_container")
+          (getSymbol "g_base_info_get_container")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryBaseInfoClass.PolyML.cOptPtr);
 
       val getTypelib_ =
         call
-          (load_sym libgirepository "g_base_info_get_typelib")
+          (getSymbol "g_base_info_get_typelib")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GIRepositoryTypelibType.PolyML.cPtr);
 
       val equal_ =
         call
-          (load_sym libgirepository "g_base_info_equal")
+          (getSymbol "g_base_info_equal")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> GIRepositoryBaseInfoClass.PolyML.cPtr
             --> GBool.PolyML.cVal);

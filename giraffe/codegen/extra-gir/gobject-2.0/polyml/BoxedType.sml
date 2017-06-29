@@ -15,22 +15,22 @@ functor BoxedType(
     in
       val getValue_ =
         call
-          (load_sym libgobject "g_value_get_boxed")
+          (getSymbol "g_value_get_boxed")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr);
 
       val getOptValue_ =
         call
-          (load_sym libgobject "g_value_get_boxed")
+          (getSymbol "g_value_get_boxed")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);
 
       val setValue_ =
         call
-          (load_sym libgobject "g_value_set_boxed")
+          (getSymbol "g_value_set_boxed")
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid);
 
       val setOptValue_ =
         call
-          (load_sym libgobject "g_value_set_boxed")
+          (getSymbol "g_value_set_boxed")
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid);
     end
 

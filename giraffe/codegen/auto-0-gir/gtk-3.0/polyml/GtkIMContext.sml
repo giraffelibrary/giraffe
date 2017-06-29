@@ -5,20 +5,20 @@ structure GtkIMContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtk "gtk_im_context_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_im_context_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val deleteSurrounding_ =
-        call (load_sym libgtk "gtk_im_context_delete_surrounding")
+        call (getSymbol "gtk_im_context_delete_surrounding")
           (
             GtkIMContextClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val filterKeypress_ = call (load_sym libgtk "gtk_im_context_filter_keypress") (GtkIMContextClass.PolyML.cPtr &&> GdkEventKeyRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val focusIn_ = call (load_sym libgtk "gtk_im_context_focus_in") (GtkIMContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val focusOut_ = call (load_sym libgtk "gtk_im_context_focus_out") (GtkIMContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val filterKeypress_ = call (getSymbol "gtk_im_context_filter_keypress") (GtkIMContextClass.PolyML.cPtr &&> GdkEventKeyRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val focusIn_ = call (getSymbol "gtk_im_context_focus_in") (GtkIMContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val focusOut_ = call (getSymbol "gtk_im_context_focus_out") (GtkIMContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
       val getPreeditString_ =
-        call (load_sym libgtk "gtk_im_context_get_preedit_string")
+        call (getSymbol "gtk_im_context_get_preedit_string")
           (
             GtkIMContextClass.PolyML.cPtr
              &&> Utf8.PolyML.cOutRef
@@ -26,11 +26,11 @@ structure GtkIMContext :>
              &&> GInt.PolyML.cRef
              --> PolyMLFFI.cVoid
           )
-      val reset_ = call (load_sym libgtk "gtk_im_context_reset") (GtkIMContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setClientWindow_ = call (load_sym libgtk "gtk_im_context_set_client_window") (GtkIMContextClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setCursorLocation_ = call (load_sym libgtk "gtk_im_context_set_cursor_location") (GtkIMContextClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val reset_ = call (getSymbol "gtk_im_context_reset") (GtkIMContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setClientWindow_ = call (getSymbol "gtk_im_context_set_client_window") (GtkIMContextClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setCursorLocation_ = call (getSymbol "gtk_im_context_set_cursor_location") (GtkIMContextClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val setSurrounding_ =
-        call (load_sym libgtk "gtk_im_context_set_surrounding")
+        call (getSymbol "gtk_im_context_set_surrounding")
           (
             GtkIMContextClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -38,7 +38,7 @@ structure GtkIMContext :>
              &&> GInt.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setUsePreedit_ = call (load_sym libgtk "gtk_im_context_set_use_preedit") (GtkIMContextClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setUsePreedit_ = call (getSymbol "gtk_im_context_set_use_preedit") (GtkIMContextClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkIMContextClass.class
     type t = base class

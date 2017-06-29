@@ -5,18 +5,18 @@ structure GtkSourceCompletionInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgtksourceview "gtk_source_completion_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgtksourceview "gtk_source_completion_info_new") (PolyMLFFI.cVoid --> GtkSourceCompletionInfoClass.PolyML.cPtr)
-      val getWidget_ = call (load_sym libgtksourceview "gtk_source_completion_info_get_widget") (GtkSourceCompletionInfoClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_source_completion_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_source_completion_info_new") (PolyMLFFI.cVoid --> GtkSourceCompletionInfoClass.PolyML.cPtr)
+      val getWidget_ = call (getSymbol "gtk_source_completion_info_get_widget") (GtkSourceCompletionInfoClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val moveToIter_ =
-        call (load_sym libgtksourceview "gtk_source_completion_info_move_to_iter")
+        call (getSymbol "gtk_source_completion_info_move_to_iter")
           (
             GtkSourceCompletionInfoClass.PolyML.cPtr
              &&> GtkTextViewClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cOptPtr
              --> PolyMLFFI.cVoid
           )
-      val setWidget_ = call (load_sym libgtksourceview "gtk_source_completion_info_set_widget") (GtkSourceCompletionInfoClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setWidget_ = call (getSymbol "gtk_source_completion_info_set_widget") (GtkSourceCompletionInfoClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GtkSourceCompletionInfoClass.class
     type t = base class

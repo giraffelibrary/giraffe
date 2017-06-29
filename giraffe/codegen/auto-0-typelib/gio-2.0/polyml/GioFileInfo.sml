@@ -16,43 +16,43 @@ structure GioFileInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_file_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_file_info_new") (PolyMLFFI.cVoid --> GioFileInfoClass.PolyML.cPtr)
-      val clearStatus_ = call (load_sym libgio "g_file_info_clear_status") (GioFileInfoClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val copyInto_ = call (load_sym libgio "g_file_info_copy_into") (GioFileInfoClass.PolyML.cPtr &&> GioFileInfoClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val dup_ = call (load_sym libgio "g_file_info_dup") (GioFileInfoClass.PolyML.cPtr --> GioFileInfoClass.PolyML.cPtr)
-      val getAttributeAsString_ = call (load_sym libgio "g_file_info_get_attribute_as_string") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val getAttributeBoolean_ = call (load_sym libgio "g_file_info_get_attribute_boolean") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val getAttributeByteString_ = call (load_sym libgio "g_file_info_get_attribute_byte_string") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val getAttributeInt32_ = call (load_sym libgio "g_file_info_get_attribute_int32") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
-      val getAttributeInt64_ = call (load_sym libgio "g_file_info_get_attribute_int64") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GInt64.PolyML.cVal)
-      val getAttributeObject_ = call (load_sym libgio "g_file_info_get_attribute_object") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
-      val getAttributeStatus_ = call (load_sym libgio "g_file_info_get_attribute_status") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileAttributeStatus.PolyML.cVal)
-      val getAttributeString_ = call (load_sym libgio "g_file_info_get_attribute_string") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val getAttributeStringv_ = call (load_sym libgio "g_file_info_get_attribute_stringv") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
-      val getAttributeType_ = call (load_sym libgio "g_file_info_get_attribute_type") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileAttributeType.PolyML.cVal)
-      val getAttributeUint32_ = call (load_sym libgio "g_file_info_get_attribute_uint32") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt32.PolyML.cVal)
-      val getAttributeUint64_ = call (load_sym libgio "g_file_info_get_attribute_uint64") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt64.PolyML.cVal)
-      val getContentType_ = call (load_sym libgio "g_file_info_get_content_type") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getDisplayName_ = call (load_sym libgio "g_file_info_get_display_name") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getEditName_ = call (load_sym libgio "g_file_info_get_edit_name") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getEtag_ = call (load_sym libgio "g_file_info_get_etag") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getFileType_ = call (load_sym libgio "g_file_info_get_file_type") (GioFileInfoClass.PolyML.cPtr --> GioFileType.PolyML.cVal)
-      val getIcon_ = call (load_sym libgio "g_file_info_get_icon") (GioFileInfoClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
-      val getIsBackup_ = call (load_sym libgio "g_file_info_get_is_backup") (GioFileInfoClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getIsHidden_ = call (load_sym libgio "g_file_info_get_is_hidden") (GioFileInfoClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getIsSymlink_ = call (load_sym libgio "g_file_info_get_is_symlink") (GioFileInfoClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getModificationTime_ = call (load_sym libgio "g_file_info_get_modification_time") (GioFileInfoClass.PolyML.cPtr &&> GLibTimeValRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getName_ = call (load_sym libgio "g_file_info_get_name") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getSize_ = call (load_sym libgio "g_file_info_get_size") (GioFileInfoClass.PolyML.cPtr --> GInt64.PolyML.cVal)
-      val getSortOrder_ = call (load_sym libgio "g_file_info_get_sort_order") (GioFileInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getSymlinkTarget_ = call (load_sym libgio "g_file_info_get_symlink_target") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val hasAttribute_ = call (load_sym libgio "g_file_info_has_attribute") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val hasNamespace_ = call (load_sym libgio "g_file_info_has_namespace") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val listAttributes_ = call (load_sym libgio "g_file_info_list_attributes") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
-      val removeAttribute_ = call (load_sym libgio "g_file_info_remove_attribute") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_file_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_file_info_new") (PolyMLFFI.cVoid --> GioFileInfoClass.PolyML.cPtr)
+      val clearStatus_ = call (getSymbol "g_file_info_clear_status") (GioFileInfoClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val copyInto_ = call (getSymbol "g_file_info_copy_into") (GioFileInfoClass.PolyML.cPtr &&> GioFileInfoClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val dup_ = call (getSymbol "g_file_info_dup") (GioFileInfoClass.PolyML.cPtr --> GioFileInfoClass.PolyML.cPtr)
+      val getAttributeAsString_ = call (getSymbol "g_file_info_get_attribute_as_string") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getAttributeBoolean_ = call (getSymbol "g_file_info_get_attribute_boolean") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val getAttributeByteString_ = call (getSymbol "g_file_info_get_attribute_byte_string") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getAttributeInt32_ = call (getSymbol "g_file_info_get_attribute_int32") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
+      val getAttributeInt64_ = call (getSymbol "g_file_info_get_attribute_int64") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GInt64.PolyML.cVal)
+      val getAttributeObject_ = call (getSymbol "g_file_info_get_attribute_object") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
+      val getAttributeStatus_ = call (getSymbol "g_file_info_get_attribute_status") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileAttributeStatus.PolyML.cVal)
+      val getAttributeString_ = call (getSymbol "g_file_info_get_attribute_string") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getAttributeStringv_ = call (getSymbol "g_file_info_get_attribute_stringv") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getAttributeType_ = call (getSymbol "g_file_info_get_attribute_type") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileAttributeType.PolyML.cVal)
+      val getAttributeUint32_ = call (getSymbol "g_file_info_get_attribute_uint32") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt32.PolyML.cVal)
+      val getAttributeUint64_ = call (getSymbol "g_file_info_get_attribute_uint64") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt64.PolyML.cVal)
+      val getContentType_ = call (getSymbol "g_file_info_get_content_type") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getDisplayName_ = call (getSymbol "g_file_info_get_display_name") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getEditName_ = call (getSymbol "g_file_info_get_edit_name") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getEtag_ = call (getSymbol "g_file_info_get_etag") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getFileType_ = call (getSymbol "g_file_info_get_file_type") (GioFileInfoClass.PolyML.cPtr --> GioFileType.PolyML.cVal)
+      val getIcon_ = call (getSymbol "g_file_info_get_icon") (GioFileInfoClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
+      val getIsBackup_ = call (getSymbol "g_file_info_get_is_backup") (GioFileInfoClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getIsHidden_ = call (getSymbol "g_file_info_get_is_hidden") (GioFileInfoClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getIsSymlink_ = call (getSymbol "g_file_info_get_is_symlink") (GioFileInfoClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getModificationTime_ = call (getSymbol "g_file_info_get_modification_time") (GioFileInfoClass.PolyML.cPtr &&> GLibTimeValRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getName_ = call (getSymbol "g_file_info_get_name") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getSize_ = call (getSymbol "g_file_info_get_size") (GioFileInfoClass.PolyML.cPtr --> GInt64.PolyML.cVal)
+      val getSortOrder_ = call (getSymbol "g_file_info_get_sort_order") (GioFileInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getSymlinkTarget_ = call (getSymbol "g_file_info_get_symlink_target") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val hasAttribute_ = call (getSymbol "g_file_info_has_attribute") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val hasNamespace_ = call (getSymbol "g_file_info_has_namespace") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val listAttributes_ = call (getSymbol "g_file_info_list_attributes") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
+      val removeAttribute_ = call (getSymbol "g_file_info_remove_attribute") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
       val setAttributeBoolean_ =
-        call (load_sym libgio "g_file_info_set_attribute_boolean")
+        call (getSymbol "g_file_info_set_attribute_boolean")
           (
             GioFileInfoClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -60,7 +60,7 @@ structure GioFileInfo :>
              --> PolyMLFFI.cVoid
           )
       val setAttributeByteString_ =
-        call (load_sym libgio "g_file_info_set_attribute_byte_string")
+        call (getSymbol "g_file_info_set_attribute_byte_string")
           (
             GioFileInfoClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -68,7 +68,7 @@ structure GioFileInfo :>
              --> PolyMLFFI.cVoid
           )
       val setAttributeInt32_ =
-        call (load_sym libgio "g_file_info_set_attribute_int32")
+        call (getSymbol "g_file_info_set_attribute_int32")
           (
             GioFileInfoClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -76,16 +76,16 @@ structure GioFileInfo :>
              --> PolyMLFFI.cVoid
           )
       val setAttributeInt64_ =
-        call (load_sym libgio "g_file_info_set_attribute_int64")
+        call (getSymbol "g_file_info_set_attribute_int64")
           (
             GioFileInfoClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setAttributeMask_ = call (load_sym libgio "g_file_info_set_attribute_mask") (GioFileInfoClass.PolyML.cPtr &&> GioFileAttributeMatcherRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setAttributeMask_ = call (getSymbol "g_file_info_set_attribute_mask") (GioFileInfoClass.PolyML.cPtr &&> GioFileAttributeMatcherRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val setAttributeObject_ =
-        call (load_sym libgio "g_file_info_set_attribute_object")
+        call (getSymbol "g_file_info_set_attribute_object")
           (
             GioFileInfoClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -93,7 +93,7 @@ structure GioFileInfo :>
              --> PolyMLFFI.cVoid
           )
       val setAttributeStatus_ =
-        call (load_sym libgio "g_file_info_set_attribute_status")
+        call (getSymbol "g_file_info_set_attribute_status")
           (
             GioFileInfoClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -101,7 +101,7 @@ structure GioFileInfo :>
              --> GBool.PolyML.cVal
           )
       val setAttributeString_ =
-        call (load_sym libgio "g_file_info_set_attribute_string")
+        call (getSymbol "g_file_info_set_attribute_string")
           (
             GioFileInfoClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -109,7 +109,7 @@ structure GioFileInfo :>
              --> PolyMLFFI.cVoid
           )
       val setAttributeStringv_ =
-        call (load_sym libgio "g_file_info_set_attribute_stringv")
+        call (getSymbol "g_file_info_set_attribute_stringv")
           (
             GioFileInfoClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -117,7 +117,7 @@ structure GioFileInfo :>
              --> PolyMLFFI.cVoid
           )
       val setAttributeUint32_ =
-        call (load_sym libgio "g_file_info_set_attribute_uint32")
+        call (getSymbol "g_file_info_set_attribute_uint32")
           (
             GioFileInfoClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -125,26 +125,26 @@ structure GioFileInfo :>
              --> PolyMLFFI.cVoid
           )
       val setAttributeUint64_ =
-        call (load_sym libgio "g_file_info_set_attribute_uint64")
+        call (getSymbol "g_file_info_set_attribute_uint64")
           (
             GioFileInfoClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              --> PolyMLFFI.cVoid
           )
-      val setContentType_ = call (load_sym libgio "g_file_info_set_content_type") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setDisplayName_ = call (load_sym libgio "g_file_info_set_display_name") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setEditName_ = call (load_sym libgio "g_file_info_set_edit_name") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setFileType_ = call (load_sym libgio "g_file_info_set_file_type") (GioFileInfoClass.PolyML.cPtr &&> GioFileType.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setIcon_ = call (load_sym libgio "g_file_info_set_icon") (GioFileInfoClass.PolyML.cPtr &&> GioIconClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setIsHidden_ = call (load_sym libgio "g_file_info_set_is_hidden") (GioFileInfoClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setIsSymlink_ = call (load_sym libgio "g_file_info_set_is_symlink") (GioFileInfoClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setModificationTime_ = call (load_sym libgio "g_file_info_set_modification_time") (GioFileInfoClass.PolyML.cPtr &&> GLibTimeValRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setName_ = call (load_sym libgio "g_file_info_set_name") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setSize_ = call (load_sym libgio "g_file_info_set_size") (GioFileInfoClass.PolyML.cPtr &&> GInt64.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSortOrder_ = call (load_sym libgio "g_file_info_set_sort_order") (GioFileInfoClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSymlinkTarget_ = call (load_sym libgio "g_file_info_set_symlink_target") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val unsetAttributeMask_ = call (load_sym libgio "g_file_info_unset_attribute_mask") (GioFileInfoClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setContentType_ = call (getSymbol "g_file_info_set_content_type") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setDisplayName_ = call (getSymbol "g_file_info_set_display_name") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setEditName_ = call (getSymbol "g_file_info_set_edit_name") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setFileType_ = call (getSymbol "g_file_info_set_file_type") (GioFileInfoClass.PolyML.cPtr &&> GioFileType.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setIcon_ = call (getSymbol "g_file_info_set_icon") (GioFileInfoClass.PolyML.cPtr &&> GioIconClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setIsHidden_ = call (getSymbol "g_file_info_set_is_hidden") (GioFileInfoClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setIsSymlink_ = call (getSymbol "g_file_info_set_is_symlink") (GioFileInfoClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setModificationTime_ = call (getSymbol "g_file_info_set_modification_time") (GioFileInfoClass.PolyML.cPtr &&> GLibTimeValRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setName_ = call (getSymbol "g_file_info_set_name") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setSize_ = call (getSymbol "g_file_info_set_size") (GioFileInfoClass.PolyML.cPtr &&> GInt64.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSortOrder_ = call (getSymbol "g_file_info_set_sort_order") (GioFileInfoClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSymlinkTarget_ = call (getSymbol "g_file_info_set_symlink_target") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val unsetAttributeMask_ = call (getSymbol "g_file_info_unset_attribute_mask") (GioFileInfoClass.PolyML.cPtr --> PolyMLFFI.cVoid)
     end
     type 'a class = 'a GioFileInfoClass.class
     type file_attribute_type_t = GioFileAttributeType.t

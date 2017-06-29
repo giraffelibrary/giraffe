@@ -11,27 +11,27 @@ structure GtkRequisitionRecord :> GTK_REQUISITION_RECORD =
     in
       val new_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_requisition_new")
+          (getSymbol "giraffe_gtk_requisition_new")
           (cVoid --> cPtr)
 
       val copy_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_requisition_copy")
+          (getSymbol "giraffe_gtk_requisition_copy")
           (cPtr &&> cPtr --> cVoid)
 
       val free_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_requisition_free")
+          (getSymbol "giraffe_gtk_requisition_free")
           (cPtr --> cVoid)
 
       val size_ =
         call
-          (load_sym libgiraffegtk "giraffe_gtk_requisition_size")
+          (getSymbol "giraffe_gtk_requisition_size")
           (cVoid --> GUInt.PolyML.cVal)
 
       val getType_ =
         call
-          (load_sym libgtk "gtk_requisition_get_type")
+          (getSymbol "gtk_requisition_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

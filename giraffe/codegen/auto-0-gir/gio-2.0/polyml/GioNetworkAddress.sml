@@ -6,10 +6,10 @@ structure GioNetworkAddress :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_network_address_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (load_sym libgio "g_network_address_new") (Utf8.PolyML.cInPtr &&> GUInt16.PolyML.cVal --> GioSocketConnectableClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_network_address_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_network_address_new") (Utf8.PolyML.cInPtr &&> GUInt16.PolyML.cVal --> GioSocketConnectableClass.PolyML.cPtr)
       val parse_ =
-        call (load_sym libgio "g_network_address_parse")
+        call (getSymbol "g_network_address_parse")
           (
             Utf8.PolyML.cInPtr
              &&> GUInt16.PolyML.cVal
@@ -17,16 +17,16 @@ structure GioNetworkAddress :>
              --> GioSocketConnectableClass.PolyML.cPtr
           )
       val parseUri_ =
-        call (load_sym libgio "g_network_address_parse_uri")
+        call (getSymbol "g_network_address_parse_uri")
           (
             Utf8.PolyML.cInPtr
              &&> GUInt16.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioSocketConnectableClass.PolyML.cPtr
           )
-      val getHostname_ = call (load_sym libgio "g_network_address_get_hostname") (GioNetworkAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getPort_ = call (load_sym libgio "g_network_address_get_port") (GioNetworkAddressClass.PolyML.cPtr --> GUInt16.PolyML.cVal)
-      val getScheme_ = call (load_sym libgio "g_network_address_get_scheme") (GioNetworkAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getHostname_ = call (getSymbol "g_network_address_get_hostname") (GioNetworkAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getPort_ = call (getSymbol "g_network_address_get_port") (GioNetworkAddressClass.PolyML.cPtr --> GUInt16.PolyML.cVal)
+      val getScheme_ = call (getSymbol "g_network_address_get_scheme") (GioNetworkAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class = 'a GioNetworkAddressClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class

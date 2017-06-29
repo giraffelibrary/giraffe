@@ -9,9 +9,9 @@ structure GioTlsInteraction :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgio "g_tls_interaction_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_tls_interaction_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val askPassword_ =
-        call (load_sym libgio "g_tls_interaction_ask_password")
+        call (getSymbol "g_tls_interaction_ask_password")
           (
             GioTlsInteractionClass.PolyML.cPtr
              &&> GioTlsPasswordClass.PolyML.cPtr
@@ -20,7 +20,7 @@ structure GioTlsInteraction :>
              --> GioTlsInteractionResult.PolyML.cVal
           )
       val askPasswordFinish_ =
-        call (load_sym libgio "g_tls_interaction_ask_password_finish")
+        call (getSymbol "g_tls_interaction_ask_password_finish")
           (
             GioTlsInteractionClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
@@ -28,7 +28,7 @@ structure GioTlsInteraction :>
              --> GioTlsInteractionResult.PolyML.cVal
           )
       val invokeAskPassword_ =
-        call (load_sym libgio "g_tls_interaction_invoke_ask_password")
+        call (getSymbol "g_tls_interaction_invoke_ask_password")
           (
             GioTlsInteractionClass.PolyML.cPtr
              &&> GioTlsPasswordClass.PolyML.cPtr

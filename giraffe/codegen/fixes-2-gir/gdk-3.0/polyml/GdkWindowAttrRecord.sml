@@ -11,12 +11,12 @@ structure GdkWindowAttrRecord :> GDK_WINDOW_ATTR_RECORD =
     in
       val dup_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_window_attr_copy")
+          (getSymbol "giraffe_gdk_window_attr_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libgiraffegdk "giraffe_gdk_window_attr_free")
+          (getSymbol "giraffe_gdk_window_attr_free")
           (cPtr --> cVoid)
     end
 

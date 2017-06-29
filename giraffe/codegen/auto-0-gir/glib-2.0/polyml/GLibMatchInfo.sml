@@ -6,19 +6,19 @@ structure GLibMatchInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libgobject "g_match_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_match_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
       val expandReferences_ =
-        call (load_sym libglib "g_match_info_expand_references")
+        call (getSymbol "g_match_info_expand_references")
           (
             GLibMatchInfoRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
-      val fetch_ = call (load_sym libglib "g_match_info_fetch") (GLibMatchInfoRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val fetchNamed_ = call (load_sym libglib "g_match_info_fetch_named") (GLibMatchInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val fetch_ = call (getSymbol "g_match_info_fetch") (GLibMatchInfoRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val fetchNamed_ = call (getSymbol "g_match_info_fetch_named") (GLibMatchInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val fetchNamedPos_ =
-        call (load_sym libglib "g_match_info_fetch_named_pos")
+        call (getSymbol "g_match_info_fetch_named_pos")
           (
             GLibMatchInfoRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -27,7 +27,7 @@ structure GLibMatchInfo :>
              --> GBool.PolyML.cVal
           )
       val fetchPos_ =
-        call (load_sym libglib "g_match_info_fetch_pos")
+        call (getSymbol "g_match_info_fetch_pos")
           (
             GLibMatchInfoRecord.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -35,12 +35,12 @@ structure GLibMatchInfo :>
              &&> GInt.PolyML.cRef
              --> GBool.PolyML.cVal
           )
-      val getMatchCount_ = call (load_sym libglib "g_match_info_get_match_count") (GLibMatchInfoRecord.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getRegex_ = call (load_sym libglib "g_match_info_get_regex") (GLibMatchInfoRecord.PolyML.cPtr --> GLibRegexRecord.PolyML.cPtr)
-      val getString_ = call (load_sym libglib "g_match_info_get_string") (GLibMatchInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val isPartialMatch_ = call (load_sym libglib "g_match_info_is_partial_match") (GLibMatchInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val matches_ = call (load_sym libglib "g_match_info_matches") (GLibMatchInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val next_ = call (load_sym libglib "g_match_info_next") (GLibMatchInfoRecord.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
+      val getMatchCount_ = call (getSymbol "g_match_info_get_match_count") (GLibMatchInfoRecord.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getRegex_ = call (getSymbol "g_match_info_get_regex") (GLibMatchInfoRecord.PolyML.cPtr --> GLibRegexRecord.PolyML.cPtr)
+      val getString_ = call (getSymbol "g_match_info_get_string") (GLibMatchInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val isPartialMatch_ = call (getSymbol "g_match_info_is_partial_match") (GLibMatchInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val matches_ = call (getSymbol "g_match_info_matches") (GLibMatchInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val next_ = call (getSymbol "g_match_info_next") (GLibMatchInfoRecord.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
     end
     type t = GLibMatchInfoRecord.t
     type regex_t = GLibRegexRecord.t

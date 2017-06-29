@@ -7,12 +7,12 @@ structure GIRepositoryValueInfo :>
     in
       val getValueInt_ =
         call
-          (load_sym libgirepository "g_value_info_get_value")
+          (getSymbol "g_value_info_get_value")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal);
 
       val getValueWord_ =
         call
-          (load_sym libgirepository "g_value_info_get_value")
+          (getSymbol "g_value_info_get_value")
           (GIRepositoryBaseInfoClass.PolyML.cPtr --> GUInt32.PolyML.cVal);
     end
 

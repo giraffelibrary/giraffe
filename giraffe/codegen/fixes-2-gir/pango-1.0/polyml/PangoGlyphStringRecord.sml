@@ -11,17 +11,17 @@ structure PangoGlyphStringRecord :> PANGO_GLYPH_STRING_RECORD =
     in
       val dup_ =
         call
-          (load_sym libpango "pango_glyph_string_copy")
+          (getSymbol "pango_glyph_string_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (load_sym libpango "pango_glyph_string_free")
+          (getSymbol "pango_glyph_string_free")
           (cPtr --> cVoid)
 
       val getType_ =
         call
-          (load_sym libpango "pango_glyph_string_get_type")
+          (getSymbol "pango_glyph_string_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
     end
 

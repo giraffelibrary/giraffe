@@ -20,12 +20,12 @@ functor CVectorN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :
     in
       val getValue_ =
         call
-          (load_sym libgobject "g_value_get_pointer")
+          (getSymbol "g_value_get_pointer")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cOutPtr);
 
       val getOptValue_ =
         call
-          (load_sym libgobject "g_value_get_pointer")
+          (getSymbol "g_value_get_pointer")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cOutOptPtr);
     end
 

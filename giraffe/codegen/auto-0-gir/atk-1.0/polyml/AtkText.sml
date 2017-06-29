@@ -15,10 +15,10 @@ structure AtkText :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (load_sym libatk "atk_text_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val freeRanges_ = call (load_sym libatk "atk_text_free_ranges") (AtkTextRangeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "atk_text_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val freeRanges_ = call (getSymbol "atk_text_free_ranges") (AtkTextRangeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
       val addSelection_ =
-        call (load_sym libatk "atk_text_add_selection")
+        call (getSymbol "atk_text_add_selection")
           (
             AtkTextClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -26,7 +26,7 @@ structure AtkText :>
              --> GBool.PolyML.cVal
           )
       val getBoundedRanges_ =
-        call (load_sym libatk "atk_text_get_bounded_ranges")
+        call (getSymbol "atk_text_get_bounded_ranges")
           (
             AtkTextClass.PolyML.cPtr
              &&> AtkTextRectangleRecord.PolyML.cPtr
@@ -35,12 +35,12 @@ structure AtkText :>
              &&> AtkTextClipType.PolyML.cVal
              --> AtkTextRangeRecordCVector.PolyML.cOutPtr
           )
-      val getCaretOffset_ = call (load_sym libatk "atk_text_get_caret_offset") (AtkTextClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getCharacterAtOffset_ = call (load_sym libatk "atk_text_get_character_at_offset") (AtkTextClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GChar.PolyML.cVal)
-      val getCharacterCount_ = call (load_sym libatk "atk_text_get_character_count") (AtkTextClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getNSelections_ = call (load_sym libatk "atk_text_get_n_selections") (AtkTextClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getCaretOffset_ = call (getSymbol "atk_text_get_caret_offset") (AtkTextClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getCharacterAtOffset_ = call (getSymbol "atk_text_get_character_at_offset") (AtkTextClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GChar.PolyML.cVal)
+      val getCharacterCount_ = call (getSymbol "atk_text_get_character_count") (AtkTextClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getNSelections_ = call (getSymbol "atk_text_get_n_selections") (AtkTextClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getOffsetAtPoint_ =
-        call (load_sym libatk "atk_text_get_offset_at_point")
+        call (getSymbol "atk_text_get_offset_at_point")
           (
             AtkTextClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -49,7 +49,7 @@ structure AtkText :>
              --> GInt.PolyML.cVal
           )
       val getRangeExtents_ =
-        call (load_sym libatk "atk_text_get_range_extents")
+        call (getSymbol "atk_text_get_range_extents")
           (
             AtkTextClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -59,17 +59,17 @@ structure AtkText :>
              --> PolyMLFFI.cVoid
           )
       val getText_ =
-        call (load_sym libatk "atk_text_get_text")
+        call (getSymbol "atk_text_get_text")
           (
             AtkTextClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val removeSelection_ = call (load_sym libatk "atk_text_remove_selection") (AtkTextClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
-      val setCaretOffset_ = call (load_sym libatk "atk_text_set_caret_offset") (AtkTextClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val removeSelection_ = call (getSymbol "atk_text_remove_selection") (AtkTextClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val setCaretOffset_ = call (getSymbol "atk_text_set_caret_offset") (AtkTextClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
       val setSelection_ =
-        call (load_sym libatk "atk_text_set_selection")
+        call (getSymbol "atk_text_set_selection")
           (
             AtkTextClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
