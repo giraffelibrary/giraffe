@@ -22,7 +22,7 @@ structure GdkEvent :> GDK_EVENT =
       val free_ =
         call
           (getSymbol "gdk_event_free")
-          (cPtr --> PolyMLFFI.cVoid)
+          (cPtr --> cVoid)
     end
 
     structure C =
@@ -115,7 +115,7 @@ structure GdkEvent :> GDK_EVENT =
       val getType_ =
         call
           (getSymbol "gdk_event_get_type")
-          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
+          (cVoid --> GObjectType.PolyML.cVal);
 
       val getValue_ =
         call
@@ -130,12 +130,12 @@ structure GdkEvent :> GDK_EVENT =
       val setValue_ =
         call
           (getSymbol "g_value_set_boxed")
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid);
 
       val setOptValue_ =
         call
           (getSymbol "g_value_set_boxed")
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid);
     end
 
     val t =

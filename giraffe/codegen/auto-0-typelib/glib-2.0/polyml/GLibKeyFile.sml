@@ -238,7 +238,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setBooleanList_ =
         call (getSymbol "g_key_file_set_boolean_list")
@@ -248,7 +248,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> GBool.PolyML.cVal
              &&> GUInt64.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setComment_ =
         call (getSymbol "g_key_file_set_comment")
@@ -267,7 +267,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setDoubleList_ =
         call (getSymbol "g_key_file_set_double_list")
@@ -277,7 +277,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> GDouble.PolyML.cVal
              &&> GUInt64.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setInt64_ =
         call (getSymbol "g_key_file_set_int64")
@@ -286,7 +286,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setInteger_ =
         call (getSymbol "g_key_file_set_integer")
@@ -295,7 +295,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setIntegerList_ =
         call (getSymbol "g_key_file_set_integer_list")
@@ -305,9 +305,9 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
              &&> GUInt64.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setListSeparator_ = call (getSymbol "g_key_file_set_list_separator") (GLibKeyFileRecord.PolyML.cPtr &&> GUInt8.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setListSeparator_ = call (getSymbol "g_key_file_set_list_separator") (GLibKeyFileRecord.PolyML.cPtr &&> GUInt8.PolyML.cVal --> cVoid)
       val setLocaleString_ =
         call (getSymbol "g_key_file_set_locale_string")
           (
@@ -316,7 +316,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setLocaleStringList_ =
         call (getSymbol "g_key_file_set_locale_string_list")
@@ -327,7 +327,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setString_ =
         call (getSymbol "g_key_file_set_string")
@@ -336,7 +336,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setStringList_ =
         call (getSymbol "g_key_file_set_string_list")
@@ -346,7 +346,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8CVectorN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setUint64_ =
         call (getSymbol "g_key_file_set_uint64")
@@ -355,7 +355,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setValue_ =
         call (getSymbol "g_key_file_set_value")
@@ -364,7 +364,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type t = GLibKeyFileRecord.t

@@ -17,7 +17,7 @@ structure GtkCellArea :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_cell_area_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_cell_area_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val activate_ =
         call (getSymbol "gtk_cell_area_activate")
           (
@@ -40,14 +40,14 @@ structure GtkCellArea :>
              &&> GtkCellRendererState.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val add_ = call (getSymbol "gtk_cell_area_add") (GtkCellAreaClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val add_ = call (getSymbol "gtk_cell_area_add") (GtkCellAreaClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> cVoid)
       val addFocusSibling_ =
         call (getSymbol "gtk_cell_area_add_focus_sibling")
           (
             GtkCellAreaClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val applyAttributes_ =
         call (getSymbol "gtk_cell_area_apply_attributes")
@@ -57,7 +57,7 @@ structure GtkCellArea :>
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> GBool.PolyML.cVal
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val attributeConnect_ =
         call (getSymbol "gtk_cell_area_attribute_connect")
@@ -66,7 +66,7 @@ structure GtkCellArea :>
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val attributeDisconnect_ =
         call (getSymbol "gtk_cell_area_attribute_disconnect")
@@ -74,7 +74,7 @@ structure GtkCellArea :>
             GtkCellAreaClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val cellGetProperty_ =
         call (getSymbol "gtk_cell_area_cell_get_property")
@@ -83,7 +83,7 @@ structure GtkCellArea :>
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GObjectValueRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val cellSetProperty_ =
         call (getSymbol "gtk_cell_area_cell_set_property")
@@ -92,7 +92,7 @@ structure GtkCellArea :>
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GObjectValueRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val copyContext_ = call (getSymbol "gtk_cell_area_copy_context") (GtkCellAreaClass.PolyML.cPtr &&> GtkCellAreaContextClass.PolyML.cPtr --> GtkCellAreaContextClass.PolyML.cPtr)
       val createContext_ = call (getSymbol "gtk_cell_area_create_context") (GtkCellAreaClass.PolyML.cPtr --> GtkCellAreaContextClass.PolyML.cPtr)
@@ -117,7 +117,7 @@ structure GtkCellArea :>
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getCellAtPosition_ =
         call (getSymbol "gtk_cell_area_get_cell_at_position")
@@ -144,7 +144,7 @@ structure GtkCellArea :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getPreferredHeightForWidth_ =
         call (getSymbol "gtk_cell_area_get_preferred_height_for_width")
@@ -155,7 +155,7 @@ structure GtkCellArea :>
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getPreferredWidth_ =
         call (getSymbol "gtk_cell_area_get_preferred_width")
@@ -165,7 +165,7 @@ structure GtkCellArea :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getPreferredWidthForHeight_ =
         call (getSymbol "gtk_cell_area_get_preferred_width_for_height")
@@ -176,7 +176,7 @@ structure GtkCellArea :>
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getRequestMode_ = call (getSymbol "gtk_cell_area_get_request_mode") (GtkCellAreaClass.PolyML.cPtr --> GtkSizeRequestMode.PolyML.cVal)
       val hasRenderer_ = call (getSymbol "gtk_cell_area_has_renderer") (GtkCellAreaClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -187,7 +187,7 @@ structure GtkCellArea :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val isActivatable_ = call (getSymbol "gtk_cell_area_is_activatable") (GtkCellAreaClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val isFocusSibling_ =
@@ -198,14 +198,14 @@ structure GtkCellArea :>
              &&> GtkCellRendererClass.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
-      val remove_ = call (getSymbol "gtk_cell_area_remove") (GtkCellAreaClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val remove_ = call (getSymbol "gtk_cell_area_remove") (GtkCellAreaClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> cVoid)
       val removeFocusSibling_ =
         call (getSymbol "gtk_cell_area_remove_focus_sibling")
           (
             GtkCellAreaClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val render_ =
         call (getSymbol "gtk_cell_area_render")
@@ -218,7 +218,7 @@ structure GtkCellArea :>
              &&> GdkRectangleRecord.PolyML.cPtr
              &&> GtkCellRendererState.PolyML.cVal
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val requestRenderer_ =
         call (getSymbol "gtk_cell_area_request_renderer")
@@ -230,10 +230,10 @@ structure GtkCellArea :>
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setFocusCell_ = call (getSymbol "gtk_cell_area_set_focus_cell") (GtkCellAreaClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val stopEditing_ = call (getSymbol "gtk_cell_area_stop_editing") (GtkCellAreaClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setFocusCell_ = call (getSymbol "gtk_cell_area_set_focus_cell") (GtkCellAreaClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> cVoid)
+      val stopEditing_ = call (getSymbol "gtk_cell_area_stop_editing") (GtkCellAreaClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkCellAreaClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

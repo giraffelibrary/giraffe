@@ -8,7 +8,7 @@ structure PangoAttributeRecord :> PANGO_ATTRIBUTE_RECORD =
       open PolyMLFFI
     in
       val dup_ = call (getSymbol "pango_attribute_copy") (cPtr --> cPtr)
-      val free_ = call (getSymbol "pango_attribute_destroy") (cPtr --> PolyMLFFI.cVoid)
+      val free_ = call (getSymbol "pango_attribute_destroy") (cPtr --> cVoid)
     end
     structure Record =
       BoxedRecord(

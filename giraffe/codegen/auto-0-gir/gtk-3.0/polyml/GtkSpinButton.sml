@@ -12,7 +12,7 @@ structure GtkSpinButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_spin_button_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_spin_button_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (getSymbol "gtk_spin_button_new")
           (
@@ -36,7 +36,7 @@ structure GtkSpinButton :>
              &&> GtkAdjustmentClass.PolyML.cOptPtr
              &&> GDouble.PolyML.cVal
              &&> GUInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getAdjustment_ = call (getSymbol "gtk_spin_button_get_adjustment") (GtkSpinButtonClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getDigits_ = call (getSymbol "gtk_spin_button_get_digits") (GtkSpinButtonClass.PolyML.cPtr --> GUInt.PolyML.cVal)
@@ -46,7 +46,7 @@ structure GtkSpinButton :>
             GtkSpinButtonClass.PolyML.cPtr
              &&> GDouble.PolyML.cRef
              &&> GDouble.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getNumeric_ = call (getSymbol "gtk_spin_button_get_numeric") (GtkSpinButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getRange_ =
@@ -55,45 +55,45 @@ structure GtkSpinButton :>
             GtkSpinButtonClass.PolyML.cPtr
              &&> GDouble.PolyML.cRef
              &&> GDouble.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getSnapToTicks_ = call (getSymbol "gtk_spin_button_get_snap_to_ticks") (GtkSpinButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getUpdatePolicy_ = call (getSymbol "gtk_spin_button_get_update_policy") (GtkSpinButtonClass.PolyML.cPtr --> GtkSpinButtonUpdatePolicy.PolyML.cVal)
       val getValue_ = call (getSymbol "gtk_spin_button_get_value") (GtkSpinButtonClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val getValueAsInt_ = call (getSymbol "gtk_spin_button_get_value_as_int") (GtkSpinButtonClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getWrap_ = call (getSymbol "gtk_spin_button_get_wrap") (GtkSpinButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setAdjustment_ = call (getSymbol "gtk_spin_button_set_adjustment") (GtkSpinButtonClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setDigits_ = call (getSymbol "gtk_spin_button_set_digits") (GtkSpinButtonClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setAdjustment_ = call (getSymbol "gtk_spin_button_set_adjustment") (GtkSpinButtonClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> cVoid)
+      val setDigits_ = call (getSymbol "gtk_spin_button_set_digits") (GtkSpinButtonClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
       val setIncrements_ =
         call (getSymbol "gtk_spin_button_set_increments")
           (
             GtkSpinButtonClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setNumeric_ = call (getSymbol "gtk_spin_button_set_numeric") (GtkSpinButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setNumeric_ = call (getSymbol "gtk_spin_button_set_numeric") (GtkSpinButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setRange_ =
         call (getSymbol "gtk_spin_button_set_range")
           (
             GtkSpinButtonClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setSnapToTicks_ = call (getSymbol "gtk_spin_button_set_snap_to_ticks") (GtkSpinButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setUpdatePolicy_ = call (getSymbol "gtk_spin_button_set_update_policy") (GtkSpinButtonClass.PolyML.cPtr &&> GtkSpinButtonUpdatePolicy.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setValue_ = call (getSymbol "gtk_spin_button_set_value") (GtkSpinButtonClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setWrap_ = call (getSymbol "gtk_spin_button_set_wrap") (GtkSpinButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSnapToTicks_ = call (getSymbol "gtk_spin_button_set_snap_to_ticks") (GtkSpinButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setUpdatePolicy_ = call (getSymbol "gtk_spin_button_set_update_policy") (GtkSpinButtonClass.PolyML.cPtr &&> GtkSpinButtonUpdatePolicy.PolyML.cVal --> cVoid)
+      val setValue_ = call (getSymbol "gtk_spin_button_set_value") (GtkSpinButtonClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val setWrap_ = call (getSymbol "gtk_spin_button_set_wrap") (GtkSpinButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val spin_ =
         call (getSymbol "gtk_spin_button_spin")
           (
             GtkSpinButtonClass.PolyML.cPtr
              &&> GtkSpinType.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val update_ = call (getSymbol "gtk_spin_button_update") (GtkSpinButtonClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val update_ = call (getSymbol "gtk_spin_button_update") (GtkSpinButtonClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkSpinButtonClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

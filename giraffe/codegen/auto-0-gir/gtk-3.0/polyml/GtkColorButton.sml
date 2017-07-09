@@ -7,20 +7,20 @@ structure GtkColorButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_color_button_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_color_button_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_color_button_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_color_button_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val newWithColor_ = call (getSymbol "gtk_color_button_new_with_color") (GdkColorRecord.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithRgba_ = call (getSymbol "gtk_color_button_new_with_rgba") (GdkRgbaRecord.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getAlpha_ = call (getSymbol "gtk_color_button_get_alpha") (GtkColorButtonClass.PolyML.cPtr --> GUInt16.PolyML.cVal)
-      val getColor_ = call (getSymbol "gtk_color_button_get_color") (GtkColorButtonClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getRgba_ = call (getSymbol "gtk_color_button_get_rgba") (GtkColorButtonClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getColor_ = call (getSymbol "gtk_color_button_get_color") (GtkColorButtonClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> cVoid)
+      val getRgba_ = call (getSymbol "gtk_color_button_get_rgba") (GtkColorButtonClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> cVoid)
       val getTitle_ = call (getSymbol "gtk_color_button_get_title") (GtkColorButtonClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getUseAlpha_ = call (getSymbol "gtk_color_button_get_use_alpha") (GtkColorButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setAlpha_ = call (getSymbol "gtk_color_button_set_alpha") (GtkColorButtonClass.PolyML.cPtr &&> GUInt16.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setColor_ = call (getSymbol "gtk_color_button_set_color") (GtkColorButtonClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setRgba_ = call (getSymbol "gtk_color_button_set_rgba") (GtkColorButtonClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setTitle_ = call (getSymbol "gtk_color_button_set_title") (GtkColorButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setUseAlpha_ = call (getSymbol "gtk_color_button_set_use_alpha") (GtkColorButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setAlpha_ = call (getSymbol "gtk_color_button_set_alpha") (GtkColorButtonClass.PolyML.cPtr &&> GUInt16.PolyML.cVal --> cVoid)
+      val setColor_ = call (getSymbol "gtk_color_button_set_color") (GtkColorButtonClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> cVoid)
+      val setRgba_ = call (getSymbol "gtk_color_button_set_rgba") (GtkColorButtonClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> cVoid)
+      val setTitle_ = call (getSymbol "gtk_color_button_set_title") (GtkColorButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setUseAlpha_ = call (getSymbol "gtk_color_button_set_use_alpha") (GtkColorButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkColorButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

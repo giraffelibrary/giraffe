@@ -5,14 +5,14 @@ structure AtkEditableText :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "atk_editable_text_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "atk_editable_text_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val copyText_ =
         call (getSymbol "atk_editable_text_copy_text")
           (
             AtkEditableTextClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val cutText_ =
         call (getSymbol "atk_editable_text_cut_text")
@@ -20,7 +20,7 @@ structure AtkEditableText :>
             AtkEditableTextClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val deleteText_ =
         call (getSymbol "atk_editable_text_delete_text")
@@ -28,10 +28,10 @@ structure AtkEditableText :>
             AtkEditableTextClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val pasteText_ = call (getSymbol "atk_editable_text_paste_text") (AtkEditableTextClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setTextContents_ = call (getSymbol "atk_editable_text_set_text_contents") (AtkEditableTextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val pasteText_ = call (getSymbol "atk_editable_text_paste_text") (AtkEditableTextClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val setTextContents_ = call (getSymbol "atk_editable_text_set_text_contents") (AtkEditableTextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
     end
     type 'a class = 'a AtkEditableTextClass.class
     type t = base class

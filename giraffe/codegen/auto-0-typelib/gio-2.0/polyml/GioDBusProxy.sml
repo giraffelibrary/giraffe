@@ -22,7 +22,7 @@ structure GioDBusProxy :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_dbus_proxy_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_dbus_proxy_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val newFinish_ = call (getSymbol "g_dbus_proxy_new_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioDBusProxyClass.PolyML.cPtr)
       val newForBusFinish_ = call (getSymbol "g_dbus_proxy_new_for_bus_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioDBusProxyClass.PolyML.cPtr)
       val newForBusSync_ =
@@ -110,10 +110,10 @@ structure GioDBusProxy :>
             GioDBusProxyClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibVariantRecord.PolyML.cOptPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setDefaultTimeout_ = call (getSymbol "g_dbus_proxy_set_default_timeout") (GioDBusProxyClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setInterfaceInfo_ = call (getSymbol "g_dbus_proxy_set_interface_info") (GioDBusProxyClass.PolyML.cPtr &&> GioDBusInterfaceInfoRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setDefaultTimeout_ = call (getSymbol "g_dbus_proxy_set_default_timeout") (GioDBusProxyClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val setInterfaceInfo_ = call (getSymbol "g_dbus_proxy_set_interface_info") (GioDBusProxyClass.PolyML.cPtr &&> GioDBusInterfaceInfoRecord.PolyML.cOptPtr --> cVoid)
     end
     type 'a class = 'a GioDBusProxyClass.class
     type 'a async_initable_class = 'a GioAsyncInitableClass.class

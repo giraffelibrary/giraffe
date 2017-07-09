@@ -2693,7 +2693,7 @@ fun makeFunctionStrDecLowLevelPolyML
      *   <paramConvErr>
      *     if J = 0 and anySet (FunctionFlags, THROWS)
      *
-     *   PolyMLFFI.cVoid
+     *   cVoid
      *     if J = 0 and not anySet (FunctionFlags, THROWS)
      *)
     val revParConvs1 : exp list1 = getList1 (revParConvs'3, cVoidConv)
@@ -2721,7 +2721,7 @@ fun makeFunctionStrDecLowLevelPolyML
  *     val getType_ =
  *       call
  *         (getSymbol "<getTypeSymbol>")
- *         (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
+ *         (cVoid --> GObjectType.PolyML.cVal);
  *)
 fun getTypeStrDecLowLevelPolyML getTypeSymbol =
   let

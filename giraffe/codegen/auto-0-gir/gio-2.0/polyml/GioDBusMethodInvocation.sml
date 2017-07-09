@@ -9,7 +9,7 @@ structure GioDBusMethodInvocation :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_dbus_method_invocation_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_dbus_method_invocation_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getConnection_ = call (getSymbol "g_dbus_method_invocation_get_connection") (GioDBusMethodInvocationClass.PolyML.cPtr --> GioDBusConnectionClass.PolyML.cPtr)
       val getInterfaceName_ = call (getSymbol "g_dbus_method_invocation_get_interface_name") (GioDBusMethodInvocationClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getMessage_ = call (getSymbol "g_dbus_method_invocation_get_message") (GioDBusMethodInvocationClass.PolyML.cPtr --> GioDBusMessageClass.PolyML.cPtr)
@@ -24,7 +24,7 @@ structure GioDBusMethodInvocation :>
             GioDBusMethodInvocationClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val returnErrorLiteral_ =
         call (getSymbol "g_dbus_method_invocation_return_error_literal")
@@ -33,16 +33,16 @@ structure GioDBusMethodInvocation :>
              &&> GLibQuark.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val returnValue_ = call (getSymbol "g_dbus_method_invocation_return_value") (GioDBusMethodInvocationClass.PolyML.cPtr &&> GLibVariantRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val returnValue_ = call (getSymbol "g_dbus_method_invocation_return_value") (GioDBusMethodInvocationClass.PolyML.cPtr &&> GLibVariantRecord.PolyML.cOptPtr --> cVoid)
       val returnValueWithUnixFdList_ =
         call (getSymbol "g_dbus_method_invocation_return_value_with_unix_fd_list")
           (
             GioDBusMethodInvocationClass.PolyML.cPtr
              &&> GLibVariantRecord.PolyML.cOptPtr
              &&> GioUnixFDListClass.PolyML.cOptPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type 'a class = 'a GioDBusMethodInvocationClass.class

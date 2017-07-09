@@ -6,7 +6,7 @@ structure PangoTabArray :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "pango_tab_array_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "pango_tab_array_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "pango_tab_array_new") (GInt.PolyML.cVal &&> GBool.PolyML.cVal --> PangoTabArrayRecord.PolyML.cPtr)
       val copy_ = call (getSymbol "pango_tab_array_copy") (PangoTabArrayRecord.PolyML.cPtr --> PangoTabArrayRecord.PolyML.cPtr)
       val getPositionsInPixels_ = call (getSymbol "pango_tab_array_get_positions_in_pixels") (PangoTabArrayRecord.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -18,9 +18,9 @@ structure PangoTabArray :>
              &&> GInt.PolyML.cVal
              &&> PangoTabAlign.PolyML.cRef
              &&> GInt.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val resize_ = call (getSymbol "pango_tab_array_resize") (PangoTabArrayRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val resize_ = call (getSymbol "pango_tab_array_resize") (PangoTabArrayRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setTab_ =
         call (getSymbol "pango_tab_array_set_tab")
           (
@@ -28,7 +28,7 @@ structure PangoTabArray :>
              &&> GInt.PolyML.cVal
              &&> PangoTabAlign.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type t = PangoTabArrayRecord.t

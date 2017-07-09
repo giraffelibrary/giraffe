@@ -3,7 +3,7 @@ structure Xlib : XLIB =
     local
       open PolyMLFFI
     in
-      val openDisplay_ = call (getSymbol "XOpenDisplay") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val openDisplay_ = call (getSymbol "XOpenDisplay") (cVoid --> cVoid)
     end
     structure Atom = XlibAtom
     structure Colormap = XlibColormap

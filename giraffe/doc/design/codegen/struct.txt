@@ -174,7 +174,7 @@ structure <StructNamespace><StructName>Record :>
       val getType_ =                                                         |               |
         call                                                                 |               |
           (getSymbol "<getTypeSymbol>")                                      | Poly/ML only  |
-          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);                     |               |
+          (cVoid --> GObjectType.PolyML.cVal);                               |               |
                                                                              |               |
       val getValue_ =                                                        |               |
         call                                                                 |               |
@@ -189,12 +189,12 @@ structure <StructNamespace><StructName>Record :>
       val setValue_ =                                                        |               |
         call                                                                 |               |
           (getSymbol "g_value_set_boxed")                                    |               |
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid);              |
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid);        |               |
                                                                              |               |
       val setOptValue_ =                                                     |               |
         call                                                                 |               |
           (getSymbol "g_value_set_boxed")                                    |               |
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid);           |
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid);     |               |
     end                                                                      |               | optGetTypeSymbol
                                                                             -'               |  is SOME getTypeSymbol
                                                                             -.               |
@@ -311,7 +311,7 @@ structure <StructNamespace><StructName> :>
       val getType_ =                                           |                           |
         call                                                   | optGetTypeSymbol          |
           (getSymbol "<getTypeSymbol>")                        |  is SOME getTypeSymbol    |
-          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);       |                           |
+          (cVoid --> GObjectType.PolyML.cVal);                 |                           |
                                                               -'                           | Poly/ML only
                                                                                            |
       <LowLevelFunction[1]>                                                                |

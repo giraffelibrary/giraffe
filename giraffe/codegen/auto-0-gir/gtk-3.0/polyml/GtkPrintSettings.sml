@@ -13,8 +13,8 @@ structure GtkPrintSettings :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_print_settings_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_print_settings_new") (PolyMLFFI.cVoid --> GtkPrintSettingsClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_print_settings_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_print_settings_new") (cVoid --> GtkPrintSettingsClass.PolyML.cPtr)
       val newFromFile_ = call (getSymbol "gtk_print_settings_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GtkPrintSettingsClass.PolyML.cPtr)
       val newFromKeyFile_ =
         call (getSymbol "gtk_print_settings_new_from_key_file")
@@ -102,7 +102,7 @@ structure GtkPrintSettings :>
             GtkPrintSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInOptPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setBool_ =
         call (getSymbol "gtk_print_settings_set_bool")
@@ -110,28 +110,28 @@ structure GtkPrintSettings :>
             GtkPrintSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setCollate_ = call (getSymbol "gtk_print_settings_set_collate") (GtkPrintSettingsClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDefaultSource_ = call (getSymbol "gtk_print_settings_set_default_source") (GtkPrintSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setDither_ = call (getSymbol "gtk_print_settings_set_dither") (GtkPrintSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setCollate_ = call (getSymbol "gtk_print_settings_set_collate") (GtkPrintSettingsClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setDefaultSource_ = call (getSymbol "gtk_print_settings_set_default_source") (GtkPrintSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setDither_ = call (getSymbol "gtk_print_settings_set_dither") (GtkPrintSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val setDouble_ =
         call (getSymbol "gtk_print_settings_set_double")
           (
             GtkPrintSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setDuplex_ = call (getSymbol "gtk_print_settings_set_duplex") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkPrintDuplex.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setFinishings_ = call (getSymbol "gtk_print_settings_set_finishings") (GtkPrintSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setDuplex_ = call (getSymbol "gtk_print_settings_set_duplex") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkPrintDuplex.PolyML.cVal --> cVoid)
+      val setFinishings_ = call (getSymbol "gtk_print_settings_set_finishings") (GtkPrintSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val setInt_ =
         call (getSymbol "gtk_print_settings_set_int")
           (
             GtkPrintSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setLength_ =
         call (getSymbol "gtk_print_settings_set_length")
@@ -140,48 +140,48 @@ structure GtkPrintSettings :>
              &&> Utf8.PolyML.cInPtr
              &&> GDouble.PolyML.cVal
              &&> GtkUnit.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setMediaType_ = call (getSymbol "gtk_print_settings_set_media_type") (GtkPrintSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setNCopies_ = call (getSymbol "gtk_print_settings_set_n_copies") (GtkPrintSettingsClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setNumberUp_ = call (getSymbol "gtk_print_settings_set_number_up") (GtkPrintSettingsClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setNumberUpLayout_ = call (getSymbol "gtk_print_settings_set_number_up_layout") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkNumberUpLayout.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setOrientation_ = call (getSymbol "gtk_print_settings_set_orientation") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkPageOrientation.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setOutputBin_ = call (getSymbol "gtk_print_settings_set_output_bin") (GtkPrintSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setPageSet_ = call (getSymbol "gtk_print_settings_set_page_set") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkPageSet.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMediaType_ = call (getSymbol "gtk_print_settings_set_media_type") (GtkPrintSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setNCopies_ = call (getSymbol "gtk_print_settings_set_n_copies") (GtkPrintSettingsClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setNumberUp_ = call (getSymbol "gtk_print_settings_set_number_up") (GtkPrintSettingsClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setNumberUpLayout_ = call (getSymbol "gtk_print_settings_set_number_up_layout") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkNumberUpLayout.PolyML.cVal --> cVoid)
+      val setOrientation_ = call (getSymbol "gtk_print_settings_set_orientation") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkPageOrientation.PolyML.cVal --> cVoid)
+      val setOutputBin_ = call (getSymbol "gtk_print_settings_set_output_bin") (GtkPrintSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setPageSet_ = call (getSymbol "gtk_print_settings_set_page_set") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkPageSet.PolyML.cVal --> cVoid)
       val setPaperHeight_ =
         call (getSymbol "gtk_print_settings_set_paper_height")
           (
             GtkPrintSettingsClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GtkUnit.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setPaperSize_ = call (getSymbol "gtk_print_settings_set_paper_size") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setPaperSize_ = call (getSymbol "gtk_print_settings_set_paper_size") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> cVoid)
       val setPaperWidth_ =
         call (getSymbol "gtk_print_settings_set_paper_width")
           (
             GtkPrintSettingsClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GtkUnit.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setPrintPages_ = call (getSymbol "gtk_print_settings_set_print_pages") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkPrintPages.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPrinter_ = call (getSymbol "gtk_print_settings_set_printer") (GtkPrintSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setPrinterLpi_ = call (getSymbol "gtk_print_settings_set_printer_lpi") (GtkPrintSettingsClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setQuality_ = call (getSymbol "gtk_print_settings_set_quality") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkPrintQuality.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setResolution_ = call (getSymbol "gtk_print_settings_set_resolution") (GtkPrintSettingsClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPrintPages_ = call (getSymbol "gtk_print_settings_set_print_pages") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkPrintPages.PolyML.cVal --> cVoid)
+      val setPrinter_ = call (getSymbol "gtk_print_settings_set_printer") (GtkPrintSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setPrinterLpi_ = call (getSymbol "gtk_print_settings_set_printer_lpi") (GtkPrintSettingsClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val setQuality_ = call (getSymbol "gtk_print_settings_set_quality") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkPrintQuality.PolyML.cVal --> cVoid)
+      val setResolution_ = call (getSymbol "gtk_print_settings_set_resolution") (GtkPrintSettingsClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setResolutionXy_ =
         call (getSymbol "gtk_print_settings_set_resolution_xy")
           (
             GtkPrintSettingsClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setReverse_ = call (getSymbol "gtk_print_settings_set_reverse") (GtkPrintSettingsClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setScale_ = call (getSymbol "gtk_print_settings_set_scale") (GtkPrintSettingsClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setUseColor_ = call (getSymbol "gtk_print_settings_set_use_color") (GtkPrintSettingsClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setReverse_ = call (getSymbol "gtk_print_settings_set_reverse") (GtkPrintSettingsClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setScale_ = call (getSymbol "gtk_print_settings_set_scale") (GtkPrintSettingsClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val setUseColor_ = call (getSymbol "gtk_print_settings_set_use_color") (GtkPrintSettingsClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val toFile_ =
         call (getSymbol "gtk_print_settings_to_file")
           (
@@ -196,9 +196,9 @@ structure GtkPrintSettings :>
             GtkPrintSettingsClass.PolyML.cPtr
              &&> GLibKeyFileRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val unset_ = call (getSymbol "gtk_print_settings_unset") (GtkPrintSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val unset_ = call (getSymbol "gtk_print_settings_unset") (GtkPrintSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
     end
     type 'a class = 'a GtkPrintSettingsClass.class
     type print_duplex_t = GtkPrintDuplex.t

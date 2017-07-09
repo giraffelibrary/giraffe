@@ -5,7 +5,7 @@ structure GtkSourceMark :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_source_mark_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_source_mark_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_source_mark_new") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GtkSourceMarkClass.PolyML.cPtr)
       val getCategory_ = call (getSymbol "gtk_source_mark_get_category") (GtkSourceMarkClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val next_ = call (getSymbol "gtk_source_mark_next") (GtkSourceMarkClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> GtkSourceMarkClass.PolyML.cPtr)

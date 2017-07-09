@@ -14,7 +14,7 @@ structure GioBufferedInputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_buffered_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_buffered_input_stream_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_buffered_input_stream_new") (GioInputStreamClass.PolyML.cPtr --> GioInputStreamClass.PolyML.cPtr)
       val newSized_ = call (getSymbol "g_buffered_input_stream_new_sized") (GioInputStreamClass.PolyML.cPtr &&> GUInt64.PolyML.cVal --> GioInputStreamClass.PolyML.cPtr)
       val fill_ =
@@ -45,7 +45,7 @@ structure GioBufferedInputStream :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GInt32.PolyML.cVal
           )
-      val setBufferSize_ = call (getSymbol "g_buffered_input_stream_set_buffer_size") (GioBufferedInputStreamClass.PolyML.cPtr &&> GUInt64.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setBufferSize_ = call (getSymbol "g_buffered_input_stream_set_buffer_size") (GioBufferedInputStreamClass.PolyML.cPtr &&> GUInt64.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GioBufferedInputStreamClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class

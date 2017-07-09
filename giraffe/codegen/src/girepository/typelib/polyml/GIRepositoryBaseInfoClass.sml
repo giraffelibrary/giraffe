@@ -24,7 +24,7 @@ structure GIRepositoryBaseInfoClass :> G_I_REPOSITORY_BASE_INFO_CLASS =
       val unref_ =
         call
           (getSymbol "g_base_info_unref")
-          (cPtr --> PolyMLFFI.cVoid)
+          (cPtr --> cVoid)
     end
 
     structure C =

@@ -14,7 +14,7 @@ structure GioDrive :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_drive_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_drive_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val canEject_ = call (getSymbol "g_drive_can_eject") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val canPollForMedia_ = call (getSymbol "g_drive_can_poll_for_media") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val canStart_ = call (getSymbol "g_drive_can_start") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)

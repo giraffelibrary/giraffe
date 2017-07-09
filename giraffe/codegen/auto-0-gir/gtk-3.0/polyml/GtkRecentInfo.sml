@@ -11,7 +11,7 @@ structure GtkRecentInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_recent_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_recent_info_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val createAppInfo_ =
         call (getSymbol "gtk_recent_info_create_app_info")
           (

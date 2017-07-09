@@ -7,7 +7,7 @@ structure GioEmblem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_emblem_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_emblem_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_emblem_new") (GioIconClass.PolyML.cPtr --> GioEmblemClass.PolyML.cPtr)
       val newWithOrigin_ = call (getSymbol "g_emblem_new_with_origin") (GioIconClass.PolyML.cPtr &&> GioEmblemOrigin.PolyML.cVal --> GioEmblemClass.PolyML.cPtr)
       val getIcon_ = call (getSymbol "g_emblem_get_icon") (GioEmblemClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)

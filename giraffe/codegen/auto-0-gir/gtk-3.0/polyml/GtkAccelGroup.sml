@@ -6,8 +6,8 @@ structure GtkAccelGroup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_accel_group_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_accel_group_new") (PolyMLFFI.cVoid --> GtkAccelGroupClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_accel_group_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_accel_group_new") (cVoid --> GtkAccelGroupClass.PolyML.cPtr)
       val fromAccelClosure_ = call (getSymbol "gtk_accel_group_from_accel_closure") (GObjectClosureRecord.PolyML.cPtr --> GtkAccelGroupClass.PolyML.cPtr)
       val activate_ =
         call (getSymbol "gtk_accel_group_activate")
@@ -27,7 +27,7 @@ structure GtkAccelGroup :>
              &&> GdkModifierType.PolyML.cVal
              &&> GtkAccelFlags.PolyML.cVal
              &&> GObjectClosureRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val connectByPath_ =
         call (getSymbol "gtk_accel_group_connect_by_path")
@@ -35,7 +35,7 @@ structure GtkAccelGroup :>
             GtkAccelGroupClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GObjectClosureRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val disconnect_ = call (getSymbol "gtk_accel_group_disconnect") (GtkAccelGroupClass.PolyML.cPtr &&> GObjectClosureRecord.PolyML.cOptPtr --> GBool.PolyML.cVal)
       val disconnectKey_ =
@@ -48,8 +48,8 @@ structure GtkAccelGroup :>
           )
       val getIsLocked_ = call (getSymbol "gtk_accel_group_get_is_locked") (GtkAccelGroupClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getModifierMask_ = call (getSymbol "gtk_accel_group_get_modifier_mask") (GtkAccelGroupClass.PolyML.cPtr --> GdkModifierType.PolyML.cVal)
-      val lock_ = call (getSymbol "gtk_accel_group_lock") (GtkAccelGroupClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val unlock_ = call (getSymbol "gtk_accel_group_unlock") (GtkAccelGroupClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val lock_ = call (getSymbol "gtk_accel_group_lock") (GtkAccelGroupClass.PolyML.cPtr --> cVoid)
+      val unlock_ = call (getSymbol "gtk_accel_group_unlock") (GtkAccelGroupClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkAccelGroupClass.class
     type accel_flags_t = GtkAccelFlags.t

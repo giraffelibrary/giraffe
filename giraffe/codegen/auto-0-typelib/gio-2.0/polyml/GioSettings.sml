@@ -19,7 +19,7 @@ structure GioSettings :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_settings_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_settings_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_settings_new") (Utf8.PolyML.cInPtr --> GioSettingsClass.PolyML.cPtr)
       val newWithBackend_ = call (getSymbol "g_settings_new_with_backend") (Utf8.PolyML.cInPtr &&> GioSettingsBackendRecord.PolyML.cPtr --> GioSettingsClass.PolyML.cPtr)
       val newWithBackendAndPath_ =
@@ -31,10 +31,10 @@ structure GioSettings :>
              --> GioSettingsClass.PolyML.cPtr
           )
       val newWithPath_ = call (getSymbol "g_settings_new_with_path") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GioSettingsClass.PolyML.cPtr)
-      val listRelocatableSchemas_ = call (getSymbol "g_settings_list_relocatable_schemas") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
-      val listSchemas_ = call (getSymbol "g_settings_list_schemas") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
-      val sync_ = call (getSymbol "g_settings_sync") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val apply_ = call (getSymbol "g_settings_apply") (GioSettingsClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val listRelocatableSchemas_ = call (getSymbol "g_settings_list_relocatable_schemas") (cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val listSchemas_ = call (getSymbol "g_settings_list_schemas") (cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val sync_ = call (getSymbol "g_settings_sync") (cVoid --> cVoid)
+      val apply_ = call (getSymbol "g_settings_apply") (GioSettingsClass.PolyML.cPtr --> cVoid)
       val bind_ =
         call (getSymbol "g_settings_bind")
           (
@@ -43,7 +43,7 @@ structure GioSettings :>
              &&> GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GioSettingsBindFlags.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val bindWritable_ =
         call (getSymbol "g_settings_bind_writable")
@@ -53,9 +53,9 @@ structure GioSettings :>
              &&> GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val delay_ = call (getSymbol "g_settings_delay") (GioSettingsClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val delay_ = call (getSymbol "g_settings_delay") (GioSettingsClass.PolyML.cPtr --> cVoid)
       val getBoolean_ = call (getSymbol "g_settings_get_boolean") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val getChild_ = call (getSymbol "g_settings_get_child") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioSettingsClass.PolyML.cPtr)
       val getDouble_ = call (getSymbol "g_settings_get_double") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GDouble.PolyML.cVal)
@@ -79,8 +79,8 @@ structure GioSettings :>
              &&> GLibVariantRecord.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
-      val reset_ = call (getSymbol "g_settings_reset") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val revert_ = call (getSymbol "g_settings_revert") (GioSettingsClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val reset_ = call (getSymbol "g_settings_reset") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val revert_ = call (getSymbol "g_settings_revert") (GioSettingsClass.PolyML.cPtr --> cVoid)
       val setBoolean_ =
         call (getSymbol "g_settings_set_boolean")
           (

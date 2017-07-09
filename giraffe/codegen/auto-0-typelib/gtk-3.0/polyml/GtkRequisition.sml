@@ -5,8 +5,8 @@ structure GtkRequisition :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_requisition_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_requisition_new") (PolyMLFFI.cVoid --> GtkRequisitionRecord.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_requisition_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_requisition_new") (cVoid --> GtkRequisitionRecord.PolyML.cPtr)
       val copy_ = call (getSymbol "gtk_requisition_copy") (GtkRequisitionRecord.PolyML.cPtr --> GtkRequisitionRecord.PolyML.cPtr)
     end
     type t = GtkRequisitionRecord.t

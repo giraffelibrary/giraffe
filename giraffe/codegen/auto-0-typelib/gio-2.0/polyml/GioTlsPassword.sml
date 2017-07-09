@@ -6,14 +6,14 @@ structure GioTlsPassword :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_tls_password_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_tls_password_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_tls_password_new") (GioTlsPasswordFlags.PolyML.cVal &&> Utf8.PolyML.cInPtr --> GioTlsPasswordClass.PolyML.cPtr)
       val getDescription_ = call (getSymbol "g_tls_password_get_description") (GioTlsPasswordClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getFlags_ = call (getSymbol "g_tls_password_get_flags") (GioTlsPasswordClass.PolyML.cPtr --> GioTlsPasswordFlags.PolyML.cVal)
       val getWarning_ = call (getSymbol "g_tls_password_get_warning") (GioTlsPasswordClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val setDescription_ = call (getSymbol "g_tls_password_set_description") (GioTlsPasswordClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setFlags_ = call (getSymbol "g_tls_password_set_flags") (GioTlsPasswordClass.PolyML.cPtr &&> GioTlsPasswordFlags.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setWarning_ = call (getSymbol "g_tls_password_set_warning") (GioTlsPasswordClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setDescription_ = call (getSymbol "g_tls_password_set_description") (GioTlsPasswordClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setFlags_ = call (getSymbol "g_tls_password_set_flags") (GioTlsPasswordClass.PolyML.cPtr &&> GioTlsPasswordFlags.PolyML.cVal --> cVoid)
+      val setWarning_ = call (getSymbol "g_tls_password_set_warning") (GioTlsPasswordClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
     end
     type 'a class = 'a GioTlsPasswordClass.class
     type tls_password_flags_t = GioTlsPasswordFlags.t

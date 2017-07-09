@@ -11,8 +11,8 @@ structure GtkSourceView :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_source_view_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_source_view_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_source_view_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_source_view_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val newWithBuffer_ = call (getSymbol "gtk_source_view_new_with_buffer") (GtkSourceBufferClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getAutoIndent_ = call (getSymbol "gtk_source_view_get_auto_indent") (GtkSourceViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getCompletion_ = call (getSymbol "gtk_source_view_get_completion") (GtkSourceViewClass.PolyML.cPtr --> GtkSourceCompletionClass.PolyML.cPtr)
@@ -29,12 +29,12 @@ structure GtkSourceView :>
       val getSmartHomeEnd_ = call (getSymbol "gtk_source_view_get_smart_home_end") (GtkSourceViewClass.PolyML.cPtr --> GtkSourceSmartHomeEndType.PolyML.cVal)
       val getTabWidth_ = call (getSymbol "gtk_source_view_get_tab_width") (GtkSourceViewClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
       val getVisualColumn_ = call (getSymbol "gtk_source_view_get_visual_column") (GtkSourceViewClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GUInt32.PolyML.cVal)
-      val setAutoIndent_ = call (getSymbol "gtk_source_view_set_auto_indent") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDrawSpaces_ = call (getSymbol "gtk_source_view_set_draw_spaces") (GtkSourceViewClass.PolyML.cPtr &&> GtkSourceDrawSpacesFlags.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setHighlightCurrentLine_ = call (getSymbol "gtk_source_view_set_highlight_current_line") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setIndentOnTab_ = call (getSymbol "gtk_source_view_set_indent_on_tab") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setIndentWidth_ = call (getSymbol "gtk_source_view_set_indent_width") (GtkSourceViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setInsertSpacesInsteadOfTabs_ = call (getSymbol "gtk_source_view_set_insert_spaces_instead_of_tabs") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setAutoIndent_ = call (getSymbol "gtk_source_view_set_auto_indent") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setDrawSpaces_ = call (getSymbol "gtk_source_view_set_draw_spaces") (GtkSourceViewClass.PolyML.cPtr &&> GtkSourceDrawSpacesFlags.PolyML.cVal --> cVoid)
+      val setHighlightCurrentLine_ = call (getSymbol "gtk_source_view_set_highlight_current_line") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setIndentOnTab_ = call (getSymbol "gtk_source_view_set_indent_on_tab") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setIndentWidth_ = call (getSymbol "gtk_source_view_set_indent_width") (GtkSourceViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val setInsertSpacesInsteadOfTabs_ = call (getSymbol "gtk_source_view_set_insert_spaces_instead_of_tabs") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setMarkAttributes_ =
         call (getSymbol "gtk_source_view_set_mark_attributes")
           (
@@ -42,14 +42,14 @@ structure GtkSourceView :>
              &&> Utf8.PolyML.cInPtr
              &&> GtkSourceMarkAttributesClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setRightMarginPosition_ = call (getSymbol "gtk_source_view_set_right_margin_position") (GtkSourceViewClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setShowLineMarks_ = call (getSymbol "gtk_source_view_set_show_line_marks") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setShowLineNumbers_ = call (getSymbol "gtk_source_view_set_show_line_numbers") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setShowRightMargin_ = call (getSymbol "gtk_source_view_set_show_right_margin") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSmartHomeEnd_ = call (getSymbol "gtk_source_view_set_smart_home_end") (GtkSourceViewClass.PolyML.cPtr &&> GtkSourceSmartHomeEndType.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setTabWidth_ = call (getSymbol "gtk_source_view_set_tab_width") (GtkSourceViewClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setRightMarginPosition_ = call (getSymbol "gtk_source_view_set_right_margin_position") (GtkSourceViewClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
+      val setShowLineMarks_ = call (getSymbol "gtk_source_view_set_show_line_marks") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setShowLineNumbers_ = call (getSymbol "gtk_source_view_set_show_line_numbers") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setShowRightMargin_ = call (getSymbol "gtk_source_view_set_show_right_margin") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setSmartHomeEnd_ = call (getSymbol "gtk_source_view_set_smart_home_end") (GtkSourceViewClass.PolyML.cPtr &&> GtkSourceSmartHomeEndType.PolyML.cVal --> cVoid)
+      val setTabWidth_ = call (getSymbol "gtk_source_view_set_tab_width") (GtkSourceViewClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkSourceViewClass.class
     type 'a buffer_class = 'a GtkSourceBufferClass.class

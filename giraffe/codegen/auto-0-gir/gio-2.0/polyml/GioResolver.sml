@@ -8,8 +8,8 @@ structure GioResolver :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_resolver_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (getSymbol "g_resolver_get_default") (PolyMLFFI.cVoid --> GioResolverClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_resolver_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (getSymbol "g_resolver_get_default") (cVoid --> GioResolverClass.PolyML.cPtr)
       val lookupByAddress_ =
         call (getSymbol "g_resolver_lookup_by_address")
           (
@@ -27,7 +27,7 @@ structure GioResolver :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
-      val setDefault_ = call (getSymbol "g_resolver_set_default") (GioResolverClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setDefault_ = call (getSymbol "g_resolver_set_default") (GioResolverClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GioResolverClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class

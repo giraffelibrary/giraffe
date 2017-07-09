@@ -19,7 +19,7 @@ structure Property :>
             GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GObjectValueRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
 
       val setProperty_ =
@@ -28,7 +28,7 @@ structure Property :>
             GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GObjectValueRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
 

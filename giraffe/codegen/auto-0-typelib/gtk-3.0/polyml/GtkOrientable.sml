@@ -6,9 +6,9 @@ structure GtkOrientable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_orientable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_orientable_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getOrientation_ = call (getSymbol "gtk_orientable_get_orientation") (GtkOrientableClass.PolyML.cPtr --> GtkOrientation.PolyML.cVal)
-      val setOrientation_ = call (getSymbol "gtk_orientable_set_orientation") (GtkOrientableClass.PolyML.cPtr &&> GtkOrientation.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setOrientation_ = call (getSymbol "gtk_orientable_set_orientation") (GtkOrientableClass.PolyML.cPtr &&> GtkOrientation.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkOrientableClass.class
     type orientation_t = GtkOrientation.t

@@ -8,10 +8,10 @@ structure GdkKeymap :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gdk_keymap_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (getSymbol "gdk_keymap_get_default") (PolyMLFFI.cVoid --> GdkKeymapClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gdk_keymap_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (getSymbol "gdk_keymap_get_default") (cVoid --> GdkKeymapClass.PolyML.cPtr)
       val getForDisplay_ = call (getSymbol "gdk_keymap_get_for_display") (GdkDisplayClass.PolyML.cPtr --> GdkKeymapClass.PolyML.cPtr)
-      val addVirtualModifiers_ = call (getSymbol "gdk_keymap_add_virtual_modifiers") (GdkKeymapClass.PolyML.cPtr &&> GdkModifierType.PolyML.cRef --> PolyMLFFI.cVoid)
+      val addVirtualModifiers_ = call (getSymbol "gdk_keymap_add_virtual_modifiers") (GdkKeymapClass.PolyML.cPtr &&> GdkModifierType.PolyML.cRef --> cVoid)
       val getCapsLockState_ = call (getSymbol "gdk_keymap_get_caps_lock_state") (GdkKeymapClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getDirection_ = call (getSymbol "gdk_keymap_get_direction") (GdkKeymapClass.PolyML.cPtr --> PangoDirection.PolyML.cVal)
       val getNumLockState_ = call (getSymbol "gdk_keymap_get_num_lock_state") (GdkKeymapClass.PolyML.cPtr --> GBool.PolyML.cVal)

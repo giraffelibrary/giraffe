@@ -11,7 +11,7 @@ structure GioSocketControlMessage :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_socket_control_message_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_socket_control_message_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val deserialize_ =
         call (getSymbol "g_socket_control_message_deserialize")
           (

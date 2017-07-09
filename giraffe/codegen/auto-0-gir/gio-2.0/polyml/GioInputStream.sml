@@ -7,8 +7,8 @@ structure GioInputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val clearPending_ = call (getSymbol "g_input_stream_clear_pending") (GioInputStreamClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_input_stream_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val clearPending_ = call (getSymbol "g_input_stream_clear_pending") (GioInputStreamClass.PolyML.cPtr --> cVoid)
       val close_ =
         call (getSymbol "g_input_stream_close")
           (

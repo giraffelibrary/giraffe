@@ -8,7 +8,7 @@ structure GioLoadableIcon :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_loadable_icon_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_loadable_icon_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val load_ =
         call (getSymbol "g_loadable_icon_load")
           (

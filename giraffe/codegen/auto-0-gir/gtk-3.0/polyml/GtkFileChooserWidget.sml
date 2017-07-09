@@ -9,7 +9,7 @@ structure GtkFileChooserWidget :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_file_chooser_widget_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_file_chooser_widget_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_file_chooser_widget_new") (GtkFileChooserAction.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkFileChooserWidgetClass.class

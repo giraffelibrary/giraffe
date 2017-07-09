@@ -18,7 +18,7 @@ structure GioDBusConnection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_dbus_connection_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_dbus_connection_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val newFinish_ = call (getSymbol "g_dbus_connection_new_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioDBusConnectionClass.PolyML.cPtr)
       val newForAddressFinish_ = call (getSymbol "g_dbus_connection_new_for_address_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioDBusConnectionClass.PolyML.cPtr)
       val newForAddressSync_ =
@@ -144,7 +144,7 @@ structure GioDBusConnection :>
       val getStream_ = call (getSymbol "g_dbus_connection_get_stream") (GioDBusConnectionClass.PolyML.cPtr --> GioIOStreamClass.PolyML.cPtr)
       val getUniqueName_ = call (getSymbol "g_dbus_connection_get_unique_name") (GioDBusConnectionClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val isClosed_ = call (getSymbol "g_dbus_connection_is_closed") (GioDBusConnectionClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val removeFilter_ = call (getSymbol "g_dbus_connection_remove_filter") (GioDBusConnectionClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val removeFilter_ = call (getSymbol "g_dbus_connection_remove_filter") (GioDBusConnectionClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
       val sendMessage_ =
         call (getSymbol "g_dbus_connection_send_message")
           (
@@ -175,9 +175,9 @@ structure GioDBusConnection :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioDBusMessageClass.PolyML.cPtr
           )
-      val setExitOnClose_ = call (getSymbol "g_dbus_connection_set_exit_on_close") (GioDBusConnectionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val signalUnsubscribe_ = call (getSymbol "g_dbus_connection_signal_unsubscribe") (GioDBusConnectionClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val startMessageProcessing_ = call (getSymbol "g_dbus_connection_start_message_processing") (GioDBusConnectionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setExitOnClose_ = call (getSymbol "g_dbus_connection_set_exit_on_close") (GioDBusConnectionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val signalUnsubscribe_ = call (getSymbol "g_dbus_connection_signal_unsubscribe") (GioDBusConnectionClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
+      val startMessageProcessing_ = call (getSymbol "g_dbus_connection_start_message_processing") (GioDBusConnectionClass.PolyML.cPtr --> cVoid)
       val unregisterObject_ = call (getSymbol "g_dbus_connection_unregister_object") (GioDBusConnectionClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> GBool.PolyML.cVal)
       val unregisterSubtree_ = call (getSymbol "g_dbus_connection_unregister_subtree") (GioDBusConnectionClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> GBool.PolyML.cVal)
     end

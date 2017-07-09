@@ -9,7 +9,7 @@ structure GioTlsInteraction :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_tls_interaction_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_tls_interaction_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val askPassword_ =
         call (getSymbol "g_tls_interaction_ask_password")
           (

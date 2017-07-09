@@ -7,10 +7,10 @@ structure GioDBusInterface :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_dbus_interface_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_dbus_interface_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getInfo_ = call (getSymbol "g_dbus_interface_get_info") (GioDBusInterfaceClass.PolyML.cPtr --> GioDBusInterfaceInfoRecord.PolyML.cPtr)
       val getObject_ = call (getSymbol "g_dbus_interface_get_object") (GioDBusInterfaceClass.PolyML.cPtr --> GioDBusObjectClass.PolyML.cPtr)
-      val setObject_ = call (getSymbol "g_dbus_interface_set_object") (GioDBusInterfaceClass.PolyML.cPtr &&> GioDBusObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setObject_ = call (getSymbol "g_dbus_interface_set_object") (GioDBusInterfaceClass.PolyML.cPtr &&> GioDBusObjectClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GioDBusInterfaceClass.class
     type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t

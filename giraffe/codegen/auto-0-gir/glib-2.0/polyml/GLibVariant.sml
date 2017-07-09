@@ -32,7 +32,7 @@ structure GLibVariant :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "intern") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "intern") (cVoid --> GObjectType.PolyML.cVal)
       val newArray_ =
         call (getSymbol "g_variant_new_array")
           (
@@ -120,7 +120,7 @@ structure GLibVariant :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibVariantRecord.PolyML.cPtr
           )
-      val parserGetErrorQuark_ = call (getSymbol "g_variant_parser_get_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
+      val parserGetErrorQuark_ = call (getSymbol "g_variant_parser_get_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
     end
     type t = GLibVariantRecord.t
     type variant_class_t = GLibVariantClass.t

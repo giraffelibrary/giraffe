@@ -7,8 +7,8 @@ structure GtkFixed :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_fixed_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_fixed_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_fixed_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_fixed_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val move_ =
         call (getSymbol "gtk_fixed_move")
           (
@@ -16,7 +16,7 @@ structure GtkFixed :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val put_ =
         call (getSymbol "gtk_fixed_put")
@@ -25,7 +25,7 @@ structure GtkFixed :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type 'a class = 'a GtkFixedClass.class

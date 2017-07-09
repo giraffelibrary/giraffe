@@ -12,16 +12,16 @@ structure GtkSourceStyleSchemeManager :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_source_style_scheme_manager_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_source_style_scheme_manager_new") (PolyMLFFI.cVoid --> GtkSourceStyleSchemeManagerClass.PolyML.cPtr)
-      val getDefault_ = call (getSymbol "gtk_source_style_scheme_manager_get_default") (PolyMLFFI.cVoid --> GtkSourceStyleSchemeManagerClass.PolyML.cPtr)
-      val appendSearchPath_ = call (getSymbol "gtk_source_style_scheme_manager_append_search_path") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val forceRescan_ = call (getSymbol "gtk_source_style_scheme_manager_force_rescan") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gtk_source_style_scheme_manager_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_source_style_scheme_manager_new") (cVoid --> GtkSourceStyleSchemeManagerClass.PolyML.cPtr)
+      val getDefault_ = call (getSymbol "gtk_source_style_scheme_manager_get_default") (cVoid --> GtkSourceStyleSchemeManagerClass.PolyML.cPtr)
+      val appendSearchPath_ = call (getSymbol "gtk_source_style_scheme_manager_append_search_path") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val forceRescan_ = call (getSymbol "gtk_source_style_scheme_manager_force_rescan") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr --> cVoid)
       val getScheme_ = call (getSymbol "gtk_source_style_scheme_manager_get_scheme") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkSourceStyleSchemeClass.PolyML.cPtr)
       val getSchemeIds_ = call (getSymbol "gtk_source_style_scheme_manager_get_scheme_ids") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val getSearchPath_ = call (getSymbol "gtk_source_style_scheme_manager_get_search_path") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
-      val prependSearchPath_ = call (getSymbol "gtk_source_style_scheme_manager_prepend_search_path") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setSearchPath_ = call (getSymbol "gtk_source_style_scheme_manager_set_search_path") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr &&> Utf8CVector.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val prependSearchPath_ = call (getSymbol "gtk_source_style_scheme_manager_prepend_search_path") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setSearchPath_ = call (getSymbol "gtk_source_style_scheme_manager_set_search_path") (GtkSourceStyleSchemeManagerClass.PolyML.cPtr &&> Utf8CVector.PolyML.cInOptPtr --> cVoid)
     end
     type 'a class = 'a GtkSourceStyleSchemeManagerClass.class
     type 'a style_scheme_class = 'a GtkSourceStyleSchemeClass.class

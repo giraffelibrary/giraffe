@@ -9,7 +9,7 @@ structure AtkComponent :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "atk_component_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "atk_component_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val contains_ =
         call (getSymbol "atk_component_contains")
           (
@@ -32,7 +32,7 @@ structure AtkComponent :>
              &&> AtkCoordType.PolyML.cVal
              --> AtkObjectClass.PolyML.cPtr
           )
-      val removeFocusHandler_ = call (getSymbol "atk_component_remove_focus_handler") (AtkComponentClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val removeFocusHandler_ = call (getSymbol "atk_component_remove_focus_handler") (AtkComponentClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
       val setExtents_ =
         call (getSymbol "atk_component_set_extents")
           (

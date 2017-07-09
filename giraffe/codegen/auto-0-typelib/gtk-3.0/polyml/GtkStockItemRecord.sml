@@ -7,10 +7,10 @@ structure GtkStockItemRecord :> GTK_STOCK_ITEM_RECORD =
     local
       open PolyMLFFI
     in
-      val new_ = call (getSymbol "giraffe_gtk_stock_item_new") (PolyMLFFI.cVoid --> cPtr)
-      val copy_ = call (getSymbol "giraffe_gtk_stock_item_copy") (cPtr &&> cPtr --> PolyMLFFI.cVoid)
-      val free_ = call (getSymbol "giraffe_gtk_stock_item_free") (cPtr --> PolyMLFFI.cVoid)
-      val size_ = call (getSymbol "giraffe_gtk_stock_item_size") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
+      val new_ = call (getSymbol "giraffe_gtk_stock_item_new") (cVoid --> cPtr)
+      val copy_ = call (getSymbol "giraffe_gtk_stock_item_copy") (cPtr &&> cPtr --> cVoid)
+      val free_ = call (getSymbol "giraffe_gtk_stock_item_free") (cPtr --> cVoid)
+      val size_ = call (getSymbol "giraffe_gtk_stock_item_size") (cVoid --> GUInt.PolyML.cVal)
     end
     structure Record =
       BoxedValueRecord(

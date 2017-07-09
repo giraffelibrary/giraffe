@@ -6,10 +6,10 @@ structure GLibSource :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_source_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val addChildSource_ = call (getSymbol "g_source_add_child_source") (GLibSourceRecord.PolyML.cPtr &&> GLibSourceRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_source_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val addChildSource_ = call (getSymbol "g_source_add_child_source") (GLibSourceRecord.PolyML.cPtr &&> GLibSourceRecord.PolyML.cPtr --> cVoid)
       val attach_ = call (getSymbol "g_source_attach") (GLibSourceRecord.PolyML.cPtr &&> GLibMainContextRecord.PolyML.cOptPtr --> GUInt32.PolyML.cVal)
-      val destroy_ = call (getSymbol "g_source_destroy") (GLibSourceRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val destroy_ = call (getSymbol "g_source_destroy") (GLibSourceRecord.PolyML.cPtr --> cVoid)
       val getCanRecurse_ = call (getSymbol "g_source_get_can_recurse") (GLibSourceRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getContext_ = call (getSymbol "g_source_get_context") (GLibSourceRecord.PolyML.cPtr --> GLibMainContextRecord.PolyML.cPtr)
       val getId_ = call (getSymbol "g_source_get_id") (GLibSourceRecord.PolyML.cPtr --> GUInt32.PolyML.cVal)
@@ -17,12 +17,12 @@ structure GLibSource :>
       val getPriority_ = call (getSymbol "g_source_get_priority") (GLibSourceRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getTime_ = call (getSymbol "g_source_get_time") (GLibSourceRecord.PolyML.cPtr --> GInt64.PolyML.cVal)
       val isDestroyed_ = call (getSymbol "g_source_is_destroyed") (GLibSourceRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val removeChildSource_ = call (getSymbol "g_source_remove_child_source") (GLibSourceRecord.PolyML.cPtr &&> GLibSourceRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setCanRecurse_ = call (getSymbol "g_source_set_can_recurse") (GLibSourceRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setName_ = call (getSymbol "g_source_set_name") (GLibSourceRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setPriority_ = call (getSymbol "g_source_set_priority") (GLibSourceRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val removeChildSource_ = call (getSymbol "g_source_remove_child_source") (GLibSourceRecord.PolyML.cPtr &&> GLibSourceRecord.PolyML.cPtr --> cVoid)
+      val setCanRecurse_ = call (getSymbol "g_source_set_can_recurse") (GLibSourceRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setName_ = call (getSymbol "g_source_set_name") (GLibSourceRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setPriority_ = call (getSymbol "g_source_set_priority") (GLibSourceRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
       val remove_ = call (getSymbol "g_source_remove") (GUInt32.PolyML.cVal --> GBool.PolyML.cVal)
-      val setNameById_ = call (getSymbol "g_source_set_name_by_id") (GUInt32.PolyML.cVal &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setNameById_ = call (getSymbol "g_source_set_name_by_id") (GUInt32.PolyML.cVal &&> Utf8.PolyML.cInPtr --> cVoid)
     end
     type t = GLibSourceRecord.t
     type main_context_t = GLibMainContextRecord.t

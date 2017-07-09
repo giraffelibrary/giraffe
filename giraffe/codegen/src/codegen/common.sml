@@ -274,7 +274,7 @@ end
  *       val getType_ =                                       |
  *         call                                               |
  *           (getSymbol "<getTypeSymbol>")                    |
- *           (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);   |
+ *           (cVoid --> GObjectType.PolyML.cVal);             |
  *                                                            |
  *       val getValue_ =                                      |
  *         call                                               |
@@ -291,13 +291,13 @@ end
  *       val setValue_ =                                      |
  *         call                                               |
  *           (getSymbol "g_value_set_<valueType>")            |
- *           (GObjectValueRecord.PolyML.cPtr &&> <parConv> --> PolyMLFFI.cVoid);
+ *           (GObjectValueRecord.PolyML.cPtr &&> <parConv> --> cVoid);
  *                                                            |
  *                                             -.             |
  *       val setOptValue_ =                     | isPtr       |
  *         call                                 |             |
  *           (getSymbol "g_value_set_<valueType>")            |
- *           (GObjectValueRecord.PolyML.cPtr &&> <parOptConv> --> PolyMLFFI.cVoid);
+ *           (GObjectValueRecord.PolyML.cPtr &&> <parOptConv> --> cVoid);
  *                                             -'             |
  *     end                                                    |
  *                                                           -'
@@ -597,7 +597,7 @@ local
    *     val set<Opt>Value_ =
    *       call
    *         (getSymbol "g_value_set_<valueType>")
-   *         (GObjectValueRecord.PolyML.cPtr &&> <parConv> --> PolyMLFFI.cVoid);
+   *         (GObjectValueRecord.PolyML.cPtr &&> <parConv> --> cVoid);
    *)
   fun setValueStrDecLowLevelPolyML (valueIRef, valueType) ptrOpt =
     let

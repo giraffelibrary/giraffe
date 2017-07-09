@@ -11,7 +11,7 @@ structure GtkStyle :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_style_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_style_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val applyDefaultBackground_ =
         call (getSymbol "gtk_style_apply_default_background")
           (
@@ -23,10 +23,10 @@ structure GtkStyle :>
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val copy_ = call (getSymbol "gtk_style_copy") (GtkStyleClass.PolyML.cPtr --> GtkStyleClass.PolyML.cPtr)
-      val detach_ = call (getSymbol "gtk_style_detach") (GtkStyleClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val detach_ = call (getSymbol "gtk_style_detach") (GtkStyleClass.PolyML.cPtr --> cVoid)
       val hasContext_ = call (getSymbol "gtk_style_has_context") (GtkStyleClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val lookupColor_ =
         call (getSymbol "gtk_style_lookup_color")
@@ -55,7 +55,7 @@ structure GtkStyle :>
             GtkStyleClass.PolyML.cPtr
              &&> GdkWindowClass.PolyML.cPtr
              &&> GtkStateType.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type 'a class = 'a GtkStyleClass.class

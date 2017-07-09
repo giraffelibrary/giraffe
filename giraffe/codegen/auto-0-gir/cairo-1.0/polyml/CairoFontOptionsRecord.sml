@@ -8,7 +8,7 @@ structure CairoFontOptionsRecord :> CAIRO_FONT_OPTIONS_RECORD =
       open PolyMLFFI
     in
       val dup_ = call (getSymbol "cairo_font_options_copy") (cPtr --> cPtr)
-      val free_ = call (getSymbol "cairo_font_options_destroy") (cPtr --> PolyMLFFI.cVoid)
+      val free_ = call (getSymbol "cairo_font_options_destroy") (cPtr --> cVoid)
     end
     structure Record =
       BoxedRecord(

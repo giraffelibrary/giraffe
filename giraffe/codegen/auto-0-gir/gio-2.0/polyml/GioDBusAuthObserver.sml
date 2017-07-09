@@ -7,8 +7,8 @@ structure GioDBusAuthObserver :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_dbus_auth_observer_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "g_dbus_auth_observer_new") (PolyMLFFI.cVoid --> GioDBusAuthObserverClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_dbus_auth_observer_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_dbus_auth_observer_new") (cVoid --> GioDBusAuthObserverClass.PolyML.cPtr)
       val authorizeAuthenticatedPeer_ =
         call (getSymbol "g_dbus_auth_observer_authorize_authenticated_peer")
           (

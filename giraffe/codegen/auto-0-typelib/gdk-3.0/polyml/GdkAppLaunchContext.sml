@@ -7,12 +7,12 @@ structure GdkAppLaunchContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gdk_app_launch_context_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val setDesktop_ = call (getSymbol "gdk_app_launch_context_set_desktop") (GdkAppLaunchContextClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setIcon_ = call (getSymbol "gdk_app_launch_context_set_icon") (GdkAppLaunchContextClass.PolyML.cPtr &&> GioIconClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setIconName_ = call (getSymbol "gdk_app_launch_context_set_icon_name") (GdkAppLaunchContextClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
-      val setScreen_ = call (getSymbol "gdk_app_launch_context_set_screen") (GdkAppLaunchContextClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setTimestamp_ = call (getSymbol "gdk_app_launch_context_set_timestamp") (GdkAppLaunchContextClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gdk_app_launch_context_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val setDesktop_ = call (getSymbol "gdk_app_launch_context_set_desktop") (GdkAppLaunchContextClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val setIcon_ = call (getSymbol "gdk_app_launch_context_set_icon") (GdkAppLaunchContextClass.PolyML.cPtr &&> GioIconClass.PolyML.cOptPtr --> cVoid)
+      val setIconName_ = call (getSymbol "gdk_app_launch_context_set_icon_name") (GdkAppLaunchContextClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
+      val setScreen_ = call (getSymbol "gdk_app_launch_context_set_screen") (GdkAppLaunchContextClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cPtr --> cVoid)
+      val setTimestamp_ = call (getSymbol "gdk_app_launch_context_set_timestamp") (GdkAppLaunchContextClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GdkAppLaunchContextClass.class
     type 'a screen_class = 'a GdkScreenClass.class

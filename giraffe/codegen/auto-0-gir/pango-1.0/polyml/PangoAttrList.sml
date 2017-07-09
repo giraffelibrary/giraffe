@@ -6,12 +6,12 @@ structure PangoAttrList :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "pango_attr_list_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "pango_attr_list_new") (PolyMLFFI.cVoid --> PangoAttrListRecord.PolyML.cPtr)
-      val change_ = call (getSymbol "pango_attr_list_change") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "pango_attr_list_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "pango_attr_list_new") (cVoid --> PangoAttrListRecord.PolyML.cPtr)
+      val change_ = call (getSymbol "pango_attr_list_change") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> cVoid)
       val copy_ = call (getSymbol "pango_attr_list_copy") (PangoAttrListRecord.PolyML.cPtr --> PangoAttrListRecord.PolyML.cPtr)
-      val insert_ = call (getSymbol "pango_attr_list_insert") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val insertBefore_ = call (getSymbol "pango_attr_list_insert_before") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val insert_ = call (getSymbol "pango_attr_list_insert") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> cVoid)
+      val insertBefore_ = call (getSymbol "pango_attr_list_insert_before") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> cVoid)
       val splice_ =
         call (getSymbol "pango_attr_list_splice")
           (
@@ -19,7 +19,7 @@ structure PangoAttrList :>
              &&> PangoAttrListRecord.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type t = PangoAttrListRecord.t

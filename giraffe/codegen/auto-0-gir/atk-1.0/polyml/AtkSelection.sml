@@ -6,7 +6,7 @@ structure AtkSelection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "atk_selection_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "atk_selection_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val addSelection_ = call (getSymbol "atk_selection_add_selection") (AtkSelectionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
       val clearSelection_ = call (getSymbol "atk_selection_clear_selection") (AtkSelectionClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSelectionCount_ = call (getSymbol "atk_selection_get_selection_count") (AtkSelectionClass.PolyML.cPtr --> GInt.PolyML.cVal)

@@ -7,7 +7,7 @@ structure GdkDeviceManager :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gdk_device_manager_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gdk_device_manager_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getClientPointer_ = call (getSymbol "gdk_device_manager_get_client_pointer") (GdkDeviceManagerClass.PolyML.cPtr --> GdkDeviceClass.PolyML.cPtr)
       val getDisplay_ = call (getSymbol "gdk_device_manager_get_display") (GdkDeviceManagerClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
     end

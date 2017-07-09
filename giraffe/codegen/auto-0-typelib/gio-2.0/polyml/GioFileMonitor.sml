@@ -7,7 +7,7 @@ structure GioFileMonitor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_file_monitor_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_file_monitor_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val cancel_ = call (getSymbol "g_file_monitor_cancel") (GioFileMonitorClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val emitEvent_ =
         call (getSymbol "g_file_monitor_emit_event")
@@ -16,10 +16,10 @@ structure GioFileMonitor :>
              &&> GioFileClass.PolyML.cPtr
              &&> GioFileClass.PolyML.cPtr
              &&> GioFileMonitorEvent.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val isCancelled_ = call (getSymbol "g_file_monitor_is_cancelled") (GioFileMonitorClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setRateLimit_ = call (getSymbol "g_file_monitor_set_rate_limit") (GioFileMonitorClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setRateLimit_ = call (getSymbol "g_file_monitor_set_rate_limit") (GioFileMonitorClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GioFileMonitorClass.class
     type file_monitor_event_t = GioFileMonitorEvent.t

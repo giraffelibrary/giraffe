@@ -8,8 +8,8 @@ structure GtkPageSetup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_page_setup_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_page_setup_new") (PolyMLFFI.cVoid --> GtkPageSetupClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_page_setup_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_page_setup_new") (cVoid --> GtkPageSetupClass.PolyML.cPtr)
       val newFromFile_ = call (getSymbol "gtk_page_setup_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GtkPageSetupClass.PolyML.cPtr)
       val newFromKeyFile_ =
         call (getSymbol "gtk_page_setup_new_from_key_file")
@@ -53,7 +53,7 @@ structure GtkPageSetup :>
             GtkPageSetupClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GtkUnit.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setLeftMargin_ =
         call (getSymbol "gtk_page_setup_set_left_margin")
@@ -61,18 +61,18 @@ structure GtkPageSetup :>
             GtkPageSetupClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GtkUnit.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setOrientation_ = call (getSymbol "gtk_page_setup_set_orientation") (GtkPageSetupClass.PolyML.cPtr &&> GtkPageOrientation.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPaperSize_ = call (getSymbol "gtk_page_setup_set_paper_size") (GtkPageSetupClass.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setPaperSizeAndDefaultMargins_ = call (getSymbol "gtk_page_setup_set_paper_size_and_default_margins") (GtkPageSetupClass.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setOrientation_ = call (getSymbol "gtk_page_setup_set_orientation") (GtkPageSetupClass.PolyML.cPtr &&> GtkPageOrientation.PolyML.cVal --> cVoid)
+      val setPaperSize_ = call (getSymbol "gtk_page_setup_set_paper_size") (GtkPageSetupClass.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> cVoid)
+      val setPaperSizeAndDefaultMargins_ = call (getSymbol "gtk_page_setup_set_paper_size_and_default_margins") (GtkPageSetupClass.PolyML.cPtr &&> GtkPaperSizeRecord.PolyML.cPtr --> cVoid)
       val setRightMargin_ =
         call (getSymbol "gtk_page_setup_set_right_margin")
           (
             GtkPageSetupClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GtkUnit.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setTopMargin_ =
         call (getSymbol "gtk_page_setup_set_top_margin")
@@ -80,7 +80,7 @@ structure GtkPageSetup :>
             GtkPageSetupClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GtkUnit.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val toFile_ =
         call (getSymbol "gtk_page_setup_to_file")
@@ -96,7 +96,7 @@ structure GtkPageSetup :>
             GtkPageSetupClass.PolyML.cPtr
              &&> GLibKeyFileRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type 'a class = 'a GtkPageSetupClass.class

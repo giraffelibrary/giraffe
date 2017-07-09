@@ -12,9 +12,9 @@ structure GtkSourceLanguageManager :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_source_language_manager_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_source_language_manager_new") (PolyMLFFI.cVoid --> GtkSourceLanguageManagerClass.PolyML.cPtr)
-      val getDefault_ = call (getSymbol "gtk_source_language_manager_get_default") (PolyMLFFI.cVoid --> GtkSourceLanguageManagerClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_source_language_manager_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_source_language_manager_new") (cVoid --> GtkSourceLanguageManagerClass.PolyML.cPtr)
+      val getDefault_ = call (getSymbol "gtk_source_language_manager_get_default") (cVoid --> GtkSourceLanguageManagerClass.PolyML.cPtr)
       val getLanguage_ = call (getSymbol "gtk_source_language_manager_get_language") (GtkSourceLanguageManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkSourceLanguageClass.PolyML.cPtr)
       val getLanguageIds_ = call (getSymbol "gtk_source_language_manager_get_language_ids") (GtkSourceLanguageManagerClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val getSearchPath_ = call (getSymbol "gtk_source_language_manager_get_search_path") (GtkSourceLanguageManagerClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
@@ -26,7 +26,7 @@ structure GtkSourceLanguageManager :>
              &&> Utf8.PolyML.cInOptPtr
              --> GtkSourceLanguageClass.PolyML.cPtr
           )
-      val setSearchPath_ = call (getSymbol "gtk_source_language_manager_set_search_path") (GtkSourceLanguageManagerClass.PolyML.cPtr &&> Utf8CVector.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setSearchPath_ = call (getSymbol "gtk_source_language_manager_set_search_path") (GtkSourceLanguageManagerClass.PolyML.cPtr &&> Utf8CVector.PolyML.cInOptPtr --> cVoid)
     end
     type 'a class = 'a GtkSourceLanguageManagerClass.class
     type 'a language_class = 'a GtkSourceLanguageClass.class

@@ -6,14 +6,14 @@ structure GtkMisc :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_misc_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_misc_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getAlignment_ =
         call (getSymbol "gtk_misc_get_alignment")
           (
             GtkMiscClass.PolyML.cPtr
              &&> GFloat.PolyML.cRef
              &&> GFloat.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getPadding_ =
         call (getSymbol "gtk_misc_get_padding")
@@ -21,7 +21,7 @@ structure GtkMisc :>
             GtkMiscClass.PolyML.cPtr
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setAlignment_ =
         call (getSymbol "gtk_misc_set_alignment")
@@ -29,7 +29,7 @@ structure GtkMisc :>
             GtkMiscClass.PolyML.cPtr
              &&> GFloat.PolyML.cVal
              &&> GFloat.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setPadding_ =
         call (getSymbol "gtk_misc_set_padding")
@@ -37,7 +37,7 @@ structure GtkMisc :>
             GtkMiscClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type 'a class = 'a GtkMiscClass.class

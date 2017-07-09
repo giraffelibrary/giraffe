@@ -7,12 +7,12 @@ structure GObjectClosure :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_closure_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_closure_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call
           (getSymbol "giraffe_g_closure_new")
           (ClosureMarshal.PolyML.CALLBACK --> GObjectClosureRecord.PolyML.cPtr)
-      val invalidate_ = call (getSymbol "g_closure_invalidate") (GObjectClosureRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val invalidate_ = call (getSymbol "g_closure_invalidate") (GObjectClosureRecord.PolyML.cPtr --> cVoid)
     end
     type t = GObjectClosureRecord.t
     type type_t = GObjectType.t

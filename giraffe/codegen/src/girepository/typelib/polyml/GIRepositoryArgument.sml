@@ -14,12 +14,12 @@ structure GIRepositoryArgument :>
       val new_ =
         call
           (getSymbol "giraffe_gi_argument_new")
-          (PolyMLFFI.cVoid --> cPtr);
+          (cVoid --> cPtr);
 
       val free_ =
         call
           (getSymbol "giraffe_gi_argument_free")
-          (cPtr --> PolyMLFFI.cVoid);
+          (cPtr --> cVoid);
 
       val from_boolean_ =
         call

@@ -7,7 +7,7 @@ structure GtkHBox :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_hbox_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_hbox_get_type") (cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class = 'a GtkHBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

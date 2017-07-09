@@ -5,7 +5,7 @@ structure GLibError :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_error_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_error_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val matches_ =
         call (getSymbol "g_error_matches")
           (

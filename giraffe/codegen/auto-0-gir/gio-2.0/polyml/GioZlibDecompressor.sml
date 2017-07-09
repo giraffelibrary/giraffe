@@ -8,7 +8,7 @@ structure GioZlibDecompressor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_zlib_decompressor_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_zlib_decompressor_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_zlib_decompressor_new") (GioZlibCompressorFormat.PolyML.cVal --> GioZlibDecompressorClass.PolyML.cPtr)
       val getFileInfo_ = call (getSymbol "g_zlib_decompressor_get_file_info") (GioZlibDecompressorClass.PolyML.cPtr --> GioFileInfoClass.PolyML.cPtr)
     end

@@ -7,7 +7,7 @@ structure GioPermission :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_permission_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_permission_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val acquire_ =
         call (getSymbol "g_permission_acquire")
           (
@@ -34,7 +34,7 @@ structure GioPermission :>
              &&> GBool.PolyML.cVal
              &&> GBool.PolyML.cVal
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val release_ =
         call (getSymbol "g_permission_release")

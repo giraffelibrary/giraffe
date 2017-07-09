@@ -1882,7 +1882,7 @@ For J non-VOID parameters, LowLevelFunction has the form:
   val <functionName>_ =
     call
       (getSymbol "<function_symbol>")
-      (PolyMLFFI.cVoid --> <retConv>);
+      (cVoid --> <retConv>);
 
     if J = 0 and not anySet (FunctionFlags, IS_METHOD)
              and not anySet (FunctionFlags, THROWS)
@@ -2241,7 +2241,7 @@ where
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
-        VOID      --->    PolyMLFFI.cVoid
+        VOID      --->    cVoid
         BOOLEAN   --->    <retScalarConv(GBool.PolyML)>
         INT8      --->    <retScalarConv(GInt8.PolyML)>
         UINT8     --->    <retScalarConv(GUInt8.PolyML)>

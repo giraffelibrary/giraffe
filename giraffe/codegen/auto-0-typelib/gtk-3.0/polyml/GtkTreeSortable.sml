@@ -6,7 +6,7 @@ structure GtkTreeSortable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_tree_sortable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_tree_sortable_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getSortColumnId_ =
         call (getSymbol "gtk_tree_sortable_get_sort_column_id")
           (
@@ -22,9 +22,9 @@ structure GtkTreeSortable :>
             GtkTreeSortableClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GtkSortType.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val sortColumnChanged_ = call (getSymbol "gtk_tree_sortable_sort_column_changed") (GtkTreeSortableClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val sortColumnChanged_ = call (getSymbol "gtk_tree_sortable_sort_column_changed") (GtkTreeSortableClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkTreeSortableClass.class
     type sort_type_t = GtkSortType.t

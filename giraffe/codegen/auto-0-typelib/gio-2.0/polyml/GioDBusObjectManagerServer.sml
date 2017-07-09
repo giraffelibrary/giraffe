@@ -8,12 +8,12 @@ structure GioDBusObjectManagerServer :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_dbus_object_manager_server_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_dbus_object_manager_server_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_dbus_object_manager_server_new") (Utf8.PolyML.cInPtr --> GioDBusObjectManagerServerClass.PolyML.cPtr)
-      val export_ = call (getSymbol "g_dbus_object_manager_server_export") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusObjectSkeletonClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val exportUniquely_ = call (getSymbol "g_dbus_object_manager_server_export_uniquely") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusObjectSkeletonClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val export_ = call (getSymbol "g_dbus_object_manager_server_export") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusObjectSkeletonClass.PolyML.cPtr --> cVoid)
+      val exportUniquely_ = call (getSymbol "g_dbus_object_manager_server_export_uniquely") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusObjectSkeletonClass.PolyML.cPtr --> cVoid)
       val getConnection_ = call (getSymbol "g_dbus_object_manager_server_get_connection") (GioDBusObjectManagerServerClass.PolyML.cPtr --> GioDBusConnectionClass.PolyML.cPtr)
-      val setConnection_ = call (getSymbol "g_dbus_object_manager_server_set_connection") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusConnectionClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setConnection_ = call (getSymbol "g_dbus_object_manager_server_set_connection") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusConnectionClass.PolyML.cOptPtr --> cVoid)
       val unexport_ = call (getSymbol "g_dbus_object_manager_server_unexport") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a GioDBusObjectManagerServerClass.class

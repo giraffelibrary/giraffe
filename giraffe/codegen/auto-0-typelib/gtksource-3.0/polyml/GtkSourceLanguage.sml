@@ -11,7 +11,7 @@ structure GtkSourceLanguage :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_source_language_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_source_language_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getGlobs_ = call (getSymbol "gtk_source_language_get_globs") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val getHidden_ = call (getSymbol "gtk_source_language_get_hidden") (GtkSourceLanguageClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getId_ = call (getSymbol "gtk_source_language_get_id") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)

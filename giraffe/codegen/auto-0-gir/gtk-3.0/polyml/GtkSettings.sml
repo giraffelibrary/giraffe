@@ -13,10 +13,10 @@ structure GtkSettings :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_settings_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (getSymbol "gtk_settings_get_default") (PolyMLFFI.cVoid --> GtkSettingsClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_settings_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (getSymbol "gtk_settings_get_default") (cVoid --> GtkSettingsClass.PolyML.cPtr)
       val getForScreen_ = call (getSymbol "gtk_settings_get_for_screen") (GdkScreenClass.PolyML.cPtr --> GtkSettingsClass.PolyML.cPtr)
-      val installProperty_ = call (getSymbol "gtk_settings_install_property") (GObjectParamSpecClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val installProperty_ = call (getSymbol "gtk_settings_install_property") (GObjectParamSpecClass.PolyML.cPtr --> cVoid)
       val setDoubleProperty_ =
         call (getSymbol "gtk_settings_set_double_property")
           (
@@ -24,7 +24,7 @@ structure GtkSettings :>
              &&> Utf8.PolyML.cInPtr
              &&> GDouble.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setLongProperty_ =
         call (getSymbol "gtk_settings_set_long_property")
@@ -33,7 +33,7 @@ structure GtkSettings :>
              &&> Utf8.PolyML.cInPtr
              &&> GLong.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setPropertyValue_ =
         call (getSymbol "gtk_settings_set_property_value")
@@ -41,7 +41,7 @@ structure GtkSettings :>
             GtkSettingsClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkSettingsValueRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setStringProperty_ =
         call (getSymbol "gtk_settings_set_string_property")
@@ -50,7 +50,7 @@ structure GtkSettings :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type 'a class = 'a GtkSettingsClass.class

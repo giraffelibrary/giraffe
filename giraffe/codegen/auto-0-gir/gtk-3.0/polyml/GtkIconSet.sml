@@ -13,10 +13,10 @@ structure GtkIconSet :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_icon_set_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_icon_set_new") (PolyMLFFI.cVoid --> GtkIconSetRecord.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_icon_set_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_icon_set_new") (cVoid --> GtkIconSetRecord.PolyML.cPtr)
       val newFromPixbuf_ = call (getSymbol "gtk_icon_set_new_from_pixbuf") (GdkPixbufPixbufClass.PolyML.cPtr --> GtkIconSetRecord.PolyML.cPtr)
-      val addSource_ = call (getSymbol "gtk_icon_set_add_source") (GtkIconSetRecord.PolyML.cPtr &&> GtkIconSourceRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val addSource_ = call (getSymbol "gtk_icon_set_add_source") (GtkIconSetRecord.PolyML.cPtr &&> GtkIconSourceRecord.PolyML.cPtr --> cVoid)
       val copy_ = call (getSymbol "gtk_icon_set_copy") (GtkIconSetRecord.PolyML.cPtr --> GtkIconSetRecord.PolyML.cPtr)
       val getSizes_ =
         call (getSymbol "gtk_icon_set_get_sizes")
@@ -24,7 +24,7 @@ structure GtkIconSet :>
             GtkIconSetRecord.PolyML.cPtr
              &&> GIntCVectorN.PolyML.cOutRef
              &&> GInt.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderIconPixbuf_ =
         call (getSymbol "gtk_icon_set_render_icon_pixbuf")

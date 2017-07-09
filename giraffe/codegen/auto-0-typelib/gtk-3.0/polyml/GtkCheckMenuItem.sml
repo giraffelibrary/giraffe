@@ -7,17 +7,17 @@ structure GtkCheckMenuItem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_check_menu_item_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_check_menu_item_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_check_menu_item_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_check_menu_item_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val newWithLabel_ = call (getSymbol "gtk_check_menu_item_new_with_label") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithMnemonic_ = call (getSymbol "gtk_check_menu_item_new_with_mnemonic") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val getActive_ = call (getSymbol "gtk_check_menu_item_get_active") (GtkCheckMenuItemClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getDrawAsRadio_ = call (getSymbol "gtk_check_menu_item_get_draw_as_radio") (GtkCheckMenuItemClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getInconsistent_ = call (getSymbol "gtk_check_menu_item_get_inconsistent") (GtkCheckMenuItemClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setActive_ = call (getSymbol "gtk_check_menu_item_set_active") (GtkCheckMenuItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDrawAsRadio_ = call (getSymbol "gtk_check_menu_item_set_draw_as_radio") (GtkCheckMenuItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setInconsistent_ = call (getSymbol "gtk_check_menu_item_set_inconsistent") (GtkCheckMenuItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val toggled_ = call (getSymbol "gtk_check_menu_item_toggled") (GtkCheckMenuItemClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setActive_ = call (getSymbol "gtk_check_menu_item_set_active") (GtkCheckMenuItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setDrawAsRadio_ = call (getSymbol "gtk_check_menu_item_set_draw_as_radio") (GtkCheckMenuItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setInconsistent_ = call (getSymbol "gtk_check_menu_item_set_inconsistent") (GtkCheckMenuItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val toggled_ = call (getSymbol "gtk_check_menu_item_toggled") (GtkCheckMenuItemClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkCheckMenuItemClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

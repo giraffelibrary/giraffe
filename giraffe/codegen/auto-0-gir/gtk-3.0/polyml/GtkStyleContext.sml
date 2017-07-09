@@ -14,26 +14,26 @@ structure GtkStyleContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_style_context_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_style_context_new") (PolyMLFFI.cVoid --> GtkStyleContextClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_style_context_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_style_context_new") (cVoid --> GtkStyleContextClass.PolyML.cPtr)
       val addProviderForScreen_ =
         call (getSymbol "gtk_style_context_add_provider_for_screen")
           (
             GdkScreenClass.PolyML.cPtr
              &&> GtkStyleProviderClass.PolyML.cPtr
              &&> GUInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val removeProviderForScreen_ = call (getSymbol "gtk_style_context_remove_provider_for_screen") (GdkScreenClass.PolyML.cPtr &&> GtkStyleProviderClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val resetWidgets_ = call (getSymbol "gtk_style_context_reset_widgets") (GdkScreenClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val addClass_ = call (getSymbol "gtk_style_context_add_class") (GtkStyleContextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val removeProviderForScreen_ = call (getSymbol "gtk_style_context_remove_provider_for_screen") (GdkScreenClass.PolyML.cPtr &&> GtkStyleProviderClass.PolyML.cPtr --> cVoid)
+      val resetWidgets_ = call (getSymbol "gtk_style_context_reset_widgets") (GdkScreenClass.PolyML.cPtr --> cVoid)
+      val addClass_ = call (getSymbol "gtk_style_context_add_class") (GtkStyleContextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val addProvider_ =
         call (getSymbol "gtk_style_context_add_provider")
           (
             GtkStyleContextClass.PolyML.cPtr
              &&> GtkStyleProviderClass.PolyML.cPtr
              &&> GUInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val addRegion_ =
         call (getSymbol "gtk_style_context_add_region")
@@ -41,7 +41,7 @@ structure GtkStyleContext :>
             GtkStyleContextClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkRegionFlags.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getBackgroundColor_ =
         call (getSymbol "gtk_style_context_get_background_color")
@@ -49,7 +49,7 @@ structure GtkStyleContext :>
             GtkStyleContextClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GdkRgbaRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getBorder_ =
         call (getSymbol "gtk_style_context_get_border")
@@ -57,7 +57,7 @@ structure GtkStyleContext :>
             GtkStyleContextClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GtkBorderRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getBorderColor_ =
         call (getSymbol "gtk_style_context_get_border_color")
@@ -65,7 +65,7 @@ structure GtkStyleContext :>
             GtkStyleContextClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GdkRgbaRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getColor_ =
         call (getSymbol "gtk_style_context_get_color")
@@ -73,7 +73,7 @@ structure GtkStyleContext :>
             GtkStyleContextClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GdkRgbaRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getDirection_ = call (getSymbol "gtk_style_context_get_direction") (GtkStyleContextClass.PolyML.cPtr --> GtkTextDirection.PolyML.cVal)
       val getFont_ = call (getSymbol "gtk_style_context_get_font") (GtkStyleContextClass.PolyML.cPtr &&> GtkStateFlags.PolyML.cVal --> PangoFontDescriptionRecord.PolyML.cPtr)
@@ -84,7 +84,7 @@ structure GtkStyleContext :>
             GtkStyleContextClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GtkBorderRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getPadding_ =
         call (getSymbol "gtk_style_context_get_padding")
@@ -92,7 +92,7 @@ structure GtkStyleContext :>
             GtkStyleContextClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GtkBorderRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getPath_ = call (getSymbol "gtk_style_context_get_path") (GtkStyleContextClass.PolyML.cPtr --> GtkWidgetPathRecord.PolyML.cPtr)
       val getScreen_ = call (getSymbol "gtk_style_context_get_screen") (GtkStyleContextClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
@@ -103,7 +103,7 @@ structure GtkStyleContext :>
             GtkStyleContextClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GObjectValueRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val hasClass_ = call (getSymbol "gtk_style_context_has_class") (GtkStyleContextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val hasRegion_ =
@@ -114,7 +114,7 @@ structure GtkStyleContext :>
              &&> GtkRegionFlags.PolyML.cRef
              --> GBool.PolyML.cVal
           )
-      val invalidate_ = call (getSymbol "gtk_style_context_invalidate") (GtkStyleContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val invalidate_ = call (getSymbol "gtk_style_context_invalidate") (GtkStyleContextClass.PolyML.cPtr --> cVoid)
       val lookupColor_ =
         call (getSymbol "gtk_style_context_lookup_color")
           (
@@ -124,12 +124,12 @@ structure GtkStyleContext :>
              --> GBool.PolyML.cVal
           )
       val lookupIconSet_ = call (getSymbol "gtk_style_context_lookup_icon_set") (GtkStyleContextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkIconSetRecord.PolyML.cPtr)
-      val popAnimatableRegion_ = call (getSymbol "gtk_style_context_pop_animatable_region") (GtkStyleContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val removeClass_ = call (getSymbol "gtk_style_context_remove_class") (GtkStyleContextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val removeProvider_ = call (getSymbol "gtk_style_context_remove_provider") (GtkStyleContextClass.PolyML.cPtr &&> GtkStyleProviderClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val removeRegion_ = call (getSymbol "gtk_style_context_remove_region") (GtkStyleContextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val restore_ = call (getSymbol "gtk_style_context_restore") (GtkStyleContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val save_ = call (getSymbol "gtk_style_context_save") (GtkStyleContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val popAnimatableRegion_ = call (getSymbol "gtk_style_context_pop_animatable_region") (GtkStyleContextClass.PolyML.cPtr --> cVoid)
+      val removeClass_ = call (getSymbol "gtk_style_context_remove_class") (GtkStyleContextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val removeProvider_ = call (getSymbol "gtk_style_context_remove_provider") (GtkStyleContextClass.PolyML.cPtr &&> GtkStyleProviderClass.PolyML.cPtr --> cVoid)
+      val removeRegion_ = call (getSymbol "gtk_style_context_remove_region") (GtkStyleContextClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val restore_ = call (getSymbol "gtk_style_context_restore") (GtkStyleContextClass.PolyML.cPtr --> cVoid)
+      val save_ = call (getSymbol "gtk_style_context_save") (GtkStyleContextClass.PolyML.cPtr --> cVoid)
       val scrollAnimations_ =
         call (getSymbol "gtk_style_context_scroll_animations")
           (
@@ -137,14 +137,14 @@ structure GtkStyleContext :>
              &&> GdkWindowClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setBackground_ = call (getSymbol "gtk_style_context_set_background") (GtkStyleContextClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setDirection_ = call (getSymbol "gtk_style_context_set_direction") (GtkStyleContextClass.PolyML.cPtr &&> GtkTextDirection.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setJunctionSides_ = call (getSymbol "gtk_style_context_set_junction_sides") (GtkStyleContextClass.PolyML.cPtr &&> GtkJunctionSides.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPath_ = call (getSymbol "gtk_style_context_set_path") (GtkStyleContextClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setScreen_ = call (getSymbol "gtk_style_context_set_screen") (GtkStyleContextClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setState_ = call (getSymbol "gtk_style_context_set_state") (GtkStyleContextClass.PolyML.cPtr &&> GtkStateFlags.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setBackground_ = call (getSymbol "gtk_style_context_set_background") (GtkStyleContextClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
+      val setDirection_ = call (getSymbol "gtk_style_context_set_direction") (GtkStyleContextClass.PolyML.cPtr &&> GtkTextDirection.PolyML.cVal --> cVoid)
+      val setJunctionSides_ = call (getSymbol "gtk_style_context_set_junction_sides") (GtkStyleContextClass.PolyML.cPtr &&> GtkJunctionSides.PolyML.cVal --> cVoid)
+      val setPath_ = call (getSymbol "gtk_style_context_set_path") (GtkStyleContextClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> cVoid)
+      val setScreen_ = call (getSymbol "gtk_style_context_set_screen") (GtkStyleContextClass.PolyML.cPtr &&> GdkScreenClass.PolyML.cPtr --> cVoid)
+      val setState_ = call (getSymbol "gtk_style_context_set_state") (GtkStyleContextClass.PolyML.cPtr &&> GtkStateFlags.PolyML.cVal --> cVoid)
       val stateIsRunning_ =
         call (getSymbol "gtk_style_context_state_is_running")
           (

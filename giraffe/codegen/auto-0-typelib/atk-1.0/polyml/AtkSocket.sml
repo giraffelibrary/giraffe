@@ -6,9 +6,9 @@ structure AtkSocket :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "atk_socket_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "atk_socket_new") (PolyMLFFI.cVoid --> AtkObjectClass.PolyML.cPtr)
-      val embed_ = call (getSymbol "atk_socket_embed") (AtkSocketClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "atk_socket_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "atk_socket_new") (cVoid --> AtkObjectClass.PolyML.cPtr)
+      val embed_ = call (getSymbol "atk_socket_embed") (AtkSocketClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val isOccupied_ = call (getSymbol "atk_socket_is_occupied") (AtkSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a AtkSocketClass.class

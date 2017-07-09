@@ -9,25 +9,25 @@ structure GtkActionGroup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_action_group_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_action_group_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_action_group_new") (Utf8.PolyML.cInPtr --> GtkActionGroupClass.PolyML.cPtr)
-      val addAction_ = call (getSymbol "gtk_action_group_add_action") (GtkActionGroupClass.PolyML.cPtr &&> GtkActionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val addAction_ = call (getSymbol "gtk_action_group_add_action") (GtkActionGroupClass.PolyML.cPtr &&> GtkActionClass.PolyML.cPtr --> cVoid)
       val addActionWithAccel_ =
         call (getSymbol "gtk_action_group_add_action_with_accel")
           (
             GtkActionGroupClass.PolyML.cPtr
              &&> GtkActionClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getAction_ = call (getSymbol "gtk_action_group_get_action") (GtkActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkActionClass.PolyML.cPtr)
       val getName_ = call (getSymbol "gtk_action_group_get_name") (GtkActionGroupClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getSensitive_ = call (getSymbol "gtk_action_group_get_sensitive") (GtkActionGroupClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getVisible_ = call (getSymbol "gtk_action_group_get_visible") (GtkActionGroupClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val removeAction_ = call (getSymbol "gtk_action_group_remove_action") (GtkActionGroupClass.PolyML.cPtr &&> GtkActionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setSensitive_ = call (getSymbol "gtk_action_group_set_sensitive") (GtkActionGroupClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setTranslationDomain_ = call (getSymbol "gtk_action_group_set_translation_domain") (GtkActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
-      val setVisible_ = call (getSymbol "gtk_action_group_set_visible") (GtkActionGroupClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val removeAction_ = call (getSymbol "gtk_action_group_remove_action") (GtkActionGroupClass.PolyML.cPtr &&> GtkActionClass.PolyML.cPtr --> cVoid)
+      val setSensitive_ = call (getSymbol "gtk_action_group_set_sensitive") (GtkActionGroupClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setTranslationDomain_ = call (getSymbol "gtk_action_group_set_translation_domain") (GtkActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
+      val setVisible_ = call (getSymbol "gtk_action_group_set_visible") (GtkActionGroupClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val translateString_ = call (getSymbol "gtk_action_group_translate_string") (GtkActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class = 'a GtkActionGroupClass.class

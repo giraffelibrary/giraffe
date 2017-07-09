@@ -7,7 +7,7 @@ structure GioDBusObjectProxy :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_dbus_object_proxy_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_dbus_object_proxy_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_dbus_object_proxy_new") (GioDBusConnectionClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioDBusObjectProxyClass.PolyML.cPtr)
       val getConnection_ = call (getSymbol "g_dbus_object_proxy_get_connection") (GioDBusObjectProxyClass.PolyML.cPtr --> GioDBusConnectionClass.PolyML.cPtr)
     end

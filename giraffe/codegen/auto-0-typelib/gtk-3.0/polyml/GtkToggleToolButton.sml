@@ -7,11 +7,11 @@ structure GtkToggleToolButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_toggle_tool_button_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_toggle_tool_button_new") (PolyMLFFI.cVoid --> GtkToolItemClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_toggle_tool_button_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_toggle_tool_button_new") (cVoid --> GtkToolItemClass.PolyML.cPtr)
       val newFromStock_ = call (getSymbol "gtk_toggle_tool_button_new_from_stock") (Utf8.PolyML.cInPtr --> GtkToolItemClass.PolyML.cPtr)
       val getActive_ = call (getSymbol "gtk_toggle_tool_button_get_active") (GtkToggleToolButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setActive_ = call (getSymbol "gtk_toggle_tool_button_set_active") (GtkToggleToolButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setActive_ = call (getSymbol "gtk_toggle_tool_button_set_active") (GtkToggleToolButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkToggleToolButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

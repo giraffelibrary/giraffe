@@ -9,7 +9,7 @@ structure GioFileEnumerator :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_file_enumerator_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_file_enumerator_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val close_ =
         call (getSymbol "g_file_enumerator_close")
           (
@@ -37,7 +37,7 @@ structure GioFileEnumerator :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioFileInfoClass.PolyML.cPtr
           )
-      val setPending_ = call (getSymbol "g_file_enumerator_set_pending") (GioFileEnumeratorClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPending_ = call (getSymbol "g_file_enumerator_set_pending") (GioFileEnumeratorClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GioFileEnumeratorClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class

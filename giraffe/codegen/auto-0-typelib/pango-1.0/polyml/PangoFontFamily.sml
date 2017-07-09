@@ -12,7 +12,7 @@ structure PangoFontFamily :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "pango_font_family_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "pango_font_family_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getName_ = call (getSymbol "pango_font_family_get_name") (PangoFontFamilyClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val isMonospace_ = call (getSymbol "pango_font_family_is_monospace") (PangoFontFamilyClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val listFaces_ =
@@ -21,7 +21,7 @@ structure PangoFontFamily :>
             PangoFontFamilyClass.PolyML.cPtr
              &&> PangoFontFaceClassCVectorN.PolyML.cOutRef
              &&> GInt32.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type 'a class = 'a PangoFontFamilyClass.class

@@ -8,7 +8,7 @@ structure GioSocketAddressEnumerator :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_socket_address_enumerator_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_socket_address_enumerator_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val next_ =
         call (getSymbol "g_socket_address_enumerator_next")
           (

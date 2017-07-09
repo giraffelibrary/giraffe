@@ -38,7 +38,7 @@ structure GObjectObjectClass :>
         then
           call
             (getSymbol "giraffe_debug_object_take")
-            (cPtr --> PolyMLFFI.cVoid)
+            (cPtr --> cVoid)
         else
           ignore
 
@@ -58,11 +58,11 @@ structure GObjectObjectClass :>
         then
           call
             (getSymbol "giraffe_debug_g_object_unref")
-            (cPtr --> PolyMLFFI.cVoid)
+            (cPtr --> cVoid)
         else
           call
             (getSymbol "g_object_unref")
-            (cPtr --> PolyMLFFI.cVoid)
+            (cPtr --> cVoid)
     end
 
     structure C =
@@ -155,7 +155,7 @@ structure GObjectObjectClass :>
       val getType_ =
         call
           (getSymbol "g_object_get_type")
-          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
+          (cVoid --> GObjectType.PolyML.cVal);
 
       val getValue_ =
         call
@@ -170,12 +170,12 @@ structure GObjectObjectClass :>
       val setValue_ =
         call
           (getSymbol "g_value_set_object")
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid);
 
       val setOptValue_ =
         call
           (getSymbol "g_value_set_object")
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid);
     end
 
     type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor

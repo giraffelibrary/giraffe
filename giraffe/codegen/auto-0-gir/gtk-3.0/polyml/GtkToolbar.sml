@@ -12,8 +12,8 @@ structure GtkToolbar :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_toolbar_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_toolbar_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_toolbar_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_toolbar_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val getDropIndex_ =
         call (getSymbol "gtk_toolbar_get_drop_index")
           (
@@ -35,7 +35,7 @@ structure GtkToolbar :>
             GtkToolbarClass.PolyML.cPtr
              &&> GtkToolItemClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setDropHighlightItem_ =
         call (getSymbol "gtk_toolbar_set_drop_highlight_item")
@@ -43,13 +43,13 @@ structure GtkToolbar :>
             GtkToolbarClass.PolyML.cPtr
              &&> GtkToolItemClass.PolyML.cOptPtr
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setIconSize_ = call (getSymbol "gtk_toolbar_set_icon_size") (GtkToolbarClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setShowArrow_ = call (getSymbol "gtk_toolbar_set_show_arrow") (GtkToolbarClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setStyle_ = call (getSymbol "gtk_toolbar_set_style") (GtkToolbarClass.PolyML.cPtr &&> GtkToolbarStyle.PolyML.cVal --> PolyMLFFI.cVoid)
-      val unsetIconSize_ = call (getSymbol "gtk_toolbar_unset_icon_size") (GtkToolbarClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val unsetStyle_ = call (getSymbol "gtk_toolbar_unset_style") (GtkToolbarClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setIconSize_ = call (getSymbol "gtk_toolbar_set_icon_size") (GtkToolbarClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setShowArrow_ = call (getSymbol "gtk_toolbar_set_show_arrow") (GtkToolbarClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setStyle_ = call (getSymbol "gtk_toolbar_set_style") (GtkToolbarClass.PolyML.cPtr &&> GtkToolbarStyle.PolyML.cVal --> cVoid)
+      val unsetIconSize_ = call (getSymbol "gtk_toolbar_unset_icon_size") (GtkToolbarClass.PolyML.cPtr --> cVoid)
+      val unsetStyle_ = call (getSymbol "gtk_toolbar_unset_style") (GtkToolbarClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkToolbarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

@@ -10,19 +10,19 @@ structure GtkButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_button_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_button_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_button_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_button_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val newFromStock_ = call (getSymbol "gtk_button_new_from_stock") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithLabel_ = call (getSymbol "gtk_button_new_with_label") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithMnemonic_ = call (getSymbol "gtk_button_new_with_mnemonic") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
-      val clicked_ = call (getSymbol "gtk_button_clicked") (GtkButtonClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val clicked_ = call (getSymbol "gtk_button_clicked") (GtkButtonClass.PolyML.cPtr --> cVoid)
       val getAlignment_ =
         call (getSymbol "gtk_button_get_alignment")
           (
             GtkButtonClass.PolyML.cPtr
              &&> GFloat.PolyML.cRef
              &&> GFloat.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getEventWindow_ = call (getSymbol "gtk_button_get_event_window") (GtkButtonClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getFocusOnClick_ = call (getSymbol "gtk_button_get_focus_on_click") (GtkButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -38,15 +38,15 @@ structure GtkButton :>
             GtkButtonClass.PolyML.cPtr
              &&> GFloat.PolyML.cVal
              &&> GFloat.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setFocusOnClick_ = call (getSymbol "gtk_button_set_focus_on_click") (GtkButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setImage_ = call (getSymbol "gtk_button_set_image") (GtkButtonClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setImagePosition_ = call (getSymbol "gtk_button_set_image_position") (GtkButtonClass.PolyML.cPtr &&> GtkPositionType.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setLabel_ = call (getSymbol "gtk_button_set_label") (GtkButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setRelief_ = call (getSymbol "gtk_button_set_relief") (GtkButtonClass.PolyML.cPtr &&> GtkReliefStyle.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setUseStock_ = call (getSymbol "gtk_button_set_use_stock") (GtkButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setUseUnderline_ = call (getSymbol "gtk_button_set_use_underline") (GtkButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setFocusOnClick_ = call (getSymbol "gtk_button_set_focus_on_click") (GtkButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setImage_ = call (getSymbol "gtk_button_set_image") (GtkButtonClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val setImagePosition_ = call (getSymbol "gtk_button_set_image_position") (GtkButtonClass.PolyML.cPtr &&> GtkPositionType.PolyML.cVal --> cVoid)
+      val setLabel_ = call (getSymbol "gtk_button_set_label") (GtkButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setRelief_ = call (getSymbol "gtk_button_set_relief") (GtkButtonClass.PolyML.cPtr &&> GtkReliefStyle.PolyML.cVal --> cVoid)
+      val setUseStock_ = call (getSymbol "gtk_button_set_use_stock") (GtkButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setUseUnderline_ = call (getSymbol "gtk_button_set_use_underline") (GtkButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkButtonClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

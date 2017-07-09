@@ -35,13 +35,13 @@ structure Gdk : GDK =
     in
       val atomIntern_ = call (getSymbol "gdk_atom_intern") (Utf8.PolyML.cInPtr &&> GBool.PolyML.cVal --> GdkAtomRecord.PolyML.cPtr)
       val atomInternStaticString_ = call (getSymbol "gdk_atom_intern_static_string") (Utf8.PolyML.cInPtr --> GdkAtomRecord.PolyML.cPtr)
-      val beep_ = call (getSymbol "gdk_beep") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val beep_ = call (getSymbol "gdk_beep") (cVoid --> cVoid)
       val cairoCreate_ = call (getSymbol "gdk_cairo_create") (GdkWindowClass.PolyML.cPtr --> CairoContextRecord.PolyML.cPtr)
       val cairoGetClipRectangle_ = call (getSymbol "gdk_cairo_get_clip_rectangle") (CairoContextRecord.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val cairoRectangle_ = call (getSymbol "gdk_cairo_rectangle") (CairoContextRecord.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val cairoRegion_ = call (getSymbol "gdk_cairo_region") (CairoContextRecord.PolyML.cPtr &&> CairoRegionRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val cairoRectangle_ = call (getSymbol "gdk_cairo_rectangle") (CairoContextRecord.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> cVoid)
+      val cairoRegion_ = call (getSymbol "gdk_cairo_region") (CairoContextRecord.PolyML.cPtr &&> CairoRegionRecord.PolyML.cPtr --> cVoid)
       val cairoRegionCreateFromSurface_ = call (getSymbol "gdk_cairo_region_create_from_surface") (CairoSurfaceRecord.PolyML.cPtr --> CairoRegionRecord.PolyML.cPtr)
-      val cairoSetSourceColor_ = call (getSymbol "gdk_cairo_set_source_color") (CairoContextRecord.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val cairoSetSourceColor_ = call (getSymbol "gdk_cairo_set_source_color") (CairoContextRecord.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> cVoid)
       val cairoSetSourcePixbuf_ =
         call (getSymbol "gdk_cairo_set_source_pixbuf")
           (
@@ -49,9 +49,9 @@ structure Gdk : GDK =
              &&> GdkPixbufPixbufClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val cairoSetSourceRgba_ = call (getSymbol "gdk_cairo_set_source_rgba") (CairoContextRecord.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val cairoSetSourceRgba_ = call (getSymbol "gdk_cairo_set_source_rgba") (CairoContextRecord.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> cVoid)
       val cairoSetSourceWindow_ =
         call (getSymbol "gdk_cairo_set_source_window")
           (
@@ -59,12 +59,12 @@ structure Gdk : GDK =
              &&> GdkWindowClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val colorParse_ = call (getSymbol "gdk_color_parse") (Utf8.PolyML.cInPtr &&> GdkColorRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val disableMultidevice_ = call (getSymbol "gdk_disable_multidevice") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val dragAbort_ = call (getSymbol "gdk_drag_abort") (GdkDragContextClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val dragDrop_ = call (getSymbol "gdk_drag_drop") (GdkDragContextClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val disableMultidevice_ = call (getSymbol "gdk_disable_multidevice") (cVoid --> cVoid)
+      val dragAbort_ = call (getSymbol "gdk_drag_abort") (GdkDragContextClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
+      val dragDrop_ = call (getSymbol "gdk_drag_drop") (GdkDragContextClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
       val dragDropSucceeded_ = call (getSymbol "gdk_drag_drop_succeeded") (GdkDragContextClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val dragFindWindowForScreen_ =
         call (getSymbol "gdk_drag_find_window_for_screen")
@@ -76,7 +76,7 @@ structure Gdk : GDK =
              &&> GInt32.PolyML.cVal
              &&> GdkWindowClass.PolyML.cOutRef
              &&> GdkDragProtocol.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val dragGetSelection_ = call (getSymbol "gdk_drag_get_selection") (GdkDragContextClass.PolyML.cPtr --> GdkAtomRecord.PolyML.cPtr)
       val dragMotion_ =
@@ -98,7 +98,7 @@ structure Gdk : GDK =
             GdkDragContextClass.PolyML.cPtr
              &&> GdkDragAction.PolyML.cVal
              &&> GUInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val dropFinish_ =
         call (getSymbol "gdk_drop_finish")
@@ -106,7 +106,7 @@ structure Gdk : GDK =
             GdkDragContextClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
              &&> GUInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val dropReply_ =
         call (getSymbol "gdk_drop_reply")
@@ -114,22 +114,22 @@ structure Gdk : GDK =
             GdkDragContextClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
              &&> GUInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val errorTrapPop_ = call (getSymbol "gdk_error_trap_pop") (PolyMLFFI.cVoid --> GInt32.PolyML.cVal)
-      val errorTrapPopIgnored_ = call (getSymbol "gdk_error_trap_pop_ignored") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val errorTrapPush_ = call (getSymbol "gdk_error_trap_push") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val eventGet_ = call (getSymbol "gdk_event_get") (PolyMLFFI.cVoid --> GdkEvent.PolyML.cPtr)
-      val eventPeek_ = call (getSymbol "gdk_event_peek") (PolyMLFFI.cVoid --> GdkEvent.PolyML.cPtr)
-      val eventRequestMotions_ = call (getSymbol "gdk_event_request_motions") (GdkEventMotionRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val eventsPending_ = call (getSymbol "gdk_events_pending") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
-      val flush_ = call (getSymbol "gdk_flush") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val getDefaultRootWindow_ = call (getSymbol "gdk_get_default_root_window") (PolyMLFFI.cVoid --> GdkWindowClass.PolyML.cPtr)
-      val getDisplay_ = call (getSymbol "gdk_get_display") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getDisplayArgName_ = call (getSymbol "gdk_get_display_arg_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getProgramClass_ = call (getSymbol "gdk_get_program_class") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getShowEvents_ = call (getSymbol "gdk_get_show_events") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
-      val init_ = call (getSymbol "gdk_init") (GInt32.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> PolyMLFFI.cVoid)
+      val errorTrapPop_ = call (getSymbol "gdk_error_trap_pop") (cVoid --> GInt32.PolyML.cVal)
+      val errorTrapPopIgnored_ = call (getSymbol "gdk_error_trap_pop_ignored") (cVoid --> cVoid)
+      val errorTrapPush_ = call (getSymbol "gdk_error_trap_push") (cVoid --> cVoid)
+      val eventGet_ = call (getSymbol "gdk_event_get") (cVoid --> GdkEvent.PolyML.cPtr)
+      val eventPeek_ = call (getSymbol "gdk_event_peek") (cVoid --> GdkEvent.PolyML.cPtr)
+      val eventRequestMotions_ = call (getSymbol "gdk_event_request_motions") (GdkEventMotionRecord.PolyML.cPtr --> cVoid)
+      val eventsPending_ = call (getSymbol "gdk_events_pending") (cVoid --> GBool.PolyML.cVal)
+      val flush_ = call (getSymbol "gdk_flush") (cVoid --> cVoid)
+      val getDefaultRootWindow_ = call (getSymbol "gdk_get_default_root_window") (cVoid --> GdkWindowClass.PolyML.cPtr)
+      val getDisplay_ = call (getSymbol "gdk_get_display") (cVoid --> Utf8.PolyML.cOutPtr)
+      val getDisplayArgName_ = call (getSymbol "gdk_get_display_arg_name") (cVoid --> Utf8.PolyML.cOutPtr)
+      val getProgramClass_ = call (getSymbol "gdk_get_program_class") (cVoid --> Utf8.PolyML.cOutPtr)
+      val getShowEvents_ = call (getSymbol "gdk_get_show_events") (cVoid --> GBool.PolyML.cVal)
+      val init_ = call (getSymbol "gdk_init") (GInt32.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> cVoid)
       val initCheck_ = call (getSymbol "gdk_init_check") (GInt32.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> GBool.PolyML.cVal)
       val keyvalConvertCase_ =
         call (getSymbol "gdk_keyval_convert_case")
@@ -137,7 +137,7 @@ structure Gdk : GDK =
             GUInt32.PolyML.cVal
              &&> GUInt32.PolyML.cRef
              &&> GUInt32.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val keyvalFromName_ = call (getSymbol "gdk_keyval_from_name") (Utf8.PolyML.cInPtr --> GUInt32.PolyML.cVal)
       val keyvalIsLower_ = call (getSymbol "gdk_keyval_is_lower") (GUInt32.PolyML.cVal --> GBool.PolyML.cVal)
@@ -146,14 +146,14 @@ structure Gdk : GDK =
       val keyvalToLower_ = call (getSymbol "gdk_keyval_to_lower") (GUInt32.PolyML.cVal --> GUInt32.PolyML.cVal)
       val keyvalToUnicode_ = call (getSymbol "gdk_keyval_to_unicode") (GUInt32.PolyML.cVal --> GUInt32.PolyML.cVal)
       val keyvalToUpper_ = call (getSymbol "gdk_keyval_to_upper") (GUInt32.PolyML.cVal --> GUInt32.PolyML.cVal)
-      val notifyStartupComplete_ = call (getSymbol "gdk_notify_startup_complete") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val notifyStartupCompleteWithId_ = call (getSymbol "gdk_notify_startup_complete_with_id") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val notifyStartupComplete_ = call (getSymbol "gdk_notify_startup_complete") (cVoid --> cVoid)
+      val notifyStartupCompleteWithId_ = call (getSymbol "gdk_notify_startup_complete_with_id") (Utf8.PolyML.cInPtr --> cVoid)
       val offscreenWindowGetEmbedder_ = call (getSymbol "gdk_offscreen_window_get_embedder") (GdkWindowClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val offscreenWindowGetSurface_ = call (getSymbol "gdk_offscreen_window_get_surface") (GdkWindowClass.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
-      val offscreenWindowSetEmbedder_ = call (getSymbol "gdk_offscreen_window_set_embedder") (GdkWindowClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val pangoContextGet_ = call (getSymbol "gdk_pango_context_get") (PolyMLFFI.cVoid --> PangoContextClass.PolyML.cPtr)
+      val offscreenWindowSetEmbedder_ = call (getSymbol "gdk_offscreen_window_set_embedder") (GdkWindowClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
+      val pangoContextGet_ = call (getSymbol "gdk_pango_context_get") (cVoid --> PangoContextClass.PolyML.cPtr)
       val pangoContextGetForScreen_ = call (getSymbol "gdk_pango_context_get_for_screen") (GdkScreenClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
-      val parseArgs_ = call (getSymbol "gdk_parse_args") (GInt32.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> PolyMLFFI.cVoid)
+      val parseArgs_ = call (getSymbol "gdk_parse_args") (GInt32.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> cVoid)
       val pixbufGetFromSurface_ =
         call (getSymbol "gdk_pixbuf_get_from_surface")
           (
@@ -174,8 +174,8 @@ structure Gdk : GDK =
              &&> GInt32.PolyML.cVal
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
-      val preParseLibgtkOnly_ = call (getSymbol "gdk_pre_parse_libgtk_only") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val propertyDelete_ = call (getSymbol "gdk_property_delete") (GdkWindowClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val preParseLibgtkOnly_ = call (getSymbol "gdk_pre_parse_libgtk_only") (cVoid --> cVoid)
+      val propertyDelete_ = call (getSymbol "gdk_property_delete") (GdkWindowClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> cVoid)
       val propertyGet_ =
         call (getSymbol "gdk_property_get")
           (
@@ -191,8 +191,8 @@ structure Gdk : GDK =
              &&> GUInt8CVectorN.PolyML.cOutRef
              --> GBool.PolyML.cVal
           )
-      val queryDepths_ = call (getSymbol "gdk_query_depths") (GInt32CVectorN.PolyML.cOutRef &&> GInt32.PolyML.cRef --> PolyMLFFI.cVoid)
-      val queryVisualTypes_ = call (getSymbol "gdk_query_visual_types") (GdkVisualTypeCVectorN.PolyML.cOutRef &&> GInt32.PolyML.cRef --> PolyMLFFI.cVoid)
+      val queryDepths_ = call (getSymbol "gdk_query_depths") (GInt32CVectorN.PolyML.cOutRef &&> GInt32.PolyML.cRef --> cVoid)
+      val queryVisualTypes_ = call (getSymbol "gdk_query_visual_types") (GdkVisualTypeCVectorN.PolyML.cOutRef &&> GInt32.PolyML.cRef --> cVoid)
       val rectangleIntersect_ =
         call (getSymbol "gdk_rectangle_intersect")
           (
@@ -207,7 +207,7 @@ structure Gdk : GDK =
             CairoRectangleIntRecord.PolyML.cPtr
              &&> CairoRectangleIntRecord.PolyML.cPtr
              &&> CairoRectangleIntRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val selectionConvert_ =
         call (getSymbol "gdk_selection_convert")
@@ -216,7 +216,7 @@ structure Gdk : GDK =
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val selectionOwnerGet_ = call (getSymbol "gdk_selection_owner_get") (GdkAtomRecord.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val selectionOwnerGetForDisplay_ = call (getSymbol "gdk_selection_owner_get_for_display") (GdkDisplayClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
@@ -247,7 +247,7 @@ structure Gdk : GDK =
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val selectionSendNotifyForDisplay_ =
         call (getSymbol "gdk_selection_send_notify_for_display")
@@ -258,11 +258,11 @@ structure Gdk : GDK =
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setDoubleClickTime_ = call (getSymbol "gdk_set_double_click_time") (GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setProgramClass_ = call (getSymbol "gdk_set_program_class") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setShowEvents_ = call (getSymbol "gdk_set_show_events") (GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDoubleClickTime_ = call (getSymbol "gdk_set_double_click_time") (GUInt32.PolyML.cVal --> cVoid)
+      val setProgramClass_ = call (getSymbol "gdk_set_program_class") (Utf8.PolyML.cInPtr --> cVoid)
+      val setShowEvents_ = call (getSymbol "gdk_set_show_events") (GBool.PolyML.cVal --> cVoid)
       val settingGet_ = call (getSymbol "gdk_setting_get") (Utf8.PolyML.cInPtr &&> GObjectValueRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val synthesizeWindowState_ =
         call (getSymbol "gdk_synthesize_window_state")
@@ -270,9 +270,9 @@ structure Gdk : GDK =
             GdkWindowClass.PolyML.cPtr
              &&> GdkWindowState.PolyML.cVal
              &&> GdkWindowState.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val testRenderSync_ = call (getSymbol "gdk_test_render_sync") (GdkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val testRenderSync_ = call (getSymbol "gdk_test_render_sync") (GdkWindowClass.PolyML.cPtr --> cVoid)
       val testSimulateButton_ =
         call (getSymbol "gdk_test_simulate_button")
           (
@@ -306,9 +306,9 @@ structure Gdk : GDK =
              &&> Utf8CVector.PolyML.cOutRef
              --> GInt32.PolyML.cVal
           )
-      val threadsEnter_ = call (getSymbol "gdk_threads_enter") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val threadsInit_ = call (getSymbol "gdk_threads_init") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val threadsLeave_ = call (getSymbol "gdk_threads_leave") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val threadsEnter_ = call (getSymbol "gdk_threads_enter") (cVoid --> cVoid)
+      val threadsInit_ = call (getSymbol "gdk_threads_init") (cVoid --> cVoid)
+      val threadsLeave_ = call (getSymbol "gdk_threads_leave") (cVoid --> cVoid)
       val unicodeToKeyval_ = call (getSymbol "gdk_unicode_to_keyval") (GUInt32.PolyML.cVal --> GUInt32.PolyML.cVal)
       val utf8ToStringTarget_ = call (getSymbol "gdk_utf8_to_string_target") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
     end

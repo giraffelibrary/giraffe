@@ -18,7 +18,7 @@ structure GdkDevice :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gdk_device_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gdk_device_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val grabInfoLibgtkOnly_ =
         call (getSymbol "gdk_device_grab_info_libgtk_only")
           (
@@ -53,7 +53,7 @@ structure GdkDevice :>
              &&> GdkScreenClass.PolyML.cOutRef
              &&> GInt32.PolyML.cRef
              &&> GInt32.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getSource_ = call (getSymbol "gdk_device_get_source") (GdkDeviceClass.PolyML.cPtr --> GdkInputSource.PolyML.cVal)
       val getWindowAtPosition_ =
@@ -82,7 +82,7 @@ structure GdkDevice :>
             GdkDeviceClass.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
              &&> GdkAxisUse.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setKey_ =
         call (getSymbol "gdk_device_set_key")
@@ -91,10 +91,10 @@ structure GdkDevice :>
              &&> GUInt32.PolyML.cVal
              &&> GUInt32.PolyML.cVal
              &&> GdkModifierType.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setMode_ = call (getSymbol "gdk_device_set_mode") (GdkDeviceClass.PolyML.cPtr &&> GdkInputMode.PolyML.cVal --> GBool.PolyML.cVal)
-      val ungrab_ = call (getSymbol "gdk_device_ungrab") (GdkDeviceClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val ungrab_ = call (getSymbol "gdk_device_ungrab") (GdkDeviceClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
       val warp_ =
         call (getSymbol "gdk_device_warp")
           (
@@ -102,7 +102,7 @@ structure GdkDevice :>
              &&> GdkScreenClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type 'a class = 'a GdkDeviceClass.class

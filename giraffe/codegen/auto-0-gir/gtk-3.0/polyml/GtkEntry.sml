@@ -19,8 +19,8 @@ structure GtkEntry :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_entry_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_entry_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_entry_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_entry_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val newWithBuffer_ = call (getSymbol "gtk_entry_new_with_buffer") (GtkEntryBufferClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getActivatesDefault_ = call (getSymbol "gtk_entry_get_activates_default") (GtkEntryClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getAlignment_ = call (getSymbol "gtk_entry_get_alignment") (GtkEntryClass.PolyML.cPtr --> GFloat.PolyML.cVal)
@@ -36,7 +36,7 @@ structure GtkEntry :>
             GtkEntryClass.PolyML.cPtr
              &&> GtkEntryIconPosition.PolyML.cVal
              &&> GdkRectangleRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getIconAtPos_ =
         call (getSymbol "gtk_entry_get_icon_at_pos")
@@ -63,7 +63,7 @@ structure GtkEntry :>
             GtkEntryClass.PolyML.cPtr
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getMaxLength_ = call (getSymbol "gtk_entry_get_max_length") (GtkEntryClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getOverwriteMode_ = call (getSymbol "gtk_entry_get_overwrite_mode") (GtkEntryClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -71,27 +71,27 @@ structure GtkEntry :>
       val getProgressFraction_ = call (getSymbol "gtk_entry_get_progress_fraction") (GtkEntryClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val getProgressPulseStep_ = call (getSymbol "gtk_entry_get_progress_pulse_step") (GtkEntryClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val getText_ = call (getSymbol "gtk_entry_get_text") (GtkEntryClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getTextArea_ = call (getSymbol "gtk_entry_get_text_area") (GtkEntryClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getTextArea_ = call (getSymbol "gtk_entry_get_text_area") (GtkEntryClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> cVoid)
       val getTextLength_ = call (getSymbol "gtk_entry_get_text_length") (GtkEntryClass.PolyML.cPtr --> GUInt16.PolyML.cVal)
       val getVisibility_ = call (getSymbol "gtk_entry_get_visibility") (GtkEntryClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getWidthChars_ = call (getSymbol "gtk_entry_get_width_chars") (GtkEntryClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val imContextFilterKeypress_ = call (getSymbol "gtk_entry_im_context_filter_keypress") (GtkEntryClass.PolyML.cPtr &&> GdkEventKeyRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val layoutIndexToTextIndex_ = call (getSymbol "gtk_entry_layout_index_to_text_index") (GtkEntryClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GInt.PolyML.cVal)
-      val progressPulse_ = call (getSymbol "gtk_entry_progress_pulse") (GtkEntryClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val resetImContext_ = call (getSymbol "gtk_entry_reset_im_context") (GtkEntryClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setActivatesDefault_ = call (getSymbol "gtk_entry_set_activates_default") (GtkEntryClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setAlignment_ = call (getSymbol "gtk_entry_set_alignment") (GtkEntryClass.PolyML.cPtr &&> GFloat.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setBuffer_ = call (getSymbol "gtk_entry_set_buffer") (GtkEntryClass.PolyML.cPtr &&> GtkEntryBufferClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setCompletion_ = call (getSymbol "gtk_entry_set_completion") (GtkEntryClass.PolyML.cPtr &&> GtkEntryCompletionClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setCursorHadjustment_ = call (getSymbol "gtk_entry_set_cursor_hadjustment") (GtkEntryClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setHasFrame_ = call (getSymbol "gtk_entry_set_has_frame") (GtkEntryClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val progressPulse_ = call (getSymbol "gtk_entry_progress_pulse") (GtkEntryClass.PolyML.cPtr --> cVoid)
+      val resetImContext_ = call (getSymbol "gtk_entry_reset_im_context") (GtkEntryClass.PolyML.cPtr --> cVoid)
+      val setActivatesDefault_ = call (getSymbol "gtk_entry_set_activates_default") (GtkEntryClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setAlignment_ = call (getSymbol "gtk_entry_set_alignment") (GtkEntryClass.PolyML.cPtr &&> GFloat.PolyML.cVal --> cVoid)
+      val setBuffer_ = call (getSymbol "gtk_entry_set_buffer") (GtkEntryClass.PolyML.cPtr &&> GtkEntryBufferClass.PolyML.cPtr --> cVoid)
+      val setCompletion_ = call (getSymbol "gtk_entry_set_completion") (GtkEntryClass.PolyML.cPtr &&> GtkEntryCompletionClass.PolyML.cOptPtr --> cVoid)
+      val setCursorHadjustment_ = call (getSymbol "gtk_entry_set_cursor_hadjustment") (GtkEntryClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> cVoid)
+      val setHasFrame_ = call (getSymbol "gtk_entry_set_has_frame") (GtkEntryClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setIconActivatable_ =
         call (getSymbol "gtk_entry_set_icon_activatable")
           (
             GtkEntryClass.PolyML.cPtr
              &&> GtkEntryIconPosition.PolyML.cVal
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setIconDragSource_ =
         call (getSymbol "gtk_entry_set_icon_drag_source")
@@ -100,7 +100,7 @@ structure GtkEntry :>
              &&> GtkEntryIconPosition.PolyML.cVal
              &&> GtkTargetListRecord.PolyML.cPtr
              &&> GdkDragAction.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setIconFromGicon_ =
         call (getSymbol "gtk_entry_set_icon_from_gicon")
@@ -108,7 +108,7 @@ structure GtkEntry :>
             GtkEntryClass.PolyML.cPtr
              &&> GtkEntryIconPosition.PolyML.cVal
              &&> GioIconClass.PolyML.cOptPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setIconFromIconName_ =
         call (getSymbol "gtk_entry_set_icon_from_icon_name")
@@ -116,7 +116,7 @@ structure GtkEntry :>
             GtkEntryClass.PolyML.cPtr
              &&> GtkEntryIconPosition.PolyML.cVal
              &&> Utf8.PolyML.cInOptPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setIconFromPixbuf_ =
         call (getSymbol "gtk_entry_set_icon_from_pixbuf")
@@ -124,7 +124,7 @@ structure GtkEntry :>
             GtkEntryClass.PolyML.cPtr
              &&> GtkEntryIconPosition.PolyML.cVal
              &&> GdkPixbufPixbufClass.PolyML.cOptPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setIconFromStock_ =
         call (getSymbol "gtk_entry_set_icon_from_stock")
@@ -132,7 +132,7 @@ structure GtkEntry :>
             GtkEntryClass.PolyML.cPtr
              &&> GtkEntryIconPosition.PolyML.cVal
              &&> Utf8.PolyML.cInOptPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setIconSensitive_ =
         call (getSymbol "gtk_entry_set_icon_sensitive")
@@ -140,7 +140,7 @@ structure GtkEntry :>
             GtkEntryClass.PolyML.cPtr
              &&> GtkEntryIconPosition.PolyML.cVal
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setIconTooltipMarkup_ =
         call (getSymbol "gtk_entry_set_icon_tooltip_markup")
@@ -148,7 +148,7 @@ structure GtkEntry :>
             GtkEntryClass.PolyML.cPtr
              &&> GtkEntryIconPosition.PolyML.cVal
              &&> Utf8.PolyML.cInOptPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setIconTooltipText_ =
         call (getSymbol "gtk_entry_set_icon_tooltip_text")
@@ -156,20 +156,20 @@ structure GtkEntry :>
             GtkEntryClass.PolyML.cPtr
              &&> GtkEntryIconPosition.PolyML.cVal
              &&> Utf8.PolyML.cInOptPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setInnerBorder_ = call (getSymbol "gtk_entry_set_inner_border") (GtkEntryClass.PolyML.cPtr &&> GtkBorderRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setInvisibleChar_ = call (getSymbol "gtk_entry_set_invisible_char") (GtkEntryClass.PolyML.cPtr &&> GChar.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setMaxLength_ = call (getSymbol "gtk_entry_set_max_length") (GtkEntryClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setOverwriteMode_ = call (getSymbol "gtk_entry_set_overwrite_mode") (GtkEntryClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPlaceholderText_ = call (getSymbol "gtk_entry_set_placeholder_text") (GtkEntryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setProgressFraction_ = call (getSymbol "gtk_entry_set_progress_fraction") (GtkEntryClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setProgressPulseStep_ = call (getSymbol "gtk_entry_set_progress_pulse_step") (GtkEntryClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setText_ = call (getSymbol "gtk_entry_set_text") (GtkEntryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setVisibility_ = call (getSymbol "gtk_entry_set_visibility") (GtkEntryClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setWidthChars_ = call (getSymbol "gtk_entry_set_width_chars") (GtkEntryClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setInnerBorder_ = call (getSymbol "gtk_entry_set_inner_border") (GtkEntryClass.PolyML.cPtr &&> GtkBorderRecord.PolyML.cOptPtr --> cVoid)
+      val setInvisibleChar_ = call (getSymbol "gtk_entry_set_invisible_char") (GtkEntryClass.PolyML.cPtr &&> GChar.PolyML.cVal --> cVoid)
+      val setMaxLength_ = call (getSymbol "gtk_entry_set_max_length") (GtkEntryClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setOverwriteMode_ = call (getSymbol "gtk_entry_set_overwrite_mode") (GtkEntryClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setPlaceholderText_ = call (getSymbol "gtk_entry_set_placeholder_text") (GtkEntryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setProgressFraction_ = call (getSymbol "gtk_entry_set_progress_fraction") (GtkEntryClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val setProgressPulseStep_ = call (getSymbol "gtk_entry_set_progress_pulse_step") (GtkEntryClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val setText_ = call (getSymbol "gtk_entry_set_text") (GtkEntryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setVisibility_ = call (getSymbol "gtk_entry_set_visibility") (GtkEntryClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setWidthChars_ = call (getSymbol "gtk_entry_set_width_chars") (GtkEntryClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val textIndexToLayoutIndex_ = call (getSymbol "gtk_entry_text_index_to_layout_index") (GtkEntryClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GInt.PolyML.cVal)
-      val unsetInvisibleChar_ = call (getSymbol "gtk_entry_unset_invisible_char") (GtkEntryClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unsetInvisibleChar_ = call (getSymbol "gtk_entry_unset_invisible_char") (GtkEntryClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkEntryClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

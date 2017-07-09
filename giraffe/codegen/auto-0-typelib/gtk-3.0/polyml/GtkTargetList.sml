@@ -6,7 +6,7 @@ structure GtkTargetList :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_target_list_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_target_list_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val add_ =
         call (getSymbol "gtk_target_list_add")
           (
@@ -14,7 +14,7 @@ structure GtkTargetList :>
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
              &&> GUInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val addImageTargets_ =
         call (getSymbol "gtk_target_list_add_image_targets")
@@ -22,7 +22,7 @@ structure GtkTargetList :>
             GtkTargetListRecord.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val addRichTextTargets_ =
         call (getSymbol "gtk_target_list_add_rich_text_targets")
@@ -31,11 +31,11 @@ structure GtkTargetList :>
              &&> GUInt32.PolyML.cVal
              &&> GBool.PolyML.cVal
              &&> GtkTextBufferClass.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val addTextTargets_ = call (getSymbol "gtk_target_list_add_text_targets") (GtkTargetListRecord.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val addUriTargets_ = call (getSymbol "gtk_target_list_add_uri_targets") (GtkTargetListRecord.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val remove_ = call (getSymbol "gtk_target_list_remove") (GtkTargetListRecord.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val addTextTargets_ = call (getSymbol "gtk_target_list_add_text_targets") (GtkTargetListRecord.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
+      val addUriTargets_ = call (getSymbol "gtk_target_list_add_uri_targets") (GtkTargetListRecord.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
+      val remove_ = call (getSymbol "gtk_target_list_remove") (GtkTargetListRecord.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> cVoid)
     end
     type t = GtkTargetListRecord.t
     type 'a text_buffer_class = 'a GtkTextBufferClass.class

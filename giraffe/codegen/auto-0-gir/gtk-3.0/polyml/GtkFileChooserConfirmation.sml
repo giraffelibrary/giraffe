@@ -25,9 +25,9 @@ structure GtkFileChooserConfirmation :> GTK_FILE_CHOOSER_CONFIRMATION =
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_file_chooser_confirmation_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_file_chooser_confirmation_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getValue_ = call (getSymbol "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
-      val setValue_ = call (getSymbol "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid)
+      val setValue_ = call (getSymbol "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> cVoid)
     end
     val t =
       GObjectValue.C.createAccessor

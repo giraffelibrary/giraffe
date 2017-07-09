@@ -26,7 +26,7 @@ structure GObjectParamSpecClass :>
       val unref_ =
         call
           (getSymbol "g_param_spec_unref")
-          (cPtr --> PolyMLFFI.cVoid)
+          (cPtr --> cVoid)
     end
 
     structure C =
@@ -119,7 +119,7 @@ structure GObjectParamSpecClass :>
       val getType_ =
         call
           (getSymbol "giraffe_g_param_get_type")
-          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
+          (cVoid --> GObjectType.PolyML.cVal);
 
       val getValue_ =
         call
@@ -134,12 +134,12 @@ structure GObjectParamSpecClass :>
       val setValue_ =
         call
           (getSymbol "g_value_set_param")
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid);
 
       val setOptValue_ =
         call
           (getSymbol "g_value_set_param")
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid);
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid);
     end
 
     type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor

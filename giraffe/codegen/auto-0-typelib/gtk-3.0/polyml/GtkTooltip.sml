@@ -6,17 +6,17 @@ structure GtkTooltip :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_tooltip_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val triggerTooltipQuery_ = call (getSymbol "gtk_tooltip_trigger_tooltip_query") (GdkDisplayClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setCustom_ = call (getSymbol "gtk_tooltip_set_custom") (GtkTooltipClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setIcon_ = call (getSymbol "gtk_tooltip_set_icon") (GtkTooltipClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gtk_tooltip_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val triggerTooltipQuery_ = call (getSymbol "gtk_tooltip_trigger_tooltip_query") (GdkDisplayClass.PolyML.cPtr --> cVoid)
+      val setCustom_ = call (getSymbol "gtk_tooltip_set_custom") (GtkTooltipClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> cVoid)
+      val setIcon_ = call (getSymbol "gtk_tooltip_set_icon") (GtkTooltipClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> cVoid)
       val setIconFromGicon_ =
         call (getSymbol "gtk_tooltip_set_icon_from_gicon")
           (
             GtkTooltipClass.PolyML.cPtr
              &&> GioIconClass.PolyML.cOptPtr
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setIconFromIconName_ =
         call (getSymbol "gtk_tooltip_set_icon_from_icon_name")
@@ -24,7 +24,7 @@ structure GtkTooltip :>
             GtkTooltipClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setIconFromStock_ =
         call (getSymbol "gtk_tooltip_set_icon_from_stock")
@@ -32,11 +32,11 @@ structure GtkTooltip :>
             GtkTooltipClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setMarkup_ = call (getSymbol "gtk_tooltip_set_markup") (GtkTooltipClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
-      val setText_ = call (getSymbol "gtk_tooltip_set_text") (GtkTooltipClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
-      val setTipArea_ = call (getSymbol "gtk_tooltip_set_tip_area") (GtkTooltipClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setMarkup_ = call (getSymbol "gtk_tooltip_set_markup") (GtkTooltipClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
+      val setText_ = call (getSymbol "gtk_tooltip_set_text") (GtkTooltipClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
+      val setTipArea_ = call (getSymbol "gtk_tooltip_set_tip_area") (GtkTooltipClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkTooltipClass.class
     type 'a widget_class = 'a GtkWidgetClass.class

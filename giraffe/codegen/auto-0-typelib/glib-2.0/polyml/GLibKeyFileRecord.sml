@@ -8,7 +8,7 @@ structure GLibKeyFileRecord :> G_LIB_KEY_FILE_RECORD =
       open PolyMLFFI
     in
       val dup_ = call (getSymbol "g_key_file_ref") (cPtr --> cPtr)
-      val free_ = call (getSymbol "g_key_file_unref") (cPtr --> PolyMLFFI.cVoid)
+      val free_ = call (getSymbol "g_key_file_unref") (cPtr --> cVoid)
     end
     structure Record =
       BoxedRecord(

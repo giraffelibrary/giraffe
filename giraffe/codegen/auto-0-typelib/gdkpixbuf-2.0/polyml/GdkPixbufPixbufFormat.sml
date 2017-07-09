@@ -11,7 +11,7 @@ structure GdkPixbufPixbufFormat :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gdk_pixbuf_format_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gdk_pixbuf_format_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val copy_ = call (getSymbol "gdk_pixbuf_format_copy") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> GdkPixbufPixbufFormatRecord.PolyML.cPtr)
       val getDescription_ = call (getSymbol "gdk_pixbuf_format_get_description") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getExtensions_ = call (getSymbol "gdk_pixbuf_format_get_extensions") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
@@ -21,7 +21,7 @@ structure GdkPixbufPixbufFormat :>
       val isDisabled_ = call (getSymbol "gdk_pixbuf_format_is_disabled") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val isScalable_ = call (getSymbol "gdk_pixbuf_format_is_scalable") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val isWritable_ = call (getSymbol "gdk_pixbuf_format_is_writable") (GdkPixbufPixbufFormatRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setDisabled_ = call (getSymbol "gdk_pixbuf_format_set_disabled") (GdkPixbufPixbufFormatRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDisabled_ = call (getSymbol "gdk_pixbuf_format_set_disabled") (GdkPixbufPixbufFormatRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type t = GdkPixbufPixbufFormatRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

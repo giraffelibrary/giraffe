@@ -12,8 +12,8 @@ structure GioUnixFDMessage :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_unix_fd_message_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "g_unix_fd_message_new") (PolyMLFFI.cVoid --> GioSocketControlMessageClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_unix_fd_message_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_unix_fd_message_new") (cVoid --> GioSocketControlMessageClass.PolyML.cPtr)
       val newWithFdList_ = call (getSymbol "g_unix_fd_message_new_with_fd_list") (GioUnixFDListClass.PolyML.cPtr --> GioSocketControlMessageClass.PolyML.cPtr)
       val appendFd_ =
         call (getSymbol "g_unix_fd_message_append_fd")

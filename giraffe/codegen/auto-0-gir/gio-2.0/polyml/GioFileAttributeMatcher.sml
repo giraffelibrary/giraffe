@@ -5,7 +5,7 @@ structure GioFileAttributeMatcher :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_file_attribute_matcher_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_file_attribute_matcher_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_file_attribute_matcher_new") (Utf8.PolyML.cInPtr --> GioFileAttributeMatcherRecord.PolyML.cPtr)
       val enumerateNamespace_ = call (getSymbol "g_file_attribute_matcher_enumerate_namespace") (GioFileAttributeMatcherRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val enumerateNext_ = call (getSymbol "g_file_attribute_matcher_enumerate_next") (GioFileAttributeMatcherRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)

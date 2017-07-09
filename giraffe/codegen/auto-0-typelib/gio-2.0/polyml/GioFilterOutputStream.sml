@@ -6,10 +6,10 @@ structure GioFilterOutputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_filter_output_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_filter_output_stream_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getBaseStream_ = call (getSymbol "g_filter_output_stream_get_base_stream") (GioFilterOutputStreamClass.PolyML.cPtr --> GioOutputStreamClass.PolyML.cPtr)
       val getCloseBaseStream_ = call (getSymbol "g_filter_output_stream_get_close_base_stream") (GioFilterOutputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setCloseBaseStream_ = call (getSymbol "g_filter_output_stream_set_close_base_stream") (GioFilterOutputStreamClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setCloseBaseStream_ = call (getSymbol "g_filter_output_stream_set_close_base_stream") (GioFilterOutputStreamClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GioFilterOutputStreamClass.class
     type 'a output_stream_class = 'a GioOutputStreamClass.class

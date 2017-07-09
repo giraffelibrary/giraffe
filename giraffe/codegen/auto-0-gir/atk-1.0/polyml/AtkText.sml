@@ -15,8 +15,8 @@ structure AtkText :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "atk_text_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val freeRanges_ = call (getSymbol "atk_text_free_ranges") (AtkTextRangeRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "atk_text_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val freeRanges_ = call (getSymbol "atk_text_free_ranges") (AtkTextRangeRecord.PolyML.cPtr --> cVoid)
       val addSelection_ =
         call (getSymbol "atk_text_add_selection")
           (
@@ -56,7 +56,7 @@ structure AtkText :>
              &&> GInt.PolyML.cVal
              &&> AtkCoordType.PolyML.cVal
              &&> AtkTextRectangleRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getText_ =
         call (getSymbol "atk_text_get_text")

@@ -10,7 +10,7 @@ structure GtkButtonBox :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_button_box_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_button_box_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_button_box_new") (GtkOrientation.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
       val getChildNonHomogeneous_ = call (getSymbol "gtk_button_box_get_child_non_homogeneous") (GtkButtonBoxClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getChildSecondary_ = call (getSymbol "gtk_button_box_get_child_secondary") (GtkButtonBoxClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -21,7 +21,7 @@ structure GtkButtonBox :>
             GtkButtonBoxClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setChildSecondary_ =
         call (getSymbol "gtk_button_box_set_child_secondary")
@@ -29,9 +29,9 @@ structure GtkButtonBox :>
             GtkButtonBoxClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setLayout_ = call (getSymbol "gtk_button_box_set_layout") (GtkButtonBoxClass.PolyML.cPtr &&> GtkButtonBoxStyle.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setLayout_ = call (getSymbol "gtk_button_box_set_layout") (GtkButtonBoxClass.PolyML.cPtr &&> GtkButtonBoxStyle.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkButtonBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

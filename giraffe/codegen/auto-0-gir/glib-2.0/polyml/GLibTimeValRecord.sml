@@ -7,10 +7,10 @@ structure GLibTimeValRecord :> G_LIB_TIME_VAL_RECORD =
     local
       open PolyMLFFI
     in
-      val new_ = call (getSymbol "giraffe_g_lib_time_val_new") (PolyMLFFI.cVoid --> cPtr)
-      val copy_ = call (getSymbol "giraffe_g_lib_time_val_copy") (cPtr &&> cPtr --> PolyMLFFI.cVoid)
-      val free_ = call (getSymbol "giraffe_g_lib_time_val_free") (cPtr --> PolyMLFFI.cVoid)
-      val size_ = call (getSymbol "giraffe_g_lib_time_val_size") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
+      val new_ = call (getSymbol "giraffe_g_lib_time_val_new") (cVoid --> cPtr)
+      val copy_ = call (getSymbol "giraffe_g_lib_time_val_copy") (cPtr &&> cPtr --> cVoid)
+      val free_ = call (getSymbol "giraffe_g_lib_time_val_free") (cPtr --> cVoid)
+      val size_ = call (getSymbol "giraffe_g_lib_time_val_size") (cVoid --> GUInt.PolyML.cVal)
     end
     structure Record =
       BoxedValueRecord(

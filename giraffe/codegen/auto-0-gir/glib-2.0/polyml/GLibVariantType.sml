@@ -11,7 +11,7 @@ structure GLibVariantType :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_variant_type_get_gtype") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_variant_type_get_gtype") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_variant_type_new") (Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cPtr)
       val newTuple_ = call (getSymbol "g_variant_type_new_tuple") (GLibVariantTypeRecordCVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GLibVariantTypeRecord.PolyML.cPtr)
       val copy_ = call (getSymbol "g_variant_type_copy") (GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)

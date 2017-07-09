@@ -6,7 +6,7 @@ structure GdkPixbufPixbufAnimationIter :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gdk_pixbuf_animation_iter_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gdk_pixbuf_animation_iter_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val advance_ = call (getSymbol "gdk_pixbuf_animation_iter_advance") (GdkPixbufPixbufAnimationIterClass.PolyML.cPtr &&> GLibTimeValRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getDelayTime_ = call (getSymbol "gdk_pixbuf_animation_iter_get_delay_time") (GdkPixbufPixbufAnimationIterClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getPixbuf_ = call (getSymbol "gdk_pixbuf_animation_iter_get_pixbuf") (GdkPixbufPixbufAnimationIterClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)

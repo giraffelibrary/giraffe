@@ -8,11 +8,11 @@ structure GtkStatusbar :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_statusbar_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_statusbar_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_statusbar_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_statusbar_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val getContextId_ = call (getSymbol "gtk_statusbar_get_context_id") (GtkStatusbarClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt32.PolyML.cVal)
       val getMessageArea_ = call (getSymbol "gtk_statusbar_get_message_area") (GtkStatusbarClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val pop_ = call (getSymbol "gtk_statusbar_pop") (GtkStatusbarClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val pop_ = call (getSymbol "gtk_statusbar_pop") (GtkStatusbarClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
       val push_ =
         call (getSymbol "gtk_statusbar_push")
           (
@@ -27,9 +27,9 @@ structure GtkStatusbar :>
             GtkStatusbarClass.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
              &&> GUInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val removeAll_ = call (getSymbol "gtk_statusbar_remove_all") (GtkStatusbarClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val removeAll_ = call (getSymbol "gtk_statusbar_remove_all") (GtkStatusbarClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkStatusbarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

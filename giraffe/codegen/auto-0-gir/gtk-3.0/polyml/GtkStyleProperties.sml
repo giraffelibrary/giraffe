@@ -8,9 +8,9 @@ structure GtkStyleProperties :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_style_properties_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_style_properties_new") (PolyMLFFI.cVoid --> GtkStylePropertiesClass.PolyML.cPtr)
-      val clear_ = call (getSymbol "gtk_style_properties_clear") (GtkStylePropertiesClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gtk_style_properties_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_style_properties_new") (cVoid --> GtkStylePropertiesClass.PolyML.cPtr)
+      val clear_ = call (getSymbol "gtk_style_properties_clear") (GtkStylePropertiesClass.PolyML.cPtr --> cVoid)
       val lookupColor_ = call (getSymbol "gtk_style_properties_lookup_color") (GtkStylePropertiesClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkSymbolicColorRecord.PolyML.cPtr)
       val mapColor_ =
         call (getSymbol "gtk_style_properties_map_color")
@@ -18,7 +18,7 @@ structure GtkStyleProperties :>
             GtkStylePropertiesClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkSymbolicColorRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val merge_ =
         call (getSymbol "gtk_style_properties_merge")
@@ -26,7 +26,7 @@ structure GtkStyleProperties :>
             GtkStylePropertiesClass.PolyML.cPtr
              &&> GtkStylePropertiesClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setProperty_ =
         call (getSymbol "gtk_style_properties_set_property")
@@ -35,7 +35,7 @@ structure GtkStyleProperties :>
              &&> Utf8.PolyML.cInPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GObjectValueRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val unsetProperty_ =
         call (getSymbol "gtk_style_properties_unset_property")
@@ -43,7 +43,7 @@ structure GtkStyleProperties :>
             GtkStylePropertiesClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkStateFlags.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type 'a class = 'a GtkStylePropertiesClass.class

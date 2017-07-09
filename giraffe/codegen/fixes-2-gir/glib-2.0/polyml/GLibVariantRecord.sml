@@ -8,7 +8,7 @@ structure GLibVariantRecord :> G_LIB_VARIANT_RECORD =
       open PolyMLFFI
     in
       val dup_ = call (getSymbol "g_variant_ref_sink") (cPtr --> cPtr)
-      val free_ = call (getSymbol "g_variant_unref") (cPtr --> PolyMLFFI.cVoid)
+      val free_ = call (getSymbol "g_variant_unref") (cPtr --> cVoid)
     end
     structure Record =
       BoxedRecord(
@@ -25,8 +25,8 @@ structure GLibVariantRecord :> G_LIB_VARIANT_RECORD =
     in
       val getValue_ = call (getSymbol "g_value_get_variant") (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr)
       val getOptValue_ = call (getSymbol "g_value_get_variant") (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr)
-      val setValue_ = call (getSymbol "g_value_set_variant") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setOptValue_ = call (getSymbol "g_value_set_variant") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setValue_ = call (getSymbol "g_value_set_variant") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid)
+      val setOptValue_ = call (getSymbol "g_value_set_variant") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid)
     end
     val t =
       GObjectValue.C.createAccessor

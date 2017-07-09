@@ -5,7 +5,7 @@ structure GtkEntryBuffer :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_entry_buffer_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_entry_buffer_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_entry_buffer_new") (Utf8.PolyML.cInOptPtr &&> GInt.PolyML.cVal --> GtkEntryBufferClass.PolyML.cPtr)
       val deleteText_ =
         call (getSymbol "gtk_entry_buffer_delete_text")
@@ -21,7 +21,7 @@ structure GtkEntryBuffer :>
             GtkEntryBufferClass.PolyML.cPtr
              &&> GUInt.PolyML.cVal
              &&> GUInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val emitInsertedText_ =
         call (getSymbol "gtk_entry_buffer_emit_inserted_text")
@@ -30,7 +30,7 @@ structure GtkEntryBuffer :>
              &&> GUInt.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
              &&> GUInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getBytes_ = call (getSymbol "gtk_entry_buffer_get_bytes") (GtkEntryBufferClass.PolyML.cPtr --> GSize.PolyML.cVal)
       val getLength_ = call (getSymbol "gtk_entry_buffer_get_length") (GtkEntryBufferClass.PolyML.cPtr --> GUInt.PolyML.cVal)
@@ -45,14 +45,14 @@ structure GtkEntryBuffer :>
              &&> GInt.PolyML.cVal
              --> GUInt.PolyML.cVal
           )
-      val setMaxLength_ = call (getSymbol "gtk_entry_buffer_set_max_length") (GtkEntryBufferClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setMaxLength_ = call (getSymbol "gtk_entry_buffer_set_max_length") (GtkEntryBufferClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setText_ =
         call (getSymbol "gtk_entry_buffer_set_text")
           (
             GtkEntryBufferClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type 'a class = 'a GtkEntryBufferClass.class

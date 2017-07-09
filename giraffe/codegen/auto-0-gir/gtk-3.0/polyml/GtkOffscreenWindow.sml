@@ -6,8 +6,8 @@ structure GtkOffscreenWindow :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_offscreen_window_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_offscreen_window_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_offscreen_window_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_offscreen_window_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val getPixbuf_ = call (getSymbol "gtk_offscreen_window_get_pixbuf") (GtkOffscreenWindowClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
       val getSurface_ = call (getSymbol "gtk_offscreen_window_get_surface") (GtkOffscreenWindowClass.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
     end

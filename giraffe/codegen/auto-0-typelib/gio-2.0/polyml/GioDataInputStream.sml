@@ -16,7 +16,7 @@ structure GioDataInputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_data_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_data_input_stream_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_data_input_stream_new") (GioInputStreamClass.PolyML.cPtr --> GioDataInputStreamClass.PolyML.cPtr)
       val getByteOrder_ = call (getSymbol "g_data_input_stream_get_byte_order") (GioDataInputStreamClass.PolyML.cPtr --> GioDataStreamByteOrder.PolyML.cVal)
       val getNewlineType_ = call (getSymbol "g_data_input_stream_get_newline_type") (GioDataInputStreamClass.PolyML.cPtr --> GioDataStreamNewlineType.PolyML.cVal)
@@ -151,8 +151,8 @@ structure GioDataInputStream :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
-      val setByteOrder_ = call (getSymbol "g_data_input_stream_set_byte_order") (GioDataInputStreamClass.PolyML.cPtr &&> GioDataStreamByteOrder.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setNewlineType_ = call (getSymbol "g_data_input_stream_set_newline_type") (GioDataInputStreamClass.PolyML.cPtr &&> GioDataStreamNewlineType.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setByteOrder_ = call (getSymbol "g_data_input_stream_set_byte_order") (GioDataInputStreamClass.PolyML.cPtr &&> GioDataStreamByteOrder.PolyML.cVal --> cVoid)
+      val setNewlineType_ = call (getSymbol "g_data_input_stream_set_newline_type") (GioDataInputStreamClass.PolyML.cPtr &&> GioDataStreamNewlineType.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GioDataInputStreamClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class

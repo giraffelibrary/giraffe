@@ -8,8 +8,8 @@ structure GtkImage :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_image_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_image_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_image_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_image_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val newFromAnimation_ = call (getSymbol "gtk_image_new_from_animation") (GdkPixbufPixbufAnimationClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val newFromFile_ = call (getSymbol "gtk_image_new_from_file") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newFromGicon_ = call (getSymbol "gtk_image_new_from_gicon") (GioIconClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
@@ -17,7 +17,7 @@ structure GtkImage :>
       val newFromIconSet_ = call (getSymbol "gtk_image_new_from_icon_set") (GtkIconSetRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
       val newFromPixbuf_ = call (getSymbol "gtk_image_new_from_pixbuf") (GdkPixbufPixbufClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val newFromStock_ = call (getSymbol "gtk_image_new_from_stock") (Utf8.PolyML.cInPtr &&> GInt32.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
-      val clear_ = call (getSymbol "gtk_image_clear") (GtkImageClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val clear_ = call (getSymbol "gtk_image_clear") (GtkImageClass.PolyML.cPtr --> cVoid)
       val getAnimation_ = call (getSymbol "gtk_image_get_animation") (GtkImageClass.PolyML.cPtr --> GdkPixbufPixbufAnimationClass.PolyML.cPtr)
       val getGicon_ =
         call (getSymbol "gtk_image_get_gicon")
@@ -25,7 +25,7 @@ structure GtkImage :>
             GtkImageClass.PolyML.cPtr
              &&> GioIconClass.PolyML.cOutRef
              &&> GInt32.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getIconName_ =
         call (getSymbol "gtk_image_get_icon_name")
@@ -33,7 +33,7 @@ structure GtkImage :>
             GtkImageClass.PolyML.cPtr
              &&> Utf8.PolyML.cOutRef
              &&> GInt32.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getIconSet_ =
         call (getSymbol "gtk_image_get_icon_set")
@@ -41,7 +41,7 @@ structure GtkImage :>
             GtkImageClass.PolyML.cPtr
              &&> GtkIconSetRecord.PolyML.cOutRef
              &&> GInt32.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getPixbuf_ = call (getSymbol "gtk_image_get_pixbuf") (GtkImageClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
       val getPixelSize_ = call (getSymbol "gtk_image_get_pixel_size") (GtkImageClass.PolyML.cPtr --> GInt32.PolyML.cVal)
@@ -51,18 +51,18 @@ structure GtkImage :>
             GtkImageClass.PolyML.cPtr
              &&> Utf8.PolyML.cOutRef
              &&> GInt32.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getStorageType_ = call (getSymbol "gtk_image_get_storage_type") (GtkImageClass.PolyML.cPtr --> GtkImageType.PolyML.cVal)
-      val setFromAnimation_ = call (getSymbol "gtk_image_set_from_animation") (GtkImageClass.PolyML.cPtr &&> GdkPixbufPixbufAnimationClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setFromFile_ = call (getSymbol "gtk_image_set_from_file") (GtkImageClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setFromAnimation_ = call (getSymbol "gtk_image_set_from_animation") (GtkImageClass.PolyML.cPtr &&> GdkPixbufPixbufAnimationClass.PolyML.cPtr --> cVoid)
+      val setFromFile_ = call (getSymbol "gtk_image_set_from_file") (GtkImageClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
       val setFromGicon_ =
         call (getSymbol "gtk_image_set_from_gicon")
           (
             GtkImageClass.PolyML.cPtr
              &&> GioIconClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setFromIconName_ =
         call (getSymbol "gtk_image_set_from_icon_name")
@@ -70,7 +70,7 @@ structure GtkImage :>
             GtkImageClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setFromIconSet_ =
         call (getSymbol "gtk_image_set_from_icon_set")
@@ -78,18 +78,18 @@ structure GtkImage :>
             GtkImageClass.PolyML.cPtr
              &&> GtkIconSetRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setFromPixbuf_ = call (getSymbol "gtk_image_set_from_pixbuf") (GtkImageClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setFromPixbuf_ = call (getSymbol "gtk_image_set_from_pixbuf") (GtkImageClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> cVoid)
       val setFromStock_ =
         call (getSymbol "gtk_image_set_from_stock")
           (
             GtkImageClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setPixelSize_ = call (getSymbol "gtk_image_set_pixel_size") (GtkImageClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setPixelSize_ = call (getSymbol "gtk_image_set_pixel_size") (GtkImageClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkImageClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

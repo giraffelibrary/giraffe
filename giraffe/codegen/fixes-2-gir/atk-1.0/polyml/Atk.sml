@@ -3,12 +3,12 @@ structure Atk : ATK =
     local
       open PolyMLFFI
     in
-      val focusTrackerNotify_ = call (getSymbol "atk_focus_tracker_notify") (AtkObjectClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getFocusObject_ = call (getSymbol "atk_get_focus_object") (PolyMLFFI.cVoid --> AtkObjectClass.PolyML.cPtr)
-      val getRoot_ = call (getSymbol "atk_get_root") (PolyMLFFI.cVoid --> AtkObjectClass.PolyML.cPtr)
-      val getToolkitName_ = call (getSymbol "atk_get_toolkit_name") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getToolkitVersion_ = call (getSymbol "atk_get_toolkit_version") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
-      val getVersion_ = call (getSymbol "atk_get_version") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val focusTrackerNotify_ = call (getSymbol "atk_focus_tracker_notify") (AtkObjectClass.PolyML.cPtr --> cVoid)
+      val getFocusObject_ = call (getSymbol "atk_get_focus_object") (cVoid --> AtkObjectClass.PolyML.cPtr)
+      val getRoot_ = call (getSymbol "atk_get_root") (cVoid --> AtkObjectClass.PolyML.cPtr)
+      val getToolkitName_ = call (getSymbol "atk_get_toolkit_name") (cVoid --> Utf8.PolyML.cOutPtr)
+      val getToolkitVersion_ = call (getSymbol "atk_get_toolkit_version") (cVoid --> Utf8.PolyML.cOutPtr)
+      val getVersion_ = call (getSymbol "atk_get_version") (cVoid --> Utf8.PolyML.cOutPtr)
     end
     structure ImplementorIfaceClass = AtkImplementorIfaceClass
     structure ObjectClass = AtkObjectClass

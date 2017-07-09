@@ -6,11 +6,11 @@ structure GioSocketService :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_socket_service_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "g_socket_service_new") (PolyMLFFI.cVoid --> GioSocketServiceClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_socket_service_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_socket_service_new") (cVoid --> GioSocketServiceClass.PolyML.cPtr)
       val isActive_ = call (getSymbol "g_socket_service_is_active") (GioSocketServiceClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val start_ = call (getSymbol "g_socket_service_start") (GioSocketServiceClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val stop_ = call (getSymbol "g_socket_service_stop") (GioSocketServiceClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val start_ = call (getSymbol "g_socket_service_start") (GioSocketServiceClass.PolyML.cPtr --> cVoid)
+      val stop_ = call (getSymbol "g_socket_service_stop") (GioSocketServiceClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GioSocketServiceClass.class
     type 'a socket_connection_class = 'a GioSocketConnectionClass.class

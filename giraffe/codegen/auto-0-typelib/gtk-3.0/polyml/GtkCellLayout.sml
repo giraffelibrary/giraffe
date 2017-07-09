@@ -7,7 +7,7 @@ structure GtkCellLayout :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_cell_layout_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_cell_layout_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val addAttribute_ =
         call (getSymbol "gtk_cell_layout_add_attribute")
           (
@@ -15,10 +15,10 @@ structure GtkCellLayout :>
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val clear_ = call (getSymbol "gtk_cell_layout_clear") (GtkCellLayoutClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val clearAttributes_ = call (getSymbol "gtk_cell_layout_clear_attributes") (GtkCellLayoutClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val clear_ = call (getSymbol "gtk_cell_layout_clear") (GtkCellLayoutClass.PolyML.cPtr --> cVoid)
+      val clearAttributes_ = call (getSymbol "gtk_cell_layout_clear_attributes") (GtkCellLayoutClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> cVoid)
       val getArea_ = call (getSymbol "gtk_cell_layout_get_area") (GtkCellLayoutClass.PolyML.cPtr --> GtkCellAreaClass.PolyML.cPtr)
       val packEnd_ =
         call (getSymbol "gtk_cell_layout_pack_end")
@@ -26,7 +26,7 @@ structure GtkCellLayout :>
             GtkCellLayoutClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val packStart_ =
         call (getSymbol "gtk_cell_layout_pack_start")
@@ -34,7 +34,7 @@ structure GtkCellLayout :>
             GtkCellLayoutClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val reorder_ =
         call (getSymbol "gtk_cell_layout_reorder")
@@ -42,7 +42,7 @@ structure GtkCellLayout :>
             GtkCellLayoutClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type 'a class = 'a GtkCellLayoutClass.class

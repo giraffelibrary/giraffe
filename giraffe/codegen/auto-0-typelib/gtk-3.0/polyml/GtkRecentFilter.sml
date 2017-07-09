@@ -8,18 +8,18 @@ structure GtkRecentFilter :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_recent_filter_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_recent_filter_new") (PolyMLFFI.cVoid --> GtkRecentFilterClass.PolyML.cPtr)
-      val addAge_ = call (getSymbol "gtk_recent_filter_add_age") (GtkRecentFilterClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val addApplication_ = call (getSymbol "gtk_recent_filter_add_application") (GtkRecentFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val addGroup_ = call (getSymbol "gtk_recent_filter_add_group") (GtkRecentFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val addMimeType_ = call (getSymbol "gtk_recent_filter_add_mime_type") (GtkRecentFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val addPattern_ = call (getSymbol "gtk_recent_filter_add_pattern") (GtkRecentFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val addPixbufFormats_ = call (getSymbol "gtk_recent_filter_add_pixbuf_formats") (GtkRecentFilterClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gtk_recent_filter_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_recent_filter_new") (cVoid --> GtkRecentFilterClass.PolyML.cPtr)
+      val addAge_ = call (getSymbol "gtk_recent_filter_add_age") (GtkRecentFilterClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val addApplication_ = call (getSymbol "gtk_recent_filter_add_application") (GtkRecentFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val addGroup_ = call (getSymbol "gtk_recent_filter_add_group") (GtkRecentFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val addMimeType_ = call (getSymbol "gtk_recent_filter_add_mime_type") (GtkRecentFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val addPattern_ = call (getSymbol "gtk_recent_filter_add_pattern") (GtkRecentFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val addPixbufFormats_ = call (getSymbol "gtk_recent_filter_add_pixbuf_formats") (GtkRecentFilterClass.PolyML.cPtr --> cVoid)
       val filter_ = call (getSymbol "gtk_recent_filter_filter") (GtkRecentFilterClass.PolyML.cPtr &&> GtkRecentFilterInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getName_ = call (getSymbol "gtk_recent_filter_get_name") (GtkRecentFilterClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getNeeded_ = call (getSymbol "gtk_recent_filter_get_needed") (GtkRecentFilterClass.PolyML.cPtr --> GtkRecentFilterFlags.PolyML.cVal)
-      val setName_ = call (getSymbol "gtk_recent_filter_set_name") (GtkRecentFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setName_ = call (getSymbol "gtk_recent_filter_set_name") (GtkRecentFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
     end
     type 'a class = 'a GtkRecentFilterClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

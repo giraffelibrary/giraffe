@@ -6,13 +6,13 @@ structure GtkActivatable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_activatable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val doSetRelatedAction_ = call (getSymbol "gtk_activatable_do_set_related_action") (GtkActivatableClass.PolyML.cPtr &&> GtkActionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gtk_activatable_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val doSetRelatedAction_ = call (getSymbol "gtk_activatable_do_set_related_action") (GtkActivatableClass.PolyML.cPtr &&> GtkActionClass.PolyML.cPtr --> cVoid)
       val getRelatedAction_ = call (getSymbol "gtk_activatable_get_related_action") (GtkActivatableClass.PolyML.cPtr --> GtkActionClass.PolyML.cPtr)
       val getUseActionAppearance_ = call (getSymbol "gtk_activatable_get_use_action_appearance") (GtkActivatableClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setRelatedAction_ = call (getSymbol "gtk_activatable_set_related_action") (GtkActivatableClass.PolyML.cPtr &&> GtkActionClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setUseActionAppearance_ = call (getSymbol "gtk_activatable_set_use_action_appearance") (GtkActivatableClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val syncActionProperties_ = call (getSymbol "gtk_activatable_sync_action_properties") (GtkActivatableClass.PolyML.cPtr &&> GtkActionClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setRelatedAction_ = call (getSymbol "gtk_activatable_set_related_action") (GtkActivatableClass.PolyML.cPtr &&> GtkActionClass.PolyML.cPtr --> cVoid)
+      val setUseActionAppearance_ = call (getSymbol "gtk_activatable_set_use_action_appearance") (GtkActivatableClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val syncActionProperties_ = call (getSymbol "gtk_activatable_sync_action_properties") (GtkActivatableClass.PolyML.cPtr &&> GtkActionClass.PolyML.cOptPtr --> cVoid)
     end
     type 'a class = 'a GtkActivatableClass.class
     type 'a action_class = 'a GtkActionClass.class

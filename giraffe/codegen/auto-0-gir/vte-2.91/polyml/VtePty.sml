@@ -6,7 +6,7 @@ structure VtePty :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "vte_pty_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "vte_pty_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val newForeignSync_ =
         call (getSymbol "vte_pty_new_foreign_sync")
           (
@@ -23,8 +23,8 @@ structure VtePty :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> VtePtyClass.PolyML.cPtr
           )
-      val childSetup_ = call (getSymbol "vte_pty_child_setup") (VtePtyClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val close_ = call (getSymbol "vte_pty_close") (VtePtyClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val childSetup_ = call (getSymbol "vte_pty_child_setup") (VtePtyClass.PolyML.cPtr --> cVoid)
+      val close_ = call (getSymbol "vte_pty_close") (VtePtyClass.PolyML.cPtr --> cVoid)
       val getFd_ = call (getSymbol "vte_pty_get_fd") (VtePtyClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getSize_ =
         call (getSymbol "vte_pty_get_size")

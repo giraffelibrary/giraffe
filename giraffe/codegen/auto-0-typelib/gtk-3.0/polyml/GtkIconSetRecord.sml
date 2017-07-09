@@ -8,7 +8,7 @@ structure GtkIconSetRecord :> GTK_ICON_SET_RECORD =
       open PolyMLFFI
     in
       val dup_ = call (getSymbol "gtk_icon_set_ref") (cPtr --> cPtr)
-      val free_ = call (getSymbol "gtk_icon_set_unref") (cPtr --> PolyMLFFI.cVoid)
+      val free_ = call (getSymbol "gtk_icon_set_unref") (cPtr --> cVoid)
     end
     structure Record =
       BoxedRecord(
@@ -23,11 +23,11 @@ structure GtkIconSetRecord :> GTK_ICON_SET_RECORD =
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_icon_set_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_icon_set_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getValue_ = call (getSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr)
       val getOptValue_ = call (getSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr)
-      val setValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setOptValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid)
+      val setOptValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid)
     end
     val t =
       GObjectValue.C.createAccessor

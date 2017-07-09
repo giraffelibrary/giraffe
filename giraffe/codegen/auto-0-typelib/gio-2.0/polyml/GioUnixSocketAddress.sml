@@ -13,7 +13,7 @@ structure GioUnixSocketAddress :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_unix_socket_address_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_unix_socket_address_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_unix_socket_address_new") (Utf8.PolyML.cInPtr --> GioSocketAddressClass.PolyML.cPtr)
       val newWithType_ =
         call (getSymbol "g_unix_socket_address_new_with_type")
@@ -23,7 +23,7 @@ structure GioUnixSocketAddress :>
              &&> GioUnixSocketAddressType.PolyML.cVal
              --> GioSocketAddressClass.PolyML.cPtr
           )
-      val abstractNamesSupported_ = call (getSymbol "g_unix_socket_address_abstract_names_supported") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
+      val abstractNamesSupported_ = call (getSymbol "g_unix_socket_address_abstract_names_supported") (cVoid --> GBool.PolyML.cVal)
       val getAddressType_ = call (getSymbol "g_unix_socket_address_get_address_type") (GioUnixSocketAddressClass.PolyML.cPtr --> GioUnixSocketAddressType.PolyML.cVal)
       val getPath_ = call (getSymbol "g_unix_socket_address_get_path") (GioUnixSocketAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getPathLen_ = call (getSymbol "g_unix_socket_address_get_path_len") (GioUnixSocketAddressClass.PolyML.cPtr --> GUInt64.PolyML.cVal)

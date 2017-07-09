@@ -6,7 +6,7 @@ structure GtkNumerableIcon :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_numerable_icon_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_numerable_icon_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_numerable_icon_new") (GioIconClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
       val newWithStyleContext_ = call (getSymbol "gtk_numerable_icon_new_with_style_context") (GioIconClass.PolyML.cPtr &&> GtkStyleContextClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
       val getBackgroundGicon_ = call (getSymbol "gtk_numerable_icon_get_background_gicon") (GtkNumerableIconClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
@@ -14,11 +14,11 @@ structure GtkNumerableIcon :>
       val getCount_ = call (getSymbol "gtk_numerable_icon_get_count") (GtkNumerableIconClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getLabel_ = call (getSymbol "gtk_numerable_icon_get_label") (GtkNumerableIconClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getStyleContext_ = call (getSymbol "gtk_numerable_icon_get_style_context") (GtkNumerableIconClass.PolyML.cPtr --> GtkStyleContextClass.PolyML.cPtr)
-      val setBackgroundGicon_ = call (getSymbol "gtk_numerable_icon_set_background_gicon") (GtkNumerableIconClass.PolyML.cPtr &&> GioIconClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setBackgroundIconName_ = call (getSymbol "gtk_numerable_icon_set_background_icon_name") (GtkNumerableIconClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
-      val setCount_ = call (getSymbol "gtk_numerable_icon_set_count") (GtkNumerableIconClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setLabel_ = call (getSymbol "gtk_numerable_icon_set_label") (GtkNumerableIconClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
-      val setStyleContext_ = call (getSymbol "gtk_numerable_icon_set_style_context") (GtkNumerableIconClass.PolyML.cPtr &&> GtkStyleContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setBackgroundGicon_ = call (getSymbol "gtk_numerable_icon_set_background_gicon") (GtkNumerableIconClass.PolyML.cPtr &&> GioIconClass.PolyML.cOptPtr --> cVoid)
+      val setBackgroundIconName_ = call (getSymbol "gtk_numerable_icon_set_background_icon_name") (GtkNumerableIconClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
+      val setCount_ = call (getSymbol "gtk_numerable_icon_set_count") (GtkNumerableIconClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val setLabel_ = call (getSymbol "gtk_numerable_icon_set_label") (GtkNumerableIconClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
+      val setStyleContext_ = call (getSymbol "gtk_numerable_icon_set_style_context") (GtkNumerableIconClass.PolyML.cPtr &&> GtkStyleContextClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkNumerableIconClass.class
     type 'a style_context_class = 'a GtkStyleContextClass.class

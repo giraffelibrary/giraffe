@@ -12,7 +12,7 @@ structure Pango : PANGO =
       val attrTypeGetName_ = call (getSymbol "pango_attr_type_get_name") (PangoAttrType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val attrTypeRegister_ = call (getSymbol "pango_attr_type_register") (Utf8.PolyML.cInPtr --> PangoAttrType.PolyML.cVal)
       val bidiTypeForUnichar_ = call (getSymbol "pango_bidi_type_for_unichar") (GChar.PolyML.cVal --> PangoBidiType.PolyML.cVal)
-      val extentsToPixels_ = call (getSymbol "pango_extents_to_pixels") (PangoRectangleRecord.PolyML.cOptPtr &&> PangoRectangleRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val extentsToPixels_ = call (getSymbol "pango_extents_to_pixels") (PangoRectangleRecord.PolyML.cOptPtr &&> PangoRectangleRecord.PolyML.cOptPtr --> cVoid)
       val findBaseDir_ = call (getSymbol "pango_find_base_dir") (Utf8.PolyML.cInPtr &&> GInt32.PolyML.cVal --> PangoDirection.PolyML.cVal)
       val fontDescriptionFromString_ = call (getSymbol "pango_font_description_from_string") (Utf8.PolyML.cInPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
       val gravityGetForMatrix_ = call (getSymbol "pango_gravity_get_for_matrix") (PangoMatrixRecord.PolyML.cPtr --> PangoGravity.PolyML.cVal)
@@ -36,7 +36,7 @@ structure Pango : PANGO =
       val gravityToRotation_ = call (getSymbol "pango_gravity_to_rotation") (PangoGravity.PolyML.cVal --> GDouble.PolyML.cVal)
       val isZeroWidth_ = call (getSymbol "pango_is_zero_width") (GChar.PolyML.cVal --> GBool.PolyML.cVal)
       val languageFromString_ = call (getSymbol "pango_language_from_string") (Utf8.PolyML.cInOptPtr --> PangoLanguageRecord.PolyML.cPtr)
-      val languageGetDefault_ = call (getSymbol "pango_language_get_default") (PolyMLFFI.cVoid --> PangoLanguageRecord.PolyML.cPtr)
+      val languageGetDefault_ = call (getSymbol "pango_language_get_default") (cVoid --> PangoLanguageRecord.PolyML.cPtr)
       val parseMarkup_ =
         call (getSymbol "pango_parse_markup")
           (
@@ -49,7 +49,7 @@ structure Pango : PANGO =
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val quantizeLineGeometry_ = call (getSymbol "pango_quantize_line_geometry") (GInt32.PolyML.cRef &&> GInt32.PolyML.cRef --> PolyMLFFI.cVoid)
+      val quantizeLineGeometry_ = call (getSymbol "pango_quantize_line_geometry") (GInt32.PolyML.cRef &&> GInt32.PolyML.cRef --> cVoid)
       val scriptForUnichar_ = call (getSymbol "pango_script_for_unichar") (GChar.PolyML.cVal --> PangoScript.PolyML.cVal)
       val scriptGetSampleLanguage_ = call (getSymbol "pango_script_get_sample_language") (PangoScript.PolyML.cVal --> PangoLanguageRecord.PolyML.cPtr)
       val splitFileList_ = call (getSymbol "pango_split_file_list") (Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
@@ -57,7 +57,7 @@ structure Pango : PANGO =
       val unicharDirection_ = call (getSymbol "pango_unichar_direction") (GChar.PolyML.cVal --> PangoDirection.PolyML.cVal)
       val unitsFromDouble_ = call (getSymbol "pango_units_from_double") (GDouble.PolyML.cVal --> GInt32.PolyML.cVal)
       val unitsToDouble_ = call (getSymbol "pango_units_to_double") (GInt32.PolyML.cVal --> GDouble.PolyML.cVal)
-      val version_ = call (getSymbol "pango_version") (PolyMLFFI.cVoid --> GInt32.PolyML.cVal)
+      val version_ = call (getSymbol "pango_version") (cVoid --> GInt32.PolyML.cVal)
       val versionCheck_ =
         call (getSymbol "pango_version_check")
           (
@@ -66,7 +66,7 @@ structure Pango : PANGO =
              &&> GInt32.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val versionString_ = call (getSymbol "pango_version_string") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val versionString_ = call (getSymbol "pango_version_string") (cVoid --> Utf8.PolyML.cOutPtr)
     end
     structure Alignment = PangoAlignment
     structure AttrListRecord = PangoAttrListRecord

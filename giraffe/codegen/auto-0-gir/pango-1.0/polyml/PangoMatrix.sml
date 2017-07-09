@@ -5,18 +5,18 @@ structure PangoMatrix :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "pango_matrix_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val concat_ = call (getSymbol "pango_matrix_concat") (PangoMatrixRecord.PolyML.cPtr &&> PangoMatrixRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "pango_matrix_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val concat_ = call (getSymbol "pango_matrix_concat") (PangoMatrixRecord.PolyML.cPtr &&> PangoMatrixRecord.PolyML.cPtr --> cVoid)
       val copy_ = call (getSymbol "pango_matrix_copy") (PangoMatrixRecord.PolyML.cPtr --> PangoMatrixRecord.PolyML.cPtr)
       val getFontScaleFactor_ = call (getSymbol "pango_matrix_get_font_scale_factor") (PangoMatrixRecord.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val rotate_ = call (getSymbol "pango_matrix_rotate") (PangoMatrixRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val rotate_ = call (getSymbol "pango_matrix_rotate") (PangoMatrixRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
       val scale_ =
         call (getSymbol "pango_matrix_scale")
           (
             PangoMatrixRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val transformDistance_ =
         call (getSymbol "pango_matrix_transform_distance")
@@ -24,7 +24,7 @@ structure PangoMatrix :>
             PangoMatrixRecord.PolyML.cPtr
              &&> GDouble.PolyML.cRef
              &&> GDouble.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val transformPoint_ =
         call (getSymbol "pango_matrix_transform_point")
@@ -32,7 +32,7 @@ structure PangoMatrix :>
             PangoMatrixRecord.PolyML.cPtr
              &&> GDouble.PolyML.cRef
              &&> GDouble.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val translate_ =
         call (getSymbol "pango_matrix_translate")
@@ -40,7 +40,7 @@ structure PangoMatrix :>
             PangoMatrixRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type t = PangoMatrixRecord.t

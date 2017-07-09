@@ -7,7 +7,7 @@ structure GtkTreeDragDest :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_tree_drag_dest_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_tree_drag_dest_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val dragDataReceived_ =
         call (getSymbol "gtk_tree_drag_dest_drag_data_received")
           (

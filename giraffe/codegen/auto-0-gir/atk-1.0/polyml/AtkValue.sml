@@ -5,11 +5,11 @@ structure AtkValue :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "atk_value_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getCurrentValue_ = call (getSymbol "atk_value_get_current_value") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getMaximumValue_ = call (getSymbol "atk_value_get_maximum_value") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getMinimumIncrement_ = call (getSymbol "atk_value_get_minimum_increment") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val getMinimumValue_ = call (getSymbol "atk_value_get_minimum_value") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "atk_value_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val getCurrentValue_ = call (getSymbol "atk_value_get_current_value") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> cVoid)
+      val getMaximumValue_ = call (getSymbol "atk_value_get_maximum_value") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> cVoid)
+      val getMinimumIncrement_ = call (getSymbol "atk_value_get_minimum_increment") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> cVoid)
+      val getMinimumValue_ = call (getSymbol "atk_value_get_minimum_value") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> cVoid)
       val setCurrentValue_ = call (getSymbol "atk_value_set_current_value") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a AtkValueClass.class

@@ -12,9 +12,9 @@ structure GtkCssProvider :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_css_provider_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_css_provider_new") (PolyMLFFI.cVoid --> GtkCssProviderClass.PolyML.cPtr)
-      val getDefault_ = call (getSymbol "gtk_css_provider_get_default") (PolyMLFFI.cVoid --> GtkCssProviderClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_css_provider_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_css_provider_new") (cVoid --> GtkCssProviderClass.PolyML.cPtr)
+      val getDefault_ = call (getSymbol "gtk_css_provider_get_default") (cVoid --> GtkCssProviderClass.PolyML.cPtr)
       val getNamed_ = call (getSymbol "gtk_css_provider_get_named") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInOptPtr --> GtkCssProviderClass.PolyML.cPtr)
       val loadFromData_ =
         call (getSymbol "gtk_css_provider_load_from_data")

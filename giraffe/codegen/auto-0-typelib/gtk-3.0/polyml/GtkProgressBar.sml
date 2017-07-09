@@ -7,21 +7,21 @@ structure GtkProgressBar :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_progress_bar_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_progress_bar_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_progress_bar_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_progress_bar_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val getEllipsize_ = call (getSymbol "gtk_progress_bar_get_ellipsize") (GtkProgressBarClass.PolyML.cPtr --> PangoEllipsizeMode.PolyML.cVal)
       val getFraction_ = call (getSymbol "gtk_progress_bar_get_fraction") (GtkProgressBarClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val getInverted_ = call (getSymbol "gtk_progress_bar_get_inverted") (GtkProgressBarClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getPulseStep_ = call (getSymbol "gtk_progress_bar_get_pulse_step") (GtkProgressBarClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val getShowText_ = call (getSymbol "gtk_progress_bar_get_show_text") (GtkProgressBarClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getText_ = call (getSymbol "gtk_progress_bar_get_text") (GtkProgressBarClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val pulse_ = call (getSymbol "gtk_progress_bar_pulse") (GtkProgressBarClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setEllipsize_ = call (getSymbol "gtk_progress_bar_set_ellipsize") (GtkProgressBarClass.PolyML.cPtr &&> PangoEllipsizeMode.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setFraction_ = call (getSymbol "gtk_progress_bar_set_fraction") (GtkProgressBarClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setInverted_ = call (getSymbol "gtk_progress_bar_set_inverted") (GtkProgressBarClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPulseStep_ = call (getSymbol "gtk_progress_bar_set_pulse_step") (GtkProgressBarClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setShowText_ = call (getSymbol "gtk_progress_bar_set_show_text") (GtkProgressBarClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setText_ = call (getSymbol "gtk_progress_bar_set_text") (GtkProgressBarClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val pulse_ = call (getSymbol "gtk_progress_bar_pulse") (GtkProgressBarClass.PolyML.cPtr --> cVoid)
+      val setEllipsize_ = call (getSymbol "gtk_progress_bar_set_ellipsize") (GtkProgressBarClass.PolyML.cPtr &&> PangoEllipsizeMode.PolyML.cVal --> cVoid)
+      val setFraction_ = call (getSymbol "gtk_progress_bar_set_fraction") (GtkProgressBarClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val setInverted_ = call (getSymbol "gtk_progress_bar_set_inverted") (GtkProgressBarClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setPulseStep_ = call (getSymbol "gtk_progress_bar_set_pulse_step") (GtkProgressBarClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val setShowText_ = call (getSymbol "gtk_progress_bar_set_show_text") (GtkProgressBarClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setText_ = call (getSymbol "gtk_progress_bar_set_text") (GtkProgressBarClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
     end
     type 'a class = 'a GtkProgressBarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

@@ -7,8 +7,8 @@ structure GtkIconSource :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_icon_source_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_icon_source_new") (PolyMLFFI.cVoid --> GtkIconSourceRecord.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_icon_source_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_icon_source_new") (cVoid --> GtkIconSourceRecord.PolyML.cPtr)
       val copy_ = call (getSymbol "gtk_icon_source_copy") (GtkIconSourceRecord.PolyML.cPtr --> GtkIconSourceRecord.PolyML.cPtr)
       val getDirection_ = call (getSymbol "gtk_icon_source_get_direction") (GtkIconSourceRecord.PolyML.cPtr --> GtkTextDirection.PolyML.cVal)
       val getDirectionWildcarded_ = call (getSymbol "gtk_icon_source_get_direction_wildcarded") (GtkIconSourceRecord.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -19,15 +19,15 @@ structure GtkIconSource :>
       val getSizeWildcarded_ = call (getSymbol "gtk_icon_source_get_size_wildcarded") (GtkIconSourceRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getState_ = call (getSymbol "gtk_icon_source_get_state") (GtkIconSourceRecord.PolyML.cPtr --> GtkStateType.PolyML.cVal)
       val getStateWildcarded_ = call (getSymbol "gtk_icon_source_get_state_wildcarded") (GtkIconSourceRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setDirection_ = call (getSymbol "gtk_icon_source_set_direction") (GtkIconSourceRecord.PolyML.cPtr &&> GtkTextDirection.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDirectionWildcarded_ = call (getSymbol "gtk_icon_source_set_direction_wildcarded") (GtkIconSourceRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setFilename_ = call (getSymbol "gtk_icon_source_set_filename") (GtkIconSourceRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setIconName_ = call (getSymbol "gtk_icon_source_set_icon_name") (GtkIconSourceRecord.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
-      val setPixbuf_ = call (getSymbol "gtk_icon_source_set_pixbuf") (GtkIconSourceRecord.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setSize_ = call (getSymbol "gtk_icon_source_set_size") (GtkIconSourceRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSizeWildcarded_ = call (getSymbol "gtk_icon_source_set_size_wildcarded") (GtkIconSourceRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setState_ = call (getSymbol "gtk_icon_source_set_state") (GtkIconSourceRecord.PolyML.cPtr &&> GtkStateType.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setStateWildcarded_ = call (getSymbol "gtk_icon_source_set_state_wildcarded") (GtkIconSourceRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDirection_ = call (getSymbol "gtk_icon_source_set_direction") (GtkIconSourceRecord.PolyML.cPtr &&> GtkTextDirection.PolyML.cVal --> cVoid)
+      val setDirectionWildcarded_ = call (getSymbol "gtk_icon_source_set_direction_wildcarded") (GtkIconSourceRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setFilename_ = call (getSymbol "gtk_icon_source_set_filename") (GtkIconSourceRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setIconName_ = call (getSymbol "gtk_icon_source_set_icon_name") (GtkIconSourceRecord.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
+      val setPixbuf_ = call (getSymbol "gtk_icon_source_set_pixbuf") (GtkIconSourceRecord.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cPtr --> cVoid)
+      val setSize_ = call (getSymbol "gtk_icon_source_set_size") (GtkIconSourceRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val setSizeWildcarded_ = call (getSymbol "gtk_icon_source_set_size_wildcarded") (GtkIconSourceRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setState_ = call (getSymbol "gtk_icon_source_set_state") (GtkIconSourceRecord.PolyML.cPtr &&> GtkStateType.PolyML.cVal --> cVoid)
+      val setStateWildcarded_ = call (getSymbol "gtk_icon_source_set_state_wildcarded") (GtkIconSourceRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type t = GtkIconSourceRecord.t
     type text_direction_t = GtkTextDirection.t

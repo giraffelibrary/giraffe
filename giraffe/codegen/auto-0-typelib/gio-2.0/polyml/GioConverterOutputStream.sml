@@ -7,7 +7,7 @@ structure GioConverterOutputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_converter_output_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_converter_output_stream_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_converter_output_stream_new") (GioOutputStreamClass.PolyML.cPtr &&> GioConverterClass.PolyML.cPtr --> GioOutputStreamClass.PolyML.cPtr)
       val getConverter_ = call (getSymbol "g_converter_output_stream_get_converter") (GioConverterOutputStreamClass.PolyML.cPtr --> GioConverterClass.PolyML.cPtr)
     end

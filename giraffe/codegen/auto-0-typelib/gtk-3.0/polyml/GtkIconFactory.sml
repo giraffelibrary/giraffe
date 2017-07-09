@@ -7,8 +7,8 @@ structure GtkIconFactory :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_icon_factory_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_icon_factory_new") (PolyMLFFI.cVoid --> GtkIconFactoryClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_icon_factory_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_icon_factory_new") (cVoid --> GtkIconFactoryClass.PolyML.cPtr)
       val lookupDefault_ = call (getSymbol "gtk_icon_factory_lookup_default") (Utf8.PolyML.cInPtr --> GtkIconSetRecord.PolyML.cPtr)
       val add_ =
         call (getSymbol "gtk_icon_factory_add")
@@ -16,11 +16,11 @@ structure GtkIconFactory :>
             GtkIconFactoryClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkIconSetRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val addDefault_ = call (getSymbol "gtk_icon_factory_add_default") (GtkIconFactoryClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val addDefault_ = call (getSymbol "gtk_icon_factory_add_default") (GtkIconFactoryClass.PolyML.cPtr --> cVoid)
       val lookup_ = call (getSymbol "gtk_icon_factory_lookup") (GtkIconFactoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkIconSetRecord.PolyML.cPtr)
-      val removeDefault_ = call (getSymbol "gtk_icon_factory_remove_default") (GtkIconFactoryClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val removeDefault_ = call (getSymbol "gtk_icon_factory_remove_default") (GtkIconFactoryClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkIconFactoryClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

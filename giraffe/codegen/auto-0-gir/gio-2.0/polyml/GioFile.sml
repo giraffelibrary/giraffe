@@ -28,7 +28,7 @@ structure GioFile :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_file_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_file_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val newForCommandlineArg_ = call (getSymbol "g_file_new_for_commandline_arg") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
       val newForPath_ = call (getSymbol "g_file_new_for_path") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
       val newForUri_ = call (getSymbol "g_file_new_for_uri") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)

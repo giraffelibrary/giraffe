@@ -11,7 +11,7 @@ structure GObjectBinding :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_binding_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_binding_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getFlags_ = call (getSymbol "g_binding_get_flags") (GObjectBindingClass.PolyML.cPtr --> GObjectBindingFlags.PolyML.cVal)
       val getSource_ = call (getSymbol "g_binding_get_source") (GObjectBindingClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val getSourceProperty_ = call (getSymbol "g_binding_get_source_property") (GObjectBindingClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)

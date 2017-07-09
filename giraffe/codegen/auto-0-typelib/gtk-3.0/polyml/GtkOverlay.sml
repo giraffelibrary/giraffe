@@ -7,9 +7,9 @@ structure GtkOverlay :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_overlay_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_overlay_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val addOverlay_ = call (getSymbol "gtk_overlay_add_overlay") (GtkOverlayClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gtk_overlay_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_overlay_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val addOverlay_ = call (getSymbol "gtk_overlay_add_overlay") (GtkOverlayClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkOverlayClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

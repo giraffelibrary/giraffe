@@ -36,67 +36,67 @@ structure GObjectType :> G_OBJECT_TYPE =
       val boolean_ =
         call
           (getSymbol "giraffe_g_boolean_get_type")
-          (PolyMLFFI.cVoid --> PolyML.cVal);
+          (cVoid --> PolyML.cVal);
 
       val int_ =
         call
           (getSymbol "giraffe_g_int_get_type")
-          (PolyMLFFI.cVoid --> PolyML.cVal);
+          (cVoid --> PolyML.cVal);
 
       val uint_ =
         call
           (getSymbol "giraffe_g_uint_get_type")
-          (PolyMLFFI.cVoid --> PolyML.cVal);
+          (cVoid --> PolyML.cVal);
 
       val long_ =
         call
           (getSymbol "giraffe_g_long_get_type")
-          (PolyMLFFI.cVoid --> PolyML.cVal);
+          (cVoid --> PolyML.cVal);
 
       val ulong_ =
         call
           (getSymbol "giraffe_g_ulong_get_type")
-          (PolyMLFFI.cVoid --> PolyML.cVal);
+          (cVoid --> PolyML.cVal);
 
       val int64_ =
         call
           (getSymbol "giraffe_g_int64_get_type")
-          (PolyMLFFI.cVoid --> PolyML.cVal);
+          (cVoid --> PolyML.cVal);
 
       val uint64_ =
         call
           (getSymbol "giraffe_g_uint64_get_type")
-          (PolyMLFFI.cVoid --> PolyML.cVal);
+          (cVoid --> PolyML.cVal);
 
       val float_ =
         call
           (getSymbol "giraffe_g_float_get_type")
-          (PolyMLFFI.cVoid --> PolyML.cVal);
+          (cVoid --> PolyML.cVal);
 
       val double_ =
         call
           (getSymbol "giraffe_g_double_get_type")
-          (PolyMLFFI.cVoid --> PolyML.cVal);
+          (cVoid --> PolyML.cVal);
 
       val char_ =
         call
           (getSymbol "giraffe_g_char_get_type")
-          (PolyMLFFI.cVoid --> PolyML.cVal);
+          (cVoid --> PolyML.cVal);
 
       val string_ =
         call
           (getSymbol "giraffe_g_string_get_type")
-          (PolyMLFFI.cVoid --> PolyML.cVal);
+          (cVoid --> PolyML.cVal);
 
       val pointer_ =
         call
           (getSymbol "giraffe_g_pointer_get_type")
-          (PolyMLFFI.cVoid --> PolyML.cVal);
+          (cVoid --> PolyML.cVal);
 
       val variant_ =
         call
           (getSymbol "giraffe_g_variant_get_type")
-          (PolyMLFFI.cVoid --> PolyML.cVal);
+          (cVoid --> PolyML.cVal);
     end
 
 

@@ -8,7 +8,7 @@ structure GtkFrame :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_frame_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_frame_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_frame_new") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val getLabel_ = call (getSymbol "gtk_frame_get_label") (GtkFrameClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getLabelAlign_ =
@@ -17,21 +17,21 @@ structure GtkFrame :>
             GtkFrameClass.PolyML.cPtr
              &&> GFloat.PolyML.cRef
              &&> GFloat.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getLabelWidget_ = call (getSymbol "gtk_frame_get_label_widget") (GtkFrameClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getShadowType_ = call (getSymbol "gtk_frame_get_shadow_type") (GtkFrameClass.PolyML.cPtr --> GtkShadowType.PolyML.cVal)
-      val setLabel_ = call (getSymbol "gtk_frame_set_label") (GtkFrameClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PolyMLFFI.cVoid)
+      val setLabel_ = call (getSymbol "gtk_frame_set_label") (GtkFrameClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
       val setLabelAlign_ =
         call (getSymbol "gtk_frame_set_label_align")
           (
             GtkFrameClass.PolyML.cPtr
              &&> GFloat.PolyML.cVal
              &&> GFloat.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setLabelWidget_ = call (getSymbol "gtk_frame_set_label_widget") (GtkFrameClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setShadowType_ = call (getSymbol "gtk_frame_set_shadow_type") (GtkFrameClass.PolyML.cPtr &&> GtkShadowType.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setLabelWidget_ = call (getSymbol "gtk_frame_set_label_widget") (GtkFrameClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val setShadowType_ = call (getSymbol "gtk_frame_set_shadow_type") (GtkFrameClass.PolyML.cPtr &&> GtkShadowType.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkFrameClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

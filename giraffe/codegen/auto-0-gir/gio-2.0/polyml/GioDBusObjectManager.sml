@@ -7,7 +7,7 @@ structure GioDBusObjectManager :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_dbus_object_manager_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_dbus_object_manager_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getInterface_ =
         call (getSymbol "g_dbus_object_manager_get_interface")
           (

@@ -7,10 +7,10 @@ structure GLibPollFDRecord :> G_LIB_POLL_F_D_RECORD =
     local
       open PolyMLFFI
     in
-      val new_ = call (getSymbol "giraffe_g_lib_poll_f_d_new") (PolyMLFFI.cVoid --> cPtr)
-      val copy_ = call (getSymbol "giraffe_g_lib_poll_f_d_copy") (cPtr &&> cPtr --> PolyMLFFI.cVoid)
-      val free_ = call (getSymbol "giraffe_g_lib_poll_f_d_free") (cPtr --> PolyMLFFI.cVoid)
-      val size_ = call (getSymbol "giraffe_g_lib_poll_f_d_size") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
+      val new_ = call (getSymbol "giraffe_g_lib_poll_f_d_new") (cVoid --> cPtr)
+      val copy_ = call (getSymbol "giraffe_g_lib_poll_f_d_copy") (cPtr &&> cPtr --> cVoid)
+      val free_ = call (getSymbol "giraffe_g_lib_poll_f_d_free") (cPtr --> cVoid)
+      val size_ = call (getSymbol "giraffe_g_lib_poll_f_d_size") (cVoid --> GUInt.PolyML.cVal)
     end
     structure Record =
       BoxedValueRecord(

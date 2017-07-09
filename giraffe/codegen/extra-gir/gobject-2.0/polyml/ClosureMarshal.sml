@@ -80,7 +80,7 @@ structure ClosureMarshal :>
               (GObjectValueRecord.PolyML.cPtr
                 &&> GObjectValueRecordArray.PolyML.cPtr
                 &&> GUInt32.PolyML.cVal
-                --> PolyMLFFI.cVoid)
+                --> cVoid)
         end
 
         fun withCallback f (marshaller, callback) =

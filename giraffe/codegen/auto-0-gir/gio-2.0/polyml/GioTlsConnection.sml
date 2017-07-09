@@ -13,7 +13,7 @@ structure GioTlsConnection :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_tls_connection_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_tls_connection_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val emitAcceptCertificate_ =
         call (getSymbol "g_tls_connection_emit_accept_certificate")
           (
@@ -45,11 +45,11 @@ structure GioTlsConnection :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val setCertificate_ = call (getSymbol "g_tls_connection_set_certificate") (GioTlsConnectionClass.PolyML.cPtr &&> GioTlsCertificateClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setDatabase_ = call (getSymbol "g_tls_connection_set_database") (GioTlsConnectionClass.PolyML.cPtr &&> GioTlsDatabaseClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setInteraction_ = call (getSymbol "g_tls_connection_set_interaction") (GioTlsConnectionClass.PolyML.cPtr &&> GioTlsInteractionClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setRehandshakeMode_ = call (getSymbol "g_tls_connection_set_rehandshake_mode") (GioTlsConnectionClass.PolyML.cPtr &&> GioTlsRehandshakeMode.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setRequireCloseNotify_ = call (getSymbol "g_tls_connection_set_require_close_notify") (GioTlsConnectionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setCertificate_ = call (getSymbol "g_tls_connection_set_certificate") (GioTlsConnectionClass.PolyML.cPtr &&> GioTlsCertificateClass.PolyML.cPtr --> cVoid)
+      val setDatabase_ = call (getSymbol "g_tls_connection_set_database") (GioTlsConnectionClass.PolyML.cPtr &&> GioTlsDatabaseClass.PolyML.cPtr --> cVoid)
+      val setInteraction_ = call (getSymbol "g_tls_connection_set_interaction") (GioTlsConnectionClass.PolyML.cPtr &&> GioTlsInteractionClass.PolyML.cOptPtr --> cVoid)
+      val setRehandshakeMode_ = call (getSymbol "g_tls_connection_set_rehandshake_mode") (GioTlsConnectionClass.PolyML.cPtr &&> GioTlsRehandshakeMode.PolyML.cVal --> cVoid)
+      val setRequireCloseNotify_ = call (getSymbol "g_tls_connection_set_require_close_notify") (GioTlsConnectionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GioTlsConnectionClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class

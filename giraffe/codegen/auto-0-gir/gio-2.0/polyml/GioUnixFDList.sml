@@ -11,8 +11,8 @@ structure GioUnixFDList :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_unix_fd_list_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "g_unix_fd_list_new") (PolyMLFFI.cVoid --> GioUnixFDListClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_unix_fd_list_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_unix_fd_list_new") (cVoid --> GioUnixFDListClass.PolyML.cPtr)
       val newFromArray_ = call (getSymbol "g_unix_fd_list_new_from_array") (GIntCVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GioUnixFDListClass.PolyML.cPtr)
       val append_ =
         call (getSymbol "g_unix_fd_list_append")

@@ -6,7 +6,7 @@ structure GioSeekable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_seekable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_seekable_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val canSeek_ = call (getSymbol "g_seekable_can_seek") (GioSeekableClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val canTruncate_ = call (getSymbol "g_seekable_can_truncate") (GioSeekableClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val seek_ =

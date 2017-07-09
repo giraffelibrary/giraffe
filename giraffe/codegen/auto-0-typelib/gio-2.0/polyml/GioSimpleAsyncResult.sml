@@ -6,15 +6,15 @@ structure GioSimpleAsyncResult :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_simple_async_result_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val complete_ = call (getSymbol "g_simple_async_result_complete") (GioSimpleAsyncResultClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val completeInIdle_ = call (getSymbol "g_simple_async_result_complete_in_idle") (GioSimpleAsyncResultClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_simple_async_result_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val complete_ = call (getSymbol "g_simple_async_result_complete") (GioSimpleAsyncResultClass.PolyML.cPtr --> cVoid)
+      val completeInIdle_ = call (getSymbol "g_simple_async_result_complete_in_idle") (GioSimpleAsyncResultClass.PolyML.cPtr --> cVoid)
       val getOpResGboolean_ = call (getSymbol "g_simple_async_result_get_op_res_gboolean") (GioSimpleAsyncResultClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getOpResGssize_ = call (getSymbol "g_simple_async_result_get_op_res_gssize") (GioSimpleAsyncResultClass.PolyML.cPtr --> GInt64.PolyML.cVal)
       val propagateError_ = call (getSymbol "g_simple_async_result_propagate_error") (GioSimpleAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
-      val setHandleCancellation_ = call (getSymbol "g_simple_async_result_set_handle_cancellation") (GioSimpleAsyncResultClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setOpResGboolean_ = call (getSymbol "g_simple_async_result_set_op_res_gboolean") (GioSimpleAsyncResultClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setOpResGssize_ = call (getSymbol "g_simple_async_result_set_op_res_gssize") (GioSimpleAsyncResultClass.PolyML.cPtr &&> GInt64.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setHandleCancellation_ = call (getSymbol "g_simple_async_result_set_handle_cancellation") (GioSimpleAsyncResultClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setOpResGboolean_ = call (getSymbol "g_simple_async_result_set_op_res_gboolean") (GioSimpleAsyncResultClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setOpResGssize_ = call (getSymbol "g_simple_async_result_set_op_res_gssize") (GioSimpleAsyncResultClass.PolyML.cPtr &&> GInt64.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GioSimpleAsyncResultClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class

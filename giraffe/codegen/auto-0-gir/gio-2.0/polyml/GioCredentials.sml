@@ -5,8 +5,8 @@ structure GioCredentials :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_credentials_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "g_credentials_new") (PolyMLFFI.cVoid --> GioCredentialsClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_credentials_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_credentials_new") (cVoid --> GioCredentialsClass.PolyML.cPtr)
       val getUnixUser_ = call (getSymbol "g_credentials_get_unix_user") (GioCredentialsClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GUInt.PolyML.cVal)
       val isSameUser_ =
         call (getSymbol "g_credentials_is_same_user")

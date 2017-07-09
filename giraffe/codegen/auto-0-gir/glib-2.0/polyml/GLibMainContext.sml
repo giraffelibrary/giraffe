@@ -9,8 +9,8 @@ structure GLibMainContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_main_context_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "g_main_context_new") (PolyMLFFI.cVoid --> GLibMainContextRecord.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_main_context_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_main_context_new") (cVoid --> GLibMainContextRecord.PolyML.cPtr)
       val acquire_ = call (getSymbol "g_main_context_acquire") (GLibMainContextRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val addPoll_ =
         call (getSymbol "g_main_context_add_poll")
@@ -18,17 +18,17 @@ structure GLibMainContext :>
             GLibMainContextRecord.PolyML.cPtr
              &&> GLibPollFDRecord.PolyML.cPtr
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val dispatch_ = call (getSymbol "g_main_context_dispatch") (GLibMainContextRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val dispatch_ = call (getSymbol "g_main_context_dispatch") (GLibMainContextRecord.PolyML.cPtr --> cVoid)
       val findSourceById_ = call (getSymbol "g_main_context_find_source_by_id") (GLibMainContextRecord.PolyML.cPtr &&> GUInt.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
       val isOwner_ = call (getSymbol "g_main_context_is_owner") (GLibMainContextRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val iteration_ = call (getSymbol "g_main_context_iteration") (GLibMainContextRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> GBool.PolyML.cVal)
       val pending_ = call (getSymbol "g_main_context_pending") (GLibMainContextRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val popThreadDefault_ = call (getSymbol "g_main_context_pop_thread_default") (GLibMainContextRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val pushThreadDefault_ = call (getSymbol "g_main_context_push_thread_default") (GLibMainContextRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val release_ = call (getSymbol "g_main_context_release") (GLibMainContextRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val removePoll_ = call (getSymbol "g_main_context_remove_poll") (GLibMainContextRecord.PolyML.cPtr &&> GLibPollFDRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val popThreadDefault_ = call (getSymbol "g_main_context_pop_thread_default") (GLibMainContextRecord.PolyML.cPtr --> cVoid)
+      val pushThreadDefault_ = call (getSymbol "g_main_context_push_thread_default") (GLibMainContextRecord.PolyML.cPtr --> cVoid)
+      val release_ = call (getSymbol "g_main_context_release") (GLibMainContextRecord.PolyML.cPtr --> cVoid)
+      val removePoll_ = call (getSymbol "g_main_context_remove_poll") (GLibMainContextRecord.PolyML.cPtr &&> GLibPollFDRecord.PolyML.cPtr --> cVoid)
       val wait_ =
         call (getSymbol "g_main_context_wait")
           (
@@ -37,9 +37,9 @@ structure GLibMainContext :>
              &&> GLibMutexRecord.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
-      val wakeup_ = call (getSymbol "g_main_context_wakeup") (GLibMainContextRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val default_ = call (getSymbol "g_main_context_default") (PolyMLFFI.cVoid --> GLibMainContextRecord.PolyML.cPtr)
-      val getThreadDefault_ = call (getSymbol "g_main_context_get_thread_default") (PolyMLFFI.cVoid --> GLibMainContextRecord.PolyML.cPtr)
+      val wakeup_ = call (getSymbol "g_main_context_wakeup") (GLibMainContextRecord.PolyML.cPtr --> cVoid)
+      val default_ = call (getSymbol "g_main_context_default") (cVoid --> GLibMainContextRecord.PolyML.cPtr)
+      val getThreadDefault_ = call (getSymbol "g_main_context_get_thread_default") (cVoid --> GLibMainContextRecord.PolyML.cPtr)
     end
     type t = GLibMainContextRecord.t
     type source_t = GLibSourceRecord.t

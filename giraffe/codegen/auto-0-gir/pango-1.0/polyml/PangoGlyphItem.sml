@@ -5,7 +5,7 @@ structure PangoGlyphItem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "pango_glyph_item_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "pango_glyph_item_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val copy_ = call (getSymbol "pango_glyph_item_copy") (PangoGlyphItemRecord.PolyML.cPtr --> PangoGlyphItemRecord.PolyML.cPtr)
       val split_ =
         call (getSymbol "pango_glyph_item_split")

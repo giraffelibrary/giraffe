@@ -9,12 +9,12 @@ structure GdkScreen :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gdk_screen_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (getSymbol "gdk_screen_get_default") (PolyMLFFI.cVoid --> GdkScreenClass.PolyML.cPtr)
-      val height_ = call (getSymbol "gdk_screen_height") (PolyMLFFI.cVoid --> GInt.PolyML.cVal)
-      val heightMm_ = call (getSymbol "gdk_screen_height_mm") (PolyMLFFI.cVoid --> GInt.PolyML.cVal)
-      val width_ = call (getSymbol "gdk_screen_width") (PolyMLFFI.cVoid --> GInt.PolyML.cVal)
-      val widthMm_ = call (getSymbol "gdk_screen_width_mm") (PolyMLFFI.cVoid --> GInt.PolyML.cVal)
+      val getType_ = call (getSymbol "gdk_screen_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (getSymbol "gdk_screen_get_default") (cVoid --> GdkScreenClass.PolyML.cPtr)
+      val height_ = call (getSymbol "gdk_screen_height") (cVoid --> GInt.PolyML.cVal)
+      val heightMm_ = call (getSymbol "gdk_screen_height_mm") (cVoid --> GInt.PolyML.cVal)
+      val width_ = call (getSymbol "gdk_screen_width") (cVoid --> GInt.PolyML.cVal)
+      val widthMm_ = call (getSymbol "gdk_screen_width_mm") (cVoid --> GInt.PolyML.cVal)
       val getActiveWindow_ = call (getSymbol "gdk_screen_get_active_window") (GdkScreenClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getDisplay_ = call (getSymbol "gdk_screen_get_display") (GdkScreenClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
       val getFontOptions_ = call (getSymbol "gdk_screen_get_font_options") (GdkScreenClass.PolyML.cPtr --> CairoFontOptionsRecord.PolyML.cPtr)
@@ -35,7 +35,7 @@ structure GdkScreen :>
             GdkScreenClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GdkRectangleRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getMonitorHeightMm_ = call (getSymbol "gdk_screen_get_monitor_height_mm") (GdkScreenClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GInt.PolyML.cVal)
       val getMonitorPlugName_ = call (getSymbol "gdk_screen_get_monitor_plug_name") (GdkScreenClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
@@ -59,8 +59,8 @@ structure GdkScreen :>
       val getWidthMm_ = call (getSymbol "gdk_screen_get_width_mm") (GdkScreenClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val isComposited_ = call (getSymbol "gdk_screen_is_composited") (GdkScreenClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val makeDisplayName_ = call (getSymbol "gdk_screen_make_display_name") (GdkScreenClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val setFontOptions_ = call (getSymbol "gdk_screen_set_font_options") (GdkScreenClass.PolyML.cPtr &&> CairoFontOptionsRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setResolution_ = call (getSymbol "gdk_screen_set_resolution") (GdkScreenClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setFontOptions_ = call (getSymbol "gdk_screen_set_font_options") (GdkScreenClass.PolyML.cPtr &&> CairoFontOptionsRecord.PolyML.cOptPtr --> cVoid)
+      val setResolution_ = call (getSymbol "gdk_screen_set_resolution") (GdkScreenClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GdkScreenClass.class
     type 'a display_class = 'a GdkDisplayClass.class

@@ -22,8 +22,8 @@ structure PangoContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "pango_context_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "pango_context_new") (PolyMLFFI.cVoid --> PangoContextClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "pango_context_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "pango_context_new") (cVoid --> PangoContextClass.PolyML.cPtr)
       val getBaseDir_ = call (getSymbol "pango_context_get_base_dir") (PangoContextClass.PolyML.cPtr --> PangoDirection.PolyML.cVal)
       val getBaseGravity_ = call (getSymbol "pango_context_get_base_gravity") (PangoContextClass.PolyML.cPtr --> PangoGravity.PolyML.cVal)
       val getFontDescription_ = call (getSymbol "pango_context_get_font_description") (PangoContextClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
@@ -46,7 +46,7 @@ structure PangoContext :>
             PangoContextClass.PolyML.cPtr
              &&> PangoFontFamilyClassCVectorN.PolyML.cOutRef
              &&> GInt32.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val loadFont_ = call (getSymbol "pango_context_load_font") (PangoContextClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cPtr --> PangoFontClass.PolyML.cPtr)
       val loadFontset_ =
@@ -57,13 +57,13 @@ structure PangoContext :>
              &&> PangoLanguageRecord.PolyML.cPtr
              --> PangoFontsetClass.PolyML.cPtr
           )
-      val setBaseDir_ = call (getSymbol "pango_context_set_base_dir") (PangoContextClass.PolyML.cPtr &&> PangoDirection.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setBaseGravity_ = call (getSymbol "pango_context_set_base_gravity") (PangoContextClass.PolyML.cPtr &&> PangoGravity.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setFontDescription_ = call (getSymbol "pango_context_set_font_description") (PangoContextClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setFontMap_ = call (getSymbol "pango_context_set_font_map") (PangoContextClass.PolyML.cPtr &&> PangoFontMapClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setGravityHint_ = call (getSymbol "pango_context_set_gravity_hint") (PangoContextClass.PolyML.cPtr &&> PangoGravityHint.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setLanguage_ = call (getSymbol "pango_context_set_language") (PangoContextClass.PolyML.cPtr &&> PangoLanguageRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setMatrix_ = call (getSymbol "pango_context_set_matrix") (PangoContextClass.PolyML.cPtr &&> PangoMatrixRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setBaseDir_ = call (getSymbol "pango_context_set_base_dir") (PangoContextClass.PolyML.cPtr &&> PangoDirection.PolyML.cVal --> cVoid)
+      val setBaseGravity_ = call (getSymbol "pango_context_set_base_gravity") (PangoContextClass.PolyML.cPtr &&> PangoGravity.PolyML.cVal --> cVoid)
+      val setFontDescription_ = call (getSymbol "pango_context_set_font_description") (PangoContextClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cPtr --> cVoid)
+      val setFontMap_ = call (getSymbol "pango_context_set_font_map") (PangoContextClass.PolyML.cPtr &&> PangoFontMapClass.PolyML.cPtr --> cVoid)
+      val setGravityHint_ = call (getSymbol "pango_context_set_gravity_hint") (PangoContextClass.PolyML.cPtr &&> PangoGravityHint.PolyML.cVal --> cVoid)
+      val setLanguage_ = call (getSymbol "pango_context_set_language") (PangoContextClass.PolyML.cPtr &&> PangoLanguageRecord.PolyML.cPtr --> cVoid)
+      val setMatrix_ = call (getSymbol "pango_context_set_matrix") (PangoContextClass.PolyML.cPtr &&> PangoMatrixRecord.PolyML.cOptPtr --> cVoid)
     end
     type 'a class = 'a PangoContextClass.class
     type font_metrics_t = PangoFontMetricsRecord.t

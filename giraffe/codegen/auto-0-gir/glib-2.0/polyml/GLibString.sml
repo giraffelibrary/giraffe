@@ -5,7 +5,7 @@ structure GLibString :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_gstring_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_gstring_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val append_ = call (getSymbol "g_string_append") (GLibStringRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibStringRecord.PolyML.cPtr)
       val appendC_ = call (getSymbol "g_string_append_c") (GLibStringRecord.PolyML.cPtr &&> GChar.PolyML.cVal --> GLibStringRecord.PolyML.cPtr)
       val appendLen_ =

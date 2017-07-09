@@ -20,7 +20,7 @@ structure GioDBusObjectManagerClient :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_dbus_object_manager_client_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_dbus_object_manager_client_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val newFinish_ = call (getSymbol "g_dbus_object_manager_client_new_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioDBusObjectManagerClientClass.PolyML.cPtr)
       val newForBusFinish_ = call (getSymbol "g_dbus_object_manager_client_new_for_bus_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioDBusObjectManagerClientClass.PolyML.cPtr)
       val getConnection_ = call (getSymbol "g_dbus_object_manager_client_get_connection") (GioDBusObjectManagerClientClass.PolyML.cPtr --> GioDBusConnectionClass.PolyML.cPtr)

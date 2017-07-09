@@ -7,10 +7,10 @@ structure GtkAccelKeyRecord :> GTK_ACCEL_KEY_RECORD =
     local
       open PolyMLFFI
     in
-      val new_ = call (getSymbol "giraffe_gtk_accel_key_new") (PolyMLFFI.cVoid --> cPtr)
-      val copy_ = call (getSymbol "giraffe_gtk_accel_key_copy") (cPtr &&> cPtr --> PolyMLFFI.cVoid)
-      val free_ = call (getSymbol "giraffe_gtk_accel_key_free") (cPtr --> PolyMLFFI.cVoid)
-      val size_ = call (getSymbol "giraffe_gtk_accel_key_size") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
+      val new_ = call (getSymbol "giraffe_gtk_accel_key_new") (cVoid --> cPtr)
+      val copy_ = call (getSymbol "giraffe_gtk_accel_key_copy") (cPtr &&> cPtr --> cVoid)
+      val free_ = call (getSymbol "giraffe_gtk_accel_key_free") (cPtr --> cVoid)
+      val size_ = call (getSymbol "giraffe_gtk_accel_key_size") (cVoid --> GUInt.PolyML.cVal)
     end
     structure Record =
       BoxedValueRecord(

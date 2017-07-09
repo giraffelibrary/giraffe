@@ -6,8 +6,8 @@ structure AtkPlug :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "atk_plug_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "atk_plug_new") (PolyMLFFI.cVoid --> AtkObjectClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "atk_plug_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "atk_plug_new") (cVoid --> AtkObjectClass.PolyML.cPtr)
       val getId_ = call (getSymbol "atk_plug_get_id") (AtkPlugClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class = 'a AtkPlugClass.class

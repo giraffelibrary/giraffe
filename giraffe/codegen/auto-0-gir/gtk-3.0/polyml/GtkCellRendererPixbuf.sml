@@ -5,8 +5,8 @@ structure GtkCellRendererPixbuf :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_cell_renderer_pixbuf_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_cell_renderer_pixbuf_new") (PolyMLFFI.cVoid --> GtkCellRendererClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_cell_renderer_pixbuf_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_cell_renderer_pixbuf_new") (cVoid --> GtkCellRendererClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkCellRendererPixbufClass.class
     type t = base class

@@ -8,16 +8,16 @@ structure GioDBusInterfaceInfo :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_dbus_interface_info_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val cacheBuild_ = call (getSymbol "g_dbus_interface_info_cache_build") (GioDBusInterfaceInfoRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val cacheRelease_ = call (getSymbol "g_dbus_interface_info_cache_release") (GioDBusInterfaceInfoRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_dbus_interface_info_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val cacheBuild_ = call (getSymbol "g_dbus_interface_info_cache_build") (GioDBusInterfaceInfoRecord.PolyML.cPtr --> cVoid)
+      val cacheRelease_ = call (getSymbol "g_dbus_interface_info_cache_release") (GioDBusInterfaceInfoRecord.PolyML.cPtr --> cVoid)
       val generateXml_ =
         call (getSymbol "g_dbus_interface_info_generate_xml")
           (
             GioDBusInterfaceInfoRecord.PolyML.cPtr
              &&> GUInt.PolyML.cVal
              &&> GLibStringRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val lookupMethod_ = call (getSymbol "g_dbus_interface_info_lookup_method") (GioDBusInterfaceInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioDBusMethodInfoRecord.PolyML.cPtr)
       val lookupProperty_ = call (getSymbol "g_dbus_interface_info_lookup_property") (GioDBusInterfaceInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioDBusPropertyInfoRecord.PolyML.cPtr)

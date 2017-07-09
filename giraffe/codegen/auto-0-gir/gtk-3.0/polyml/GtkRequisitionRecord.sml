@@ -7,10 +7,10 @@ structure GtkRequisitionRecord :> GTK_REQUISITION_RECORD =
     local
       open PolyMLFFI
     in
-      val new_ = call (getSymbol "giraffe_gtk_requisition_new") (PolyMLFFI.cVoid --> cPtr)
-      val copy_ = call (getSymbol "giraffe_gtk_requisition_copy") (cPtr &&> cPtr --> PolyMLFFI.cVoid)
-      val free_ = call (getSymbol "giraffe_gtk_requisition_free") (cPtr --> PolyMLFFI.cVoid)
-      val size_ = call (getSymbol "giraffe_gtk_requisition_size") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
+      val new_ = call (getSymbol "giraffe_gtk_requisition_new") (cVoid --> cPtr)
+      val copy_ = call (getSymbol "giraffe_gtk_requisition_copy") (cPtr &&> cPtr --> cVoid)
+      val free_ = call (getSymbol "giraffe_gtk_requisition_free") (cPtr --> cVoid)
+      val size_ = call (getSymbol "giraffe_gtk_requisition_size") (cVoid --> GUInt.PolyML.cVal)
     end
     structure Record =
       BoxedValueRecord(
@@ -28,11 +28,11 @@ structure GtkRequisitionRecord :> GTK_REQUISITION_RECORD =
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_requisition_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_requisition_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getValue_ = call (getSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr)
       val getOptValue_ = call (getSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr)
-      val setValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setOptValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid)
+      val setOptValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid)
     end
     val t =
       GObjectValue.C.createAccessor

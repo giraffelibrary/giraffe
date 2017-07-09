@@ -6,7 +6,7 @@ structure GtkFontSelectionDialog :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_font_selection_dialog_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_font_selection_dialog_get_type") (cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class = 'a GtkFontSelectionDialogClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

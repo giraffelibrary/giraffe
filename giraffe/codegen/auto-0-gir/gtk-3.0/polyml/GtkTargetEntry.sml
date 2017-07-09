@@ -5,7 +5,7 @@ structure GtkTargetEntry :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_target_entry_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_target_entry_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (getSymbol "gtk_target_entry_new")
           (

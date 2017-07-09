@@ -6,7 +6,7 @@ structure GObjectParamSpec :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "intern") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "intern") (cVoid --> GObjectType.PolyML.cVal)
       val getBlurb_ = call (getSymbol "g_param_spec_get_blurb") (GObjectParamSpecClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getName_ = call (getSymbol "g_param_spec_get_name") (GObjectParamSpecClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getNick_ = call (getSymbol "g_param_spec_get_nick") (GObjectParamSpecClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)

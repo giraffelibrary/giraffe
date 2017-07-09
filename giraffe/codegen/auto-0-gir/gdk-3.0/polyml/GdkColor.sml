@@ -5,7 +5,7 @@ structure GdkColor :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gdk_color_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gdk_color_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val copy_ = call (getSymbol "gdk_color_copy") (GdkColorRecord.PolyML.cPtr --> GdkColorRecord.PolyML.cPtr)
       val equal_ = call (getSymbol "gdk_color_equal") (GdkColorRecord.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val hash_ = call (getSymbol "gdk_color_hash") (GdkColorRecord.PolyML.cPtr --> GUInt.PolyML.cVal)

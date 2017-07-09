@@ -5,8 +5,8 @@ structure PangoCairo : PANGO_CAIRO =
     in
       val contextGetFontOptions_ = call (getSymbol "pango_cairo_context_get_font_options") (PangoContextClass.PolyML.cPtr --> CairoFontOptionsRecord.PolyML.cPtr)
       val contextGetResolution_ = call (getSymbol "pango_cairo_context_get_resolution") (PangoContextClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val contextSetFontOptions_ = call (getSymbol "pango_cairo_context_set_font_options") (PangoContextClass.PolyML.cPtr &&> CairoFontOptionsRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val contextSetResolution_ = call (getSymbol "pango_cairo_context_set_resolution") (PangoContextClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val contextSetFontOptions_ = call (getSymbol "pango_cairo_context_set_font_options") (PangoContextClass.PolyML.cPtr &&> CairoFontOptionsRecord.PolyML.cPtr --> cVoid)
+      val contextSetResolution_ = call (getSymbol "pango_cairo_context_set_resolution") (PangoContextClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
       val createContext_ = call (getSymbol "pango_cairo_create_context") (CairoContextRecord.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
       val createLayout_ = call (getSymbol "pango_cairo_create_layout") (CairoContextRecord.PolyML.cPtr --> PangoLayoutClass.PolyML.cPtr)
       val errorUnderlinePath_ =
@@ -17,20 +17,20 @@ structure PangoCairo : PANGO_CAIRO =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val fontMapGetDefault_ = call (getSymbol "pango_cairo_font_map_get_default") (PolyMLFFI.cVoid --> PangoFontMapClass.PolyML.cPtr)
-      val fontMapNew_ = call (getSymbol "pango_cairo_font_map_new") (PolyMLFFI.cVoid --> PangoFontMapClass.PolyML.cPtr)
+      val fontMapGetDefault_ = call (getSymbol "pango_cairo_font_map_get_default") (cVoid --> PangoFontMapClass.PolyML.cPtr)
+      val fontMapNew_ = call (getSymbol "pango_cairo_font_map_new") (cVoid --> PangoFontMapClass.PolyML.cPtr)
       val glyphStringPath_ =
         call (getSymbol "pango_cairo_glyph_string_path")
           (
             CairoContextRecord.PolyML.cPtr
              &&> PangoFontClass.PolyML.cPtr
              &&> PangoGlyphStringRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val layoutLinePath_ = call (getSymbol "pango_cairo_layout_line_path") (CairoContextRecord.PolyML.cPtr &&> PangoLayoutLineRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val layoutPath_ = call (getSymbol "pango_cairo_layout_path") (CairoContextRecord.PolyML.cPtr &&> PangoLayoutClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val layoutLinePath_ = call (getSymbol "pango_cairo_layout_line_path") (CairoContextRecord.PolyML.cPtr &&> PangoLayoutLineRecord.PolyML.cPtr --> cVoid)
+      val layoutPath_ = call (getSymbol "pango_cairo_layout_path") (CairoContextRecord.PolyML.cPtr &&> PangoLayoutClass.PolyML.cPtr --> cVoid)
       val showErrorUnderline_ =
         call (getSymbol "pango_cairo_show_error_underline")
           (
@@ -39,7 +39,7 @@ structure PangoCairo : PANGO_CAIRO =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val showGlyphItem_ =
         call (getSymbol "pango_cairo_show_glyph_item")
@@ -47,7 +47,7 @@ structure PangoCairo : PANGO_CAIRO =
             CairoContextRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> PangoGlyphItemRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val showGlyphString_ =
         call (getSymbol "pango_cairo_show_glyph_string")
@@ -55,12 +55,12 @@ structure PangoCairo : PANGO_CAIRO =
             CairoContextRecord.PolyML.cPtr
              &&> PangoFontClass.PolyML.cPtr
              &&> PangoGlyphStringRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val showLayout_ = call (getSymbol "pango_cairo_show_layout") (CairoContextRecord.PolyML.cPtr &&> PangoLayoutClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val showLayoutLine_ = call (getSymbol "pango_cairo_show_layout_line") (CairoContextRecord.PolyML.cPtr &&> PangoLayoutLineRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val updateContext_ = call (getSymbol "pango_cairo_update_context") (CairoContextRecord.PolyML.cPtr &&> PangoContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val updateLayout_ = call (getSymbol "pango_cairo_update_layout") (CairoContextRecord.PolyML.cPtr &&> PangoLayoutClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val showLayout_ = call (getSymbol "pango_cairo_show_layout") (CairoContextRecord.PolyML.cPtr &&> PangoLayoutClass.PolyML.cPtr --> cVoid)
+      val showLayoutLine_ = call (getSymbol "pango_cairo_show_layout_line") (CairoContextRecord.PolyML.cPtr &&> PangoLayoutLineRecord.PolyML.cPtr --> cVoid)
+      val updateContext_ = call (getSymbol "pango_cairo_update_context") (CairoContextRecord.PolyML.cPtr &&> PangoContextClass.PolyML.cPtr --> cVoid)
+      val updateLayout_ = call (getSymbol "pango_cairo_update_layout") (CairoContextRecord.PolyML.cPtr &&> PangoLayoutClass.PolyML.cPtr --> cVoid)
     end
     structure FcFontMapClass = PangoCairoFcFontMapClass
     structure FontClass = PangoCairoFontClass

@@ -175,7 +175,7 @@ structure <EnumNamespace><EnumName> :>
       val getType_ =                                                       |               |
         call                                                               |               |
           (getSymbol "<getTypeSymbol>")                                    | Poly/ML only  |
-          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);                   |               |
+          (cVoid --> GObjectType.PolyML.cVal);                             |               |
                                                                            |               |
       val getValue_ =                                                      |               |
         call                                                               |               |
@@ -185,7 +185,7 @@ structure <EnumNamespace><EnumName> :>
       val setValue_ =                                                      |               |
         call                                                               |               |
           (getSymbol "g_value_set_enum")                                   |               |
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid);            |
+          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> cVoid);      |               |
     end                                                                    |               | optGetTypeSymbol
                                                                           -'               |  is SOME getTypeSymbol
                                                                           -.               |

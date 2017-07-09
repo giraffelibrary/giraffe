@@ -6,11 +6,11 @@ structure GdkDisplayManager :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gdk_display_manager_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val get_ = call (getSymbol "gdk_display_manager_get") (PolyMLFFI.cVoid --> GdkDisplayManagerClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gdk_display_manager_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val get_ = call (getSymbol "gdk_display_manager_get") (cVoid --> GdkDisplayManagerClass.PolyML.cPtr)
       val getDefaultDisplay_ = call (getSymbol "gdk_display_manager_get_default_display") (GdkDisplayManagerClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
       val openDisplay_ = call (getSymbol "gdk_display_manager_open_display") (GdkDisplayManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GdkDisplayClass.PolyML.cPtr)
-      val setDefaultDisplay_ = call (getSymbol "gdk_display_manager_set_default_display") (GdkDisplayManagerClass.PolyML.cPtr &&> GdkDisplayClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setDefaultDisplay_ = call (getSymbol "gdk_display_manager_set_default_display") (GdkDisplayManagerClass.PolyML.cPtr &&> GdkDisplayClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GdkDisplayManagerClass.class
     type 'a display_class = 'a GdkDisplayClass.class

@@ -6,7 +6,7 @@ structure GObjectParamSpecValueArray :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "intern") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "intern") (cVoid --> GObjectType.PolyML.cVal)
     end
     type 'a class = 'a GObjectParamSpecValueArrayClass.class
     type type_t = GObjectType.t

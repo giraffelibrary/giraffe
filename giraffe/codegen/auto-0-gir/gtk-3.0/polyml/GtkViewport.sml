@@ -9,12 +9,12 @@ structure GtkViewport :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_viewport_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_viewport_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_viewport_new") (GtkAdjustmentClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getBinWindow_ = call (getSymbol "gtk_viewport_get_bin_window") (GtkViewportClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getShadowType_ = call (getSymbol "gtk_viewport_get_shadow_type") (GtkViewportClass.PolyML.cPtr --> GtkShadowType.PolyML.cVal)
       val getViewWindow_ = call (getSymbol "gtk_viewport_get_view_window") (GtkViewportClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
-      val setShadowType_ = call (getSymbol "gtk_viewport_set_shadow_type") (GtkViewportClass.PolyML.cPtr &&> GtkShadowType.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setShadowType_ = call (getSymbol "gtk_viewport_set_shadow_type") (GtkViewportClass.PolyML.cPtr &&> GtkShadowType.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkViewportClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

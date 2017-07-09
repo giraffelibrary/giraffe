@@ -9,8 +9,8 @@ structure GtkGrid :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_grid_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_grid_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_grid_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_grid_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val attach_ =
         call (getSymbol "gtk_grid_attach")
           (
@@ -20,7 +20,7 @@ structure GtkGrid :>
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val attachNextTo_ =
         call (getSymbol "gtk_grid_attach_next_to")
@@ -31,26 +31,26 @@ structure GtkGrid :>
              &&> GtkPositionType.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getColumnHomogeneous_ = call (getSymbol "gtk_grid_get_column_homogeneous") (GtkGridClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getColumnSpacing_ = call (getSymbol "gtk_grid_get_column_spacing") (GtkGridClass.PolyML.cPtr --> GUInt.PolyML.cVal)
       val getRowHomogeneous_ = call (getSymbol "gtk_grid_get_row_homogeneous") (GtkGridClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getRowSpacing_ = call (getSymbol "gtk_grid_get_row_spacing") (GtkGridClass.PolyML.cPtr --> GUInt.PolyML.cVal)
-      val insertColumn_ = call (getSymbol "gtk_grid_insert_column") (GtkGridClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val insertColumn_ = call (getSymbol "gtk_grid_insert_column") (GtkGridClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val insertNextTo_ =
         call (getSymbol "gtk_grid_insert_next_to")
           (
             GtkGridClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkPositionType.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val insertRow_ = call (getSymbol "gtk_grid_insert_row") (GtkGridClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setColumnHomogeneous_ = call (getSymbol "gtk_grid_set_column_homogeneous") (GtkGridClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setColumnSpacing_ = call (getSymbol "gtk_grid_set_column_spacing") (GtkGridClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setRowHomogeneous_ = call (getSymbol "gtk_grid_set_row_homogeneous") (GtkGridClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setRowSpacing_ = call (getSymbol "gtk_grid_set_row_spacing") (GtkGridClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val insertRow_ = call (getSymbol "gtk_grid_insert_row") (GtkGridClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setColumnHomogeneous_ = call (getSymbol "gtk_grid_set_column_homogeneous") (GtkGridClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setColumnSpacing_ = call (getSymbol "gtk_grid_set_column_spacing") (GtkGridClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
+      val setRowHomogeneous_ = call (getSymbol "gtk_grid_set_row_homogeneous") (GtkGridClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setRowSpacing_ = call (getSymbol "gtk_grid_set_row_spacing") (GtkGridClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkGridClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

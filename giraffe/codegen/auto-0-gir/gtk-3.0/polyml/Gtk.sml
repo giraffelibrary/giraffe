@@ -29,7 +29,7 @@ structure Gtk : GTK =
              &&> GdkModifierType.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val acceleratorGetDefaultModMask_ = call (getSymbol "gtk_accelerator_get_default_mod_mask") (PolyMLFFI.cVoid --> GdkModifierType.PolyML.cVal)
+      val acceleratorGetDefaultModMask_ = call (getSymbol "gtk_accelerator_get_default_mod_mask") (cVoid --> GdkModifierType.PolyML.cVal)
       val acceleratorGetLabel_ = call (getSymbol "gtk_accelerator_get_label") (GUInt.PolyML.cVal &&> GdkModifierType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val acceleratorName_ = call (getSymbol "gtk_accelerator_name") (GUInt.PolyML.cVal &&> GdkModifierType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val acceleratorParse_ =
@@ -38,12 +38,12 @@ structure Gtk : GTK =
             Utf8.PolyML.cInPtr
              &&> GUInt.PolyML.cRef
              &&> GdkModifierType.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val acceleratorSetDefaultModMask_ = call (getSymbol "gtk_accelerator_set_default_mod_mask") (GdkModifierType.PolyML.cVal --> PolyMLFFI.cVoid)
+      val acceleratorSetDefaultModMask_ = call (getSymbol "gtk_accelerator_set_default_mod_mask") (GdkModifierType.PolyML.cVal --> cVoid)
       val acceleratorValid_ = call (getSymbol "gtk_accelerator_valid") (GUInt.PolyML.cVal &&> GdkModifierType.PolyML.cVal --> GBool.PolyML.cVal)
       val alternativeDialogButtonOrder_ = call (getSymbol "gtk_alternative_dialog_button_order") (GdkScreenClass.PolyML.cOptPtr --> GBool.PolyML.cVal)
-      val builderErrorQuark_ = call (getSymbol "gtk_builder_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
+      val builderErrorQuark_ = call (getSymbol "gtk_builder_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
       val cairoShouldDrawWindow_ = call (getSymbol "gtk_cairo_should_draw_window") (CairoContextRecord.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val cairoTransformToWindow_ =
         call (getSymbol "gtk_cairo_transform_to_window")
@@ -51,7 +51,7 @@ structure Gtk : GTK =
             CairoContextRecord.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GdkWindowClass.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val checkVersion_ =
         call (getSymbol "gtk_check_version")
@@ -61,17 +61,17 @@ structure Gtk : GTK =
              &&> GUInt.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val cssProviderErrorQuark_ = call (getSymbol "gtk_css_provider_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
+      val cssProviderErrorQuark_ = call (getSymbol "gtk_css_provider_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
       val deviceGrabAdd_ =
         call (getSymbol "gtk_device_grab_add")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GdkDeviceClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val deviceGrabRemove_ = call (getSymbol "gtk_device_grab_remove") (GtkWidgetClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val disableSetlocale_ = call (getSymbol "gtk_disable_setlocale") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val deviceGrabRemove_ = call (getSymbol "gtk_device_grab_remove") (GtkWidgetClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> cVoid)
+      val disableSetlocale_ = call (getSymbol "gtk_disable_setlocale") (cVoid --> cVoid)
       val dragFinish_ =
         call (getSymbol "gtk_drag_finish")
           (
@@ -79,10 +79,10 @@ structure Gtk : GTK =
              &&> GBool.PolyML.cVal
              &&> GBool.PolyML.cVal
              &&> GUInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val dragGetSourceWidget_ = call (getSymbol "gtk_drag_get_source_widget") (GdkDragContextClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val dragSetIconDefault_ = call (getSymbol "gtk_drag_set_icon_default") (GdkDragContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val dragSetIconDefault_ = call (getSymbol "gtk_drag_set_icon_default") (GdkDragContextClass.PolyML.cPtr --> cVoid)
       val dragSetIconGicon_ =
         call (getSymbol "gtk_drag_set_icon_gicon")
           (
@@ -90,7 +90,7 @@ structure Gtk : GTK =
              &&> GioIconClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val dragSetIconName_ =
         call (getSymbol "gtk_drag_set_icon_name")
@@ -99,7 +99,7 @@ structure Gtk : GTK =
              &&> Utf8.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val dragSetIconPixbuf_ =
         call (getSymbol "gtk_drag_set_icon_pixbuf")
@@ -108,7 +108,7 @@ structure Gtk : GTK =
              &&> GdkPixbufPixbufClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val dragSetIconStock_ =
         call (getSymbol "gtk_drag_set_icon_stock")
@@ -117,9 +117,9 @@ structure Gtk : GTK =
              &&> Utf8.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val dragSetIconSurface_ = call (getSymbol "gtk_drag_set_icon_surface") (GdkDragContextClass.PolyML.cPtr &&> CairoSurfaceRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val dragSetIconSurface_ = call (getSymbol "gtk_drag_set_icon_surface") (GdkDragContextClass.PolyML.cPtr &&> CairoSurfaceRecord.PolyML.cPtr --> cVoid)
       val dragSetIconWidget_ =
         call (getSymbol "gtk_drag_set_icon_widget")
           (
@@ -127,7 +127,7 @@ structure Gtk : GTK =
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val drawInsertionCursor_ =
         call (getSymbol "gtk_draw_insertion_cursor")
@@ -138,23 +138,23 @@ structure Gtk : GTK =
              &&> GBool.PolyML.cVal
              &&> GtkTextDirection.PolyML.cVal
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val eventsPending_ = call (getSymbol "gtk_events_pending") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
-      val fileChooserErrorQuark_ = call (getSymbol "gtk_file_chooser_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
-      val getBinaryAge_ = call (getSymbol "gtk_get_binary_age") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
-      val getCurrentEvent_ = call (getSymbol "gtk_get_current_event") (PolyMLFFI.cVoid --> GdkEvent.PolyML.cPtr)
-      val getCurrentEventDevice_ = call (getSymbol "gtk_get_current_event_device") (PolyMLFFI.cVoid --> GdkDeviceClass.PolyML.cPtr)
+      val eventsPending_ = call (getSymbol "gtk_events_pending") (cVoid --> GBool.PolyML.cVal)
+      val fileChooserErrorQuark_ = call (getSymbol "gtk_file_chooser_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
+      val getBinaryAge_ = call (getSymbol "gtk_get_binary_age") (cVoid --> GUInt.PolyML.cVal)
+      val getCurrentEvent_ = call (getSymbol "gtk_get_current_event") (cVoid --> GdkEvent.PolyML.cPtr)
+      val getCurrentEventDevice_ = call (getSymbol "gtk_get_current_event_device") (cVoid --> GdkDeviceClass.PolyML.cPtr)
       val getCurrentEventState_ = call (getSymbol "gtk_get_current_event_state") (GdkModifierType.PolyML.cRef --> GBool.PolyML.cVal)
-      val getCurrentEventTime_ = call (getSymbol "gtk_get_current_event_time") (PolyMLFFI.cVoid --> GUInt32.PolyML.cVal)
-      val getDebugFlags_ = call (getSymbol "gtk_get_debug_flags") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
-      val getDefaultLanguage_ = call (getSymbol "gtk_get_default_language") (PolyMLFFI.cVoid --> PangoLanguageRecord.PolyML.cPtr)
+      val getCurrentEventTime_ = call (getSymbol "gtk_get_current_event_time") (cVoid --> GUInt32.PolyML.cVal)
+      val getDebugFlags_ = call (getSymbol "gtk_get_debug_flags") (cVoid --> GUInt.PolyML.cVal)
+      val getDefaultLanguage_ = call (getSymbol "gtk_get_default_language") (cVoid --> PangoLanguageRecord.PolyML.cPtr)
       val getEventWidget_ = call (getSymbol "gtk_get_event_widget") (GdkEvent.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getInterfaceAge_ = call (getSymbol "gtk_get_interface_age") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
-      val getMajorVersion_ = call (getSymbol "gtk_get_major_version") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
-      val getMicroVersion_ = call (getSymbol "gtk_get_micro_version") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
-      val getMinorVersion_ = call (getSymbol "gtk_get_minor_version") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
-      val grabGetCurrent_ = call (getSymbol "gtk_grab_get_current") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getInterfaceAge_ = call (getSymbol "gtk_get_interface_age") (cVoid --> GUInt.PolyML.cVal)
+      val getMajorVersion_ = call (getSymbol "gtk_get_major_version") (cVoid --> GUInt.PolyML.cVal)
+      val getMicroVersion_ = call (getSymbol "gtk_get_micro_version") (cVoid --> GUInt.PolyML.cVal)
+      val getMinorVersion_ = call (getSymbol "gtk_get_minor_version") (cVoid --> GUInt.PolyML.cVal)
+      val grabGetCurrent_ = call (getSymbol "gtk_grab_get_current") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val iconSizeFromName_ = call (getSymbol "gtk_icon_size_from_name") (Utf8.PolyML.cInPtr --> GInt.PolyML.cVal)
       val iconSizeGetName_ = call (getSymbol "gtk_icon_size_get_name") (GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val iconSizeLookup_ =
@@ -182,17 +182,17 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              --> GInt.PolyML.cVal
           )
-      val iconSizeRegisterAlias_ = call (getSymbol "gtk_icon_size_register_alias") (Utf8.PolyML.cInPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val iconThemeErrorQuark_ = call (getSymbol "gtk_icon_theme_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
-      val init_ = call (getSymbol "gtk_init") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> PolyMLFFI.cVoid)
+      val iconSizeRegisterAlias_ = call (getSymbol "gtk_icon_size_register_alias") (Utf8.PolyML.cInPtr &&> GInt.PolyML.cVal --> cVoid)
+      val iconThemeErrorQuark_ = call (getSymbol "gtk_icon_theme_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
+      val init_ = call (getSymbol "gtk_init") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> cVoid)
       val initCheck_ = call (getSymbol "gtk_init_check") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> GBool.PolyML.cVal)
-      val keySnooperRemove_ = call (getSymbol "gtk_key_snooper_remove") (GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val main_ = call (getSymbol "gtk_main") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
-      val mainDoEvent_ = call (getSymbol "gtk_main_do_event") (GdkEvent.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val mainIteration_ = call (getSymbol "gtk_main_iteration") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
+      val keySnooperRemove_ = call (getSymbol "gtk_key_snooper_remove") (GUInt.PolyML.cVal --> cVoid)
+      val main_ = call (getSymbol "gtk_main") (cVoid --> cVoid)
+      val mainDoEvent_ = call (getSymbol "gtk_main_do_event") (GdkEvent.PolyML.cPtr --> cVoid)
+      val mainIteration_ = call (getSymbol "gtk_main_iteration") (cVoid --> GBool.PolyML.cVal)
       val mainIterationDo_ = call (getSymbol "gtk_main_iteration_do") (GBool.PolyML.cVal --> GBool.PolyML.cVal)
-      val mainLevel_ = call (getSymbol "gtk_main_level") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
-      val mainQuit_ = call (getSymbol "gtk_main_quit") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val mainLevel_ = call (getSymbol "gtk_main_level") (cVoid --> GUInt.PolyML.cVal)
+      val mainQuit_ = call (getSymbol "gtk_main_quit") (cVoid --> cVoid)
       val paintArrow_ =
         call (getSymbol "gtk_paint_arrow")
           (
@@ -208,7 +208,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintBox_ =
         call (getSymbol "gtk_paint_box")
@@ -223,7 +223,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintBoxGap_ =
         call (getSymbol "gtk_paint_box_gap")
@@ -241,7 +241,7 @@ structure Gtk : GTK =
              &&> GtkPositionType.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintCheck_ =
         call (getSymbol "gtk_paint_check")
@@ -256,7 +256,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintDiamond_ =
         call (getSymbol "gtk_paint_diamond")
@@ -271,7 +271,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintExpander_ =
         call (getSymbol "gtk_paint_expander")
@@ -284,7 +284,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GtkExpanderStyle.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintExtension_ =
         call (getSymbol "gtk_paint_extension")
@@ -300,7 +300,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GtkPositionType.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintFlatBox_ =
         call (getSymbol "gtk_paint_flat_box")
@@ -315,7 +315,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintFocus_ =
         call (getSymbol "gtk_paint_focus")
@@ -329,7 +329,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintHandle_ =
         call (getSymbol "gtk_paint_handle")
@@ -345,7 +345,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GtkOrientation.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintHline_ =
         call (getSymbol "gtk_paint_hline")
@@ -358,7 +358,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintLayout_ =
         call (getSymbol "gtk_paint_layout")
@@ -372,7 +372,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> PangoLayoutClass.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintOption_ =
         call (getSymbol "gtk_paint_option")
@@ -387,7 +387,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintResizeGrip_ =
         call (getSymbol "gtk_paint_resize_grip")
@@ -402,7 +402,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintShadow_ =
         call (getSymbol "gtk_paint_shadow")
@@ -417,7 +417,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintShadowGap_ =
         call (getSymbol "gtk_paint_shadow_gap")
@@ -435,7 +435,7 @@ structure Gtk : GTK =
              &&> GtkPositionType.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintSlider_ =
         call (getSymbol "gtk_paint_slider")
@@ -451,7 +451,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GtkOrientation.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintSpinner_ =
         call (getSymbol "gtk_paint_spinner")
@@ -466,7 +466,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintTab_ =
         call (getSymbol "gtk_paint_tab")
@@ -481,7 +481,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val paintVline_ =
         call (getSymbol "gtk_paint_vline")
@@ -494,11 +494,11 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val paperSizeGetDefault_ = call (getSymbol "gtk_paper_size_get_default") (PolyMLFFI.cVoid --> Utf8.PolyML.cOutPtr)
+      val paperSizeGetDefault_ = call (getSymbol "gtk_paper_size_get_default") (cVoid --> Utf8.PolyML.cOutPtr)
       val parseArgs_ = call (getSymbol "gtk_parse_args") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> GBool.PolyML.cVal)
-      val printErrorQuark_ = call (getSymbol "gtk_print_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
+      val printErrorQuark_ = call (getSymbol "gtk_print_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
       val printRunPageSetupDialog_ =
         call (getSymbol "gtk_print_run_page_setup_dialog")
           (
@@ -507,13 +507,13 @@ structure Gtk : GTK =
              &&> GtkPrintSettingsClass.PolyML.cPtr
              --> GtkPageSetupClass.PolyML.cPtr
           )
-      val propagateEvent_ = call (getSymbol "gtk_propagate_event") (GtkWidgetClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val rcAddDefaultFile_ = call (getSymbol "gtk_rc_add_default_file") (Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val rcGetDefaultFiles_ = call (getSymbol "gtk_rc_get_default_files") (PolyMLFFI.cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val propagateEvent_ = call (getSymbol "gtk_propagate_event") (GtkWidgetClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> cVoid)
+      val rcAddDefaultFile_ = call (getSymbol "gtk_rc_add_default_file") (Utf8.PolyML.cInPtr --> cVoid)
+      val rcGetDefaultFiles_ = call (getSymbol "gtk_rc_get_default_files") (cVoid --> Utf8CVector.PolyML.cOutPtr)
       val rcGetStyle_ = call (getSymbol "gtk_rc_get_style") (GtkWidgetClass.PolyML.cPtr --> GtkStyleClass.PolyML.cPtr)
-      val rcSetDefaultFiles_ = call (getSymbol "gtk_rc_set_default_files") (Utf8CVector.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val recentChooserErrorQuark_ = call (getSymbol "gtk_recent_chooser_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
-      val recentManagerErrorQuark_ = call (getSymbol "gtk_recent_manager_error_quark") (PolyMLFFI.cVoid --> GLibQuark.PolyML.cVal)
+      val rcSetDefaultFiles_ = call (getSymbol "gtk_rc_set_default_files") (Utf8CVector.PolyML.cInPtr --> cVoid)
+      val recentChooserErrorQuark_ = call (getSymbol "gtk_recent_chooser_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
+      val recentManagerErrorQuark_ = call (getSymbol "gtk_recent_manager_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
       val renderActivity_ =
         call (getSymbol "gtk_render_activity")
           (
@@ -523,7 +523,7 @@ structure Gtk : GTK =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderArrow_ =
         call (getSymbol "gtk_render_arrow")
@@ -534,7 +534,7 @@ structure Gtk : GTK =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderBackground_ =
         call (getSymbol "gtk_render_background")
@@ -545,7 +545,7 @@ structure Gtk : GTK =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderCheck_ =
         call (getSymbol "gtk_render_check")
@@ -556,7 +556,7 @@ structure Gtk : GTK =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderExpander_ =
         call (getSymbol "gtk_render_expander")
@@ -567,7 +567,7 @@ structure Gtk : GTK =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderExtension_ =
         call (getSymbol "gtk_render_extension")
@@ -579,7 +579,7 @@ structure Gtk : GTK =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GtkPositionType.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderFocus_ =
         call (getSymbol "gtk_render_focus")
@@ -590,7 +590,7 @@ structure Gtk : GTK =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderFrame_ =
         call (getSymbol "gtk_render_frame")
@@ -601,7 +601,7 @@ structure Gtk : GTK =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderFrameGap_ =
         call (getSymbol "gtk_render_frame_gap")
@@ -615,7 +615,7 @@ structure Gtk : GTK =
              &&> GtkPositionType.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderHandle_ =
         call (getSymbol "gtk_render_handle")
@@ -626,7 +626,7 @@ structure Gtk : GTK =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderIcon_ =
         call (getSymbol "gtk_render_icon")
@@ -636,7 +636,7 @@ structure Gtk : GTK =
              &&> GdkPixbufPixbufClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderIconPixbuf_ =
         call (getSymbol "gtk_render_icon_pixbuf")
@@ -654,7 +654,7 @@ structure Gtk : GTK =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> PangoLayoutClass.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderLine_ =
         call (getSymbol "gtk_render_line")
@@ -665,7 +665,7 @@ structure Gtk : GTK =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderOption_ =
         call (getSymbol "gtk_render_option")
@@ -676,7 +676,7 @@ structure Gtk : GTK =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val renderSlider_ =
         call (getSymbol "gtk_render_slider")
@@ -688,7 +688,7 @@ structure Gtk : GTK =
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GtkOrientation.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val rgbToHsv_ =
         call (getSymbol "gtk_rgb_to_hsv")
@@ -699,7 +699,7 @@ structure Gtk : GTK =
              &&> GDouble.PolyML.cRef
              &&> GDouble.PolyML.cRef
              &&> GDouble.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val selectionAddTarget_ =
         call (getSymbol "gtk_selection_add_target")
@@ -708,9 +708,9 @@ structure Gtk : GTK =
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GUInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val selectionClearTargets_ = call (getSymbol "gtk_selection_clear_targets") (GtkWidgetClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val selectionClearTargets_ = call (getSymbol "gtk_selection_clear_targets") (GtkWidgetClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> cVoid)
       val selectionConvert_ =
         call (getSymbol "gtk_selection_convert")
           (
@@ -737,8 +737,8 @@ structure Gtk : GTK =
              &&> GUInt32.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val selectionRemoveAll_ = call (getSymbol "gtk_selection_remove_all") (GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setDebugFlags_ = call (getSymbol "gtk_set_debug_flags") (GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val selectionRemoveAll_ = call (getSymbol "gtk_selection_remove_all") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val setDebugFlags_ = call (getSymbol "gtk_set_debug_flags") (GUInt.PolyML.cVal --> cVoid)
       val showUri_ =
         call (getSymbol "gtk_show_uri")
           (
@@ -769,9 +769,9 @@ structure Gtk : GTK =
       val targetsIncludeUri_ = call (getSymbol "gtk_targets_include_uri") (GdkAtomRecordCVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
       val testCreateSimpleWindow_ = call (getSymbol "gtk_test_create_simple_window") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val testFindLabel_ = call (getSymbol "gtk_test_find_label") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
-      val testRegisterAllTypes_ = call (getSymbol "gtk_test_register_all_types") (PolyMLFFI.cVoid --> PolyMLFFI.cVoid)
+      val testRegisterAllTypes_ = call (getSymbol "gtk_test_register_all_types") (cVoid --> cVoid)
       val testSliderGetValue_ = call (getSymbol "gtk_test_slider_get_value") (GtkWidgetClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val testSliderSetPerc_ = call (getSymbol "gtk_test_slider_set_perc") (GtkWidgetClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val testSliderSetPerc_ = call (getSymbol "gtk_test_slider_set_perc") (GtkWidgetClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
       val testSpinButtonClick_ =
         call (getSymbol "gtk_test_spin_button_click")
           (
@@ -781,7 +781,7 @@ structure Gtk : GTK =
              --> GBool.PolyML.cVal
           )
       val testTextGet_ = call (getSymbol "gtk_test_text_get") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val testTextSet_ = call (getSymbol "gtk_test_text_set") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val testTextSet_ = call (getSymbol "gtk_test_text_set") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val testWidgetClick_ =
         call (getSymbol "gtk_test_widget_click")
           (
@@ -806,8 +806,8 @@ structure Gtk : GTK =
              &&> GtkTreePathRecord.PolyML.cOutRef
              --> GBool.PolyML.cVal
           )
-      val treeRowReferenceDeleted_ = call (getSymbol "gtk_tree_row_reference_deleted") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val treeRowReferenceInserted_ = call (getSymbol "gtk_tree_row_reference_inserted") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val treeRowReferenceDeleted_ = call (getSymbol "gtk_tree_row_reference_deleted") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> cVoid)
+      val treeRowReferenceInserted_ = call (getSymbol "gtk_tree_row_reference_inserted") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> cVoid)
       val treeSetRowDragData_ =
         call (getSymbol "gtk_tree_set_row_drag_data")
           (

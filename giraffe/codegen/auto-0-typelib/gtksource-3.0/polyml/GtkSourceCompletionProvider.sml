@@ -9,7 +9,7 @@ structure GtkSourceCompletionProvider :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_source_completion_provider_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_source_completion_provider_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val activateProposal_ =
         call (getSymbol "gtk_source_completion_provider_activate_proposal")
           (
@@ -34,14 +34,14 @@ structure GtkSourceCompletionProvider :>
              --> GBool.PolyML.cVal
           )
       val match_ = call (getSymbol "gtk_source_completion_provider_match") (GtkSourceCompletionProviderClass.PolyML.cPtr &&> GtkSourceCompletionContextClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val populate_ = call (getSymbol "gtk_source_completion_provider_populate") (GtkSourceCompletionProviderClass.PolyML.cPtr &&> GtkSourceCompletionContextClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val populate_ = call (getSymbol "gtk_source_completion_provider_populate") (GtkSourceCompletionProviderClass.PolyML.cPtr &&> GtkSourceCompletionContextClass.PolyML.cPtr --> cVoid)
       val updateInfo_ =
         call (getSymbol "gtk_source_completion_provider_update_info")
           (
             GtkSourceCompletionProviderClass.PolyML.cPtr
              &&> GtkSourceCompletionProposalClass.PolyML.cPtr
              &&> GtkSourceCompletionInfoClass.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type 'a class = 'a GtkSourceCompletionProviderClass.class

@@ -5,9 +5,9 @@ structure GioAction :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_action_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val activate_ = call (getSymbol "g_action_activate") (GioActionClass.PolyML.cPtr &&> GLibVariantRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val changeState_ = call (getSymbol "g_action_change_state") (GioActionClass.PolyML.cPtr &&> GLibVariantRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_action_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val activate_ = call (getSymbol "g_action_activate") (GioActionClass.PolyML.cPtr &&> GLibVariantRecord.PolyML.cOptPtr --> cVoid)
+      val changeState_ = call (getSymbol "g_action_change_state") (GioActionClass.PolyML.cPtr &&> GLibVariantRecord.PolyML.cPtr --> cVoid)
       val getEnabled_ = call (getSymbol "g_action_get_enabled") (GioActionClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getName_ = call (getSymbol "g_action_get_name") (GioActionClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getParameterType_ = call (getSymbol "g_action_get_parameter_type") (GioActionClass.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)

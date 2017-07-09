@@ -5,17 +5,17 @@ structure GtkEditable :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_editable_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val copyClipboard_ = call (getSymbol "gtk_editable_copy_clipboard") (GtkEditableClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val cutClipboard_ = call (getSymbol "gtk_editable_cut_clipboard") (GtkEditableClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val deleteSelection_ = call (getSymbol "gtk_editable_delete_selection") (GtkEditableClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "gtk_editable_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val copyClipboard_ = call (getSymbol "gtk_editable_copy_clipboard") (GtkEditableClass.PolyML.cPtr --> cVoid)
+      val cutClipboard_ = call (getSymbol "gtk_editable_cut_clipboard") (GtkEditableClass.PolyML.cPtr --> cVoid)
+      val deleteSelection_ = call (getSymbol "gtk_editable_delete_selection") (GtkEditableClass.PolyML.cPtr --> cVoid)
       val deleteText_ =
         call (getSymbol "gtk_editable_delete_text")
           (
             GtkEditableClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getChars_ =
         call (getSymbol "gtk_editable_get_chars")
@@ -42,19 +42,19 @@ structure GtkEditable :>
              &&> Utf8.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val pasteClipboard_ = call (getSymbol "gtk_editable_paste_clipboard") (GtkEditableClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val pasteClipboard_ = call (getSymbol "gtk_editable_paste_clipboard") (GtkEditableClass.PolyML.cPtr --> cVoid)
       val selectRegion_ =
         call (getSymbol "gtk_editable_select_region")
           (
             GtkEditableClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setEditable_ = call (getSymbol "gtk_editable_set_editable") (GtkEditableClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setPosition_ = call (getSymbol "gtk_editable_set_position") (GtkEditableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setEditable_ = call (getSymbol "gtk_editable_set_editable") (GtkEditableClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setPosition_ = call (getSymbol "gtk_editable_set_position") (GtkEditableClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkEditableClass.class
     type t = base class

@@ -9,18 +9,18 @@ structure GtkImageMenuItem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_image_menu_item_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_image_menu_item_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_image_menu_item_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_image_menu_item_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val newFromStock_ = call (getSymbol "gtk_image_menu_item_new_from_stock") (Utf8.PolyML.cInPtr &&> GtkAccelGroupClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithLabel_ = call (getSymbol "gtk_image_menu_item_new_with_label") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithMnemonic_ = call (getSymbol "gtk_image_menu_item_new_with_mnemonic") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val getAlwaysShowImage_ = call (getSymbol "gtk_image_menu_item_get_always_show_image") (GtkImageMenuItemClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getImage_ = call (getSymbol "gtk_image_menu_item_get_image") (GtkImageMenuItemClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getUseStock_ = call (getSymbol "gtk_image_menu_item_get_use_stock") (GtkImageMenuItemClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setAccelGroup_ = call (getSymbol "gtk_image_menu_item_set_accel_group") (GtkImageMenuItemClass.PolyML.cPtr &&> GtkAccelGroupClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setAlwaysShowImage_ = call (getSymbol "gtk_image_menu_item_set_always_show_image") (GtkImageMenuItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setImage_ = call (getSymbol "gtk_image_menu_item_set_image") (GtkImageMenuItemClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> PolyMLFFI.cVoid)
-      val setUseStock_ = call (getSymbol "gtk_image_menu_item_set_use_stock") (GtkImageMenuItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setAccelGroup_ = call (getSymbol "gtk_image_menu_item_set_accel_group") (GtkImageMenuItemClass.PolyML.cPtr &&> GtkAccelGroupClass.PolyML.cPtr --> cVoid)
+      val setAlwaysShowImage_ = call (getSymbol "gtk_image_menu_item_set_always_show_image") (GtkImageMenuItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setImage_ = call (getSymbol "gtk_image_menu_item_set_image") (GtkImageMenuItemClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cOptPtr --> cVoid)
+      val setUseStock_ = call (getSymbol "gtk_image_menu_item_set_use_stock") (GtkImageMenuItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkImageMenuItemClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

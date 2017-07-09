@@ -6,10 +6,10 @@ structure GtkApplication :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_application_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_application_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_application_new") (Utf8.PolyML.cInPtr &&> GioApplicationFlags.PolyML.cVal --> GtkApplicationClass.PolyML.cPtr)
-      val addWindow_ = call (getSymbol "gtk_application_add_window") (GtkApplicationClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val removeWindow_ = call (getSymbol "gtk_application_remove_window") (GtkApplicationClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val addWindow_ = call (getSymbol "gtk_application_add_window") (GtkApplicationClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cPtr --> cVoid)
+      val removeWindow_ = call (getSymbol "gtk_application_remove_window") (GtkApplicationClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkApplicationClass.class
     type 'a window_class = 'a GtkWindowClass.class

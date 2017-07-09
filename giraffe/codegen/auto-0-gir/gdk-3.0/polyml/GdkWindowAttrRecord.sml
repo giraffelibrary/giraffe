@@ -8,7 +8,7 @@ structure GdkWindowAttrRecord :> GDK_WINDOW_ATTR_RECORD =
       open PolyMLFFI
     in
       val dup_ = call (getSymbol "giraffe_gdk_window_attr_dup") (cPtr --> cPtr)
-      val free_ = call (getSymbol "giraffe_gdk_window_attr_free") (cPtr --> PolyMLFFI.cVoid)
+      val free_ = call (getSymbol "giraffe_gdk_window_attr_free") (cPtr --> cVoid)
     end
     structure Record =
       BoxedRecord(

@@ -30,7 +30,7 @@ structure GObjectValue :>
       val getType_ =
         call
           (getSymbol "g_value_get_type")
-          (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal);
+          (cVoid --> GObjectType.PolyML.cVal);
 
       val holds_ =
         call
@@ -174,7 +174,7 @@ local
         (GET Utf8.PolyML.cOutOptPtr);
 
 
-    fun SET conv = GObjectValueRecord.PolyML.cPtr &&> conv --> PolyMLFFI.cVoid
+    fun SET conv = GObjectValueRecord.PolyML.cPtr &&> conv --> cVoid
 
     val set_boolean_ =
       call

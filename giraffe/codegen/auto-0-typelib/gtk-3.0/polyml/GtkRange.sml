@@ -10,14 +10,14 @@ structure GtkRange :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_range_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_range_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getAdjustment_ = call (getSymbol "gtk_range_get_adjustment") (GtkRangeClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getFillLevel_ = call (getSymbol "gtk_range_get_fill_level") (GtkRangeClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val getFlippable_ = call (getSymbol "gtk_range_get_flippable") (GtkRangeClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getInverted_ = call (getSymbol "gtk_range_get_inverted") (GtkRangeClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getLowerStepperSensitivity_ = call (getSymbol "gtk_range_get_lower_stepper_sensitivity") (GtkRangeClass.PolyML.cPtr --> GtkSensitivityType.PolyML.cVal)
       val getMinSliderSize_ = call (getSymbol "gtk_range_get_min_slider_size") (GtkRangeClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getRangeRect_ = call (getSymbol "gtk_range_get_range_rect") (GtkRangeClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getRangeRect_ = call (getSymbol "gtk_range_get_range_rect") (GtkRangeClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> cVoid)
       val getRestrictToFillLevel_ = call (getSymbol "gtk_range_get_restrict_to_fill_level") (GtkRangeClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getRoundDigits_ = call (getSymbol "gtk_range_get_round_digits") (GtkRangeClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getShowFillLevel_ = call (getSymbol "gtk_range_get_show_fill_level") (GtkRangeClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -27,39 +27,39 @@ structure GtkRange :>
             GtkRangeClass.PolyML.cPtr
              &&> GInt32.PolyML.cRef
              &&> GInt32.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getSliderSizeFixed_ = call (getSymbol "gtk_range_get_slider_size_fixed") (GtkRangeClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getUpperStepperSensitivity_ = call (getSymbol "gtk_range_get_upper_stepper_sensitivity") (GtkRangeClass.PolyML.cPtr --> GtkSensitivityType.PolyML.cVal)
       val getValue_ = call (getSymbol "gtk_range_get_value") (GtkRangeClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val setAdjustment_ = call (getSymbol "gtk_range_set_adjustment") (GtkRangeClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setFillLevel_ = call (getSymbol "gtk_range_set_fill_level") (GtkRangeClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setFlippable_ = call (getSymbol "gtk_range_set_flippable") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setAdjustment_ = call (getSymbol "gtk_range_set_adjustment") (GtkRangeClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> cVoid)
+      val setFillLevel_ = call (getSymbol "gtk_range_set_fill_level") (GtkRangeClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val setFlippable_ = call (getSymbol "gtk_range_set_flippable") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setIncrements_ =
         call (getSymbol "gtk_range_set_increments")
           (
             GtkRangeClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setInverted_ = call (getSymbol "gtk_range_set_inverted") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setLowerStepperSensitivity_ = call (getSymbol "gtk_range_set_lower_stepper_sensitivity") (GtkRangeClass.PolyML.cPtr &&> GtkSensitivityType.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setMinSliderSize_ = call (getSymbol "gtk_range_set_min_slider_size") (GtkRangeClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setInverted_ = call (getSymbol "gtk_range_set_inverted") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setLowerStepperSensitivity_ = call (getSymbol "gtk_range_set_lower_stepper_sensitivity") (GtkRangeClass.PolyML.cPtr &&> GtkSensitivityType.PolyML.cVal --> cVoid)
+      val setMinSliderSize_ = call (getSymbol "gtk_range_set_min_slider_size") (GtkRangeClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
       val setRange_ =
         call (getSymbol "gtk_range_set_range")
           (
             GtkRangeClass.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setRestrictToFillLevel_ = call (getSymbol "gtk_range_set_restrict_to_fill_level") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setRoundDigits_ = call (getSymbol "gtk_range_set_round_digits") (GtkRangeClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setShowFillLevel_ = call (getSymbol "gtk_range_set_show_fill_level") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setSliderSizeFixed_ = call (getSymbol "gtk_range_set_slider_size_fixed") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setUpperStepperSensitivity_ = call (getSymbol "gtk_range_set_upper_stepper_sensitivity") (GtkRangeClass.PolyML.cPtr &&> GtkSensitivityType.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setValue_ = call (getSymbol "gtk_range_set_value") (GtkRangeClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setRestrictToFillLevel_ = call (getSymbol "gtk_range_set_restrict_to_fill_level") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setRoundDigits_ = call (getSymbol "gtk_range_set_round_digits") (GtkRangeClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val setShowFillLevel_ = call (getSymbol "gtk_range_set_show_fill_level") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setSliderSizeFixed_ = call (getSymbol "gtk_range_set_slider_size_fixed") (GtkRangeClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setUpperStepperSensitivity_ = call (getSymbol "gtk_range_set_upper_stepper_sensitivity") (GtkRangeClass.PolyML.cPtr &&> GtkSensitivityType.PolyML.cVal --> cVoid)
+      val setValue_ = call (getSymbol "gtk_range_set_value") (GtkRangeClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkRangeClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

@@ -11,7 +11,7 @@ structure GtkMessageDialog :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_message_dialog_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_message_dialog_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ =
         call (getSymbol "giraffe_gtk_message_dialog_new")
           (
@@ -23,8 +23,8 @@ structure GtkMessageDialog :>
           )
       val getImage_ = call (getSymbol "gtk_message_dialog_get_image") (GtkMessageDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getMessageArea_ = call (getSymbol "gtk_message_dialog_get_message_area") (GtkMessageDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val setImage_ = call (getSymbol "gtk_message_dialog_set_image") (GtkMessageDialogClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setMarkup_ = call (getSymbol "gtk_message_dialog_set_markup") (GtkMessageDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
+      val setImage_ = call (getSymbol "gtk_message_dialog_set_image") (GtkMessageDialogClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val setMarkup_ = call (getSymbol "gtk_message_dialog_set_markup") (GtkMessageDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
     end
     type 'a class = 'a GtkMessageDialogClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

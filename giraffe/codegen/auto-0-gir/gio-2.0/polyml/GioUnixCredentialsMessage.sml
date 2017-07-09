@@ -6,10 +6,10 @@ structure GioUnixCredentialsMessage :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_unix_credentials_message_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "g_unix_credentials_message_new") (PolyMLFFI.cVoid --> GioSocketControlMessageClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_unix_credentials_message_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_unix_credentials_message_new") (cVoid --> GioSocketControlMessageClass.PolyML.cPtr)
       val newWithCredentials_ = call (getSymbol "g_unix_credentials_message_new_with_credentials") (GioCredentialsClass.PolyML.cPtr --> GioSocketControlMessageClass.PolyML.cPtr)
-      val isSupported_ = call (getSymbol "g_unix_credentials_message_is_supported") (PolyMLFFI.cVoid --> GBool.PolyML.cVal)
+      val isSupported_ = call (getSymbol "g_unix_credentials_message_is_supported") (cVoid --> GBool.PolyML.cVal)
       val getCredentials_ = call (getSymbol "g_unix_credentials_message_get_credentials") (GioUnixCredentialsMessageClass.PolyML.cPtr --> GioCredentialsClass.PolyML.cPtr)
     end
     type 'a class = 'a GioUnixCredentialsMessageClass.class

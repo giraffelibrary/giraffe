@@ -8,7 +8,7 @@ structure GioDataOutputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_data_output_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_data_output_stream_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_data_output_stream_new") (GioOutputStreamClass.PolyML.cPtr --> GioDataOutputStreamClass.PolyML.cPtr)
       val getByteOrder_ = call (getSymbol "g_data_output_stream_get_byte_order") (GioDataOutputStreamClass.PolyML.cPtr --> GioDataStreamByteOrder.PolyML.cVal)
       val putByte_ =
@@ -83,7 +83,7 @@ structure GioDataOutputStream :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val setByteOrder_ = call (getSymbol "g_data_output_stream_set_byte_order") (GioDataOutputStreamClass.PolyML.cPtr &&> GioDataStreamByteOrder.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setByteOrder_ = call (getSymbol "g_data_output_stream_set_byte_order") (GioDataOutputStreamClass.PolyML.cPtr &&> GioDataStreamByteOrder.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GioDataOutputStreamClass.class
     type 'a output_stream_class = 'a GioOutputStreamClass.class

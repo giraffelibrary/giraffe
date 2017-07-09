@@ -7,7 +7,7 @@ structure GioTlsCertificate :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_tls_certificate_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_tls_certificate_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val newFromFile_ = call (getSymbol "g_tls_certificate_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioTlsCertificateClass.PolyML.cPtr)
       val newFromFiles_ =
         call (getSymbol "g_tls_certificate_new_from_files")

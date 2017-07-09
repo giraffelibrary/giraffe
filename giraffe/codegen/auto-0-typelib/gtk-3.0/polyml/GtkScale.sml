@@ -10,7 +10,7 @@ structure GtkScale :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_scale_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_scale_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_scale_new") (GtkOrientation.PolyML.cVal &&> GtkAdjustmentClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithRange_ =
         call (getSymbol "gtk_scale_new_with_range")
@@ -28,9 +28,9 @@ structure GtkScale :>
              &&> GDouble.PolyML.cVal
              &&> GtkPositionType.PolyML.cVal
              &&> Utf8.PolyML.cInOptPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val clearMarks_ = call (getSymbol "gtk_scale_clear_marks") (GtkScaleClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val clearMarks_ = call (getSymbol "gtk_scale_clear_marks") (GtkScaleClass.PolyML.cPtr --> cVoid)
       val getDigits_ = call (getSymbol "gtk_scale_get_digits") (GtkScaleClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getDrawValue_ = call (getSymbol "gtk_scale_get_draw_value") (GtkScaleClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getLayout_ = call (getSymbol "gtk_scale_get_layout") (GtkScaleClass.PolyML.cPtr --> PangoLayoutClass.PolyML.cPtr)
@@ -40,12 +40,12 @@ structure GtkScale :>
             GtkScaleClass.PolyML.cPtr
              &&> GInt32.PolyML.cRef
              &&> GInt32.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getValuePos_ = call (getSymbol "gtk_scale_get_value_pos") (GtkScaleClass.PolyML.cPtr --> GtkPositionType.PolyML.cVal)
-      val setDigits_ = call (getSymbol "gtk_scale_set_digits") (GtkScaleClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setDrawValue_ = call (getSymbol "gtk_scale_set_draw_value") (GtkScaleClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setValuePos_ = call (getSymbol "gtk_scale_set_value_pos") (GtkScaleClass.PolyML.cPtr &&> GtkPositionType.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setDigits_ = call (getSymbol "gtk_scale_set_digits") (GtkScaleClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val setDrawValue_ = call (getSymbol "gtk_scale_set_draw_value") (GtkScaleClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setValuePos_ = call (getSymbol "gtk_scale_set_value_pos") (GtkScaleClass.PolyML.cPtr &&> GtkPositionType.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkScaleClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

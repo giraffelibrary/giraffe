@@ -5,8 +5,8 @@ structure GtkBorder :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_border_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_border_new") (PolyMLFFI.cVoid --> GtkBorderRecord.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_border_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_border_new") (cVoid --> GtkBorderRecord.PolyML.cPtr)
       val copy_ = call (getSymbol "gtk_border_copy") (GtkBorderRecord.PolyML.cPtr --> GtkBorderRecord.PolyML.cPtr)
     end
     type t = GtkBorderRecord.t

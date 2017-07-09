@@ -7,7 +7,7 @@ structure GtkSourceGutterRenderer :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_source_gutter_renderer_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_source_gutter_renderer_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val activate_ =
         call (getSymbol "gtk_source_gutter_renderer_activate")
           (
@@ -15,7 +15,7 @@ structure GtkSourceGutterRenderer :>
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> CairoRectangleIntRecord.PolyML.cPtr
              &&> GdkEvent.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val begin_ =
         call (getSymbol "gtk_source_gutter_renderer_begin")
@@ -26,7 +26,7 @@ structure GtkSourceGutterRenderer :>
              &&> CairoRectangleIntRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val draw_ =
         call (getSymbol "gtk_source_gutter_renderer_draw")
@@ -38,16 +38,16 @@ structure GtkSourceGutterRenderer :>
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkSourceGutterRendererState.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val end_ = call (getSymbol "gtk_source_gutter_renderer_end") (GtkSourceGutterRendererClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val end_ = call (getSymbol "gtk_source_gutter_renderer_end") (GtkSourceGutterRendererClass.PolyML.cPtr --> cVoid)
       val getAlignment_ =
         call (getSymbol "gtk_source_gutter_renderer_get_alignment")
           (
             GtkSourceGutterRendererClass.PolyML.cPtr
              &&> GFloat.PolyML.cRef
              &&> GFloat.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getAlignmentMode_ = call (getSymbol "gtk_source_gutter_renderer_get_alignment_mode") (GtkSourceGutterRendererClass.PolyML.cPtr --> GtkSourceGutterRendererAlignmentMode.PolyML.cVal)
       val getBackground_ = call (getSymbol "gtk_source_gutter_renderer_get_background") (GtkSourceGutterRendererClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -57,7 +57,7 @@ structure GtkSourceGutterRenderer :>
             GtkSourceGutterRendererClass.PolyML.cPtr
              &&> GInt32.PolyML.cRef
              &&> GInt32.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getSize_ = call (getSymbol "gtk_source_gutter_renderer_get_size") (GtkSourceGutterRendererClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getView_ = call (getSymbol "gtk_source_gutter_renderer_get_view") (GtkSourceGutterRendererClass.PolyML.cPtr --> GtkTextViewClass.PolyML.cPtr)
@@ -79,7 +79,7 @@ structure GtkSourceGutterRenderer :>
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkSourceGutterRendererState.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val queryTooltip_ =
         call (getSymbol "gtk_source_gutter_renderer_query_tooltip")
@@ -92,27 +92,27 @@ structure GtkSourceGutterRenderer :>
              &&> GtkTooltipClass.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
-      val queueDraw_ = call (getSymbol "gtk_source_gutter_renderer_queue_draw") (GtkSourceGutterRendererClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val queueDraw_ = call (getSymbol "gtk_source_gutter_renderer_queue_draw") (GtkSourceGutterRendererClass.PolyML.cPtr --> cVoid)
       val setAlignment_ =
         call (getSymbol "gtk_source_gutter_renderer_set_alignment")
           (
             GtkSourceGutterRendererClass.PolyML.cPtr
              &&> GFloat.PolyML.cVal
              &&> GFloat.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setAlignmentMode_ = call (getSymbol "gtk_source_gutter_renderer_set_alignment_mode") (GtkSourceGutterRendererClass.PolyML.cPtr &&> GtkSourceGutterRendererAlignmentMode.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setBackground_ = call (getSymbol "gtk_source_gutter_renderer_set_background") (GtkSourceGutterRendererClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> PolyMLFFI.cVoid)
+      val setAlignmentMode_ = call (getSymbol "gtk_source_gutter_renderer_set_alignment_mode") (GtkSourceGutterRendererClass.PolyML.cPtr &&> GtkSourceGutterRendererAlignmentMode.PolyML.cVal --> cVoid)
+      val setBackground_ = call (getSymbol "gtk_source_gutter_renderer_set_background") (GtkSourceGutterRendererClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> cVoid)
       val setPadding_ =
         call (getSymbol "gtk_source_gutter_renderer_set_padding")
           (
             GtkSourceGutterRendererClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setSize_ = call (getSymbol "gtk_source_gutter_renderer_set_size") (GtkSourceGutterRendererClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setVisible_ = call (getSymbol "gtk_source_gutter_renderer_set_visible") (GtkSourceGutterRendererClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setSize_ = call (getSymbol "gtk_source_gutter_renderer_set_size") (GtkSourceGutterRendererClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val setVisible_ = call (getSymbol "gtk_source_gutter_renderer_set_visible") (GtkSourceGutterRendererClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkSourceGutterRendererClass.class
     type gutter_renderer_state_t = GtkSourceGutterRendererState.t

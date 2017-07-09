@@ -464,7 +464,7 @@ val cRefId : id = "cRef"
 val cPtrId : id = "cPtr"
 val cVoidId : id = "cVoid"
 
-val cVoidConv = mkLIdLNameExp [polyMLFFIStrId, cVoidId]
+val cVoidConv = mkIdLNameExp cVoidId
 
 
 val cValTy : ty = TyRef ([], toList1 [ffiStrId, valId])

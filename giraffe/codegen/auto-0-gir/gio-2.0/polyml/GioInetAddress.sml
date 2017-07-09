@@ -6,7 +6,7 @@ structure GioInetAddress :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_inet_address_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_inet_address_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val newAny_ = call (getSymbol "g_inet_address_new_any") (GioSocketFamily.PolyML.cVal --> GioInetAddressClass.PolyML.cPtr)
       val newFromString_ = call (getSymbol "g_inet_address_new_from_string") (Utf8.PolyML.cInPtr --> GioInetAddressClass.PolyML.cPtr)
       val newLoopback_ = call (getSymbol "g_inet_address_new_loopback") (GioSocketFamily.PolyML.cVal --> GioInetAddressClass.PolyML.cPtr)

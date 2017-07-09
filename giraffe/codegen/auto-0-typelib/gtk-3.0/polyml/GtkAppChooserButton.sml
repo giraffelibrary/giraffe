@@ -9,7 +9,7 @@ structure GtkAppChooserButton :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_app_chooser_button_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_app_chooser_button_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_app_chooser_button_new") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val appendCustomItem_ =
         call (getSymbol "gtk_app_chooser_button_append_custom_item")
@@ -18,16 +18,16 @@ structure GtkAppChooserButton :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GioIconClass.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val appendSeparator_ = call (getSymbol "gtk_app_chooser_button_append_separator") (GtkAppChooserButtonClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val appendSeparator_ = call (getSymbol "gtk_app_chooser_button_append_separator") (GtkAppChooserButtonClass.PolyML.cPtr --> cVoid)
       val getHeading_ = call (getSymbol "gtk_app_chooser_button_get_heading") (GtkAppChooserButtonClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getShowDefaultItem_ = call (getSymbol "gtk_app_chooser_button_get_show_default_item") (GtkAppChooserButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getShowDialogItem_ = call (getSymbol "gtk_app_chooser_button_get_show_dialog_item") (GtkAppChooserButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val setActiveCustomItem_ = call (getSymbol "gtk_app_chooser_button_set_active_custom_item") (GtkAppChooserButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setHeading_ = call (getSymbol "gtk_app_chooser_button_set_heading") (GtkAppChooserButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setShowDefaultItem_ = call (getSymbol "gtk_app_chooser_button_set_show_default_item") (GtkAppChooserButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setShowDialogItem_ = call (getSymbol "gtk_app_chooser_button_set_show_dialog_item") (GtkAppChooserButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setActiveCustomItem_ = call (getSymbol "gtk_app_chooser_button_set_active_custom_item") (GtkAppChooserButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setHeading_ = call (getSymbol "gtk_app_chooser_button_set_heading") (GtkAppChooserButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setShowDefaultItem_ = call (getSymbol "gtk_app_chooser_button_set_show_default_item") (GtkAppChooserButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setShowDialogItem_ = call (getSymbol "gtk_app_chooser_button_set_show_dialog_item") (GtkAppChooserButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkAppChooserButtonClass.class
     type 'a app_chooser_class = 'a GtkAppChooserClass.class

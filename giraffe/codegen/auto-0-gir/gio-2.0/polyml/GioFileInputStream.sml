@@ -9,7 +9,7 @@ structure GioFileInputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_file_input_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_file_input_stream_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val queryInfo_ =
         call (getSymbol "g_file_input_stream_query_info")
           (

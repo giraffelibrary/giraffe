@@ -11,8 +11,8 @@ structure GtkUIManager :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_ui_manager_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_ui_manager_new") (PolyMLFFI.cVoid --> GtkUIManagerClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_ui_manager_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_ui_manager_new") (cVoid --> GtkUIManagerClass.PolyML.cPtr)
       val addUi_ =
         call (getSymbol "gtk_ui_manager_add_ui")
           (
@@ -23,7 +23,7 @@ structure GtkUIManager :>
              &&> Utf8.PolyML.cInOptPtr
              &&> GtkUIManagerItemType.PolyML.cVal
              &&> GBool.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val addUiFromFile_ =
         call (getSymbol "gtk_ui_manager_add_ui_from_file")
@@ -42,7 +42,7 @@ structure GtkUIManager :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GUInt.PolyML.cVal
           )
-      val ensureUpdate_ = call (getSymbol "gtk_ui_manager_ensure_update") (GtkUIManagerClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val ensureUpdate_ = call (getSymbol "gtk_ui_manager_ensure_update") (GtkUIManagerClass.PolyML.cPtr --> cVoid)
       val getAccelGroup_ = call (getSymbol "gtk_ui_manager_get_accel_group") (GtkUIManagerClass.PolyML.cPtr --> GtkAccelGroupClass.PolyML.cPtr)
       val getAction_ = call (getSymbol "gtk_ui_manager_get_action") (GtkUIManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkActionClass.PolyML.cPtr)
       val getAddTearoffs_ = call (getSymbol "gtk_ui_manager_get_add_tearoffs") (GtkUIManagerClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -54,12 +54,12 @@ structure GtkUIManager :>
             GtkUIManagerClass.PolyML.cPtr
              &&> GtkActionGroupClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val newMergeId_ = call (getSymbol "gtk_ui_manager_new_merge_id") (GtkUIManagerClass.PolyML.cPtr --> GUInt.PolyML.cVal)
-      val removeActionGroup_ = call (getSymbol "gtk_ui_manager_remove_action_group") (GtkUIManagerClass.PolyML.cPtr &&> GtkActionGroupClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val removeUi_ = call (getSymbol "gtk_ui_manager_remove_ui") (GtkUIManagerClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setAddTearoffs_ = call (getSymbol "gtk_ui_manager_set_add_tearoffs") (GtkUIManagerClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val removeActionGroup_ = call (getSymbol "gtk_ui_manager_remove_action_group") (GtkUIManagerClass.PolyML.cPtr &&> GtkActionGroupClass.PolyML.cPtr --> cVoid)
+      val removeUi_ = call (getSymbol "gtk_ui_manager_remove_ui") (GtkUIManagerClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
+      val setAddTearoffs_ = call (getSymbol "gtk_ui_manager_set_add_tearoffs") (GtkUIManagerClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkUIManagerClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

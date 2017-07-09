@@ -7,8 +7,8 @@ structure GtkHsv :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_hsv_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_hsv_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_hsv_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_hsv_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val toRgb_ =
         call (getSymbol "gtk_hsv_to_rgb")
           (
@@ -18,7 +18,7 @@ structure GtkHsv :>
              &&> GDouble.PolyML.cRef
              &&> GDouble.PolyML.cRef
              &&> GDouble.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getColor_ =
         call (getSymbol "gtk_hsv_get_color")
@@ -27,7 +27,7 @@ structure GtkHsv :>
              &&> GDouble.PolyML.cRef
              &&> GDouble.PolyML.cRef
              &&> GDouble.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val getMetrics_ =
         call (getSymbol "gtk_hsv_get_metrics")
@@ -35,7 +35,7 @@ structure GtkHsv :>
             GtkHsvClass.PolyML.cPtr
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cRef
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val isAdjusting_ = call (getSymbol "gtk_hsv_is_adjusting") (GtkHsvClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setColor_ =
@@ -45,7 +45,7 @@ structure GtkHsv :>
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setMetrics_ =
         call (getSymbol "gtk_hsv_set_metrics")
@@ -53,7 +53,7 @@ structure GtkHsv :>
             GtkHsvClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
     end
     type 'a class = 'a GtkHsvClass.class

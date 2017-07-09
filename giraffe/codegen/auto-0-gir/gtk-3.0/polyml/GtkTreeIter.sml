@@ -5,7 +5,7 @@ structure GtkTreeIter :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_tree_iter_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_tree_iter_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val copy_ = call (getSymbol "gtk_tree_iter_copy") (GtkTreeIterRecord.PolyML.cPtr --> GtkTreeIterRecord.PolyML.cPtr)
     end
     type t = GtkTreeIterRecord.t

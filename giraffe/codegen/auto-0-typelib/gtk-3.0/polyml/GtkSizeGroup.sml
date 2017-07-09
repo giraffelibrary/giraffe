@@ -8,14 +8,14 @@ structure GtkSizeGroup :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_size_group_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_size_group_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_size_group_new") (GtkSizeGroupMode.PolyML.cVal --> GtkSizeGroupClass.PolyML.cPtr)
-      val addWidget_ = call (getSymbol "gtk_size_group_add_widget") (GtkSizeGroupClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val addWidget_ = call (getSymbol "gtk_size_group_add_widget") (GtkSizeGroupClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
       val getIgnoreHidden_ = call (getSymbol "gtk_size_group_get_ignore_hidden") (GtkSizeGroupClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getMode_ = call (getSymbol "gtk_size_group_get_mode") (GtkSizeGroupClass.PolyML.cPtr --> GtkSizeGroupMode.PolyML.cVal)
-      val removeWidget_ = call (getSymbol "gtk_size_group_remove_widget") (GtkSizeGroupClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> PolyMLFFI.cVoid)
-      val setIgnoreHidden_ = call (getSymbol "gtk_size_group_set_ignore_hidden") (GtkSizeGroupClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setMode_ = call (getSymbol "gtk_size_group_set_mode") (GtkSizeGroupClass.PolyML.cPtr &&> GtkSizeGroupMode.PolyML.cVal --> PolyMLFFI.cVoid)
+      val removeWidget_ = call (getSymbol "gtk_size_group_remove_widget") (GtkSizeGroupClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val setIgnoreHidden_ = call (getSymbol "gtk_size_group_set_ignore_hidden") (GtkSizeGroupClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setMode_ = call (getSymbol "gtk_size_group_set_mode") (GtkSizeGroupClass.PolyML.cPtr &&> GtkSizeGroupMode.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkSizeGroupClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

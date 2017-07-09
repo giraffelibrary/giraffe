@@ -6,8 +6,8 @@ structure GObjectClosure :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_closure_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val invalidate_ = call (getSymbol "g_closure_invalidate") (GObjectClosureRecord.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val getType_ = call (getSymbol "g_closure_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val invalidate_ = call (getSymbol "g_closure_invalidate") (GObjectClosureRecord.PolyML.cPtr --> cVoid)
     end
     type t = GObjectClosureRecord.t
     type type_t = GObjectType.t

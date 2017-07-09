@@ -5,7 +5,7 @@ structure GtkSourceStyle :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_source_style_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_source_style_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val copy_ = call (getSymbol "gtk_source_style_copy") (GtkSourceStyleClass.PolyML.cPtr --> GtkSourceStyleClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkSourceStyleClass.class

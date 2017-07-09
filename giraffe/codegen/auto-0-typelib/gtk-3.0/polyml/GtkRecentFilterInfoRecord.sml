@@ -7,10 +7,10 @@ structure GtkRecentFilterInfoRecord :> GTK_RECENT_FILTER_INFO_RECORD =
     local
       open PolyMLFFI
     in
-      val new_ = call (getSymbol "giraffe_gtk_recent_filter_info_new") (PolyMLFFI.cVoid --> cPtr)
-      val copy_ = call (getSymbol "giraffe_gtk_recent_filter_info_copy") (cPtr &&> cPtr --> PolyMLFFI.cVoid)
-      val free_ = call (getSymbol "giraffe_gtk_recent_filter_info_free") (cPtr --> PolyMLFFI.cVoid)
-      val size_ = call (getSymbol "giraffe_gtk_recent_filter_info_size") (PolyMLFFI.cVoid --> GUInt.PolyML.cVal)
+      val new_ = call (getSymbol "giraffe_gtk_recent_filter_info_new") (cVoid --> cPtr)
+      val copy_ = call (getSymbol "giraffe_gtk_recent_filter_info_copy") (cPtr &&> cPtr --> cVoid)
+      val free_ = call (getSymbol "giraffe_gtk_recent_filter_info_free") (cPtr --> cVoid)
+      val size_ = call (getSymbol "giraffe_gtk_recent_filter_info_size") (cVoid --> GUInt.PolyML.cVal)
     end
     structure Record =
       BoxedValueRecord(

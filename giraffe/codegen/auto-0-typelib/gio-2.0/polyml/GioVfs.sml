@@ -12,9 +12,9 @@ structure GioVfs :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_vfs_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (getSymbol "g_vfs_get_default") (PolyMLFFI.cVoid --> GioVfsClass.PolyML.cPtr)
-      val getLocal_ = call (getSymbol "g_vfs_get_local") (PolyMLFFI.cVoid --> GioVfsClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "g_vfs_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val getDefault_ = call (getSymbol "g_vfs_get_default") (cVoid --> GioVfsClass.PolyML.cPtr)
+      val getLocal_ = call (getSymbol "g_vfs_get_local") (cVoid --> GioVfsClass.PolyML.cPtr)
       val getFileForPath_ = call (getSymbol "g_vfs_get_file_for_path") (GioVfsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
       val getFileForUri_ = call (getSymbol "g_vfs_get_file_for_uri") (GioVfsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
       val getSupportedUriSchemes_ = call (getSymbol "g_vfs_get_supported_uri_schemes") (GioVfsClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)

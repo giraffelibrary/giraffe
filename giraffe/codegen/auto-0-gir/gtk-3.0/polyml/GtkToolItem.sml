@@ -12,8 +12,8 @@ structure GtkToolItem :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_tool_item_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_tool_item_new") (PolyMLFFI.cVoid --> GtkToolItemClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_tool_item_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_tool_item_new") (cVoid --> GtkToolItemClass.PolyML.cPtr)
       val getEllipsizeMode_ = call (getSymbol "gtk_tool_item_get_ellipsize_mode") (GtkToolItemClass.PolyML.cPtr --> PangoEllipsizeMode.PolyML.cVal)
       val getExpand_ = call (getSymbol "gtk_tool_item_get_expand") (GtkToolItemClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getHomogeneous_ = call (getSymbol "gtk_tool_item_get_homogeneous") (GtkToolItemClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -29,25 +29,25 @@ structure GtkToolItem :>
       val getUseDragWindow_ = call (getSymbol "gtk_tool_item_get_use_drag_window") (GtkToolItemClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getVisibleHorizontal_ = call (getSymbol "gtk_tool_item_get_visible_horizontal") (GtkToolItemClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getVisibleVertical_ = call (getSymbol "gtk_tool_item_get_visible_vertical") (GtkToolItemClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val rebuildMenu_ = call (getSymbol "gtk_tool_item_rebuild_menu") (GtkToolItemClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val rebuildMenu_ = call (getSymbol "gtk_tool_item_rebuild_menu") (GtkToolItemClass.PolyML.cPtr --> cVoid)
       val retrieveProxyMenuItem_ = call (getSymbol "gtk_tool_item_retrieve_proxy_menu_item") (GtkToolItemClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val setExpand_ = call (getSymbol "gtk_tool_item_set_expand") (GtkToolItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setHomogeneous_ = call (getSymbol "gtk_tool_item_set_homogeneous") (GtkToolItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setIsImportant_ = call (getSymbol "gtk_tool_item_set_is_important") (GtkToolItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
+      val setExpand_ = call (getSymbol "gtk_tool_item_set_expand") (GtkToolItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setHomogeneous_ = call (getSymbol "gtk_tool_item_set_homogeneous") (GtkToolItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setIsImportant_ = call (getSymbol "gtk_tool_item_set_is_important") (GtkToolItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setProxyMenuItem_ =
         call (getSymbol "gtk_tool_item_set_proxy_menu_item")
           (
             GtkToolItemClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
-      val setTooltipMarkup_ = call (getSymbol "gtk_tool_item_set_tooltip_markup") (GtkToolItemClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setTooltipText_ = call (getSymbol "gtk_tool_item_set_tooltip_text") (GtkToolItemClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PolyMLFFI.cVoid)
-      val setUseDragWindow_ = call (getSymbol "gtk_tool_item_set_use_drag_window") (GtkToolItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setVisibleHorizontal_ = call (getSymbol "gtk_tool_item_set_visible_horizontal") (GtkToolItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val setVisibleVertical_ = call (getSymbol "gtk_tool_item_set_visible_vertical") (GtkToolItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> PolyMLFFI.cVoid)
-      val toolbarReconfigured_ = call (getSymbol "gtk_tool_item_toolbar_reconfigured") (GtkToolItemClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val setTooltipMarkup_ = call (getSymbol "gtk_tool_item_set_tooltip_markup") (GtkToolItemClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setTooltipText_ = call (getSymbol "gtk_tool_item_set_tooltip_text") (GtkToolItemClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setUseDragWindow_ = call (getSymbol "gtk_tool_item_set_use_drag_window") (GtkToolItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setVisibleHorizontal_ = call (getSymbol "gtk_tool_item_set_visible_horizontal") (GtkToolItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setVisibleVertical_ = call (getSymbol "gtk_tool_item_set_visible_vertical") (GtkToolItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val toolbarReconfigured_ = call (getSymbol "gtk_tool_item_toolbar_reconfigured") (GtkToolItemClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkToolItemClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

@@ -24,7 +24,7 @@ structure GtkSelectionData :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_selection_data_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_selection_data_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val copy_ = call (getSymbol "gtk_selection_data_copy") (GtkSelectionDataRecord.PolyML.cPtr --> GtkSelectionDataRecord.PolyML.cPtr)
       val getDataType_ = call (getSymbol "gtk_selection_data_get_data_type") (GtkSelectionDataRecord.PolyML.cPtr --> GdkAtomRecord.PolyML.cPtr)
       val getDataWithLength_ = call (getSymbol "gtk_selection_data_get_data_with_length") (GtkSelectionDataRecord.PolyML.cPtr &&> GInt.PolyML.cRef --> GUInt8CVectorN.PolyML.cOutPtr)
@@ -52,7 +52,7 @@ structure GtkSelectionData :>
              &&> GInt.PolyML.cVal
              &&> GUInt8CVectorN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
-             --> PolyMLFFI.cVoid
+             --> cVoid
           )
       val setPixbuf_ = call (getSymbol "gtk_selection_data_set_pixbuf") (GtkSelectionDataRecord.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setText_ =

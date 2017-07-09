@@ -5,7 +5,7 @@ structure GdkRgba :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gdk_rgba_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gdk_rgba_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val copy_ = call (getSymbol "gdk_rgba_copy") (GdkRgbaRecord.PolyML.cPtr --> GdkRgbaRecord.PolyML.cPtr)
       val equal_ = call (getSymbol "gdk_rgba_equal") (GdkRgbaRecord.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val hash_ = call (getSymbol "gdk_rgba_hash") (GdkRgbaRecord.PolyML.cPtr --> GUInt.PolyML.cVal)

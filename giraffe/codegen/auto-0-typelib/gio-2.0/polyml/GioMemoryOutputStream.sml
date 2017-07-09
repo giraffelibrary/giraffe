@@ -6,7 +6,7 @@ structure GioMemoryOutputStream :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_memory_output_stream_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_memory_output_stream_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getDataSize_ = call (getSymbol "g_memory_output_stream_get_data_size") (GioMemoryOutputStreamClass.PolyML.cPtr --> GUInt64.PolyML.cVal)
       val getSize_ = call (getSymbol "g_memory_output_stream_get_size") (GioMemoryOutputStreamClass.PolyML.cPtr --> GUInt64.PolyML.cVal)
     end

@@ -17,7 +17,7 @@ structure GioMount :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_mount_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "g_mount_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val canEject_ = call (getSymbol "g_mount_can_eject") (GioMountClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val canUnmount_ = call (getSymbol "g_mount_can_unmount") (GioMountClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val ejectWithOperationFinish_ =
@@ -61,7 +61,7 @@ structure GioMount :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val shadow_ = call (getSymbol "g_mount_shadow") (GioMountClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val shadow_ = call (getSymbol "g_mount_shadow") (GioMountClass.PolyML.cPtr --> cVoid)
       val unmountWithOperationFinish_ =
         call (getSymbol "g_mount_unmount_with_operation_finish")
           (
@@ -70,7 +70,7 @@ structure GioMount :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val unshadow_ = call (getSymbol "g_mount_unshadow") (GioMountClass.PolyML.cPtr --> PolyMLFFI.cVoid)
+      val unshadow_ = call (getSymbol "g_mount_unshadow") (GioMountClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GioMountClass.class
     type 'a drive_class = 'a GioDriveClass.class

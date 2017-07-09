@@ -9,8 +9,8 @@ structure GtkRecentChooserWidget :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_recent_chooser_widget_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_recent_chooser_widget_new") (PolyMLFFI.cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val getType_ = call (getSymbol "gtk_recent_chooser_widget_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_recent_chooser_widget_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val newForManager_ = call (getSymbol "gtk_recent_chooser_widget_new_for_manager") (GtkRecentManagerClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkRecentChooserWidgetClass.class

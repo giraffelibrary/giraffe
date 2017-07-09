@@ -39,9 +39,9 @@ structure GtkIconSize :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_icon_size_get_type") (PolyMLFFI.cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (getSymbol "gtk_icon_size_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getValue_ = call (getSymbol "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
-      val setValue_ = call (getSymbol "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> PolyMLFFI.cVoid)
+      val setValue_ = call (getSymbol "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> cVoid)
     end
     val t =
       GObjectValue.C.createAccessor
@@ -80,7 +80,7 @@ structure GtkIconSize :>
              &&> GInt32.PolyML.cVal
              --> GInt32.PolyML.cVal
           )
-      val registerAlias_ = call (getSymbol "gtk_icon_size_register_alias") (Utf8.PolyML.cInPtr &&> GInt32.PolyML.cVal --> PolyMLFFI.cVoid)
+      val registerAlias_ = call (getSymbol "gtk_icon_size_register_alias") (Utf8.PolyML.cInPtr &&> GInt32.PolyML.cVal --> cVoid)
     end
     type 'a settings_class = 'a GtkSettingsClass.class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
