@@ -14,7 +14,6 @@ signature GTK_ICON_SET =
     val getSizes : t -> LargeInt.int vector
     val renderIconPixbuf :
       t
-       -> 'a style_context_class
-       -> LargeInt.int
+       -> 'a style_context_class * LargeInt.int
        -> base GdkPixbuf.PixbufClass.class
   end

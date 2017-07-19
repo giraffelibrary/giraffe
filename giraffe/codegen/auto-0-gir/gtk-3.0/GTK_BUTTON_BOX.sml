@@ -23,13 +23,11 @@ signature GTK_BUTTON_BOX =
     val getLayout : 'a class -> button_box_style_t
     val setChildNonHomogeneous :
       'a class
-       -> 'b widget_class
-       -> bool
+       -> 'b widget_class * bool
        -> unit
     val setChildSecondary :
       'a class
-       -> 'b widget_class
-       -> bool
+       -> 'b widget_class * bool
        -> unit
     val setLayout :
       'a class

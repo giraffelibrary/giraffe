@@ -38,7 +38,14 @@ structure GioDBusServer :>
     type t = base class
     fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newSync address flags guid observer cancellable =
+    fun newSync
+      (
+        address,
+        flags,
+        guid,
+        observer,
+        cancellable
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GioDBusServerFlags.FFI.withVal

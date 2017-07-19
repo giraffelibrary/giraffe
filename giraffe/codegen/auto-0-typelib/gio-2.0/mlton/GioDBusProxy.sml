@@ -267,7 +267,16 @@ structure GioDBusProxy :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusProxyClass.FFI.fromPtr true) newFinish_ (res & [])
     fun newForBusFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusProxyClass.FFI.fromPtr true) newForBusFinish_ (res & [])
-    fun newForBusSync busType flags info name objectPath interfaceName cancellable =
+    fun newForBusSync
+      (
+        busType,
+        flags,
+        info,
+        name,
+        objectPath,
+        interfaceName,
+        cancellable
+      ) =
       (
         GioBusType.FFI.withVal
          &&&> GioDBusProxyFlags.FFI.withVal
@@ -290,7 +299,16 @@ structure GioDBusProxy :>
            & cancellable
            & []
         )
-    fun newSync connection flags info name objectPath interfaceName cancellable =
+    fun newSync
+      (
+        connection,
+        flags,
+        info,
+        name,
+        objectPath,
+        interfaceName,
+        cancellable
+      ) =
       (
         GioDBusConnectionClass.FFI.withPtr
          &&&> GioDBusProxyFlags.FFI.withVal
@@ -326,7 +344,15 @@ structure GioDBusProxy :>
            & res
            & []
         )
-    fun callSync self methodName parameters flags timeoutMsec cancellable =
+    fun callSync
+      self
+      (
+        methodName,
+        parameters,
+        flags,
+        timeoutMsec,
+        cancellable
+      ) =
       (
         GioDBusProxyClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -367,7 +393,16 @@ structure GioDBusProxy :>
       in
         (retVal, outFdList)
       end
-    fun callWithUnixFdListSync self methodName parameters flags timeoutMsec fdList cancellable =
+    fun callWithUnixFdListSync
+      self
+      (
+        methodName,
+        parameters,
+        flags,
+        timeoutMsec,
+        fdList,
+        cancellable
+      ) =
       let
         val outFdList & retVal =
           (
@@ -407,7 +442,7 @@ structure GioDBusProxy :>
     fun getName self = (GioDBusProxyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
     fun getNameOwner self = (GioDBusProxyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getNameOwner_ self
     fun getObjectPath self = (GioDBusProxyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
-    fun setCachedProperty self propertyName value =
+    fun setCachedProperty self (propertyName, value) =
       (
         GioDBusProxyClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -425,7 +460,7 @@ structure GioDBusProxy :>
     local
       open ClosureMarshal Signal
     in
-      fun gPropertiesChangedSig f = signal "g-properties-changed" (get 0w1 GLibVariantRecord.t &&&> get 0w2 Utf8CVector.t ---> ret_void) (fn changedProperties & invalidatedProperties => f changedProperties invalidatedProperties)
+      fun gPropertiesChangedSig f = signal "g-properties-changed" (get 0w1 GLibVariantRecord.t &&&> get 0w2 Utf8CVector.t ---> ret_void) (fn changedProperties & invalidatedProperties => f (changedProperties, invalidatedProperties))
       fun gSignalSig f =
         signal "g-signal"
           (
@@ -439,7 +474,12 @@ structure GioDBusProxy :>
               senderName
                & signalName
                & parameters =>
-                f senderName signalName parameters
+                f
+                  (
+                    senderName,
+                    signalName,
+                    parameters
+                  )
           )
     end
     local

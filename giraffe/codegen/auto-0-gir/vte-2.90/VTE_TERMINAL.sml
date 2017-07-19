@@ -17,18 +17,15 @@ signature VTE_TERMINAL =
     val copyPrimary : 'a class -> unit
     val feed :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val feedChild :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val feedChildBinary :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val getAllowBold : 'a class -> bool
     val getAudibleBell : 'a class -> bool
@@ -60,13 +57,11 @@ signature VTE_TERMINAL =
        -> bool
     val matchAddGregex :
       'a class
-       -> GLib.RegexRecord.t
-       -> GLib.RegexMatchFlags.t
+       -> GLib.RegexRecord.t * GLib.RegexMatchFlags.t
        -> LargeInt.int
     val matchCheck :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> string * LargeInt.int
     val matchClearAll : 'a class -> unit
     val matchRemove :
@@ -75,18 +70,15 @@ signature VTE_TERMINAL =
        -> unit
     val matchSetCursor :
       'a class
-       -> LargeInt.int
-       -> 'b Gdk.CursorClass.class option
+       -> LargeInt.int * 'b Gdk.CursorClass.class option
        -> unit
     val matchSetCursorName :
       'a class
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> unit
     val matchSetCursorType :
       'a class
-       -> LargeInt.int
-       -> Gdk.CursorType.t
+       -> LargeInt.int * Gdk.CursorType.t
        -> unit
     val pasteClipboard : 'a class -> unit
     val pastePrimary : 'a class -> unit
@@ -96,8 +88,7 @@ signature VTE_TERMINAL =
        -> base pty_class
     val reset :
       'a class
-       -> bool
-       -> bool
+       -> bool * bool
        -> unit
     val searchFindNext : 'a class -> bool
     val searchFindPrevious : 'a class -> bool
@@ -252,8 +243,7 @@ signature VTE_TERMINAL =
        -> unit
     val setSize :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setVisibleBell :
       'a class
@@ -270,21 +260,13 @@ signature VTE_TERMINAL =
     val writeContents :
       'a class
        -> 'b Gio.OutputStreamClass.class
-       -> terminal_write_flags_t
-       -> 'c Gio.CancellableClass.class option
+           * terminal_write_flags_t
+           * 'c Gio.CancellableClass.class option
        -> bool
     val beepSig : (unit -> unit) -> 'a class Signal.signal
-    val charSizeChangedSig :
-      (LargeInt.int
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val charSizeChangedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
     val childExitedSig : (unit -> unit) -> 'a class Signal.signal
-    val commitSig :
-      (string
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val commitSig : (string * LargeInt.int -> unit) -> 'a class Signal.signal
     val contentsChangedSig : (unit -> unit) -> 'a class Signal.signal
     val copyClipboardSig : (unit -> unit) -> 'a class Signal.signal
     val cursorMovedSig : (unit -> unit) -> 'a class Signal.signal
@@ -298,19 +280,11 @@ signature VTE_TERMINAL =
     val increaseFontSizeSig : (unit -> unit) -> 'a class Signal.signal
     val lowerWindowSig : (unit -> unit) -> 'a class Signal.signal
     val maximizeWindowSig : (unit -> unit) -> 'a class Signal.signal
-    val moveWindowSig :
-      (LargeInt.int
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val moveWindowSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
     val pasteClipboardSig : (unit -> unit) -> 'a class Signal.signal
     val raiseWindowSig : (unit -> unit) -> 'a class Signal.signal
     val refreshWindowSig : (unit -> unit) -> 'a class Signal.signal
-    val resizeWindowSig :
-      (LargeInt.int
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val resizeWindowSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
     val restoreWindowSig : (unit -> unit) -> 'a class Signal.signal
     val selectionChangedSig : (unit -> unit) -> 'a class Signal.signal
     val statusLineChangedSig : (unit -> unit) -> 'a class Signal.signal

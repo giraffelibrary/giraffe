@@ -40,8 +40,7 @@ signature GTK_ENTRY =
        -> Cairo.RectangleIntRecord.t
     val getIconAtPos :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int
     val getIconGicon :
       'a class
@@ -125,49 +124,41 @@ signature GTK_ENTRY =
        -> unit
     val setIconActivatable :
       'a class
-       -> entry_icon_position_t
-       -> bool
+       -> entry_icon_position_t * bool
        -> unit
     val setIconDragSource :
       'a class
        -> entry_icon_position_t
-       -> target_list_t
-       -> Gdk.DragAction.t
+           * target_list_t
+           * Gdk.DragAction.t
        -> unit
     val setIconFromGicon :
       'a class
-       -> entry_icon_position_t
-       -> 'b Gio.IconClass.class option
+       -> entry_icon_position_t * 'b Gio.IconClass.class option
        -> unit
     val setIconFromIconName :
       'a class
-       -> entry_icon_position_t
-       -> string option
+       -> entry_icon_position_t * string option
        -> unit
     val setIconFromPixbuf :
       'a class
-       -> entry_icon_position_t
-       -> 'b GdkPixbuf.PixbufClass.class option
+       -> entry_icon_position_t * 'b GdkPixbuf.PixbufClass.class option
        -> unit
     val setIconFromStock :
       'a class
-       -> entry_icon_position_t
-       -> string option
+       -> entry_icon_position_t * string option
        -> unit
     val setIconSensitive :
       'a class
-       -> entry_icon_position_t
-       -> bool
+       -> entry_icon_position_t * bool
        -> unit
     val setIconTooltipMarkup :
       'a class
-       -> entry_icon_position_t
-       -> string option
+       -> entry_icon_position_t * string option
        -> unit
     val setIconTooltipText :
       'a class
-       -> entry_icon_position_t
-       -> string option
+       -> entry_icon_position_t * string option
        -> unit
     val setInnerBorder :
       'a class
@@ -218,26 +209,14 @@ signature GTK_ENTRY =
     val backspaceSig : (unit -> unit) -> 'a class Signal.signal
     val copyClipboardSig : (unit -> unit) -> 'a class Signal.signal
     val cutClipboardSig : (unit -> unit) -> 'a class Signal.signal
-    val deleteFromCursorSig :
-      (delete_type_t
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
-    val iconPressSig :
-      (entry_icon_position_t
-        -> Gdk.EventButtonRecord.t
-        -> unit)
-       -> 'a class Signal.signal
-    val iconReleaseSig :
-      (entry_icon_position_t
-        -> Gdk.EventButtonRecord.t
-        -> unit)
-       -> 'a class Signal.signal
+    val deleteFromCursorSig : (delete_type_t * LargeInt.int -> unit) -> 'a class Signal.signal
+    val iconPressSig : (entry_icon_position_t * Gdk.EventButtonRecord.t -> unit) -> 'a class Signal.signal
+    val iconReleaseSig : (entry_icon_position_t * Gdk.EventButtonRecord.t -> unit) -> 'a class Signal.signal
     val insertAtCursorSig : (string -> unit) -> 'a class Signal.signal
     val moveCursorSig :
       (movement_step_t
-        -> LargeInt.int
-        -> bool
+        * LargeInt.int
+        * bool
         -> unit)
        -> 'a class Signal.signal
     val pasteClipboardSig : (unit -> unit) -> 'a class Signal.signal

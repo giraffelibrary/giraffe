@@ -5,7 +5,6 @@ signature G_LIB_ERROR =
     val getType : unit -> GObject.Type.t
     val matches :
       t
-       -> quark_t
-       -> LargeInt.int
+       -> quark_t * LargeInt.int
        -> bool
   end

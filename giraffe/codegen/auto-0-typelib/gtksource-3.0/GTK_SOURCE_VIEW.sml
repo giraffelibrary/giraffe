@@ -62,8 +62,8 @@ signature GTK_SOURCE_VIEW =
     val setMarkAttributes :
       'a class
        -> string
-       -> 'b mark_attributes_class
-       -> LargeInt.int
+           * 'b mark_attributes_class
+           * LargeInt.int
        -> unit
     val setRightMarginPosition :
       'a class
@@ -89,24 +89,12 @@ signature GTK_SOURCE_VIEW =
       'a class
        -> LargeInt.int
        -> unit
-    val lineMarkActivatedSig :
-      (Gtk.TextIterRecord.t
-        -> base Gdk.Event.union
-        -> unit)
-       -> 'a class Signal.signal
-    val moveLinesSig :
-      (bool
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val lineMarkActivatedSig : (Gtk.TextIterRecord.t * base Gdk.Event.union -> unit) -> 'a class Signal.signal
+    val moveLinesSig : (bool * LargeInt.int -> unit) -> 'a class Signal.signal
     val moveWordsSig : (LargeInt.int -> unit) -> 'a class Signal.signal
     val redoSig : (unit -> unit) -> 'a class Signal.signal
     val showCompletionSig : (unit -> unit) -> 'a class Signal.signal
-    val smartHomeEndSig :
-      (Gtk.TextIterRecord.t
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val smartHomeEndSig : (Gtk.TextIterRecord.t * LargeInt.int -> unit) -> 'a class Signal.signal
     val undoSig : (unit -> unit) -> 'a class Signal.signal
     val autoIndentProp : ('a class, bool, bool) Property.readwrite
     val completionProp : ('a class, base completion_class option) Property.readonly

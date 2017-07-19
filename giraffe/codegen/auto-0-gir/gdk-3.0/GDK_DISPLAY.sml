@@ -59,8 +59,8 @@ signature GDK_DISPLAY =
     val storeClipboard :
       'a class
        -> 'b window_class
-       -> LargeInt.int
-       -> atom_t vector
+           * LargeInt.int
+           * atom_t vector
        -> unit
     val supportsClipboardPersistence : 'a class -> bool
     val supportsComposite : 'a class -> bool

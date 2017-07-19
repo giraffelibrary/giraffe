@@ -66,5 +66,5 @@ structure GLibSource :>
     fun setName self name = (GLibSourceRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setName_ (self & name)
     fun setPriority self priority = (GLibSourceRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setPriority_ (self & priority)
     fun remove tag = (GUInt32.FFI.withVal ---> GBool.FFI.fromVal) remove_ tag
-    fun setNameById tag name = (GUInt32.FFI.withVal &&&> Utf8.FFI.withPtr ---> I) setNameById_ (tag & name)
+    fun setNameById (tag, name) = (GUInt32.FFI.withVal &&&> Utf8.FFI.withPtr ---> I) setNameById_ (tag & name)
   end

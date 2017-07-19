@@ -241,7 +241,14 @@ structure PangoRenderer :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun activate self = (PangoRendererClass.FFI.withPtr ---> I) activate_ self
     fun deactivate self = (PangoRendererClass.FFI.withPtr ---> I) deactivate_ self
-    fun drawErrorUnderline self x y width height =
+    fun drawErrorUnderline
+      self
+      (
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         PangoRendererClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -258,7 +265,14 @@ structure PangoRenderer :>
            & width
            & height
         )
-    fun drawGlyph self font glyph x y =
+    fun drawGlyph
+      self
+      (
+        font,
+        glyph,
+        x,
+        y
+      ) =
       (
         PangoRendererClass.FFI.withPtr
          &&&> PangoFontClass.FFI.withPtr
@@ -275,7 +289,14 @@ structure PangoRenderer :>
            & x
            & y
         )
-    fun drawGlyphItem self text glyphItem x y =
+    fun drawGlyphItem
+      self
+      (
+        text,
+        glyphItem,
+        x,
+        y
+      ) =
       (
         PangoRendererClass.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -292,7 +313,14 @@ structure PangoRenderer :>
            & x
            & y
         )
-    fun drawGlyphs self font glyphs x y =
+    fun drawGlyphs
+      self
+      (
+        font,
+        glyphs,
+        x,
+        y
+      ) =
       (
         PangoRendererClass.FFI.withPtr
          &&&> PangoFontClass.FFI.withPtr
@@ -309,7 +337,13 @@ structure PangoRenderer :>
            & x
            & y
         )
-    fun drawLayout self layout x y =
+    fun drawLayout
+      self
+      (
+        layout,
+        x,
+        y
+      ) =
       (
         PangoRendererClass.FFI.withPtr
          &&&> PangoLayoutClass.FFI.withPtr
@@ -324,7 +358,13 @@ structure PangoRenderer :>
            & x
            & y
         )
-    fun drawLayoutLine self line x y =
+    fun drawLayoutLine
+      self
+      (
+        line,
+        x,
+        y
+      ) =
       (
         PangoRendererClass.FFI.withPtr
          &&&> PangoLayoutLineRecord.FFI.withPtr
@@ -339,7 +379,15 @@ structure PangoRenderer :>
            & x
            & y
         )
-    fun drawRectangle self part x y width height =
+    fun drawRectangle
+      self
+      (
+        part,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         PangoRendererClass.FFI.withPtr
          &&&> PangoRenderPart.FFI.withVal
@@ -358,7 +406,17 @@ structure PangoRenderer :>
            & width
            & height
         )
-    fun drawTrapezoid self part y1 x11 x21 y2 x12 x22 =
+    fun drawTrapezoid
+      self
+      (
+        part,
+        y1,
+        x11,
+        x21,
+        y2,
+        x12,
+        x22
+      ) =
       (
         PangoRendererClass.FFI.withPtr
          &&&> PangoRenderPart.FFI.withVal
@@ -386,7 +444,7 @@ structure PangoRenderer :>
     fun getLayoutLine self = (PangoRendererClass.FFI.withPtr ---> PangoLayoutLineRecord.FFI.fromPtr true) getLayoutLine_ self
     fun getMatrix self = (PangoRendererClass.FFI.withPtr ---> PangoMatrixRecord.FFI.fromPtr false) getMatrix_ self
     fun partChanged self part = (PangoRendererClass.FFI.withPtr &&&> PangoRenderPart.FFI.withVal ---> I) partChanged_ (self & part)
-    fun setColor self part color =
+    fun setColor self (part, color) =
       (
         PangoRendererClass.FFI.withPtr
          &&&> PangoRenderPart.FFI.withVal

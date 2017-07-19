@@ -110,7 +110,7 @@ structure GtkStyleProperties :>
     fun new () = (I ---> GtkStylePropertiesClass.FFI.fromPtr true) new_ ()
     fun clear self = (GtkStylePropertiesClass.FFI.withPtr ---> I) clear_ self
     fun lookupColor self name = (GtkStylePropertiesClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSymbolicColorRecord.FFI.fromPtr false) lookupColor_ (self & name)
-    fun mapColor self name color =
+    fun mapColor self (name, color) =
       (
         GtkStylePropertiesClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -123,7 +123,7 @@ structure GtkStyleProperties :>
            & name
            & color
         )
-    fun merge self propsToMerge replace =
+    fun merge self (propsToMerge, replace) =
       (
         GtkStylePropertiesClass.FFI.withPtr
          &&&> GtkStylePropertiesClass.FFI.withPtr
@@ -136,7 +136,13 @@ structure GtkStyleProperties :>
            & propsToMerge
            & replace
         )
-    fun setProperty self property state value =
+    fun setProperty
+      self
+      (
+        property,
+        state,
+        value
+      ) =
       (
         GtkStylePropertiesClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -151,7 +157,7 @@ structure GtkStyleProperties :>
            & state
            & value
         )
-    fun unsetProperty self property state =
+    fun unsetProperty self (property, state) =
       (
         GtkStylePropertiesClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

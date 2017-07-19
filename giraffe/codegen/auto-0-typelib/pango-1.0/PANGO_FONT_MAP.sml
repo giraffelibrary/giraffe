@@ -13,13 +13,12 @@ signature PANGO_FONT_MAP =
     val listFamilies : 'a class -> base font_family_class vector
     val loadFont :
       'a class
-       -> 'b context_class
-       -> font_description_t
+       -> 'b context_class * font_description_t
        -> base font_class
     val loadFontset :
       'a class
        -> 'b context_class
-       -> font_description_t
-       -> language_t
+           * font_description_t
+           * language_t
        -> base fontset_class
   end

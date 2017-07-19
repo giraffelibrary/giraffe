@@ -43,7 +43,7 @@ structure GtkImageMenuItem :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkImageMenuItemClass.FFI.fromPtr false) new_ ()
-    fun newFromStock stockId accelGroup = (Utf8.FFI.withPtr &&&> GtkAccelGroupClass.FFI.withOptPtr ---> GtkImageMenuItemClass.FFI.fromPtr false) newFromStock_ (stockId & accelGroup)
+    fun newFromStock (stockId, accelGroup) = (Utf8.FFI.withPtr &&&> GtkAccelGroupClass.FFI.withOptPtr ---> GtkImageMenuItemClass.FFI.fromPtr false) newFromStock_ (stockId & accelGroup)
     fun newWithLabel label = (Utf8.FFI.withPtr ---> GtkImageMenuItemClass.FFI.fromPtr false) newWithLabel_ label
     fun newWithMnemonic label = (Utf8.FFI.withPtr ---> GtkImageMenuItemClass.FFI.fromPtr false) newWithMnemonic_ label
     fun getAlwaysShowImage self = (GtkImageMenuItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getAlwaysShowImage_ self

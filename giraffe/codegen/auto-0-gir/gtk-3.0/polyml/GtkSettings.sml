@@ -68,7 +68,13 @@ structure GtkSettings :>
     fun getDefault () = (I ---> GtkSettingsClass.FFI.fromPtr false) getDefault_ ()
     fun getForScreen screen = (GdkScreenClass.FFI.withPtr ---> GtkSettingsClass.FFI.fromPtr false) getForScreen_ screen
     fun installProperty pspec = (GObjectParamSpecClass.FFI.withPtr ---> I) installProperty_ pspec
-    fun setDoubleProperty self name vDouble origin =
+    fun setDoubleProperty
+      self
+      (
+        name,
+        vDouble,
+        origin
+      ) =
       (
         GtkSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -83,7 +89,13 @@ structure GtkSettings :>
            & vDouble
            & origin
         )
-    fun setLongProperty self name vLong origin =
+    fun setLongProperty
+      self
+      (
+        name,
+        vLong,
+        origin
+      ) =
       (
         GtkSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -98,7 +110,7 @@ structure GtkSettings :>
            & vLong
            & origin
         )
-    fun setPropertyValue self name svalue =
+    fun setPropertyValue self (name, svalue) =
       (
         GtkSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -111,7 +123,13 @@ structure GtkSettings :>
            & name
            & svalue
         )
-    fun setStringProperty self name vString origin =
+    fun setStringProperty
+      self
+      (
+        name,
+        vString,
+        origin
+      ) =
       (
         GtkSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

@@ -13,10 +13,7 @@ signature GTK_PRINT_SETTINGS =
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
     val newFromFile : string -> base class
-    val newFromKeyFile :
-      GLib.KeyFileRecord.t
-       -> string option
-       -> base class
+    val newFromKeyFile : GLib.KeyFileRecord.t * string option -> base class
     val copy : 'a class -> base class
     val get :
       'a class
@@ -35,8 +32,7 @@ signature GTK_PRINT_SETTINGS =
        -> real
     val getDoubleWithDefault :
       'a class
-       -> string
-       -> real
+       -> string * real
        -> real
     val getDuplex : 'a class -> print_duplex_t
     val getFinishings : 'a class -> string
@@ -46,13 +42,11 @@ signature GTK_PRINT_SETTINGS =
        -> LargeInt.int
     val getIntWithDefault :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> LargeInt.int
     val getLength :
       'a class
-       -> string
-       -> unit_t
+       -> string * unit_t
        -> real
     val getMediaType : 'a class -> string
     val getNCopies : 'a class -> LargeInt.int
@@ -90,18 +84,15 @@ signature GTK_PRINT_SETTINGS =
        -> bool
     val loadKeyFile :
       'a class
-       -> GLib.KeyFileRecord.t
-       -> string option
+       -> GLib.KeyFileRecord.t * string option
        -> bool
     val set :
       'a class
-       -> string
-       -> string option
+       -> string * string option
        -> unit
     val setBool :
       'a class
-       -> string
-       -> bool
+       -> string * bool
        -> unit
     val setCollate :
       'a class
@@ -117,8 +108,7 @@ signature GTK_PRINT_SETTINGS =
        -> unit
     val setDouble :
       'a class
-       -> string
-       -> real
+       -> string * real
        -> unit
     val setDuplex :
       'a class
@@ -130,14 +120,13 @@ signature GTK_PRINT_SETTINGS =
        -> unit
     val setInt :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val setLength :
       'a class
        -> string
-       -> real
-       -> unit_t
+           * real
+           * unit_t
        -> unit
     val setMediaType :
       'a class
@@ -169,8 +158,7 @@ signature GTK_PRINT_SETTINGS =
        -> unit
     val setPaperHeight :
       'a class
-       -> real
-       -> unit_t
+       -> real * unit_t
        -> unit
     val setPaperSize :
       'a class
@@ -178,8 +166,7 @@ signature GTK_PRINT_SETTINGS =
        -> unit
     val setPaperWidth :
       'a class
-       -> real
-       -> unit_t
+       -> real * unit_t
        -> unit
     val setPrintPages :
       'a class
@@ -203,8 +190,7 @@ signature GTK_PRINT_SETTINGS =
        -> unit
     val setResolutionXy :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setReverse :
       'a class
@@ -224,8 +210,7 @@ signature GTK_PRINT_SETTINGS =
        -> bool
     val toKeyFile :
       'a class
-       -> GLib.KeyFileRecord.t
-       -> string
+       -> GLib.KeyFileRecord.t * string
        -> unit
     val unset :
       'a class

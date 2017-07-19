@@ -6,19 +6,18 @@ signature GTK_TARGET_LIST =
     val add :
       t
        -> Gdk.AtomRecord.t
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val addImageTargets :
       t
-       -> LargeInt.int
-       -> bool
+       -> LargeInt.int * bool
        -> unit
     val addRichTextTargets :
       t
        -> LargeInt.int
-       -> bool
-       -> 'a text_buffer_class
+           * bool
+           * 'a text_buffer_class
        -> unit
     val addTextTargets :
       t

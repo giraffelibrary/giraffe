@@ -11,14 +11,14 @@ signature GIO_D_BUS_MESSAGE =
     val new : unit -> base class
     val newMethodCall :
       string
-       -> string
-       -> string
-       -> string
+       * string
+       * string
+       * string
        -> base class
     val newSignal :
       string
-       -> string
-       -> string
+       * string
+       * string
        -> base class
     val copy : 'a class -> base class
     val getArg0 : 'a class -> string
@@ -45,8 +45,7 @@ signature GIO_D_BUS_MESSAGE =
     val lock : 'a class -> unit
     val newMethodErrorLiteral :
       'a class
-       -> string
-       -> string
+       -> string * string
        -> base class
     val newMethodReply : 'a class -> base class
     val print :
@@ -75,8 +74,7 @@ signature GIO_D_BUS_MESSAGE =
        -> unit
     val setHeader :
       'a class
-       -> d_bus_message_header_field_t
-       -> GLib.VariantRecord.t
+       -> d_bus_message_header_field_t * GLib.VariantRecord.t
        -> unit
     val setInterface :
       'a class

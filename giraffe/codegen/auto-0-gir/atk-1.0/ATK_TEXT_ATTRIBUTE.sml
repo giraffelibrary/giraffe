@@ -37,9 +37,6 @@ signature ATK_TEXT_ATTRIBUTE =
     val getType : unit -> GObject.Type.t
     val forName : string -> t
     val getName : t -> string
-    val getValue :
-      t
-       -> LargeInt.int
-       -> string
+    val getValue : t * LargeInt.int -> string
     val register : string -> t
   end

@@ -35,7 +35,7 @@ structure GioTlsClientConnection :>
     type tls_certificate_flags_t = GioTlsCertificateFlags.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new baseIoStream serverIdentity =
+    fun new (baseIoStream, serverIdentity) =
       (
         GioIOStreamClass.FFI.withPtr
          &&&> GioSocketConnectableClass.FFI.withOptPtr

@@ -36,7 +36,13 @@ structure GtkFixed :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkFixedClass.FFI.fromPtr false) new_ ()
-    fun move self widget x y =
+    fun move
+      self
+      (
+        widget,
+        x,
+        y
+      ) =
       (
         GtkFixedClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -51,7 +57,13 @@ structure GtkFixed :>
            & x
            & y
         )
-    fun put self widget x y =
+    fun put
+      self
+      (
+        widget,
+        x,
+        y
+      ) =
       (
         GtkFixedClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr

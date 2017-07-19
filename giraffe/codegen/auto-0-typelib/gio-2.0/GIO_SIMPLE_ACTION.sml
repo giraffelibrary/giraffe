@@ -5,14 +5,11 @@ signature GIO_SIMPLE_ACTION =
     type t = base class
     val asAction : 'a class -> base action_class
     val getType : unit -> GObject.Type.t
-    val new :
-      string
-       -> GLib.VariantTypeRecord.t option
-       -> base class
+    val new : string * GLib.VariantTypeRecord.t option -> base class
     val newStateful :
       string
-       -> GLib.VariantTypeRecord.t option
-       -> GLib.VariantRecord.t
+       * GLib.VariantTypeRecord.t option
+       * GLib.VariantRecord.t
        -> base class
     val setEnabled :
       'a class

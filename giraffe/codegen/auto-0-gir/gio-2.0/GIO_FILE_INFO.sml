@@ -98,23 +98,19 @@ signature GIO_FILE_INFO =
        -> unit
     val setAttributeBoolean :
       'a class
-       -> string
-       -> bool
+       -> string * bool
        -> unit
     val setAttributeByteString :
       'a class
-       -> string
-       -> string
+       -> string * string
        -> unit
     val setAttributeInt32 :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val setAttributeInt64 :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val setAttributeMask :
       'a class
@@ -122,33 +118,27 @@ signature GIO_FILE_INFO =
        -> unit
     val setAttributeObject :
       'a class
-       -> string
-       -> 'b GObject.ObjectClass.class
+       -> string * 'b GObject.ObjectClass.class
        -> unit
     val setAttributeStatus :
       'a class
-       -> string
-       -> file_attribute_status_t
+       -> string * file_attribute_status_t
        -> bool
     val setAttributeString :
       'a class
-       -> string
-       -> string
+       -> string * string
        -> unit
     val setAttributeStringv :
       'a class
-       -> string
-       -> string
+       -> string * string
        -> unit
     val setAttributeUint32 :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val setAttributeUint64 :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val setContentType :
       'a class

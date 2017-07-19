@@ -11,10 +11,7 @@ signature GTK_IMAGE_MENU_ITEM =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val newFromStock :
-      string
-       -> 'a accel_group_class option
-       -> base class
+    val newFromStock : string * 'a accel_group_class option -> base class
     val newWithLabel : string -> base class
     val newWithMnemonic : string -> base class
     val getAlwaysShowImage : 'a class -> bool

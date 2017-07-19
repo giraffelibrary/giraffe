@@ -20,18 +20,18 @@ signature GTK_CELL_AREA =
     val activate :
       'a class
        -> 'b cell_area_context_class
-       -> 'c widget_class
-       -> Gdk.RectangleRecord.t
-       -> cell_renderer_state_t
-       -> bool
+           * 'c widget_class
+           * Gdk.RectangleRecord.t
+           * cell_renderer_state_t
+           * bool
        -> bool
     val activateCell :
       'a class
        -> 'b widget_class
-       -> 'c cell_renderer_class
-       -> 'd Gdk.Event.union
-       -> Gdk.RectangleRecord.t
-       -> cell_renderer_state_t
+           * 'c cell_renderer_class
+           * 'd Gdk.Event.union
+           * Gdk.RectangleRecord.t
+           * cell_renderer_state_t
        -> bool
     val add :
       'a class
@@ -39,38 +39,36 @@ signature GTK_CELL_AREA =
        -> unit
     val addFocusSibling :
       'a class
-       -> 'b cell_renderer_class
-       -> 'c cell_renderer_class
+       -> 'b cell_renderer_class * 'c cell_renderer_class
        -> unit
     val applyAttributes :
       'a class
        -> 'b tree_model_class
-       -> tree_iter_t
-       -> bool
-       -> bool
+           * tree_iter_t
+           * bool
+           * bool
        -> unit
     val attributeConnect :
       'a class
        -> 'b cell_renderer_class
-       -> string
-       -> LargeInt.int
+           * string
+           * LargeInt.int
        -> unit
     val attributeDisconnect :
       'a class
-       -> 'b cell_renderer_class
-       -> string
+       -> 'b cell_renderer_class * string
        -> unit
     val cellGetProperty :
       'a class
        -> 'b cell_renderer_class
-       -> string
-       -> GObject.ValueRecord.t
+           * string
+           * GObject.ValueRecord.t
        -> unit
     val cellSetProperty :
       'a class
        -> 'b cell_renderer_class
-       -> string
-       -> GObject.ValueRecord.t
+           * string
+           * GObject.ValueRecord.t
        -> unit
     val copyContext :
       'a class
@@ -80,10 +78,10 @@ signature GTK_CELL_AREA =
     val event :
       'a class
        -> 'b cell_area_context_class
-       -> 'c widget_class
-       -> 'd Gdk.Event.union
-       -> Gdk.RectangleRecord.t
-       -> cell_renderer_state_t
+           * 'c widget_class
+           * 'd Gdk.Event.union
+           * Gdk.RectangleRecord.t
+           * cell_renderer_state_t
        -> LargeInt.int
     val focus :
       'a class
@@ -92,17 +90,17 @@ signature GTK_CELL_AREA =
     val getCellAllocation :
       'a class
        -> 'b cell_area_context_class
-       -> 'c widget_class
-       -> 'd cell_renderer_class
-       -> Gdk.RectangleRecord.t
+           * 'c widget_class
+           * 'd cell_renderer_class
+           * Gdk.RectangleRecord.t
        -> Gdk.RectangleRecord.t
     val getCellAtPosition :
       'a class
        -> 'b cell_area_context_class
-       -> 'c widget_class
-       -> Gdk.RectangleRecord.t
-       -> LargeInt.int
-       -> LargeInt.int
+           * 'c widget_class
+           * Gdk.RectangleRecord.t
+           * LargeInt.int
+           * LargeInt.int
        -> base cell_renderer_class * Gdk.RectangleRecord.t
     val getCurrentPathString : 'a class -> string
     val getEditWidget : 'a class -> base cell_editable_class
@@ -114,25 +112,23 @@ signature GTK_CELL_AREA =
        -> base cell_renderer_class
     val getPreferredHeight :
       'a class
-       -> 'b cell_area_context_class
-       -> 'c widget_class
+       -> 'b cell_area_context_class * 'c widget_class
        -> LargeInt.int * LargeInt.int
     val getPreferredHeightForWidth :
       'a class
        -> 'b cell_area_context_class
-       -> 'c widget_class
-       -> LargeInt.int
+           * 'c widget_class
+           * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val getPreferredWidth :
       'a class
-       -> 'b cell_area_context_class
-       -> 'c widget_class
+       -> 'b cell_area_context_class * 'c widget_class
        -> LargeInt.int * LargeInt.int
     val getPreferredWidthForHeight :
       'a class
        -> 'b cell_area_context_class
-       -> 'c widget_class
-       -> LargeInt.int
+           * 'c widget_class
+           * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val getRequestMode : 'a class -> size_request_mode_t
     val hasRenderer :
@@ -141,14 +137,12 @@ signature GTK_CELL_AREA =
        -> bool
     val innerCellArea :
       'a class
-       -> 'b widget_class
-       -> Gdk.RectangleRecord.t
+       -> 'b widget_class * Gdk.RectangleRecord.t
        -> Gdk.RectangleRecord.t
     val isActivatable : 'a class -> bool
     val isFocusSibling :
       'a class
-       -> 'b cell_renderer_class
-       -> 'c cell_renderer_class
+       -> 'b cell_renderer_class * 'c cell_renderer_class
        -> bool
     val remove :
       'a class
@@ -156,25 +150,24 @@ signature GTK_CELL_AREA =
        -> unit
     val removeFocusSibling :
       'a class
-       -> 'b cell_renderer_class
-       -> 'c cell_renderer_class
+       -> 'b cell_renderer_class * 'c cell_renderer_class
        -> unit
     val render :
       'a class
        -> 'b cell_area_context_class
-       -> 'c widget_class
-       -> Cairo.ContextRecord.t
-       -> Gdk.RectangleRecord.t
-       -> Gdk.RectangleRecord.t
-       -> cell_renderer_state_t
-       -> bool
+           * 'c widget_class
+           * Cairo.ContextRecord.t
+           * Gdk.RectangleRecord.t
+           * Gdk.RectangleRecord.t
+           * cell_renderer_state_t
+           * bool
        -> unit
     val requestRenderer :
       'a class
        -> 'b cell_renderer_class
-       -> orientation_t
-       -> 'c widget_class
-       -> LargeInt.int
+           * orientation_t
+           * 'c widget_class
+           * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val setFocusCell :
       'a class
@@ -186,28 +179,20 @@ signature GTK_CELL_AREA =
        -> unit
     val addEditableSig :
       (base cell_renderer_class
-        -> base cell_editable_class
-        -> Cairo.RectangleIntRecord.t
-        -> string
+        * base cell_editable_class
+        * Cairo.RectangleIntRecord.t
+        * string
         -> unit)
        -> 'a class Signal.signal
     val applyAttributesSig :
       (base tree_model_class
-        -> tree_iter_t
-        -> bool
-        -> bool
+        * tree_iter_t
+        * bool
+        * bool
         -> unit)
        -> 'a class Signal.signal
-    val focusChangedSig :
-      (base cell_renderer_class
-        -> string
-        -> unit)
-       -> 'a class Signal.signal
-    val removeEditableSig :
-      (base cell_renderer_class
-        -> base cell_editable_class
-        -> unit)
-       -> 'a class Signal.signal
+    val focusChangedSig : (base cell_renderer_class * string -> unit) -> 'a class Signal.signal
+    val removeEditableSig : (base cell_renderer_class * base cell_editable_class -> unit) -> 'a class Signal.signal
     val editWidgetProp : ('a class, base cell_editable_class option) Property.readonly
     val editedCellProp : ('a class, base cell_renderer_class option) Property.readonly
     val focusCellProp : ('a class, base cell_renderer_class option, 'b cell_renderer_class option) Property.readwrite

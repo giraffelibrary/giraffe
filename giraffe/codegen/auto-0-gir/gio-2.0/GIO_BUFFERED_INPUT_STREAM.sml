@@ -7,14 +7,10 @@ signature GIO_BUFFERED_INPUT_STREAM =
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : 'a input_stream_class -> base class
-    val newSized :
-      'a input_stream_class
-       -> LargeInt.int
-       -> base class
+    val newSized : 'a input_stream_class * LargeInt.int -> base class
     val fill :
       'a class
-       -> LargeInt.int
-       -> 'b cancellable_class option
+       -> LargeInt.int * 'b cancellable_class option
        -> LargeInt.int
     val fillFinish :
       'a class

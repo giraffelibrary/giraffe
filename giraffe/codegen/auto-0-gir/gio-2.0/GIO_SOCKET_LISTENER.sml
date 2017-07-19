@@ -30,9 +30,9 @@ signature GIO_SOCKET_LISTENER =
     val addAddress :
       'a class
        -> 'b socket_address_class
-       -> socket_type_t
-       -> socket_protocol_t
-       -> 'c GObject.ObjectClass.class option
+           * socket_type_t
+           * socket_protocol_t
+           * 'c GObject.ObjectClass.class option
        -> base socket_address_class option
     val addAnyInetPort :
       'a class
@@ -40,13 +40,11 @@ signature GIO_SOCKET_LISTENER =
        -> LargeInt.int
     val addInetPort :
       'a class
-       -> LargeInt.int
-       -> 'b GObject.ObjectClass.class option
+       -> LargeInt.int * 'b GObject.ObjectClass.class option
        -> bool
     val addSocket :
       'a class
-       -> 'b socket_class
-       -> 'c GObject.ObjectClass.class option
+       -> 'b socket_class * 'c GObject.ObjectClass.class option
        -> bool
     val close : 'a class -> unit
     val setBacklog :

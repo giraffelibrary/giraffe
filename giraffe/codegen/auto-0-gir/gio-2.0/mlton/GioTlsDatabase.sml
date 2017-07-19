@@ -163,7 +163,14 @@ structure GioTlsDatabase :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun createCertificateHandle self certificate = (GioTlsDatabaseClass.FFI.withPtr &&&> GioTlsCertificateClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) createCertificateHandle_ (self & certificate)
-    fun lookupCertificateForHandle self handle' interaction flags cancellable =
+    fun lookupCertificateForHandle
+      self
+      (
+        handle',
+        interaction,
+        flags,
+        cancellable
+      ) =
       (
         GioTlsDatabaseClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -195,7 +202,14 @@ structure GioTlsDatabase :>
            & result
            & []
         )
-    fun lookupCertificateIssuer self certificate interaction flags cancellable =
+    fun lookupCertificateIssuer
+      self
+      (
+        certificate,
+        interaction,
+        flags,
+        cancellable
+      ) =
       (
         GioTlsDatabaseClass.FFI.withPtr
          &&&> GioTlsCertificateClass.FFI.withPtr
@@ -227,7 +241,16 @@ structure GioTlsDatabase :>
            & result
            & []
         )
-    fun verifyChain self chain purpose identity interaction flags cancellable =
+    fun verifyChain
+      self
+      (
+        chain,
+        purpose,
+        identity,
+        interaction,
+        flags,
+        cancellable
+      ) =
       (
         GioTlsDatabaseClass.FFI.withPtr
          &&&> GioTlsCertificateClass.FFI.withPtr

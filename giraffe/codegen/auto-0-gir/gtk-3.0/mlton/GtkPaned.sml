@@ -74,7 +74,13 @@ structure GtkPaned :>
     fun getChild2 self = (GtkPanedClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getChild2_ self
     fun getHandleWindow self = (GtkPanedClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getHandleWindow_ self
     fun getPosition self = (GtkPanedClass.FFI.withPtr ---> GInt.FFI.fromVal) getPosition_ self
-    fun pack1 self child resize shrink =
+    fun pack1
+      self
+      (
+        child,
+        resize,
+        shrink
+      ) =
       (
         GtkPanedClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -89,7 +95,13 @@ structure GtkPaned :>
            & resize
            & shrink
         )
-    fun pack2 self child resize shrink =
+    fun pack2
+      self
+      (
+        child,
+        resize,
+        shrink
+      ) =
       (
         GtkPanedClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr

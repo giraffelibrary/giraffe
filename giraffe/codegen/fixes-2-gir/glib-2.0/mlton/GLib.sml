@@ -563,9 +563,14 @@ structure GLib : G_LIB =
         retVal
       end
     fun buildFilenamev args = (Utf8CVector.FFI.withPtr ---> Utf8.FFI.fromPtr 1) buildFilenamev_ args
-    fun buildPathv separator args = (Utf8.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> Utf8.FFI.fromPtr 1) buildPathv_ (separator & args)
+    fun buildPathv (separator, args) = (Utf8.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> Utf8.FFI.fromPtr 1) buildPathv_ (separator & args)
     fun chdir path = (Utf8.FFI.withPtr ---> GInt.FFI.fromVal) chdir_ path
-    fun checkVersion requiredMajor requiredMinor requiredMicro =
+    fun checkVersion
+      (
+        requiredMajor,
+        requiredMinor,
+        requiredMicro
+      ) =
       (
         GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal
@@ -578,7 +583,7 @@ structure GLib : G_LIB =
            & requiredMinor
            & requiredMicro
         )
-    fun childWatchAdd priority pid function =
+    fun childWatchAdd (priority, pid, function) =
       (
         GInt.FFI.withVal
          &&&> GLibPid.FFI.withVal
@@ -591,8 +596,8 @@ structure GLib : G_LIB =
            & pid
            & function
         )
-    fun childWatchSourceNew pid function = (GLibPid.FFI.withVal &&&> GLibChildWatchFunc.FFI.withCallback ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ (pid & function)
-    fun filenameFromUri uri hostname =
+    fun childWatchSourceNew (pid, function) = (GLibPid.FFI.withVal &&&> GLibChildWatchFunc.FFI.withCallback ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ (pid & function)
+    fun filenameFromUri (uri, hostname) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -605,7 +610,7 @@ structure GLib : G_LIB =
            & hostname
            & []
         )
-    fun filenameToUri filename hostname =
+    fun filenameToUri (filename, hostname) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -640,8 +645,8 @@ structure GLib : G_LIB =
     fun getUserRuntimeDir () = (I ---> Utf8.FFI.fromPtr 0) getUserRuntimeDir_ ()
     fun getUserSpecialDir directory = (GLibUserDirectory.FFI.withVal ---> Utf8.FFI.fromPtr 0) getUserSpecialDir_ directory
     fun getenv variable = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getenv_ variable
-    fun idleAdd priority function = (GInt.FFI.withVal &&&> GLibSourceFunc.FFI.withCallback ---> GUInt.FFI.fromVal) idleAdd_ (priority & function)
-    fun ioAddWatch channel priority condition func =
+    fun idleAdd (priority, function) = (GInt.FFI.withVal &&&> GLibSourceFunc.FFI.withCallback ---> GUInt.FFI.fromVal) idleAdd_ (priority & function)
+    fun ioAddWatch (channel, priority, condition, func) =
       (
         GLibIOChannelRecord.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -656,8 +661,8 @@ structure GLib : G_LIB =
            & condition
            & func
         )
-    fun ioCreateWatch channel condition = (GLibIOChannelRecord.FFI.withPtr &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) ioCreateWatch_ (channel & condition)
-    fun logDefaultHandler logDomain logLevel message =
+    fun ioCreateWatch (channel, condition) = (GLibIOChannelRecord.FFI.withPtr &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) ioCreateWatch_ (channel & condition)
+    fun logDefaultHandler (logDomain, logLevel, message) =
       (
         Utf8.FFI.withPtr
          &&&> GLibLogLevelFlags.FFI.withVal
@@ -670,14 +675,20 @@ structure GLib : G_LIB =
            & logLevel
            & message
         )
-    fun logRemoveHandler logDomain handlerId = (Utf8.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
+    fun logRemoveHandler (logDomain, handlerId) = (Utf8.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
     fun logSetAlwaysFatal fatalMask = (GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetAlwaysFatal_ fatalMask
-    fun logSetFatalMask logDomain fatalMask = (Utf8.FFI.withPtr &&&> GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetFatalMask_ (logDomain & fatalMask)
+    fun logSetFatalMask (logDomain, fatalMask) = (Utf8.FFI.withPtr &&&> GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetFatalMask_ (logDomain & fatalMask)
     fun mainContextDefault () = (I ---> GLibMainContextRecord.FFI.fromPtr false) mainContextDefault_ ()
     fun mainContextGetThreadDefault () = (I ---> GLibMainContextRecord.FFI.fromPtr false) mainContextGetThreadDefault_ ()
     fun mainCurrentSource () = (I ---> GLibSourceRecord.FFI.fromPtr false) mainCurrentSource_ ()
     fun mainDepth () = (I ---> GInt.FFI.fromVal) mainDepth_ ()
-    fun regexMatchSimple pattern string compileOptions matchOptions =
+    fun regexMatchSimple
+      (
+        pattern,
+        string,
+        compileOptions,
+        matchOptions
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -719,7 +730,7 @@ structure GLib : G_LIB =
     fun shellQuote unquotedString = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) shellQuote_ unquotedString
     fun shellUnquote quotedString = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) shellUnquote_ (quotedString & [])
     fun sourceRemove tag = (GUInt.FFI.withVal ---> GBool.FFI.fromVal) sourceRemove_ tag
-    fun spawnAsyncWithPipes workingDirectory argv envp flags childSetup =
+    fun spawnAsyncWithPipes (workingDirectory, argv, envp, flags, childSetup) =
       let
         val
           childPid
@@ -762,7 +773,7 @@ structure GLib : G_LIB =
       end
     fun spawnClosePid pid = (GLibPid.FFI.withVal ---> I) spawnClosePid_ pid
     fun spawnCommandLineAsync commandLine = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) spawnCommandLineAsync_ (commandLine & [])
-    fun timeoutAdd priority interval function =
+    fun timeoutAdd (priority, interval, function) =
       (
         GInt.FFI.withVal
          &&&> GUInt.FFI.withVal
@@ -775,7 +786,7 @@ structure GLib : G_LIB =
            & interval
            & function
         )
-    fun timeoutAddSeconds priority interval function =
+    fun timeoutAddSeconds (priority, interval, function) =
       (
         GInt.FFI.withVal
          &&&> GUInt.FFI.withVal
@@ -788,7 +799,12 @@ structure GLib : G_LIB =
            & interval
            & function
         )
-    fun uriEscapeString unescaped reservedCharsAllowed allowUtf8 =
+    fun uriEscapeString
+      (
+        unescaped,
+        reservedCharsAllowed,
+        allowUtf8
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -802,7 +818,12 @@ structure GLib : G_LIB =
            & allowUtf8
         )
     fun uriParseScheme uri = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) uriParseScheme_ uri
-    fun uriUnescapeSegment escapedString escapedStringEnd illegalCharacters =
+    fun uriUnescapeSegment
+      (
+        escapedString,
+        escapedStringEnd,
+        illegalCharacters
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -815,5 +836,5 @@ structure GLib : G_LIB =
            & escapedStringEnd
            & illegalCharacters
         )
-    fun uriUnescapeString escapedString illegalCharacters = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) uriUnescapeString_ (escapedString & illegalCharacters)
+    fun uriUnescapeString (escapedString, illegalCharacters) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) uriUnescapeString_ (escapedString & illegalCharacters)
   end

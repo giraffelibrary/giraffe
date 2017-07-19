@@ -74,7 +74,7 @@ structure GtkStatusbar :>
     fun getContextId self contextDescription = (GtkStatusbarClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt.FFI.fromVal) getContextId_ (self & contextDescription)
     fun getMessageArea self = (GtkStatusbarClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getMessageArea_ self
     fun pop self contextId = (GtkStatusbarClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) pop_ (self & contextId)
-    fun push self contextId text =
+    fun push self (contextId, text) =
       (
         GtkStatusbarClass.FFI.withPtr
          &&&> GUInt.FFI.withVal
@@ -87,7 +87,7 @@ structure GtkStatusbar :>
            & contextId
            & text
         )
-    fun remove self contextId messageId =
+    fun remove self (contextId, messageId) =
       (
         GtkStatusbarClass.FFI.withPtr
          &&&> GUInt.FFI.withVal
@@ -104,7 +104,7 @@ structure GtkStatusbar :>
     local
       open ClosureMarshal Signal
     in
-      fun textPoppedSig f = signal "text-popped" (get 0w1 uint &&&> get 0w2 string ---> ret_void) (fn contextId & text => f contextId text)
-      fun textPushedSig f = signal "text-pushed" (get 0w1 uint &&&> get 0w2 string ---> ret_void) (fn contextId & text => f contextId text)
+      fun textPoppedSig f = signal "text-popped" (get 0w1 uint &&&> get 0w2 string ---> ret_void) (fn contextId & text => f (contextId, text))
+      fun textPushedSig f = signal "text-pushed" (get 0w1 uint &&&> get 0w2 string ---> ret_void) (fn contextId & text => f (contextId, text))
     end
   end

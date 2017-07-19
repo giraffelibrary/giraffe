@@ -9,8 +9,7 @@ signature GTK_SOURCE_COMPLETION_INFO =
     val getWidget : 'a class -> base Gtk.WidgetClass.class
     val moveToIter :
       'a class
-       -> 'b Gtk.TextViewClass.class
-       -> Gtk.TextIterRecord.t option
+       -> 'b Gtk.TextViewClass.class * Gtk.TextIterRecord.t option
        -> unit
     val setWidget :
       'a class

@@ -260,7 +260,7 @@ structure GIRepositoryRepository :>
         (repodata, versions)
       end
 
-    fun require repository namespace_ version _ =
+    fun require repository (namespace_, version, _) =
       let
         val repodata & _ = GIRepositoryRepositoryClass.Obj.unpack repository
         val ref {path, loaded} = repodata

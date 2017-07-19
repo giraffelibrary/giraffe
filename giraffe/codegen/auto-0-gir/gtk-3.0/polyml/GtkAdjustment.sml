@@ -56,7 +56,15 @@ structure GtkAdjustment :>
     type 'a class = 'a GtkAdjustmentClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new value lower upper stepIncrement pageIncrement pageSize =
+    fun new
+      (
+        value,
+        lower,
+        upper,
+        stepIncrement,
+        pageIncrement,
+        pageSize
+      ) =
       (
         GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -76,7 +84,7 @@ structure GtkAdjustment :>
            & pageSize
         )
     fun changed self = (GtkAdjustmentClass.FFI.withPtr ---> I) changed_ self
-    fun clampPage self lower upper =
+    fun clampPage self (lower, upper) =
       (
         GtkAdjustmentClass.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -89,7 +97,16 @@ structure GtkAdjustment :>
            & lower
            & upper
         )
-    fun configure self value lower upper stepIncrement pageIncrement pageSize =
+    fun configure
+      self
+      (
+        value,
+        lower,
+        upper,
+        stepIncrement,
+        pageIncrement,
+        pageSize
+      ) =
       (
         GtkAdjustmentClass.FFI.withPtr
          &&&> GDouble.FFI.withVal

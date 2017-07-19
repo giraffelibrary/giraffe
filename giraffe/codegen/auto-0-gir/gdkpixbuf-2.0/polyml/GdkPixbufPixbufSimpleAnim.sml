@@ -23,7 +23,12 @@ structure GdkPixbufPixbufSimpleAnim :>
     type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new width height rate =
+    fun new
+      (
+        width,
+        height,
+        rate
+      ) =
       (
         GInt.FFI.withVal
          &&&> GInt.FFI.withVal

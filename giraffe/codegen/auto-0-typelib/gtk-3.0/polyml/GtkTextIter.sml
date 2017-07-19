@@ -135,7 +135,13 @@ structure GtkTextIter :>
     fun backwardCursorPositions self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardCursorPositions_ (self & count)
     fun backwardLine self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) backwardLine_ self
     fun backwardLines self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardLines_ (self & count)
-    fun backwardSearch self str flags limit =
+    fun backwardSearch
+      self
+      (
+        str,
+        flags,
+        limit
+      ) =
       let
         val matchStart
          & matchEnd
@@ -190,7 +196,13 @@ structure GtkTextIter :>
     fun forwardCursorPositions self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardCursorPositions_ (self & count)
     fun forwardLine self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) forwardLine_ self
     fun forwardLines self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardLines_ (self & count)
-    fun forwardSearch self str flags limit =
+    fun forwardSearch
+      self
+      (
+        str,
+        flags,
+        limit
+      ) =
       let
         val matchStart
          & matchEnd
@@ -249,7 +261,7 @@ structure GtkTextIter :>
     fun getVisibleSlice self end' = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getVisibleSlice_ (self & end')
     fun getVisibleText self end' = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getVisibleText_ (self & end')
     fun hasTag self tag = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextTagClass.FFI.withPtr ---> GBool.FFI.fromVal) hasTag_ (self & tag)
-    fun inRange self start end' =
+    fun inRange self (start, end') =
       (
         GtkTextIterRecord.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr

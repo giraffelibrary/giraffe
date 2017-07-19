@@ -13,10 +13,7 @@ signature GTK_SCROLLED_WINDOW =
     val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new :
-      'a adjustment_class option
-       -> 'b adjustment_class option
-       -> base class
+    val new : 'a adjustment_class option * 'b adjustment_class option -> base class
     val addWithViewport :
       'a class
        -> 'b widget_class
@@ -48,8 +45,7 @@ signature GTK_SCROLLED_WINDOW =
        -> unit
     val setPolicy :
       'a class
-       -> policy_type_t
-       -> policy_type_t
+       -> policy_type_t * policy_type_t
        -> unit
     val setShadowType :
       'a class
@@ -61,11 +57,7 @@ signature GTK_SCROLLED_WINDOW =
        -> unit
     val unsetPlacement : 'a class -> unit
     val moveFocusOutSig : (direction_type_t -> unit) -> 'a class Signal.signal
-    val scrollChildSig :
-      (scroll_type_t
-        -> bool
-        -> bool)
-       -> 'a class Signal.signal
+    val scrollChildSig : (scroll_type_t * bool -> bool) -> 'a class Signal.signal
     val hadjustmentProp : ('a class, base adjustment_class option, 'b adjustment_class option) Property.readwrite
     val hscrollbarPolicyProp : ('a class, policy_type_t, policy_type_t) Property.readwrite
     val minContentHeightProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

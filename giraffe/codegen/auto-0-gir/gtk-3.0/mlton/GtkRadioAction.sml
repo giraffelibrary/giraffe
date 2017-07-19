@@ -43,7 +43,14 @@ structure GtkRadioAction :>
     type t = base class
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new name label tooltip stockId value =
+    fun new
+      (
+        name,
+        label,
+        tooltip,
+        stockId,
+        value
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr

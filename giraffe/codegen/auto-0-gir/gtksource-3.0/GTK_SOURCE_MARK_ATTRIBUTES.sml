@@ -20,8 +20,7 @@ signature GTK_SOURCE_MARK_ATTRIBUTES =
        -> string
     val renderIcon :
       'a class
-       -> 'b Gtk.WidgetClass.class
-       -> LargeInt.int
+       -> 'b Gtk.WidgetClass.class * LargeInt.int
        -> base GdkPixbuf.PixbufClass.class
     val setBackground :
       'a class

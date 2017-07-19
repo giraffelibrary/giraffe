@@ -49,7 +49,7 @@ structure GtkSourceGutter :>
     type 'a view_class = 'a GtkSourceViewClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getRendererAtPos self x y =
+    fun getRendererAtPos self (x, y) =
       (
         GtkSourceGutterClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -63,7 +63,7 @@ structure GtkSourceGutter :>
            & y
         )
     fun getWindow self = (GtkSourceGutterClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getWindow_ self
-    fun insert self renderer position =
+    fun insert self (renderer, position) =
       (
         GtkSourceGutterClass.FFI.withPtr
          &&&> GtkSourceGutterRendererClass.FFI.withPtr
@@ -78,7 +78,7 @@ structure GtkSourceGutter :>
         )
     fun queueDraw self = (GtkSourceGutterClass.FFI.withPtr ---> I) queueDraw_ self
     fun remove self renderer = (GtkSourceGutterClass.FFI.withPtr &&&> GtkSourceGutterRendererClass.FFI.withPtr ---> I) remove_ (self & renderer)
-    fun reorder self renderer position =
+    fun reorder self (renderer, position) =
       (
         GtkSourceGutterClass.FFI.withPtr
          &&&> GtkSourceGutterRendererClass.FFI.withPtr
@@ -91,7 +91,7 @@ structure GtkSourceGutter :>
            & renderer
            & position
         )
-    fun setPadding self xpad ypad =
+    fun setPadding self (xpad, ypad) =
       (
         GtkSourceGutterClass.FFI.withPtr
          &&&> GInt32.FFI.withVal

@@ -8,18 +8,12 @@ signature GIO_APP_INFO =
     val getType : unit -> GObject.Type.t
     val createFromCommandline :
       string
-       -> string option
-       -> app_info_create_flags_t
+       * string option
+       * app_info_create_flags_t
        -> base class
-    val getDefaultForType :
-      string
-       -> bool
-       -> base class
+    val getDefaultForType : string * bool -> base class
     val getDefaultForUriScheme : string -> base class
-    val launchDefaultForUri :
-      string
-       -> 'a app_launch_context_class option
-       -> bool
+    val launchDefaultForUri : string * 'a app_launch_context_class option -> bool
     val resetTypeAssociations : string -> unit
     val addSupportsType :
       'a class

@@ -34,13 +34,11 @@ signature GTK_LIST_STORE =
        -> bool
     val moveAfter :
       'a class
-       -> tree_iter_t
-       -> tree_iter_t option
+       -> tree_iter_t * tree_iter_t option
        -> unit
     val moveBefore :
       'a class
-       -> tree_iter_t
-       -> tree_iter_t option
+       -> tree_iter_t * tree_iter_t option
        -> unit
     val prepend : 'a class -> tree_iter_t
     val remove :
@@ -50,12 +48,11 @@ signature GTK_LIST_STORE =
     val setValue :
       'a class
        -> tree_iter_t
-       -> LargeInt.int
-       -> GObject.ValueRecord.t
+           * LargeInt.int
+           * GObject.ValueRecord.t
        -> unit
     val swap :
       'a class
-       -> tree_iter_t
-       -> tree_iter_t
+       -> tree_iter_t * tree_iter_t
        -> unit
   end

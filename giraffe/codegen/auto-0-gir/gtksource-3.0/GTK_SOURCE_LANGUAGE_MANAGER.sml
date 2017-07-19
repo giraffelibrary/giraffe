@@ -14,8 +14,7 @@ signature GTK_SOURCE_LANGUAGE_MANAGER =
     val getSearchPath : 'a class -> string list
     val guessLanguage :
       'a class
-       -> string option
-       -> string option
+       -> string option * string option
        -> base language_class
     val setSearchPath :
       'a class

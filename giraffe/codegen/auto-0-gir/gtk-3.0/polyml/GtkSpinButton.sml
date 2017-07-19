@@ -109,7 +109,12 @@ structure GtkSpinButton :>
     fun asCellEditable self = (GObjectObjectClass.FFI.withPtr ---> GtkCellEditableClass.FFI.fromPtr false) I self
     fun asEditable self = (GObjectObjectClass.FFI.withPtr ---> GtkEditableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new adjustment climbRate digits =
+    fun new
+      (
+        adjustment,
+        climbRate,
+        digits
+      ) =
       (
         GtkAdjustmentClass.FFI.withOptPtr
          &&&> GDouble.FFI.withVal
@@ -122,7 +127,12 @@ structure GtkSpinButton :>
            & climbRate
            & digits
         )
-    fun newWithRange min max step =
+    fun newWithRange
+      (
+        min,
+        max,
+        step
+      ) =
       (
         GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -135,7 +145,13 @@ structure GtkSpinButton :>
            & max
            & step
         )
-    fun configure self adjustment climbRate digits =
+    fun configure
+      self
+      (
+        adjustment,
+        climbRate,
+        digits
+      ) =
       (
         GtkSpinButtonClass.FFI.withPtr
          &&&> GtkAdjustmentClass.FFI.withOptPtr
@@ -204,7 +220,7 @@ structure GtkSpinButton :>
     fun getWrap self = (GtkSpinButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getWrap_ self
     fun setAdjustment self adjustment = (GtkSpinButtonClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setAdjustment_ (self & adjustment)
     fun setDigits self digits = (GtkSpinButtonClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setDigits_ (self & digits)
-    fun setIncrements self step page =
+    fun setIncrements self (step, page) =
       (
         GtkSpinButtonClass.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -218,7 +234,7 @@ structure GtkSpinButton :>
            & page
         )
     fun setNumeric self numeric = (GtkSpinButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setNumeric_ (self & numeric)
-    fun setRange self min max =
+    fun setRange self (min, max) =
       (
         GtkSpinButtonClass.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -235,7 +251,7 @@ structure GtkSpinButton :>
     fun setUpdatePolicy self policy = (GtkSpinButtonClass.FFI.withPtr &&&> GtkSpinButtonUpdatePolicy.FFI.withVal ---> I) setUpdatePolicy_ (self & policy)
     fun setValue self value = (GtkSpinButtonClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setValue_ (self & value)
     fun setWrap self wrap = (GtkSpinButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setWrap_ (self & wrap)
-    fun spin self direction increment =
+    fun spin self (direction, increment) =
       (
         GtkSpinButtonClass.FFI.withPtr
          &&&> GtkSpinType.FFI.withVal

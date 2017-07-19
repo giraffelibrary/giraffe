@@ -71,7 +71,7 @@ structure GioTlsInteraction :>
     type 'a tls_password_class = 'a GioTlsPasswordClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun askPassword self password cancellable =
+    fun askPassword self (password, cancellable) =
       (
         GioTlsInteractionClass.FFI.withPtr
          &&&> GioTlsPasswordClass.FFI.withPtr
@@ -99,7 +99,7 @@ structure GioTlsInteraction :>
            & result
            & []
         )
-    fun invokeAskPassword self password cancellable =
+    fun invokeAskPassword self (password, cancellable) =
       (
         GioTlsInteractionClass.FFI.withPtr
          &&&> GioTlsPasswordClass.FFI.withPtr

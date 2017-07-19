@@ -63,7 +63,13 @@ structure GioDBusObjectManagerClient :>
                & interfaceProxy
                & changedProperties
                & invalidatedProperties =>
-                f objectProxy interfaceProxy changedProperties invalidatedProperties
+                f
+                  (
+                    objectProxy,
+                    interfaceProxy,
+                    changedProperties,
+                    invalidatedProperties
+                  )
           )
       fun interfaceProxySignalSig f =
         signal "interface-proxy-signal"
@@ -82,7 +88,14 @@ structure GioDBusObjectManagerClient :>
                & senderName
                & signalName
                & parameters =>
-                f objectProxy interfaceProxy senderName signalName parameters
+                f
+                  (
+                    objectProxy,
+                    interfaceProxy,
+                    senderName,
+                    signalName,
+                    parameters
+                  )
           )
     end
     local

@@ -9,8 +9,7 @@ signature GTK_SOURCE_PRINT_COMPOSITOR =
     val newFromView : 'a view_class -> base class
     val drawPage :
       'a class
-       -> 'b Gtk.PrintContextClass.class
-       -> LargeInt.int
+       -> 'b Gtk.PrintContextClass.class * LargeInt.int
        -> unit
     val getBodyFontName : 'a class -> string
     val getBottomMargin :
@@ -51,8 +50,7 @@ signature GTK_SOURCE_PRINT_COMPOSITOR =
        -> unit
     val setBottomMargin :
       'a class
-       -> real
-       -> Gtk.Unit.t
+       -> real * Gtk.Unit.t
        -> unit
     val setFooterFontName :
       'a class
@@ -61,9 +59,9 @@ signature GTK_SOURCE_PRINT_COMPOSITOR =
     val setFooterFormat :
       'a class
        -> bool
-       -> string option
-       -> string option
-       -> string option
+           * string option
+           * string option
+           * string option
        -> unit
     val setHeaderFontName :
       'a class
@@ -72,9 +70,9 @@ signature GTK_SOURCE_PRINT_COMPOSITOR =
     val setHeaderFormat :
       'a class
        -> bool
-       -> string option
-       -> string option
-       -> string option
+           * string option
+           * string option
+           * string option
        -> unit
     val setHighlightSyntax :
       'a class
@@ -82,8 +80,7 @@ signature GTK_SOURCE_PRINT_COMPOSITOR =
        -> unit
     val setLeftMargin :
       'a class
-       -> real
-       -> Gtk.Unit.t
+       -> real * Gtk.Unit.t
        -> unit
     val setLineNumbersFontName :
       'a class
@@ -103,8 +100,7 @@ signature GTK_SOURCE_PRINT_COMPOSITOR =
        -> unit
     val setRightMargin :
       'a class
-       -> real
-       -> Gtk.Unit.t
+       -> real * Gtk.Unit.t
        -> unit
     val setTabWidth :
       'a class
@@ -112,8 +108,7 @@ signature GTK_SOURCE_PRINT_COMPOSITOR =
        -> unit
     val setTopMargin :
       'a class
-       -> real
-       -> Gtk.Unit.t
+       -> real * Gtk.Unit.t
        -> unit
     val setWrapMode :
       'a class

@@ -44,11 +44,7 @@ signature GTK_APP_CHOOSER_WIDGET =
        -> unit
     val applicationActivatedSig : (base Gio.AppInfoClass.class -> unit) -> 'a class Signal.signal
     val applicationSelectedSig : (base Gio.AppInfoClass.class -> unit) -> 'a class Signal.signal
-    val populatePopupSig :
-      (base menu_class
-        -> base Gio.AppInfoClass.class
-        -> unit)
-       -> 'a class Signal.signal
+    val populatePopupSig : (base menu_class * base Gio.AppInfoClass.class -> unit) -> 'a class Signal.signal
     val defaultTextProp : ('a class, string option, string option) Property.readwrite
     val showAllProp : ('a class, bool, bool) Property.readwrite
     val showDefaultProp : ('a class, bool, bool) Property.readwrite

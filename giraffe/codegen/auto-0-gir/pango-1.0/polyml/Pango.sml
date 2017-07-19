@@ -144,11 +144,16 @@ structure Pango : PANGO =
     fun attrTypeGetName type' = (PangoAttrType.FFI.withVal ---> Utf8.FFI.fromPtr 0) attrTypeGetName_ type'
     fun attrTypeRegister name = (Utf8.FFI.withPtr ---> PangoAttrType.FFI.fromVal) attrTypeRegister_ name
     fun bidiTypeForUnichar ch = (GChar.FFI.withVal ---> PangoBidiType.FFI.fromVal) bidiTypeForUnichar_ ch
-    fun extentsToPixels inclusive nearest = (PangoRectangleRecord.FFI.withOptPtr &&&> PangoRectangleRecord.FFI.withOptPtr ---> I) extentsToPixels_ (inclusive & nearest)
-    fun findBaseDir text length = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> PangoDirection.FFI.fromVal) findBaseDir_ (text & length)
+    fun extentsToPixels (inclusive, nearest) = (PangoRectangleRecord.FFI.withOptPtr &&&> PangoRectangleRecord.FFI.withOptPtr ---> I) extentsToPixels_ (inclusive & nearest)
+    fun findBaseDir (text, length) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> PangoDirection.FFI.fromVal) findBaseDir_ (text & length)
     fun fontDescriptionFromString str = (Utf8.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr true) fontDescriptionFromString_ str
     fun gravityGetForMatrix matrix = (PangoMatrixRecord.FFI.withPtr ---> PangoGravity.FFI.fromVal) gravityGetForMatrix_ matrix
-    fun gravityGetForScript script baseGravity hint =
+    fun gravityGetForScript
+      (
+        script,
+        baseGravity,
+        hint
+      ) =
       (
         PangoScript.FFI.withVal
          &&&> PangoGravity.FFI.withVal
@@ -161,7 +166,13 @@ structure Pango : PANGO =
            & baseGravity
            & hint
         )
-    fun gravityGetForScriptAndWidth script wide baseGravity hint =
+    fun gravityGetForScriptAndWidth
+      (
+        script,
+        wide,
+        baseGravity,
+        hint
+      ) =
       (
         PangoScript.FFI.withVal
          &&&> GBool.FFI.withVal
@@ -180,7 +191,12 @@ structure Pango : PANGO =
     fun isZeroWidth ch = (GChar.FFI.withVal ---> GBool.FFI.fromVal) isZeroWidth_ ch
     fun languageFromString language = (Utf8.FFI.withOptPtr ---> PangoLanguageRecord.FFI.fromPtr true) languageFromString_ language
     fun languageGetDefault () = (I ---> PangoLanguageRecord.FFI.fromPtr true) languageGetDefault_ ()
-    fun parseMarkup markupText length accelMarker =
+    fun parseMarkup
+      (
+        markupText,
+        length,
+        accelMarker
+      ) =
       let
         val attrList
          & text
@@ -220,7 +236,7 @@ structure Pango : PANGO =
             )
         else NONE
       end
-    fun quantizeLineGeometry thickness position =
+    fun quantizeLineGeometry (thickness, position) =
       let
         val thickness
          & position
@@ -244,7 +260,12 @@ structure Pango : PANGO =
     fun unitsFromDouble d = (GDouble.FFI.withVal ---> GInt.FFI.fromVal) unitsFromDouble_ d
     fun unitsToDouble i = (GInt.FFI.withVal ---> GDouble.FFI.fromVal) unitsToDouble_ i
     fun version () = (I ---> GInt.FFI.fromVal) version_ ()
-    fun versionCheck requiredMajor requiredMinor requiredMicro =
+    fun versionCheck
+      (
+        requiredMajor,
+        requiredMinor,
+        requiredMicro
+      ) =
       (
         GInt.FFI.withVal
          &&&> GInt.FFI.withVal

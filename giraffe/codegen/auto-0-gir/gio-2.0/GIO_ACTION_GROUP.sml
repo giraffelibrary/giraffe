@@ -9,8 +9,7 @@ signature GIO_ACTION_GROUP =
        -> unit
     val actionEnabledChanged :
       'a class
-       -> string
-       -> bool
+       -> string * bool
        -> unit
     val actionRemoved :
       'a class
@@ -18,18 +17,15 @@ signature GIO_ACTION_GROUP =
        -> unit
     val actionStateChanged :
       'a class
-       -> string
-       -> GLib.VariantRecord.t
+       -> string * GLib.VariantRecord.t
        -> unit
     val activateAction :
       'a class
-       -> string
-       -> GLib.VariantRecord.t option
+       -> string * GLib.VariantRecord.t option
        -> unit
     val changeActionState :
       'a class
-       -> string
-       -> GLib.VariantRecord.t
+       -> string * GLib.VariantRecord.t
        -> unit
     val getActionEnabled :
       'a class
@@ -57,15 +53,7 @@ signature GIO_ACTION_GROUP =
        -> bool
     val listActions : 'a class -> string list
     val actionAddedSig : (string -> unit) -> 'a class Signal.signal
-    val actionEnabledChangedSig :
-      (string
-        -> bool
-        -> unit)
-       -> 'a class Signal.signal
+    val actionEnabledChangedSig : (string * bool -> unit) -> 'a class Signal.signal
     val actionRemovedSig : (string -> unit) -> 'a class Signal.signal
-    val actionStateChangedSig :
-      (string
-        -> GLib.VariantRecord.t
-        -> unit)
-       -> 'a class Signal.signal
+    val actionStateChangedSig : (string * GLib.VariantRecord.t -> unit) -> 'a class Signal.signal
   end

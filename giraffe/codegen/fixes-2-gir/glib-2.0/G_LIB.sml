@@ -129,33 +129,21 @@ signature G_LIB =
     val base64Decode : string -> Word8Vector.vector
     val base64Encode : Word8Vector.vector -> string
     val buildFilenamev : string list -> string
-    val buildPathv :
-      string
-       -> string list
-       -> string
+    val buildPathv : string * string list -> string
     val chdir : string -> LargeInt.int
     val checkVersion :
       LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> string
-    val childWatchSourceNew :
-      Pid.t
-       -> ChildWatchFunc.t
-       -> SourceRecord.t
+    val childWatchSourceNew : Pid.t * ChildWatchFunc.t -> SourceRecord.t
     val childWatchAdd :
       LargeInt.int
-       -> Pid.t
-       -> ChildWatchFunc.t
+       * Pid.t
+       * ChildWatchFunc.t
        -> LargeInt.int
-    val filenameFromUri :
-      string
-       -> string
-       -> string
-    val filenameToUri :
-      string
-       -> string option
-       -> string
+    val filenameFromUri : string * string -> string
+    val filenameToUri : string * string option -> string
     val getApplicationName : unit -> string
     val getCurrentDir : unit -> string
     val getCurrentTime : TimeValRecord.t -> unit
@@ -178,40 +166,31 @@ signature G_LIB =
     val getUserRuntimeDir : unit -> string
     val getUserSpecialDir : UserDirectory.t -> string
     val getenv : string -> string
-    val idleAdd : LargeInt.int -> SourceFunc.t -> LargeInt.int
+    val idleAdd : LargeInt.int * SourceFunc.t -> LargeInt.int
     val ioAddWatch :
       IOChannelRecord.t
+       * LargeInt.int
+       * IOCondition.t
+       * IOFunc.t
        -> LargeInt.int
-       -> IOCondition.t
-       -> IOFunc.t
-       -> LargeInt.int
-    val ioCreateWatch :
-      IOChannelRecord.t
-       -> IOCondition.t
-       -> SourceRecord.t
+    val ioCreateWatch : IOChannelRecord.t * IOCondition.t -> SourceRecord.t
     val logDefaultHandler :
       string
-       -> LogLevelFlags.t
-       -> string
+       * LogLevelFlags.t
+       * string
        -> unit
-    val logRemoveHandler :
-      string
-       -> LargeInt.int
-       -> unit
+    val logRemoveHandler : string * LargeInt.int -> unit
     val logSetAlwaysFatal : LogLevelFlags.t -> LogLevelFlags.t
-    val logSetFatalMask :
-      string
-       -> LogLevelFlags.t
-       -> LogLevelFlags.t
+    val logSetFatalMask : string * LogLevelFlags.t -> LogLevelFlags.t
     val mainContextDefault : unit -> MainContextRecord.t
     val mainContextGetThreadDefault : unit -> MainContextRecord.t
     val mainCurrentSource : unit -> SourceRecord.t
     val mainDepth : unit -> LargeInt.int
     val regexMatchSimple :
       string
-       -> string
-       -> RegexCompileFlags.t
-       -> RegexMatchFlags.t
+       * string
+       * RegexCompileFlags.t
+       * RegexMatchFlags.t
        -> bool
     val shellParseArgv : string -> string list
     val shellQuote : string -> string
@@ -219,10 +198,10 @@ signature G_LIB =
     val sourceRemove : LargeInt.int -> bool
     val spawnAsyncWithPipes :
       string option
-       -> string list
-       -> string list option
-       -> SpawnFlags.t
-       -> SpawnChildSetupFunc.t option
+       * string list
+       * string list option
+       * SpawnFlags.t
+       * SpawnChildSetupFunc.t option
        -> Pid.t
            * FileDesc.t
            * FileDesc.t
@@ -231,27 +210,24 @@ signature G_LIB =
     val spawnCommandLineAsync : string -> bool
     val timeoutAdd :
       LargeInt.int
-       -> LargeInt.int
-       -> SourceFunc.t
+       * LargeInt.int
+       * SourceFunc.t
        -> LargeInt.int
     val timeoutAddSeconds :
       LargeInt.int
-       -> LargeInt.int
-       -> SourceFunc.t
+       * LargeInt.int
+       * SourceFunc.t
        -> LargeInt.int
     val uriEscapeString :
       string
-       -> string
-       -> bool
+       * string
+       * bool
        -> string
     val uriParseScheme : string -> string
     val uriUnescapeSegment :
       string
+       * string
+       * string
        -> string
-       -> string
-       -> string
-    val uriUnescapeString :
-      string
-       -> string
-       -> string
+    val uriUnescapeString : string * string -> string
   end

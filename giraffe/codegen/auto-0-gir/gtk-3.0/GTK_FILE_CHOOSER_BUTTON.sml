@@ -12,10 +12,7 @@ signature GTK_FILE_CHOOSER_BUTTON =
     val asFileChooser : 'a class -> base file_chooser_class
     val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
-    val new :
-      string
-       -> file_chooser_action_t
-       -> base class
+    val new : string * file_chooser_action_t -> base class
     val newWithDialog : 'a widget_class -> base class
     val getFocusOnClick : 'a class -> bool
     val getTitle : 'a class -> string

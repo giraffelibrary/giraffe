@@ -27,8 +27,8 @@ structure GtkArrow :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new arrowType shadowType = (GtkArrowType.FFI.withVal &&&> GtkShadowType.FFI.withVal ---> GtkArrowClass.FFI.fromPtr false) new_ (arrowType & shadowType)
-    fun set self arrowType shadowType =
+    fun new (arrowType, shadowType) = (GtkArrowType.FFI.withVal &&&> GtkShadowType.FFI.withVal ---> GtkArrowClass.FFI.fromPtr false) new_ (arrowType & shadowType)
+    fun set self (arrowType, shadowType) =
       (
         GtkArrowClass.FFI.withPtr
          &&&> GtkArrowType.FFI.withVal

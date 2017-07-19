@@ -8,9 +8,9 @@ signature GTK_CELL_RENDERER_ACCEL =
     val accelClearedSig : (string -> unit) -> 'a class Signal.signal
     val accelEditedSig :
       (string
-        -> LargeInt.int
-        -> Gdk.ModifierType.t
-        -> LargeInt.int
+        * LargeInt.int
+        * Gdk.ModifierType.t
+        * LargeInt.int
         -> unit)
        -> 'a class Signal.signal
     val accelKeyProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

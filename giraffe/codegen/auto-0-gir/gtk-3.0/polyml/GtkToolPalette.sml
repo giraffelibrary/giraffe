@@ -105,7 +105,14 @@ structure GtkToolPalette :>
     fun new () = (I ---> GtkToolPaletteClass.FFI.fromPtr false) new_ ()
     fun getDragTargetGroup () = (I ---> GtkTargetEntryRecord.FFI.fromPtr false) getDragTargetGroup_ ()
     fun getDragTargetItem () = (I ---> GtkTargetEntryRecord.FFI.fromPtr false) getDragTargetItem_ ()
-    fun addDragDest self widget flags targets actions =
+    fun addDragDest
+      self
+      (
+        widget,
+        flags,
+        targets,
+        actions
+      ) =
       (
         GtkToolPaletteClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -123,7 +130,7 @@ structure GtkToolPalette :>
            & actions
         )
     fun getDragItem self selection = (GtkToolPaletteClass.FFI.withPtr &&&> GtkSelectionDataRecord.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getDragItem_ (self & selection)
-    fun getDropGroup self x y =
+    fun getDropGroup self (x, y) =
       (
         GtkToolPaletteClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -136,7 +143,7 @@ structure GtkToolPalette :>
            & x
            & y
         )
-    fun getDropItem self x y =
+    fun getDropItem self (x, y) =
       (
         GtkToolPaletteClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -155,7 +162,7 @@ structure GtkToolPalette :>
     fun getIconSize self = (GtkToolPaletteClass.FFI.withPtr ---> GInt.FFI.fromVal) getIconSize_ self
     fun getStyle self = (GtkToolPaletteClass.FFI.withPtr ---> GtkToolbarStyle.FFI.fromVal) getStyle_ self
     fun setDragSource self targets = (GtkToolPaletteClass.FFI.withPtr &&&> GtkToolPaletteDragTargets.FFI.withVal ---> I) setDragSource_ (self & targets)
-    fun setExclusive self group exclusive =
+    fun setExclusive self (group, exclusive) =
       (
         GtkToolPaletteClass.FFI.withPtr
          &&&> GtkToolItemGroupClass.FFI.withPtr
@@ -168,7 +175,7 @@ structure GtkToolPalette :>
            & group
            & exclusive
         )
-    fun setExpand self group expand =
+    fun setExpand self (group, expand) =
       (
         GtkToolPaletteClass.FFI.withPtr
          &&&> GtkToolItemGroupClass.FFI.withPtr
@@ -181,7 +188,7 @@ structure GtkToolPalette :>
            & group
            & expand
         )
-    fun setGroupPosition self group position =
+    fun setGroupPosition self (group, position) =
       (
         GtkToolPaletteClass.FFI.withPtr
          &&&> GtkToolItemGroupClass.FFI.withPtr

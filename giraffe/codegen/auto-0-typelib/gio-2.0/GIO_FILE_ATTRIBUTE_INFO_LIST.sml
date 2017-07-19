@@ -9,8 +9,8 @@ signature GIO_FILE_ATTRIBUTE_INFO_LIST =
     val add :
       t
        -> string
-       -> file_attribute_type_t
-       -> file_attribute_info_flags_t
+           * file_attribute_type_t
+           * file_attribute_info_flags_t
        -> unit
     val dup : t -> t
     val lookup :

@@ -9,10 +9,7 @@ signature GTK_TOOL_BUTTON =
     val asActivatable : 'a class -> base activatable_class
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new :
-      'a widget_class option
-       -> string option
-       -> base class
+    val new : 'a widget_class option * string option -> base class
     val newFromStock : string -> base class
     val getIconName : 'a class -> string
     val getIconWidget : 'a class -> base widget_class

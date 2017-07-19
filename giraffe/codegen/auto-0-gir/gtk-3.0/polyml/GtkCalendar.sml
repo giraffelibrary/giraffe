@@ -83,7 +83,7 @@ structure GtkCalendar :>
     fun getDisplayOptions self = (GtkCalendarClass.FFI.withPtr ---> GtkCalendarDisplayOptions.FFI.fromVal) getDisplayOptions_ self
     fun markDay self day = (GtkCalendarClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) markDay_ (self & day)
     fun selectDay self day = (GtkCalendarClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) selectDay_ (self & day)
-    fun selectMonth self month year =
+    fun selectMonth self (month, year) =
       (
         GtkCalendarClass.FFI.withPtr
          &&&> GUInt.FFI.withVal

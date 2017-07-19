@@ -88,7 +88,7 @@ structure GdkVisual :>
     fun getBest () = (I ---> GdkVisualClass.FFI.fromPtr false) getBest_ ()
     fun getBestDepth () = (I ---> GInt.FFI.fromVal) getBestDepth_ ()
     fun getBestType () = (I ---> GdkVisualType.FFI.fromVal) getBestType_ ()
-    fun getBestWithBoth depth visualType = (GInt.FFI.withVal &&&> GdkVisualType.FFI.withVal ---> GdkVisualClass.FFI.fromPtr false) getBestWithBoth_ (depth & visualType)
+    fun getBestWithBoth (depth, visualType) = (GInt.FFI.withVal &&&> GdkVisualType.FFI.withVal ---> GdkVisualClass.FFI.fromPtr false) getBestWithBoth_ (depth & visualType)
     fun getBestWithDepth depth = (GInt.FFI.withVal ---> GdkVisualClass.FFI.fromPtr false) getBestWithDepth_ depth
     fun getBestWithType visualType = (GdkVisualType.FFI.withVal ---> GdkVisualClass.FFI.fromPtr false) getBestWithType_ visualType
     fun getSystem () = (I ---> GdkVisualClass.FFI.fromPtr false) getSystem_ ()

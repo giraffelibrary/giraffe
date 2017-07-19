@@ -58,7 +58,14 @@ structure GtkAspectFrame :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new label xalign yalign ratio obeyChild =
+    fun new
+      (
+        label,
+        xalign,
+        yalign,
+        ratio,
+        obeyChild
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GFloat.FFI.withVal
@@ -75,7 +82,14 @@ structure GtkAspectFrame :>
            & ratio
            & obeyChild
         )
-    fun set self xalign yalign ratio obeyChild =
+    fun set
+      self
+      (
+        xalign,
+        yalign,
+        ratio,
+        obeyChild
+      ) =
       (
         GtkAspectFrameClass.FFI.withPtr
          &&&> GFloat.FFI.withVal

@@ -31,8 +31,8 @@ signature GIO_OUTPUT_STREAM =
     val splice :
       'a class
        -> 'b input_stream_class
-       -> output_stream_splice_flags_t
-       -> 'c cancellable_class option
+           * output_stream_splice_flags_t
+           * 'c cancellable_class option
        -> LargeInt.int
     val spliceFinish :
       'a class
@@ -40,13 +40,11 @@ signature GIO_OUTPUT_STREAM =
        -> LargeInt.int
     val write :
       'a class
-       -> Word8Vector.vector
-       -> 'b cancellable_class option
+       -> Word8Vector.vector * 'b cancellable_class option
        -> LargeInt.int
     val writeAll :
       'a class
-       -> Word8Vector.vector
-       -> 'b cancellable_class option
+       -> Word8Vector.vector * 'b cancellable_class option
        -> LargeInt.int option
     val writeFinish :
       'a class

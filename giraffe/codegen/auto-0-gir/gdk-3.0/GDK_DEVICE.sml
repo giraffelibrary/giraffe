@@ -16,10 +16,7 @@ signature GDK_DEVICE =
     type device_type_t
     type t = base class
     val getType : unit -> GObject.Type.t
-    val grabInfoLibgtkOnly :
-      'a display_class
-       -> 'b class
-       -> (base window_class * bool) option
+    val grabInfoLibgtkOnly : 'a display_class * 'b class -> (base window_class * bool) option
     val getAssociatedDevice : 'a class -> base class
     val getAxisUse :
       'a class
@@ -50,22 +47,21 @@ signature GDK_DEVICE =
     val grab :
       'a class
        -> 'b window_class
-       -> grab_ownership_t
-       -> bool
-       -> event_mask_t
-       -> 'c cursor_class option
-       -> LargeInt.int
+           * grab_ownership_t
+           * bool
+           * event_mask_t
+           * 'c cursor_class option
+           * LargeInt.int
        -> grab_status_t
     val setAxisUse :
       'a class
-       -> LargeInt.int
-       -> axis_use_t
+       -> LargeInt.int * axis_use_t
        -> unit
     val setKey :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> modifier_type_t
+           * LargeInt.int
+           * modifier_type_t
        -> unit
     val setMode :
       'a class
@@ -78,8 +74,8 @@ signature GDK_DEVICE =
     val warp :
       'a class
        -> 'b screen_class
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val changedSig : (unit -> unit) -> 'a class Signal.signal
     val associatedDeviceProp : ('a class, base class option) Property.readonly

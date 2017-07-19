@@ -111,7 +111,7 @@ structure Atk : ATK =
     fun stateTypeRegister name = (Utf8.FFI.withPtr ---> AtkStateType.FFI.fromVal) stateTypeRegister_ name
     fun textAttributeForName name = (Utf8.FFI.withPtr ---> AtkTextAttribute.FFI.fromVal) textAttributeForName_ name
     fun textAttributeGetName attr = (AtkTextAttribute.FFI.withVal ---> Utf8.FFI.fromPtr 0) textAttributeGetName_ attr
-    fun textAttributeGetValue attr index = (AtkTextAttribute.FFI.withVal &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) textAttributeGetValue_ (attr & index)
+    fun textAttributeGetValue (attr, index) = (AtkTextAttribute.FFI.withVal &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) textAttributeGetValue_ (attr & index)
     fun textAttributeRegister name = (Utf8.FFI.withPtr ---> AtkTextAttribute.FFI.fromVal) textAttributeRegister_ name
     fun textFreeRanges ranges = (AtkTextRangeRecord.FFI.withPtr ---> I) textFreeRanges_ ranges
   end

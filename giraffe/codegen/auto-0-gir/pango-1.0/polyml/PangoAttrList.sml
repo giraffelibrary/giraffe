@@ -30,7 +30,13 @@ structure PangoAttrList :>
     fun copy self = (PangoAttrListRecord.FFI.withPtr ---> PangoAttrListRecord.FFI.fromPtr true) copy_ self
     fun insert self attr = (PangoAttrListRecord.FFI.withPtr &&&> PangoAttributeRecord.FFI.withPtr ---> I) insert_ (self & attr)
     fun insertBefore self attr = (PangoAttrListRecord.FFI.withPtr &&&> PangoAttributeRecord.FFI.withPtr ---> I) insertBefore_ (self & attr)
-    fun splice self other pos len =
+    fun splice
+      self
+      (
+        other,
+        pos,
+        len
+      ) =
       (
         PangoAttrListRecord.FFI.withPtr
          &&&> PangoAttrListRecord.FFI.withPtr

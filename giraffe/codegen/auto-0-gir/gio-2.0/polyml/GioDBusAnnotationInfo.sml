@@ -10,5 +10,5 @@ structure GioDBusAnnotationInfo :>
     end
     type t = GioDBusAnnotationInfoRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun lookup annotations name = (GioDBusAnnotationInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) lookup_ (annotations & name)
+    fun lookup (annotations, name) = (GioDBusAnnotationInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) lookup_ (annotations & name)
   end

@@ -29,7 +29,13 @@ structure GtkCellRendererAccel :>
                & accelKey
                & accelMods
                & hardwareKeycode =>
-                f pathString accelKey accelMods hardwareKeycode
+                f
+                  (
+                    pathString,
+                    accelKey,
+                    accelMods,
+                    hardwareKeycode
+                  )
           )
     end
     local

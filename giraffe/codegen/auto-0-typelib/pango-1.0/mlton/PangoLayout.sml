@@ -465,7 +465,7 @@ structure PangoLayout :>
     fun getUnknownGlyphsCount self = (PangoLayoutClass.FFI.withPtr ---> GInt32.FFI.fromVal) getUnknownGlyphsCount_ self
     fun getWidth self = (PangoLayoutClass.FFI.withPtr ---> GInt32.FFI.fromVal) getWidth_ self
     fun getWrap self = (PangoLayoutClass.FFI.withPtr ---> PangoWrapMode.FFI.fromVal) getWrap_ self
-    fun indexToLineX self index trailing =
+    fun indexToLineX self (index, trailing) =
       let
         val line
          & xPos
@@ -518,7 +518,7 @@ structure PangoLayout :>
     fun setHeight self height = (PangoLayoutClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setHeight_ (self & height)
     fun setIndent self indent = (PangoLayoutClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setIndent_ (self & indent)
     fun setJustify self justify = (PangoLayoutClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setJustify_ (self & justify)
-    fun setMarkup self markup length =
+    fun setMarkup self (markup, length) =
       (
         PangoLayoutClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -531,7 +531,13 @@ structure PangoLayout :>
            & markup
            & length
         )
-    fun setMarkupWithAccel self markup length accelMarker =
+    fun setMarkupWithAccel
+      self
+      (
+        markup,
+        length,
+        accelMarker
+      ) =
       let
         val accelChar & () =
           (
@@ -556,7 +562,7 @@ structure PangoLayout :>
     fun setSingleParagraphMode self setting = (PangoLayoutClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSingleParagraphMode_ (self & setting)
     fun setSpacing self spacing = (PangoLayoutClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setSpacing_ (self & spacing)
     fun setTabs self tabs = (PangoLayoutClass.FFI.withPtr &&&> PangoTabArrayRecord.FFI.withOptPtr ---> I) setTabs_ (self & tabs)
-    fun setText self text length =
+    fun setText self (text, length) =
       (
         PangoLayoutClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -571,7 +577,7 @@ structure PangoLayout :>
         )
     fun setWidth self width = (PangoLayoutClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setWidth_ (self & width)
     fun setWrap self wrap = (PangoLayoutClass.FFI.withPtr &&&> PangoWrapMode.FFI.withVal ---> I) setWrap_ (self & wrap)
-    fun xyToIndex self x y =
+    fun xyToIndex self (x, y) =
       let
         val index
          & trailing

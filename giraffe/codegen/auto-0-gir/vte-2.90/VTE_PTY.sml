@@ -13,8 +13,7 @@ signature VTE_PTY =
     val getSize : 'a class -> (LargeInt.int * LargeInt.int) option
     val setSize :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> bool
     val setTerm :
       'a class

@@ -10,28 +10,28 @@ signature GTK_TABLE =
     val getType : unit -> GObject.Type.t
     val new :
       LargeInt.int
-       -> LargeInt.int
-       -> bool
+       * LargeInt.int
+       * bool
        -> base class
     val attach :
       'a class
        -> 'b widget_class
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> attach_options_t
-       -> attach_options_t
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * attach_options_t
+           * attach_options_t
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val attachDefaults :
       'a class
        -> 'b widget_class
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val getColSpacing :
       'a class
@@ -47,13 +47,11 @@ signature GTK_TABLE =
     val getSize : 'a class -> LargeInt.int * LargeInt.int
     val resize :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setColSpacing :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setColSpacings :
       'a class
@@ -65,8 +63,7 @@ signature GTK_TABLE =
        -> unit
     val setRowSpacing :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setRowSpacings :
       'a class

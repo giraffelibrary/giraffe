@@ -23,8 +23,7 @@ signature ATK_TABLE =
        -> string
     val getColumnExtentAt :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int
     val getColumnHeader :
       'a class
@@ -32,8 +31,7 @@ signature ATK_TABLE =
        -> base object_class
     val getIndexAt :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int
     val getNColumns : 'a class -> LargeInt.int
     val getNRows : 'a class -> LargeInt.int
@@ -47,8 +45,7 @@ signature ATK_TABLE =
        -> string
     val getRowExtentAt :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int
     val getRowHeader :
       'a class
@@ -65,13 +62,11 @@ signature ATK_TABLE =
        -> bool
     val isSelected :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> bool
     val refAt :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> base object_class
     val removeColumnSelection :
       'a class
@@ -87,49 +82,29 @@ signature ATK_TABLE =
        -> unit
     val setColumnDescription :
       'a class
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> unit
     val setColumnHeader :
       'a class
-       -> LargeInt.int
-       -> 'b object_class
+       -> LargeInt.int * 'b object_class
        -> unit
     val setRowDescription :
       'a class
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> unit
     val setRowHeader :
       'a class
-       -> LargeInt.int
-       -> 'b object_class
+       -> LargeInt.int * 'b object_class
        -> unit
     val setSummary :
       'a class
        -> 'b object_class
        -> unit
-    val columnDeletedSig :
-      (LargeInt.int
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
-    val columnInsertedSig :
-      (LargeInt.int
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val columnDeletedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
+    val columnInsertedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
     val columnReorderedSig : (unit -> unit) -> 'a class Signal.signal
     val modelChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val rowDeletedSig :
-      (LargeInt.int
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
-    val rowInsertedSig :
-      (LargeInt.int
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val rowDeletedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
+    val rowInsertedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
     val rowReorderedSig : (unit -> unit) -> 'a class Signal.signal
   end

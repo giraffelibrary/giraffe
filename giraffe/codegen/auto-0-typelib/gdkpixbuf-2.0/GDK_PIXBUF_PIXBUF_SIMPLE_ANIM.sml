@@ -6,8 +6,8 @@ signature GDK_PIXBUF_PIXBUF_SIMPLE_ANIM =
     val getType : unit -> GObject.Type.t
     val new :
       LargeInt.int
-       -> LargeInt.int
-       -> real
+       * LargeInt.int
+       * real
        -> base class
     val addFrame :
       'a class

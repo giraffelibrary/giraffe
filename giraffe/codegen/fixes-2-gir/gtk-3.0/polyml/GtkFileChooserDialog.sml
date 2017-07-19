@@ -29,7 +29,7 @@ structure GtkFileChooserDialog :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asFileChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkFileChooserClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new title parent action =
+    fun new (title, parent, action) =
       (
         Utf8.FFI.withOptPtr
          &&&> GtkWindowClass.FFI.withOptPtr

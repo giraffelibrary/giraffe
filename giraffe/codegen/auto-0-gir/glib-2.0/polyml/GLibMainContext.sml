@@ -49,7 +49,7 @@ structure GLibMainContext :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GLibMainContextRecord.FFI.fromPtr true) new_ ()
     fun acquire self = (GLibMainContextRecord.FFI.withPtr ---> GBool.FFI.fromVal) acquire_ self
-    fun addPoll self fd priority =
+    fun addPoll self (fd, priority) =
       (
         GLibMainContextRecord.FFI.withPtr
          &&&> GLibPollFDRecord.FFI.withPtr
@@ -71,7 +71,7 @@ structure GLibMainContext :>
     fun pushThreadDefault self = (GLibMainContextRecord.FFI.withPtr ---> I) pushThreadDefault_ self
     fun release self = (GLibMainContextRecord.FFI.withPtr ---> I) release_ self
     fun removePoll self fd = (GLibMainContextRecord.FFI.withPtr &&&> GLibPollFDRecord.FFI.withPtr ---> I) removePoll_ (self & fd)
-    fun wait self cond mutex =
+    fun wait self (cond, mutex) =
       (
         GLibMainContextRecord.FFI.withPtr
          &&&> GLibCondRecord.FFI.withPtr

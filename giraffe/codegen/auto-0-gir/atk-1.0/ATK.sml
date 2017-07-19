@@ -181,10 +181,7 @@ signature ATK =
     val stateTypeRegister : string -> StateType.t
     val textAttributeForName : string -> TextAttribute.t
     val textAttributeGetName : TextAttribute.t -> string
-    val textAttributeGetValue :
-      TextAttribute.t
-       -> LargeInt.int
-       -> string
+    val textAttributeGetValue : TextAttribute.t * LargeInt.int -> string
     val textAttributeRegister : string -> TextAttribute.t
     val textFreeRanges : TextRangeRecord.t -> unit
   end

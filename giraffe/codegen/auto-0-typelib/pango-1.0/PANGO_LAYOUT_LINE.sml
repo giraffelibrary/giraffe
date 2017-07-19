@@ -7,13 +7,11 @@ signature PANGO_LAYOUT_LINE =
     val getPixelExtents : t -> rectangle_t * rectangle_t
     val getXRanges :
       t
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int vector
     val indexToX :
       t
-       -> LargeInt.int
-       -> bool
+       -> LargeInt.int * bool
        -> LargeInt.int
     val xToIndex :
       t

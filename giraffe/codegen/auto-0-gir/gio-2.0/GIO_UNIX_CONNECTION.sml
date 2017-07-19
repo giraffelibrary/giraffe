@@ -19,7 +19,6 @@ signature GIO_UNIX_CONNECTION =
        -> bool
     val sendFd :
       'a class
-       -> LargeInt.int
-       -> 'b cancellable_class option
+       -> LargeInt.int * 'b cancellable_class option
        -> bool
   end

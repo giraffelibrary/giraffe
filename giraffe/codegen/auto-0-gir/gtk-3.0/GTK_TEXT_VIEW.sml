@@ -25,15 +25,14 @@ signature GTK_TEXT_VIEW =
     val newWithBuffer : 'a text_buffer_class -> base class
     val addChildAtAnchor :
       'a class
-       -> 'b widget_class
-       -> 'c text_child_anchor_class
+       -> 'b widget_class * 'c text_child_anchor_class
        -> unit
     val addChildInWindow :
       'a class
        -> 'b widget_class
-       -> text_window_type_t
-       -> LargeInt.int
-       -> LargeInt.int
+           * text_window_type_t
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val backwardDisplayLine :
       'a class
@@ -46,8 +45,8 @@ signature GTK_TEXT_VIEW =
     val bufferToWindowCoords :
       'a class
        -> text_window_type_t
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val forwardDisplayLine :
       'a class
@@ -73,13 +72,11 @@ signature GTK_TEXT_VIEW =
     val getIndent : 'a class -> LargeInt.int
     val getIterAtLocation :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> text_iter_t
     val getIterAtPosition :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> text_iter_t * LargeInt.int
     val getIterLocation :
       'a class
@@ -118,8 +115,8 @@ signature GTK_TEXT_VIEW =
     val moveChild :
       'a class
        -> 'b widget_class
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val moveMarkOnscreen :
       'a class
@@ -127,8 +124,7 @@ signature GTK_TEXT_VIEW =
        -> bool
     val moveVisually :
       'a class
-       -> text_iter_t
-       -> LargeInt.int
+       -> text_iter_t * LargeInt.int
        -> bool
     val placeCursorOnscreen : 'a class -> bool
     val resetImContext : 'a class -> unit
@@ -139,18 +135,18 @@ signature GTK_TEXT_VIEW =
     val scrollToIter :
       'a class
        -> text_iter_t
-       -> real
-       -> bool
-       -> real
-       -> real
+           * real
+           * bool
+           * real
+           * real
        -> bool
     val scrollToMark :
       'a class
        -> 'b text_mark_class
-       -> real
-       -> bool
-       -> real
-       -> real
+           * real
+           * bool
+           * real
+           * real
        -> unit
     val setAcceptsTab :
       'a class
@@ -158,8 +154,7 @@ signature GTK_TEXT_VIEW =
        -> unit
     val setBorderWindowSize :
       'a class
-       -> text_window_type_t
-       -> LargeInt.int
+       -> text_window_type_t * LargeInt.int
        -> unit
     val setBuffer :
       'a class
@@ -220,29 +215,21 @@ signature GTK_TEXT_VIEW =
     val windowToBufferCoords :
       'a class
        -> text_window_type_t
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val backspaceSig : (unit -> unit) -> 'a class Signal.signal
     val copyClipboardSig : (unit -> unit) -> 'a class Signal.signal
     val cutClipboardSig : (unit -> unit) -> 'a class Signal.signal
-    val deleteFromCursorSig :
-      (delete_type_t
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val deleteFromCursorSig : (delete_type_t * LargeInt.int -> unit) -> 'a class Signal.signal
     val insertAtCursorSig : (string -> unit) -> 'a class Signal.signal
     val moveCursorSig :
       (movement_step_t
-        -> LargeInt.int
-        -> bool
+        * LargeInt.int
+        * bool
         -> unit)
        -> 'a class Signal.signal
-    val moveViewportSig :
-      (scroll_step_t
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val moveViewportSig : (scroll_step_t * LargeInt.int -> unit) -> 'a class Signal.signal
     val pasteClipboardSig : (unit -> unit) -> 'a class Signal.signal
     val populatePopupSig : (base menu_class -> unit) -> 'a class Signal.signal
     val preeditChangedSig : (string -> unit) -> 'a class Signal.signal

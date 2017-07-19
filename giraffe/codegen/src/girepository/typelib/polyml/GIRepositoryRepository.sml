@@ -122,7 +122,7 @@ structure GIRepositoryRepository :>
     fun prependSearchPath directory =
       (Utf8.FFI.withPtr ---> I) prependSearchPath_ directory
 
-    fun require1 repository namespace_ version flags =
+    fun require1 repository (namespace_, version, flags) =
       (
         GObjectObjectClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -269,9 +269,9 @@ structure GIRepositoryRepository :>
 
     (* Wrap GIRepository functions to support `typelibvers_t` *)
 
-    fun require repository namespace_ version flags =
+    fun require repository (namespace_, version, flags) =
       let
-        val typelib = require1 repository namespace_ version flags
+        val typelib = require1 repository (namespace_, version, flags)
         val dependencies =
           case getDependencies1 repository namespace_ of
             NONE      => ListDict.empty

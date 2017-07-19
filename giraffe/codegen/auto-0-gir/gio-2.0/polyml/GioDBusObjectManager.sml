@@ -24,7 +24,7 @@ structure GioDBusObjectManager :>
     type 'a d_bus_object_class = 'a GioDBusObjectClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getInterface self objectPath interfaceName =
+    fun getInterface self (objectPath, interfaceName) =
       (
         GioDBusObjectManagerClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -42,8 +42,8 @@ structure GioDBusObjectManager :>
     local
       open ClosureMarshal Signal
     in
-      fun interfaceAddedSig f = signal "interface-added" (get 0w1 GioDBusObjectClass.t &&&> get 0w2 GioDBusInterfaceClass.t ---> ret_void) (fn object & interface => f object interface)
-      fun interfaceRemovedSig f = signal "interface-removed" (get 0w1 GioDBusObjectClass.t &&&> get 0w2 GioDBusInterfaceClass.t ---> ret_void) (fn object & interface => f object interface)
+      fun interfaceAddedSig f = signal "interface-added" (get 0w1 GioDBusObjectClass.t &&&> get 0w2 GioDBusInterfaceClass.t ---> ret_void) (fn object & interface => f (object, interface))
+      fun interfaceRemovedSig f = signal "interface-removed" (get 0w1 GioDBusObjectClass.t &&&> get 0w2 GioDBusInterfaceClass.t ---> ret_void) (fn object & interface => f (object, interface))
       fun objectAddedSig f = signal "object-added" (get 0w1 GioDBusObjectClass.t ---> ret_void) f
       fun objectRemovedSig f = signal "object-removed" (get 0w1 GioDBusObjectClass.t ---> ret_void) f
     end

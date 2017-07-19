@@ -49,7 +49,7 @@ val () = List.app Repository.prependSearchPath revPaths
  * This is not necessary but may catch errors sooner. *)
 
 val () = print "Loading namespaces\n"
-val _ = require repo "Vte" "2.91" flags
+val _ = require repo ("Vte", "2.91", flags)
 
 
 (* Generate code *)

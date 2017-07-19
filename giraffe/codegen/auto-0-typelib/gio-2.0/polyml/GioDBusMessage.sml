@@ -93,7 +93,13 @@ structure GioDBusMessage :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioDBusMessageClass.FFI.fromPtr true) new_ ()
-    fun newMethodCall name path interface method =
+    fun newMethodCall
+      (
+        name,
+        path,
+        interface,
+        method
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -108,7 +114,12 @@ structure GioDBusMessage :>
            & interface
            & method
         )
-    fun newSignal path interface signal =
+    fun newSignal
+      (
+        path,
+        interface,
+        signal
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -141,7 +152,7 @@ structure GioDBusMessage :>
     fun getSignature self = (GioDBusMessageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSignature_ self
     fun getUnixFdList self = (GioDBusMessageClass.FFI.withPtr ---> GioUnixFDListClass.FFI.fromPtr false) getUnixFdList_ self
     fun lock self = (GioDBusMessageClass.FFI.withPtr ---> I) lock_ self
-    fun newMethodErrorLiteral self errorName errorMessage =
+    fun newMethodErrorLiteral self (errorName, errorMessage) =
       (
         GioDBusMessageClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -161,7 +172,7 @@ structure GioDBusMessage :>
     fun setDestination self value = (GioDBusMessageClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDestination_ (self & value)
     fun setErrorName self value = (GioDBusMessageClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setErrorName_ (self & value)
     fun setFlags self flags = (GioDBusMessageClass.FFI.withPtr &&&> GioDBusMessageFlags.FFI.withVal ---> I) setFlags_ (self & flags)
-    fun setHeader self headerField value =
+    fun setHeader self (headerField, value) =
       (
         GioDBusMessageClass.FFI.withPtr
          &&&> GioDBusMessageHeaderField.FFI.withVal

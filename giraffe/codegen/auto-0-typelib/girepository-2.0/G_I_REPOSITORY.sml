@@ -35,41 +35,23 @@ signature G_I_REPOSITORY =
     val argInfoLoadType : BaseInfoRecord.t -> BaseInfoRecord.t
     val argInfoMayBeNull : BaseInfoRecord.t -> bool
     val baseInfoGetType : BaseInfoRecord.t -> InfoType.t
-    val callableInfoGetArg :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val callableInfoGetArg : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val callableInfoGetCallerOwns : BaseInfoRecord.t -> Transfer.t
     val callableInfoGetNArgs : BaseInfoRecord.t -> LargeInt.int
-    val callableInfoGetReturnAttribute :
-      BaseInfoRecord.t
-       -> string
-       -> string
+    val callableInfoGetReturnAttribute : BaseInfoRecord.t * string -> string
     val callableInfoGetReturnType : BaseInfoRecord.t -> BaseInfoRecord.t
-    val callableInfoIterateReturnAttributes :
-      BaseInfoRecord.t
-       -> AttributeIterRecord.t
-       -> (string * string) option
-    val callableInfoLoadArg :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val callableInfoIterateReturnAttributes : BaseInfoRecord.t * AttributeIterRecord.t -> (string * string) option
+    val callableInfoLoadArg : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val callableInfoLoadReturnType : BaseInfoRecord.t -> BaseInfoRecord.t
     val callableInfoMayReturnNull : BaseInfoRecord.t -> bool
     val callableInfoSkipReturn : BaseInfoRecord.t -> bool
     val constantInfoGetType : BaseInfoRecord.t -> BaseInfoRecord.t
     val enumInfoGetErrorDomain : BaseInfoRecord.t -> string
-    val enumInfoGetMethod :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val enumInfoGetMethod : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val enumInfoGetNMethods : BaseInfoRecord.t -> LargeInt.int
     val enumInfoGetNValues : BaseInfoRecord.t -> LargeInt.int
     val enumInfoGetStorageType : BaseInfoRecord.t -> TypeTag.t
-    val enumInfoGetValue :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val enumInfoGetValue : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val fieldInfoGetFlags : BaseInfoRecord.t -> FieldInfoFlags.t
     val fieldInfoGetOffset : BaseInfoRecord.t -> LargeInt.int
     val fieldInfoGetSize : BaseInfoRecord.t -> LargeInt.int
@@ -80,83 +62,38 @@ signature G_I_REPOSITORY =
     val functionInfoGetVfunc : BaseInfoRecord.t -> BaseInfoRecord.t
     val infoNew :
       InfoType.t
-       -> BaseInfoRecord.t
-       -> TypelibRecord.t
-       -> LargeInt.int
+       * BaseInfoRecord.t
+       * TypelibRecord.t
+       * LargeInt.int
        -> BaseInfoRecord.t
     val infoTypeToString : InfoType.t -> string
-    val interfaceInfoFindMethod :
-      BaseInfoRecord.t
-       -> string
-       -> BaseInfoRecord.t
-    val interfaceInfoFindVfunc :
-      BaseInfoRecord.t
-       -> string
-       -> BaseInfoRecord.t
-    val interfaceInfoGetConstant :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val interfaceInfoFindMethod : BaseInfoRecord.t * string -> BaseInfoRecord.t
+    val interfaceInfoFindVfunc : BaseInfoRecord.t * string -> BaseInfoRecord.t
+    val interfaceInfoGetConstant : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val interfaceInfoGetIfaceStruct : BaseInfoRecord.t -> BaseInfoRecord.t
-    val interfaceInfoGetMethod :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val interfaceInfoGetMethod : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val interfaceInfoGetNConstants : BaseInfoRecord.t -> LargeInt.int
     val interfaceInfoGetNMethods : BaseInfoRecord.t -> LargeInt.int
     val interfaceInfoGetNPrerequisites : BaseInfoRecord.t -> LargeInt.int
     val interfaceInfoGetNProperties : BaseInfoRecord.t -> LargeInt.int
     val interfaceInfoGetNSignals : BaseInfoRecord.t -> LargeInt.int
     val interfaceInfoGetNVfuncs : BaseInfoRecord.t -> LargeInt.int
-    val interfaceInfoGetPrerequisite :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
-    val interfaceInfoGetProperty :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
-    val interfaceInfoGetSignal :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
-    val interfaceInfoGetVfunc :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val interfaceInfoGetPrerequisite : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
+    val interfaceInfoGetProperty : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
+    val interfaceInfoGetSignal : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
+    val interfaceInfoGetVfunc : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val invokeErrorQuark : unit -> LargeInt.int
-    val objectInfoFindMethod :
-      BaseInfoRecord.t
-       -> string
-       -> BaseInfoRecord.t
-    val objectInfoFindMethodUsingInterfaces :
-      BaseInfoRecord.t
-       -> string
-       -> BaseInfoRecord.t * BaseInfoRecord.t
-    val objectInfoFindVfunc :
-      BaseInfoRecord.t
-       -> string
-       -> BaseInfoRecord.t
+    val objectInfoFindMethod : BaseInfoRecord.t * string -> BaseInfoRecord.t
+    val objectInfoFindMethodUsingInterfaces : BaseInfoRecord.t * string -> BaseInfoRecord.t * BaseInfoRecord.t
+    val objectInfoFindVfunc : BaseInfoRecord.t * string -> BaseInfoRecord.t
     val objectInfoGetAbstract : BaseInfoRecord.t -> bool
     val objectInfoGetClassStruct : BaseInfoRecord.t -> BaseInfoRecord.t
-    val objectInfoGetConstant :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
-    val objectInfoGetField :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val objectInfoGetConstant : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
+    val objectInfoGetField : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val objectInfoGetFundamental : BaseInfoRecord.t -> bool
     val objectInfoGetGetValueFunction : BaseInfoRecord.t -> string
-    val objectInfoGetInterface :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
-    val objectInfoGetMethod :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val objectInfoGetInterface : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
+    val objectInfoGetMethod : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val objectInfoGetNConstants : BaseInfoRecord.t -> LargeInt.int
     val objectInfoGetNFields : BaseInfoRecord.t -> LargeInt.int
     val objectInfoGetNInterfaces : BaseInfoRecord.t -> LargeInt.int
@@ -165,23 +102,14 @@ signature G_I_REPOSITORY =
     val objectInfoGetNSignals : BaseInfoRecord.t -> LargeInt.int
     val objectInfoGetNVfuncs : BaseInfoRecord.t -> LargeInt.int
     val objectInfoGetParent : BaseInfoRecord.t -> BaseInfoRecord.t
-    val objectInfoGetProperty :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val objectInfoGetProperty : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val objectInfoGetRefFunction : BaseInfoRecord.t -> string
     val objectInfoGetSetValueFunction : BaseInfoRecord.t -> string
-    val objectInfoGetSignal :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val objectInfoGetSignal : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val objectInfoGetTypeInit : BaseInfoRecord.t -> string
     val objectInfoGetTypeName : BaseInfoRecord.t -> string
     val objectInfoGetUnrefFunction : BaseInfoRecord.t -> string
-    val objectInfoGetVfunc :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val objectInfoGetVfunc : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val propertyInfoGetFlags : BaseInfoRecord.t -> GObject.ParamFlags.t
     val propertyInfoGetOwnershipTransfer : BaseInfoRecord.t -> Transfer.t
     val propertyInfoGetType : BaseInfoRecord.t -> BaseInfoRecord.t
@@ -190,19 +118,10 @@ signature G_I_REPOSITORY =
     val signalInfoGetClassClosure : BaseInfoRecord.t -> BaseInfoRecord.t
     val signalInfoGetFlags : BaseInfoRecord.t -> GObject.SignalFlags.t
     val signalInfoTrueStopsEmit : BaseInfoRecord.t -> bool
-    val structInfoFindMethod :
-      BaseInfoRecord.t
-       -> string
-       -> BaseInfoRecord.t
+    val structInfoFindMethod : BaseInfoRecord.t * string -> BaseInfoRecord.t
     val structInfoGetAlignment : BaseInfoRecord.t -> LargeInt.int
-    val structInfoGetField :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
-    val structInfoGetMethod :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val structInfoGetField : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
+    val structInfoGetMethod : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val structInfoGetNFields : BaseInfoRecord.t -> LargeInt.int
     val structInfoGetNMethods : BaseInfoRecord.t -> LargeInt.int
     val structInfoGetSize : BaseInfoRecord.t -> LargeInt.int
@@ -212,33 +131,18 @@ signature G_I_REPOSITORY =
     val typeInfoGetArrayLength : BaseInfoRecord.t -> LargeInt.int
     val typeInfoGetArrayType : BaseInfoRecord.t -> ArrayType.t
     val typeInfoGetInterface : BaseInfoRecord.t -> BaseInfoRecord.t
-    val typeInfoGetParamType :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val typeInfoGetParamType : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val typeInfoGetTag : BaseInfoRecord.t -> TypeTag.t
     val typeInfoIsPointer : BaseInfoRecord.t -> bool
     val typeInfoIsZeroTerminated : BaseInfoRecord.t -> bool
     val typeTagToString : TypeTag.t -> string
-    val unionInfoFindMethod :
-      BaseInfoRecord.t
-       -> string
-       -> BaseInfoRecord.t
+    val unionInfoFindMethod : BaseInfoRecord.t * string -> BaseInfoRecord.t
     val unionInfoGetAlignment : BaseInfoRecord.t -> LargeInt.int
-    val unionInfoGetDiscriminator :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val unionInfoGetDiscriminator : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val unionInfoGetDiscriminatorOffset : BaseInfoRecord.t -> LargeInt.int
     val unionInfoGetDiscriminatorType : BaseInfoRecord.t -> BaseInfoRecord.t
-    val unionInfoGetField :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
-    val unionInfoGetMethod :
-      BaseInfoRecord.t
-       -> LargeInt.int
-       -> BaseInfoRecord.t
+    val unionInfoGetField : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
+    val unionInfoGetMethod : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val unionInfoGetNFields : BaseInfoRecord.t -> LargeInt.int
     val unionInfoGetNMethods : BaseInfoRecord.t -> LargeInt.int
     val unionInfoGetSize : BaseInfoRecord.t -> LargeInt.int

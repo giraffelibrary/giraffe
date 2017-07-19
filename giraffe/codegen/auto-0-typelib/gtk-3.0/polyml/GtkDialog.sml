@@ -63,7 +63,7 @@ structure GtkDialog :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkDialogClass.FFI.fromPtr false) new_ ()
-    fun addActionWidget self child responseId =
+    fun addActionWidget self (child, responseId) =
       (
         GtkDialogClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -76,7 +76,7 @@ structure GtkDialog :>
            & child
            & responseId
         )
-    fun addButton self buttonText responseId =
+    fun addButton self (buttonText, responseId) =
       (
         GtkDialogClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -115,7 +115,7 @@ structure GtkDialog :>
         ()
       end
     fun setDefaultResponse self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setDefaultResponse_ (self & responseId)
-    fun setResponseSensitive self responseId setting =
+    fun setResponseSensitive self (responseId, setting) =
       (
         GtkDialogClass.FFI.withPtr
          &&&> GInt32.FFI.withVal

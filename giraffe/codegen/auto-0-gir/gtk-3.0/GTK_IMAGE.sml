@@ -11,23 +11,11 @@ signature GTK_IMAGE =
     val new : unit -> base class
     val newFromAnimation : 'a GdkPixbuf.PixbufAnimationClass.class -> base class
     val newFromFile : string -> base class
-    val newFromGicon :
-      'a Gio.IconClass.class
-       -> LargeInt.int
-       -> base class
-    val newFromIconName :
-      string
-       -> LargeInt.int
-       -> base class
-    val newFromIconSet :
-      icon_set_t
-       -> LargeInt.int
-       -> base class
+    val newFromGicon : 'a Gio.IconClass.class * LargeInt.int -> base class
+    val newFromIconName : string * LargeInt.int -> base class
+    val newFromIconSet : icon_set_t * LargeInt.int -> base class
     val newFromPixbuf : 'a GdkPixbuf.PixbufClass.class option -> base class
-    val newFromStock :
-      string
-       -> LargeInt.int
-       -> base class
+    val newFromStock : string * LargeInt.int -> base class
     val clear : 'a class -> unit
     val getAnimation : 'a class -> base GdkPixbuf.PixbufAnimationClass.class
     val getGicon : 'a class -> base Gio.IconClass.class * LargeInt.int
@@ -47,18 +35,15 @@ signature GTK_IMAGE =
        -> unit
     val setFromGicon :
       'a class
-       -> 'b Gio.IconClass.class
-       -> LargeInt.int
+       -> 'b Gio.IconClass.class * LargeInt.int
        -> unit
     val setFromIconName :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val setFromIconSet :
       'a class
-       -> icon_set_t
-       -> LargeInt.int
+       -> icon_set_t * LargeInt.int
        -> unit
     val setFromPixbuf :
       'a class
@@ -66,8 +51,7 @@ signature GTK_IMAGE =
        -> unit
     val setFromStock :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val setPixelSize :
       'a class

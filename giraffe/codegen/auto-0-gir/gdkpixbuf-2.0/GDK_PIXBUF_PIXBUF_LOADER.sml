@@ -15,8 +15,7 @@ signature GDK_PIXBUF_PIXBUF_LOADER =
     val getPixbuf : 'a class -> base pixbuf_class
     val setSize :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val write :
       'a class
@@ -25,15 +24,11 @@ signature GDK_PIXBUF_PIXBUF_LOADER =
     val areaPreparedSig : (unit -> unit) -> 'a class Signal.signal
     val areaUpdatedSig :
       (LargeInt.int
-        -> LargeInt.int
-        -> LargeInt.int
-        -> LargeInt.int
+        * LargeInt.int
+        * LargeInt.int
+        * LargeInt.int
         -> unit)
        -> 'a class Signal.signal
     val closedSig : (unit -> unit) -> 'a class Signal.signal
-    val sizePreparedSig :
-      (LargeInt.int
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val sizePreparedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
   end

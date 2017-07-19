@@ -7,12 +7,10 @@ signature GTK_TREE_DRAG_DEST =
     val getType : unit -> GObject.Type.t
     val dragDataReceived :
       'a class
-       -> tree_path_t
-       -> selection_data_t
+       -> tree_path_t * selection_data_t
        -> bool
     val rowDropPossible :
       'a class
-       -> tree_path_t
-       -> selection_data_t
+       -> tree_path_t * selection_data_t
        -> bool
   end

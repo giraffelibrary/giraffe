@@ -8,9 +8,5 @@ signature GIO_SOCKET_SERVICE =
     val isActive : 'a class -> bool
     val start : 'a class -> unit
     val stop : 'a class -> unit
-    val incomingSig :
-      (base socket_connection_class
-        -> base GObject.ObjectClass.class
-        -> bool)
-       -> 'a class Signal.signal
+    val incomingSig : (base socket_connection_class * base GObject.ObjectClass.class -> bool) -> 'a class Signal.signal
   end

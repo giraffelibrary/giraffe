@@ -5,7 +5,6 @@ signature PANGO_GLYPH_ITEM =
     val copy : t -> t
     val split :
       t
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> t
   end

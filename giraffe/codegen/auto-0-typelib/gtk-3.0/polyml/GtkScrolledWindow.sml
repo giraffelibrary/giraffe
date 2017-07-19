@@ -61,7 +61,7 @@ structure GtkScrolledWindow :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new hadjustment vadjustment = (GtkAdjustmentClass.FFI.withOptPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> GtkScrolledWindowClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
+    fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withOptPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> GtkScrolledWindowClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
     fun addWithViewport self child = (GtkScrolledWindowClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) addWithViewport_ (self & child)
     fun getHadjustment self = (GtkScrolledWindowClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
     fun getHscrollbar self = (GtkScrolledWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getHscrollbar_ self
@@ -97,7 +97,7 @@ structure GtkScrolledWindow :>
     fun setMinContentHeight self height = (GtkScrolledWindowClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setMinContentHeight_ (self & height)
     fun setMinContentWidth self width = (GtkScrolledWindowClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setMinContentWidth_ (self & width)
     fun setPlacement self windowPlacement = (GtkScrolledWindowClass.FFI.withPtr &&&> GtkCornerType.FFI.withVal ---> I) setPlacement_ (self & windowPlacement)
-    fun setPolicy self hscrollbarPolicy vscrollbarPolicy =
+    fun setPolicy self (hscrollbarPolicy, vscrollbarPolicy) =
       (
         GtkScrolledWindowClass.FFI.withPtr
          &&&> GtkPolicyType.FFI.withVal
@@ -117,7 +117,7 @@ structure GtkScrolledWindow :>
       open ClosureMarshal Signal
     in
       fun moveFocusOutSig f = signal "move-focus-out" (get 0w1 GtkDirectionType.t ---> ret_void) f
-      fun scrollChildSig f = signal "scroll-child" (get 0w1 GtkScrollType.t &&&> get 0w2 boolean ---> ret boolean) (fn scroll & horizontal => f scroll horizontal)
+      fun scrollChildSig f = signal "scroll-child" (get 0w1 GtkScrollType.t &&&> get 0w2 boolean ---> ret boolean) (fn scroll & horizontal => f (scroll, horizontal))
     end
     local
       open Property

@@ -44,7 +44,7 @@ structure GtkCellView :>
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCellViewClass.FFI.fromPtr false) new_ ()
-    fun newWithContext area context = (GtkCellAreaClass.FFI.withPtr &&&> GtkCellAreaContextClass.FFI.withPtr ---> GtkCellViewClass.FFI.fromPtr false) newWithContext_ (area & context)
+    fun newWithContext (area, context) = (GtkCellAreaClass.FFI.withPtr &&&> GtkCellAreaContextClass.FFI.withPtr ---> GtkCellViewClass.FFI.fromPtr false) newWithContext_ (area & context)
     fun newWithMarkup markup = (Utf8.FFI.withPtr ---> GtkCellViewClass.FFI.fromPtr false) newWithMarkup_ markup
     fun newWithPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withPtr ---> GtkCellViewClass.FFI.fromPtr false) newWithPixbuf_ pixbuf
     fun newWithText text = (Utf8.FFI.withPtr ---> GtkCellViewClass.FFI.fromPtr false) newWithText_ text

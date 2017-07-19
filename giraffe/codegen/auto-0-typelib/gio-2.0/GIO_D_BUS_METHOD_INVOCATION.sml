@@ -17,14 +17,13 @@ signature GIO_D_BUS_METHOD_INVOCATION =
     val getSender : 'a class -> string
     val returnDbusError :
       'a class
-       -> string
-       -> string
+       -> string * string
        -> unit
     val returnErrorLiteral :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> string
+           * LargeInt.int
+           * string
        -> unit
     val returnValue :
       'a class
@@ -32,7 +31,6 @@ signature GIO_D_BUS_METHOD_INVOCATION =
        -> unit
     val returnValueWithUnixFdList :
       'a class
-       -> GLib.VariantRecord.t option
-       -> 'b unix_f_d_list_class option
+       -> GLib.VariantRecord.t option * 'b unix_f_d_list_class option
        -> unit
   end

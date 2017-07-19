@@ -72,7 +72,12 @@ structure GtkAccelMap :>
     type accel_key_t = GtkAccelKeyRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun addEntry accelPath accelKey accelMods =
+    fun addEntry
+      (
+        accelPath,
+        accelKey,
+        accelMods
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GUInt.FFI.withVal
@@ -86,7 +91,13 @@ structure GtkAccelMap :>
            & accelMods
         )
     fun addFilter filterPattern = (Utf8.FFI.withPtr ---> I) addFilter_ filterPattern
-    fun changeEntry accelPath accelKey accelMods replace =
+    fun changeEntry
+      (
+        accelPath,
+        accelKey,
+        accelMods,
+        replace
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GUInt.FFI.withVal
@@ -130,7 +141,12 @@ structure GtkAccelMap :>
               accelPath
                & accelKey
                & accelMods =>
-                f accelPath accelKey accelMods
+                f
+                  (
+                    accelPath,
+                    accelKey,
+                    accelMods
+                  )
           )
     end
   end

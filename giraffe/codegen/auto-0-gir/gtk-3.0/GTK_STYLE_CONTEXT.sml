@@ -15,13 +15,10 @@ signature GTK_STYLE_CONTEXT =
     val new : unit -> base class
     val addProviderForScreen :
       'a Gdk.ScreenClass.class
-       -> 'b style_provider_class
-       -> LargeInt.int
+       * 'b style_provider_class
+       * LargeInt.int
        -> unit
-    val removeProviderForScreen :
-      'a Gdk.ScreenClass.class
-       -> 'b style_provider_class
-       -> unit
+    val removeProviderForScreen : 'a Gdk.ScreenClass.class * 'b style_provider_class -> unit
     val resetWidgets : 'a Gdk.ScreenClass.class -> unit
     val addClass :
       'a class
@@ -29,13 +26,11 @@ signature GTK_STYLE_CONTEXT =
        -> unit
     val addProvider :
       'a class
-       -> 'b style_provider_class
-       -> LargeInt.int
+       -> 'b style_provider_class * LargeInt.int
        -> unit
     val addRegion :
       'a class
-       -> string
-       -> region_flags_t
+       -> string * region_flags_t
        -> unit
     val getBackgroundColor :
       'a class
@@ -72,8 +67,7 @@ signature GTK_STYLE_CONTEXT =
     val getState : 'a class -> state_flags_t
     val getStyleProperty :
       'a class
-       -> string
-       -> GObject.ValueRecord.t
+       -> string * GObject.ValueRecord.t
        -> unit
     val hasClass :
       'a class
@@ -110,8 +104,8 @@ signature GTK_STYLE_CONTEXT =
     val scrollAnimations :
       'a class
        -> 'b Gdk.WindowClass.class
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val setBackground :
       'a class

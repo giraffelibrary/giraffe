@@ -8,8 +8,7 @@ signature GTK_TREE_SORTABLE =
     val hasDefaultSortFunc : 'a class -> bool
     val setSortColumnId :
       'a class
-       -> LargeInt.int
-       -> sort_type_t
+       -> LargeInt.int * sort_type_t
        -> unit
     val sortColumnChanged : 'a class -> unit
     val sortColumnChangedSig : (unit -> unit) -> 'a class Signal.signal

@@ -39,7 +39,13 @@ structure GtkRecentAction :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asRecentChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkRecentChooserClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new name label tooltip stockId =
+    fun new
+      (
+        name,
+        label,
+        tooltip,
+        stockId
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -54,7 +60,14 @@ structure GtkRecentAction :>
            & tooltip
            & stockId
         )
-    fun newForManager name label tooltip stockId manager =
+    fun newForManager
+      (
+        name,
+        label,
+        tooltip,
+        stockId,
+        manager
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr

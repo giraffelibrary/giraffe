@@ -3,9 +3,7 @@ fun loadNamespace repo (namespace, version) =
     val (tylib, vers) =
       Repository.require
         repo
-        namespace
-        version
-        (RepositoryLoadFlags.flags [])
+        (namespace, version, RepositoryLoadFlags.flags [])
 
     val namespace_ =
       Repository.loadTypelib

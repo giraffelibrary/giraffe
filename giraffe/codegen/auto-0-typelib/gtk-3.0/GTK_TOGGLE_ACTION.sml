@@ -7,9 +7,9 @@ signature GTK_TOGGLE_ACTION =
     val getType : unit -> GObject.Type.t
     val new :
       string
-       -> string option
-       -> string option
-       -> string option
+       * string option
+       * string option
+       * string option
        -> base class
     val getActive : 'a class -> bool
     val getDrawAsRadio : 'a class -> bool

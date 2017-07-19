@@ -73,7 +73,7 @@ structure PangoFontDescription :>
     type font_mask_t = PangoFontMask.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> PangoFontDescriptionRecord.FFI.fromPtr true) new_ ()
-    fun betterMatch self oldMatch newMatch =
+    fun betterMatch self (oldMatch, newMatch) =
       (
         PangoFontDescriptionRecord.FFI.withPtr
          &&&> PangoFontDescriptionRecord.FFI.withOptPtr
@@ -99,7 +99,7 @@ structure PangoFontDescription :>
     fun getVariant self = (PangoFontDescriptionRecord.FFI.withPtr ---> PangoVariant.FFI.fromVal) getVariant_ self
     fun getWeight self = (PangoFontDescriptionRecord.FFI.withPtr ---> PangoWeight.FFI.fromVal) getWeight_ self
     fun hash self = (PangoFontDescriptionRecord.FFI.withPtr ---> GUInt.FFI.fromVal) hash_ self
-    fun merge self descToMerge replaceExisting =
+    fun merge self (descToMerge, replaceExisting) =
       (
         PangoFontDescriptionRecord.FFI.withPtr
          &&&> PangoFontDescriptionRecord.FFI.withOptPtr
@@ -112,7 +112,7 @@ structure PangoFontDescription :>
            & descToMerge
            & replaceExisting
         )
-    fun mergeStatic self descToMerge replaceExisting =
+    fun mergeStatic self (descToMerge, replaceExisting) =
       (
         PangoFontDescriptionRecord.FFI.withPtr
          &&&> PangoFontDescriptionRecord.FFI.withPtr

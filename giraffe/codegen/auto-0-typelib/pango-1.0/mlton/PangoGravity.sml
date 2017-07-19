@@ -86,7 +86,12 @@ structure PangoGravity :>
     type script_t = PangoScript.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getForMatrix matrix = (PangoMatrixRecord.FFI.withPtr ---> FFI.fromVal) getForMatrix_ matrix
-    fun getForScript script baseGravity hint =
+    fun getForScript
+      (
+        script,
+        baseGravity,
+        hint
+      ) =
       (
         PangoScript.FFI.withVal
          &&&> FFI.withVal
@@ -99,7 +104,13 @@ structure PangoGravity :>
            & baseGravity
            & hint
         )
-    fun getForScriptAndWidth script wide baseGravity hint =
+    fun getForScriptAndWidth
+      (
+        script,
+        wide,
+        baseGravity,
+        hint
+      ) =
       (
         PangoScript.FFI.withVal
          &&&> GBool.FFI.withVal

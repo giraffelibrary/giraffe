@@ -14,18 +14,18 @@ signature GTK_GRID =
     val attach :
       'a class
        -> 'b widget_class
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val attachNextTo :
       'a class
        -> 'b widget_class
-       -> 'c widget_class
-       -> position_type_t
-       -> LargeInt.int
-       -> LargeInt.int
+           * 'c widget_class
+           * position_type_t
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val getColumnHomogeneous : 'a class -> bool
     val getColumnSpacing : 'a class -> LargeInt.int
@@ -37,8 +37,7 @@ signature GTK_GRID =
        -> unit
     val insertNextTo :
       'a class
-       -> 'b widget_class
-       -> position_type_t
+       -> 'b widget_class * position_type_t
        -> unit
     val insertRow :
       'a class

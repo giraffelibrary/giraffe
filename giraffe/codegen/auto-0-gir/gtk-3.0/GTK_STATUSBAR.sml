@@ -21,26 +21,16 @@ signature GTK_STATUSBAR =
        -> unit
     val push :
       'a class
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> LargeInt.int
     val remove :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val removeAll :
       'a class
        -> LargeInt.int
        -> unit
-    val textPoppedSig :
-      (LargeInt.int
-        -> string
-        -> unit)
-       -> 'a class Signal.signal
-    val textPushedSig :
-      (LargeInt.int
-        -> string
-        -> unit)
-       -> 'a class Signal.signal
+    val textPoppedSig : (LargeInt.int * string -> unit) -> 'a class Signal.signal
+    val textPushedSig : (LargeInt.int * string -> unit) -> 'a class Signal.signal
   end

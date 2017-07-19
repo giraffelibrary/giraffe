@@ -38,15 +38,14 @@ signature GTK_WIDGET =
     val addAccelerator :
       'a class
        -> string
-       -> 'b accel_group_class
-       -> LargeInt.int
-       -> Gdk.ModifierType.t
-       -> accel_flags_t
+           * 'b accel_group_class
+           * LargeInt.int
+           * Gdk.ModifierType.t
+           * accel_flags_t
        -> unit
     val addDeviceEvents :
       'a class
-       -> 'b Gdk.DeviceClass.class
-       -> Gdk.EventMask.t
+       -> 'b Gdk.DeviceClass.class * Gdk.EventMask.t
        -> unit
     val addEvents :
       'a class
@@ -94,32 +93,31 @@ signature GTK_WIDGET =
     val dragBegin :
       'a class
        -> target_list_t
-       -> Gdk.DragAction.t
-       -> LargeInt.int
-       -> 'b Gdk.Event.union
+           * Gdk.DragAction.t
+           * LargeInt.int
+           * 'b Gdk.Event.union
        -> base Gdk.DragContextClass.class
     val dragCheckThreshold :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> bool
     val dragDestAddImageTargets : 'a class -> unit
     val dragDestAddTextTargets : 'a class -> unit
     val dragDestAddUriTargets : 'a class -> unit
     val dragDestFindTarget :
       'a class
-       -> 'b Gdk.DragContextClass.class
-       -> target_list_t option
+       -> 'b Gdk.DragContextClass.class * target_list_t option
        -> Gdk.AtomRecord.t
     val dragDestGetTargetList : 'a class -> target_list_t
     val dragDestGetTrackMotion : 'a class -> bool
     val dragDestSetProxy :
       'a class
        -> 'b Gdk.WindowClass.class
-       -> Gdk.DragProtocol.t
-       -> bool
+           * Gdk.DragProtocol.t
+           * bool
        -> unit
     val dragDestSetTargetList :
       'a class
@@ -133,8 +131,8 @@ signature GTK_WIDGET =
     val dragGetData :
       'a class
        -> 'b Gdk.DragContextClass.class
-       -> Gdk.AtomRecord.t
-       -> LargeInt.int
+           * Gdk.AtomRecord.t
+           * LargeInt.int
        -> unit
     val dragHighlight : 'a class -> unit
     val dragSourceAddImageTargets : 'a class -> unit
@@ -269,8 +267,7 @@ signature GTK_WIDGET =
        -> unit
     val intersect :
       'a class
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> Cairo.RectangleIntRecord.t * Cairo.RectangleIntRecord.t
        -> bool
     val isAncestor :
       'a class
@@ -292,18 +289,15 @@ signature GTK_WIDGET =
        -> bool
     val modifyBase :
       'a class
-       -> state_type_t
-       -> Gdk.ColorRecord.t option
+       -> state_type_t * Gdk.ColorRecord.t option
        -> unit
     val modifyBg :
       'a class
-       -> state_type_t
-       -> Gdk.ColorRecord.t option
+       -> state_type_t * Gdk.ColorRecord.t option
        -> unit
     val modifyFg :
       'a class
-       -> state_type_t
-       -> Gdk.ColorRecord.t option
+       -> state_type_t * Gdk.ColorRecord.t option
        -> unit
     val modifyFont :
       'a class
@@ -315,23 +309,19 @@ signature GTK_WIDGET =
        -> unit
     val modifyText :
       'a class
-       -> state_type_t
-       -> Gdk.ColorRecord.t option
+       -> state_type_t * Gdk.ColorRecord.t option
        -> unit
     val overrideBackgroundColor :
       'a class
-       -> state_flags_t
-       -> Gdk.RgbaRecord.t option
+       -> state_flags_t * Gdk.RgbaRecord.t option
        -> unit
     val overrideColor :
       'a class
-       -> state_flags_t
-       -> Gdk.RgbaRecord.t option
+       -> state_flags_t * Gdk.RgbaRecord.t option
        -> unit
     val overrideCursor :
       'a class
-       -> Gdk.RgbaRecord.t option
-       -> Gdk.RgbaRecord.t option
+       -> Gdk.RgbaRecord.t option * Gdk.RgbaRecord.t option
        -> unit
     val overrideFont :
       'a class
@@ -339,8 +329,7 @@ signature GTK_WIDGET =
        -> unit
     val overrideSymbolicColor :
       'a class
-       -> string
-       -> Gdk.RgbaRecord.t option
+       -> string * Gdk.RgbaRecord.t option
        -> unit
     val path :
       'a class
@@ -352,9 +341,9 @@ signature GTK_WIDGET =
     val queueDrawArea :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val queueDrawRegion :
       'a class
@@ -370,8 +359,8 @@ signature GTK_WIDGET =
     val removeAccelerator :
       'a class
        -> 'b accel_group_class
-       -> LargeInt.int
-       -> Gdk.ModifierType.t
+           * LargeInt.int
+           * Gdk.ModifierType.t
        -> bool
     val removeMnemonicLabel :
       'a class
@@ -379,8 +368,7 @@ signature GTK_WIDGET =
        -> unit
     val renderIconPixbuf :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> base GdkPixbuf.PixbufClass.class
     val reparent :
       'a class
@@ -398,8 +386,7 @@ signature GTK_WIDGET =
        -> bool
     val setAccelPath :
       'a class
-       -> string option
-       -> 'b accel_group_class option
+       -> string option * 'b accel_group_class option
        -> unit
     val setAllocation :
       'a class
@@ -427,13 +414,11 @@ signature GTK_WIDGET =
        -> unit
     val setDeviceEnabled :
       'a class
-       -> 'b Gdk.DeviceClass.class
-       -> bool
+       -> 'b Gdk.DeviceClass.class * bool
        -> unit
     val setDeviceEvents :
       'a class
-       -> 'b Gdk.DeviceClass.class
-       -> Gdk.EventMask.t
+       -> 'b Gdk.DeviceClass.class * Gdk.EventMask.t
        -> unit
     val setDirection :
       'a class
@@ -521,13 +506,11 @@ signature GTK_WIDGET =
        -> unit
     val setSizeRequest :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setStateFlags :
       'a class
-       -> state_flags_t
-       -> bool
+       -> state_flags_t * bool
        -> unit
     val setStyle :
       'a class
@@ -582,15 +565,14 @@ signature GTK_WIDGET =
        -> unit
     val styleGetProperty :
       'a class
-       -> string
-       -> GObject.ValueRecord.t
+       -> string * GObject.ValueRecord.t
        -> unit
     val thawChildNotify : 'a class -> unit
     val translateCoordinates :
       'a class
        -> 'b class
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> (LargeInt.int * LargeInt.int) option
     val triggerTooltipQuery : 'a class -> unit
     val unmap : 'a class -> unit
@@ -616,43 +598,35 @@ signature GTK_WIDGET =
     val dragDataDeleteSig : (base Gdk.DragContextClass.class -> unit) -> 'a class Signal.signal
     val dragDataGetSig :
       (base Gdk.DragContextClass.class
-        -> selection_data_t
-        -> LargeInt.int
-        -> LargeInt.int
+        * selection_data_t
+        * LargeInt.int
+        * LargeInt.int
         -> unit)
        -> 'a class Signal.signal
     val dragDataReceivedSig :
       (base Gdk.DragContextClass.class
-        -> LargeInt.int
-        -> LargeInt.int
-        -> selection_data_t
-        -> LargeInt.int
-        -> LargeInt.int
+        * LargeInt.int
+        * LargeInt.int
+        * selection_data_t
+        * LargeInt.int
+        * LargeInt.int
         -> unit)
        -> 'a class Signal.signal
     val dragDropSig :
       (base Gdk.DragContextClass.class
-        -> LargeInt.int
-        -> LargeInt.int
-        -> LargeInt.int
+        * LargeInt.int
+        * LargeInt.int
+        * LargeInt.int
         -> bool)
        -> 'a class Signal.signal
     val dragEndSig : (base Gdk.DragContextClass.class -> unit) -> 'a class Signal.signal
-    val dragFailedSig :
-      (base Gdk.DragContextClass.class
-        -> drag_result_t
-        -> bool)
-       -> 'a class Signal.signal
-    val dragLeaveSig :
-      (base Gdk.DragContextClass.class
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val dragFailedSig : (base Gdk.DragContextClass.class * drag_result_t -> bool) -> 'a class Signal.signal
+    val dragLeaveSig : (base Gdk.DragContextClass.class * LargeInt.int -> unit) -> 'a class Signal.signal
     val dragMotionSig :
       (base Gdk.DragContextClass.class
-        -> LargeInt.int
-        -> LargeInt.int
-        -> LargeInt.int
+        * LargeInt.int
+        * LargeInt.int
+        * LargeInt.int
         -> bool)
        -> 'a class Signal.signal
     val drawSig : (Cairo.ContextRecord.t -> bool) -> 'a class Signal.signal
@@ -683,9 +657,9 @@ signature GTK_WIDGET =
     val proximityOutEventSig : (Gdk.EventProximityRecord.t -> bool) -> 'a class Signal.signal
     val queryTooltipSig :
       (LargeInt.int
-        -> LargeInt.int
-        -> bool
-        -> base tooltip_class
+        * LargeInt.int
+        * bool
+        * base tooltip_class
         -> bool)
        -> 'a class Signal.signal
     val realizeSig : (unit -> unit) -> 'a class Signal.signal
@@ -694,16 +668,12 @@ signature GTK_WIDGET =
     val selectionClearEventSig : (Gdk.EventSelectionRecord.t -> bool) -> 'a class Signal.signal
     val selectionGetSig :
       (selection_data_t
-        -> LargeInt.int
-        -> LargeInt.int
+        * LargeInt.int
+        * LargeInt.int
         -> unit)
        -> 'a class Signal.signal
     val selectionNotifyEventSig : (Gdk.EventSelectionRecord.t -> bool) -> 'a class Signal.signal
-    val selectionReceivedSig :
-      (selection_data_t
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val selectionReceivedSig : (selection_data_t * LargeInt.int -> unit) -> 'a class Signal.signal
     val selectionRequestEventSig : (Gdk.EventSelectionRecord.t -> bool) -> 'a class Signal.signal
     val showSig : (unit -> unit) -> 'a class Signal.signal
     val showHelpSig : (widget_help_type_t -> bool) -> 'a class Signal.signal

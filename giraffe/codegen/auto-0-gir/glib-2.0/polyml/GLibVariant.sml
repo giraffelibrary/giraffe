@@ -127,7 +127,7 @@ structure GLibVariant :>
     type variant_type_t = GLibVariantTypeRecord.t
     type quark_t = GLibQuark.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newArray childType children =
+    fun newArray (childType, children) =
       let
         val nChildren =
           case children of
@@ -159,13 +159,13 @@ structure GLibVariant :>
       in
         retVal
       end
-    fun newDictEntry key value = (GLibVariantRecord.FFI.withPtr &&&> GLibVariantRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) newDictEntry_ (key & value)
+    fun newDictEntry (key, value) = (GLibVariantRecord.FFI.withPtr &&&> GLibVariantRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) newDictEntry_ (key & value)
     fun newDouble value = (GDouble.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newDouble_ value
     fun newHandle value = (GInt32.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newHandle_ value
     fun newInt16 value = (GInt16.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newInt16_ value
     fun newInt32 value = (GInt32.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newInt32_ value
     fun newInt64 value = (GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newInt64_ value
-    fun newMaybe childType child = (GLibVariantTypeRecord.FFI.withOptPtr &&&> GLibVariantRecord.FFI.withOptPtr ---> GLibVariantRecord.FFI.fromPtr false) newMaybe_ (childType & child)
+    fun newMaybe (childType, child) = (GLibVariantTypeRecord.FFI.withOptPtr &&&> GLibVariantRecord.FFI.withOptPtr ---> GLibVariantRecord.FFI.fromPtr false) newMaybe_ (childType & child)
     fun newObjectPath objectPath = (Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) newObjectPath_ objectPath
     fun newObjv strv =
       let
@@ -274,7 +274,7 @@ structure GLibVariant :>
     fun isFloating self = (GLibVariantRecord.FFI.withPtr ---> GBool.FFI.fromVal) isFloating_ self
     fun isNormalForm self = (GLibVariantRecord.FFI.withPtr ---> GBool.FFI.fromVal) isNormalForm_ self
     fun isOfType self type' = (GLibVariantRecord.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withPtr ---> GBool.FFI.fromVal) isOfType_ (self & type')
-    fun lookupValue self key expectedType =
+    fun lookupValue self (key, expectedType) =
       (
         GLibVariantRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -292,7 +292,13 @@ structure GLibVariant :>
     fun takeRef self = (GLibVariantRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) takeRef_ self
     fun isObjectPath string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) isObjectPath_ string
     fun isSignature string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) isSignature_ string
-    fun parse type' text limit endptr =
+    fun parse
+      (
+        type',
+        text,
+        limit,
+        endptr
+      ) =
       (
         GLibVariantTypeRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr

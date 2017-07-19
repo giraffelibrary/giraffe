@@ -5,10 +5,7 @@ signature GIO_BUFFERED_OUTPUT_STREAM =
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : 'a output_stream_class -> base class
-    val newSized :
-      'a output_stream_class
-       -> LargeInt.int
-       -> base class
+    val newSized : 'a output_stream_class * LargeInt.int -> base class
     val getAutoGrow : 'a class -> bool
     val getBufferSize : 'a class -> LargeInt.int
     val setAutoGrow :

@@ -30,7 +30,7 @@ structure GtkSourceCompletionInfo :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSourceCompletionInfoClass.FFI.fromPtr false) new_ ()
     fun getWidget self = (GtkSourceCompletionInfoClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self
-    fun moveToIter self view iter =
+    fun moveToIter self (view, iter) =
       (
         GtkSourceCompletionInfoClass.FFI.withPtr
          &&&> GtkTextViewClass.FFI.withPtr

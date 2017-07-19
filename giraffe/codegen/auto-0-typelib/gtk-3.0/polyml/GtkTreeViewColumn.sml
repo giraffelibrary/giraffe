@@ -131,7 +131,13 @@ structure GtkTreeViewColumn :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkTreeViewColumnClass.FFI.fromPtr false) new_ ()
     fun newWithArea area = (GtkCellAreaClass.FFI.withPtr ---> GtkTreeViewColumnClass.FFI.fromPtr false) newWithArea_ area
-    fun addAttribute self cellRenderer attribute column =
+    fun addAttribute
+      self
+      (
+        cellRenderer,
+        attribute,
+        column
+      ) =
       (
         GtkTreeViewColumnClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr
@@ -208,7 +214,14 @@ structure GtkTreeViewColumn :>
         )
       end
     fun cellIsVisible self = (GtkTreeViewColumnClass.FFI.withPtr ---> GBool.FFI.fromVal) cellIsVisible_ self
-    fun cellSetCellData self treeModel iter isExpander isExpanded =
+    fun cellSetCellData
+      self
+      (
+        treeModel,
+        iter,
+        isExpander,
+        isExpanded
+      ) =
       (
         GtkTreeViewColumnClass.FFI.withPtr
          &&&> GtkTreeModelClass.FFI.withPtr
@@ -249,7 +262,7 @@ structure GtkTreeViewColumn :>
     fun getWidget self = (GtkTreeViewColumnClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self
     fun getWidth self = (GtkTreeViewColumnClass.FFI.withPtr ---> GInt32.FFI.fromVal) getWidth_ self
     fun getXOffset self = (GtkTreeViewColumnClass.FFI.withPtr ---> GInt32.FFI.fromVal) getXOffset_ self
-    fun packEnd self cell expand =
+    fun packEnd self (cell, expand) =
       (
         GtkTreeViewColumnClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr
@@ -262,7 +275,7 @@ structure GtkTreeViewColumn :>
            & cell
            & expand
         )
-    fun packStart self cell expand =
+    fun packStart self (cell, expand) =
       (
         GtkTreeViewColumnClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr

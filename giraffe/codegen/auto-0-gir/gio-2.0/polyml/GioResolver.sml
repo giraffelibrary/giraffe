@@ -36,7 +36,7 @@ structure GioResolver :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefault () = (I ---> GioResolverClass.FFI.fromPtr true) getDefault_ ()
-    fun lookupByAddress self address cancellable =
+    fun lookupByAddress self (address, cancellable) =
       (
         GioResolverClass.FFI.withPtr
          &&&> GioInetAddressClass.FFI.withPtr

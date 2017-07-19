@@ -10,19 +10,17 @@ signature GTK_BUILDER =
        -> LargeInt.int
     val addFromString :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> LargeInt.int
     val addObjectsFromFile :
       'a class
-       -> string
-       -> string list
+       -> string * string list
        -> LargeInt.int
     val addObjectsFromString :
       'a class
        -> string
-       -> LargeInt.int
-       -> string list
+           * LargeInt.int
+           * string list
        -> LargeInt.int
     val getObject :
       'a class
@@ -35,8 +33,7 @@ signature GTK_BUILDER =
        -> unit
     val valueFromString :
       'a class
-       -> 'b GObject.ParamSpecClass.class
-       -> string
+       -> 'b GObject.ParamSpecClass.class * string
        -> GObject.ValueRecord.t option
     val translationDomainProp : ('a class, string option, string option) Property.readwrite
   end

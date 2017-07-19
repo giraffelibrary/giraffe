@@ -9,8 +9,5 @@ signature GTK_FONT_CHOOSER_DIALOG =
     val asBuildable : 'a class -> base buildable_class
     val asFontChooser : 'a class -> base font_chooser_class
     val getType : unit -> GObject.Type.t
-    val new :
-      string
-       -> 'a window_class
-       -> base class
+    val new : string * 'a window_class -> base class
   end

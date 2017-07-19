@@ -51,7 +51,12 @@ structure GioNetworkService :>
     type t = base class
     fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new service protocol domain =
+    fun new
+      (
+        service,
+        protocol,
+        domain
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr

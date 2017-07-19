@@ -30,7 +30,7 @@ structure AtkAction :>
     fun getLocalizedName self i = (AtkActionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) getLocalizedName_ (self & i)
     fun getNActions self = (AtkActionClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNActions_ self
     fun getName self i = (AtkActionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ (self & i)
-    fun setDescription self i desc =
+    fun setDescription self (i, desc) =
       (
         AtkActionClass.FFI.withPtr
          &&&> GInt32.FFI.withVal

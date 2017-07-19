@@ -78,7 +78,7 @@ structure GtkInfoBar :>
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkInfoBarClass.FFI.fromPtr false) new_ ()
-    fun addActionWidget self child responseId =
+    fun addActionWidget self (child, responseId) =
       (
         GtkInfoBarClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -91,7 +91,7 @@ structure GtkInfoBar :>
            & child
            & responseId
         )
-    fun addButton self buttonText responseId =
+    fun addButton self (buttonText, responseId) =
       (
         GtkInfoBarClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -110,7 +110,7 @@ structure GtkInfoBar :>
     fun response self responseId = (GtkInfoBarClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) response_ (self & responseId)
     fun setDefaultResponse self responseId = (GtkInfoBarClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setDefaultResponse_ (self & responseId)
     fun setMessageType self messageType = (GtkInfoBarClass.FFI.withPtr &&&> GtkMessageType.FFI.withVal ---> I) setMessageType_ (self & messageType)
-    fun setResponseSensitive self responseId setting =
+    fun setResponseSensitive self (responseId, setting) =
       (
         GtkInfoBarClass.FFI.withPtr
          &&&> GInt32.FFI.withVal

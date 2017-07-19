@@ -259,7 +259,7 @@ structure GLibString :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun append self val' = (GLibStringRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibStringRecord.FFI.fromPtr true) append_ (self & val')
     fun appendC self c = (GLibStringRecord.FFI.withPtr &&&> GChar.FFI.withVal ---> GLibStringRecord.FFI.fromPtr true) appendC_ (self & c)
-    fun appendLen self val' len =
+    fun appendLen self (val', len) =
       (
         GLibStringRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -273,7 +273,13 @@ structure GLibString :>
            & len
         )
     fun appendUnichar self wc = (GLibStringRecord.FFI.withPtr &&&> GChar.FFI.withVal ---> GLibStringRecord.FFI.fromPtr true) appendUnichar_ (self & wc)
-    fun appendUriEscaped self unescaped reservedCharsAllowed allowUtf8 =
+    fun appendUriEscaped
+      self
+      (
+        unescaped,
+        reservedCharsAllowed,
+        allowUtf8
+      ) =
       (
         GLibStringRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -293,7 +299,7 @@ structure GLibString :>
     fun assign self rval = (GLibStringRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibStringRecord.FFI.fromPtr true) assign_ (self & rval)
     fun down self = (GLibStringRecord.FFI.withPtr ---> GLibStringRecord.FFI.fromPtr true) down_ self
     fun equal self v2 = (GLibStringRecord.FFI.withPtr &&&> GLibStringRecord.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & v2)
-    fun erase self pos len =
+    fun erase self (pos, len) =
       (
         GLibStringRecord.FFI.withPtr
          &&&> GSSize.FFI.withVal
@@ -307,7 +313,7 @@ structure GLibString :>
            & len
         )
     fun hash self = (GLibStringRecord.FFI.withPtr ---> GUInt.FFI.fromVal) hash_ self
-    fun insert self pos val' =
+    fun insert self (pos, val') =
       (
         GLibStringRecord.FFI.withPtr
          &&&> GSSize.FFI.withVal
@@ -320,7 +326,7 @@ structure GLibString :>
            & pos
            & val'
         )
-    fun insertC self pos c =
+    fun insertC self (pos, c) =
       (
         GLibStringRecord.FFI.withPtr
          &&&> GSSize.FFI.withVal
@@ -333,7 +339,13 @@ structure GLibString :>
            & pos
            & c
         )
-    fun insertLen self pos val' len =
+    fun insertLen
+      self
+      (
+        pos,
+        val',
+        len
+      ) =
       (
         GLibStringRecord.FFI.withPtr
          &&&> GSSize.FFI.withVal
@@ -348,7 +360,7 @@ structure GLibString :>
            & val'
            & len
         )
-    fun insertUnichar self pos wc =
+    fun insertUnichar self (pos, wc) =
       (
         GLibStringRecord.FFI.withPtr
          &&&> GSSize.FFI.withVal
@@ -361,7 +373,7 @@ structure GLibString :>
            & pos
            & wc
         )
-    fun overwrite self pos val' =
+    fun overwrite self (pos, val') =
       (
         GLibStringRecord.FFI.withPtr
          &&&> GSize.FFI.withVal
@@ -374,7 +386,13 @@ structure GLibString :>
            & pos
            & val'
         )
-    fun overwriteLen self pos val' len =
+    fun overwriteLen
+      self
+      (
+        pos,
+        val',
+        len
+      ) =
       (
         GLibStringRecord.FFI.withPtr
          &&&> GSize.FFI.withVal
@@ -391,7 +409,7 @@ structure GLibString :>
         )
     fun prepend self val' = (GLibStringRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibStringRecord.FFI.fromPtr true) prepend_ (self & val')
     fun prependC self c = (GLibStringRecord.FFI.withPtr &&&> GChar.FFI.withVal ---> GLibStringRecord.FFI.fromPtr true) prependC_ (self & c)
-    fun prependLen self val' len =
+    fun prependLen self (val', len) =
       (
         GLibStringRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr

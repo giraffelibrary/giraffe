@@ -15,16 +15,16 @@ signature GTK_CELL_AREA_BOX =
     val packEnd :
       'a class
        -> 'b cell_renderer_class
-       -> bool
-       -> bool
-       -> bool
+           * bool
+           * bool
+           * bool
        -> unit
     val packStart :
       'a class
        -> 'b cell_renderer_class
-       -> bool
-       -> bool
-       -> bool
+           * bool
+           * bool
+           * bool
        -> unit
     val setSpacing :
       'a class

@@ -121,7 +121,7 @@ structure GdkDevice :>
     type device_type_t = GdkDeviceType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun grabInfoLibgtkOnly display device =
+    fun grabInfoLibgtkOnly (display, device) =
       let
         val grabWindow
          & ownerEvents
@@ -235,7 +235,16 @@ structure GdkDevice :>
           winY
         )
       end
-    fun grab self window grabOwnership ownerEvents eventMask cursor time =
+    fun grab
+      self
+      (
+        window,
+        grabOwnership,
+        ownerEvents,
+        eventMask,
+        cursor,
+        time
+      ) =
       (
         GdkDeviceClass.FFI.withPtr
          &&&> GdkWindowClass.FFI.withPtr
@@ -256,7 +265,7 @@ structure GdkDevice :>
            & cursor
            & time
         )
-    fun setAxisUse self index use =
+    fun setAxisUse self (index, use) =
       (
         GdkDeviceClass.FFI.withPtr
          &&&> GUInt.FFI.withVal
@@ -269,7 +278,13 @@ structure GdkDevice :>
            & index
            & use
         )
-    fun setKey self index keyval modifiers =
+    fun setKey
+      self
+      (
+        index,
+        keyval,
+        modifiers
+      ) =
       (
         GdkDeviceClass.FFI.withPtr
          &&&> GUInt.FFI.withVal
@@ -286,7 +301,13 @@ structure GdkDevice :>
         )
     fun setMode self mode = (GdkDeviceClass.FFI.withPtr &&&> GdkInputMode.FFI.withVal ---> GBool.FFI.fromVal) setMode_ (self & mode)
     fun ungrab self time = (GdkDeviceClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) ungrab_ (self & time)
-    fun warp self screen x y =
+    fun warp
+      self
+      (
+        screen,
+        x,
+        y
+      ) =
       (
         GdkDeviceClass.FFI.withPtr
          &&&> GdkScreenClass.FFI.withPtr

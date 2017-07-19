@@ -23,8 +23,7 @@ signature GIO_INPUT_STREAM =
     val setPending : 'a class -> bool
     val skip :
       'a class
-       -> LargeInt.int
-       -> 'b cancellable_class option
+       -> LargeInt.int * 'b cancellable_class option
        -> LargeInt.int
     val skipFinish :
       'a class

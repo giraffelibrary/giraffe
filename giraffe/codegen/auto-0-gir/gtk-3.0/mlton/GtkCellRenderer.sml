@@ -363,7 +363,16 @@ structure GtkCellRenderer :>
     type cell_renderer_mode_t = GtkCellRendererMode.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun activate self event widget path backgroundArea cellArea flags =
+    fun activate
+      self
+      (
+        event,
+        widget,
+        path,
+        backgroundArea,
+        cellArea,
+        flags
+      ) =
       (
         GtkCellRendererClass.FFI.withPtr
          &&&> GdkEvent.FFI.withPtr
@@ -384,7 +393,13 @@ structure GtkCellRenderer :>
            & cellArea
            & flags
         )
-    fun getAlignedArea self widget flags cellArea =
+    fun getAlignedArea
+      self
+      (
+        widget,
+        flags,
+        cellArea
+      ) =
       let
         val alignedArea & () =
           (
@@ -496,7 +511,7 @@ structure GtkCellRenderer :>
       in
         (minimumSize, naturalSize)
       end
-    fun getPreferredHeightForWidth self widget width =
+    fun getPreferredHeightForWidth self (widget, width) =
       let
         val minimumHeight
          & naturalHeight
@@ -570,7 +585,7 @@ structure GtkCellRenderer :>
       in
         (minimumSize, naturalSize)
       end
-    fun getPreferredWidthForHeight self widget height =
+    fun getPreferredWidthForHeight self (widget, height) =
       let
         val minimumWidth
          & naturalWidth
@@ -598,7 +613,7 @@ structure GtkCellRenderer :>
       end
     fun getRequestMode self = (GtkCellRendererClass.FFI.withPtr ---> GtkSizeRequestMode.FFI.fromVal) getRequestMode_ self
     fun getSensitive self = (GtkCellRendererClass.FFI.withPtr ---> GBool.FFI.fromVal) getSensitive_ self
-    fun getState self widget cellState =
+    fun getState self (widget, cellState) =
       (
         GtkCellRendererClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -613,7 +628,15 @@ structure GtkCellRenderer :>
         )
     fun getVisible self = (GtkCellRendererClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
     fun isActivatable self = (GtkCellRendererClass.FFI.withPtr ---> GBool.FFI.fromVal) isActivatable_ self
-    fun render self cr widget backgroundArea cellArea flags =
+    fun render
+      self
+      (
+        cr,
+        widget,
+        backgroundArea,
+        cellArea,
+        flags
+      ) =
       (
         GtkCellRendererClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -632,7 +655,7 @@ structure GtkCellRenderer :>
            & cellArea
            & flags
         )
-    fun setAlignment self xalign yalign =
+    fun setAlignment self (xalign, yalign) =
       (
         GtkCellRendererClass.FFI.withPtr
          &&&> GFloat.FFI.withVal
@@ -645,7 +668,7 @@ structure GtkCellRenderer :>
            & xalign
            & yalign
         )
-    fun setFixedSize self width height =
+    fun setFixedSize self (width, height) =
       (
         GtkCellRendererClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -658,7 +681,7 @@ structure GtkCellRenderer :>
            & width
            & height
         )
-    fun setPadding self xpad ypad =
+    fun setPadding self (xpad, ypad) =
       (
         GtkCellRendererClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -673,7 +696,16 @@ structure GtkCellRenderer :>
         )
     fun setSensitive self sensitive = (GtkCellRendererClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSensitive_ (self & sensitive)
     fun setVisible self visible = (GtkCellRendererClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
-    fun startEditing self event widget path backgroundArea cellArea flags =
+    fun startEditing
+      self
+      (
+        event,
+        widget,
+        path,
+        backgroundArea,
+        cellArea,
+        flags
+      ) =
       (
         GtkCellRendererClass.FFI.withPtr
          &&&> GdkEvent.FFI.withPtr
@@ -699,7 +731,7 @@ structure GtkCellRenderer :>
       open ClosureMarshal Signal
     in
       fun editingCanceledSig f = signal "editing-canceled" (void ---> ret_void) f
-      fun editingStartedSig f = signal "editing-started" (get 0w1 GtkCellEditableClass.t &&&> get 0w2 string ---> ret_void) (fn editable & path => f editable path)
+      fun editingStartedSig f = signal "editing-started" (get 0w1 GtkCellEditableClass.t &&&> get 0w2 string ---> ret_void) (fn editable & path => f (editable, path))
     end
     local
       open Property

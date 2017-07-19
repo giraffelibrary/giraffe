@@ -131,7 +131,14 @@ structure GtkPaperSize :>
     type unit_t = GtkUnit.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new name = (Utf8.FFI.withOptPtr ---> GtkPaperSizeRecord.FFI.fromPtr true) new_ name
-    fun newCustom name displayName width height unit =
+    fun newCustom
+      (
+        name,
+        displayName,
+        width,
+        height,
+        unit
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -148,7 +155,7 @@ structure GtkPaperSize :>
            & height
            & unit
         )
-    fun newFromKeyFile keyFile groupName =
+    fun newFromKeyFile (keyFile, groupName) =
       (
         GLibKeyFileRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -161,7 +168,13 @@ structure GtkPaperSize :>
            & groupName
            & []
         )
-    fun newFromPpd ppdName ppdDisplayName width height =
+    fun newFromPpd
+      (
+        ppdName,
+        ppdDisplayName,
+        width,
+        height
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -188,7 +201,13 @@ structure GtkPaperSize :>
     fun getWidth self unit = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getWidth_ (self & unit)
     fun isCustom self = (GtkPaperSizeRecord.FFI.withPtr ---> GBool.FFI.fromVal) isCustom_ self
     fun isEqual self size2 = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkPaperSizeRecord.FFI.withPtr ---> GBool.FFI.fromVal) isEqual_ (self & size2)
-    fun setSize self width height unit =
+    fun setSize
+      self
+      (
+        width,
+        height,
+        unit
+      ) =
       (
         GtkPaperSizeRecord.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -203,7 +222,7 @@ structure GtkPaperSize :>
            & height
            & unit
         )
-    fun toKeyFile self keyFile groupName =
+    fun toKeyFile self (keyFile, groupName) =
       (
         GtkPaperSizeRecord.FFI.withPtr
          &&&> GLibKeyFileRecord.FFI.withPtr

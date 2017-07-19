@@ -151,7 +151,7 @@ structure GtkTreeModel :>
     fun getNColumns self = (GtkTreeModelClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNColumns_ self
     fun getPath self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GtkTreePathRecord.FFI.fromPtr true) getPath_ (self & iter)
     fun getStringFromIter self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getStringFromIter_ (self & iter)
-    fun getValue self iter column =
+    fun getValue self (iter, column) =
       let
         val value & () =
           (
@@ -192,7 +192,7 @@ structure GtkTreeModel :>
     fun iterHasChild self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) iterHasChild_ (self & iter)
     fun iterNChildren self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withOptPtr ---> GInt32.FFI.fromVal) iterNChildren_ (self & iter)
     fun iterNext self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) iterNext_ (self & iter)
-    fun iterNthChild self parent n =
+    fun iterNthChild self (parent, n) =
       let
         val iter & retVal =
           (
@@ -232,7 +232,7 @@ structure GtkTreeModel :>
       end
     fun iterPrevious self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) iterPrevious_ (self & iter)
     fun refNode self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> I) refNode_ (self & iter)
-    fun rowChanged self path iter =
+    fun rowChanged self (path, iter) =
       (
         GtkTreeModelClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withPtr
@@ -246,7 +246,7 @@ structure GtkTreeModel :>
            & iter
         )
     fun rowDeleted self path = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) rowDeleted_ (self & path)
-    fun rowHasChildToggled self path iter =
+    fun rowHasChildToggled self (path, iter) =
       (
         GtkTreeModelClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withPtr
@@ -259,7 +259,7 @@ structure GtkTreeModel :>
            & path
            & iter
         )
-    fun rowInserted self path iter =
+    fun rowInserted self (path, iter) =
       (
         GtkTreeModelClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withPtr
@@ -277,9 +277,9 @@ structure GtkTreeModel :>
     local
       open ClosureMarshal Signal
     in
-      fun rowChangedSig f = signal "row-changed" (get 0w1 GtkTreePathRecord.t &&&> get 0w2 GtkTreeIterRecord.t ---> ret_void) (fn path & iter => f path iter)
+      fun rowChangedSig f = signal "row-changed" (get 0w1 GtkTreePathRecord.t &&&> get 0w2 GtkTreeIterRecord.t ---> ret_void) (fn path & iter => f (path, iter))
       fun rowDeletedSig f = signal "row-deleted" (get 0w1 GtkTreePathRecord.t ---> ret_void) f
-      fun rowHasChildToggledSig f = signal "row-has-child-toggled" (get 0w1 GtkTreePathRecord.t &&&> get 0w2 GtkTreeIterRecord.t ---> ret_void) (fn path & iter => f path iter)
-      fun rowInsertedSig f = signal "row-inserted" (get 0w1 GtkTreePathRecord.t &&&> get 0w2 GtkTreeIterRecord.t ---> ret_void) (fn path & iter => f path iter)
+      fun rowHasChildToggledSig f = signal "row-has-child-toggled" (get 0w1 GtkTreePathRecord.t &&&> get 0w2 GtkTreeIterRecord.t ---> ret_void) (fn path & iter => f (path, iter))
+      fun rowInsertedSig f = signal "row-inserted" (get 0w1 GtkTreePathRecord.t &&&> get 0w2 GtkTreeIterRecord.t ---> ret_void) (fn path & iter => f (path, iter))
     end
   end

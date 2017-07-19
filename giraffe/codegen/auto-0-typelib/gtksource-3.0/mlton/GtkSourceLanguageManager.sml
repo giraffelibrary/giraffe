@@ -74,7 +74,7 @@ structure GtkSourceLanguageManager :>
     fun getLanguage self id = (GtkSourceLanguageManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceLanguageClass.FFI.fromPtr false) getLanguage_ (self & id)
     fun getLanguageIds self = (GtkSourceLanguageManagerClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getLanguageIds_ self
     fun getSearchPath self = (GtkSourceLanguageManagerClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getSearchPath_ self
-    fun guessLanguage self filename contentType =
+    fun guessLanguage self (filename, contentType) =
       (
         GtkSourceLanguageManagerClass.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr

@@ -13,10 +13,10 @@ signature PANGO_GLYPH_STRING =
     val extentsRange :
       t
        -> LargeInt.int
-       -> LargeInt.int
-       -> 'a font_class
-       -> rectangle_t
-       -> rectangle_t
+           * LargeInt.int
+           * 'a font_class
+           * rectangle_t
+           * rectangle_t
        -> unit
     val getWidth : t -> LargeInt.int
     val setSize :

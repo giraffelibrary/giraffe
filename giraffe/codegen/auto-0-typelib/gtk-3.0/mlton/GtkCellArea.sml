@@ -518,7 +518,15 @@ structure GtkCellArea :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.FFI.withPtr ---> GtkCellLayoutClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun activate self context widget cellArea flags editOnly =
+    fun activate
+      self
+      (
+        context,
+        widget,
+        cellArea,
+        flags,
+        editOnly
+      ) =
       (
         GtkCellAreaClass.FFI.withPtr
          &&&> GtkCellAreaContextClass.FFI.withPtr
@@ -537,7 +545,15 @@ structure GtkCellArea :>
            & flags
            & editOnly
         )
-    fun activateCell self widget renderer event cellArea flags =
+    fun activateCell
+      self
+      (
+        widget,
+        renderer,
+        event,
+        cellArea,
+        flags
+      ) =
       (
         GtkCellAreaClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -557,7 +573,7 @@ structure GtkCellArea :>
            & flags
         )
     fun add self renderer = (GtkCellAreaClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> I) add_ (self & renderer)
-    fun addFocusSibling self renderer sibling =
+    fun addFocusSibling self (renderer, sibling) =
       (
         GtkCellAreaClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr
@@ -570,7 +586,14 @@ structure GtkCellArea :>
            & renderer
            & sibling
         )
-    fun applyAttributes self treeModel iter isExpander isExpanded =
+    fun applyAttributes
+      self
+      (
+        treeModel,
+        iter,
+        isExpander,
+        isExpanded
+      ) =
       (
         GtkCellAreaClass.FFI.withPtr
          &&&> GtkTreeModelClass.FFI.withPtr
@@ -587,7 +610,13 @@ structure GtkCellArea :>
            & isExpander
            & isExpanded
         )
-    fun attributeConnect self renderer attribute column =
+    fun attributeConnect
+      self
+      (
+        renderer,
+        attribute,
+        column
+      ) =
       (
         GtkCellAreaClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr
@@ -602,7 +631,7 @@ structure GtkCellArea :>
            & attribute
            & column
         )
-    fun attributeDisconnect self renderer attribute =
+    fun attributeDisconnect self (renderer, attribute) =
       (
         GtkCellAreaClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr
@@ -615,7 +644,13 @@ structure GtkCellArea :>
            & renderer
            & attribute
         )
-    fun cellGetProperty self renderer propertyName value =
+    fun cellGetProperty
+      self
+      (
+        renderer,
+        propertyName,
+        value
+      ) =
       (
         GtkCellAreaClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr
@@ -630,7 +665,13 @@ structure GtkCellArea :>
            & propertyName
            & value
         )
-    fun cellSetProperty self renderer propertyName value =
+    fun cellSetProperty
+      self
+      (
+        renderer,
+        propertyName,
+        value
+      ) =
       (
         GtkCellAreaClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr
@@ -647,7 +688,15 @@ structure GtkCellArea :>
         )
     fun copyContext self context = (GtkCellAreaClass.FFI.withPtr &&&> GtkCellAreaContextClass.FFI.withPtr ---> GtkCellAreaContextClass.FFI.fromPtr true) copyContext_ (self & context)
     fun createContext self = (GtkCellAreaClass.FFI.withPtr ---> GtkCellAreaContextClass.FFI.fromPtr true) createContext_ self
-    fun event self context widget event cellArea flags =
+    fun event
+      self
+      (
+        context,
+        widget,
+        event,
+        cellArea,
+        flags
+      ) =
       (
         GtkCellAreaClass.FFI.withPtr
          &&&> GtkCellAreaContextClass.FFI.withPtr
@@ -667,7 +716,14 @@ structure GtkCellArea :>
            & flags
         )
     fun focus self direction = (GtkCellAreaClass.FFI.withPtr &&&> GtkDirectionType.FFI.withVal ---> GBool.FFI.fromVal) focus_ (self & direction)
-    fun getCellAllocation self context widget renderer cellArea =
+    fun getCellAllocation
+      self
+      (
+        context,
+        widget,
+        renderer,
+        cellArea
+      ) =
       let
         val allocation & () =
           (
@@ -691,7 +747,15 @@ structure GtkCellArea :>
       in
         allocation
       end
-    fun getCellAtPosition self context widget cellArea x y =
+    fun getCellAtPosition
+      self
+      (
+        context,
+        widget,
+        cellArea,
+        x,
+        y
+      ) =
       let
         val allocArea & retVal =
           (
@@ -722,7 +786,7 @@ structure GtkCellArea :>
     fun getEditedCell self = (GtkCellAreaClass.FFI.withPtr ---> GtkCellRendererClass.FFI.fromPtr false) getEditedCell_ self
     fun getFocusCell self = (GtkCellAreaClass.FFI.withPtr ---> GtkCellRendererClass.FFI.fromPtr false) getFocusCell_ self
     fun getFocusFromSibling self renderer = (GtkCellAreaClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> GtkCellRendererClass.FFI.fromPtr false) getFocusFromSibling_ (self & renderer)
-    fun getPreferredHeight self context widget =
+    fun getPreferredHeight self (context, widget) =
       let
         val minimumHeight
          & naturalHeight
@@ -748,7 +812,13 @@ structure GtkCellArea :>
       in
         (minimumHeight, naturalHeight)
       end
-    fun getPreferredHeightForWidth self context widget width =
+    fun getPreferredHeightForWidth
+      self
+      (
+        context,
+        widget,
+        width
+      ) =
       let
         val minimumHeight
          & naturalHeight
@@ -776,7 +846,7 @@ structure GtkCellArea :>
       in
         (minimumHeight, naturalHeight)
       end
-    fun getPreferredWidth self context widget =
+    fun getPreferredWidth self (context, widget) =
       let
         val minimumWidth
          & naturalWidth
@@ -802,7 +872,13 @@ structure GtkCellArea :>
       in
         (minimumWidth, naturalWidth)
       end
-    fun getPreferredWidthForHeight self context widget height =
+    fun getPreferredWidthForHeight
+      self
+      (
+        context,
+        widget,
+        height
+      ) =
       let
         val minimumWidth
          & naturalWidth
@@ -832,7 +908,7 @@ structure GtkCellArea :>
       end
     fun getRequestMode self = (GtkCellAreaClass.FFI.withPtr ---> GtkSizeRequestMode.FFI.fromVal) getRequestMode_ self
     fun hasRenderer self renderer = (GtkCellAreaClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> GBool.FFI.fromVal) hasRenderer_ (self & renderer)
-    fun innerCellArea self widget cellArea =
+    fun innerCellArea self (widget, cellArea) =
       let
         val innerArea & () =
           (
@@ -853,7 +929,7 @@ structure GtkCellArea :>
         innerArea
       end
     fun isActivatable self = (GtkCellAreaClass.FFI.withPtr ---> GBool.FFI.fromVal) isActivatable_ self
-    fun isFocusSibling self renderer sibling =
+    fun isFocusSibling self (renderer, sibling) =
       (
         GtkCellAreaClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr
@@ -867,7 +943,7 @@ structure GtkCellArea :>
            & sibling
         )
     fun remove self renderer = (GtkCellAreaClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> I) remove_ (self & renderer)
-    fun removeFocusSibling self renderer sibling =
+    fun removeFocusSibling self (renderer, sibling) =
       (
         GtkCellAreaClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr
@@ -880,7 +956,17 @@ structure GtkCellArea :>
            & renderer
            & sibling
         )
-    fun render self context widget cr backgroundArea cellArea flags paintFocus =
+    fun render
+      self
+      (
+        context,
+        widget,
+        cr,
+        backgroundArea,
+        cellArea,
+        flags,
+        paintFocus
+      ) =
       (
         GtkCellAreaClass.FFI.withPtr
          &&&> GtkCellAreaContextClass.FFI.withPtr
@@ -903,7 +989,14 @@ structure GtkCellArea :>
            & flags
            & paintFocus
         )
-    fun requestRenderer self renderer orientation widget forSize =
+    fun requestRenderer
+      self
+      (
+        renderer,
+        orientation,
+        widget,
+        forSize
+      ) =
       let
         val minimumSize
          & naturalSize
@@ -953,7 +1046,13 @@ structure GtkCellArea :>
                & editable
                & cellArea
                & path =>
-                f renderer editable cellArea path
+                f
+                  (
+                    renderer,
+                    editable,
+                    cellArea,
+                    path
+                  )
           )
       fun applyAttributesSig f =
         signal "apply-attributes"
@@ -970,10 +1069,16 @@ structure GtkCellArea :>
                & iter
                & isExpander
                & isExpanded =>
-                f model iter isExpander isExpanded
+                f
+                  (
+                    model,
+                    iter,
+                    isExpander,
+                    isExpanded
+                  )
           )
-      fun focusChangedSig f = signal "focus-changed" (get 0w1 GtkCellRendererClass.t &&&> get 0w2 string ---> ret_void) (fn renderer & path => f renderer path)
-      fun removeEditableSig f = signal "remove-editable" (get 0w1 GtkCellRendererClass.t &&&> get 0w2 GtkCellEditableClass.t ---> ret_void) (fn renderer & editable => f renderer editable)
+      fun focusChangedSig f = signal "focus-changed" (get 0w1 GtkCellRendererClass.t &&&> get 0w2 string ---> ret_void) (fn renderer & path => f (renderer, path))
+      fun removeEditableSig f = signal "remove-editable" (get 0w1 GtkCellRendererClass.t &&&> get 0w2 GtkCellEditableClass.t ---> ret_void) (fn renderer & editable => f (renderer, editable))
     end
     local
       open Property

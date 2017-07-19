@@ -333,7 +333,7 @@ structure GtkThemingEngine :>
     fun getPath self = (GtkThemingEngineClass.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self
     fun getScreen self = (GtkThemingEngineClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
     fun getState self = (GtkThemingEngineClass.FFI.withPtr ---> GtkStateFlags.FFI.fromVal) getState_ self
-    fun getStyleProperty self propertyName value =
+    fun getStyleProperty self (propertyName, value) =
       (
         GtkThemingEngineClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

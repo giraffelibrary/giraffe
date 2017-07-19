@@ -19,7 +19,7 @@ structure GtkCellRendererCombo :>
     local
       open ClosureMarshal Signal
     in
-      fun changedSig f = signal "changed" (get 0w1 string &&&> get 0w2 GtkTreeIterRecord.t ---> ret_void) (fn pathString & newIter => f pathString newIter)
+      fun changedSig f = signal "changed" (get 0w1 string &&&> get 0w2 GtkTreeIterRecord.t ---> ret_void) (fn pathString & newIter => f (pathString, newIter))
     end
     local
       open Property

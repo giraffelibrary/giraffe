@@ -85,7 +85,7 @@ structure GioTlsConnection :>
     type tls_rehandshake_mode_t = GioTlsRehandshakeMode.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun emitAcceptCertificate self peerCert errors =
+    fun emitAcceptCertificate self (peerCert, errors) =
       (
         GioTlsConnectionClass.FFI.withPtr
          &&&> GioTlsCertificateClass.FFI.withPtr
@@ -139,7 +139,7 @@ structure GioTlsConnection :>
     local
       open ClosureMarshal Signal
     in
-      fun acceptCertificateSig f = signal "accept-certificate" (get 0w1 GioTlsCertificateClass.t &&&> get 0w2 GioTlsCertificateFlags.t ---> ret boolean) (fn peerCert & errors => f peerCert errors)
+      fun acceptCertificateSig f = signal "accept-certificate" (get 0w1 GioTlsCertificateClass.t &&&> get 0w2 GioTlsCertificateFlags.t ---> ret boolean) (fn peerCert & errors => f (peerCert, errors))
     end
     local
       open Property

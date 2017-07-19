@@ -105,7 +105,12 @@ structure GtkIconTheme :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkIconThemeClass.FFI.fromPtr true) new_ ()
-    fun addBuiltinIcon iconName size pixbuf =
+    fun addBuiltinIcon
+      (
+        iconName,
+        size,
+        pixbuf
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -121,7 +126,13 @@ structure GtkIconTheme :>
     fun getDefault () = (I ---> GtkIconThemeClass.FFI.fromPtr false) getDefault_ ()
     fun getForScreen screen = (GdkScreenClass.FFI.withPtr ---> GtkIconThemeClass.FFI.fromPtr false) getForScreen_ screen
     fun appendSearchPath self path = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) appendSearchPath_ (self & path)
-    fun chooseIcon self iconNames size flags =
+    fun chooseIcon
+      self
+      (
+        iconNames,
+        size,
+        flags
+      ) =
       (
         GtkIconThemeClass.FFI.withPtr
          &&&> Utf8CVector.FFI.withPtr
@@ -161,7 +172,13 @@ structure GtkIconTheme :>
         path (LargeInt.toInt nElements)
       end
     fun hasIcon self iconName = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasIcon_ (self & iconName)
-    fun loadIcon self iconName size flags =
+    fun loadIcon
+      self
+      (
+        iconName,
+        size,
+        flags
+      ) =
       (
         GtkIconThemeClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -178,7 +195,13 @@ structure GtkIconTheme :>
            & flags
            & []
         )
-    fun lookupByGicon self icon size flags =
+    fun lookupByGicon
+      self
+      (
+        icon,
+        size,
+        flags
+      ) =
       (
         GtkIconThemeClass.FFI.withPtr
          &&&> GioIconClass.FFI.withPtr
@@ -193,7 +216,13 @@ structure GtkIconTheme :>
            & size
            & flags
         )
-    fun lookupIcon self iconName size flags =
+    fun lookupIcon
+      self
+      (
+        iconName,
+        size,
+        flags
+      ) =
       (
         GtkIconThemeClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

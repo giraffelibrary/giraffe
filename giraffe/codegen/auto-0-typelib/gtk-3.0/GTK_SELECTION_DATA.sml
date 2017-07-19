@@ -18,8 +18,8 @@ signature GTK_SELECTION_DATA =
     val set :
       t
        -> Gdk.AtomRecord.t
-       -> LargeInt.int
-       -> Word8Vector.vector
+           * LargeInt.int
+           * Word8Vector.vector
        -> unit
     val setPixbuf :
       t
@@ -27,8 +27,7 @@ signature GTK_SELECTION_DATA =
        -> bool
     val setText :
       t
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> bool
     val setUris :
       t

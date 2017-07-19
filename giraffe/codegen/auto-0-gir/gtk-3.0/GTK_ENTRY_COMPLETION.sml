@@ -30,13 +30,11 @@ signature GTK_ENTRY_COMPLETION =
     val getTextColumn : 'a class -> LargeInt.int
     val insertActionMarkup :
       'a class
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> unit
     val insertActionText :
       'a class
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> unit
     val insertPrefix : 'a class -> unit
     val setInlineCompletion :
@@ -72,17 +70,9 @@ signature GTK_ENTRY_COMPLETION =
        -> LargeInt.int
        -> unit
     val actionActivatedSig : (LargeInt.int -> unit) -> 'a class Signal.signal
-    val cursorOnMatchSig :
-      (base tree_model_class
-        -> tree_iter_t
-        -> bool)
-       -> 'a class Signal.signal
+    val cursorOnMatchSig : (base tree_model_class * tree_iter_t -> bool) -> 'a class Signal.signal
     val insertPrefixSig : (string -> bool) -> 'a class Signal.signal
-    val matchSelectedSig :
-      (base tree_model_class
-        -> tree_iter_t
-        -> bool)
-       -> 'a class Signal.signal
+    val matchSelectedSig : (base tree_model_class * tree_iter_t -> bool) -> 'a class Signal.signal
     val cellAreaProp : ('a class, base cell_area_class option, 'b cell_area_class option) Property.readwrite
     val inlineCompletionProp : ('a class, bool, bool) Property.readwrite
     val inlineSelectionProp : ('a class, bool, bool) Property.readwrite

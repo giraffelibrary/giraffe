@@ -57,8 +57,7 @@ signature GIO_DATA_INPUT_STREAM =
        -> LargeInt.int
     val readUntil :
       'a class
-       -> string
-       -> 'b cancellable_class option
+       -> string * 'b cancellable_class option
        -> string * LargeInt.int
     val readUntilFinish :
       'a class
@@ -67,8 +66,8 @@ signature GIO_DATA_INPUT_STREAM =
     val readUpto :
       'a class
        -> string
-       -> LargeInt.int
-       -> 'b cancellable_class option
+           * LargeInt.int
+           * 'b cancellable_class option
        -> string * LargeInt.int
     val readUptoFinish :
       'a class

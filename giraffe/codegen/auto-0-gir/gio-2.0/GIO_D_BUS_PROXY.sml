@@ -21,21 +21,21 @@ signature GIO_D_BUS_PROXY =
     val newForBusFinish : 'a async_result_class -> base class
     val newForBusSync :
       bus_type_t
-       -> d_bus_proxy_flags_t
-       -> d_bus_interface_info_t option
-       -> string
-       -> string
-       -> string
-       -> 'a cancellable_class option
+       * d_bus_proxy_flags_t
+       * d_bus_interface_info_t option
+       * string
+       * string
+       * string
+       * 'a cancellable_class option
        -> base class
     val newSync :
       'a d_bus_connection_class
-       -> d_bus_proxy_flags_t
-       -> d_bus_interface_info_t option
-       -> string option
-       -> string
-       -> string
-       -> 'b cancellable_class option
+       * d_bus_proxy_flags_t
+       * d_bus_interface_info_t option
+       * string option
+       * string
+       * string
+       * 'b cancellable_class option
        -> base class
     val callFinish :
       'a class
@@ -44,10 +44,10 @@ signature GIO_D_BUS_PROXY =
     val callSync :
       'a class
        -> string
-       -> GLib.VariantRecord.t option
-       -> d_bus_call_flags_t
-       -> LargeInt.int
-       -> 'b cancellable_class option
+           * GLib.VariantRecord.t option
+           * d_bus_call_flags_t
+           * LargeInt.int
+           * 'b cancellable_class option
        -> GLib.VariantRecord.t
     val callWithUnixFdListFinish :
       'a class
@@ -56,11 +56,11 @@ signature GIO_D_BUS_PROXY =
     val callWithUnixFdListSync :
       'a class
        -> string
-       -> GLib.VariantRecord.t option
-       -> d_bus_call_flags_t
-       -> LargeInt.int
-       -> 'b unix_f_d_list_class option
-       -> 'c cancellable_class option
+           * GLib.VariantRecord.t option
+           * d_bus_call_flags_t
+           * LargeInt.int
+           * 'b unix_f_d_list_class option
+           * 'c cancellable_class option
        -> GLib.VariantRecord.t * base unix_f_d_list_class
     val getCachedProperty :
       'a class
@@ -77,8 +77,7 @@ signature GIO_D_BUS_PROXY =
     val getObjectPath : 'a class -> string
     val setCachedProperty :
       'a class
-       -> string
-       -> GLib.VariantRecord.t option
+       -> string * GLib.VariantRecord.t option
        -> unit
     val setDefaultTimeout :
       'a class
@@ -88,15 +87,11 @@ signature GIO_D_BUS_PROXY =
       'a class
        -> d_bus_interface_info_t option
        -> unit
-    val gPropertiesChangedSig :
-      (GLib.VariantRecord.t
-        -> string list
-        -> unit)
-       -> 'a class Signal.signal
+    val gPropertiesChangedSig : (GLib.VariantRecord.t * string list -> unit) -> 'a class Signal.signal
     val gSignalSig :
       (string
-        -> string
-        -> GLib.VariantRecord.t
+        * string
+        * GLib.VariantRecord.t
         -> unit)
        -> 'a class Signal.signal
     val gBusTypeProp : ('a class, bus_type_t) Property.writeonly

@@ -39,7 +39,13 @@ structure GioProxy :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefaultForProtocol protocol = (Utf8.FFI.withPtr ---> GioProxyClass.FFI.fromPtr true) getDefaultForProtocol_ protocol
-    fun connect self connection proxyAddress cancellable =
+    fun connect
+      self
+      (
+        connection,
+        proxyAddress,
+        cancellable
+      ) =
       (
         GioProxyClass.FFI.withPtr
          &&&> GioIOStreamClass.FFI.withPtr

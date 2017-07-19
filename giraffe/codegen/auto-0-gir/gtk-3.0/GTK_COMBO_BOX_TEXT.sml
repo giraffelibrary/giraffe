@@ -14,8 +14,7 @@ signature GTK_COMBO_BOX_TEXT =
     val newWithEntry : unit -> base class
     val append :
       'a class
-       -> string option
-       -> string
+       -> string option * string
        -> unit
     val appendText :
       'a class
@@ -25,18 +24,16 @@ signature GTK_COMBO_BOX_TEXT =
     val insert :
       'a class
        -> LargeInt.int
-       -> string option
-       -> string
+           * string option
+           * string
        -> unit
     val insertText :
       'a class
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> unit
     val prepend :
       'a class
-       -> string option
-       -> string
+       -> string option * string
        -> unit
     val prependText :
       'a class

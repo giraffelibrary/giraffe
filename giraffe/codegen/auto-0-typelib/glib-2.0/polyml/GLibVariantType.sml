@@ -83,7 +83,7 @@ structure GLibVariantType :>
     fun value self = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) value_ self
     fun checked unknown = (Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) checked_ unknown
     fun stringIsValid typeString = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) stringIsValid_ typeString
-    fun stringScan string limit =
+    fun stringScan (string, limit) =
       let
         val endptr & retVal =
           (

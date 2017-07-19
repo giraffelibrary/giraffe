@@ -7,8 +7,8 @@ signature GIO_NETWORK_SERVICE =
     val getType : unit -> GObject.Type.t
     val new :
       string
-       -> string
-       -> string
+       * string
+       * string
        -> base socket_connectable_class
     val getDomain : 'a class -> string
     val getProtocol : 'a class -> string

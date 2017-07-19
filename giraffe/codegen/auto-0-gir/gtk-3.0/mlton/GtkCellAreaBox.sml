@@ -68,7 +68,14 @@ structure GtkCellAreaBox :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCellAreaBoxClass.FFI.fromPtr false) new_ ()
     fun getSpacing self = (GtkCellAreaBoxClass.FFI.withPtr ---> GInt.FFI.fromVal) getSpacing_ self
-    fun packEnd self renderer expand align fixed =
+    fun packEnd
+      self
+      (
+        renderer,
+        expand,
+        align,
+        fixed
+      ) =
       (
         GtkCellAreaBoxClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr
@@ -85,7 +92,14 @@ structure GtkCellAreaBox :>
            & align
            & fixed
         )
-    fun packStart self renderer expand align fixed =
+    fun packStart
+      self
+      (
+        renderer,
+        expand,
+        align,
+        fixed
+      ) =
       (
         GtkCellAreaBoxClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr

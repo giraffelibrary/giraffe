@@ -14,8 +14,7 @@ signature GTK_STATUS_ICON =
     val newFromPixbuf : 'a GdkPixbuf.PixbufClass.class -> base class
     val newFromStock : string -> base class
     val positionMenu :
-      'a menu_class
-       -> 'b class
+      'a menu_class * 'b class
        -> LargeInt.int
            * LargeInt.int
            * bool
@@ -90,16 +89,12 @@ signature GTK_STATUS_ICON =
     val activateSig : (unit -> unit) -> 'a class Signal.signal
     val buttonPressEventSig : (Gdk.EventButtonRecord.t -> bool) -> 'a class Signal.signal
     val buttonReleaseEventSig : (Gdk.EventButtonRecord.t -> bool) -> 'a class Signal.signal
-    val popupMenuSig :
-      (LargeInt.int
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val popupMenuSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
     val queryTooltipSig :
       (LargeInt.int
-        -> LargeInt.int
-        -> bool
-        -> base tooltip_class
+        * LargeInt.int
+        * bool
+        * base tooltip_class
         -> bool)
        -> 'a class Signal.signal
     val scrollEventSig : (Gdk.EventScrollRecord.t -> bool) -> 'a class Signal.signal

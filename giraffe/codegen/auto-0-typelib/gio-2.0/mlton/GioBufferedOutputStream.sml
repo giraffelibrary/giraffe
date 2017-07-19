@@ -15,7 +15,7 @@ structure GioBufferedOutputStream :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new baseStream = (GioOutputStreamClass.FFI.withPtr ---> GioBufferedOutputStreamClass.FFI.fromPtr true) new_ baseStream
-    fun newSized baseStream size = (GioOutputStreamClass.FFI.withPtr &&&> GUInt64.FFI.withVal ---> GioBufferedOutputStreamClass.FFI.fromPtr true) newSized_ (baseStream & size)
+    fun newSized (baseStream, size) = (GioOutputStreamClass.FFI.withPtr &&&> GUInt64.FFI.withVal ---> GioBufferedOutputStreamClass.FFI.fromPtr true) newSized_ (baseStream & size)
     fun getAutoGrow self = (GioBufferedOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) getAutoGrow_ self
     fun getBufferSize self = (GioBufferedOutputStreamClass.FFI.withPtr ---> GUInt64.FFI.fromVal) getBufferSize_ self
     fun setAutoGrow self autoGrow = (GioBufferedOutputStreamClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAutoGrow_ (self & autoGrow)

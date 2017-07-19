@@ -12,7 +12,7 @@ signature GTK_FILE_CHOOSER_DIALOG =
     val getType : unit -> GObject.Type.t
     val new :
       string option
-       -> 'a window_class option
-       -> file_chooser_action_t
+       * 'a window_class option
+       * file_chooser_action_t
        -> base class
   end

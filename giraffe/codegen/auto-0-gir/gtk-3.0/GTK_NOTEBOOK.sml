@@ -14,14 +14,13 @@ signature GTK_NOTEBOOK =
     val new : unit -> base class
     val appendPage :
       'a class
-       -> 'b widget_class
-       -> 'c widget_class option
+       -> 'b widget_class * 'c widget_class option
        -> LargeInt.int
     val appendPageMenu :
       'a class
        -> 'b widget_class
-       -> 'c widget_class option
-       -> 'd widget_class option
+           * 'c widget_class option
+           * 'd widget_class option
        -> LargeInt.int
     val getActionWidget :
       'a class
@@ -67,15 +66,15 @@ signature GTK_NOTEBOOK =
     val insertPage :
       'a class
        -> 'b widget_class
-       -> 'c widget_class option
-       -> LargeInt.int
+           * 'c widget_class option
+           * LargeInt.int
        -> LargeInt.int
     val insertPageMenu :
       'a class
        -> 'b widget_class
-       -> 'c widget_class option
-       -> 'd widget_class option
-       -> LargeInt.int
+           * 'c widget_class option
+           * 'd widget_class option
+           * LargeInt.int
        -> LargeInt.int
     val nextPage : 'a class -> unit
     val pageNum :
@@ -86,14 +85,13 @@ signature GTK_NOTEBOOK =
     val popupEnable : 'a class -> unit
     val prependPage :
       'a class
-       -> 'b widget_class
-       -> 'c widget_class option
+       -> 'b widget_class * 'c widget_class option
        -> LargeInt.int
     val prependPageMenu :
       'a class
        -> 'b widget_class
-       -> 'c widget_class option
-       -> 'd widget_class option
+           * 'c widget_class option
+           * 'd widget_class option
        -> LargeInt.int
     val prevPage : 'a class -> unit
     val removePage :
@@ -102,13 +100,11 @@ signature GTK_NOTEBOOK =
        -> unit
     val reorderChild :
       'a class
-       -> 'b widget_class
-       -> LargeInt.int
+       -> 'b widget_class * LargeInt.int
        -> unit
     val setActionWidget :
       'a class
-       -> 'b widget_class
-       -> pack_type_t
+       -> 'b widget_class * pack_type_t
        -> unit
     val setCurrentPage :
       'a class
@@ -120,13 +116,11 @@ signature GTK_NOTEBOOK =
        -> unit
     val setMenuLabel :
       'a class
-       -> 'b widget_class
-       -> 'c widget_class option
+       -> 'b widget_class * 'c widget_class option
        -> unit
     val setMenuLabelText :
       'a class
-       -> 'b widget_class
-       -> string
+       -> 'b widget_class * string
        -> unit
     val setScrollable :
       'a class
@@ -142,18 +136,15 @@ signature GTK_NOTEBOOK =
        -> unit
     val setTabDetachable :
       'a class
-       -> 'b widget_class
-       -> bool
+       -> 'b widget_class * bool
        -> unit
     val setTabLabel :
       'a class
-       -> 'b widget_class
-       -> 'c widget_class option
+       -> 'b widget_class * 'c widget_class option
        -> unit
     val setTabLabelText :
       'a class
-       -> 'b widget_class
-       -> string
+       -> 'b widget_class * string
        -> unit
     val setTabPos :
       'a class
@@ -161,44 +152,23 @@ signature GTK_NOTEBOOK =
        -> unit
     val setTabReorderable :
       'a class
-       -> 'b widget_class
-       -> bool
+       -> 'b widget_class * bool
        -> unit
     val changeCurrentPageSig : (LargeInt.int -> bool) -> 'a class Signal.signal
     val createWindowSig :
       (base widget_class
-        -> LargeInt.int
-        -> LargeInt.int
+        * LargeInt.int
+        * LargeInt.int
         -> 'a class)
        -> 'b class Signal.signal
     val focusTabSig : (notebook_tab_t -> bool) -> 'a class Signal.signal
     val moveFocusOutSig : (direction_type_t -> unit) -> 'a class Signal.signal
-    val pageAddedSig :
-      (base widget_class
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
-    val pageRemovedSig :
-      (base widget_class
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
-    val pageReorderedSig :
-      (base widget_class
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
-    val reorderTabSig :
-      (direction_type_t
-        -> bool
-        -> bool)
-       -> 'a class Signal.signal
+    val pageAddedSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.signal
+    val pageRemovedSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.signal
+    val pageReorderedSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.signal
+    val reorderTabSig : (direction_type_t * bool -> bool) -> 'a class Signal.signal
     val selectPageSig : (bool -> bool) -> 'a class Signal.signal
-    val switchPageSig :
-      (base widget_class
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val switchPageSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.signal
     val enablePopupProp : ('a class, bool, bool) Property.readwrite
     val groupNameProp : ('a class, string option, string option) Property.readwrite
     val pageProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

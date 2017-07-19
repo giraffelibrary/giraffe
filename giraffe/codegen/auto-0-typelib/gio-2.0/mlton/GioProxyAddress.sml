@@ -53,7 +53,16 @@ structure GioProxyAddress :>
     type t = base class
     fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new inetaddr port protocol destHostname destPort username password =
+    fun new
+      (
+        inetaddr,
+        port,
+        protocol,
+        destHostname,
+        destPort,
+        username,
+        password
+      ) =
       (
         GioInetAddressClass.FFI.withPtr
          &&&> GUInt16.FFI.withVal

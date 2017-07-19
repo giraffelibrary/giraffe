@@ -7,10 +7,7 @@ signature GTK_CSS_PROVIDER =
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
     val getDefault : unit -> base class
-    val getNamed :
-      string
-       -> string option
-       -> base class
+    val getNamed : string * string option -> base class
     val loadFromData :
       'a class
        -> Word8Vector.vector

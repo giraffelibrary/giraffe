@@ -115,7 +115,7 @@ structure GtkSourceBuffer :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new table = (GtkTextTagTableClass.FFI.withOptPtr ---> GtkSourceBufferClass.FFI.fromPtr true) new_ table
     fun newWithLanguage language = (GtkSourceLanguageClass.FFI.withPtr ---> GtkSourceBufferClass.FFI.fromPtr true) newWithLanguage_ language
-    fun backwardIterToSourceMark self iter category =
+    fun backwardIterToSourceMark self (iter, category) =
       (
         GtkSourceBufferClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
@@ -131,7 +131,13 @@ structure GtkSourceBuffer :>
     fun beginNotUndoableAction self = (GtkSourceBufferClass.FFI.withPtr ---> I) beginNotUndoableAction_ self
     fun canRedo self = (GtkSourceBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) canRedo_ self
     fun canUndo self = (GtkSourceBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) canUndo_ self
-    fun createSourceMark self name category where' =
+    fun createSourceMark
+      self
+      (
+        name,
+        category,
+        where'
+      ) =
       (
         GtkSourceBufferClass.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -147,7 +153,7 @@ structure GtkSourceBuffer :>
            & where'
         )
     fun endNotUndoableAction self = (GtkSourceBufferClass.FFI.withPtr ---> I) endNotUndoableAction_ self
-    fun ensureHighlight self start end' =
+    fun ensureHighlight self (start, end') =
       (
         GtkSourceBufferClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
@@ -160,7 +166,7 @@ structure GtkSourceBuffer :>
            & start
            & end'
         )
-    fun forwardIterToSourceMark self iter category =
+    fun forwardIterToSourceMark self (iter, category) =
       (
         GtkSourceBufferClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
@@ -180,7 +186,7 @@ structure GtkSourceBuffer :>
     fun getMaxUndoLevels self = (GtkSourceBufferClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMaxUndoLevels_ self
     fun getStyleScheme self = (GtkSourceBufferClass.FFI.withPtr ---> GtkSourceStyleSchemeClass.FFI.fromPtr false) getStyleScheme_ self
     fun getUndoManager self = (GtkSourceBufferClass.FFI.withPtr ---> GtkSourceUndoManagerClass.FFI.fromPtr false) getUndoManager_ self
-    fun iterBackwardToContextClassToggle self iter contextClass =
+    fun iterBackwardToContextClassToggle self (iter, contextClass) =
       (
         GtkSourceBufferClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
@@ -193,7 +199,7 @@ structure GtkSourceBuffer :>
            & iter
            & contextClass
         )
-    fun iterForwardToContextClassToggle self iter contextClass =
+    fun iterForwardToContextClassToggle self (iter, contextClass) =
       (
         GtkSourceBufferClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
@@ -206,7 +212,7 @@ structure GtkSourceBuffer :>
            & iter
            & contextClass
         )
-    fun iterHasContextClass self iter contextClass =
+    fun iterHasContextClass self (iter, contextClass) =
       (
         GtkSourceBufferClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
@@ -220,7 +226,13 @@ structure GtkSourceBuffer :>
            & contextClass
         )
     fun redo self = (GtkSourceBufferClass.FFI.withPtr ---> I) redo_ self
-    fun removeSourceMarks self start end' category =
+    fun removeSourceMarks
+      self
+      (
+        start,
+        end',
+        category
+      ) =
       (
         GtkSourceBufferClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
@@ -245,8 +257,8 @@ structure GtkSourceBuffer :>
     local
       open ClosureMarshal Signal
     in
-      fun bracketMatchedSig f = signal "bracket-matched" (get 0w1 GtkTextIterRecord.t &&&> get 0w2 GtkSourceBracketMatchType.t ---> ret_void) (fn iter & state => f iter state)
-      fun highlightUpdatedSig f = signal "highlight-updated" (get 0w1 GtkTextIterRecord.t &&&> get 0w2 GtkTextIterRecord.t ---> ret_void) (fn object & p0 => f object p0)
+      fun bracketMatchedSig f = signal "bracket-matched" (get 0w1 GtkTextIterRecord.t &&&> get 0w2 GtkSourceBracketMatchType.t ---> ret_void) (fn iter & state => f (iter, state))
+      fun highlightUpdatedSig f = signal "highlight-updated" (get 0w1 GtkTextIterRecord.t &&&> get 0w2 GtkTextIterRecord.t ---> ret_void) (fn object & p0 => f (object, p0))
       fun redoSig f = signal "redo" (void ---> ret_void) f
       fun sourceMarkUpdatedSig f = signal "source-mark-updated" (get 0w1 GtkTextMarkClass.t ---> ret_void) f
       fun undoSig f = signal "undo" (void ---> ret_void) f

@@ -33,33 +33,27 @@ signature GTK_TREE_VIEW =
     val columnsAutosize : 'a class -> unit
     val convertBinWindowToTreeCoords :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val convertBinWindowToWidgetCoords :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val convertTreeToBinWindowCoords :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val convertTreeToWidgetCoords :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val convertWidgetToBinWindowCoords :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val convertWidgetToTreeCoords :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val createRowDragIcon :
       'a class
@@ -68,8 +62,7 @@ signature GTK_TREE_VIEW =
     val expandAll : 'a class -> unit
     val expandRow :
       'a class
-       -> tree_path_t
-       -> bool
+       -> tree_path_t * bool
        -> bool
     val expandToPath :
       'a class
@@ -77,14 +70,12 @@ signature GTK_TREE_VIEW =
        -> unit
     val getBackgroundArea :
       'a class
-       -> tree_path_t option
-       -> 'b tree_view_column_class option
+       -> tree_path_t option * 'b tree_view_column_class option
        -> Gdk.RectangleRecord.t
     val getBinWindow : 'a class -> base Gdk.WindowClass.class
     val getCellArea :
       'a class
-       -> tree_path_t option
-       -> 'b tree_view_column_class option
+       -> tree_path_t option * 'b tree_view_column_class option
        -> Gdk.RectangleRecord.t
     val getColumn :
       'a class
@@ -93,8 +84,7 @@ signature GTK_TREE_VIEW =
     val getCursor : 'a class -> tree_path_t * base tree_view_column_class
     val getDestRowAtPos :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> (tree_path_t * tree_view_drop_position_t) option
     val getDragDestRow : 'a class -> tree_path_t * tree_view_drop_position_t
     val getEnableSearch : 'a class -> bool
@@ -110,8 +100,7 @@ signature GTK_TREE_VIEW =
     val getModel : 'a class -> base tree_model_class
     val getPathAtPos :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> (tree_path_t
             * base tree_view_column_class
             * LargeInt.int
@@ -128,8 +117,8 @@ signature GTK_TREE_VIEW =
     val getTooltipContext :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> bool
+           * LargeInt.int
+           * bool
        -> (base tree_model_class
             * tree_path_t
             * tree_iter_t)
@@ -140,13 +129,11 @@ signature GTK_TREE_VIEW =
     val getVisibleRect : 'a class -> Gdk.RectangleRecord.t
     val insertColumn :
       'a class
-       -> 'b tree_view_column_class
-       -> LargeInt.int
+       -> 'b tree_view_column_class * LargeInt.int
        -> LargeInt.int
     val isBlankAtPos :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> (tree_path_t
             * base tree_view_column_class
             * LargeInt.int
@@ -155,8 +142,7 @@ signature GTK_TREE_VIEW =
     val isRubberBandingActive : 'a class -> bool
     val moveColumnAfter :
       'a class
-       -> 'b tree_view_column_class
-       -> 'c tree_view_column_class option
+       -> 'b tree_view_column_class * 'c tree_view_column_class option
        -> unit
     val removeColumn :
       'a class
@@ -164,8 +150,7 @@ signature GTK_TREE_VIEW =
        -> LargeInt.int
     val rowActivated :
       'a class
-       -> tree_path_t
-       -> 'b tree_view_column_class
+       -> tree_path_t * 'b tree_view_column_class
        -> unit
     val rowExpanded :
       'a class
@@ -174,33 +159,31 @@ signature GTK_TREE_VIEW =
     val scrollToCell :
       'a class
        -> tree_path_t option
-       -> 'b tree_view_column_class option
-       -> bool
-       -> real
-       -> real
+           * 'b tree_view_column_class option
+           * bool
+           * real
+           * real
        -> unit
     val scrollToPoint :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setCursor :
       'a class
        -> tree_path_t
-       -> 'b tree_view_column_class option
-       -> bool
+           * 'b tree_view_column_class option
+           * bool
        -> unit
     val setCursorOnCell :
       'a class
        -> tree_path_t
-       -> 'b tree_view_column_class option
-       -> 'c cell_renderer_class option
-       -> bool
+           * 'b tree_view_column_class option
+           * 'c cell_renderer_class option
+           * bool
        -> unit
     val setDragDestRow :
       'a class
-       -> tree_path_t option
-       -> tree_view_drop_position_t
+       -> tree_path_t option * tree_view_drop_position_t
        -> unit
     val setEnableSearch :
       'a class
@@ -273,9 +256,9 @@ signature GTK_TREE_VIEW =
     val setTooltipCell :
       'a class
        -> 'b tooltip_class
-       -> tree_path_t option
-       -> 'c tree_view_column_class option
-       -> 'd cell_renderer_class option
+           * tree_path_t option
+           * 'c tree_view_column_class option
+           * 'd cell_renderer_class option
        -> unit
     val setTooltipColumn :
       'a class
@@ -283,8 +266,7 @@ signature GTK_TREE_VIEW =
        -> unit
     val setTooltipRow :
       'a class
-       -> 'b tooltip_class
-       -> tree_path_t
+       -> 'b tooltip_class * tree_path_t
        -> unit
     val unsetRowsDragDest : 'a class -> unit
     val unsetRowsDragSource : 'a class -> unit
@@ -292,44 +274,20 @@ signature GTK_TREE_VIEW =
     val cursorChangedSig : (unit -> unit) -> 'a class Signal.signal
     val expandCollapseCursorRowSig :
       (bool
-        -> bool
-        -> bool
+        * bool
+        * bool
         -> bool)
        -> 'a class Signal.signal
-    val moveCursorSig :
-      (movement_step_t
-        -> LargeInt.int
-        -> bool)
-       -> 'a class Signal.signal
-    val rowActivatedSig :
-      (tree_path_t
-        -> base tree_view_column_class
-        -> unit)
-       -> 'a class Signal.signal
-    val rowCollapsedSig :
-      (tree_iter_t
-        -> tree_path_t
-        -> unit)
-       -> 'a class Signal.signal
-    val rowExpandedSig :
-      (tree_iter_t
-        -> tree_path_t
-        -> unit)
-       -> 'a class Signal.signal
+    val moveCursorSig : (movement_step_t * LargeInt.int -> bool) -> 'a class Signal.signal
+    val rowActivatedSig : (tree_path_t * base tree_view_column_class -> unit) -> 'a class Signal.signal
+    val rowCollapsedSig : (tree_iter_t * tree_path_t -> unit) -> 'a class Signal.signal
+    val rowExpandedSig : (tree_iter_t * tree_path_t -> unit) -> 'a class Signal.signal
     val selectAllSig : (unit -> bool) -> 'a class Signal.signal
     val selectCursorParentSig : (unit -> bool) -> 'a class Signal.signal
     val selectCursorRowSig : (bool -> bool) -> 'a class Signal.signal
     val startInteractiveSearchSig : (unit -> bool) -> 'a class Signal.signal
-    val testCollapseRowSig :
-      (tree_iter_t
-        -> tree_path_t
-        -> bool)
-       -> 'a class Signal.signal
-    val testExpandRowSig :
-      (tree_iter_t
-        -> tree_path_t
-        -> bool)
-       -> 'a class Signal.signal
+    val testCollapseRowSig : (tree_iter_t * tree_path_t -> bool) -> 'a class Signal.signal
+    val testExpandRowSig : (tree_iter_t * tree_path_t -> bool) -> 'a class Signal.signal
     val toggleCursorRowSig : (unit -> bool) -> 'a class Signal.signal
     val unselectAllSig : (unit -> bool) -> 'a class Signal.signal
     val enableGridLinesProp : ('a class, tree_view_grid_lines_t, tree_view_grid_lines_t) Property.readwrite

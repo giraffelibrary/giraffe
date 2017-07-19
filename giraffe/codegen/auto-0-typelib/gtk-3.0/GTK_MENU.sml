@@ -13,10 +13,10 @@ signature GTK_MENU =
     val attach :
       'a class
        -> 'b widget_class
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val detach : 'a class -> unit
     val getAccelGroup : 'a class -> base accel_group_class
@@ -30,8 +30,7 @@ signature GTK_MENU =
     val popdown : 'a class -> unit
     val reorderChild :
       'a class
-       -> 'b widget_class
-       -> LargeInt.int
+       -> 'b widget_class * LargeInt.int
        -> unit
     val reposition : 'a class -> unit
     val setAccelGroup :

@@ -23,17 +23,17 @@ signature GIO_D_BUS_OBJECT_MANAGER_CLIENT =
     val getNameOwner : 'a class -> string
     val interfaceProxyPropertiesChangedSig :
       (base d_bus_object_proxy_class
-        -> base d_bus_proxy_class
-        -> GLib.VariantRecord.t
-        -> string list
+        * base d_bus_proxy_class
+        * GLib.VariantRecord.t
+        * string list
         -> unit)
        -> 'a class Signal.signal
     val interfaceProxySignalSig :
       (base d_bus_object_proxy_class
-        -> base d_bus_proxy_class
-        -> string
-        -> string
-        -> GLib.VariantRecord.t
+        * base d_bus_proxy_class
+        * string
+        * string
+        * GLib.VariantRecord.t
         -> unit)
        -> 'a class Signal.signal
     val busTypeProp : ('a class, bus_type_t) Property.writeonly

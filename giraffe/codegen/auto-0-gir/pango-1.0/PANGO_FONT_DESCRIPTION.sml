@@ -11,8 +11,7 @@ signature PANGO_FONT_DESCRIPTION =
     val new : unit -> t
     val betterMatch :
       t
-       -> t option
-       -> t
+       -> t option * t
        -> bool
     val copy : t -> t
     val copyStatic : t -> t
@@ -32,13 +31,11 @@ signature PANGO_FONT_DESCRIPTION =
     val hash : t -> LargeInt.int
     val merge :
       t
-       -> t option
-       -> bool
+       -> t option * bool
        -> unit
     val mergeStatic :
       t
-       -> t
-       -> bool
+       -> t * bool
        -> unit
     val setAbsoluteSize :
       t

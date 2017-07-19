@@ -188,7 +188,7 @@ structure AtkTable :>
     fun getCaption self = (AtkTableClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr false) getCaption_ self
     fun getColumnAtIndex self index = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) getColumnAtIndex_ (self & index)
     fun getColumnDescription self column = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) getColumnDescription_ (self & column)
-    fun getColumnExtentAt self row column =
+    fun getColumnExtentAt self (row, column) =
       (
         AtkTableClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -202,7 +202,7 @@ structure AtkTable :>
            & column
         )
     fun getColumnHeader self column = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> AtkObjectClass.FFI.fromPtr false) getColumnHeader_ (self & column)
-    fun getIndexAt self row column =
+    fun getIndexAt self (row, column) =
       (
         AtkTableClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -219,7 +219,7 @@ structure AtkTable :>
     fun getNRows self = (AtkTableClass.FFI.withPtr ---> GInt.FFI.fromVal) getNRows_ self
     fun getRowAtIndex self index = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) getRowAtIndex_ (self & index)
     fun getRowDescription self row = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) getRowDescription_ (self & row)
-    fun getRowExtentAt self row column =
+    fun getRowExtentAt self (row, column) =
       (
         AtkTableClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -236,7 +236,7 @@ structure AtkTable :>
     fun getSummary self = (AtkTableClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr true) getSummary_ self
     fun isColumnSelected self column = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) isColumnSelected_ (self & column)
     fun isRowSelected self row = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) isRowSelected_ (self & row)
-    fun isSelected self row column =
+    fun isSelected self (row, column) =
       (
         AtkTableClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -249,7 +249,7 @@ structure AtkTable :>
            & row
            & column
         )
-    fun refAt self row column =
+    fun refAt self (row, column) =
       (
         AtkTableClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -265,7 +265,7 @@ structure AtkTable :>
     fun removeColumnSelection self column = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) removeColumnSelection_ (self & column)
     fun removeRowSelection self row = (AtkTableClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) removeRowSelection_ (self & row)
     fun setCaption self caption = (AtkTableClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> I) setCaption_ (self & caption)
-    fun setColumnDescription self column description =
+    fun setColumnDescription self (column, description) =
       (
         AtkTableClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -278,7 +278,7 @@ structure AtkTable :>
            & column
            & description
         )
-    fun setColumnHeader self column header =
+    fun setColumnHeader self (column, header) =
       (
         AtkTableClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -291,7 +291,7 @@ structure AtkTable :>
            & column
            & header
         )
-    fun setRowDescription self row description =
+    fun setRowDescription self (row, description) =
       (
         AtkTableClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -304,7 +304,7 @@ structure AtkTable :>
            & row
            & description
         )
-    fun setRowHeader self row header =
+    fun setRowHeader self (row, header) =
       (
         AtkTableClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -321,12 +321,12 @@ structure AtkTable :>
     local
       open ClosureMarshal Signal
     in
-      fun columnDeletedSig f = signal "column-deleted" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn object & p0 => f object p0)
-      fun columnInsertedSig f = signal "column-inserted" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn object & p0 => f object p0)
+      fun columnDeletedSig f = signal "column-deleted" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn object & p0 => f (object, p0))
+      fun columnInsertedSig f = signal "column-inserted" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn object & p0 => f (object, p0))
       fun columnReorderedSig f = signal "column-reordered" (void ---> ret_void) f
       fun modelChangedSig f = signal "model-changed" (void ---> ret_void) f
-      fun rowDeletedSig f = signal "row-deleted" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn object & p0 => f object p0)
-      fun rowInsertedSig f = signal "row-inserted" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn object & p0 => f object p0)
+      fun rowDeletedSig f = signal "row-deleted" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn object & p0 => f (object, p0))
+      fun rowInsertedSig f = signal "row-inserted" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn object & p0 => f (object, p0))
       fun rowReorderedSig f = signal "row-reordered" (void ---> ret_void) f
     end
   end

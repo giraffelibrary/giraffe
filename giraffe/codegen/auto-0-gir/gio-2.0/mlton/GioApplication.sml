@@ -131,7 +131,7 @@ structure GioApplication :>
     type t = base class
     fun asActionGroup self = (GObjectObjectClass.FFI.withPtr ---> GioActionGroupClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new applicationId flags = (Utf8.FFI.withPtr &&&> GioApplicationFlags.FFI.withVal ---> GioApplicationClass.FFI.fromPtr true) new_ (applicationId & flags)
+    fun new (applicationId, flags) = (Utf8.FFI.withPtr &&&> GioApplicationFlags.FFI.withVal ---> GioApplicationClass.FFI.fromPtr true) new_ (applicationId & flags)
     fun idIsValid applicationId = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) idIsValid_ applicationId
     fun activate self = (GioApplicationClass.FFI.withPtr ---> I) activate_ self
     fun getApplicationId self = (GioApplicationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getApplicationId_ self
@@ -140,7 +140,7 @@ structure GioApplication :>
     fun getIsRegistered self = (GioApplicationClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsRegistered_ self
     fun getIsRemote self = (GioApplicationClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsRemote_ self
     fun hold self = (GioApplicationClass.FFI.withPtr ---> I) hold_ self
-    fun open' self files hint =
+    fun open' self (files, hint) =
       let
         val nFiles = LargeInt.fromInt (GioFileClassCVectorN.length files)
         val () =
@@ -219,7 +219,7 @@ structure GioApplication :>
               files
                & nFiles
                & hint =>
-                f (files (LargeInt.toInt nFiles)) hint
+                f (files (LargeInt.toInt nFiles), hint)
           )
       fun startupSig f = signal "startup" (void ---> ret_void) f
     end

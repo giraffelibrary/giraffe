@@ -25,7 +25,12 @@ structure GtkTargetEntry :>
     val copy_ = _import "gtk_target_entry_copy" : GtkTargetEntryRecord.FFI.notnull GtkTargetEntryRecord.FFI.p -> GtkTargetEntryRecord.FFI.notnull GtkTargetEntryRecord.FFI.p;
     type t = GtkTargetEntryRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new target flags info =
+    fun new
+      (
+        target,
+        flags,
+        info
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GUInt.FFI.withVal

@@ -175,7 +175,7 @@ structure GtkBuilder :>
            & filename
            & []
         )
-    fun addFromString self buffer length =
+    fun addFromString self (buffer, length) =
       (
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -190,7 +190,7 @@ structure GtkBuilder :>
            & length
            & []
         )
-    fun addObjectsFromFile self filename objectIds =
+    fun addObjectsFromFile self (filename, objectIds) =
       (
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -205,7 +205,13 @@ structure GtkBuilder :>
            & objectIds
            & []
         )
-    fun addObjectsFromString self buffer length objectIds =
+    fun addObjectsFromString
+      self
+      (
+        buffer,
+        length,
+        objectIds
+      ) =
       (
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -225,7 +231,7 @@ structure GtkBuilder :>
     fun getObject self name = (GtkBuilderClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getObject_ (self & name)
     fun getTranslationDomain self = (GtkBuilderClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTranslationDomain_ self
     fun setTranslationDomain self domain = (GtkBuilderClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTranslationDomain_ (self & domain)
-    fun valueFromString self pspec string =
+    fun valueFromString self (pspec, string) =
       let
         val value & retVal =
           (

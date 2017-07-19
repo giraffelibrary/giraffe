@@ -6,8 +6,5 @@ signature G_LIB_TIME_VAL =
        -> LargeInt.int
        -> unit
     val toIso8601 : t -> string
-    val fromIso8601 :
-      string
-       -> t
-       -> bool
+    val fromIso8601 : string * t -> bool
   end

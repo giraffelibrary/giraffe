@@ -15,7 +15,7 @@ structure GioEmblemedIcon :>
     type t = base class
     fun asIcon self = (GObjectObjectClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new icon emblem = (GioIconClass.FFI.withPtr &&&> GioEmblemClass.FFI.withOptPtr ---> GioIconClass.FFI.fromPtr true) new_ (icon & emblem)
+    fun new (icon, emblem) = (GioIconClass.FFI.withPtr &&&> GioEmblemClass.FFI.withOptPtr ---> GioIconClass.FFI.fromPtr true) new_ (icon & emblem)
     fun addEmblem self emblem = (GioEmblemedIconClass.FFI.withPtr &&&> GioEmblemClass.FFI.withPtr ---> I) addEmblem_ (self & emblem)
     fun clearEmblems self = (GioEmblemedIconClass.FFI.withPtr ---> I) clearEmblems_ self
     fun getIcon self = (GioEmblemedIconClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getIcon_ self

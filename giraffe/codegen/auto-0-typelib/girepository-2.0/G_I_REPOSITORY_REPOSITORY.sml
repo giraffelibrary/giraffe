@@ -15,8 +15,7 @@ signature G_I_REPOSITORY_REPOSITORY =
        -> base_info_t
     val findByName :
       'a class
-       -> string
-       -> string
+       -> string * string
        -> base_info_t
     val getCPrefix :
       'a class
@@ -28,8 +27,7 @@ signature G_I_REPOSITORY_REPOSITORY =
        -> string list
     val getInfo :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> base_info_t
     val getLoadedNamespaces : 'a class -> string list
     val getNInfos :
@@ -50,25 +48,23 @@ signature G_I_REPOSITORY_REPOSITORY =
        -> string
     val isRegistered :
       'a class
-       -> string
-       -> string option
+       -> string * string option
        -> bool
     val loadTypelib :
       'a class
-       -> typelib_t
-       -> repository_load_flags_t
+       -> typelib_t * repository_load_flags_t
        -> string
     val require :
       'a class
        -> string
-       -> string option
-       -> repository_load_flags_t
+           * string option
+           * repository_load_flags_t
        -> typelib_t
     val requirePrivate :
       'a class
        -> string
-       -> string
-       -> string option
-       -> repository_load_flags_t
+           * string
+           * string option
+           * repository_load_flags_t
        -> typelib_t
   end

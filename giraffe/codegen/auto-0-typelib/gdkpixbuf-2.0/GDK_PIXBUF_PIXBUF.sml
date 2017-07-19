@@ -9,33 +9,30 @@ signature GDK_PIXBUF_PIXBUF =
     val getType : unit -> GObject.Type.t
     val new :
       colorspace_t
-       -> bool
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * bool
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> base class
     val newFromFile : string -> base class
     val newFromFileAtScale :
       string
-       -> LargeInt.int
-       -> LargeInt.int
-       -> bool
+       * LargeInt.int
+       * LargeInt.int
+       * bool
        -> base class
     val newFromFileAtSize :
       string
-       -> LargeInt.int
-       -> LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> base class
-    val newFromStream :
-      'a Gio.InputStreamClass.class
-       -> 'b Gio.CancellableClass.class option
-       -> base class
+    val newFromStream : 'a Gio.InputStreamClass.class * 'b Gio.CancellableClass.class option -> base class
     val newFromStreamAtScale :
       'a Gio.InputStreamClass.class
-       -> LargeInt.int
-       -> LargeInt.int
-       -> bool
-       -> 'b Gio.CancellableClass.class option
+       * LargeInt.int
+       * LargeInt.int
+       * bool
+       * 'b Gio.CancellableClass.class option
        -> base class
     val newFromStreamFinish : 'a Gio.AsyncResultClass.class -> base class
     val newFromXpmData : string -> base class
@@ -44,64 +41,64 @@ signature GDK_PIXBUF_PIXBUF =
     val addAlpha :
       'a class
        -> bool
-       -> Word8.word
-       -> Word8.word
-       -> Word8.word
+           * Word8.word
+           * Word8.word
+           * Word8.word
        -> base class
     val applyEmbeddedOrientation : 'a class -> base class
     val composite :
       'a class
        -> 'b class
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> real
-       -> real
-       -> real
-       -> real
-       -> interp_type_t
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * real
+           * real
+           * real
+           * real
+           * interp_type_t
+           * LargeInt.int
        -> unit
     val compositeColor :
       'a class
        -> 'b class
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> real
-       -> real
-       -> real
-       -> real
-       -> interp_type_t
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * real
+           * real
+           * real
+           * real
+           * interp_type_t
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val compositeColorSimple :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> interp_type_t
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * interp_type_t
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> base class
     val copy : 'a class -> base class
     val copyArea :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> 'b class
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * 'b class
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val fill :
       'a class
@@ -125,9 +122,9 @@ signature GDK_PIXBUF_PIXBUF =
     val newSubpixbuf :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> base class
     val rotateSimple :
       'a class
@@ -136,34 +133,34 @@ signature GDK_PIXBUF_PIXBUF =
     val saturateAndPixelate :
       'a class
        -> 'b class
-       -> real
-       -> bool
+           * real
+           * bool
        -> unit
     val savev :
       'a class
        -> string
-       -> string
-       -> string list
-       -> string list
+           * string
+           * string list
+           * string list
        -> bool
     val scale :
       'a class
        -> 'b class
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> real
-       -> real
-       -> real
-       -> real
-       -> interp_type_t
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * real
+           * real
+           * real
+           * real
+           * interp_type_t
        -> unit
     val scaleSimple :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> interp_type_t
+           * LargeInt.int
+           * interp_type_t
        -> base class
     val bitsPerSampleProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val colorspaceProp : ('a class, colorspace_t, colorspace_t) Property.readwrite

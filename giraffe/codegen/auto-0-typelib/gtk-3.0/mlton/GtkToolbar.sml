@@ -89,7 +89,7 @@ structure GtkToolbar :>
     fun asToolShell self = (GObjectObjectClass.FFI.withPtr ---> GtkToolShellClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkToolbarClass.FFI.fromPtr false) new_ ()
-    fun getDropIndex self x y =
+    fun getDropIndex self (x, y) =
       (
         GtkToolbarClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -109,7 +109,7 @@ structure GtkToolbar :>
     fun getReliefStyle self = (GtkToolbarClass.FFI.withPtr ---> GtkReliefStyle.FFI.fromVal) getReliefStyle_ self
     fun getShowArrow self = (GtkToolbarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowArrow_ self
     fun getStyle self = (GtkToolbarClass.FFI.withPtr ---> GtkToolbarStyle.FFI.fromVal) getStyle_ self
-    fun insert self item pos =
+    fun insert self (item, pos) =
       (
         GtkToolbarClass.FFI.withPtr
          &&&> GtkToolItemClass.FFI.withPtr
@@ -122,7 +122,7 @@ structure GtkToolbar :>
            & item
            & pos
         )
-    fun setDropHighlightItem self toolItem index =
+    fun setDropHighlightItem self (toolItem, index) =
       (
         GtkToolbarClass.FFI.withPtr
          &&&> GtkToolItemClass.FFI.withOptPtr
@@ -158,7 +158,12 @@ structure GtkToolbar :>
               x
                & y
                & button =>
-                f x y button
+                f
+                  (
+                    x,
+                    y,
+                    button
+                  )
           )
       fun styleChangedSig f = signal "style-changed" (get 0w1 GtkToolbarStyle.t ---> ret_void) f
     end

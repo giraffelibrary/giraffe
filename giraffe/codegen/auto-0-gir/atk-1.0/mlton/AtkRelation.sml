@@ -30,7 +30,12 @@ structure AtkRelation :>
     type relation_type_t = AtkRelationType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new targets nTargets relationship =
+    fun new
+      (
+        targets,
+        nTargets,
+        relationship
+      ) =
       (
         AtkObjectClass.FFI.withPtr
          &&&> GInt.FFI.withVal

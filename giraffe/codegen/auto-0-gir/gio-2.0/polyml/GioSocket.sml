@@ -174,7 +174,12 @@ structure GioSocket :>
     type t = base class
     fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new family type' protocol =
+    fun new
+      (
+        family,
+        type',
+        protocol
+      ) =
       (
         GioSocketFamily.FFI.withVal
          &&&> GioSocketType.FFI.withVal
@@ -203,7 +208,7 @@ structure GioSocket :>
            & cancellable
            & []
         )
-    fun bind self address allowReuse =
+    fun bind self (address, allowReuse) =
       (
         GioSocketClass.FFI.withPtr
          &&&> GioSocketAddressClass.FFI.withPtr
@@ -221,7 +226,7 @@ structure GioSocket :>
     fun checkConnectResult self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) checkConnectResult_ (self & [])
     fun close self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) close_ (self & [])
     fun conditionCheck self condition = (GioSocketClass.FFI.withPtr &&&> GLibIOCondition.FFI.withVal ---> GLibIOCondition.FFI.fromVal) conditionCheck_ (self & condition)
-    fun conditionWait self condition cancellable =
+    fun conditionWait self (condition, cancellable) =
       (
         GioSocketClass.FFI.withPtr
          &&&> GLibIOCondition.FFI.withVal
@@ -236,7 +241,7 @@ structure GioSocket :>
            & cancellable
            & []
         )
-    fun connect self address cancellable =
+    fun connect self (address, cancellable) =
       (
         GioSocketClass.FFI.withPtr
          &&&> GioSocketAddressClass.FFI.withPtr
@@ -266,7 +271,13 @@ structure GioSocket :>
     fun isClosed self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
     fun isConnected self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) isConnected_ self
     fun listen self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) listen_ (self & [])
-    fun receive self buffer size cancellable =
+    fun receive
+      self
+      (
+        buffer,
+        size,
+        cancellable
+      ) =
       (
         GioSocketClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -283,7 +294,14 @@ structure GioSocket :>
            & cancellable
            & []
         )
-    fun receiveFrom self address buffer size cancellable =
+    fun receiveFrom
+      self
+      (
+        address,
+        buffer,
+        size,
+        cancellable
+      ) =
       (
         GioSocketClass.FFI.withPtr
          &&&> GioSocketAddressClass.FFI.withPtr
@@ -302,7 +320,14 @@ structure GioSocket :>
            & cancellable
            & []
         )
-    fun receiveWithBlocking self buffer size blocking cancellable =
+    fun receiveWithBlocking
+      self
+      (
+        buffer,
+        size,
+        blocking,
+        cancellable
+      ) =
       (
         GioSocketClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -321,7 +346,7 @@ structure GioSocket :>
            & cancellable
            & []
         )
-    fun send self buffer cancellable =
+    fun send self (buffer, cancellable) =
       let
         val size = LargeInt.fromInt (Utf8CVectorN.length buffer)
         val retVal =
@@ -344,7 +369,13 @@ structure GioSocket :>
       in
         retVal
       end
-    fun sendTo self address buffer cancellable =
+    fun sendTo
+      self
+      (
+        address,
+        buffer,
+        cancellable
+      ) =
       let
         val size = LargeInt.fromInt (Utf8CVectorN.length buffer)
         val retVal =
@@ -369,7 +400,13 @@ structure GioSocket :>
       in
         retVal
       end
-    fun sendWithBlocking self buffer blocking cancellable =
+    fun sendWithBlocking
+      self
+      (
+        buffer,
+        blocking,
+        cancellable
+      ) =
       let
         val size = LargeInt.fromInt (Utf8CVectorN.length buffer)
         val retVal =
@@ -398,7 +435,7 @@ structure GioSocket :>
     fun setKeepalive self keepalive = (GioSocketClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setKeepalive_ (self & keepalive)
     fun setListenBacklog self backlog = (GioSocketClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setListenBacklog_ (self & backlog)
     fun setTimeout self timeout = (GioSocketClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setTimeout_ (self & timeout)
-    fun shutdown self shutdownRead shutdownWrite =
+    fun shutdown self (shutdownRead, shutdownWrite) =
       (
         GioSocketClass.FFI.withPtr
          &&&> GBool.FFI.withVal

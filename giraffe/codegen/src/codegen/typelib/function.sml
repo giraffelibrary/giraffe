@@ -1368,7 +1368,7 @@ fun makeFunctionSpec
     (* For a method function, add an initial argument type for the interface
      * that contains this function. *)
     val tyVarIdx'0 = 0
-    val (revInTys'1, tyVarIdx'1) =
+    val (inParamTypeSelf, tyVarIdx'1) =
       if FunctionInfoFlags.anySet
            (functionFlags, FunctionInfoFlags.IS_METHOD)
       then
@@ -1378,12 +1378,13 @@ fun makeFunctionSpec
               val (selfTy, tyVarIdx'1) =
                 makeIRefLocalTypeRef (makeRefVarTy false) (containerIRef, tyVarIdx'0)
             in
-              ([selfTy], tyVarIdx'1)
+              (SOME selfTy, tyVarIdx'1)
             end
         | NONE               =>
             infoError "function outside interface has method flag set"
       else
-        ([], tyVarIdx'0)
+        (NONE, tyVarIdx'0)
+    val revInTys'1 = []
     val revOutTys'1 = []
     val iRefs'1 = iRefs
 
@@ -1410,11 +1411,32 @@ fun makeFunctionSpec
         optConstructorIRef
         (retInfo, (tyVarIdx'2, iRefs'2))
 
-    (* Handle case L = 0 and ISMETHOD not set in FunctionFlags. *)
-    val revInTys'3 =
-      case revInTys'2 of
-        []     => [unitTy]
-      | _ :: _ => revInTys'2
+    (* Construct curried function argument types with the form:
+     *
+     *   unit
+     *     if L = 0 and not anySet (functionFlags, flags [ISMETHOD])
+     *
+     *   <selfType>
+     *     if L = 0 and anySet (functionFlags, flags [ISMETHOD])
+     *
+     *   <selfType> (->) <inParamType[1]> * ... * <inParamType[L]>
+     *     if L > 0 and anySet (functionFlags, flags [ISMETHOD])
+     *
+     *   <inParamType[1]> * ... * <inParamType[L]>
+     *     if L > 0 and not anySet (functionFlags, flags [ISMETHOD])
+     *
+     * where
+     *
+     *   [<inParamType[1]> * ... * <inParamType[L]>] = rev revInTys'2
+     *
+     *   SOME <selfType> = inParamTypeSelf
+     *)
+    val argTys =
+      case (inParamTypeSelf, rev revInTys'2) of
+        (NONE,        [])         => [unitTy]
+      | (SOME selfTy, [])         => [selfTy]
+      | (SOME selfTy, op :: tys1) => [selfTy, mkProdTy1 tys1]
+      | (NONE,        op :: tys1) => [mkProdTy1 tys1]
 
     (* `revOutTys'2` contains out parameter types associated with
      * the caller-allocates flag for each out parameter. *)
@@ -1458,7 +1480,7 @@ fun makeFunctionSpec
             mkProdTy0 retTys  (* `length retTys > 0` so result not unit type *)
           end
 
-    val functionTy = foldl TyFun retTy revInTys'3
+    val functionTy = foldr TyFun retTy argTys
   in
     (mkValSpec (functionNameId, functionTy), (iRefs'3, errs))
   end
@@ -2049,7 +2071,7 @@ fun makeFunctionStrDecHighLevel
 
     (* For a method function, add an initial argument for the interface
      * that contains this function. *)
-    val (revJs'1, revLs'1) =
+    val (revJs'1, inParamNameSelf) =
       if FunctionInfoFlags.anySet
            (functionFlags, FunctionInfoFlags.IS_METHOD)
       then
@@ -2063,13 +2085,14 @@ fun makeFunctionStrDecHighLevel
               val argVal = mkIdLNameExp selfId
               val inParamAPat = mkIdVarAPat selfId
             in
-              ([(withFun, argVal)], [inParamAPat])
+              ([(withFun, argVal)], SOME inParamAPat)
             end
         | NONE      =>
             infoError "function outside interface has method flag set"
       else
-        ([], [])
+        ([], NONE)
     val revKs'1 = []
+    val revLs'1 = []
     val revMs'1 = []
     val revNs'1 = []
     val iRefs'1 = iRefs
@@ -2110,30 +2133,39 @@ fun makeFunctionStrDecHighLevel
     val (retFromFun, (iRefs'3, structDeps'3)) =
       addRetInfo optConstructorIRef (retInfo, (iRefs'2, structDeps'2))
 
-    (* Derive non-empty lists `revWithFuns1` and `revArgVals1` from `revJs'3`
-     * and non-empty list `inParamNames1` from `revLs'2`.  When
+    (* Construct curried function arguments with the form:
+     *
+     *   ()
+     *     if L = 0 and not anySet (functionFlags, flags [ISMETHOD])
+     *
+     *   <self>
+     *     if L = 0 and anySet (functionFlags, flags [ISMETHOD])
+     *
+     *   <self> (<inParamName[1]>, ..., <inParamName[L]>)
+     *     if L > 0 and anySet (functionFlags, flags [ISMETHOD])
+     *
+     *   (<inParamName[1]>, ..., <inParamName[L]>)
+     *     if L > 0 and not anySet (functionFlags, flags [ISMETHOD])
+     *
+     * where
+     *
+     *   [<inParamName[1]>, ..., <inParamName[L]>] = rev revLs'2
+     *
+     *   SOME <self> = inParamNameSelf
+     *)
+    val functionArgPats1 : apat list1 = toList1 (
+      case (inParamNameSelf, rev revLs'2) of
+        (NONE,      [])                  => [APatConst ConstUnit]
+      | (SOME self, [])                  => [self]
+      | (SOME self, op :: inParamNames1) => [self, mkTupleAPat1 inParamNames1]
+      | (NONE,      op :: inParamNames1) => [mkTupleAPat1 inParamNames1]
+    )
+
+    (* Derive non-empty lists `revWithFuns1` and `revArgVals1`.  If
      *
      *   J = 0 and not anySet (functionFlags, flags [ISMETHOD, THROWS])
      *
-     * `revJs'3` is empty and when L = 0, `revLs'2` is empty.  The cases when
-     * `revJs'3` and `revLs'2` are empty are handled as follows:
-     *
-     * `inParamNames1 : apat list1` is
-     *
-     *   ()
-     *     if revLs'2 = []
-     *)
-    val inParamNames1 : apat list1 = getList1 (rev revLs'2, APatConst ConstUnit)
-
-    (* `revWithFuns1 : exp list1` is
-     *
-     *   I
-     *     if revJs'3 = []
-     *
-     * and `revArgVals1 : exp list1` is
-     *
-     *   ()
-     *     if revJs'3 = []
+     * then `revWithFuns1` is `I` and `revArgVals1` is `()`.
      *)
     val (revWithFuns1 : exp list1, revArgVals1 : exp list1) =
       unzip1 (getList1 (revJs'3, (iExp, ExpConst ConstUnit)))
@@ -2151,20 +2183,22 @@ fun makeFunctionStrDecHighLevel
     val fromFunsExp = foldl mkAAExp retFromFun revFromFuns
 
     (*
-     *   <withFun[1]> &&&> ... &&&> <withFun[J]>
+     *   [<withFunSelf> &&&>]
+     *     <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
      *)
     val withFunsExp = foldl1 mkAAARExp revWithFuns1
 
     (*
-     *   <argVal[1]> & ... & <argVal[J]>
+     *   [self &] <argVal[1]> & ... & <argVal[J]> [& <argValErr>]
      *)
     val argValsExp = foldl1 mkAExp revArgVals1
 
     (*
-     *   (<withFun[1]> &&&> ... &&&> <withFun[J]>
+     *   ([<withFunSelf> &&&>]
+     *      <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
      *     ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>)
      *     <functionName>_
-     *     (<argVal[1]> & ... & <argVal[J]>)
+     *     ([self &] <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
      *)
     val functionCoreExp =
       ExpApp (
@@ -2253,7 +2287,7 @@ fun makeFunctionStrDecHighLevel
           toList1 [
             toList1 [
               (
-                FunHeadPrefix (NameId functionNameId, inParamNames1),
+                FunHeadPrefix (NameId functionNameId, functionArgPats1),
                 NONE,
                 functionExp
               )

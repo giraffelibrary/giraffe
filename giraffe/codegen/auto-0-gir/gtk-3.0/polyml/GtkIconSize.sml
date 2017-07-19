@@ -108,7 +108,7 @@ structure GtkIconSize :>
       in
         if retVal then SOME (width, height) else NONE
       end
-    fun lookupForSettings settings size =
+    fun lookupForSettings (settings, size) =
       let
         val width
          & height
@@ -132,7 +132,12 @@ structure GtkIconSize :>
       in
         if retVal then SOME (width, height) else NONE
       end
-    fun register name width height =
+    fun register
+      (
+        name,
+        width,
+        height
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -145,5 +150,5 @@ structure GtkIconSize :>
            & width
            & height
         )
-    fun registerAlias alias target = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> I) registerAlias_ (alias & target)
+    fun registerAlias (alias, target) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> I) registerAlias_ (alias & target)
   end

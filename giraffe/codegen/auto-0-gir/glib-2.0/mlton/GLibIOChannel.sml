@@ -179,7 +179,7 @@ structure GLibIOChannel :>
     type i_o_status_t = GLibIOStatus.t
     type i_o_channel_error_t = GLibIOChannelError.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newFile filename mode =
+    fun newFile (filename, mode) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -202,7 +202,7 @@ structure GLibIOChannel :>
     fun getEncoding self = (GLibIOChannelRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getEncoding_ self
     fun getFlags self = (GLibIOChannelRecord.FFI.withPtr ---> GLibIOFlags.FFI.fromVal) getFlags_ self
     fun init self = (GLibIOChannelRecord.FFI.withPtr ---> I) init_ self
-    fun seek self offset type' =
+    fun seek self (offset, type') =
       (
         GLibIOChannelRecord.FFI.withPtr
          &&&> GInt64.FFI.withVal
@@ -215,7 +215,7 @@ structure GLibIOChannel :>
            & offset
            & type'
         )
-    fun seekPosition self offset type' =
+    fun seekPosition self (offset, type') =
       (
         GLibIOChannelRecord.FFI.withPtr
          &&&> GInt64.FFI.withVal
@@ -259,7 +259,7 @@ structure GLibIOChannel :>
            & flags
            & []
         )
-    fun setLineTerm self lineTerm length =
+    fun setLineTerm self (lineTerm, length) =
       (
         GLibIOChannelRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr

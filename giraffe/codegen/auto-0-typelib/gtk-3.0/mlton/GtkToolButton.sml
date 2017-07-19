@@ -85,7 +85,7 @@ structure GtkToolButton :>
     fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new iconWidget label = (GtkWidgetClass.FFI.withOptPtr &&&> Utf8.FFI.withOptPtr ---> GtkToolButtonClass.FFI.fromPtr false) new_ (iconWidget & label)
+    fun new (iconWidget, label) = (GtkWidgetClass.FFI.withOptPtr &&&> Utf8.FFI.withOptPtr ---> GtkToolButtonClass.FFI.fromPtr false) new_ (iconWidget & label)
     fun newFromStock stockId = (Utf8.FFI.withPtr ---> GtkToolButtonClass.FFI.fromPtr false) newFromStock_ stockId
     fun getIconName self = (GtkToolButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getIconName_ self
     fun getIconWidget self = (GtkToolButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getIconWidget_ self

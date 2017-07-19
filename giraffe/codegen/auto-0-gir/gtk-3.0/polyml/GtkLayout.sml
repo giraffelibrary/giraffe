@@ -57,7 +57,7 @@ structure GtkLayout :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asScrollable self = (GObjectObjectClass.FFI.withPtr ---> GtkScrollableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new hadjustment vadjustment = (GtkAdjustmentClass.FFI.withOptPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> GtkLayoutClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
+    fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withOptPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> GtkLayoutClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
     fun getBinWindow self = (GtkLayoutClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self
     fun getSize self =
       let
@@ -81,7 +81,13 @@ structure GtkLayout :>
       in
         (width, height)
       end
-    fun move self childWidget x y =
+    fun move
+      self
+      (
+        childWidget,
+        x,
+        y
+      ) =
       (
         GtkLayoutClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -96,7 +102,13 @@ structure GtkLayout :>
            & x
            & y
         )
-    fun put self childWidget x y =
+    fun put
+      self
+      (
+        childWidget,
+        x,
+        y
+      ) =
       (
         GtkLayoutClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -111,7 +123,7 @@ structure GtkLayout :>
            & x
            & y
         )
-    fun setSize self width height =
+    fun setSize self (width, height) =
       (
         GtkLayoutClass.FFI.withPtr
          &&&> GUInt.FFI.withVal

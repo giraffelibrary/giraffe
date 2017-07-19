@@ -46,7 +46,7 @@ structure GtkSourceMarkAttributes :>
     fun getStockId self = (GtkSourceMarkAttributesClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStockId_ self
     fun getTooltipMarkup self mark = (GtkSourceMarkAttributesClass.FFI.withPtr &&&> GtkSourceMarkClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getTooltipMarkup_ (self & mark)
     fun getTooltipText self mark = (GtkSourceMarkAttributesClass.FFI.withPtr &&&> GtkSourceMarkClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getTooltipText_ (self & mark)
-    fun renderIcon self widget size =
+    fun renderIcon self (widget, size) =
       (
         GtkSourceMarkAttributesClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr

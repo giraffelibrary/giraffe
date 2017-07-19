@@ -13,8 +13,7 @@ signature GIO_TLS_CONNECTION =
     val getType : unit -> GObject.Type.t
     val emitAcceptCertificate :
       'a class
-       -> 'b tls_certificate_class
-       -> tls_certificate_flags_t
+       -> 'b tls_certificate_class * tls_certificate_flags_t
        -> bool
     val getCertificate : 'a class -> base tls_certificate_class
     val getDatabase : 'a class -> base tls_database_class
@@ -51,11 +50,7 @@ signature GIO_TLS_CONNECTION =
       'a class
        -> bool
        -> unit
-    val acceptCertificateSig :
-      (base tls_certificate_class
-        -> tls_certificate_flags_t
-        -> bool)
-       -> 'a class Signal.signal
+    val acceptCertificateSig : (base tls_certificate_class * tls_certificate_flags_t -> bool) -> 'a class Signal.signal
     val baseIoStreamProp : ('a class, base i_o_stream_class option, 'b i_o_stream_class option) Property.readwrite
     val certificateProp : ('a class, base tls_certificate_class option, 'b tls_certificate_class option) Property.readwrite
     val databaseProp : ('a class, base tls_database_class option, 'b tls_database_class option) Property.readwrite

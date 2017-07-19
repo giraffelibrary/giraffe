@@ -9,8 +9,7 @@ signature GTK_RECENT_MANAGER =
     val getDefault : unit -> base class
     val addFull :
       'a class
-       -> string
-       -> recent_data_t
+       -> string * recent_data_t
        -> bool
     val addItem :
       'a class
@@ -26,8 +25,7 @@ signature GTK_RECENT_MANAGER =
        -> recent_info_t
     val moveItem :
       'a class
-       -> string
-       -> string option
+       -> string * string option
        -> bool
     val purgeItems : 'a class -> LargeInt.int
     val removeItem :

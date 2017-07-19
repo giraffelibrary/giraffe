@@ -113,7 +113,7 @@ structure PangoContext :>
     fun getGravityHint self = (PangoContextClass.FFI.withPtr ---> PangoGravityHint.FFI.fromVal) getGravityHint_ self
     fun getLanguage self = (PangoContextClass.FFI.withPtr ---> PangoLanguageRecord.FFI.fromPtr true) getLanguage_ self
     fun getMatrix self = (PangoContextClass.FFI.withPtr ---> PangoMatrixRecord.FFI.fromPtr false) getMatrix_ self
-    fun getMetrics self desc language =
+    fun getMetrics self (desc, language) =
       (
         PangoContextClass.FFI.withPtr
          &&&> PangoFontDescriptionRecord.FFI.withOptPtr
@@ -149,7 +149,7 @@ structure PangoContext :>
         families (LargeInt.toInt nFamilies)
       end
     fun loadFont self desc = (PangoContextClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withPtr ---> PangoFontClass.FFI.fromPtr true) loadFont_ (self & desc)
-    fun loadFontset self desc language =
+    fun loadFontset self (desc, language) =
       (
         PangoContextClass.FFI.withPtr
          &&&> PangoFontDescriptionRecord.FFI.withPtr

@@ -27,7 +27,13 @@ structure GioFileMonitor :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun cancel self = (GioFileMonitorClass.FFI.withPtr ---> GBool.FFI.fromVal) cancel_ self
-    fun emitEvent self child otherFile eventType =
+    fun emitEvent
+      self
+      (
+        child,
+        otherFile,
+        eventType
+      ) =
       (
         GioFileMonitorClass.FFI.withPtr
          &&&> GioFileClass.FFI.withPtr
@@ -60,7 +66,12 @@ structure GioFileMonitor :>
               file
                & otherFile
                & eventType =>
-                f file otherFile eventType
+                f
+                  (
+                    file,
+                    otherFile,
+                    eventType
+                  )
           )
     end
     local

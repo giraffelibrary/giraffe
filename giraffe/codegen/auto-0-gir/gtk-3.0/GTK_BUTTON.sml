@@ -27,8 +27,7 @@ signature GTK_BUTTON =
     val getUseUnderline : 'a class -> bool
     val setAlignment :
       'a class
-       -> real
-       -> real
+       -> real * real
        -> unit
     val setFocusOnClick :
       'a class

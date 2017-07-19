@@ -263,131 +263,107 @@ signature G_LIB =
     val USEC_PER_SEC : LargeInt.int
     val VA_COPY_AS_ARRAY : LargeInt.int
     val WIN32_MSG_HANDLE : LargeInt.int
-    val access :
-      string
-       -> LargeInt.int
-       -> LargeInt.int
+    val access : string * LargeInt.int -> LargeInt.int
     val asciiDigitValue : Word8.word -> LargeInt.int
     val asciiDtostr :
       string
-       -> LargeInt.int
-       -> real
+       * LargeInt.int
+       * real
        -> string
     val asciiFormatd :
       string
-       -> LargeInt.int
+       * LargeInt.int
+       * string
+       * real
        -> string
-       -> real
-       -> string
-    val asciiStrcasecmp :
-      string
-       -> string
-       -> LargeInt.int
-    val asciiStrdown :
-      string
-       -> LargeInt.int
-       -> string
+    val asciiStrcasecmp : string * string -> LargeInt.int
+    val asciiStrdown : string * LargeInt.int -> string
     val asciiStrncasecmp :
       string
-       -> string
+       * string
+       * LargeInt.int
        -> LargeInt.int
-       -> LargeInt.int
-    val asciiStrtod :
-      string
-       -> string
-       -> real
+    val asciiStrtod : string * string -> real
     val asciiStrtoll :
       string
-       -> string
-       -> LargeInt.int
+       * string
+       * LargeInt.int
        -> LargeInt.int
     val asciiStrtoull :
       string
-       -> string
+       * string
+       * LargeInt.int
        -> LargeInt.int
-       -> LargeInt.int
-    val asciiStrup :
-      string
-       -> LargeInt.int
-       -> string
+    val asciiStrup : string * LargeInt.int -> string
     val asciiTolower : Word8.word -> Word8.word
     val asciiToupper : Word8.word -> Word8.word
     val asciiXdigitValue : Word8.word -> LargeInt.int
     val assertWarning :
       string
-       -> string
-       -> LargeInt.int
-       -> string
-       -> string
+       * string
+       * LargeInt.int
+       * string
+       * string
        -> unit
     val assertionMessage :
       string
-       -> string
-       -> LargeInt.int
-       -> string
-       -> string
+       * string
+       * LargeInt.int
+       * string
+       * string
        -> unit
     val assertionMessageCmpstr :
       string
-       -> string
-       -> LargeInt.int
-       -> string
-       -> string
-       -> string
-       -> string
-       -> string
+       * string
+       * LargeInt.int
+       * string
+       * string
+       * string
+       * string
+       * string
        -> unit
     val assertionMessageExpr :
       string
-       -> string
-       -> LargeInt.int
-       -> string
-       -> string
+       * string
+       * LargeInt.int
+       * string
+       * string
        -> unit
     val base64Decode : string -> Word8Vector.vector
     val base64Encode : Word8Vector.vector -> string
     val basename : string -> string
-    val bitNthLsf :
-      LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-    val bitNthMsf :
-      LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+    val bitNthLsf : LargeInt.int * LargeInt.int -> LargeInt.int
+    val bitNthMsf : LargeInt.int * LargeInt.int -> LargeInt.int
     val bitStorage : LargeInt.int -> LargeInt.int
     val blowChunks : unit -> unit
     val bookmarkFileErrorQuark : unit -> LargeInt.int
     val buildFilenamev : string list -> string
-    val buildPathv :
-      string
-       -> string list
-       -> string
+    val buildPathv : string * string list -> string
     val chdir : string -> LargeInt.int
     val checkVersion :
       LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> string
     val checksumTypeGetLength : ChecksumType.t -> LargeInt.int
     val childWatchSourceNew : LargeInt.int -> SourceRecord.t
     val clearError : unit -> unit
     val computeChecksumForString :
       ChecksumType.t
-       -> string
-       -> LargeInt.int
+       * string
+       * LargeInt.int
        -> string
     val computeHmacForString :
       ChecksumType.t
-       -> Word8Vector.vector
-       -> string
-       -> LargeInt.int
+       * Word8Vector.vector
+       * string
+       * LargeInt.int
        -> string
     val convert :
       string
-       -> LargeInt.int
-       -> string
-       -> string
+       * LargeInt.int
+       * string
+       * string
        -> string
            * LargeInt.int
            * LargeInt.int
@@ -395,32 +371,23 @@ signature G_LIB =
     val datalistClear : DataRecord.t -> unit
     val datalistGetFlags : DataRecord.t -> LargeInt.int
     val datalistInit : DataRecord.t -> unit
-    val datalistSetFlags :
-      DataRecord.t
-       -> LargeInt.int
-       -> unit
-    val datalistUnsetFlags :
-      DataRecord.t
-       -> LargeInt.int
-       -> unit
-    val dateGetDaysInMonth :
-      DateMonth.t
-       -> LargeInt.int
-       -> Word8.word
+    val datalistSetFlags : DataRecord.t * LargeInt.int -> unit
+    val datalistUnsetFlags : DataRecord.t * LargeInt.int -> unit
+    val dateGetDaysInMonth : DateMonth.t * LargeInt.int -> Word8.word
     val dateGetMondayWeeksInYear : LargeInt.int -> Word8.word
     val dateGetSundayWeeksInYear : LargeInt.int -> Word8.word
     val dateIsLeapYear : LargeInt.int -> bool
     val dateStrftime :
       string
-       -> LargeInt.int
-       -> string
-       -> DateRecord.t
+       * LargeInt.int
+       * string
+       * DateRecord.t
        -> LargeInt.int
     val dateValidDay : Word8.word -> bool
     val dateValidDmy :
       Word8.word
-       -> DateMonth.t
-       -> LargeInt.int
+       * DateMonth.t
+       * LargeInt.int
        -> bool
     val dateValidJulian : LargeInt.int -> bool
     val dateValidMonth : DateMonth.t -> bool
@@ -428,29 +395,26 @@ signature G_LIB =
     val dateValidYear : LargeInt.int -> bool
     val dcgettext :
       string option
+       * string
+       * LargeInt.int
        -> string
-       -> LargeInt.int
-       -> string
-    val dgettext :
-      string
-       -> string
-       -> string
+    val dgettext : string * string -> string
     val dirMakeTmp : string option -> string
     val dngettext :
       string
-       -> string
-       -> string
-       -> LargeInt.int
+       * string
+       * string
+       * LargeInt.int
        -> string
     val dpgettext :
       string
-       -> string
-       -> LargeInt.int
+       * string
+       * LargeInt.int
        -> string
     val dpgettext2 :
       string
-       -> string
-       -> string
+       * string
+       * string
        -> string
     val dummyDecl : unit -> unit
     val fileErrorFromErrno : LargeInt.int -> FileError.t
@@ -458,31 +422,16 @@ signature G_LIB =
     val fileGetContents : string -> Word8Vector.vector option
     val fileOpenTmp : string option -> LargeInt.int * string
     val fileReadLink : string -> string
-    val fileSetContents :
-      string
-       -> Word8Vector.vector
-       -> bool
-    val fileTest :
-      string
-       -> FileTest.t
-       -> bool
+    val fileSetContents : string * Word8Vector.vector -> bool
+    val fileTest : string * FileTest.t -> bool
     val filenameDisplayBasename : string -> string
     val filenameDisplayName : string -> string
-    val filenameFromUri :
-      string
-       -> string
-       -> string
-    val filenameToUri :
-      string
-       -> string option
-       -> string
+    val filenameFromUri : string * string -> string
+    val filenameToUri : string * string option -> string
     val findProgramInPath : string -> string
     val formatSize : LargeInt.int -> string
     val formatSizeForDisplay : LargeInt.int -> string
-    val formatSizeFull :
-      LargeInt.int
-       -> FormatSizeFlags.t
-       -> string
+    val formatSizeFull : LargeInt.int * FormatSizeFlags.t -> string
     val getApplicationName : unit -> string
     val getCharset : string -> bool
     val getCurrentDir : unit -> string
@@ -507,31 +456,16 @@ signature G_LIB =
     val getUserRuntimeDir : unit -> string
     val getUserSpecialDir : UserDirectory.t -> string
     val getenv : string -> string
-    val hookDestroy :
-      HookListRecord.t
-       -> LargeInt.int
-       -> bool
-    val hookDestroyLink :
-      HookListRecord.t
-       -> HookRecord.t
-       -> unit
-    val hookFree :
-      HookListRecord.t
-       -> HookRecord.t
-       -> unit
+    val hookDestroy : HookListRecord.t * LargeInt.int -> bool
+    val hookDestroyLink : HookListRecord.t * HookRecord.t -> unit
+    val hookFree : HookListRecord.t * HookRecord.t -> unit
     val hookInsertBefore :
       HookListRecord.t
-       -> HookRecord.t
-       -> HookRecord.t
+       * HookRecord.t
+       * HookRecord.t
        -> unit
-    val hookPrepend :
-      HookListRecord.t
-       -> HookRecord.t
-       -> unit
-    val hookUnref :
-      HookListRecord.t
-       -> HookRecord.t
-       -> unit
+    val hookPrepend : HookListRecord.t * HookRecord.t -> unit
+    val hookUnref : HookListRecord.t * HookRecord.t -> unit
     val hostnameIsAsciiEncoded : string -> bool
     val hostnameIsIpAddress : string -> bool
     val hostnameIsNonAscii : string -> bool
@@ -542,49 +476,31 @@ signature G_LIB =
     val internString : string option -> string
     val ioChannelErrorFromErrno : LargeInt.int -> IOChannelError.t
     val ioChannelErrorQuark : unit -> LargeInt.int
-    val ioCreateWatch :
-      IOChannelRecord.t
-       -> IOCondition.t
-       -> SourceRecord.t
+    val ioCreateWatch : IOChannelRecord.t * IOCondition.t -> SourceRecord.t
     val keyFileErrorQuark : unit -> LargeInt.int
     val listPopAllocator : unit -> unit
     val listenv : unit -> string list
-    val logRemoveHandler :
-      string
-       -> LargeInt.int
-       -> unit
+    val logRemoveHandler : string * LargeInt.int -> unit
     val logSetAlwaysFatal : LogLevelFlags.t -> LogLevelFlags.t
-    val logSetFatalMask :
-      string
-       -> LogLevelFlags.t
-       -> LogLevelFlags.t
+    val logSetFatalMask : string * LogLevelFlags.t -> LogLevelFlags.t
     val mainContextDefault : unit -> MainContextRecord.t
     val mainContextGetThreadDefault : unit -> MainContextRecord.t
     val mainCurrentSource : unit -> SourceRecord.t
     val mainDepth : unit -> LargeInt.int
     val markupErrorQuark : unit -> LargeInt.int
-    val markupEscapeText :
-      string
-       -> LargeInt.int
-       -> string
+    val markupEscapeText : string * LargeInt.int -> string
     val memChunkInfo : unit -> unit
     val memIsSystemMalloc : unit -> bool
     val memProfile : unit -> unit
     val memSetVtable : MemVTableRecord.t -> unit
-    val mkdirWithParents :
-      string
-       -> LargeInt.int
-       -> LargeInt.int
+    val mkdirWithParents : string * LargeInt.int -> LargeInt.int
     val mkdtemp : string -> string
-    val mkdtempFull :
-      string
-       -> LargeInt.int
-       -> string
+    val mkdtempFull : string * LargeInt.int -> string
     val mkstemp : string -> LargeInt.int
     val mkstempFull :
       string
-       -> LargeInt.int
-       -> LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> LargeInt.int
     val nodePopAllocator : unit -> unit
     val onErrorQuery : string -> unit
@@ -596,96 +512,66 @@ signature G_LIB =
     val pathSkipRoot : string -> string
     val patternMatch :
       PatternSpecRecord.t
-       -> LargeInt.int
-       -> string
-       -> string
+       * LargeInt.int
+       * string
+       * string
        -> bool
-    val patternMatchSimple :
-      string
-       -> string
-       -> bool
-    val patternMatchString :
-      PatternSpecRecord.t
-       -> string
-       -> bool
+    val patternMatchSimple : string * string -> bool
+    val patternMatchString : PatternSpecRecord.t * string -> bool
     val poll :
       PollFDRecord.t
-       -> LargeInt.int
-       -> LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> LargeInt.int
     val quarkFromStaticString : string option -> LargeInt.int
     val quarkFromString : string option -> LargeInt.int
     val quarkToString : LargeInt.int -> string
     val quarkTryString : string option -> LargeInt.int
     val randomDouble : unit -> real
-    val randomDoubleRange :
-      real
-       -> real
-       -> real
+    val randomDoubleRange : real * real -> real
     val randomInt : unit -> LargeInt.int
-    val randomIntRange :
-      LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+    val randomIntRange : LargeInt.int * LargeInt.int -> LargeInt.int
     val randomSetSeed : LargeInt.int -> unit
     val regexCheckReplacement : string -> bool option
     val regexErrorQuark : unit -> LargeInt.int
-    val regexEscapeNul :
-      string
-       -> LargeInt.int
-       -> string
+    val regexEscapeNul : string * LargeInt.int -> string
     val regexMatchSimple :
       string
-       -> string
-       -> RegexCompileFlags.t
-       -> RegexMatchFlags.t
+       * string
+       * RegexCompileFlags.t
+       * RegexMatchFlags.t
        -> bool
     val reloadUserSpecialDirsCache : unit -> unit
     val returnIfFailWarning :
       string
-       -> string
-       -> string
+       * string
+       * string
        -> unit
     val rmdir : string -> LargeInt.int
-    val sequenceMove :
-      SequenceIterRecord.t
-       -> SequenceIterRecord.t
-       -> unit
+    val sequenceMove : SequenceIterRecord.t * SequenceIterRecord.t -> unit
     val sequenceMoveRange :
       SequenceIterRecord.t
-       -> SequenceIterRecord.t
-       -> SequenceIterRecord.t
+       * SequenceIterRecord.t
+       * SequenceIterRecord.t
        -> unit
     val sequenceRemove : SequenceIterRecord.t -> unit
-    val sequenceRemoveRange :
-      SequenceIterRecord.t
-       -> SequenceIterRecord.t
-       -> unit
-    val sequenceSwap :
-      SequenceIterRecord.t
-       -> SequenceIterRecord.t
-       -> unit
+    val sequenceRemoveRange : SequenceIterRecord.t * SequenceIterRecord.t -> unit
+    val sequenceSwap : SequenceIterRecord.t * SequenceIterRecord.t -> unit
     val setApplicationName : string -> unit
     val setPrgname : string -> unit
     val setenv :
       string
-       -> string
-       -> bool
+       * string
+       * bool
        -> bool
     val shellErrorQuark : unit -> LargeInt.int
     val shellParseArgv : string -> string list option
     val shellQuote : string -> string
     val shellUnquote : string -> string
     val sliceGetConfig : SliceConfig.t -> LargeInt.int
-    val sliceSetConfig :
-      SliceConfig.t
-       -> LargeInt.int
-       -> unit
+    val sliceSetConfig : SliceConfig.t * LargeInt.int -> unit
     val sourceRemove : LargeInt.int -> bool
-    val sourceSetNameById :
-      LargeInt.int
-       -> string
-       -> unit
+    val sourceSetNameById : LargeInt.int * string -> unit
     val spacedPrimesClosest : LargeInt.int -> LargeInt.int
     val spawnClosePid : LargeInt.int -> unit
     val spawnCommandLineAsync : string -> bool
@@ -696,104 +582,65 @@ signature G_LIB =
             * LargeInt.int)
             option
     val spawnErrorQuark : unit -> LargeInt.int
-    val stpcpy :
-      string
-       -> string
-       -> string
-    val strHasPrefix :
-      string
-       -> string
-       -> bool
-    val strHasSuffix :
-      string
-       -> string
-       -> bool
+    val stpcpy : string * string -> string
+    val strHasPrefix : string * string -> bool
+    val strHasSuffix : string * string -> bool
     val strcanon :
       string
+       * string
+       * Word8.word
        -> string
-       -> Word8.word
-       -> string
-    val strcasecmp :
-      string
-       -> string
-       -> LargeInt.int
+    val strcasecmp : string * string -> LargeInt.int
     val strchomp : string -> string
     val strchug : string -> string
-    val strcmp0 :
-      string
-       -> string
-       -> LargeInt.int
+    val strcmp0 : string * string -> LargeInt.int
     val strcompress : string -> string
     val strdelimit :
       string
-       -> string
-       -> Word8.word
+       * string
+       * Word8.word
        -> string
     val strdown : string -> string
     val strdup : string -> string
     val strerror : LargeInt.int -> string
-    val strescape :
-      string
-       -> string
-       -> string
+    val strescape : string * string -> string
     val strfreev : string -> unit
     val stringNew : string -> StringRecord.t
-    val stringNewLen :
-      string
-       -> LargeInt.int
-       -> StringRecord.t
+    val stringNewLen : string * LargeInt.int -> StringRecord.t
     val stringSizedNew : LargeInt.int -> StringRecord.t
-    val stripContext :
-      string
-       -> string
-       -> string
-    val strjoinv :
-      string
-       -> string
-       -> string
+    val stripContext : string * string -> string
+    val strjoinv : string * string -> string
     val strlcat :
       string
-       -> string
-       -> LargeInt.int
+       * string
+       * LargeInt.int
        -> LargeInt.int
     val strlcpy :
       string
-       -> string
-       -> LargeInt.int
+       * string
+       * LargeInt.int
        -> LargeInt.int
     val strncasecmp :
       string
-       -> string
+       * string
+       * LargeInt.int
        -> LargeInt.int
-       -> LargeInt.int
-    val strndup :
-      string
-       -> LargeInt.int
-       -> string
-    val strnfill :
-      LargeInt.int
-       -> Word8.word
-       -> string
+    val strndup : string * LargeInt.int -> string
+    val strnfill : LargeInt.int * Word8.word -> string
     val strreverse : string -> string
-    val strrstr :
-      string
-       -> string
-       -> string
+    val strrstr : string * string -> string
     val strrstrLen :
       string
-       -> LargeInt.int
-       -> string
+       * LargeInt.int
+       * string
        -> string
     val strsignal : LargeInt.int -> string
     val strstrLen :
       string
-       -> LargeInt.int
+       * LargeInt.int
+       * string
        -> string
-       -> string
-    val strtod :
-      string
-       -> string
-       -> real
+    val strtod : string * string -> real
     val strup : string -> string
     val strvLength : string -> LargeInt.int
     val testBug : string -> unit
@@ -801,15 +648,9 @@ signature G_LIB =
     val testFail : unit -> unit
     val testLogTypeName : TestLogType.t -> string
     val testRandDouble : unit -> real
-    val testRandDoubleRange :
-      real
-       -> real
-       -> real
+    val testRandDoubleRange : real * real -> real
     val testRandInt : unit -> LargeInt.int
-    val testRandIntRange :
-      LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+    val testRandIntRange : LargeInt.int * LargeInt.int -> LargeInt.int
     val testRun : unit -> LargeInt.int
     val testRunSuite : TestSuiteRecord.t -> LargeInt.int
     val testTimerElapsed : unit -> real
@@ -817,16 +658,13 @@ signature G_LIB =
     val testTimerStart : unit -> unit
     val testTrapAssertions :
       string
-       -> string
-       -> LargeInt.int
-       -> string
-       -> LargeInt.int
-       -> string
+       * string
+       * LargeInt.int
+       * string
+       * LargeInt.int
+       * string
        -> unit
-    val testTrapFork :
-      LargeInt.int
-       -> TestTrapFlags.t
-       -> bool
+    val testTrapFork : LargeInt.int * TestTrapFlags.t -> bool
     val testTrapHasPassed : unit -> bool
     val testTrapReachedTimeout : unit -> bool
     val threadErrorQuark : unit -> LargeInt.int
@@ -839,10 +677,7 @@ signature G_LIB =
     val threadPoolSetMaxIdleTime : LargeInt.int -> unit
     val threadPoolSetMaxUnusedThreads : LargeInt.int -> unit
     val threadPoolStopUnusedThreads : unit -> unit
-    val timeValFromIso8601 :
-      string
-       -> TimeValRecord.t
-       -> bool
+    val timeValFromIso8601 : string * TimeValRecord.t -> bool
     val timeoutSourceNew : LargeInt.int -> SourceRecord.t
     val timeoutSourceNewSeconds : LargeInt.int -> SourceRecord.t
     val trashStackHeight : TrashStackRecord.t -> LargeInt.int
@@ -867,10 +702,7 @@ signature G_LIB =
     val unicharIswideCjk : char -> bool
     val unicharIsxdigit : char -> bool
     val unicharIszerowidth : char -> bool
-    val unicharToUtf8 :
-      char
-       -> string
-       -> LargeInt.int
+    val unicharToUtf8 : char * string -> LargeInt.int
     val unicharTolower : char -> char
     val unicharTotitle : char -> char
     val unicharToupper : char -> char
@@ -883,124 +715,76 @@ signature G_LIB =
     val unsetenv : string -> unit
     val uriEscapeString :
       string
-       -> string
-       -> bool
+       * string
+       * bool
        -> string
     val uriParseScheme : string -> string
     val uriUnescapeSegment :
       string
+       * string
+       * string
        -> string
-       -> string
-       -> string
-    val uriUnescapeString :
-      string
-       -> string
-       -> string
+    val uriUnescapeString : string * string -> string
     val usleep : LargeInt.int -> unit
-    val utf8Casefold :
-      string
-       -> LargeInt.int
-       -> string
-    val utf8Collate :
-      string
-       -> string
-       -> LargeInt.int
-    val utf8CollateKey :
-      string
-       -> LargeInt.int
-       -> string
-    val utf8CollateKeyForFilename :
-      string
-       -> LargeInt.int
-       -> string
-    val utf8FindNextChar :
-      string
-       -> string
-       -> string
-    val utf8FindPrevChar :
-      string
-       -> string
-       -> string
+    val utf8Casefold : string * LargeInt.int -> string
+    val utf8Collate : string * string -> LargeInt.int
+    val utf8CollateKey : string * LargeInt.int -> string
+    val utf8CollateKeyForFilename : string * LargeInt.int -> string
+    val utf8FindNextChar : string * string -> string
+    val utf8FindPrevChar : string * string -> string
     val utf8GetChar : string -> char
-    val utf8GetCharValidated :
-      string
-       -> LargeInt.int
-       -> char
+    val utf8GetCharValidated : string * LargeInt.int -> char
     val utf8Normalize :
       string
-       -> LargeInt.int
-       -> NormalizeMode.t
+       * LargeInt.int
+       * NormalizeMode.t
        -> string
-    val utf8OffsetToPointer :
-      string
-       -> LargeInt.int
-       -> string
-    val utf8PointerToOffset :
-      string
-       -> string
-       -> LargeInt.int
+    val utf8OffsetToPointer : string * LargeInt.int -> string
+    val utf8PointerToOffset : string * string -> LargeInt.int
     val utf8PrevChar : string -> string
     val utf8Strchr :
       string
-       -> LargeInt.int
-       -> char
+       * LargeInt.int
+       * char
        -> string
-    val utf8Strdown :
-      string
-       -> LargeInt.int
-       -> string
-    val utf8Strlen :
-      string
-       -> LargeInt.int
-       -> LargeInt.int
+    val utf8Strdown : string * LargeInt.int -> string
+    val utf8Strlen : string * LargeInt.int -> LargeInt.int
     val utf8Strncpy :
       string
-       -> string
-       -> LargeInt.int
+       * string
+       * LargeInt.int
        -> string
     val utf8Strrchr :
       string
-       -> LargeInt.int
-       -> char
+       * LargeInt.int
+       * char
        -> string
-    val utf8Strreverse :
-      string
-       -> LargeInt.int
-       -> string
-    val utf8Strup :
-      string
-       -> LargeInt.int
-       -> string
+    val utf8Strreverse : string * LargeInt.int -> string
+    val utf8Strup : string * LargeInt.int -> string
     val utf8Substring :
       string
-       -> LargeInt.int
-       -> LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> string
-    val utf8Validate :
-      string
-       -> LargeInt.int
-       -> string option
+    val utf8Validate : string * LargeInt.int -> string option
     val variantGetType : VariantRecord.t -> VariantTypeRecord.t
     val variantIsObjectPath : string -> bool
     val variantIsSignature : string -> bool
     val variantParse :
       VariantTypeRecord.t
-       -> string
-       -> string
-       -> string
+       * string
+       * string
+       * string
        -> VariantRecord.t
     val variantParserGetErrorQuark : unit -> LargeInt.int
     val variantTypeChecked : string -> VariantTypeRecord.t
     val variantTypeStringIsValid : string -> bool
-    val variantTypeStringScan :
-      string
-       -> string option
-       -> string option
+    val variantTypeStringScan : string * string option -> string option
     val warnMessage :
       string
-       -> string
-       -> LargeInt.int
-       -> string
-       -> string
+       * string
+       * LargeInt.int
+       * string
+       * string
        -> unit
   end

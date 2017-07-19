@@ -110,7 +110,13 @@ structure GtkSelectionData :>
       end
     fun getText self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getText_ self
     fun getUris self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getUris_ self
-    fun set self type' format data =
+    fun set
+      self
+      (
+        type',
+        format,
+        data
+      ) =
       let
         val length = LargeInt.fromInt (GUInt8CVectorN.length data)
         val () =
@@ -134,7 +140,7 @@ structure GtkSelectionData :>
         ()
       end
     fun setPixbuf self pixbuf = (GtkSelectionDataRecord.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> GBool.FFI.fromVal) setPixbuf_ (self & pixbuf)
-    fun setText self str len =
+    fun setText self (str, len) =
       (
         GtkSelectionDataRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr

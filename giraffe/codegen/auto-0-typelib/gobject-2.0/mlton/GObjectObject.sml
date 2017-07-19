@@ -76,7 +76,7 @@ structure GObjectObject :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun forceFloating self = (GObjectObjectClass.FFI.withPtr ---> I) forceFloating_ self
     fun freezeNotify self = (GObjectObjectClass.FFI.withPtr ---> I) freezeNotify_ self
-    fun getProperty self propertyName value =
+    fun getProperty self (propertyName, value) =
       (
         GObjectObjectClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -93,7 +93,7 @@ structure GObjectObject :>
     fun notify self propertyName = (GObjectObjectClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) notify_ (self & propertyName)
     fun notifyByPspec self pspec = (GObjectObjectClass.FFI.withPtr &&&> GObjectParamSpecClass.FFI.withPtr ---> I) notifyByPspec_ (self & pspec)
     fun runDispose self = (GObjectObjectClass.FFI.withPtr ---> I) runDispose_ self
-    fun setProperty self propertyName value =
+    fun setProperty self (propertyName, value) =
       (
         GObjectObjectClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

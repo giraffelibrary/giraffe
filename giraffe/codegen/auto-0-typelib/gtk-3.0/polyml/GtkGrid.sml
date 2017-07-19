@@ -63,7 +63,15 @@ structure GtkGrid :>
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkGridClass.FFI.fromPtr false) new_ ()
-    fun attach self child left top width height =
+    fun attach
+      self
+      (
+        child,
+        left,
+        top,
+        width,
+        height
+      ) =
       (
         GtkGridClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -82,7 +90,15 @@ structure GtkGrid :>
            & width
            & height
         )
-    fun attachNextTo self child sibling side width height =
+    fun attachNextTo
+      self
+      (
+        child,
+        sibling,
+        side,
+        width,
+        height
+      ) =
       (
         GtkGridClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -106,7 +122,7 @@ structure GtkGrid :>
     fun getRowHomogeneous self = (GtkGridClass.FFI.withPtr ---> GBool.FFI.fromVal) getRowHomogeneous_ self
     fun getRowSpacing self = (GtkGridClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getRowSpacing_ self
     fun insertColumn self position = (GtkGridClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) insertColumn_ (self & position)
-    fun insertNextTo self sibling side =
+    fun insertNextTo self (sibling, side) =
       (
         GtkGridClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr

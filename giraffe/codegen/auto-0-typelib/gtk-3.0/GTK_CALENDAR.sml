@@ -31,8 +31,7 @@ signature GTK_CALENDAR =
        -> unit
     val selectMonth :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setDetailHeightRows :
       'a class

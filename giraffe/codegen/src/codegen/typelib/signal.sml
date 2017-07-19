@@ -64,11 +64,22 @@ fun makeSignalSpec
         optConstructorIRef
         (retInfo, (tyVarIdx'2, iRefs'2))
 
-    (* Handle case L = 0. *)
-    val revInTys'3 =
-      case revInTys'2 of
-        []     => [unitTy]
-      | _ :: _ => revInTys'2
+    (* Construct function argument type with the form:
+     *
+     *   unit
+     *     if L = 0
+     *
+     *   <inParamType[1]> * ... * <inParamType[L]>
+     *     if L > 0
+     *
+     * where
+     *
+     *   [<inParamType[1]> * ... * <inParamType[L]>] = rev revInTys'2
+     *)
+    val argTys =
+      case rev revInTys'2 of
+        []         => [unitTy]
+      | op :: tys1 => [mkProdTy1 tys1]
 
     (* `revOutTys'2` contains out parameter types associated with
      * the caller-allocates flag for each out parameter. *)
@@ -89,7 +100,7 @@ fun makeSignalSpec
             mkProdTy0 retTys  (* `length retTys > 0` so result not unit type *)
           end
 
-    val functionTy = foldl TyFun retTy revInTys'3
+    val functionTy = foldr TyFun retTy argTys
 
     (*
      * <functionTy> -> <var> class Signal.signal
@@ -372,7 +383,7 @@ fun makeSignalStrDec
      *   (
      *     fn inParamName[1] & ... & inParamName[L] =>
      *       let
-     *         val <retPat> = f inParamExp[1] ... inParamExp[J]
+     *         val <retPat> = f (inParamExp[1], ..., inParamExp[J])
      *       in
      *         outParamName[1] & ... & outParamName[K] & <retVal>
      *       end
@@ -391,12 +402,12 @@ fun makeSignalStrDec
      *
      *   (
      *     fn inParamName[1] & ... & inParamName[L] =>
-     *       f inParamExp[1] ... inParamExp[J]
+     *       f (inParamExp[1], ..., inParamExp[J])
      *   )
-     *     if K = 0 and L > 1
+     *     if K = 0 and L > 0
      *
      *   f
-     *     if K = 0 and L <= 0
+     *     if K = 0 and L = 0
      *)
     val handlerExp =
       case (revOutParamNames, revInParamNames) of
@@ -418,18 +429,19 @@ fun makeSignalStrDec
 
             (* Construct expression
              *
-             *   f inParamExp[1] ... inParamExp[J]
+             *   f (inParamExp[1], ..., inParamExp[J])
              *     if L > 0
              *
              *   f ()
              *     if L = 0
              *)
             fun mkParenAppExp e = case e of ExpApp _ => mkParenExp e | _ => e
-            val inParamExps =
-              case revMap mkParenAppExp revInParamExps of
-                [] => [ExpConst ConstUnit]
-              | es => es
-            val funAppExp = foldl mkRevAppExp fExp inParamExps
+            val argExp =
+              case rev revInParamExps of
+                []        => ExpConst ConstUnit
+              | e :: []   => mkParenAppExp e
+              | op :: es1 => mkTupleExp1 es1
+            val funAppExp = ExpApp (fExp, argExp)
 
             val funExp =
               case revMap mkIdVarPat revOutParamNames of

@@ -30,23 +30,22 @@ signature GTK_WINDOW =
        -> unit
     val addMnemonic :
       'a class
-       -> LargeInt.int
-       -> 'b widget_class
+       -> LargeInt.int * 'b widget_class
        -> unit
     val beginMoveDrag :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val beginResizeDrag :
       'a class
        -> Gdk.WindowEdge.t
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val deiconify : 'a class -> unit
     val fullscreen : 'a class -> unit
@@ -89,13 +88,11 @@ signature GTK_WINDOW =
     val maximize : 'a class -> unit
     val mnemonicActivate :
       'a class
-       -> LargeInt.int
-       -> Gdk.ModifierType.t
+       -> LargeInt.int * Gdk.ModifierType.t
        -> bool
     val move :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val parseGeometry :
       'a class
@@ -116,20 +113,17 @@ signature GTK_WINDOW =
        -> unit
     val removeMnemonic :
       'a class
-       -> LargeInt.int
-       -> 'b widget_class
+       -> LargeInt.int * 'b widget_class
        -> unit
     val reshowWithInitialSize : 'a class -> unit
     val resize :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val resizeGripIsVisible : 'a class -> bool
     val resizeToGeometry :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setAcceptFocus :
       'a class
@@ -149,13 +143,11 @@ signature GTK_WINDOW =
        -> unit
     val setDefaultGeometry :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setDefaultSize :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setDeletable :
       'a class
@@ -180,8 +172,8 @@ signature GTK_WINDOW =
     val setGeometryHints :
       'a class
        -> 'b widget_class option
-       -> Gdk.GeometryRecord.t option
-       -> Gdk.WindowHints.t
+           * Gdk.GeometryRecord.t option
+           * Gdk.WindowHints.t
        -> unit
     val setGravity :
       'a class
@@ -277,8 +269,7 @@ signature GTK_WINDOW =
        -> unit
     val setWmclass :
       'a class
-       -> string
-       -> string
+       -> string * string
        -> unit
     val stick : 'a class -> unit
     val unfullscreen : 'a class -> unit

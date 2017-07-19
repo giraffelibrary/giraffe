@@ -35,12 +35,12 @@ For
 FunctionSpec has the form:
 
 
-  val <functionName> : <selfType> -> <inParamType[1]> -> ... -> <inParamType[L]> -> <retExpType>
+  val <functionName> : <selfType> -> <inParamType[1]> * ... * <inParamType[L]> -> <retExpType>
 
     if K > 0 and anySet (FunctionFlags, IS_METHOD)
 
 
-  val <functionName> : <inParamType[1]> -> ... -> <inParamType[L]> -> <retExpType>
+  val <functionName> : <inParamType[1]> * ... * <inParamType[L]> -> <retExpType>
 
     if K > 0 and L > 0 and not anySet (FunctionFlags, IS_METHOD)
 
@@ -50,12 +50,12 @@ FunctionSpec has the form:
     if K > 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
 
 
-  val <functionName> : <selfType> -> <inParamType[1]> -> ... -> <inParamType[L]> -> <retValType>
+  val <functionName> : <selfType> -> <inParamType[1]> * ... * <inParamType[L]> -> <retValType>
 
     if K = 0 and anySet (FunctionFlags, IS_METHOD)
 
 
-  val <functionName> : <inParamType[1]> -> ... -> <inParamType[L]> -> <retValType>
+  val <functionName> : <inParamType[1]> * ... * <inParamType[L]> -> <retValType>
 
     if K = 0 and L > 0 and not anySet (FunctionFlags, IS_METHOD)
 
@@ -493,7 +493,7 @@ full list of parameters.  Each array is injective (i.e. elements are unique) and
 inverse of an array X is denoted X~.
 
 
-  fun <functionName> self <inParamName[1]> ... <inParamName[L]> =
+  fun <functionName> self (<inParamName[1]>, ..., <inParamName[L]>) =
     let
       val <lenParamName[1]> = <lenParamExp[1]>
       ...
@@ -508,10 +508,28 @@ inverse of an array X is denoted X~.
       <retExp>
     end
 
-    if N + M > 0 and anySet (FunctionFlags, IS_METHOD)
+    if N + M > 0 and L > 0 and anySet (FunctionFlags, IS_METHOD)
 
 
-  fun <functionName> <inParamName[1]> ... <inParamName[L]> =
+  fun <functionName> self =
+    let
+      val <lenParamName[1]> = <lenParamExp[1]>
+      ...
+      val <lenParamName[M]> = <lenParamExp[M]>
+
+      val <outParamName[1]> & ... & <outParamName[N]> & <retVal> =
+        (<withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
+          ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>)
+          <functionName>_
+          (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+    in
+      <retExp>
+    end
+
+    if N + M > 0 and L = 0 and anySet (FunctionFlags, IS_METHOD)
+
+
+  fun <functionName> (<inParamName[1]>, ..., <inParamName[L]>) =
     let
       val <lenParamName[1]> = <lenParamExp[1]>
       ...
@@ -526,41 +544,31 @@ inverse of an array X is denoted X~.
       <retExp>
     end
 
-    if N + M > 0 and L > 0 and not anySet (FunctionFlags, IS_METHOD)
+    if N + M > 0 and not anySet (FunctionFlags, IS_METHOD)
 
 
-  fun <functionName> () =
-    let
-      val <lenParamName[1]> = <lenParamExp[1]>
-      ...
-      val <lenParamName[M]> = <lenParamExp[M]>
-
-      val <outParamName[1]> & ... & <outParamName[N]> & <retVal> =
-        (<withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
-          ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>)
-          <functionName>_
-          (<argVal[1]> & ... & <argVal[J]> [& <argValErr>])
-    in
-      <retExp>
-    end
-
-    if N + M > 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
-
-
-  fun <functionName> self <inParamName[1]> ... <inParamName[L]> =
+  fun <functionName> self (<inParamName[1]>, ..., <inParamName[L]>) =
     (<withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>] ---> <retFromFun>)
       <functionName>_
       (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
 
-    if N + M = 0 and anySet (FunctionFlags, IS_METHOD)
+    if N + M = 0 and L > 0 and anySet (FunctionFlags, IS_METHOD)
 
 
-  fun <functionName> <inParamName[1]> ... <inParamName[L]> =
+  fun <functionName> self =
+    (<withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>] ---> <retFromFun>)
+      <functionName>_
+      (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+
+    if N + M = 0 and L = 0 and anySet (FunctionFlags, IS_METHOD)
+
+
+  fun <functionName> (<inParamName[1]>, ..., <inParamName[L]>) =
     (<withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>] ---> <retFromFun>)
       <functionName>_
       (<argVal[1]> & ... & <argVal[J]> [& <argValErr>])
 
-    if N + M = 0 and L > 0 and not anySet (FunctionFlags, IS_METHOD)
+    if N + M = 0 and not anySet (FunctionFlags, IS_METHOD)
 
 
   fun <functionName> () =

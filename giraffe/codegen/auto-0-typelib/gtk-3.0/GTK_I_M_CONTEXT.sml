@@ -5,8 +5,7 @@ signature GTK_I_M_CONTEXT =
     val getType : unit -> GObject.Type.t
     val deleteSurrounding :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> bool
     val filterKeypress :
       'a class
@@ -31,19 +30,15 @@ signature GTK_I_M_CONTEXT =
     val setSurrounding :
       'a class
        -> string
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val setUsePreedit :
       'a class
        -> bool
        -> unit
     val commitSig : (string -> unit) -> 'a class Signal.signal
-    val deleteSurroundingSig :
-      (LargeInt.int
-        -> LargeInt.int
-        -> bool)
-       -> 'a class Signal.signal
+    val deleteSurroundingSig : (LargeInt.int * LargeInt.int -> bool) -> 'a class Signal.signal
     val preeditChangedSig : (unit -> unit) -> 'a class Signal.signal
     val preeditEndSig : (unit -> unit) -> 'a class Signal.signal
     val preeditStartSig : (unit -> unit) -> 'a class Signal.signal

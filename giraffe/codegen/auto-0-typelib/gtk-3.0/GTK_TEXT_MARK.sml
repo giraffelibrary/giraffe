@@ -4,10 +4,7 @@ signature GTK_TEXT_MARK =
     type 'a text_buffer_class
     type t = base class
     val getType : unit -> GObject.Type.t
-    val new :
-      string option
-       -> bool
-       -> base class
+    val new : string option * bool -> base class
     val getBuffer : 'a class -> base text_buffer_class
     val getDeleted : 'a class -> bool
     val getLeftGravity : 'a class -> bool

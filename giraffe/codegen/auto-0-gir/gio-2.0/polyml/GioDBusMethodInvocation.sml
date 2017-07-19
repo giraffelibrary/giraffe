@@ -60,7 +60,7 @@ structure GioDBusMethodInvocation :>
     fun getObjectPath self = (GioDBusMethodInvocationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
     fun getParameters self = (GioDBusMethodInvocationClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) getParameters_ self
     fun getSender self = (GioDBusMethodInvocationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSender_ self
-    fun returnDbusError self errorName errorMessage =
+    fun returnDbusError self (errorName, errorMessage) =
       (
         GioDBusMethodInvocationClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -73,7 +73,13 @@ structure GioDBusMethodInvocation :>
            & errorName
            & errorMessage
         )
-    fun returnErrorLiteral self domain code message =
+    fun returnErrorLiteral
+      self
+      (
+        domain,
+        code,
+        message
+      ) =
       (
         GioDBusMethodInvocationClass.FFI.withPtr
          &&&> GLibQuark.FFI.withVal
@@ -89,7 +95,7 @@ structure GioDBusMethodInvocation :>
            & message
         )
     fun returnValue self parameters = (GioDBusMethodInvocationClass.FFI.withPtr &&&> GLibVariantRecord.FFI.withOptPtr ---> I) returnValue_ (self & parameters)
-    fun returnValueWithUnixFdList self parameters fdList =
+    fun returnValueWithUnixFdList self (parameters, fdList) =
       (
         GioDBusMethodInvocationClass.FFI.withPtr
          &&&> GLibVariantRecord.FFI.withOptPtr

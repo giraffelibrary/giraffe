@@ -35,8 +35,7 @@ signature GTK_LABEL =
     val getWidthChars : 'a class -> LargeInt.int
     val selectRegion :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setAngle :
       'a class
@@ -123,8 +122,8 @@ signature GTK_LABEL =
     val copyClipboardSig : (unit -> unit) -> 'a class Signal.signal
     val moveCursorSig :
       (movement_step_t
-        -> LargeInt.int
-        -> bool
+        * LargeInt.int
+        * bool
         -> unit)
        -> 'a class Signal.signal
     val populatePopupSig : (base menu_class -> unit) -> 'a class Signal.signal

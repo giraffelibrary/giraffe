@@ -28,8 +28,8 @@ signature GTK_TEXT_ITER =
     val backwardSearch :
       t
        -> string
-       -> text_search_flags_t
-       -> t option
+           * text_search_flags_t
+           * t option
        -> (t * t) option
     val backwardSentenceStart : t -> bool
     val backwardSentenceStarts :
@@ -106,8 +106,8 @@ signature GTK_TEXT_ITER =
     val forwardSearch :
       t
        -> string
-       -> text_search_flags_t
-       -> t option
+           * text_search_flags_t
+           * t option
        -> (t * t) option
     val forwardSentenceEnd : t -> bool
     val forwardSentenceEnds :
@@ -175,8 +175,7 @@ signature GTK_TEXT_ITER =
        -> bool
     val inRange :
       t
-       -> t
-       -> t
+       -> t * t
        -> bool
     val insideSentence : t -> bool
     val insideWord : t -> bool

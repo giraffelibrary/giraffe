@@ -29,7 +29,7 @@ structure GioTlsServerConnection :>
     type tls_authentication_mode_t = GioTlsAuthenticationMode.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new baseIoStream certificate =
+    fun new (baseIoStream, certificate) =
       (
         GioIOStreamClass.FFI.withPtr
          &&&> GioTlsCertificateClass.FFI.withOptPtr

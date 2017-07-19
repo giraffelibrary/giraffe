@@ -132,7 +132,7 @@ structure GtkToolItem :>
     fun setExpand self expand = (GtkToolItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setExpand_ (self & expand)
     fun setHomogeneous self homogeneous = (GtkToolItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
     fun setIsImportant self isImportant = (GtkToolItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setIsImportant_ (self & isImportant)
-    fun setProxyMenuItem self menuItemId menuItem =
+    fun setProxyMenuItem self (menuItemId, menuItem) =
       (
         GtkToolItemClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

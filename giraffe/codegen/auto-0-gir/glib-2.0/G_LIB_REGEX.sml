@@ -7,8 +7,8 @@ signature G_LIB_REGEX =
     val getType : unit -> GObject.Type.t
     val new :
       string
-       -> regex_compile_flags_t
-       -> regex_match_flags_t
+       * regex_compile_flags_t
+       * regex_match_flags_t
        -> t
     val getCaptureCount : t -> LargeInt.int
     val getCompileFlags : t -> regex_compile_flags_t
@@ -21,49 +21,44 @@ signature G_LIB_REGEX =
        -> LargeInt.int
     val match :
       t
-       -> string
-       -> regex_match_flags_t
+       -> string * regex_match_flags_t
        -> match_info_t option
     val matchAll :
       t
-       -> string
-       -> regex_match_flags_t
+       -> string * regex_match_flags_t
        -> match_info_t option
     val matchAllFull :
       t
        -> string list
-       -> LargeInt.int
-       -> regex_match_flags_t
+           * LargeInt.int
+           * regex_match_flags_t
        -> match_info_t option
     val matchFull :
       t
        -> string list
-       -> LargeInt.int
-       -> regex_match_flags_t
+           * LargeInt.int
+           * regex_match_flags_t
        -> match_info_t option
     val replace :
       t
        -> string list
-       -> LargeInt.int
-       -> string
-       -> regex_match_flags_t
+           * LargeInt.int
+           * string
+           * regex_match_flags_t
        -> string
     val replaceLiteral :
       t
        -> string list
-       -> LargeInt.int
-       -> string
-       -> regex_match_flags_t
+           * LargeInt.int
+           * string
+           * regex_match_flags_t
        -> string
     val checkReplacement : string -> bool option
-    val escapeNul :
-      string
-       -> LargeInt.int
-       -> string
+    val escapeNul : string * LargeInt.int -> string
     val matchSimple :
       string
-       -> string
-       -> regex_compile_flags_t
-       -> regex_match_flags_t
+       * string
+       * regex_compile_flags_t
+       * regex_match_flags_t
        -> bool
   end

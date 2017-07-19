@@ -25,8 +25,7 @@ signature GTK_ICON_VIEW =
     val newWithModel : 'a tree_model_class -> base class
     val convertWidgetToBinWindowCoords :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val createDragIcon :
       'a class
@@ -37,14 +36,12 @@ signature GTK_ICON_VIEW =
     val getCursor : 'a class -> (tree_path_t * base cell_renderer_class) option
     val getDestItemAtPos :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> (tree_path_t * icon_view_drop_position_t) option
     val getDragDestItem : 'a class -> tree_path_t * icon_view_drop_position_t
     val getItemAtPos :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> (tree_path_t * base cell_renderer_class) option
     val getItemColumn :
       'a class
@@ -62,8 +59,7 @@ signature GTK_ICON_VIEW =
     val getModel : 'a class -> base tree_model_class
     val getPathAtPos :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> tree_path_t
     val getPixbufColumn : 'a class -> LargeInt.int
     val getReorderable : 'a class -> bool
@@ -75,8 +71,8 @@ signature GTK_ICON_VIEW =
     val getTooltipContext :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> bool
+           * LargeInt.int
+           * bool
        -> (base tree_model_class
             * tree_path_t
             * tree_iter_t)
@@ -95,9 +91,9 @@ signature GTK_ICON_VIEW =
     val scrollToPath :
       'a class
        -> tree_path_t
-       -> bool
-       -> real
-       -> real
+           * bool
+           * real
+           * real
        -> unit
     val selectAll : 'a class -> unit
     val selectPath :
@@ -115,13 +111,12 @@ signature GTK_ICON_VIEW =
     val setCursor :
       'a class
        -> tree_path_t
-       -> 'b cell_renderer_class option
-       -> bool
+           * 'b cell_renderer_class option
+           * bool
        -> unit
     val setDragDestItem :
       'a class
-       -> tree_path_t option
-       -> icon_view_drop_position_t
+       -> tree_path_t option * icon_view_drop_position_t
        -> unit
     val setItemOrientation :
       'a class
@@ -174,8 +169,8 @@ signature GTK_ICON_VIEW =
     val setTooltipCell :
       'a class
        -> 'b tooltip_class
-       -> tree_path_t
-       -> 'c cell_renderer_class option
+           * tree_path_t
+           * 'c cell_renderer_class option
        -> unit
     val setTooltipColumn :
       'a class
@@ -183,8 +178,7 @@ signature GTK_ICON_VIEW =
        -> unit
     val setTooltipItem :
       'a class
-       -> 'b tooltip_class
-       -> tree_path_t
+       -> 'b tooltip_class * tree_path_t
        -> unit
     val unselectAll : 'a class -> unit
     val unselectPath :
@@ -195,11 +189,7 @@ signature GTK_ICON_VIEW =
     val unsetModelDragSource : 'a class -> unit
     val activateCursorItemSig : (unit -> bool) -> 'a class Signal.signal
     val itemActivatedSig : (tree_path_t -> unit) -> 'a class Signal.signal
-    val moveCursorSig :
-      (movement_step_t
-        -> LargeInt.int
-        -> bool)
-       -> 'a class Signal.signal
+    val moveCursorSig : (movement_step_t * LargeInt.int -> bool) -> 'a class Signal.signal
     val selectAllSig : (unit -> unit) -> 'a class Signal.signal
     val selectCursorItemSig : (unit -> unit) -> 'a class Signal.signal
     val selectionChangedSig : (unit -> unit) -> 'a class Signal.signal

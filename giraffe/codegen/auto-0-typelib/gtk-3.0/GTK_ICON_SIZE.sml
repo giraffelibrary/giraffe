@@ -17,17 +17,11 @@ signature GTK_ICON_SIZE =
     val fromName : string -> LargeInt.int
     val getName : LargeInt.int -> string
     val lookup : LargeInt.int -> (LargeInt.int * LargeInt.int) option
-    val lookupForSettings :
-      'a settings_class
-       -> LargeInt.int
-       -> (LargeInt.int * LargeInt.int) option
+    val lookupForSettings : 'a settings_class * LargeInt.int -> (LargeInt.int * LargeInt.int) option
     val register :
       string
+       * LargeInt.int
+       * LargeInt.int
        -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-    val registerAlias :
-      string
-       -> LargeInt.int
-       -> unit
+    val registerAlias : string * LargeInt.int -> unit
   end

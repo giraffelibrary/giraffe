@@ -8,11 +8,7 @@ signature GTK_CELL_RENDERER_TEXT =
       'a class
        -> LargeInt.int
        -> unit
-    val editedSig :
-      (string
-        -> string
-        -> unit)
-       -> 'a class Signal.signal
+    val editedSig : (string * string -> unit) -> 'a class Signal.signal
     val alignSetProp : ('a class, bool, bool) Property.readwrite
     val alignmentProp : ('a class, Pango.Alignment.t, Pango.Alignment.t) Property.readwrite
     val attributesProp : ('a class, Pango.AttrListRecord.t option, Pango.AttrListRecord.t option) Property.readwrite

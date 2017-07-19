@@ -87,8 +87,14 @@ structure GtkScale :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new orientation adjustment = (GtkOrientation.FFI.withVal &&&> GtkAdjustmentClass.FFI.withOptPtr ---> GtkScaleClass.FFI.fromPtr false) new_ (orientation & adjustment)
-    fun newWithRange orientation min max step =
+    fun new (orientation, adjustment) = (GtkOrientation.FFI.withVal &&&> GtkAdjustmentClass.FFI.withOptPtr ---> GtkScaleClass.FFI.fromPtr false) new_ (orientation & adjustment)
+    fun newWithRange
+      (
+        orientation,
+        min,
+        max,
+        step
+      ) =
       (
         GtkOrientation.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -103,7 +109,13 @@ structure GtkScale :>
            & max
            & step
         )
-    fun addMark self value position markup =
+    fun addMark
+      self
+      (
+        value,
+        position,
+        markup
+      ) =
       (
         GtkScaleClass.FFI.withPtr
          &&&> GDouble.FFI.withVal

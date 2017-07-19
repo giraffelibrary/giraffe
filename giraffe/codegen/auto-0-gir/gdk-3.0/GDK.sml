@@ -2484,86 +2484,65 @@ signature GDK =
     val MAX_TIMECOORD_AXES : LargeInt.int
     val PARENT_RELATIVE : LargeInt.int
     val PRIORITY_REDRAW : LargeInt.int
-    val atomIntern :
-      string
-       -> bool
-       -> AtomRecord.t
+    val atomIntern : string * bool -> AtomRecord.t
     val atomInternStaticString : string -> AtomRecord.t
     val beep : unit -> unit
     val cairoCreate : 'a WindowClass.class -> Cairo.ContextRecord.t
     val cairoGetClipRectangle : Cairo.ContextRecord.t -> RectangleRecord.t option
-    val cairoRectangle :
-      Cairo.ContextRecord.t
-       -> RectangleRecord.t
-       -> unit
-    val cairoRegion :
-      Cairo.ContextRecord.t
-       -> Cairo.RegionRecord.t
-       -> unit
+    val cairoRectangle : Cairo.ContextRecord.t * RectangleRecord.t -> unit
+    val cairoRegion : Cairo.ContextRecord.t * Cairo.RegionRecord.t -> unit
     val cairoRegionCreateFromSurface : Cairo.SurfaceRecord.t -> Cairo.RegionRecord.t
-    val cairoSetSourceColor :
-      Cairo.ContextRecord.t
-       -> ColorRecord.t
-       -> unit
+    val cairoSetSourceColor : Cairo.ContextRecord.t * ColorRecord.t -> unit
     val cairoSetSourcePixbuf :
       Cairo.ContextRecord.t
-       -> 'a GdkPixbuf.PixbufClass.class
-       -> real
-       -> real
+       * 'a GdkPixbuf.PixbufClass.class
+       * real
+       * real
        -> unit
-    val cairoSetSourceRgba :
-      Cairo.ContextRecord.t
-       -> RgbaRecord.t
-       -> unit
+    val cairoSetSourceRgba : Cairo.ContextRecord.t * RgbaRecord.t -> unit
     val cairoSetSourceWindow :
       Cairo.ContextRecord.t
-       -> 'a WindowClass.class
-       -> real
-       -> real
+       * 'a WindowClass.class
+       * real
+       * real
        -> unit
     val colorParse : string -> ColorRecord.t option
     val disableMultidevice : unit -> unit
-    val dragAbort :
-      'a DragContextClass.class
-       -> LargeInt.int
-       -> unit
-    val dragDrop :
-      'a DragContextClass.class
-       -> LargeInt.int
-       -> unit
+    val dragAbort : 'a DragContextClass.class * LargeInt.int -> unit
+    val dragDrop : 'a DragContextClass.class * LargeInt.int -> unit
     val dragDropSucceeded : 'a DragContextClass.class -> bool
     val dragFindWindowForScreen :
       'a DragContextClass.class
-       -> 'b WindowClass.class
-       -> 'c ScreenClass.class
-       -> LargeInt.int
-       -> LargeInt.int
+       * 'b WindowClass.class
+       * 'c ScreenClass.class
+       * LargeInt.int
+       * LargeInt.int
        -> base WindowClass.class * DragProtocol.t
     val dragGetSelection : 'a DragContextClass.class -> AtomRecord.t
     val dragMotion :
       'a DragContextClass.class
-       -> 'b WindowClass.class
-       -> DragProtocol.t
-       -> LargeInt.int
-       -> LargeInt.int
-       -> DragAction.t
-       -> DragAction.t
-       -> LargeInt.int
+       * 'b WindowClass.class
+       * DragProtocol.t
+       * LargeInt.int
+       * LargeInt.int
+       * DragAction.t
+       * DragAction.t
+       * LargeInt.int
        -> bool
     val dragStatus :
       'a DragContextClass.class
-       -> DragAction.t
-       -> LargeInt.int
+       * DragAction.t
+       * LargeInt.int
        -> unit
     val dropFinish :
       'a DragContextClass.class
-       -> bool
-       -> LargeInt.int
+       * bool
+       * LargeInt.int
        -> unit
     val dropReply :
       'a DragContextClass.class
-       -> bool
-       -> LargeInt.int
+       * bool
+       * LargeInt.int
        -> unit
     val errorTrapPop : unit -> LargeInt.int
     val errorTrapPopIgnored : unit -> unit
@@ -2592,126 +2571,108 @@ signature GDK =
     val notifyStartupCompleteWithId : string -> unit
     val offscreenWindowGetEmbedder : 'a WindowClass.class -> base WindowClass.class
     val offscreenWindowGetSurface : 'a WindowClass.class -> Cairo.SurfaceRecord.t
-    val offscreenWindowSetEmbedder :
-      'a WindowClass.class
-       -> 'b WindowClass.class
-       -> unit
+    val offscreenWindowSetEmbedder : 'a WindowClass.class * 'b WindowClass.class -> unit
     val pangoContextGet : unit -> base Pango.ContextClass.class
     val pangoContextGetForScreen : 'a ScreenClass.class -> base Pango.ContextClass.class
     val parseArgs : string list -> string list
     val pixbufGetFromSurface :
       Cairo.SurfaceRecord.t
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> base GdkPixbuf.PixbufClass.class
     val pixbufGetFromWindow :
       'a WindowClass.class
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> base GdkPixbuf.PixbufClass.class
     val preParseLibgtkOnly : unit -> unit
-    val propertyDelete :
-      'a WindowClass.class
-       -> AtomRecord.t
-       -> unit
+    val propertyDelete : 'a WindowClass.class * AtomRecord.t -> unit
     val propertyGet :
       'a WindowClass.class
-       -> AtomRecord.t
-       -> AtomRecord.t
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * AtomRecord.t
+       * AtomRecord.t
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> (AtomRecord.t
             * LargeInt.int
             * Word8Vector.vector)
             option
     val queryDepths : unit -> LargeInt.int vector
     val queryVisualTypes : unit -> VisualType.t vector
-    val rectangleIntersect :
-      RectangleRecord.t
-       -> RectangleRecord.t
-       -> RectangleRecord.t option
-    val rectangleUnion :
-      RectangleRecord.t
-       -> RectangleRecord.t
-       -> RectangleRecord.t
+    val rectangleIntersect : RectangleRecord.t * RectangleRecord.t -> RectangleRecord.t option
+    val rectangleUnion : RectangleRecord.t * RectangleRecord.t -> RectangleRecord.t
     val selectionConvert :
       'a WindowClass.class
-       -> AtomRecord.t
-       -> AtomRecord.t
-       -> LargeInt.int
+       * AtomRecord.t
+       * AtomRecord.t
+       * LargeInt.int
        -> unit
     val selectionOwnerGet : AtomRecord.t -> base WindowClass.class
-    val selectionOwnerGetForDisplay :
-      'a DisplayClass.class
-       -> AtomRecord.t
-       -> base WindowClass.class
+    val selectionOwnerGetForDisplay : 'a DisplayClass.class * AtomRecord.t -> base WindowClass.class
     val selectionOwnerSet :
       'a WindowClass.class
-       -> AtomRecord.t
-       -> LargeInt.int
-       -> bool
+       * AtomRecord.t
+       * LargeInt.int
+       * bool
        -> bool
     val selectionOwnerSetForDisplay :
       'a DisplayClass.class
-       -> 'b WindowClass.class
-       -> AtomRecord.t
-       -> LargeInt.int
-       -> bool
+       * 'b WindowClass.class
+       * AtomRecord.t
+       * LargeInt.int
+       * bool
        -> bool
     val selectionSendNotify :
       'a WindowClass.class
-       -> AtomRecord.t
-       -> AtomRecord.t
-       -> AtomRecord.t
-       -> LargeInt.int
+       * AtomRecord.t
+       * AtomRecord.t
+       * AtomRecord.t
+       * LargeInt.int
        -> unit
     val selectionSendNotifyForDisplay :
       'a DisplayClass.class
-       -> 'b WindowClass.class
-       -> AtomRecord.t
-       -> AtomRecord.t
-       -> AtomRecord.t
-       -> LargeInt.int
+       * 'b WindowClass.class
+       * AtomRecord.t
+       * AtomRecord.t
+       * AtomRecord.t
+       * LargeInt.int
        -> unit
     val setDoubleClickTime : LargeInt.int -> unit
     val setProgramClass : string -> unit
     val setShowEvents : bool -> unit
-    val settingGet :
-      string
-       -> GObject.ValueRecord.t
-       -> bool
+    val settingGet : string * GObject.ValueRecord.t -> bool
     val synthesizeWindowState :
       'a WindowClass.class
-       -> WindowState.t
-       -> WindowState.t
+       * WindowState.t
+       * WindowState.t
        -> unit
     val testRenderSync : 'a WindowClass.class -> unit
     val testSimulateButton :
       'a WindowClass.class
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> ModifierType.t
-       -> EventType.t
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * ModifierType.t
+       * EventType.t
        -> bool
     val testSimulateKey :
       'a WindowClass.class
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> ModifierType.t
-       -> EventType.t
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * ModifierType.t
+       * EventType.t
        -> bool
     val textPropertyToUtf8ListForDisplay :
       'a DisplayClass.class
-       -> AtomRecord.t
-       -> LargeInt.int
-       -> Word8Vector.vector
+       * AtomRecord.t
+       * LargeInt.int
+       * Word8Vector.vector
        -> LargeInt.int * string list
     val threadsEnter : unit -> unit
     val threadsInit : unit -> unit

@@ -103,7 +103,7 @@ structure VtePty :>
     type t = base class
     fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newForeignSync fd cancellable =
+    fun newForeignSync (fd, cancellable) =
       (
         GInt.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
@@ -116,7 +116,7 @@ structure VtePty :>
            & cancellable
            & []
         )
-    fun newSync flags cancellable =
+    fun newSync (flags, cancellable) =
       (
         VtePtyFlags.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
@@ -156,7 +156,7 @@ structure VtePty :>
       in
         if retVal then SOME (rows, columns) else NONE
       end
-    fun setSize self rows columns =
+    fun setSize self (rows, columns) =
       (
         VtePtyClass.FFI.withPtr
          &&&> GInt.FFI.withVal

@@ -90,7 +90,7 @@ structure GtkMisc :>
       in
         (xpad, ypad)
       end
-    fun setAlignment self xalign yalign =
+    fun setAlignment self (xalign, yalign) =
       (
         GtkMiscClass.FFI.withPtr
          &&&> GFloat.FFI.withVal
@@ -103,7 +103,7 @@ structure GtkMisc :>
            & xalign
            & yalign
         )
-    fun setPadding self xpad ypad =
+    fun setPadding self (xpad, ypad) =
       (
         GtkMiscClass.FFI.withPtr
          &&&> GInt.FFI.withVal

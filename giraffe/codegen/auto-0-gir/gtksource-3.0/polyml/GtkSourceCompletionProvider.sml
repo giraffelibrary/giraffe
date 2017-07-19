@@ -51,7 +51,7 @@ structure GtkSourceCompletionProvider :>
     type 'a completion_proposal_class = 'a GtkSourceCompletionProposalClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun activateProposal self proposal iter =
+    fun activateProposal self (proposal, iter) =
       (
         GtkSourceCompletionProviderClass.FFI.withPtr
          &&&> GtkSourceCompletionProposalClass.FFI.withPtr
@@ -70,7 +70,13 @@ structure GtkSourceCompletionProvider :>
     fun getInteractiveDelay self = (GtkSourceCompletionProviderClass.FFI.withPtr ---> GInt.FFI.fromVal) getInteractiveDelay_ self
     fun getName self = (GtkSourceCompletionProviderClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getName_ self
     fun getPriority self = (GtkSourceCompletionProviderClass.FFI.withPtr ---> GInt.FFI.fromVal) getPriority_ self
-    fun getStartIter self context proposal iter =
+    fun getStartIter
+      self
+      (
+        context,
+        proposal,
+        iter
+      ) =
       (
         GtkSourceCompletionProviderClass.FFI.withPtr
          &&&> GtkSourceCompletionContextClass.FFI.withPtr
@@ -87,7 +93,7 @@ structure GtkSourceCompletionProvider :>
         )
     fun match self context = (GtkSourceCompletionProviderClass.FFI.withPtr &&&> GtkSourceCompletionContextClass.FFI.withPtr ---> GBool.FFI.fromVal) match_ (self & context)
     fun populate self context = (GtkSourceCompletionProviderClass.FFI.withPtr &&&> GtkSourceCompletionContextClass.FFI.withPtr ---> I) populate_ (self & context)
-    fun updateInfo self proposal info =
+    fun updateInfo self (proposal, info) =
       (
         GtkSourceCompletionProviderClass.FFI.withPtr
          &&&> GtkSourceCompletionProposalClass.FFI.withPtr

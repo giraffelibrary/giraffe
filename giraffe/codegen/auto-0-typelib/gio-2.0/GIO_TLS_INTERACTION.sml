@@ -9,8 +9,7 @@ signature GIO_TLS_INTERACTION =
     val getType : unit -> GObject.Type.t
     val askPassword :
       'a class
-       -> 'b tls_password_class
-       -> 'c cancellable_class option
+       -> 'b tls_password_class * 'c cancellable_class option
        -> tls_interaction_result_t
     val askPasswordFinish :
       'a class
@@ -18,7 +17,6 @@ signature GIO_TLS_INTERACTION =
        -> tls_interaction_result_t
     val invokeAskPassword :
       'a class
-       -> 'b tls_password_class
-       -> 'c cancellable_class option
+       -> 'b tls_password_class * 'c cancellable_class option
        -> tls_interaction_result_t
   end

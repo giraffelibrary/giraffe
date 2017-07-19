@@ -23,7 +23,7 @@ signature GTK_PRINT_CONTEXT =
     val setCairoContext :
       'a class
        -> Cairo.ContextRecord.t
-       -> real
-       -> real
+           * real
+           * real
        -> unit
   end

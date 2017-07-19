@@ -14,10 +14,6 @@ signature GTK_PRINT_OPERATION_PREVIEW =
       'a class
        -> LargeInt.int
        -> unit
-    val gotPageSizeSig :
-      (base print_context_class
-        -> base page_setup_class
-        -> unit)
-       -> 'a class Signal.signal
+    val gotPageSizeSig : (base print_context_class * base page_setup_class -> unit) -> 'a class Signal.signal
     val readySig : (base print_context_class -> unit) -> 'a class Signal.signal
   end

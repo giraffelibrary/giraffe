@@ -86,7 +86,7 @@ structure GioUnixConnection :>
            & cancellable
            & []
         )
-    fun sendFd self fd cancellable =
+    fun sendFd self (fd, cancellable) =
       (
         GioUnixConnectionClass.FFI.withPtr
          &&&> GInt.FFI.withVal

@@ -35,7 +35,7 @@ structure GioUnixSocketAddress :>
     fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new path = (Utf8.FFI.withPtr ---> GioUnixSocketAddressClass.FFI.fromPtr true) new_ path
-    fun newWithType path type' =
+    fun newWithType (path, type') =
       let
         val pathLen = LargeInt.fromInt (GUInt8CVectorN.length path)
         val retVal =

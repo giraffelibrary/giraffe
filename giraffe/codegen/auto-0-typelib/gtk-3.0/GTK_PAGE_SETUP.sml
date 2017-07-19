@@ -8,10 +8,7 @@ signature GTK_PAGE_SETUP =
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
     val newFromFile : string -> base class
-    val newFromKeyFile :
-      GLib.KeyFileRecord.t
-       -> string option
-       -> base class
+    val newFromKeyFile : GLib.KeyFileRecord.t * string option -> base class
     val copy : 'a class -> base class
     val getBottomMargin :
       'a class
@@ -53,18 +50,15 @@ signature GTK_PAGE_SETUP =
        -> bool
     val loadKeyFile :
       'a class
-       -> GLib.KeyFileRecord.t
-       -> string option
+       -> GLib.KeyFileRecord.t * string option
        -> bool
     val setBottomMargin :
       'a class
-       -> real
-       -> unit_t
+       -> real * unit_t
        -> unit
     val setLeftMargin :
       'a class
-       -> real
-       -> unit_t
+       -> real * unit_t
        -> unit
     val setOrientation :
       'a class
@@ -80,13 +74,11 @@ signature GTK_PAGE_SETUP =
        -> unit
     val setRightMargin :
       'a class
-       -> real
-       -> unit_t
+       -> real * unit_t
        -> unit
     val setTopMargin :
       'a class
-       -> real
-       -> unit_t
+       -> real * unit_t
        -> unit
     val toFile :
       'a class
@@ -94,7 +86,6 @@ signature GTK_PAGE_SETUP =
        -> bool
     val toKeyFile :
       'a class
-       -> GLib.KeyFileRecord.t
-       -> string
+       -> GLib.KeyFileRecord.t * string
        -> unit
   end

@@ -15,23 +15,20 @@ signature GTK_STYLE_PROPERTIES =
        -> symbolic_color_t
     val mapColor :
       'a class
-       -> string
-       -> symbolic_color_t
+       -> string * symbolic_color_t
        -> unit
     val merge :
       'a class
-       -> 'b class
-       -> bool
+       -> 'b class * bool
        -> unit
     val setProperty :
       'a class
        -> string
-       -> state_flags_t
-       -> GObject.ValueRecord.t
+           * state_flags_t
+           * GObject.ValueRecord.t
        -> unit
     val unsetProperty :
       'a class
-       -> string
-       -> state_flags_t
+       -> string * state_flags_t
        -> unit
   end

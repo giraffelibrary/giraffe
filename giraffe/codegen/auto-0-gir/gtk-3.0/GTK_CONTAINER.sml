@@ -18,19 +18,18 @@ signature GTK_CONTAINER =
     val childGetProperty :
       'a class
        -> 'b widget_class
-       -> string
-       -> GObject.ValueRecord.t
+           * string
+           * GObject.ValueRecord.t
        -> unit
     val childNotify :
       'a class
-       -> 'b widget_class
-       -> string
+       -> 'b widget_class * string
        -> unit
     val childSetProperty :
       'a class
        -> 'b widget_class
-       -> string
-       -> GObject.ValueRecord.t
+           * string
+           * GObject.ValueRecord.t
        -> unit
     val getBorderWidth : 'a class -> LargeInt.int
     val getFocusChild : 'a class -> base widget_class option
@@ -43,8 +42,7 @@ signature GTK_CONTAINER =
     val getResizeMode : 'a class -> resize_mode_t
     val propagateDraw :
       'a class
-       -> 'b widget_class
-       -> Cairo.ContextRecord.t
+       -> 'b widget_class * Cairo.ContextRecord.t
        -> unit
     val remove :
       'a class

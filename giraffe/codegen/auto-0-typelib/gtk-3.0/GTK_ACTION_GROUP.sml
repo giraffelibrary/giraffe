@@ -14,8 +14,7 @@ signature GTK_ACTION_GROUP =
        -> unit
     val addActionWithAccel :
       'a class
-       -> 'b action_class
-       -> string option
+       -> 'b action_class * string option
        -> unit
     val getAction :
       'a class
@@ -44,16 +43,8 @@ signature GTK_ACTION_GROUP =
       'a class
        -> string
        -> string
-    val connectProxySig :
-      (base action_class
-        -> base widget_class
-        -> unit)
-       -> 'a class Signal.signal
-    val disconnectProxySig :
-      (base action_class
-        -> base widget_class
-        -> unit)
-       -> 'a class Signal.signal
+    val connectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.signal
+    val disconnectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.signal
     val postActivateSig : (base action_class -> unit) -> 'a class Signal.signal
     val preActivateSig : (base action_class -> unit) -> 'a class Signal.signal
     val nameProp : ('a class, string option, string option) Property.readwrite

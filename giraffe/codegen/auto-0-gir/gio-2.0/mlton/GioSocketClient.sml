@@ -223,7 +223,7 @@ structure GioSocketClient :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioSocketClientClass.FFI.fromPtr true) new_ ()
     fun addApplicationProxy self protocol = (GioSocketClientClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addApplicationProxy_ (self & protocol)
-    fun connect self connectable cancellable =
+    fun connect self (connectable, cancellable) =
       (
         GioSocketClientClass.FFI.withPtr
          &&&> GioSocketConnectableClass.FFI.withPtr
@@ -251,7 +251,13 @@ structure GioSocketClient :>
            & result
            & []
         )
-    fun connectToHost self hostAndPort defaultPort cancellable =
+    fun connectToHost
+      self
+      (
+        hostAndPort,
+        defaultPort,
+        cancellable
+      ) =
       (
         GioSocketClientClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -281,7 +287,13 @@ structure GioSocketClient :>
            & result
            & []
         )
-    fun connectToService self domain service cancellable =
+    fun connectToService
+      self
+      (
+        domain,
+        service,
+        cancellable
+      ) =
       (
         GioSocketClientClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -311,7 +323,13 @@ structure GioSocketClient :>
            & result
            & []
         )
-    fun connectToUri self uri defaultPort cancellable =
+    fun connectToUri
+      self
+      (
+        uri,
+        defaultPort,
+        cancellable
+      ) =
       (
         GioSocketClientClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

@@ -95,7 +95,7 @@ structure GtkCssProvider :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCssProviderClass.FFI.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkCssProviderClass.FFI.fromPtr false) getDefault_ ()
-    fun getNamed name variant = (Utf8.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GtkCssProviderClass.FFI.fromPtr false) getNamed_ (name & variant)
+    fun getNamed (name, variant) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GtkCssProviderClass.FFI.fromPtr false) getNamed_ (name & variant)
     fun loadFromData self data =
       let
         val length = LargeInt.fromInt (GUInt8CVectorN.length data)

@@ -36,7 +36,13 @@ structure GioSeekable :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun canSeek self = (GioSeekableClass.FFI.withPtr ---> GBool.FFI.fromVal) canSeek_ self
     fun canTruncate self = (GioSeekableClass.FFI.withPtr ---> GBool.FFI.fromVal) canTruncate_ self
-    fun seek self offset type' cancellable =
+    fun seek
+      self
+      (
+        offset,
+        type',
+        cancellable
+      ) =
       (
         GioSeekableClass.FFI.withPtr
          &&&> GInt64.FFI.withVal
@@ -54,7 +60,7 @@ structure GioSeekable :>
            & []
         )
     fun tell self = (GioSeekableClass.FFI.withPtr ---> GInt64.FFI.fromVal) tell_ self
-    fun truncate self offset cancellable =
+    fun truncate self (offset, cancellable) =
       (
         GioSeekableClass.FFI.withPtr
          &&&> GInt64.FFI.withVal

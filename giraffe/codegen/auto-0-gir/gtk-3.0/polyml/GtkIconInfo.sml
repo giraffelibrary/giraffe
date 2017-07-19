@@ -43,7 +43,7 @@ structure GtkIconInfo :>
     type 'a icon_theme_class = 'a GtkIconThemeClass.class
     type 'a style_context_class = 'a GtkStyleContextClass.class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newForPixbuf iconTheme pixbuf = (GtkIconThemeClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> GtkIconInfoRecord.FFI.fromPtr true) newForPixbuf_ (iconTheme & pixbuf)
+    fun newForPixbuf (iconTheme, pixbuf) = (GtkIconThemeClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> GtkIconInfoRecord.FFI.fromPtr true) newForPixbuf_ (iconTheme & pixbuf)
     fun copy self = (GtkIconInfoRecord.FFI.withPtr ---> GtkIconInfoRecord.FFI.fromPtr true) copy_ self
     fun getBaseSize self = (GtkIconInfoRecord.FFI.withPtr ---> GInt.FFI.fromVal) getBaseSize_ self
     fun getBuiltinPixbuf self = (GtkIconInfoRecord.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getBuiltinPixbuf_ self
@@ -56,7 +56,14 @@ structure GtkIconInfo :>
       end
     fun getFilename self = (GtkIconInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getFilename_ self
     fun loadIcon self = (GtkIconInfoRecord.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.FFI.fromPtr true) loadIcon_ (self & [])
-    fun loadSymbolic self fg successColor warningColor errorColor =
+    fun loadSymbolic
+      self
+      (
+        fg,
+        successColor,
+        warningColor,
+        errorColor
+      ) =
       let
         val wasSymbolic & retVal =
           (

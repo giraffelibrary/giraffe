@@ -25,8 +25,7 @@ signature PANGO_CONTEXT =
     val getMatrix : 'a class -> matrix_t
     val getMetrics :
       'a class
-       -> font_description_t option
-       -> language_t option
+       -> font_description_t option * language_t option
        -> font_metrics_t
     val listFamilies : 'a class -> base font_family_class vector
     val loadFont :
@@ -35,8 +34,7 @@ signature PANGO_CONTEXT =
        -> base font_class
     val loadFontset :
       'a class
-       -> font_description_t
-       -> language_t
+       -> font_description_t * language_t
        -> base fontset_class
     val setBaseDir :
       'a class

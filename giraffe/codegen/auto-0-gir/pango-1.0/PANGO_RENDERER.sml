@@ -17,60 +17,60 @@ signature PANGO_RENDERER =
     val drawErrorUnderline :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val drawGlyph :
       'a class
        -> 'b font_class
-       -> glyph_t
-       -> real
-       -> real
+           * glyph_t
+           * real
+           * real
        -> unit
     val drawGlyphItem :
       'a class
        -> string option
-       -> glyph_item_t
-       -> LargeInt.int
-       -> LargeInt.int
+           * glyph_item_t
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val drawGlyphs :
       'a class
        -> 'b font_class
-       -> glyph_string_t
-       -> LargeInt.int
-       -> LargeInt.int
+           * glyph_string_t
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val drawLayout :
       'a class
        -> 'b layout_class
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val drawLayoutLine :
       'a class
        -> layout_line_t
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val drawRectangle :
       'a class
        -> render_part_t
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val drawTrapezoid :
       'a class
        -> render_part_t
-       -> real
-       -> real
-       -> real
-       -> real
-       -> real
-       -> real
+           * real
+           * real
+           * real
+           * real
+           * real
+           * real
        -> unit
     val getColor :
       'a class
@@ -85,8 +85,7 @@ signature PANGO_RENDERER =
        -> unit
     val setColor :
       'a class
-       -> render_part_t
-       -> color_t option
+       -> render_part_t * color_t option
        -> unit
     val setMatrix :
       'a class

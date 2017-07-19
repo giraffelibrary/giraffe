@@ -13,8 +13,7 @@ signature ATK_RELATION_SET =
        -> unit
     val addRelationByType :
       'a class
-       -> relation_type_t
-       -> 'b object_class
+       -> relation_type_t * 'b object_class
        -> unit
     val contains :
       'a class

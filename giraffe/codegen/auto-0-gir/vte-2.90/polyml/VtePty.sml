@@ -74,7 +74,7 @@ structure VtePty :>
       in
         if retVal then SOME (rows, columns) else NONE
       end
-    fun setSize self rows columns =
+    fun setSize self (rows, columns) =
       (
         VtePtyClass.FFI.withPtr
          &&&> GInt.FFI.withVal

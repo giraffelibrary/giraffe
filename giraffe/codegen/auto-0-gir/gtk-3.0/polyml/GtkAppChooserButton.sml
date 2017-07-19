@@ -42,7 +42,13 @@ structure GtkAppChooserButton :>
     fun asCellLayout self = (GObjectObjectClass.FFI.withPtr ---> GtkCellLayoutClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new contentType = (Utf8.FFI.withPtr ---> GtkAppChooserButtonClass.FFI.fromPtr false) new_ contentType
-    fun appendCustomItem self name label icon =
+    fun appendCustomItem
+      self
+      (
+        name,
+        label,
+        icon
+      ) =
       (
         GtkAppChooserButtonClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

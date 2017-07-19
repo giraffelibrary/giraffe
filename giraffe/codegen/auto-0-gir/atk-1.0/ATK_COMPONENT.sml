@@ -10,8 +10,8 @@ signature ATK_COMPONENT =
     val contains :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> coord_type_t
+           * LargeInt.int
+           * coord_type_t
        -> bool
     val getAlpha : 'a class -> real
     val getLayer : 'a class -> layer_t
@@ -20,8 +20,8 @@ signature ATK_COMPONENT =
     val refAccessibleAtPoint :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> coord_type_t
+           * LargeInt.int
+           * coord_type_t
        -> base object_class
     val removeFocusHandler :
       'a class
@@ -30,21 +30,20 @@ signature ATK_COMPONENT =
     val setExtents :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> coord_type_t
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * coord_type_t
        -> bool
     val setPosition :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> coord_type_t
+           * LargeInt.int
+           * coord_type_t
        -> bool
     val setSize :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> bool
     val boundsChangedSig : (rectangle_t -> unit) -> 'a class Signal.signal
   end

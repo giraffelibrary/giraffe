@@ -4,27 +4,18 @@ signature G_LIB_VARIANT =
     type variant_class_t
     type variant_type_t
     val getType : unit -> GObject.Type.t
-    val newArray :
-      variant_type_t option
-       -> t vector option
-       -> t
+    val newArray : variant_type_t option * t vector option -> t
     val newBoolean : bool -> t
     val newByte : Word8.word -> t
     val newBytestring : Word8Vector.vector -> t
     val newBytestringArray : string list -> t
-    val newDictEntry :
-      t
-       -> t
-       -> t
+    val newDictEntry : t * t -> t
     val newDouble : real -> t
     val newHandle : LargeInt.int -> t
     val newInt16 : LargeInt.int -> t
     val newInt32 : LargeInt.int -> t
     val newInt64 : LargeInt.int -> t
-    val newMaybe :
-      variant_type_t option
-       -> t option
-       -> t
+    val newMaybe : variant_type_t option * t option -> t
     val newObjectPath : string -> t
     val newObjv : string list -> t
     val newSignature : string -> t
@@ -84,8 +75,7 @@ signature G_LIB_VARIANT =
        -> bool
     val lookupValue :
       t
-       -> string
-       -> variant_type_t option
+       -> string * variant_type_t option
        -> t
     val nChildren : t -> LargeInt.int
     val print :
@@ -97,9 +87,9 @@ signature G_LIB_VARIANT =
     val isSignature : string -> bool
     val parse :
       variant_type_t
-       -> string
-       -> string
-       -> string
+       * string
+       * string
+       * string
        -> t
     val parserGetErrorQuark : unit -> LargeInt.int
   end

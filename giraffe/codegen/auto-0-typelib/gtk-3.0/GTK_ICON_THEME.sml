@@ -8,8 +8,8 @@ signature GTK_ICON_THEME =
     val new : unit -> base class
     val addBuiltinIcon :
       string
-       -> LargeInt.int
-       -> 'a GdkPixbuf.PixbufClass.class
+       * LargeInt.int
+       * 'a GdkPixbuf.PixbufClass.class
        -> unit
     val getDefault : unit -> base class
     val getForScreen : 'a Gdk.ScreenClass.class -> base class
@@ -20,8 +20,8 @@ signature GTK_ICON_THEME =
     val chooseIcon :
       'a class
        -> string list
-       -> LargeInt.int
-       -> icon_lookup_flags_t
+           * LargeInt.int
+           * icon_lookup_flags_t
        -> icon_info_t
     val getExampleIconName : 'a class -> string
     val getIconSizes :
@@ -36,20 +36,20 @@ signature GTK_ICON_THEME =
     val loadIcon :
       'a class
        -> string
-       -> LargeInt.int
-       -> icon_lookup_flags_t
+           * LargeInt.int
+           * icon_lookup_flags_t
        -> base GdkPixbuf.PixbufClass.class
     val lookupByGicon :
       'a class
        -> 'b Gio.IconClass.class
-       -> LargeInt.int
-       -> icon_lookup_flags_t
+           * LargeInt.int
+           * icon_lookup_flags_t
        -> icon_info_t
     val lookupIcon :
       'a class
        -> string
-       -> LargeInt.int
-       -> icon_lookup_flags_t
+           * LargeInt.int
+           * icon_lookup_flags_t
        -> icon_info_t
     val prependSearchPath :
       'a class

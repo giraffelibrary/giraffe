@@ -757,7 +757,12 @@ structure GdkWindow :>
     type 'a cursor_class = 'a GdkCursorClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new parent attributes attributesMask =
+    fun new
+      (
+        parent,
+        attributes,
+        attributesMask
+      ) =
       (
         GdkWindowClass.FFI.withOptPtr
          &&&> GdkWindowAttrRecord.FFI.withPtr
@@ -770,7 +775,13 @@ structure GdkWindow :>
            & attributes
            & attributesMask
         )
-    fun constrainSize geometry flags width height =
+    fun constrainSize
+      (
+        geometry,
+        flags,
+        width,
+        height
+      ) =
       let
         val newWidth
          & newHeight
@@ -801,7 +812,14 @@ structure GdkWindow :>
     fun processAllUpdates () = (I ---> I) processAllUpdates_ ()
     fun setDebugUpdates setting = (GBool.FFI.withVal ---> I) setDebugUpdates_ setting
     fun beep self = (GdkWindowClass.FFI.withPtr ---> I) beep_ self
-    fun beginMoveDrag self button rootX rootY timestamp =
+    fun beginMoveDrag
+      self
+      (
+        button,
+        rootX,
+        rootY,
+        timestamp
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -820,7 +838,15 @@ structure GdkWindow :>
         )
     fun beginPaintRect self rectangle = (GdkWindowClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) beginPaintRect_ (self & rectangle)
     fun beginPaintRegion self region = (GdkWindowClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withPtr ---> I) beginPaintRegion_ (self & region)
-    fun beginResizeDrag self edge button rootX rootY timestamp =
+    fun beginResizeDrag
+      self
+      (
+        edge,
+        button,
+        rootX,
+        rootY,
+        timestamp
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GdkWindowEdge.FFI.withVal
@@ -840,7 +866,7 @@ structure GdkWindow :>
            & timestamp
         )
     fun configureFinished self = (GdkWindowClass.FFI.withPtr ---> I) configureFinished_ self
-    fun coordsFromParent self parentX parentY =
+    fun coordsFromParent self (parentX, parentY) =
       let
         val x
          & y
@@ -866,7 +892,7 @@ structure GdkWindow :>
       in
         (x, y)
       end
-    fun coordsToParent self x y =
+    fun coordsToParent self (x, y) =
       let
         val parentX
          & parentY
@@ -892,7 +918,13 @@ structure GdkWindow :>
       in
         (parentX, parentY)
       end
-    fun createSimilarSurface self content width height =
+    fun createSimilarSurface
+      self
+      (
+        content,
+        width,
+        height
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> CairoContent.FFI.withVal
@@ -1064,7 +1096,7 @@ structure GdkWindow :>
       in
         (x, y)
       end
-    fun getRootCoords self x y =
+    fun getRootCoords self (x, y) =
       let
         val rootX
          & rootY
@@ -1126,7 +1158,13 @@ structure GdkWindow :>
     fun hasNative self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) hasNative_ self
     fun hide self = (GdkWindowClass.FFI.withPtr ---> I) hide_ self
     fun iconify self = (GdkWindowClass.FFI.withPtr ---> I) iconify_ self
-    fun inputShapeCombineRegion self shapeRegion offsetX offsetY =
+    fun inputShapeCombineRegion
+      self
+      (
+        shapeRegion,
+        offsetX,
+        offsetY
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> CairoRegionRecord.FFI.withPtr
@@ -1141,7 +1179,7 @@ structure GdkWindow :>
            & offsetX
            & offsetY
         )
-    fun invalidateRect self rect invalidateChildren =
+    fun invalidateRect self (rect, invalidateChildren) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GdkRectangleRecord.FFI.withOptPtr
@@ -1154,7 +1192,7 @@ structure GdkWindow :>
            & rect
            & invalidateChildren
         )
-    fun invalidateRegion self region invalidateChildren =
+    fun invalidateRegion self (region, invalidateChildren) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> CairoRegionRecord.FFI.withPtr
@@ -1176,7 +1214,7 @@ structure GdkWindow :>
     fun maximize self = (GdkWindowClass.FFI.withPtr ---> I) maximize_ self
     fun mergeChildInputShapes self = (GdkWindowClass.FFI.withPtr ---> I) mergeChildInputShapes_ self
     fun mergeChildShapes self = (GdkWindowClass.FFI.withPtr ---> I) mergeChildShapes_ self
-    fun move self x y =
+    fun move self (x, y) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -1189,7 +1227,13 @@ structure GdkWindow :>
            & x
            & y
         )
-    fun moveRegion self region dx dy =
+    fun moveRegion
+      self
+      (
+        region,
+        dx,
+        dy
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> CairoRegionRecord.FFI.withPtr
@@ -1204,7 +1248,14 @@ structure GdkWindow :>
            & dx
            & dy
         )
-    fun moveResize self x y width height =
+    fun moveResize
+      self
+      (
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -1224,7 +1275,13 @@ structure GdkWindow :>
     fun processUpdates self updateChildren = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) processUpdates_ (self & updateChildren)
     fun raise' self = (GdkWindowClass.FFI.withPtr ---> I) raise_ self
     fun registerDnd self = (GdkWindowClass.FFI.withPtr ---> I) registerDnd_ self
-    fun reparent self newParent x y =
+    fun reparent
+      self
+      (
+        newParent,
+        x,
+        y
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GdkWindowClass.FFI.withPtr
@@ -1239,7 +1296,7 @@ structure GdkWindow :>
            & x
            & y
         )
-    fun resize self width height =
+    fun resize self (width, height) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -1252,7 +1309,7 @@ structure GdkWindow :>
            & width
            & height
         )
-    fun restack self sibling above =
+    fun restack self (sibling, above) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GdkWindowClass.FFI.withOptPtr
@@ -1265,7 +1322,7 @@ structure GdkWindow :>
            & sibling
            & above
         )
-    fun scroll self dx dy =
+    fun scroll self (dx, dy) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -1287,7 +1344,7 @@ structure GdkWindow :>
     fun setComposited self composited = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setComposited_ (self & composited)
     fun setCursor self cursor = (GdkWindowClass.FFI.withPtr &&&> GdkCursorClass.FFI.withOptPtr ---> I) setCursor_ (self & cursor)
     fun setDecorations self decorations = (GdkWindowClass.FFI.withPtr &&&> GdkWMDecoration.FFI.withVal ---> I) setDecorations_ (self & decorations)
-    fun setDeviceCursor self device cursor =
+    fun setDeviceCursor self (device, cursor) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GdkDeviceClass.FFI.withPtr
@@ -1300,7 +1357,7 @@ structure GdkWindow :>
            & device
            & cursor
         )
-    fun setDeviceEvents self device eventMask =
+    fun setDeviceEvents self (device, eventMask) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GdkDeviceClass.FFI.withPtr
@@ -1316,7 +1373,7 @@ structure GdkWindow :>
     fun setEvents self eventMask = (GdkWindowClass.FFI.withPtr &&&> GdkEventMask.FFI.withVal ---> I) setEvents_ (self & eventMask)
     fun setFocusOnMap self focusOnMap = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setFocusOnMap_ (self & focusOnMap)
     fun setFunctions self functions = (GdkWindowClass.FFI.withPtr &&&> GdkWMFunction.FFI.withVal ---> I) setFunctions_ (self & functions)
-    fun setGeometryHints self geometry geomMask =
+    fun setGeometryHints self (geometry, geomMask) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GdkGeometryRecord.FFI.withPtr
@@ -1339,7 +1396,7 @@ structure GdkWindow :>
     fun setRole self role = (GdkWindowClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setRole_ (self & role)
     fun setSkipPagerHint self skipsPager = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSkipPagerHint_ (self & skipsPager)
     fun setSkipTaskbarHint self skipsTaskbar = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSkipTaskbarHint_ (self & skipsTaskbar)
-    fun setSourceEvents self source eventMask =
+    fun setSourceEvents self (source, eventMask) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GdkInputSource.FFI.withVal
@@ -1360,7 +1417,13 @@ structure GdkWindow :>
     fun setTypeHint self hint = (GdkWindowClass.FFI.withPtr &&&> GdkWindowTypeHint.FFI.withVal ---> I) setTypeHint_ (self & hint)
     fun setUrgencyHint self urgent = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUrgencyHint_ (self & urgent)
     fun setUserData self userData = (GdkWindowClass.FFI.withPtr &&&> GObjectObjectClass.FFI.withOptPtr ---> I) setUserData_ (self & userData)
-    fun shapeCombineRegion self shapeRegion offsetX offsetY =
+    fun shapeCombineRegion
+      self
+      (
+        shapeRegion,
+        offsetX,
+        offsetY
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> CairoRegionRecord.FFI.withOptPtr
@@ -1387,7 +1450,7 @@ structure GdkWindow :>
     local
       open ClosureMarshal Signal
     in
-      fun createSurfaceSig f = signal "create-surface" (get 0w1 int &&&> get 0w2 int ---> ret CairoSurfaceRecord.t) (fn width & height => f width height)
+      fun createSurfaceSig f = signal "create-surface" (get 0w1 int &&&> get 0w2 int ---> ret CairoSurfaceRecord.t) (fn width & height => f (width, height))
       fun fromEmbedderSig f =
         signal "from-embedder"
           (
@@ -1400,14 +1463,14 @@ structure GdkWindow :>
             fn
               embedderX & embedderY =>
                 let
-                  val (offscreenX, offscreenY) = f embedderX embedderY
+                  val (offscreenX, offscreenY) = f (embedderX, embedderY)
                 in
                   offscreenX
                    & offscreenY
                    & ()
                 end
           )
-      fun pickEmbeddedChildSig f = signal "pick-embedded-child" (get 0w1 double &&&> get 0w2 double ---> ret GdkWindowClass.t) (fn x & y => f x y)
+      fun pickEmbeddedChildSig f = signal "pick-embedded-child" (get 0w1 double &&&> get 0w2 double ---> ret GdkWindowClass.t) (fn x & y => f (x, y))
       fun toEmbedderSig f =
         signal "to-embedder"
           (
@@ -1420,7 +1483,7 @@ structure GdkWindow :>
             fn
               offscreenX & offscreenY =>
                 let
-                  val (embedderX, embedderY) = f offscreenX offscreenY
+                  val (embedderX, embedderY) = f (offscreenX, offscreenY)
                 in
                   embedderX
                    & embedderY

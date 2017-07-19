@@ -53,7 +53,7 @@ structure GtkTreeSortable :>
         if retVal then SOME (sortColumnId, order) else NONE
       end
     fun hasDefaultSortFunc self = (GtkTreeSortableClass.FFI.withPtr ---> GBool.FFI.fromVal) hasDefaultSortFunc_ self
-    fun setSortColumnId self sortColumnId order =
+    fun setSortColumnId self (sortColumnId, order) =
       (
         GtkTreeSortableClass.FFI.withPtr
          &&&> GInt.FFI.withVal

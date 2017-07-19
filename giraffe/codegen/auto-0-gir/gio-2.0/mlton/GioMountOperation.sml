@@ -107,9 +107,15 @@ structure GioMountOperation :>
                & defaultUser
                & defaultDomain
                & flags =>
-                f message defaultUser defaultDomain flags
+                f
+                  (
+                    message,
+                    defaultUser,
+                    defaultDomain,
+                    flags
+                  )
           )
-      fun askQuestionSig f = signal "ask-question" (get 0w1 string &&&> get 0w2 Utf8CVector.t ---> ret_void) (fn message & choices => f message choices)
+      fun askQuestionSig f = signal "ask-question" (get 0w1 string &&&> get 0w2 Utf8CVector.t ---> ret_void) (fn message & choices => f (message, choices))
       fun replySig f = signal "reply" (get 0w1 GioMountOperationResult.t ---> ret_void) f
     end
     local

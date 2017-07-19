@@ -18,9 +18,9 @@ signature GIO_TLS_DATABASE =
     val lookupCertificateForHandle :
       'a class
        -> string
-       -> 'b tls_interaction_class option
-       -> tls_database_lookup_flags_t
-       -> 'c cancellable_class option
+           * 'b tls_interaction_class option
+           * tls_database_lookup_flags_t
+           * 'c cancellable_class option
        -> base tls_certificate_class
     val lookupCertificateForHandleFinish :
       'a class
@@ -29,9 +29,9 @@ signature GIO_TLS_DATABASE =
     val lookupCertificateIssuer :
       'a class
        -> 'b tls_certificate_class
-       -> 'c tls_interaction_class option
-       -> tls_database_lookup_flags_t
-       -> 'd cancellable_class option
+           * 'c tls_interaction_class option
+           * tls_database_lookup_flags_t
+           * 'd cancellable_class option
        -> base tls_certificate_class
     val lookupCertificateIssuerFinish :
       'a class
@@ -40,11 +40,11 @@ signature GIO_TLS_DATABASE =
     val verifyChain :
       'a class
        -> 'b tls_certificate_class
-       -> string
-       -> 'c socket_connectable_class option
-       -> 'd tls_interaction_class option
-       -> tls_database_verify_flags_t
-       -> 'e cancellable_class option
+           * string
+           * 'c socket_connectable_class option
+           * 'd tls_interaction_class option
+           * tls_database_verify_flags_t
+           * 'e cancellable_class option
        -> tls_certificate_flags_t
     val verifyChainFinish :
       'a class

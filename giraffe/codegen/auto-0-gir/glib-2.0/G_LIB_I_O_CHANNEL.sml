@@ -8,10 +8,7 @@ signature G_LIB_I_O_CHANNEL =
     type i_o_status_t
     type i_o_channel_error_t
     val getType : unit -> GObject.Type.t
-    val newFile :
-      string
-       -> string
-       -> t
+    val newFile : string * string -> t
     val unixNew : LargeInt.int -> t
     val close : t -> unit
     val flush : t -> i_o_status_t
@@ -24,13 +21,11 @@ signature G_LIB_I_O_CHANNEL =
     val init : t -> unit
     val seek :
       t
-       -> LargeInt.int
-       -> seek_type_t
+       -> LargeInt.int * seek_type_t
        -> i_o_error_t
     val seekPosition :
       t
-       -> LargeInt.int
-       -> seek_type_t
+       -> LargeInt.int * seek_type_t
        -> i_o_status_t
     val setBufferSize :
       t
@@ -54,8 +49,7 @@ signature G_LIB_I_O_CHANNEL =
        -> i_o_status_t
     val setLineTerm :
       t
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val shutdown :
       t

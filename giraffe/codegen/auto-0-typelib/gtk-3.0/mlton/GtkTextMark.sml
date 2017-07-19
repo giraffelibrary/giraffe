@@ -29,7 +29,7 @@ structure GtkTextMark :>
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new name leftGravity = (Utf8.FFI.withOptPtr &&&> GBool.FFI.withVal ---> GtkTextMarkClass.FFI.fromPtr true) new_ (name & leftGravity)
+    fun new (name, leftGravity) = (Utf8.FFI.withOptPtr &&&> GBool.FFI.withVal ---> GtkTextMarkClass.FFI.fromPtr true) new_ (name & leftGravity)
     fun getBuffer self = (GtkTextMarkClass.FFI.withPtr ---> GtkTextBufferClass.FFI.fromPtr false) getBuffer_ self
     fun getDeleted self = (GtkTextMarkClass.FFI.withPtr ---> GBool.FFI.fromVal) getDeleted_ self
     fun getLeftGravity self = (GtkTextMarkClass.FFI.withPtr ---> GBool.FFI.fromVal) getLeftGravity_ self

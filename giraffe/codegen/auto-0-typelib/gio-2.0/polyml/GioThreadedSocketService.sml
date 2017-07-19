@@ -17,7 +17,7 @@ structure GioThreadedSocketService :>
     local
       open ClosureMarshal Signal
     in
-      fun runSig f = signal "run" (get 0w1 GioSocketConnectionClass.t &&&> get 0w2 GObjectObjectClass.t ---> ret boolean) (fn connection & sourceObject => f connection sourceObject)
+      fun runSig f = signal "run" (get 0w1 GioSocketConnectionClass.t &&&> get 0w2 GObjectObjectClass.t ---> ret boolean) (fn connection & sourceObject => f (connection, sourceObject))
     end
     local
       open Property

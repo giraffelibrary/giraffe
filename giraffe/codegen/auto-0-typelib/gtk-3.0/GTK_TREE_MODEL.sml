@@ -31,8 +31,7 @@ signature GTK_TREE_MODEL =
        -> string
     val getValue :
       'a class
-       -> tree_iter_t
-       -> LargeInt.int
+       -> tree_iter_t * LargeInt.int
        -> GObject.ValueRecord.t
     val iterChildren :
       'a class
@@ -52,8 +51,7 @@ signature GTK_TREE_MODEL =
        -> bool
     val iterNthChild :
       'a class
-       -> tree_iter_t option
-       -> LargeInt.int
+       -> tree_iter_t option * LargeInt.int
        -> tree_iter_t option
     val iterParent :
       'a class
@@ -69,8 +67,7 @@ signature GTK_TREE_MODEL =
        -> unit
     val rowChanged :
       'a class
-       -> tree_path_t
-       -> tree_iter_t
+       -> tree_path_t * tree_iter_t
        -> unit
     val rowDeleted :
       'a class
@@ -78,33 +75,19 @@ signature GTK_TREE_MODEL =
        -> unit
     val rowHasChildToggled :
       'a class
-       -> tree_path_t
-       -> tree_iter_t
+       -> tree_path_t * tree_iter_t
        -> unit
     val rowInserted :
       'a class
-       -> tree_path_t
-       -> tree_iter_t
+       -> tree_path_t * tree_iter_t
        -> unit
     val sortNewWithModel : 'a class -> base class
     val unrefNode :
       'a class
        -> tree_iter_t
        -> unit
-    val rowChangedSig :
-      (tree_path_t
-        -> tree_iter_t
-        -> unit)
-       -> 'a class Signal.signal
+    val rowChangedSig : (tree_path_t * tree_iter_t -> unit) -> 'a class Signal.signal
     val rowDeletedSig : (tree_path_t -> unit) -> 'a class Signal.signal
-    val rowHasChildToggledSig :
-      (tree_path_t
-        -> tree_iter_t
-        -> unit)
-       -> 'a class Signal.signal
-    val rowInsertedSig :
-      (tree_path_t
-        -> tree_iter_t
-        -> unit)
-       -> 'a class Signal.signal
+    val rowHasChildToggledSig : (tree_path_t * tree_iter_t -> unit) -> 'a class Signal.signal
+    val rowInsertedSig : (tree_path_t * tree_iter_t -> unit) -> 'a class Signal.signal
   end

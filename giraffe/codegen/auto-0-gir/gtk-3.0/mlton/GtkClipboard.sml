@@ -103,12 +103,12 @@ structure GtkClipboard :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun get selection = (GdkAtomRecord.FFI.withPtr ---> GtkClipboardClass.FFI.fromPtr false) get_ selection
-    fun getForDisplay display selection = (GdkDisplayClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GtkClipboardClass.FFI.fromPtr false) getForDisplay_ (display & selection)
+    fun getForDisplay (display, selection) = (GdkDisplayClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GtkClipboardClass.FFI.fromPtr false) getForDisplay_ (display & selection)
     fun clear self = (GtkClipboardClass.FFI.withPtr ---> I) clear_ self
     fun getDisplay self = (GtkClipboardClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
     fun getOwner self = (GtkClipboardClass.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getOwner_ self
     fun setImage self pixbuf = (GtkClipboardClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> I) setImage_ (self & pixbuf)
-    fun setText self text len =
+    fun setText self (text, len) =
       (
         GtkClipboardClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

@@ -9,8 +9,7 @@ signature GTK_SOURCE_COMPLETION_PROVIDER =
     val getType : unit -> GObject.Type.t
     val activateProposal :
       'a class
-       -> 'b completion_proposal_class
-       -> Gtk.TextIterRecord.t
+       -> 'b completion_proposal_class * Gtk.TextIterRecord.t
        -> bool
     val getActivation : 'a class -> completion_activation_t
     val getIcon : 'a class -> base GdkPixbuf.PixbufClass.class
@@ -24,8 +23,8 @@ signature GTK_SOURCE_COMPLETION_PROVIDER =
     val getStartIter :
       'a class
        -> 'b completion_context_class
-       -> 'c completion_proposal_class
-       -> Gtk.TextIterRecord.t
+           * 'c completion_proposal_class
+           * Gtk.TextIterRecord.t
        -> bool
     val match :
       'a class
@@ -37,7 +36,6 @@ signature GTK_SOURCE_COMPLETION_PROVIDER =
        -> unit
     val updateInfo :
       'a class
-       -> 'b completion_proposal_class
-       -> 'c completion_info_class
+       -> 'b completion_proposal_class * 'c completion_info_class
        -> unit
   end

@@ -79,8 +79,8 @@ structure GtkSourceCompletion :>
     in
       fun activateProposalSig f = signal "activate-proposal" (void ---> ret_void) f
       fun hideSig f = signal "hide" (void ---> ret_void) f
-      fun moveCursorSig f = signal "move-cursor" (get 0w1 GtkScrollStep.t &&&> get 0w2 int ---> ret_void) (fn step & num => f step num)
-      fun movePageSig f = signal "move-page" (get 0w1 GtkScrollStep.t &&&> get 0w2 int ---> ret_void) (fn step & num => f step num)
+      fun moveCursorSig f = signal "move-cursor" (get 0w1 GtkScrollStep.t &&&> get 0w2 int ---> ret_void) (fn step & num => f (step, num))
+      fun movePageSig f = signal "move-page" (get 0w1 GtkScrollStep.t &&&> get 0w2 int ---> ret_void) (fn step & num => f (step, num))
       fun populateContextSig f = signal "populate-context" (get 0w1 GtkSourceCompletionContextClass.t ---> ret_void) f
       fun showSig f = signal "show" (void ---> ret_void) f
     end

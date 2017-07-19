@@ -102,7 +102,7 @@ structure GdkScreen :>
     fun getFontOptions self = (GdkScreenClass.FFI.withPtr ---> CairoFontOptionsRecord.FFI.fromPtr false) getFontOptions_ self
     fun getHeight self = (GdkScreenClass.FFI.withPtr ---> GInt32.FFI.fromVal) getHeight_ self
     fun getHeightMm self = (GdkScreenClass.FFI.withPtr ---> GInt32.FFI.fromVal) getHeightMm_ self
-    fun getMonitorAtPoint self x y =
+    fun getMonitorAtPoint self (x, y) =
       (
         GdkScreenClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -143,7 +143,7 @@ structure GdkScreen :>
     fun getResolution self = (GdkScreenClass.FFI.withPtr ---> GDouble.FFI.fromVal) getResolution_ self
     fun getRgbaVisual self = (GdkScreenClass.FFI.withPtr ---> GdkVisualClass.FFI.fromPtr false) getRgbaVisual_ self
     fun getRootWindow self = (GdkScreenClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getRootWindow_ self
-    fun getSetting self name value =
+    fun getSetting self (name, value) =
       (
         GdkScreenClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

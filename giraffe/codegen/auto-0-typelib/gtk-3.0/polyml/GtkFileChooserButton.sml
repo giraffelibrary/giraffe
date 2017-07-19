@@ -32,7 +32,7 @@ structure GtkFileChooserButton :>
     fun asFileChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkFileChooserClass.FFI.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new title action = (Utf8.FFI.withPtr &&&> GtkFileChooserAction.FFI.withVal ---> GtkFileChooserButtonClass.FFI.fromPtr false) new_ (title & action)
+    fun new (title, action) = (Utf8.FFI.withPtr &&&> GtkFileChooserAction.FFI.withVal ---> GtkFileChooserButtonClass.FFI.fromPtr false) new_ (title & action)
     fun newWithDialog dialog = (GtkWidgetClass.FFI.withPtr ---> GtkFileChooserButtonClass.FFI.fromPtr false) newWithDialog_ dialog
     fun getFocusOnClick self = (GtkFileChooserButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getFocusOnClick_ self
     fun getTitle self = (GtkFileChooserButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTitle_ self

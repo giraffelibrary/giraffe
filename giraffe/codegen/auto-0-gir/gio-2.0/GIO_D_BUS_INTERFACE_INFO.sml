@@ -9,8 +9,7 @@ signature GIO_D_BUS_INTERFACE_INFO =
     val cacheRelease : t -> unit
     val generateXml :
       t
-       -> LargeInt.int
-       -> GLib.StringRecord.t
+       -> LargeInt.int * GLib.StringRecord.t
        -> unit
     val lookupMethod :
       t

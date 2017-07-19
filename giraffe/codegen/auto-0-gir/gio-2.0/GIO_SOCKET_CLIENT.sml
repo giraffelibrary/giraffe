@@ -19,8 +19,7 @@ signature GIO_SOCKET_CLIENT =
        -> unit
     val connect :
       'a class
-       -> 'b socket_connectable_class
-       -> 'c cancellable_class option
+       -> 'b socket_connectable_class * 'c cancellable_class option
        -> base socket_connection_class
     val connectFinish :
       'a class
@@ -29,8 +28,8 @@ signature GIO_SOCKET_CLIENT =
     val connectToHost :
       'a class
        -> string
-       -> LargeInt.int
-       -> 'b cancellable_class option
+           * LargeInt.int
+           * 'b cancellable_class option
        -> base socket_connection_class
     val connectToHostFinish :
       'a class
@@ -39,8 +38,8 @@ signature GIO_SOCKET_CLIENT =
     val connectToService :
       'a class
        -> string
-       -> string
-       -> 'b cancellable_class option
+           * string
+           * 'b cancellable_class option
        -> base socket_connection_class
     val connectToServiceFinish :
       'a class
@@ -49,8 +48,8 @@ signature GIO_SOCKET_CLIENT =
     val connectToUri :
       'a class
        -> string
-       -> LargeInt.int
-       -> 'b cancellable_class option
+           * LargeInt.int
+           * 'b cancellable_class option
        -> base socket_connection_class
     val connectToUriFinish :
       'a class

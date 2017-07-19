@@ -21,8 +21,8 @@ signature GDK_KEYMAP =
     val translateKeyboardState :
       'a class
        -> LargeInt.int
-       -> modifier_type_t
-       -> LargeInt.int
+           * modifier_type_t
+           * LargeInt.int
        -> (LargeInt.int
             * LargeInt.int
             * LargeInt.int

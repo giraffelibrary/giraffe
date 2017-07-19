@@ -134,7 +134,7 @@ structure GtkTreeStore :>
         iter
       end
     fun clear self = (GtkTreeStoreClass.FFI.withPtr ---> I) clear_ self
-    fun insert self parent position =
+    fun insert self (parent, position) =
       let
         val iter & () =
           (
@@ -154,7 +154,7 @@ structure GtkTreeStore :>
       in
         iter
       end
-    fun insertAfter self parent sibling =
+    fun insertAfter self (parent, sibling) =
       let
         val iter & () =
           (
@@ -174,7 +174,7 @@ structure GtkTreeStore :>
       in
         iter
       end
-    fun insertBefore self parent sibling =
+    fun insertBefore self (parent, sibling) =
       let
         val iter & () =
           (
@@ -194,7 +194,7 @@ structure GtkTreeStore :>
       in
         iter
       end
-    fun isAncestor self iter descendant =
+    fun isAncestor self (iter, descendant) =
       (
         GtkTreeStoreClass.FFI.withPtr
          &&&> GtkTreeIterRecord.FFI.withPtr
@@ -209,7 +209,7 @@ structure GtkTreeStore :>
         )
     fun iterDepth self iter = (GtkTreeStoreClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GInt32.FFI.fromVal) iterDepth_ (self & iter)
     fun iterIsValid self iter = (GtkTreeStoreClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) iterIsValid_ (self & iter)
-    fun moveAfter self iter position =
+    fun moveAfter self (iter, position) =
       (
         GtkTreeStoreClass.FFI.withPtr
          &&&> GtkTreeIterRecord.FFI.withPtr
@@ -222,7 +222,7 @@ structure GtkTreeStore :>
            & iter
            & position
         )
-    fun moveBefore self iter position =
+    fun moveBefore self (iter, position) =
       (
         GtkTreeStoreClass.FFI.withPtr
          &&&> GtkTreeIterRecord.FFI.withPtr
@@ -254,7 +254,13 @@ structure GtkTreeStore :>
         iter
       end
     fun remove self iter = (GtkTreeStoreClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) remove_ (self & iter)
-    fun setValue self iter column value =
+    fun setValue
+      self
+      (
+        iter,
+        column,
+        value
+      ) =
       (
         GtkTreeStoreClass.FFI.withPtr
          &&&> GtkTreeIterRecord.FFI.withPtr
@@ -269,7 +275,7 @@ structure GtkTreeStore :>
            & column
            & value
         )
-    fun swap self a b =
+    fun swap self (a, b) =
       (
         GtkTreeStoreClass.FFI.withPtr
          &&&> GtkTreeIterRecord.FFI.withPtr

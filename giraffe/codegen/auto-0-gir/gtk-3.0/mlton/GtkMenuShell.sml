@@ -61,7 +61,7 @@ structure GtkMenuShell :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun activateItem self menuItem forceDeactivate =
+    fun activateItem self (menuItem, forceDeactivate) =
       (
         GtkMenuShellClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -81,7 +81,7 @@ structure GtkMenuShell :>
     fun getParentShell self = (GtkMenuShellClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getParentShell_ self
     fun getSelectedItem self = (GtkMenuShellClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getSelectedItem_ self
     fun getTakeFocus self = (GtkMenuShellClass.FFI.withPtr ---> GBool.FFI.fromVal) getTakeFocus_ self
-    fun insert self child position =
+    fun insert self (child, position) =
       (
         GtkMenuShellClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -105,7 +105,7 @@ structure GtkMenuShell :>
       fun cancelSig f = signal "cancel" (void ---> ret_void) f
       fun cycleFocusSig f = signal "cycle-focus" (get 0w1 GtkDirectionType.t ---> ret_void) f
       fun deactivateSig f = signal "deactivate" (void ---> ret_void) f
-      fun insertSig f = signal "insert" (get 0w1 GtkWidgetClass.t &&&> get 0w2 int ---> ret_void) (fn child & position => f child position)
+      fun insertSig f = signal "insert" (get 0w1 GtkWidgetClass.t &&&> get 0w2 int ---> ret_void) (fn child & position => f (child, position))
       fun moveCurrentSig f = signal "move-current" (get 0w1 GtkMenuDirectionType.t ---> ret_void) f
       fun moveSelectedSig f = signal "move-selected" (get 0w1 int ---> ret boolean) f
       fun selectionDoneSig f = signal "selection-done" (void ---> ret_void) f

@@ -17,7 +17,7 @@ structure GtkCellRendererText :>
     local
       open ClosureMarshal Signal
     in
-      fun editedSig f = signal "edited" (get 0w1 string &&&> get 0w2 string ---> ret_void) (fn path & newText => f path newText)
+      fun editedSig f = signal "edited" (get 0w1 string &&&> get 0w2 string ---> ret_void) (fn path & newText => f (path, newText))
     end
     local
       open Property

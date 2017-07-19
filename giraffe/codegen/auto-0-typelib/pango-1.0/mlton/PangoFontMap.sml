@@ -104,7 +104,7 @@ structure PangoFontMap :>
       in
         families (LargeInt.toInt nFamilies)
       end
-    fun loadFont self context desc =
+    fun loadFont self (context, desc) =
       (
         PangoFontMapClass.FFI.withPtr
          &&&> PangoContextClass.FFI.withPtr
@@ -117,7 +117,13 @@ structure PangoFontMap :>
            & context
            & desc
         )
-    fun loadFontset self context desc language =
+    fun loadFontset
+      self
+      (
+        context,
+        desc,
+        language
+      ) =
       (
         PangoFontMapClass.FFI.withPtr
          &&&> PangoContextClass.FFI.withPtr

@@ -108,7 +108,13 @@ structure GtkPrintContext :>
     fun getPageSetup self = (GtkPrintContextClass.FFI.withPtr ---> GtkPageSetupClass.FFI.fromPtr false) getPageSetup_ self
     fun getPangoFontmap self = (GtkPrintContextClass.FFI.withPtr ---> PangoFontMapClass.FFI.fromPtr false) getPangoFontmap_ self
     fun getWidth self = (GtkPrintContextClass.FFI.withPtr ---> GDouble.FFI.fromVal) getWidth_ self
-    fun setCairoContext self cr dpiX dpiY =
+    fun setCairoContext
+      self
+      (
+        cr,
+        dpiX,
+        dpiY
+      ) =
       (
         GtkPrintContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr

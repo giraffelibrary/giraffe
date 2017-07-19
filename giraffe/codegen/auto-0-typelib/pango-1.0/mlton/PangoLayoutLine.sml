@@ -156,7 +156,7 @@ structure PangoLayoutLine :>
       in
         (inkRect, logicalRect)
       end
-    fun getXRanges self startIndex endIndex =
+    fun getXRanges self (startIndex, endIndex) =
       let
         val ranges
          & nRanges
@@ -182,7 +182,7 @@ structure PangoLayoutLine :>
       in
         ranges (LargeInt.toInt nRanges)
       end
-    fun indexToX self index trailing =
+    fun indexToX self (index, trailing) =
       let
         val xPos & () =
           (

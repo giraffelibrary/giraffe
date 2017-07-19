@@ -31,8 +31,7 @@ signature GTK_TREE_SELECTION =
        -> unit
     val selectRange :
       'a class
-       -> tree_path_t
-       -> tree_path_t
+       -> tree_path_t * tree_path_t
        -> unit
     val setMode :
       'a class
@@ -49,8 +48,7 @@ signature GTK_TREE_SELECTION =
        -> unit
     val unselectRange :
       'a class
-       -> tree_path_t
-       -> tree_path_t
+       -> tree_path_t * tree_path_t
        -> unit
     val changedSig : (unit -> unit) -> 'a class Signal.signal
     val modeProp : ('a class, selection_mode_t, selection_mode_t) Property.readwrite

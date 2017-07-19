@@ -17,7 +17,7 @@ structure GLibError :>
     end
     type t = GLibErrorRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun matches self domain code =
+    fun matches self (domain, code) =
       (
         GLibErrorRecord.FFI.withPtr
          &&&> GUInt32.FFI.withVal

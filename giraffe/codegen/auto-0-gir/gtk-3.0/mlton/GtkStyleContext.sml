@@ -369,7 +369,12 @@ structure GtkStyleContext :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkStyleContextClass.FFI.fromPtr true) new_ ()
-    fun addProviderForScreen screen provider priority =
+    fun addProviderForScreen
+      (
+        screen,
+        provider,
+        priority
+      ) =
       (
         GdkScreenClass.FFI.withPtr
          &&&> GtkStyleProviderClass.FFI.withPtr
@@ -382,10 +387,10 @@ structure GtkStyleContext :>
            & provider
            & priority
         )
-    fun removeProviderForScreen screen provider = (GdkScreenClass.FFI.withPtr &&&> GtkStyleProviderClass.FFI.withPtr ---> I) removeProviderForScreen_ (screen & provider)
+    fun removeProviderForScreen (screen, provider) = (GdkScreenClass.FFI.withPtr &&&> GtkStyleProviderClass.FFI.withPtr ---> I) removeProviderForScreen_ (screen & provider)
     fun resetWidgets screen = (GdkScreenClass.FFI.withPtr ---> I) resetWidgets_ screen
     fun addClass self className = (GtkStyleContextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addClass_ (self & className)
-    fun addProvider self provider priority =
+    fun addProvider self (provider, priority) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> GtkStyleProviderClass.FFI.withPtr
@@ -398,7 +403,7 @@ structure GtkStyleContext :>
            & provider
            & priority
         )
-    fun addRegion self regionName flags =
+    fun addRegion self (regionName, flags) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -525,7 +530,7 @@ structure GtkStyleContext :>
     fun getPath self = (GtkStyleContextClass.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self
     fun getScreen self = (GtkStyleContextClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
     fun getState self = (GtkStyleContextClass.FFI.withPtr ---> GtkStateFlags.FFI.fromVal) getState_ self
-    fun getStyleProperty self propertyName value =
+    fun getStyleProperty self (propertyName, value) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -583,7 +588,13 @@ structure GtkStyleContext :>
     fun removeRegion self regionName = (GtkStyleContextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) removeRegion_ (self & regionName)
     fun restore self = (GtkStyleContextClass.FFI.withPtr ---> I) restore_ self
     fun save self = (GtkStyleContextClass.FFI.withPtr ---> I) save_ self
-    fun scrollAnimations self window dx dy =
+    fun scrollAnimations
+      self
+      (
+        window,
+        dx,
+        dy
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> GdkWindowClass.FFI.withPtr

@@ -5,10 +5,7 @@ signature GTK_SOURCE_COMPLETION_WORDS =
     type t = base class
     val asCompletionProvider : 'a class -> base completion_provider_class
     val getType : unit -> GObject.Type.t
-    val new :
-      string option
-       -> 'a GdkPixbuf.PixbufClass.class option
-       -> base class
+    val new : string option * 'a GdkPixbuf.PixbufClass.class option -> base class
     val register :
       'a class
        -> 'b Gtk.TextBufferClass.class

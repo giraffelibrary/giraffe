@@ -10,8 +10,7 @@ signature G_LIB_MAIN_CONTEXT =
     val acquire : t -> bool
     val addPoll :
       t
-       -> poll_f_d_t
-       -> LargeInt.int
+       -> poll_f_d_t * LargeInt.int
        -> unit
     val dispatch : t -> unit
     val findSourceById :
@@ -33,8 +32,7 @@ signature G_LIB_MAIN_CONTEXT =
        -> unit
     val wait :
       t
-       -> cond_t
-       -> mutex_t
+       -> cond_t * mutex_t
        -> bool
     val wakeup : t -> unit
     val default : unit -> t

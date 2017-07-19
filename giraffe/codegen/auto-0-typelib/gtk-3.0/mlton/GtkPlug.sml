@@ -34,9 +34,9 @@ structure GtkPlug :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new socketId = (GUInt64.FFI.withVal ---> GtkPlugClass.FFI.fromPtr false) new_ socketId
-    fun newForDisplay display socketId = (GdkDisplayClass.FFI.withPtr &&&> GUInt64.FFI.withVal ---> GtkPlugClass.FFI.fromPtr false) newForDisplay_ (display & socketId)
+    fun newForDisplay (display, socketId) = (GdkDisplayClass.FFI.withPtr &&&> GUInt64.FFI.withVal ---> GtkPlugClass.FFI.fromPtr false) newForDisplay_ (display & socketId)
     fun construct self socketId = (GtkPlugClass.FFI.withPtr &&&> GUInt64.FFI.withVal ---> I) construct_ (self & socketId)
-    fun constructForDisplay self display socketId =
+    fun constructForDisplay self (display, socketId) =
       (
         GtkPlugClass.FFI.withPtr
          &&&> GdkDisplayClass.FFI.withPtr

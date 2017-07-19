@@ -7,18 +7,14 @@ signature GTK_PLUG =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : LargeInt.int -> base class
-    val newForDisplay :
-      'a Gdk.DisplayClass.class
-       -> LargeInt.int
-       -> base class
+    val newForDisplay : 'a Gdk.DisplayClass.class * LargeInt.int -> base class
     val construct :
       'a class
        -> LargeInt.int
        -> unit
     val constructForDisplay :
       'a class
-       -> 'b Gdk.DisplayClass.class
-       -> LargeInt.int
+       -> 'b Gdk.DisplayClass.class * LargeInt.int
        -> unit
     val getEmbedded : 'a class -> bool
     val getId : 'a class -> LargeInt.int

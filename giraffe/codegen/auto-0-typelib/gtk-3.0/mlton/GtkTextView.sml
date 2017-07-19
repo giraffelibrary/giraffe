@@ -404,7 +404,7 @@ structure GtkTextView :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkTextViewClass.FFI.fromPtr false) new_ ()
     fun newWithBuffer buffer = (GtkTextBufferClass.FFI.withPtr ---> GtkTextViewClass.FFI.fromPtr false) newWithBuffer_ buffer
-    fun addChildAtAnchor self child anchor =
+    fun addChildAtAnchor self (child, anchor) =
       (
         GtkTextViewClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -417,7 +417,14 @@ structure GtkTextView :>
            & child
            & anchor
         )
-    fun addChildInWindow self child whichWindow xpos ypos =
+    fun addChildInWindow
+      self
+      (
+        child,
+        whichWindow,
+        xpos,
+        ypos
+      ) =
       (
         GtkTextViewClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -436,7 +443,13 @@ structure GtkTextView :>
         )
     fun backwardDisplayLine self iter = (GtkTextViewClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) backwardDisplayLine_ (self & iter)
     fun backwardDisplayLineStart self iter = (GtkTextViewClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) backwardDisplayLineStart_ (self & iter)
-    fun bufferToWindowCoords self win bufferX bufferY =
+    fun bufferToWindowCoords
+      self
+      (
+        win,
+        bufferX,
+        bufferY
+      ) =
       let
         val windowX
          & windowY
@@ -497,7 +510,7 @@ structure GtkTextView :>
     fun getDefaultAttributes self = (GtkTextViewClass.FFI.withPtr ---> GtkTextAttributesRecord.FFI.fromPtr true) getDefaultAttributes_ self
     fun getEditable self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getEditable_ self
     fun getIndent self = (GtkTextViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getIndent_ self
-    fun getIterAtLocation self x y =
+    fun getIterAtLocation self (x, y) =
       let
         val iter & () =
           (
@@ -517,7 +530,7 @@ structure GtkTextView :>
       in
         iter
       end
-    fun getIterAtPosition self x y =
+    fun getIterAtPosition self (x, y) =
       let
         val iter
          & trailing
@@ -627,7 +640,13 @@ structure GtkTextView :>
     fun getWindowType self window = (GtkTextViewClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> GtkTextWindowType.FFI.fromVal) getWindowType_ (self & window)
     fun getWrapMode self = (GtkTextViewClass.FFI.withPtr ---> GtkWrapMode.FFI.fromVal) getWrapMode_ self
     fun imContextFilterKeypress self event = (GtkTextViewClass.FFI.withPtr &&&> GdkEventKeyRecord.FFI.withPtr ---> GBool.FFI.fromVal) imContextFilterKeypress_ (self & event)
-    fun moveChild self child xpos ypos =
+    fun moveChild
+      self
+      (
+        child,
+        xpos,
+        ypos
+      ) =
       (
         GtkTextViewClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -643,7 +662,7 @@ structure GtkTextView :>
            & ypos
         )
     fun moveMarkOnscreen self mark = (GtkTextViewClass.FFI.withPtr &&&> GtkTextMarkClass.FFI.withPtr ---> GBool.FFI.fromVal) moveMarkOnscreen_ (self & mark)
-    fun moveVisually self iter count =
+    fun moveVisually self (iter, count) =
       (
         GtkTextViewClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
@@ -659,7 +678,15 @@ structure GtkTextView :>
     fun placeCursorOnscreen self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) placeCursorOnscreen_ self
     fun resetImContext self = (GtkTextViewClass.FFI.withPtr ---> I) resetImContext_ self
     fun scrollMarkOnscreen self mark = (GtkTextViewClass.FFI.withPtr &&&> GtkTextMarkClass.FFI.withPtr ---> I) scrollMarkOnscreen_ (self & mark)
-    fun scrollToIter self iter withinMargin useAlign xalign yalign =
+    fun scrollToIter
+      self
+      (
+        iter,
+        withinMargin,
+        useAlign,
+        xalign,
+        yalign
+      ) =
       (
         GtkTextViewClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
@@ -678,7 +705,15 @@ structure GtkTextView :>
            & xalign
            & yalign
         )
-    fun scrollToMark self mark withinMargin useAlign xalign yalign =
+    fun scrollToMark
+      self
+      (
+        mark,
+        withinMargin,
+        useAlign,
+        xalign,
+        yalign
+      ) =
       (
         GtkTextViewClass.FFI.withPtr
          &&&> GtkTextMarkClass.FFI.withPtr
@@ -698,7 +733,7 @@ structure GtkTextView :>
            & yalign
         )
     fun setAcceptsTab self acceptsTab = (GtkTextViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAcceptsTab_ (self & acceptsTab)
-    fun setBorderWindowSize self type' size =
+    fun setBorderWindowSize self (type', size) =
       (
         GtkTextViewClass.FFI.withPtr
          &&&> GtkTextWindowType.FFI.withVal
@@ -725,7 +760,13 @@ structure GtkTextView :>
     fun setTabs self tabs = (GtkTextViewClass.FFI.withPtr &&&> PangoTabArrayRecord.FFI.withPtr ---> I) setTabs_ (self & tabs)
     fun setWrapMode self wrapMode = (GtkTextViewClass.FFI.withPtr &&&> GtkWrapMode.FFI.withVal ---> I) setWrapMode_ (self & wrapMode)
     fun startsDisplayLine self iter = (GtkTextViewClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) startsDisplayLine_ (self & iter)
-    fun windowToBufferCoords self win windowX windowY =
+    fun windowToBufferCoords
+      self
+      (
+        win,
+        windowX,
+        windowY
+      ) =
       let
         val bufferX
          & bufferY
@@ -759,7 +800,7 @@ structure GtkTextView :>
       fun backspaceSig f = signal "backspace" (void ---> ret_void) f
       fun copyClipboardSig f = signal "copy-clipboard" (void ---> ret_void) f
       fun cutClipboardSig f = signal "cut-clipboard" (void ---> ret_void) f
-      fun deleteFromCursorSig f = signal "delete-from-cursor" (get 0w1 GtkDeleteType.t &&&> get 0w2 int ---> ret_void) (fn type' & count => f type' count)
+      fun deleteFromCursorSig f = signal "delete-from-cursor" (get 0w1 GtkDeleteType.t &&&> get 0w2 int ---> ret_void) (fn type' & count => f (type', count))
       fun insertAtCursorSig f = signal "insert-at-cursor" (get 0w1 string ---> ret_void) f
       fun moveCursorSig f =
         signal "move-cursor"
@@ -774,9 +815,14 @@ structure GtkTextView :>
               step
                & count
                & extendSelection =>
-                f step count extendSelection
+                f
+                  (
+                    step,
+                    count,
+                    extendSelection
+                  )
           )
-      fun moveViewportSig f = signal "move-viewport" (get 0w1 GtkScrollStep.t &&&> get 0w2 int ---> ret_void) (fn step & count => f step count)
+      fun moveViewportSig f = signal "move-viewport" (get 0w1 GtkScrollStep.t &&&> get 0w2 int ---> ret_void) (fn step & count => f (step, count))
       fun pasteClipboardSig f = signal "paste-clipboard" (void ---> ret_void) f
       fun populatePopupSig f = signal "populate-popup" (get 0w1 GtkMenuClass.t ---> ret_void) f
       fun preeditChangedSig f = signal "preedit-changed" (get 0w1 string ---> ret_void) f

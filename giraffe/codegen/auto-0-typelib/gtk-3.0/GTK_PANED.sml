@@ -27,14 +27,14 @@ signature GTK_PANED =
     val pack1 :
       'a class
        -> 'b widget_class
-       -> bool
-       -> bool
+           * bool
+           * bool
        -> unit
     val pack2 :
       'a class
        -> 'b widget_class
-       -> bool
-       -> bool
+           * bool
+           * bool
        -> unit
     val setPosition :
       'a class

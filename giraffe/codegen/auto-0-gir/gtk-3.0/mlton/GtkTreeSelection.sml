@@ -109,7 +109,7 @@ structure GtkTreeSelection :>
     fun selectAll self = (GtkTreeSelectionClass.FFI.withPtr ---> I) selectAll_ self
     fun selectIter self iter = (GtkTreeSelectionClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> I) selectIter_ (self & iter)
     fun selectPath self path = (GtkTreeSelectionClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) selectPath_ (self & path)
-    fun selectRange self startPath endPath =
+    fun selectRange self (startPath, endPath) =
       (
         GtkTreeSelectionClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withPtr
@@ -126,7 +126,7 @@ structure GtkTreeSelection :>
     fun unselectAll self = (GtkTreeSelectionClass.FFI.withPtr ---> I) unselectAll_ self
     fun unselectIter self iter = (GtkTreeSelectionClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> I) unselectIter_ (self & iter)
     fun unselectPath self path = (GtkTreeSelectionClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) unselectPath_ (self & path)
-    fun unselectRange self startPath endPath =
+    fun unselectRange self (startPath, endPath) =
       (
         GtkTreeSelectionClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withPtr

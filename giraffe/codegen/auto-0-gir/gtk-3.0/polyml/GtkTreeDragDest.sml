@@ -30,7 +30,7 @@ structure GtkTreeDragDest :>
     type tree_path_t = GtkTreePathRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun dragDataReceived self dest selectionData =
+    fun dragDataReceived self (dest, selectionData) =
       (
         GtkTreeDragDestClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withPtr
@@ -43,7 +43,7 @@ structure GtkTreeDragDest :>
            & dest
            & selectionData
         )
-    fun rowDropPossible self destPath selectionData =
+    fun rowDropPossible self (destPath, selectionData) =
       (
         GtkTreeDragDestClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withPtr

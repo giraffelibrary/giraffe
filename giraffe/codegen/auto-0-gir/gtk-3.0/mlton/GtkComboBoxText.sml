@@ -138,7 +138,7 @@ structure GtkComboBoxText :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkComboBoxTextClass.FFI.fromPtr false) new_ ()
     fun newWithEntry () = (I ---> GtkComboBoxTextClass.FFI.fromPtr false) newWithEntry_ ()
-    fun append self id text =
+    fun append self (id, text) =
       (
         GtkComboBoxTextClass.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -153,7 +153,13 @@ structure GtkComboBoxText :>
         )
     fun appendText self text = (GtkComboBoxTextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) appendText_ (self & text)
     fun getActiveText self = (GtkComboBoxTextClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getActiveText_ self
-    fun insert self position id text =
+    fun insert
+      self
+      (
+        position,
+        id,
+        text
+      ) =
       (
         GtkComboBoxTextClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -168,7 +174,7 @@ structure GtkComboBoxText :>
            & id
            & text
         )
-    fun insertText self position text =
+    fun insertText self (position, text) =
       (
         GtkComboBoxTextClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -181,7 +187,7 @@ structure GtkComboBoxText :>
            & position
            & text
         )
-    fun prepend self id text =
+    fun prepend self (id, text) =
       (
         GtkComboBoxTextClass.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr

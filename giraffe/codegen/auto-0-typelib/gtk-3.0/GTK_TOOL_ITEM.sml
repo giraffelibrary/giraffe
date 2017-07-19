@@ -48,8 +48,7 @@ signature GTK_TOOL_ITEM =
        -> unit
     val setProxyMenuItem :
       'a class
-       -> string
-       -> 'b widget_class
+       -> string * 'b widget_class
        -> unit
     val setTooltipMarkup :
       'a class

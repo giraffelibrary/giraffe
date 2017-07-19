@@ -7,18 +7,16 @@ signature GTK_BUILDABLE =
     val addChild :
       'a class
        -> 'b builder_class
-       -> 'c GObject.ObjectClass.class
-       -> string option
+           * 'c GObject.ObjectClass.class
+           * string option
        -> unit
     val constructChild :
       'a class
-       -> 'b builder_class
-       -> string
+       -> 'b builder_class * string
        -> base GObject.ObjectClass.class
     val getInternalChild :
       'a class
-       -> 'b builder_class
-       -> string
+       -> 'b builder_class * string
        -> base GObject.ObjectClass.class
     val getName : 'a class -> string
     val parserFinished :
@@ -28,8 +26,8 @@ signature GTK_BUILDABLE =
     val setBuildableProperty :
       'a class
        -> 'b builder_class
-       -> string
-       -> GObject.ValueRecord.t
+           * string
+           * GObject.ValueRecord.t
        -> unit
     val setName :
       'a class

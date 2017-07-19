@@ -24,7 +24,7 @@ signature G_I_REPOSITORY_REPOSITORY =
     val getDefault : unit -> base class
     val prependSearchPath : 'a class -> string -> unit
     val loadTypelib : 'a class -> typelibtype_t -> loadflags_t -> string
-    val require : 'a class -> string -> string -> loadflags_t -> typelibtype_t * typelibvers_t
+    val require : 'a class -> string * string * loadflags_t -> typelibtype_t * typelibvers_t
     val getDependencies : 'a class -> typelibvers_t -> string -> string list option
     val getPackages : 'a class -> typelibvers_t -> string -> string list
     val getNInfos : 'a class -> typelibvers_t -> string -> LargeInt.int

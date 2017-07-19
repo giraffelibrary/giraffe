@@ -10,8 +10,8 @@ signature GTK_HSV =
     val new : unit -> base class
     val toRgb :
       real
-       -> real
-       -> real
+       * real
+       * real
        -> real
            * real
            * real
@@ -25,13 +25,12 @@ signature GTK_HSV =
     val setColor :
       'a class
        -> real
-       -> real
-       -> real
+           * real
+           * real
        -> unit
     val setMetrics :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val changedSig : (unit -> unit) -> 'a class Signal.signal
     val moveSig : (direction_type_t -> unit) -> 'a class Signal.signal

@@ -126,7 +126,13 @@ structure GdkDisplay :>
     fun requestSelectionNotification self selection = (GdkDisplayClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GBool.FFI.fromVal) requestSelectionNotification_ (self & selection)
     fun setDoubleClickDistance self distance = (GdkDisplayClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setDoubleClickDistance_ (self & distance)
     fun setDoubleClickTime self msec = (GdkDisplayClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setDoubleClickTime_ (self & msec)
-    fun storeClipboard self clipboardWindow time targets =
+    fun storeClipboard
+      self
+      (
+        clipboardWindow,
+        time,
+        targets
+      ) =
       let
         val nTargets = LargeInt.fromInt (GdkAtomRecordCVectorN.length targets)
         val () =

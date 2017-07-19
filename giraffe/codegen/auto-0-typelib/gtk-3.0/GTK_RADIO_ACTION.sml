@@ -7,10 +7,10 @@ signature GTK_RADIO_ACTION =
     val getType : unit -> GObject.Type.t
     val new :
       string
-       -> string option
-       -> string option
-       -> string option
-       -> LargeInt.int
+       * string option
+       * string option
+       * string option
+       * LargeInt.int
        -> base class
     val getCurrentValue : 'a class -> LargeInt.int
     val joinGroup :

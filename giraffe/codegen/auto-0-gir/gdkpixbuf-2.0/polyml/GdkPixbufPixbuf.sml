@@ -219,7 +219,14 @@ structure GdkPixbufPixbuf :>
     type t = base class
     fun asIcon self = (GObjectObjectClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new colorspace hasAlpha bitsPerSample width height =
+    fun new
+      (
+        colorspace,
+        hasAlpha,
+        bitsPerSample,
+        width,
+        height
+      ) =
       (
         GdkPixbufColorspace.FFI.withVal
          &&&> GBool.FFI.withVal
@@ -237,7 +244,13 @@ structure GdkPixbufPixbuf :>
            & height
         )
     fun newFromFile filename = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromFile_ (filename & [])
-    fun newFromFileAtScale filename width height preserveAspectRatio =
+    fun newFromFileAtScale
+      (
+        filename,
+        width,
+        height,
+        preserveAspectRatio
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -254,7 +267,12 @@ structure GdkPixbufPixbuf :>
            & preserveAspectRatio
            & []
         )
-    fun newFromFileAtSize filename width height =
+    fun newFromFileAtSize
+      (
+        filename,
+        width,
+        height
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -269,7 +287,7 @@ structure GdkPixbufPixbuf :>
            & height
            & []
         )
-    fun newFromStream stream cancellable =
+    fun newFromStream (stream, cancellable) =
       (
         GioInputStreamClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
@@ -282,7 +300,14 @@ structure GdkPixbufPixbuf :>
            & cancellable
            & []
         )
-    fun newFromStreamAtScale stream width height preserveAspectRatio cancellable =
+    fun newFromStreamAtScale
+      (
+        stream,
+        width,
+        height,
+        preserveAspectRatio,
+        cancellable
+      ) =
       (
         GioInputStreamClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -305,7 +330,14 @@ structure GdkPixbufPixbuf :>
     fun newFromXpmData data = (Utf8.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromXpmData_ data
     fun gettext msgid = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) gettext_ msgid
     fun saveToStreamFinish asyncResult = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) saveToStreamFinish_ (asyncResult & [])
-    fun addAlpha self substituteColor r g b =
+    fun addAlpha
+      self
+      (
+        substituteColor,
+        r,
+        g,
+        b
+      ) =
       (
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> GBool.FFI.withVal
@@ -323,7 +355,21 @@ structure GdkPixbufPixbuf :>
            & b
         )
     fun applyEmbeddedOrientation self = (GdkPixbufPixbufClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) applyEmbeddedOrientation_ self
-    fun composite self dest destX destY destWidth destHeight offsetX offsetY scaleX scaleY interpType overallAlpha =
+    fun composite
+      self
+      (
+        dest,
+        destX,
+        destY,
+        destWidth,
+        destHeight,
+        offsetX,
+        offsetY,
+        scaleX,
+        scaleY,
+        interpType,
+        overallAlpha
+      ) =
       (
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> GdkPixbufPixbufClass.FFI.withPtr
@@ -354,7 +400,26 @@ structure GdkPixbufPixbuf :>
            & interpType
            & overallAlpha
         )
-    fun compositeColor self dest destX destY destWidth destHeight offsetX offsetY scaleX scaleY interpType overallAlpha checkX checkY checkSize color1 color2 =
+    fun compositeColor
+      self
+      (
+        dest,
+        destX,
+        destY,
+        destWidth,
+        destHeight,
+        offsetX,
+        offsetY,
+        scaleX,
+        scaleY,
+        interpType,
+        overallAlpha,
+        checkX,
+        checkY,
+        checkSize,
+        color1,
+        color2
+      ) =
       (
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> GdkPixbufPixbufClass.FFI.withPtr
@@ -395,7 +460,17 @@ structure GdkPixbufPixbuf :>
            & color1
            & color2
         )
-    fun compositeColorSimple self destWidth destHeight interpType overallAlpha checkSize color1 color2 =
+    fun compositeColorSimple
+      self
+      (
+        destWidth,
+        destHeight,
+        interpType,
+        overallAlpha,
+        checkSize,
+        color1,
+        color2
+      ) =
       (
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -419,7 +494,17 @@ structure GdkPixbufPixbuf :>
            & color2
         )
     fun copy self = (GdkPixbufPixbufClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) copy_ self
-    fun copyArea self srcX srcY width height destPixbuf destX destY =
+    fun copyArea
+      self
+      (
+        srcX,
+        srcY,
+        width,
+        height,
+        destPixbuf,
+        destX,
+        destY
+      ) =
       (
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -452,7 +537,14 @@ structure GdkPixbufPixbuf :>
     fun getOption self key = (GdkPixbufPixbufClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getOption_ (self & key)
     fun getRowstride self = (GdkPixbufPixbufClass.FFI.withPtr ---> GInt.FFI.fromVal) getRowstride_ self
     fun getWidth self = (GdkPixbufPixbufClass.FFI.withPtr ---> GInt.FFI.fromVal) getWidth_ self
-    fun newSubpixbuf self srcX srcY width height =
+    fun newSubpixbuf
+      self
+      (
+        srcX,
+        srcY,
+        width,
+        height
+      ) =
       (
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -470,7 +562,13 @@ structure GdkPixbufPixbuf :>
            & height
         )
     fun rotateSimple self angle = (GdkPixbufPixbufClass.FFI.withPtr &&&> GdkPixbufPixbufRotation.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromPtr true) rotateSimple_ (self & angle)
-    fun saturateAndPixelate self dest saturation pixelate =
+    fun saturateAndPixelate
+      self
+      (
+        dest,
+        saturation,
+        pixelate
+      ) =
       (
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> GdkPixbufPixbufClass.FFI.withPtr
@@ -485,7 +583,14 @@ structure GdkPixbufPixbuf :>
            & saturation
            & pixelate
         )
-    fun savev self filename type' optionKeys optionValues =
+    fun savev
+      self
+      (
+        filename,
+        type',
+        optionKeys,
+        optionValues
+      ) =
       (
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -504,7 +609,20 @@ structure GdkPixbufPixbuf :>
            & optionValues
            & []
         )
-    fun scale self dest destX destY destWidth destHeight offsetX offsetY scaleX scaleY interpType =
+    fun scale
+      self
+      (
+        dest,
+        destX,
+        destY,
+        destWidth,
+        destHeight,
+        offsetX,
+        offsetY,
+        scaleX,
+        scaleY,
+        interpType
+      ) =
       (
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> GdkPixbufPixbufClass.FFI.withPtr
@@ -533,7 +651,13 @@ structure GdkPixbufPixbuf :>
            & scaleY
            & interpType
         )
-    fun scaleSimple self destWidth destHeight interpType =
+    fun scaleSimple
+      self
+      (
+        destWidth,
+        destHeight,
+        interpType
+      ) =
       (
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> GInt.FFI.withVal

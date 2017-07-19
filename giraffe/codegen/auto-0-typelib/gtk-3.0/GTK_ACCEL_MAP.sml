@@ -6,15 +6,15 @@ signature GTK_ACCEL_MAP =
     val getType : unit -> GObject.Type.t
     val addEntry :
       string
-       -> LargeInt.int
-       -> Gdk.ModifierType.t
+       * LargeInt.int
+       * Gdk.ModifierType.t
        -> unit
     val addFilter : string -> unit
     val changeEntry :
       string
-       -> LargeInt.int
-       -> Gdk.ModifierType.t
-       -> bool
+       * LargeInt.int
+       * Gdk.ModifierType.t
+       * bool
        -> bool
     val get : unit -> base class
     val load : string -> unit
@@ -26,8 +26,8 @@ signature GTK_ACCEL_MAP =
     val unlockPath : string -> unit
     val changedSig :
       (string
-        -> LargeInt.int
-        -> Gdk.ModifierType.t
+        * LargeInt.int
+        * Gdk.ModifierType.t
         -> unit)
        -> 'a class Signal.signal
   end

@@ -37,7 +37,7 @@ structure GtkMessageDialog :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new parent flags type' buttons =
+    fun new (parent, flags, type', buttons) =
       (
         GtkWindowClass.FFI.withOptPtr
          &&&> GtkDialogFlags.FFI.withVal

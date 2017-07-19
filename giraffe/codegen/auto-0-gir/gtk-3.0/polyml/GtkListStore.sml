@@ -151,7 +151,7 @@ structure GtkListStore :>
         iter
       end
     fun iterIsValid self iter = (GtkListStoreClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) iterIsValid_ (self & iter)
-    fun moveAfter self iter position =
+    fun moveAfter self (iter, position) =
       (
         GtkListStoreClass.FFI.withPtr
          &&&> GtkTreeIterRecord.FFI.withPtr
@@ -164,7 +164,7 @@ structure GtkListStore :>
            & iter
            & position
         )
-    fun moveBefore self iter position =
+    fun moveBefore self (iter, position) =
       (
         GtkListStoreClass.FFI.withPtr
          &&&> GtkTreeIterRecord.FFI.withPtr
@@ -184,7 +184,13 @@ structure GtkListStore :>
         iter
       end
     fun remove self iter = (GtkListStoreClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) remove_ (self & iter)
-    fun setValue self iter column value =
+    fun setValue
+      self
+      (
+        iter,
+        column,
+        value
+      ) =
       (
         GtkListStoreClass.FFI.withPtr
          &&&> GtkTreeIterRecord.FFI.withPtr
@@ -199,7 +205,7 @@ structure GtkListStore :>
            & column
            & value
         )
-    fun swap self a b =
+    fun swap self (a, b) =
       (
         GtkListStoreClass.FFI.withPtr
          &&&> GtkTreeIterRecord.FFI.withPtr

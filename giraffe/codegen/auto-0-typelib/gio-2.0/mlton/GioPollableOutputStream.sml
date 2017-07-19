@@ -43,7 +43,7 @@ structure GioPollableOutputStream :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun canPoll self = (GioPollableOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) canPoll_ self
     fun isWritable self = (GioPollableOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isWritable_ self
-    fun writeNonblocking self buffer cancellable =
+    fun writeNonblocking self (buffer, cancellable) =
       let
         val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
         val retVal =

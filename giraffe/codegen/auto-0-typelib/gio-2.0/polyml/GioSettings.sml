@@ -160,8 +160,13 @@ structure GioSettings :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new schema = (Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) new_ schema
-    fun newWithBackend schema backend = (Utf8.FFI.withPtr &&&> GioSettingsBackendRecord.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithBackend_ (schema & backend)
-    fun newWithBackendAndPath schema backend path =
+    fun newWithBackend (schema, backend) = (Utf8.FFI.withPtr &&&> GioSettingsBackendRecord.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithBackend_ (schema & backend)
+    fun newWithBackendAndPath
+      (
+        schema,
+        backend,
+        path
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GioSettingsBackendRecord.FFI.withPtr
@@ -174,12 +179,19 @@ structure GioSettings :>
            & backend
            & path
         )
-    fun newWithPath schema path = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithPath_ (schema & path)
+    fun newWithPath (schema, path) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithPath_ (schema & path)
     fun listRelocatableSchemas () = (I ---> Utf8CVector.FFI.fromPtr 0) listRelocatableSchemas_ ()
     fun listSchemas () = (I ---> Utf8CVector.FFI.fromPtr 0) listSchemas_ ()
     fun sync () = (I ---> I) sync_ ()
     fun apply self = (GioSettingsClass.FFI.withPtr ---> I) apply_ self
-    fun bind self key object property flags =
+    fun bind
+      self
+      (
+        key,
+        object,
+        property,
+        flags
+      ) =
       (
         GioSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -196,7 +208,14 @@ structure GioSettings :>
            & property
            & flags
         )
-    fun bindWritable self key object property inverted =
+    fun bindWritable
+      self
+      (
+        key,
+        object,
+        property,
+        inverted
+      ) =
       (
         GioSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -229,7 +248,7 @@ structure GioSettings :>
     fun isWritable self name = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) isWritable_ (self & name)
     fun listChildren self = (GioSettingsClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listChildren_ self
     fun listKeys self = (GioSettingsClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listKeys_ self
-    fun rangeCheck self key value =
+    fun rangeCheck self (key, value) =
       (
         GioSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -244,7 +263,7 @@ structure GioSettings :>
         )
     fun reset self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) reset_ (self & key)
     fun revert self = (GioSettingsClass.FFI.withPtr ---> I) revert_ self
-    fun setBoolean self key value =
+    fun setBoolean self (key, value) =
       (
         GioSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -257,7 +276,7 @@ structure GioSettings :>
            & key
            & value
         )
-    fun setDouble self key value =
+    fun setDouble self (key, value) =
       (
         GioSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -270,7 +289,7 @@ structure GioSettings :>
            & key
            & value
         )
-    fun setEnum self key value =
+    fun setEnum self (key, value) =
       (
         GioSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -283,7 +302,7 @@ structure GioSettings :>
            & key
            & value
         )
-    fun setFlags self key value =
+    fun setFlags self (key, value) =
       (
         GioSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -296,7 +315,7 @@ structure GioSettings :>
            & key
            & value
         )
-    fun setInt self key value =
+    fun setInt self (key, value) =
       (
         GioSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -309,7 +328,7 @@ structure GioSettings :>
            & key
            & value
         )
-    fun setString self key value =
+    fun setString self (key, value) =
       (
         GioSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -322,7 +341,7 @@ structure GioSettings :>
            & key
            & value
         )
-    fun setStrv self key value =
+    fun setStrv self (key, value) =
       (
         GioSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -335,7 +354,7 @@ structure GioSettings :>
            & key
            & value
         )
-    fun setUint self key value =
+    fun setUint self (key, value) =
       (
         GioSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -348,7 +367,7 @@ structure GioSettings :>
            & key
            & value
         )
-    fun setValue self key value =
+    fun setValue self (key, value) =
       (
         GioSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

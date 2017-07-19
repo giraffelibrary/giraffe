@@ -205,7 +205,7 @@ structure GtkIconView :>
     fun new () = (I ---> GtkIconViewClass.FFI.fromPtr false) new_ ()
     fun newWithArea area = (GtkCellAreaClass.FFI.withPtr ---> GtkIconViewClass.FFI.fromPtr false) newWithArea_ area
     fun newWithModel model = (GtkTreeModelClass.FFI.withPtr ---> GtkIconViewClass.FFI.fromPtr false) newWithModel_ model
-    fun convertWidgetToBinWindowCoords self wx wy =
+    fun convertWidgetToBinWindowCoords self (wx, wy) =
       let
         val bx
          & by
@@ -256,7 +256,7 @@ structure GtkIconView :>
       in
         if retVal then SOME (path, cell) else NONE
       end
-    fun getDestItemAtPos self dragX dragY =
+    fun getDestItemAtPos self (dragX, dragY) =
       let
         val path
          & pos
@@ -304,7 +304,7 @@ structure GtkIconView :>
       in
         (path, pos)
       end
-    fun getItemAtPos self x y =
+    fun getItemAtPos self (x, y) =
       let
         val path
          & cell
@@ -338,7 +338,7 @@ structure GtkIconView :>
     fun getMargin self = (GtkIconViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMargin_ self
     fun getMarkupColumn self = (GtkIconViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMarkupColumn_ self
     fun getModel self = (GtkIconViewClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
-    fun getPathAtPos self x y =
+    fun getPathAtPos self (x, y) =
       (
         GtkIconViewClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -358,7 +358,13 @@ structure GtkIconView :>
     fun getSpacing self = (GtkIconViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getSpacing_ self
     fun getTextColumn self = (GtkIconViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getTextColumn_ self
     fun getTooltipColumn self = (GtkIconViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getTooltipColumn_ self
-    fun getTooltipContext self x y keyboardTip =
+    fun getTooltipContext
+      self
+      (
+        x,
+        y,
+        keyboardTip
+      ) =
       let
         val x
          & y
@@ -430,7 +436,14 @@ structure GtkIconView :>
       end
     fun itemActivated self path = (GtkIconViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) itemActivated_ (self & path)
     fun pathIsSelected self path = (GtkIconViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GBool.FFI.fromVal) pathIsSelected_ (self & path)
-    fun scrollToPath self path useAlign rowAlign colAlign =
+    fun scrollToPath
+      self
+      (
+        path,
+        useAlign,
+        rowAlign,
+        colAlign
+      ) =
       (
         GtkIconViewClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withPtr
@@ -451,7 +464,13 @@ structure GtkIconView :>
     fun selectPath self path = (GtkIconViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) selectPath_ (self & path)
     fun setColumnSpacing self columnSpacing = (GtkIconViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setColumnSpacing_ (self & columnSpacing)
     fun setColumns self columns = (GtkIconViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setColumns_ (self & columns)
-    fun setCursor self path cell startEditing =
+    fun setCursor
+      self
+      (
+        path,
+        cell,
+        startEditing
+      ) =
       (
         GtkIconViewClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withPtr
@@ -466,7 +485,7 @@ structure GtkIconView :>
            & cell
            & startEditing
         )
-    fun setDragDestItem self path pos =
+    fun setDragDestItem self (path, pos) =
       (
         GtkIconViewClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withOptPtr
@@ -491,7 +510,13 @@ structure GtkIconView :>
     fun setSelectionMode self mode = (GtkIconViewClass.FFI.withPtr &&&> GtkSelectionMode.FFI.withVal ---> I) setSelectionMode_ (self & mode)
     fun setSpacing self spacing = (GtkIconViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setSpacing_ (self & spacing)
     fun setTextColumn self column = (GtkIconViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setTextColumn_ (self & column)
-    fun setTooltipCell self tooltip path cell =
+    fun setTooltipCell
+      self
+      (
+        tooltip,
+        path,
+        cell
+      ) =
       (
         GtkIconViewClass.FFI.withPtr
          &&&> GtkTooltipClass.FFI.withPtr
@@ -507,7 +532,7 @@ structure GtkIconView :>
            & cell
         )
     fun setTooltipColumn self column = (GtkIconViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setTooltipColumn_ (self & column)
-    fun setTooltipItem self tooltip path =
+    fun setTooltipItem self (tooltip, path) =
       (
         GtkIconViewClass.FFI.withPtr
          &&&> GtkTooltipClass.FFI.withPtr
@@ -529,7 +554,7 @@ structure GtkIconView :>
     in
       fun activateCursorItemSig f = signal "activate-cursor-item" (void ---> ret boolean) f
       fun itemActivatedSig f = signal "item-activated" (get 0w1 GtkTreePathRecord.t ---> ret_void) f
-      fun moveCursorSig f = signal "move-cursor" (get 0w1 GtkMovementStep.t &&&> get 0w2 int ---> ret boolean) (fn step & count => f step count)
+      fun moveCursorSig f = signal "move-cursor" (get 0w1 GtkMovementStep.t &&&> get 0w2 int ---> ret boolean) (fn step & count => f (step, count))
       fun selectAllSig f = signal "select-all" (void ---> ret_void) f
       fun selectCursorItemSig f = signal "select-cursor-item" (void ---> ret_void) f
       fun selectionChangedSig f = signal "selection-changed" (void ---> ret_void) f

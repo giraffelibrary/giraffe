@@ -18,25 +18,24 @@ signature GTK_SETTINGS =
     val setDoubleProperty :
       'a class
        -> string
-       -> real
-       -> string
+           * real
+           * string
        -> unit
     val setLongProperty :
       'a class
        -> string
-       -> LargeInt.int
-       -> string
+           * LargeInt.int
+           * string
        -> unit
     val setPropertyValue :
       'a class
-       -> string
-       -> settings_value_t
+       -> string * settings_value_t
        -> unit
     val setStringProperty :
       'a class
        -> string
-       -> string
-       -> string
+           * string
+           * string
        -> unit
     val gtkAlternativeButtonOrderProp : ('a class, bool, bool) Property.readwrite
     val gtkAlternativeSortArrowsProp : ('a class, bool, bool) Property.readwrite

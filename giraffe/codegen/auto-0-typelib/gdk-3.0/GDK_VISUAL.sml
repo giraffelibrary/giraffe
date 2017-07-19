@@ -9,10 +9,7 @@ signature GDK_VISUAL =
     val getBest : unit -> base class
     val getBestDepth : unit -> LargeInt.int
     val getBestType : unit -> visual_type_t
-    val getBestWithBoth :
-      LargeInt.int
-       -> visual_type_t
-       -> base class
+    val getBestWithBoth : LargeInt.int * visual_type_t -> base class
     val getBestWithDepth : LargeInt.int -> base class
     val getBestWithType : visual_type_t -> base class
     val getSystem : unit -> base class

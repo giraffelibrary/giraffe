@@ -47,7 +47,7 @@ structure AtkDocument :>
     fun getAttributeValue self attributeName = (AtkDocumentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAttributeValue_ (self & attributeName)
     fun getDocumentType self = (AtkDocumentClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDocumentType_ self
     fun getLocale self = (AtkDocumentClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLocale_ self
-    fun setAttributeValue self attributeName attributeValue =
+    fun setAttributeValue self (attributeName, attributeValue) =
       (
         AtkDocumentClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

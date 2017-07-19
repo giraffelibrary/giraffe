@@ -362,7 +362,7 @@ structure GtkEntry :>
       in
         iconArea
       end
-    fun getIconAtPos self x y =
+    fun getIconAtPos self (x, y) =
       (
         GtkEntryClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -433,7 +433,7 @@ structure GtkEntry :>
     fun setCompletion self completion = (GtkEntryClass.FFI.withPtr &&&> GtkEntryCompletionClass.FFI.withOptPtr ---> I) setCompletion_ (self & completion)
     fun setCursorHadjustment self adjustment = (GtkEntryClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setCursorHadjustment_ (self & adjustment)
     fun setHasFrame self setting = (GtkEntryClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasFrame_ (self & setting)
-    fun setIconActivatable self iconPos activatable =
+    fun setIconActivatable self (iconPos, activatable) =
       (
         GtkEntryClass.FFI.withPtr
          &&&> GtkEntryIconPosition.FFI.withVal
@@ -446,7 +446,13 @@ structure GtkEntry :>
            & iconPos
            & activatable
         )
-    fun setIconDragSource self iconPos targetList actions =
+    fun setIconDragSource
+      self
+      (
+        iconPos,
+        targetList,
+        actions
+      ) =
       (
         GtkEntryClass.FFI.withPtr
          &&&> GtkEntryIconPosition.FFI.withVal
@@ -461,7 +467,7 @@ structure GtkEntry :>
            & targetList
            & actions
         )
-    fun setIconFromGicon self iconPos icon =
+    fun setIconFromGicon self (iconPos, icon) =
       (
         GtkEntryClass.FFI.withPtr
          &&&> GtkEntryIconPosition.FFI.withVal
@@ -474,7 +480,7 @@ structure GtkEntry :>
            & iconPos
            & icon
         )
-    fun setIconFromIconName self iconPos iconName =
+    fun setIconFromIconName self (iconPos, iconName) =
       (
         GtkEntryClass.FFI.withPtr
          &&&> GtkEntryIconPosition.FFI.withVal
@@ -487,7 +493,7 @@ structure GtkEntry :>
            & iconPos
            & iconName
         )
-    fun setIconFromPixbuf self iconPos pixbuf =
+    fun setIconFromPixbuf self (iconPos, pixbuf) =
       (
         GtkEntryClass.FFI.withPtr
          &&&> GtkEntryIconPosition.FFI.withVal
@@ -500,7 +506,7 @@ structure GtkEntry :>
            & iconPos
            & pixbuf
         )
-    fun setIconFromStock self iconPos stockId =
+    fun setIconFromStock self (iconPos, stockId) =
       (
         GtkEntryClass.FFI.withPtr
          &&&> GtkEntryIconPosition.FFI.withVal
@@ -513,7 +519,7 @@ structure GtkEntry :>
            & iconPos
            & stockId
         )
-    fun setIconSensitive self iconPos sensitive =
+    fun setIconSensitive self (iconPos, sensitive) =
       (
         GtkEntryClass.FFI.withPtr
          &&&> GtkEntryIconPosition.FFI.withVal
@@ -526,7 +532,7 @@ structure GtkEntry :>
            & iconPos
            & sensitive
         )
-    fun setIconTooltipMarkup self iconPos tooltip =
+    fun setIconTooltipMarkup self (iconPos, tooltip) =
       (
         GtkEntryClass.FFI.withPtr
          &&&> GtkEntryIconPosition.FFI.withVal
@@ -539,7 +545,7 @@ structure GtkEntry :>
            & iconPos
            & tooltip
         )
-    fun setIconTooltipText self iconPos tooltip =
+    fun setIconTooltipText self (iconPos, tooltip) =
       (
         GtkEntryClass.FFI.withPtr
          &&&> GtkEntryIconPosition.FFI.withVal
@@ -571,9 +577,9 @@ structure GtkEntry :>
       fun backspaceSig f = signal "backspace" (void ---> ret_void) f
       fun copyClipboardSig f = signal "copy-clipboard" (void ---> ret_void) f
       fun cutClipboardSig f = signal "cut-clipboard" (void ---> ret_void) f
-      fun deleteFromCursorSig f = signal "delete-from-cursor" (get 0w1 GtkDeleteType.t &&&> get 0w2 int ---> ret_void) (fn type' & count => f type' count)
-      fun iconPressSig f = signal "icon-press" (get 0w1 GtkEntryIconPosition.t &&&> get 0w2 GdkEventButtonRecord.t ---> ret_void) (fn iconPos & event => f iconPos event)
-      fun iconReleaseSig f = signal "icon-release" (get 0w1 GtkEntryIconPosition.t &&&> get 0w2 GdkEventButtonRecord.t ---> ret_void) (fn iconPos & event => f iconPos event)
+      fun deleteFromCursorSig f = signal "delete-from-cursor" (get 0w1 GtkDeleteType.t &&&> get 0w2 int ---> ret_void) (fn type' & count => f (type', count))
+      fun iconPressSig f = signal "icon-press" (get 0w1 GtkEntryIconPosition.t &&&> get 0w2 GdkEventButtonRecord.t ---> ret_void) (fn iconPos & event => f (iconPos, event))
+      fun iconReleaseSig f = signal "icon-release" (get 0w1 GtkEntryIconPosition.t &&&> get 0w2 GdkEventButtonRecord.t ---> ret_void) (fn iconPos & event => f (iconPos, event))
       fun insertAtCursorSig f = signal "insert-at-cursor" (get 0w1 string ---> ret_void) f
       fun moveCursorSig f =
         signal "move-cursor"
@@ -588,7 +594,12 @@ structure GtkEntry :>
               step
                & count
                & extendSelection =>
-                f step count extendSelection
+                f
+                  (
+                    step,
+                    count,
+                    extendSelection
+                  )
           )
       fun pasteClipboardSig f = signal "paste-clipboard" (void ---> ret_void) f
       fun populatePopupSig f = signal "populate-popup" (get 0w1 GtkMenuClass.t ---> ret_void) f

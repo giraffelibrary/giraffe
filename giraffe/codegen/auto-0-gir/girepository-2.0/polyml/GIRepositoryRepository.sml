@@ -93,7 +93,7 @@ structure GIRepositoryRepository :>
     fun getDefault () = (I ---> GIRepositoryRepositoryClass.FFI.fromPtr false) getDefault_ ()
     fun prependSearchPath directory = (Utf8.FFI.withPtr ---> I) prependSearchPath_ directory
     fun findByErrorDomain self domain = (GIRepositoryRepositoryClass.FFI.withPtr &&&> GLibQuark.FFI.withVal ---> GIRepositoryEnumInfoRecord.FFI.fromPtr true) findByErrorDomain_ (self & domain)
-    fun findByName self namespace name =
+    fun findByName self (namespace, name) =
       (
         GIRepositoryRepositoryClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -108,7 +108,7 @@ structure GIRepositoryRepository :>
         )
     fun getCPrefix self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCPrefix_ (self & namespace)
     fun getDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getDependencies_ (self & namespace)
-    fun getInfo self namespace index =
+    fun getInfo self (namespace, index) =
       (
         GIRepositoryRepositoryClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -126,7 +126,7 @@ structure GIRepositoryRepository :>
     fun getSharedLibrary self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSharedLibrary_ (self & namespace)
     fun getTypelibPath self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTypelibPath_ (self & namespace)
     fun getVersion self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getVersion_ (self & namespace)
-    fun isRegistered self namespace version =
+    fun isRegistered self (namespace, version) =
       (
         GIRepositoryRepositoryClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -139,7 +139,7 @@ structure GIRepositoryRepository :>
            & namespace
            & version
         )
-    fun loadTypelib self typelib flags =
+    fun loadTypelib self (typelib, flags) =
       (
         GIRepositoryRepositoryClass.FFI.withPtr
          &&&> GIRepositoryTypelibRecord.FFI.withPtr
@@ -154,7 +154,13 @@ structure GIRepositoryRepository :>
            & flags
            & []
         )
-    fun require self namespace version flags =
+    fun require
+      self
+      (
+        namespace,
+        version,
+        flags
+      ) =
       (
         GIRepositoryRepositoryClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -171,7 +177,14 @@ structure GIRepositoryRepository :>
            & flags
            & []
         )
-    fun requirePrivate self typelibDir namespace version flags =
+    fun requirePrivate
+      self
+      (
+        typelibDir,
+        namespace,
+        version,
+        flags
+      ) =
       (
         GIRepositoryRepositoryClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

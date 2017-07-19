@@ -87,7 +87,13 @@ structure GioPermission :>
     fun getAllowed self = (GioPermissionClass.FFI.withPtr ---> GBool.FFI.fromVal) getAllowed_ self
     fun getCanAcquire self = (GioPermissionClass.FFI.withPtr ---> GBool.FFI.fromVal) getCanAcquire_ self
     fun getCanRelease self = (GioPermissionClass.FFI.withPtr ---> GBool.FFI.fromVal) getCanRelease_ self
-    fun implUpdate self allowed canAcquire canRelease =
+    fun implUpdate
+      self
+      (
+        allowed,
+        canAcquire,
+        canRelease
+      ) =
       (
         GioPermissionClass.FFI.withPtr
          &&&> GBool.FFI.withVal

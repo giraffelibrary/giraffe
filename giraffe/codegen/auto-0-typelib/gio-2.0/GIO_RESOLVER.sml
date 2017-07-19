@@ -9,8 +9,7 @@ signature GIO_RESOLVER =
     val getDefault : unit -> base class
     val lookupByAddress :
       'a class
-       -> 'b inet_address_class
-       -> 'c cancellable_class option
+       -> 'b inet_address_class * 'c cancellable_class option
        -> string
     val lookupByAddressFinish :
       'a class

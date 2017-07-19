@@ -11,6 +11,6 @@ structure GdkAtom :>
     end
     type t = GdkAtomRecord.t
     fun name self = (GdkAtomRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) name_ self
-    fun intern atomName onlyIfExists = (Utf8.FFI.withPtr &&&> GBool.FFI.withVal ---> GdkAtomRecord.FFI.fromPtr false) intern_ (atomName & onlyIfExists)
+    fun intern (atomName, onlyIfExists) = (Utf8.FFI.withPtr &&&> GBool.FFI.withVal ---> GdkAtomRecord.FFI.fromPtr false) intern_ (atomName & onlyIfExists)
     fun internStaticString atomName = (Utf8.FFI.withPtr ---> GdkAtomRecord.FFI.fromPtr false) internStaticString_ atomName
   end

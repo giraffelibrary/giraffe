@@ -8,9 +8,9 @@ signature GTK_ALIGNMENT =
     val getType : unit -> GObject.Type.t
     val new :
       real
-       -> real
-       -> real
-       -> real
+       * real
+       * real
+       * real
        -> base class
     val getPadding :
       'a class
@@ -21,16 +21,16 @@ signature GTK_ALIGNMENT =
     val set :
       'a class
        -> real
-       -> real
-       -> real
-       -> real
+           * real
+           * real
+           * real
        -> unit
     val setPadding :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val bottomPaddingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val leftPaddingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

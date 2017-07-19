@@ -12,8 +12,7 @@ signature GTK_SOURCE_BUFFER =
     val newWithLanguage : 'a language_class -> base class
     val backwardIterToSourceMark :
       'a class
-       -> Gtk.TextIterRecord.t
-       -> string option
+       -> Gtk.TextIterRecord.t * string option
        -> bool
     val beginNotUndoableAction : 'a class -> unit
     val canRedo : 'a class -> bool
@@ -21,19 +20,17 @@ signature GTK_SOURCE_BUFFER =
     val createSourceMark :
       'a class
        -> string option
-       -> string
-       -> Gtk.TextIterRecord.t
+           * string
+           * Gtk.TextIterRecord.t
        -> base mark_class
     val endNotUndoableAction : 'a class -> unit
     val ensureHighlight :
       'a class
-       -> Gtk.TextIterRecord.t
-       -> Gtk.TextIterRecord.t
+       -> Gtk.TextIterRecord.t * Gtk.TextIterRecord.t
        -> unit
     val forwardIterToSourceMark :
       'a class
-       -> Gtk.TextIterRecord.t
-       -> string option
+       -> Gtk.TextIterRecord.t * string option
        -> bool
     val getContextClassesAtIter :
       'a class
@@ -47,25 +44,22 @@ signature GTK_SOURCE_BUFFER =
     val getUndoManager : 'a class -> base undo_manager_class
     val iterBackwardToContextClassToggle :
       'a class
-       -> Gtk.TextIterRecord.t
-       -> string
+       -> Gtk.TextIterRecord.t * string
        -> bool
     val iterForwardToContextClassToggle :
       'a class
-       -> Gtk.TextIterRecord.t
-       -> string
+       -> Gtk.TextIterRecord.t * string
        -> bool
     val iterHasContextClass :
       'a class
-       -> Gtk.TextIterRecord.t
-       -> string
+       -> Gtk.TextIterRecord.t * string
        -> bool
     val redo : 'a class -> unit
     val removeSourceMarks :
       'a class
        -> Gtk.TextIterRecord.t
-       -> Gtk.TextIterRecord.t
-       -> string option
+           * Gtk.TextIterRecord.t
+           * string option
        -> unit
     val setHighlightMatchingBrackets :
       'a class
@@ -92,16 +86,8 @@ signature GTK_SOURCE_BUFFER =
        -> 'b undo_manager_class option
        -> unit
     val undo : 'a class -> unit
-    val bracketMatchedSig :
-      (Gtk.TextIterRecord.t
-        -> bracket_match_type_t
-        -> unit)
-       -> 'a class Signal.signal
-    val highlightUpdatedSig :
-      (Gtk.TextIterRecord.t
-        -> Gtk.TextIterRecord.t
-        -> unit)
-       -> 'a class Signal.signal
+    val bracketMatchedSig : (Gtk.TextIterRecord.t * bracket_match_type_t -> unit) -> 'a class Signal.signal
+    val highlightUpdatedSig : (Gtk.TextIterRecord.t * Gtk.TextIterRecord.t -> unit) -> 'a class Signal.signal
     val redoSig : (unit -> unit) -> 'a class Signal.signal
     val sourceMarkUpdatedSig : (base Gtk.TextMarkClass.class -> unit) -> 'a class Signal.signal
     val undoSig : (unit -> unit) -> 'a class Signal.signal

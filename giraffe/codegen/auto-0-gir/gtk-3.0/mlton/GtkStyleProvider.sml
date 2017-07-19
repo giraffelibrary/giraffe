@@ -41,7 +41,13 @@ structure GtkStyleProvider :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getIconFactory self path = (GtkStyleProviderClass.FFI.withPtr &&&> GtkWidgetPathRecord.FFI.withPtr ---> GtkIconFactoryClass.FFI.fromPtr false) getIconFactory_ (self & path)
     fun getStyle self path = (GtkStyleProviderClass.FFI.withPtr &&&> GtkWidgetPathRecord.FFI.withPtr ---> GtkStylePropertiesClass.FFI.fromPtr true) getStyle_ (self & path)
-    fun getStyleProperty self path state pspec =
+    fun getStyleProperty
+      self
+      (
+        path,
+        state,
+        pspec
+      ) =
       let
         val value & retVal =
           (

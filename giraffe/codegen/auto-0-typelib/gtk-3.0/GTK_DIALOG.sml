@@ -10,13 +10,11 @@ signature GTK_DIALOG =
     val new : unit -> base class
     val addActionWidget :
       'a class
-       -> 'b widget_class
-       -> LargeInt.int
+       -> 'b widget_class * LargeInt.int
        -> unit
     val addButton :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> base widget_class
     val getActionArea : 'a class -> base widget_class
     val getContentArea : 'a class -> base widget_class
@@ -43,8 +41,7 @@ signature GTK_DIALOG =
        -> unit
     val setResponseSensitive :
       'a class
-       -> LargeInt.int
-       -> bool
+       -> LargeInt.int * bool
        -> unit
     val closeSig : (unit -> unit) -> 'a class Signal.signal
     val responseSig : (LargeInt.int -> unit) -> 'a class Signal.signal

@@ -14,11 +14,11 @@ signature GTK_U_I_MANAGER =
     val addUi :
       'a class
        -> LargeInt.int
-       -> string
-       -> string
-       -> string option
-       -> u_i_manager_item_type_t
-       -> bool
+           * string
+           * string
+           * string option
+           * u_i_manager_item_type_t
+           * bool
        -> unit
     val addUiFromFile :
       'a class
@@ -26,8 +26,7 @@ signature GTK_U_I_MANAGER =
        -> LargeInt.int
     val addUiFromString :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> LargeInt.int
     val ensureUpdate : 'a class -> unit
     val getAccelGroup : 'a class -> base accel_group_class
@@ -43,8 +42,7 @@ signature GTK_U_I_MANAGER =
        -> base widget_class
     val insertActionGroup :
       'a class
-       -> 'b action_group_class
-       -> LargeInt.int
+       -> 'b action_group_class * LargeInt.int
        -> unit
     val newMergeId : 'a class -> LargeInt.int
     val removeActionGroup :
@@ -61,16 +59,8 @@ signature GTK_U_I_MANAGER =
        -> unit
     val actionsChangedSig : (unit -> unit) -> 'a class Signal.signal
     val addWidgetSig : (base widget_class -> unit) -> 'a class Signal.signal
-    val connectProxySig :
-      (base action_class
-        -> base widget_class
-        -> unit)
-       -> 'a class Signal.signal
-    val disconnectProxySig :
-      (base action_class
-        -> base widget_class
-        -> unit)
-       -> 'a class Signal.signal
+    val connectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.signal
+    val disconnectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.signal
     val postActivateSig : (base action_class -> unit) -> 'a class Signal.signal
     val preActivateSig : (base action_class -> unit) -> 'a class Signal.signal
     val addTearoffsProp : ('a class, bool, bool) Property.readwrite

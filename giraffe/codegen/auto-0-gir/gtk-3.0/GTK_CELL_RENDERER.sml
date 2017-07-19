@@ -13,17 +13,17 @@ signature GTK_CELL_RENDERER =
     val activate :
       'a class
        -> 'b Gdk.Event.union
-       -> 'c widget_class
-       -> string
-       -> Gdk.RectangleRecord.t
-       -> Gdk.RectangleRecord.t
-       -> cell_renderer_state_t
+           * 'c widget_class
+           * string
+           * Gdk.RectangleRecord.t
+           * Gdk.RectangleRecord.t
+           * cell_renderer_state_t
        -> bool
     val getAlignedArea :
       'a class
        -> 'b widget_class
-       -> cell_renderer_state_t
-       -> Gdk.RectangleRecord.t
+           * cell_renderer_state_t
+           * Gdk.RectangleRecord.t
        -> Gdk.RectangleRecord.t
     val getAlignment : 'a class -> real * real
     val getFixedSize : 'a class -> LargeInt.int * LargeInt.int
@@ -34,8 +34,7 @@ signature GTK_CELL_RENDERER =
        -> LargeInt.int * LargeInt.int
     val getPreferredHeightForWidth :
       'a class
-       -> 'b widget_class
-       -> LargeInt.int
+       -> 'b widget_class * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val getPreferredSize :
       'a class
@@ -47,40 +46,35 @@ signature GTK_CELL_RENDERER =
        -> LargeInt.int * LargeInt.int
     val getPreferredWidthForHeight :
       'a class
-       -> 'b widget_class
-       -> LargeInt.int
+       -> 'b widget_class * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val getRequestMode : 'a class -> size_request_mode_t
     val getSensitive : 'a class -> bool
     val getState :
       'a class
-       -> 'b widget_class
-       -> cell_renderer_state_t
+       -> 'b widget_class * cell_renderer_state_t
        -> state_flags_t
     val getVisible : 'a class -> bool
     val isActivatable : 'a class -> bool
     val render :
       'a class
        -> Cairo.ContextRecord.t
-       -> 'b widget_class
-       -> Gdk.RectangleRecord.t
-       -> Gdk.RectangleRecord.t
-       -> cell_renderer_state_t
+           * 'b widget_class
+           * Gdk.RectangleRecord.t
+           * Gdk.RectangleRecord.t
+           * cell_renderer_state_t
        -> unit
     val setAlignment :
       'a class
-       -> real
-       -> real
+       -> real * real
        -> unit
     val setFixedSize :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setPadding :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setSensitive :
       'a class
@@ -93,22 +87,18 @@ signature GTK_CELL_RENDERER =
     val startEditing :
       'a class
        -> 'b Gdk.Event.union
-       -> 'c widget_class
-       -> string
-       -> Gdk.RectangleRecord.t
-       -> Gdk.RectangleRecord.t
-       -> cell_renderer_state_t
+           * 'c widget_class
+           * string
+           * Gdk.RectangleRecord.t
+           * Gdk.RectangleRecord.t
+           * cell_renderer_state_t
        -> base cell_editable_class
     val stopEditing :
       'a class
        -> bool
        -> unit
     val editingCanceledSig : (unit -> unit) -> 'a class Signal.signal
-    val editingStartedSig :
-      (base cell_editable_class
-        -> string
-        -> unit)
-       -> 'a class Signal.signal
+    val editingStartedSig : (base cell_editable_class * string -> unit) -> 'a class Signal.signal
     val cellBackgroundProp : ('a class, string option) Property.writeonly
     val cellBackgroundGdkProp : ('a class, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
     val cellBackgroundRgbaProp : ('a class, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite

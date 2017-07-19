@@ -15,10 +15,7 @@ signature GTK_CELL_VIEW =
     val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val newWithContext :
-      'a cell_area_class
-       -> 'b cell_area_context_class
-       -> base class
+    val newWithContext : 'a cell_area_class * 'b cell_area_context_class -> base class
     val newWithMarkup : string -> base class
     val newWithPixbuf : 'a GdkPixbuf.PixbufClass.class -> base class
     val newWithText : string -> base class

@@ -13,13 +13,13 @@ signature GTK_APP_CHOOSER_DIALOG =
     val getType : unit -> GObject.Type.t
     val new :
       'a window_class option
-       -> dialog_flags_t
-       -> 'b Gio.FileClass.class
+       * dialog_flags_t
+       * 'b Gio.FileClass.class
        -> base class
     val newForContentType :
       'a window_class option
-       -> dialog_flags_t
-       -> string
+       * dialog_flags_t
+       * string
        -> base class
     val getHeading : 'a class -> string
     val getWidget : 'a class -> base widget_class

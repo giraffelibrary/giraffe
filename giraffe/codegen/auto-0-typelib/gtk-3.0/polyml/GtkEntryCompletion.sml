@@ -77,7 +77,7 @@ structure GtkEntryCompletion :>
     fun getPopupSetWidth self = (GtkEntryCompletionClass.FFI.withPtr ---> GBool.FFI.fromVal) getPopupSetWidth_ self
     fun getPopupSingleMatch self = (GtkEntryCompletionClass.FFI.withPtr ---> GBool.FFI.fromVal) getPopupSingleMatch_ self
     fun getTextColumn self = (GtkEntryCompletionClass.FFI.withPtr ---> GInt32.FFI.fromVal) getTextColumn_ self
-    fun insertActionMarkup self index markup =
+    fun insertActionMarkup self (index, markup) =
       (
         GtkEntryCompletionClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -90,7 +90,7 @@ structure GtkEntryCompletion :>
            & index
            & markup
         )
-    fun insertActionText self index text =
+    fun insertActionText self (index, text) =
       (
         GtkEntryCompletionClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -116,9 +116,9 @@ structure GtkEntryCompletion :>
       open ClosureMarshal Signal
     in
       fun actionActivatedSig f = signal "action-activated" (get 0w1 int ---> ret_void) f
-      fun cursorOnMatchSig f = signal "cursor-on-match" (get 0w1 GtkTreeModelClass.t &&&> get 0w2 GtkTreeIterRecord.t ---> ret boolean) (fn model & iter => f model iter)
+      fun cursorOnMatchSig f = signal "cursor-on-match" (get 0w1 GtkTreeModelClass.t &&&> get 0w2 GtkTreeIterRecord.t ---> ret boolean) (fn model & iter => f (model, iter))
       fun insertPrefixSig f = signal "insert-prefix" (get 0w1 string ---> ret boolean) f
-      fun matchSelectedSig f = signal "match-selected" (get 0w1 GtkTreeModelClass.t &&&> get 0w2 GtkTreeIterRecord.t ---> ret boolean) (fn model & iter => f model iter)
+      fun matchSelectedSig f = signal "match-selected" (get 0w1 GtkTreeModelClass.t &&&> get 0w2 GtkTreeIterRecord.t ---> ret boolean) (fn model & iter => f (model, iter))
     end
     local
       open Property

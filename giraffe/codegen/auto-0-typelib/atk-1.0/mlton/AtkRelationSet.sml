@@ -38,7 +38,7 @@ structure AtkRelationSet :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> AtkRelationSetClass.FFI.fromPtr true) new_ ()
     fun add self relation = (AtkRelationSetClass.FFI.withPtr &&&> AtkRelationClass.FFI.withPtr ---> I) add_ (self & relation)
-    fun addRelationByType self relationship target =
+    fun addRelationByType self (relationship, target) =
       (
         AtkRelationSetClass.FFI.withPtr
          &&&> AtkRelationType.FFI.withVal

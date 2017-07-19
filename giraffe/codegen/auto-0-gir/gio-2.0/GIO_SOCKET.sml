@@ -14,8 +14,8 @@ signature GIO_SOCKET =
     val getType : unit -> GObject.Type.t
     val new :
       socket_family_t
-       -> socket_type_t
-       -> socket_protocol_t
+       * socket_type_t
+       * socket_protocol_t
        -> base class
     val newFromFd : LargeInt.int -> base class
     val accept :
@@ -24,8 +24,7 @@ signature GIO_SOCKET =
        -> base class
     val bind :
       'a class
-       -> 'b socket_address_class
-       -> bool
+       -> 'b socket_address_class * bool
        -> bool
     val checkConnectResult : 'a class -> bool
     val close : 'a class -> bool
@@ -35,13 +34,11 @@ signature GIO_SOCKET =
        -> GLib.IOCondition.t
     val conditionWait :
       'a class
-       -> GLib.IOCondition.t
-       -> 'b cancellable_class option
+       -> GLib.IOCondition.t * 'b cancellable_class option
        -> bool
     val connect :
       'a class
-       -> 'b socket_address_class
-       -> 'c cancellable_class option
+       -> 'b socket_address_class * 'c cancellable_class option
        -> bool
     val connectionFactoryCreateConnection : 'a class -> base socket_connection_class
     val getBlocking : 'a class -> bool
@@ -61,39 +58,38 @@ signature GIO_SOCKET =
     val receive :
       'a class
        -> string
-       -> LargeInt.int
-       -> 'b cancellable_class option
+           * LargeInt.int
+           * 'b cancellable_class option
        -> LargeInt.int
     val receiveFrom :
       'a class
        -> 'b socket_address_class
-       -> string
-       -> LargeInt.int
-       -> 'c cancellable_class option
+           * string
+           * LargeInt.int
+           * 'c cancellable_class option
        -> LargeInt.int
     val receiveWithBlocking :
       'a class
        -> string
-       -> LargeInt.int
-       -> bool
-       -> 'b cancellable_class option
+           * LargeInt.int
+           * bool
+           * 'b cancellable_class option
        -> LargeInt.int
     val send :
       'a class
-       -> string list
-       -> 'b cancellable_class option
+       -> string list * 'b cancellable_class option
        -> LargeInt.int
     val sendTo :
       'a class
        -> 'b socket_address_class
-       -> string list
-       -> 'c cancellable_class option
+           * string list
+           * 'c cancellable_class option
        -> LargeInt.int
     val sendWithBlocking :
       'a class
        -> string list
-       -> bool
-       -> 'b cancellable_class option
+           * bool
+           * 'b cancellable_class option
        -> LargeInt.int
     val setBlocking :
       'a class
@@ -113,8 +109,7 @@ signature GIO_SOCKET =
        -> unit
     val shutdown :
       'a class
-       -> bool
-       -> bool
+       -> bool * bool
        -> bool
     val speaksIpv4 : 'a class -> bool
     val blockingProp : ('a class, bool, bool) Property.readwrite

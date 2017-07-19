@@ -40,7 +40,7 @@ structure GtkActionGroup :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new name = (Utf8.FFI.withPtr ---> GtkActionGroupClass.FFI.fromPtr true) new_ name
     fun addAction self action = (GtkActionGroupClass.FFI.withPtr &&&> GtkActionClass.FFI.withPtr ---> I) addAction_ (self & action)
-    fun addActionWithAccel self action accelerator =
+    fun addActionWithAccel self (action, accelerator) =
       (
         GtkActionGroupClass.FFI.withPtr
          &&&> GtkActionClass.FFI.withPtr
@@ -56,10 +56,10 @@ structure GtkActionGroup :>
     local
       fun add self {name, stockId, label, accelerator, tooltip, callback} =
         let
-          val action = GtkAction.new name label tooltip stockId
+          val action = GtkAction.new (name, label, tooltip, stockId)
         in
           Option.map (Signal.connect action GtkAction.activateSig) callback;
-          addActionWithAccel self action accelerator
+          addActionWithAccel self (action, accelerator)
         end
     in
       fun addActions self entries = List.app (add self) entries
@@ -76,8 +76,8 @@ structure GtkActionGroup :>
     local
       open ClosureMarshal Signal
     in
-      fun connectProxySig f = signal "connect-proxy" (get 0w1 GtkActionClass.t &&&> get 0w2 GtkWidgetClass.t ---> ret_void) (fn action & proxy => f action proxy)
-      fun disconnectProxySig f = signal "disconnect-proxy" (get 0w1 GtkActionClass.t &&&> get 0w2 GtkWidgetClass.t ---> ret_void) (fn action & proxy => f action proxy)
+      fun connectProxySig f = signal "connect-proxy" (get 0w1 GtkActionClass.t &&&> get 0w2 GtkWidgetClass.t ---> ret_void) (fn action & proxy => f (action, proxy))
+      fun disconnectProxySig f = signal "disconnect-proxy" (get 0w1 GtkActionClass.t &&&> get 0w2 GtkWidgetClass.t ---> ret_void) (fn action & proxy => f (action, proxy))
       fun postActivateSig f = signal "post-activate" (get 0w1 GtkActionClass.t ---> ret_void) f
       fun preActivateSig f = signal "pre-activate" (get 0w1 GtkActionClass.t ---> ret_void) f
     end

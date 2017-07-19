@@ -13,8 +13,7 @@ signature G_OBJECT_OBJECT =
 *)
     val getProperty :
       'a class
-       -> string
-       -> value_t
+       -> string * value_t
        -> unit
 (*
     val isFloating : 'a class -> bool
@@ -30,8 +29,7 @@ signature G_OBJECT_OBJECT =
 *)
     val setProperty :
       'a class
-       -> string
-       -> value_t
+       -> string * value_t
        -> unit
 (*
     val thawNotify : 'a class -> unit

@@ -70,11 +70,18 @@ structure PangoCairo : PANGO_CAIRO =
     structure FontMap = PangoCairoFontMap
     fun contextGetFontOptions context = (PangoContextClass.FFI.withPtr ---> CairoFontOptionsRecord.FFI.fromPtr false) contextGetFontOptions_ context
     fun contextGetResolution context = (PangoContextClass.FFI.withPtr ---> GDouble.FFI.fromVal) contextGetResolution_ context
-    fun contextSetFontOptions context options = (PangoContextClass.FFI.withPtr &&&> CairoFontOptionsRecord.FFI.withPtr ---> I) contextSetFontOptions_ (context & options)
-    fun contextSetResolution context dpi = (PangoContextClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) contextSetResolution_ (context & dpi)
+    fun contextSetFontOptions (context, options) = (PangoContextClass.FFI.withPtr &&&> CairoFontOptionsRecord.FFI.withPtr ---> I) contextSetFontOptions_ (context & options)
+    fun contextSetResolution (context, dpi) = (PangoContextClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) contextSetResolution_ (context & dpi)
     fun createContext cr = (CairoContextRecord.FFI.withPtr ---> PangoContextClass.FFI.fromPtr true) createContext_ cr
     fun createLayout cr = (CairoContextRecord.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr true) createLayout_ cr
-    fun errorUnderlinePath cr x y width height =
+    fun errorUnderlinePath
+      (
+        cr,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         CairoContextRecord.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -93,7 +100,12 @@ structure PangoCairo : PANGO_CAIRO =
         )
     fun fontMapGetDefault () = (I ---> PangoFontMapClass.FFI.fromPtr false) fontMapGetDefault_ ()
     fun fontMapNew () = (I ---> PangoFontMapClass.FFI.fromPtr true) fontMapNew_ ()
-    fun glyphStringPath cr font glyphs =
+    fun glyphStringPath
+      (
+        cr,
+        font,
+        glyphs
+      ) =
       (
         CairoContextRecord.FFI.withPtr
          &&&> PangoFontClass.FFI.withPtr
@@ -106,9 +118,16 @@ structure PangoCairo : PANGO_CAIRO =
            & font
            & glyphs
         )
-    fun layoutLinePath cr line = (CairoContextRecord.FFI.withPtr &&&> PangoLayoutLineRecord.FFI.withPtr ---> I) layoutLinePath_ (cr & line)
-    fun layoutPath cr layout = (CairoContextRecord.FFI.withPtr &&&> PangoLayoutClass.FFI.withPtr ---> I) layoutPath_ (cr & layout)
-    fun showErrorUnderline cr x y width height =
+    fun layoutLinePath (cr, line) = (CairoContextRecord.FFI.withPtr &&&> PangoLayoutLineRecord.FFI.withPtr ---> I) layoutLinePath_ (cr & line)
+    fun layoutPath (cr, layout) = (CairoContextRecord.FFI.withPtr &&&> PangoLayoutClass.FFI.withPtr ---> I) layoutPath_ (cr & layout)
+    fun showErrorUnderline
+      (
+        cr,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         CairoContextRecord.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -125,7 +144,12 @@ structure PangoCairo : PANGO_CAIRO =
            & width
            & height
         )
-    fun showGlyphItem cr text glyphItem =
+    fun showGlyphItem
+      (
+        cr,
+        text,
+        glyphItem
+      ) =
       (
         CairoContextRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -138,7 +162,12 @@ structure PangoCairo : PANGO_CAIRO =
            & text
            & glyphItem
         )
-    fun showGlyphString cr font glyphs =
+    fun showGlyphString
+      (
+        cr,
+        font,
+        glyphs
+      ) =
       (
         CairoContextRecord.FFI.withPtr
          &&&> PangoFontClass.FFI.withPtr
@@ -151,8 +180,8 @@ structure PangoCairo : PANGO_CAIRO =
            & font
            & glyphs
         )
-    fun showLayout cr layout = (CairoContextRecord.FFI.withPtr &&&> PangoLayoutClass.FFI.withPtr ---> I) showLayout_ (cr & layout)
-    fun showLayoutLine cr line = (CairoContextRecord.FFI.withPtr &&&> PangoLayoutLineRecord.FFI.withPtr ---> I) showLayoutLine_ (cr & line)
-    fun updateContext cr context = (CairoContextRecord.FFI.withPtr &&&> PangoContextClass.FFI.withPtr ---> I) updateContext_ (cr & context)
-    fun updateLayout cr layout = (CairoContextRecord.FFI.withPtr &&&> PangoLayoutClass.FFI.withPtr ---> I) updateLayout_ (cr & layout)
+    fun showLayout (cr, layout) = (CairoContextRecord.FFI.withPtr &&&> PangoLayoutClass.FFI.withPtr ---> I) showLayout_ (cr & layout)
+    fun showLayoutLine (cr, line) = (CairoContextRecord.FFI.withPtr &&&> PangoLayoutLineRecord.FFI.withPtr ---> I) showLayoutLine_ (cr & line)
+    fun updateContext (cr, context) = (CairoContextRecord.FFI.withPtr &&&> PangoContextClass.FFI.withPtr ---> I) updateContext_ (cr & context)
+    fun updateLayout (cr, layout) = (CairoContextRecord.FFI.withPtr &&&> PangoLayoutClass.FFI.withPtr ---> I) updateLayout_ (cr & layout)
   end

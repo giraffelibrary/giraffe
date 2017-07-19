@@ -42,7 +42,12 @@ structure GtkAppChooserDialog :>
     fun asAppChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkAppChooserClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new parent flags file =
+    fun new
+      (
+        parent,
+        flags,
+        file
+      ) =
       (
         GtkWindowClass.FFI.withOptPtr
          &&&> GtkDialogFlags.FFI.withVal
@@ -55,7 +60,12 @@ structure GtkAppChooserDialog :>
            & flags
            & file
         )
-    fun newForContentType parent flags contentType =
+    fun newForContentType
+      (
+        parent,
+        flags,
+        contentType
+      ) =
       (
         GtkWindowClass.FFI.withOptPtr
          &&&> GtkDialogFlags.FFI.withVal

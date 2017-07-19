@@ -601,7 +601,12 @@ structure Gio : GIO =
     val VOLUME_IDENTIFIER_KIND_UNIX_DEVICE = "unix-device"
     val VOLUME_IDENTIFIER_KIND_UUID = "uuid"
     val VOLUME_MONITOR_EXTENSION_POINT_NAME = "gio-volume-monitor"
-    fun appInfoCreateFromCommandline commandline applicationName flags =
+    fun appInfoCreateFromCommandline
+      (
+        commandline,
+        applicationName,
+        flags
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -616,9 +621,9 @@ structure Gio : GIO =
            & flags
            & []
         )
-    fun appInfoGetDefaultForType contentType mustSupportUris = (Utf8.FFI.withPtr &&&> GBool.FFI.withVal ---> GioAppInfoClass.FFI.fromPtr true) appInfoGetDefaultForType_ (contentType & mustSupportUris)
+    fun appInfoGetDefaultForType (contentType, mustSupportUris) = (Utf8.FFI.withPtr &&&> GBool.FFI.withVal ---> GioAppInfoClass.FFI.fromPtr true) appInfoGetDefaultForType_ (contentType & mustSupportUris)
     fun appInfoGetDefaultForUriScheme uriScheme = (Utf8.FFI.withPtr ---> GioAppInfoClass.FFI.fromPtr true) appInfoGetDefaultForUriScheme_ uriScheme
-    fun appInfoLaunchDefaultForUri uri launchContext =
+    fun appInfoLaunchDefaultForUri (uri, launchContext) =
       (
         Utf8.FFI.withPtr
          &&&> GioAppLaunchContextClass.FFI.withOptPtr
@@ -633,7 +638,7 @@ structure Gio : GIO =
         )
     fun appInfoResetTypeAssociations contentType = (Utf8.FFI.withPtr ---> I) appInfoResetTypeAssociations_ contentType
     fun busGetFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.FFI.fromPtr true) busGetFinish_ (res & [])
-    fun busGetSync busType cancellable =
+    fun busGetSync (busType, cancellable) =
       (
         GioBusType.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
@@ -646,7 +651,14 @@ structure Gio : GIO =
            & cancellable
            & []
         )
-    fun busOwnNameOnConnectionWithClosures connection name flags nameAcquiredClosure nameLostClosure =
+    fun busOwnNameOnConnectionWithClosures
+      (
+        connection,
+        name,
+        flags,
+        nameAcquiredClosure,
+        nameLostClosure
+      ) =
       (
         GioDBusConnectionClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -663,7 +675,15 @@ structure Gio : GIO =
            & nameAcquiredClosure
            & nameLostClosure
         )
-    fun busOwnNameWithClosures busType name flags busAcquiredClosure nameAcquiredClosure nameLostClosure =
+    fun busOwnNameWithClosures
+      (
+        busType,
+        name,
+        flags,
+        busAcquiredClosure,
+        nameAcquiredClosure,
+        nameLostClosure
+      ) =
       (
         GioBusType.FFI.withVal
          &&&> Utf8.FFI.withPtr
@@ -684,7 +704,14 @@ structure Gio : GIO =
         )
     fun busUnownName ownerId = (GUInt.FFI.withVal ---> I) busUnownName_ ownerId
     fun busUnwatchName watcherId = (GUInt.FFI.withVal ---> I) busUnwatchName_ watcherId
-    fun busWatchNameOnConnectionWithClosures connection name flags nameAppearedClosure nameVanishedClosure =
+    fun busWatchNameOnConnectionWithClosures
+      (
+        connection,
+        name,
+        flags,
+        nameAppearedClosure,
+        nameVanishedClosure
+      ) =
       (
         GioDBusConnectionClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -701,7 +728,14 @@ structure Gio : GIO =
            & nameAppearedClosure
            & nameVanishedClosure
         )
-    fun busWatchNameWithClosures busType name flags nameAppearedClosure nameVanishedClosure =
+    fun busWatchNameWithClosures
+      (
+        busType,
+        name,
+        flags,
+        nameAppearedClosure,
+        nameVanishedClosure
+      ) =
       (
         GioBusType.FFI.withVal
          &&&> Utf8.FFI.withPtr
@@ -719,12 +753,12 @@ structure Gio : GIO =
            & nameVanishedClosure
         )
     fun contentTypeCanBeExecutable type' = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeCanBeExecutable_ type'
-    fun contentTypeEquals type1 type2 = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeEquals_ (type1 & type2)
+    fun contentTypeEquals (type1, type2) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeEquals_ (type1 & type2)
     fun contentTypeFromMimeType mimeType = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) contentTypeFromMimeType_ mimeType
     fun contentTypeGetDescription type' = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) contentTypeGetDescription_ type'
     fun contentTypeGetIcon type' = (Utf8.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) contentTypeGetIcon_ type'
     fun contentTypeGetMimeType type' = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) contentTypeGetMimeType_ type'
-    fun contentTypeGuess filename data =
+    fun contentTypeGuess (filename, data) =
       let
         val dataSize =
           case data of
@@ -749,9 +783,9 @@ structure Gio : GIO =
         (retVal, resultUncertain)
       end
     fun contentTypeGuessForTree root = (GioFileClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) contentTypeGuessForTree_ root
-    fun contentTypeIsA type' supertype = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsA_ (type' & supertype)
+    fun contentTypeIsA (type', supertype) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsA_ (type' & supertype)
     fun contentTypeIsUnknown type' = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsUnknown_ type'
-    fun dbusAddressGetForBusSync busType cancellable =
+    fun dbusAddressGetForBusSync (busType, cancellable) =
       (
         GioBusType.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
@@ -764,7 +798,7 @@ structure Gio : GIO =
            & cancellable
            & []
         )
-    fun dbusAddressGetStreamFinish res outGuid =
+    fun dbusAddressGetStreamFinish (res, outGuid) =
       (
         GioAsyncResultClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -777,7 +811,12 @@ structure Gio : GIO =
            & outGuid
            & []
         )
-    fun dbusAddressGetStreamSync address outGuid cancellable =
+    fun dbusAddressGetStreamSync
+      (
+        address,
+        outGuid,
+        cancellable
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -792,11 +831,11 @@ structure Gio : GIO =
            & cancellable
            & []
         )
-    fun dbusAnnotationInfoLookup annotations name = (GioDBusAnnotationInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) dbusAnnotationInfoLookup_ (annotations & name)
+    fun dbusAnnotationInfoLookup (annotations, name) = (GioDBusAnnotationInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) dbusAnnotationInfoLookup_ (annotations & name)
     fun dbusErrorQuark () = (I ---> GLibQuark.FFI.fromVal) dbusErrorQuark_ ()
     fun dbusGenerateGuid () = (I ---> Utf8.FFI.fromPtr 1) dbusGenerateGuid_ ()
-    fun dbusGvalueToGvariant gvalue type' = (GObjectValueRecord.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) dbusGvalueToGvariant_ (gvalue & type')
-    fun dbusGvariantToGvalue value outGvalue = (GLibVariantRecord.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> I) dbusGvariantToGvalue_ (value & outGvalue)
+    fun dbusGvalueToGvariant (gvalue, type') = (GObjectValueRecord.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) dbusGvalueToGvariant_ (gvalue & type')
+    fun dbusGvariantToGvalue (value, outGvalue) = (GLibVariantRecord.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> I) dbusGvariantToGvalue_ (value & outGvalue)
     fun dbusIsAddress string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) dbusIsAddress_ string
     fun dbusIsGuid string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) dbusIsGuid_ string
     fun dbusIsInterfaceName string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) dbusIsInterfaceName_ string
@@ -814,13 +853,13 @@ structure Gio : GIO =
     fun ioExtensionPointLookup name = (Utf8.FFI.withPtr ---> GioIOExtensionPointRecord.FFI.fromPtr false) ioExtensionPointLookup_ name
     fun ioExtensionPointRegister name = (Utf8.FFI.withPtr ---> GioIOExtensionPointRecord.FFI.fromPtr false) ioExtensionPointRegister_ name
     fun ioModulesScanAllInDirectory dirname = (Utf8.FFI.withPtr ---> I) ioModulesScanAllInDirectory_ dirname
-    fun ioModulesScanAllInDirectoryWithScope dirname scope = (Utf8.FFI.withPtr &&&> GioIOModuleScopeRecord.FFI.withPtr ---> I) ioModulesScanAllInDirectoryWithScope_ (dirname & scope)
+    fun ioModulesScanAllInDirectoryWithScope (dirname, scope) = (Utf8.FFI.withPtr &&&> GioIOModuleScopeRecord.FFI.withPtr ---> I) ioModulesScanAllInDirectoryWithScope_ (dirname & scope)
     fun ioSchedulerCancelAllJobs () = (I ---> I) ioSchedulerCancelAllJobs_ ()
     fun proxyGetDefaultForProtocol protocol = (Utf8.FFI.withPtr ---> GioProxyClass.FFI.fromPtr true) proxyGetDefaultForProtocol_ protocol
     fun proxyResolverGetDefault () = (I ---> GioProxyResolverClass.FFI.fromPtr false) proxyResolverGetDefault_ ()
     fun resolverErrorQuark () = (I ---> GLibQuark.FFI.fromVal) resolverErrorQuark_ ()
     fun tlsBackendGetDefault () = (I ---> GioTlsBackendClass.FFI.fromPtr false) tlsBackendGetDefault_ ()
-    fun tlsClientConnectionNew baseIoStream serverIdentity =
+    fun tlsClientConnectionNew (baseIoStream, serverIdentity) =
       (
         GioIOStreamClass.FFI.withPtr
          &&&> GioSocketConnectableClass.FFI.withOptPtr
@@ -835,7 +874,7 @@ structure Gio : GIO =
         )
     fun tlsErrorQuark () = (I ---> GLibQuark.FFI.fromVal) tlsErrorQuark_ ()
     fun tlsFileDatabaseNew anchors = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsDatabaseClass.FFI.fromPtr true) tlsFileDatabaseNew_ (anchors & [])
-    fun tlsServerConnectionNew baseIoStream certificate =
+    fun tlsServerConnectionNew (baseIoStream, certificate) =
       (
         GioIOStreamClass.FFI.withPtr
          &&&> GioTlsCertificateClass.FFI.withOptPtr
@@ -849,7 +888,7 @@ structure Gio : GIO =
            & []
         )
     fun unixIsMountPathSystemInternal mountPath = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) unixIsMountPathSystemInternal_ mountPath
-    fun unixMountCompare mount1 mount2 = (GioUnixMountEntryRecord.FFI.withPtr &&&> GioUnixMountEntryRecord.FFI.withPtr ---> GInt.FFI.fromVal) unixMountCompare_ (mount1 & mount2)
+    fun unixMountCompare (mount1, mount2) = (GioUnixMountEntryRecord.FFI.withPtr &&&> GioUnixMountEntryRecord.FFI.withPtr ---> GInt.FFI.fromVal) unixMountCompare_ (mount1 & mount2)
     fun unixMountFree mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> I) unixMountFree_ mountEntry
     fun unixMountGetDevicePath mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) unixMountGetDevicePath_ mountEntry
     fun unixMountGetFsType mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) unixMountGetFsType_ mountEntry

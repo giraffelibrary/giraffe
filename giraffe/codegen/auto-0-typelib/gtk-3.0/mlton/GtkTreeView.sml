@@ -645,7 +645,7 @@ structure GtkTreeView :>
     fun collapseAll self = (GtkTreeViewClass.FFI.withPtr ---> I) collapseAll_ self
     fun collapseRow self path = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GBool.FFI.fromVal) collapseRow_ (self & path)
     fun columnsAutosize self = (GtkTreeViewClass.FFI.withPtr ---> I) columnsAutosize_ self
-    fun convertBinWindowToTreeCoords self bx by =
+    fun convertBinWindowToTreeCoords self (bx, by) =
       let
         val tx
          & ty
@@ -671,7 +671,7 @@ structure GtkTreeView :>
       in
         (tx, ty)
       end
-    fun convertBinWindowToWidgetCoords self bx by =
+    fun convertBinWindowToWidgetCoords self (bx, by) =
       let
         val wx
          & wy
@@ -697,7 +697,7 @@ structure GtkTreeView :>
       in
         (wx, wy)
       end
-    fun convertTreeToBinWindowCoords self tx ty =
+    fun convertTreeToBinWindowCoords self (tx, ty) =
       let
         val bx
          & by
@@ -723,7 +723,7 @@ structure GtkTreeView :>
       in
         (bx, by)
       end
-    fun convertTreeToWidgetCoords self tx ty =
+    fun convertTreeToWidgetCoords self (tx, ty) =
       let
         val wx
          & wy
@@ -749,7 +749,7 @@ structure GtkTreeView :>
       in
         (wx, wy)
       end
-    fun convertWidgetToBinWindowCoords self wx wy =
+    fun convertWidgetToBinWindowCoords self (wx, wy) =
       let
         val bx
          & by
@@ -775,7 +775,7 @@ structure GtkTreeView :>
       in
         (bx, by)
       end
-    fun convertWidgetToTreeCoords self wx wy =
+    fun convertWidgetToTreeCoords self (wx, wy) =
       let
         val tx
          & ty
@@ -803,7 +803,7 @@ structure GtkTreeView :>
       end
     fun createRowDragIcon self path = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromPtr true) createRowDragIcon_ (self & path)
     fun expandAll self = (GtkTreeViewClass.FFI.withPtr ---> I) expandAll_ self
-    fun expandRow self path openAll =
+    fun expandRow self (path, openAll) =
       (
         GtkTreeViewClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withPtr
@@ -817,7 +817,7 @@ structure GtkTreeView :>
            & openAll
         )
     fun expandToPath self path = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) expandToPath_ (self & path)
-    fun getBackgroundArea self path column =
+    fun getBackgroundArea self (path, column) =
       let
         val rect & () =
           (
@@ -838,7 +838,7 @@ structure GtkTreeView :>
         rect
       end
     fun getBinWindow self = (GtkTreeViewClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self
-    fun getCellArea self path column =
+    fun getCellArea self (path, column) =
       let
         val rect & () =
           (
@@ -881,7 +881,7 @@ structure GtkTreeView :>
       in
         (path, focusColumn)
       end
-    fun getDestRowAtPos self dragX dragY =
+    fun getDestRowAtPos self (dragX, dragY) =
       let
         val path
          & pos
@@ -940,7 +940,7 @@ structure GtkTreeView :>
     fun getHoverSelection self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getHoverSelection_ self
     fun getLevelIndentation self = (GtkTreeViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getLevelIndentation_ self
     fun getModel self = (GtkTreeViewClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
-    fun getPathAtPos self x y =
+    fun getPathAtPos self (x, y) =
       let
         val path
          & column
@@ -991,7 +991,13 @@ structure GtkTreeView :>
     fun getSelection self = (GtkTreeViewClass.FFI.withPtr ---> GtkTreeSelectionClass.FFI.fromPtr false) getSelection_ self
     fun getShowExpanders self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowExpanders_ self
     fun getTooltipColumn self = (GtkTreeViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getTooltipColumn_ self
-    fun getTooltipContext self x y keyboardTip =
+    fun getTooltipContext
+      self
+      (
+        x,
+        y,
+        keyboardTip
+      ) =
       let
         val x
          & y
@@ -1067,7 +1073,7 @@ structure GtkTreeView :>
       in
         visibleRect
       end
-    fun insertColumn self column position =
+    fun insertColumn self (column, position) =
       (
         GtkTreeViewClass.FFI.withPtr
          &&&> GtkTreeViewColumnClass.FFI.withPtr
@@ -1080,7 +1086,7 @@ structure GtkTreeView :>
            & column
            & position
         )
-    fun isBlankAtPos self x y =
+    fun isBlankAtPos self (x, y) =
       let
         val path
          & column
@@ -1124,7 +1130,7 @@ structure GtkTreeView :>
         else NONE
       end
     fun isRubberBandingActive self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) isRubberBandingActive_ self
-    fun moveColumnAfter self column baseColumn =
+    fun moveColumnAfter self (column, baseColumn) =
       (
         GtkTreeViewClass.FFI.withPtr
          &&&> GtkTreeViewColumnClass.FFI.withPtr
@@ -1138,7 +1144,7 @@ structure GtkTreeView :>
            & baseColumn
         )
     fun removeColumn self column = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreeViewColumnClass.FFI.withPtr ---> GInt32.FFI.fromVal) removeColumn_ (self & column)
-    fun rowActivated self path column =
+    fun rowActivated self (path, column) =
       (
         GtkTreeViewClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withPtr
@@ -1152,7 +1158,15 @@ structure GtkTreeView :>
            & column
         )
     fun rowExpanded self path = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GBool.FFI.fromVal) rowExpanded_ (self & path)
-    fun scrollToCell self path column useAlign rowAlign colAlign =
+    fun scrollToCell
+      self
+      (
+        path,
+        column,
+        useAlign,
+        rowAlign,
+        colAlign
+      ) =
       (
         GtkTreeViewClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withOptPtr
@@ -1171,7 +1185,7 @@ structure GtkTreeView :>
            & rowAlign
            & colAlign
         )
-    fun scrollToPoint self treeX treeY =
+    fun scrollToPoint self (treeX, treeY) =
       (
         GtkTreeViewClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -1184,7 +1198,13 @@ structure GtkTreeView :>
            & treeX
            & treeY
         )
-    fun setCursor self path focusColumn startEditing =
+    fun setCursor
+      self
+      (
+        path,
+        focusColumn,
+        startEditing
+      ) =
       (
         GtkTreeViewClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withPtr
@@ -1199,7 +1219,14 @@ structure GtkTreeView :>
            & focusColumn
            & startEditing
         )
-    fun setCursorOnCell self path focusColumn focusCell startEditing =
+    fun setCursorOnCell
+      self
+      (
+        path,
+        focusColumn,
+        focusCell,
+        startEditing
+      ) =
       (
         GtkTreeViewClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withPtr
@@ -1216,7 +1243,7 @@ structure GtkTreeView :>
            & focusCell
            & startEditing
         )
-    fun setDragDestRow self path pos =
+    fun setDragDestRow self (path, pos) =
       (
         GtkTreeViewClass.FFI.withPtr
          &&&> GtkTreePathRecord.FFI.withOptPtr
@@ -1246,7 +1273,14 @@ structure GtkTreeView :>
     fun setSearchColumn self column = (GtkTreeViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setSearchColumn_ (self & column)
     fun setSearchEntry self entry = (GtkTreeViewClass.FFI.withPtr &&&> GtkEntryClass.FFI.withOptPtr ---> I) setSearchEntry_ (self & entry)
     fun setShowExpanders self enabled = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowExpanders_ (self & enabled)
-    fun setTooltipCell self tooltip path column cell =
+    fun setTooltipCell
+      self
+      (
+        tooltip,
+        path,
+        column,
+        cell
+      ) =
       (
         GtkTreeViewClass.FFI.withPtr
          &&&> GtkTooltipClass.FFI.withPtr
@@ -1264,7 +1298,7 @@ structure GtkTreeView :>
            & cell
         )
     fun setTooltipColumn self column = (GtkTreeViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setTooltipColumn_ (self & column)
-    fun setTooltipRow self tooltip path =
+    fun setTooltipRow self (tooltip, path) =
       (
         GtkTreeViewClass.FFI.withPtr
          &&&> GtkTooltipClass.FFI.withPtr
@@ -1297,18 +1331,23 @@ structure GtkTreeView :>
               object
                & p0
                & p1 =>
-                f object p0 p1
+                f
+                  (
+                    object,
+                    p0,
+                    p1
+                  )
           )
-      fun moveCursorSig f = signal "move-cursor" (get 0w1 GtkMovementStep.t &&&> get 0w2 int ---> ret boolean) (fn object & p0 => f object p0)
-      fun rowActivatedSig f = signal "row-activated" (get 0w1 GtkTreePathRecord.t &&&> get 0w2 GtkTreeViewColumnClass.t ---> ret_void) (fn path & column => f path column)
-      fun rowCollapsedSig f = signal "row-collapsed" (get 0w1 GtkTreeIterRecord.t &&&> get 0w2 GtkTreePathRecord.t ---> ret_void) (fn iter & path => f iter path)
-      fun rowExpandedSig f = signal "row-expanded" (get 0w1 GtkTreeIterRecord.t &&&> get 0w2 GtkTreePathRecord.t ---> ret_void) (fn iter & path => f iter path)
+      fun moveCursorSig f = signal "move-cursor" (get 0w1 GtkMovementStep.t &&&> get 0w2 int ---> ret boolean) (fn object & p0 => f (object, p0))
+      fun rowActivatedSig f = signal "row-activated" (get 0w1 GtkTreePathRecord.t &&&> get 0w2 GtkTreeViewColumnClass.t ---> ret_void) (fn path & column => f (path, column))
+      fun rowCollapsedSig f = signal "row-collapsed" (get 0w1 GtkTreeIterRecord.t &&&> get 0w2 GtkTreePathRecord.t ---> ret_void) (fn iter & path => f (iter, path))
+      fun rowExpandedSig f = signal "row-expanded" (get 0w1 GtkTreeIterRecord.t &&&> get 0w2 GtkTreePathRecord.t ---> ret_void) (fn iter & path => f (iter, path))
       fun selectAllSig f = signal "select-all" (void ---> ret boolean) f
       fun selectCursorParentSig f = signal "select-cursor-parent" (void ---> ret boolean) f
       fun selectCursorRowSig f = signal "select-cursor-row" (get 0w1 boolean ---> ret boolean) f
       fun startInteractiveSearchSig f = signal "start-interactive-search" (void ---> ret boolean) f
-      fun testCollapseRowSig f = signal "test-collapse-row" (get 0w1 GtkTreeIterRecord.t &&&> get 0w2 GtkTreePathRecord.t ---> ret boolean) (fn iter & path => f iter path)
-      fun testExpandRowSig f = signal "test-expand-row" (get 0w1 GtkTreeIterRecord.t &&&> get 0w2 GtkTreePathRecord.t ---> ret boolean) (fn iter & path => f iter path)
+      fun testCollapseRowSig f = signal "test-collapse-row" (get 0w1 GtkTreeIterRecord.t &&&> get 0w2 GtkTreePathRecord.t ---> ret boolean) (fn iter & path => f (iter, path))
+      fun testExpandRowSig f = signal "test-expand-row" (get 0w1 GtkTreeIterRecord.t &&&> get 0w2 GtkTreePathRecord.t ---> ret boolean) (fn iter & path => f (iter, path))
       fun toggleCursorRowSig f = signal "toggle-cursor-row" (void ---> ret boolean) f
       fun unselectAllSig f = signal "unselect-all" (void ---> ret boolean) f
     end

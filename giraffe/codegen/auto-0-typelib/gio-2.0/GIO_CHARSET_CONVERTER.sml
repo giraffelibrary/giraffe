@@ -7,10 +7,7 @@ signature GIO_CHARSET_CONVERTER =
     val asConverter : 'a class -> base converter_class
     val asInitable : 'a class -> base initable_class
     val getType : unit -> GObject.Type.t
-    val new :
-      string
-       -> string
-       -> base class
+    val new : string * string -> base class
     val getNumFallbacks : 'a class -> LargeInt.int
     val getUseFallback : 'a class -> bool
     val setUseFallback :

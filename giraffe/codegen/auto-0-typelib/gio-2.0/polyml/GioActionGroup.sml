@@ -58,7 +58,7 @@ structure GioActionGroup :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun actionAdded self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) actionAdded_ (self & actionName)
-    fun actionEnabledChanged self actionName enabled =
+    fun actionEnabledChanged self (actionName, enabled) =
       (
         GioActionGroupClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -72,7 +72,7 @@ structure GioActionGroup :>
            & enabled
         )
     fun actionRemoved self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) actionRemoved_ (self & actionName)
-    fun actionStateChanged self actionName state =
+    fun actionStateChanged self (actionName, state) =
       (
         GioActionGroupClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -85,7 +85,7 @@ structure GioActionGroup :>
            & actionName
            & state
         )
-    fun activateAction self actionName parameter =
+    fun activateAction self (actionName, parameter) =
       (
         GioActionGroupClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -98,7 +98,7 @@ structure GioActionGroup :>
            & actionName
            & parameter
         )
-    fun changeActionState self actionName value =
+    fun changeActionState self (actionName, value) =
       (
         GioActionGroupClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -122,8 +122,8 @@ structure GioActionGroup :>
       open ClosureMarshal Signal
     in
       fun actionAddedSig f = signal "action-added" (get 0w1 string ---> ret_void) f
-      fun actionEnabledChangedSig f = signal "action-enabled-changed" (get 0w1 string &&&> get 0w2 boolean ---> ret_void) (fn actionName & enabled => f actionName enabled)
+      fun actionEnabledChangedSig f = signal "action-enabled-changed" (get 0w1 string &&&> get 0w2 boolean ---> ret_void) (fn actionName & enabled => f (actionName, enabled))
       fun actionRemovedSig f = signal "action-removed" (get 0w1 string ---> ret_void) f
-      fun actionStateChangedSig f = signal "action-state-changed" (get 0w1 string &&&> get 0w2 GLibVariantRecord.t ---> ret_void) (fn actionName & value => f actionName value)
+      fun actionStateChangedSig f = signal "action-state-changed" (get 0w1 string &&&> get 0w2 GLibVariantRecord.t ---> ret_void) (fn actionName & value => f (actionName, value))
     end
   end

@@ -2072,100 +2072,82 @@ signature GTK =
     val TEXT_VIEW_PRIORITY_VALIDATE : LargeInt.int
     val accelGroupsActivate :
       'a GObject.ObjectClass.class
-       -> LargeInt.int
-       -> Gdk.ModifierType.t
+       * LargeInt.int
+       * Gdk.ModifierType.t
        -> bool
     val acceleratorGetDefaultModMask : unit -> Gdk.ModifierType.t
-    val acceleratorGetLabel :
-      LargeInt.int
-       -> Gdk.ModifierType.t
-       -> string
-    val acceleratorName :
-      LargeInt.int
-       -> Gdk.ModifierType.t
-       -> string
+    val acceleratorGetLabel : LargeInt.int * Gdk.ModifierType.t -> string
+    val acceleratorName : LargeInt.int * Gdk.ModifierType.t -> string
     val acceleratorParse : string -> LargeInt.int * Gdk.ModifierType.t
     val acceleratorSetDefaultModMask : Gdk.ModifierType.t -> unit
-    val acceleratorValid :
-      LargeInt.int
-       -> Gdk.ModifierType.t
-       -> bool
+    val acceleratorValid : LargeInt.int * Gdk.ModifierType.t -> bool
     val alternativeDialogButtonOrder : 'a Gdk.ScreenClass.class option -> bool
     val builderErrorQuark : unit -> LargeInt.int
-    val cairoShouldDrawWindow :
-      Cairo.ContextRecord.t
-       -> 'a Gdk.WindowClass.class
-       -> bool
+    val cairoShouldDrawWindow : Cairo.ContextRecord.t * 'a Gdk.WindowClass.class -> bool
     val cairoTransformToWindow :
       Cairo.ContextRecord.t
-       -> 'a WidgetClass.class
-       -> 'b Gdk.WindowClass.class
+       * 'a WidgetClass.class
+       * 'b Gdk.WindowClass.class
        -> unit
     val checkVersion :
       LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> string
     val cssProviderErrorQuark : unit -> LargeInt.int
     val deviceGrabAdd :
       'a WidgetClass.class
-       -> 'b Gdk.DeviceClass.class
-       -> bool
+       * 'b Gdk.DeviceClass.class
+       * bool
        -> unit
-    val deviceGrabRemove :
-      'a WidgetClass.class
-       -> 'b Gdk.DeviceClass.class
-       -> unit
+    val deviceGrabRemove : 'a WidgetClass.class * 'b Gdk.DeviceClass.class -> unit
     val disableSetlocale : unit -> unit
     val dragFinish :
       'a Gdk.DragContextClass.class
-       -> bool
-       -> bool
-       -> LargeInt.int
+       * bool
+       * bool
+       * LargeInt.int
        -> unit
     val dragGetSourceWidget : 'a Gdk.DragContextClass.class -> base WidgetClass.class
     val dragSetIconDefault : 'a Gdk.DragContextClass.class -> unit
     val dragSetIconGicon :
       'a Gdk.DragContextClass.class
-       -> 'b Gio.IconClass.class
-       -> LargeInt.int
-       -> LargeInt.int
+       * 'b Gio.IconClass.class
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val dragSetIconName :
       'a Gdk.DragContextClass.class
-       -> string
-       -> LargeInt.int
-       -> LargeInt.int
+       * string
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val dragSetIconPixbuf :
       'a Gdk.DragContextClass.class
-       -> 'b GdkPixbuf.PixbufClass.class
-       -> LargeInt.int
-       -> LargeInt.int
+       * 'b GdkPixbuf.PixbufClass.class
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val dragSetIconStock :
       'a Gdk.DragContextClass.class
-       -> string
-       -> LargeInt.int
-       -> LargeInt.int
+       * string
+       * LargeInt.int
+       * LargeInt.int
        -> unit
-    val dragSetIconSurface :
-      'a Gdk.DragContextClass.class
-       -> Cairo.SurfaceRecord.t
-       -> unit
+    val dragSetIconSurface : 'a Gdk.DragContextClass.class * Cairo.SurfaceRecord.t -> unit
     val dragSetIconWidget :
       'a Gdk.DragContextClass.class
-       -> 'b WidgetClass.class
-       -> LargeInt.int
-       -> LargeInt.int
+       * 'b WidgetClass.class
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val drawInsertionCursor :
       'a WidgetClass.class
-       -> Cairo.ContextRecord.t
-       -> Cairo.RectangleIntRecord.t
-       -> bool
-       -> TextDirection.t
-       -> bool
+       * Cairo.ContextRecord.t
+       * Cairo.RectangleIntRecord.t
+       * bool
+       * TextDirection.t
+       * bool
        -> unit
     val eventsPending : unit -> bool
     val fileChooserErrorQuark : unit -> LargeInt.int
@@ -2185,19 +2167,13 @@ signature GTK =
     val iconSizeFromName : string -> LargeInt.int
     val iconSizeGetName : LargeInt.int -> string
     val iconSizeLookup : LargeInt.int -> (LargeInt.int * LargeInt.int) option
-    val iconSizeLookupForSettings :
-      'a SettingsClass.class
-       -> LargeInt.int
-       -> (LargeInt.int * LargeInt.int) option
+    val iconSizeLookupForSettings : 'a SettingsClass.class * LargeInt.int -> (LargeInt.int * LargeInt.int) option
     val iconSizeRegister :
       string
+       * LargeInt.int
+       * LargeInt.int
        -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-    val iconSizeRegisterAlias :
-      string
-       -> LargeInt.int
-       -> unit
+    val iconSizeRegisterAlias : string * LargeInt.int -> unit
     val iconThemeErrorQuark : unit -> LargeInt.int
     val init : string list -> string list
     val initCheck : string list -> bool * string list
@@ -2210,259 +2186,256 @@ signature GTK =
     val mainQuit : unit -> unit
     val paintArrow :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> ShadowType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> ArrowType.t
-       -> bool
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * ShadowType.t
+       * 'b WidgetClass.class option
+       * string option
+       * ArrowType.t
+       * bool
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paintBox :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> ShadowType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * ShadowType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paintBoxGap :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> ShadowType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> PositionType.t
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * ShadowType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * PositionType.t
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paintCheck :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> ShadowType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * ShadowType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paintDiamond :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> ShadowType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * ShadowType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paintExpander :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> ExpanderStyle.t
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * ExpanderStyle.t
        -> unit
     val paintExtension :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> ShadowType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> PositionType.t
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * ShadowType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * PositionType.t
        -> unit
     val paintFlatBox :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> ShadowType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * ShadowType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paintFocus :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paintHandle :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> ShadowType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> Orientation.t
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * ShadowType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * Orientation.t
        -> unit
     val paintHline :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paintLayout :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> bool
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> 'c Pango.LayoutClass.class
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * bool
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * 'c Pango.LayoutClass.class
        -> unit
     val paintOption :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> ShadowType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * ShadowType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paintResizeGrip :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> Gdk.WindowEdge.t
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * 'b WidgetClass.class option
+       * string option
+       * Gdk.WindowEdge.t
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paintShadow :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> ShadowType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * ShadowType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paintShadowGap :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> ShadowType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> PositionType.t
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * ShadowType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * PositionType.t
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paintSlider :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> ShadowType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> Orientation.t
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * ShadowType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * Orientation.t
        -> unit
     val paintSpinner :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paintTab :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> ShadowType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * ShadowType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paintVline :
       'a StyleClass.class
-       -> Cairo.ContextRecord.t
-       -> StateType.t
-       -> 'b WidgetClass.class option
-       -> string option
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * Cairo.ContextRecord.t
+       * StateType.t
+       * 'b WidgetClass.class option
+       * string option
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> unit
     val paperSizeGetDefault : unit -> string
     val parseArgs : string list -> bool * string list
     val printErrorQuark : unit -> LargeInt.int
     val printRunPageSetupDialog :
       'a WindowClass.class option
-       -> 'b PageSetupClass.class option
-       -> 'c PrintSettingsClass.class
+       * 'b PageSetupClass.class option
+       * 'c PrintSettingsClass.class
        -> base PageSetupClass.class
-    val propagateEvent :
-      'a WidgetClass.class
-       -> 'b Gdk.Event.union
-       -> unit
+    val propagateEvent : 'a WidgetClass.class * 'b Gdk.Event.union -> unit
     val rcAddDefaultFile : string -> unit
     val rcGetDefaultFiles : unit -> string list
     val rcGetStyle : 'a WidgetClass.class -> base StyleClass.class
@@ -2471,230 +2444,203 @@ signature GTK =
     val recentManagerErrorQuark : unit -> LargeInt.int
     val renderActivity :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> real
-       -> real
-       -> real
-       -> real
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * real
+       * real
        -> unit
     val renderArrow :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> real
-       -> real
-       -> real
-       -> real
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * real
+       * real
        -> unit
     val renderBackground :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> real
-       -> real
-       -> real
-       -> real
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * real
+       * real
        -> unit
     val renderCheck :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> real
-       -> real
-       -> real
-       -> real
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * real
+       * real
        -> unit
     val renderExpander :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> real
-       -> real
-       -> real
-       -> real
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * real
+       * real
        -> unit
     val renderExtension :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> real
-       -> real
-       -> real
-       -> real
-       -> PositionType.t
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * real
+       * real
+       * PositionType.t
        -> unit
     val renderFocus :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> real
-       -> real
-       -> real
-       -> real
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * real
+       * real
        -> unit
     val renderFrame :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> real
-       -> real
-       -> real
-       -> real
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * real
+       * real
        -> unit
     val renderFrameGap :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> real
-       -> real
-       -> real
-       -> real
-       -> PositionType.t
-       -> real
-       -> real
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * real
+       * real
+       * PositionType.t
+       * real
+       * real
        -> unit
     val renderHandle :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> real
-       -> real
-       -> real
-       -> real
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * real
+       * real
        -> unit
     val renderIcon :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> 'b GdkPixbuf.PixbufClass.class
-       -> real
-       -> real
+       * Cairo.ContextRecord.t
+       * 'b GdkPixbuf.PixbufClass.class
+       * real
+       * real
        -> unit
     val renderIconPixbuf :
       'a StyleContextClass.class
-       -> IconSourceRecord.t
-       -> LargeInt.int
+       * IconSourceRecord.t
+       * LargeInt.int
        -> base GdkPixbuf.PixbufClass.class
     val renderLayout :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> real
-       -> real
-       -> 'b Pango.LayoutClass.class
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * 'b Pango.LayoutClass.class
        -> unit
     val renderLine :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> real
-       -> real
-       -> real
-       -> real
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * real
+       * real
        -> unit
     val renderOption :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> real
-       -> real
-       -> real
-       -> real
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * real
+       * real
        -> unit
     val renderSlider :
       'a StyleContextClass.class
-       -> Cairo.ContextRecord.t
-       -> real
-       -> real
-       -> real
-       -> real
-       -> Orientation.t
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * real
+       * real
+       * Orientation.t
        -> unit
     val rgbToHsv :
       real
-       -> real
-       -> real
+       * real
+       * real
        -> real
            * real
            * real
     val selectionAddTarget :
       'a WidgetClass.class
-       -> Gdk.AtomRecord.t
-       -> Gdk.AtomRecord.t
-       -> LargeInt.int
+       * Gdk.AtomRecord.t
+       * Gdk.AtomRecord.t
+       * LargeInt.int
        -> unit
-    val selectionClearTargets :
-      'a WidgetClass.class
-       -> Gdk.AtomRecord.t
-       -> unit
+    val selectionClearTargets : 'a WidgetClass.class * Gdk.AtomRecord.t -> unit
     val selectionConvert :
       'a WidgetClass.class
-       -> Gdk.AtomRecord.t
-       -> Gdk.AtomRecord.t
-       -> LargeInt.int
+       * Gdk.AtomRecord.t
+       * Gdk.AtomRecord.t
+       * LargeInt.int
        -> bool
     val selectionOwnerSet :
       'a WidgetClass.class option
-       -> Gdk.AtomRecord.t
-       -> LargeInt.int
+       * Gdk.AtomRecord.t
+       * LargeInt.int
        -> bool
     val selectionOwnerSetForDisplay :
       'a Gdk.DisplayClass.class
-       -> 'b WidgetClass.class option
-       -> Gdk.AtomRecord.t
-       -> LargeInt.int
+       * 'b WidgetClass.class option
+       * Gdk.AtomRecord.t
+       * LargeInt.int
        -> bool
     val selectionRemoveAll : 'a WidgetClass.class -> unit
     val setDebugFlags : LargeInt.int -> unit
     val showUri :
       'a Gdk.ScreenClass.class option
-       -> string
-       -> LargeInt.int
+       * string
+       * LargeInt.int
        -> bool
     val stockLookup : string -> StockItemRecord.t option
-    val targetsIncludeImage :
-      Gdk.AtomRecord.t vector
-       -> bool
-       -> bool
-    val targetsIncludeRichText :
-      Gdk.AtomRecord.t vector
-       -> 'a TextBufferClass.class
-       -> bool
+    val targetsIncludeImage : Gdk.AtomRecord.t vector * bool -> bool
+    val targetsIncludeRichText : Gdk.AtomRecord.t vector * 'a TextBufferClass.class -> bool
     val targetsIncludeText : Gdk.AtomRecord.t vector -> bool
     val targetsIncludeUri : Gdk.AtomRecord.t vector -> bool
-    val testCreateSimpleWindow :
-      string
-       -> string
-       -> base WidgetClass.class
-    val testFindLabel :
-      'a WidgetClass.class
-       -> string
-       -> base WidgetClass.class
+    val testCreateSimpleWindow : string * string -> base WidgetClass.class
+    val testFindLabel : 'a WidgetClass.class * string -> base WidgetClass.class
     val testRegisterAllTypes : unit -> unit
     val testSliderGetValue : 'a WidgetClass.class -> real
-    val testSliderSetPerc :
-      'a WidgetClass.class
-       -> real
-       -> unit
+    val testSliderSetPerc : 'a WidgetClass.class * real -> unit
     val testSpinButtonClick :
       'a SpinButtonClass.class
-       -> LargeInt.int
-       -> bool
+       * LargeInt.int
+       * bool
        -> bool
     val testTextGet : 'a WidgetClass.class -> string
-    val testTextSet :
-      'a WidgetClass.class
-       -> string
-       -> unit
+    val testTextSet : 'a WidgetClass.class * string -> unit
     val testWidgetClick :
       'a WidgetClass.class
-       -> LargeInt.int
-       -> Gdk.ModifierType.t
+       * LargeInt.int
+       * Gdk.ModifierType.t
        -> bool
     val testWidgetSendKey :
       'a WidgetClass.class
-       -> LargeInt.int
-       -> Gdk.ModifierType.t
+       * LargeInt.int
+       * Gdk.ModifierType.t
        -> bool
     val treeGetRowDragData : SelectionDataRecord.t -> (base TreeModelClass.class * TreePathRecord.t) option
-    val treeRowReferenceDeleted :
-      'a GObject.ObjectClass.class
-       -> TreePathRecord.t
-       -> unit
-    val treeRowReferenceInserted :
-      'a GObject.ObjectClass.class
-       -> TreePathRecord.t
-       -> unit
+    val treeRowReferenceDeleted : 'a GObject.ObjectClass.class * TreePathRecord.t -> unit
+    val treeRowReferenceInserted : 'a GObject.ObjectClass.class * TreePathRecord.t -> unit
     val treeSetRowDragData :
       SelectionDataRecord.t
-       -> 'a TreeModelClass.class
-       -> TreePathRecord.t
+       * 'a TreeModelClass.class
+       * TreePathRecord.t
        -> bool
   end

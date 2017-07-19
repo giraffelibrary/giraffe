@@ -21,10 +21,6 @@ signature GTK_TEXT_TAG_TABLE =
        -> 'b text_tag_class
        -> unit
     val tagAddedSig : (base text_tag_class -> unit) -> 'a class Signal.signal
-    val tagChangedSig :
-      (base text_tag_class
-        -> bool
-        -> unit)
-       -> 'a class Signal.signal
+    val tagChangedSig : (base text_tag_class * bool -> unit) -> 'a class Signal.signal
     val tagRemovedSig : (base text_tag_class -> unit) -> 'a class Signal.signal
   end

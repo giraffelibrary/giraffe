@@ -50,7 +50,7 @@ structure GtkLinkButton :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new uri = (Utf8.FFI.withPtr ---> GtkLinkButtonClass.FFI.fromPtr false) new_ uri
-    fun newWithLabel uri label = (Utf8.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GtkLinkButtonClass.FFI.fromPtr false) newWithLabel_ (uri & label)
+    fun newWithLabel (uri, label) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GtkLinkButtonClass.FFI.fromPtr false) newWithLabel_ (uri & label)
     fun getUri self = (GtkLinkButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUri_ self
     fun getVisited self = (GtkLinkButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisited_ self
     fun setUri self uri = (GtkLinkButtonClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setUri_ (self & uri)

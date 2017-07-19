@@ -94,7 +94,7 @@ structure GtkButton :>
     fun getRelief self = (GtkButtonClass.FFI.withPtr ---> GtkReliefStyle.FFI.fromVal) getRelief_ self
     fun getUseStock self = (GtkButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseStock_ self
     fun getUseUnderline self = (GtkButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseUnderline_ self
-    fun setAlignment self xalign yalign =
+    fun setAlignment self (xalign, yalign) =
       (
         GtkButtonClass.FFI.withPtr
          &&&> GFloat.FFI.withVal

@@ -38,7 +38,7 @@ structure GioFileOutputStream :>
     fun asSeekable self = (GObjectObjectClass.FFI.withPtr ---> GioSeekableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getEtag self = (GioFileOutputStreamClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getEtag_ self
-    fun queryInfo self attributes cancellable =
+    fun queryInfo self (attributes, cancellable) =
       (
         GioFileOutputStreamClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

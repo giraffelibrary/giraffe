@@ -8,13 +8,11 @@ signature GTK_EDITABLE =
     val deleteSelection : 'a class -> unit
     val deleteText :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val getChars :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> string
     val getEditable : 'a class -> bool
     val getPosition : 'a class -> LargeInt.int
@@ -22,14 +20,13 @@ signature GTK_EDITABLE =
     val insertText :
       'a class
        -> string
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> LargeInt.int
     val pasteClipboard : 'a class -> unit
     val selectRegion :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setEditable :
       'a class
@@ -40,15 +37,11 @@ signature GTK_EDITABLE =
        -> LargeInt.int
        -> unit
     val changedSig : (unit -> unit) -> 'a class Signal.signal
-    val deleteTextSig :
-      (LargeInt.int
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val deleteTextSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
     val insertTextSig :
       (string
-        -> LargeInt.int
-        -> LargeInt.int
+        * LargeInt.int
+        * LargeInt.int
         -> LargeInt.int)
        -> 'a class Signal.signal
   end

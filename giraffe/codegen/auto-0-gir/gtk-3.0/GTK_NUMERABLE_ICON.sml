@@ -6,10 +6,7 @@ signature GTK_NUMERABLE_ICON =
     val asIcon : 'a class -> base Gio.IconClass.class
     val getType : unit -> GObject.Type.t
     val new : 'a Gio.IconClass.class -> base Gio.IconClass.class
-    val newWithStyleContext :
-      'a Gio.IconClass.class
-       -> 'b style_context_class
-       -> base Gio.IconClass.class
+    val newWithStyleContext : 'a Gio.IconClass.class * 'b style_context_class -> base Gio.IconClass.class
     val getBackgroundGicon : 'a class -> base Gio.IconClass.class
     val getBackgroundIconName : 'a class -> string
     val getCount : 'a class -> LargeInt.int

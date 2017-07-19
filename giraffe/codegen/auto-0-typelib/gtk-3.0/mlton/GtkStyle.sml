@@ -135,7 +135,17 @@ structure GtkStyle :>
     type 'a style_context_class = 'a GtkStyleContextClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun applyDefaultBackground self cr window stateType x y width height =
+    fun applyDefaultBackground
+      self
+      (
+        cr,
+        window,
+        stateType,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -180,7 +190,16 @@ structure GtkStyle :>
         if retVal then SOME color else NONE
       end
     fun lookupIconSet self stockId = (GtkStyleClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkIconSetRecord.FFI.fromPtr false) lookupIconSet_ (self & stockId)
-    fun renderIcon self source direction state size widget detail =
+    fun renderIcon
+      self
+      (
+        source,
+        direction,
+        state,
+        size,
+        widget,
+        detail
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> GtkIconSourceRecord.FFI.withPtr
@@ -201,7 +220,7 @@ structure GtkStyle :>
            & widget
            & detail
         )
-    fun setBackground self window stateType =
+    fun setBackground self (window, stateType) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> GdkWindowClass.FFI.withPtr

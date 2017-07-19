@@ -5,10 +5,7 @@ signature GIO_UNIX_INPUT_STREAM =
     type t = base class
     val asPollableInputStream : 'a class -> base pollable_input_stream_class
     val getType : unit -> GObject.Type.t
-    val new :
-      LargeInt.int
-       -> bool
-       -> base class
+    val new : LargeInt.int * bool -> base class
     val getCloseFd : 'a class -> bool
     val getFd : 'a class -> LargeInt.int
     val setCloseFd :

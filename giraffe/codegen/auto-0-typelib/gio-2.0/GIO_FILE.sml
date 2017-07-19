@@ -26,8 +26,7 @@ signature GIO_FILE =
     val parseName : string -> base class
     val appendTo :
       'a class
-       -> file_create_flags_t
-       -> 'b cancellable_class option
+       -> file_create_flags_t * 'b cancellable_class option
        -> base file_output_stream_class
     val appendToFinish :
       'a class
@@ -36,8 +35,8 @@ signature GIO_FILE =
     val copyAttributes :
       'a class
        -> 'b class
-       -> file_copy_flags_t
-       -> 'c cancellable_class option
+           * file_copy_flags_t
+           * 'c cancellable_class option
        -> bool
     val copyFinish :
       'a class
@@ -45,8 +44,7 @@ signature GIO_FILE =
        -> bool
     val create :
       'a class
-       -> file_create_flags_t
-       -> 'b cancellable_class option
+       -> file_create_flags_t * 'b cancellable_class option
        -> base file_output_stream_class
     val createFinish :
       'a class
@@ -54,8 +52,7 @@ signature GIO_FILE =
        -> base file_output_stream_class
     val createReadwrite :
       'a class
-       -> file_create_flags_t
-       -> 'b cancellable_class option
+       -> file_create_flags_t * 'b cancellable_class option
        -> base file_i_o_stream_class
     val createReadwriteFinish :
       'a class
@@ -73,8 +70,8 @@ signature GIO_FILE =
     val enumerateChildren :
       'a class
        -> string
-       -> file_query_info_flags_t
-       -> 'b cancellable_class option
+           * file_query_info_flags_t
+           * 'b cancellable_class option
        -> base file_enumerator_class
     val enumerateChildrenFinish :
       'a class
@@ -146,23 +143,19 @@ signature GIO_FILE =
        -> bool
     val makeSymbolicLink :
       'a class
-       -> string
-       -> 'b cancellable_class option
+       -> string * 'b cancellable_class option
        -> bool
     val monitor :
       'a class
-       -> file_monitor_flags_t
-       -> 'b cancellable_class option
+       -> file_monitor_flags_t * 'b cancellable_class option
        -> base file_monitor_class
     val monitorDirectory :
       'a class
-       -> file_monitor_flags_t
-       -> 'b cancellable_class option
+       -> file_monitor_flags_t * 'b cancellable_class option
        -> base file_monitor_class
     val monitorFile :
       'a class
-       -> file_monitor_flags_t
-       -> 'b cancellable_class option
+       -> file_monitor_flags_t * 'b cancellable_class option
        -> base file_monitor_class
     val mountEnclosingVolumeFinish :
       'a class
@@ -194,13 +187,11 @@ signature GIO_FILE =
        -> bool
     val queryFileType :
       'a class
-       -> file_query_info_flags_t
-       -> 'b cancellable_class option
+       -> file_query_info_flags_t * 'b cancellable_class option
        -> file_type_t
     val queryFilesystemInfo :
       'a class
-       -> string
-       -> 'b cancellable_class option
+       -> string * 'b cancellable_class option
        -> base file_info_class
     val queryFilesystemInfoFinish :
       'a class
@@ -209,8 +200,8 @@ signature GIO_FILE =
     val queryInfo :
       'a class
        -> string
-       -> file_query_info_flags_t
-       -> 'b cancellable_class option
+           * file_query_info_flags_t
+           * 'b cancellable_class option
        -> base file_info_class
     val queryInfoFinish :
       'a class
@@ -235,17 +226,17 @@ signature GIO_FILE =
     val replace :
       'a class
        -> string option
-       -> bool
-       -> file_create_flags_t
-       -> 'b cancellable_class option
+           * bool
+           * file_create_flags_t
+           * 'b cancellable_class option
        -> base file_output_stream_class
     val replaceContents :
       'a class
        -> Word8Vector.vector
-       -> string option
-       -> bool
-       -> file_create_flags_t
-       -> 'b cancellable_class option
+           * string option
+           * bool
+           * file_create_flags_t
+           * 'b cancellable_class option
        -> string option
     val replaceContentsFinish :
       'a class
@@ -258,9 +249,9 @@ signature GIO_FILE =
     val replaceReadwrite :
       'a class
        -> string option
-       -> bool
-       -> file_create_flags_t
-       -> 'b cancellable_class option
+           * bool
+           * file_create_flags_t
+           * 'b cancellable_class option
        -> base file_i_o_stream_class
     val replaceReadwriteFinish :
       'a class
@@ -273,44 +264,44 @@ signature GIO_FILE =
     val setAttributeByteString :
       'a class
        -> string
-       -> string
-       -> file_query_info_flags_t
-       -> 'b cancellable_class option
+           * string
+           * file_query_info_flags_t
+           * 'b cancellable_class option
        -> bool
     val setAttributeInt32 :
       'a class
        -> string
-       -> LargeInt.int
-       -> file_query_info_flags_t
-       -> 'b cancellable_class option
+           * LargeInt.int
+           * file_query_info_flags_t
+           * 'b cancellable_class option
        -> bool
     val setAttributeInt64 :
       'a class
        -> string
-       -> LargeInt.int
-       -> file_query_info_flags_t
-       -> 'b cancellable_class option
+           * LargeInt.int
+           * file_query_info_flags_t
+           * 'b cancellable_class option
        -> bool
     val setAttributeString :
       'a class
        -> string
-       -> string
-       -> file_query_info_flags_t
-       -> 'b cancellable_class option
+           * string
+           * file_query_info_flags_t
+           * 'b cancellable_class option
        -> bool
     val setAttributeUint32 :
       'a class
        -> string
-       -> LargeInt.int
-       -> file_query_info_flags_t
-       -> 'b cancellable_class option
+           * LargeInt.int
+           * file_query_info_flags_t
+           * 'b cancellable_class option
        -> bool
     val setAttributeUint64 :
       'a class
        -> string
-       -> LargeInt.int
-       -> file_query_info_flags_t
-       -> 'b cancellable_class option
+           * LargeInt.int
+           * file_query_info_flags_t
+           * 'b cancellable_class option
        -> bool
     val setAttributesFinish :
       'a class
@@ -319,13 +310,12 @@ signature GIO_FILE =
     val setAttributesFromInfo :
       'a class
        -> 'b file_info_class
-       -> file_query_info_flags_t
-       -> 'c cancellable_class option
+           * file_query_info_flags_t
+           * 'c cancellable_class option
        -> bool
     val setDisplayName :
       'a class
-       -> string
-       -> 'b cancellable_class option
+       -> string * 'b cancellable_class option
        -> base class
     val setDisplayNameFinish :
       'a class

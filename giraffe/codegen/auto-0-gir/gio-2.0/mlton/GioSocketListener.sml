@@ -270,7 +270,14 @@ structure GioSocketListener :>
       in
         (retVal, sourceObject)
       end
-    fun addAddress self address type' protocol sourceObject =
+    fun addAddress
+      self
+      (
+        address,
+        type',
+        protocol,
+        sourceObject
+      ) =
       let
         val effectiveAddress & retVal =
           (
@@ -309,7 +316,7 @@ structure GioSocketListener :>
            & sourceObject
            & []
         )
-    fun addInetPort self port sourceObject =
+    fun addInetPort self (port, sourceObject) =
       (
         GioSocketListenerClass.FFI.withPtr
          &&&> GUInt16.FFI.withVal
@@ -324,7 +331,7 @@ structure GioSocketListener :>
            & sourceObject
            & []
         )
-    fun addSocket self socket sourceObject =
+    fun addSocket self (socket, sourceObject) =
       (
         GioSocketListenerClass.FFI.withPtr
          &&&> GioSocketClass.FFI.withPtr

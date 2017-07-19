@@ -9,10 +9,7 @@ signature GTK_LINK_BUTTON =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : string -> base class
-    val newWithLabel :
-      string
-       -> string option
-       -> base class
+    val newWithLabel : string * string option -> base class
     val getUri : 'a class -> string
     val getVisited : 'a class -> bool
     val setUri :

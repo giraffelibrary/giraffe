@@ -268,7 +268,7 @@ structure VteTerminal :>
       in
         ()
       end
-    fun feedChild self text length =
+    fun feedChild self (text, length) =
       (
         VteTerminalClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -316,7 +316,7 @@ structure VteTerminal :>
     fun getEncoding self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getEncoding_ self
     fun getFont self = (VteTerminalClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFont_ self
     fun getFontScale self = (VteTerminalClass.FFI.withPtr ---> GDouble.FFI.fromVal) getFontScale_ self
-    fun getGeometryHints self minRows minColumns =
+    fun getGeometryHints self (minRows, minColumns) =
       let
         val hints & () =
           (
@@ -344,7 +344,7 @@ structure VteTerminal :>
     fun getRewrapOnResize self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getRewrapOnResize_ self
     fun getRowCount self = (VteTerminalClass.FFI.withPtr ---> GLong.FFI.fromVal) getRowCount_ self
     fun getWindowTitle self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getWindowTitle_ self
-    fun matchAddGregex self regex flags =
+    fun matchAddGregex self (regex, flags) =
       (
         VteTerminalClass.FFI.withPtr
          &&&> GLibRegexRecord.FFI.withPtr
@@ -357,7 +357,7 @@ structure VteTerminal :>
            & regex
            & flags
         )
-    fun matchCheck self column row =
+    fun matchCheck self (column, row) =
       let
         val tag & retVal =
           (
@@ -397,7 +397,7 @@ structure VteTerminal :>
       end
     fun matchRemove self tag = (VteTerminalClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) matchRemove_ (self & tag)
     fun matchRemoveAll self = (VteTerminalClass.FFI.withPtr ---> I) matchRemoveAll_ self
-    fun matchSetCursorName self tag cursorName =
+    fun matchSetCursorName self (tag, cursorName) =
       (
         VteTerminalClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -410,7 +410,7 @@ structure VteTerminal :>
            & tag
            & cursorName
         )
-    fun matchSetCursorType self tag cursorType =
+    fun matchSetCursorType self (tag, cursorType) =
       (
         VteTerminalClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -425,7 +425,7 @@ structure VteTerminal :>
         )
     fun pasteClipboard self = (VteTerminalClass.FFI.withPtr ---> I) pasteClipboard_ self
     fun pastePrimary self = (VteTerminalClass.FFI.withPtr ---> I) pastePrimary_ self
-    fun ptyNewSync self flags cancellable =
+    fun ptyNewSync self (flags, cancellable) =
       (
         VteTerminalClass.FFI.withPtr
          &&&> VtePtyFlags.FFI.withVal
@@ -440,7 +440,7 @@ structure VteTerminal :>
            & cancellable
            & []
         )
-    fun reset self clearTabstops clearHistory =
+    fun reset self (clearTabstops, clearHistory) =
       (
         VteTerminalClass.FFI.withPtr
          &&&> GBool.FFI.withVal
@@ -457,7 +457,7 @@ structure VteTerminal :>
     fun searchFindPrevious self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) searchFindPrevious_ self
     fun searchGetGregex self = (VteTerminalClass.FFI.withPtr ---> GLibRegexRecord.FFI.fromPtr false) searchGetGregex_ self
     fun searchGetWrapAround self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) searchGetWrapAround_ self
-    fun searchSetGregex self regex flags =
+    fun searchSetGregex self (regex, flags) =
       (
         VteTerminalClass.FFI.withPtr
          &&&> GLibRegexRecord.FFI.withOptPtr
@@ -482,7 +482,7 @@ structure VteTerminal :>
     fun setColorForeground self foreground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setColorForeground_ (self & foreground)
     fun setColorHighlight self highlightBackground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorHighlight_ (self & highlightBackground)
     fun setColorHighlightForeground self highlightForeground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorHighlightForeground_ (self & highlightForeground)
-    fun setColors self foreground background =
+    fun setColors self (foreground, background) =
       (
         GObjectObjectClass.FFI.withPtr
          &&&> GdkRgbaRecord.FFI.withOptPtr
@@ -522,7 +522,7 @@ structure VteTerminal :>
     fun setScrollOnKeystroke self scroll = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setScrollOnKeystroke_ (self & scroll)
     fun setScrollOnOutput self scroll = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setScrollOnOutput_ (self & scroll)
     fun setScrollbackLines self lines = (VteTerminalClass.FFI.withPtr &&&> GLong.FFI.withVal ---> I) setScrollbackLines_ (self & lines)
-    fun setSize self columns rows =
+    fun setSize self (columns, rows) =
       (
         VteTerminalClass.FFI.withPtr
          &&&> GLong.FFI.withVal
@@ -535,7 +535,7 @@ structure VteTerminal :>
            & columns
            & rows
         )
-    fun spawnSync terminal ptyFlags workingDirectory argv envv spawnFlags childSetup cancellable =
+    fun spawnSync terminal (ptyFlags, workingDirectory, argv, envv, spawnFlags, childSetup, cancellable) =
       let
         val
           childPid
@@ -572,7 +572,13 @@ structure VteTerminal :>
       end
     fun unselectAll self = (VteTerminalClass.FFI.withPtr ---> I) unselectAll_ self
     fun watchChild self childPid = (VteTerminalClass.FFI.withPtr &&&> GLibPid.FFI.withVal ---> I) watchChild_ (self & childPid)
-    fun writeContentsSync self stream flags cancellable =
+    fun writeContentsSync
+      self
+      (
+        stream,
+        flags,
+        cancellable
+      ) =
       (
         VteTerminalClass.FFI.withPtr
          &&&> GioOutputStreamClass.FFI.withPtr
@@ -593,9 +599,9 @@ structure VteTerminal :>
       open ClosureMarshal Signal
     in
       fun bellSig f = signal "bell" (void ---> ret_void) f
-      fun charSizeChangedSig f = signal "char-size-changed" (get 0w1 uint &&&> get 0w2 uint ---> ret_void) (fn width & height => f width height)
+      fun charSizeChangedSig f = signal "char-size-changed" (get 0w1 uint &&&> get 0w2 uint ---> ret_void) (fn width & height => f (width, height))
       fun childExitedSig f = signal "child-exited" (get 0w1 int ---> ret_void) f
-      fun commitSig f = signal "commit" (get 0w1 string &&&> get 0w2 uint ---> ret_void) (fn text & size => f text size)
+      fun commitSig f = signal "commit" (get 0w1 string &&&> get 0w2 uint ---> ret_void) (fn text & size => f (text, size))
       fun contentsChangedSig f = signal "contents-changed" (void ---> ret_void) f
       fun copyClipboardSig f = signal "copy-clipboard" (void ---> ret_void) f
       fun currentDirectoryUriChangedSig f = signal "current-directory-uri-changed" (void ---> ret_void) f
@@ -610,11 +616,11 @@ structure VteTerminal :>
       fun increaseFontSizeSig f = signal "increase-font-size" (void ---> ret_void) f
       fun lowerWindowSig f = signal "lower-window" (void ---> ret_void) f
       fun maximizeWindowSig f = signal "maximize-window" (void ---> ret_void) f
-      fun moveWindowSig f = signal "move-window" (get 0w1 uint &&&> get 0w2 uint ---> ret_void) (fn x & y => f x y)
+      fun moveWindowSig f = signal "move-window" (get 0w1 uint &&&> get 0w2 uint ---> ret_void) (fn x & y => f (x, y))
       fun pasteClipboardSig f = signal "paste-clipboard" (void ---> ret_void) f
       fun raiseWindowSig f = signal "raise-window" (void ---> ret_void) f
       fun refreshWindowSig f = signal "refresh-window" (void ---> ret_void) f
-      fun resizeWindowSig f = signal "resize-window" (get 0w1 uint &&&> get 0w2 uint ---> ret_void) (fn width & height => f width height)
+      fun resizeWindowSig f = signal "resize-window" (get 0w1 uint &&&> get 0w2 uint ---> ret_void) (fn width & height => f (width, height))
       fun restoreWindowSig f = signal "restore-window" (void ---> ret_void) f
       fun selectionChangedSig f = signal "selection-changed" (void ---> ret_void) f
       fun textDeletedSig f = signal "text-deleted" (void ---> ret_void) f

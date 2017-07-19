@@ -5,26 +5,25 @@ signature GTK_ADJUSTMENT =
     val getType : unit -> GObject.Type.t
     val new :
       real
-       -> real
-       -> real
-       -> real
-       -> real
-       -> real
+       * real
+       * real
+       * real
+       * real
+       * real
        -> base class
     val changed : 'a class -> unit
     val clampPage :
       'a class
-       -> real
-       -> real
+       -> real * real
        -> unit
     val configure :
       'a class
        -> real
-       -> real
-       -> real
-       -> real
-       -> real
-       -> real
+           * real
+           * real
+           * real
+           * real
+           * real
        -> unit
     val getLower : 'a class -> real
     val getMinimumIncrement : 'a class -> real

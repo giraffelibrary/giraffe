@@ -567,7 +567,7 @@ structure GtkPrintSettings :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkPrintSettingsClass.FFI.fromPtr true) new_ ()
     fun newFromFile fileName = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GtkPrintSettingsClass.FFI.fromPtr true) newFromFile_ (fileName & [])
-    fun newFromKeyFile keyFile groupName =
+    fun newFromKeyFile (keyFile, groupName) =
       (
         GLibKeyFileRecord.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -587,7 +587,7 @@ structure GtkPrintSettings :>
     fun getDefaultSource self = (GtkPrintSettingsClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDefaultSource_ self
     fun getDither self = (GtkPrintSettingsClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDither_ self
     fun getDouble self key = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GDouble.FFI.fromVal) getDouble_ (self & key)
-    fun getDoubleWithDefault self key def =
+    fun getDoubleWithDefault self (key, def) =
       (
         GtkPrintSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -603,7 +603,7 @@ structure GtkPrintSettings :>
     fun getDuplex self = (GtkPrintSettingsClass.FFI.withPtr ---> GtkPrintDuplex.FFI.fromVal) getDuplex_ self
     fun getFinishings self = (GtkPrintSettingsClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getFinishings_ self
     fun getInt self key = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) getInt_ (self & key)
-    fun getIntWithDefault self key def =
+    fun getIntWithDefault self (key, def) =
       (
         GtkPrintSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -616,7 +616,7 @@ structure GtkPrintSettings :>
            & key
            & def
         )
-    fun getLength self key unit =
+    fun getLength self (key, unit) =
       (
         GtkPrintSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -663,7 +663,7 @@ structure GtkPrintSettings :>
            & fileName
            & []
         )
-    fun loadKeyFile self keyFile groupName =
+    fun loadKeyFile self (keyFile, groupName) =
       (
         GtkPrintSettingsClass.FFI.withPtr
          &&&> GLibKeyFileRecord.FFI.withPtr
@@ -678,7 +678,7 @@ structure GtkPrintSettings :>
            & groupName
            & []
         )
-    fun set self key value =
+    fun set self (key, value) =
       (
         GtkPrintSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -691,7 +691,7 @@ structure GtkPrintSettings :>
            & key
            & value
         )
-    fun setBool self key value =
+    fun setBool self (key, value) =
       (
         GtkPrintSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -707,7 +707,7 @@ structure GtkPrintSettings :>
     fun setCollate self collate = (GtkPrintSettingsClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCollate_ (self & collate)
     fun setDefaultSource self defaultSource = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDefaultSource_ (self & defaultSource)
     fun setDither self dither = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDither_ (self & dither)
-    fun setDouble self key value =
+    fun setDouble self (key, value) =
       (
         GtkPrintSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -722,7 +722,7 @@ structure GtkPrintSettings :>
         )
     fun setDuplex self duplex = (GtkPrintSettingsClass.FFI.withPtr &&&> GtkPrintDuplex.FFI.withVal ---> I) setDuplex_ (self & duplex)
     fun setFinishings self finishings = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setFinishings_ (self & finishings)
-    fun setInt self key value =
+    fun setInt self (key, value) =
       (
         GtkPrintSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -735,7 +735,13 @@ structure GtkPrintSettings :>
            & key
            & value
         )
-    fun setLength self key value unit =
+    fun setLength
+      self
+      (
+        key,
+        value,
+        unit
+      ) =
       (
         GtkPrintSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -757,7 +763,7 @@ structure GtkPrintSettings :>
     fun setOrientation self orientation = (GtkPrintSettingsClass.FFI.withPtr &&&> GtkPageOrientation.FFI.withVal ---> I) setOrientation_ (self & orientation)
     fun setOutputBin self outputBin = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setOutputBin_ (self & outputBin)
     fun setPageSet self pageSet = (GtkPrintSettingsClass.FFI.withPtr &&&> GtkPageSet.FFI.withVal ---> I) setPageSet_ (self & pageSet)
-    fun setPaperHeight self height unit =
+    fun setPaperHeight self (height, unit) =
       (
         GtkPrintSettingsClass.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -771,7 +777,7 @@ structure GtkPrintSettings :>
            & unit
         )
     fun setPaperSize self paperSize = (GtkPrintSettingsClass.FFI.withPtr &&&> GtkPaperSizeRecord.FFI.withPtr ---> I) setPaperSize_ (self & paperSize)
-    fun setPaperWidth self width unit =
+    fun setPaperWidth self (width, unit) =
       (
         GtkPrintSettingsClass.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -789,7 +795,7 @@ structure GtkPrintSettings :>
     fun setPrinterLpi self lpi = (GtkPrintSettingsClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setPrinterLpi_ (self & lpi)
     fun setQuality self quality = (GtkPrintSettingsClass.FFI.withPtr &&&> GtkPrintQuality.FFI.withVal ---> I) setQuality_ (self & quality)
     fun setResolution self resolution = (GtkPrintSettingsClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setResolution_ (self & resolution)
-    fun setResolutionXy self resolutionX resolutionY =
+    fun setResolutionXy self (resolutionX, resolutionY) =
       (
         GtkPrintSettingsClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -818,7 +824,7 @@ structure GtkPrintSettings :>
            & fileName
            & []
         )
-    fun toKeyFile self keyFile groupName =
+    fun toKeyFile self (keyFile, groupName) =
       (
         GtkPrintSettingsClass.FFI.withPtr
          &&&> GLibKeyFileRecord.FFI.withPtr

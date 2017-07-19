@@ -41,7 +41,7 @@ structure GioTlsCertificate :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newFromFile file = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsCertificateClass.FFI.fromPtr true) newFromFile_ (file & [])
-    fun newFromFiles certFile keyFile =
+    fun newFromFiles (certFile, keyFile) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -54,7 +54,7 @@ structure GioTlsCertificate :>
            & keyFile
            & []
         )
-    fun newFromPem data length =
+    fun newFromPem (data, length) =
       (
         Utf8.FFI.withPtr
          &&&> GSSize.FFI.withVal
@@ -68,7 +68,7 @@ structure GioTlsCertificate :>
            & []
         )
     fun getIssuer self = (GioTlsCertificateClass.FFI.withPtr ---> GioTlsCertificateClass.FFI.fromPtr false) getIssuer_ self
-    fun verify self identity trustedCa =
+    fun verify self (identity, trustedCa) =
       (
         GioTlsCertificateClass.FFI.withPtr
          &&&> GioSocketConnectableClass.FFI.withOptPtr

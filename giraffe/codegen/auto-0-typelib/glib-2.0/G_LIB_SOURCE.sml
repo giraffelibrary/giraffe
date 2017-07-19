@@ -36,8 +36,5 @@ signature G_LIB_SOURCE =
        -> LargeInt.int
        -> unit
     val remove : LargeInt.int -> bool
-    val setNameById :
-      LargeInt.int
-       -> string
-       -> unit
+    val setNameById : LargeInt.int * string -> unit
   end

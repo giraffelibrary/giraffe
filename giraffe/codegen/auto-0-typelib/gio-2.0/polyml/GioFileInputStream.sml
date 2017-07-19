@@ -36,7 +36,7 @@ structure GioFileInputStream :>
     type t = base class
     fun asSeekable self = (GObjectObjectClass.FFI.withPtr ---> GioSeekableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun queryInfo self attributes cancellable =
+    fun queryInfo self (attributes, cancellable) =
       (
         GioFileInputStreamClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

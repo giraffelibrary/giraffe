@@ -4,10 +4,7 @@ signature GIO_TLS_PASSWORD =
     type tls_password_flags_t
     type t = base class
     val getType : unit -> GObject.Type.t
-    val new :
-      tls_password_flags_t
-       -> string
-       -> base class
+    val new : tls_password_flags_t * string -> base class
     val getDescription : 'a class -> string
     val getFlags : 'a class -> tls_password_flags_t
     val getWarning : 'a class -> string

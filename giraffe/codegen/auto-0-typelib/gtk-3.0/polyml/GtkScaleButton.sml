@@ -50,7 +50,14 @@ structure GtkScaleButton :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new size min max step icons =
+    fun new
+      (
+        size,
+        min,
+        max,
+        step,
+        icons
+      ) =
       (
         GInt32.FFI.withVal
          &&&> GDouble.FFI.withVal

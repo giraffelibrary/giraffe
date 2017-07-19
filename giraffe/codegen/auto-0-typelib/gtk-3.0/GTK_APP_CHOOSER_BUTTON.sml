@@ -16,8 +16,8 @@ signature GTK_APP_CHOOSER_BUTTON =
     val appendCustomItem :
       'a class
        -> string
-       -> string
-       -> 'b Gio.IconClass.class
+           * string
+           * 'b Gio.IconClass.class
        -> unit
     val appendSeparator : 'a class -> unit
     val getHeading : 'a class -> string

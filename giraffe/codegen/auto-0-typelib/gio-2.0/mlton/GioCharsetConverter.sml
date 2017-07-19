@@ -36,7 +36,7 @@ structure GioCharsetConverter :>
     fun asConverter self = (GObjectObjectClass.FFI.withPtr ---> GioConverterClass.FFI.fromPtr false) I self
     fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new toCharset fromCharset =
+    fun new (toCharset, fromCharset) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr

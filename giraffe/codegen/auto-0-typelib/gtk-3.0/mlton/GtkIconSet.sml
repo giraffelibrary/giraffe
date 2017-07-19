@@ -81,7 +81,7 @@ structure GtkIconSet :>
       in
         sizes (LargeInt.toInt nSizes)
       end
-    fun renderIconPixbuf self context size =
+    fun renderIconPixbuf self (context, size) =
       (
         GtkIconSetRecord.FFI.withPtr
          &&&> GtkStyleContextClass.FFI.withPtr

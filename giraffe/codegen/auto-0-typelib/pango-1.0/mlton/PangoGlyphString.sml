@@ -85,7 +85,15 @@ structure PangoGlyphString :>
       in
         (inkRect, logicalRect)
       end
-    fun extentsRange self start end' font inkRect logicalRect =
+    fun extentsRange
+      self
+      (
+        start,
+        end',
+        font,
+        inkRect,
+        logicalRect
+      ) =
       (
         PangoGlyphStringRecord.FFI.withPtr
          &&&> GInt32.FFI.withVal

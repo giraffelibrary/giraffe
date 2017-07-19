@@ -259,7 +259,7 @@ structure GtkLabel :>
     fun getUseMarkup self = (GtkLabelClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseMarkup_ self
     fun getUseUnderline self = (GtkLabelClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseUnderline_ self
     fun getWidthChars self = (GtkLabelClass.FFI.withPtr ---> GInt32.FFI.fromVal) getWidthChars_ self
-    fun selectRegion self startOffset endOffset =
+    fun selectRegion self (startOffset, endOffset) =
       (
         GtkLabelClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -311,7 +311,12 @@ structure GtkLabel :>
               step
                & count
                & extendSelection =>
-                f step count extendSelection
+                f
+                  (
+                    step,
+                    count,
+                    extendSelection
+                  )
           )
       fun populatePopupSig f = signal "populate-popup" (get 0w1 GtkMenuClass.t ---> ret_void) f
     end

@@ -10,15 +10,14 @@ signature ATK_TEXT =
     val freeRanges : text_range_t -> unit
     val addSelection :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> bool
     val getBoundedRanges :
       'a class
        -> text_rectangle_t
-       -> coord_type_t
-       -> text_clip_type_t
-       -> text_clip_type_t
+           * coord_type_t
+           * text_clip_type_t
+           * text_clip_type_t
        -> text_range_t vector
     val getCaretOffset : 'a class -> LargeInt.int
     val getCharacterAtOffset :
@@ -30,20 +29,19 @@ signature ATK_TEXT =
     val getOffsetAtPoint :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> coord_type_t
+           * LargeInt.int
+           * coord_type_t
        -> LargeInt.int
     val getRangeExtents :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> coord_type_t
-       -> text_rectangle_t
+           * LargeInt.int
+           * coord_type_t
+           * text_rectangle_t
        -> unit
     val getText :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> string
     val removeSelection :
       'a class
@@ -56,34 +54,30 @@ signature ATK_TEXT =
     val setSelection :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> bool
     val textAttributesChangedSig : (unit -> unit) -> 'a class Signal.signal
     val textCaretMovedSig : (LargeInt.int -> unit) -> 'a class Signal.signal
-    val textChangedSig :
-      (LargeInt.int
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val textChangedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
     val textInsertSig :
       (LargeInt.int
-        -> LargeInt.int
-        -> string
+        * LargeInt.int
+        * string
         -> unit)
        -> 'a class Signal.signal
     val textRemoveSig :
       (LargeInt.int
-        -> LargeInt.int
-        -> string
+        * LargeInt.int
+        * string
         -> unit)
        -> 'a class Signal.signal
     val textSelectionChangedSig : (unit -> unit) -> 'a class Signal.signal
     val textUpdateSig :
       (LargeInt.int
-        -> LargeInt.int
-        -> LargeInt.int
-        -> string
+        * LargeInt.int
+        * LargeInt.int
+        * string
         -> unit)
        -> 'a class Signal.signal
   end

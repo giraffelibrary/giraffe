@@ -11,8 +11,7 @@ signature ATK_DOCUMENT =
     val getLocale : 'a class -> string
     val setAttributeValue :
       'a class
-       -> string
-       -> string
+       -> string * string
        -> bool
     val loadCompleteSig : (unit -> unit) -> 'a class Signal.signal
     val loadStoppedSig : (unit -> unit) -> 'a class Signal.signal

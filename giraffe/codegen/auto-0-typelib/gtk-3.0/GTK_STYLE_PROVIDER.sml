@@ -18,7 +18,7 @@ signature GTK_STYLE_PROVIDER =
     val getStyleProperty :
       'a class
        -> widget_path_t
-       -> state_flags_t
-       -> 'b GObject.ParamSpecClass.class
+           * state_flags_t
+           * 'b GObject.ParamSpecClass.class
        -> GObject.ValueRecord.t option
   end

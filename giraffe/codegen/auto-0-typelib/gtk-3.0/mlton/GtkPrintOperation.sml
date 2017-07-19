@@ -131,7 +131,7 @@ structure GtkPrintOperation :>
     fun getStatusString self = (GtkPrintOperationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStatusString_ self
     fun getSupportSelection self = (GtkPrintOperationClass.FFI.withPtr ---> GBool.FFI.fromVal) getSupportSelection_ self
     fun isFinished self = (GtkPrintOperationClass.FFI.withPtr ---> GBool.FFI.fromVal) isFinished_ self
-    fun run self action parent =
+    fun run self (action, parent) =
       (
         GtkPrintOperationClass.FFI.withPtr
          &&&> GtkPrintOperationAction.FFI.withVal
@@ -169,7 +169,7 @@ structure GtkPrintOperation :>
       fun createCustomWidgetSig f = signal "create-custom-widget" (void ---> ret GObjectObjectClass.t) f
       fun customWidgetApplySig f = signal "custom-widget-apply" (get 0w1 GtkWidgetClass.t ---> ret_void) f
       fun doneSig f = signal "done" (get 0w1 GtkPrintOperationResult.t ---> ret_void) f
-      fun drawPageSig f = signal "draw-page" (get 0w1 GtkPrintContextClass.t &&&> get 0w2 int ---> ret_void) (fn context & pageNr => f context pageNr)
+      fun drawPageSig f = signal "draw-page" (get 0w1 GtkPrintContextClass.t &&&> get 0w2 int ---> ret_void) (fn context & pageNr => f (context, pageNr))
       fun endPrintSig f = signal "end-print" (get 0w1 GtkPrintContextClass.t ---> ret_void) f
       fun paginateSig f = signal "paginate" (get 0w1 GtkPrintContextClass.t ---> ret boolean) f
       fun previewSig f =
@@ -185,7 +185,12 @@ structure GtkPrintOperation :>
               preview
                & context
                & parent =>
-                f preview context parent
+                f
+                  (
+                    preview,
+                    context,
+                    parent
+                  )
           )
       fun requestPageSetupSig f =
         signal "request-page-setup"
@@ -200,7 +205,12 @@ structure GtkPrintOperation :>
               context
                & pageNr
                & setup =>
-                f context pageNr setup
+                f
+                  (
+                    context,
+                    pageNr,
+                    setup
+                  )
           )
       fun statusChangedSig f = signal "status-changed" (void ---> ret_void) f
       fun updateCustomWidgetSig f =
@@ -216,7 +226,12 @@ structure GtkPrintOperation :>
               widget
                & setup
                & settings =>
-                f widget setup settings
+                f
+                  (
+                    widget,
+                    setup,
+                    settings
+                  )
           )
     end
     local

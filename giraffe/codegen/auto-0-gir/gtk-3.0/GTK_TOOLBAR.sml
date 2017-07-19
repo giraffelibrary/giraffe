@@ -17,8 +17,7 @@ signature GTK_TOOLBAR =
     val new : unit -> base class
     val getDropIndex :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int
     val getIconSize : 'a class -> LargeInt.int
     val getItemIndex :
@@ -35,13 +34,11 @@ signature GTK_TOOLBAR =
     val getStyle : 'a class -> toolbar_style_t
     val insert :
       'a class
-       -> 'b tool_item_class
-       -> LargeInt.int
+       -> 'b tool_item_class * LargeInt.int
        -> unit
     val setDropHighlightItem :
       'a class
-       -> 'b tool_item_class option
-       -> LargeInt.int
+       -> 'b tool_item_class option * LargeInt.int
        -> unit
     val setIconSize :
       'a class
@@ -61,8 +58,8 @@ signature GTK_TOOLBAR =
     val orientationChangedSig : (orientation_t -> unit) -> 'a class Signal.signal
     val popupContextMenuSig :
       (LargeInt.int
-        -> LargeInt.int
-        -> LargeInt.int
+        * LargeInt.int
+        * LargeInt.int
         -> bool)
        -> 'a class Signal.signal
     val styleChangedSig : (toolbar_style_t -> unit) -> 'a class Signal.signal

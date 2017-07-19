@@ -10,16 +10,16 @@ signature GTK_RECENT_ACTION =
     val getType : unit -> GObject.Type.t
     val new :
       string
-       -> string option
-       -> string option
-       -> string option
+       * string option
+       * string option
+       * string option
        -> base class
     val newForManager :
       string
-       -> string option
-       -> string option
-       -> string option
-       -> 'a recent_manager_class option
+       * string option
+       * string option
+       * string option
+       * 'a recent_manager_class option
        -> base class
     val getShowNumbers : 'a class -> bool
     val setShowNumbers :

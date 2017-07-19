@@ -6,19 +6,12 @@ signature GIO_TLS_CERTIFICATE =
     type t = base class
     val getType : unit -> GObject.Type.t
     val newFromFile : string -> base class
-    val newFromFiles :
-      string
-       -> string
-       -> base class
-    val newFromPem :
-      string
-       -> LargeInt.int
-       -> base class
+    val newFromFiles : string * string -> base class
+    val newFromPem : string * LargeInt.int -> base class
     val getIssuer : 'a class -> base class
     val verify :
       'a class
-       -> 'b socket_connectable_class option
-       -> 'c class option
+       -> 'b socket_connectable_class option * 'c class option
        -> tls_certificate_flags_t
     val certificatePemProp : ('a class, string option, string option) Property.readwrite
     val issuerProp : ('a class, base class option, 'b class option) Property.readwrite

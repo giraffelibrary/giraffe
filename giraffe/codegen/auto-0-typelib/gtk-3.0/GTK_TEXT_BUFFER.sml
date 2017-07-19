@@ -13,8 +13,7 @@ signature GTK_TEXT_BUFFER =
     val new : 'a text_tag_table_class option -> base class
     val addMark :
       'a class
-       -> 'b text_mark_class
-       -> text_iter_t
+       -> 'b text_mark_class * text_iter_t
        -> unit
     val addSelectionClipboard :
       'a class
@@ -23,20 +22,20 @@ signature GTK_TEXT_BUFFER =
     val applyTag :
       'a class
        -> 'b text_tag_class
-       -> text_iter_t
-       -> text_iter_t
+           * text_iter_t
+           * text_iter_t
        -> unit
     val applyTagByName :
       'a class
        -> string
-       -> text_iter_t
-       -> text_iter_t
+           * text_iter_t
+           * text_iter_t
        -> unit
     val backspace :
       'a class
        -> text_iter_t
-       -> bool
-       -> bool
+           * bool
+           * bool
        -> bool
     val beginUserAction : 'a class -> unit
     val copyClipboard :
@@ -50,24 +49,22 @@ signature GTK_TEXT_BUFFER =
     val createMark :
       'a class
        -> string option
-       -> text_iter_t
-       -> bool
+           * text_iter_t
+           * bool
        -> base text_mark_class
     val cutClipboard :
       'a class
-       -> 'b clipboard_class
-       -> bool
+       -> 'b clipboard_class * bool
        -> unit
     val delete :
       'a class
-       -> text_iter_t
-       -> text_iter_t
+       -> text_iter_t * text_iter_t
        -> unit
     val deleteInteractive :
       'a class
        -> text_iter_t
-       -> text_iter_t
-       -> bool
+           * text_iter_t
+           * bool
        -> bool
     val deleteMark :
       'a class
@@ -79,15 +76,14 @@ signature GTK_TEXT_BUFFER =
        -> unit
     val deleteSelection :
       'a class
-       -> bool
-       -> bool
+       -> bool * bool
        -> bool
     val deserialize :
       'a class
        -> 'b class
-       -> Gdk.AtomRecord.t
-       -> text_iter_t
-       -> Word8Vector.vector
+           * Gdk.AtomRecord.t
+           * text_iter_t
+           * Word8Vector.vector
        -> bool
     val deserializeGetCanCreateTags :
       'a class
@@ -95,8 +91,7 @@ signature GTK_TEXT_BUFFER =
        -> bool
     val deserializeSetCanCreateTags :
       'a class
-       -> Gdk.AtomRecord.t
-       -> bool
+       -> Gdk.AtomRecord.t * bool
        -> unit
     val endUserAction : 'a class -> unit
     val getBounds : 'a class -> text_iter_t * text_iter_t
@@ -116,13 +111,11 @@ signature GTK_TEXT_BUFFER =
        -> text_iter_t
     val getIterAtLineIndex :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> text_iter_t
     val getIterAtLineOffset :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> text_iter_t
     val getIterAtMark :
       'a class
@@ -145,79 +138,74 @@ signature GTK_TEXT_BUFFER =
     val getSlice :
       'a class
        -> text_iter_t
-       -> text_iter_t
-       -> bool
+           * text_iter_t
+           * bool
        -> string
     val getStartIter : 'a class -> text_iter_t
     val getTagTable : 'a class -> base text_tag_table_class
     val getText :
       'a class
        -> text_iter_t
-       -> text_iter_t
-       -> bool
+           * text_iter_t
+           * bool
        -> string
     val insert :
       'a class
        -> text_iter_t
-       -> string
-       -> LargeInt.int
+           * string
+           * LargeInt.int
        -> unit
     val insertAtCursor :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val insertChildAnchor :
       'a class
-       -> text_iter_t
-       -> 'b text_child_anchor_class
+       -> text_iter_t * 'b text_child_anchor_class
        -> unit
     val insertInteractive :
       'a class
        -> text_iter_t
-       -> string
-       -> LargeInt.int
-       -> bool
+           * string
+           * LargeInt.int
+           * bool
        -> bool
     val insertInteractiveAtCursor :
       'a class
        -> string
-       -> LargeInt.int
-       -> bool
+           * LargeInt.int
+           * bool
        -> bool
     val insertPixbuf :
       'a class
-       -> text_iter_t
-       -> 'b GdkPixbuf.PixbufClass.class
+       -> text_iter_t * 'b GdkPixbuf.PixbufClass.class
        -> unit
     val insertRange :
       'a class
        -> text_iter_t
-       -> text_iter_t
-       -> text_iter_t
+           * text_iter_t
+           * text_iter_t
        -> unit
     val insertRangeInteractive :
       'a class
        -> text_iter_t
-       -> text_iter_t
-       -> text_iter_t
-       -> bool
+           * text_iter_t
+           * text_iter_t
+           * bool
        -> bool
     val moveMark :
       'a class
-       -> 'b text_mark_class
-       -> text_iter_t
+       -> 'b text_mark_class * text_iter_t
        -> unit
     val moveMarkByName :
       'a class
-       -> string
-       -> text_iter_t
+       -> string * text_iter_t
        -> unit
     val pasteClipboard :
       'a class
        -> 'b clipboard_class
-       -> text_iter_t option
-       -> bool
+           * text_iter_t option
+           * bool
        -> unit
     val placeCursor :
       'a class
@@ -233,8 +221,7 @@ signature GTK_TEXT_BUFFER =
        -> Gdk.AtomRecord.t
     val removeAllTags :
       'a class
-       -> text_iter_t
-       -> text_iter_t
+       -> text_iter_t * text_iter_t
        -> unit
     val removeSelectionClipboard :
       'a class
@@ -243,26 +230,25 @@ signature GTK_TEXT_BUFFER =
     val removeTag :
       'a class
        -> 'b text_tag_class
-       -> text_iter_t
-       -> text_iter_t
+           * text_iter_t
+           * text_iter_t
        -> unit
     val removeTagByName :
       'a class
        -> string
-       -> text_iter_t
-       -> text_iter_t
+           * text_iter_t
+           * text_iter_t
        -> unit
     val selectRange :
       'a class
-       -> text_iter_t
-       -> text_iter_t
+       -> text_iter_t * text_iter_t
        -> unit
     val serialize :
       'a class
        -> 'b class
-       -> Gdk.AtomRecord.t
-       -> text_iter_t
-       -> text_iter_t
+           * Gdk.AtomRecord.t
+           * text_iter_t
+           * text_iter_t
        -> Word8Vector.vector
     val setModified :
       'a class
@@ -270,8 +256,7 @@ signature GTK_TEXT_BUFFER =
        -> unit
     val setText :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val unregisterDeserializeFormat :
       'a class
@@ -283,46 +268,30 @@ signature GTK_TEXT_BUFFER =
        -> unit
     val applyTagSig :
       (base text_tag_class
-        -> text_iter_t
-        -> text_iter_t
+        * text_iter_t
+        * text_iter_t
         -> unit)
        -> 'a class Signal.signal
     val beginUserActionSig : (unit -> unit) -> 'a class Signal.signal
     val changedSig : (unit -> unit) -> 'a class Signal.signal
-    val deleteRangeSig :
-      (text_iter_t
-        -> text_iter_t
-        -> unit)
-       -> 'a class Signal.signal
+    val deleteRangeSig : (text_iter_t * text_iter_t -> unit) -> 'a class Signal.signal
     val endUserActionSig : (unit -> unit) -> 'a class Signal.signal
-    val insertChildAnchorSig :
-      (text_iter_t
-        -> base text_child_anchor_class
-        -> unit)
-       -> 'a class Signal.signal
-    val insertPixbufSig :
-      (text_iter_t
-        -> base GdkPixbuf.PixbufClass.class
-        -> unit)
-       -> 'a class Signal.signal
+    val insertChildAnchorSig : (text_iter_t * base text_child_anchor_class -> unit) -> 'a class Signal.signal
+    val insertPixbufSig : (text_iter_t * base GdkPixbuf.PixbufClass.class -> unit) -> 'a class Signal.signal
     val insertTextSig :
       (text_iter_t
-        -> string
-        -> LargeInt.int
+        * string
+        * LargeInt.int
         -> unit)
        -> 'a class Signal.signal
     val markDeletedSig : (base text_mark_class -> unit) -> 'a class Signal.signal
-    val markSetSig :
-      (text_iter_t
-        -> base text_mark_class
-        -> unit)
-       -> 'a class Signal.signal
+    val markSetSig : (text_iter_t * base text_mark_class -> unit) -> 'a class Signal.signal
     val modifiedChangedSig : (unit -> unit) -> 'a class Signal.signal
     val pasteDoneSig : (base clipboard_class -> unit) -> 'a class Signal.signal
     val removeTagSig :
       (base text_tag_class
-        -> text_iter_t
-        -> text_iter_t
+        * text_iter_t
+        * text_iter_t
         -> unit)
        -> 'a class Signal.signal
     val copyTargetListProp : ('a class, target_list_t option) Property.readonly

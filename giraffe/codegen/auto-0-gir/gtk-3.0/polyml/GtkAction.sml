@@ -68,7 +68,13 @@ structure GtkAction :>
     type t = base class
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new name label tooltip stockId =
+    fun new
+      (
+        name,
+        label,
+        tooltip,
+        stockId
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr

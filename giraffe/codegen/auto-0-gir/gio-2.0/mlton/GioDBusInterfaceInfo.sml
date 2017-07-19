@@ -77,7 +77,7 @@ structure GioDBusInterfaceInfo :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun cacheBuild self = (GioDBusInterfaceInfoRecord.FFI.withPtr ---> I) cacheBuild_ self
     fun cacheRelease self = (GioDBusInterfaceInfoRecord.FFI.withPtr ---> I) cacheRelease_ self
-    fun generateXml self indent stringBuilder =
+    fun generateXml self (indent, stringBuilder) =
       (
         GioDBusInterfaceInfoRecord.FFI.withPtr
          &&&> GUInt.FFI.withVal

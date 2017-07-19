@@ -9,14 +9,8 @@ signature GTK_RADIO_BUTTON =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val newFromWidget : 'a class option -> base class
-    val newWithLabelFromWidget :
-      'a class option
-       -> string
-       -> base class
-    val newWithMnemonicFromWidget :
-      'a class option
-       -> string
-       -> base class
+    val newWithLabelFromWidget : 'a class option * string -> base class
+    val newWithMnemonicFromWidget : 'a class option * string -> base class
     val joinGroup :
       'a class
        -> 'b class option

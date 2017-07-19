@@ -30,16 +30,8 @@ signature GTK_SOURCE_COMPLETION =
     val unblockInteractive : 'a class -> unit
     val activateProposalSig : (unit -> unit) -> 'a class Signal.signal
     val hideSig : (unit -> unit) -> 'a class Signal.signal
-    val moveCursorSig :
-      (Gtk.ScrollStep.t
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
-    val movePageSig :
-      (Gtk.ScrollStep.t
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val moveCursorSig : (Gtk.ScrollStep.t * LargeInt.int -> unit) -> 'a class Signal.signal
+    val movePageSig : (Gtk.ScrollStep.t * LargeInt.int -> unit) -> 'a class Signal.signal
     val populateContextSig : (base completion_context_class -> unit) -> 'a class Signal.signal
     val showSig : (unit -> unit) -> 'a class Signal.signal
     val acceleratorsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

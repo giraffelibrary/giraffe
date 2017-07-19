@@ -31,7 +31,13 @@ structure GtkTextTag :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new name = (Utf8.FFI.withOptPtr ---> GtkTextTagClass.FFI.fromPtr true) new_ name
-    fun event self eventObject event iter =
+    fun event
+      self
+      (
+        eventObject,
+        event,
+        iter
+      ) =
       (
         GtkTextTagClass.FFI.withPtr
          &&&> GObjectObjectClass.FFI.withPtr
@@ -64,7 +70,12 @@ structure GtkTextTag :>
               object
                & event
                & iter =>
-                f object event iter
+                f
+                  (
+                    object,
+                    event,
+                    iter
+                  )
           )
     end
     local

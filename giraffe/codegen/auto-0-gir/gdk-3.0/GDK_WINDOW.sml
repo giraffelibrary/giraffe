@@ -26,14 +26,14 @@ signature GDK_WINDOW =
     val getType : unit -> GObject.Type.t
     val new :
       'a class option
-       -> window_attr_t
-       -> LargeInt.int
+       * window_attr_t
+       * LargeInt.int
        -> base class
     val constrainSize :
       geometry_t
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val processAllUpdates : unit -> unit
     val setDebugUpdates : bool -> unit
@@ -41,9 +41,9 @@ signature GDK_WINDOW =
     val beginMoveDrag :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val beginPaintRect :
       'a class
@@ -56,27 +56,25 @@ signature GDK_WINDOW =
     val beginResizeDrag :
       'a class
        -> window_edge_t
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val configureFinished : 'a class -> unit
     val coordsFromParent :
       'a class
-       -> real
-       -> real
+       -> real * real
        -> real * real
     val coordsToParent :
       'a class
-       -> real
-       -> real
+       -> real * real
        -> real * real
     val createSimilarSurface :
       'a class
        -> Cairo.Content.t
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> Cairo.SurfaceRecord.t
     val deiconify : 'a class -> unit
     val destroy : 'a class -> unit
@@ -142,8 +140,7 @@ signature GDK_WINDOW =
     val getPosition : 'a class -> LargeInt.int * LargeInt.int
     val getRootCoords :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int * LargeInt.int
     val getRootOrigin : 'a class -> LargeInt.int * LargeInt.int
     val getScreen : 'a class -> base screen_class
@@ -166,18 +163,16 @@ signature GDK_WINDOW =
     val inputShapeCombineRegion :
       'a class
        -> Cairo.RegionRecord.t
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val invalidateRect :
       'a class
-       -> rectangle_t option
-       -> bool
+       -> rectangle_t option * bool
        -> unit
     val invalidateRegion :
       'a class
-       -> Cairo.RegionRecord.t
-       -> bool
+       -> Cairo.RegionRecord.t * bool
        -> unit
     val isDestroyed : 'a class -> bool
     val isInputOnly : 'a class -> bool
@@ -190,21 +185,20 @@ signature GDK_WINDOW =
     val mergeChildShapes : 'a class -> unit
     val move :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val moveRegion :
       'a class
        -> Cairo.RegionRecord.t
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val moveResize :
       'a class
        -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val processUpdates :
       'a class
@@ -215,23 +209,20 @@ signature GDK_WINDOW =
     val reparent :
       'a class
        -> 'b class
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val resize :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val restack :
       'a class
-       -> 'b class option
-       -> bool
+       -> 'b class option * bool
        -> unit
     val scroll :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setAcceptFocus :
       'a class
@@ -265,13 +256,11 @@ signature GDK_WINDOW =
        -> unit
     val setDeviceCursor :
       'a class
-       -> 'b device_class
-       -> 'c cursor_class
+       -> 'b device_class * 'c cursor_class
        -> unit
     val setDeviceEvents :
       'a class
-       -> 'b device_class
-       -> event_mask_t
+       -> 'b device_class * event_mask_t
        -> unit
     val setEvents :
       'a class
@@ -287,8 +276,7 @@ signature GDK_WINDOW =
        -> unit
     val setGeometryHints :
       'a class
-       -> geometry_t
-       -> window_hints_t
+       -> geometry_t * window_hints_t
        -> unit
     val setGroup :
       'a class
@@ -332,8 +320,7 @@ signature GDK_WINDOW =
        -> unit
     val setSourceEvents :
       'a class
-       -> input_source_t
-       -> event_mask_t
+       -> input_source_t * event_mask_t
        -> unit
     val setStartupId :
       'a class
@@ -370,8 +357,8 @@ signature GDK_WINDOW =
     val shapeCombineRegion :
       'a class
        -> Cairo.RegionRecord.t option
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val show : 'a class -> unit
     val showUnraised : 'a class -> unit
@@ -382,25 +369,9 @@ signature GDK_WINDOW =
     val unmaximize : 'a class -> unit
     val unstick : 'a class -> unit
     val withdraw : 'a class -> unit
-    val createSurfaceSig :
-      (LargeInt.int
-        -> LargeInt.int
-        -> Cairo.SurfaceRecord.t)
-       -> 'a class Signal.signal
-    val fromEmbedderSig :
-      (real
-        -> real
-        -> real * real)
-       -> 'a class Signal.signal
-    val pickEmbeddedChildSig :
-      (real
-        -> real
-        -> 'a class)
-       -> 'b class Signal.signal
-    val toEmbedderSig :
-      (real
-        -> real
-        -> real * real)
-       -> 'a class Signal.signal
+    val createSurfaceSig : (LargeInt.int * LargeInt.int -> Cairo.SurfaceRecord.t) -> 'a class Signal.signal
+    val fromEmbedderSig : (real * real -> real * real) -> 'a class Signal.signal
+    val pickEmbeddedChildSig : (real * real -> 'a class) -> 'b class Signal.signal
+    val toEmbedderSig : (real * real -> real * real) -> 'a class Signal.signal
     val cursorProp : ('a class, base cursor_class option, 'b cursor_class option) Property.readwrite
   end

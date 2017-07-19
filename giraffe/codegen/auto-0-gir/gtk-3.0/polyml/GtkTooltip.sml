@@ -45,7 +45,7 @@ structure GtkTooltip :>
     fun triggerTooltipQuery display = (GdkDisplayClass.FFI.withPtr ---> I) triggerTooltipQuery_ display
     fun setCustom self customWidget = (GtkTooltipClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setCustom_ (self & customWidget)
     fun setIcon self pixbuf = (GtkTooltipClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withOptPtr ---> I) setIcon_ (self & pixbuf)
-    fun setIconFromGicon self gicon size =
+    fun setIconFromGicon self (gicon, size) =
       (
         GtkTooltipClass.FFI.withPtr
          &&&> GioIconClass.FFI.withOptPtr
@@ -58,7 +58,7 @@ structure GtkTooltip :>
            & gicon
            & size
         )
-    fun setIconFromIconName self iconName size =
+    fun setIconFromIconName self (iconName, size) =
       (
         GtkTooltipClass.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -71,7 +71,7 @@ structure GtkTooltip :>
            & iconName
            & size
         )
-    fun setIconFromStock self stockId size =
+    fun setIconFromStock self (stockId, size) =
       (
         GtkTooltipClass.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr

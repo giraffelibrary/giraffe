@@ -18,8 +18,7 @@ signature GDK_SCREEN =
     val getHeightMm : 'a class -> LargeInt.int
     val getMonitorAtPoint :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> LargeInt.int
     val getMonitorAtWindow :
       'a class
@@ -49,8 +48,7 @@ signature GDK_SCREEN =
     val getRootWindow : 'a class -> base window_class
     val getSetting :
       'a class
-       -> string
-       -> GObject.ValueRecord.t
+       -> string * GObject.ValueRecord.t
        -> bool
     val getSystemVisual : 'a class -> base visual_class
     val getWidth : 'a class -> LargeInt.int

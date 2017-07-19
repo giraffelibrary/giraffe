@@ -13,7 +13,7 @@ structure GioUnixOutputStream :>
     type t = base class
     fun asPollableOutputStream self = (GObjectObjectClass.FFI.withPtr ---> GioPollableOutputStreamClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new fd closeFd = (GInt32.FFI.withVal &&&> GBool.FFI.withVal ---> GioUnixOutputStreamClass.FFI.fromPtr true) new_ (fd & closeFd)
+    fun new (fd, closeFd) = (GInt32.FFI.withVal &&&> GBool.FFI.withVal ---> GioUnixOutputStreamClass.FFI.fromPtr true) new_ (fd & closeFd)
     fun getCloseFd self = (GioUnixOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) getCloseFd_ self
     fun getFd self = (GioUnixOutputStreamClass.FFI.withPtr ---> GInt32.FFI.fromVal) getFd_ self
     fun setCloseFd self closeFd = (GioUnixOutputStreamClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCloseFd_ (self & closeFd)

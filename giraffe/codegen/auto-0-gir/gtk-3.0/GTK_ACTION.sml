@@ -10,9 +10,9 @@ signature GTK_ACTION =
     val getType : unit -> GObject.Type.t
     val new :
       string
-       -> string option
-       -> string option
-       -> string option
+       * string option
+       * string option
+       * string option
        -> base class
     val activate : 'a class -> unit
     val blockActivate : 'a class -> unit

@@ -22,16 +22,16 @@ signature GIO_D_BUS_CONNECTION =
     val newForAddressFinish : 'a async_result_class -> base class
     val newForAddressSync :
       string
-       -> d_bus_connection_flags_t
-       -> 'a d_bus_auth_observer_class option
-       -> 'b cancellable_class option
+       * d_bus_connection_flags_t
+       * 'a d_bus_auth_observer_class option
+       * 'b cancellable_class option
        -> base class
     val newSync :
       'a i_o_stream_class
-       -> string option
-       -> d_bus_connection_flags_t
-       -> 'b d_bus_auth_observer_class option
-       -> 'c cancellable_class option
+       * string option
+       * d_bus_connection_flags_t
+       * 'b d_bus_auth_observer_class option
+       * 'c cancellable_class option
        -> base class
     val callFinish :
       'a class
@@ -40,14 +40,14 @@ signature GIO_D_BUS_CONNECTION =
     val callSync :
       'a class
        -> string
-       -> string
-       -> string
-       -> string
-       -> GLib.VariantRecord.t option
-       -> GLib.VariantTypeRecord.t option
-       -> d_bus_call_flags_t
-       -> LargeInt.int
-       -> 'b cancellable_class option
+           * string
+           * string
+           * string
+           * GLib.VariantRecord.t option
+           * GLib.VariantTypeRecord.t option
+           * d_bus_call_flags_t
+           * LargeInt.int
+           * 'b cancellable_class option
        -> GLib.VariantRecord.t
     val callWithUnixFdListFinish :
       'a class
@@ -56,15 +56,15 @@ signature GIO_D_BUS_CONNECTION =
     val callWithUnixFdListSync :
       'a class
        -> string
-       -> string
-       -> string
-       -> string
-       -> GLib.VariantRecord.t option
-       -> GLib.VariantTypeRecord.t option
-       -> d_bus_call_flags_t
-       -> LargeInt.int
-       -> 'b unix_f_d_list_class option
-       -> 'c cancellable_class option
+           * string
+           * string
+           * string
+           * GLib.VariantRecord.t option
+           * GLib.VariantTypeRecord.t option
+           * d_bus_call_flags_t
+           * LargeInt.int
+           * 'b unix_f_d_list_class option
+           * 'c cancellable_class option
        -> GLib.VariantRecord.t * base unix_f_d_list_class
     val closeFinish :
       'a class
@@ -77,10 +77,10 @@ signature GIO_D_BUS_CONNECTION =
     val emitSignal :
       'a class
        -> string option
-       -> string
-       -> string
-       -> string
-       -> GLib.VariantRecord.t option
+           * string
+           * string
+           * string
+           * GLib.VariantRecord.t option
        -> bool
     val flushFinish :
       'a class
@@ -103,8 +103,7 @@ signature GIO_D_BUS_CONNECTION =
        -> unit
     val sendMessage :
       'a class
-       -> 'b d_bus_message_class
-       -> d_bus_send_message_flags_t
+       -> 'b d_bus_message_class * d_bus_send_message_flags_t
        -> LargeInt.int option
     val sendMessageWithReplyFinish :
       'a class
@@ -113,9 +112,9 @@ signature GIO_D_BUS_CONNECTION =
     val sendMessageWithReplySync :
       'a class
        -> 'b d_bus_message_class
-       -> d_bus_send_message_flags_t
-       -> LargeInt.int
-       -> 'c cancellable_class option
+           * d_bus_send_message_flags_t
+           * LargeInt.int
+           * 'c cancellable_class option
        -> base d_bus_message_class * LargeInt.int
     val setExitOnClose :
       'a class

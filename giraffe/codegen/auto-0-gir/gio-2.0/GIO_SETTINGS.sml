@@ -6,19 +6,13 @@ signature GIO_SETTINGS =
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : string -> base class
-    val newWithBackend :
-      string
-       -> settings_backend_t
-       -> base class
+    val newWithBackend : string * settings_backend_t -> base class
     val newWithBackendAndPath :
       string
-       -> settings_backend_t
-       -> string
+       * settings_backend_t
+       * string
        -> base class
-    val newWithPath :
-      string
-       -> string
-       -> base class
+    val newWithPath : string * string -> base class
     val listRelocatableSchemas : unit -> string list
     val listSchemas : unit -> string list
     val sync : unit -> unit
@@ -26,16 +20,16 @@ signature GIO_SETTINGS =
     val bind :
       'a class
        -> string
-       -> 'b GObject.ObjectClass.class
-       -> string
-       -> settings_bind_flags_t
+           * 'b GObject.ObjectClass.class
+           * string
+           * settings_bind_flags_t
        -> unit
     val bindWritable :
       'a class
        -> string
-       -> 'b GObject.ObjectClass.class
-       -> string
-       -> bool
+           * 'b GObject.ObjectClass.class
+           * string
+           * bool
        -> unit
     val delay : 'a class -> unit
     val getBoolean :
@@ -91,8 +85,7 @@ signature GIO_SETTINGS =
     val listKeys : 'a class -> string list
     val rangeCheck :
       'a class
-       -> string
-       -> GLib.VariantRecord.t
+       -> string * GLib.VariantRecord.t
        -> bool
     val reset :
       'a class
@@ -101,48 +94,39 @@ signature GIO_SETTINGS =
     val revert : 'a class -> unit
     val setBoolean :
       'a class
-       -> string
-       -> bool
+       -> string * bool
        -> bool
     val setDouble :
       'a class
-       -> string
-       -> real
+       -> string * real
        -> bool
     val setEnum :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> bool
     val setFlags :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> bool
     val setInt :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> bool
     val setString :
       'a class
-       -> string
-       -> string
+       -> string * string
        -> bool
     val setStrv :
       'a class
-       -> string
-       -> string list option
+       -> string * string list option
        -> bool
     val setUint :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> bool
     val setValue :
       'a class
-       -> string
-       -> GLib.VariantRecord.t
+       -> string * GLib.VariantRecord.t
        -> bool
     val changeEventSig : (GLib.Quark.t vector option -> bool) -> 'a class Signal.signal
     val changedSig : (string -> unit) -> 'a class Signal.signal

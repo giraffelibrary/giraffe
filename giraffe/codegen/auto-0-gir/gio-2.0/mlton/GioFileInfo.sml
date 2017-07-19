@@ -594,7 +594,7 @@ structure GioFileInfo :>
     fun hasNamespace self nameSpace = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasNamespace_ (self & nameSpace)
     fun listAttributes self nameSpace = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listAttributes_ (self & nameSpace)
     fun removeAttribute self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) removeAttribute_ (self & attribute)
-    fun setAttributeBoolean self attribute attrValue =
+    fun setAttributeBoolean self (attribute, attrValue) =
       (
         GioFileInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -607,7 +607,7 @@ structure GioFileInfo :>
            & attribute
            & attrValue
         )
-    fun setAttributeByteString self attribute attrValue =
+    fun setAttributeByteString self (attribute, attrValue) =
       (
         GioFileInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -620,7 +620,7 @@ structure GioFileInfo :>
            & attribute
            & attrValue
         )
-    fun setAttributeInt32 self attribute attrValue =
+    fun setAttributeInt32 self (attribute, attrValue) =
       (
         GioFileInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -633,7 +633,7 @@ structure GioFileInfo :>
            & attribute
            & attrValue
         )
-    fun setAttributeInt64 self attribute attrValue =
+    fun setAttributeInt64 self (attribute, attrValue) =
       (
         GioFileInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -647,7 +647,7 @@ structure GioFileInfo :>
            & attrValue
         )
     fun setAttributeMask self mask = (GioFileInfoClass.FFI.withPtr &&&> GioFileAttributeMatcherRecord.FFI.withPtr ---> I) setAttributeMask_ (self & mask)
-    fun setAttributeObject self attribute attrValue =
+    fun setAttributeObject self (attribute, attrValue) =
       (
         GioFileInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -660,7 +660,7 @@ structure GioFileInfo :>
            & attribute
            & attrValue
         )
-    fun setAttributeStatus self attribute status =
+    fun setAttributeStatus self (attribute, status) =
       (
         GioFileInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -673,7 +673,7 @@ structure GioFileInfo :>
            & attribute
            & status
         )
-    fun setAttributeString self attribute attrValue =
+    fun setAttributeString self (attribute, attrValue) =
       (
         GioFileInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -686,7 +686,7 @@ structure GioFileInfo :>
            & attribute
            & attrValue
         )
-    fun setAttributeStringv self attribute attrValue =
+    fun setAttributeStringv self (attribute, attrValue) =
       (
         GioFileInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -699,7 +699,7 @@ structure GioFileInfo :>
            & attribute
            & attrValue
         )
-    fun setAttributeUint32 self attribute attrValue =
+    fun setAttributeUint32 self (attribute, attrValue) =
       (
         GioFileInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -712,7 +712,7 @@ structure GioFileInfo :>
            & attribute
            & attrValue
         )
-    fun setAttributeUint64 self attribute attrValue =
+    fun setAttributeUint64 self (attribute, attrValue) =
       (
         GioFileInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

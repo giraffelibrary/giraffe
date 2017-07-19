@@ -57,7 +57,13 @@ structure GdkKeymap :>
       in
         if retVal then SOME state else NONE
       end
-    fun translateKeyboardState self hardwareKeycode state group =
+    fun translateKeyboardState
+      self
+      (
+        hardwareKeycode,
+        state,
+        group
+      ) =
       let
         val keyval
          & effectiveGroup

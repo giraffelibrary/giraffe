@@ -18,7 +18,12 @@ structure GtkTargetEntry :>
     end
     type t = GtkTargetEntryRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new target flags info =
+    fun new
+      (
+        target,
+        flags,
+        info
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GUInt.FFI.withVal

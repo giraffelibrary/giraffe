@@ -30,7 +30,7 @@ structure GtkRadioToolButton :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newFromWidget group = (GtkRadioToolButtonClass.FFI.withOptPtr ---> GtkRadioToolButtonClass.FFI.fromPtr false) newFromWidget_ group
-    fun newWithStockFromWidget group stockId = (GtkRadioToolButtonClass.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> GtkRadioToolButtonClass.FFI.fromPtr false) newWithStockFromWidget_ (group & stockId)
+    fun newWithStockFromWidget (group, stockId) = (GtkRadioToolButtonClass.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> GtkRadioToolButtonClass.FFI.fromPtr false) newWithStockFromWidget_ (group & stockId)
     local
       open Property
     in

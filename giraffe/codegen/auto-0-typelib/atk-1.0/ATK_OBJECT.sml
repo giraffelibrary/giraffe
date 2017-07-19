@@ -9,8 +9,7 @@ signature ATK_OBJECT =
     val getType : unit -> GObject.Type.t
     val addRelationship :
       'a class
-       -> relation_type_t
-       -> 'b class
+       -> relation_type_t * 'b class
        -> bool
     val getDescription : 'a class -> string
     val getIndexInParent : 'a class -> LargeInt.int
@@ -20,8 +19,7 @@ signature ATK_OBJECT =
     val getRole : 'a class -> role_t
     val notifyStateChange :
       'a class
-       -> LargeInt.int
-       -> bool
+       -> LargeInt.int * bool
        -> unit
     val refAccessibleChild :
       'a class
@@ -35,8 +33,7 @@ signature ATK_OBJECT =
        -> unit
     val removeRelationship :
       'a class
-       -> relation_type_t
-       -> 'b class
+       -> relation_type_t * 'b class
        -> bool
     val setDescription :
       'a class
@@ -55,11 +52,7 @@ signature ATK_OBJECT =
        -> role_t
        -> unit
     val focusEventSig : (bool -> unit) -> 'a class Signal.signal
-    val stateChangeSig :
-      (string
-        -> bool
-        -> unit)
-       -> 'a class Signal.signal
+    val stateChangeSig : (string * bool -> unit) -> 'a class Signal.signal
     val visibleDataChangedSig : (unit -> unit) -> 'a class Signal.signal
     val accessibleComponentLayerProp : ('a class, LargeInt.int) Property.readonly
     val accessibleComponentMdiZorderProp : ('a class, LargeInt.int) Property.readonly

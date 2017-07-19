@@ -75,7 +75,7 @@ structure GtkStatusIcon :>
     fun newFromIconName iconName = (Utf8.FFI.withPtr ---> GtkStatusIconClass.FFI.fromPtr true) newFromIconName_ iconName
     fun newFromPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withPtr ---> GtkStatusIconClass.FFI.fromPtr true) newFromPixbuf_ pixbuf
     fun newFromStock stockId = (Utf8.FFI.withPtr ---> GtkStatusIconClass.FFI.fromPtr true) newFromStock_ stockId
-    fun positionMenu menu userData =
+    fun positionMenu (menu, userData) =
       let
         val x
          & y
@@ -173,7 +173,7 @@ structure GtkStatusIcon :>
       fun activateSig f = signal "activate" (void ---> ret_void) f
       fun buttonPressEventSig f = signal "button-press-event" (get 0w1 GdkEventButtonRecord.t ---> ret boolean) f
       fun buttonReleaseEventSig f = signal "button-release-event" (get 0w1 GdkEventButtonRecord.t ---> ret boolean) f
-      fun popupMenuSig f = signal "popup-menu" (get 0w1 uint &&&> get 0w2 uint ---> ret_void) (fn button & activateTime => f button activateTime)
+      fun popupMenuSig f = signal "popup-menu" (get 0w1 uint &&&> get 0w2 uint ---> ret_void) (fn button & activateTime => f (button, activateTime))
       fun queryTooltipSig f =
         signal "query-tooltip"
           (
@@ -189,7 +189,13 @@ structure GtkStatusIcon :>
                & y
                & keyboardMode
                & tooltip =>
-                f x y keyboardMode tooltip
+                f
+                  (
+                    x,
+                    y,
+                    keyboardMode,
+                    tooltip
+                  )
           )
       fun scrollEventSig f = signal "scroll-event" (get 0w1 GdkEventScrollRecord.t ---> ret boolean) f
       fun sizeChangedSig f = signal "size-changed" (get 0w1 int ---> ret boolean) f

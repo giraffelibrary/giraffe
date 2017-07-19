@@ -10,8 +10,7 @@ signature GIO_FILE_INPUT_STREAM =
     val getType : unit -> GObject.Type.t
     val queryInfo :
       'a class
-       -> string
-       -> 'b cancellable_class option
+       -> string * 'b cancellable_class option
        -> base file_info_class
     val queryInfoFinish :
       'a class

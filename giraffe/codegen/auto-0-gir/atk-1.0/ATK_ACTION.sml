@@ -26,7 +26,6 @@ signature ATK_ACTION =
        -> string
     val setDescription :
       'a class
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> bool
   end

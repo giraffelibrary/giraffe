@@ -12,12 +12,12 @@ signature GTK_STYLE =
     val applyDefaultBackground :
       'a class
        -> Cairo.ContextRecord.t
-       -> 'b Gdk.WindowClass.class
-       -> state_type_t
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
-       -> LargeInt.int
+           * 'b Gdk.WindowClass.class
+           * state_type_t
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val copy : 'a class -> base class
     val detach : 'a class -> unit
@@ -33,16 +33,15 @@ signature GTK_STYLE =
     val renderIcon :
       'a class
        -> icon_source_t
-       -> text_direction_t
-       -> state_type_t
-       -> LargeInt.int
-       -> 'b widget_class option
-       -> string option
+           * text_direction_t
+           * state_type_t
+           * LargeInt.int
+           * 'b widget_class option
+           * string option
        -> base GdkPixbuf.PixbufClass.class
     val setBackground :
       'a class
-       -> 'b Gdk.WindowClass.class
-       -> state_type_t
+       -> 'b Gdk.WindowClass.class * state_type_t
        -> unit
     val realizeSig : (unit -> unit) -> 'a class Signal.signal
     val unrealizeSig : (unit -> unit) -> 'a class Signal.signal

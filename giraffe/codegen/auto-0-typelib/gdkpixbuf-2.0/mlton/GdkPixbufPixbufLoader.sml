@@ -99,7 +99,7 @@ structure GdkPixbufPixbufLoader :>
     fun getAnimation self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr false) getAnimation_ self
     fun getFormat self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufFormatRecord.FFI.fromPtr true) getFormat_ self
     fun getPixbuf self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
-    fun setSize self width height =
+    fun setSize self (width, height) =
       (
         GdkPixbufPixbufLoaderClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -152,9 +152,15 @@ structure GdkPixbufPixbufLoader :>
                & y
                & width
                & height =>
-                f x y width height
+                f
+                  (
+                    x,
+                    y,
+                    width,
+                    height
+                  )
           )
       fun closedSig f = signal "closed" (void ---> ret_void) f
-      fun sizePreparedSig f = signal "size-prepared" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn width & height => f width height)
+      fun sizePreparedSig f = signal "size-prepared" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn width & height => f (width, height))
     end
   end

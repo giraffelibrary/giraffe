@@ -19,8 +19,8 @@ signature GTK_TREE_VIEW_COLUMN =
     val addAttribute :
       'a class
        -> 'b cell_renderer_class
-       -> string
-       -> LargeInt.int
+           * string
+           * LargeInt.int
        -> unit
     val cellGetPosition :
       'a class
@@ -37,9 +37,9 @@ signature GTK_TREE_VIEW_COLUMN =
     val cellSetCellData :
       'a class
        -> 'b tree_model_class
-       -> tree_iter_t
-       -> bool
-       -> bool
+           * tree_iter_t
+           * bool
+           * bool
        -> unit
     val clear : 'a class -> unit
     val clearAttributes :
@@ -73,13 +73,11 @@ signature GTK_TREE_VIEW_COLUMN =
     val getXOffset : 'a class -> LargeInt.int
     val packEnd :
       'a class
-       -> 'b cell_renderer_class
-       -> bool
+       -> 'b cell_renderer_class * bool
        -> unit
     val packStart :
       'a class
-       -> 'b cell_renderer_class
-       -> bool
+       -> 'b cell_renderer_class * bool
        -> unit
     val queueResize : 'a class -> unit
     val setAlignment :

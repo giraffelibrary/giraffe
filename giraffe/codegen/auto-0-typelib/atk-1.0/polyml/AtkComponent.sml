@@ -69,7 +69,13 @@ structure AtkComponent :>
     type rectangle_t = AtkRectangleRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun contains self x y coordType =
+    fun contains
+      self
+      (
+        x,
+        y,
+        coordType
+      ) =
       (
         AtkComponentClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -88,7 +94,13 @@ structure AtkComponent :>
     fun getLayer self = (AtkComponentClass.FFI.withPtr ---> AtkLayer.FFI.fromVal) getLayer_ self
     fun getMdiZorder self = (AtkComponentClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMdiZorder_ self
     fun grabFocus self = (AtkComponentClass.FFI.withPtr ---> GBool.FFI.fromVal) grabFocus_ self
-    fun refAccessibleAtPoint self x y coordType =
+    fun refAccessibleAtPoint
+      self
+      (
+        x,
+        y,
+        coordType
+      ) =
       (
         AtkComponentClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -104,7 +116,15 @@ structure AtkComponent :>
            & coordType
         )
     fun removeFocusHandler self handlerId = (AtkComponentClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) removeFocusHandler_ (self & handlerId)
-    fun setExtents self x y width height coordType =
+    fun setExtents
+      self
+      (
+        x,
+        y,
+        width,
+        height,
+        coordType
+      ) =
       (
         AtkComponentClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -123,7 +143,13 @@ structure AtkComponent :>
            & height
            & coordType
         )
-    fun setPosition self x y coordType =
+    fun setPosition
+      self
+      (
+        x,
+        y,
+        coordType
+      ) =
       (
         AtkComponentClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -138,7 +164,7 @@ structure AtkComponent :>
            & y
            & coordType
         )
-    fun setSize self width height =
+    fun setSize self (width, height) =
       (
         AtkComponentClass.FFI.withPtr
          &&&> GInt32.FFI.withVal

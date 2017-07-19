@@ -15,8 +15,7 @@ signature GTK_TOOL_ITEM_GROUP =
     val getCollapsed : 'a class -> bool
     val getDropItem :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> base tool_item_class
     val getEllipsize : 'a class -> Pango.EllipsizeMode.t
     val getHeaderRelief : 'a class -> relief_style_t
@@ -33,8 +32,7 @@ signature GTK_TOOL_ITEM_GROUP =
        -> base tool_item_class
     val insert :
       'a class
-       -> 'b tool_item_class
-       -> LargeInt.int
+       -> 'b tool_item_class * LargeInt.int
        -> unit
     val setCollapsed :
       'a class
@@ -50,8 +48,7 @@ signature GTK_TOOL_ITEM_GROUP =
        -> unit
     val setItemPosition :
       'a class
-       -> 'b tool_item_class
-       -> LargeInt.int
+       -> 'b tool_item_class * LargeInt.int
        -> unit
     val setLabel :
       'a class

@@ -78,10 +78,17 @@ structure GtkBox :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new orientation spacing = (GtkOrientation.FFI.withVal &&&> GInt.FFI.withVal ---> GtkBoxClass.FFI.fromPtr false) new_ (orientation & spacing)
+    fun new (orientation, spacing) = (GtkOrientation.FFI.withVal &&&> GInt.FFI.withVal ---> GtkBoxClass.FFI.fromPtr false) new_ (orientation & spacing)
     fun getHomogeneous self = (GtkBoxClass.FFI.withPtr ---> GBool.FFI.fromVal) getHomogeneous_ self
     fun getSpacing self = (GtkBoxClass.FFI.withPtr ---> GInt.FFI.fromVal) getSpacing_ self
-    fun packEnd self child expand fill padding =
+    fun packEnd
+      self
+      (
+        child,
+        expand,
+        fill,
+        padding
+      ) =
       (
         GtkBoxClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -98,7 +105,14 @@ structure GtkBox :>
            & fill
            & padding
         )
-    fun packStart self child expand fill padding =
+    fun packStart
+      self
+      (
+        child,
+        expand,
+        fill,
+        padding
+      ) =
       (
         GtkBoxClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -152,7 +166,7 @@ structure GtkBox :>
           packType
         )
       end
-    fun reorderChild self child position =
+    fun reorderChild self (child, position) =
       (
         GtkBoxClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -165,7 +179,15 @@ structure GtkBox :>
            & child
            & position
         )
-    fun setChildPacking self child expand fill padding packType =
+    fun setChildPacking
+      self
+      (
+        child,
+        expand,
+        fill,
+        padding,
+        packType
+      ) =
       (
         GtkBoxClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr

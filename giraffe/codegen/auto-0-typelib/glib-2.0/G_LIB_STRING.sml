@@ -12,8 +12,7 @@ signature G_LIB_STRING =
        -> t
     val appendLen :
       t
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> t
     val appendUnichar :
       t
@@ -22,8 +21,8 @@ signature G_LIB_STRING =
     val appendUriEscaped :
       t
        -> string
-       -> string
-       -> bool
+           * string
+           * bool
        -> t
     val asciiDown : t -> t
     val asciiUp : t -> t
@@ -38,41 +37,36 @@ signature G_LIB_STRING =
        -> bool
     val erase :
       t
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> t
     val hash : t -> LargeInt.int
     val insert :
       t
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> t
     val insertC :
       t
-       -> LargeInt.int
-       -> Word8.word
+       -> LargeInt.int * Word8.word
        -> t
     val insertLen :
       t
        -> LargeInt.int
-       -> string
-       -> LargeInt.int
+           * string
+           * LargeInt.int
        -> t
     val insertUnichar :
       t
-       -> LargeInt.int
-       -> char
+       -> LargeInt.int * char
        -> t
     val overwrite :
       t
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> t
     val overwriteLen :
       t
        -> LargeInt.int
-       -> string
-       -> LargeInt.int
+           * string
+           * LargeInt.int
        -> t
     val prepend :
       t
@@ -84,8 +78,7 @@ signature G_LIB_STRING =
        -> t
     val prependLen :
       t
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> t
     val prependUnichar :
       t

@@ -51,7 +51,7 @@ structure GtkIconFactory :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkIconFactoryClass.FFI.fromPtr true) new_ ()
     fun lookupDefault stockId = (Utf8.FFI.withPtr ---> GtkIconSetRecord.FFI.fromPtr false) lookupDefault_ stockId
-    fun add self stockId iconSet =
+    fun add self (stockId, iconSet) =
       (
         GtkIconFactoryClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

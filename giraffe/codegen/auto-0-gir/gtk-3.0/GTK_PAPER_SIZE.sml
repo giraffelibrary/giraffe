@@ -6,20 +6,17 @@ signature GTK_PAPER_SIZE =
     val new : string option -> t
     val newCustom :
       string
-       -> string
-       -> real
-       -> real
-       -> unit_t
+       * string
+       * real
+       * real
+       * unit_t
        -> t
-    val newFromKeyFile :
-      GLib.KeyFileRecord.t
-       -> string
-       -> t
+    val newFromKeyFile : GLib.KeyFileRecord.t * string -> t
     val newFromPpd :
       string
-       -> string
-       -> real
-       -> real
+       * string
+       * real
+       * real
        -> t
     val copy : t -> t
     val getDefaultBottomMargin :
@@ -57,13 +54,12 @@ signature GTK_PAPER_SIZE =
     val setSize :
       t
        -> real
-       -> real
-       -> unit_t
+           * real
+           * unit_t
        -> unit
     val toKeyFile :
       t
-       -> GLib.KeyFileRecord.t
-       -> string
+       -> GLib.KeyFileRecord.t * string
        -> unit
     val getDefault : unit -> string
   end

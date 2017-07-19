@@ -111,7 +111,7 @@ structure GtkAssistant :>
     fun getPageComplete self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getPageComplete_ (self & page)
     fun getPageTitle self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPageTitle_ (self & page)
     fun getPageType self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GtkAssistantPageType.FFI.fromVal) getPageType_ (self & page)
-    fun insertPage self page position =
+    fun insertPage self (page, position) =
       (
         GtkAssistantClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -130,7 +130,7 @@ structure GtkAssistant :>
     fun removeActionWidget self child = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) removeActionWidget_ (self & child)
     fun removePage self pageNum = (GtkAssistantClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) removePage_ (self & pageNum)
     fun setCurrentPage self pageNum = (GtkAssistantClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setCurrentPage_ (self & pageNum)
-    fun setPageComplete self page complete =
+    fun setPageComplete self (page, complete) =
       (
         GtkAssistantClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -143,7 +143,7 @@ structure GtkAssistant :>
            & page
            & complete
         )
-    fun setPageTitle self page title =
+    fun setPageTitle self (page, title) =
       (
         GtkAssistantClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -156,7 +156,7 @@ structure GtkAssistant :>
            & page
            & title
         )
-    fun setPageType self page type' =
+    fun setPageType self (page, type') =
       (
         GtkAssistantClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr

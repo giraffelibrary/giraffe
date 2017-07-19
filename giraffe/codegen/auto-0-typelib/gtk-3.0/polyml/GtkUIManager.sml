@@ -72,7 +72,16 @@ structure GtkUIManager :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkUIManagerClass.FFI.fromPtr true) new_ ()
-    fun addUi self mergeId path name action type' top =
+    fun addUi
+      self
+      (
+        mergeId,
+        path,
+        name,
+        action,
+        type',
+        top
+      ) =
       (
         GtkUIManagerClass.FFI.withPtr
          &&&> GUInt32.FFI.withVal
@@ -106,7 +115,7 @@ structure GtkUIManager :>
            & filename
            & []
         )
-    fun addUiFromString self buffer length =
+    fun addUiFromString self (buffer, length) =
       (
         GtkUIManagerClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -127,7 +136,7 @@ structure GtkUIManager :>
     fun getAddTearoffs self = (GtkUIManagerClass.FFI.withPtr ---> GBool.FFI.fromVal) getAddTearoffs_ self
     fun getUi self = (GtkUIManagerClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUi_ self
     fun getWidget self path = (GtkUIManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ (self & path)
-    fun insertActionGroup self actionGroup pos =
+    fun insertActionGroup self (actionGroup, pos) =
       (
         GtkUIManagerClass.FFI.withPtr
          &&&> GtkActionGroupClass.FFI.withPtr
@@ -149,8 +158,8 @@ structure GtkUIManager :>
     in
       fun actionsChangedSig f = signal "actions-changed" (void ---> ret_void) f
       fun addWidgetSig f = signal "add-widget" (get 0w1 GtkWidgetClass.t ---> ret_void) f
-      fun connectProxySig f = signal "connect-proxy" (get 0w1 GtkActionClass.t &&&> get 0w2 GtkWidgetClass.t ---> ret_void) (fn action & proxy => f action proxy)
-      fun disconnectProxySig f = signal "disconnect-proxy" (get 0w1 GtkActionClass.t &&&> get 0w2 GtkWidgetClass.t ---> ret_void) (fn action & proxy => f action proxy)
+      fun connectProxySig f = signal "connect-proxy" (get 0w1 GtkActionClass.t &&&> get 0w2 GtkWidgetClass.t ---> ret_void) (fn action & proxy => f (action, proxy))
+      fun disconnectProxySig f = signal "disconnect-proxy" (get 0w1 GtkActionClass.t &&&> get 0w2 GtkWidgetClass.t ---> ret_void) (fn action & proxy => f (action, proxy))
       fun postActivateSig f = signal "post-activate" (get 0w1 GtkActionClass.t ---> ret_void) f
       fun preActivateSig f = signal "pre-activate" (get 0w1 GtkActionClass.t ---> ret_void) f
     end

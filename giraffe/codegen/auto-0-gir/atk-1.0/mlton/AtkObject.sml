@@ -109,7 +109,7 @@ structure AtkObject :>
     type role_t = AtkRole.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun addRelationship self relationship target =
+    fun addRelationship self (relationship, target) =
       (
         AtkObjectClass.FFI.withPtr
          &&&> AtkRelationType.FFI.withVal
@@ -128,7 +128,7 @@ structure AtkObject :>
     fun getName self = (AtkObjectClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
     fun getParent self = (AtkObjectClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr false) getParent_ self
     fun getRole self = (AtkObjectClass.FFI.withPtr ---> AtkRole.FFI.fromVal) getRole_ self
-    fun notifyStateChange self state value =
+    fun notifyStateChange self (state, value) =
       (
         AtkObjectClass.FFI.withPtr
          &&&> AtkState.FFI.withVal
@@ -145,7 +145,7 @@ structure AtkObject :>
     fun refRelationSet self = (AtkObjectClass.FFI.withPtr ---> AtkRelationSetClass.FFI.fromPtr true) refRelationSet_ self
     fun refStateSet self = (AtkObjectClass.FFI.withPtr ---> AtkStateSetClass.FFI.fromPtr true) refStateSet_ self
     fun removePropertyChangeHandler self handlerId = (AtkObjectClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) removePropertyChangeHandler_ (self & handlerId)
-    fun removeRelationship self relationship target =
+    fun removeRelationship self (relationship, target) =
       (
         AtkObjectClass.FFI.withPtr
          &&&> AtkRelationType.FFI.withVal
@@ -166,7 +166,7 @@ structure AtkObject :>
       open ClosureMarshal Signal
     in
       fun focusEventSig f = signal "focus-event" (get 0w1 boolean ---> ret_void) f
-      fun stateChangeSig f = signal "state-change" (get 0w1 string &&&> get 0w2 boolean ---> ret_void) (fn object & p0 => f object p0)
+      fun stateChangeSig f = signal "state-change" (get 0w1 string &&&> get 0w2 boolean ---> ret_void) (fn object & p0 => f (object, p0))
       fun visibleDataChangedSig f = signal "visible-data-changed" (void ---> ret_void) f
     end
     local

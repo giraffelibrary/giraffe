@@ -95,7 +95,13 @@ structure GtkSourceView :>
     fun setIndentOnTab self enable = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setIndentOnTab_ (self & enable)
     fun setIndentWidth self width = (GtkSourceViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setIndentWidth_ (self & width)
     fun setInsertSpacesInsteadOfTabs self enable = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setInsertSpacesInsteadOfTabs_ (self & enable)
-    fun setMarkAttributes self category attributes priority =
+    fun setMarkAttributes
+      self
+      (
+        category,
+        attributes,
+        priority
+      ) =
       (
         GtkSourceViewClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -119,12 +125,12 @@ structure GtkSourceView :>
     local
       open ClosureMarshal Signal
     in
-      fun lineMarkActivatedSig f = signal "line-mark-activated" (get 0w1 GtkTextIterRecord.t &&&> get 0w2 GdkEvent.t ---> ret_void) (fn iter & event => f iter event)
-      fun moveLinesSig f = signal "move-lines" (get 0w1 boolean &&&> get 0w2 int ---> ret_void) (fn copy & count => f copy count)
+      fun lineMarkActivatedSig f = signal "line-mark-activated" (get 0w1 GtkTextIterRecord.t &&&> get 0w2 GdkEvent.t ---> ret_void) (fn iter & event => f (iter, event))
+      fun moveLinesSig f = signal "move-lines" (get 0w1 boolean &&&> get 0w2 int ---> ret_void) (fn copy & count => f (copy, count))
       fun moveWordsSig f = signal "move-words" (get 0w1 int ---> ret_void) f
       fun redoSig f = signal "redo" (void ---> ret_void) f
       fun showCompletionSig f = signal "show-completion" (void ---> ret_void) f
-      fun smartHomeEndSig f = signal "smart-home-end" (get 0w1 GtkTextIterRecord.t &&&> get 0w2 int ---> ret_void) (fn iter & count => f iter count)
+      fun smartHomeEndSig f = signal "smart-home-end" (get 0w1 GtkTextIterRecord.t &&&> get 0w2 int ---> ret_void) (fn iter & count => f (iter, count))
       fun undoSig f = signal "undo" (void ---> ret_void) f
     end
     local

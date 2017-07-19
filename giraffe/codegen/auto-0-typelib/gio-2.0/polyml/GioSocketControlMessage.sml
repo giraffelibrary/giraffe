@@ -28,7 +28,12 @@ structure GioSocketControlMessage :>
     type 'a class = 'a GioSocketControlMessageClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun deserialize level type' data =
+    fun deserialize
+      (
+        level,
+        type',
+        data
+      ) =
       let
         val size = LargeInt.fromInt (GUInt8CVectorN.length data)
         val retVal =

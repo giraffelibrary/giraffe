@@ -8,8 +8,8 @@ signature GTK_CELL_LAYOUT =
     val addAttribute :
       'a class
        -> 'b cell_renderer_class
-       -> string
-       -> LargeInt.int
+           * string
+           * LargeInt.int
        -> unit
     val clear : 'a class -> unit
     val clearAttributes :
@@ -19,17 +19,14 @@ signature GTK_CELL_LAYOUT =
     val getArea : 'a class -> base cell_area_class
     val packEnd :
       'a class
-       -> 'b cell_renderer_class
-       -> bool
+       -> 'b cell_renderer_class * bool
        -> unit
     val packStart :
       'a class
-       -> 'b cell_renderer_class
-       -> bool
+       -> 'b cell_renderer_class * bool
        -> unit
     val reorder :
       'a class
-       -> 'b cell_renderer_class
-       -> LargeInt.int
+       -> 'b cell_renderer_class * LargeInt.int
        -> unit
   end

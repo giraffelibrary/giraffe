@@ -30,9 +30,15 @@ structure GdkCursor :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new cursorType = (GdkCursorType.FFI.withVal ---> GdkCursorClass.FFI.fromPtr true) new_ cursorType
-    fun newForDisplay display cursorType = (GdkDisplayClass.FFI.withPtr &&&> GdkCursorType.FFI.withVal ---> GdkCursorClass.FFI.fromPtr true) newForDisplay_ (display & cursorType)
-    fun newFromName display name = (GdkDisplayClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GdkCursorClass.FFI.fromPtr true) newFromName_ (display & name)
-    fun newFromPixbuf display pixbuf x y =
+    fun newForDisplay (display, cursorType) = (GdkDisplayClass.FFI.withPtr &&&> GdkCursorType.FFI.withVal ---> GdkCursorClass.FFI.fromPtr true) newForDisplay_ (display & cursorType)
+    fun newFromName (display, name) = (GdkDisplayClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GdkCursorClass.FFI.fromPtr true) newFromName_ (display & name)
+    fun newFromPixbuf
+      (
+        display,
+        pixbuf,
+        x,
+        y
+      ) =
       (
         GdkDisplayClass.FFI.withPtr
          &&&> GdkPixbufPixbufClass.FFI.withPtr

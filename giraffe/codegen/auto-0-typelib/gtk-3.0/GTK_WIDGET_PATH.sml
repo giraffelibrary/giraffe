@@ -11,20 +11,18 @@ signature GTK_WIDGET_PATH =
        -> LargeInt.int
     val appendWithSiblings :
       t
-       -> t
-       -> LargeInt.int
+       -> t * LargeInt.int
        -> LargeInt.int
     val copy : t -> t
     val iterAddClass :
       t
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> unit
     val iterAddRegion :
       t
        -> LargeInt.int
-       -> string
-       -> region_flags_t
+           * string
+           * region_flags_t
        -> unit
     val iterClearClasses :
       t
@@ -48,48 +46,39 @@ signature GTK_WIDGET_PATH =
        -> t
     val iterHasClass :
       t
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> bool
     val iterHasName :
       t
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> bool
     val iterHasQclass :
       t
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> bool
     val iterHasQname :
       t
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> bool
     val iterHasQregion :
       t
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> region_flags_t option
     val iterHasRegion :
       t
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> region_flags_t option
     val iterRemoveClass :
       t
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> unit
     val iterRemoveRegion :
       t
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> unit
     val iterSetName :
       t
-       -> LargeInt.int
-       -> string
+       -> LargeInt.int * string
        -> unit
     val length : t -> LargeInt.int
     val toString : t -> string

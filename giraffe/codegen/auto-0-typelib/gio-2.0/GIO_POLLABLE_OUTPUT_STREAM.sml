@@ -8,7 +8,6 @@ signature GIO_POLLABLE_OUTPUT_STREAM =
     val isWritable : 'a class -> bool
     val writeNonblocking :
       'a class
-       -> Word8Vector.vector
-       -> 'b cancellable_class option
+       -> Word8Vector.vector * 'b cancellable_class option
        -> LargeInt.int
   end

@@ -11,13 +11,13 @@ signature GTK_FIXED =
     val move :
       'a class
        -> 'b widget_class
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
     val put :
       'a class
        -> 'b widget_class
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
   end

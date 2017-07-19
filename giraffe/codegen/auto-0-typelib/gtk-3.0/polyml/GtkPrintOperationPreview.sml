@@ -23,7 +23,7 @@ structure GtkPrintOperationPreview :>
     local
       open ClosureMarshal Signal
     in
-      fun gotPageSizeSig f = signal "got-page-size" (get 0w1 GtkPrintContextClass.t &&&> get 0w2 GtkPageSetupClass.t ---> ret_void) (fn context & pageSetup => f context pageSetup)
+      fun gotPageSizeSig f = signal "got-page-size" (get 0w1 GtkPrintContextClass.t &&&> get 0w2 GtkPageSetupClass.t ---> ret_void) (fn context & pageSetup => f (context, pageSetup))
       fun readySig f = signal "ready" (get 0w1 GtkPrintContextClass.t ---> ret_void) f
     end
   end

@@ -1343,7 +1343,7 @@ structure GioFile :>
     fun newForPath path = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) newForPath_ path
     fun newForUri uri = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) newForUri_ uri
     fun parseName parseName = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) parseName_ parseName
-    fun appendTo self flags cancellable =
+    fun appendTo self (flags, cancellable) =
       (
         GioFileClass.FFI.withPtr
          &&&> GioFileCreateFlags.FFI.withVal
@@ -1371,7 +1371,13 @@ structure GioFile :>
            & res
            & []
         )
-    fun copyAttributes self destination flags cancellable =
+    fun copyAttributes
+      self
+      (
+        destination,
+        flags,
+        cancellable
+      ) =
       (
         GioFileClass.FFI.withPtr
          &&&> GioFileClass.FFI.withPtr
@@ -1401,7 +1407,7 @@ structure GioFile :>
            & res
            & []
         )
-    fun create self flags cancellable =
+    fun create self (flags, cancellable) =
       (
         GioFileClass.FFI.withPtr
          &&&> GioFileCreateFlags.FFI.withVal
@@ -1429,7 +1435,7 @@ structure GioFile :>
            & res
            & []
         )
-    fun createReadwrite self flags cancellable =
+    fun createReadwrite self (flags, cancellable) =
       (
         GioFileClass.FFI.withPtr
          &&&> GioFileCreateFlags.FFI.withVal
@@ -1484,7 +1490,13 @@ structure GioFile :>
            & result
            & []
         )
-    fun enumerateChildren self attributes flags cancellable =
+    fun enumerateChildren
+      self
+      (
+        attributes,
+        flags,
+        cancellable
+      ) =
       (
         GioFileClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -1683,7 +1695,7 @@ structure GioFile :>
            & cancellable
            & []
         )
-    fun makeSymbolicLink self symlinkValue cancellable =
+    fun makeSymbolicLink self (symlinkValue, cancellable) =
       (
         GioFileClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -1698,7 +1710,7 @@ structure GioFile :>
            & cancellable
            & []
         )
-    fun monitor self flags cancellable =
+    fun monitor self (flags, cancellable) =
       (
         GioFileClass.FFI.withPtr
          &&&> GioFileMonitorFlags.FFI.withVal
@@ -1713,7 +1725,7 @@ structure GioFile :>
            & cancellable
            & []
         )
-    fun monitorDirectory self flags cancellable =
+    fun monitorDirectory self (flags, cancellable) =
       (
         GioFileClass.FFI.withPtr
          &&&> GioFileMonitorFlags.FFI.withVal
@@ -1728,7 +1740,7 @@ structure GioFile :>
            & cancellable
            & []
         )
-    fun monitorFile self flags cancellable =
+    fun monitorFile self (flags, cancellable) =
       (
         GioFileClass.FFI.withPtr
          &&&> GioFileMonitorFlags.FFI.withVal
@@ -1822,7 +1834,7 @@ structure GioFile :>
            & []
         )
     fun queryExists self cancellable = (GioFileClass.FFI.withPtr &&&> GioCancellableClass.FFI.withOptPtr ---> GBool.FFI.fromVal) queryExists_ (self & cancellable)
-    fun queryFileType self flags cancellable =
+    fun queryFileType self (flags, cancellable) =
       (
         GioFileClass.FFI.withPtr
          &&&> GioFileQueryInfoFlags.FFI.withVal
@@ -1835,7 +1847,7 @@ structure GioFile :>
            & flags
            & cancellable
         )
-    fun queryFilesystemInfo self attributes cancellable =
+    fun queryFilesystemInfo self (attributes, cancellable) =
       (
         GioFileClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -1863,7 +1875,13 @@ structure GioFile :>
            & res
            & []
         )
-    fun queryInfo self attributes flags cancellable =
+    fun queryInfo
+      self
+      (
+        attributes,
+        flags,
+        cancellable
+      ) =
       (
         GioFileClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -1945,7 +1963,14 @@ structure GioFile :>
            & res
            & []
         )
-    fun replace self etag makeBackup flags cancellable =
+    fun replace
+      self
+      (
+        etag,
+        makeBackup,
+        flags,
+        cancellable
+      ) =
       (
         GioFileClass.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -1964,7 +1989,15 @@ structure GioFile :>
            & cancellable
            & []
         )
-    fun replaceContents self contents etag makeBackup flags cancellable =
+    fun replaceContents
+      self
+      (
+        contents,
+        etag,
+        makeBackup,
+        flags,
+        cancellable
+      ) =
       let
         val length = LargeInt.fromInt (GUInt8CVectorN.length contents)
         val newEtag & retVal =
@@ -2028,7 +2061,14 @@ structure GioFile :>
            & res
            & []
         )
-    fun replaceReadwrite self etag makeBackup flags cancellable =
+    fun replaceReadwrite
+      self
+      (
+        etag,
+        makeBackup,
+        flags,
+        cancellable
+      ) =
       (
         GioFileClass.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -2061,7 +2101,14 @@ structure GioFile :>
            & []
         )
     fun resolveRelativePath self relativePath = (GioFileClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) resolveRelativePath_ (self & relativePath)
-    fun setAttributeByteString self attribute value flags cancellable =
+    fun setAttributeByteString
+      self
+      (
+        attribute,
+        value,
+        flags,
+        cancellable
+      ) =
       (
         GioFileClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2080,7 +2127,14 @@ structure GioFile :>
            & cancellable
            & []
         )
-    fun setAttributeInt32 self attribute value flags cancellable =
+    fun setAttributeInt32
+      self
+      (
+        attribute,
+        value,
+        flags,
+        cancellable
+      ) =
       (
         GioFileClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2099,7 +2153,14 @@ structure GioFile :>
            & cancellable
            & []
         )
-    fun setAttributeInt64 self attribute value flags cancellable =
+    fun setAttributeInt64
+      self
+      (
+        attribute,
+        value,
+        flags,
+        cancellable
+      ) =
       (
         GioFileClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2118,7 +2179,14 @@ structure GioFile :>
            & cancellable
            & []
         )
-    fun setAttributeString self attribute value flags cancellable =
+    fun setAttributeString
+      self
+      (
+        attribute,
+        value,
+        flags,
+        cancellable
+      ) =
       (
         GioFileClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2137,7 +2205,14 @@ structure GioFile :>
            & cancellable
            & []
         )
-    fun setAttributeUint32 self attribute value flags cancellable =
+    fun setAttributeUint32
+      self
+      (
+        attribute,
+        value,
+        flags,
+        cancellable
+      ) =
       (
         GioFileClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2156,7 +2231,14 @@ structure GioFile :>
            & cancellable
            & []
         )
-    fun setAttributeUint64 self attribute value flags cancellable =
+    fun setAttributeUint64
+      self
+      (
+        attribute,
+        value,
+        flags,
+        cancellable
+      ) =
       (
         GioFileClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2195,7 +2277,13 @@ structure GioFile :>
       in
         if retVal then SOME info else NONE
       end
-    fun setAttributesFromInfo self info flags cancellable =
+    fun setAttributesFromInfo
+      self
+      (
+        info,
+        flags,
+        cancellable
+      ) =
       (
         GioFileClass.FFI.withPtr
          &&&> GioFileInfoClass.FFI.withPtr
@@ -2212,7 +2300,7 @@ structure GioFile :>
            & cancellable
            & []
         )
-    fun setDisplayName self displayName cancellable =
+    fun setDisplayName self (displayName, cancellable) =
       (
         GioFileClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

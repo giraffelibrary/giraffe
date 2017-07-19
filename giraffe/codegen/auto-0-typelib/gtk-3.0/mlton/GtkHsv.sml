@@ -115,7 +115,12 @@ structure GtkHsv :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkHsvClass.FFI.fromPtr false) new_ ()
-    fun toRgb h s v =
+    fun toRgb
+      (
+        h,
+        s,
+        v
+      ) =
       let
         val r
          & g
@@ -202,7 +207,13 @@ structure GtkHsv :>
         (size, ringWidth)
       end
     fun isAdjusting self = (GtkHsvClass.FFI.withPtr ---> GBool.FFI.fromVal) isAdjusting_ self
-    fun setColor self h s v =
+    fun setColor
+      self
+      (
+        h,
+        s,
+        v
+      ) =
       (
         GtkHsvClass.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -217,7 +228,7 @@ structure GtkHsv :>
            & s
            & v
         )
-    fun setMetrics self size ringWidth =
+    fun setMetrics self (size, ringWidth) =
       (
         GtkHsvClass.FFI.withPtr
          &&&> GInt32.FFI.withVal

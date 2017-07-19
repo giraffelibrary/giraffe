@@ -62,7 +62,7 @@ structure GtkButtonBox :>
     fun getChildNonHomogeneous self child = (GtkButtonBoxClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getChildNonHomogeneous_ (self & child)
     fun getChildSecondary self child = (GtkButtonBoxClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getChildSecondary_ (self & child)
     fun getLayout self = (GtkButtonBoxClass.FFI.withPtr ---> GtkButtonBoxStyle.FFI.fromVal) getLayout_ self
-    fun setChildNonHomogeneous self child nonHomogeneous =
+    fun setChildNonHomogeneous self (child, nonHomogeneous) =
       (
         GtkButtonBoxClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -75,7 +75,7 @@ structure GtkButtonBox :>
            & child
            & nonHomogeneous
         )
-    fun setChildSecondary self child isSecondary =
+    fun setChildSecondary self (child, isSecondary) =
       (
         GtkButtonBoxClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr

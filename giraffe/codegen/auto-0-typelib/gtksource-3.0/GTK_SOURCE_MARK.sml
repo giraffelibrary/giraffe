@@ -3,10 +3,7 @@ signature GTK_SOURCE_MARK =
     type 'a class
     type t = base class
     val getType : unit -> GObject.Type.t
-    val new :
-      string
-       -> string
-       -> base class
+    val new : string * string -> base class
     val getCategory : 'a class -> string
     val next :
       'a class

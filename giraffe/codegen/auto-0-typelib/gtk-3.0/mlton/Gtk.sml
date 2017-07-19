@@ -2761,7 +2761,12 @@ structure Gtk : GTK =
     val STYLE_REGION_ROW = "row"
     val STYLE_REGION_TAB = "tab"
     val TEXT_VIEW_PRIORITY_VALIDATE = 5
-    fun accelGroupsActivate object accelKey accelMods =
+    fun accelGroupsActivate
+      (
+        object,
+        accelKey,
+        accelMods
+      ) =
       (
         GObjectObjectClass.FFI.withPtr
          &&&> GUInt32.FFI.withVal
@@ -2775,8 +2780,8 @@ structure Gtk : GTK =
            & accelMods
         )
     fun acceleratorGetDefaultModMask () = (I ---> GdkModifierType.FFI.fromVal) acceleratorGetDefaultModMask_ ()
-    fun acceleratorGetLabel acceleratorKey acceleratorMods = (GUInt32.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> Utf8.FFI.fromPtr 1) acceleratorGetLabel_ (acceleratorKey & acceleratorMods)
-    fun acceleratorName acceleratorKey acceleratorMods = (GUInt32.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> Utf8.FFI.fromPtr 1) acceleratorName_ (acceleratorKey & acceleratorMods)
+    fun acceleratorGetLabel (acceleratorKey, acceleratorMods) = (GUInt32.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> Utf8.FFI.fromPtr 1) acceleratorGetLabel_ (acceleratorKey & acceleratorMods)
+    fun acceleratorName (acceleratorKey, acceleratorMods) = (GUInt32.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> Utf8.FFI.fromPtr 1) acceleratorName_ (acceleratorKey & acceleratorMods)
     fun acceleratorParse accelerator =
       let
         val acceleratorKey
@@ -2800,11 +2805,16 @@ structure Gtk : GTK =
         (acceleratorKey, acceleratorMods)
       end
     fun acceleratorSetDefaultModMask defaultModMask = (GdkModifierType.FFI.withVal ---> I) acceleratorSetDefaultModMask_ defaultModMask
-    fun acceleratorValid keyval modifiers = (GUInt32.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> GBool.FFI.fromVal) acceleratorValid_ (keyval & modifiers)
+    fun acceleratorValid (keyval, modifiers) = (GUInt32.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> GBool.FFI.fromVal) acceleratorValid_ (keyval & modifiers)
     fun alternativeDialogButtonOrder screen = (GdkScreenClass.FFI.withOptPtr ---> GBool.FFI.fromVal) alternativeDialogButtonOrder_ screen
     fun builderErrorQuark () = (I ---> GUInt32.FFI.fromVal) builderErrorQuark_ ()
-    fun cairoShouldDrawWindow cr window = (CairoContextRecord.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) cairoShouldDrawWindow_ (cr & window)
-    fun cairoTransformToWindow cr widget window =
+    fun cairoShouldDrawWindow (cr, window) = (CairoContextRecord.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) cairoShouldDrawWindow_ (cr & window)
+    fun cairoTransformToWindow
+      (
+        cr,
+        widget,
+        window
+      ) =
       (
         CairoContextRecord.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -2817,7 +2827,12 @@ structure Gtk : GTK =
            & widget
            & window
         )
-    fun checkVersion requiredMajor requiredMinor requiredMicro =
+    fun checkVersion
+      (
+        requiredMajor,
+        requiredMinor,
+        requiredMicro
+      ) =
       (
         GUInt32.FFI.withVal
          &&&> GUInt32.FFI.withVal
@@ -2831,7 +2846,12 @@ structure Gtk : GTK =
            & requiredMicro
         )
     fun cssProviderErrorQuark () = (I ---> GUInt32.FFI.fromVal) cssProviderErrorQuark_ ()
-    fun deviceGrabAdd widget device blockOthers =
+    fun deviceGrabAdd
+      (
+        widget,
+        device,
+        blockOthers
+      ) =
       (
         GtkWidgetClass.FFI.withPtr
          &&&> GdkDeviceClass.FFI.withPtr
@@ -2844,9 +2864,15 @@ structure Gtk : GTK =
            & device
            & blockOthers
         )
-    fun deviceGrabRemove widget device = (GtkWidgetClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> I) deviceGrabRemove_ (widget & device)
+    fun deviceGrabRemove (widget, device) = (GtkWidgetClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> I) deviceGrabRemove_ (widget & device)
     fun disableSetlocale () = (I ---> I) disableSetlocale_ ()
-    fun dragFinish context success del time =
+    fun dragFinish
+      (
+        context,
+        success,
+        del,
+        time
+      ) =
       (
         GdkDragContextClass.FFI.withPtr
          &&&> GBool.FFI.withVal
@@ -2863,7 +2889,13 @@ structure Gtk : GTK =
         )
     fun dragGetSourceWidget context = (GdkDragContextClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) dragGetSourceWidget_ context
     fun dragSetIconDefault context = (GdkDragContextClass.FFI.withPtr ---> I) dragSetIconDefault_ context
-    fun dragSetIconGicon context icon hotX hotY =
+    fun dragSetIconGicon
+      (
+        context,
+        icon,
+        hotX,
+        hotY
+      ) =
       (
         GdkDragContextClass.FFI.withPtr
          &&&> GioIconClass.FFI.withPtr
@@ -2878,7 +2910,13 @@ structure Gtk : GTK =
            & hotX
            & hotY
         )
-    fun dragSetIconName context iconName hotX hotY =
+    fun dragSetIconName
+      (
+        context,
+        iconName,
+        hotX,
+        hotY
+      ) =
       (
         GdkDragContextClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2893,7 +2931,13 @@ structure Gtk : GTK =
            & hotX
            & hotY
         )
-    fun dragSetIconPixbuf context pixbuf hotX hotY =
+    fun dragSetIconPixbuf
+      (
+        context,
+        pixbuf,
+        hotX,
+        hotY
+      ) =
       (
         GdkDragContextClass.FFI.withPtr
          &&&> GdkPixbufPixbufClass.FFI.withPtr
@@ -2908,7 +2952,13 @@ structure Gtk : GTK =
            & hotX
            & hotY
         )
-    fun dragSetIconStock context stockId hotX hotY =
+    fun dragSetIconStock
+      (
+        context,
+        stockId,
+        hotX,
+        hotY
+      ) =
       (
         GdkDragContextClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2923,8 +2973,14 @@ structure Gtk : GTK =
            & hotX
            & hotY
         )
-    fun dragSetIconSurface context surface = (GdkDragContextClass.FFI.withPtr &&&> CairoSurfaceRecord.FFI.withPtr ---> I) dragSetIconSurface_ (context & surface)
-    fun dragSetIconWidget context widget hotX hotY =
+    fun dragSetIconSurface (context, surface) = (GdkDragContextClass.FFI.withPtr &&&> CairoSurfaceRecord.FFI.withPtr ---> I) dragSetIconSurface_ (context & surface)
+    fun dragSetIconWidget
+      (
+        context,
+        widget,
+        hotX,
+        hotY
+      ) =
       (
         GdkDragContextClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -2939,7 +2995,15 @@ structure Gtk : GTK =
            & hotX
            & hotY
         )
-    fun drawInsertionCursor widget cr location isPrimary direction drawArrow =
+    fun drawInsertionCursor
+      (
+        widget,
+        cr,
+        location,
+        isPrimary,
+        direction,
+        drawArrow
+      ) =
       (
         GtkWidgetClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3002,7 +3066,7 @@ structure Gtk : GTK =
       in
         if retVal then SOME (width, height) else NONE
       end
-    fun iconSizeLookupForSettings settings size =
+    fun iconSizeLookupForSettings (settings, size) =
       let
         val width
          & height
@@ -3026,7 +3090,12 @@ structure Gtk : GTK =
       in
         if retVal then SOME (width, height) else NONE
       end
-    fun iconSizeRegister name width height =
+    fun iconSizeRegister
+      (
+        name,
+        width,
+        height
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -3039,7 +3108,7 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun iconSizeRegisterAlias alias target = (Utf8.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) iconSizeRegisterAlias_ (alias & target)
+    fun iconSizeRegisterAlias (alias, target) = (Utf8.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) iconSizeRegisterAlias_ (alias & target)
     fun iconThemeErrorQuark () = (I ---> GUInt32.FFI.fromVal) iconThemeErrorQuark_ ()
     fun init argv =
       let
@@ -3082,7 +3151,21 @@ structure Gtk : GTK =
     fun mainIterationDo blocking = (GBool.FFI.withVal ---> GBool.FFI.fromVal) mainIterationDo_ blocking
     fun mainLevel () = (I ---> GUInt32.FFI.fromVal) mainLevel_ ()
     fun mainQuit () = (I ---> I) mainQuit_ ()
-    fun paintArrow style cr stateType shadowType widget detail arrowType fill x y width height =
+    fun paintArrow
+      (
+        style,
+        cr,
+        stateType,
+        shadowType,
+        widget,
+        detail,
+        arrowType,
+        fill,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3113,7 +3196,19 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun paintBox style cr stateType shadowType widget detail x y width height =
+    fun paintBox
+      (
+        style,
+        cr,
+        stateType,
+        shadowType,
+        widget,
+        detail,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3140,7 +3235,22 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun paintBoxGap style cr stateType shadowType widget detail x y width height gapSide gapX gapWidth =
+    fun paintBoxGap
+      (
+        style,
+        cr,
+        stateType,
+        shadowType,
+        widget,
+        detail,
+        x,
+        y,
+        width,
+        height,
+        gapSide,
+        gapX,
+        gapWidth
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3173,7 +3283,19 @@ structure Gtk : GTK =
            & gapX
            & gapWidth
         )
-    fun paintCheck style cr stateType shadowType widget detail x y width height =
+    fun paintCheck
+      (
+        style,
+        cr,
+        stateType,
+        shadowType,
+        widget,
+        detail,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3200,7 +3322,19 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun paintDiamond style cr stateType shadowType widget detail x y width height =
+    fun paintDiamond
+      (
+        style,
+        cr,
+        stateType,
+        shadowType,
+        widget,
+        detail,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3227,7 +3361,17 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun paintExpander style cr stateType widget detail x y expanderStyle =
+    fun paintExpander
+      (
+        style,
+        cr,
+        stateType,
+        widget,
+        detail,
+        x,
+        y,
+        expanderStyle
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3250,7 +3394,20 @@ structure Gtk : GTK =
            & y
            & expanderStyle
         )
-    fun paintExtension style cr stateType shadowType widget detail x y width height gapSide =
+    fun paintExtension
+      (
+        style,
+        cr,
+        stateType,
+        shadowType,
+        widget,
+        detail,
+        x,
+        y,
+        width,
+        height,
+        gapSide
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3279,7 +3436,19 @@ structure Gtk : GTK =
            & height
            & gapSide
         )
-    fun paintFlatBox style cr stateType shadowType widget detail x y width height =
+    fun paintFlatBox
+      (
+        style,
+        cr,
+        stateType,
+        shadowType,
+        widget,
+        detail,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3306,7 +3475,18 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun paintFocus style cr stateType widget detail x y width height =
+    fun paintFocus
+      (
+        style,
+        cr,
+        stateType,
+        widget,
+        detail,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3331,7 +3511,20 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun paintHandle style cr stateType shadowType widget detail x y width height orientation =
+    fun paintHandle
+      (
+        style,
+        cr,
+        stateType,
+        shadowType,
+        widget,
+        detail,
+        x,
+        y,
+        width,
+        height,
+        orientation
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3360,7 +3553,17 @@ structure Gtk : GTK =
            & height
            & orientation
         )
-    fun paintHline style cr stateType widget detail x1 x2 y =
+    fun paintHline
+      (
+        style,
+        cr,
+        stateType,
+        widget,
+        detail,
+        x1,
+        x2,
+        y
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3383,7 +3586,18 @@ structure Gtk : GTK =
            & x2
            & y
         )
-    fun paintLayout style cr stateType useText widget detail x y layout =
+    fun paintLayout
+      (
+        style,
+        cr,
+        stateType,
+        useText,
+        widget,
+        detail,
+        x,
+        y,
+        layout
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3408,7 +3622,19 @@ structure Gtk : GTK =
            & y
            & layout
         )
-    fun paintOption style cr stateType shadowType widget detail x y width height =
+    fun paintOption
+      (
+        style,
+        cr,
+        stateType,
+        shadowType,
+        widget,
+        detail,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3435,7 +3661,19 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun paintResizeGrip style cr stateType widget detail edge x y width height =
+    fun paintResizeGrip
+      (
+        style,
+        cr,
+        stateType,
+        widget,
+        detail,
+        edge,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3462,7 +3700,19 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun paintShadow style cr stateType shadowType widget detail x y width height =
+    fun paintShadow
+      (
+        style,
+        cr,
+        stateType,
+        shadowType,
+        widget,
+        detail,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3489,7 +3739,22 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun paintShadowGap style cr stateType shadowType widget detail x y width height gapSide gapX gapWidth =
+    fun paintShadowGap
+      (
+        style,
+        cr,
+        stateType,
+        shadowType,
+        widget,
+        detail,
+        x,
+        y,
+        width,
+        height,
+        gapSide,
+        gapX,
+        gapWidth
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3522,7 +3787,20 @@ structure Gtk : GTK =
            & gapX
            & gapWidth
         )
-    fun paintSlider style cr stateType shadowType widget detail x y width height orientation =
+    fun paintSlider
+      (
+        style,
+        cr,
+        stateType,
+        shadowType,
+        widget,
+        detail,
+        x,
+        y,
+        width,
+        height,
+        orientation
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3551,7 +3829,19 @@ structure Gtk : GTK =
            & height
            & orientation
         )
-    fun paintSpinner style cr stateType widget detail step x y width height =
+    fun paintSpinner
+      (
+        style,
+        cr,
+        stateType,
+        widget,
+        detail,
+        step,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3578,7 +3868,19 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun paintTab style cr stateType shadowType widget detail x y width height =
+    fun paintTab
+      (
+        style,
+        cr,
+        stateType,
+        shadowType,
+        widget,
+        detail,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3605,7 +3907,17 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun paintVline style cr stateType widget detail y1 y2 x =
+    fun paintVline
+      (
+        style,
+        cr,
+        stateType,
+        widget,
+        detail,
+        y1,
+        y2,
+        x
+      ) =
       (
         GtkStyleClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3647,7 +3959,12 @@ structure Gtk : GTK =
         (retVal, argv (LargeInt.toInt argc))
       end
     fun printErrorQuark () = (I ---> GUInt32.FFI.fromVal) printErrorQuark_ ()
-    fun printRunPageSetupDialog parent pageSetup settings =
+    fun printRunPageSetupDialog
+      (
+        parent,
+        pageSetup,
+        settings
+      ) =
       (
         GtkWindowClass.FFI.withOptPtr
          &&&> GtkPageSetupClass.FFI.withOptPtr
@@ -3660,14 +3977,22 @@ structure Gtk : GTK =
            & pageSetup
            & settings
         )
-    fun propagateEvent widget event = (GtkWidgetClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> I) propagateEvent_ (widget & event)
+    fun propagateEvent (widget, event) = (GtkWidgetClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> I) propagateEvent_ (widget & event)
     fun rcAddDefaultFile filename = (Utf8.FFI.withPtr ---> I) rcAddDefaultFile_ filename
     fun rcGetDefaultFiles () = (I ---> Utf8CVector.FFI.fromPtr 0) rcGetDefaultFiles_ ()
     fun rcGetStyle widget = (GtkWidgetClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr false) rcGetStyle_ widget
     fun rcSetDefaultFiles filenames = (Utf8CVector.FFI.withPtr ---> I) rcSetDefaultFiles_ filenames
     fun recentChooserErrorQuark () = (I ---> GUInt32.FFI.fromVal) recentChooserErrorQuark_ ()
     fun recentManagerErrorQuark () = (I ---> GUInt32.FFI.fromVal) recentManagerErrorQuark_ ()
-    fun renderActivity context cr x y width height =
+    fun renderActivity
+      (
+        context,
+        cr,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3686,7 +4011,15 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun renderArrow context cr angle x y size =
+    fun renderArrow
+      (
+        context,
+        cr,
+        angle,
+        x,
+        y,
+        size
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3705,7 +4038,15 @@ structure Gtk : GTK =
            & y
            & size
         )
-    fun renderBackground context cr x y width height =
+    fun renderBackground
+      (
+        context,
+        cr,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3724,7 +4065,15 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun renderCheck context cr x y width height =
+    fun renderCheck
+      (
+        context,
+        cr,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3743,7 +4092,15 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun renderExpander context cr x y width height =
+    fun renderExpander
+      (
+        context,
+        cr,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3762,7 +4119,16 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun renderExtension context cr x y width height gapSide =
+    fun renderExtension
+      (
+        context,
+        cr,
+        x,
+        y,
+        width,
+        height,
+        gapSide
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3783,7 +4149,15 @@ structure Gtk : GTK =
            & height
            & gapSide
         )
-    fun renderFocus context cr x y width height =
+    fun renderFocus
+      (
+        context,
+        cr,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3802,7 +4176,15 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun renderFrame context cr x y width height =
+    fun renderFrame
+      (
+        context,
+        cr,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3821,7 +4203,18 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun renderFrameGap context cr x y width height gapSide xy0Gap xy1Gap =
+    fun renderFrameGap
+      (
+        context,
+        cr,
+        x,
+        y,
+        width,
+        height,
+        gapSide,
+        xy0Gap,
+        xy1Gap
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3846,7 +4239,15 @@ structure Gtk : GTK =
            & xy0Gap
            & xy1Gap
         )
-    fun renderHandle context cr x y width height =
+    fun renderHandle
+      (
+        context,
+        cr,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3865,7 +4266,14 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun renderIcon context cr pixbuf x y =
+    fun renderIcon
+      (
+        context,
+        cr,
+        pixbuf,
+        x,
+        y
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3882,7 +4290,12 @@ structure Gtk : GTK =
            & x
            & y
         )
-    fun renderIconPixbuf context source size =
+    fun renderIconPixbuf
+      (
+        context,
+        source,
+        size
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> GtkIconSourceRecord.FFI.withPtr
@@ -3895,7 +4308,14 @@ structure Gtk : GTK =
            & source
            & size
         )
-    fun renderLayout context cr x y layout =
+    fun renderLayout
+      (
+        context,
+        cr,
+        x,
+        y,
+        layout
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3912,7 +4332,15 @@ structure Gtk : GTK =
            & y
            & layout
         )
-    fun renderLine context cr x0 y0 x1 y1 =
+    fun renderLine
+      (
+        context,
+        cr,
+        x0,
+        y0,
+        x1,
+        y1
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3931,7 +4359,15 @@ structure Gtk : GTK =
            & x1
            & y1
         )
-    fun renderOption context cr x y width height =
+    fun renderOption
+      (
+        context,
+        cr,
+        x,
+        y,
+        width,
+        height
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3950,7 +4386,16 @@ structure Gtk : GTK =
            & width
            & height
         )
-    fun renderSlider context cr x y width height orientation =
+    fun renderSlider
+      (
+        context,
+        cr,
+        x,
+        y,
+        width,
+        height,
+        orientation
+      ) =
       (
         GtkStyleContextClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -3971,7 +4416,12 @@ structure Gtk : GTK =
            & height
            & orientation
         )
-    fun rgbToHsv r g b =
+    fun rgbToHsv
+      (
+        r,
+        g,
+        b
+      ) =
       let
         val h
          & s
@@ -4005,7 +4455,13 @@ structure Gtk : GTK =
           v
         )
       end
-    fun selectionAddTarget widget selection target info =
+    fun selectionAddTarget
+      (
+        widget,
+        selection,
+        target,
+        info
+      ) =
       (
         GtkWidgetClass.FFI.withPtr
          &&&> GdkAtomRecord.FFI.withPtr
@@ -4020,8 +4476,14 @@ structure Gtk : GTK =
            & target
            & info
         )
-    fun selectionClearTargets widget selection = (GtkWidgetClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) selectionClearTargets_ (widget & selection)
-    fun selectionConvert widget selection target time =
+    fun selectionClearTargets (widget, selection) = (GtkWidgetClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) selectionClearTargets_ (widget & selection)
+    fun selectionConvert
+      (
+        widget,
+        selection,
+        target,
+        time
+      ) =
       (
         GtkWidgetClass.FFI.withPtr
          &&&> GdkAtomRecord.FFI.withPtr
@@ -4036,7 +4498,12 @@ structure Gtk : GTK =
            & target
            & time
         )
-    fun selectionOwnerSet widget selection time =
+    fun selectionOwnerSet
+      (
+        widget,
+        selection,
+        time
+      ) =
       (
         GtkWidgetClass.FFI.withOptPtr
          &&&> GdkAtomRecord.FFI.withPtr
@@ -4049,7 +4516,13 @@ structure Gtk : GTK =
            & selection
            & time
         )
-    fun selectionOwnerSetForDisplay display widget selection time =
+    fun selectionOwnerSetForDisplay
+      (
+        display,
+        widget,
+        selection,
+        time
+      ) =
       (
         GdkDisplayClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withOptPtr
@@ -4066,7 +4539,12 @@ structure Gtk : GTK =
         )
     fun selectionRemoveAll widget = (GtkWidgetClass.FFI.withPtr ---> I) selectionRemoveAll_ widget
     fun setDebugFlags flags = (GUInt32.FFI.withVal ---> I) setDebugFlags_ flags
-    fun showUri screen uri timestamp =
+    fun showUri
+      (
+        screen,
+        uri,
+        timestamp
+      ) =
       (
         GdkScreenClass.FFI.withOptPtr
          &&&> Utf8.FFI.withPtr
@@ -4087,7 +4565,7 @@ structure Gtk : GTK =
       in
         if retVal then SOME item else NONE
       end
-    fun targetsIncludeImage targets writable =
+    fun targetsIncludeImage (targets, writable) =
       let
         val nTargets = LargeInt.fromInt (GdkAtomRecordCVectorN.length targets)
         val retVal =
@@ -4106,7 +4584,7 @@ structure Gtk : GTK =
       in
         retVal
       end
-    fun targetsIncludeRichText targets buffer =
+    fun targetsIncludeRichText (targets, buffer) =
       let
         val nTargets = LargeInt.fromInt (GdkAtomRecordCVectorN.length targets)
         val retVal =
@@ -4139,12 +4617,17 @@ structure Gtk : GTK =
       in
         retVal
       end
-    fun testCreateSimpleWindow windowTitle dialogText = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
-    fun testFindLabel widget labelPattern = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) testFindLabel_ (widget & labelPattern)
+    fun testCreateSimpleWindow (windowTitle, dialogText) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
+    fun testFindLabel (widget, labelPattern) = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) testFindLabel_ (widget & labelPattern)
     fun testRegisterAllTypes () = (I ---> I) testRegisterAllTypes_ ()
     fun testSliderGetValue widget = (GtkWidgetClass.FFI.withPtr ---> GDouble.FFI.fromVal) testSliderGetValue_ widget
-    fun testSliderSetPerc widget percentage = (GtkWidgetClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) testSliderSetPerc_ (widget & percentage)
-    fun testSpinButtonClick spinner button upwards =
+    fun testSliderSetPerc (widget, percentage) = (GtkWidgetClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) testSliderSetPerc_ (widget & percentage)
+    fun testSpinButtonClick
+      (
+        spinner,
+        button,
+        upwards
+      ) =
       (
         GtkSpinButtonClass.FFI.withPtr
          &&&> GUInt32.FFI.withVal
@@ -4158,8 +4641,13 @@ structure Gtk : GTK =
            & upwards
         )
     fun testTextGet widget = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) testTextGet_ widget
-    fun testTextSet widget string = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) testTextSet_ (widget & string)
-    fun testWidgetClick widget button modifiers =
+    fun testTextSet (widget, string) = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) testTextSet_ (widget & string)
+    fun testWidgetClick
+      (
+        widget,
+        button,
+        modifiers
+      ) =
       (
         GtkWidgetClass.FFI.withPtr
          &&&> GUInt32.FFI.withVal
@@ -4172,7 +4660,12 @@ structure Gtk : GTK =
            & button
            & modifiers
         )
-    fun testWidgetSendKey widget keyval modifiers =
+    fun testWidgetSendKey
+      (
+        widget,
+        keyval,
+        modifiers
+      ) =
       (
         GtkWidgetClass.FFI.withPtr
          &&&> GUInt32.FFI.withVal
@@ -4207,9 +4700,14 @@ structure Gtk : GTK =
       in
         if retVal then SOME (treeModel, path) else NONE
       end
-    fun treeRowReferenceDeleted proxy path = (GObjectObjectClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) treeRowReferenceDeleted_ (proxy & path)
-    fun treeRowReferenceInserted proxy path = (GObjectObjectClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) treeRowReferenceInserted_ (proxy & path)
-    fun treeSetRowDragData selectionData treeModel path =
+    fun treeRowReferenceDeleted (proxy, path) = (GObjectObjectClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) treeRowReferenceDeleted_ (proxy & path)
+    fun treeRowReferenceInserted (proxy, path) = (GObjectObjectClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) treeRowReferenceInserted_ (proxy & path)
+    fun treeSetRowDragData
+      (
+        selectionData,
+        treeModel,
+        path
+      ) =
       (
         GtkSelectionDataRecord.FFI.withPtr
          &&&> GtkTreeModelClass.FFI.withPtr

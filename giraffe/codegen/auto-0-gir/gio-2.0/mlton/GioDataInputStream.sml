@@ -493,7 +493,7 @@ structure GioDataInputStream :>
            & cancellable
            & []
         )
-    fun readUntil self stopChars cancellable =
+    fun readUntil self (stopChars, cancellable) =
       let
         val length & retVal =
           (
@@ -535,7 +535,13 @@ structure GioDataInputStream :>
       in
         (retVal, length)
       end
-    fun readUpto self stopChars stopCharsLen cancellable =
+    fun readUpto
+      self
+      (
+        stopChars,
+        stopCharsLen,
+        cancellable
+      ) =
       let
         val length & retVal =
           (

@@ -89,7 +89,13 @@ structure GtkSourceCompletionItem :>
     type t = base class
     fun asCompletionProposal self = (GObjectObjectClass.FFI.withPtr ---> GtkSourceCompletionProposalClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new label text icon info =
+    fun new
+      (
+        label,
+        text,
+        icon,
+        info
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -104,7 +110,13 @@ structure GtkSourceCompletionItem :>
            & icon
            & info
         )
-    fun newFromStock label text stock info =
+    fun newFromStock
+      (
+        label,
+        text,
+        stock,
+        info
+      ) =
       (
         Utf8.FFI.withOptPtr
          &&&> Utf8.FFI.withPtr
@@ -119,7 +131,13 @@ structure GtkSourceCompletionItem :>
            & stock
            & info
         )
-    fun newWithMarkup markup text icon info =
+    fun newWithMarkup
+      (
+        markup,
+        text,
+        icon,
+        info
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr

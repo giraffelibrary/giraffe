@@ -75,7 +75,13 @@ structure GtkContainer :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun add self widget = (GtkContainerClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) add_ (self & widget)
     fun checkResize self = (GtkContainerClass.FFI.withPtr ---> I) checkResize_ self
-    fun childGetProperty self child propertyName value =
+    fun childGetProperty
+      self
+      (
+        child,
+        propertyName,
+        value
+      ) =
       (
         GtkContainerClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -90,7 +96,7 @@ structure GtkContainer :>
            & propertyName
            & value
         )
-    fun childNotify self child childProperty =
+    fun childNotify self (child, childProperty) =
       (
         GtkContainerClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -103,7 +109,13 @@ structure GtkContainer :>
            & child
            & childProperty
         )
-    fun childSetProperty self child propertyName value =
+    fun childSetProperty
+      self
+      (
+        child,
+        propertyName,
+        value
+      ) =
       (
         GtkContainerClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -124,7 +136,7 @@ structure GtkContainer :>
     fun getFocusVadjustment self = (GtkContainerClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getFocusVadjustment_ self
     fun getPathForChild self child = (GtkContainerClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr true) getPathForChild_ (self & child)
     fun getResizeMode self = (GtkContainerClass.FFI.withPtr ---> GtkResizeMode.FFI.fromVal) getResizeMode_ self
-    fun propagateDraw self child cr =
+    fun propagateDraw self (child, cr) =
       (
         GtkContainerClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr

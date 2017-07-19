@@ -80,7 +80,7 @@ structure GtkCellAreaContext :>
     type 'a cell_area_class = 'a GtkCellAreaClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun allocate self width height =
+    fun allocate self (width, height) =
       (
         GtkCellAreaContextClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -208,7 +208,7 @@ structure GtkCellAreaContext :>
       in
         (minimumWidth, naturalWidth)
       end
-    fun pushPreferredHeight self minimumHeight naturalHeight =
+    fun pushPreferredHeight self (minimumHeight, naturalHeight) =
       (
         GtkCellAreaContextClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -221,7 +221,7 @@ structure GtkCellAreaContext :>
            & minimumHeight
            & naturalHeight
         )
-    fun pushPreferredWidth self minimumWidth naturalWidth =
+    fun pushPreferredWidth self (minimumWidth, naturalWidth) =
       (
         GtkCellAreaContextClass.FFI.withPtr
          &&&> GInt.FFI.withVal

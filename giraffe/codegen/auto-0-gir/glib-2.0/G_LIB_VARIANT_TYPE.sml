@@ -37,8 +37,5 @@ signature G_LIB_VARIANT_TYPE =
     val next : t -> t
     val value : t -> t
     val stringIsValid : string -> bool
-    val stringScan :
-      string
-       -> string option
-       -> string option
+    val stringScan : string * string option -> string option
   end

@@ -46,7 +46,7 @@ structure GtkSourceGutterRendererText :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSourceGutterRendererTextClass.FFI.fromPtr true) new_ ()
-    fun setMarkup self markup length =
+    fun setMarkup self (markup, length) =
       (
         GtkSourceGutterRendererTextClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -59,7 +59,7 @@ structure GtkSourceGutterRendererText :>
            & markup
            & length
         )
-    fun setText self text length =
+    fun setText self (text, length) =
       (
         GtkSourceGutterRendererTextClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

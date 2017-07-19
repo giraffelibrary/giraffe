@@ -11,25 +11,22 @@ signature GTK_BOX =
     val asBuildable : 'a class -> base buildable_class
     val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
-    val new :
-      orientation_t
-       -> LargeInt.int
-       -> base class
+    val new : orientation_t * LargeInt.int -> base class
     val getHomogeneous : 'a class -> bool
     val getSpacing : 'a class -> LargeInt.int
     val packEnd :
       'a class
        -> 'b widget_class
-       -> bool
-       -> bool
-       -> LargeInt.int
+           * bool
+           * bool
+           * LargeInt.int
        -> unit
     val packStart :
       'a class
        -> 'b widget_class
-       -> bool
-       -> bool
-       -> LargeInt.int
+           * bool
+           * bool
+           * LargeInt.int
        -> unit
     val queryChildPacking :
       'a class
@@ -40,16 +37,15 @@ signature GTK_BOX =
            * pack_type_t
     val reorderChild :
       'a class
-       -> 'b widget_class
-       -> LargeInt.int
+       -> 'b widget_class * LargeInt.int
        -> unit
     val setChildPacking :
       'a class
        -> 'b widget_class
-       -> bool
-       -> bool
-       -> LargeInt.int
-       -> pack_type_t
+           * bool
+           * bool
+           * LargeInt.int
+           * pack_type_t
        -> unit
     val setHomogeneous :
       'a class

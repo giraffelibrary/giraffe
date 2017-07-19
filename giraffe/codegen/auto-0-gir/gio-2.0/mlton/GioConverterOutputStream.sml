@@ -12,7 +12,7 @@ structure GioConverterOutputStream :>
     type 'a converter_class = 'a GioConverterClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new baseStream converter = (GioOutputStreamClass.FFI.withPtr &&&> GioConverterClass.FFI.withPtr ---> GioConverterOutputStreamClass.FFI.fromPtr true) new_ (baseStream & converter)
+    fun new (baseStream, converter) = (GioOutputStreamClass.FFI.withPtr &&&> GioConverterClass.FFI.withPtr ---> GioConverterOutputStreamClass.FFI.fromPtr true) new_ (baseStream & converter)
     fun getConverter self = (GioConverterOutputStreamClass.FFI.withPtr ---> GioConverterClass.FFI.fromPtr false) getConverter_ self
     local
       open Property

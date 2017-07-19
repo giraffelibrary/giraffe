@@ -11,8 +11,7 @@ signature GIO_D_BUS_INTERFACE_SKELETON =
     val getType : unit -> GObject.Type.t
     val export :
       'a class
-       -> 'b d_bus_connection_class
-       -> string
+       -> 'b d_bus_connection_class * string
        -> bool
     val flush : 'a class -> unit
     val getConnection : 'a class -> base d_bus_connection_class

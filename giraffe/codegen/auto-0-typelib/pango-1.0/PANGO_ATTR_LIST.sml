@@ -20,7 +20,7 @@ signature PANGO_ATTR_LIST =
     val splice :
       t
        -> t
-       -> LargeInt.int
-       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
        -> unit
   end

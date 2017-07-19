@@ -96,7 +96,7 @@ structure GtkFrame :>
     fun getLabelWidget self = (GtkFrameClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getLabelWidget_ self
     fun getShadowType self = (GtkFrameClass.FFI.withPtr ---> GtkShadowType.FFI.fromVal) getShadowType_ self
     fun setLabel self label = (GtkFrameClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setLabel_ (self & label)
-    fun setLabelAlign self xalign yalign =
+    fun setLabelAlign self (xalign, yalign) =
       (
         GtkFrameClass.FFI.withPtr
          &&&> GFloat.FFI.withVal

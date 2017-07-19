@@ -31,13 +31,13 @@ SignalSpec has the form:
 
 
   val <signalName>Sig
-    : (<inParamType[1]> -> ... -> <inParamType[L]> -> <retExpType>) -> <var> class Signal.signal
+    : (<inParamType[1]> * ... * <inParamType[L]> -> <retExpType>) -> <var> class Signal.signal
 
     if K > 0 and L > 0
 
 
   val <signalName>Sig
-    : (<inParamType[1]> -> ... -> <inParamType[L]> -> <retValType>) -> <var> class Signal.signal
+    : (<inParamType[1]> * ... * <inParamType[L]> -> <retValType>) -> <var> class Signal.signal
 
     if K = 0 and L > 0
 
@@ -246,7 +246,7 @@ inverse of an array X is denoted X~.
     (
       fn inParamName[1] & ... & inParamName[L] =>
         let
-          val <retPat> = f inParamExp[1] ... inParamExp[J]
+          val <retPat> = f (inParamExp[1], ..., inParamExp[J])
         in
           outParamName[1] & ... & outParamName[K] & <retVal>
         end
@@ -277,7 +277,7 @@ inverse of an array X is denoted X~.
     (<getFun[1]> &&&> ... &&&> <getFun[L]> ---> <retFun>)
     (
       fn inParamName[1] & ... & inParamName[L] =>
-        f inParamExp[1] ... inParamExp[J]
+        f (inParamExp[1], ..., inParamExp[J])
     )
 
     if K = 0 and L > 1
@@ -509,7 +509,7 @@ where
             ==================+===================
               false           | <empty>
             ------------------+-------------------
-              true            | Opy
+              true            | Opt
             ------------------+-------------------
 
 

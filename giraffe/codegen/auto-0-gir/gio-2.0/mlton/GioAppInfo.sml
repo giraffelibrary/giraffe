@@ -182,7 +182,12 @@ structure GioAppInfo :>
     type 'a icon_class = 'a GioIconClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun createFromCommandline commandline applicationName flags =
+    fun createFromCommandline
+      (
+        commandline,
+        applicationName,
+        flags
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -197,9 +202,9 @@ structure GioAppInfo :>
            & flags
            & []
         )
-    fun getDefaultForType contentType mustSupportUris = (Utf8.FFI.withPtr &&&> GBool.FFI.withVal ---> GioAppInfoClass.FFI.fromPtr true) getDefaultForType_ (contentType & mustSupportUris)
+    fun getDefaultForType (contentType, mustSupportUris) = (Utf8.FFI.withPtr &&&> GBool.FFI.withVal ---> GioAppInfoClass.FFI.fromPtr true) getDefaultForType_ (contentType & mustSupportUris)
     fun getDefaultForUriScheme uriScheme = (Utf8.FFI.withPtr ---> GioAppInfoClass.FFI.fromPtr true) getDefaultForUriScheme_ uriScheme
-    fun launchDefaultForUri uri launchContext =
+    fun launchDefaultForUri (uri, launchContext) =
       (
         Utf8.FFI.withPtr
          &&&> GioAppLaunchContextClass.FFI.withOptPtr

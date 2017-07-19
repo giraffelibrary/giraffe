@@ -148,7 +148,7 @@ structure AtkText :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun freeRanges ranges = (AtkTextRangeRecord.FFI.withPtr ---> I) freeRanges_ ranges
-    fun addSelection self startOffset endOffset =
+    fun addSelection self (startOffset, endOffset) =
       (
         AtkTextClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -161,7 +161,14 @@ structure AtkText :>
            & startOffset
            & endOffset
         )
-    fun getBoundedRanges self rect coordType xClipType yClipType =
+    fun getBoundedRanges
+      self
+      (
+        rect,
+        coordType,
+        xClipType,
+        yClipType
+      ) =
       (
         AtkTextClass.FFI.withPtr
          &&&> AtkTextRectangleRecord.FFI.withPtr
@@ -182,7 +189,13 @@ structure AtkText :>
     fun getCharacterAtOffset self offset = (AtkTextClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GChar.FFI.fromVal) getCharacterAtOffset_ (self & offset)
     fun getCharacterCount self = (AtkTextClass.FFI.withPtr ---> GInt32.FFI.fromVal) getCharacterCount_ self
     fun getNSelections self = (AtkTextClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNSelections_ self
-    fun getOffsetAtPoint self x y coords =
+    fun getOffsetAtPoint
+      self
+      (
+        x,
+        y,
+        coords
+      ) =
       (
         AtkTextClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -197,7 +210,14 @@ structure AtkText :>
            & y
            & coords
         )
-    fun getRangeExtents self startOffset endOffset coordType rect =
+    fun getRangeExtents
+      self
+      (
+        startOffset,
+        endOffset,
+        coordType,
+        rect
+      ) =
       (
         AtkTextClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -214,7 +234,7 @@ structure AtkText :>
            & coordType
            & rect
         )
-    fun getText self startOffset endOffset =
+    fun getText self (startOffset, endOffset) =
       (
         AtkTextClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -229,7 +249,13 @@ structure AtkText :>
         )
     fun removeSelection self selectionNum = (AtkTextClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) removeSelection_ (self & selectionNum)
     fun setCaretOffset self offset = (AtkTextClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) setCaretOffset_ (self & offset)
-    fun setSelection self selectionNum startOffset endOffset =
+    fun setSelection
+      self
+      (
+        selectionNum,
+        startOffset,
+        endOffset
+      ) =
       (
         AtkTextClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -249,7 +275,7 @@ structure AtkText :>
     in
       fun textAttributesChangedSig f = signal "text-attributes-changed" (void ---> ret_void) f
       fun textCaretMovedSig f = signal "text-caret-moved" (get 0w1 int ---> ret_void) f
-      fun textChangedSig f = signal "text-changed" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn object & p0 => f object p0)
+      fun textChangedSig f = signal "text-changed" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn object & p0 => f (object, p0))
       fun textInsertSig f =
         signal "text-insert"
           (
@@ -263,7 +289,12 @@ structure AtkText :>
               object
                & p0
                & p1 =>
-                f object p0 p1
+                f
+                  (
+                    object,
+                    p0,
+                    p1
+                  )
           )
       fun textRemoveSig f =
         signal "text-remove"
@@ -278,7 +309,12 @@ structure AtkText :>
               object
                & p0
                & p1 =>
-                f object p0 p1
+                f
+                  (
+                    object,
+                    p0,
+                    p1
+                  )
           )
       fun textSelectionChangedSig f = signal "text-selection-changed" (void ---> ret_void) f
       fun textUpdateSig f =
@@ -296,7 +332,13 @@ structure AtkText :>
                & p0
                & p1
                & p2 =>
-                f object p0 p1 p2
+                f
+                  (
+                    object,
+                    p0,
+                    p1,
+                    p2
+                  )
           )
     end
   end

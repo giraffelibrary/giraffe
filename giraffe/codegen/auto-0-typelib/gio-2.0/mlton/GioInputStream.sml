@@ -145,7 +145,7 @@ structure GioInputStream :>
            & []
         )
     fun setPending self = (GioInputStreamClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) setPending_ (self & [])
-    fun skip self count cancellable =
+    fun skip self (count, cancellable) =
       (
         GioInputStreamClass.FFI.withPtr
          &&&> GUInt64.FFI.withVal

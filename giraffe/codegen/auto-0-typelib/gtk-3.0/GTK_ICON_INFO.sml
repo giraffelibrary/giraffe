@@ -4,10 +4,7 @@ signature GTK_ICON_INFO =
     type 'a icon_theme_class
     type 'a style_context_class
     val getType : unit -> GObject.Type.t
-    val newForPixbuf :
-      'a icon_theme_class
-       -> 'b GdkPixbuf.PixbufClass.class
-       -> t
+    val newForPixbuf : 'a icon_theme_class * 'b GdkPixbuf.PixbufClass.class -> t
     val copy : t -> t
     val getBaseSize : t -> LargeInt.int
     val getBuiltinPixbuf : t -> base GdkPixbuf.PixbufClass.class
@@ -18,9 +15,9 @@ signature GTK_ICON_INFO =
     val loadSymbolic :
       t
        -> Gdk.RgbaRecord.t
-       -> Gdk.RgbaRecord.t option
-       -> Gdk.RgbaRecord.t option
-       -> Gdk.RgbaRecord.t option
+           * Gdk.RgbaRecord.t option
+           * Gdk.RgbaRecord.t option
+           * Gdk.RgbaRecord.t option
        -> base GdkPixbuf.PixbufClass.class * bool
     val loadSymbolicForContext :
       t

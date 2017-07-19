@@ -160,30 +160,30 @@ val () = List.app (Repository.prependSearchPath repo) revPaths
  *
  * This is not necessary but may catch errors sooner. *)
 
-fun require repo namespace version flags = (
+fun require repo (namespace, version, flags) = (
   app print ["  ", namespace, "-", version, "\n"];
-  Repository.require repo namespace version flags
+  Repository.require repo (namespace, version, flags)
 )
 val flags = RepositoryLoadFlags.flags []
 val () = print "Loading namespaces\n"
-val _ = require repo "GLib" "2.0" flags
-val _ = require repo "GObject" "2.0" flags
-val _ = require repo "GIRepository" "2.0" flags
-val _ = require repo "GModule" "2.0" flags
-val _ = require repo "Gio" "2.0" flags
-val _ = require repo "Atk" "1.0" flags
-val _ = require repo "GdkPixbuf" "2.0" flags
-val _ = require repo "cairo" "1.0" flags
-val _ = require repo "Pango" "1.0" flags	
-val _ = require repo "fontconfig" "2.0" flags	
-val _ = require repo "freetype2" "2.0" flags	
-val _ = require repo "PangoFT2" "1.0" flags	
-val _ = require repo "Gdk" "3.0" flags
-val _ = require repo "xlib" "2.0" flags
-val _ = require repo "Gtk" "3.0" flags
-val _ = require repo "GtkSource" "3.0" flags
-val _ = require repo "Vte" "2.90" flags
-val _ = require repo "Vte" "2.91" flags
+val _ = require repo ("GLib", "2.0", flags)
+val _ = require repo ("GObject", "2.0", flags)
+val _ = require repo ("GIRepository", "2.0", flags)
+val _ = require repo ("GModule", "2.0", flags)
+val _ = require repo ("Gio", "2.0", flags)
+val _ = require repo ("Atk", "1.0", flags)
+val _ = require repo ("GdkPixbuf", "2.0", flags)
+val _ = require repo ("cairo", "1.0", flags)
+val _ = require repo ("Pango", "1.0", flags)
+val _ = require repo ("fontconfig", "2.0", flags)
+val _ = require repo ("freetype2", "2.0", flags)
+val _ = require repo ("PangoFT2", "1.0", flags)
+val _ = require repo ("Gdk", "3.0", flags)
+val _ = require repo ("xlib", "2.0", flags)
+val _ = require repo ("Gtk", "3.0", flags)
+val _ = require repo ("GtkSource", "3.0", flags)
+val _ = require repo ("Vte", "2.90", flags)
+val _ = require repo ("Vte", "2.91", flags)
 
 
 (* Rename existing output directory *)

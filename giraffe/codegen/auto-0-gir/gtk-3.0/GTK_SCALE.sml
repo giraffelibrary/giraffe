@@ -11,21 +11,18 @@ signature GTK_SCALE =
     val asBuildable : 'a class -> base buildable_class
     val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
-    val new :
-      orientation_t
-       -> 'a adjustment_class option
-       -> base class
+    val new : orientation_t * 'a adjustment_class option -> base class
     val newWithRange :
       orientation_t
-       -> real
-       -> real
-       -> real
+       * real
+       * real
+       * real
        -> base class
     val addMark :
       'a class
        -> real
-       -> position_type_t
-       -> string option
+           * position_type_t
+           * string option
        -> unit
     val clearMarks : 'a class -> unit
     val getDigits : 'a class -> LargeInt.int

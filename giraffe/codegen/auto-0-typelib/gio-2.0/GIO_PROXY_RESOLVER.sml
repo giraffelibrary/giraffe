@@ -9,8 +9,7 @@ signature GIO_PROXY_RESOLVER =
     val isSupported : 'a class -> bool
     val lookup :
       'a class
-       -> string
-       -> 'b cancellable_class option
+       -> string * 'b cancellable_class option
        -> string list
     val lookupFinish :
       'a class

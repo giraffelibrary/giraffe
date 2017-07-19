@@ -59,7 +59,7 @@ structure GioProxyResolver :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefault () = (I ---> GioProxyResolverClass.FFI.fromPtr false) getDefault_ ()
     fun isSupported self = (GioProxyResolverClass.FFI.withPtr ---> GBool.FFI.fromVal) isSupported_ self
-    fun lookup self uri cancellable =
+    fun lookup self (uri, cancellable) =
       (
         GioProxyResolverClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

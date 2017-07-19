@@ -15,18 +15,15 @@ signature GTK_TOOLTIP =
        -> unit
     val setIconFromGicon :
       'a class
-       -> 'b Gio.IconClass.class option
-       -> LargeInt.int
+       -> 'b Gio.IconClass.class option * LargeInt.int
        -> unit
     val setIconFromIconName :
       'a class
-       -> string option
-       -> LargeInt.int
+       -> string option * LargeInt.int
        -> unit
     val setIconFromStock :
       'a class
-       -> string option
-       -> LargeInt.int
+       -> string option * LargeInt.int
        -> unit
     val setMarkup :
       'a class

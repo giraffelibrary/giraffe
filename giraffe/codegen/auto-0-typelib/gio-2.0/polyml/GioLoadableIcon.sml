@@ -35,7 +35,7 @@ structure GioLoadableIcon :>
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun load self size cancellable =
+    fun load self (size, cancellable) =
       let
         val type' & retVal =
           (
@@ -57,7 +57,7 @@ structure GioLoadableIcon :>
       in
         (retVal, type')
       end
-    fun loadFinish self res type' =
+    fun loadFinish self (res, type') =
       (
         GioLoadableIconClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr

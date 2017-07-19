@@ -11,8 +11,7 @@ signature GIO_FILE_OUTPUT_STREAM =
     val getEtag : 'a class -> string
     val queryInfo :
       'a class
-       -> string
-       -> 'b cancellable_class option
+       -> string * 'b cancellable_class option
        -> base file_info_class
     val queryInfoFinish :
       'a class

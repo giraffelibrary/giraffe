@@ -5,10 +5,7 @@ signature GTK_APPLICATION =
     type t = base class
     val asActionGroup : 'a class -> base Gio.ActionGroupClass.class
     val getType : unit -> GObject.Type.t
-    val new :
-      string
-       -> Gio.ApplicationFlags.t
-       -> base class
+    val new : string * Gio.ApplicationFlags.t -> base class
     val addWindow :
       'a class
        -> 'b window_class

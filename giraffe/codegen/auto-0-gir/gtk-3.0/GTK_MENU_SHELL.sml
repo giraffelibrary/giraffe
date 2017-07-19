@@ -11,8 +11,7 @@ signature GTK_MENU_SHELL =
     val getType : unit -> GObject.Type.t
     val activateItem :
       'a class
-       -> 'b widget_class
-       -> bool
+       -> 'b widget_class * bool
        -> unit
     val append :
       'a class
@@ -26,8 +25,7 @@ signature GTK_MENU_SHELL =
     val getTakeFocus : 'a class -> bool
     val insert :
       'a class
-       -> 'b widget_class
-       -> LargeInt.int
+       -> 'b widget_class * LargeInt.int
        -> unit
     val prepend :
       'a class
@@ -49,11 +47,7 @@ signature GTK_MENU_SHELL =
     val cancelSig : (unit -> unit) -> 'a class Signal.signal
     val cycleFocusSig : (direction_type_t -> unit) -> 'a class Signal.signal
     val deactivateSig : (unit -> unit) -> 'a class Signal.signal
-    val insertSig :
-      (base widget_class
-        -> LargeInt.int
-        -> unit)
-       -> 'a class Signal.signal
+    val insertSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.signal
     val moveCurrentSig : (menu_direction_type_t -> unit) -> 'a class Signal.signal
     val moveSelectedSig : (LargeInt.int -> bool) -> 'a class Signal.signal
     val selectionDoneSig : (unit -> unit) -> 'a class Signal.signal

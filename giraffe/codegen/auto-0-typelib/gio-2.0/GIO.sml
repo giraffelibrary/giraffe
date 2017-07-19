@@ -1023,101 +1023,68 @@ signature GIO =
     val VOLUME_MONITOR_EXTENSION_POINT_NAME : string
     val appInfoCreateFromCommandline :
       string
-       -> string option
-       -> AppInfoCreateFlags.t
+       * string option
+       * AppInfoCreateFlags.t
        -> base AppInfoClass.class
-    val appInfoGetDefaultForType :
-      string
-       -> bool
-       -> base AppInfoClass.class
+    val appInfoGetDefaultForType : string * bool -> base AppInfoClass.class
     val appInfoGetDefaultForUriScheme : string -> base AppInfoClass.class
-    val appInfoLaunchDefaultForUri :
-      string
-       -> 'a AppLaunchContextClass.class option
-       -> bool
+    val appInfoLaunchDefaultForUri : string * 'a AppLaunchContextClass.class option -> bool
     val appInfoResetTypeAssociations : string -> unit
     val busGetFinish : 'a AsyncResultClass.class -> base DBusConnectionClass.class
-    val busGetSync :
-      BusType.t
-       -> 'a CancellableClass.class option
-       -> base DBusConnectionClass.class
+    val busGetSync : BusType.t * 'a CancellableClass.class option -> base DBusConnectionClass.class
     val busOwnNameOnConnection :
       'a DBusConnectionClass.class
-       -> string
-       -> BusNameOwnerFlags.t
-       -> GObject.ClosureRecord.t option
-       -> GObject.ClosureRecord.t option
+       * string
+       * BusNameOwnerFlags.t
+       * GObject.ClosureRecord.t option
+       * GObject.ClosureRecord.t option
        -> LargeInt.int
     val busOwnName :
       BusType.t
-       -> string
-       -> BusNameOwnerFlags.t
-       -> GObject.ClosureRecord.t option
-       -> GObject.ClosureRecord.t option
-       -> GObject.ClosureRecord.t option
+       * string
+       * BusNameOwnerFlags.t
+       * GObject.ClosureRecord.t option
+       * GObject.ClosureRecord.t option
+       * GObject.ClosureRecord.t option
        -> LargeInt.int
     val busUnownName : LargeInt.int -> unit
     val busUnwatchName : LargeInt.int -> unit
     val busWatchNameOnConnection :
       'a DBusConnectionClass.class
-       -> string
-       -> BusNameWatcherFlags.t
-       -> GObject.ClosureRecord.t option
-       -> GObject.ClosureRecord.t option
+       * string
+       * BusNameWatcherFlags.t
+       * GObject.ClosureRecord.t option
+       * GObject.ClosureRecord.t option
        -> LargeInt.int
     val busWatchName :
       BusType.t
-       -> string
-       -> BusNameWatcherFlags.t
-       -> GObject.ClosureRecord.t option
-       -> GObject.ClosureRecord.t option
+       * string
+       * BusNameWatcherFlags.t
+       * GObject.ClosureRecord.t option
+       * GObject.ClosureRecord.t option
        -> LargeInt.int
     val contentTypeCanBeExecutable : string -> bool
-    val contentTypeEquals :
-      string
-       -> string
-       -> bool
+    val contentTypeEquals : string * string -> bool
     val contentTypeFromMimeType : string -> string
     val contentTypeGetDescription : string -> string
     val contentTypeGetIcon : string -> base IconClass.class
     val contentTypeGetMimeType : string -> string
-    val contentTypeGuess :
-      string option
-       -> Word8Vector.vector option
-       -> string * bool
+    val contentTypeGuess : string option * Word8Vector.vector option -> string * bool
     val contentTypeGuessForTree : 'a FileClass.class -> string list
-    val contentTypeIsA :
-      string
-       -> string
-       -> bool
+    val contentTypeIsA : string * string -> bool
     val contentTypeIsUnknown : string -> bool
-    val dbusAddressGetForBusSync :
-      BusType.t
-       -> 'a CancellableClass.class option
-       -> string
-    val dbusAddressGetStreamFinish :
-      'a AsyncResultClass.class
-       -> string
-       -> base IOStreamClass.class
+    val dbusAddressGetForBusSync : BusType.t * 'a CancellableClass.class option -> string
+    val dbusAddressGetStreamFinish : 'a AsyncResultClass.class * string -> base IOStreamClass.class
     val dbusAddressGetStreamSync :
       string
-       -> string
-       -> 'a CancellableClass.class option
+       * string
+       * 'a CancellableClass.class option
        -> base IOStreamClass.class
-    val dbusAnnotationInfoLookup :
-      DBusAnnotationInfoRecord.t
-       -> string
-       -> string
+    val dbusAnnotationInfoLookup : DBusAnnotationInfoRecord.t * string -> string
     val dbusErrorQuark : unit -> LargeInt.int
     val dbusGenerateGuid : unit -> string
-    val dbusGvalueToGvariant :
-      GObject.ValueRecord.t
-       -> GLib.VariantTypeRecord.t
-       -> GLib.VariantRecord.t
-    val dbusGvariantToGvalue :
-      GLib.VariantRecord.t
-       -> GObject.ValueRecord.t
-       -> unit
+    val dbusGvalueToGvariant : GObject.ValueRecord.t * GLib.VariantTypeRecord.t -> GLib.VariantRecord.t
+    val dbusGvariantToGvalue : GLib.VariantRecord.t * GObject.ValueRecord.t -> unit
     val dbusIsAddress : string -> bool
     val dbusIsGuid : string -> bool
     val dbusIsInterfaceName : string -> bool
@@ -1135,30 +1102,18 @@ signature GIO =
     val ioExtensionPointLookup : string -> IOExtensionPointRecord.t
     val ioExtensionPointRegister : string -> IOExtensionPointRecord.t
     val ioModulesScanAllInDirectory : string -> unit
-    val ioModulesScanAllInDirectoryWithScope :
-      string
-       -> IOModuleScopeRecord.t
-       -> unit
+    val ioModulesScanAllInDirectoryWithScope : string * IOModuleScopeRecord.t -> unit
     val ioSchedulerCancelAllJobs : unit -> unit
     val proxyGetDefaultForProtocol : string -> base ProxyClass.class
     val proxyResolverGetDefault : unit -> base ProxyResolverClass.class
     val resolverErrorQuark : unit -> LargeInt.int
     val tlsBackendGetDefault : unit -> base TlsBackendClass.class
-    val tlsClientConnectionNew :
-      'a IOStreamClass.class
-       -> 'b SocketConnectableClass.class option
-       -> base IOStreamClass.class
+    val tlsClientConnectionNew : 'a IOStreamClass.class * 'b SocketConnectableClass.class option -> base IOStreamClass.class
     val tlsErrorQuark : unit -> LargeInt.int
     val tlsFileDatabaseNew : string -> base TlsDatabaseClass.class
-    val tlsServerConnectionNew :
-      'a IOStreamClass.class
-       -> 'b TlsCertificateClass.class option
-       -> base IOStreamClass.class
+    val tlsServerConnectionNew : 'a IOStreamClass.class * 'b TlsCertificateClass.class option -> base IOStreamClass.class
     val unixIsMountPathSystemInternal : string -> bool
-    val unixMountCompare :
-      UnixMountEntryRecord.t
-       -> UnixMountEntryRecord.t
-       -> LargeInt.int
+    val unixMountCompare : UnixMountEntryRecord.t * UnixMountEntryRecord.t -> LargeInt.int
     val unixMountFree : UnixMountEntryRecord.t -> unit
     val unixMountGetDevicePath : UnixMountEntryRecord.t -> string
     val unixMountGetFsType : UnixMountEntryRecord.t -> string

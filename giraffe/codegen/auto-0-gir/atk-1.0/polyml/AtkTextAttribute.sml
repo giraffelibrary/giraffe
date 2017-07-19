@@ -125,6 +125,6 @@ structure AtkTextAttribute :> ATK_TEXT_ATTRIBUTE =
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun forName name = (Utf8.FFI.withPtr ---> FFI.fromVal) forName_ name
     fun getName attr = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ attr
-    fun getValue attr index = (FFI.withVal &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) getValue_ (attr & index)
+    fun getValue (attr, index) = (FFI.withVal &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) getValue_ (attr & index)
     fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
   end

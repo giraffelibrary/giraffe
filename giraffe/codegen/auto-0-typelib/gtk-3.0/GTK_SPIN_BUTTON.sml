@@ -16,19 +16,19 @@ signature GTK_SPIN_BUTTON =
     val getType : unit -> GObject.Type.t
     val new :
       'a adjustment_class option
-       -> real
-       -> LargeInt.int
+       * real
+       * LargeInt.int
        -> base class
     val newWithRange :
       real
-       -> real
-       -> real
+       * real
+       * real
        -> base class
     val configure :
       'a class
        -> 'b adjustment_class option
-       -> real
-       -> LargeInt.int
+           * real
+           * LargeInt.int
        -> unit
     val getAdjustment : 'a class -> base adjustment_class
     val getDigits : 'a class -> LargeInt.int
@@ -50,8 +50,7 @@ signature GTK_SPIN_BUTTON =
        -> unit
     val setIncrements :
       'a class
-       -> real
-       -> real
+       -> real * real
        -> unit
     val setNumeric :
       'a class
@@ -59,8 +58,7 @@ signature GTK_SPIN_BUTTON =
        -> unit
     val setRange :
       'a class
-       -> real
-       -> real
+       -> real * real
        -> unit
     val setSnapToTicks :
       'a class
@@ -80,8 +78,7 @@ signature GTK_SPIN_BUTTON =
        -> unit
     val spin :
       'a class
-       -> spin_type_t
-       -> real
+       -> spin_type_t * real
        -> unit
     val update : 'a class -> unit
     val changeValueSig : (scroll_type_t -> unit) -> 'a class Signal.signal

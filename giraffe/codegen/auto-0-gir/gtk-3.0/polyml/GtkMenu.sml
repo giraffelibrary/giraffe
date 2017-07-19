@@ -60,7 +60,15 @@ structure GtkMenu :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkMenuClass.FFI.fromPtr false) new_ ()
-    fun attach self child leftAttach rightAttach topAttach bottomAttach =
+    fun attach
+      self
+      (
+        child,
+        leftAttach,
+        rightAttach,
+        topAttach,
+        bottomAttach
+      ) =
       (
         GtkMenuClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
@@ -89,7 +97,7 @@ structure GtkMenu :>
     fun getTearoffState self = (GtkMenuClass.FFI.withPtr ---> GBool.FFI.fromVal) getTearoffState_ self
     fun getTitle self = (GtkMenuClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTitle_ self
     fun popdown self = (GtkMenuClass.FFI.withPtr ---> I) popdown_ self
-    fun reorderChild self child position =
+    fun reorderChild self (child, position) =
       (
         GtkMenuClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr

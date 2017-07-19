@@ -8,25 +8,25 @@ signature GTK_SOURCE_GUTTER_RENDERER =
     val activate :
       'a class
        -> Gtk.TextIterRecord.t
-       -> Cairo.RectangleIntRecord.t
-       -> 'b Gdk.Event.union
+           * Cairo.RectangleIntRecord.t
+           * 'b Gdk.Event.union
        -> unit
     val begin :
       'a class
        -> Cairo.ContextRecord.t
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
-       -> Gtk.TextIterRecord.t
-       -> Gtk.TextIterRecord.t
+           * Cairo.RectangleIntRecord.t
+           * Cairo.RectangleIntRecord.t
+           * Gtk.TextIterRecord.t
+           * Gtk.TextIterRecord.t
        -> unit
     val draw :
       'a class
        -> Cairo.ContextRecord.t
-       -> Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
-       -> Gtk.TextIterRecord.t
-       -> Gtk.TextIterRecord.t
-       -> gutter_renderer_state_t
+           * Cairo.RectangleIntRecord.t
+           * Cairo.RectangleIntRecord.t
+           * Gtk.TextIterRecord.t
+           * Gtk.TextIterRecord.t
+           * gutter_renderer_state_t
        -> unit
     val end' : 'a class -> unit
     val getAlignment : 'a class -> real * real
@@ -40,28 +40,27 @@ signature GTK_SOURCE_GUTTER_RENDERER =
     val queryActivatable :
       'a class
        -> Gtk.TextIterRecord.t
-       -> Cairo.RectangleIntRecord.t
-       -> 'b Gdk.Event.union
+           * Cairo.RectangleIntRecord.t
+           * 'b Gdk.Event.union
        -> bool
     val queryData :
       'a class
        -> Gtk.TextIterRecord.t
-       -> Gtk.TextIterRecord.t
-       -> gutter_renderer_state_t
+           * Gtk.TextIterRecord.t
+           * gutter_renderer_state_t
        -> unit
     val queryTooltip :
       'a class
        -> Gtk.TextIterRecord.t
-       -> Cairo.RectangleIntRecord.t
-       -> LargeInt.int
-       -> LargeInt.int
-       -> 'b Gtk.TooltipClass.class
+           * Cairo.RectangleIntRecord.t
+           * LargeInt.int
+           * LargeInt.int
+           * 'b Gtk.TooltipClass.class
        -> bool
     val queueDraw : 'a class -> unit
     val setAlignment :
       'a class
-       -> real
-       -> real
+       -> real * real
        -> unit
     val setAlignmentMode :
       'a class
@@ -73,8 +72,7 @@ signature GTK_SOURCE_GUTTER_RENDERER =
        -> unit
     val setPadding :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val setSize :
       'a class
@@ -86,28 +84,28 @@ signature GTK_SOURCE_GUTTER_RENDERER =
        -> unit
     val activateSig :
       (Gtk.TextIterRecord.t
-        -> Cairo.RectangleIntRecord.t
-        -> base Gdk.Event.union
+        * Cairo.RectangleIntRecord.t
+        * base Gdk.Event.union
         -> unit)
        -> 'a class Signal.signal
     val queryActivatableSig :
       (Gtk.TextIterRecord.t
-        -> Cairo.RectangleIntRecord.t
-        -> base Gdk.Event.union
+        * Cairo.RectangleIntRecord.t
+        * base Gdk.Event.union
         -> bool)
        -> 'a class Signal.signal
     val queryDataSig :
       (Gtk.TextIterRecord.t
-        -> Gtk.TextIterRecord.t
-        -> gutter_renderer_state_t
+        * Gtk.TextIterRecord.t
+        * gutter_renderer_state_t
         -> unit)
        -> 'a class Signal.signal
     val queryTooltipSig :
       (Gtk.TextIterRecord.t
-        -> Cairo.RectangleIntRecord.t
-        -> LargeInt.int
-        -> LargeInt.int
-        -> base Gtk.TooltipClass.class
+        * Cairo.RectangleIntRecord.t
+        * LargeInt.int
+        * LargeInt.int
+        * base Gtk.TooltipClass.class
         -> bool)
        -> 'a class Signal.signal
     val queueDrawSig : (unit -> unit) -> 'a class Signal.signal

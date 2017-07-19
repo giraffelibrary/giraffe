@@ -119,7 +119,13 @@ structure GtkSourceGutterRenderer :>
     type gutter_renderer_alignment_mode_t = GtkSourceGutterRendererAlignmentMode.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun activate self iter area event =
+    fun activate
+      self
+      (
+        iter,
+        area,
+        event
+      ) =
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
@@ -134,7 +140,15 @@ structure GtkSourceGutterRenderer :>
            & area
            & event
         )
-    fun begin self cr backgroundArea cellArea start end' =
+    fun begin
+      self
+      (
+        cr,
+        backgroundArea,
+        cellArea,
+        start,
+        end'
+      ) =
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -153,7 +167,16 @@ structure GtkSourceGutterRenderer :>
            & start
            & end'
         )
-    fun draw self cr backgroundArea cellArea start end' state =
+    fun draw
+      self
+      (
+        cr,
+        backgroundArea,
+        cellArea,
+        start,
+        end',
+        state
+      ) =
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
@@ -230,7 +253,13 @@ structure GtkSourceGutterRenderer :>
     fun getView self = (GtkSourceGutterRendererClass.FFI.withPtr ---> GtkTextViewClass.FFI.fromPtr false) getView_ self
     fun getVisible self = (GtkSourceGutterRendererClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
     fun getWindowType self = (GtkSourceGutterRendererClass.FFI.withPtr ---> GtkTextWindowType.FFI.fromVal) getWindowType_ self
-    fun queryActivatable self iter area event =
+    fun queryActivatable
+      self
+      (
+        iter,
+        area,
+        event
+      ) =
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
@@ -245,7 +274,13 @@ structure GtkSourceGutterRenderer :>
            & area
            & event
         )
-    fun queryData self start end' state =
+    fun queryData
+      self
+      (
+        start,
+        end',
+        state
+      ) =
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
@@ -260,7 +295,15 @@ structure GtkSourceGutterRenderer :>
            & end'
            & state
         )
-    fun queryTooltip self iter area x y tooltip =
+    fun queryTooltip
+      self
+      (
+        iter,
+        area,
+        x,
+        y,
+        tooltip
+      ) =
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
@@ -280,7 +323,7 @@ structure GtkSourceGutterRenderer :>
            & tooltip
         )
     fun queueDraw self = (GtkSourceGutterRendererClass.FFI.withPtr ---> I) queueDraw_ self
-    fun setAlignment self xalign yalign =
+    fun setAlignment self (xalign, yalign) =
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> GFloat.FFI.withVal
@@ -295,7 +338,7 @@ structure GtkSourceGutterRenderer :>
         )
     fun setAlignmentMode self mode = (GtkSourceGutterRendererClass.FFI.withPtr &&&> GtkSourceGutterRendererAlignmentMode.FFI.withVal ---> I) setAlignmentMode_ (self & mode)
     fun setBackground self color = (GtkSourceGutterRendererClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setBackground_ (self & color)
-    fun setPadding self xpad ypad =
+    fun setPadding self (xpad, ypad) =
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -326,7 +369,12 @@ structure GtkSourceGutterRenderer :>
               iter
                & area
                & event =>
-                f iter area event
+                f
+                  (
+                    iter,
+                    area,
+                    event
+                  )
           )
       fun queryActivatableSig f =
         signal "query-activatable"
@@ -341,7 +389,12 @@ structure GtkSourceGutterRenderer :>
               iter
                & area
                & event =>
-                f iter area event
+                f
+                  (
+                    iter,
+                    area,
+                    event
+                  )
           )
       fun queryDataSig f =
         signal "query-data"
@@ -356,7 +409,12 @@ structure GtkSourceGutterRenderer :>
               start
                & end'
                & state =>
-                f start end' state
+                f
+                  (
+                    start,
+                    end',
+                    state
+                  )
           )
       fun queryTooltipSig f =
         signal "query-tooltip"
@@ -375,7 +433,14 @@ structure GtkSourceGutterRenderer :>
                & x
                & y
                & tooltip =>
-                f iter area x y tooltip
+                f
+                  (
+                    iter,
+                    area,
+                    x,
+                    y,
+                    tooltip
+                  )
           )
       fun queueDrawSig f = signal "queue-draw" (void ---> ret_void) f
     end

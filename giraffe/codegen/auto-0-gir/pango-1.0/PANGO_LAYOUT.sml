@@ -56,8 +56,7 @@ signature PANGO_LAYOUT =
     val getWrap : 'a class -> wrap_mode_t
     val indexToLineX :
       'a class
-       -> LargeInt.int
-       -> bool
+       -> LargeInt.int * bool
        -> LargeInt.int * LargeInt.int
     val indexToPos :
       'a class
@@ -95,14 +94,13 @@ signature PANGO_LAYOUT =
        -> unit
     val setMarkup :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val setMarkupWithAccel :
       'a class
        -> string
-       -> LargeInt.int
-       -> char
+           * LargeInt.int
+           * char
        -> char
     val setSingleParagraphMode :
       'a class
@@ -118,8 +116,7 @@ signature PANGO_LAYOUT =
        -> unit
     val setText :
       'a class
-       -> string
-       -> LargeInt.int
+       -> string * LargeInt.int
        -> unit
     val setWidth :
       'a class
@@ -131,7 +128,6 @@ signature PANGO_LAYOUT =
        -> unit
     val xyToIndex :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> (LargeInt.int * LargeInt.int) option
   end

@@ -49,7 +49,7 @@ structure PangoMatrix :>
     fun copy self = (PangoMatrixRecord.FFI.withPtr ---> PangoMatrixRecord.FFI.fromPtr true) copy_ self
     fun getFontScaleFactor self = (PangoMatrixRecord.FFI.withPtr ---> GDouble.FFI.fromVal) getFontScaleFactor_ self
     fun rotate self degrees = (PangoMatrixRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) rotate_ (self & degrees)
-    fun scale self scaleX scaleY =
+    fun scale self (scaleX, scaleY) =
       (
         PangoMatrixRecord.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -62,7 +62,7 @@ structure PangoMatrix :>
            & scaleX
            & scaleY
         )
-    fun transformDistance self dx dy =
+    fun transformDistance self (dx, dy) =
       let
         val dx
          & dy
@@ -84,7 +84,7 @@ structure PangoMatrix :>
       in
         (dx, dy)
       end
-    fun transformPoint self x y =
+    fun transformPoint self (x, y) =
       let
         val x
          & y
@@ -106,7 +106,7 @@ structure PangoMatrix :>
       in
         (x, y)
       end
-    fun translate self tx ty =
+    fun translate self (tx, ty) =
       (
         PangoMatrixRecord.FFI.withPtr
          &&&> GDouble.FFI.withVal

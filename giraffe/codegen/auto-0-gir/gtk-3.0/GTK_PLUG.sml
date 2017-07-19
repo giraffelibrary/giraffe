@@ -7,18 +7,14 @@ signature GTK_PLUG =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : Xlib.Window.t -> base class
-    val newForDisplay :
-      'a Gdk.DisplayClass.class
-       -> Xlib.Window.t
-       -> base class
+    val newForDisplay : 'a Gdk.DisplayClass.class * Xlib.Window.t -> base class
     val construct :
       'a class
        -> Xlib.Window.t
        -> unit
     val constructForDisplay :
       'a class
-       -> 'b Gdk.DisplayClass.class
-       -> Xlib.Window.t
+       -> 'b Gdk.DisplayClass.class * Xlib.Window.t
        -> unit
     val getEmbedded : 'a class -> bool
     val getId : 'a class -> Xlib.Window.t

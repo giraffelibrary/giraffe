@@ -38,8 +38,7 @@ signature GTK_ASSISTANT =
        -> assistant_page_type_t
     val insertPage :
       'a class
-       -> 'b widget_class
-       -> LargeInt.int
+       -> 'b widget_class * LargeInt.int
        -> LargeInt.int
     val nextPage : 'a class -> unit
     val prependPage :
@@ -61,18 +60,15 @@ signature GTK_ASSISTANT =
        -> unit
     val setPageComplete :
       'a class
-       -> 'b widget_class
-       -> bool
+       -> 'b widget_class * bool
        -> unit
     val setPageTitle :
       'a class
-       -> 'b widget_class
-       -> string
+       -> 'b widget_class * string
        -> unit
     val setPageType :
       'a class
-       -> 'b widget_class
-       -> assistant_page_type_t
+       -> 'b widget_class * assistant_page_type_t
        -> unit
     val updateButtonsState : 'a class -> unit
     val applySig : (unit -> unit) -> 'a class Signal.signal

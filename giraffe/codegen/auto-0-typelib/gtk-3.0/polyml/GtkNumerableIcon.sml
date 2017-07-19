@@ -26,7 +26,7 @@ structure GtkNumerableIcon :>
     fun asIcon self = (GObjectObjectClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new baseIcon = (GioIconClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) new_ baseIcon
-    fun newWithStyleContext baseIcon context = (GioIconClass.FFI.withPtr &&&> GtkStyleContextClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) newWithStyleContext_ (baseIcon & context)
+    fun newWithStyleContext (baseIcon, context) = (GioIconClass.FFI.withPtr &&&> GtkStyleContextClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) newWithStyleContext_ (baseIcon & context)
     fun getBackgroundGicon self = (GtkNumerableIconClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getBackgroundGicon_ self
     fun getBackgroundIconName self = (GtkNumerableIconClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getBackgroundIconName_ self
     fun getCount self = (GtkNumerableIconClass.FFI.withPtr ---> GInt32.FFI.fromVal) getCount_ self

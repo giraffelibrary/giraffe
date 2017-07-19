@@ -179,7 +179,7 @@ structure GioDataOutputStream :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new baseStream = (GioOutputStreamClass.FFI.withPtr ---> GioDataOutputStreamClass.FFI.fromPtr true) new_ baseStream
     fun getByteOrder self = (GioDataOutputStreamClass.FFI.withPtr ---> GioDataStreamByteOrder.FFI.fromVal) getByteOrder_ self
-    fun putByte self data cancellable =
+    fun putByte self (data, cancellable) =
       (
         GioDataOutputStreamClass.FFI.withPtr
          &&&> GUInt8.FFI.withVal
@@ -194,7 +194,7 @@ structure GioDataOutputStream :>
            & cancellable
            & []
         )
-    fun putInt16 self data cancellable =
+    fun putInt16 self (data, cancellable) =
       (
         GioDataOutputStreamClass.FFI.withPtr
          &&&> GInt16.FFI.withVal
@@ -209,7 +209,7 @@ structure GioDataOutputStream :>
            & cancellable
            & []
         )
-    fun putInt32 self data cancellable =
+    fun putInt32 self (data, cancellable) =
       (
         GioDataOutputStreamClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
@@ -224,7 +224,7 @@ structure GioDataOutputStream :>
            & cancellable
            & []
         )
-    fun putInt64 self data cancellable =
+    fun putInt64 self (data, cancellable) =
       (
         GioDataOutputStreamClass.FFI.withPtr
          &&&> GInt64.FFI.withVal
@@ -239,7 +239,7 @@ structure GioDataOutputStream :>
            & cancellable
            & []
         )
-    fun putString self str cancellable =
+    fun putString self (str, cancellable) =
       (
         GioDataOutputStreamClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -254,7 +254,7 @@ structure GioDataOutputStream :>
            & cancellable
            & []
         )
-    fun putUint16 self data cancellable =
+    fun putUint16 self (data, cancellable) =
       (
         GioDataOutputStreamClass.FFI.withPtr
          &&&> GUInt16.FFI.withVal
@@ -269,7 +269,7 @@ structure GioDataOutputStream :>
            & cancellable
            & []
         )
-    fun putUint32 self data cancellable =
+    fun putUint32 self (data, cancellable) =
       (
         GioDataOutputStreamClass.FFI.withPtr
          &&&> GUInt32.FFI.withVal
@@ -284,7 +284,7 @@ structure GioDataOutputStream :>
            & cancellable
            & []
         )
-    fun putUint64 self data cancellable =
+    fun putUint64 self (data, cancellable) =
       (
         GioDataOutputStreamClass.FFI.withPtr
          &&&> GUInt64.FFI.withVal

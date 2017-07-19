@@ -2662,7 +2662,7 @@ structure Gdk : GDK =
     val MAX_TIMECOORD_AXES = 128
     val PARENT_RELATIVE = 1
     val PRIORITY_REDRAW = 20
-    fun atomIntern atomName onlyIfExists = (Utf8.FFI.withPtr &&&> GBool.FFI.withVal ---> GdkAtomRecord.FFI.fromPtr false) atomIntern_ (atomName & onlyIfExists)
+    fun atomIntern (atomName, onlyIfExists) = (Utf8.FFI.withPtr &&&> GBool.FFI.withVal ---> GdkAtomRecord.FFI.fromPtr false) atomIntern_ (atomName & onlyIfExists)
     fun atomInternStaticString atomName = (Utf8.FFI.withPtr ---> GdkAtomRecord.FFI.fromPtr false) atomInternStaticString_ atomName
     fun beep () = (I ---> I) beep_ ()
     fun cairoCreate window = (GdkWindowClass.FFI.withPtr ---> CairoContextRecord.FFI.fromPtr true) cairoCreate_ window
@@ -2672,11 +2672,17 @@ structure Gdk : GDK =
       in
         if retVal then SOME rect else NONE
       end
-    fun cairoRectangle cr rectangle = (CairoContextRecord.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) cairoRectangle_ (cr & rectangle)
-    fun cairoRegion cr region = (CairoContextRecord.FFI.withPtr &&&> CairoRegionRecord.FFI.withPtr ---> I) cairoRegion_ (cr & region)
+    fun cairoRectangle (cr, rectangle) = (CairoContextRecord.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) cairoRectangle_ (cr & rectangle)
+    fun cairoRegion (cr, region) = (CairoContextRecord.FFI.withPtr &&&> CairoRegionRecord.FFI.withPtr ---> I) cairoRegion_ (cr & region)
     fun cairoRegionCreateFromSurface surface = (CairoSurfaceRecord.FFI.withPtr ---> CairoRegionRecord.FFI.fromPtr true) cairoRegionCreateFromSurface_ surface
-    fun cairoSetSourceColor cr color = (CairoContextRecord.FFI.withPtr &&&> GdkColorRecord.FFI.withPtr ---> I) cairoSetSourceColor_ (cr & color)
-    fun cairoSetSourcePixbuf cr pixbuf pixbufX pixbufY =
+    fun cairoSetSourceColor (cr, color) = (CairoContextRecord.FFI.withPtr &&&> GdkColorRecord.FFI.withPtr ---> I) cairoSetSourceColor_ (cr & color)
+    fun cairoSetSourcePixbuf
+      (
+        cr,
+        pixbuf,
+        pixbufX,
+        pixbufY
+      ) =
       (
         CairoContextRecord.FFI.withPtr
          &&&> GdkPixbufPixbufClass.FFI.withPtr
@@ -2691,8 +2697,14 @@ structure Gdk : GDK =
            & pixbufX
            & pixbufY
         )
-    fun cairoSetSourceRgba cr rgba = (CairoContextRecord.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) cairoSetSourceRgba_ (cr & rgba)
-    fun cairoSetSourceWindow cr window x y =
+    fun cairoSetSourceRgba (cr, rgba) = (CairoContextRecord.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) cairoSetSourceRgba_ (cr & rgba)
+    fun cairoSetSourceWindow
+      (
+        cr,
+        window,
+        x,
+        y
+      ) =
       (
         CairoContextRecord.FFI.withPtr
          &&&> GdkWindowClass.FFI.withPtr
@@ -2714,10 +2726,17 @@ structure Gdk : GDK =
         if retVal then SOME color else NONE
       end
     fun disableMultidevice () = (I ---> I) disableMultidevice_ ()
-    fun dragAbort context time = (GdkDragContextClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) dragAbort_ (context & time)
-    fun dragDrop context time = (GdkDragContextClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) dragDrop_ (context & time)
+    fun dragAbort (context, time) = (GdkDragContextClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) dragAbort_ (context & time)
+    fun dragDrop (context, time) = (GdkDragContextClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) dragDrop_ (context & time)
     fun dragDropSucceeded context = (GdkDragContextClass.FFI.withPtr ---> GBool.FFI.fromVal) dragDropSucceeded_ context
-    fun dragFindWindowForScreen context dragWindow screen xRoot yRoot =
+    fun dragFindWindowForScreen
+      (
+        context,
+        dragWindow,
+        screen,
+        xRoot,
+        yRoot
+      ) =
       let
         val destWindow
          & protocol
@@ -2748,7 +2767,17 @@ structure Gdk : GDK =
         (destWindow, protocol)
       end
     fun dragGetSelection context = (GdkDragContextClass.FFI.withPtr ---> GdkAtomRecord.FFI.fromPtr false) dragGetSelection_ context
-    fun dragMotion context destWindow protocol xRoot yRoot suggestedAction possibleActions time =
+    fun dragMotion
+      (
+        context,
+        destWindow,
+        protocol,
+        xRoot,
+        yRoot,
+        suggestedAction,
+        possibleActions,
+        time
+      ) =
       (
         GdkDragContextClass.FFI.withPtr
          &&&> GdkWindowClass.FFI.withPtr
@@ -2771,7 +2800,12 @@ structure Gdk : GDK =
            & possibleActions
            & time
         )
-    fun dragStatus context action time =
+    fun dragStatus
+      (
+        context,
+        action,
+        time
+      ) =
       (
         GdkDragContextClass.FFI.withPtr
          &&&> GdkDragAction.FFI.withVal
@@ -2784,7 +2818,12 @@ structure Gdk : GDK =
            & action
            & time
         )
-    fun dropFinish context success time =
+    fun dropFinish
+      (
+        context,
+        success,
+        time
+      ) =
       (
         GdkDragContextClass.FFI.withPtr
          &&&> GBool.FFI.withVal
@@ -2797,7 +2836,12 @@ structure Gdk : GDK =
            & success
            & time
         )
-    fun dropReply context accepted time =
+    fun dropReply
+      (
+        context,
+        accepted,
+        time
+      ) =
       (
         GdkDragContextClass.FFI.withPtr
          &&&> GBool.FFI.withVal
@@ -2890,7 +2934,7 @@ structure Gdk : GDK =
     fun notifyStartupCompleteWithId startupId = (Utf8.FFI.withPtr ---> I) notifyStartupCompleteWithId_ startupId
     fun offscreenWindowGetEmbedder window = (GdkWindowClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) offscreenWindowGetEmbedder_ window
     fun offscreenWindowGetSurface window = (GdkWindowClass.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromPtr false) offscreenWindowGetSurface_ window
-    fun offscreenWindowSetEmbedder window embedder = (GdkWindowClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> I) offscreenWindowSetEmbedder_ (window & embedder)
+    fun offscreenWindowSetEmbedder (window, embedder) = (GdkWindowClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> I) offscreenWindowSetEmbedder_ (window & embedder)
     fun pangoContextGet () = (I ---> PangoContextClass.FFI.fromPtr true) pangoContextGet_ ()
     fun pangoContextGetForScreen screen = (GdkScreenClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr true) pangoContextGetForScreen_ screen
     fun parseArgs argv =
@@ -2910,7 +2954,14 @@ structure Gdk : GDK =
       in
         argv (LargeInt.toInt argc)
       end
-    fun pixbufGetFromSurface surface srcX srcY width height =
+    fun pixbufGetFromSurface
+      (
+        surface,
+        srcX,
+        srcY,
+        width,
+        height
+      ) =
       (
         CairoSurfaceRecord.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -2927,7 +2978,14 @@ structure Gdk : GDK =
            & width
            & height
         )
-    fun pixbufGetFromWindow window srcX srcY width height =
+    fun pixbufGetFromWindow
+      (
+        window,
+        srcX,
+        srcY,
+        width,
+        height
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -2945,8 +3003,16 @@ structure Gdk : GDK =
            & height
         )
     fun preParseLibgtkOnly () = (I ---> I) preParseLibgtkOnly_ ()
-    fun propertyDelete window property = (GdkWindowClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) propertyDelete_ (window & property)
-    fun propertyGet window property type' offset length pdelete =
+    fun propertyDelete (window, property) = (GdkWindowClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) propertyDelete_ (window & property)
+    fun propertyGet
+      (
+        window,
+        property,
+        type',
+        offset,
+        length,
+        pdelete
+      ) =
       let
         val actualPropertyType
          & actualFormat
@@ -3026,7 +3092,7 @@ structure Gdk : GDK =
       in
         visualTypes (LargeInt.toInt count)
       end
-    fun rectangleIntersect src1 src2 =
+    fun rectangleIntersect (src1, src2) =
       let
         val dest & retVal =
           (
@@ -3044,7 +3110,7 @@ structure Gdk : GDK =
       in
         if retVal then SOME dest else NONE
       end
-    fun rectangleUnion src1 src2 =
+    fun rectangleUnion (src1, src2) =
       let
         val dest & () =
           (
@@ -3062,7 +3128,13 @@ structure Gdk : GDK =
       in
         dest
       end
-    fun selectionConvert requestor selection target time =
+    fun selectionConvert
+      (
+        requestor,
+        selection,
+        target,
+        time
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GdkAtomRecord.FFI.withPtr
@@ -3078,8 +3150,14 @@ structure Gdk : GDK =
            & time
         )
     fun selectionOwnerGet selection = (GdkAtomRecord.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) selectionOwnerGet_ selection
-    fun selectionOwnerGetForDisplay display selection = (GdkDisplayClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) selectionOwnerGetForDisplay_ (display & selection)
-    fun selectionOwnerSet owner selection time sendEvent =
+    fun selectionOwnerGetForDisplay (display, selection) = (GdkDisplayClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) selectionOwnerGetForDisplay_ (display & selection)
+    fun selectionOwnerSet
+      (
+        owner,
+        selection,
+        time,
+        sendEvent
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GdkAtomRecord.FFI.withPtr
@@ -3094,7 +3172,14 @@ structure Gdk : GDK =
            & time
            & sendEvent
         )
-    fun selectionOwnerSetForDisplay display owner selection time sendEvent =
+    fun selectionOwnerSetForDisplay
+      (
+        display,
+        owner,
+        selection,
+        time,
+        sendEvent
+      ) =
       (
         GdkDisplayClass.FFI.withPtr
          &&&> GdkWindowClass.FFI.withPtr
@@ -3111,7 +3196,14 @@ structure Gdk : GDK =
            & time
            & sendEvent
         )
-    fun selectionSendNotify requestor selection target property time =
+    fun selectionSendNotify
+      (
+        requestor,
+        selection,
+        target,
+        property,
+        time
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GdkAtomRecord.FFI.withPtr
@@ -3128,7 +3220,15 @@ structure Gdk : GDK =
            & property
            & time
         )
-    fun selectionSendNotifyForDisplay display requestor selection target property time =
+    fun selectionSendNotifyForDisplay
+      (
+        display,
+        requestor,
+        selection,
+        target,
+        property,
+        time
+      ) =
       (
         GdkDisplayClass.FFI.withPtr
          &&&> GdkWindowClass.FFI.withPtr
@@ -3150,8 +3250,13 @@ structure Gdk : GDK =
     fun setDoubleClickTime msec = (GUInt.FFI.withVal ---> I) setDoubleClickTime_ msec
     fun setProgramClass programClass = (Utf8.FFI.withPtr ---> I) setProgramClass_ programClass
     fun setShowEvents showEvents = (GBool.FFI.withVal ---> I) setShowEvents_ showEvents
-    fun settingGet name value = (Utf8.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> GBool.FFI.fromVal) settingGet_ (name & value)
-    fun synthesizeWindowState window unsetFlags setFlags =
+    fun settingGet (name, value) = (Utf8.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> GBool.FFI.fromVal) settingGet_ (name & value)
+    fun synthesizeWindowState
+      (
+        window,
+        unsetFlags,
+        setFlags
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GdkWindowState.FFI.withVal
@@ -3165,7 +3270,15 @@ structure Gdk : GDK =
            & setFlags
         )
     fun testRenderSync window = (GdkWindowClass.FFI.withPtr ---> I) testRenderSync_ window
-    fun testSimulateButton window x y button modifiers buttonPressrelease =
+    fun testSimulateButton
+      (
+        window,
+        x,
+        y,
+        button,
+        modifiers,
+        buttonPressrelease
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -3184,7 +3297,15 @@ structure Gdk : GDK =
            & modifiers
            & buttonPressrelease
         )
-    fun testSimulateKey window x y keyval modifiers keyPressrelease =
+    fun testSimulateKey
+      (
+        window,
+        x,
+        y,
+        keyval,
+        modifiers,
+        keyPressrelease
+      ) =
       (
         GdkWindowClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -3203,7 +3324,13 @@ structure Gdk : GDK =
            & modifiers
            & keyPressrelease
         )
-    fun textPropertyToUtf8ListForDisplay display encoding format text =
+    fun textPropertyToUtf8ListForDisplay
+      (
+        display,
+        encoding,
+        format,
+        text
+      ) =
       let
         val length = LargeInt.fromInt (GUInt8CVectorN.length text)
         val list & retVal =

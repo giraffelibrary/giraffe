@@ -9,9 +9,6 @@ signature GTK_RADIO_TOOL_BUTTON =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val newFromWidget : 'a class option -> base class
-    val newWithStockFromWidget :
-      'a class option
-       -> string
-       -> base class
+    val newWithStockFromWidget : 'a class option * string -> base class
     val groupProp : ('a class, 'b class option) Property.writeonly
   end

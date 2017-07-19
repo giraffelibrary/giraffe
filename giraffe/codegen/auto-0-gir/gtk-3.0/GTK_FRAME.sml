@@ -19,8 +19,7 @@ signature GTK_FRAME =
        -> unit
     val setLabelAlign :
       'a class
-       -> real
-       -> real
+       -> real * real
        -> unit
     val setLabelWidget :
       'a class

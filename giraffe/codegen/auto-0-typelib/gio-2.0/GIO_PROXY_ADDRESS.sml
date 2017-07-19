@@ -8,12 +8,12 @@ signature GIO_PROXY_ADDRESS =
     val getType : unit -> GObject.Type.t
     val new :
       'a inet_address_class
-       -> LargeInt.int
-       -> string
-       -> string
-       -> LargeInt.int
-       -> string option
-       -> string option
+       * LargeInt.int
+       * string
+       * string
+       * LargeInt.int
+       * string option
+       * string option
        -> base class
     val getDestinationHostname : 'a class -> string
     val getDestinationPort : 'a class -> LargeInt.int

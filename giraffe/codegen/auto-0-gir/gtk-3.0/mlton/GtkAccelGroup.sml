@@ -99,7 +99,14 @@ structure GtkAccelGroup :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkAccelGroupClass.FFI.fromPtr true) new_ ()
     fun fromAccelClosure closure = (GObjectClosureRecord.FFI.withPtr ---> GtkAccelGroupClass.FFI.fromPtr false) fromAccelClosure_ closure
-    fun activate self accelQuark acceleratable accelKey accelMods =
+    fun activate
+      self
+      (
+        accelQuark,
+        acceleratable,
+        accelKey,
+        accelMods
+      ) =
       (
         GtkAccelGroupClass.FFI.withPtr
          &&&> GLibQuark.FFI.withVal
@@ -116,7 +123,14 @@ structure GtkAccelGroup :>
            & accelKey
            & accelMods
         )
-    fun connect self accelKey accelMods accelFlags closure =
+    fun connect
+      self
+      (
+        accelKey,
+        accelMods,
+        accelFlags,
+        closure
+      ) =
       (
         GtkAccelGroupClass.FFI.withPtr
          &&&> GUInt.FFI.withVal
@@ -133,7 +147,7 @@ structure GtkAccelGroup :>
            & accelFlags
            & closure
         )
-    fun connectByPath self accelPath closure =
+    fun connectByPath self (accelPath, closure) =
       (
         GtkAccelGroupClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -147,7 +161,7 @@ structure GtkAccelGroup :>
            & closure
         )
     fun disconnect self closure = (GtkAccelGroupClass.FFI.withPtr &&&> GObjectClosureRecord.FFI.withOptPtr ---> GBool.FFI.fromVal) disconnect_ (self & closure)
-    fun disconnectKey self accelKey accelMods =
+    fun disconnectKey self (accelKey, accelMods) =
       (
         GtkAccelGroupClass.FFI.withPtr
          &&&> GUInt.FFI.withVal
@@ -180,7 +194,12 @@ structure GtkAccelGroup :>
               acceleratable
                & keyval
                & modifier =>
-                f acceleratable keyval modifier
+                f
+                  (
+                    acceleratable,
+                    keyval,
+                    modifier
+                  )
           )
       fun accelChangedSig f =
         signal "accel-changed"
@@ -195,7 +214,12 @@ structure GtkAccelGroup :>
               keyval
                & modifier
                & accelClosure =>
-                f keyval modifier accelClosure
+                f
+                  (
+                    keyval,
+                    modifier,
+                    accelClosure
+                  )
           )
     end
     local

@@ -15,10 +15,10 @@ signature GTK_SCALE_BUTTON =
     val getType : unit -> GObject.Type.t
     val new :
       LargeInt.int
-       -> real
-       -> real
-       -> real
-       -> string list option
+       * real
+       * real
+       * real
+       * string list option
        -> base class
     val getAdjustment : 'a class -> base adjustment_class
     val getMinusButton : 'a class -> base widget_class

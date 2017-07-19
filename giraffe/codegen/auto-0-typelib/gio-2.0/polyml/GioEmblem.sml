@@ -20,7 +20,7 @@ structure GioEmblem :>
     fun asIcon self = (GObjectObjectClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new icon = (GioIconClass.FFI.withPtr ---> GioEmblemClass.FFI.fromPtr true) new_ icon
-    fun newWithOrigin icon origin = (GioIconClass.FFI.withPtr &&&> GioEmblemOrigin.FFI.withVal ---> GioEmblemClass.FFI.fromPtr true) newWithOrigin_ (icon & origin)
+    fun newWithOrigin (icon, origin) = (GioIconClass.FFI.withPtr &&&> GioEmblemOrigin.FFI.withVal ---> GioEmblemClass.FFI.fromPtr true) newWithOrigin_ (icon & origin)
     fun getIcon self = (GioEmblemClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getIcon_ self
     fun getOrigin self = (GioEmblemClass.FFI.withPtr ---> GioEmblemOrigin.FFI.fromVal) getOrigin_ self
     local

@@ -24,7 +24,7 @@ structure GioDBusAuthObserver :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioDBusAuthObserverClass.FFI.fromPtr true) new_ ()
-    fun authorizeAuthenticatedPeer self stream credentials =
+    fun authorizeAuthenticatedPeer self (stream, credentials) =
       (
         GioDBusAuthObserverClass.FFI.withPtr
          &&&> GioIOStreamClass.FFI.withPtr
@@ -40,6 +40,6 @@ structure GioDBusAuthObserver :>
     local
       open ClosureMarshal Signal
     in
-      fun authorizeAuthenticatedPeerSig f = signal "authorize-authenticated-peer" (get 0w1 GioIOStreamClass.t &&&> get 0w2 GioCredentialsClass.t ---> ret boolean) (fn stream & credentials => f stream credentials)
+      fun authorizeAuthenticatedPeerSig f = signal "authorize-authenticated-peer" (get 0w1 GioIOStreamClass.t &&&> get 0w2 GioCredentialsClass.t ---> ret boolean) (fn stream & credentials => f (stream, credentials))
     end
   end

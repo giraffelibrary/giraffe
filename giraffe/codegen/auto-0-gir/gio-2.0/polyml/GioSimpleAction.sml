@@ -24,8 +24,13 @@ structure GioSimpleAction :>
     type t = base class
     fun asAction self = (GObjectObjectClass.FFI.withPtr ---> GioActionClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new name parameterType = (Utf8.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withOptPtr ---> GioSimpleActionClass.FFI.fromPtr true) new_ (name & parameterType)
-    fun newStateful name parameterType state =
+    fun new (name, parameterType) = (Utf8.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withOptPtr ---> GioSimpleActionClass.FFI.fromPtr true) new_ (name & parameterType)
+    fun newStateful
+      (
+        name,
+        parameterType,
+        state
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GLibVariantTypeRecord.FFI.withOptPtr

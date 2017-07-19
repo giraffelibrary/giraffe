@@ -99,7 +99,13 @@ structure GtkAlignment :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new xalign yalign xscale yscale =
+    fun new
+      (
+        xalign,
+        yalign,
+        xscale,
+        yscale
+      ) =
       (
         GFloat.FFI.withVal
          &&&> GFloat.FFI.withVal
@@ -149,7 +155,14 @@ structure GtkAlignment :>
           paddingRight
         )
       end
-    fun set self xalign yalign xscale yscale =
+    fun set
+      self
+      (
+        xalign,
+        yalign,
+        xscale,
+        yscale
+      ) =
       (
         GtkAlignmentClass.FFI.withPtr
          &&&> GFloat.FFI.withVal
@@ -166,7 +179,14 @@ structure GtkAlignment :>
            & xscale
            & yscale
         )
-    fun setPadding self paddingTop paddingBottom paddingLeft paddingRight =
+    fun setPadding
+      self
+      (
+        paddingTop,
+        paddingBottom,
+        paddingLeft,
+        paddingRight
+      ) =
       (
         GtkAlignmentClass.FFI.withPtr
          &&&> GUInt.FFI.withVal

@@ -18,7 +18,7 @@ structure GioInetSocketAddress :>
     type t = base class
     fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new address port = (GioInetAddressClass.FFI.withPtr &&&> GUInt16.FFI.withVal ---> GioInetSocketAddressClass.FFI.fromPtr true) new_ (address & port)
+    fun new (address, port) = (GioInetAddressClass.FFI.withPtr &&&> GUInt16.FFI.withVal ---> GioInetSocketAddressClass.FFI.fromPtr true) new_ (address & port)
     fun getAddress self = (GioInetSocketAddressClass.FFI.withPtr ---> GioInetAddressClass.FFI.fromPtr false) getAddress_ self
     fun getPort self = (GioInetSocketAddressClass.FFI.withPtr ---> GUInt16.FFI.fromVal) getPort_ self
     local

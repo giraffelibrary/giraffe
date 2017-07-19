@@ -28,7 +28,13 @@ structure GioFileAttributeInfoList :>
     type file_attribute_info_t = GioFileAttributeInfoRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioFileAttributeInfoListRecord.FFI.fromPtr true) new_ ()
-    fun add self name type' flags =
+    fun add
+      self
+      (
+        name,
+        type',
+        flags
+      ) =
       (
         GioFileAttributeInfoListRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr

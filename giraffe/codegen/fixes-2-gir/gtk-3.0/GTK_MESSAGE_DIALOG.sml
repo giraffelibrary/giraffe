@@ -13,9 +13,9 @@ signature GTK_MESSAGE_DIALOG =
     val getType : unit -> GObject.Type.t
     val new :
       'a window_class option
-       -> dialog_flags_t
-       -> message_type_t
-       -> buttons_type_t
+       * dialog_flags_t
+       * message_type_t
+       * buttons_type_t
        -> base class
     val getImage : 'a class -> base widget_class
     val getMessageArea : 'a class -> base widget_class

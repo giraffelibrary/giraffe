@@ -5,18 +5,9 @@ signature GIO_NETWORK_ADDRESS =
     type t = base class
     val asSocketConnectable : 'a class -> base socket_connectable_class
     val getType : unit -> GObject.Type.t
-    val new :
-      string
-       -> LargeInt.int
-       -> base socket_connectable_class
-    val parse :
-      string
-       -> LargeInt.int
-       -> base socket_connectable_class
-    val parseUri :
-      string
-       -> LargeInt.int
-       -> base socket_connectable_class
+    val new : string * LargeInt.int -> base socket_connectable_class
+    val parse : string * LargeInt.int -> base socket_connectable_class
+    val parseUri : string * LargeInt.int -> base socket_connectable_class
     val getHostname : 'a class -> string
     val getPort : 'a class -> LargeInt.int
     val getScheme : 'a class -> string

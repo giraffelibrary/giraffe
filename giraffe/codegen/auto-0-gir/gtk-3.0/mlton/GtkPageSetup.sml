@@ -210,7 +210,7 @@ structure GtkPageSetup :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkPageSetupClass.FFI.fromPtr true) new_ ()
     fun newFromFile fileName = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GtkPageSetupClass.FFI.fromPtr true) newFromFile_ (fileName & [])
-    fun newFromKeyFile keyFile groupName =
+    fun newFromKeyFile (keyFile, groupName) =
       (
         GLibKeyFileRecord.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -247,7 +247,7 @@ structure GtkPageSetup :>
            & fileName
            & []
         )
-    fun loadKeyFile self keyFile groupName =
+    fun loadKeyFile self (keyFile, groupName) =
       (
         GtkPageSetupClass.FFI.withPtr
          &&&> GLibKeyFileRecord.FFI.withPtr
@@ -262,7 +262,7 @@ structure GtkPageSetup :>
            & groupName
            & []
         )
-    fun setBottomMargin self margin unit =
+    fun setBottomMargin self (margin, unit) =
       (
         GtkPageSetupClass.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -275,7 +275,7 @@ structure GtkPageSetup :>
            & margin
            & unit
         )
-    fun setLeftMargin self margin unit =
+    fun setLeftMargin self (margin, unit) =
       (
         GtkPageSetupClass.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -291,7 +291,7 @@ structure GtkPageSetup :>
     fun setOrientation self orientation = (GtkPageSetupClass.FFI.withPtr &&&> GtkPageOrientation.FFI.withVal ---> I) setOrientation_ (self & orientation)
     fun setPaperSize self size = (GtkPageSetupClass.FFI.withPtr &&&> GtkPaperSizeRecord.FFI.withPtr ---> I) setPaperSize_ (self & size)
     fun setPaperSizeAndDefaultMargins self size = (GtkPageSetupClass.FFI.withPtr &&&> GtkPaperSizeRecord.FFI.withPtr ---> I) setPaperSizeAndDefaultMargins_ (self & size)
-    fun setRightMargin self margin unit =
+    fun setRightMargin self (margin, unit) =
       (
         GtkPageSetupClass.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -304,7 +304,7 @@ structure GtkPageSetup :>
            & margin
            & unit
         )
-    fun setTopMargin self margin unit =
+    fun setTopMargin self (margin, unit) =
       (
         GtkPageSetupClass.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -330,7 +330,7 @@ structure GtkPageSetup :>
            & fileName
            & []
         )
-    fun toKeyFile self keyFile groupName =
+    fun toKeyFile self (keyFile, groupName) =
       (
         GtkPageSetupClass.FFI.withPtr
          &&&> GLibKeyFileRecord.FFI.withPtr

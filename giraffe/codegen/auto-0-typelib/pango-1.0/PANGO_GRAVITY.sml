@@ -17,14 +17,14 @@ signature PANGO_GRAVITY =
     val getForMatrix : matrix_t -> t
     val getForScript :
       script_t
-       -> t
-       -> gravity_hint_t
+       * t
+       * gravity_hint_t
        -> t
     val getForScriptAndWidth :
       script_t
-       -> bool
-       -> t
-       -> gravity_hint_t
+       * bool
+       * t
+       * gravity_hint_t
        -> t
     val toRotation : t -> real
   end

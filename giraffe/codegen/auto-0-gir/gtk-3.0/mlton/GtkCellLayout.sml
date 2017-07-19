@@ -86,7 +86,13 @@ structure GtkCellLayout :>
     type 'a cell_renderer_class = 'a GtkCellRendererClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun addAttribute self cell attribute column =
+    fun addAttribute
+      self
+      (
+        cell,
+        attribute,
+        column
+      ) =
       (
         GtkCellLayoutClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr
@@ -104,7 +110,7 @@ structure GtkCellLayout :>
     fun clear self = (GtkCellLayoutClass.FFI.withPtr ---> I) clear_ self
     fun clearAttributes self cell = (GtkCellLayoutClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> I) clearAttributes_ (self & cell)
     fun getArea self = (GtkCellLayoutClass.FFI.withPtr ---> GtkCellAreaClass.FFI.fromPtr false) getArea_ self
-    fun packEnd self cell expand =
+    fun packEnd self (cell, expand) =
       (
         GtkCellLayoutClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr
@@ -117,7 +123,7 @@ structure GtkCellLayout :>
            & cell
            & expand
         )
-    fun packStart self cell expand =
+    fun packStart self (cell, expand) =
       (
         GtkCellLayoutClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr
@@ -130,7 +136,7 @@ structure GtkCellLayout :>
            & cell
            & expand
         )
-    fun reorder self cell position =
+    fun reorder self (cell, position) =
       (
         GtkCellLayoutClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr

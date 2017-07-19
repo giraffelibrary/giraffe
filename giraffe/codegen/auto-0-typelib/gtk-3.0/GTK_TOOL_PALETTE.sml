@@ -25,9 +25,9 @@ signature GTK_TOOL_PALETTE =
     val addDragDest :
       'a class
        -> 'b widget_class
-       -> dest_defaults_t
-       -> tool_palette_drag_targets_t
-       -> Gdk.DragAction.t
+           * dest_defaults_t
+           * tool_palette_drag_targets_t
+           * Gdk.DragAction.t
        -> unit
     val getDragItem :
       'a class
@@ -35,13 +35,11 @@ signature GTK_TOOL_PALETTE =
        -> base widget_class
     val getDropGroup :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> base tool_item_group_class
     val getDropItem :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> base tool_item_class
     val getExclusive :
       'a class
@@ -63,18 +61,15 @@ signature GTK_TOOL_PALETTE =
        -> unit
     val setExclusive :
       'a class
-       -> 'b tool_item_group_class
-       -> bool
+       -> 'b tool_item_group_class * bool
        -> unit
     val setExpand :
       'a class
-       -> 'b tool_item_group_class
-       -> bool
+       -> 'b tool_item_group_class * bool
        -> unit
     val setGroupPosition :
       'a class
-       -> 'b tool_item_group_class
-       -> LargeInt.int
+       -> 'b tool_item_group_class * LargeInt.int
        -> unit
     val setIconSize :
       'a class

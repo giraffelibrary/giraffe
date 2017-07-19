@@ -260,7 +260,13 @@ structure GioOutputStream :>
     fun isClosed self = (GioOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
     fun isClosing self = (GioOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosing_ self
     fun setPending self = (GioOutputStreamClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) setPending_ (self & [])
-    fun splice self source flags cancellable =
+    fun splice
+      self
+      (
+        source,
+        flags,
+        cancellable
+      ) =
       (
         GioOutputStreamClass.FFI.withPtr
          &&&> GioInputStreamClass.FFI.withPtr
@@ -290,7 +296,7 @@ structure GioOutputStream :>
            & result
            & []
         )
-    fun write self buffer cancellable =
+    fun write self (buffer, cancellable) =
       let
         val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
         val retVal =
@@ -313,7 +319,7 @@ structure GioOutputStream :>
       in
         retVal
       end
-    fun writeAll self buffer cancellable =
+    fun writeAll self (buffer, cancellable) =
       let
         val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
         val bytesWritten & retVal =

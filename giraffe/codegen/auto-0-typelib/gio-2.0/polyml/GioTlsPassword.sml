@@ -19,7 +19,7 @@ structure GioTlsPassword :>
     type tls_password_flags_t = GioTlsPasswordFlags.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new flags description = (GioTlsPasswordFlags.FFI.withVal &&&> Utf8.FFI.withPtr ---> GioTlsPasswordClass.FFI.fromPtr true) new_ (flags & description)
+    fun new (flags, description) = (GioTlsPasswordFlags.FFI.withVal &&&> Utf8.FFI.withPtr ---> GioTlsPasswordClass.FFI.fromPtr true) new_ (flags & description)
     fun getDescription self = (GioTlsPasswordClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDescription_ self
     fun getFlags self = (GioTlsPasswordClass.FFI.withPtr ---> GioTlsPasswordFlags.FFI.fromVal) getFlags_ self
     fun getWarning self = (GioTlsPasswordClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getWarning_ self

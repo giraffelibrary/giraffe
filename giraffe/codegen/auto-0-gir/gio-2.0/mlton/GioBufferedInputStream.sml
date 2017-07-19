@@ -79,8 +79,8 @@ structure GioBufferedInputStream :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new baseStream = (GioInputStreamClass.FFI.withPtr ---> GioBufferedInputStreamClass.FFI.fromPtr true) new_ baseStream
-    fun newSized baseStream size = (GioInputStreamClass.FFI.withPtr &&&> GSize.FFI.withVal ---> GioBufferedInputStreamClass.FFI.fromPtr true) newSized_ (baseStream & size)
-    fun fill self count cancellable =
+    fun newSized (baseStream, size) = (GioInputStreamClass.FFI.withPtr &&&> GSize.FFI.withVal ---> GioBufferedInputStreamClass.FFI.fromPtr true) newSized_ (baseStream & size)
+    fun fill self (count, cancellable) =
       (
         GioBufferedInputStreamClass.FFI.withPtr
          &&&> GSSize.FFI.withVal

@@ -40,7 +40,13 @@ structure GtkTargetList :>
     type t = GtkTargetListRecord.t
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun add self target flags info =
+    fun add
+      self
+      (
+        target,
+        flags,
+        info
+      ) =
       (
         GtkTargetListRecord.FFI.withPtr
          &&&> GdkAtomRecord.FFI.withPtr
@@ -55,7 +61,7 @@ structure GtkTargetList :>
            & flags
            & info
         )
-    fun addImageTargets self info writable =
+    fun addImageTargets self (info, writable) =
       (
         GtkTargetListRecord.FFI.withPtr
          &&&> GUInt32.FFI.withVal
@@ -68,7 +74,13 @@ structure GtkTargetList :>
            & info
            & writable
         )
-    fun addRichTextTargets self info deserializable buffer =
+    fun addRichTextTargets
+      self
+      (
+        info,
+        deserializable,
+        buffer
+      ) =
       (
         GtkTargetListRecord.FFI.withPtr
          &&&> GUInt32.FFI.withVal

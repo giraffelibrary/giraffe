@@ -19,8 +19,8 @@ signature GIO_PERMISSION =
     val implUpdate :
       'a class
        -> bool
-       -> bool
-       -> bool
+           * bool
+           * bool
        -> unit
     val release :
       'a class

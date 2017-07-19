@@ -11,8 +11,8 @@ signature GIO_PROXY =
     val connect :
       'a class
        -> 'b i_o_stream_class
-       -> 'c proxy_address_class
-       -> 'd cancellable_class option
+           * 'c proxy_address_class
+           * 'd cancellable_class option
        -> base i_o_stream_class
     val connectFinish :
       'a class

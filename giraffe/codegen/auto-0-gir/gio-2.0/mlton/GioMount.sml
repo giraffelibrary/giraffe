@@ -159,7 +159,7 @@ structure GioMount :>
            & result
            & []
         )
-    fun guessContentTypeSync self forceRescan cancellable =
+    fun guessContentTypeSync self (forceRescan, cancellable) =
       (
         GioMountClass.FFI.withPtr
          &&&> GBool.FFI.withVal

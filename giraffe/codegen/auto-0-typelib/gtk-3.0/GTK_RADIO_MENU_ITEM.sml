@@ -9,14 +9,8 @@ signature GTK_RADIO_MENU_ITEM =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val newFromWidget : 'a class -> base class
-    val newWithLabelFromWidget :
-      'a class
-       -> string
-       -> base class
-    val newWithMnemonicFromWidget :
-      'a class
-       -> string
-       -> base class
+    val newWithLabelFromWidget : 'a class * string -> base class
+    val newWithMnemonicFromWidget : 'a class * string -> base class
     val groupChangedSig : (unit -> unit) -> 'a class Signal.signal
     val groupProp : ('a class, 'b class option) Property.writeonly
   end

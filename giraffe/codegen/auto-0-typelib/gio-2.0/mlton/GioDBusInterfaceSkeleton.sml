@@ -47,7 +47,7 @@ structure GioDBusInterfaceSkeleton :>
     type t = base class
     fun asDBusInterface self = (GObjectObjectClass.FFI.withPtr ---> GioDBusInterfaceClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun export self connection objectPath =
+    fun export self (connection, objectPath) =
       (
         GioDBusInterfaceSkeletonClass.FFI.withPtr
          &&&> GioDBusConnectionClass.FFI.withPtr

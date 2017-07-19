@@ -14,22 +14,18 @@ signature PANGO_MATRIX =
        -> unit
     val scale :
       t
-       -> real
-       -> real
+       -> real * real
        -> unit
     val transformDistance :
       t
-       -> real
-       -> real
+       -> real * real
        -> real * real
     val transformPoint :
       t
-       -> real
-       -> real
+       -> real * real
        -> real * real
     val translate :
       t
-       -> real
-       -> real
+       -> real * real
        -> unit
   end

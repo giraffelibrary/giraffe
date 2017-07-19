@@ -8,17 +8,17 @@ signature GTK_ASPECT_FRAME =
     val getType : unit -> GObject.Type.t
     val new :
       string
-       -> real
-       -> real
-       -> real
-       -> bool
+       * real
+       * real
+       * real
+       * bool
        -> base class
     val set :
       'a class
        -> real
-       -> real
-       -> real
-       -> bool
+           * real
+           * real
+           * bool
        -> unit
     val obeyChildProp : ('a class, bool, bool) Property.readwrite
     val ratioProp : ('a class, real, real) Property.readwrite

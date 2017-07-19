@@ -138,7 +138,7 @@ structure GtkRange :>
     fun setAdjustment self adjustment = (GtkRangeClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setAdjustment_ (self & adjustment)
     fun setFillLevel self fillLevel = (GtkRangeClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setFillLevel_ (self & fillLevel)
     fun setFlippable self flippable = (GtkRangeClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setFlippable_ (self & flippable)
-    fun setIncrements self step page =
+    fun setIncrements self (step, page) =
       (
         GtkRangeClass.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -154,7 +154,7 @@ structure GtkRange :>
     fun setInverted self setting = (GtkRangeClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setInverted_ (self & setting)
     fun setLowerStepperSensitivity self sensitivity = (GtkRangeClass.FFI.withPtr &&&> GtkSensitivityType.FFI.withVal ---> I) setLowerStepperSensitivity_ (self & sensitivity)
     fun setMinSliderSize self minSize = (GtkRangeClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setMinSliderSize_ (self & minSize)
-    fun setRange self min max =
+    fun setRange self (min, max) =
       (
         GtkRangeClass.FFI.withPtr
          &&&> GDouble.FFI.withVal
@@ -177,7 +177,7 @@ structure GtkRange :>
       open ClosureMarshal Signal
     in
       fun adjustBoundsSig f = signal "adjust-bounds" (get 0w1 double ---> ret_void) f
-      fun changeValueSig f = signal "change-value" (get 0w1 GtkScrollType.t &&&> get 0w2 double ---> ret boolean) (fn scroll & value => f scroll value)
+      fun changeValueSig f = signal "change-value" (get 0w1 GtkScrollType.t &&&> get 0w2 double ---> ret boolean) (fn scroll & value => f (scroll, value))
       fun moveSliderSig f = signal "move-slider" (get 0w1 GtkScrollType.t ---> ret_void) f
       fun valueChangedSig f = signal "value-changed" (void ---> ret_void) f
     end

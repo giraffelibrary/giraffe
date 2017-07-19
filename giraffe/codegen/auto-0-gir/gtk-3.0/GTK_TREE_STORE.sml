@@ -21,23 +21,19 @@ signature GTK_TREE_STORE =
     val clear : 'a class -> unit
     val insert :
       'a class
-       -> tree_iter_t option
-       -> LargeInt.int
+       -> tree_iter_t option * LargeInt.int
        -> tree_iter_t
     val insertAfter :
       'a class
-       -> tree_iter_t option
-       -> tree_iter_t option
+       -> tree_iter_t option * tree_iter_t option
        -> tree_iter_t
     val insertBefore :
       'a class
-       -> tree_iter_t option
-       -> tree_iter_t option
+       -> tree_iter_t option * tree_iter_t option
        -> tree_iter_t
     val isAncestor :
       'a class
-       -> tree_iter_t
-       -> tree_iter_t
+       -> tree_iter_t * tree_iter_t
        -> bool
     val iterDepth :
       'a class
@@ -49,13 +45,11 @@ signature GTK_TREE_STORE =
        -> bool
     val moveAfter :
       'a class
-       -> tree_iter_t
-       -> tree_iter_t option
+       -> tree_iter_t * tree_iter_t option
        -> unit
     val moveBefore :
       'a class
-       -> tree_iter_t
-       -> tree_iter_t option
+       -> tree_iter_t * tree_iter_t option
        -> unit
     val prepend :
       'a class
@@ -68,12 +62,11 @@ signature GTK_TREE_STORE =
     val setValue :
       'a class
        -> tree_iter_t
-       -> LargeInt.int
-       -> GObject.ValueRecord.t
+           * LargeInt.int
+           * GObject.ValueRecord.t
        -> unit
     val swap :
       'a class
-       -> tree_iter_t
-       -> tree_iter_t
+       -> tree_iter_t * tree_iter_t
        -> unit
   end

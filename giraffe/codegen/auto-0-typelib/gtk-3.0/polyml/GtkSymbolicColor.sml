@@ -32,9 +32,14 @@ structure GtkSymbolicColor :>
     type t = GtkSymbolicColorRecord.t
     type 'a style_properties_class = 'a GtkStylePropertiesClass.class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newAlpha color factor = (GtkSymbolicColorRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newAlpha_ (color & factor)
+    fun newAlpha (color, factor) = (GtkSymbolicColorRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newAlpha_ (color & factor)
     fun newLiteral color = (GdkRgbaRecord.FFI.withPtr ---> GtkSymbolicColorRecord.FFI.fromPtr true) newLiteral_ color
-    fun newMix color1 color2 factor =
+    fun newMix
+      (
+        color1,
+        color2,
+        factor
+      ) =
       (
         GtkSymbolicColorRecord.FFI.withPtr
          &&&> GtkSymbolicColorRecord.FFI.withPtr
@@ -48,7 +53,7 @@ structure GtkSymbolicColor :>
            & factor
         )
     fun newName name = (Utf8.FFI.withPtr ---> GtkSymbolicColorRecord.FFI.fromPtr true) newName_ name
-    fun newShade color factor = (GtkSymbolicColorRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newShade_ (color & factor)
+    fun newShade (color, factor) = (GtkSymbolicColorRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newShade_ (color & factor)
     fun resolve self props =
       let
         val resolvedColor & retVal =

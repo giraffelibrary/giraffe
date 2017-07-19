@@ -9,8 +9,8 @@ signature GIO_FILE_MONITOR =
     val emitEvent :
       'a class
        -> 'b file_class
-       -> 'c file_class
-       -> file_monitor_event_t
+           * 'c file_class
+           * file_monitor_event_t
        -> unit
     val isCancelled : 'a class -> bool
     val setRateLimit :
@@ -19,8 +19,8 @@ signature GIO_FILE_MONITOR =
        -> unit
     val changedSig :
       (base file_class
-        -> base file_class
-        -> file_monitor_event_t
+        * base file_class
+        * file_monitor_event_t
         -> unit)
        -> 'a class Signal.signal
     val cancelledProp : ('a class, bool) Property.readonly

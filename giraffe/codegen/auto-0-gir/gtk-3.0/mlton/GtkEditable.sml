@@ -107,7 +107,7 @@ structure GtkEditable :>
     fun copyClipboard self = (GtkEditableClass.FFI.withPtr ---> I) copyClipboard_ self
     fun cutClipboard self = (GtkEditableClass.FFI.withPtr ---> I) cutClipboard_ self
     fun deleteSelection self = (GtkEditableClass.FFI.withPtr ---> I) deleteSelection_ self
-    fun deleteText self startPos endPos =
+    fun deleteText self (startPos, endPos) =
       (
         GtkEditableClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -120,7 +120,7 @@ structure GtkEditable :>
            & startPos
            & endPos
         )
-    fun getChars self startPos endPos =
+    fun getChars self (startPos, endPos) =
       (
         GtkEditableClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -157,7 +157,13 @@ structure GtkEditable :>
       in
         if retVal then SOME (startPos, endPos) else NONE
       end
-    fun insertText self newText newTextLength position =
+    fun insertText
+      self
+      (
+        newText,
+        newTextLength,
+        position
+      ) =
       let
         val position & () =
           (
@@ -178,7 +184,7 @@ structure GtkEditable :>
         position
       end
     fun pasteClipboard self = (GtkEditableClass.FFI.withPtr ---> I) pasteClipboard_ self
-    fun selectRegion self startPos endPos =
+    fun selectRegion self (startPos, endPos) =
       (
         GtkEditableClass.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -197,7 +203,7 @@ structure GtkEditable :>
       open ClosureMarshal Signal
     in
       fun changedSig f = signal "changed" (void ---> ret_void) f
-      fun deleteTextSig f = signal "delete-text" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn startPos & endPos => f startPos endPos)
+      fun deleteTextSig f = signal "delete-text" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn startPos & endPos => f (startPos, endPos))
       fun insertTextSig f =
         signal "insert-text"
           (
@@ -212,7 +218,13 @@ structure GtkEditable :>
                & newTextLength
                & position =>
                 let
-                  val position = f newText newTextLength position
+                  val position =
+                    f
+                      (
+                        newText,
+                        newTextLength,
+                        position
+                      )
                 in
                   position & ()
                 end

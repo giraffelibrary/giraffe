@@ -10,8 +10,7 @@ signature GTK_ICON_FACTORY =
     val lookupDefault : string -> icon_set_t
     val add :
       'a class
-       -> string
-       -> icon_set_t
+       -> string * icon_set_t
        -> unit
     val addDefault : 'a class -> unit
     val lookup :

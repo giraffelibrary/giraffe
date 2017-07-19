@@ -132,6 +132,11 @@ fun mkWordConstExp n : exp = ExpConst (ConstWord (n, NONE))
 
 fun mkIdVarAPat id : apat = APatVar (NameId id)
 
+fun mkTupleAPat1 aps1 =
+  case aps1 of
+    (ap, []) => ap
+  | _        => APatParen (map1 PatA aps1)
+
 fun mkIdVarPat id : pat = PatA (mkIdVarAPat id)
 fun mkConstPat const : pat = PatA (APatConst const)
 

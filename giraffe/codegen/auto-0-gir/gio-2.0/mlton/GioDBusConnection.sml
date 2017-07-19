@@ -419,7 +419,13 @@ structure GioDBusConnection :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.FFI.fromPtr true) newFinish_ (res & [])
     fun newForAddressFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.FFI.fromPtr true) newForAddressFinish_ (res & [])
-    fun newForAddressSync address flags observer cancellable =
+    fun newForAddressSync
+      (
+        address,
+        flags,
+        observer,
+        cancellable
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GioDBusConnectionFlags.FFI.withVal
@@ -436,7 +442,14 @@ structure GioDBusConnection :>
            & cancellable
            & []
         )
-    fun newSync stream guid flags observer cancellable =
+    fun newSync
+      (
+        stream,
+        guid,
+        flags,
+        observer,
+        cancellable
+      ) =
       (
         GioIOStreamClass.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -468,7 +481,19 @@ structure GioDBusConnection :>
            & res
            & []
         )
-    fun callSync self busName objectPath interfaceName methodName parameters replyType flags timeoutMsec cancellable =
+    fun callSync
+      self
+      (
+        busName,
+        objectPath,
+        interfaceName,
+        methodName,
+        parameters,
+        replyType,
+        flags,
+        timeoutMsec,
+        cancellable
+      ) =
       (
         GioDBusConnectionClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -517,7 +542,20 @@ structure GioDBusConnection :>
       in
         (retVal, outFdList)
       end
-    fun callWithUnixFdListSync self busName objectPath interfaceName methodName parameters replyType flags timeoutMsec fdList cancellable =
+    fun callWithUnixFdListSync
+      self
+      (
+        busName,
+        objectPath,
+        interfaceName,
+        methodName,
+        parameters,
+        replyType,
+        flags,
+        timeoutMsec,
+        fdList,
+        cancellable
+      ) =
       let
         val outFdList & retVal =
           (
@@ -581,7 +619,15 @@ structure GioDBusConnection :>
            & cancellable
            & []
         )
-    fun emitSignal self destinationBusName objectPath interfaceName signalName parameters =
+    fun emitSignal
+      self
+      (
+        destinationBusName,
+        objectPath,
+        interfaceName,
+        signalName,
+        parameters
+      ) =
       (
         GioDBusConnectionClass.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -636,7 +682,7 @@ structure GioDBusConnection :>
     fun getUniqueName self = (GioDBusConnectionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUniqueName_ self
     fun isClosed self = (GioDBusConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
     fun removeFilter self filterId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) removeFilter_ (self & filterId)
-    fun sendMessage self message flags =
+    fun sendMessage self (message, flags) =
       let
         val outSerial & retVal =
           (
@@ -671,7 +717,14 @@ structure GioDBusConnection :>
            & res
            & []
         )
-    fun sendMessageWithReplySync self message flags timeoutMsec cancellable =
+    fun sendMessageWithReplySync
+      self
+      (
+        message,
+        flags,
+        timeoutMsec,
+        cancellable
+      ) =
       let
         val outSerial & retVal =
           (

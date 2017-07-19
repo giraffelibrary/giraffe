@@ -11,8 +11,8 @@ signature GTK_TEXT_TAG =
     val event :
       'a class
        -> 'b GObject.ObjectClass.class
-       -> 'c Gdk.Event.union
-       -> text_iter_t
+           * 'c Gdk.Event.union
+           * text_iter_t
        -> bool
     val getPriority : 'a class -> LargeInt.int
     val setPriority :
@@ -21,8 +21,8 @@ signature GTK_TEXT_TAG =
        -> unit
     val eventSig :
       (base GObject.ObjectClass.class
-        -> base Gdk.Event.union
-        -> text_iter_t
+        * base Gdk.Event.union
+        * text_iter_t
         -> bool)
        -> 'a class Signal.signal
     val accumulativeMarginProp : ('a class, bool, bool) Property.readwrite

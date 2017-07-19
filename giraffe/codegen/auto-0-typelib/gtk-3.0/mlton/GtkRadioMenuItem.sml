@@ -45,8 +45,8 @@ structure GtkRadioMenuItem :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newFromWidget group = (GtkRadioMenuItemClass.FFI.withPtr ---> GtkRadioMenuItemClass.FFI.fromPtr false) newFromWidget_ group
-    fun newWithLabelFromWidget group label = (GtkRadioMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkRadioMenuItemClass.FFI.fromPtr false) newWithLabelFromWidget_ (group & label)
-    fun newWithMnemonicFromWidget group label = (GtkRadioMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkRadioMenuItemClass.FFI.fromPtr false) newWithMnemonicFromWidget_ (group & label)
+    fun newWithLabelFromWidget (group, label) = (GtkRadioMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkRadioMenuItemClass.FFI.fromPtr false) newWithLabelFromWidget_ (group & label)
+    fun newWithMnemonicFromWidget (group, label) = (GtkRadioMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkRadioMenuItemClass.FFI.fromPtr false) newWithMnemonicFromWidget_ (group & label)
     local
       open ClosureMarshal Signal
     in

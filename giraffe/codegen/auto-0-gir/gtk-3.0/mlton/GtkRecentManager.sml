@@ -126,7 +126,7 @@ structure GtkRecentManager :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkRecentManagerClass.FFI.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkRecentManagerClass.FFI.fromPtr false) getDefault_ ()
-    fun addFull self uri recentData =
+    fun addFull self (uri, recentData) =
       (
         GtkRecentManagerClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -154,7 +154,7 @@ structure GtkRecentManager :>
            & uri
            & []
         )
-    fun moveItem self uri newUri =
+    fun moveItem self (uri, newUri) =
       (
         GtkRecentManagerClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr

@@ -54,7 +54,7 @@ structure GtkSourceMark :>
     type 'a class = 'a GtkSourceMarkClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new name category = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceMarkClass.FFI.fromPtr true) new_ (name & category)
+    fun new (name, category) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceMarkClass.FFI.fromPtr true) new_ (name & category)
     fun getCategory self = (GtkSourceMarkClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCategory_ self
     fun next self category = (GtkSourceMarkClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GtkSourceMarkClass.FFI.fromPtr false) next_ (self & category)
     fun prev self category = (GtkSourceMarkClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceMarkClass.FFI.fromPtr false) prev_ (self & category)

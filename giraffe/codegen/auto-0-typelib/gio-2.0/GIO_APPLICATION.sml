@@ -9,10 +9,7 @@ signature GIO_APPLICATION =
     type t = base class
     val asActionGroup : 'a class -> base action_group_class
     val getType : unit -> GObject.Type.t
-    val new :
-      string
-       -> application_flags_t
-       -> base class
+    val new : string * application_flags_t -> base class
     val idIsValid : string -> bool
     val activate : 'a class -> unit
     val getApplicationId : 'a class -> string
@@ -23,8 +20,7 @@ signature GIO_APPLICATION =
     val hold : 'a class -> unit
     val open' :
       'a class
-       -> base file_class vector
-       -> string
+       -> base file_class vector * string
        -> unit
     val register :
       'a class
@@ -53,11 +49,7 @@ signature GIO_APPLICATION =
        -> unit
     val activateSig : (unit -> unit) -> 'a class Signal.signal
     val commandLineSig : (base application_command_line_class -> LargeInt.int) -> 'a class Signal.signal
-    val openSig :
-      (base file_class vector
-        -> string
-        -> unit)
-       -> 'a class Signal.signal
+    val openSig : (base file_class vector * string -> unit) -> 'a class Signal.signal
     val startupSig : (unit -> unit) -> 'a class Signal.signal
     val actionGroupProp : ('a class, 'b action_group_class option) Property.writeonly
     val applicationIdProp : ('a class, string option, string option) Property.readwrite

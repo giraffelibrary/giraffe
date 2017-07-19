@@ -10,13 +10,11 @@ signature GTK_MISC =
     val getPadding : 'a class -> LargeInt.int * LargeInt.int
     val setAlignment :
       'a class
-       -> real
-       -> real
+       -> real * real
        -> unit
     val setPadding :
       'a class
-       -> LargeInt.int
-       -> LargeInt.int
+       -> LargeInt.int * LargeInt.int
        -> unit
     val xalignProp : ('a class, real, real) Property.readwrite
     val xpadProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

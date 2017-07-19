@@ -123,8 +123,8 @@ structure GtkEntryBuffer :>
     type 'a class = 'a GtkEntryBufferClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new initialChars nInitialChars = (Utf8.FFI.withOptPtr &&&> GInt32.FFI.withVal ---> GtkEntryBufferClass.FFI.fromPtr true) new_ (initialChars & nInitialChars)
-    fun deleteText self position nChars =
+    fun new (initialChars, nInitialChars) = (Utf8.FFI.withOptPtr &&&> GInt32.FFI.withVal ---> GtkEntryBufferClass.FFI.fromPtr true) new_ (initialChars & nInitialChars)
+    fun deleteText self (position, nChars) =
       (
         GtkEntryBufferClass.FFI.withPtr
          &&&> GUInt32.FFI.withVal
@@ -137,7 +137,7 @@ structure GtkEntryBuffer :>
            & position
            & nChars
         )
-    fun emitDeletedText self position nChars =
+    fun emitDeletedText self (position, nChars) =
       (
         GtkEntryBufferClass.FFI.withPtr
          &&&> GUInt32.FFI.withVal
@@ -150,7 +150,13 @@ structure GtkEntryBuffer :>
            & position
            & nChars
         )
-    fun emitInsertedText self position chars nChars =
+    fun emitInsertedText
+      self
+      (
+        position,
+        chars,
+        nChars
+      ) =
       (
         GtkEntryBufferClass.FFI.withPtr
          &&&> GUInt32.FFI.withVal
@@ -169,7 +175,13 @@ structure GtkEntryBuffer :>
     fun getLength self = (GtkEntryBufferClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getLength_ self
     fun getMaxLength self = (GtkEntryBufferClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMaxLength_ self
     fun getText self = (GtkEntryBufferClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getText_ self
-    fun insertText self position chars nChars =
+    fun insertText
+      self
+      (
+        position,
+        chars,
+        nChars
+      ) =
       (
         GtkEntryBufferClass.FFI.withPtr
          &&&> GUInt32.FFI.withVal
@@ -185,7 +197,7 @@ structure GtkEntryBuffer :>
            & nChars
         )
     fun setMaxLength self maxLength = (GtkEntryBufferClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setMaxLength_ (self & maxLength)
-    fun setText self chars nChars =
+    fun setText self (chars, nChars) =
       (
         GtkEntryBufferClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -201,7 +213,7 @@ structure GtkEntryBuffer :>
     local
       open ClosureMarshal Signal
     in
-      fun deletedTextSig f = signal "deleted-text" (get 0w1 uint &&&> get 0w2 uint ---> ret_void) (fn position & nChars => f position nChars)
+      fun deletedTextSig f = signal "deleted-text" (get 0w1 uint &&&> get 0w2 uint ---> ret_void) (fn position & nChars => f (position, nChars))
       fun insertedTextSig f =
         signal "inserted-text"
           (
@@ -215,7 +227,12 @@ structure GtkEntryBuffer :>
               position
                & chars
                & nChars =>
-                f position chars nChars
+                f
+                  (
+                    position,
+                    chars,
+                    nChars
+                  )
           )
     end
     local

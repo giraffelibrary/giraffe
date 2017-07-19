@@ -8,14 +8,10 @@ signature GTK_ARROW =
     val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new :
-      arrow_type_t
-       -> shadow_type_t
-       -> base class
+    val new : arrow_type_t * shadow_type_t -> base class
     val set :
       'a class
-       -> arrow_type_t
-       -> shadow_type_t
+       -> arrow_type_t * shadow_type_t
        -> unit
     val arrowTypeProp : ('a class, arrow_type_t, arrow_type_t) Property.readwrite
     val shadowTypeProp : ('a class, shadow_type_t, shadow_type_t) Property.readwrite

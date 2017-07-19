@@ -5,10 +5,7 @@ signature GIO_TCP_WRAPPER_CONNECTION =
     type 'a i_o_stream_class
     type t = base class
     val getType : unit -> GObject.Type.t
-    val new :
-      'a i_o_stream_class
-       -> 'b socket_class
-       -> base class
+    val new : 'a i_o_stream_class * 'b socket_class -> base class
     val getBaseIoStream : 'a class -> base i_o_stream_class
     val baseIoStreamProp : ('a class, base i_o_stream_class option, 'b i_o_stream_class option) Property.readwrite
   end

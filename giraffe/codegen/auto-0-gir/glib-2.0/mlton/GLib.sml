@@ -2431,9 +2431,14 @@ structure GLib : G_LIB =
     val USEC_PER_SEC = 1000000
     val VA_COPY_AS_ARRAY = 1
     val WIN32_MSG_HANDLE = 19981206
-    fun access filename mode = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) access_ (filename & mode)
+    fun access (filename, mode) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) access_ (filename & mode)
     fun asciiDigitValue c = (GChar.FFI.withVal ---> GInt.FFI.fromVal) asciiDigitValue_ c
-    fun asciiDtostr buffer bufLen d =
+    fun asciiDtostr
+      (
+        buffer,
+        bufLen,
+        d
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -2446,7 +2451,13 @@ structure GLib : G_LIB =
            & bufLen
            & d
         )
-    fun asciiFormatd buffer bufLen format d =
+    fun asciiFormatd
+      (
+        buffer,
+        bufLen,
+        format,
+        d
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -2461,9 +2472,14 @@ structure GLib : G_LIB =
            & format
            & d
         )
-    fun asciiStrcasecmp s1 s2 = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) asciiStrcasecmp_ (s1 & s2)
-    fun asciiStrdown str len = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) asciiStrdown_ (str & len)
-    fun asciiStrncasecmp s1 s2 n =
+    fun asciiStrcasecmp (s1, s2) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) asciiStrcasecmp_ (s1 & s2)
+    fun asciiStrdown (str, len) = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) asciiStrdown_ (str & len)
+    fun asciiStrncasecmp
+      (
+        s1,
+        s2,
+        n
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2476,8 +2492,13 @@ structure GLib : G_LIB =
            & s2
            & n
         )
-    fun asciiStrtod nptr endptr = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GDouble.FFI.fromVal) asciiStrtod_ (nptr & endptr)
-    fun asciiStrtoll nptr endptr base =
+    fun asciiStrtod (nptr, endptr) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GDouble.FFI.fromVal) asciiStrtod_ (nptr & endptr)
+    fun asciiStrtoll
+      (
+        nptr,
+        endptr,
+        base
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2490,7 +2511,12 @@ structure GLib : G_LIB =
            & endptr
            & base
         )
-    fun asciiStrtoull nptr endptr base =
+    fun asciiStrtoull
+      (
+        nptr,
+        endptr,
+        base
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2503,11 +2529,18 @@ structure GLib : G_LIB =
            & endptr
            & base
         )
-    fun asciiStrup str len = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) asciiStrup_ (str & len)
+    fun asciiStrup (str, len) = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) asciiStrup_ (str & len)
     fun asciiTolower c = (GChar.FFI.withVal ---> GChar.FFI.fromVal) asciiTolower_ c
     fun asciiToupper c = (GChar.FFI.withVal ---> GChar.FFI.fromVal) asciiToupper_ c
     fun asciiXdigitValue c = (GChar.FFI.withVal ---> GInt.FFI.fromVal) asciiXdigitValue_ c
-    fun assertWarning logDomain file line prettyFunction expression =
+    fun assertWarning
+      (
+        logDomain,
+        file,
+        line,
+        prettyFunction,
+        expression
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2524,7 +2557,14 @@ structure GLib : G_LIB =
            & prettyFunction
            & expression
         )
-    fun assertionMessage domain file line func message =
+    fun assertionMessage
+      (
+        domain,
+        file,
+        line,
+        func,
+        message
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2541,7 +2581,17 @@ structure GLib : G_LIB =
            & func
            & message
         )
-    fun assertionMessageCmpstr domain file line func expr arg1 cmp arg2 =
+    fun assertionMessageCmpstr
+      (
+        domain,
+        file,
+        line,
+        func,
+        expr,
+        arg1,
+        cmp,
+        arg2
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2564,7 +2614,14 @@ structure GLib : G_LIB =
            & cmp
            & arg2
         )
-    fun assertionMessageExpr domain file line func expr =
+    fun assertionMessageExpr
+      (
+        domain,
+        file,
+        line,
+        func,
+        expr
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2595,15 +2652,20 @@ structure GLib : G_LIB =
         retVal
       end
     fun basename fileName = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) basename_ fileName
-    fun bitNthLsf mask nthBit = (GULong.FFI.withVal &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) bitNthLsf_ (mask & nthBit)
-    fun bitNthMsf mask nthBit = (GULong.FFI.withVal &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) bitNthMsf_ (mask & nthBit)
+    fun bitNthLsf (mask, nthBit) = (GULong.FFI.withVal &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) bitNthLsf_ (mask & nthBit)
+    fun bitNthMsf (mask, nthBit) = (GULong.FFI.withVal &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) bitNthMsf_ (mask & nthBit)
     fun bitStorage number = (GULong.FFI.withVal ---> GUInt.FFI.fromVal) bitStorage_ number
     fun blowChunks () = (I ---> I) blowChunks_ ()
     fun bookmarkFileErrorQuark () = (I ---> GLibQuark.FFI.fromVal) bookmarkFileErrorQuark_ ()
     fun buildFilenamev args = (Utf8CVector.FFI.withPtr ---> Utf8.FFI.fromPtr 1) buildFilenamev_ args
-    fun buildPathv separator args = (Utf8.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> Utf8.FFI.fromPtr 1) buildPathv_ (separator & args)
+    fun buildPathv (separator, args) = (Utf8.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> Utf8.FFI.fromPtr 1) buildPathv_ (separator & args)
     fun chdir path = (Utf8.FFI.withPtr ---> GInt.FFI.fromVal) chdir_ path
-    fun checkVersion requiredMajor requiredMinor requiredMicro =
+    fun checkVersion
+      (
+        requiredMajor,
+        requiredMinor,
+        requiredMicro
+      ) =
       (
         GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal
@@ -2619,7 +2681,12 @@ structure GLib : G_LIB =
     fun checksumTypeGetLength checksumType = (GLibChecksumType.FFI.withVal ---> GSSize.FFI.fromVal) checksumTypeGetLength_ checksumType
     fun childWatchSourceNew pid = (GLibPid.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ pid
     fun clearError () = (GLibErrorRecord.handleError ---> I) clearError_ []
-    fun computeChecksumForString checksumType str length =
+    fun computeChecksumForString
+      (
+        checksumType,
+        str,
+        length
+      ) =
       (
         GLibChecksumType.FFI.withVal
          &&&> Utf8.FFI.withPtr
@@ -2632,7 +2699,13 @@ structure GLib : G_LIB =
            & str
            & length
         )
-    fun computeHmacForString digestType key str length =
+    fun computeHmacForString
+      (
+        digestType,
+        key,
+        str,
+        length
+      ) =
       let
         val keyLen = LargeInt.fromInt (GUInt8CVectorN.length key)
         val retVal =
@@ -2655,7 +2728,13 @@ structure GLib : G_LIB =
       in
         retVal
       end
-    fun convert str len toCodeset fromCodeset =
+    fun convert
+      (
+        str,
+        len,
+        toCodeset,
+        fromCodeset
+      ) =
       let
         val bytesRead
          & bytesWritten
@@ -2693,13 +2772,19 @@ structure GLib : G_LIB =
     fun datalistClear datalist = (GLibDataRecord.FFI.withPtr ---> I) datalistClear_ datalist
     fun datalistGetFlags datalist = (GLibDataRecord.FFI.withPtr ---> GUInt.FFI.fromVal) datalistGetFlags_ datalist
     fun datalistInit datalist = (GLibDataRecord.FFI.withPtr ---> I) datalistInit_ datalist
-    fun datalistSetFlags datalist flags = (GLibDataRecord.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) datalistSetFlags_ (datalist & flags)
-    fun datalistUnsetFlags datalist flags = (GLibDataRecord.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) datalistUnsetFlags_ (datalist & flags)
-    fun dateGetDaysInMonth month year = (GLibDateMonth.FFI.withVal &&&> GLibDateYear.FFI.withVal ---> GUInt8.FFI.fromVal) dateGetDaysInMonth_ (month & year)
+    fun datalistSetFlags (datalist, flags) = (GLibDataRecord.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) datalistSetFlags_ (datalist & flags)
+    fun datalistUnsetFlags (datalist, flags) = (GLibDataRecord.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) datalistUnsetFlags_ (datalist & flags)
+    fun dateGetDaysInMonth (month, year) = (GLibDateMonth.FFI.withVal &&&> GLibDateYear.FFI.withVal ---> GUInt8.FFI.fromVal) dateGetDaysInMonth_ (month & year)
     fun dateGetMondayWeeksInYear year = (GLibDateYear.FFI.withVal ---> GUInt8.FFI.fromVal) dateGetMondayWeeksInYear_ year
     fun dateGetSundayWeeksInYear year = (GLibDateYear.FFI.withVal ---> GUInt8.FFI.fromVal) dateGetSundayWeeksInYear_ year
     fun dateIsLeapYear year = (GLibDateYear.FFI.withVal ---> GBool.FFI.fromVal) dateIsLeapYear_ year
-    fun dateStrftime s slen format date =
+    fun dateStrftime
+      (
+        s,
+        slen,
+        format,
+        date
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GSize.FFI.withVal
@@ -2715,7 +2800,12 @@ structure GLib : G_LIB =
            & date
         )
     fun dateValidDay day = (GLibDateDay.FFI.withVal ---> GBool.FFI.fromVal) dateValidDay_ day
-    fun dateValidDmy day month year =
+    fun dateValidDmy
+      (
+        day,
+        month,
+        year
+      ) =
       (
         GLibDateDay.FFI.withVal
          &&&> GLibDateMonth.FFI.withVal
@@ -2732,7 +2822,12 @@ structure GLib : G_LIB =
     fun dateValidMonth month = (GLibDateMonth.FFI.withVal ---> GBool.FFI.fromVal) dateValidMonth_ month
     fun dateValidWeekday weekday = (GLibDateWeekday.FFI.withVal ---> GBool.FFI.fromVal) dateValidWeekday_ weekday
     fun dateValidYear year = (GLibDateYear.FFI.withVal ---> GBool.FFI.fromVal) dateValidYear_ year
-    fun dcgettext domain msgid category =
+    fun dcgettext
+      (
+        domain,
+        msgid,
+        category
+      ) =
       (
         Utf8.FFI.withOptPtr
          &&&> Utf8.FFI.withPtr
@@ -2745,9 +2840,15 @@ structure GLib : G_LIB =
            & msgid
            & category
         )
-    fun dgettext domain msgid = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) dgettext_ (domain & msgid)
+    fun dgettext (domain, msgid) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) dgettext_ (domain & msgid)
     fun dirMakeTmp tmpl = (Utf8.FFI.withOptPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) dirMakeTmp_ (tmpl & [])
-    fun dngettext domain msgid msgidPlural n =
+    fun dngettext
+      (
+        domain,
+        msgid,
+        msgidPlural,
+        n
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2762,7 +2863,12 @@ structure GLib : G_LIB =
            & msgidPlural
            & n
         )
-    fun dpgettext domain msgctxtid msgidoffset =
+    fun dpgettext
+      (
+        domain,
+        msgctxtid,
+        msgidoffset
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2775,7 +2881,12 @@ structure GLib : G_LIB =
            & msgctxtid
            & msgidoffset
         )
-    fun dpgettext2 domain context msgid =
+    fun dpgettext2
+      (
+        domain,
+        context,
+        msgid
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2810,7 +2921,7 @@ structure GLib : G_LIB =
         (retVal, nameUsed)
       end
     fun fileReadLink filename = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) fileReadLink_ (filename & [])
-    fun fileSetContents filename contents =
+    fun fileSetContents (filename, contents) =
       let
         val length = LargeInt.fromInt (GUInt8CVectorN.length contents)
         val retVal =
@@ -2831,10 +2942,10 @@ structure GLib : G_LIB =
       in
         retVal
       end
-    fun fileTest filename test = (Utf8.FFI.withPtr &&&> GLibFileTest.FFI.withVal ---> GBool.FFI.fromVal) fileTest_ (filename & test)
+    fun fileTest (filename, test) = (Utf8.FFI.withPtr &&&> GLibFileTest.FFI.withVal ---> GBool.FFI.fromVal) fileTest_ (filename & test)
     fun filenameDisplayBasename filename = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) filenameDisplayBasename_ filename
     fun filenameDisplayName filename = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) filenameDisplayName_ filename
-    fun filenameFromUri uri hostname =
+    fun filenameFromUri (uri, hostname) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -2847,7 +2958,7 @@ structure GLib : G_LIB =
            & hostname
            & []
         )
-    fun filenameToUri filename hostname =
+    fun filenameToUri (filename, hostname) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
@@ -2863,7 +2974,7 @@ structure GLib : G_LIB =
     fun findProgramInPath program = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) findProgramInPath_ program
     fun formatSize size = (GUInt64.FFI.withVal ---> Utf8.FFI.fromPtr 1) formatSize_ size
     fun formatSizeForDisplay size = (GInt64.FFI.withVal ---> Utf8.FFI.fromPtr 1) formatSizeForDisplay_ size
-    fun formatSizeFull size flags = (GUInt64.FFI.withVal &&&> GLibFormatSizeFlags.FFI.withVal ---> Utf8.FFI.fromPtr 1) formatSizeFull_ (size & flags)
+    fun formatSizeFull (size, flags) = (GUInt64.FFI.withVal &&&> GLibFormatSizeFlags.FFI.withVal ---> Utf8.FFI.fromPtr 1) formatSizeFull_ (size & flags)
     fun getApplicationName () = (I ---> Utf8.FFI.fromPtr 0) getApplicationName_ ()
     fun getCharset charset = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) getCharset_ charset
     fun getCurrentDir () = (I ---> Utf8.FFI.fromPtr 1) getCurrentDir_ ()
@@ -2888,10 +2999,15 @@ structure GLib : G_LIB =
     fun getUserRuntimeDir () = (I ---> Utf8.FFI.fromPtr 0) getUserRuntimeDir_ ()
     fun getUserSpecialDir directory = (GLibUserDirectory.FFI.withVal ---> Utf8.FFI.fromPtr 0) getUserSpecialDir_ directory
     fun getenv variable = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getenv_ variable
-    fun hookDestroy hookList hookId = (GLibHookListRecord.FFI.withPtr &&&> GULong.FFI.withVal ---> GBool.FFI.fromVal) hookDestroy_ (hookList & hookId)
-    fun hookDestroyLink hookList hook = (GLibHookListRecord.FFI.withPtr &&&> GLibHookRecord.FFI.withPtr ---> I) hookDestroyLink_ (hookList & hook)
-    fun hookFree hookList hook = (GLibHookListRecord.FFI.withPtr &&&> GLibHookRecord.FFI.withPtr ---> I) hookFree_ (hookList & hook)
-    fun hookInsertBefore hookList sibling hook =
+    fun hookDestroy (hookList, hookId) = (GLibHookListRecord.FFI.withPtr &&&> GULong.FFI.withVal ---> GBool.FFI.fromVal) hookDestroy_ (hookList & hookId)
+    fun hookDestroyLink (hookList, hook) = (GLibHookListRecord.FFI.withPtr &&&> GLibHookRecord.FFI.withPtr ---> I) hookDestroyLink_ (hookList & hook)
+    fun hookFree (hookList, hook) = (GLibHookListRecord.FFI.withPtr &&&> GLibHookRecord.FFI.withPtr ---> I) hookFree_ (hookList & hook)
+    fun hookInsertBefore
+      (
+        hookList,
+        sibling,
+        hook
+      ) =
       (
         GLibHookListRecord.FFI.withPtr
          &&&> GLibHookRecord.FFI.withPtr
@@ -2904,8 +3020,8 @@ structure GLib : G_LIB =
            & sibling
            & hook
         )
-    fun hookPrepend hookList hook = (GLibHookListRecord.FFI.withPtr &&&> GLibHookRecord.FFI.withPtr ---> I) hookPrepend_ (hookList & hook)
-    fun hookUnref hookList hook = (GLibHookListRecord.FFI.withPtr &&&> GLibHookRecord.FFI.withPtr ---> I) hookUnref_ (hookList & hook)
+    fun hookPrepend (hookList, hook) = (GLibHookListRecord.FFI.withPtr &&&> GLibHookRecord.FFI.withPtr ---> I) hookPrepend_ (hookList & hook)
+    fun hookUnref (hookList, hook) = (GLibHookListRecord.FFI.withPtr &&&> GLibHookRecord.FFI.withPtr ---> I) hookUnref_ (hookList & hook)
     fun hostnameIsAsciiEncoded hostname = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hostnameIsAsciiEncoded_ hostname
     fun hostnameIsIpAddress hostname = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hostnameIsIpAddress_ hostname
     fun hostnameIsNonAscii hostname = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hostnameIsNonAscii_ hostname
@@ -2916,28 +3032,33 @@ structure GLib : G_LIB =
     fun internString string = (Utf8.FFI.withOptPtr ---> Utf8.FFI.fromPtr 0) internString_ string
     fun ioChannelErrorFromErrno en = (GInt.FFI.withVal ---> GLibIOChannelError.FFI.fromVal) ioChannelErrorFromErrno_ en
     fun ioChannelErrorQuark () = (I ---> GLibQuark.FFI.fromVal) ioChannelErrorQuark_ ()
-    fun ioCreateWatch channel condition = (GLibIOChannelRecord.FFI.withPtr &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) ioCreateWatch_ (channel & condition)
+    fun ioCreateWatch (channel, condition) = (GLibIOChannelRecord.FFI.withPtr &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) ioCreateWatch_ (channel & condition)
     fun keyFileErrorQuark () = (I ---> GLibQuark.FFI.fromVal) keyFileErrorQuark_ ()
     fun listPopAllocator () = (I ---> I) listPopAllocator_ ()
     fun listenv () = (I ---> Utf8CVector.FFI.fromPtr 2) listenv_ ()
-    fun logRemoveHandler logDomain handlerId = (Utf8.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
+    fun logRemoveHandler (logDomain, handlerId) = (Utf8.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
     fun logSetAlwaysFatal fatalMask = (GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetAlwaysFatal_ fatalMask
-    fun logSetFatalMask logDomain fatalMask = (Utf8.FFI.withPtr &&&> GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetFatalMask_ (logDomain & fatalMask)
+    fun logSetFatalMask (logDomain, fatalMask) = (Utf8.FFI.withPtr &&&> GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetFatalMask_ (logDomain & fatalMask)
     fun mainContextDefault () = (I ---> GLibMainContextRecord.FFI.fromPtr false) mainContextDefault_ ()
     fun mainContextGetThreadDefault () = (I ---> GLibMainContextRecord.FFI.fromPtr false) mainContextGetThreadDefault_ ()
     fun mainCurrentSource () = (I ---> GLibSourceRecord.FFI.fromPtr false) mainCurrentSource_ ()
     fun mainDepth () = (I ---> GInt.FFI.fromVal) mainDepth_ ()
     fun markupErrorQuark () = (I ---> GLibQuark.FFI.fromVal) markupErrorQuark_ ()
-    fun markupEscapeText text length = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) markupEscapeText_ (text & length)
+    fun markupEscapeText (text, length) = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) markupEscapeText_ (text & length)
     fun memChunkInfo () = (I ---> I) memChunkInfo_ ()
     fun memIsSystemMalloc () = (I ---> GBool.FFI.fromVal) memIsSystemMalloc_ ()
     fun memProfile () = (I ---> I) memProfile_ ()
     fun memSetVtable vtable = (GLibMemVTableRecord.FFI.withPtr ---> I) memSetVtable_ vtable
-    fun mkdirWithParents pathname mode = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) mkdirWithParents_ (pathname & mode)
+    fun mkdirWithParents (pathname, mode) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) mkdirWithParents_ (pathname & mode)
     fun mkdtemp tmpl = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) mkdtemp_ tmpl
-    fun mkdtempFull tmpl mode = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) mkdtempFull_ (tmpl & mode)
+    fun mkdtempFull (tmpl, mode) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) mkdtempFull_ (tmpl & mode)
     fun mkstemp tmpl = (Utf8.FFI.withPtr ---> GInt.FFI.fromVal) mkstemp_ tmpl
-    fun mkstempFull tmpl flags mode =
+    fun mkstempFull
+      (
+        tmpl,
+        flags,
+        mode
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GInt.FFI.withVal
@@ -2958,7 +3079,13 @@ structure GLib : G_LIB =
     fun pathGetDirname fileName = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) pathGetDirname_ fileName
     fun pathIsAbsolute fileName = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) pathIsAbsolute_ fileName
     fun pathSkipRoot fileName = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) pathSkipRoot_ fileName
-    fun patternMatch pspec stringLength string stringReversed =
+    fun patternMatch
+      (
+        pspec,
+        stringLength,
+        string,
+        stringReversed
+      ) =
       (
         GLibPatternSpecRecord.FFI.withPtr
          &&&> GUInt.FFI.withVal
@@ -2973,9 +3100,14 @@ structure GLib : G_LIB =
            & string
            & stringReversed
         )
-    fun patternMatchSimple pattern string = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) patternMatchSimple_ (pattern & string)
-    fun patternMatchString pspec string = (GLibPatternSpecRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) patternMatchString_ (pspec & string)
-    fun poll fds nfds timeout =
+    fun patternMatchSimple (pattern, string) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) patternMatchSimple_ (pattern & string)
+    fun patternMatchString (pspec, string) = (GLibPatternSpecRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) patternMatchString_ (pspec & string)
+    fun poll
+      (
+        fds,
+        nfds,
+        timeout
+      ) =
       (
         GLibPollFDRecord.FFI.withPtr
          &&&> GUInt.FFI.withVal
@@ -2993,9 +3125,9 @@ structure GLib : G_LIB =
     fun quarkToString quark = (GLibQuark.FFI.withVal ---> Utf8.FFI.fromPtr 0) quarkToString_ quark
     fun quarkTryString string = (Utf8.FFI.withOptPtr ---> GLibQuark.FFI.fromVal) quarkTryString_ string
     fun randomDouble () = (I ---> GDouble.FFI.fromVal) randomDouble_ ()
-    fun randomDoubleRange begin end' = (GDouble.FFI.withVal &&&> GDouble.FFI.withVal ---> GDouble.FFI.fromVal) randomDoubleRange_ (begin & end')
+    fun randomDoubleRange (begin, end') = (GDouble.FFI.withVal &&&> GDouble.FFI.withVal ---> GDouble.FFI.fromVal) randomDoubleRange_ (begin & end')
     fun randomInt () = (I ---> GUInt32.FFI.fromVal) randomInt_ ()
-    fun randomIntRange begin end' = (GInt32.FFI.withVal &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) randomIntRange_ (begin & end')
+    fun randomIntRange (begin, end') = (GInt32.FFI.withVal &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) randomIntRange_ (begin & end')
     fun randomSetSeed seed = (GUInt32.FFI.withVal ---> I) randomSetSeed_ seed
     fun regexCheckReplacement replacement =
       let
@@ -3016,8 +3148,14 @@ structure GLib : G_LIB =
         if retVal then SOME hasReferences else NONE
       end
     fun regexErrorQuark () = (I ---> GLibQuark.FFI.fromVal) regexErrorQuark_ ()
-    fun regexEscapeNul string length = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) regexEscapeNul_ (string & length)
-    fun regexMatchSimple pattern string compileOptions matchOptions =
+    fun regexEscapeNul (string, length) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) regexEscapeNul_ (string & length)
+    fun regexMatchSimple
+      (
+        pattern,
+        string,
+        compileOptions,
+        matchOptions
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -3033,7 +3171,12 @@ structure GLib : G_LIB =
            & matchOptions
         )
     fun reloadUserSpecialDirsCache () = (I ---> I) reloadUserSpecialDirsCache_ ()
-    fun returnIfFailWarning logDomain prettyFunction expression =
+    fun returnIfFailWarning
+      (
+        logDomain,
+        prettyFunction,
+        expression
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -3047,8 +3190,13 @@ structure GLib : G_LIB =
            & expression
         )
     fun rmdir filename = (Utf8.FFI.withPtr ---> GInt.FFI.fromVal) rmdir_ filename
-    fun sequenceMove src dest = (GLibSequenceIterRecord.FFI.withPtr &&&> GLibSequenceIterRecord.FFI.withPtr ---> I) sequenceMove_ (src & dest)
-    fun sequenceMoveRange dest begin end' =
+    fun sequenceMove (src, dest) = (GLibSequenceIterRecord.FFI.withPtr &&&> GLibSequenceIterRecord.FFI.withPtr ---> I) sequenceMove_ (src & dest)
+    fun sequenceMoveRange
+      (
+        dest,
+        begin,
+        end'
+      ) =
       (
         GLibSequenceIterRecord.FFI.withPtr
          &&&> GLibSequenceIterRecord.FFI.withPtr
@@ -3062,11 +3210,16 @@ structure GLib : G_LIB =
            & end'
         )
     fun sequenceRemove iter = (GLibSequenceIterRecord.FFI.withPtr ---> I) sequenceRemove_ iter
-    fun sequenceRemoveRange begin end' = (GLibSequenceIterRecord.FFI.withPtr &&&> GLibSequenceIterRecord.FFI.withPtr ---> I) sequenceRemoveRange_ (begin & end')
-    fun sequenceSwap a b = (GLibSequenceIterRecord.FFI.withPtr &&&> GLibSequenceIterRecord.FFI.withPtr ---> I) sequenceSwap_ (a & b)
+    fun sequenceRemoveRange (begin, end') = (GLibSequenceIterRecord.FFI.withPtr &&&> GLibSequenceIterRecord.FFI.withPtr ---> I) sequenceRemoveRange_ (begin & end')
+    fun sequenceSwap (a, b) = (GLibSequenceIterRecord.FFI.withPtr &&&> GLibSequenceIterRecord.FFI.withPtr ---> I) sequenceSwap_ (a & b)
     fun setApplicationName applicationName = (Utf8.FFI.withPtr ---> I) setApplicationName_ applicationName
     fun setPrgname prgname = (Utf8.FFI.withPtr ---> I) setPrgname_ prgname
-    fun setenv variable value overwrite =
+    fun setenv
+      (
+        variable,
+        value,
+        overwrite
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -3107,17 +3260,22 @@ structure GLib : G_LIB =
     fun shellQuote unquotedString = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) shellQuote_ unquotedString
     fun shellUnquote quotedString = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) shellUnquote_ (quotedString & [])
     fun sliceGetConfig ckey = (GLibSliceConfig.FFI.withVal ---> GInt64.FFI.fromVal) sliceGetConfig_ ckey
-    fun sliceSetConfig ckey value = (GLibSliceConfig.FFI.withVal &&&> GInt64.FFI.withVal ---> I) sliceSetConfig_ (ckey & value)
+    fun sliceSetConfig (ckey, value) = (GLibSliceConfig.FFI.withVal &&&> GInt64.FFI.withVal ---> I) sliceSetConfig_ (ckey & value)
     fun sourceRemove tag = (GUInt.FFI.withVal ---> GBool.FFI.fromVal) sourceRemove_ tag
-    fun sourceSetNameById tag name = (GUInt.FFI.withVal &&&> Utf8.FFI.withPtr ---> I) sourceSetNameById_ (tag & name)
+    fun sourceSetNameById (tag, name) = (GUInt.FFI.withVal &&&> Utf8.FFI.withPtr ---> I) sourceSetNameById_ (tag & name)
     fun spacedPrimesClosest num = (GUInt.FFI.withVal ---> GUInt.FFI.fromVal) spacedPrimesClosest_ num
     fun spawnClosePid pid = (GLibPid.FFI.withVal ---> I) spawnClosePid_ pid
     fun spawnCommandLineAsync commandLine = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) spawnCommandLineAsync_ (commandLine & [])
     fun spawnErrorQuark () = (I ---> GLibQuark.FFI.fromVal) spawnErrorQuark_ ()
-    fun stpcpy dest src = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) stpcpy_ (dest & src)
-    fun strHasPrefix str prefix = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) strHasPrefix_ (str & prefix)
-    fun strHasSuffix str suffix = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) strHasSuffix_ (str & suffix)
-    fun strcanon string validChars substitutor =
+    fun stpcpy (dest, src) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) stpcpy_ (dest & src)
+    fun strHasPrefix (str, prefix) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) strHasPrefix_ (str & prefix)
+    fun strHasSuffix (str, suffix) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) strHasSuffix_ (str & suffix)
+    fun strcanon
+      (
+        string,
+        validChars,
+        substitutor
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -3130,12 +3288,17 @@ structure GLib : G_LIB =
            & validChars
            & substitutor
         )
-    fun strcasecmp s1 s2 = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) strcasecmp_ (s1 & s2)
+    fun strcasecmp (s1, s2) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) strcasecmp_ (s1 & s2)
     fun strchomp string = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) strchomp_ string
     fun strchug string = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) strchug_ string
-    fun strcmp0 str1 str2 = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) strcmp0_ (str1 & str2)
+    fun strcmp0 (str1, str2) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) strcmp0_ (str1 & str2)
     fun strcompress source = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) strcompress_ source
-    fun strdelimit string delimiters newDelimiter =
+    fun strdelimit
+      (
+        string,
+        delimiters,
+        newDelimiter
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -3151,14 +3314,19 @@ structure GLib : G_LIB =
     fun strdown string = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) strdown_ string
     fun strdup str = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) strdup_ str
     fun strerror errnum = (GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) strerror_ errnum
-    fun strescape source exceptions = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) strescape_ (source & exceptions)
+    fun strescape (source, exceptions) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) strescape_ (source & exceptions)
     fun strfreev strArray = (Utf8.FFI.withPtr ---> I) strfreev_ strArray
     fun stringNew init = (Utf8.FFI.withPtr ---> GLibStringRecord.FFI.fromPtr true) stringNew_ init
-    fun stringNewLen init len = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> GLibStringRecord.FFI.fromPtr true) stringNewLen_ (init & len)
+    fun stringNewLen (init, len) = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> GLibStringRecord.FFI.fromPtr true) stringNewLen_ (init & len)
     fun stringSizedNew dflSize = (GSize.FFI.withVal ---> GLibStringRecord.FFI.fromPtr true) stringSizedNew_ dflSize
-    fun stripContext msgid msgval = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) stripContext_ (msgid & msgval)
-    fun strjoinv separator strArray = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) strjoinv_ (separator & strArray)
-    fun strlcat dest src destSize =
+    fun stripContext (msgid, msgval) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) stripContext_ (msgid & msgval)
+    fun strjoinv (separator, strArray) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) strjoinv_ (separator & strArray)
+    fun strlcat
+      (
+        dest,
+        src,
+        destSize
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -3171,7 +3339,12 @@ structure GLib : G_LIB =
            & src
            & destSize
         )
-    fun strlcpy dest src destSize =
+    fun strlcpy
+      (
+        dest,
+        src,
+        destSize
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -3184,7 +3357,12 @@ structure GLib : G_LIB =
            & src
            & destSize
         )
-    fun strncasecmp s1 s2 n =
+    fun strncasecmp
+      (
+        s1,
+        s2,
+        n
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -3197,11 +3375,16 @@ structure GLib : G_LIB =
            & s2
            & n
         )
-    fun strndup str n = (Utf8.FFI.withPtr &&&> GSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) strndup_ (str & n)
-    fun strnfill length fillChar = (GSize.FFI.withVal &&&> GChar.FFI.withVal ---> Utf8.FFI.fromPtr 1) strnfill_ (length & fillChar)
+    fun strndup (str, n) = (Utf8.FFI.withPtr &&&> GSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) strndup_ (str & n)
+    fun strnfill (length, fillChar) = (GSize.FFI.withVal &&&> GChar.FFI.withVal ---> Utf8.FFI.fromPtr 1) strnfill_ (length & fillChar)
     fun strreverse string = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) strreverse_ string
-    fun strrstr haystack needle = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) strrstr_ (haystack & needle)
-    fun strrstrLen haystack haystackLen needle =
+    fun strrstr (haystack, needle) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) strrstr_ (haystack & needle)
+    fun strrstrLen
+      (
+        haystack,
+        haystackLen,
+        needle
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GSSize.FFI.withVal
@@ -3215,7 +3398,12 @@ structure GLib : G_LIB =
            & needle
         )
     fun strsignal signum = (GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) strsignal_ signum
-    fun strstrLen haystack haystackLen needle =
+    fun strstrLen
+      (
+        haystack,
+        haystackLen,
+        needle
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GSSize.FFI.withVal
@@ -3228,7 +3416,7 @@ structure GLib : G_LIB =
            & haystackLen
            & needle
         )
-    fun strtod nptr endptr = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GDouble.FFI.fromVal) strtod_ (nptr & endptr)
+    fun strtod (nptr, endptr) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GDouble.FFI.fromVal) strtod_ (nptr & endptr)
     fun strup string = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) strup_ string
     fun strvLength strArray = (Utf8.FFI.withPtr ---> GUInt.FFI.fromVal) strvLength_ strArray
     fun testBug bugUriSnippet = (Utf8.FFI.withPtr ---> I) testBug_ bugUriSnippet
@@ -3236,15 +3424,23 @@ structure GLib : G_LIB =
     fun testFail () = (I ---> I) testFail_ ()
     fun testLogTypeName logType = (GLibTestLogType.FFI.withVal ---> Utf8.FFI.fromPtr 0) testLogTypeName_ logType
     fun testRandDouble () = (I ---> GDouble.FFI.fromVal) testRandDouble_ ()
-    fun testRandDoubleRange rangeStart rangeEnd = (GDouble.FFI.withVal &&&> GDouble.FFI.withVal ---> GDouble.FFI.fromVal) testRandDoubleRange_ (rangeStart & rangeEnd)
+    fun testRandDoubleRange (rangeStart, rangeEnd) = (GDouble.FFI.withVal &&&> GDouble.FFI.withVal ---> GDouble.FFI.fromVal) testRandDoubleRange_ (rangeStart & rangeEnd)
     fun testRandInt () = (I ---> GInt32.FFI.fromVal) testRandInt_ ()
-    fun testRandIntRange begin end' = (GInt32.FFI.withVal &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) testRandIntRange_ (begin & end')
+    fun testRandIntRange (begin, end') = (GInt32.FFI.withVal &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) testRandIntRange_ (begin & end')
     fun testRun () = (I ---> GInt.FFI.fromVal) testRun_ ()
     fun testRunSuite suite = (GLibTestSuiteRecord.FFI.withPtr ---> GInt.FFI.fromVal) testRunSuite_ suite
     fun testTimerElapsed () = (I ---> GDouble.FFI.fromVal) testTimerElapsed_ ()
     fun testTimerLast () = (I ---> GDouble.FFI.fromVal) testTimerLast_ ()
     fun testTimerStart () = (I ---> I) testTimerStart_ ()
-    fun testTrapAssertions domain file line func assertionFlags pattern =
+    fun testTrapAssertions
+      (
+        domain,
+        file,
+        line,
+        func,
+        assertionFlags,
+        pattern
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -3263,7 +3459,7 @@ structure GLib : G_LIB =
            & assertionFlags
            & pattern
         )
-    fun testTrapFork usecTimeout testTrapFlags = (GUInt64.FFI.withVal &&&> GLibTestTrapFlags.FFI.withVal ---> GBool.FFI.fromVal) testTrapFork_ (usecTimeout & testTrapFlags)
+    fun testTrapFork (usecTimeout, testTrapFlags) = (GUInt64.FFI.withVal &&&> GLibTestTrapFlags.FFI.withVal ---> GBool.FFI.fromVal) testTrapFork_ (usecTimeout & testTrapFlags)
     fun testTrapHasPassed () = (I ---> GBool.FFI.fromVal) testTrapHasPassed_ ()
     fun testTrapReachedTimeout () = (I ---> GBool.FFI.fromVal) testTrapReachedTimeout_ ()
     fun threadErrorQuark () = (I ---> GLibQuark.FFI.fromVal) threadErrorQuark_ ()
@@ -3276,7 +3472,7 @@ structure GLib : G_LIB =
     fun threadPoolSetMaxIdleTime interval = (GUInt.FFI.withVal ---> I) threadPoolSetMaxIdleTime_ interval
     fun threadPoolSetMaxUnusedThreads maxThreads = (GInt.FFI.withVal ---> I) threadPoolSetMaxUnusedThreads_ maxThreads
     fun threadPoolStopUnusedThreads () = (I ---> I) threadPoolStopUnusedThreads_ ()
-    fun timeValFromIso8601 isoDate time = (Utf8.FFI.withPtr &&&> GLibTimeValRecord.FFI.withPtr ---> GBool.FFI.fromVal) timeValFromIso8601_ (isoDate & time)
+    fun timeValFromIso8601 (isoDate, time) = (Utf8.FFI.withPtr &&&> GLibTimeValRecord.FFI.withPtr ---> GBool.FFI.fromVal) timeValFromIso8601_ (isoDate & time)
     fun timeoutSourceNew interval = (GUInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) timeoutSourceNew_ interval
     fun timeoutSourceNewSeconds interval = (GUInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) timeoutSourceNewSeconds_ interval
     fun trashStackHeight stackP = (GLibTrashStackRecord.FFI.withPtr ---> GUInt.FFI.fromVal) trashStackHeight_ stackP
@@ -3301,7 +3497,7 @@ structure GLib : G_LIB =
     fun unicharIswideCjk c = (GChar.FFI.withVal ---> GBool.FFI.fromVal) unicharIswideCjk_ c
     fun unicharIsxdigit c = (GChar.FFI.withVal ---> GBool.FFI.fromVal) unicharIsxdigit_ c
     fun unicharIszerowidth c = (GChar.FFI.withVal ---> GBool.FFI.fromVal) unicharIszerowidth_ c
-    fun unicharToUtf8 c outbuf = (GChar.FFI.withVal &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) unicharToUtf8_ (c & outbuf)
+    fun unicharToUtf8 (c, outbuf) = (GChar.FFI.withVal &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) unicharToUtf8_ (c & outbuf)
     fun unicharTolower c = (GChar.FFI.withVal ---> GChar.FFI.fromVal) unicharTolower_ c
     fun unicharTotitle c = (GChar.FFI.withVal ---> GChar.FFI.fromVal) unicharTotitle_ c
     fun unicharToupper c = (GChar.FFI.withVal ---> GChar.FFI.fromVal) unicharToupper_ c
@@ -3312,7 +3508,12 @@ structure GLib : G_LIB =
     fun unicodeScriptToIso15924 script = (GLibUnicodeScript.FFI.withVal ---> GUInt32.FFI.fromVal) unicodeScriptToIso15924_ script
     fun unlink filename = (Utf8.FFI.withPtr ---> GInt.FFI.fromVal) unlink_ filename
     fun unsetenv variable = (Utf8.FFI.withPtr ---> I) unsetenv_ variable
-    fun uriEscapeString unescaped reservedCharsAllowed allowUtf8 =
+    fun uriEscapeString
+      (
+        unescaped,
+        reservedCharsAllowed,
+        allowUtf8
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -3326,7 +3527,12 @@ structure GLib : G_LIB =
            & allowUtf8
         )
     fun uriParseScheme uri = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) uriParseScheme_ uri
-    fun uriUnescapeSegment escapedString escapedStringEnd illegalCharacters =
+    fun uriUnescapeSegment
+      (
+        escapedString,
+        escapedStringEnd,
+        illegalCharacters
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -3339,17 +3545,22 @@ structure GLib : G_LIB =
            & escapedStringEnd
            & illegalCharacters
         )
-    fun uriUnescapeString escapedString illegalCharacters = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) uriUnescapeString_ (escapedString & illegalCharacters)
+    fun uriUnescapeString (escapedString, illegalCharacters) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) uriUnescapeString_ (escapedString & illegalCharacters)
     fun usleep microseconds = (GULong.FFI.withVal ---> I) usleep_ microseconds
-    fun utf8Casefold str len = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) utf8Casefold_ (str & len)
-    fun utf8Collate str1 str2 = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) utf8Collate_ (str1 & str2)
-    fun utf8CollateKey str len = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) utf8CollateKey_ (str & len)
-    fun utf8CollateKeyForFilename str len = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) utf8CollateKeyForFilename_ (str & len)
-    fun utf8FindNextChar p end' = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) utf8FindNextChar_ (p & end')
-    fun utf8FindPrevChar str p = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) utf8FindPrevChar_ (str & p)
+    fun utf8Casefold (str, len) = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) utf8Casefold_ (str & len)
+    fun utf8Collate (str1, str2) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) utf8Collate_ (str1 & str2)
+    fun utf8CollateKey (str, len) = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) utf8CollateKey_ (str & len)
+    fun utf8CollateKeyForFilename (str, len) = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) utf8CollateKeyForFilename_ (str & len)
+    fun utf8FindNextChar (p, end') = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) utf8FindNextChar_ (p & end')
+    fun utf8FindPrevChar (str, p) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) utf8FindPrevChar_ (str & p)
     fun utf8GetChar p = (Utf8.FFI.withPtr ---> GChar.FFI.fromVal) utf8GetChar_ p
-    fun utf8GetCharValidated p maxLen = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> GChar.FFI.fromVal) utf8GetCharValidated_ (p & maxLen)
-    fun utf8Normalize str len mode =
+    fun utf8GetCharValidated (p, maxLen) = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> GChar.FFI.fromVal) utf8GetCharValidated_ (p & maxLen)
+    fun utf8Normalize
+      (
+        str,
+        len,
+        mode
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GSSize.FFI.withVal
@@ -3362,10 +3573,15 @@ structure GLib : G_LIB =
            & len
            & mode
         )
-    fun utf8OffsetToPointer str offset = (Utf8.FFI.withPtr &&&> GLong.FFI.withVal ---> Utf8.FFI.fromPtr 1) utf8OffsetToPointer_ (str & offset)
-    fun utf8PointerToOffset str pos = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLong.FFI.fromVal) utf8PointerToOffset_ (str & pos)
+    fun utf8OffsetToPointer (str, offset) = (Utf8.FFI.withPtr &&&> GLong.FFI.withVal ---> Utf8.FFI.fromPtr 1) utf8OffsetToPointer_ (str & offset)
+    fun utf8PointerToOffset (str, pos) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLong.FFI.fromVal) utf8PointerToOffset_ (str & pos)
     fun utf8PrevChar p = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) utf8PrevChar_ p
-    fun utf8Strchr p len c =
+    fun utf8Strchr
+      (
+        p,
+        len,
+        c
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GSSize.FFI.withVal
@@ -3378,9 +3594,14 @@ structure GLib : G_LIB =
            & len
            & c
         )
-    fun utf8Strdown str len = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) utf8Strdown_ (str & len)
-    fun utf8Strlen p max = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> GLong.FFI.fromVal) utf8Strlen_ (p & max)
-    fun utf8Strncpy dest src n =
+    fun utf8Strdown (str, len) = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) utf8Strdown_ (str & len)
+    fun utf8Strlen (p, max) = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> GLong.FFI.fromVal) utf8Strlen_ (p & max)
+    fun utf8Strncpy
+      (
+        dest,
+        src,
+        n
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -3393,7 +3614,12 @@ structure GLib : G_LIB =
            & src
            & n
         )
-    fun utf8Strrchr p len c =
+    fun utf8Strrchr
+      (
+        p,
+        len,
+        c
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GSSize.FFI.withVal
@@ -3406,9 +3632,14 @@ structure GLib : G_LIB =
            & len
            & c
         )
-    fun utf8Strreverse str len = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) utf8Strreverse_ (str & len)
-    fun utf8Strup str len = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) utf8Strup_ (str & len)
-    fun utf8Substring str startPos endPos =
+    fun utf8Strreverse (str, len) = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) utf8Strreverse_ (str & len)
+    fun utf8Strup (str, len) = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) utf8Strup_ (str & len)
+    fun utf8Substring
+      (
+        str,
+        startPos,
+        endPos
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GLong.FFI.withVal
@@ -3421,7 +3652,7 @@ structure GLib : G_LIB =
            & startPos
            & endPos
         )
-    fun utf8Validate str maxLen =
+    fun utf8Validate (str, maxLen) =
       let
         val end' & retVal =
           (
@@ -3442,7 +3673,13 @@ structure GLib : G_LIB =
     fun variantGetType value = (GLibVariantRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) variantGetType_ value
     fun variantIsObjectPath string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) variantIsObjectPath_ string
     fun variantIsSignature string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) variantIsSignature_ string
-    fun variantParse type' text limit endptr =
+    fun variantParse
+      (
+        type',
+        text,
+        limit,
+        endptr
+      ) =
       (
         GLibVariantTypeRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -3461,7 +3698,7 @@ structure GLib : G_LIB =
         )
     fun variantParserGetErrorQuark () = (I ---> GLibQuark.FFI.fromVal) variantParserGetErrorQuark_ ()
     fun variantTypeStringIsValid typeString = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) variantTypeStringIsValid_ typeString
-    fun variantTypeStringScan string limit =
+    fun variantTypeStringScan (string, limit) =
       let
         val endptr & retVal =
           (
@@ -3479,7 +3716,14 @@ structure GLib : G_LIB =
       in
         if retVal then SOME endptr else NONE
       end
-    fun warnMessage domain file line func warnexpr =
+    fun warnMessage
+      (
+        domain,
+        file,
+        line,
+        func,
+        warnexpr
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr

@@ -11,8 +11,7 @@ signature G_OBJECT_OBJECT =
     val freezeNotify : 'a class -> unit
     val getProperty :
       'a class
-       -> string
-       -> value_t
+       -> string * value_t
        -> unit
     val isFloating : 'a class -> bool
     val notify :
@@ -26,8 +25,7 @@ signature G_OBJECT_OBJECT =
     val runDispose : 'a class -> unit
     val setProperty :
       'a class
-       -> string
-       -> value_t
+       -> string * value_t
        -> unit
     val thawNotify : 'a class -> unit
     val watchClosure :

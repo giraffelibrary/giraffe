@@ -9,13 +9,12 @@ signature GIO_SEEKABLE =
     val seek :
       'a class
        -> LargeInt.int
-       -> GLib.SeekType.t
-       -> 'b cancellable_class option
+           * GLib.SeekType.t
+           * 'b cancellable_class option
        -> bool
     val tell : 'a class -> LargeInt.int
     val truncate :
       'a class
-       -> LargeInt.int
-       -> 'b cancellable_class option
+       -> LargeInt.int * 'b cancellable_class option
        -> bool
   end

@@ -28,8 +28,7 @@ signature GIO_MOUNT =
        -> string list
     val guessContentTypeSync :
       'a class
-       -> bool
-       -> 'b cancellable_class option
+       -> bool * 'b cancellable_class option
        -> string list
     val isShadowed : 'a class -> bool
     val remountFinish :

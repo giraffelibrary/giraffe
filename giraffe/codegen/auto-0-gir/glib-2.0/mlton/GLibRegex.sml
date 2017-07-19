@@ -289,7 +289,12 @@ structure GLibRegex :>
     type regex_match_flags_t = GLibRegexMatchFlags.t
     type regex_compile_flags_t = GLibRegexCompileFlags.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new pattern compileOptions matchOptions =
+    fun new
+      (
+        pattern,
+        compileOptions,
+        matchOptions
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> GLibRegexCompileFlags.FFI.withVal
@@ -310,7 +315,7 @@ structure GLibRegex :>
     fun getMaxBackref self = (GLibRegexRecord.FFI.withPtr ---> GInt.FFI.fromVal) getMaxBackref_ self
     fun getPattern self = (GLibRegexRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPattern_ self
     fun getStringNumber self name = (GLibRegexRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) getStringNumber_ (self & name)
-    fun match self string matchOptions =
+    fun match self (string, matchOptions) =
       let
         val matchInfo & retVal =
           (
@@ -330,7 +335,7 @@ structure GLibRegex :>
       in
         if retVal then SOME matchInfo else NONE
       end
-    fun matchAll self string matchOptions =
+    fun matchAll self (string, matchOptions) =
       let
         val matchInfo & retVal =
           (
@@ -350,7 +355,13 @@ structure GLibRegex :>
       in
         if retVal then SOME matchInfo else NONE
       end
-    fun matchAllFull self string startPosition matchOptions =
+    fun matchAllFull
+      self
+      (
+        string,
+        startPosition,
+        matchOptions
+      ) =
       let
         val stringLen = LargeInt.fromInt (Utf8CVectorN.length string)
         val matchInfo & retVal =
@@ -377,7 +388,13 @@ structure GLibRegex :>
       in
         if retVal then SOME matchInfo else NONE
       end
-    fun matchFull self string startPosition matchOptions =
+    fun matchFull
+      self
+      (
+        string,
+        startPosition,
+        matchOptions
+      ) =
       let
         val stringLen = LargeInt.fromInt (Utf8CVectorN.length string)
         val matchInfo & retVal =
@@ -404,7 +421,14 @@ structure GLibRegex :>
       in
         if retVal then SOME matchInfo else NONE
       end
-    fun replace self string startPosition replacement matchOptions =
+    fun replace
+      self
+      (
+        string,
+        startPosition,
+        replacement,
+        matchOptions
+      ) =
       let
         val stringLen = LargeInt.fromInt (Utf8CVectorN.length string)
         val retVal =
@@ -431,7 +455,14 @@ structure GLibRegex :>
       in
         retVal
       end
-    fun replaceLiteral self string startPosition replacement matchOptions =
+    fun replaceLiteral
+      self
+      (
+        string,
+        startPosition,
+        replacement,
+        matchOptions
+      ) =
       let
         val stringLen = LargeInt.fromInt (Utf8CVectorN.length string)
         val retVal =
@@ -476,8 +507,14 @@ structure GLibRegex :>
       in
         if retVal then SOME hasReferences else NONE
       end
-    fun escapeNul string length = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) escapeNul_ (string & length)
-    fun matchSimple pattern string compileOptions matchOptions =
+    fun escapeNul (string, length) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) escapeNul_ (string & length)
+    fun matchSimple
+      (
+        pattern,
+        string,
+        compileOptions,
+        matchOptions
+      ) =
       (
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr

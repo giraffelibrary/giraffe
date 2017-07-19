@@ -19,7 +19,7 @@ structure GLibError :>
     type t = GLibErrorRecord.t
     type quark_t = GLibQuark.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun matches self domain code =
+    fun matches self (domain, code) =
       (
         GLibErrorRecord.FFI.withPtr
          &&&> GLibQuark.FFI.withVal

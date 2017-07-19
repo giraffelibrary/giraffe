@@ -7,8 +7,8 @@ signature ATK_RELATION =
     val getType : unit -> GObject.Type.t
     val new :
       'a object_class
-       -> LargeInt.int
-       -> relation_type_t
+       * LargeInt.int
+       * relation_type_t
        -> base class
     val addTarget :
       'a class
