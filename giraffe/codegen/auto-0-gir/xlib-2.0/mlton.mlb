@@ -17,17 +17,22 @@ in
   XLIB_XID.sml
   XLIB_PIXMAP.sml
   XLIB.sml
-  mlton/XlibAtom.sml
-  mlton/XlibColormap.sml
-  mlton/XlibCursor.sml
-  mlton/XlibDrawable.sml
-  mlton/XlibKeyCode.sml
-  mlton/XlibKeySym.sml
-  mlton/XlibPicture.sml
-  mlton/XlibTime.sml
-  mlton/XlibVisualID.sml
-  mlton/XlibWindow.sml
-  mlton/XlibXid.sml
-  mlton/XlibPixmap.sml
-  mlton/Xlib.sml
+  ann
+    "allowFFI true"
+    "resolveScope topdec"
+  in
+    mlton/XlibAtom.sml
+    mlton/XlibColormap.sml
+    mlton/XlibCursor.sml
+    mlton/XlibDrawable.sml
+    mlton/XlibKeyCode.sml
+    mlton/XlibKeySym.sml
+    mlton/XlibPicture.sml
+    mlton/XlibTime.sml
+    mlton/XlibVisualID.sml
+    mlton/XlibWindow.sml
+    mlton/XlibXid.sml
+    mlton/XlibPixmap.sml
+    mlton/Xlib.sml
+  end
 end

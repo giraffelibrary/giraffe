@@ -15,11 +15,16 @@ in
   PANGO_CAIRO_FONT_MAP_CLASS.sml
   PANGO_CAIRO_FONT_MAP.sml
   PANGO_CAIRO.sml
-  mlton/PangoCairoFcFontMapClass.sml
-  mlton/PangoCairoFontClass.sml
-  mlton/PangoCairoFontMapClass.sml
-  mlton/PangoCairoFcFontMap.sml
-  mlton/PangoCairoFont.sml
-  mlton/PangoCairoFontMap.sml
-  mlton/PangoCairo.sml
+  ann
+    "allowFFI true"
+    "resolveScope topdec"
+  in
+    mlton/PangoCairoFcFontMapClass.sml
+    mlton/PangoCairoFontClass.sml
+    mlton/PangoCairoFontMapClass.sml
+    mlton/PangoCairoFcFontMap.sml
+    mlton/PangoCairoFont.sml
+    mlton/PangoCairoFontMap.sml
+    mlton/PangoCairo.sml
+  end
 end

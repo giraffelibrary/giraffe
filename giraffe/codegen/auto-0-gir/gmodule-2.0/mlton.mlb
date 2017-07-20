@@ -7,6 +7,11 @@ local
 in
   G_MODULE_MODULE_FLAGS.sml
   G_MODULE.sml
-  mlton/GModuleModuleFlags.sml
-  mlton/GModule.sml
+  ann
+    "allowFFI true"
+    "resolveScope topdec"
+  in
+    mlton/GModuleModuleFlags.sml
+    mlton/GModule.sml
+  end
 end

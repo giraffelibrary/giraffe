@@ -30,26 +30,31 @@ in
   GDK_PIXBUF_PIXDATA_DUMP_TYPE.sml
   GDK_PIXBUF_PIXDATA_TYPE.sml
   GDK_PIXBUF.sml
-  mlton/GdkPixbufColorspace.sml
-  mlton/GdkPixbufInterpType.sml
-  mlton/GdkPixbufPixbufClass.sml
-  mlton/GdkPixbufPixbufAlphaMode.sml
-  mlton/GdkPixbufPixbufAnimationClass.sml
-  mlton/GdkPixbufPixbufAnimationIterClass.sml
-  mlton/GdkPixbufPixbufError.sml
-  mlton/GdkPixbufPixbufFormatRecord.sml
-  mlton/GdkPixbufPixbufLoaderClass.sml
-  mlton/GdkPixbufPixbufRotation.sml
-  mlton/GdkPixbufPixdataDumpType.sml
-  mlton/GdkPixbufPixdataType.sml
-  mlton/GdkPixbufPixbuf.sml
-  mlton/GdkPixbufPixbufAnimation.sml
-  mlton/GdkPixbufPixbufAnimationIter.sml
-  mlton/GdkPixbufPixbufFormat.sml
-  mlton/GdkPixbufPixbufLoader.sml
-  mlton/GdkPixbufPixbufSimpleAnimClass.sml
-  mlton/GdkPixbufPixbufSimpleAnimIterClass.sml
-  mlton/GdkPixbufPixbufSimpleAnim.sml
-  mlton/GdkPixbufPixbufSimpleAnimIter.sml
-  mlton/GdkPixbuf.sml
+  ann
+    "allowFFI true"
+    "resolveScope topdec"
+  in
+    mlton/GdkPixbufColorspace.sml
+    mlton/GdkPixbufInterpType.sml
+    mlton/GdkPixbufPixbufClass.sml
+    mlton/GdkPixbufPixbufAlphaMode.sml
+    mlton/GdkPixbufPixbufAnimationClass.sml
+    mlton/GdkPixbufPixbufAnimationIterClass.sml
+    mlton/GdkPixbufPixbufError.sml
+    mlton/GdkPixbufPixbufFormatRecord.sml
+    mlton/GdkPixbufPixbufLoaderClass.sml
+    mlton/GdkPixbufPixbufRotation.sml
+    mlton/GdkPixbufPixdataDumpType.sml
+    mlton/GdkPixbufPixdataType.sml
+    mlton/GdkPixbufPixbuf.sml
+    mlton/GdkPixbufPixbufAnimation.sml
+    mlton/GdkPixbufPixbufAnimationIter.sml
+    mlton/GdkPixbufPixbufFormat.sml
+    mlton/GdkPixbufPixbufLoader.sml
+    mlton/GdkPixbufPixbufSimpleAnimClass.sml
+    mlton/GdkPixbufPixbufSimpleAnimIterClass.sml
+    mlton/GdkPixbufPixbufSimpleAnim.sml
+    mlton/GdkPixbufPixbufSimpleAnimIter.sml
+    mlton/GdkPixbuf.sml
+  end
 end

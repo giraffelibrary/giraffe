@@ -39,38 +39,43 @@ in
   G_I_REPOSITORY_V_FUNC_INFO_RECORD.sml
   G_I_REPOSITORY_VALUE_INFO_RECORD.sml
   G_I_REPOSITORY.sml
-  mlton/GIRepositoryBaseInfoRecord.sml
-  mlton/GIRepositoryTypelibRecord.sml
-  mlton/GIRepositoryArrayType.sml
-  mlton/GIRepositoryDirection.sml
-  mlton/GIRepositoryFieldInfoFlags.sml
-  mlton/GIRepositoryFunctionInfoFlags.sml
-  mlton/GIRepositoryInfoType.sml
-  mlton/GIRepositoryRepositoryClass.sml
-  mlton/GIRepositoryRepositoryError.sml
-  mlton/GIRepositoryRepositoryLoadFlags.sml
-  mlton/GIRepositoryScopeType.sml
-  mlton/GIRepositoryTransfer.sml
-  mlton/GIRepositoryTypeTag.sml
-  mlton/GIRepositoryVFuncInfoFlags.sml
-  mlton/GIRepositoryNvokeError.sml
-  mlton/GIRepositoryArgInfoRecord.sml
-  mlton/GIRepositoryCallableInfoRecord.sml
-  mlton/GIRepositoryCallbackInfoRecord.sml
-  mlton/GIRepositoryConstantInfoRecord.sml
-  mlton/GIRepositoryEnumInfoRecord.sml
-  mlton/GIRepositoryFieldInfoRecord.sml
-  mlton/GIRepositoryFunctionInfoRecord.sml
-  mlton/GIRepositoryInterfaceInfoRecord.sml
-  mlton/GIRepositoryObjectInfoRecord.sml
-  mlton/GIRepositoryPropertyInfoRecord.sml
-  mlton/GIRepositoryRegisteredTypeInfoRecord.sml
-  mlton/GIRepositorySignalInfoRecord.sml
-  mlton/GIRepositoryStructInfoRecord.sml
-  mlton/GIRepositoryTypeInfoRecord.sml
-  mlton/GIRepositoryUnionInfoRecord.sml
-  mlton/GIRepositoryVFuncInfoRecord.sml
-  mlton/GIRepositoryValueInfoRecord.sml
-  mlton/GIRepositoryRepository.sml
-  mlton/GIRepository.sml
+  ann
+    "allowFFI true"
+    "resolveScope topdec"
+  in
+    mlton/GIRepositoryBaseInfoRecord.sml
+    mlton/GIRepositoryTypelibRecord.sml
+    mlton/GIRepositoryArrayType.sml
+    mlton/GIRepositoryDirection.sml
+    mlton/GIRepositoryFieldInfoFlags.sml
+    mlton/GIRepositoryFunctionInfoFlags.sml
+    mlton/GIRepositoryInfoType.sml
+    mlton/GIRepositoryRepositoryClass.sml
+    mlton/GIRepositoryRepositoryError.sml
+    mlton/GIRepositoryRepositoryLoadFlags.sml
+    mlton/GIRepositoryScopeType.sml
+    mlton/GIRepositoryTransfer.sml
+    mlton/GIRepositoryTypeTag.sml
+    mlton/GIRepositoryVFuncInfoFlags.sml
+    mlton/GIRepositoryNvokeError.sml
+    mlton/GIRepositoryArgInfoRecord.sml
+    mlton/GIRepositoryCallableInfoRecord.sml
+    mlton/GIRepositoryCallbackInfoRecord.sml
+    mlton/GIRepositoryConstantInfoRecord.sml
+    mlton/GIRepositoryEnumInfoRecord.sml
+    mlton/GIRepositoryFieldInfoRecord.sml
+    mlton/GIRepositoryFunctionInfoRecord.sml
+    mlton/GIRepositoryInterfaceInfoRecord.sml
+    mlton/GIRepositoryObjectInfoRecord.sml
+    mlton/GIRepositoryPropertyInfoRecord.sml
+    mlton/GIRepositoryRegisteredTypeInfoRecord.sml
+    mlton/GIRepositorySignalInfoRecord.sml
+    mlton/GIRepositoryStructInfoRecord.sml
+    mlton/GIRepositoryTypeInfoRecord.sml
+    mlton/GIRepositoryUnionInfoRecord.sml
+    mlton/GIRepositoryVFuncInfoRecord.sml
+    mlton/GIRepositoryValueInfoRecord.sml
+    mlton/GIRepositoryRepository.sml
+    mlton/GIRepository.sml
+  end
 end

@@ -9,7 +9,12 @@ in
   ATK_IMPLEMENTOR_IFACE_CLASS.sml
   ATK_OBJECT_CLASS.sml
   ATK.sml
-  mlton/AtkImplementorIfaceClass.sml
-  mlton/AtkObjectClass.sml
-  mlton/Atk.sml
+  ann
+    "allowFFI true"
+    "resolveScope topdec"
+  in
+    mlton/AtkImplementorIfaceClass.sml
+    mlton/AtkObjectClass.sml
+    mlton/Atk.sml
+  end
 end

@@ -20,20 +20,25 @@ in
   CAIRO_RECTANGLE_INT_RECORD.sml
   CAIRO_RECTANGLE_INT.sml
   CAIRO.sml
-  mlton/CairoContextRecord.sml
-  mlton/CairoSurfaceRecord.sml
-  mlton/CairoPatternRecord.sml
-  mlton/CairoRegionRecord.sml
-  mlton/CairoContent.sml
-  mlton/CairoFontOptionsRecord.sml
-  mlton/CairoScaledFontRecord.sml
-  mlton/CairoRectangleIntRecord.sml
-  mlton/CairoContext.sml
-  mlton/CairoSurface.sml
-  mlton/CairoPattern.sml
-  mlton/CairoRegion.sml
-  mlton/CairoFontOptions.sml
-  mlton/CairoScaledFont.sml
-  mlton/CairoRectangleInt.sml
-  mlton/Cairo.sml
+  ann
+    "allowFFI true"
+    "resolveScope topdec"
+  in
+    mlton/CairoContextRecord.sml
+    mlton/CairoSurfaceRecord.sml
+    mlton/CairoPatternRecord.sml
+    mlton/CairoRegionRecord.sml
+    mlton/CairoContent.sml
+    mlton/CairoFontOptionsRecord.sml
+    mlton/CairoScaledFontRecord.sml
+    mlton/CairoRectangleIntRecord.sml
+    mlton/CairoContext.sml
+    mlton/CairoSurface.sml
+    mlton/CairoPattern.sml
+    mlton/CairoRegion.sml
+    mlton/CairoFontOptions.sml
+    mlton/CairoScaledFont.sml
+    mlton/CairoRectangleInt.sml
+    mlton/Cairo.sml
+  end
 end

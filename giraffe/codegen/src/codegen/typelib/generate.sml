@@ -150,8 +150,8 @@ fun mkNamespaceBasDec namespaceDep =
 fun fmtNamespaceBasisMLton namespaceDeps (revSigs, revStrs) : VTextTree.t =
   let
     val mkMLtonFile = mkProgramFile false
-    val basDecs'1 = revMap mkMLtonFile revStrs
-    val basDecs'2 = revMapAppend mkMLtonFile (revSigs, basDecs'1)
+    val sigBasDecs = revMap mkMLtonFile revSigs
+    val strBasDecs = revMap mkMLtonFile revStrs
 
     val namespaceDepBasDecs = revMap mkNamespaceBasDec namespaceDeps
     val localBasDecs = mltonBasDecs @ giraffeBasDecs @ namespaceDepBasDecs
@@ -166,7 +166,21 @@ fun fmtNamespaceBasisMLton namespaceDeps (revSigs, revStrs) : VTextTree.t =
       ),
       V.str "in",
       indent (
-        V.seq (map V.str basDecs'2)
+        V.seq [
+          V.seq (map V.str sigBasDecs),
+          V.str "ann",
+          indent (
+            V.seq [
+              V.str "\"allowFFI true\"",
+              V.str "\"resolveScope topdec\""
+            ]
+          ),
+          V.str "in",
+          indent (
+            V.seq (map V.str strBasDecs)
+          ),
+          V.str "end"
+        ]
       ),
       V.str "end"
     ]

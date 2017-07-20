@@ -22,21 +22,26 @@ in
   G_I_REPOSITORY_V_FUNC_INFO_FLAGS.sml
   G_I_REPOSITORY_NVOKE_ERROR.sml
   G_I_REPOSITORY.sml
-  mlton/GIRepositoryBaseInfoRecord.sml
-  mlton/GIRepositoryTypelibRecord.sml
-  mlton/GIRepositoryArrayType.sml
-  mlton/GIRepositoryDirection.sml
-  mlton/GIRepositoryFieldInfoFlags.sml
-  mlton/GIRepositoryFunctionInfoFlags.sml
-  mlton/GIRepositoryInfoType.sml
-  mlton/GIRepositoryRepositoryClass.sml
-  mlton/GIRepositoryRepositoryError.sml
-  mlton/GIRepositoryRepositoryLoadFlags.sml
-  mlton/GIRepositoryScopeType.sml
-  mlton/GIRepositoryTransfer.sml
-  mlton/GIRepositoryTypeTag.sml
-  mlton/GIRepositoryVFuncInfoFlags.sml
-  mlton/GIRepositoryNvokeError.sml
-  mlton/GIRepositoryRepository.sml
-  mlton/GIRepository.sml
+  ann
+    "allowFFI true"
+    "resolveScope topdec"
+  in
+    mlton/GIRepositoryBaseInfoRecord.sml
+    mlton/GIRepositoryTypelibRecord.sml
+    mlton/GIRepositoryArrayType.sml
+    mlton/GIRepositoryDirection.sml
+    mlton/GIRepositoryFieldInfoFlags.sml
+    mlton/GIRepositoryFunctionInfoFlags.sml
+    mlton/GIRepositoryInfoType.sml
+    mlton/GIRepositoryRepositoryClass.sml
+    mlton/GIRepositoryRepositoryError.sml
+    mlton/GIRepositoryRepositoryLoadFlags.sml
+    mlton/GIRepositoryScopeType.sml
+    mlton/GIRepositoryTransfer.sml
+    mlton/GIRepositoryTypeTag.sml
+    mlton/GIRepositoryVFuncInfoFlags.sml
+    mlton/GIRepositoryNvokeError.sml
+    mlton/GIRepositoryRepository.sml
+    mlton/GIRepository.sml
+  end
 end

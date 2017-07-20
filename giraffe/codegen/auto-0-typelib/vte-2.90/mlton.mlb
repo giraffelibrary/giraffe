@@ -27,16 +27,21 @@ in
   VTE_TERMINAL_ERASE_BINDING.sml
   VTE_TERMINAL_WRITE_FLAGS.sml
   VTE.sml
-  mlton/VtePtyClass.sml
-  mlton/VtePtyError.sml
-  mlton/VtePtyFlags.sml
-  mlton/VteTerminalClass.sml
-  mlton/VteTerminalAntiAlias.sml
-  mlton/VteTerminalCursorBlinkMode.sml
-  mlton/VteTerminalCursorShape.sml
-  mlton/VteTerminalEraseBinding.sml
-  mlton/VteTerminalWriteFlags.sml
-  mlton/VtePty.sml
-  mlton/VteTerminal.sml
-  mlton/Vte.sml
+  ann
+    "allowFFI true"
+    "resolveScope topdec"
+  in
+    mlton/VtePtyClass.sml
+    mlton/VtePtyError.sml
+    mlton/VtePtyFlags.sml
+    mlton/VteTerminalClass.sml
+    mlton/VteTerminalAntiAlias.sml
+    mlton/VteTerminalCursorBlinkMode.sml
+    mlton/VteTerminalCursorShape.sml
+    mlton/VteTerminalEraseBinding.sml
+    mlton/VteTerminalWriteFlags.sml
+    mlton/VtePty.sml
+    mlton/VteTerminal.sml
+    mlton/Vte.sml
+  end
 end
