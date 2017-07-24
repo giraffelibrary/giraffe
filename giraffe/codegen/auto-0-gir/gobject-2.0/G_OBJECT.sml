@@ -29,6 +29,9 @@ signature G_OBJECT =
       G_OBJECT_BINDING_FLAGS
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
         where type type_t = Type.t
+    structure ValueArrayRecord :
+      G_OBJECT_VALUE_ARRAY_RECORD
+        where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
     structure Closure :
       G_OBJECT_CLOSURE
         where type t = ClosureRecord.t
@@ -152,6 +155,11 @@ signature G_OBJECT =
       G_OBJECT_TYPE_PLUGIN_CLASS
         where type 'a object_class = 'a ObjectClass.class
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
+    structure ValueArray :
+      G_OBJECT_VALUE_ARRAY
+        where type t = ValueArrayRecord.t
+        where type type_t = Type.t
+        where type value_t = ValueRecord.t
     structure Binding :
       G_OBJECT_BINDING
         where type 'a class = 'a BindingClass.class

@@ -17,6 +17,7 @@ signature ATK =
     structure MiscClass : ATK_MISC_CLASS
     structure ObjectClass : ATK_OBJECT_CLASS
     structure ObjectFactoryClass : ATK_OBJECT_FACTORY_CLASS
+    structure RectangleRecord : ATK_RECTANGLE_RECORD
     structure RegistryClass : ATK_REGISTRY_CLASS
     structure RelationClass : ATK_RELATION_CLASS
     structure RelationSetClass : ATK_RELATION_SET_CLASS
@@ -31,12 +32,21 @@ signature ATK =
     structure TextAttribute : ATK_TEXT_ATTRIBUTE
     structure TextBoundary : ATK_TEXT_BOUNDARY
     structure TextClipType : ATK_TEXT_CLIP_TYPE
+    structure TextRangeRecord : ATK_TEXT_RANGE_RECORD
+    structure TextRectangleRecord : ATK_TEXT_RECTANGLE_RECORD
     structure UtilClass : ATK_UTIL_CLASS
     structure ValueClass : ATK_VALUE_CLASS
     structure WindowClass : ATK_WINDOW_CLASS
     structure Action :
       ATK_ACTION
         where type 'a class = 'a ActionClass.class
+    structure Component :
+      ATK_COMPONENT
+        where type 'a class = 'a ComponentClass.class
+        where type layer_t = Layer.t
+        where type 'a object_class = 'a ObjectClass.class
+        where type coord_type_t = CoordType.t
+        where type rectangle_t = RectangleRecord.t
     structure Document :
       ATK_DOCUMENT
         where type 'a class = 'a DocumentClass.class
@@ -89,6 +99,9 @@ signature ATK =
     structure PlugClass :
       ATK_PLUG_CLASS
         where type 'a object_class = 'a ObjectClass.class
+    structure Rectangle :
+      ATK_RECTANGLE
+        where type t = RectangleRecord.t
     structure Registry :
       ATK_REGISTRY
         where type 'a class = 'a RegistryClass.class
@@ -121,6 +134,19 @@ signature ATK =
       ATK_TABLE
         where type 'a class = 'a TableClass.class
         where type 'a object_class = 'a ObjectClass.class
+    structure Text :
+      ATK_TEXT
+        where type 'a class = 'a TextClass.class
+        where type text_range_t = TextRangeRecord.t
+        where type text_clip_type_t = TextClipType.t
+        where type text_rectangle_t = TextRectangleRecord.t
+        where type coord_type_t = CoordType.t
+    structure TextRange :
+      ATK_TEXT_RANGE
+        where type t = TextRangeRecord.t
+    structure TextRectangle :
+      ATK_TEXT_RECTANGLE
+        where type t = TextRectangleRecord.t
     structure Util :
       ATK_UTIL
         where type 'a class = 'a UtilClass.class

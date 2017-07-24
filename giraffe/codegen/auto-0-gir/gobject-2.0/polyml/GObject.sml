@@ -27,6 +27,7 @@ structure GObject :
     structure ObjectClass = GObjectObjectClass
     structure ParamSpecClass = GObjectParamSpecClass
     structure BindingFlags = GObjectBindingFlags
+    structure ValueArrayRecord = GObjectValueArrayRecord
     structure Closure = GObjectClosure
     structure BindingClass = GObjectBindingClass
     structure InitiallyUnownedClass = GObjectInitiallyUnownedClass
@@ -57,6 +58,7 @@ structure GObject :
     structure ParamSpecVariantClass = GObjectParamSpecVariantClass
     structure TypeModuleClass = GObjectTypeModuleClass
     structure TypePluginClass = GObjectTypePluginClass
+    structure ValueArray = GObjectValueArray
     structure Binding = GObjectBinding
     structure InitiallyUnowned = GObjectInitiallyUnowned
     structure ParamSpecBoolean = GObjectParamSpecBoolean

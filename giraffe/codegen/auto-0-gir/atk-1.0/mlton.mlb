@@ -43,6 +43,8 @@ in
   ATK_OBJECT_FACTORY.sml
   ATK_PLUG_CLASS.sml
   ATK_PLUG.sml
+  ATK_RECTANGLE_RECORD.sml
+  ATK_RECTANGLE.sml
   ATK_REGISTRY_CLASS.sml
   ATK_REGISTRY.sml
   ATK_RELATION_CLASS.sml
@@ -67,6 +69,10 @@ in
   ATK_TEXT_ATTRIBUTE.sml
   ATK_TEXT_BOUNDARY.sml
   ATK_TEXT_CLIP_TYPE.sml
+  ATK_TEXT_RANGE_RECORD.sml
+  ATK_TEXT_RANGE.sml
+  ATK_TEXT_RECTANGLE_RECORD.sml
+  ATK_TEXT_RECTANGLE.sml
   ATK_UTIL_CLASS.sml
   ATK_UTIL.sml
   ATK_VALUE_CLASS.sml
@@ -95,6 +101,7 @@ in
     mlton/AtkMiscClass.sml
     mlton/AtkObjectClass.sml
     mlton/AtkObjectFactoryClass.sml
+    mlton/AtkRectangleRecord.sml
     mlton/AtkRegistryClass.sml
     mlton/AtkRelationClass.sml
     mlton/AtkRelationSetClass.sml
@@ -109,10 +116,13 @@ in
     mlton/AtkTextAttribute.sml
     mlton/AtkTextBoundary.sml
     mlton/AtkTextClipType.sml
+    mlton/AtkTextRangeRecord.sml
+    mlton/AtkTextRectangleRecord.sml
     mlton/AtkUtilClass.sml
     mlton/AtkValueClass.sml
     mlton/AtkWindowClass.sml
     mlton/AtkAction.sml
+    mlton/AtkComponent.sml
     mlton/AtkDocument.sml
     mlton/AtkEditableText.sml
     mlton/AtkGObjectAccessibleClass.sml
@@ -127,6 +137,7 @@ in
     mlton/AtkObject.sml
     mlton/AtkObjectFactory.sml
     mlton/AtkPlugClass.sml
+    mlton/AtkRectangle.sml
     mlton/AtkRegistry.sml
     mlton/AtkRelation.sml
     mlton/AtkRelationSet.sml
@@ -135,6 +146,9 @@ in
     mlton/AtkStateSet.sml
     mlton/AtkStreamableContent.sml
     mlton/AtkTable.sml
+    mlton/AtkText.sml
+    mlton/AtkTextRange.sml
+    mlton/AtkTextRectangle.sml
     mlton/AtkUtil.sml
     mlton/AtkValue.sml
     mlton/AtkWindow.sml

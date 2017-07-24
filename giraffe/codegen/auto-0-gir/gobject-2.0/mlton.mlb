@@ -79,6 +79,8 @@ in
   G_OBJECT_TYPE_MODULE.sml
   G_OBJECT_TYPE_PLUGIN_CLASS.sml
   G_OBJECT_TYPE_PLUGIN.sml
+  G_OBJECT_VALUE_ARRAY_RECORD.sml
+  G_OBJECT_VALUE_ARRAY.sml
   G_OBJECT.sml
   ann
     "allowFFI true"
@@ -101,6 +103,7 @@ in
     mlton/GObjectObjectClass.sml
     mlton/GObjectParamSpecClass.sml
     mlton/GObjectBindingFlags.sml
+    mlton/GObjectValueArrayRecord.sml
     mlton/Property.sml
     mlton/GObjectClosure.sml
     mlton/GObjectBindingClass.sml
@@ -132,6 +135,7 @@ in
     mlton/GObjectParamSpecVariantClass.sml
     mlton/GObjectTypeModuleClass.sml
     mlton/GObjectTypePluginClass.sml
+    mlton/GObjectValueArray.sml
     mlton/Signal.sml
     mlton/GObjectBinding.sml
     mlton/GObjectInitiallyUnowned.sml
