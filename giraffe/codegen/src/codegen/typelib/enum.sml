@@ -388,8 +388,10 @@ in
       val revLocalTypes = revMap makeIRefLocalType iRefs'2
       val strDecs'3 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'2)
 
-      val (addAccessorStrDecs, revAccessorLocalTypes) =
+      val (addAccessorStrDecs, addAccessorIRefs, revAccessorLocalTypes) =
         addAccessorRootStrDecs enumNamespace enumInfo
+
+      val iRefs'3 = addAccessorIRefs iRefs'2
 
       val (addErrorStrDecs, revErrorLocalTypes) =
         case optErrorDomain of
@@ -496,10 +498,10 @@ in
         if isGLib
         then
           case optErrorDomain of
-            SOME _ => errorIRef :: iRefs'2
-          | NONE   => iRefs'2
+            SOME _ => errorIRef :: iRefs'3
+          | NONE   => iRefs'3
         else
-          iRefs'2
+          iRefs'3
     in
       (
         enumStrId,

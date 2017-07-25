@@ -419,8 +419,11 @@ in
 
       (* module *)
       val strDecs'0 = []
-      val (addAccessorStrDecs, revAccessorLocalTypes) =
+      val iRefs'0 = []
+      val (addAccessorStrDecs, addAccessorIRefs, revAccessorLocalTypes) =
         addAccessorRootStrDecs structNamespace structInfo
+
+      val iRefs'1 = addAccessorIRefs iRefs'0
 
 (*
       val strDecs'1 = structTypeStrDec :: openTypeStrDec :: strDecs'0
@@ -492,7 +495,7 @@ in
         structRecordStrId,
         (structRecordSpecs, structRecordStrDecs),
         Specific {mlton = programMLton, polyml = programPolyML},
-        []
+        iRefs'1
       )
     end
 end

@@ -94,13 +94,13 @@ in
     mlton/GObjectTypeFlags.sml
     mlton/GObjectTypeFundamentalFlags.sml
     mlton/GObjectValue.sml
-    mlton/GObjectBindingFlags.sml
     mlton/CVector.sml
     mlton/CVectorN.sml
     mlton/ClosureMarshal.sml
     mlton/GObjectClosureRecord.sml
     mlton/GObjectObjectClass.sml
     mlton/GObjectParamSpecClass.sml
+    mlton/GObjectBindingFlags.sml
     mlton/Property.sml
     mlton/GObjectClosure.sml
     mlton/GObjectBindingClass.sml

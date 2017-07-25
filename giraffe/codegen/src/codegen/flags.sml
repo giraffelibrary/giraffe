@@ -185,8 +185,10 @@ in
       val revLocalTypes = revMap makeIRefLocalType iRefs'2
       val strDecs'3 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'2)
 
-      val (addAccessorStrDecs, revAccessorLocalTypes) =
+      val (addAccessorStrDecs, addAccessorIRefs, revAccessorLocalTypes) =
         addAccessorRootStrDecs enumNamespace enumInfo
+
+      val iRefs'3 = addAccessorIRefs iRefs'2
 
       fun mkModule isPolyML =
         let
@@ -252,7 +254,7 @@ in
         enumStrId,
         (enumSpecs, enumStrDecs),
         Specific {mlton = programMLton, polyml = programPolyML},
-        iRefs'2,
+        iRefs'3,
         errs'2
       )
     end

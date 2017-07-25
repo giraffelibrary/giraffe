@@ -255,6 +255,24 @@ in
     if isGObject
     then [accessorLocalType]
     else []
+
+  (*
+   * `addAccessorIRefs` ...
+   *)
+  fun addAccessorIRefs isGObject iRefs =
+    let
+      val iRef =
+        {
+          namespace = "GObject",
+          name      = "Value",
+          scope     = LOCALINTERFACEOTHER,
+          ty        = SIMPLE
+        }
+    in
+      if isGObject
+      then iRef :: iRefs
+      else iRefs
+    end
 end
 
 (*
@@ -539,26 +557,24 @@ local
     end
 
   fun addStrDecsLowLevelMLton
-    namespace
     getTypeSymbol
-    valueType
+    valueArgs
     isPtr
     strDecs =
     let
-      val valueIRef = makeValueIRef namespace (SOME "")
     in
       if isPtr
       then
         getTypeStrDecLowLevelMLton getTypeSymbol
-         :: getValueStrDecLowLevelMLton (valueIRef, valueType) (SOME false)
-         :: getValueStrDecLowLevelMLton (valueIRef, valueType) (SOME true)
-         :: setValueStrDecLowLevelMLton (valueIRef, valueType) (SOME false)
-         :: setValueStrDecLowLevelMLton (valueIRef, valueType) (SOME true)
+         :: getValueStrDecLowLevelMLton valueArgs (SOME false)
+         :: getValueStrDecLowLevelMLton valueArgs (SOME true)
+         :: setValueStrDecLowLevelMLton valueArgs (SOME false)
+         :: setValueStrDecLowLevelMLton valueArgs (SOME true)
          :: strDecs
       else
         getTypeStrDecLowLevelMLton getTypeSymbol
-         :: getValueStrDecLowLevelMLton (valueIRef, valueType) NONE
-         :: setValueStrDecLowLevelMLton (valueIRef, valueType) NONE
+         :: getValueStrDecLowLevelMLton valueArgs NONE
+         :: setValueStrDecLowLevelMLton valueArgs NONE
          :: strDecs
     end
 
@@ -626,14 +642,11 @@ local
     end
 
   fun addStrDecsLowLevelPolyML
-    namespace
     getTypeSymbol
-    valueType
+    valueArgs
     isPtr
     strDecs =
     let
-      val valueIRef = makeValueIRef namespace (SOME "")
-      val valueArgs = (valueIRef, valueType)
       val localStrDecs =
         if isPtr
         then
@@ -663,6 +676,9 @@ in
           val isGObject = namespace = "GObject"
           val revLocalTypes = makeAccessorLocalTypes isGObject
 
+          fun addIRefs iRefs = addAccessorIRefs isGObject iRefs
+
+          val valueIRef = makeValueIRef namespace (SOME "")
           fun addStrDecsLowLevel (valueType, isPtr) isPolyML strDecs =
             let
               val strDecs'1 =
@@ -677,12 +693,12 @@ in
                 then addStrDecsLowLevelPolyML
                 else addStrDecsLowLevelMLton
               )
-                namespace getTypeSymbol valueType isPtr strDecs'2
+                getTypeSymbol (valueIRef, valueType) isPtr strDecs'2
             in
               strDecs'3
             end
         in
-          (addStrDecsLowLevel, revLocalTypes)
+          (addStrDecsLowLevel, addIRefs, revLocalTypes)
         end
-    | NONE               => (K (K I), [])
+    | NONE               => (K (K I), I, [])
 end

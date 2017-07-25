@@ -23,10 +23,10 @@ structure GObject :
     structure TypeFlags = GObjectTypeFlags
     structure TypeFundamentalFlags = GObjectTypeFundamentalFlags
     structure Value = GObjectValue
-    structure BindingFlags = GObjectBindingFlags
     structure ClosureRecord = GObjectClosureRecord
     structure ObjectClass = GObjectObjectClass
     structure ParamSpecClass = GObjectParamSpecClass
+    structure BindingFlags = GObjectBindingFlags
     structure Closure = GObjectClosure
     structure BindingClass = GObjectBindingClass
     structure InitiallyUnownedClass = GObjectInitiallyUnownedClass

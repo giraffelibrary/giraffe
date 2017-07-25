@@ -125,6 +125,7 @@ in
       (* module *)
       val strDecs'0 = []
       val revAccessorLocalTypes = makeAccessorLocalTypes isGObject
+      val iRefs'2 = addAccessorIRefs isGObject iRefs'1
 
       (*
        *                                           -.
@@ -245,7 +246,7 @@ in
         interfaceClassStrId,
         (interfaceClassSpecs, interfaceClassStrDecs),
         Specific {mlton = program, polyml = program},
-        iRefs'1
+        iRefs'2
       )
     end
 end

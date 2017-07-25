@@ -16,10 +16,6 @@ signature G_OBJECT =
       G_OBJECT_VALUE
         where type t = ValueRecord.t
         where type type_t = Type.t
-    structure BindingFlags :
-      G_OBJECT_BINDING_FLAGS
-        where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
-        where type type_t = Type.t
     structure ClosureRecord :
       G_OBJECT_CLOSURE_RECORD
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
@@ -29,6 +25,10 @@ signature G_OBJECT =
     structure ParamSpecClass :
       G_OBJECT_PARAM_SPEC_CLASS
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
+    structure BindingFlags :
+      G_OBJECT_BINDING_FLAGS
+        where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
+        where type type_t = Type.t
     structure Closure :
       G_OBJECT_CLOSURE
         where type t = ClosureRecord.t
