@@ -30,14 +30,14 @@ mlton_g_quark_from_string (SML_CVECTOR_VAL(gchar, string))
 /* GLog */
 
 void
-mlton_g_log_default_handler (SML_CVECTOR_VAL(gchar, log_domain),
-                             GLogLevelFlags log_level,
-                             SML_CVECTOR_VAL(gchar, message))
+mlton_g_log (SML_CVECTOR_VAL(gchar, log_domain),
+             GLogLevelFlags log_level,
+             SML_CVECTOR_VAL(gchar, format))
 {
-  g_log_default_handler (GET_SML_CVECTOR_VAL(gchar, log_domain),
-                         log_level,
-                         GET_SML_CVECTOR_VAL(gchar, message),
-                         NULL);
+  g_log (GET_SML_CVECTOR_VAL(gchar, log_domain),
+         log_level,
+         GET_SML_CVECTOR_VAL(gchar, format),
+         NULL);
 }
 
 
@@ -59,33 +59,6 @@ gchar *
 giraffe_get_g_error_message (GError *error)
 {
   return error->message;
-}
-
-
-/* GPollFD */
-
-GPollFD *
-giraffe_g_lib_poll_f_d_new (void)
-{
-  return g_slice_new (GPollFD);
-}
-
-void
-giraffe_g_lib_poll_f_d_copy (const GPollFD *src, GPollFD *dest)
-{
-  memcpy (dest, src, sizeof (GPollFD));
-}
-
-void
-giraffe_g_lib_poll_f_d_free (GPollFD *pollfd)
-{
-  g_slice_free (GPollFD, pollfd);
-}
-
-guint
-giraffe_g_lib_poll_f_d_size (void)
-{
-  return sizeof (GPollFD);
 }
 
 

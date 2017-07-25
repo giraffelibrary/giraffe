@@ -119,7 +119,6 @@ structure GLibVariant :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibVariantRecord.PolyML.cPtr
           )
-      val parserGetErrorQuark_ = call (getSymbol "g_variant_parser_get_error_quark") (cVoid --> GUInt32.PolyML.cVal)
     end
     type t = GLibVariantRecord.t
     type variant_class_t = GLibVariantClass.t
@@ -313,5 +312,4 @@ structure GLibVariant :>
            & endptr
            & []
         )
-    fun parserGetErrorQuark () = (I ---> GUInt32.FFI.fromVal) parserGetErrorQuark_ ()
   end

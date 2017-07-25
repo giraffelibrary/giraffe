@@ -1,17 +1,18 @@
 signature G_LIB =
   sig
+    structure PidType : G_LIB_PID_TYPE
     structure SourceFunc : G_LIB_SOURCE_FUNC
     structure SpawnChildSetupFunc : G_LIB_SPAWN_CHILD_SETUP_FUNC
     structure DateDay : G_LIB_DATE_DAY
     structure DateYear : G_LIB_DATE_YEAR
-    structure Pid : G_LIB_PID
     structure Quark : G_LIB_QUARK
     structure Time : G_LIB_TIME
     structure TimeSpan : G_LIB_TIME_SPAN
-    structure AsciiType : G_LIB_ASCII_TYPE
     structure ChecksumType : G_LIB_CHECKSUM_TYPE
+    structure DateRecord : G_LIB_DATE_RECORD
     structure DateDMY : G_LIB_DATE_D_M_Y
     structure DateMonth : G_LIB_DATE_MONTH
+    structure DateTimeRecord : G_LIB_DATE_TIME_RECORD
     structure DateWeekday : G_LIB_DATE_WEEKDAY
     structure ErrorType : G_LIB_ERROR_TYPE
     structure FileTest : G_LIB_FILE_TEST
@@ -33,7 +34,7 @@ signature G_LIB =
     structure OnceStatus : G_LIB_ONCE_STATUS
     structure OptionArg : G_LIB_OPTION_ARG
     structure OptionFlags : G_LIB_OPTION_FLAGS
-    structure PollFDRecord : G_LIB_POLL_F_D_RECORD
+    structure PatternSpecRecord : G_LIB_PATTERN_SPEC_RECORD
     structure RegexRecord : G_LIB_REGEX_RECORD
     structure RegexCompileFlags : G_LIB_REGEX_COMPILE_FLAGS
     structure RegexMatchFlags : G_LIB_REGEX_MATCH_FLAGS
@@ -42,41 +43,58 @@ signature G_LIB =
     structure SourceRecord : G_LIB_SOURCE_RECORD
     structure SpawnFlags : G_LIB_SPAWN_FLAGS
     structure StringRecord : G_LIB_STRING_RECORD
+    structure TestCaseRecord : G_LIB_TEST_CASE_RECORD
     structure TestLogType : G_LIB_TEST_LOG_TYPE
+    structure TestSuiteRecord : G_LIB_TEST_SUITE_RECORD
     structure TestTrapFlags : G_LIB_TEST_TRAP_FLAGS
     structure ThreadPriority : G_LIB_THREAD_PRIORITY
     structure TimeType : G_LIB_TIME_TYPE
     structure TimeValRecord : G_LIB_TIME_VAL_RECORD
+    structure TimeZoneRecord : G_LIB_TIME_ZONE_RECORD
     structure TokenType : G_LIB_TOKEN_TYPE
     structure TraverseFlags : G_LIB_TRAVERSE_FLAGS
     structure TraverseType : G_LIB_TRAVERSE_TYPE
-    structure UnicodeBreakType : G_LIB_UNICODE_BREAK_TYPE
-    structure UnicodeScript : G_LIB_UNICODE_SCRIPT
     structure UnicodeType : G_LIB_UNICODE_TYPE
     structure UserDirectory : G_LIB_USER_DIRECTORY
     structure VariantRecord : G_LIB_VARIANT_RECORD
     structure VariantClass : G_LIB_VARIANT_CLASS
     structure VariantParseError : G_LIB_VARIANT_PARSE_ERROR
     structure VariantTypeRecord : G_LIB_VARIANT_TYPE_RECORD
-    structure ChildWatchFunc :
-      G_LIB_CHILD_WATCH_FUNC
-        where type pid_t = Pid.t
+    structure Pid : G_LIB_PID
     structure IOFunc :
       G_LIB_I_O_FUNC
         where type i_o_channel_t = IOChannelRecord.t
         where type i_o_condition_t = IOCondition.t
     structure ErrorRecord : G_LIB_ERROR_RECORD
+    structure Date :
+      G_LIB_DATE
+        where type t = DateRecord.t
+        where type time_val_t = TimeValRecord.t
+        where type date_day_t = DateDay.t
+        where type date_month_t = DateMonth.t
+        where type date_weekday_t = DateWeekday.t
+        where type date_year_t = DateYear.t
+    structure DateTime :
+      G_LIB_DATE_TIME
+        where type t = DateTimeRecord.t
+        where type time_span_t = TimeSpan.t
+        where type time_val_t = TimeValRecord.t
+        where type time_zone_t = TimeZoneRecord.t
     structure KeyFile :
       G_LIB_KEY_FILE
         where type t = KeyFileRecord.t
         where type key_file_flags_t = KeyFileFlags.t
+    structure MainContext :
+      G_LIB_MAIN_CONTEXT
+        where type t = MainContextRecord.t
+        where type source_t = SourceRecord.t
     structure MatchInfo :
       G_LIB_MATCH_INFO
         where type t = MatchInfoRecord.t
         where type regex_t = RegexRecord.t
-    structure PollFD :
-      G_LIB_POLL_F_D
-        where type t = PollFDRecord.t
+    structure PatternSpec :
+      G_LIB_PATTERN_SPEC
+        where type t = PatternSpecRecord.t
     structure Regex :
       G_LIB_REGEX
         where type t = RegexRecord.t
@@ -90,18 +108,31 @@ signature G_LIB =
     structure String :
       G_LIB_STRING
         where type t = StringRecord.t
+    structure TestCase :
+      G_LIB_TEST_CASE
+        where type t = TestCaseRecord.t
+    structure TestSuite :
+      G_LIB_TEST_SUITE
+        where type t = TestSuiteRecord.t
+        where type test_case_t = TestCaseRecord.t
     structure TimeVal :
       G_LIB_TIME_VAL
         where type t = TimeValRecord.t
+    structure TimeZone :
+      G_LIB_TIME_ZONE
+        where type t = TimeZoneRecord.t
+        where type time_type_t = TimeType.t
     structure Variant :
       G_LIB_VARIANT
         where type t = VariantRecord.t
         where type variant_class_t = VariantClass.t
         where type variant_type_t = VariantTypeRecord.t
-        where type quark_t = Quark.t
     structure VariantType :
       G_LIB_VARIANT_TYPE
         where type t = VariantTypeRecord.t
+    structure ChildWatchFunc :
+      G_LIB_CHILD_WATCH_FUNC
+        where type pid_t = Pid.t
     structure BookmarkFileError :
       G_LIB_BOOKMARK_FILE_ERROR
         where type error_handler = ErrorRecord.handler
@@ -113,7 +144,6 @@ signature G_LIB =
     structure Error :
       G_LIB_ERROR
         where type t = ErrorRecord.t
-        where type quark_t = Quark.t
     structure FileError :
       G_LIB_FILE_ERROR
         where type error_handler = ErrorRecord.handler
@@ -269,41 +299,6 @@ signature G_LIB =
     val USEC_PER_SEC : LargeInt.int
     val VA_COPY_AS_ARRAY : LargeInt.int
     val WIN32_MSG_HANDLE : LargeInt.int
-    val access : string * LargeInt.int -> LargeInt.int
-    val asciiDigitValue : char -> LargeInt.int
-    val asciiDtostr :
-      string
-       * LargeInt.int
-       * real
-       -> string
-    val asciiFormatd :
-      string
-       * LargeInt.int
-       * string
-       * real
-       -> string
-    val asciiStrcasecmp : string * string -> LargeInt.int
-    val asciiStrdown : string * LargeInt.int -> string
-    val asciiStrncasecmp :
-      string
-       * string
-       * LargeInt.int
-       -> LargeInt.int
-    val asciiStrtod : string * string -> real
-    val asciiStrtoll :
-      string
-       * string
-       * LargeInt.int
-       -> LargeInt.int
-    val asciiStrtoull :
-      string
-       * string
-       * LargeInt.int
-       -> LargeInt.int
-    val asciiStrup : string * LargeInt.int -> string
-    val asciiTolower : char -> char
-    val asciiToupper : char -> char
-    val asciiXdigitValue : char -> LargeInt.int
     val assertWarning :
       string
        * string
@@ -337,11 +332,6 @@ signature G_LIB =
        -> unit
     val base64Decode : string -> Word8Vector.vector
     val base64Encode : Word8Vector.vector -> string
-    val basename : string -> string
-    val bitNthLsf : LargeInt.int * LargeInt.int -> LargeInt.int
-    val bitNthMsf : LargeInt.int * LargeInt.int -> LargeInt.int
-    val bitStorage : LargeInt.int -> LargeInt.int
-    val blowChunks : unit -> unit
     val buildFilenamev : string list -> string
     val buildPathv : string * string list -> string
     val chdir : string -> LargeInt.int
@@ -351,7 +341,6 @@ signature G_LIB =
        * LargeInt.int
        -> string
     val childWatchSourceNew : Pid.t -> SourceRecord.t
-    val clearError : unit -> unit
     val computeChecksumForString :
       ChecksumType.t
        * string
@@ -371,12 +360,6 @@ signature G_LIB =
        -> string
            * LargeInt.int
            * LargeInt.int
-    val convertErrorQuark : unit -> Quark.t
-    val datalistClear : DataRecord.t -> unit
-    val datalistGetFlags : DataRecord.t -> LargeInt.int
-    val datalistInit : DataRecord.t -> unit
-    val datalistSetFlags : DataRecord.t * LargeInt.int -> unit
-    val datalistUnsetFlags : DataRecord.t * LargeInt.int -> unit
     val dcgettext :
       string option
        * string
@@ -399,13 +382,6 @@ signature G_LIB =
        * string
        * string
        -> string
-    val dummyDecl : unit -> unit
-    val fileErrorFromErrno : LargeInt.int -> FileError.t
-    val fileErrorQuark : unit -> Quark.t
-    val fileOpenTmp : string option -> LargeInt.int * string
-    val fileReadLink : string -> string
-    val fileSetContents : string * Word8Vector.vector -> bool
-    val fileTest : string * FileTest.t -> bool
     val filenameDisplayBasename : string -> string
     val filenameDisplayName : string -> string
     val filenameFromUri : string * string -> string
@@ -415,11 +391,9 @@ signature G_LIB =
     val formatSizeForDisplay : LargeInt.int -> string
     val formatSizeFull : LargeInt.int * FormatSizeFlags.t -> string
     val getApplicationName : unit -> string
-    val getCharset : string -> bool
     val getCurrentDir : unit -> string
     val getCurrentTime : TimeValRecord.t -> unit
     val getEnviron : unit -> string list
-    val getFilenameCharsets : string -> bool
     val getHomeDir : unit -> string
     val getHostName : unit -> string
     val getLanguageNames : unit -> string list
@@ -444,8 +418,6 @@ signature G_LIB =
     val hostnameToAscii : string -> string
     val hostnameToUnicode : string -> string
     val idleSourceNew : unit -> SourceRecord.t
-    val internStaticString : string option -> string
-    val internString : string option -> string
     val ioCreateWatch : IOChannelRecord.t * IOCondition.t -> SourceRecord.t
     val listenv : unit -> string list
     val logRemoveHandler : string * LargeInt.int -> unit
@@ -453,11 +425,7 @@ signature G_LIB =
     val logSetFatalMask : string * LogLevelFlags.t -> LogLevelFlags.t
     val mainCurrentSource : unit -> SourceRecord.t
     val mainDepth : unit -> LargeInt.int
-    val markupErrorQuark : unit -> Quark.t
     val markupEscapeText : string * LargeInt.int -> string
-    val memIsSystemMalloc : unit -> bool
-    val memProfile : unit -> unit
-    val memSetVtable : MemVTableRecord.t -> unit
     val mkdirWithParents : string * LargeInt.int -> LargeInt.int
     val mkdtemp : string -> string
     val mkdtempFull : string * LargeInt.int -> string
@@ -469,7 +437,6 @@ signature G_LIB =
        -> LargeInt.int
     val onErrorQuery : string -> unit
     val onErrorStackTrace : string -> unit
-    val optionErrorQuark : unit -> Quark.t
     val pathGetBasename : string -> string
     val pathGetDirname : string -> string
     val pathIsAbsolute : string -> bool
@@ -482,26 +449,12 @@ signature G_LIB =
        -> bool
     val patternMatchSimple : string * string -> bool
     val patternMatchString : PatternSpecRecord.t * string -> bool
-    val poll :
-      PollFDRecord.t
-       * LargeInt.int
-       * LargeInt.int
-       -> LargeInt.int
-    val quarkFromStaticString : string option -> Quark.t
-    val quarkFromString : string option -> Quark.t
-    val quarkToString : Quark.t -> string
-    val quarkTryString : string option -> Quark.t
     val randomDouble : unit -> real
     val randomDoubleRange : real * real -> real
     val randomInt : unit -> LargeInt.int
     val randomIntRange : LargeInt.int * LargeInt.int -> LargeInt.int
     val randomSetSeed : LargeInt.int -> unit
     val reloadUserSpecialDirsCache : unit -> unit
-    val returnIfFailWarning :
-      string
-       * string
-       * string
-       -> unit
     val rmdir : string -> LargeInt.int
     val setApplicationName : string -> unit
     val setPrgname : string -> unit
@@ -510,77 +463,13 @@ signature G_LIB =
        * string
        * bool
        -> bool
-    val shellErrorQuark : unit -> Quark.t
     val shellParseArgv : string -> string list option
     val shellQuote : string -> string
     val shellUnquote : string -> string
     val sliceGetConfig : SliceConfig.t -> LargeInt.int
     val sliceSetConfig : SliceConfig.t * LargeInt.int -> unit
-    val spacedPrimesClosest : LargeInt.int -> LargeInt.int
     val spawnClosePid : Pid.t -> unit
     val spawnCommandLineAsync : string -> bool
-    val spawnErrorQuark : unit -> Quark.t
-    val stpcpy : string * string -> string
-    val strHasPrefix : string * string -> bool
-    val strHasSuffix : string * string -> bool
-    val strcanon :
-      string
-       * string
-       * char
-       -> string
-    val strcasecmp : string * string -> LargeInt.int
-    val strchomp : string -> string
-    val strchug : string -> string
-    val strcmp0 : string * string -> LargeInt.int
-    val strcompress : string -> string
-    val strdelimit :
-      string
-       * string
-       * char
-       -> string
-    val strdown : string -> string
-    val strdup : string -> string
-    val strerror : LargeInt.int -> string
-    val strescape : string * string -> string
-    val strfreev : string -> unit
-    val stringNew : string -> StringRecord.t
-    val stringNewLen : string * LargeInt.int -> StringRecord.t
-    val stringSizedNew : LargeInt.int -> StringRecord.t
-    val stripContext : string * string -> string
-    val strjoinv : string * string -> string
-    val strlcat :
-      string
-       * string
-       * LargeInt.int
-       -> LargeInt.int
-    val strlcpy :
-      string
-       * string
-       * LargeInt.int
-       -> LargeInt.int
-    val strncasecmp :
-      string
-       * string
-       * LargeInt.int
-       -> LargeInt.int
-    val strndup : string * LargeInt.int -> string
-    val strnfill : LargeInt.int * char -> string
-    val strreverse : string -> string
-    val strrstr : string * string -> string
-    val strrstrLen :
-      string
-       * LargeInt.int
-       * string
-       -> string
-    val strsignal : LargeInt.int -> string
-    val strstrLen :
-      string
-       * LargeInt.int
-       * string
-       -> string
-    val strtod : string * string -> real
-    val strup : string -> string
-    val strvLength : string -> LargeInt.int
     val testBug : string -> unit
     val testBugBase : string -> unit
     val testFail : unit -> unit
@@ -607,36 +496,6 @@ signature G_LIB =
     val testTrapReachedTimeout : unit -> bool
     val timeoutSourceNew : LargeInt.int -> SourceRecord.t
     val timeoutSourceNewSeconds : LargeInt.int -> SourceRecord.t
-    val unicharBreakType : char -> UnicodeBreakType.t
-    val unicharCombiningClass : char -> LargeInt.int
-    val unicharDigitValue : char -> LargeInt.int
-    val unicharGetScript : char -> UnicodeScript.t
-    val unicharIsalnum : char -> bool
-    val unicharIsalpha : char -> bool
-    val unicharIscntrl : char -> bool
-    val unicharIsdefined : char -> bool
-    val unicharIsdigit : char -> bool
-    val unicharIsgraph : char -> bool
-    val unicharIslower : char -> bool
-    val unicharIsmark : char -> bool
-    val unicharIsprint : char -> bool
-    val unicharIspunct : char -> bool
-    val unicharIsspace : char -> bool
-    val unicharIstitle : char -> bool
-    val unicharIsupper : char -> bool
-    val unicharIswide : char -> bool
-    val unicharIswideCjk : char -> bool
-    val unicharIsxdigit : char -> bool
-    val unicharIszerowidth : char -> bool
-    val unicharToUtf8 : char * string -> LargeInt.int
-    val unicharTolower : char -> char
-    val unicharTotitle : char -> char
-    val unicharToupper : char -> char
-    val unicharType : char -> UnicodeType.t
-    val unicharValidate : char -> bool
-    val unicharXdigitValue : char -> LargeInt.int
-    val unicodeScriptFromIso15924 : LargeInt.int -> UnicodeScript.t
-    val unicodeScriptToIso15924 : UnicodeScript.t -> LargeInt.int
     val unlink : string -> LargeInt.int
     val unsetenv : string -> unit
     val uriEscapeString :
@@ -652,47 +511,6 @@ signature G_LIB =
        -> string
     val uriUnescapeString : string * string -> string
     val usleep : LargeInt.int -> unit
-    val utf8Casefold : string * LargeInt.int -> string
-    val utf8Collate : string * string -> LargeInt.int
-    val utf8CollateKey : string * LargeInt.int -> string
-    val utf8CollateKeyForFilename : string * LargeInt.int -> string
-    val utf8FindNextChar : string * string -> string
-    val utf8FindPrevChar : string * string -> string
-    val utf8GetChar : string -> char
-    val utf8GetCharValidated : string * LargeInt.int -> char
-    val utf8Normalize :
-      string
-       * LargeInt.int
-       * NormalizeMode.t
-       -> string
-    val utf8OffsetToPointer : string * LargeInt.int -> string
-    val utf8PointerToOffset : string * string -> LargeInt.int
-    val utf8PrevChar : string -> string
-    val utf8Strchr :
-      string
-       * LargeInt.int
-       * char
-       -> string
-    val utf8Strdown : string * LargeInt.int -> string
-    val utf8Strlen : string * LargeInt.int -> LargeInt.int
-    val utf8Strncpy :
-      string
-       * string
-       * LargeInt.int
-       -> string
-    val utf8Strrchr :
-      string
-       * LargeInt.int
-       * char
-       -> string
-    val utf8Strreverse : string * LargeInt.int -> string
-    val utf8Strup : string * LargeInt.int -> string
-    val utf8Substring :
-      string
-       * LargeInt.int
-       * LargeInt.int
-       -> string
-    val utf8Validate : string * LargeInt.int -> string option
     val variantGetType : VariantRecord.t -> VariantTypeRecord.t
     val warnMessage :
       string

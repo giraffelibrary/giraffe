@@ -154,6 +154,7 @@ val quarkLocalType = mkLocalType ([], ("GLib", "Quark", "", "t"))
 val pidLocalType = mkLocalType ([], ("GLib", "Pid", "", "t"))
 val ioChannelRecordLocalType = mkLocalType ([], ("GLib", "IOChannel", "Record", "t"))
 val ioConditionLocalType = mkLocalType ([], ("GLib", "IOCondition", "", "t"))
+val pidTypeLocalType = mkLocalType ([], ("GLib", "PidType", "", "t"))
 
 val typeLocalType = mkLocalType ([], ("GObject", "Type", "", "t"))
 val valueRecordLocalType = mkLocalType ([], ("GObject", "Value", "Record", "t"))
@@ -287,6 +288,7 @@ val errorLog'1 = List.foldl insert errorLog'0 [
       [("GObject", "2.0")],
       [
         newSig "G_LIB_QUARK" [],                     (* TYPELIB only *)
+        newSig "G_LIB_PID_TYPE" [],
         newSig "G_LIB_PID" [],                       (* TYPELIB only *)
         newSig "G_LIB_SOURCE_FUNC" [],
         newSig "G_LIB_CHILD_WATCH_FUNC" [],
@@ -295,6 +297,8 @@ val errorLog'1 = List.foldl insert errorLog'0 [
       ],
       [
         newStr ("GLib", "Quark", "G_LIB_QUARK") [],  (* TYPELIB only *)
+        newStr ("GLib", "PidType", "G_LIB_PID_TYPE") [],
+        extendStrDeps "GLibPid" ["GLibPidType"],
         newStr ("GLib", "Pid", "G_LIB_PID") [],      (* TYPELIB only *)
         newStr ("GLib", "SourceFunc", "G_LIB_SOURCE_FUNC") [],
         newStr ("GLib", "ChildWatchFunc", "G_LIB_CHILD_WATCH_FUNC")

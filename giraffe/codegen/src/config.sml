@@ -49,6 +49,14 @@ end;
  *)
 
 excludedInterfaceTypes := [
+  ("GLib", "AsciiType"),
+  ("GLib", "Cond"),
+  ("GLib", "Data"),
+  ("GLib", "MemVTable"),
+  ("GLib", "Mutex"),
+  ("GLib", "PollFD"),
+  ("GLib", "UnicodeScript"),
+  ("GLib", "UnicodeBreakType")
 ];
 
 
@@ -59,15 +67,21 @@ excludedInterfaceTypes := [
  *)
 
 structTypes := [
+  (("GLib", "Date"),                  Record {dup = "gdate_copy", free = "g_date_free"}),
+  (("GLib", "DateTime"),              Record {dup = "g_date_time_ref", free = "g_date_time_unref"}),
   (("GLib", "Error"),                 Record {dup = "g_error_copy", free = "g_error_free"}),
   (("GLib", "IOChannel"),             Record {dup = "g_io_channel_ref", free = "g_io_channel_unref"}),
   (("GLib", "KeyFile"),               Record {dup = "g_key_file_ref", free = "g_key_file_unref"}),
   (("GLib", "MainContext"),           Record {dup = "g_main_context_ref", free = "g_main_context_unref"}),
   (("GLib", "MatchInfo"),             Record {dup = "g_match_info_ref", free = "g_match_info_unref"}),
+  (("GLib", "PatternSpec"),           Record {dup = "", free = "g_pattern_spec_free"}),
   (("GLib", "PollFD"),                ValueRecord),
   (("GLib", "Regex"),                 Record {dup = "g_regex_ref", free = "g_regex_unref"}),
   (("GLib", "Source"),                Record {dup = "g_source_ref", free = "g_source_unref"}),
   (("GLib", "String"),                Record {dup = "gstring_copy", free = "gstring_free"}),
+  (("GLib", "TestCase"),              DisguisedRecord),
+  (("GLib", "TestSuite"),             DisguisedRecord),
+  (("GLib", "TimeZone"),              Record {dup = "g_time_zone_ref", free = "g_time_zone_unref"}),
   (("GLib", "TimeVal"),               ValueRecord),
   (("GLib", "Variant"),               Record {dup = "g_variant_ref_sink", free = "g_variant_unref"}),
   (("GLib", "VariantType"),           Record {dup = "g_variant_type_copy", free = "g_variant_type_free"}),
@@ -167,33 +181,45 @@ unionNames := [
  *)
 excludedFunctionSymbols := [
   (
-    [("Pango", "1.0")],
-    [
-      "pango_break",
-      "pango_default_break",
-      "pango_get_log_attrs",
-      "pango_glyph_item_letter_space",
-      "pango_shape",
-      "pango_read_line",
-      "pango_skip_space",
-      "pango_scan_int",
-      "pango_scan_string",
-      "pango_scan_word",
-      "pango_attribute_init",
-      "pango_attribute_destroy"
-    ]
-  ),
-  (
     [("GLib", "2.0")],
     [
+      "g_access",
+      "g_bit_nth_lsf",
+      "g_bit_nth_msf",
+      "g_bit_storage",
+      "g_blow_chunks",
+      "g_basename",
+      "g_clear_error",
+      "g_file_error_from_errno",
+      "g_file_open_tmp",
+      "g_file_read_link",
+      "g_file_get_contents",
+      "g_file_set_contents",
+      "g_file_test",
+      "g_intern_static_string",
+      "g_intern_string",
+      "g_get_charset",  (* GIR data broken: says param 0 is utf8 *)
+      "g_get_filename_charsets",  (* GIR data broken: says param 0 is utf8 *)
+      "g_error_matches",
+      "g_mem_is_system_malloc",
+      "g_mem_set_vtable",
+      "g_mem_profile",
+      "g_quark_from_static_string",
+      "g_quark_from_string",
+      "g_quark_to_string",
+      "g_quark_try_string",
       "g_regex_escape_string",  (* GIR data broken: says param 0 is utf8 array *)
+      "g_return_if_fail_warning",
       "g_source_new",
       "g_source_set_callback_indirect",
       "g_source_add_poll",
       "g_source_remove_poll",
       "g_source_set_funcs",
       "g_source_remove_by_funcs_user_data",
-      "g_source_remove_by_user_data"
+      "g_source_remove_by_user_data",
+      "g_spaced_primes_closest",
+      "g_stpcpy",
+      "glib_dummy_decl"
     ]
   ),
   (
@@ -234,6 +260,23 @@ excludedFunctionSymbols := [
     [
       "g_dbus_error_register_error",
       "g_dbus_error_unregister_error"
+    ]
+  ),
+  (
+    [("Pango", "1.0")],
+    [
+      "pango_break",
+      "pango_default_break",
+      "pango_get_log_attrs",
+      "pango_glyph_item_letter_space",
+      "pango_shape",
+      "pango_read_line",
+      "pango_skip_space",
+      "pango_scan_int",
+      "pango_scan_string",
+      "pango_scan_word",
+      "pango_attribute_init",
+      "pango_attribute_destroy"
     ]
   ),
   (
@@ -280,6 +323,15 @@ excludedFunctionSymbols := [
 
 excludedFunctionSymbolPrefixes := [
   (
+    [("GLib", "2.0")],
+    [
+      "g_ascii",
+      "g_str",
+      "g_utf8",
+      "g_unichar"
+    ]
+  ),
+  (
     [("GObject", "2.0")],
     [
       "g_cclosure_marshal",
@@ -290,6 +342,12 @@ excludedFunctionSymbolPrefixes := [
 ];
 
 excludedFunctionSymbolSuffixes := [
+  (
+    [("GLib", "2.0")],
+    [
+      "error_quark"
+    ]
+  )
 ];
 
 (* Systematically formed names that do not belong in the user API *)

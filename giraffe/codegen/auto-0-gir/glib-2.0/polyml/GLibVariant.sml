@@ -2,8 +2,7 @@ structure GLibVariant :>
   G_LIB_VARIANT
     where type t = GLibVariantRecord.t
     where type variant_class_t = GLibVariantClass.t
-    where type variant_type_t = GLibVariantTypeRecord.t
-    where type quark_t = GLibQuark.t =
+    where type variant_type_t = GLibVariantTypeRecord.t =
   struct
     structure GUInt8CVectorNType =
       CValueCVectorNType(
@@ -120,12 +119,10 @@ structure GLibVariant :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibVariantRecord.PolyML.cPtr
           )
-      val parserGetErrorQuark_ = call (getSymbol "g_variant_parser_get_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
     end
     type t = GLibVariantRecord.t
     type variant_class_t = GLibVariantClass.t
     type variant_type_t = GLibVariantTypeRecord.t
-    type quark_t = GLibQuark.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newArray (childType, children) =
       let
@@ -315,5 +312,4 @@ structure GLibVariant :>
            & endptr
            & []
         )
-    fun parserGetErrorQuark () = (I ---> GLibQuark.FFI.fromVal) parserGetErrorQuark_ ()
   end

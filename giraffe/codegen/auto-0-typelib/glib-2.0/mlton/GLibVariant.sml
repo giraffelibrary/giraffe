@@ -213,7 +213,6 @@ structure GLibVariant :>
               x7,
               x8
             )
-    val parserGetErrorQuark_ = _import "g_variant_parser_get_error_quark" : unit -> GUInt32.FFI.val_;
     type t = GLibVariantRecord.t
     type variant_class_t = GLibVariantClass.t
     type variant_type_t = GLibVariantTypeRecord.t
@@ -406,5 +405,4 @@ structure GLibVariant :>
            & endptr
            & []
         )
-    fun parserGetErrorQuark () = (I ---> GUInt32.FFI.fromVal) parserGetErrorQuark_ ()
   end

@@ -91,5 +91,4 @@ signature G_LIB_VARIANT =
        * string
        * string
        -> t
-    val parserGetErrorQuark : unit -> LargeInt.int
   end

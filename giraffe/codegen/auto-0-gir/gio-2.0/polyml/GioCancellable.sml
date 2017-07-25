@@ -12,7 +12,6 @@ structure GioCancellable :>
       val disconnect_ = call (getSymbol "g_cancellable_disconnect") (GioCancellableClass.PolyML.cPtr &&> GULong.PolyML.cVal --> cVoid)
       val getFd_ = call (getSymbol "g_cancellable_get_fd") (GioCancellableClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val isCancelled_ = call (getSymbol "g_cancellable_is_cancelled") (GioCancellableClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val makePollfd_ = call (getSymbol "g_cancellable_make_pollfd") (GioCancellableClass.PolyML.cPtr &&> GLibPollFDRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val popCurrent_ = call (getSymbol "g_cancellable_pop_current") (GioCancellableClass.PolyML.cPtr --> cVoid)
       val pushCurrent_ = call (getSymbol "g_cancellable_push_current") (GioCancellableClass.PolyML.cPtr --> cVoid)
       val releaseFd_ = call (getSymbol "g_cancellable_release_fd") (GioCancellableClass.PolyML.cPtr --> cVoid)
@@ -28,7 +27,6 @@ structure GioCancellable :>
     fun disconnect self handlerId = (GioCancellableClass.FFI.withPtr &&&> GULong.FFI.withVal ---> I) disconnect_ (self & handlerId)
     fun getFd self = (GioCancellableClass.FFI.withPtr ---> GInt.FFI.fromVal) getFd_ self
     fun isCancelled self = (GioCancellableClass.FFI.withPtr ---> GBool.FFI.fromVal) isCancelled_ self
-    fun makePollfd self pollfd = (GioCancellableClass.FFI.withPtr &&&> GLibPollFDRecord.FFI.withPtr ---> GBool.FFI.fromVal) makePollfd_ (self & pollfd)
     fun popCurrent self = (GioCancellableClass.FFI.withPtr ---> I) popCurrent_ self
     fun pushCurrent self = (GioCancellableClass.FFI.withPtr ---> I) pushCurrent_ self
     fun releaseFd self = (GioCancellableClass.FFI.withPtr ---> I) releaseFd_ self

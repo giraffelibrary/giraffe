@@ -12,10 +12,6 @@ signature GIO_CANCELLABLE =
        -> unit
     val getFd : 'a class -> LargeInt.int
     val isCancelled : 'a class -> bool
-    val makePollfd :
-      'a class
-       -> GLib.PollFDRecord.t
-       -> bool
     val popCurrent : 'a class -> unit
     val pushCurrent : 'a class -> unit
     val releaseFd : 'a class -> unit
