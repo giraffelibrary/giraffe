@@ -11,6 +11,20 @@ val enumTy : ty = mkIdTy enumId
 val gIntTy : ty = mkLIdTy [gStrId ^ scalarStrId STINT32, tId]
 val valueExnId : id = "Value"
 
+(* An enum can have more than one literal with the same value.  To ensure
+ * that literals have unique values, only the first literal for each value is
+ * used.  A map is provided to index literals by value.
+ *)
+structure LargeIntMap = ListMap(type key = LargeInt.int val eq = op =)
+
+fun addValue (valueInfo, m) =
+  LargeIntMap.insert Fn.id (fn _ => raise Unchanged)
+    ((ValueInfo.getValueInt valueInfo, valueInfo), m)
+      handle Unchanged => m
+
+val emptyValues = LargeIntMap.empty
+
+
 (*
  *     datatype enum =
  *       <VALUENAME[1]>
@@ -20,17 +34,20 @@ val valueExnId : id = "Value"
 fun mkEnumDatatypeDec (enumInfo : 'a EnumInfoClass.class) : datatypedec =
   let
     fun mkDatatypeClause valueInfo = (NameId (getValueNameId valueInfo), NONE)
+
+    val revValues =
+      foldInfos
+        EnumInfo.getNValues
+        EnumInfo.getValue
+        addValue
+        (enumInfo, emptyValues)
   in
     (
       toList1 [
         (
           ([], enumId),
           toList1 (
-            revMapInfos
-              EnumInfo.getNValues
-              EnumInfo.getValue
-              mkDatatypeClause
-              (enumInfo, [])
+            revMap (mkDatatypeClause o #2) (LargeIntMap.toList revValues)
           ) handle
               Empty => infoError "no values"
         )
@@ -249,14 +266,19 @@ local
    *           | <VALUENAME[V]> => <valueValue[V]>
    *)
   fun toIntMatchExp enumInfo =
-    toList1 (
-      revMapInfos
-        EnumInfo.getNValues
-        EnumInfo.getValue
-        toValMatchClause
-        (enumInfo, [])
-    ) handle
-        Empty => infoError "no values"
+    let
+      val revValues =
+        foldInfos
+          EnumInfo.getNValues
+          EnumInfo.getValue
+          addValue
+          (enumInfo, emptyValues)
+    in
+      toList1 (
+        revMap (toValMatchClause o #2) (LargeIntMap.toList revValues)
+      ) handle
+          Empty => infoError "no values"
+    end
 
   (*
    *           fn
@@ -269,14 +291,20 @@ local
   val raiseValueNExp =
     ExpRaise (ExpApp (mkIdLNameExp valueExnId, mkIdLNameExp nId))
   fun fromIntMatchExp enumInfo =
-    toList1 (
-      revMapInfos
-        EnumInfo.getNValues
-        EnumInfo.getValue
-        fromValMatchClause
-        (enumInfo, [(mkIdVarPat nId, raiseValueNExp)])
-    ) handle
-        Empty => infoError "no values"
+    let
+      val revValues =
+        foldInfos
+          EnumInfo.getNValues
+          EnumInfo.getValue
+          addValue
+          (enumInfo, emptyValues)
+    in
+      toList1 (
+        revMapAppend (fromValMatchClause o #2)
+          (LargeIntMap.toList revValues, [(mkIdVarPat nId, raiseValueNExp)])
+      ) handle
+          Empty => infoError "no values"
+    end
 
   (*
    *     structure Enum =
@@ -284,8 +312,8 @@ local
    *          <strDecs>
    *       )
    *)
-fun mkEnumStructStrDec strDecs : strdec =
-  mkStructStrDec (enumStrId, StructInst (enumStrId, mkStrDecsFunArg strDecs))
+  fun mkEnumStructStrDec strDecs : strdec =
+    mkStructStrDec (enumStrId, StructInst (enumStrId, mkStrDecsFunArg strDecs))
 
   (*
    *     structure Enum =

@@ -102,7 +102,7 @@ where
           if isGObject
 
 
-  valueName[v] is the name of the <v>th enumeration value;
+  valueName[v] is the name of the <v>th unique enumeration value;
 
 
   localName[n], typeName[n], t[n], varlist[n]
@@ -269,7 +269,7 @@ where
   valueName[v] is the same as for the signature;
 
 
-  valueValue[v] is the value of the <v>th enumeration value
+  valueValue[v] is the value of the <v>th unique enumeration value
     formatted as an SML integer literal
 
 
