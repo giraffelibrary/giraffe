@@ -33,6 +33,8 @@ fun translateInfo
   case InfoType.getType baseInfo of
     InfoType.OBJECT objectInfo       =>
       let
+        val () = checkInterfaceType objectInfo
+
         val (classSigId, classSigProgram, classSigDeps) =
           makeObjectClassSig repo namespace objectInfo
 
@@ -88,6 +90,8 @@ fun translateInfo
       end
   | InfoType.INTERFACE interfaceInfo =>
       let
+        val () = checkInterfaceType interfaceInfo
+
         val (classSigId, classSigProgram, classSigDeps) =
           makeInterfaceClassSig repo namespace interfaceInfo
 
@@ -143,6 +147,8 @@ fun translateInfo
       end
   | InfoType.STRUCT structInfo       =>
       let
+        val () = checkInterfaceType structInfo
+
         val (recordSigId, recordSigProgram, recordSigDeps) =
           makeStructRecordSig repo namespace structInfo
 
@@ -207,6 +213,8 @@ fun translateInfo
         end
       then
         let
+          val () = checkInterfaceType unionInfo
+
           val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
             makeUnionStr repo namespace unionInfo errs'0
 
@@ -241,6 +249,8 @@ fun translateInfo
         acc
   | InfoType.FLAGS enumInfo          =>
       let
+        val () = checkInterfaceType enumInfo
+
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
           makeFlagsStr repo vers namespace enumInfo errs'0
 
@@ -273,6 +283,8 @@ fun translateInfo
       end
   | InfoType.ENUM enumInfo           =>
       let
+        val () = checkInterfaceType enumInfo
+
         val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
           makeEnumStr repo vers namespace enumInfo errs'0
 

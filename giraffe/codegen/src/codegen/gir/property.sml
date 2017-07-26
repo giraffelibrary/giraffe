@@ -142,6 +142,8 @@ fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
         | INTERFACE    =>
             let
               val interfaceInfo = getInterface typeInfo
+              val () = checkInterfaceType interfaceInfo
+
               val interfaceTy = getIRefTy interfaceInfo
 
               val iRef =

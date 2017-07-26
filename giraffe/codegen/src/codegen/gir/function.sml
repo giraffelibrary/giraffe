@@ -917,6 +917,8 @@ fun getParInfo
         | INTERFACE    =>
             let
               val interfaceInfo = getInterface typeInfo
+              val () = checkInterfaceType interfaceInfo
+
               val interfaceTy = getIRefTy interfaceInfo
 
               val iRef =
@@ -1260,6 +1262,8 @@ fun getRetInfo
         | INTERFACE    =>
             let
               val interfaceInfo = getInterface typeInfo
+              val () = checkInterfaceType interfaceInfo
+
               val interfaceTy = getIRefTy interfaceInfo
 
               val iRef =

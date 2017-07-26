@@ -45,7 +45,15 @@ end;
 
 
 (**
- * Struct names to include
+ * Interfaces to exclude
+ *)
+
+excludedInterfaceTypes := [
+];
+
+
+(**
+ * Struct types
  *
  * A struct that is a field of an included union is not in the struct list.
  *)

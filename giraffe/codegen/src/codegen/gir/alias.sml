@@ -84,6 +84,7 @@ fun makeAliasSig
         | INTERFACE    =>
             let
               val interfaceInfo = getInterface typeInfo
+              val () = checkInterfaceType interfaceInfo
 
               val sourceTy = getIRefTy interfaceInfo
               val sourceRef =
@@ -229,6 +230,7 @@ fun makeAliasStr
         | INTERFACE    =>
             let
               val interfaceInfo = getInterface typeInfo
+              val () = checkInterfaceType interfaceInfo
 
               val sourceTy = getIRefTy interfaceInfo
               val sourceRef =
