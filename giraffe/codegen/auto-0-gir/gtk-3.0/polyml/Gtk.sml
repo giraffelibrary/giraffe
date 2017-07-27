@@ -43,7 +43,6 @@ structure Gtk : GTK =
       val acceleratorSetDefaultModMask_ = call (getSymbol "gtk_accelerator_set_default_mod_mask") (GdkModifierType.PolyML.cVal --> cVoid)
       val acceleratorValid_ = call (getSymbol "gtk_accelerator_valid") (GUInt.PolyML.cVal &&> GdkModifierType.PolyML.cVal --> GBool.PolyML.cVal)
       val alternativeDialogButtonOrder_ = call (getSymbol "gtk_alternative_dialog_button_order") (GdkScreenClass.PolyML.cOptPtr --> GBool.PolyML.cVal)
-      val builderErrorQuark_ = call (getSymbol "gtk_builder_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
       val cairoShouldDrawWindow_ = call (getSymbol "gtk_cairo_should_draw_window") (CairoContextRecord.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val cairoTransformToWindow_ =
         call (getSymbol "gtk_cairo_transform_to_window")
@@ -61,7 +60,6 @@ structure Gtk : GTK =
              &&> GUInt.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val cssProviderErrorQuark_ = call (getSymbol "gtk_css_provider_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
       val deviceGrabAdd_ =
         call (getSymbol "gtk_device_grab_add")
           (
@@ -141,7 +139,6 @@ structure Gtk : GTK =
              --> cVoid
           )
       val eventsPending_ = call (getSymbol "gtk_events_pending") (cVoid --> GBool.PolyML.cVal)
-      val fileChooserErrorQuark_ = call (getSymbol "gtk_file_chooser_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
       val getBinaryAge_ = call (getSymbol "gtk_get_binary_age") (cVoid --> GUInt.PolyML.cVal)
       val getCurrentEvent_ = call (getSymbol "gtk_get_current_event") (cVoid --> GdkEvent.PolyML.cPtr)
       val getCurrentEventDevice_ = call (getSymbol "gtk_get_current_event_device") (cVoid --> GdkDeviceClass.PolyML.cPtr)
@@ -155,35 +152,6 @@ structure Gtk : GTK =
       val getMicroVersion_ = call (getSymbol "gtk_get_micro_version") (cVoid --> GUInt.PolyML.cVal)
       val getMinorVersion_ = call (getSymbol "gtk_get_minor_version") (cVoid --> GUInt.PolyML.cVal)
       val grabGetCurrent_ = call (getSymbol "gtk_grab_get_current") (cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val iconSizeFromName_ = call (getSymbol "gtk_icon_size_from_name") (Utf8.PolyML.cInPtr --> GInt.PolyML.cVal)
-      val iconSizeGetName_ = call (getSymbol "gtk_icon_size_get_name") (GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val iconSizeLookup_ =
-        call (getSymbol "gtk_icon_size_lookup")
-          (
-            GInt.PolyML.cVal
-             &&> GInt.PolyML.cRef
-             &&> GInt.PolyML.cRef
-             --> GBool.PolyML.cVal
-          )
-      val iconSizeLookupForSettings_ =
-        call (getSymbol "gtk_icon_size_lookup_for_settings")
-          (
-            GtkSettingsClass.PolyML.cPtr
-             &&> GInt.PolyML.cVal
-             &&> GInt.PolyML.cRef
-             &&> GInt.PolyML.cRef
-             --> GBool.PolyML.cVal
-          )
-      val iconSizeRegister_ =
-        call (getSymbol "gtk_icon_size_register")
-          (
-            Utf8.PolyML.cInPtr
-             &&> GInt.PolyML.cVal
-             &&> GInt.PolyML.cVal
-             --> GInt.PolyML.cVal
-          )
-      val iconSizeRegisterAlias_ = call (getSymbol "gtk_icon_size_register_alias") (Utf8.PolyML.cInPtr &&> GInt.PolyML.cVal --> cVoid)
-      val iconThemeErrorQuark_ = call (getSymbol "gtk_icon_theme_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
       val init_ = call (getSymbol "gtk_init") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> cVoid)
       val initCheck_ = call (getSymbol "gtk_init_check") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> GBool.PolyML.cVal)
       val keySnooperRemove_ = call (getSymbol "gtk_key_snooper_remove") (GUInt.PolyML.cVal --> cVoid)
@@ -496,9 +464,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              --> cVoid
           )
-      val paperSizeGetDefault_ = call (getSymbol "gtk_paper_size_get_default") (cVoid --> Utf8.PolyML.cOutPtr)
       val parseArgs_ = call (getSymbol "gtk_parse_args") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> GBool.PolyML.cVal)
-      val printErrorQuark_ = call (getSymbol "gtk_print_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
       val printRunPageSetupDialog_ =
         call (getSymbol "gtk_print_run_page_setup_dialog")
           (
@@ -512,8 +478,6 @@ structure Gtk : GTK =
       val rcGetDefaultFiles_ = call (getSymbol "gtk_rc_get_default_files") (cVoid --> Utf8CVector.PolyML.cOutPtr)
       val rcGetStyle_ = call (getSymbol "gtk_rc_get_style") (GtkWidgetClass.PolyML.cPtr --> GtkStyleClass.PolyML.cPtr)
       val rcSetDefaultFiles_ = call (getSymbol "gtk_rc_set_default_files") (Utf8CVector.PolyML.cInPtr --> cVoid)
-      val recentChooserErrorQuark_ = call (getSymbol "gtk_recent_chooser_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
-      val recentManagerErrorQuark_ = call (getSymbol "gtk_recent_manager_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
       val renderActivity_ =
         call (getSymbol "gtk_render_activity")
           (
@@ -806,8 +770,6 @@ structure Gtk : GTK =
              &&> GtkTreePathRecord.PolyML.cOutRef
              --> GBool.PolyML.cVal
           )
-      val treeRowReferenceDeleted_ = call (getSymbol "gtk_tree_row_reference_deleted") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> cVoid)
-      val treeRowReferenceInserted_ = call (getSymbol "gtk_tree_row_reference_inserted") (GObjectObjectClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> cVoid)
       val treeSetRowDragData_ =
         call (getSymbol "gtk_tree_set_row_drag_data")
           (
@@ -1615,7 +1577,6 @@ structure Gtk : GTK =
     fun acceleratorSetDefaultModMask defaultModMask = (GdkModifierType.FFI.withVal ---> I) acceleratorSetDefaultModMask_ defaultModMask
     fun acceleratorValid (keyval, modifiers) = (GUInt.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> GBool.FFI.fromVal) acceleratorValid_ (keyval & modifiers)
     fun alternativeDialogButtonOrder screen = (GdkScreenClass.FFI.withOptPtr ---> GBool.FFI.fromVal) alternativeDialogButtonOrder_ screen
-    fun builderErrorQuark () = (I ---> GLibQuark.FFI.fromVal) builderErrorQuark_ ()
     fun cairoShouldDrawWindow (cr, window) = (CairoContextRecord.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) cairoShouldDrawWindow_ (cr & window)
     fun cairoTransformToWindow
       (
@@ -1653,7 +1614,6 @@ structure Gtk : GTK =
            & requiredMinor
            & requiredMicro
         )
-    fun cssProviderErrorQuark () = (I ---> GLibQuark.FFI.fromVal) cssProviderErrorQuark_ ()
     fun deviceGrabAdd
       (
         widget,
@@ -1831,7 +1791,6 @@ structure Gtk : GTK =
            & drawArrow
         )
     fun eventsPending () = (I ---> GBool.FFI.fromVal) eventsPending_ ()
-    fun fileChooserErrorQuark () = (I ---> GLibQuark.FFI.fromVal) fileChooserErrorQuark_ ()
     fun getBinaryAge () = (I ---> GUInt.FFI.fromVal) getBinaryAge_ ()
     fun getCurrentEvent () = (I ---> GdkEvent.FFI.fromPtr true) getCurrentEvent_ ()
     fun getCurrentEventDevice () = (I ---> GdkDeviceClass.FFI.fromPtr false) getCurrentEventDevice_ ()
@@ -1850,74 +1809,6 @@ structure Gtk : GTK =
     fun getMicroVersion () = (I ---> GUInt.FFI.fromVal) getMicroVersion_ ()
     fun getMinorVersion () = (I ---> GUInt.FFI.fromVal) getMinorVersion_ ()
     fun grabGetCurrent () = (I ---> GtkWidgetClass.FFI.fromPtr false) grabGetCurrent_ ()
-    fun iconSizeFromName name = (Utf8.FFI.withPtr ---> GInt.FFI.fromVal) iconSizeFromName_ name
-    fun iconSizeGetName size = (GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) iconSizeGetName_ size
-    fun iconSizeLookup size =
-      let
-        val width
-         & height
-         & retVal =
-          (
-            GInt.FFI.withVal
-             &&&> GInt.FFI.withRefVal
-             &&&> GInt.FFI.withRefVal
-             ---> GInt.FFI.fromVal
-                   && GInt.FFI.fromVal
-                   && GBool.FFI.fromVal
-          )
-            iconSizeLookup_
-            (
-              size
-               & GInt.null
-               & GInt.null
-            )
-      in
-        if retVal then SOME (width, height) else NONE
-      end
-    fun iconSizeLookupForSettings (settings, size) =
-      let
-        val width
-         & height
-         & retVal =
-          (
-            GtkSettingsClass.FFI.withPtr
-             &&&> GInt.FFI.withVal
-             &&&> GInt.FFI.withRefVal
-             &&&> GInt.FFI.withRefVal
-             ---> GInt.FFI.fromVal
-                   && GInt.FFI.fromVal
-                   && GBool.FFI.fromVal
-          )
-            iconSizeLookupForSettings_
-            (
-              settings
-               & size
-               & GInt.null
-               & GInt.null
-            )
-      in
-        if retVal then SOME (width, height) else NONE
-      end
-    fun iconSizeRegister
-      (
-        name,
-        width,
-        height
-      ) =
-      (
-        Utf8.FFI.withPtr
-         &&&> GInt.FFI.withVal
-         &&&> GInt.FFI.withVal
-         ---> GInt.FFI.fromVal
-      )
-        iconSizeRegister_
-        (
-          name
-           & width
-           & height
-        )
-    fun iconSizeRegisterAlias (alias, target) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> I) iconSizeRegisterAlias_ (alias & target)
-    fun iconThemeErrorQuark () = (I ---> GLibQuark.FFI.fromVal) iconThemeErrorQuark_ ()
     fun init argv =
       let
         val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
@@ -2748,7 +2639,6 @@ structure Gtk : GTK =
            & y2
            & x
         )
-    fun paperSizeGetDefault () = (I ---> Utf8.FFI.fromPtr 0) paperSizeGetDefault_ ()
     fun parseArgs argv =
       let
         val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
@@ -2766,7 +2656,6 @@ structure Gtk : GTK =
       in
         (retVal, argv (LargeInt.toInt argc))
       end
-    fun printErrorQuark () = (I ---> GLibQuark.FFI.fromVal) printErrorQuark_ ()
     fun printRunPageSetupDialog
       (
         parent,
@@ -2790,8 +2679,6 @@ structure Gtk : GTK =
     fun rcGetDefaultFiles () = (I ---> Utf8CVector.FFI.fromPtr 0) rcGetDefaultFiles_ ()
     fun rcGetStyle widget = (GtkWidgetClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr false) rcGetStyle_ widget
     fun rcSetDefaultFiles filenames = (Utf8CVector.FFI.withPtr ---> I) rcSetDefaultFiles_ filenames
-    fun recentChooserErrorQuark () = (I ---> GLibQuark.FFI.fromVal) recentChooserErrorQuark_ ()
-    fun recentManagerErrorQuark () = (I ---> GLibQuark.FFI.fromVal) recentManagerErrorQuark_ ()
     fun renderActivity
       (
         context,
@@ -3508,8 +3395,6 @@ structure Gtk : GTK =
       in
         if retVal then SOME (treeModel, path) else NONE
       end
-    fun treeRowReferenceDeleted (proxy, path) = (GObjectObjectClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) treeRowReferenceDeleted_ (proxy & path)
-    fun treeRowReferenceInserted (proxy, path) = (GObjectObjectClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) treeRowReferenceInserted_ (proxy & path)
     fun treeSetRowDragData
       (
         selectionData,

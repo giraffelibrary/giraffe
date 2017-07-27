@@ -121,7 +121,6 @@ structure GLib : G_LIB =
       val bitNthMsf_ = call (getSymbol "g_bit_nth_msf") (GULong.PolyML.cVal &&> GInt.PolyML.cVal --> GInt.PolyML.cVal)
       val bitStorage_ = call (getSymbol "g_bit_storage") (GULong.PolyML.cVal --> GUInt.PolyML.cVal)
       val blowChunks_ = call (getSymbol "g_blow_chunks") (cVoid --> cVoid)
-      val bookmarkFileErrorQuark_ = call (getSymbol "g_bookmark_file_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
       val buildFilenamev_ = call (getSymbol "g_build_filenamev") (Utf8CVector.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val buildPathv_ = call (getSymbol "g_build_pathv") (Utf8.PolyML.cInPtr &&> Utf8CVector.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val chdir_ = call (getSymbol "g_chdir") (Utf8.PolyML.cInPtr --> GInt.PolyML.cVal)
@@ -133,7 +132,6 @@ structure GLib : G_LIB =
              &&> GUInt.PolyML.cVal
              --> Utf8.PolyML.cOutPtr
           )
-      val checksumTypeGetLength_ = call (getSymbol "g_checksum_type_get_length") (GLibChecksumType.PolyML.cVal --> GSSize.PolyML.cVal)
       val childWatchSourceNew_ = call (getSymbol "g_child_watch_source_new") (GLibPid.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
       val clearError_ = call (getSymbol "g_clear_error") (GLibErrorRecord.PolyML.cOutOptRef --> cVoid)
       val computeChecksumForString_ =
@@ -172,32 +170,6 @@ structure GLib : G_LIB =
       val datalistInit_ = call (getSymbol "g_datalist_init") (GLibDataRecord.PolyML.cPtr --> cVoid)
       val datalistSetFlags_ = call (getSymbol "g_datalist_set_flags") (GLibDataRecord.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
       val datalistUnsetFlags_ = call (getSymbol "g_datalist_unset_flags") (GLibDataRecord.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
-      val dateGetDaysInMonth_ = call (getSymbol "g_date_get_days_in_month") (GLibDateMonth.PolyML.cVal &&> GLibDateYear.PolyML.cVal --> GUInt8.PolyML.cVal)
-      val dateGetMondayWeeksInYear_ = call (getSymbol "g_date_get_monday_weeks_in_year") (GLibDateYear.PolyML.cVal --> GUInt8.PolyML.cVal)
-      val dateGetSundayWeeksInYear_ = call (getSymbol "g_date_get_sunday_weeks_in_year") (GLibDateYear.PolyML.cVal --> GUInt8.PolyML.cVal)
-      val dateIsLeapYear_ = call (getSymbol "g_date_is_leap_year") (GLibDateYear.PolyML.cVal --> GBool.PolyML.cVal)
-      val dateStrftime_ =
-        call (getSymbol "g_date_strftime")
-          (
-            Utf8.PolyML.cInPtr
-             &&> GSize.PolyML.cVal
-             &&> Utf8.PolyML.cInPtr
-             &&> GLibDateRecord.PolyML.cPtr
-             --> GSize.PolyML.cVal
-          )
-      val dateValidDay_ = call (getSymbol "g_date_valid_day") (GLibDateDay.PolyML.cVal --> GBool.PolyML.cVal)
-      val dateValidDmy_ =
-        call (getSymbol "g_date_valid_dmy")
-          (
-            GLibDateDay.PolyML.cVal
-             &&> GLibDateMonth.PolyML.cVal
-             &&> GLibDateYear.PolyML.cVal
-             --> GBool.PolyML.cVal
-          )
-      val dateValidJulian_ = call (getSymbol "g_date_valid_julian") (GUInt32.PolyML.cVal --> GBool.PolyML.cVal)
-      val dateValidMonth_ = call (getSymbol "g_date_valid_month") (GLibDateMonth.PolyML.cVal --> GBool.PolyML.cVal)
-      val dateValidWeekday_ = call (getSymbol "g_date_valid_weekday") (GLibDateWeekday.PolyML.cVal --> GBool.PolyML.cVal)
-      val dateValidYear_ = call (getSymbol "g_date_valid_year") (GLibDateYear.PolyML.cVal --> GBool.PolyML.cVal)
       val dcgettext_ =
         call (getSymbol "g_dcgettext")
           (
@@ -207,7 +179,6 @@ structure GLib : G_LIB =
              --> Utf8.PolyML.cOutPtr
           )
       val dgettext_ = call (getSymbol "g_dgettext") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val dirMakeTmp_ = call (getSymbol "g_dir_make_tmp") (Utf8.PolyML.cInOptPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> Utf8.PolyML.cOutPtr)
       val dngettext_ =
         call (getSymbol "g_dngettext")
           (
@@ -301,19 +272,6 @@ structure GLib : G_LIB =
       val getUserRuntimeDir_ = call (getSymbol "g_get_user_runtime_dir") (cVoid --> Utf8.PolyML.cOutPtr)
       val getUserSpecialDir_ = call (getSymbol "g_get_user_special_dir") (GLibUserDirectory.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val getenv_ = call (getSymbol "g_getenv") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val hookDestroy_ = call (getSymbol "g_hook_destroy") (GLibHookListRecord.PolyML.cPtr &&> GULong.PolyML.cVal --> GBool.PolyML.cVal)
-      val hookDestroyLink_ = call (getSymbol "g_hook_destroy_link") (GLibHookListRecord.PolyML.cPtr &&> GLibHookRecord.PolyML.cPtr --> cVoid)
-      val hookFree_ = call (getSymbol "g_hook_free") (GLibHookListRecord.PolyML.cPtr &&> GLibHookRecord.PolyML.cPtr --> cVoid)
-      val hookInsertBefore_ =
-        call (getSymbol "g_hook_insert_before")
-          (
-            GLibHookListRecord.PolyML.cPtr
-             &&> GLibHookRecord.PolyML.cPtr
-             &&> GLibHookRecord.PolyML.cPtr
-             --> cVoid
-          )
-      val hookPrepend_ = call (getSymbol "g_hook_prepend") (GLibHookListRecord.PolyML.cPtr &&> GLibHookRecord.PolyML.cPtr --> cVoid)
-      val hookUnref_ = call (getSymbol "g_hook_unref") (GLibHookListRecord.PolyML.cPtr &&> GLibHookRecord.PolyML.cPtr --> cVoid)
       val hostnameIsAsciiEncoded_ = call (getSymbol "g_hostname_is_ascii_encoded") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val hostnameIsIpAddress_ = call (getSymbol "g_hostname_is_ip_address") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val hostnameIsNonAscii_ = call (getSymbol "g_hostname_is_non_ascii") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
@@ -322,22 +280,15 @@ structure GLib : G_LIB =
       val idleSourceNew_ = call (getSymbol "g_idle_source_new") (cVoid --> GLibSourceRecord.PolyML.cPtr)
       val internStaticString_ = call (getSymbol "g_intern_static_string") (Utf8.PolyML.cInOptPtr --> Utf8.PolyML.cOutPtr)
       val internString_ = call (getSymbol "g_intern_string") (Utf8.PolyML.cInOptPtr --> Utf8.PolyML.cOutPtr)
-      val ioChannelErrorFromErrno_ = call (getSymbol "g_io_channel_error_from_errno") (GInt.PolyML.cVal --> GLibIOChannelError.PolyML.cVal)
-      val ioChannelErrorQuark_ = call (getSymbol "g_io_channel_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
       val ioCreateWatch_ = call (getSymbol "g_io_create_watch") (GLibIOChannelRecord.PolyML.cPtr &&> GLibIOCondition.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
-      val keyFileErrorQuark_ = call (getSymbol "g_key_file_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
-      val listPopAllocator_ = call (getSymbol "g_list_pop_allocator") (cVoid --> cVoid)
       val listenv_ = call (getSymbol "g_listenv") (cVoid --> Utf8CVector.PolyML.cOutPtr)
       val logRemoveHandler_ = call (getSymbol "g_log_remove_handler") (Utf8.PolyML.cInPtr &&> GUInt.PolyML.cVal --> cVoid)
       val logSetAlwaysFatal_ = call (getSymbol "g_log_set_always_fatal") (GLibLogLevelFlags.PolyML.cVal --> GLibLogLevelFlags.PolyML.cVal)
       val logSetFatalMask_ = call (getSymbol "g_log_set_fatal_mask") (Utf8.PolyML.cInPtr &&> GLibLogLevelFlags.PolyML.cVal --> GLibLogLevelFlags.PolyML.cVal)
-      val mainContextDefault_ = call (getSymbol "g_main_context_default") (cVoid --> GLibMainContextRecord.PolyML.cPtr)
-      val mainContextGetThreadDefault_ = call (getSymbol "g_main_context_get_thread_default") (cVoid --> GLibMainContextRecord.PolyML.cPtr)
       val mainCurrentSource_ = call (getSymbol "g_main_current_source") (cVoid --> GLibSourceRecord.PolyML.cPtr)
       val mainDepth_ = call (getSymbol "g_main_depth") (cVoid --> GInt.PolyML.cVal)
       val markupErrorQuark_ = call (getSymbol "g_markup_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
       val markupEscapeText_ = call (getSymbol "g_markup_escape_text") (Utf8.PolyML.cInPtr &&> GSSize.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val memChunkInfo_ = call (getSymbol "g_mem_chunk_info") (cVoid --> cVoid)
       val memIsSystemMalloc_ = call (getSymbol "g_mem_is_system_malloc") (cVoid --> GBool.PolyML.cVal)
       val memProfile_ = call (getSymbol "g_mem_profile") (cVoid --> cVoid)
       val memSetVtable_ = call (getSymbol "g_mem_set_vtable") (GLibMemVTableRecord.PolyML.cPtr --> cVoid)
@@ -353,7 +304,6 @@ structure GLib : G_LIB =
              &&> GInt.PolyML.cVal
              --> GInt.PolyML.cVal
           )
-      val nodePopAllocator_ = call (getSymbol "g_node_pop_allocator") (cVoid --> cVoid)
       val onErrorQuery_ = call (getSymbol "g_on_error_query") (Utf8.PolyML.cInPtr --> cVoid)
       val onErrorStackTrace_ = call (getSymbol "g_on_error_stack_trace") (Utf8.PolyML.cInPtr --> cVoid)
       val optionErrorQuark_ = call (getSymbol "g_option_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
@@ -389,25 +339,6 @@ structure GLib : G_LIB =
       val randomInt_ = call (getSymbol "g_random_int") (cVoid --> GUInt32.PolyML.cVal)
       val randomIntRange_ = call (getSymbol "g_random_int_range") (GInt32.PolyML.cVal &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
       val randomSetSeed_ = call (getSymbol "g_random_set_seed") (GUInt32.PolyML.cVal --> cVoid)
-      val regexCheckReplacement_ =
-        call (getSymbol "g_regex_check_replacement")
-          (
-            Utf8.PolyML.cInPtr
-             &&> GBool.PolyML.cRef
-             &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GBool.PolyML.cVal
-          )
-      val regexErrorQuark_ = call (getSymbol "g_regex_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
-      val regexEscapeNul_ = call (getSymbol "g_regex_escape_nul") (Utf8.PolyML.cInPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val regexMatchSimple_ =
-        call (getSymbol "g_regex_match_simple")
-          (
-            Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> GLibRegexCompileFlags.PolyML.cVal
-             &&> GLibRegexMatchFlags.PolyML.cVal
-             --> GBool.PolyML.cVal
-          )
       val reloadUserSpecialDirsCache_ = call (getSymbol "g_reload_user_special_dirs_cache") (cVoid --> cVoid)
       val returnIfFailWarning_ =
         call (getSymbol "g_return_if_fail_warning")
@@ -418,18 +349,6 @@ structure GLib : G_LIB =
              --> cVoid
           )
       val rmdir_ = call (getSymbol "g_rmdir") (Utf8.PolyML.cInPtr --> GInt.PolyML.cVal)
-      val sequenceMove_ = call (getSymbol "g_sequence_move") (GLibSequenceIterRecord.PolyML.cPtr &&> GLibSequenceIterRecord.PolyML.cPtr --> cVoid)
-      val sequenceMoveRange_ =
-        call (getSymbol "g_sequence_move_range")
-          (
-            GLibSequenceIterRecord.PolyML.cPtr
-             &&> GLibSequenceIterRecord.PolyML.cPtr
-             &&> GLibSequenceIterRecord.PolyML.cPtr
-             --> cVoid
-          )
-      val sequenceRemove_ = call (getSymbol "g_sequence_remove") (GLibSequenceIterRecord.PolyML.cPtr --> cVoid)
-      val sequenceRemoveRange_ = call (getSymbol "g_sequence_remove_range") (GLibSequenceIterRecord.PolyML.cPtr &&> GLibSequenceIterRecord.PolyML.cPtr --> cVoid)
-      val sequenceSwap_ = call (getSymbol "g_sequence_swap") (GLibSequenceIterRecord.PolyML.cPtr &&> GLibSequenceIterRecord.PolyML.cPtr --> cVoid)
       val setApplicationName_ = call (getSymbol "g_set_application_name") (Utf8.PolyML.cInPtr --> cVoid)
       val setPrgname_ = call (getSymbol "g_set_prgname") (Utf8.PolyML.cInPtr --> cVoid)
       val setenv_ =
@@ -454,8 +373,6 @@ structure GLib : G_LIB =
       val shellUnquote_ = call (getSymbol "g_shell_unquote") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> Utf8.PolyML.cOutPtr)
       val sliceGetConfig_ = call (getSymbol "g_slice_get_config") (GLibSliceConfig.PolyML.cVal --> GInt64.PolyML.cVal)
       val sliceSetConfig_ = call (getSymbol "g_slice_set_config") (GLibSliceConfig.PolyML.cVal &&> GInt64.PolyML.cVal --> cVoid)
-      val sourceRemove_ = call (getSymbol "g_source_remove") (GUInt.PolyML.cVal --> GBool.PolyML.cVal)
-      val sourceSetNameById_ = call (getSymbol "g_source_set_name_by_id") (GUInt.PolyML.cVal &&> Utf8.PolyML.cInPtr --> cVoid)
       val spacedPrimesClosest_ = call (getSymbol "g_spaced_primes_closest") (GUInt.PolyML.cVal --> GUInt.PolyML.cVal)
       val spawnClosePid_ = call (getSymbol "g_spawn_close_pid") (GLibPid.PolyML.cVal --> cVoid)
       val spawnCommandLineAsync_ = call (getSymbol "g_spawn_command_line_async") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
@@ -569,20 +486,8 @@ structure GLib : G_LIB =
       val testTrapFork_ = call (getSymbol "g_test_trap_fork") (GUInt64.PolyML.cVal &&> GLibTestTrapFlags.PolyML.cVal --> GBool.PolyML.cVal)
       val testTrapHasPassed_ = call (getSymbol "g_test_trap_has_passed") (cVoid --> GBool.PolyML.cVal)
       val testTrapReachedTimeout_ = call (getSymbol "g_test_trap_reached_timeout") (cVoid --> GBool.PolyML.cVal)
-      val threadErrorQuark_ = call (getSymbol "g_thread_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
-      val threadGetInitialized_ = call (getSymbol "g_thread_get_initialized") (cVoid --> GBool.PolyML.cVal)
-      val threadInit_ = call (getSymbol "g_thread_init") (GLibThreadFunctionsRecord.PolyML.cPtr --> cVoid)
-      val threadInitWithErrorcheckMutexes_ = call (getSymbol "g_thread_init_with_errorcheck_mutexes") (GLibThreadFunctionsRecord.PolyML.cPtr --> cVoid)
-      val threadPoolGetMaxIdleTime_ = call (getSymbol "g_thread_pool_get_max_idle_time") (cVoid --> GUInt.PolyML.cVal)
-      val threadPoolGetMaxUnusedThreads_ = call (getSymbol "g_thread_pool_get_max_unused_threads") (cVoid --> GInt.PolyML.cVal)
-      val threadPoolGetNumUnusedThreads_ = call (getSymbol "g_thread_pool_get_num_unused_threads") (cVoid --> GUInt.PolyML.cVal)
-      val threadPoolSetMaxIdleTime_ = call (getSymbol "g_thread_pool_set_max_idle_time") (GUInt.PolyML.cVal --> cVoid)
-      val threadPoolSetMaxUnusedThreads_ = call (getSymbol "g_thread_pool_set_max_unused_threads") (GInt.PolyML.cVal --> cVoid)
-      val threadPoolStopUnusedThreads_ = call (getSymbol "g_thread_pool_stop_unused_threads") (cVoid --> cVoid)
-      val timeValFromIso8601_ = call (getSymbol "g_time_val_from_iso8601") (Utf8.PolyML.cInPtr &&> GLibTimeValRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val timeoutSourceNew_ = call (getSymbol "g_timeout_source_new") (GUInt.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
       val timeoutSourceNewSeconds_ = call (getSymbol "g_timeout_source_new_seconds") (GUInt.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
-      val trashStackHeight_ = call (getSymbol "g_trash_stack_height") (GLibTrashStackRecord.PolyML.cPtr --> GUInt.PolyML.cVal)
       val unicharBreakType_ = call (getSymbol "g_unichar_break_type") (GChar.PolyML.cVal --> GLibUnicodeBreakType.PolyML.cVal)
       val unicharCombiningClass_ = call (getSymbol "g_unichar_combining_class") (GChar.PolyML.cVal --> GInt.PolyML.cVal)
       val unicharDigitValue_ = call (getSymbol "g_unichar_digit_value") (GChar.PolyML.cVal --> GInt.PolyML.cVal)
@@ -698,28 +603,6 @@ structure GLib : G_LIB =
              --> GBool.PolyML.cVal
           )
       val variantGetType_ = call (getSymbol "g_variant_get_type") (GLibVariantRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
-      val variantIsObjectPath_ = call (getSymbol "g_variant_is_object_path") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val variantIsSignature_ = call (getSymbol "g_variant_is_signature") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val variantParse_ =
-        call (getSymbol "g_variant_parse")
-          (
-            GLibVariantTypeRecord.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GLibVariantRecord.PolyML.cPtr
-          )
-      val variantParserGetErrorQuark_ = call (getSymbol "g_variant_parser_get_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
-      val variantTypeStringIsValid_ = call (getSymbol "g_variant_type_string_is_valid") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val variantTypeStringScan_ =
-        call (getSymbol "g_variant_type_string_scan")
-          (
-            Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInOptPtr
-             &&> Utf8.PolyML.cOutRef
-             --> GBool.PolyML.cVal
-          )
       val warnMessage_ =
         call (getSymbol "g_warn_message")
           (
@@ -1160,7 +1043,6 @@ structure GLib : G_LIB =
     fun bitNthMsf (mask, nthBit) = (GULong.FFI.withVal &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) bitNthMsf_ (mask & nthBit)
     fun bitStorage number = (GULong.FFI.withVal ---> GUInt.FFI.fromVal) bitStorage_ number
     fun blowChunks () = (I ---> I) blowChunks_ ()
-    fun bookmarkFileErrorQuark () = (I ---> GLibQuark.FFI.fromVal) bookmarkFileErrorQuark_ ()
     fun buildFilenamev args = (Utf8CVector.FFI.withPtr ---> Utf8.FFI.fromPtr 1) buildFilenamev_ args
     fun buildPathv (separator, args) = (Utf8.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> Utf8.FFI.fromPtr 1) buildPathv_ (separator & args)
     fun chdir path = (Utf8.FFI.withPtr ---> GInt.FFI.fromVal) chdir_ path
@@ -1182,7 +1064,6 @@ structure GLib : G_LIB =
            & requiredMinor
            & requiredMicro
         )
-    fun checksumTypeGetLength checksumType = (GLibChecksumType.FFI.withVal ---> GSSize.FFI.fromVal) checksumTypeGetLength_ checksumType
     fun childWatchSourceNew pid = (GLibPid.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ pid
     fun clearError () = (GLibErrorRecord.handleError ---> I) clearError_ []
     fun computeChecksumForString
@@ -1278,54 +1159,6 @@ structure GLib : G_LIB =
     fun datalistInit datalist = (GLibDataRecord.FFI.withPtr ---> I) datalistInit_ datalist
     fun datalistSetFlags (datalist, flags) = (GLibDataRecord.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) datalistSetFlags_ (datalist & flags)
     fun datalistUnsetFlags (datalist, flags) = (GLibDataRecord.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) datalistUnsetFlags_ (datalist & flags)
-    fun dateGetDaysInMonth (month, year) = (GLibDateMonth.FFI.withVal &&&> GLibDateYear.FFI.withVal ---> GUInt8.FFI.fromVal) dateGetDaysInMonth_ (month & year)
-    fun dateGetMondayWeeksInYear year = (GLibDateYear.FFI.withVal ---> GUInt8.FFI.fromVal) dateGetMondayWeeksInYear_ year
-    fun dateGetSundayWeeksInYear year = (GLibDateYear.FFI.withVal ---> GUInt8.FFI.fromVal) dateGetSundayWeeksInYear_ year
-    fun dateIsLeapYear year = (GLibDateYear.FFI.withVal ---> GBool.FFI.fromVal) dateIsLeapYear_ year
-    fun dateStrftime
-      (
-        s,
-        slen,
-        format,
-        date
-      ) =
-      (
-        Utf8.FFI.withPtr
-         &&&> GSize.FFI.withVal
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibDateRecord.FFI.withPtr
-         ---> GSize.FFI.fromVal
-      )
-        dateStrftime_
-        (
-          s
-           & slen
-           & format
-           & date
-        )
-    fun dateValidDay day = (GLibDateDay.FFI.withVal ---> GBool.FFI.fromVal) dateValidDay_ day
-    fun dateValidDmy
-      (
-        day,
-        month,
-        year
-      ) =
-      (
-        GLibDateDay.FFI.withVal
-         &&&> GLibDateMonth.FFI.withVal
-         &&&> GLibDateYear.FFI.withVal
-         ---> GBool.FFI.fromVal
-      )
-        dateValidDmy_
-        (
-          day
-           & month
-           & year
-        )
-    fun dateValidJulian julianDate = (GUInt32.FFI.withVal ---> GBool.FFI.fromVal) dateValidJulian_ julianDate
-    fun dateValidMonth month = (GLibDateMonth.FFI.withVal ---> GBool.FFI.fromVal) dateValidMonth_ month
-    fun dateValidWeekday weekday = (GLibDateWeekday.FFI.withVal ---> GBool.FFI.fromVal) dateValidWeekday_ weekday
-    fun dateValidYear year = (GLibDateYear.FFI.withVal ---> GBool.FFI.fromVal) dateValidYear_ year
     fun dcgettext
       (
         domain,
@@ -1345,7 +1178,6 @@ structure GLib : G_LIB =
            & category
         )
     fun dgettext (domain, msgid) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) dgettext_ (domain & msgid)
-    fun dirMakeTmp tmpl = (Utf8.FFI.withOptPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) dirMakeTmp_ (tmpl & [])
     fun dngettext
       (
         domain,
@@ -1503,29 +1335,6 @@ structure GLib : G_LIB =
     fun getUserRuntimeDir () = (I ---> Utf8.FFI.fromPtr 0) getUserRuntimeDir_ ()
     fun getUserSpecialDir directory = (GLibUserDirectory.FFI.withVal ---> Utf8.FFI.fromPtr 0) getUserSpecialDir_ directory
     fun getenv variable = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getenv_ variable
-    fun hookDestroy (hookList, hookId) = (GLibHookListRecord.FFI.withPtr &&&> GULong.FFI.withVal ---> GBool.FFI.fromVal) hookDestroy_ (hookList & hookId)
-    fun hookDestroyLink (hookList, hook) = (GLibHookListRecord.FFI.withPtr &&&> GLibHookRecord.FFI.withPtr ---> I) hookDestroyLink_ (hookList & hook)
-    fun hookFree (hookList, hook) = (GLibHookListRecord.FFI.withPtr &&&> GLibHookRecord.FFI.withPtr ---> I) hookFree_ (hookList & hook)
-    fun hookInsertBefore
-      (
-        hookList,
-        sibling,
-        hook
-      ) =
-      (
-        GLibHookListRecord.FFI.withPtr
-         &&&> GLibHookRecord.FFI.withPtr
-         &&&> GLibHookRecord.FFI.withPtr
-         ---> I
-      )
-        hookInsertBefore_
-        (
-          hookList
-           & sibling
-           & hook
-        )
-    fun hookPrepend (hookList, hook) = (GLibHookListRecord.FFI.withPtr &&&> GLibHookRecord.FFI.withPtr ---> I) hookPrepend_ (hookList & hook)
-    fun hookUnref (hookList, hook) = (GLibHookListRecord.FFI.withPtr &&&> GLibHookRecord.FFI.withPtr ---> I) hookUnref_ (hookList & hook)
     fun hostnameIsAsciiEncoded hostname = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hostnameIsAsciiEncoded_ hostname
     fun hostnameIsIpAddress hostname = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hostnameIsIpAddress_ hostname
     fun hostnameIsNonAscii hostname = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hostnameIsNonAscii_ hostname
@@ -1534,22 +1343,15 @@ structure GLib : G_LIB =
     fun idleSourceNew () = (I ---> GLibSourceRecord.FFI.fromPtr true) idleSourceNew_ ()
     fun internStaticString string = (Utf8.FFI.withOptPtr ---> Utf8.FFI.fromPtr 0) internStaticString_ string
     fun internString string = (Utf8.FFI.withOptPtr ---> Utf8.FFI.fromPtr 0) internString_ string
-    fun ioChannelErrorFromErrno en = (GInt.FFI.withVal ---> GLibIOChannelError.FFI.fromVal) ioChannelErrorFromErrno_ en
-    fun ioChannelErrorQuark () = (I ---> GLibQuark.FFI.fromVal) ioChannelErrorQuark_ ()
     fun ioCreateWatch (channel, condition) = (GLibIOChannelRecord.FFI.withPtr &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) ioCreateWatch_ (channel & condition)
-    fun keyFileErrorQuark () = (I ---> GLibQuark.FFI.fromVal) keyFileErrorQuark_ ()
-    fun listPopAllocator () = (I ---> I) listPopAllocator_ ()
     fun listenv () = (I ---> Utf8CVector.FFI.fromPtr 2) listenv_ ()
     fun logRemoveHandler (logDomain, handlerId) = (Utf8.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
     fun logSetAlwaysFatal fatalMask = (GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetAlwaysFatal_ fatalMask
     fun logSetFatalMask (logDomain, fatalMask) = (Utf8.FFI.withPtr &&&> GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetFatalMask_ (logDomain & fatalMask)
-    fun mainContextDefault () = (I ---> GLibMainContextRecord.FFI.fromPtr false) mainContextDefault_ ()
-    fun mainContextGetThreadDefault () = (I ---> GLibMainContextRecord.FFI.fromPtr false) mainContextGetThreadDefault_ ()
     fun mainCurrentSource () = (I ---> GLibSourceRecord.FFI.fromPtr false) mainCurrentSource_ ()
     fun mainDepth () = (I ---> GInt.FFI.fromVal) mainDepth_ ()
     fun markupErrorQuark () = (I ---> GLibQuark.FFI.fromVal) markupErrorQuark_ ()
     fun markupEscapeText (text, length) = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) markupEscapeText_ (text & length)
-    fun memChunkInfo () = (I ---> I) memChunkInfo_ ()
     fun memIsSystemMalloc () = (I ---> GBool.FFI.fromVal) memIsSystemMalloc_ ()
     fun memProfile () = (I ---> I) memProfile_ ()
     fun memSetVtable vtable = (GLibMemVTableRecord.FFI.withPtr ---> I) memSetVtable_ vtable
@@ -1575,7 +1377,6 @@ structure GLib : G_LIB =
            & flags
            & mode
         )
-    fun nodePopAllocator () = (I ---> I) nodePopAllocator_ ()
     fun onErrorQuery prgName = (Utf8.FFI.withPtr ---> I) onErrorQuery_ prgName
     fun onErrorStackTrace prgName = (Utf8.FFI.withPtr ---> I) onErrorStackTrace_ prgName
     fun optionErrorQuark () = (I ---> GLibQuark.FFI.fromVal) optionErrorQuark_ ()
@@ -1633,47 +1434,6 @@ structure GLib : G_LIB =
     fun randomInt () = (I ---> GUInt32.FFI.fromVal) randomInt_ ()
     fun randomIntRange (begin, end') = (GInt32.FFI.withVal &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) randomIntRange_ (begin & end')
     fun randomSetSeed seed = (GUInt32.FFI.withVal ---> I) randomSetSeed_ seed
-    fun regexCheckReplacement replacement =
-      let
-        val hasReferences & retVal =
-          (
-            Utf8.FFI.withPtr
-             &&&> GBool.FFI.withRefVal
-             &&&> GLibErrorRecord.handleError
-             ---> GBool.FFI.fromVal && GBool.FFI.fromVal
-          )
-            regexCheckReplacement_
-            (
-              replacement
-               & GBool.null
-               & []
-            )
-      in
-        if retVal then SOME hasReferences else NONE
-      end
-    fun regexErrorQuark () = (I ---> GLibQuark.FFI.fromVal) regexErrorQuark_ ()
-    fun regexEscapeNul (string, length) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) regexEscapeNul_ (string & length)
-    fun regexMatchSimple
-      (
-        pattern,
-        string,
-        compileOptions,
-        matchOptions
-      ) =
-      (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibRegexCompileFlags.FFI.withVal
-         &&&> GLibRegexMatchFlags.FFI.withVal
-         ---> GBool.FFI.fromVal
-      )
-        regexMatchSimple_
-        (
-          pattern
-           & string
-           & compileOptions
-           & matchOptions
-        )
     fun reloadUserSpecialDirsCache () = (I ---> I) reloadUserSpecialDirsCache_ ()
     fun returnIfFailWarning
       (
@@ -1694,28 +1454,6 @@ structure GLib : G_LIB =
            & expression
         )
     fun rmdir filename = (Utf8.FFI.withPtr ---> GInt.FFI.fromVal) rmdir_ filename
-    fun sequenceMove (src, dest) = (GLibSequenceIterRecord.FFI.withPtr &&&> GLibSequenceIterRecord.FFI.withPtr ---> I) sequenceMove_ (src & dest)
-    fun sequenceMoveRange
-      (
-        dest,
-        begin,
-        end'
-      ) =
-      (
-        GLibSequenceIterRecord.FFI.withPtr
-         &&&> GLibSequenceIterRecord.FFI.withPtr
-         &&&> GLibSequenceIterRecord.FFI.withPtr
-         ---> I
-      )
-        sequenceMoveRange_
-        (
-          dest
-           & begin
-           & end'
-        )
-    fun sequenceRemove iter = (GLibSequenceIterRecord.FFI.withPtr ---> I) sequenceRemove_ iter
-    fun sequenceRemoveRange (begin, end') = (GLibSequenceIterRecord.FFI.withPtr &&&> GLibSequenceIterRecord.FFI.withPtr ---> I) sequenceRemoveRange_ (begin & end')
-    fun sequenceSwap (a, b) = (GLibSequenceIterRecord.FFI.withPtr &&&> GLibSequenceIterRecord.FFI.withPtr ---> I) sequenceSwap_ (a & b)
     fun setApplicationName applicationName = (Utf8.FFI.withPtr ---> I) setApplicationName_ applicationName
     fun setPrgname prgname = (Utf8.FFI.withPtr ---> I) setPrgname_ prgname
     fun setenv
@@ -1765,8 +1503,6 @@ structure GLib : G_LIB =
     fun shellUnquote quotedString = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) shellUnquote_ (quotedString & [])
     fun sliceGetConfig ckey = (GLibSliceConfig.FFI.withVal ---> GInt64.FFI.fromVal) sliceGetConfig_ ckey
     fun sliceSetConfig (ckey, value) = (GLibSliceConfig.FFI.withVal &&&> GInt64.FFI.withVal ---> I) sliceSetConfig_ (ckey & value)
-    fun sourceRemove tag = (GUInt.FFI.withVal ---> GBool.FFI.fromVal) sourceRemove_ tag
-    fun sourceSetNameById (tag, name) = (GUInt.FFI.withVal &&&> Utf8.FFI.withPtr ---> I) sourceSetNameById_ (tag & name)
     fun spacedPrimesClosest num = (GUInt.FFI.withVal ---> GUInt.FFI.fromVal) spacedPrimesClosest_ num
     fun spawnClosePid pid = (GLibPid.FFI.withVal ---> I) spawnClosePid_ pid
     fun spawnCommandLineAsync commandLine = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) spawnCommandLineAsync_ (commandLine & [])
@@ -1966,20 +1702,8 @@ structure GLib : G_LIB =
     fun testTrapFork (usecTimeout, testTrapFlags) = (GUInt64.FFI.withVal &&&> GLibTestTrapFlags.FFI.withVal ---> GBool.FFI.fromVal) testTrapFork_ (usecTimeout & testTrapFlags)
     fun testTrapHasPassed () = (I ---> GBool.FFI.fromVal) testTrapHasPassed_ ()
     fun testTrapReachedTimeout () = (I ---> GBool.FFI.fromVal) testTrapReachedTimeout_ ()
-    fun threadErrorQuark () = (I ---> GLibQuark.FFI.fromVal) threadErrorQuark_ ()
-    fun threadGetInitialized () = (I ---> GBool.FFI.fromVal) threadGetInitialized_ ()
-    fun threadInit vtable = (GLibThreadFunctionsRecord.FFI.withPtr ---> I) threadInit_ vtable
-    fun threadInitWithErrorcheckMutexes vtable = (GLibThreadFunctionsRecord.FFI.withPtr ---> I) threadInitWithErrorcheckMutexes_ vtable
-    fun threadPoolGetMaxIdleTime () = (I ---> GUInt.FFI.fromVal) threadPoolGetMaxIdleTime_ ()
-    fun threadPoolGetMaxUnusedThreads () = (I ---> GInt.FFI.fromVal) threadPoolGetMaxUnusedThreads_ ()
-    fun threadPoolGetNumUnusedThreads () = (I ---> GUInt.FFI.fromVal) threadPoolGetNumUnusedThreads_ ()
-    fun threadPoolSetMaxIdleTime interval = (GUInt.FFI.withVal ---> I) threadPoolSetMaxIdleTime_ interval
-    fun threadPoolSetMaxUnusedThreads maxThreads = (GInt.FFI.withVal ---> I) threadPoolSetMaxUnusedThreads_ maxThreads
-    fun threadPoolStopUnusedThreads () = (I ---> I) threadPoolStopUnusedThreads_ ()
-    fun timeValFromIso8601 (isoDate, time) = (Utf8.FFI.withPtr &&&> GLibTimeValRecord.FFI.withPtr ---> GBool.FFI.fromVal) timeValFromIso8601_ (isoDate & time)
     fun timeoutSourceNew interval = (GUInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) timeoutSourceNew_ interval
     fun timeoutSourceNewSeconds interval = (GUInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) timeoutSourceNewSeconds_ interval
-    fun trashStackHeight stackP = (GLibTrashStackRecord.FFI.withPtr ---> GUInt.FFI.fromVal) trashStackHeight_ stackP
     fun unicharBreakType c = (GChar.FFI.withVal ---> GLibUnicodeBreakType.FFI.fromVal) unicharBreakType_ c
     fun unicharCombiningClass uc = (GChar.FFI.withVal ---> GInt.FFI.fromVal) unicharCombiningClass_ uc
     fun unicharDigitValue c = (GChar.FFI.withVal ---> GInt.FFI.fromVal) unicharDigitValue_ c
@@ -2175,51 +1899,6 @@ structure GLib : G_LIB =
         if retVal then SOME end' else NONE
       end
     fun variantGetType value = (GLibVariantRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) variantGetType_ value
-    fun variantIsObjectPath string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) variantIsObjectPath_ string
-    fun variantIsSignature string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) variantIsSignature_ string
-    fun variantParse
-      (
-        type',
-        text,
-        limit,
-        endptr
-      ) =
-      (
-        GLibVariantTypeRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibErrorRecord.handleError
-         ---> GLibVariantRecord.FFI.fromPtr true
-      )
-        variantParse_
-        (
-          type'
-           & text
-           & limit
-           & endptr
-           & []
-        )
-    fun variantParserGetErrorQuark () = (I ---> GLibQuark.FFI.fromVal) variantParserGetErrorQuark_ ()
-    fun variantTypeStringIsValid typeString = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) variantTypeStringIsValid_ typeString
-    fun variantTypeStringScan (string, limit) =
-      let
-        val endptr & retVal =
-          (
-            Utf8.FFI.withPtr
-             &&&> Utf8.FFI.withOptPtr
-             &&&> Utf8.FFI.withRefOptPtr
-             ---> Utf8.FFI.fromPtr 1 && GBool.FFI.fromVal
-          )
-            variantTypeStringScan_
-            (
-              string
-               & limit
-               & NONE
-            )
-      in
-        if retVal then SOME endptr else NONE
-      end
     fun warnMessage
       (
         domain,

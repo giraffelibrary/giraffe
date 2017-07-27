@@ -33,8 +33,6 @@ structure Gdk : GDK =
     local
       open PolyMLFFI
     in
-      val atomIntern_ = call (getSymbol "gdk_atom_intern") (Utf8.PolyML.cInPtr &&> GBool.PolyML.cVal --> GdkAtomRecord.PolyML.cPtr)
-      val atomInternStaticString_ = call (getSymbol "gdk_atom_intern_static_string") (Utf8.PolyML.cInPtr --> GdkAtomRecord.PolyML.cPtr)
       val beep_ = call (getSymbol "gdk_beep") (cVoid --> cVoid)
       val cairoCreate_ = call (getSymbol "gdk_cairo_create") (GdkWindowClass.PolyML.cPtr --> CairoContextRecord.PolyML.cPtr)
       val cairoGetClipRectangle_ = call (getSymbol "gdk_cairo_get_clip_rectangle") (CairoContextRecord.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -61,7 +59,6 @@ structure Gdk : GDK =
              &&> GDouble.PolyML.cVal
              --> cVoid
           )
-      val colorParse_ = call (getSymbol "gdk_color_parse") (Utf8.PolyML.cInPtr &&> GdkColorRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val disableMultidevice_ = call (getSymbol "gdk_disable_multidevice") (cVoid --> cVoid)
       val dragAbort_ = call (getSymbol "gdk_drag_abort") (GdkDragContextClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
       val dragDrop_ = call (getSymbol "gdk_drag_drop") (GdkDragContextClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
@@ -119,9 +116,6 @@ structure Gdk : GDK =
       val errorTrapPop_ = call (getSymbol "gdk_error_trap_pop") (cVoid --> GInt.PolyML.cVal)
       val errorTrapPopIgnored_ = call (getSymbol "gdk_error_trap_pop_ignored") (cVoid --> cVoid)
       val errorTrapPush_ = call (getSymbol "gdk_error_trap_push") (cVoid --> cVoid)
-      val eventGet_ = call (getSymbol "gdk_event_get") (cVoid --> GdkEvent.PolyML.cPtr)
-      val eventPeek_ = call (getSymbol "gdk_event_peek") (cVoid --> GdkEvent.PolyML.cPtr)
-      val eventRequestMotions_ = call (getSymbol "gdk_event_request_motions") (GdkEventMotionRecord.PolyML.cPtr --> cVoid)
       val eventsPending_ = call (getSymbol "gdk_events_pending") (cVoid --> GBool.PolyML.cVal)
       val flush_ = call (getSymbol "gdk_flush") (cVoid --> cVoid)
       val getDefaultRootWindow_ = call (getSymbol "gdk_get_default_root_window") (cVoid --> GdkWindowClass.PolyML.cPtr)
@@ -2662,8 +2656,6 @@ structure Gdk : GDK =
     val MAX_TIMECOORD_AXES = 128
     val PARENT_RELATIVE = 1
     val PRIORITY_REDRAW = 20
-    fun atomIntern (atomName, onlyIfExists) = (Utf8.FFI.withPtr &&&> GBool.FFI.withVal ---> GdkAtomRecord.FFI.fromPtr false) atomIntern_ (atomName & onlyIfExists)
-    fun atomInternStaticString atomName = (Utf8.FFI.withPtr ---> GdkAtomRecord.FFI.fromPtr false) atomInternStaticString_ atomName
     fun beep () = (I ---> I) beep_ ()
     fun cairoCreate window = (GdkWindowClass.FFI.withPtr ---> CairoContextRecord.FFI.fromPtr true) cairoCreate_ window
     fun cairoGetClipRectangle cr =
@@ -2719,12 +2711,6 @@ structure Gdk : GDK =
            & x
            & y
         )
-    fun colorParse spec =
-      let
-        val color & retVal = (Utf8.FFI.withPtr &&&> GdkColorRecord.FFI.withNewPtr ---> GdkColorRecord.FFI.fromPtr true && GBool.FFI.fromVal) colorParse_ (spec & ())
-      in
-        if retVal then SOME color else NONE
-      end
     fun disableMultidevice () = (I ---> I) disableMultidevice_ ()
     fun dragAbort (context, time) = (GdkDragContextClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) dragAbort_ (context & time)
     fun dragDrop (context, time) = (GdkDragContextClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) dragDrop_ (context & time)
@@ -2857,9 +2843,6 @@ structure Gdk : GDK =
     fun errorTrapPop () = (I ---> GInt.FFI.fromVal) errorTrapPop_ ()
     fun errorTrapPopIgnored () = (I ---> I) errorTrapPopIgnored_ ()
     fun errorTrapPush () = (I ---> I) errorTrapPush_ ()
-    fun eventGet () = (I ---> GdkEvent.FFI.fromPtr true) eventGet_ ()
-    fun eventPeek () = (I ---> GdkEvent.FFI.fromPtr true) eventPeek_ ()
-    fun eventRequestMotions event = (GdkEventMotionRecord.FFI.withPtr ---> I) eventRequestMotions_ event
     fun eventsPending () = (I ---> GBool.FFI.fromVal) eventsPending_ ()
     fun flush () = (I ---> I) flush_ ()
     fun getDefaultRootWindow () = (I ---> GdkWindowClass.FFI.fromPtr false) getDefaultRootWindow_ ()

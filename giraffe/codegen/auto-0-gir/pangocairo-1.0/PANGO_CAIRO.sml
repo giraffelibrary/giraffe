@@ -26,8 +26,6 @@ signature PANGO_CAIRO =
        * real
        * real
        -> unit
-    val fontMapGetDefault : unit -> base Pango.FontMapClass.class
-    val fontMapNew : unit -> base Pango.FontMapClass.class
     val glyphStringPath :
       Cairo.ContextRecord.t
        * 'a Pango.FontClass.class

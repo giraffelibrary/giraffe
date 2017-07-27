@@ -808,7 +808,7 @@ and makeFunction
   con
   baseData  (* self reference *)
   typelib
-  ({elem, name, config = _, callable, cIdentifier, throws} : function) =
+  ({elem, name, config = _, callable, cIdentifier, movedTo, throws} : function) =
   let
     val flags'0 =
       let
@@ -833,8 +833,9 @@ and makeFunction
 
     val functionData : Info.functiondata =
       {
-        symbol = cIdentifier,
-        flags  = flags'
+        symbol  = cIdentifier,
+        movedTo = movedTo,
+        flags   = flags'
       }
     val callableData = makeCallableData baseData elemDicts typelib callable
   in

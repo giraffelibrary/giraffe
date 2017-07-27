@@ -2,6 +2,14 @@
  * Function
  * -------------------------------------------------------------------------- *)
 
+(* Moved functions - GIR only *)
+
+fun checkFunctionMoved functionInfo =
+  case FunctionInfo.getMovedTo functionInfo of
+    SOME name => infoError ("moved to " ^ name)
+  | NONE      => ()
+
+
 (* Function names to be skipped *)
 
 (* Manually specified symbols *)
@@ -1575,6 +1583,8 @@ fun makeFunctionSpec
   let
     val () = checkDeprecated functionInfo
 
+    val () = checkFunctionMoved functionInfo
+
     val () = checkFunctionSymbol functionInfo
 
     val functionName = getName functionInfo
@@ -2291,6 +2301,8 @@ fun makeFunctionStrDecHighLevel
   let
     val () = checkDeprecated functionInfo
 
+    val () = checkFunctionMoved functionInfo
+
     val () = checkFunctionSymbol functionInfo
 
     val functionName = getName functionInfo
@@ -2919,6 +2931,8 @@ fun makeFunctionStrDecLowLevelPolyML
   : strdec * infoerrorhier list =
   let
     val () = checkDeprecated functionInfo
+
+    val () = checkFunctionMoved functionInfo
 
     val () = checkFunctionSymbol functionInfo
 
@@ -3589,6 +3603,8 @@ fun makeFunctionStrDecLowLevelMLton
   : strdec * infoerrorhier list =
   let
     val () = checkDeprecated functionInfo
+
+    val () = checkFunctionMoved functionInfo
 
     val () = checkFunctionSymbol functionInfo
 

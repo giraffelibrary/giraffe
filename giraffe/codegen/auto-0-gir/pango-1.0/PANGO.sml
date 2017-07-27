@@ -186,28 +186,9 @@ signature PANGO =
     val SCALE : LargeInt.int
     val UNKNOWN_GLYPH_HEIGHT : LargeInt.int
     val UNKNOWN_GLYPH_WIDTH : LargeInt.int
-    val attrTypeGetName : AttrType.t -> string
-    val attrTypeRegister : string -> AttrType.t
-    val bidiTypeForUnichar : char -> BidiType.t
     val extentsToPixels : RectangleRecord.t option * RectangleRecord.t option -> unit
     val findBaseDir : string * LargeInt.int -> Direction.t
-    val fontDescriptionFromString : string -> FontDescriptionRecord.t
-    val gravityGetForMatrix : MatrixRecord.t -> Gravity.t
-    val gravityGetForScript :
-      Script.t
-       * Gravity.t
-       * GravityHint.t
-       -> Gravity.t
-    val gravityGetForScriptAndWidth :
-      Script.t
-       * bool
-       * Gravity.t
-       * GravityHint.t
-       -> Gravity.t
-    val gravityToRotation : Gravity.t -> real
     val isZeroWidth : char -> bool
-    val languageFromString : string option -> LanguageRecord.t
-    val languageGetDefault : unit -> LanguageRecord.t
     val parseMarkup :
       string
        * LargeInt.int
@@ -217,8 +198,6 @@ signature PANGO =
             * char)
             option
     val quantizeLineGeometry : LargeInt.int * LargeInt.int -> LargeInt.int * LargeInt.int
-    val scriptForUnichar : char -> Script.t
-    val scriptGetSampleLanguage : Script.t -> LanguageRecord.t
     val splitFileList : string -> string list
     val trimString : string -> string
     val unicharDirection : char -> Direction.t

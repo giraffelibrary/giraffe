@@ -15,26 +15,6 @@ structure Gio : GIO =
     local
       open PolyMLFFI
     in
-      val appInfoCreateFromCommandline_ =
-        call (getSymbol "g_app_info_create_from_commandline")
-          (
-            Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInOptPtr
-             &&> GioAppInfoCreateFlags.PolyML.cVal
-             &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GioAppInfoClass.PolyML.cPtr
-          )
-      val appInfoGetDefaultForType_ = call (getSymbol "g_app_info_get_default_for_type") (Utf8.PolyML.cInPtr &&> GBool.PolyML.cVal --> GioAppInfoClass.PolyML.cPtr)
-      val appInfoGetDefaultForUriScheme_ = call (getSymbol "g_app_info_get_default_for_uri_scheme") (Utf8.PolyML.cInPtr --> GioAppInfoClass.PolyML.cPtr)
-      val appInfoLaunchDefaultForUri_ =
-        call (getSymbol "g_app_info_launch_default_for_uri")
-          (
-            Utf8.PolyML.cInPtr
-             &&> GioAppLaunchContextClass.PolyML.cOptPtr
-             &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GBool.PolyML.cVal
-          )
-      val appInfoResetTypeAssociations_ = call (getSymbol "g_app_info_reset_type_associations") (Utf8.PolyML.cInPtr --> cVoid)
       val busGetFinish_ = call (getSymbol "g_bus_get_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioDBusConnectionClass.PolyML.cPtr)
       val busGetSync_ =
         call (getSymbol "g_bus_get_sync")
@@ -130,8 +110,6 @@ structure Gio : GIO =
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioIOStreamClass.PolyML.cPtr
           )
-      val dbusAnnotationInfoLookup_ = call (getSymbol "g_dbus_annotation_info_lookup") (GioDBusAnnotationInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val dbusErrorQuark_ = call (getSymbol "g_dbus_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
       val dbusGenerateGuid_ = call (getSymbol "g_dbus_generate_guid") (cVoid --> Utf8.PolyML.cOutPtr)
       val dbusGvalueToGvariant_ = call (getSymbol "g_dbus_gvalue_to_gvariant") (GObjectValueRecord.PolyML.cPtr &&> GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
       val dbusGvariantToGvalue_ = call (getSymbol "g_dbus_gvariant_to_gvalue") (GLibVariantRecord.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> cVoid)
@@ -142,40 +120,11 @@ structure Gio : GIO =
       val dbusIsName_ = call (getSymbol "g_dbus_is_name") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val dbusIsSupportedAddress_ = call (getSymbol "g_dbus_is_supported_address") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val dbusIsUniqueName_ = call (getSymbol "g_dbus_is_unique_name") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val fileNewForCommandlineArg_ = call (getSymbol "g_file_new_for_commandline_arg") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
-      val fileNewForPath_ = call (getSymbol "g_file_new_for_path") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
-      val fileNewForUri_ = call (getSymbol "g_file_new_for_uri") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
-      val fileParseName_ = call (getSymbol "g_file_parse_name") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
-      val iconNewForString_ = call (getSymbol "g_icon_new_for_string") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioIconClass.PolyML.cPtr)
       val ioErrorFromErrno_ = call (getSymbol "g_io_error_from_errno") (GInt.PolyML.cVal --> GioIOErrorEnum.PolyML.cVal)
       val ioErrorQuark_ = call (getSymbol "g_io_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
-      val ioExtensionPointLookup_ = call (getSymbol "g_io_extension_point_lookup") (Utf8.PolyML.cInPtr --> GioIOExtensionPointRecord.PolyML.cPtr)
-      val ioExtensionPointRegister_ = call (getSymbol "g_io_extension_point_register") (Utf8.PolyML.cInPtr --> GioIOExtensionPointRecord.PolyML.cPtr)
       val ioModulesScanAllInDirectory_ = call (getSymbol "g_io_modules_scan_all_in_directory") (Utf8.PolyML.cInPtr --> cVoid)
       val ioModulesScanAllInDirectoryWithScope_ = call (getSymbol "g_io_modules_scan_all_in_directory_with_scope") (Utf8.PolyML.cInPtr &&> GioIOModuleScopeRecord.PolyML.cPtr --> cVoid)
       val ioSchedulerCancelAllJobs_ = call (getSymbol "g_io_scheduler_cancel_all_jobs") (cVoid --> cVoid)
-      val proxyGetDefaultForProtocol_ = call (getSymbol "g_proxy_get_default_for_protocol") (Utf8.PolyML.cInPtr --> GioProxyClass.PolyML.cPtr)
-      val proxyResolverGetDefault_ = call (getSymbol "g_proxy_resolver_get_default") (cVoid --> GioProxyResolverClass.PolyML.cPtr)
-      val resolverErrorQuark_ = call (getSymbol "g_resolver_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
-      val tlsBackendGetDefault_ = call (getSymbol "g_tls_backend_get_default") (cVoid --> GioTlsBackendClass.PolyML.cPtr)
-      val tlsClientConnectionNew_ =
-        call (getSymbol "g_tls_client_connection_new")
-          (
-            GioIOStreamClass.PolyML.cPtr
-             &&> GioSocketConnectableClass.PolyML.cOptPtr
-             &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GioIOStreamClass.PolyML.cPtr
-          )
-      val tlsErrorQuark_ = call (getSymbol "g_tls_error_quark") (cVoid --> GLibQuark.PolyML.cVal)
-      val tlsFileDatabaseNew_ = call (getSymbol "g_tls_file_database_new") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioTlsDatabaseClass.PolyML.cPtr)
-      val tlsServerConnectionNew_ =
-        call (getSymbol "g_tls_server_connection_new")
-          (
-            GioIOStreamClass.PolyML.cPtr
-             &&> GioTlsCertificateClass.PolyML.cOptPtr
-             &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GioIOStreamClass.PolyML.cPtr
-          )
       val unixIsMountPathSystemInternal_ = call (getSymbol "g_unix_is_mount_path_system_internal") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val unixMountCompare_ = call (getSymbol "g_unix_mount_compare") (GioUnixMountEntryRecord.PolyML.cPtr &&> GioUnixMountEntryRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val unixMountFree_ = call (getSymbol "g_unix_mount_free") (GioUnixMountEntryRecord.PolyML.cPtr --> cVoid)
@@ -601,42 +550,6 @@ structure Gio : GIO =
     val VOLUME_IDENTIFIER_KIND_UNIX_DEVICE = "unix-device"
     val VOLUME_IDENTIFIER_KIND_UUID = "uuid"
     val VOLUME_MONITOR_EXTENSION_POINT_NAME = "gio-volume-monitor"
-    fun appInfoCreateFromCommandline
-      (
-        commandline,
-        applicationName,
-        flags
-      ) =
-      (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> GioAppInfoCreateFlags.FFI.withVal
-         &&&> GLibErrorRecord.handleError
-         ---> GioAppInfoClass.FFI.fromPtr true
-      )
-        appInfoCreateFromCommandline_
-        (
-          commandline
-           & applicationName
-           & flags
-           & []
-        )
-    fun appInfoGetDefaultForType (contentType, mustSupportUris) = (Utf8.FFI.withPtr &&&> GBool.FFI.withVal ---> GioAppInfoClass.FFI.fromPtr true) appInfoGetDefaultForType_ (contentType & mustSupportUris)
-    fun appInfoGetDefaultForUriScheme uriScheme = (Utf8.FFI.withPtr ---> GioAppInfoClass.FFI.fromPtr true) appInfoGetDefaultForUriScheme_ uriScheme
-    fun appInfoLaunchDefaultForUri (uri, launchContext) =
-      (
-        Utf8.FFI.withPtr
-         &&&> GioAppLaunchContextClass.FFI.withOptPtr
-         &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
-      )
-        appInfoLaunchDefaultForUri_
-        (
-          uri
-           & launchContext
-           & []
-        )
-    fun appInfoResetTypeAssociations contentType = (Utf8.FFI.withPtr ---> I) appInfoResetTypeAssociations_ contentType
     fun busGetFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.FFI.fromPtr true) busGetFinish_ (res & [])
     fun busGetSync (busType, cancellable) =
       (
@@ -831,8 +744,6 @@ structure Gio : GIO =
            & cancellable
            & []
         )
-    fun dbusAnnotationInfoLookup (annotations, name) = (GioDBusAnnotationInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) dbusAnnotationInfoLookup_ (annotations & name)
-    fun dbusErrorQuark () = (I ---> GLibQuark.FFI.fromVal) dbusErrorQuark_ ()
     fun dbusGenerateGuid () = (I ---> Utf8.FFI.fromPtr 1) dbusGenerateGuid_ ()
     fun dbusGvalueToGvariant (gvalue, type') = (GObjectValueRecord.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) dbusGvalueToGvariant_ (gvalue & type')
     fun dbusGvariantToGvalue (value, outGvalue) = (GLibVariantRecord.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> I) dbusGvariantToGvalue_ (value & outGvalue)
@@ -843,50 +754,11 @@ structure Gio : GIO =
     fun dbusIsName string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) dbusIsName_ string
     fun dbusIsSupportedAddress string = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) dbusIsSupportedAddress_ (string & [])
     fun dbusIsUniqueName string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) dbusIsUniqueName_ string
-    fun fileNewForCommandlineArg arg = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) fileNewForCommandlineArg_ arg
-    fun fileNewForPath path = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) fileNewForPath_ path
-    fun fileNewForUri uri = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) fileNewForUri_ uri
-    fun fileParseName parseName = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) fileParseName_ parseName
-    fun iconNewForString str = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioIconClass.FFI.fromPtr true) iconNewForString_ (str & [])
     fun ioErrorFromErrno errNo = (GInt.FFI.withVal ---> GioIOErrorEnum.FFI.fromVal) ioErrorFromErrno_ errNo
     fun ioErrorQuark () = (I ---> GLibQuark.FFI.fromVal) ioErrorQuark_ ()
-    fun ioExtensionPointLookup name = (Utf8.FFI.withPtr ---> GioIOExtensionPointRecord.FFI.fromPtr false) ioExtensionPointLookup_ name
-    fun ioExtensionPointRegister name = (Utf8.FFI.withPtr ---> GioIOExtensionPointRecord.FFI.fromPtr false) ioExtensionPointRegister_ name
     fun ioModulesScanAllInDirectory dirname = (Utf8.FFI.withPtr ---> I) ioModulesScanAllInDirectory_ dirname
     fun ioModulesScanAllInDirectoryWithScope (dirname, scope) = (Utf8.FFI.withPtr &&&> GioIOModuleScopeRecord.FFI.withPtr ---> I) ioModulesScanAllInDirectoryWithScope_ (dirname & scope)
     fun ioSchedulerCancelAllJobs () = (I ---> I) ioSchedulerCancelAllJobs_ ()
-    fun proxyGetDefaultForProtocol protocol = (Utf8.FFI.withPtr ---> GioProxyClass.FFI.fromPtr true) proxyGetDefaultForProtocol_ protocol
-    fun proxyResolverGetDefault () = (I ---> GioProxyResolverClass.FFI.fromPtr false) proxyResolverGetDefault_ ()
-    fun resolverErrorQuark () = (I ---> GLibQuark.FFI.fromVal) resolverErrorQuark_ ()
-    fun tlsBackendGetDefault () = (I ---> GioTlsBackendClass.FFI.fromPtr false) tlsBackendGetDefault_ ()
-    fun tlsClientConnectionNew (baseIoStream, serverIdentity) =
-      (
-        GioIOStreamClass.FFI.withPtr
-         &&&> GioSocketConnectableClass.FFI.withOptPtr
-         &&&> GLibErrorRecord.handleError
-         ---> GioIOStreamClass.FFI.fromPtr true
-      )
-        tlsClientConnectionNew_
-        (
-          baseIoStream
-           & serverIdentity
-           & []
-        )
-    fun tlsErrorQuark () = (I ---> GLibQuark.FFI.fromVal) tlsErrorQuark_ ()
-    fun tlsFileDatabaseNew anchors = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsDatabaseClass.FFI.fromPtr true) tlsFileDatabaseNew_ (anchors & [])
-    fun tlsServerConnectionNew (baseIoStream, certificate) =
-      (
-        GioIOStreamClass.FFI.withPtr
-         &&&> GioTlsCertificateClass.FFI.withOptPtr
-         &&&> GLibErrorRecord.handleError
-         ---> GioIOStreamClass.FFI.fromPtr true
-      )
-        tlsServerConnectionNew_
-        (
-          baseIoStream
-           & certificate
-           & []
-        )
     fun unixIsMountPathSystemInternal mountPath = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) unixIsMountPathSystemInternal_ mountPath
     fun unixMountCompare (mount1, mount2) = (GioUnixMountEntryRecord.FFI.withPtr &&&> GioUnixMountEntryRecord.FFI.withPtr ---> GInt.FFI.fromVal) unixMountCompare_ (mount1 & mount2)
     fun unixMountFree mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> I) unixMountFree_ mountEntry

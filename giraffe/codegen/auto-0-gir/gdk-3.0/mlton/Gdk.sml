@@ -30,22 +30,6 @@ structure Gdk : GDK =
         structure Sequence = ListSequence
       )
     structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
-    val atomIntern_ =
-      fn
-        (x1, x2) & x3 =>
-          (
-            _import "mlton_gdk_atom_intern" :
-              Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GBool.FFI.val_
-               -> GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
-    val atomInternStaticString_ = _import "mlton_gdk_atom_intern_static_string" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p;
     val beep_ = _import "gdk_beep" : unit -> unit;
     val cairoCreate_ = _import "gdk_cairo_create" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p;
     val cairoGetClipRectangle_ = fn x1 & x2 => (_import "gdk_cairo_get_clip_rectangle" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
@@ -93,21 +77,6 @@ structure Gdk : GDK =
               x2,
               x3,
               x4
-            )
-    val colorParse_ =
-      fn
-        (x1, x2) & x3 =>
-          (
-            _import "mlton_gdk_color_parse" :
-              Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p
-               -> GBool.FFI.val_;
-          )
-            (
-              x1,
-              x2,
-              x3
             )
     val disableMultidevice_ = _import "gdk_disable_multidevice" : unit -> unit;
     val dragAbort_ = fn x1 & x2 => (_import "gdk_drag_abort" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
@@ -229,9 +198,6 @@ structure Gdk : GDK =
     val errorTrapPop_ = _import "gdk_error_trap_pop" : unit -> GInt.FFI.val_;
     val errorTrapPopIgnored_ = _import "gdk_error_trap_pop_ignored" : unit -> unit;
     val errorTrapPush_ = _import "gdk_error_trap_push" : unit -> unit;
-    val eventGet_ = _import "gdk_event_get" : unit -> GdkEvent.FFI.notnull GdkEvent.FFI.p;
-    val eventPeek_ = _import "gdk_event_peek" : unit -> GdkEvent.FFI.notnull GdkEvent.FFI.p;
-    val eventRequestMotions_ = _import "gdk_event_request_motions" : GdkEventMotionRecord.FFI.notnull GdkEventMotionRecord.FFI.p -> unit;
     val eventsPending_ = _import "gdk_events_pending" : unit -> GBool.FFI.val_;
     val flush_ = _import "gdk_flush" : unit -> unit;
     val getDefaultRootWindow_ = _import "gdk_get_default_root_window" : unit -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
@@ -3054,8 +3020,6 @@ structure Gdk : GDK =
     val MAX_TIMECOORD_AXES = 128
     val PARENT_RELATIVE = 1
     val PRIORITY_REDRAW = 20
-    fun atomIntern (atomName, onlyIfExists) = (Utf8.FFI.withPtr &&&> GBool.FFI.withVal ---> GdkAtomRecord.FFI.fromPtr false) atomIntern_ (atomName & onlyIfExists)
-    fun atomInternStaticString atomName = (Utf8.FFI.withPtr ---> GdkAtomRecord.FFI.fromPtr false) atomInternStaticString_ atomName
     fun beep () = (I ---> I) beep_ ()
     fun cairoCreate window = (GdkWindowClass.FFI.withPtr ---> CairoContextRecord.FFI.fromPtr true) cairoCreate_ window
     fun cairoGetClipRectangle cr =
@@ -3111,12 +3075,6 @@ structure Gdk : GDK =
            & x
            & y
         )
-    fun colorParse spec =
-      let
-        val color & retVal = (Utf8.FFI.withPtr &&&> GdkColorRecord.FFI.withNewPtr ---> GdkColorRecord.FFI.fromPtr true && GBool.FFI.fromVal) colorParse_ (spec & ())
-      in
-        if retVal then SOME color else NONE
-      end
     fun disableMultidevice () = (I ---> I) disableMultidevice_ ()
     fun dragAbort (context, time) = (GdkDragContextClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) dragAbort_ (context & time)
     fun dragDrop (context, time) = (GdkDragContextClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) dragDrop_ (context & time)
@@ -3249,9 +3207,6 @@ structure Gdk : GDK =
     fun errorTrapPop () = (I ---> GInt.FFI.fromVal) errorTrapPop_ ()
     fun errorTrapPopIgnored () = (I ---> I) errorTrapPopIgnored_ ()
     fun errorTrapPush () = (I ---> I) errorTrapPush_ ()
-    fun eventGet () = (I ---> GdkEvent.FFI.fromPtr true) eventGet_ ()
-    fun eventPeek () = (I ---> GdkEvent.FFI.fromPtr true) eventPeek_ ()
-    fun eventRequestMotions event = (GdkEventMotionRecord.FFI.withPtr ---> I) eventRequestMotions_ event
     fun eventsPending () = (I ---> GBool.FFI.fromVal) eventsPending_ ()
     fun flush () = (I ---> I) flush_ ()
     fun getDefaultRootWindow () = (I ---> GdkWindowClass.FFI.fromPtr false) getDefaultRootWindow_ ()

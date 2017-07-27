@@ -1,6 +1,5 @@
 structure GtkSource : GTK_SOURCE =
   struct
-    val completionErrorQuark_ = _import "gtk_source_completion_error_quark" : unit -> GLibQuark.FFI.val_;
     structure BracketMatchType = GtkSourceBracketMatchType
     structure BufferClass = GtkSourceBufferClass
     structure CompletionClass = GtkSourceCompletionClass
@@ -56,5 +55,4 @@ structure GtkSource : GTK_SOURCE =
     structure GutterRendererText = GtkSourceGutterRendererText
     val COMPLETION_CAPABILITY_AUTOMATIC = "standard::automatic"
     val COMPLETION_CAPABILITY_INTERACTIVE = "standard::interactive"
-    fun completionErrorQuark () = (I ---> GLibQuark.FFI.fromVal) completionErrorQuark_ ()
   end

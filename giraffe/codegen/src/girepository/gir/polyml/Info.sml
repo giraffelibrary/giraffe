@@ -15,8 +15,9 @@ structure Info =
 
     type functiondata =
       {
-        symbol : string,
-        flags  : GIRepositoryFunctionInfoFlags.t
+        symbol  : string,
+        movedTo : string option,
+        flags   : GIRepositoryFunctionInfoFlags.t
       }
 
     type vfuncdata =

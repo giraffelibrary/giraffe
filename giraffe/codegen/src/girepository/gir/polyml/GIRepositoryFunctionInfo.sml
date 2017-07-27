@@ -33,4 +33,11 @@ structure GIRepositoryFunctionInfo :>
     fun getProperty _ = raise Fail "getProperty not supported"
 
     fun getVfunc _ = raise Fail "getVfunc not supported"
+
+    fun getMovedTo info =
+      let
+        val _ & _ & {movedTo, ...} & _ = (fromBase o fromCallable o fromFunction) I info
+      in
+        movedTo
+      end
   end

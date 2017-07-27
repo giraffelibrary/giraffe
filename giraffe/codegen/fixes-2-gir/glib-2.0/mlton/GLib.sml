@@ -240,34 +240,8 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val mainContextDefault_ = _import "g_main_context_default" : unit -> GLibMainContextRecord.FFI.notnull GLibMainContextRecord.FFI.p;
-    val mainContextGetThreadDefault_ = _import "g_main_context_get_thread_default" : unit -> GLibMainContextRecord.FFI.notnull GLibMainContextRecord.FFI.p;
     val mainCurrentSource_ = _import "g_main_current_source" : unit -> GLibSourceRecord.FFI.notnull GLibSourceRecord.FFI.p;
     val mainDepth_ = _import "g_main_depth" : unit -> GInt.FFI.val_;
-    val regexMatchSimple_ =
-      fn
-        (x1, x2)
-         & (x3, x4)
-         & x5
-         & x6 =>
-          (
-            _import "mlton_g_regex_match_simple" :
-              Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GLibRegexCompileFlags.FFI.val_
-               * GLibRegexMatchFlags.FFI.val_
-               -> GBool.FFI.val_;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6
-            )
     val shellParseArgv_ =
       fn
         (x1, x2)
@@ -308,7 +282,6 @@ structure GLib : G_LIB =
               x2,
               x3
             )
-    val sourceRemove_ = _import "g_source_remove" : GUInt.FFI.val_ -> GBool.FFI.val_;
     val spawnAsyncWithPipes_ =
       fn
         (x1, x2)
@@ -678,31 +651,8 @@ structure GLib : G_LIB =
     fun logRemoveHandler (logDomain, handlerId) = (Utf8.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
     fun logSetAlwaysFatal fatalMask = (GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetAlwaysFatal_ fatalMask
     fun logSetFatalMask (logDomain, fatalMask) = (Utf8.FFI.withPtr &&&> GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetFatalMask_ (logDomain & fatalMask)
-    fun mainContextDefault () = (I ---> GLibMainContextRecord.FFI.fromPtr false) mainContextDefault_ ()
-    fun mainContextGetThreadDefault () = (I ---> GLibMainContextRecord.FFI.fromPtr false) mainContextGetThreadDefault_ ()
     fun mainCurrentSource () = (I ---> GLibSourceRecord.FFI.fromPtr false) mainCurrentSource_ ()
     fun mainDepth () = (I ---> GInt.FFI.fromVal) mainDepth_ ()
-    fun regexMatchSimple
-      (
-        pattern,
-        string,
-        compileOptions,
-        matchOptions
-      ) =
-      (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibRegexCompileFlags.FFI.withVal
-         &&&> GLibRegexMatchFlags.FFI.withVal
-         ---> GBool.FFI.fromVal
-      )
-        regexMatchSimple_
-        (
-          pattern
-           & string
-           & compileOptions
-           & matchOptions
-        )
     fun shellParseArgv commandLine =
       let
         val argcp
@@ -729,7 +679,6 @@ structure GLib : G_LIB =
       end
     fun shellQuote unquotedString = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) shellQuote_ unquotedString
     fun shellUnquote quotedString = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) shellUnquote_ (quotedString & [])
-    fun sourceRemove tag = (GUInt.FFI.withVal ---> GBool.FFI.fromVal) sourceRemove_ tag
     fun spawnAsyncWithPipes (workingDirectory, argv, envp, flags, childSetup) =
       let
         val

@@ -2085,7 +2085,6 @@ signature GTK =
     val acceleratorSetDefaultModMask : Gdk.ModifierType.t -> unit
     val acceleratorValid : LargeInt.int * Gdk.ModifierType.t -> bool
     val alternativeDialogButtonOrder : 'a Gdk.ScreenClass.class option -> bool
-    val builderErrorQuark : unit -> GLib.Quark.t
     val cairoShouldDrawWindow : Cairo.ContextRecord.t * 'a Gdk.WindowClass.class -> bool
     val cairoTransformToWindow :
       Cairo.ContextRecord.t
@@ -2097,7 +2096,6 @@ signature GTK =
        * LargeInt.int
        * LargeInt.int
        -> string
-    val cssProviderErrorQuark : unit -> GLib.Quark.t
     val deviceGrabAdd :
       'a WidgetClass.class
        * 'b Gdk.DeviceClass.class
@@ -2153,7 +2151,6 @@ signature GTK =
        * bool
        -> unit
     val eventsPending : unit -> bool
-    val fileChooserErrorQuark : unit -> GLib.Quark.t
     val getBinaryAge : unit -> LargeInt.int
     val getCurrentEvent : unit -> base Gdk.Event.union
     val getCurrentEventDevice : unit -> base Gdk.DeviceClass.class
@@ -2167,17 +2164,6 @@ signature GTK =
     val getMicroVersion : unit -> LargeInt.int
     val getMinorVersion : unit -> LargeInt.int
     val grabGetCurrent : unit -> base WidgetClass.class
-    val iconSizeFromName : string -> LargeInt.int
-    val iconSizeGetName : LargeInt.int -> string
-    val iconSizeLookup : LargeInt.int -> (LargeInt.int * LargeInt.int) option
-    val iconSizeLookupForSettings : 'a SettingsClass.class * LargeInt.int -> (LargeInt.int * LargeInt.int) option
-    val iconSizeRegister :
-      string
-       * LargeInt.int
-       * LargeInt.int
-       -> LargeInt.int
-    val iconSizeRegisterAlias : string * LargeInt.int -> unit
-    val iconThemeErrorQuark : unit -> GLib.Quark.t
     val init : string list -> string list
     val initCheck : string list -> bool * string list
     val keySnooperRemove : LargeInt.int -> unit
@@ -2430,9 +2416,7 @@ signature GTK =
        * LargeInt.int
        * LargeInt.int
        -> unit
-    val paperSizeGetDefault : unit -> string
     val parseArgs : string list -> bool * string list
-    val printErrorQuark : unit -> GLib.Quark.t
     val printRunPageSetupDialog :
       'a WindowClass.class option
        * 'b PageSetupClass.class option
@@ -2443,8 +2427,6 @@ signature GTK =
     val rcGetDefaultFiles : unit -> string list
     val rcGetStyle : 'a WidgetClass.class -> base StyleClass.class
     val rcSetDefaultFiles : string list -> unit
-    val recentChooserErrorQuark : unit -> GLib.Quark.t
-    val recentManagerErrorQuark : unit -> GLib.Quark.t
     val renderActivity :
       'a StyleContextClass.class
        * Cairo.ContextRecord.t
@@ -2639,8 +2621,6 @@ signature GTK =
        * Gdk.ModifierType.t
        -> bool
     val treeGetRowDragData : SelectionDataRecord.t -> (base TreeModelClass.class * TreePathRecord.t) option
-    val treeRowReferenceDeleted : 'a GObject.ObjectClass.class * TreePathRecord.t -> unit
-    val treeRowReferenceInserted : 'a GObject.ObjectClass.class * TreePathRecord.t -> unit
     val treeSetRowDragData :
       SelectionDataRecord.t
        * 'a TreeModelClass.class

@@ -192,22 +192,7 @@ signature ATK =
     val getToolkitName : unit -> string
     val getToolkitVersion : unit -> string
     val getVersion : unit -> string
-    val relationTypeForName : string -> RelationType.t
-    val relationTypeGetName : RelationType.t -> string
-    val relationTypeRegister : string -> RelationType.t
     val removeFocusTracker : LargeInt.int -> unit
     val removeGlobalEventListener : LargeInt.int -> unit
     val removeKeyEventListener : LargeInt.int -> unit
-    val roleForName : string -> Role.t
-    val roleGetLocalizedName : Role.t -> string
-    val roleGetName : Role.t -> string
-    val roleRegister : string -> Role.t
-    val stateTypeForName : string -> StateType.t
-    val stateTypeGetName : StateType.t -> string
-    val stateTypeRegister : string -> StateType.t
-    val textAttributeForName : string -> TextAttribute.t
-    val textAttributeGetName : TextAttribute.t -> string
-    val textAttributeGetValue : TextAttribute.t * LargeInt.int -> string
-    val textAttributeRegister : string -> TextAttribute.t
-    val textFreeRanges : TextRangeRecord.t -> unit
   end

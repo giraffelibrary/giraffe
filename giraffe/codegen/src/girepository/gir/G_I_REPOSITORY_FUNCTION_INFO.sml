@@ -8,4 +8,5 @@ signature G_I_REPOSITORY_FUNCTION_INFO =
     val getFlags : 'a class -> functioninfoflags_t
     val getProperty : 'a class -> base propertyinfo_class option
     val getVfunc : 'a class -> base vfuncinfo_class option
+    val getMovedTo : 'a class -> string option  (* GIR only *)
   end

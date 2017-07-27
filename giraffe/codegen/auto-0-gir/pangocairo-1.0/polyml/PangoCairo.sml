@@ -19,8 +19,6 @@ structure PangoCairo : PANGO_CAIRO =
              &&> GDouble.PolyML.cVal
              --> cVoid
           )
-      val fontMapGetDefault_ = call (getSymbol "pango_cairo_font_map_get_default") (cVoid --> PangoFontMapClass.PolyML.cPtr)
-      val fontMapNew_ = call (getSymbol "pango_cairo_font_map_new") (cVoid --> PangoFontMapClass.PolyML.cPtr)
       val glyphStringPath_ =
         call (getSymbol "pango_cairo_glyph_string_path")
           (
@@ -98,8 +96,6 @@ structure PangoCairo : PANGO_CAIRO =
            & width
            & height
         )
-    fun fontMapGetDefault () = (I ---> PangoFontMapClass.FFI.fromPtr false) fontMapGetDefault_ ()
-    fun fontMapNew () = (I ---> PangoFontMapClass.FFI.fromPtr true) fontMapNew_ ()
     fun glyphStringPath
       (
         cr,

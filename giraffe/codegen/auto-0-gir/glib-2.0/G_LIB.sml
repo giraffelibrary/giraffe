@@ -342,7 +342,6 @@ signature G_LIB =
     val bitNthMsf : LargeInt.int * LargeInt.int -> LargeInt.int
     val bitStorage : LargeInt.int -> LargeInt.int
     val blowChunks : unit -> unit
-    val bookmarkFileErrorQuark : unit -> Quark.t
     val buildFilenamev : string list -> string
     val buildPathv : string * string list -> string
     val chdir : string -> LargeInt.int
@@ -351,7 +350,6 @@ signature G_LIB =
        * LargeInt.int
        * LargeInt.int
        -> string
-    val checksumTypeGetLength : ChecksumType.t -> LargeInt.int
     val childWatchSourceNew : Pid.t -> SourceRecord.t
     val clearError : unit -> unit
     val computeChecksumForString :
@@ -379,33 +377,12 @@ signature G_LIB =
     val datalistInit : DataRecord.t -> unit
     val datalistSetFlags : DataRecord.t * LargeInt.int -> unit
     val datalistUnsetFlags : DataRecord.t * LargeInt.int -> unit
-    val dateGetDaysInMonth : DateMonth.t * DateYear.t -> Word8.word
-    val dateGetMondayWeeksInYear : DateYear.t -> Word8.word
-    val dateGetSundayWeeksInYear : DateYear.t -> Word8.word
-    val dateIsLeapYear : DateYear.t -> bool
-    val dateStrftime :
-      string
-       * LargeInt.int
-       * string
-       * DateRecord.t
-       -> LargeInt.int
-    val dateValidDay : DateDay.t -> bool
-    val dateValidDmy :
-      DateDay.t
-       * DateMonth.t
-       * DateYear.t
-       -> bool
-    val dateValidJulian : LargeInt.int -> bool
-    val dateValidMonth : DateMonth.t -> bool
-    val dateValidWeekday : DateWeekday.t -> bool
-    val dateValidYear : DateYear.t -> bool
     val dcgettext :
       string option
        * string
        * LargeInt.int
        -> string
     val dgettext : string * string -> string
-    val dirMakeTmp : string option -> string
     val dngettext :
       string
        * string
@@ -461,16 +438,6 @@ signature G_LIB =
     val getUserRuntimeDir : unit -> string
     val getUserSpecialDir : UserDirectory.t -> string
     val getenv : string -> string
-    val hookDestroy : HookListRecord.t * LargeInt.int -> bool
-    val hookDestroyLink : HookListRecord.t * HookRecord.t -> unit
-    val hookFree : HookListRecord.t * HookRecord.t -> unit
-    val hookInsertBefore :
-      HookListRecord.t
-       * HookRecord.t
-       * HookRecord.t
-       -> unit
-    val hookPrepend : HookListRecord.t * HookRecord.t -> unit
-    val hookUnref : HookListRecord.t * HookRecord.t -> unit
     val hostnameIsAsciiEncoded : string -> bool
     val hostnameIsIpAddress : string -> bool
     val hostnameIsNonAscii : string -> bool
@@ -479,22 +446,15 @@ signature G_LIB =
     val idleSourceNew : unit -> SourceRecord.t
     val internStaticString : string option -> string
     val internString : string option -> string
-    val ioChannelErrorFromErrno : LargeInt.int -> IOChannelError.t
-    val ioChannelErrorQuark : unit -> Quark.t
     val ioCreateWatch : IOChannelRecord.t * IOCondition.t -> SourceRecord.t
-    val keyFileErrorQuark : unit -> Quark.t
-    val listPopAllocator : unit -> unit
     val listenv : unit -> string list
     val logRemoveHandler : string * LargeInt.int -> unit
     val logSetAlwaysFatal : LogLevelFlags.t -> LogLevelFlags.t
     val logSetFatalMask : string * LogLevelFlags.t -> LogLevelFlags.t
-    val mainContextDefault : unit -> MainContextRecord.t
-    val mainContextGetThreadDefault : unit -> MainContextRecord.t
     val mainCurrentSource : unit -> SourceRecord.t
     val mainDepth : unit -> LargeInt.int
     val markupErrorQuark : unit -> Quark.t
     val markupEscapeText : string * LargeInt.int -> string
-    val memChunkInfo : unit -> unit
     val memIsSystemMalloc : unit -> bool
     val memProfile : unit -> unit
     val memSetVtable : MemVTableRecord.t -> unit
@@ -507,7 +467,6 @@ signature G_LIB =
        * LargeInt.int
        * LargeInt.int
        -> LargeInt.int
-    val nodePopAllocator : unit -> unit
     val onErrorQuery : string -> unit
     val onErrorStackTrace : string -> unit
     val optionErrorQuark : unit -> Quark.t
@@ -537,15 +496,6 @@ signature G_LIB =
     val randomInt : unit -> LargeInt.int
     val randomIntRange : LargeInt.int * LargeInt.int -> LargeInt.int
     val randomSetSeed : LargeInt.int -> unit
-    val regexCheckReplacement : string -> bool option
-    val regexErrorQuark : unit -> Quark.t
-    val regexEscapeNul : string * LargeInt.int -> string
-    val regexMatchSimple :
-      string
-       * string
-       * RegexCompileFlags.t
-       * RegexMatchFlags.t
-       -> bool
     val reloadUserSpecialDirsCache : unit -> unit
     val returnIfFailWarning :
       string
@@ -553,15 +503,6 @@ signature G_LIB =
        * string
        -> unit
     val rmdir : string -> LargeInt.int
-    val sequenceMove : SequenceIterRecord.t * SequenceIterRecord.t -> unit
-    val sequenceMoveRange :
-      SequenceIterRecord.t
-       * SequenceIterRecord.t
-       * SequenceIterRecord.t
-       -> unit
-    val sequenceRemove : SequenceIterRecord.t -> unit
-    val sequenceRemoveRange : SequenceIterRecord.t * SequenceIterRecord.t -> unit
-    val sequenceSwap : SequenceIterRecord.t * SequenceIterRecord.t -> unit
     val setApplicationName : string -> unit
     val setPrgname : string -> unit
     val setenv :
@@ -575,8 +516,6 @@ signature G_LIB =
     val shellUnquote : string -> string
     val sliceGetConfig : SliceConfig.t -> LargeInt.int
     val sliceSetConfig : SliceConfig.t * LargeInt.int -> unit
-    val sourceRemove : LargeInt.int -> bool
-    val sourceSetNameById : LargeInt.int * string -> unit
     val spacedPrimesClosest : LargeInt.int -> LargeInt.int
     val spawnClosePid : Pid.t -> unit
     val spawnCommandLineAsync : string -> bool
@@ -666,20 +605,8 @@ signature G_LIB =
     val testTrapFork : LargeInt.int * TestTrapFlags.t -> bool
     val testTrapHasPassed : unit -> bool
     val testTrapReachedTimeout : unit -> bool
-    val threadErrorQuark : unit -> Quark.t
-    val threadGetInitialized : unit -> bool
-    val threadInit : ThreadFunctionsRecord.t -> unit
-    val threadInitWithErrorcheckMutexes : ThreadFunctionsRecord.t -> unit
-    val threadPoolGetMaxIdleTime : unit -> LargeInt.int
-    val threadPoolGetMaxUnusedThreads : unit -> LargeInt.int
-    val threadPoolGetNumUnusedThreads : unit -> LargeInt.int
-    val threadPoolSetMaxIdleTime : LargeInt.int -> unit
-    val threadPoolSetMaxUnusedThreads : LargeInt.int -> unit
-    val threadPoolStopUnusedThreads : unit -> unit
-    val timeValFromIso8601 : string * TimeValRecord.t -> bool
     val timeoutSourceNew : LargeInt.int -> SourceRecord.t
     val timeoutSourceNewSeconds : LargeInt.int -> SourceRecord.t
-    val trashStackHeight : TrashStackRecord.t -> LargeInt.int
     val unicharBreakType : char -> UnicodeBreakType.t
     val unicharCombiningClass : char -> LargeInt.int
     val unicharDigitValue : char -> LargeInt.int
@@ -767,17 +694,6 @@ signature G_LIB =
        -> string
     val utf8Validate : string * LargeInt.int -> string option
     val variantGetType : VariantRecord.t -> VariantTypeRecord.t
-    val variantIsObjectPath : string -> bool
-    val variantIsSignature : string -> bool
-    val variantParse :
-      VariantTypeRecord.t
-       * string
-       * string
-       * string
-       -> VariantRecord.t
-    val variantParserGetErrorQuark : unit -> Quark.t
-    val variantTypeStringIsValid : string -> bool
-    val variantTypeStringScan : string * string option -> string option
     val warnMessage :
       string
        * string

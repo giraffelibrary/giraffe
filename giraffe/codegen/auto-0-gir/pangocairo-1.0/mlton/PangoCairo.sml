@@ -29,8 +29,6 @@ structure PangoCairo : PANGO_CAIRO =
               x4,
               x5
             )
-    val fontMapGetDefault_ = _import "pango_cairo_font_map_get_default" : unit -> PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p;
-    val fontMapNew_ = _import "pango_cairo_font_map_new" : unit -> PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p;
     val glyphStringPath_ =
       fn
         x1
@@ -149,8 +147,6 @@ structure PangoCairo : PANGO_CAIRO =
            & width
            & height
         )
-    fun fontMapGetDefault () = (I ---> PangoFontMapClass.FFI.fromPtr false) fontMapGetDefault_ ()
-    fun fontMapNew () = (I ---> PangoFontMapClass.FFI.fromPtr true) fontMapNew_ ()
     fun glyphStringPath
       (
         cr,

@@ -2484,8 +2484,6 @@ signature GDK =
     val MAX_TIMECOORD_AXES : LargeInt.int
     val PARENT_RELATIVE : LargeInt.int
     val PRIORITY_REDRAW : LargeInt.int
-    val atomIntern : string * bool -> AtomRecord.t
-    val atomInternStaticString : string -> AtomRecord.t
     val beep : unit -> unit
     val cairoCreate : 'a WindowClass.class -> Cairo.ContextRecord.t
     val cairoGetClipRectangle : Cairo.ContextRecord.t -> RectangleRecord.t option
@@ -2506,7 +2504,6 @@ signature GDK =
        * real
        * real
        -> unit
-    val colorParse : string -> ColorRecord.t option
     val disableMultidevice : unit -> unit
     val dragAbort : 'a DragContextClass.class * LargeInt.int -> unit
     val dragDrop : 'a DragContextClass.class * LargeInt.int -> unit
@@ -2547,9 +2544,6 @@ signature GDK =
     val errorTrapPop : unit -> LargeInt.int
     val errorTrapPopIgnored : unit -> unit
     val errorTrapPush : unit -> unit
-    val eventGet : unit -> base Event.union
-    val eventPeek : unit -> base Event.union
-    val eventRequestMotions : EventMotionRecord.t -> unit
     val eventsPending : unit -> bool
     val flush : unit -> unit
     val getDefaultRootWindow : unit -> base WindowClass.class

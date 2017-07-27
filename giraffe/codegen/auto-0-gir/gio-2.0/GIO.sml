@@ -1021,15 +1021,6 @@ signature GIO =
     val VOLUME_IDENTIFIER_KIND_UNIX_DEVICE : string
     val VOLUME_IDENTIFIER_KIND_UUID : string
     val VOLUME_MONITOR_EXTENSION_POINT_NAME : string
-    val appInfoCreateFromCommandline :
-      string
-       * string option
-       * AppInfoCreateFlags.t
-       -> base AppInfoClass.class
-    val appInfoGetDefaultForType : string * bool -> base AppInfoClass.class
-    val appInfoGetDefaultForUriScheme : string -> base AppInfoClass.class
-    val appInfoLaunchDefaultForUri : string * 'a AppLaunchContextClass.class option -> bool
-    val appInfoResetTypeAssociations : string -> unit
     val busGetFinish : 'a AsyncResultClass.class -> base DBusConnectionClass.class
     val busGetSync : BusType.t * 'a CancellableClass.class option -> base DBusConnectionClass.class
     val busOwnNameOnConnectionWithClosures :
@@ -1080,8 +1071,6 @@ signature GIO =
        * string
        * 'a CancellableClass.class option
        -> base IOStreamClass.class
-    val dbusAnnotationInfoLookup : DBusAnnotationInfoRecord.t * string -> string
-    val dbusErrorQuark : unit -> GLib.Quark.t
     val dbusGenerateGuid : unit -> string
     val dbusGvalueToGvariant : GObject.ValueRecord.t * GLib.VariantTypeRecord.t -> GLib.VariantRecord.t
     val dbusGvariantToGvalue : GLib.VariantRecord.t * GObject.ValueRecord.t -> unit
@@ -1092,26 +1081,11 @@ signature GIO =
     val dbusIsName : string -> bool
     val dbusIsSupportedAddress : string -> bool
     val dbusIsUniqueName : string -> bool
-    val fileNewForCommandlineArg : string -> base FileClass.class
-    val fileNewForPath : string -> base FileClass.class
-    val fileNewForUri : string -> base FileClass.class
-    val fileParseName : string -> base FileClass.class
-    val iconNewForString : string -> base IconClass.class
     val ioErrorFromErrno : LargeInt.int -> IOErrorEnum.t
     val ioErrorQuark : unit -> GLib.Quark.t
-    val ioExtensionPointLookup : string -> IOExtensionPointRecord.t
-    val ioExtensionPointRegister : string -> IOExtensionPointRecord.t
     val ioModulesScanAllInDirectory : string -> unit
     val ioModulesScanAllInDirectoryWithScope : string * IOModuleScopeRecord.t -> unit
     val ioSchedulerCancelAllJobs : unit -> unit
-    val proxyGetDefaultForProtocol : string -> base ProxyClass.class
-    val proxyResolverGetDefault : unit -> base ProxyResolverClass.class
-    val resolverErrorQuark : unit -> GLib.Quark.t
-    val tlsBackendGetDefault : unit -> base TlsBackendClass.class
-    val tlsClientConnectionNew : 'a IOStreamClass.class * 'b SocketConnectableClass.class option -> base IOStreamClass.class
-    val tlsErrorQuark : unit -> GLib.Quark.t
-    val tlsFileDatabaseNew : string -> base TlsDatabaseClass.class
-    val tlsServerConnectionNew : 'a IOStreamClass.class * 'b TlsCertificateClass.class option -> base IOStreamClass.class
     val unixIsMountPathSystemInternal : string -> bool
     val unixMountCompare : UnixMountEntryRecord.t * UnixMountEntryRecord.t -> LargeInt.int
     val unixMountFree : UnixMountEntryRecord.t -> unit

@@ -182,20 +182,11 @@ signature G_LIB =
     val logRemoveHandler : string * LargeInt.int -> unit
     val logSetAlwaysFatal : LogLevelFlags.t -> LogLevelFlags.t
     val logSetFatalMask : string * LogLevelFlags.t -> LogLevelFlags.t
-    val mainContextDefault : unit -> MainContextRecord.t
-    val mainContextGetThreadDefault : unit -> MainContextRecord.t
     val mainCurrentSource : unit -> SourceRecord.t
     val mainDepth : unit -> LargeInt.int
-    val regexMatchSimple :
-      string
-       * string
-       * RegexCompileFlags.t
-       * RegexMatchFlags.t
-       -> bool
     val shellParseArgv : string -> string list
     val shellQuote : string -> string
     val shellUnquote : string -> string
-    val sourceRemove : LargeInt.int -> bool
     val spawnAsyncWithPipes :
       string option
        * string list

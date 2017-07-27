@@ -114,6 +114,7 @@ structure GirAbstractSyntaxTree : GIR_ABSTRACT_SYNTAX_TREE =
         config         : config,
         callable       : callable,
         cIdentifier    : string,
+        movedTo        : string option,
         throws         : string option
       }
 

@@ -369,6 +369,7 @@ fun parseFunctionCommon elem (elemName, (attrs, ts)) : function =
     let
       val config = getConfig attrs
       val cIdentifier = getAttr attrs "c:identifier"
+      val movedTo = getOptAttr attrs "moved-to"
       val throws = getOptAttr attrs "throws"
 
       val elemDict = splitElems ts
@@ -379,6 +380,7 @@ fun parseFunctionCommon elem (elemName, (attrs, ts)) : function =
         config         = config,
         callable       = parseCallable elemDict,
         cIdentifier    = cIdentifier,
+        movedTo        = movedTo,
         throws         = throws
       }
     end
