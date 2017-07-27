@@ -6,6 +6,7 @@
 
 fun makeUnionSig
   (_              : 'a RepositoryClass.class)
+  (_              : Repository.typelibvers_t)
   (unionNamespace : string)
   (unionInfo      : 'b UnionInfoClass.class)
   (errs'0         : infoerrorhier list)
@@ -38,6 +39,7 @@ fun makeUnionSig
 
 fun makeUnionStr
   (_              : 'a RepositoryClass.class)
+  (_              : Repository.typelibvers_t)
   (unionNamespace : string)
   (unionInfo      : 'b UnionInfoClass.class)
   (errs'0         : infoerrorhier list)

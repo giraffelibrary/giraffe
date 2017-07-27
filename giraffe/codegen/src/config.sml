@@ -166,82 +166,127 @@ unionNames := [
  *
  *)
 excludedFunctionSymbols := [
-  "pango_break",
-  "pango_default_break",
-  "pango_get_log_attrs",
-  "pango_glyph_item_letter_space",
-  "pango_shape",
-  "pango_read_line",
-  "pango_skip_space",
-  "pango_scan_int",
-  "pango_scan_string",
-  "pango_scan_word",
-  "pango_attribute_init",
-  "pango_attribute_destroy",
-  "g_regex_escape_string",  (* GIR data broken: says param 0 is utf8 array *)
-  "g_source_new",
-  "g_source_set_callback_indirect",
-  "g_source_add_poll",
-  "g_source_remove_poll",
-  "g_source_set_funcs",
-  "g_source_remove_by_funcs_user_data",
-  "g_source_remove_by_user_data",
-  "g_closure_new_simple",
-  "g_closure_new_object",
-  "g_param_spec_pool_new",
-  "g_param_value_convert",
-  "g_param_value_defaults",
-  "g_param_value_set_default",
-  "g_param_value_validate",
-  "g_param_values_cmp",
-  "g_signal_accumulator_first_wins",
-  "g_signal_accumulator_true_handled",
-  "g_signal_chain_from_overridden",
-  "g_signal_get_invocation_hint",
-  "g_signal_has_handler_pending",
-  "g_signal_name",
-  "g_signal_query",
-  "g_signal_remove_emission_hook",
-  "g_signal_stop_emission",
-  "g_signal_stop_emission_by_name",
-  "g_source_set_closure",
-  "g_source_set_dummy_callback",
-  "g_strdup_value_contents",
-  "g_type_check_instance",
-  "g_type_check_value",
-  "g_type_class_add_private",
-  "g_type_default_interface_unref",
-  "g_type_free_instance",
-  "g_type_name_from_class",
-  "g_type_name_from_instance",
-  "g_dbus_error_register_error",
-  "g_dbus_error_unregister_error",
-  "gdk_pixbuf_error_quark",
-  "gdk_add_option_entries_libgtk_only",
-  "gtk_accel_map_load_scanner",
-  "gtk_binding_entry_add_signal_from_string",
-  "gtk_binding_entry_remove",
-  "gtk_binding_set_find",
-  "gtk_bindings_activate",
-  "gtk_bindings_activate_event",
-  "gtk_binding_entry_skip",
-  "gtk_buildable_custom_tag_start",
-  "gtk_distribute_natural_allocation",
-  "gtk_rc_parse_color",  (* deprecated anyway? *)
-  "gtk_rc_parse_color_full",  (* deprecated anyway? *)
-  "gtk_rc_property_parse_color",
-  "gtk_rc_property_parse_border",
-  "gtk_rc_property_parse_enum",
-  "gtk_rc_property_parse_flags",
-  "gtk_rc_property_parse_requisition",
-  "gtk_tree_drag_source_drag_data_get",  (* see note 1 *)
-  "vte_pty_error_quark"
+  (
+    [("Pango", "1.0")],
+    [
+      "pango_break",
+      "pango_default_break",
+      "pango_get_log_attrs",
+      "pango_glyph_item_letter_space",
+      "pango_shape",
+      "pango_read_line",
+      "pango_skip_space",
+      "pango_scan_int",
+      "pango_scan_string",
+      "pango_scan_word",
+      "pango_attribute_init",
+      "pango_attribute_destroy"
+    ]
+  ),
+  (
+    [("GLib", "2.0")],
+    [
+      "g_regex_escape_string",  (* GIR data broken: says param 0 is utf8 array *)
+      "g_source_new",
+      "g_source_set_callback_indirect",
+      "g_source_add_poll",
+      "g_source_remove_poll",
+      "g_source_set_funcs",
+      "g_source_remove_by_funcs_user_data",
+      "g_source_remove_by_user_data"
+    ]
+  ),
+  (
+    [("GObject", "2.0")],
+    [
+      "g_closure_new_simple",
+      "g_closure_new_object",
+      "g_param_spec_pool_new",
+      "g_param_value_convert",
+      "g_param_value_defaults",
+      "g_param_value_set_default",
+      "g_param_value_validate",
+      "g_param_values_cmp",
+      "g_signal_accumulator_first_wins",
+      "g_signal_accumulator_true_handled",
+      "g_signal_chain_from_overridden",
+      "g_signal_get_invocation_hint",
+      "g_signal_has_handler_pending",
+      "g_signal_name",
+      "g_signal_query",
+      "g_signal_remove_emission_hook",
+      "g_signal_stop_emission",
+      "g_signal_stop_emission_by_name",
+      "g_source_set_closure",
+      "g_source_set_dummy_callback",
+      "g_strdup_value_contents",
+      "g_type_check_instance",
+      "g_type_check_value",
+      "g_type_class_add_private",
+      "g_type_default_interface_unref",
+      "g_type_free_instance",
+      "g_type_name_from_class",
+      "g_type_name_from_instance"
+    ]
+  ),
+  (
+    [("Gio", "2.0")],
+    [
+      "g_dbus_error_register_error",
+      "g_dbus_error_unregister_error"
+    ]
+  ),
+  (
+    [("GdkPixbuf", "2.0")],
+    [
+      "gdk_pixbuf_error_quark"
+    ]
+  ),
+  (
+    [("Gdk", "3.0")],
+    [
+      "gdk_add_option_entries_libgtk_only"
+    ]
+  ),
+  (
+    [("Gtk", "3.0")],
+    [
+      "gtk_accel_map_load_scanner",
+      "gtk_binding_entry_add_signal_from_string",
+      "gtk_binding_entry_remove",
+      "gtk_binding_set_find",
+      "gtk_bindings_activate",
+      "gtk_bindings_activate_event",
+      "gtk_binding_entry_skip",
+      "gtk_buildable_custom_tag_start",
+      "gtk_distribute_natural_allocation",
+      "gtk_rc_parse_color",  (* deprecated anyway? *)
+      "gtk_rc_parse_color_full",  (* deprecated anyway? *)
+      "gtk_rc_property_parse_color",
+      "gtk_rc_property_parse_border",
+      "gtk_rc_property_parse_enum",
+      "gtk_rc_property_parse_flags",
+      "gtk_rc_property_parse_requisition",
+      "gtk_tree_drag_source_drag_data_get"  (* see note 1 *)
+    ]
+  ),
+  (
+    [("Vte", "2.90"), ("Vte", "2.91")],
+    [
+      "vte_pty_error_quark"
+    ]
+  )
 ];
 
 excludedFunctionSymbolPrefixes := [
-  "g_cclosure_marshal",
-  "g_signal_connect",
-  "g_signal_handler"
+  (
+    [("GObject", "2.0")],
+    [
+      "g_cclosure_marshal",
+      "g_signal_connect",
+      "g_signal_handler"
+    ]
+  )
 ];
 
 excludedFunctionSymbolSuffixes := [

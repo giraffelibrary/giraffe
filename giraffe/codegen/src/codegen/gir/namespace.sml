@@ -53,7 +53,7 @@ fun translateInfo
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
         val (sigId, sigProgram, sigDeps, errs'2) =
-          makeObjectSig repo namespace objectInfo errs'1
+          makeObjectSig repo vers namespace objectInfo errs'1
 
         val isClassSigPortable = isPortable classSigProgram
         val isClassStrPortable = isPortable classStrProgram
@@ -110,7 +110,7 @@ fun translateInfo
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
         val (sigId, sigProgram, sigDeps, errs'2) =
-          makeInterfaceSig repo namespace interfaceInfo errs'1
+          makeInterfaceSig repo vers namespace interfaceInfo errs'1
 
         val isClassSigPortable = isPortable classSigProgram
         val isClassStrPortable = isPortable classStrProgram
@@ -167,7 +167,7 @@ fun translateInfo
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
         val (sigId, sigProgram, sigDeps, errs'2) =
-          makeStructSig repo namespace structInfo errs'1
+          makeStructSig repo vers namespace structInfo errs'1
 
         val isRecordSigPortable = isPortable recordSigProgram
         val isRecordStrPortable = isPortable recordStrProgram
@@ -216,12 +216,12 @@ fun translateInfo
           val () = checkInterfaceType unionInfo
 
           val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-            makeUnionStr repo namespace unionInfo errs'0
+            makeUnionStr repo vers namespace unionInfo errs'0
 
           val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
           val (sigId, sigProgram, sigDeps, errs'2) =
-            makeUnionSig repo namespace unionInfo errs'1
+            makeUnionSig repo vers namespace unionInfo errs'1
 
           val isSigPortable = isPortable sigProgram
           val isStrPortable = isPortable strProgram
@@ -257,7 +257,7 @@ fun translateInfo
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
         val (sigId, sigProgram, sigDeps, errs'2) =
-          makeFlagsSig repo namespace enumInfo errs'1
+          makeFlagsSig repo vers namespace enumInfo errs'1
 
         val isSigPortable = isPortable sigProgram
         val isStrPortable = isPortable strProgram
@@ -291,7 +291,7 @@ fun translateInfo
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
         val (sigId, sigProgram, sigDeps, errs'2) =
-          makeEnumSig repo namespace enumInfo errs'1
+          makeEnumSig repo vers namespace enumInfo errs'1
 
         val isSigPortable = isPortable sigProgram
         val isStrPortable = isPortable strProgram
@@ -365,18 +365,18 @@ fun translateInfo
   | InfoType.FUNCTION functionInfo   =>
       let
         val (spec, (_, errs'1)) =
-          makeFunctionSpec repo NONE (functionInfo, ([], errs'0))
+          makeFunctionSpec repo vers NONE (functionInfo, ([], errs'0))
 
         val (strDecHighLevel, ((_, structDeps'1), errs'2)) =
-          makeFunctionStrDecHighLevel repo NONE
+          makeFunctionStrDecHighLevel repo vers NONE
             (functionInfo, (([], structDeps'0), errs'1))
 
         val (strDecLowLevelPolyML, errs'3) =
-          makeFunctionStrDecLowLevelPolyML repo NONE
+          makeFunctionStrDecLowLevelPolyML repo vers NONE
             (functionInfo, errs'2)
 
         val (strDecLowLevelMLton, errs'4) =
-          makeFunctionStrDecLowLevelMLton repo NONE
+          makeFunctionStrDecLowLevelMLton repo vers NONE
             (functionInfo, errs'3)
 
         val (

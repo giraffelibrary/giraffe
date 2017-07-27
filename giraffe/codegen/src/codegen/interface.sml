@@ -261,11 +261,11 @@ fun addInterfaceConstantSpecs x =
     makeConstantSpec
     x
 
-fun addInterfaceMethodSpecs repo interfaceIRef =
+fun addInterfaceMethodSpecs repo vers interfaceIRef =
   revFoldMapInfosWithErrs
     InterfaceInfo.getNMethods
     InterfaceInfo.getMethod
-    (makeFunctionSpec repo (SOME interfaceIRef))
+    (makeFunctionSpec repo vers (SOME interfaceIRef))
 
 fun addInterfaceSignalSpecs repo interfaceIRef =
   revFoldMapInfosWithErrs
@@ -281,6 +281,7 @@ fun addInterfacePropertySpecs repo interfaceIRef =
 
 fun makeInterfaceSig
   (repo               : 'a RepositoryClass.class)
+  (vers               : Repository.typelibvers_t)
   (interfaceNamespace : string)
   (interfaceInfo      : 'b InterfaceInfoClass.class)
   (errs'0             : infoerrorhier list)
@@ -311,7 +312,7 @@ fun makeInterfaceSig
     val acc'2 =
       addInterfaceSignalSpecs repo interfaceIRef (interfaceInfo, acc'1)
     val acc'3 =
-      addInterfaceMethodSpecs repo interfaceIRef (interfaceInfo, acc'2)
+      addInterfaceMethodSpecs repo vers interfaceIRef (interfaceInfo, acc'2)
     val acc'4 = addGetTypeFunctionSpec typeIRef acc'3
     val acc'5 = addInterfaceConstantSpecs (interfaceInfo, acc'4)
     val acc'6 = acc'5
@@ -363,6 +364,7 @@ fun addInterfaceConstantStrDecs x =
 fun addInterfaceMethodStrDecsLowLevel
   isPolyML
   repo
+  vers
   addInitStrDecs
   interfaceRootIRef
   interfaceIRef =
@@ -370,14 +372,15 @@ fun addInterfaceMethodStrDecsLowLevel
     (InterfaceInfo.getNMethods, InterfaceInfo.getMethod)
     isPolyML
     repo
+    vers
     addInitStrDecs
     (SOME (interfaceRootIRef, interfaceIRef))
 
-fun addInterfaceMethodStrDecsHighLevel repo interfaceRootIRef interfaceIRef =
+fun addInterfaceMethodStrDecsHighLevel repo vers interfaceRootIRef interfaceIRef =
   revFoldMapInfosWithErrs
     InterfaceInfo.getNMethods
     InterfaceInfo.getMethod
-    (makeFunctionStrDecHighLevel repo (SOME (interfaceRootIRef, interfaceIRef)))
+    (makeFunctionStrDecHighLevel repo vers (SOME (interfaceRootIRef, interfaceIRef)))
 
 fun addInterfaceSignalStrDecs repo interfaceIRef =
   fn (interfaceInfo, (strDecs, x, errs)) =>
@@ -446,7 +449,7 @@ fun addInterfacePropertyStrDecs repo interfaceIRef =
 
 fun makeInterfaceStr
   (repo               : 'a RepositoryClass.class)
-  (_                  : Repository.typelibvers_t)
+  (vers               : Repository.typelibvers_t)
   (interfaceNamespace : string)
   (interfaceInfo      : 'b InterfaceInfoClass.class)
   (errs'0             : infoerrorhier list)
@@ -491,6 +494,7 @@ fun makeInterfaceStr
     val acc'3 =
       addInterfaceMethodStrDecsHighLevel
         repo
+        vers
         interfaceRootIRef
         interfaceIRef
         (interfaceInfo, acc'2)
@@ -534,6 +538,7 @@ fun makeInterfaceStr
           addInterfaceMethodStrDecsLowLevel
             isPolyML
             repo
+            vers
             (addGetTypeFunctionStrDecLowLevel getTypeSymbol)
             interfaceRootIRef
             interfaceIRef

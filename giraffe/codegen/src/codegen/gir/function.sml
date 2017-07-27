@@ -13,21 +13,31 @@ fun checkFunctionMoved functionInfo =
 (* Function names to be skipped *)
 
 (* Manually specified symbols *)
-val excludedFunctionSymbols : string list ref = ref []
-val excludedFunctionSymbolPrefixes : string list ref = ref []
-val excludedFunctionSymbolSuffixes : string list ref = ref []
+type namespace_version = string * string
+type 'a nvs_list = (namespace_version list * 'a) list
+val excludedFunctionSymbols : string list nvs_list ref = ref []
+val excludedFunctionSymbolPrefixes : string list nvs_list ref = ref []
+val excludedFunctionSymbolSuffixes : string list nvs_list ref = ref []
 
-fun checkFunctionSymbol functionInfo =
+fun checkFunctionSymbol repo vers functionInfo =
   let
     val symbol = FunctionInfo.getSymbol functionInfo
+    val namespace = BaseInfo.getNamespace functionInfo
+    val version = Repository.getVersion repo vers namespace
+    val nv = (namespace, version)
+    fun check p =
+      List.exists (
+        fn (nvs, xs) =>
+          List.exists (fn x => x = nv) nvs andalso List.exists p xs
+      )
   in
     if
-      List.exists (fn x => x = symbol) (!excludedFunctionSymbols)
+      check (fn x => x = symbol) (!excludedFunctionSymbols)
        orelse
-         List.exists (fn x => String.isPrefix x symbol)
+         check (fn x => String.isPrefix x symbol)
            (!excludedFunctionSymbolPrefixes)
        orelse
-         List.exists (fn x => String.isSuffix x symbol)
+         check (fn x => String.isSuffix x symbol)
            (!excludedFunctionSymbolSuffixes)
     then infoError "manually excluded"
     else ()
@@ -1577,6 +1587,7 @@ fun addSpecRetInfo
 
 fun makeFunctionSpec
   repo
+  vers
   (optContainerIRef : interfaceref option)
   (functionInfo, (iRefs, errs))
   : spec * (interfaceref list * infoerrorhier list) =
@@ -1585,7 +1596,7 @@ fun makeFunctionSpec
 
     val () = checkFunctionMoved functionInfo
 
-    val () = checkFunctionSymbol functionInfo
+    val () = checkFunctionSymbol repo vers functionInfo
 
     val functionName = getName functionInfo
     val () = checkFunctionName functionName
@@ -2295,6 +2306,7 @@ fun retValCondExp retValExp (es1 : exp list1) : exp =
 
 fun makeFunctionStrDecHighLevel
   repo
+  vers
   (optRootContainerIRef : (interfaceref * interfaceref) option)
   (functionInfo, ((iRefs, structDeps), errs))
   : strdec * ((interfaceref list * struct1 ListDict.t) * infoerrorhier list) =
@@ -2303,7 +2315,7 @@ fun makeFunctionStrDecHighLevel
 
     val () = checkFunctionMoved functionInfo
 
-    val () = checkFunctionSymbol functionInfo
+    val () = checkFunctionSymbol repo vers functionInfo
 
     val functionName = getName functionInfo
     val () = checkFunctionName functionName
@@ -2926,6 +2938,7 @@ end
 
 fun makeFunctionStrDecLowLevelPolyML
   repo
+  vers
   (optRootContainerIRef : (interfaceref * interfaceref) option)
   (functionInfo, errs)
   : strdec * infoerrorhier list =
@@ -2934,7 +2947,7 @@ fun makeFunctionStrDecLowLevelPolyML
 
     val () = checkFunctionMoved functionInfo
 
-    val () = checkFunctionSymbol functionInfo
+    val () = checkFunctionSymbol repo vers functionInfo
 
     val functionName = getName functionInfo
     val () = checkFunctionName functionName
@@ -3598,6 +3611,7 @@ end
 
 fun makeFunctionStrDecLowLevelMLton
   repo
+  vers
   (optRootContainerIRef : (interfaceref * interfaceref) option)
   (functionInfo, errs)
   : strdec * infoerrorhier list =
@@ -3606,7 +3620,7 @@ fun makeFunctionStrDecLowLevelMLton
 
     val () = checkFunctionMoved functionInfo
 
-    val () = checkFunctionSymbol functionInfo
+    val () = checkFunctionSymbol repo vers functionInfo
 
     val functionName = getName functionInfo
     val () = checkFunctionName functionName
@@ -3727,6 +3741,7 @@ fun addFunctionStrDecsLowLevel
   (getNMethods, getMethod)
   isPolyML
   repo
+  vers
   addInitStrDecs
   optRootContainerIRef =
   if isPolyML
@@ -3737,7 +3752,7 @@ fun addFunctionStrDecsLowLevel
           revMapInfosWithErrs
             getNMethods
             getMethod
-            (makeFunctionStrDecLowLevelPolyML repo optRootContainerIRef)
+            (makeFunctionStrDecLowLevelPolyML repo vers optRootContainerIRef)
             (containerInfo, ([], errs))
         val (localStrDecs'2, errs'2) = addInitStrDecs isPolyML acc'1
       in
@@ -3750,4 +3765,4 @@ fun addFunctionStrDecsLowLevel
       revMapInfosWithErrs
         getNMethods
         getMethod
-        (makeFunctionStrDecLowLevelMLton repo optRootContainerIRef)
+        (makeFunctionStrDecLowLevelMLton repo vers optRootContainerIRef)

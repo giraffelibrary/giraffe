@@ -503,14 +503,15 @@ end
 
 (* Struct signature *)
 
-fun addStructMethodSpecs repo structIRef =
+fun addStructMethodSpecs repo vers structIRef =
   revFoldMapInfosWithErrs
     StructInfo.getNMethods
     StructInfo.getMethod
-    (makeFunctionSpec repo (SOME structIRef))
+    (makeFunctionSpec repo vers (SOME structIRef))
 
 fun makeStructSig
   (repo            : 'a RepositoryClass.class)
+  (vers            : Repository.typelibvers_t)
   (structNamespace : string)
   (structInfo      : 'b StructInfoClass.class)
   (errs'0          : infoerrorhier list)
@@ -538,7 +539,7 @@ fun makeStructSig
          * interfaceref list
          * infoerrorhier list =
       ([], [], errs'0)
-    val acc'1 = addStructMethodSpecs repo structIRef (structInfo, acc'0)
+    val acc'1 = addStructMethodSpecs repo vers structIRef (structInfo, acc'0)
     val acc'2 =
       case optGetTypeSymbol of
         SOME _ => addGetTypeFunctionSpec typeIRef acc'1
@@ -574,24 +575,26 @@ fun makeStructSig
 fun addStructMethodStrDecsLowLevel
   isPolyML
   repo
+  vers
   addInitStrDecs
   structIRef =
   addFunctionStrDecsLowLevel
     (StructInfo.getNMethods, StructInfo.getMethod)
     isPolyML
     repo
+    vers
     addInitStrDecs
     (SOME (structIRef, structIRef))
 
-fun addStructMethodStrDecsHighLevel repo structIRef =
+fun addStructMethodStrDecsHighLevel repo vers structIRef =
   revFoldMapInfosWithErrs
     StructInfo.getNMethods
     StructInfo.getMethod
-    (makeFunctionStrDecHighLevel repo (SOME (structIRef, structIRef)))
+    (makeFunctionStrDecHighLevel repo vers (SOME (structIRef, structIRef)))
 
 fun makeStructStr
   (repo            : 'a RepositoryClass.class)
-  (_               : Repository.typelibvers_t)
+  (vers            : Repository.typelibvers_t)
   (structNamespace : string)
   (structInfo      : 'b StructInfoClass.class)
   (errs'0          : infoerrorhier list)
@@ -628,7 +631,7 @@ fun makeStructStr
          * infoerrorhier list =
       ([], ([], ListDict.empty), errs'0)
     val acc'1 =
-      addStructMethodStrDecsHighLevel repo structIRef (structInfo, acc'0)
+      addStructMethodStrDecsHighLevel repo vers structIRef (structInfo, acc'0)
     val acc'2 =
       case optGetTypeSymbol of
         SOME _ => addGetTypeFunctionStrDecHighLevel typeIRef acc'1
@@ -658,6 +661,7 @@ fun makeStructStr
           addStructMethodStrDecsLowLevel
             isPolyML
             repo
+            vers
             addStructGetTypeFunctionStrDecLowLevel
             structIRef
             (structInfo, (strDecs'3, errs'2))

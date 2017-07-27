@@ -72,6 +72,7 @@ local
 in
   fun makeFlagsSig
     (repo        : 'a RepositoryClass.class)
+    (vers        : Repository.typelibvers_t)
     (enumNamespace : string)
     (enumInfo    : 'b EnumInfoClass.class)
     (errs'0      : infoerrorhier list)
@@ -94,7 +95,7 @@ in
       val optGetTypeSymbol = RegisteredTypeInfo.getTypeInit enumInfo
 
       val acc'0 = (specs'0, [], errs'0)
-      val acc'1 = addFlagsEnumMethodSpecs repo enumIRef (enumInfo, acc'0)
+      val acc'1 = addFlagsEnumMethodSpecs repo vers enumIRef (enumInfo, acc'0)
       val acc'2 =
         case optGetTypeSymbol of
           SOME _ => addGetTypeFunctionSpec typeIRef acc'1
@@ -143,7 +144,7 @@ local
 in
   fun makeFlagsStr
     (repo          : 'a RepositoryClass.class)
-    (_             : Repository.typelibvers_t)
+    (vers          : Repository.typelibvers_t)
     (enumNamespace : string)
     (enumInfo      : 'b EnumInfoClass.class)
     (errs'0        : infoerrorhier list)
@@ -175,7 +176,7 @@ in
            * infoerrorhier list =
         ([], ([], ListDict.empty), errs'0)
       val acc'1 =
-        addFlagsEnumMethodStrDecsHighLevel repo enumIRef (enumInfo, acc'0)
+        addFlagsEnumMethodStrDecsHighLevel repo vers enumIRef (enumInfo, acc'0)
       val acc'2 =
         case optGetTypeSymbol of
           SOME _ => addGetTypeFunctionStrDecHighLevel typeIRef acc'1
@@ -196,6 +197,7 @@ in
             addFlagsEnumMethodStrDecsLowLevel
               isPolyML
               repo
+              vers
               (K I)
               enumIRef
               (enumInfo, (strDecs'3, errs'2))

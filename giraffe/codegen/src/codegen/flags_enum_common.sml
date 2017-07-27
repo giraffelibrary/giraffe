@@ -47,29 +47,31 @@ fun makeFlagsEnumValueNameListExp enumInfo =
     )
   end
 
-fun addFlagsEnumMethodSpecs repo enumIRef =
+fun addFlagsEnumMethodSpecs repo vers enumIRef =
   revFoldMapInfosWithErrs
     EnumInfo.getNMethods
     EnumInfo.getMethod
-    (makeFunctionSpec repo (SOME enumIRef))
+    (makeFunctionSpec repo vers (SOME enumIRef))
 
 fun addFlagsEnumMethodStrDecsLowLevel
   isPolyML
   repo
+  vers
   addInitStrDecs
   enumIRef =
   addFunctionStrDecsLowLevel
     (EnumInfo.getNMethods, EnumInfo.getMethod)
     isPolyML
     repo
+    vers
     addInitStrDecs
     (SOME (enumIRef, enumIRef))
 
-fun addFlagsEnumMethodStrDecsHighLevel repo enumIRef =
+fun addFlagsEnumMethodStrDecsHighLevel repo vers enumIRef =
   revFoldMapInfosWithErrs
     EnumInfo.getNMethods
     EnumInfo.getMethod
-    (makeFunctionStrDecHighLevel repo (SOME (enumIRef, enumIRef)))
+    (makeFunctionStrDecHighLevel repo vers (SOME (enumIRef, enumIRef)))
 
 (*
  *     structure PolyML :                            -.

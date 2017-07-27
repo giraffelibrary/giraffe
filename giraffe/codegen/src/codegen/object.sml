@@ -398,11 +398,11 @@ fun addObjectConstantSpecs x =
     makeConstantSpec
     x
 
-fun addObjectMethodSpecs repo objectIRef =
+fun addObjectMethodSpecs repo vers objectIRef =
   revFoldMapInfosWithErrs
     ObjectInfo.getNMethods
     ObjectInfo.getMethod
-    (makeFunctionSpec repo (SOME objectIRef))
+    (makeFunctionSpec repo vers (SOME objectIRef))
 
 fun addObjectSignalSpecs repo objectIRef =
   revFoldMapInfosWithErrs
@@ -418,6 +418,7 @@ fun addObjectPropertySpecs repo objectIRef =
 
 fun makeObjectSig
   (repo            : 'a RepositoryClass.class)
+  (vers            : Repository.typelibvers_t)
   (objectNamespace : string)
   (objectInfo      : 'b ObjectInfoClass.class)
   (errs'0          : infoerrorhier list)
@@ -445,7 +446,7 @@ fun makeObjectSig
       ([], [], errs'0)
     val acc'1 = addObjectPropertySpecs repo objectIRef (objectInfo, acc'0)
     val acc'2 = addObjectSignalSpecs repo objectIRef (objectInfo, acc'1)
-    val acc'3 = addObjectMethodSpecs repo objectIRef (objectInfo, acc'2)
+    val acc'3 = addObjectMethodSpecs repo vers objectIRef (objectInfo, acc'2)
     val acc'4 = addGetTypeFunctionSpec typeIRef acc'3
     val acc'5 = addObjectConstantSpecs (objectInfo, acc'4)
     val acc'6 = addObjectInterfaceConvSpecs repo objectIRef (objectInfo, acc'5)
@@ -502,6 +503,7 @@ fun addObjectConstantStrDecs x =
 fun addObjectMethodStrDecsLowLevel
   isPolyML
   repo
+  vers
   addInitStrDecs
   rootObjectIRef
   objectIRef =
@@ -509,14 +511,15 @@ fun addObjectMethodStrDecsLowLevel
     (ObjectInfo.getNMethods, ObjectInfo.getMethod)
     isPolyML
     repo
+    vers
     addInitStrDecs
     (SOME (rootObjectIRef, objectIRef))
 
-fun addObjectMethodStrDecsHighLevel repo rootObjectIRef objectIRef =
+fun addObjectMethodStrDecsHighLevel repo vers rootObjectIRef objectIRef =
   revFoldMapInfosWithErrs
     ObjectInfo.getNMethods
     ObjectInfo.getMethod
-    (makeFunctionStrDecHighLevel repo (SOME (rootObjectIRef, objectIRef)))
+    (makeFunctionStrDecHighLevel repo vers (SOME (rootObjectIRef, objectIRef)))
 
 fun addObjectSignalStrDecs repo objectIRef =
   fn (objectInfo, (strDecs, x, errs)) =>
@@ -585,7 +588,7 @@ fun addObjectPropertyStrDecs repo objectIRef =
 
 fun makeObjectStr
   (repo            : 'a RepositoryClass.class)
-  (_               : Repository.typelibvers_t)
+  (vers            : Repository.typelibvers_t)
   (objectNamespace : string)
   (objectInfo      : 'b ObjectInfoClass.class)
   (errs'0          : infoerrorhier list)
@@ -626,6 +629,7 @@ fun makeObjectStr
     val acc'3 =
       addObjectMethodStrDecsHighLevel
         repo
+        vers
         rootObjectIRef
         objectIRef
         (objectInfo, acc'2)
@@ -673,6 +677,7 @@ fun makeObjectStr
           addObjectMethodStrDecsLowLevel
             isPolyML
             repo
+            vers
             (addGetTypeFunctionStrDecLowLevel getTypeSymbol)
             rootObjectIRef
             objectIRef
