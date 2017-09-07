@@ -139,14 +139,17 @@ end
 
 val aTyVar : tyvar = (false, "a")
 
-val quarkLocalType = toLocalType ([], ("GLib", "Quark", "", "t"))
-val pidLocalType = toLocalType ([], ("GLib", "Pid", "", "t"))
-val ioChannelRecordLocalType = toLocalType ([], ("GLib", "IOChannel", "Record", "t"))
-val ioConditionLocalType = toLocalType ([], ("GLib", "IOCondition", "", "t"))
+val quarkLocalType = mkLocalType ([], ("GLib", "Quark", "", "t"))
+val pidLocalType = mkLocalType ([], ("GLib", "Pid", "", "t"))
+val ioChannelRecordLocalType = mkLocalType ([], ("GLib", "IOChannel", "Record", "t"))
+val ioConditionLocalType = mkLocalType ([], ("GLib", "IOCondition", "", "t"))
 
-val eventLocalType = toLocalType ([aTyVar], ("Gdk", "Event", "", "union"))
-val windowClassLocalType = toLocalType ([aTyVar], ("Gdk", "Window", "Class", "class"))
-val modifierTypeLocalType = toLocalType ([], ("Gdk", "ModifierType", "", "t"))
+val typeLocalType = mkLocalType ([], ("GObject", "Type", "", "t"))
+val valueRecordLocalType = mkLocalType ([], ("GObject", "Value", "Record", "t"))
+
+val eventLocalType = mkLocalType ([aTyVar], ("Gdk", "Event", "", "union"))
+val windowClassLocalType = mkLocalType ([aTyVar], ("Gdk", "Window", "Class", "class"))
+val modifierTypeLocalType = mkLocalType ([], ("Gdk", "ModifierType", "", "t"))
 
 
 (* Initialize GIRepository *)
@@ -267,157 +270,69 @@ val errorLog'1 = List.foldl insert errorLog'0 [
     (
       [("GObject", "2.0")],
       [
-        makeSig "G_LIB_SOURCE_FUNC" [],
-        makeSig "G_LIB_CHILD_WATCH_FUNC" [],
-        makeSig "G_LIB_SPAWN_CHILD_SETUP_FUNC" [],
-        makeSig "G_LIB_I_O_FUNC" []
+        newSig "G_LIB_SOURCE_FUNC" [],
+        newSig "G_LIB_CHILD_WATCH_FUNC" [],
+        newSig "G_LIB_SPAWN_CHILD_SETUP_FUNC" [],
+        newSig "G_LIB_I_O_FUNC" []
       ],
       [
-        makeStr ("GLib", "SourceFunc", "G_LIB_SOURCE_FUNC") [],
-        makeStr ("GLib", "ChildWatchFunc", "G_LIB_CHILD_WATCH_FUNC")
+        newStr ("GLib", "SourceFunc", "G_LIB_SOURCE_FUNC") [],
+        newStr ("GLib", "ChildWatchFunc", "G_LIB_CHILD_WATCH_FUNC")
           [pidLocalType],
-        makeStr ("GLib", "SpawnChildSetupFunc", "G_LIB_SPAWN_CHILD_SETUP_FUNC") [],
-        makeStr ("GLib", "IOFunc", "G_LIB_I_O_FUNC")
+        newStr ("GLib", "SpawnChildSetupFunc", "G_LIB_SPAWN_CHILD_SETUP_FUNC") [],
+        newStr ("GLib", "IOFunc", "G_LIB_I_O_FUNC")
           [ioChannelRecordLocalType, ioConditionLocalType],
-        addDep ("GLib", "ErrorRecord") [quarkLocalType]
+        extendStrDeps "GLibErrorRecord" ["GLibQuark"]
       ]
     ),
   gen outDir repo ("GObject", "2.0")
     (
       [],
       [
-        makeSig "CLOSURE_MARSHAL" [],
-        makeSig "SIGNAL" [],
-        makeSig "PROPERTY" [],
-        makeSig "G_OBJECT_VALUE_RECORD" [],
-        makeSig "G_OBJECT_VALUE" []
+        newSig "CLOSURE_MARSHAL" [],
+        newSig "SIGNAL" [],
+        newSig "PROPERTY" [],
+        newSig "G_OBJECT_VALUE_RECORD" [],
+        newSig "G_OBJECT_VALUE" []
       ],
       [
         (* CVector and CVectorN are manually generated modules that extend
          * existing functors (of the same name) with GValue accessors for
          * arrays.  Therefore their spec and strdec lists are empty but
          * dependencies are included to ensure that they are loaded first. *)
-        (
-          "CVector",
-          (
-            (false, ([], [])),
-            ["GObjectValueRecord", "GObjectValue"]
-          )
-        ),
-        (
-          "CVectorN",
-          (
-            (false, ([], [])),
-            ["GObjectValueRecord", "GObjectValue"]
-          )
-        ),
+        extendStrDeps "CVector" ["GObjectValueRecord", "GObjectValue"],
+        extendStrDeps "CVectorN" ["GObjectValueRecord", "GObjectValue"],
+
         (* ClosureMarshal, Signal and Property are special supporting
          * structures outside the Gtk structure.  Therefore their spec and
          * strdec lists are empty but dependencies are included to ensure
          * that they are loaded first. *)
-        (
-          "ClosureMarshal",
-          (
-            (false, ([], [])),
-            ["GObjectValueRecord", "GObjectValue"]
-          )
-        ),
-        (
-          "Signal",
-          (
-            (false, ([], [])),
-            ["GObjectObjectClass", "GObjectClosureRecord", "GObjectClosure"]
-          )
-        ),
-        (
-          "Property",
-          (
-            (false, ([], [])),
-            ["GObjectObjectClass", "GObjectValueRecord", "GObjectValue"]
-          )
-        ),
+        extendStrDeps "ClosureMarshal" ["GObjectValueRecord", "GObjectValue"],
+        extendStrDeps "Signal"
+          ["GObjectObjectClass", "GObjectClosureRecord", "GObjectClosure"],
+        extendStrDeps "Property"
+          ["GObjectObjectClass", "GObjectValueRecord", "GObjectValue"],
+
 
         (* GObjectValueRecord and GObjectValue are manually
          * generated modules so we must provide spec and strdec values
          * to be inserted into the namespace module. *)
-        (
-          "GObjectValueRecord",
-          (
-            (
-              false,
-              (
-                [mkStructSpec ("ValueRecord", (SigName "G_OBJECT_VALUE_RECORD", []))],
-                [mkStructStrDec ("ValueRecord", "GObjectValueRecord")]
-              )
-            ),
-            []
-          )
-        ),
-        (
-          "GObjectValue",
-          (
-            (
-              false,
-              (
-                [
-                  mkStructSpec (
-                    "Value",
-                    (
-                      SigName "G_OBJECT_VALUE",
-                      [
-                        toList1 [
-                          (
-                            ([], toList1 ["t"]),
-                            TyRef ([], toList1 ["ValueRecord", "t"])
-                          )
-                        ],
-                        toList1 [
-                          (
-                            ([], toList1 ["type_t"]),
-                            TyRef ([], toList1 ["Type", "t"])
-                          )
-                        ]
-                      ]
-                    )
-                  )
-                ],
-                [mkStructStrDec ("Value", "GObjectValue")]
-              )
-            ),
-            ["GObjectType", "GObjectValueRecord"]
-          )
-        ),
+        newStr ("GObject", "ValueRecord", "G_OBJECT_VALUE_RECORD") [],
+        newStr ("GObject", "Value", "G_OBJECT_VALUE")
+          [valueRecordLocalType, typeLocalType],
 
         (* GObjectClosureRecord, GObjectClosure, GObjectObjectClass and
          * GObjectParamSpecClass are partially automatically generated.
          * Addition dependencies are required for the manual fixes to the
          * automatic translation. *)
-        (
-          "GObjectClosureRecord",
-          (
-            (false, ([], [])),
-            ["GObjectType", "GObjectValueRecord", "GObjectValue"]
-          )
-        ),
-        (
-          "GObjectClosure",
-          ((false, ([], [])), ["ClosureMarshal", "GObjectClosureRecord"])
-        ),
-
-        (
-          "GObjectObjectClass",
-          (
-            (false, ([], [])),
-            ["GObjectType", "GObjectValueRecord", "GObjectValue"]
-          )
-        ),
-        (
-          "GObjectParamSpecClass",
-          (
-            (false, ([], [])),
-            ["GObjectType", "GObjectValueRecord", "GObjectValue"]
-          )
-        )
+        extendStrDeps "GObjectClosureRecord"
+          ["GObjectType", "GObjectValueRecord", "GObjectValue"],
+        extendStrDeps "GObjectClosure"
+          ["ClosureMarshal", "GObjectClosureRecord"],
+        extendStrDeps "GObjectObjectClass"
+          ["GObjectType", "GObjectValueRecord", "GObjectValue"],
+        extendStrDeps "GObjectParamSpecClass"
+          ["GObjectType", "GObjectValueRecord", "GObjectValue"]
       ]
     ),
   gen outDir repo ("GModule", "2.0") ([], [], []),
@@ -426,13 +341,13 @@ val errorLog'1 = List.foldl insert errorLog'0 [
     (
       [],
       [
-        makeSig "G_I_REPOSITORY_BASE_INFO_RECORD" []
+        newSig "G_I_REPOSITORY_BASE_INFO_RECORD" []
       ],
       [
-        makeStr
+        newStr
           ("GIRepository", "BaseInfoRecord", "G_I_REPOSITORY_BASE_INFO_RECORD")
           [],
-        makeStr
+        newStr
           ("GIRepository", "TypelibRecord", "G_I_REPOSITORY_TYPELIB_RECORD")
           []
       ]
@@ -446,107 +361,84 @@ val errorLog'1 = List.foldl insert errorLog'0 [
     (
       [],
       [
-        makeSig "GDK_EVENT_ANY_RECORD" [],
-        makeSig "GDK_EVENT_BUTTON_RECORD" [],
-        makeSig "GDK_EVENT_CONFIGURE_RECORD" [],
-        makeSig "GDK_EVENT_CROSSING_RECORD" [],
-        makeSig "GDK_EVENT_D_N_D_RECORD" [],
-        makeSig "GDK_EVENT_EXPOSE_RECORD" [],
-        makeSig "GDK_EVENT_FOCUS_RECORD" [],
-        makeSig "GDK_EVENT_GRAB_BROKEN_RECORD" [],
-        makeSig "GDK_EVENT_KEY_RECORD" [],
-        makeSig "GDK_EVENT_MOTION_RECORD" [],
-        makeSig "GDK_EVENT_OWNER_CHANGE_RECORD" [],
-        makeSig "GDK_EVENT_PROPERTY_RECORD" [],
-        makeSig "GDK_EVENT_PROXIMITY_RECORD" [],
-        makeSig "GDK_EVENT_SCROLL_RECORD" [],
-        makeSig "GDK_EVENT_SELECTION_RECORD" [],
-        makeSig "GDK_EVENT_SETTING_RECORD" [],
-        makeSig "GDK_EVENT_VISIBILITY_RECORD" [],
-        makeSig "GDK_EVENT_WINDOW_STATE_RECORD" [],
-        makeSig "CLASSIFY_EVENT" []
+        newSig "GDK_EVENT_ANY_RECORD" [],
+        newSig "GDK_EVENT_BUTTON_RECORD" [],
+        newSig "GDK_EVENT_CONFIGURE_RECORD" [],
+        newSig "GDK_EVENT_CROSSING_RECORD" [],
+        newSig "GDK_EVENT_D_N_D_RECORD" [],
+        newSig "GDK_EVENT_EXPOSE_RECORD" [],
+        newSig "GDK_EVENT_FOCUS_RECORD" [],
+        newSig "GDK_EVENT_GRAB_BROKEN_RECORD" [],
+        newSig "GDK_EVENT_KEY_RECORD" [],
+        newSig "GDK_EVENT_MOTION_RECORD" [],
+        newSig "GDK_EVENT_OWNER_CHANGE_RECORD" [],
+        newSig "GDK_EVENT_PROPERTY_RECORD" [],
+        newSig "GDK_EVENT_PROXIMITY_RECORD" [],
+        newSig "GDK_EVENT_SCROLL_RECORD" [],
+        newSig "GDK_EVENT_SELECTION_RECORD" [],
+        newSig "GDK_EVENT_SETTING_RECORD" [],
+        newSig "GDK_EVENT_VISIBILITY_RECORD" [],
+        newSig "GDK_EVENT_WINDOW_STATE_RECORD" [],
+        newSig "CLASSIFY_EVENT" []
       ],
       let
       in
         [
-          makeStr
+          newStr
             ("Gdk", "EventAnyRecord", "GDK_EVENT_ANY_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventButtonRecord", "GDK_EVENT_BUTTON_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventConfigureRecord", "GDK_EVENT_CONFIGURE_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventCrossingRecord", "GDK_EVENT_CROSSING_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventDNDRecord", "GDK_EVENT_D_N_D_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventExposeRecord", "GDK_EVENT_EXPOSE_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventFocusRecord", "GDK_EVENT_FOCUS_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventGrabBrokenRecord", "GDK_EVENT_GRAB_BROKEN_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventKeyRecord", "GDK_EVENT_KEY_RECORD")
             [eventLocalType, windowClassLocalType, modifierTypeLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventMotionRecord", "GDK_EVENT_MOTION_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventOwnerChangeRecord", "GDK_EVENT_OWNER_CHANGE_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventPropertyRecord", "GDK_EVENT_PROPERTY_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventProximityRecord", "GDK_EVENT_PROXIMITY_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventScrollRecord", "GDK_EVENT_SCROLL_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventSelectionRecord", "GDK_EVENT_SELECTION_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventSettingRecord", "GDK_EVENT_SETTING_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventVisibilityRecord", "GDK_EVENT_VISIBILITY_RECORD")
             [eventLocalType],
-          makeStr
+          newStr
             ("Gdk", "EventWindowStateRecord", "GDK_EVENT_WINDOW_STATE_RECORD")
             [eventLocalType],
-(*
-        "GdkEventAnyRecord",
-        "GdkEventButtonRecord",
-        "GdkEventConfigureRecord",
-        "GdkEventCrossingRecord",
-        "GdkEventDNDRecord",
-        "GdkEventExposeRecord",
-        "GdkEventFocusRecord",
-        "GdkEventGrabBrokenRecord",
-        "GdkEventKeyRecord",
-        "GdkEventMotionRecord",
-        "GdkEventOwnerChangeRecord",
-        "GdkEventPropertyRecord",
-        "GdkEventProximityRecord",
-        "GdkEventScrollRecord",
-        "GdkEventSelectionRecord",
-        "GdkEventSettingRecord",
-        "GdkEventVisibilityRecord",
-        "GdkEventWindowStateRecord"
-*)
-        (
-          "ClassifyEvent",
-          (
-            (false, ([], [])),
+          extendStrDeps "ClassifyEvent"
             [
               "GdkEventAnyRecord",
               "GdkEventButtonRecord",
@@ -567,8 +459,6 @@ val errorLog'1 = List.foldl insert errorLog'0 [
               "GdkEventVisibilityRecord",
               "GdkEventWindowStateRecord"
             ]
-          )
-        )
         ]
       end
     ),
@@ -577,13 +467,13 @@ val errorLog'1 = List.foldl insert errorLog'0 [
     (
       [],
       [
-        makeSig "CHILD_SIGNAL" [],
-        makeSig "GTK_ACTION_ENTRY" []
+        newSig "CHILD_SIGNAL" [],
+        newSig "GTK_ACTION_ENTRY" []
       ],
       [
-        ("ChildSignal", ((false, ([], [])), ["GtkWidgetClass", "GtkWidget"])),
-        makeStr ("Gtk", "ActionEntry", "GTK_ACTION_ENTRY") [],
-        ("GtkActionGroup", ((false, ([], [])), ["GtkActionEntry", "GtkAction"]))
+        extendStrDeps "ChildSignal" ["GtkWidgetClass", "GtkWidget"],
+        newStr ("Gtk", "ActionEntry", "GTK_ACTION_ENTRY") [],
+        extendStrDeps "GtkActionGroup" ["GtkActionEntry", "GtkAction"]
       ]
     ),
   gen outDir repo ("GtkSource", "3.0") ([], [], []),

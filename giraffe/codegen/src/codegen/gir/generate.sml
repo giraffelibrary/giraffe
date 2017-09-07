@@ -384,12 +384,37 @@ fun makeNamespaceSigStr
   end
 
 
-fun addDeps ((_, extraDeps), (x, deps)) = (x, List.foldl insert deps extraDeps)
+datatype override = New | Extend
 
-fun insertSig x = ListDict.insert I addDeps x
+val updateSig =
+  fn
+    ((New,    new),   _)       => new
+  | ((Extend, extra), current) =>
+      let
+        val (_, extraSigDeps) = extra
+        val (isPortable, sigDeps) = current
+      in
+        (isPortable, List.foldl insert sigDeps extraSigDeps)
+      end
+
+fun insertSig x = ListDict.insert #2 updateSig x
 fun insertSigs (xs, m) = List.foldr insertSig m xs
 
-fun insertStr x = ListDict.insert I addDeps x
+val updateStr =
+  fn
+    ((New,    new),   _)       => new
+  | ((Extend, extra), current) =>
+      let
+        val ((_, (extraSpecs, extraStrDecs)), extraStrDeps) = extra
+        val ((isStrPortable, (specs, strDecs)), strDeps) = current
+      in
+        (
+          (isStrPortable, (specs @ extraSpecs, strDecs @ extraStrDecs)),
+          List.foldl insert strDeps extraStrDeps
+        )
+      end
+
+fun insertStr x = ListDict.insert #2 updateStr x
 fun insertStrs (xs, m) = List.foldr insertStr m xs
 
 fun generate dir repo (namespace, version) (extraVers, extraSigs, extraStrs) =
@@ -501,7 +526,8 @@ fun generate dir repo (namespace, version) (extraVers, extraSigs, extraStrs) =
 
 (* Support for constructing values for `extraSigs` parameter of `generate`. *)
 
-fun makeSig nameId sigDeps = (nameId, (true, sigDeps))
+fun newSig nameId sigDeps = (nameId, (New, (true, sigDeps)))
+fun extendSig nameId sigDeps = (nameId, (Extend, (true, sigDeps)))
 
 
 (* Support for constructing values for `extraStrs` parameter of `generate`. *)
@@ -510,8 +536,12 @@ fun mkStructSpec (strId, qSig) = SpecStruct (toList1 [(strId, qSig)])
 fun mkStructStrDec (strId, sigId) =
   StrDecStruct (toList1 [(strId, NONE, StructName (toList1 [sigId]))]);
 
-fun makeStr (namespaceId, nameId, sigId) localTypes =
+fun mkLocalType (tyVars, tyName) name = toLocalType name (tyVars, tyName)
+
+fun newStr (namespaceId, nameId, sigId) mkLocalTypes =
   let
+    val localTypes = map (fn f => f nameId) mkLocalTypes
+
     val strId = namespaceId ^ nameId
 
     val quals = map makeLocalTypeStrSpecQual localTypes
@@ -522,37 +552,39 @@ fun makeStr (namespaceId, nameId, sigId) localTypes =
     (
       strId,
       (
+        New,
         (
-          isPortable,
           (
-            [mkStructSpec (nameId, (SigName sigId, quals))],
-            [mkStructStrDec (nameId, strId)]
-          )
-        ),
-        strDeps
+            isPortable,
+            (
+              [mkStructSpec (nameId, (SigName sigId, quals))],
+              [mkStructStrDec (nameId, strId)]
+            )
+          ),
+          strDeps
+        )
       )
     )
   end
 
-fun addDep (namespaceId, nameId) (localTypes : localtype list) =
+fun extendStrDeps strId strDeps =
   let
-    val strId = namespaceId ^ nameId
-
-    val strDeps = map (#1 o #tyStrLId) localTypes
-
     val isPortable = false
   in
     (
       strId,
       (
+        Extend,
         (
-          isPortable,
           (
-            [],
-            []
-          )
-        ),
-        strDeps
+            isPortable,
+            (
+              [],
+              []
+            )
+          ),
+          strDeps
+        )
       )
     )
   end

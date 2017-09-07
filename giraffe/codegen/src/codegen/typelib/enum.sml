@@ -64,10 +64,10 @@ local
   val handlerTemplate = ([], handlerName)
 
   val handlerGlobalLId : lid = mkGlobalLId handlerName
-  val handlerLocalId : id = mkLocalId handlerName
+  val handlerLocalId : id = mkLocalId "" handlerName
   val handlerLocalLId : lid = toList1 [handlerLocalId]
-  val handlerSpec = toSpec handlerTemplate
-  val handlerLocalType = toLocalType handlerTemplate
+  val handlerSpec = toSpec "" handlerTemplate
+  val handlerLocalType = toLocalType "" handlerTemplate
 
 (*
   val tTy : ty = mkIdTy tId

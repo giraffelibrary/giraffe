@@ -87,29 +87,32 @@ fun makeLocalTypeStrSpecQual ({tyVars, tyId, varTys, tyNameLId, ...} : localtype
 
 
 
-fun mkLocalId (_, strName, _, id) = concat [toLCU strName, "_", id]
+fun mkLocalId name (_, strName, _, id) =
+  if strName = name
+  then id
+  else concat [toLCU strName, "_", id]
 
 fun mkLocalStrModuleLId (strNamespace, strName, strType, id) =
   toList1 [toUCC strNamespace ^ toUCC strName ^ toUCC strType, id]
 
-fun mkLocalStrSpecLId (name as (strNamespace, strName, strType, id)) =
+fun mkLocalStrSpecLId name (tyName as (strNamespace, strName, strType, id)) =
   case strNamespace of
-    "" => toList1 [mkLocalId name] (* not present in namespace, use local *)
+    "" => toList1 [mkLocalId name tyName] (* not in a namespace, use local *)
   | _  => toList1 [toUCC strName ^ toUCC strType, id]
 
 fun mkGlobalLId (strNamespace, strName, strType, id) =
   toList1 [toUCC strNamespace, toUCC strName ^ toUCC strType, id]
 
-fun toSpec (tyVars, name) = mkTypeSpec ((tyVars, mkLocalId name), NONE)
-fun toLocalType (tyVars, name) =
+fun toSpec name (tyVars, tyName) = mkTypeSpec ((tyVars, mkLocalId name tyName), NONE)
+fun toLocalType name (tyVars, tyName) =
   let
   in
     {
       tyVars    = tyVars,
-      tyId      = mkLocalId name,
+      tyId      = mkLocalId name tyName,
       varTys    = map TyVar tyVars,
-      tyStrLId  = mkLocalStrModuleLId name,
-      tyNameLId = mkLocalStrSpecLId name
+      tyStrLId  = mkLocalStrModuleLId tyName,
+      tyNameLId = mkLocalStrSpecLId name tyName
     }
   end
 
@@ -121,8 +124,8 @@ local
     ([objectTyVar, aTyVar], ("", "Property", "", "writeonly")),
     ([objectTyVar, aTyVar, bTyVar], ("", "Property", "", "readwrite"))
   ]
-  val revPropertySpecs = revMap toSpec propertyTemplates
-  val revPropertyLocalTypes = revMap toLocalType propertyTemplates
+  val revPropertySpecs = revMap (toSpec "") propertyTemplates
+  val revPropertyLocalTypes = revMap (toLocalType "") propertyTemplates
 in
   (*
    * `addPropertySpecs namespace numProps specs` adds
@@ -182,10 +185,10 @@ local
   val accessorTemplate = ([aTyVar, bTyVar], accessorName)
 
   val accessorGlobalLId : lid = mkGlobalLId accessorName
-  val accessorLocalId : id = mkLocalId accessorName
+  val accessorLocalId : id = mkLocalId "" accessorName
   val accessorLocalLId : lid = toList1 [accessorLocalId]
-  val accessorSpec = toSpec accessorTemplate
-  val accessorLocalType = toLocalType accessorTemplate
+  val accessorSpec = toSpec "" accessorTemplate
+  val accessorLocalType = toLocalType "" accessorTemplate
 in
   (*
    * `addAccessorSpecs namespace info (readTy, writeTy) isPtr specs` adds

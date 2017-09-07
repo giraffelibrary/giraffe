@@ -14,7 +14,7 @@ signature G_OBJECT =
     structure TypeFundamentalFlags : G_OBJECT_TYPE_FUNDAMENTAL_FLAGS
     structure Value :
       G_OBJECT_VALUE
-        where type record_t = ValueRecord.t
+        where type t = ValueRecord.t
         where type type_t = Type.t
     structure ClosureRecord :
       G_OBJECT_CLOSURE_RECORD
