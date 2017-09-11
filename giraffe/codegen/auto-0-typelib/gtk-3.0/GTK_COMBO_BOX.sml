@@ -99,10 +99,10 @@ signature GTK_COMBO_BOX =
       'a class
        -> LargeInt.int
        -> unit
-    val changedSig : (unit -> unit) -> 'a class Signal.signal
-    val moveActiveSig : (scroll_type_t -> unit) -> 'a class Signal.signal
-    val popdownSig : (unit -> bool) -> 'a class Signal.signal
-    val popupSig : (unit -> unit) -> 'a class Signal.signal
+    val changedSig : (unit -> unit) -> 'a class Signal.t
+    val moveActiveSig : (scroll_type_t -> unit) -> 'a class Signal.t
+    val popdownSig : (unit -> bool) -> 'a class Signal.t
+    val popupSig : (unit -> unit) -> 'a class Signal.t
     val activeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val activeIdProp : ('a class, string option, string option) Property.readwrite
     val addTearoffsProp : ('a class, bool, bool) Property.readwrite

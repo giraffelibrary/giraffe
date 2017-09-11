@@ -29,5 +29,5 @@ signature GTK_ACCEL_MAP =
         * LargeInt.int
         * Gdk.ModifierType.t
         -> unit)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
   end

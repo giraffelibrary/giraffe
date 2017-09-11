@@ -49,13 +49,13 @@ signature GTK_CALENDAR =
       'a class
        -> LargeInt.int
        -> unit
-    val daySelectedSig : (unit -> unit) -> 'a class Signal.signal
-    val daySelectedDoubleClickSig : (unit -> unit) -> 'a class Signal.signal
-    val monthChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val nextMonthSig : (unit -> unit) -> 'a class Signal.signal
-    val nextYearSig : (unit -> unit) -> 'a class Signal.signal
-    val prevMonthSig : (unit -> unit) -> 'a class Signal.signal
-    val prevYearSig : (unit -> unit) -> 'a class Signal.signal
+    val daySelectedSig : (unit -> unit) -> 'a class Signal.t
+    val daySelectedDoubleClickSig : (unit -> unit) -> 'a class Signal.t
+    val monthChangedSig : (unit -> unit) -> 'a class Signal.t
+    val nextMonthSig : (unit -> unit) -> 'a class Signal.t
+    val nextYearSig : (unit -> unit) -> 'a class Signal.t
+    val prevMonthSig : (unit -> unit) -> 'a class Signal.t
+    val prevYearSig : (unit -> unit) -> 'a class Signal.t
     val dayProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val detailHeightRowsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val detailWidthCharsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

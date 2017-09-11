@@ -27,7 +27,7 @@ signature GIO_D_BUS_OBJECT_MANAGER_CLIENT =
         * GLib.VariantRecord.t
         * string list
         -> unit)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val interfaceProxySignalSig :
       (base d_bus_object_proxy_class
         * base d_bus_proxy_class
@@ -35,7 +35,7 @@ signature GIO_D_BUS_OBJECT_MANAGER_CLIENT =
         * string
         * GLib.VariantRecord.t
         -> unit)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val busTypeProp : ('a class, bus_type_t) Property.writeonly
     val connectionProp : ('a class, base d_bus_connection_class option, 'b d_bus_connection_class option) Property.readwrite
     val flagsProp : ('a class, d_bus_object_manager_client_flags_t, d_bus_object_manager_client_flags_t) Property.readwrite

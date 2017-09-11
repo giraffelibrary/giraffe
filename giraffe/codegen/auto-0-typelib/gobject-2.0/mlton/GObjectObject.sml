@@ -4,10 +4,10 @@ structure GObjectObject :>
     where type type_t = GObjectType.t
     where type value_t = GObjectValueRecord.t
     where type closure_t = GObjectClosureRecord.t
-    where type 'a param_spec_class = 'a GObjectParamSpecClass.class =
+    where type 'a param_spec_class = 'a GObjectParamSpecClass.class
+    where type 'a signal_t = 'a Signal.t =
   struct
     val getType_ = _import "g_object_get_type" : unit -> GObjectType.FFI.val_;
-    val forceFloating_ = _import "g_object_force_floating" : GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p -> unit;
     val freezeNotify_ = _import "g_object_freeze_notify" : GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p -> unit;
     val getProperty_ =
       fn
@@ -28,7 +28,6 @@ structure GObjectObject :>
               x3,
               x4
             )
-    val isFloating_ = _import "g_object_is_floating" : GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p -> GBool.FFI.val_;
     val notify_ =
       fn
         x1 & (x2, x3) =>
@@ -72,9 +71,9 @@ structure GObjectObject :>
     type value_t = GObjectValueRecord.t
     type closure_t = GObjectClosureRecord.t
     type 'a param_spec_class = 'a GObjectParamSpecClass.class
+    type 'a signal_t = 'a Signal.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun forceFloating self = (GObjectObjectClass.FFI.withPtr ---> I) forceFloating_ self
     fun freezeNotify self = (GObjectObjectClass.FFI.withPtr ---> I) freezeNotify_ self
     fun getProperty self (propertyName, value) =
       (
@@ -89,7 +88,6 @@ structure GObjectObject :>
            & propertyName
            & value
         )
-    fun isFloating self = (GObjectObjectClass.FFI.withPtr ---> GBool.FFI.fromVal) isFloating_ self
     fun notify self propertyName = (GObjectObjectClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) notify_ (self & propertyName)
     fun notifyByPspec self pspec = (GObjectObjectClass.FFI.withPtr &&&> GObjectParamSpecClass.FFI.withPtr ---> I) notifyByPspec_ (self & pspec)
     fun runDispose self = (GObjectObjectClass.FFI.withPtr ---> I) runDispose_ self

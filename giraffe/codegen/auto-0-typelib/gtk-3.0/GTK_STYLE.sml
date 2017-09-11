@@ -43,7 +43,7 @@ signature GTK_STYLE =
       'a class
        -> 'b Gdk.WindowClass.class * state_type_t
        -> unit
-    val realizeSig : (unit -> unit) -> 'a class Signal.signal
-    val unrealizeSig : (unit -> unit) -> 'a class Signal.signal
+    val realizeSig : (unit -> unit) -> 'a class Signal.t
+    val unrealizeSig : (unit -> unit) -> 'a class Signal.t
     val contextProp : ('a class, base style_context_class option, 'b style_context_class option) Property.readwrite
   end

@@ -89,13 +89,13 @@ signature GTK_SOURCE_VIEW =
       'a class
        -> LargeInt.int
        -> unit
-    val lineMarkActivatedSig : (Gtk.TextIterRecord.t * base Gdk.Event.union -> unit) -> 'a class Signal.signal
-    val moveLinesSig : (bool * LargeInt.int -> unit) -> 'a class Signal.signal
-    val moveWordsSig : (LargeInt.int -> unit) -> 'a class Signal.signal
-    val redoSig : (unit -> unit) -> 'a class Signal.signal
-    val showCompletionSig : (unit -> unit) -> 'a class Signal.signal
-    val smartHomeEndSig : (Gtk.TextIterRecord.t * LargeInt.int -> unit) -> 'a class Signal.signal
-    val undoSig : (unit -> unit) -> 'a class Signal.signal
+    val lineMarkActivatedSig : (Gtk.TextIterRecord.t * base Gdk.Event.union -> unit) -> 'a class Signal.t
+    val moveLinesSig : (bool * LargeInt.int -> unit) -> 'a class Signal.t
+    val moveWordsSig : (LargeInt.int -> unit) -> 'a class Signal.t
+    val redoSig : (unit -> unit) -> 'a class Signal.t
+    val showCompletionSig : (unit -> unit) -> 'a class Signal.t
+    val smartHomeEndSig : (Gtk.TextIterRecord.t * LargeInt.int -> unit) -> 'a class Signal.t
+    val undoSig : (unit -> unit) -> 'a class Signal.t
     val autoIndentProp : ('a class, bool, bool) Property.readwrite
     val completionProp : ('a class, base completion_class option) Property.readonly
     val drawSpacesProp : ('a class, draw_spaces_flags_t, draw_spaces_flags_t) Property.readwrite

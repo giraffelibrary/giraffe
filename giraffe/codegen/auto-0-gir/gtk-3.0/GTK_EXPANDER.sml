@@ -49,7 +49,7 @@ signature GTK_EXPANDER =
       'a class
        -> bool
        -> unit
-    val activateSig : (unit -> unit) -> 'a class Signal.signal
+    val activateSig : (unit -> unit) -> 'a class Signal.t
     val expandedProp : ('a class, bool, bool) Property.readwrite
     val labelProp : ('a class, string option, string option) Property.readwrite
     val labelFillProp : ('a class, bool, bool) Property.readwrite

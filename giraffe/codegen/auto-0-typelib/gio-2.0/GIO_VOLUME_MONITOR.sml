@@ -15,16 +15,16 @@ signature GIO_VOLUME_MONITOR =
       'a class
        -> string
        -> base volume_class
-    val driveChangedSig : (base drive_class -> unit) -> 'a class Signal.signal
-    val driveConnectedSig : (base drive_class -> unit) -> 'a class Signal.signal
-    val driveDisconnectedSig : (base drive_class -> unit) -> 'a class Signal.signal
-    val driveEjectButtonSig : (base drive_class -> unit) -> 'a class Signal.signal
-    val driveStopButtonSig : (base drive_class -> unit) -> 'a class Signal.signal
-    val mountAddedSig : (base mount_class -> unit) -> 'a class Signal.signal
-    val mountChangedSig : (base mount_class -> unit) -> 'a class Signal.signal
-    val mountPreUnmountSig : (base mount_class -> unit) -> 'a class Signal.signal
-    val mountRemovedSig : (base mount_class -> unit) -> 'a class Signal.signal
-    val volumeAddedSig : (base volume_class -> unit) -> 'a class Signal.signal
-    val volumeChangedSig : (base volume_class -> unit) -> 'a class Signal.signal
-    val volumeRemovedSig : (base volume_class -> unit) -> 'a class Signal.signal
+    val driveChangedSig : (base drive_class -> unit) -> 'a class Signal.t
+    val driveConnectedSig : (base drive_class -> unit) -> 'a class Signal.t
+    val driveDisconnectedSig : (base drive_class -> unit) -> 'a class Signal.t
+    val driveEjectButtonSig : (base drive_class -> unit) -> 'a class Signal.t
+    val driveStopButtonSig : (base drive_class -> unit) -> 'a class Signal.t
+    val mountAddedSig : (base mount_class -> unit) -> 'a class Signal.t
+    val mountChangedSig : (base mount_class -> unit) -> 'a class Signal.t
+    val mountPreUnmountSig : (base mount_class -> unit) -> 'a class Signal.t
+    val mountRemovedSig : (base mount_class -> unit) -> 'a class Signal.t
+    val volumeAddedSig : (base volume_class -> unit) -> 'a class Signal.t
+    val volumeChangedSig : (base volume_class -> unit) -> 'a class Signal.t
+    val volumeRemovedSig : (base volume_class -> unit) -> 'a class Signal.t
   end

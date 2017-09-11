@@ -310,13 +310,17 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         (* ClosureMarshal, Signal and Property are special supporting
          * structures outside the Gtk structure.  Therefore their spec and
          * strdec lists are empty but dependencies are included to ensure
-         * that they are loaded first. *)
+         * that they are loaded after structures that they depend on. *)
         extendStrDeps "ClosureMarshal" ["GObjectValueRecord", "GObjectValue"],
         extendStrDeps "Signal"
           ["GObjectObjectClass", "GObjectClosureRecord", "GObjectClosure"],
         extendStrDeps "Property"
           ["GObjectObjectClass", "GObjectValueRecord", "GObjectValue"],
 
+        (* Signal and Property must be loaded before structures that depend
+           on them. *)
+        extendStrDeps "GObjectObject" ["Signal"],
+        extendStrDeps "GObjectBinding" ["Property"],
 
         (* GObjectValueRecord and GObjectValue are manually
          * generated modules so we must provide spec and strdec values

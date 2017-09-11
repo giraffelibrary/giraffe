@@ -87,19 +87,19 @@ signature GTK_SOURCE_GUTTER_RENDERER =
         * Cairo.RectangleIntRecord.t
         * base Gdk.Event.union
         -> unit)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val queryActivatableSig :
       (Gtk.TextIterRecord.t
         * Cairo.RectangleIntRecord.t
         * base Gdk.Event.union
         -> bool)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val queryDataSig :
       (Gtk.TextIterRecord.t
         * Gtk.TextIterRecord.t
         * gutter_renderer_state_t
         -> unit)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val queryTooltipSig :
       (Gtk.TextIterRecord.t
         * Cairo.RectangleIntRecord.t
@@ -107,8 +107,8 @@ signature GTK_SOURCE_GUTTER_RENDERER =
         * LargeInt.int
         * base Gtk.TooltipClass.class
         -> bool)
-       -> 'a class Signal.signal
-    val queueDrawSig : (unit -> unit) -> 'a class Signal.signal
+       -> 'a class Signal.t
+    val queueDrawSig : (unit -> unit) -> 'a class Signal.t
     val alignmentModeProp : ('a class, gutter_renderer_alignment_mode_t, gutter_renderer_alignment_mode_t) Property.readwrite
     val backgroundRgbaProp : ('a class, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite
     val backgroundSetProp : ('a class, bool, bool) Property.readwrite

@@ -42,7 +42,7 @@ signature GTK_SCALE =
       'a class
        -> position_type_t
        -> unit
-    val formatValueSig : (real -> string) -> 'a class Signal.signal
+    val formatValueSig : (real -> string) -> 'a class Signal.t
     val digitsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val drawValueProp : ('a class, bool, bool) Property.readwrite
     val valuePosProp : ('a class, position_type_t, position_type_t) Property.readwrite

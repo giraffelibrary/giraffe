@@ -45,11 +45,11 @@ signature GTK_MENU_ITEM =
       'a class
        -> LargeInt.int
        -> unit
-    val activateSig : (unit -> unit) -> 'a class Signal.signal
-    val activateItemSig : (unit -> unit) -> 'a class Signal.signal
-    val deselectSig : (unit -> unit) -> 'a class Signal.signal
-    val selectSig : (unit -> unit) -> 'a class Signal.signal
-    val toggleSizeAllocateSig : (LargeInt.int -> unit) -> 'a class Signal.signal
+    val activateSig : (unit -> unit) -> 'a class Signal.t
+    val activateItemSig : (unit -> unit) -> 'a class Signal.t
+    val deselectSig : (unit -> unit) -> 'a class Signal.t
+    val selectSig : (unit -> unit) -> 'a class Signal.t
+    val toggleSizeAllocateSig : (LargeInt.int -> unit) -> 'a class Signal.t
     val accelPathProp : ('a class, string option, string option) Property.readwrite
     val labelProp : ('a class, string option, string option) Property.readwrite
     val rightJustifiedProp : ('a class, bool, bool) Property.readwrite

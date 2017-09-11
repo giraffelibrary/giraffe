@@ -41,13 +41,13 @@ signature GTK_ACCEL_GROUP =
         * LargeInt.int
         * Gdk.ModifierType.t
         -> bool)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val accelChangedSig :
       (LargeInt.int
         * Gdk.ModifierType.t
         * GObject.ClosureRecord.t
         -> unit)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val isLockedProp : ('a class, bool) Property.readonly
     val modifierMaskProp : ('a class, Gdk.ModifierType.t) Property.readonly
   end

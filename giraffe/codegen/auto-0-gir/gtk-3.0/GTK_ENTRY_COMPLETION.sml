@@ -69,10 +69,10 @@ signature GTK_ENTRY_COMPLETION =
       'a class
        -> LargeInt.int
        -> unit
-    val actionActivatedSig : (LargeInt.int -> unit) -> 'a class Signal.signal
-    val cursorOnMatchSig : (base tree_model_class * tree_iter_t -> bool) -> 'a class Signal.signal
-    val insertPrefixSig : (string -> bool) -> 'a class Signal.signal
-    val matchSelectedSig : (base tree_model_class * tree_iter_t -> bool) -> 'a class Signal.signal
+    val actionActivatedSig : (LargeInt.int -> unit) -> 'a class Signal.t
+    val cursorOnMatchSig : (base tree_model_class * tree_iter_t -> bool) -> 'a class Signal.t
+    val insertPrefixSig : (string -> bool) -> 'a class Signal.t
+    val matchSelectedSig : (base tree_model_class * tree_iter_t -> bool) -> 'a class Signal.t
     val cellAreaProp : ('a class, base cell_area_class option, 'b cell_area_class option) Property.readwrite
     val inlineCompletionProp : ('a class, bool, bool) Property.readwrite
     val inlineSelectionProp : ('a class, bool, bool) Property.readwrite

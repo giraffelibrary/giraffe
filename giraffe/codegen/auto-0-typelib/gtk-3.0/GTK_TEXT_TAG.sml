@@ -24,7 +24,7 @@ signature GTK_TEXT_TAG =
         * base Gdk.Event.union
         * text_iter_t
         -> bool)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val accumulativeMarginProp : ('a class, bool, bool) Property.readwrite
     val backgroundProp : ('a class, string option) Property.writeonly
     val backgroundFullHeightProp : ('a class, bool, bool) Property.readwrite

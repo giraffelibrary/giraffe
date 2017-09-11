@@ -100,11 +100,11 @@ signature ATK_TABLE =
       'a class
        -> 'b object_class
        -> unit
-    val columnDeletedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
-    val columnInsertedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
-    val columnReorderedSig : (unit -> unit) -> 'a class Signal.signal
-    val modelChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val rowDeletedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
-    val rowInsertedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
-    val rowReorderedSig : (unit -> unit) -> 'a class Signal.signal
+    val columnDeletedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.t
+    val columnInsertedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.t
+    val columnReorderedSig : (unit -> unit) -> 'a class Signal.t
+    val modelChangedSig : (unit -> unit) -> 'a class Signal.t
+    val rowDeletedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.t
+    val rowInsertedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.t
+    val rowReorderedSig : (unit -> unit) -> 'a class Signal.t
   end

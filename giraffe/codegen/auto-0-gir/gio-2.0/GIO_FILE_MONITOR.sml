@@ -22,7 +22,7 @@ signature GIO_FILE_MONITOR =
         * base file_class
         * file_monitor_event_t
         -> unit)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val cancelledProp : ('a class, bool) Property.readonly
     val rateLimitProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
   end

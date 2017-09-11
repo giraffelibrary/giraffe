@@ -14,5 +14,5 @@ signature GTK_SOURCE_COMPLETION_PROPOSAL =
     val getMarkup : 'a class -> string
     val getText : 'a class -> string
     val hash : 'a class -> LargeInt.int
-    val changedSig : (unit -> unit) -> 'a class Signal.signal
+    val changedSig : (unit -> unit) -> 'a class Signal.t
   end

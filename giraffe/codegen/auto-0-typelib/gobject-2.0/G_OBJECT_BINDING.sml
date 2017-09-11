@@ -4,10 +4,10 @@ signature G_OBJECT_BINDING =
     type type_t
     type binding_flags_t
     type 'a object_class
-    type t = base class
     type ('object, 'a) property_readonly
     type ('object, 'a) property_writeonly
     type ('object, 'a, 'b) property_readwrite
+    type t = base class
     val getType : unit -> type_t
     val getFlags : 'a class -> binding_flags_t
     val getSource : 'a class -> base object_class

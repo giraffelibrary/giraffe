@@ -57,12 +57,12 @@ signature GTK_U_I_MANAGER =
       'a class
        -> bool
        -> unit
-    val actionsChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val addWidgetSig : (base widget_class -> unit) -> 'a class Signal.signal
-    val connectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.signal
-    val disconnectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.signal
-    val postActivateSig : (base action_class -> unit) -> 'a class Signal.signal
-    val preActivateSig : (base action_class -> unit) -> 'a class Signal.signal
+    val actionsChangedSig : (unit -> unit) -> 'a class Signal.t
+    val addWidgetSig : (base widget_class -> unit) -> 'a class Signal.t
+    val connectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.t
+    val disconnectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.t
+    val postActivateSig : (base action_class -> unit) -> 'a class Signal.t
+    val preActivateSig : (base action_class -> unit) -> 'a class Signal.t
     val addTearoffsProp : ('a class, bool, bool) Property.readwrite
     val uiProp : ('a class, string option) Property.readonly
   end

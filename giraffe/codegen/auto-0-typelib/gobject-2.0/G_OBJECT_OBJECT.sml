@@ -5,15 +5,14 @@ signature G_OBJECT_OBJECT =
     type value_t
     type closure_t
     type 'a param_spec_class
+    type 'a signal_t
     type t = base class
     val getType : unit -> type_t
-    val forceFloating : 'a class -> unit
     val freezeNotify : 'a class -> unit
     val getProperty :
       'a class
        -> string * value_t
        -> unit
-    val isFloating : 'a class -> bool
     val notify :
       'a class
        -> string
@@ -32,5 +31,5 @@ signature G_OBJECT_OBJECT =
       'a class
        -> closure_t
        -> unit
-    val notifySig : (base param_spec_class -> unit) -> 'a class Signal.signal
+    val notifySig : (base param_spec_class -> unit) -> 'a class signal_t
   end

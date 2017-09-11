@@ -70,6 +70,6 @@ signature GDK_DISPLAY =
     val supportsSelectionNotification : 'a class -> bool
     val supportsShapes : 'a class -> bool
     val sync : 'a class -> unit
-    val closedSig : (bool -> unit) -> 'a class Signal.signal
-    val openedSig : (unit -> unit) -> 'a class Signal.signal
+    val closedSig : (bool -> unit) -> 'a class Signal.t
+    val openedSig : (unit -> unit) -> 'a class Signal.t
   end

@@ -36,12 +36,12 @@ signature GTK_EDITABLE =
       'a class
        -> LargeInt.int
        -> unit
-    val changedSig : (unit -> unit) -> 'a class Signal.signal
-    val deleteTextSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
+    val changedSig : (unit -> unit) -> 'a class Signal.t
+    val deleteTextSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.t
     val insertTextSig :
       (string
         * LargeInt.int
         * LargeInt.int
         -> LargeInt.int)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
   end

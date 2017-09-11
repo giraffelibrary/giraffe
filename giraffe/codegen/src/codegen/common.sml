@@ -116,6 +116,51 @@ fun toLocalType name (tyVars, tyName) =
     }
   end
 
+local
+  val signalTemplate = ([aTyVar], ("", "Signal", "", "t"))
+  val signalSpec = toSpec "" signalTemplate
+  val signalLocalType = toLocalType "" signalTemplate
+in
+  (*
+   * `addSignalSpecs namespace numSigs specs` adds
+   *
+   *                                                       -.
+   *     type 'a signal_t                                   | isGObject
+   *                                                       -'  and numSigs > 0
+   *
+   * to `specs`.
+   *)
+  fun addSignalSpecs namespace numSigs specs =
+    let
+      val isGObject = namespace = "GObject"
+    in
+      if isGObject andalso numSigs > 0
+      then signalSpec :: specs
+      else specs
+    end
+
+  (*
+   * `makeSignalLocalTypes isGObject numSigs` returns `revLocalTypes` such
+   * that `revMap makeLocalTypeStrDec revLocalTypes` produces strdec values
+   * as follows:
+   *
+   *                                                       -.
+   *     type 'a signal_t = Signal.t                        | isGObject
+   *                                                       -'  and numSigs > 0
+   *
+   * and `revMap makeLocalTypeStrModuleQual revLocalTypes` produces qual
+   * values as follows:
+   *
+   *                                                       -.
+   *     where type 'a signal_t = Signal.t                  | isGObject
+   *                                                       -'  and numSigs > 0
+   *)
+  fun makeSignalLocalTypes isGObject numSigs =
+    if isGObject andalso numSigs > 0
+    then [signalLocalType]
+    else []
+end
+
 
 local
   val objectTyVar = (false, "object")
@@ -130,11 +175,11 @@ in
   (*
    * `addPropertySpecs namespace numProps specs` adds
    *
-   *                                                             -.
-   *     type ('object, 'a) property_readonly                     | isGObject
-   *     type ('object, 'a) property_writeonly                    |  and P > 0
-   *     type ('object, 'a, 'b) property_readwrite                |
-   *                                                             -'
+   *                                                       -.
+   *     type ('object, 'a) property_readonly               | isGObject
+   *     type ('object, 'a) property_writeonly              |  and numProps > 0
+   *     type ('object, 'a, 'b) property_readwrite          |
+   *                                                       -'
    *
    * to `specs`.
    *)
@@ -152,26 +197,26 @@ in
    * that `revMap makeLocalTypeStrDec revLocalTypes` produces strdec values
    * as follows:
    *
-   *                                                             -.
-   *     type ('object, 'a) property_readonly =                   |
-   *       ('object, 'a) Property.readonly                        |
-   *     type ('object, 'a) property_writeonly =                  | isGObject
-   *       ('object, 'a) Property.writeonly                       |  and P > 0
-   *     type ('object, 'a, 'b) property_readwrite =              |
-   *       ('object, 'a) Property.readwrite                       |
-   *                                                             -'
+   *                                                       -.
+   *     type ('object, 'a) property_readonly =             |
+   *       ('object, 'a) Property.readonly                  |
+   *     type ('object, 'a) property_writeonly =            | isGObject
+   *       ('object, 'a) Property.writeonly                 |  and numProps > 0
+   *     type ('object, 'a, 'b) property_readwrite =        |
+   *       ('object, 'a) Property.readwrite                 |
+   *                                                       -'
    *
    * and `revMap makeLocalTypeStrModuleQual revLocalTypes` produces qual
    * values as follows:
    *
-   *                                                             -.
-   *     where type ('object, 'a) property_readonly =             |
-   *       ('object, 'a) Property.readonly                        |
-   *     where type ('object, 'a) property_writeonly =            | isGObject
-   *       ('object, 'a) Property.writeonly                       |  and P > 0
-   *     where type ('object, 'a, 'b) property_readwrite =        |
-   *       ('object, 'a) Property.readwrite                       |
-   *                                                             -'
+   *                                                       -.
+   *     where type ('object, 'a) property_readonly =       |
+   *       ('object, 'a) Property.readonly                  |
+   *     where type ('object, 'a) property_writeonly =      | isGObject
+   *       ('object, 'a) Property.writeonly                 |  and numProps > 0
+   *     where type ('object, 'a, 'b) property_readwrite =  |
+   *       ('object, 'a) Property.readwrite                 |
+   *                                                       -'
    *)
   fun makePropertyLocalTypes isGObject numProps =
     if isGObject andalso numProps > 0

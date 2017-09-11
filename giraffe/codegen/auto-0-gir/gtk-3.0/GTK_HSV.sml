@@ -32,6 +32,6 @@ signature GTK_HSV =
       'a class
        -> LargeInt.int * LargeInt.int
        -> unit
-    val changedSig : (unit -> unit) -> 'a class Signal.signal
-    val moveSig : (direction_type_t -> unit) -> 'a class Signal.signal
+    val changedSig : (unit -> unit) -> 'a class Signal.t
+    val moveSig : (direction_type_t -> unit) -> 'a class Signal.t
   end

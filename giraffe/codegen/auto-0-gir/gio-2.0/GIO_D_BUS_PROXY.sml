@@ -87,13 +87,13 @@ signature GIO_D_BUS_PROXY =
       'a class
        -> d_bus_interface_info_t option
        -> unit
-    val gPropertiesChangedSig : (GLib.VariantRecord.t * string list -> unit) -> 'a class Signal.signal
+    val gPropertiesChangedSig : (GLib.VariantRecord.t * string list -> unit) -> 'a class Signal.t
     val gSignalSig :
       (string
         * string
         * GLib.VariantRecord.t
         -> unit)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val gBusTypeProp : ('a class, bus_type_t) Property.writeonly
     val gConnectionProp : ('a class, base d_bus_connection_class option, 'b d_bus_connection_class option) Property.readwrite
     val gDefaultTimeoutProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

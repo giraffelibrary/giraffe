@@ -41,16 +41,16 @@ signature GIO_MOUNT_OPERATION =
       'a class
        -> string
        -> unit
-    val abortedSig : (unit -> unit) -> 'a class Signal.signal
+    val abortedSig : (unit -> unit) -> 'a class Signal.t
     val askPasswordSig :
       (string
         * string
         * string
         * ask_password_flags_t
         -> unit)
-       -> 'a class Signal.signal
-    val askQuestionSig : (string * string list -> unit) -> 'a class Signal.signal
-    val replySig : (mount_operation_result_t -> unit) -> 'a class Signal.signal
+       -> 'a class Signal.t
+    val askQuestionSig : (string * string list -> unit) -> 'a class Signal.t
+    val replySig : (mount_operation_result_t -> unit) -> 'a class Signal.t
     val anonymousProp : ('a class, bool, bool) Property.readwrite
     val choiceProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val domainProp : ('a class, string option, string option) Property.readwrite

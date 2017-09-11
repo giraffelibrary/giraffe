@@ -13,7 +13,7 @@ signature ATK_DOCUMENT =
       'a class
        -> string * string
        -> bool
-    val loadCompleteSig : (unit -> unit) -> 'a class Signal.signal
-    val loadStoppedSig : (unit -> unit) -> 'a class Signal.signal
-    val reloadSig : (unit -> unit) -> 'a class Signal.signal
+    val loadCompleteSig : (unit -> unit) -> 'a class Signal.t
+    val loadStoppedSig : (unit -> unit) -> 'a class Signal.t
+    val reloadSig : (unit -> unit) -> 'a class Signal.t
   end

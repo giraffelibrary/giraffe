@@ -54,15 +54,15 @@ signature GTK_TOOLBAR =
        -> unit
     val unsetIconSize : 'a class -> unit
     val unsetStyle : 'a class -> unit
-    val focusHomeOrEndSig : (bool -> bool) -> 'a class Signal.signal
-    val orientationChangedSig : (orientation_t -> unit) -> 'a class Signal.signal
+    val focusHomeOrEndSig : (bool -> bool) -> 'a class Signal.t
+    val orientationChangedSig : (orientation_t -> unit) -> 'a class Signal.t
     val popupContextMenuSig :
       (LargeInt.int
         * LargeInt.int
         * LargeInt.int
         -> bool)
-       -> 'a class Signal.signal
-    val styleChangedSig : (toolbar_style_t -> unit) -> 'a class Signal.signal
+       -> 'a class Signal.t
+    val styleChangedSig : (toolbar_style_t -> unit) -> 'a class Signal.t
     val iconSizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val iconSizeSetProp : ('a class, bool, bool) Property.readwrite
     val showArrowProp : ('a class, bool, bool) Property.readwrite

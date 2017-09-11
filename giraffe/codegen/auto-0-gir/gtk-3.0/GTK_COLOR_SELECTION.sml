@@ -50,7 +50,7 @@ signature GTK_COLOR_SELECTION =
       'a class
        -> Gdk.RgbaRecord.t
        -> unit
-    val colorChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val colorChangedSig : (unit -> unit) -> 'a class Signal.t
     val currentAlphaProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val currentColorProp : ('a class, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
     val currentRgbaProp : ('a class, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite

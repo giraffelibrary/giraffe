@@ -86,8 +86,8 @@ signature GTK_TREE_MODEL =
       'a class
        -> tree_iter_t
        -> unit
-    val rowChangedSig : (tree_path_t * tree_iter_t -> unit) -> 'a class Signal.signal
-    val rowDeletedSig : (tree_path_t -> unit) -> 'a class Signal.signal
-    val rowHasChildToggledSig : (tree_path_t * tree_iter_t -> unit) -> 'a class Signal.signal
-    val rowInsertedSig : (tree_path_t * tree_iter_t -> unit) -> 'a class Signal.signal
+    val rowChangedSig : (tree_path_t * tree_iter_t -> unit) -> 'a class Signal.t
+    val rowDeletedSig : (tree_path_t -> unit) -> 'a class Signal.t
+    val rowHasChildToggledSig : (tree_path_t * tree_iter_t -> unit) -> 'a class Signal.t
+    val rowInsertedSig : (tree_path_t * tree_iter_t -> unit) -> 'a class Signal.t
   end

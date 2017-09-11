@@ -19,7 +19,7 @@ signature ATK_HYPERLINK =
        -> string
     val isInline : 'a class -> bool
     val isValid : 'a class -> bool
-    val linkActivatedSig : (unit -> unit) -> 'a class Signal.signal
+    val linkActivatedSig : (unit -> unit) -> 'a class Signal.t
     val endIndexProp : ('a class, LargeInt.int) Property.readonly
     val numberOfAnchorsProp : ('a class, LargeInt.int) Property.readonly
     val selectedLinkProp : ('a class, bool) Property.readonly

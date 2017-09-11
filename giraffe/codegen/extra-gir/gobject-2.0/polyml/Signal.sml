@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2017 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -52,12 +52,12 @@ structure Signal :>
           );
     end
 
-    type 'object_class signal = string * GObjectClosureRecord.t
+    type 'object_class t = string * GObjectClosureRecord.t
 
     fun signal detailedSignal marshaller callback =
       (detailedSignal, GObjectClosure.new marshaller callback)
 
-    type signal_id = GULong.FFI.val_
+    type id = GULong.FFI.val_
 
     fun signalConnectClosure instance detailedSignal closure after =
       (

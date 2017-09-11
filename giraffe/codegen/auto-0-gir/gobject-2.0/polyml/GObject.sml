@@ -1,5 +1,6 @@
 structure GObject :
   G_OBJECT
+    where type 'a signal_t = 'a Signal.t
     where type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
     where type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
     where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite =
@@ -10,6 +11,7 @@ structure GObject :
       val typeInit_ = call (getSymbol "g_type_init") (cVoid --> cVoid)
       val typeInitWithDebugFlags_ = call (getSymbol "g_type_init_with_debug_flags") (GObjectTypeDebugFlags.PolyML.cVal --> cVoid)
     end
+    type 'a signal_t = 'a Signal.t
     type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
     type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite
@@ -31,7 +33,6 @@ structure GObject :
     structure Closure = GObjectClosure
     structure BindingClass = GObjectBindingClass
     structure InitiallyUnownedClass = GObjectInitiallyUnownedClass
-    structure Object = GObjectObject
     structure ParamSpec = GObjectParamSpec
     structure ParamSpecBooleanClass = GObjectParamSpecBooleanClass
     structure ParamSpecBoxedClass = GObjectParamSpecBoxedClass
@@ -86,6 +87,7 @@ structure GObject :
     structure ParamSpecVariant = GObjectParamSpecVariant
     structure TypeModule = GObjectTypeModule
     structure TypePlugin = GObjectTypePlugin
+    structure Object = GObjectObject
     val PARAM_MASK = 255
     val PARAM_READWRITE = 0
     val PARAM_STATIC_STRINGS = 0

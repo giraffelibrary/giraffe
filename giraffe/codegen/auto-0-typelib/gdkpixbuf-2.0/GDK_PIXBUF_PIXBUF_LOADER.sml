@@ -21,14 +21,14 @@ signature GDK_PIXBUF_PIXBUF_LOADER =
       'a class
        -> Word8Vector.vector
        -> bool
-    val areaPreparedSig : (unit -> unit) -> 'a class Signal.signal
+    val areaPreparedSig : (unit -> unit) -> 'a class Signal.t
     val areaUpdatedSig :
       (LargeInt.int
         * LargeInt.int
         * LargeInt.int
         * LargeInt.int
         -> unit)
-       -> 'a class Signal.signal
-    val closedSig : (unit -> unit) -> 'a class Signal.signal
-    val sizePreparedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
+       -> 'a class Signal.t
+    val closedSig : (unit -> unit) -> 'a class Signal.t
+    val sizePreparedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.t
   end

@@ -77,8 +77,8 @@ signature GTK_RECENT_CHOOSER =
       'a class
        -> string
        -> unit
-    val itemActivatedSig : (unit -> unit) -> 'a class Signal.signal
-    val selectionChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val itemActivatedSig : (unit -> unit) -> 'a class Signal.t
+    val selectionChangedSig : (unit -> unit) -> 'a class Signal.t
     val filterProp : ('a class, base recent_filter_class option, 'b recent_filter_class option) Property.readwrite
     val limitProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val localOnlyProp : ('a class, bool, bool) Property.readwrite

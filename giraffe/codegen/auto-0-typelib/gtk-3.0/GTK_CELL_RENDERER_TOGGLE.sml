@@ -19,7 +19,7 @@ signature GTK_CELL_RENDERER_TOGGLE =
       'a class
        -> bool
        -> unit
-    val toggledSig : (string -> unit) -> 'a class Signal.signal
+    val toggledSig : (string -> unit) -> 'a class Signal.t
     val activatableProp : ('a class, bool, bool) Property.readwrite
     val activeProp : ('a class, bool, bool) Property.readwrite
     val inconsistentProp : ('a class, bool, bool) Property.readwrite

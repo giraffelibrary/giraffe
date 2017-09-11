@@ -99,7 +99,7 @@ signature GTK_ACTION =
        -> bool
        -> unit
     val unblockActivate : 'a class -> unit
-    val activateSig : (unit -> unit) -> 'a class Signal.signal
+    val activateSig : (unit -> unit) -> 'a class Signal.t
     val actionGroupProp : ('a class, base action_group_class option, 'b action_group_class option) Property.readwrite
     val alwaysShowImageProp : ('a class, bool, bool) Property.readwrite
     val giconProp : ('a class, base Gio.IconClass.class option, 'b Gio.IconClass.class option) Property.readwrite

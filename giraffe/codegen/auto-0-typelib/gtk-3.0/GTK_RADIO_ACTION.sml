@@ -21,7 +21,7 @@ signature GTK_RADIO_ACTION =
       'a class
        -> LargeInt.int
        -> unit
-    val changedSig : (base class -> unit) -> 'a class Signal.signal
+    val changedSig : (base class -> unit) -> 'a class Signal.t
     val currentValueProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val groupProp : ('a class, 'b class option) Property.writeonly
     val valueProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

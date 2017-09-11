@@ -32,7 +32,7 @@ signature GTK_RECENT_MANAGER =
       'a class
        -> string
        -> bool
-    val changedSig : (unit -> unit) -> 'a class Signal.signal
+    val changedSig : (unit -> unit) -> 'a class Signal.t
     val filenameProp : ('a class, string option, string option) Property.readwrite
     val sizeProp : ('a class, LargeInt.int) Property.readonly
   end

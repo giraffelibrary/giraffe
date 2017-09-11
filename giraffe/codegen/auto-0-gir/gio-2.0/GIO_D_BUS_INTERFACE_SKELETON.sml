@@ -24,6 +24,6 @@ signature GIO_D_BUS_INTERFACE_SKELETON =
        -> d_bus_interface_skeleton_flags_t
        -> unit
     val unexport : 'a class -> unit
-    val gAuthorizeMethodSig : (base d_bus_method_invocation_class -> bool) -> 'a class Signal.signal
+    val gAuthorizeMethodSig : (base d_bus_method_invocation_class -> bool) -> 'a class Signal.t
     val gFlagsProp : ('a class, d_bus_interface_skeleton_flags_t, d_bus_interface_skeleton_flags_t) Property.readwrite
   end

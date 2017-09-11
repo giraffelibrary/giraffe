@@ -324,16 +324,21 @@ fun makeNamespaceSigStr
     val numProps = 1  (* any non-zero value *)
     val revPropLocalTypes = makePropertyLocalTypes isGObject numProps
 
+    val numSigs = 1  (* any non-zero value *)
+    val revSigLocalTypes = makeSignalLocalTypes isGObject numSigs
+
     (* spec *)
     val specs'1 = mkSpecs functionSpecs
     val specs'2 = mkSpecs constantSpecs @ specs'1
     val specs'3 = foldl addModuleSpecs specs'2 revStrs
     val specs'4 =
       revMapAppend (noSemi o makeLocalTypeSpec) (revPropLocalTypes, specs'3)
+    val specs'5 =
+      revMapAppend (noSemi o makeLocalTypeSpec) (revSigLocalTypes, specs'4)
     val namespaceSigProgram = [
       ModuleDecSig (
         toList1 [
-          (namespaceSigId, (SigSpec specs'4, []))
+          (namespaceSigId, (SigSpec specs'5, []))
         ]
       )
     ]
@@ -344,14 +349,18 @@ fun makeNamespaceSigStr
     val strDecs'3 = foldl addModuleStrDecs strDecs'2 revStrs
     val strDecs'4 =
       revMapAppend (noSemi o makeLocalTypeStrDec) (revPropLocalTypes, strDecs'3)
+    val strDecs'5 =
+      revMapAppend (noSemi o makeLocalTypeStrDec) (revSigLocalTypes, strDecs'4)
     fun mkModule functionStrDecsLowLevel =
       let
-        val strDecs'5 = mkStrDecs functionStrDecsLowLevel @ strDecs'4
-        val strDecs'6 =
+        val strDecs'6 = mkStrDecs functionStrDecsLowLevel @ strDecs'5
+        val strDecs'7 =
           revMapAppend (noSemi o mkStructStrDec)
-            (ListDict.toList structDeps, strDecs'5)
+            (ListDict.toList structDeps, strDecs'6)
         val sigQual'1 = revMap makeLocalTypeStrModuleQual revPropLocalTypes
-        val namespaceQSig = (SigName namespaceSigId, sigQual'1)
+        val sigQual'2 =
+          revMapAppend makeLocalTypeStrModuleQual (revSigLocalTypes, sigQual'1)
+        val namespaceQSig = (SigName namespaceSigId, sigQual'2)
       in
         [
           ModuleDecStr (
@@ -360,7 +369,7 @@ fun makeNamespaceSigStr
                 (
                   namespaceStrId,
                   SOME (false, namespaceQSig),
-                  StructBody strDecs'6
+                  StructBody strDecs'7
                 )
               ]
             )

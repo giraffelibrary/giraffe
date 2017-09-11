@@ -77,7 +77,7 @@ signature GDK_DEVICE =
            * LargeInt.int
            * LargeInt.int
        -> unit
-    val changedSig : (unit -> unit) -> 'a class Signal.signal
+    val changedSig : (unit -> unit) -> 'a class Signal.t
     val associatedDeviceProp : ('a class, base class option) Property.readonly
     val deviceManagerProp : ('a class, base device_manager_class option, 'b device_manager_class option) Property.readwrite
     val displayProp : ('a class, base display_class option, 'b display_class option) Property.readwrite

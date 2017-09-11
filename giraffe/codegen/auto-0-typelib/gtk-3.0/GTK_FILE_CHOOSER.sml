@@ -149,11 +149,11 @@ signature GTK_FILE_CHOOSER =
       'a class
        -> string
        -> unit
-    val confirmOverwriteSig : (unit -> file_chooser_confirmation_t) -> 'a class Signal.signal
-    val currentFolderChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val fileActivatedSig : (unit -> unit) -> 'a class Signal.signal
-    val selectionChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val updatePreviewSig : (unit -> unit) -> 'a class Signal.signal
+    val confirmOverwriteSig : (unit -> file_chooser_confirmation_t) -> 'a class Signal.t
+    val currentFolderChangedSig : (unit -> unit) -> 'a class Signal.t
+    val fileActivatedSig : (unit -> unit) -> 'a class Signal.t
+    val selectionChangedSig : (unit -> unit) -> 'a class Signal.t
+    val updatePreviewSig : (unit -> unit) -> 'a class Signal.t
     val actionProp : ('a class, file_chooser_action_t, file_chooser_action_t) Property.readwrite
     val createFoldersProp : ('a class, bool, bool) Property.readwrite
     val doOverwriteConfirmationProp : ('a class, bool, bool) Property.readwrite

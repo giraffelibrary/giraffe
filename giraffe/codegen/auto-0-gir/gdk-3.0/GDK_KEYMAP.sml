@@ -28,7 +28,7 @@ signature GDK_KEYMAP =
             * LargeInt.int
             * modifier_type_t)
             option
-    val directionChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val keysChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val stateChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val directionChangedSig : (unit -> unit) -> 'a class Signal.t
+    val keysChangedSig : (unit -> unit) -> 'a class Signal.t
+    val stateChangedSig : (unit -> unit) -> 'a class Signal.t
   end

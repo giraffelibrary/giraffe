@@ -183,16 +183,16 @@ signature GTK_CELL_AREA =
         * Cairo.RectangleIntRecord.t
         * string
         -> unit)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val applyAttributesSig :
       (base tree_model_class
         * tree_iter_t
         * bool
         * bool
         -> unit)
-       -> 'a class Signal.signal
-    val focusChangedSig : (base cell_renderer_class * string -> unit) -> 'a class Signal.signal
-    val removeEditableSig : (base cell_renderer_class * base cell_editable_class -> unit) -> 'a class Signal.signal
+       -> 'a class Signal.t
+    val focusChangedSig : (base cell_renderer_class * string -> unit) -> 'a class Signal.t
+    val removeEditableSig : (base cell_renderer_class * base cell_editable_class -> unit) -> 'a class Signal.t
     val editWidgetProp : ('a class, base cell_editable_class option) Property.readonly
     val editedCellProp : ('a class, base cell_renderer_class option) Property.readonly
     val focusCellProp : ('a class, base cell_renderer_class option, 'b cell_renderer_class option) Property.readwrite

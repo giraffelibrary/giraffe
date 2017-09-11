@@ -227,6 +227,8 @@ excludedFunctionSymbols := [
     [
       "g_closure_new_simple",
       "g_closure_new_object",
+      "g_object_is_floating",
+      "g_object_force_floating",
       "g_param_spec_pool_new",
       "g_param_value_convert",
       "g_param_value_defaults",

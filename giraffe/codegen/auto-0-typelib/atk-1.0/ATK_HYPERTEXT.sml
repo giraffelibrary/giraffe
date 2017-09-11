@@ -13,5 +13,5 @@ signature ATK_HYPERTEXT =
        -> LargeInt.int
        -> LargeInt.int
     val getNLinks : 'a class -> LargeInt.int
-    val linkSelectedSig : (LargeInt.int -> unit) -> 'a class Signal.signal
+    val linkSelectedSig : (LargeInt.int -> unit) -> 'a class Signal.t
   end

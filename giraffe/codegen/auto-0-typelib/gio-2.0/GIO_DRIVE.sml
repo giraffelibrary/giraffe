@@ -39,8 +39,8 @@ signature GIO_DRIVE =
       'a class
        -> 'b async_result_class
        -> bool
-    val changedSig : (unit -> unit) -> 'a class Signal.signal
-    val disconnectedSig : (unit -> unit) -> 'a class Signal.signal
-    val ejectButtonSig : (unit -> unit) -> 'a class Signal.signal
-    val stopButtonSig : (unit -> unit) -> 'a class Signal.signal
+    val changedSig : (unit -> unit) -> 'a class Signal.t
+    val disconnectedSig : (unit -> unit) -> 'a class Signal.t
+    val ejectButtonSig : (unit -> unit) -> 'a class Signal.t
+    val stopButtonSig : (unit -> unit) -> 'a class Signal.t
   end

@@ -11,6 +11,6 @@ signature GTK_RADIO_MENU_ITEM =
     val newFromWidget : 'a class -> base class
     val newWithLabelFromWidget : 'a class * string -> base class
     val newWithMnemonicFromWidget : 'a class * string -> base class
-    val groupChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val groupChangedSig : (unit -> unit) -> 'a class Signal.t
     val groupProp : ('a class, 'b class option) Property.writeonly
   end

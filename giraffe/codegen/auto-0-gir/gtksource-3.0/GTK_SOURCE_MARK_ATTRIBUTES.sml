@@ -42,8 +42,8 @@ signature GTK_SOURCE_MARK_ATTRIBUTES =
       'a class
        -> string
        -> unit
-    val queryTooltipMarkupSig : (base mark_class -> string) -> 'a class Signal.signal
-    val queryTooltipTextSig : (base mark_class -> string) -> 'a class Signal.signal
+    val queryTooltipMarkupSig : (base mark_class -> string) -> 'a class Signal.t
+    val queryTooltipTextSig : (base mark_class -> string) -> 'a class Signal.t
     val backgroundProp : ('a class, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite
     val giconProp : ('a class, base Gio.IconClass.class option, 'b Gio.IconClass.class option) Property.readwrite
     val iconNameProp : ('a class, string option, string option) Property.readwrite

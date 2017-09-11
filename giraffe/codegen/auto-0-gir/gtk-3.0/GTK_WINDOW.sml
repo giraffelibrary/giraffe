@@ -275,10 +275,10 @@ signature GTK_WINDOW =
     val unfullscreen : 'a class -> unit
     val unmaximize : 'a class -> unit
     val unstick : 'a class -> unit
-    val activateDefaultSig : (unit -> unit) -> 'a class Signal.signal
-    val activateFocusSig : (unit -> unit) -> 'a class Signal.signal
-    val keysChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val setFocusSig : (base widget_class -> unit) -> 'a class Signal.signal
+    val activateDefaultSig : (unit -> unit) -> 'a class Signal.t
+    val activateFocusSig : (unit -> unit) -> 'a class Signal.t
+    val keysChangedSig : (unit -> unit) -> 'a class Signal.t
+    val setFocusSig : (base widget_class -> unit) -> 'a class Signal.t
     val acceptFocusProp : ('a class, bool, bool) Property.readwrite
     val applicationProp : ('a class, base application_class option, 'b application_class option) Property.readwrite
     val decoratedProp : ('a class, bool, bool) Property.readwrite

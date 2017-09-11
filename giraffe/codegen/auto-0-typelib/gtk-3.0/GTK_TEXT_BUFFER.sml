@@ -271,29 +271,29 @@ signature GTK_TEXT_BUFFER =
         * text_iter_t
         * text_iter_t
         -> unit)
-       -> 'a class Signal.signal
-    val beginUserActionSig : (unit -> unit) -> 'a class Signal.signal
-    val changedSig : (unit -> unit) -> 'a class Signal.signal
-    val deleteRangeSig : (text_iter_t * text_iter_t -> unit) -> 'a class Signal.signal
-    val endUserActionSig : (unit -> unit) -> 'a class Signal.signal
-    val insertChildAnchorSig : (text_iter_t * base text_child_anchor_class -> unit) -> 'a class Signal.signal
-    val insertPixbufSig : (text_iter_t * base GdkPixbuf.PixbufClass.class -> unit) -> 'a class Signal.signal
+       -> 'a class Signal.t
+    val beginUserActionSig : (unit -> unit) -> 'a class Signal.t
+    val changedSig : (unit -> unit) -> 'a class Signal.t
+    val deleteRangeSig : (text_iter_t * text_iter_t -> unit) -> 'a class Signal.t
+    val endUserActionSig : (unit -> unit) -> 'a class Signal.t
+    val insertChildAnchorSig : (text_iter_t * base text_child_anchor_class -> unit) -> 'a class Signal.t
+    val insertPixbufSig : (text_iter_t * base GdkPixbuf.PixbufClass.class -> unit) -> 'a class Signal.t
     val insertTextSig :
       (text_iter_t
         * string
         * LargeInt.int
         -> unit)
-       -> 'a class Signal.signal
-    val markDeletedSig : (base text_mark_class -> unit) -> 'a class Signal.signal
-    val markSetSig : (text_iter_t * base text_mark_class -> unit) -> 'a class Signal.signal
-    val modifiedChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val pasteDoneSig : (base clipboard_class -> unit) -> 'a class Signal.signal
+       -> 'a class Signal.t
+    val markDeletedSig : (base text_mark_class -> unit) -> 'a class Signal.t
+    val markSetSig : (text_iter_t * base text_mark_class -> unit) -> 'a class Signal.t
+    val modifiedChangedSig : (unit -> unit) -> 'a class Signal.t
+    val pasteDoneSig : (base clipboard_class -> unit) -> 'a class Signal.t
     val removeTagSig :
       (base text_tag_class
         * text_iter_t
         * text_iter_t
         -> unit)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val copyTargetListProp : ('a class, target_list_t option) Property.readonly
     val cursorPositionProp : ('a class, LargeInt.int) Property.readonly
     val hasSelectionProp : ('a class, bool) Property.readonly

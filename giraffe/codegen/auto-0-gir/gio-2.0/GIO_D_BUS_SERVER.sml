@@ -22,7 +22,7 @@ signature GIO_D_BUS_SERVER =
     val isActive : 'a class -> bool
     val start : 'a class -> unit
     val stop : 'a class -> unit
-    val newConnectionSig : (base d_bus_connection_class -> bool) -> 'a class Signal.signal
+    val newConnectionSig : (base d_bus_connection_class -> bool) -> 'a class Signal.t
     val activeProp : ('a class, bool) Property.readonly
     val addressProp : ('a class, string option, string option) Property.readwrite
     val authenticationObserverProp : ('a class, base d_bus_auth_observer_class option, 'b d_bus_auth_observer_class option) Property.readwrite

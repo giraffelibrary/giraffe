@@ -15,6 +15,6 @@ signature GTK_TOGGLE_TOOL_BUTTON =
       'a class
        -> bool
        -> unit
-    val toggledSig : (unit -> unit) -> 'a class Signal.signal
+    val toggledSig : (unit -> unit) -> 'a class Signal.t
     val activeProp : ('a class, bool, bool) Property.readwrite
   end

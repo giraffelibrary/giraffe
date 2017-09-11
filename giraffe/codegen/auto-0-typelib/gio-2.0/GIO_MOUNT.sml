@@ -41,7 +41,7 @@ signature GIO_MOUNT =
        -> 'b async_result_class
        -> bool
     val unshadow : 'a class -> unit
-    val changedSig : (unit -> unit) -> 'a class Signal.signal
-    val preUnmountSig : (unit -> unit) -> 'a class Signal.signal
-    val unmountedSig : (unit -> unit) -> 'a class Signal.signal
+    val changedSig : (unit -> unit) -> 'a class Signal.t
+    val preUnmountSig : (unit -> unit) -> 'a class Signal.t
+    val unmountedSig : (unit -> unit) -> 'a class Signal.t
   end

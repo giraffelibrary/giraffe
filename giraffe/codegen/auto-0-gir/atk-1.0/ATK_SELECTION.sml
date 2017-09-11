@@ -23,5 +23,5 @@ signature ATK_SELECTION =
        -> LargeInt.int
        -> bool
     val selectAllSelection : 'a class -> bool
-    val selectionChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val selectionChangedSig : (unit -> unit) -> 'a class Signal.t
   end

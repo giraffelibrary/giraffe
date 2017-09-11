@@ -36,13 +36,13 @@ signature GTK_ENTRY_BUFFER =
       'a class
        -> string * LargeInt.int
        -> unit
-    val deletedTextSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
+    val deletedTextSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.t
     val insertedTextSig :
       (LargeInt.int
         * string
         * LargeInt.int
         -> unit)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val lengthProp : ('a class, LargeInt.int) Property.readonly
     val maxLengthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val textProp : ('a class, string option, string option) Property.readwrite

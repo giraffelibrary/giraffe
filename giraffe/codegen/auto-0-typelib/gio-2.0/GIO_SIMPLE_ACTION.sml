@@ -19,8 +19,8 @@ signature GIO_SIMPLE_ACTION =
       'a class
        -> GLib.VariantRecord.t
        -> unit
-    val activateSig : (GLib.VariantRecord.t option -> unit) -> 'a class Signal.signal
-    val changeStateSig : (GLib.VariantRecord.t option -> unit) -> 'a class Signal.signal
+    val activateSig : (GLib.VariantRecord.t option -> unit) -> 'a class Signal.t
+    val changeStateSig : (GLib.VariantRecord.t option -> unit) -> 'a class Signal.t
     val enabledProp : ('a class, bool) Property.readonly
     val nameProp : ('a class, string option) Property.readonly
     val parameterTypeProp : ('a class, GLib.VariantTypeRecord.t option) Property.readonly

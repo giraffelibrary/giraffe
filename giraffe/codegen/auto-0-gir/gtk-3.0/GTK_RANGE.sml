@@ -81,10 +81,10 @@ signature GTK_RANGE =
       'a class
        -> real
        -> unit
-    val adjustBoundsSig : (real -> unit) -> 'a class Signal.signal
-    val changeValueSig : (scroll_type_t * real -> bool) -> 'a class Signal.signal
-    val moveSliderSig : (scroll_type_t -> unit) -> 'a class Signal.signal
-    val valueChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val adjustBoundsSig : (real -> unit) -> 'a class Signal.t
+    val changeValueSig : (scroll_type_t * real -> bool) -> 'a class Signal.t
+    val moveSliderSig : (scroll_type_t -> unit) -> 'a class Signal.t
+    val valueChangedSig : (unit -> unit) -> 'a class Signal.t
     val adjustmentProp : ('a class, base adjustment_class option, 'b adjustment_class option) Property.readwrite
     val fillLevelProp : ('a class, real, real) Property.readwrite
     val invertedProp : ('a class, bool, bool) Property.readwrite

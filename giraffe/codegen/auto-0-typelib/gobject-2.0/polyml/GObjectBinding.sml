@@ -22,10 +22,10 @@ structure GObjectBinding :>
     type type_t = GObjectType.t
     type binding_flags_t = GObjectBindingFlags.t
     type 'a object_class = 'a GObjectObjectClass.class
-    type t = base class
     type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
     type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite
+    type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getFlags self = (GObjectBindingClass.FFI.withPtr ---> GObjectBindingFlags.FFI.fromVal) getFlags_ self
     fun getSource self = (GObjectBindingClass.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getSource_ self

@@ -128,10 +128,10 @@ signature GIO_SETTINGS =
       'a class
        -> string * GLib.VariantRecord.t
        -> bool
-    val changeEventSig : (GLib.Quark.t vector option -> bool) -> 'a class Signal.signal
-    val changedSig : (string -> unit) -> 'a class Signal.signal
-    val writableChangeEventSig : (LargeInt.int -> bool) -> 'a class Signal.signal
-    val writableChangedSig : (string -> unit) -> 'a class Signal.signal
+    val changeEventSig : (GLib.Quark.t vector option -> bool) -> 'a class Signal.t
+    val changedSig : (string -> unit) -> 'a class Signal.t
+    val writableChangeEventSig : (LargeInt.int -> bool) -> 'a class Signal.t
+    val writableChangedSig : (string -> unit) -> 'a class Signal.t
     val delayApplyProp : ('a class, bool) Property.readonly
     val hasUnappliedProp : ('a class, bool) Property.readonly
     val pathProp : ('a class, string option, string option) Property.readwrite

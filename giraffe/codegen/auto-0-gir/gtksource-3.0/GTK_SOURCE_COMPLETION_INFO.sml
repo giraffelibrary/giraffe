@@ -15,5 +15,5 @@ signature GTK_SOURCE_COMPLETION_INFO =
       'a class
        -> 'b Gtk.WidgetClass.class option
        -> unit
-    val beforeShowSig : (unit -> unit) -> 'a class Signal.signal
+    val beforeShowSig : (unit -> unit) -> 'a class Signal.t
   end

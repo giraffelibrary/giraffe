@@ -52,9 +52,9 @@ signature ATK_OBJECT =
       'a class
        -> role_t
        -> unit
-    val focusEventSig : (bool -> unit) -> 'a class Signal.signal
-    val stateChangeSig : (string * bool -> unit) -> 'a class Signal.signal
-    val visibleDataChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val focusEventSig : (bool -> unit) -> 'a class Signal.t
+    val stateChangeSig : (string * bool -> unit) -> 'a class Signal.t
+    val visibleDataChangedSig : (unit -> unit) -> 'a class Signal.t
     val accessibleComponentLayerProp : ('a class, LargeInt.int) Property.readonly
     val accessibleComponentMdiZorderProp : ('a class, LargeInt.int) Property.readonly
     val accessibleDescriptionProp : ('a class, string option, string option) Property.readwrite

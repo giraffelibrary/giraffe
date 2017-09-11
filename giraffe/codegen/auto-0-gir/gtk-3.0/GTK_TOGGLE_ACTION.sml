@@ -22,7 +22,7 @@ signature GTK_TOGGLE_ACTION =
        -> bool
        -> unit
     val toggled : 'a class -> unit
-    val toggledSig : (unit -> unit) -> 'a class Signal.signal
+    val toggledSig : (unit -> unit) -> 'a class Signal.t
     val activeProp : ('a class, bool, bool) Property.readwrite
     val drawAsRadioProp : ('a class, bool, bool) Property.readwrite
   end

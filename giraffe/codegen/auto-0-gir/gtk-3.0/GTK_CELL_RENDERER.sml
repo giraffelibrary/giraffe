@@ -97,8 +97,8 @@ signature GTK_CELL_RENDERER =
       'a class
        -> bool
        -> unit
-    val editingCanceledSig : (unit -> unit) -> 'a class Signal.signal
-    val editingStartedSig : (base cell_editable_class * string -> unit) -> 'a class Signal.signal
+    val editingCanceledSig : (unit -> unit) -> 'a class Signal.t
+    val editingStartedSig : (base cell_editable_class * string -> unit) -> 'a class Signal.t
     val cellBackgroundProp : ('a class, string option) Property.writeonly
     val cellBackgroundGdkProp : ('a class, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
     val cellBackgroundRgbaProp : ('a class, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite

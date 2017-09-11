@@ -81,11 +81,11 @@ signature GTK_SPIN_BUTTON =
        -> spin_type_t * real
        -> unit
     val update : 'a class -> unit
-    val changeValueSig : (scroll_type_t -> unit) -> 'a class Signal.signal
-    val inputSig : (unit -> LargeInt.int * real) -> 'a class Signal.signal
-    val outputSig : (unit -> bool) -> 'a class Signal.signal
-    val valueChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val wrappedSig : (unit -> unit) -> 'a class Signal.signal
+    val changeValueSig : (scroll_type_t -> unit) -> 'a class Signal.t
+    val inputSig : (unit -> LargeInt.int * real) -> 'a class Signal.t
+    val outputSig : (unit -> bool) -> 'a class Signal.t
+    val valueChangedSig : (unit -> unit) -> 'a class Signal.t
+    val wrappedSig : (unit -> unit) -> 'a class Signal.t
     val adjustmentProp : ('a class, base adjustment_class option, 'b adjustment_class option) Property.readwrite
     val climbRateProp : ('a class, real, real) Property.readwrite
     val digitsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

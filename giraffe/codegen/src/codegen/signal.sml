@@ -10,7 +10,7 @@ fun mkSignalNameId signalName =
 
 fun makeSignalSpec
   repo
-  (containerIRef as {name = containerName, ...})
+  (containerIRef as {namespace = containerNamespace, name = containerName, ...})
   (signalInfo, (iRefs, errs))
   : spec * (interfaceref list * infoerrorhier list) =
   let
@@ -19,6 +19,8 @@ fun makeSignalSpec
     val signalName = getName signalInfo
     val signalNameId = mkSignalNameId signalName
     val signalNamespace = BaseInfo.getNamespace signalInfo
+
+    val isGObject = containerNamespace = "GObject"
 
     (* Ignore deprecated signals - is this needed?  Does above check suffice? *)
     (* requires glib >= 2.32
@@ -103,11 +105,20 @@ fun makeSignalSpec
     val functionTy = foldr TyFun retTy argTys
 
     (*
-     * <functionTy> -> <var> class Signal.signal
+     *   <functionTy> -> <var> class signal_t
+     *     if isGObject
+     *
+     *   <functionTy> -> <var> class Signal.t
+     *     if not isGObject
+     *
      *)
     val (containerTy, _) =
       makeIRefLocalTypeRef (makeRefVarTy false) (containerIRef, tyVarIdx'3)
-    val signalTy = TyFun (TyParen functionTy, signalTy containerTy)
+    val lid =
+      if isGObject
+      then toList1 [concat [signalId ^ "_" ^ tId]]
+      else toList1 [toUCC signalId, tId]
+    val signalTy = TyFun (TyParen functionTy, TyRef ([containerTy], lid))
   in
     (mkValSpec (signalNameId, signalTy), (iRefs'3, errs))
   end

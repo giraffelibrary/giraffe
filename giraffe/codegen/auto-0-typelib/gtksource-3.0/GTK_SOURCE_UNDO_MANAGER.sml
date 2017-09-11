@@ -11,6 +11,6 @@ signature GTK_SOURCE_UNDO_MANAGER =
     val endNotUndoableAction : 'a class -> unit
     val redo : 'a class -> unit
     val undo : 'a class -> unit
-    val canRedoChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val canUndoChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val canRedoChangedSig : (unit -> unit) -> 'a class Signal.t
+    val canUndoChangedSig : (unit -> unit) -> 'a class Signal.t
   end

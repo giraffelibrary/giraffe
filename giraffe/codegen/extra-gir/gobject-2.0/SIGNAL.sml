@@ -1,4 +1,4 @@
-(* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2017 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -7,7 +7,7 @@
 
 signature SIGNAL =
   sig
-    type 'object_class signal
+    type 'object_class t
 
     type 'a marshaller
     type 'a object_class
@@ -15,19 +15,19 @@ signature SIGNAL =
     val signal
       : string
          -> ('a -> 'b) marshaller
-         -> ('a -> 'b) -> 'c object_class signal
+         -> ('a -> 'b) -> 'c object_class t
 
-    type signal_id
+    type id
     val connect :
       'a object_class
-       -> ('func -> 'a object_class signal)
+       -> ('func -> 'a object_class t)
        -> 'func
-       -> signal_id
+       -> id
     val connectAfter :
       'a object_class
-       -> ('func -> 'a object_class signal)
+       -> ('func -> 'a object_class t)
        -> 'func
-       -> signal_id
-    val disconnect : 'a object_class -> signal_id -> unit
-    val isConnected : 'a object_class -> signal_id -> bool
+       -> id
+    val disconnect : 'a object_class -> id -> unit
+    val isConnected : 'a object_class -> id -> bool
   end

@@ -71,8 +71,8 @@ signature GTK_ASSISTANT =
        -> 'b widget_class * assistant_page_type_t
        -> unit
     val updateButtonsState : 'a class -> unit
-    val applySig : (unit -> unit) -> 'a class Signal.signal
-    val cancelSig : (unit -> unit) -> 'a class Signal.signal
-    val closeSig : (unit -> unit) -> 'a class Signal.signal
-    val prepareSig : (base widget_class -> unit) -> 'a class Signal.signal
+    val applySig : (unit -> unit) -> 'a class Signal.t
+    val cancelSig : (unit -> unit) -> 'a class Signal.t
+    val closeSig : (unit -> unit) -> 'a class Signal.t
+    val prepareSig : (base widget_class -> unit) -> 'a class Signal.t
   end

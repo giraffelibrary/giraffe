@@ -63,8 +63,8 @@ signature GDK_SCREEN =
       'a class
        -> real
        -> unit
-    val compositedChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val monitorsChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val sizeChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val compositedChangedSig : (unit -> unit) -> 'a class Signal.t
+    val monitorsChangedSig : (unit -> unit) -> 'a class Signal.t
+    val sizeChangedSig : (unit -> unit) -> 'a class Signal.t
     val resolutionProp : ('a class, real, real) Property.readwrite
   end

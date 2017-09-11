@@ -205,24 +205,24 @@ signature GTK_ENTRY =
        -> LargeInt.int
        -> LargeInt.int
     val unsetInvisibleChar : 'a class -> unit
-    val activateSig : (unit -> unit) -> 'a class Signal.signal
-    val backspaceSig : (unit -> unit) -> 'a class Signal.signal
-    val copyClipboardSig : (unit -> unit) -> 'a class Signal.signal
-    val cutClipboardSig : (unit -> unit) -> 'a class Signal.signal
-    val deleteFromCursorSig : (delete_type_t * LargeInt.int -> unit) -> 'a class Signal.signal
-    val iconPressSig : (entry_icon_position_t * Gdk.EventButtonRecord.t -> unit) -> 'a class Signal.signal
-    val iconReleaseSig : (entry_icon_position_t * Gdk.EventButtonRecord.t -> unit) -> 'a class Signal.signal
-    val insertAtCursorSig : (string -> unit) -> 'a class Signal.signal
+    val activateSig : (unit -> unit) -> 'a class Signal.t
+    val backspaceSig : (unit -> unit) -> 'a class Signal.t
+    val copyClipboardSig : (unit -> unit) -> 'a class Signal.t
+    val cutClipboardSig : (unit -> unit) -> 'a class Signal.t
+    val deleteFromCursorSig : (delete_type_t * LargeInt.int -> unit) -> 'a class Signal.t
+    val iconPressSig : (entry_icon_position_t * Gdk.EventButtonRecord.t -> unit) -> 'a class Signal.t
+    val iconReleaseSig : (entry_icon_position_t * Gdk.EventButtonRecord.t -> unit) -> 'a class Signal.t
+    val insertAtCursorSig : (string -> unit) -> 'a class Signal.t
     val moveCursorSig :
       (movement_step_t
         * LargeInt.int
         * bool
         -> unit)
-       -> 'a class Signal.signal
-    val pasteClipboardSig : (unit -> unit) -> 'a class Signal.signal
-    val populatePopupSig : (base menu_class -> unit) -> 'a class Signal.signal
-    val preeditChangedSig : (string -> unit) -> 'a class Signal.signal
-    val toggleOverwriteSig : (unit -> unit) -> 'a class Signal.signal
+       -> 'a class Signal.t
+    val pasteClipboardSig : (unit -> unit) -> 'a class Signal.t
+    val populatePopupSig : (base menu_class -> unit) -> 'a class Signal.t
+    val preeditChangedSig : (string -> unit) -> 'a class Signal.t
+    val toggleOverwriteSig : (unit -> unit) -> 'a class Signal.t
     val activatesDefaultProp : ('a class, bool, bool) Property.readwrite
     val bufferProp : ('a class, base entry_buffer_class option, 'b entry_buffer_class option) Property.readwrite
     val capsLockWarningProp : ('a class, bool, bool) Property.readwrite

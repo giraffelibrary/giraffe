@@ -270,26 +270,26 @@ signature GTK_TREE_VIEW =
        -> unit
     val unsetRowsDragDest : 'a class -> unit
     val unsetRowsDragSource : 'a class -> unit
-    val columnsChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val cursorChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val columnsChangedSig : (unit -> unit) -> 'a class Signal.t
+    val cursorChangedSig : (unit -> unit) -> 'a class Signal.t
     val expandCollapseCursorRowSig :
       (bool
         * bool
         * bool
         -> bool)
-       -> 'a class Signal.signal
-    val moveCursorSig : (movement_step_t * LargeInt.int -> bool) -> 'a class Signal.signal
-    val rowActivatedSig : (tree_path_t * base tree_view_column_class -> unit) -> 'a class Signal.signal
-    val rowCollapsedSig : (tree_iter_t * tree_path_t -> unit) -> 'a class Signal.signal
-    val rowExpandedSig : (tree_iter_t * tree_path_t -> unit) -> 'a class Signal.signal
-    val selectAllSig : (unit -> bool) -> 'a class Signal.signal
-    val selectCursorParentSig : (unit -> bool) -> 'a class Signal.signal
-    val selectCursorRowSig : (bool -> bool) -> 'a class Signal.signal
-    val startInteractiveSearchSig : (unit -> bool) -> 'a class Signal.signal
-    val testCollapseRowSig : (tree_iter_t * tree_path_t -> bool) -> 'a class Signal.signal
-    val testExpandRowSig : (tree_iter_t * tree_path_t -> bool) -> 'a class Signal.signal
-    val toggleCursorRowSig : (unit -> bool) -> 'a class Signal.signal
-    val unselectAllSig : (unit -> bool) -> 'a class Signal.signal
+       -> 'a class Signal.t
+    val moveCursorSig : (movement_step_t * LargeInt.int -> bool) -> 'a class Signal.t
+    val rowActivatedSig : (tree_path_t * base tree_view_column_class -> unit) -> 'a class Signal.t
+    val rowCollapsedSig : (tree_iter_t * tree_path_t -> unit) -> 'a class Signal.t
+    val rowExpandedSig : (tree_iter_t * tree_path_t -> unit) -> 'a class Signal.t
+    val selectAllSig : (unit -> bool) -> 'a class Signal.t
+    val selectCursorParentSig : (unit -> bool) -> 'a class Signal.t
+    val selectCursorRowSig : (bool -> bool) -> 'a class Signal.t
+    val startInteractiveSearchSig : (unit -> bool) -> 'a class Signal.t
+    val testCollapseRowSig : (tree_iter_t * tree_path_t -> bool) -> 'a class Signal.t
+    val testExpandRowSig : (tree_iter_t * tree_path_t -> bool) -> 'a class Signal.t
+    val toggleCursorRowSig : (unit -> bool) -> 'a class Signal.t
+    val unselectAllSig : (unit -> bool) -> 'a class Signal.t
     val enableGridLinesProp : ('a class, tree_view_grid_lines_t, tree_view_grid_lines_t) Property.readwrite
     val enableSearchProp : ('a class, bool, bool) Property.readwrite
     val enableTreeLinesProp : ('a class, bool, bool) Property.readwrite

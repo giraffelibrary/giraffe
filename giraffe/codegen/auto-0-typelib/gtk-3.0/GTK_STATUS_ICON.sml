@@ -86,19 +86,19 @@ signature GTK_STATUS_ICON =
       'a class
        -> bool
        -> unit
-    val activateSig : (unit -> unit) -> 'a class Signal.signal
-    val buttonPressEventSig : (Gdk.EventButtonRecord.t -> bool) -> 'a class Signal.signal
-    val buttonReleaseEventSig : (Gdk.EventButtonRecord.t -> bool) -> 'a class Signal.signal
-    val popupMenuSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
+    val activateSig : (unit -> unit) -> 'a class Signal.t
+    val buttonPressEventSig : (Gdk.EventButtonRecord.t -> bool) -> 'a class Signal.t
+    val buttonReleaseEventSig : (Gdk.EventButtonRecord.t -> bool) -> 'a class Signal.t
+    val popupMenuSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.t
     val queryTooltipSig :
       (LargeInt.int
         * LargeInt.int
         * bool
         * base tooltip_class
         -> bool)
-       -> 'a class Signal.signal
-    val scrollEventSig : (Gdk.EventScrollRecord.t -> bool) -> 'a class Signal.signal
-    val sizeChangedSig : (LargeInt.int -> bool) -> 'a class Signal.signal
+       -> 'a class Signal.t
+    val scrollEventSig : (Gdk.EventScrollRecord.t -> bool) -> 'a class Signal.t
+    val sizeChangedSig : (LargeInt.int -> bool) -> 'a class Signal.t
     val embeddedProp : ('a class, bool) Property.readonly
     val fileProp : ('a class, string option) Property.writeonly
     val giconProp : ('a class, base Gio.IconClass.class option, 'b Gio.IconClass.class option) Property.readwrite

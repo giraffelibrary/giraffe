@@ -29,7 +29,7 @@ signature GTK_FILE_CHOOSER_BUTTON =
       'a class
        -> LargeInt.int
        -> unit
-    val fileSetSig : (unit -> unit) -> 'a class Signal.signal
+    val fileSetSig : (unit -> unit) -> 'a class Signal.t
     val dialogProp : ('a class, 'b file_chooser_class option) Property.writeonly
     val focusOnClickProp : ('a class, bool, bool) Property.readwrite
     val titleProp : ('a class, string option, string option) Property.readwrite

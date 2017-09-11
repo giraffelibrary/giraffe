@@ -26,8 +26,10 @@ signature <NAMESPACE> =
     (* Types *)
                                                             -.
     type ('object, 'a) property_readonly                     |
-    type ('object, 'a) property_writeonly                    | isGObject
-    type ('object, 'a, 'b) property_readwrite                |
+    type ('object, 'a) property_writeonly                    |
+    type ('object, 'a, 'b) property_readwrite                | isGObject
+                                                             |
+    type 'a signal_t                                         |
                                                             -'
                                                             -.
     type ('widget, 'a) styleproperty_readonly                | isGtk
@@ -92,9 +94,13 @@ where
           where type ('object, 'a) property_writeonly = ('object, 'a) property_writeonly         | isGObject and P > 0
           where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) property_readwrite |
                                                                                                 -'
+                                                                                                -.
+          where type 'a signal_t = 'a signal_t                                                   | isGObject and S > 0
+                                                                                                -'
 
         if infoType is OBJECT _ | INTERFACE _
           where P is the number of properties
+          where S is the number of signals
 
 
       structure <Name>Record :
@@ -164,8 +170,10 @@ structure <Namespace> :
   <NAMESPACE>
                                                                                           -.
     where type ('object, 'a) property_readonly = ('object, 'a) Property.readonly           |
-    where type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly         | isGObject
-    where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite |
+    where type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly         |
+    where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite | isGObject
+                                                                                           |
+    where type 'a signal_t = 'a Signal.t                                                   |
                                                                                           -'
                                                                                           -.
     where type ('widget, 'a) styleproperty_readonly = ('widget, 'a) StyleProperty.readonly | isGtk
@@ -196,8 +204,10 @@ structure <Namespace> :
 
                                                                                           -.
     type ('object, 'a) property_readonly = ('object, 'a) Property.readonly                 |
-    type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly               | isGObject
-    type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite       |
+    type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly               |
+    type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite       | isGObject
+                                                                                           |
+    type 'a signal_t = 'a Signal.t                                                         |
                                                                                           -'
                                                                                           -.
     type ('widget, 'a) styleproperty_readonly = ('widget, 'a) StyleProperty.readonly       | isGtk

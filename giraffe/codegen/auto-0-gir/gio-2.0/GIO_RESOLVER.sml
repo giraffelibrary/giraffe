@@ -16,5 +16,5 @@ signature GIO_RESOLVER =
        -> 'b async_result_class
        -> string
     val setDefault : 'a class -> unit
-    val reloadSig : (unit -> unit) -> 'a class Signal.signal
+    val reloadSig : (unit -> unit) -> 'a class Signal.t
   end

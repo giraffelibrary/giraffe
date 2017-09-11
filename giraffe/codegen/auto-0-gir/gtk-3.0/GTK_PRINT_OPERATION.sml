@@ -92,32 +92,32 @@ signature GTK_PRINT_OPERATION =
       'a class
        -> bool
        -> unit
-    val beginPrintSig : (base print_context_class -> unit) -> 'a class Signal.signal
-    val createCustomWidgetSig : (unit -> 'a GObject.ObjectClass.class) -> 'b class Signal.signal
-    val customWidgetApplySig : (base widget_class -> unit) -> 'a class Signal.signal
-    val doneSig : (print_operation_result_t -> unit) -> 'a class Signal.signal
-    val drawPageSig : (base print_context_class * LargeInt.int -> unit) -> 'a class Signal.signal
-    val endPrintSig : (base print_context_class -> unit) -> 'a class Signal.signal
-    val paginateSig : (base print_context_class -> bool) -> 'a class Signal.signal
+    val beginPrintSig : (base print_context_class -> unit) -> 'a class Signal.t
+    val createCustomWidgetSig : (unit -> 'a GObject.ObjectClass.class) -> 'b class Signal.t
+    val customWidgetApplySig : (base widget_class -> unit) -> 'a class Signal.t
+    val doneSig : (print_operation_result_t -> unit) -> 'a class Signal.t
+    val drawPageSig : (base print_context_class * LargeInt.int -> unit) -> 'a class Signal.t
+    val endPrintSig : (base print_context_class -> unit) -> 'a class Signal.t
+    val paginateSig : (base print_context_class -> bool) -> 'a class Signal.t
     val previewSig :
       (base print_operation_preview_class
         * base print_context_class
         * base window_class option
         -> bool)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val requestPageSetupSig :
       (base print_context_class
         * LargeInt.int
         * base page_setup_class
         -> unit)
-       -> 'a class Signal.signal
-    val statusChangedSig : (unit -> unit) -> 'a class Signal.signal
+       -> 'a class Signal.t
+    val statusChangedSig : (unit -> unit) -> 'a class Signal.t
     val updateCustomWidgetSig :
       (base widget_class
         * base page_setup_class
         * base print_settings_class
         -> unit)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val allowAsyncProp : ('a class, bool, bool) Property.readwrite
     val currentPageProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val customTabLabelProp : ('a class, string option, string option) Property.readwrite

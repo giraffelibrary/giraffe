@@ -52,8 +52,8 @@ signature GIO_ACTION_GROUP =
        -> string
        -> bool
     val listActions : 'a class -> string list
-    val actionAddedSig : (string -> unit) -> 'a class Signal.signal
-    val actionEnabledChangedSig : (string * bool -> unit) -> 'a class Signal.signal
-    val actionRemovedSig : (string -> unit) -> 'a class Signal.signal
-    val actionStateChangedSig : (string * GLib.VariantRecord.t -> unit) -> 'a class Signal.signal
+    val actionAddedSig : (string -> unit) -> 'a class Signal.t
+    val actionEnabledChangedSig : (string * bool -> unit) -> 'a class Signal.t
+    val actionRemovedSig : (string -> unit) -> 'a class Signal.t
+    val actionStateChangedSig : (string * GLib.VariantRecord.t -> unit) -> 'a class Signal.t
   end

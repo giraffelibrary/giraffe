@@ -68,5 +68,5 @@ signature GTK_ICON_THEME =
       'a class
        -> string list
        -> unit
-    val changedSig : (unit -> unit) -> 'a class Signal.signal
+    val changedSig : (unit -> unit) -> 'a class Signal.t
   end

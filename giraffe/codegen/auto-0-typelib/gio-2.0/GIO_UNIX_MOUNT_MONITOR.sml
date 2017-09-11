@@ -8,6 +8,6 @@ signature GIO_UNIX_MOUNT_MONITOR =
       'a class
        -> LargeInt.int
        -> unit
-    val mountpointsChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val mountsChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val mountpointsChangedSig : (unit -> unit) -> 'a class Signal.t
+    val mountsChangedSig : (unit -> unit) -> 'a class Signal.t
   end

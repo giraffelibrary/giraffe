@@ -3,13 +3,13 @@ signature ATK_WINDOW =
     type 'a class
     type t = base class
     val getType : unit -> GObject.Type.t
-    val activateSig : (unit -> unit) -> 'a class Signal.signal
-    val createSig : (unit -> unit) -> 'a class Signal.signal
-    val deactivateSig : (unit -> unit) -> 'a class Signal.signal
-    val destroySig : (unit -> unit) -> 'a class Signal.signal
-    val maximizeSig : (unit -> unit) -> 'a class Signal.signal
-    val minimizeSig : (unit -> unit) -> 'a class Signal.signal
-    val moveSig : (unit -> unit) -> 'a class Signal.signal
-    val resizeSig : (unit -> unit) -> 'a class Signal.signal
-    val restoreSig : (unit -> unit) -> 'a class Signal.signal
+    val activateSig : (unit -> unit) -> 'a class Signal.t
+    val createSig : (unit -> unit) -> 'a class Signal.t
+    val deactivateSig : (unit -> unit) -> 'a class Signal.t
+    val destroySig : (unit -> unit) -> 'a class Signal.t
+    val maximizeSig : (unit -> unit) -> 'a class Signal.t
+    val minimizeSig : (unit -> unit) -> 'a class Signal.t
+    val moveSig : (unit -> unit) -> 'a class Signal.t
+    val resizeSig : (unit -> unit) -> 'a class Signal.t
+    val restoreSig : (unit -> unit) -> 'a class Signal.t
   end

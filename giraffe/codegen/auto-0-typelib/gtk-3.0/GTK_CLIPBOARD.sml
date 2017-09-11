@@ -42,5 +42,5 @@ signature GTK_CLIPBOARD =
        -> bool
     val waitIsTextAvailable : 'a class -> bool
     val waitIsUrisAvailable : 'a class -> bool
-    val ownerChangeSig : (Gdk.EventOwnerChangeRecord.t -> unit) -> 'a class Signal.signal
+    val ownerChangeSig : (Gdk.EventOwnerChangeRecord.t -> unit) -> 'a class Signal.t
   end

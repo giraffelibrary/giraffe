@@ -455,14 +455,29 @@ fun makeObjectSig
     val sigIRefs =
       objectIRef :: iRefs'6  (* `objectIRef` for class structure dependence *)
 
-    val numProps = ObjectInfo.getNProperties objectInfo
-    val specs'7 = addPropertySpecs objectNamespace numProps specs'6
-
     (*
      *     type t = base class
      *)
     val tTySpec = mkTypeSpec (tTyName, SOME (classTy baseTy))
-    val specs'8 = tTySpec :: specs'7
+    val specs'7 = tTySpec :: specs'6
+
+    (*
+     *                                                   -.
+     *     type ('object, 'a) property_readonly           | isGObject
+     *     type ('object, 'a) property_writeonly          |  and numProps > 0
+     *     type ('object, 'a, 'b) property_readwrite      |
+     *                                                   -'
+     *)
+    val numProps = ObjectInfo.getNProperties objectInfo
+    val specs'8 = addPropertySpecs objectNamespace numProps specs'7
+
+    (*
+     *                                       -.
+     *     type 'a signal_t                   | isGObject and numSigs > 0
+     *                                       -'
+     *)
+    val numSigs = ObjectInfo.getNSignals objectInfo
+    val specs'9 = addSignalSpecs objectNamespace numSigs specs'8
 
     (*
      *     type 'a class
@@ -473,9 +488,9 @@ fun makeObjectSig
      *
      *     type <varlist[N]> <type_name[N]>_<t>
      *)
-    val specs'9 = revMapAppend makeIRefLocalTypeSpec (rev sigIRefs, specs'8)
+    val specs'10 = revMapAppend makeIRefLocalTypeSpec (rev sigIRefs, specs'9)
 
-    val sig1 = mkSigSpec specs'9
+    val sig1 = mkSigSpec specs'10
     val qSig : qsig = (sig1, [])
     val sigDec = toList1 [(objectSigId, qSig)]
     val program = [ModuleDecSig sigDec]
@@ -646,16 +661,36 @@ fun makeObjectStr
     val strIRefs =
       objectIRef :: iRefs'6  (* `objectIRef` for class structure dependence *)
 
-    val numProps = ObjectInfo.getNProperties objectInfo
-    val revPropLocalTypes = makePropertyLocalTypes isGObject numProps
-    val strDecs'7 =
-      revMapAppend makeLocalTypeStrDec (revPropLocalTypes, strDecs'6)
-
     (*
      *     type t = base class
      *)
     val tTypeDec = mkTypeDec (tTyName, classTy baseTy)
-    val strDecs'8 = StrDecDec tTypeDec :: strDecs'7
+    val strDecs'7 = StrDecDec tTypeDec :: strDecs'6
+
+    (*
+     *                                                   -.
+     *     type ('object, 'a) property_readonly =         |
+     *       ('object, 'a) Property.readonly              |
+     *     type ('object, 'a) property_writeonly =        | isGObject
+     *       ('object, 'a) Property.writeonly             |  and numProps > 0
+     *     type ('object, 'a, 'b) property_readwrite =    |
+     *       ('object, 'a, 'b) Property.readwrite         |
+     *                                                   -'
+     *)
+    val numProps = ObjectInfo.getNProperties objectInfo
+    val revPropLocalTypes = makePropertyLocalTypes isGObject numProps
+    val strDecs'8 =
+      revMapAppend makeLocalTypeStrDec (revPropLocalTypes, strDecs'7)
+
+    (*
+     *                                       -.
+     *     type 'a signal_t = 'a Signal.t     | isGObject and numSigs > 0
+     *                                       -'
+     *)
+    val numSigs = ObjectInfo.getNSignals objectInfo
+    val revSigLocalTypes = makeSignalLocalTypes isGObject numSigs
+    val strDecs'9 =
+      revMapAppend makeLocalTypeStrDec (revSigLocalTypes, strDecs'8)
 
     (*
      *     type 'a class = 'a <ObjectNamespace><ObjectName>Class.class
@@ -669,11 +704,11 @@ fun makeObjectStr
      *       <varlist[N]> <ObjectNamespace><TypeName[N]>.<t>
      *)
     val revLocalTypes = revMap makeIRefLocalType strIRefs
-    val strDecs'9 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'8)
+    val strDecs'10 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'9)
 
     fun mkModule isPolyML =
       let
-        val (strDecs'10, _) =
+        val (strDecs'11, _) =
           addObjectMethodStrDecsLowLevel
             isPolyML
             repo
@@ -681,20 +716,22 @@ fun makeObjectStr
             (addGetTypeFunctionStrDecLowLevel getTypeSymbol)
             rootObjectIRef
             objectIRef
-            (objectInfo, (strDecs'9, errs'6))
+            (objectInfo, (strDecs'10, errs'6))
 
-        val strDecs'11 =
+        val strDecs'12 =
           revMapAppend mkStructStrDec
-            (ListDict.toList structDeps'6, strDecs'10)
+            (ListDict.toList structDeps'6, strDecs'11)
 
-        val struct1 = mkBodyStruct strDecs'11
+        val struct1 = mkBodyStruct strDecs'12
 
         (* sig *)
         val sig1 = SigName objectSigId
         val sigQual'1 = revMap makeLocalTypeStrModuleQual revPropLocalTypes
         val sigQual'2 =
-          revMapAppend makeLocalTypeStrModuleQual (revLocalTypes, sigQual'1)
-        val qSig : qsig = (sig1, sigQual'2)
+          revMapAppend makeLocalTypeStrModuleQual (revSigLocalTypes, sigQual'1)
+        val sigQual'3 =
+          revMapAppend makeLocalTypeStrModuleQual (revLocalTypes, sigQual'2)
+        val qSig : qsig = (sig1, sigQual'3)
 
         (* strdec *)
         val structDec = toList1 [(objectStrId, SOME (true, qSig), struct1)]
@@ -713,8 +750,10 @@ fun makeObjectStr
         val sig1 = SigName objectSigId
         val sigQual'1 = revMap makeLocalTypeStrSpecQual revPropLocalTypes
         val sigQual'2 =
-          revMapAppend makeLocalTypeStrSpecQual (revLocalTypes, sigQual'1)
-        val qSig : qsig = (sig1, sigQual'2)
+          revMapAppend makeLocalTypeStrSpecQual (revSigLocalTypes, sigQual'1)
+        val sigQual'3 =
+          revMapAppend makeLocalTypeStrSpecQual (revLocalTypes, sigQual'2)
+        val qSig : qsig = (sig1, sigQual'3)
       in
         (* spec *)
         SpecStruct (toList1 [(objectStrNameId, qSig)])

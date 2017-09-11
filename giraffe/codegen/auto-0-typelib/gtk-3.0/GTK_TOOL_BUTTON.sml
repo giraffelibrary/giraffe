@@ -41,7 +41,7 @@ signature GTK_TOOL_BUTTON =
       'a class
        -> bool
        -> unit
-    val clickedSig : (unit -> unit) -> 'a class Signal.signal
+    val clickedSig : (unit -> unit) -> 'a class Signal.t
     val iconNameProp : ('a class, string option, string option) Property.readwrite
     val iconWidgetProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
     val labelProp : ('a class, string option, string option) Property.readwrite

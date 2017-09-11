@@ -269,8 +269,8 @@ fun makePropertySpec
             )
         val lid =
           if isGObject
-          then toList1 [concat ["property_", mId]]
-          else toList1 ["Property", mId]
+          then toList1 [concat [propertyId, "_", mId]]
+          else toList1 [toUCC propertyId, mId]
       in
         (TyRef (containerTy :: tys, lid), tyVarIdx')
       end

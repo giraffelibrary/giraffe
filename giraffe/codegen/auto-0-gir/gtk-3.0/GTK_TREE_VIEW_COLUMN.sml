@@ -144,7 +144,7 @@ signature GTK_TREE_VIEW_COLUMN =
       'a class
        -> 'b widget_class option
        -> unit
-    val clickedSig : (unit -> unit) -> 'a class Signal.signal
+    val clickedSig : (unit -> unit) -> 'a class Signal.t
     val alignmentProp : ('a class, real, real) Property.readwrite
     val cellAreaProp : ('a class, base cell_area_class option, 'b cell_area_class option) Property.readwrite
     val clickableProp : ('a class, bool, bool) Property.readwrite

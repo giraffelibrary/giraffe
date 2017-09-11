@@ -107,7 +107,6 @@ in
     mlton/GObjectClosure.sml
     mlton/GObjectBindingClass.sml
     mlton/GObjectInitiallyUnownedClass.sml
-    mlton/GObjectObject.sml
     mlton/GObjectParamSpec.sml
     mlton/GObjectParamSpecBooleanClass.sml
     mlton/GObjectParamSpecBoxedClass.sml
@@ -163,6 +162,7 @@ in
     mlton/GObjectParamSpecVariant.sml
     mlton/GObjectTypeModule.sml
     mlton/GObjectTypePlugin.sml
+    mlton/GObjectObject.sml
     mlton/GObject.sml
   end
 end

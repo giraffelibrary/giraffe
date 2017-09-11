@@ -37,10 +37,10 @@ signature GTK_I_M_CONTEXT =
       'a class
        -> bool
        -> unit
-    val commitSig : (string -> unit) -> 'a class Signal.signal
-    val deleteSurroundingSig : (LargeInt.int * LargeInt.int -> bool) -> 'a class Signal.signal
-    val preeditChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val preeditEndSig : (unit -> unit) -> 'a class Signal.signal
-    val preeditStartSig : (unit -> unit) -> 'a class Signal.signal
-    val retrieveSurroundingSig : (unit -> bool) -> 'a class Signal.signal
+    val commitSig : (string -> unit) -> 'a class Signal.t
+    val deleteSurroundingSig : (LargeInt.int * LargeInt.int -> bool) -> 'a class Signal.t
+    val preeditChangedSig : (unit -> unit) -> 'a class Signal.t
+    val preeditEndSig : (unit -> unit) -> 'a class Signal.t
+    val preeditStartSig : (unit -> unit) -> 'a class Signal.t
+    val retrieveSurroundingSig : (unit -> bool) -> 'a class Signal.t
   end

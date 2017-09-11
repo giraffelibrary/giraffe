@@ -56,8 +56,8 @@ signature GTK_SCROLLED_WINDOW =
        -> 'b adjustment_class
        -> unit
     val unsetPlacement : 'a class -> unit
-    val moveFocusOutSig : (direction_type_t -> unit) -> 'a class Signal.signal
-    val scrollChildSig : (scroll_type_t * bool -> bool) -> 'a class Signal.signal
+    val moveFocusOutSig : (direction_type_t -> unit) -> 'a class Signal.t
+    val scrollChildSig : (scroll_type_t * bool -> bool) -> 'a class Signal.t
     val hadjustmentProp : ('a class, base adjustment_class option, 'b adjustment_class option) Property.readwrite
     val hscrollbarPolicyProp : ('a class, policy_type_t, policy_type_t) Property.readwrite
     val minContentHeightProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

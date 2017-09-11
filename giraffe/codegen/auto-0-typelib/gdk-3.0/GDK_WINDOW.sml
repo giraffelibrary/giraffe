@@ -368,9 +368,9 @@ signature GDK_WINDOW =
     val unmaximize : 'a class -> unit
     val unstick : 'a class -> unit
     val withdraw : 'a class -> unit
-    val createSurfaceSig : (LargeInt.int * LargeInt.int -> Cairo.SurfaceRecord.t) -> 'a class Signal.signal
-    val fromEmbedderSig : (real * real -> real * real) -> 'a class Signal.signal
-    val pickEmbeddedChildSig : (real * real -> 'a class) -> 'b class Signal.signal
-    val toEmbedderSig : (real * real -> real * real) -> 'a class Signal.signal
+    val createSurfaceSig : (LargeInt.int * LargeInt.int -> Cairo.SurfaceRecord.t) -> 'a class Signal.t
+    val fromEmbedderSig : (real * real -> real * real) -> 'a class Signal.t
+    val pickEmbeddedChildSig : (real * real -> 'a class) -> 'b class Signal.t
+    val toEmbedderSig : (real * real -> real * real) -> 'a class Signal.t
     val cursorProp : ('a class, base cursor_class option, 'b cursor_class option) Property.readwrite
   end

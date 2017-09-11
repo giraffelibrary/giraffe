@@ -12,5 +12,5 @@ signature GTK_OVERLAY =
       'a class
        -> 'b widget_class
        -> unit
-    val getChildPositionSig : (base widget_class -> bool * Cairo.RectangleIntRecord.t) -> 'a class Signal.signal
+    val getChildPositionSig : (base widget_class -> bool * Cairo.RectangleIntRecord.t) -> 'a class Signal.t
   end

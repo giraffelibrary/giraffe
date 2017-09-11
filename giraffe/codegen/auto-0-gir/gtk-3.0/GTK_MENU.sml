@@ -65,7 +65,7 @@ signature GTK_MENU =
       'a class
        -> string
        -> unit
-    val moveScrollSig : (scroll_type_t -> unit) -> 'a class Signal.signal
+    val moveScrollSig : (scroll_type_t -> unit) -> 'a class Signal.t
     val accelGroupProp : ('a class, base accel_group_class option, 'b accel_group_class option) Property.readwrite
     val accelPathProp : ('a class, string option, string option) Property.readwrite
     val activeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

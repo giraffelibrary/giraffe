@@ -57,27 +57,27 @@ signature ATK_TEXT =
            * LargeInt.int
            * LargeInt.int
        -> bool
-    val textAttributesChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val textCaretMovedSig : (LargeInt.int -> unit) -> 'a class Signal.signal
-    val textChangedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.signal
+    val textAttributesChangedSig : (unit -> unit) -> 'a class Signal.t
+    val textCaretMovedSig : (LargeInt.int -> unit) -> 'a class Signal.t
+    val textChangedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.t
     val textInsertSig :
       (LargeInt.int
         * LargeInt.int
         * string
         -> unit)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
     val textRemoveSig :
       (LargeInt.int
         * LargeInt.int
         * string
         -> unit)
-       -> 'a class Signal.signal
-    val textSelectionChangedSig : (unit -> unit) -> 'a class Signal.signal
+       -> 'a class Signal.t
+    val textSelectionChangedSig : (unit -> unit) -> 'a class Signal.t
     val textUpdateSig :
       (LargeInt.int
         * LargeInt.int
         * LargeInt.int
         * string
         -> unit)
-       -> 'a class Signal.signal
+       -> 'a class Signal.t
   end

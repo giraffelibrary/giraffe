@@ -42,7 +42,7 @@ signature GTK_FONT_BUTTON =
       'a class
        -> bool
        -> unit
-    val fontSetSig : (unit -> unit) -> 'a class Signal.signal
+    val fontSetSig : (unit -> unit) -> 'a class Signal.t
     val fontNameProp : ('a class, string option, string option) Property.readwrite
     val showSizeProp : ('a class, bool, bool) Property.readwrite
     val showStyleProp : ('a class, bool, bool) Property.readwrite

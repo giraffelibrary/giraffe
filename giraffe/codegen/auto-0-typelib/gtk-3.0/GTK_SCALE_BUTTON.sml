@@ -37,9 +37,9 @@ signature GTK_SCALE_BUTTON =
       'a class
        -> real
        -> unit
-    val popdownSig : (unit -> unit) -> 'a class Signal.signal
-    val popupSig : (unit -> unit) -> 'a class Signal.signal
-    val valueChangedSig : (real -> unit) -> 'a class Signal.signal
+    val popdownSig : (unit -> unit) -> 'a class Signal.t
+    val popupSig : (unit -> unit) -> 'a class Signal.t
+    val valueChangedSig : (real -> unit) -> 'a class Signal.t
     val adjustmentProp : ('a class, base adjustment_class option, 'b adjustment_class option) Property.readwrite
     val sizeProp : ('a class, icon_size_t, icon_size_t) Property.readwrite
     val valueProp : ('a class, real, real) Property.readwrite

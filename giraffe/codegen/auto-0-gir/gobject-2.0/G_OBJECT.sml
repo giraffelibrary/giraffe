@@ -1,5 +1,6 @@
 signature G_OBJECT =
   sig
+    type 'a signal_t
     type ('object, 'a) property_readonly
     type ('object, 'a) property_writeonly
     type ('object, 'a, 'b) property_readwrite
@@ -44,13 +45,6 @@ signature G_OBJECT =
       G_OBJECT_INITIALLY_UNOWNED_CLASS
         where type 'a object_class = 'a ObjectClass.class
         where type ('a, 'b) value_accessor = ('a, 'b) Value.accessor
-    structure Object :
-      G_OBJECT_OBJECT
-        where type 'a class = 'a ObjectClass.class
-        where type type_t = Type.t
-        where type value_t = ValueRecord.t
-        where type closure_t = ClosureRecord.t
-        where type 'a param_spec_class = 'a ParamSpecClass.class
     structure ParamSpec :
       G_OBJECT_PARAM_SPEC
         where type 'a class = 'a ParamSpecClass.class
@@ -274,6 +268,14 @@ signature G_OBJECT =
       G_OBJECT_TYPE_PLUGIN
         where type 'a class = 'a TypePluginClass.class
         where type type_t = Type.t
+    structure Object :
+      G_OBJECT_OBJECT
+        where type 'a class = 'a ObjectClass.class
+        where type type_t = Type.t
+        where type value_t = ValueRecord.t
+        where type closure_t = ClosureRecord.t
+        where type 'a param_spec_class = 'a ParamSpecClass.class
+        where type 'a signal_t = 'a signal_t
     val PARAM_MASK : LargeInt.int
     val PARAM_READWRITE : LargeInt.int
     val PARAM_STATIC_STRINGS : LargeInt.int

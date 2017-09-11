@@ -14,6 +14,6 @@ signature GTK_APPLICATION =
       'a class
        -> 'b window_class
        -> unit
-    val windowAddedSig : (base window_class -> unit) -> 'a class Signal.signal
-    val windowRemovedSig : (base window_class -> unit) -> 'a class Signal.signal
+    val windowAddedSig : (base window_class -> unit) -> 'a class Signal.t
+    val windowRemovedSig : (base window_class -> unit) -> 'a class Signal.t
   end

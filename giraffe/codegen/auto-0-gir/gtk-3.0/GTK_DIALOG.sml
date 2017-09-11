@@ -43,6 +43,6 @@ signature GTK_DIALOG =
       'a class
        -> LargeInt.int * bool
        -> unit
-    val closeSig : (unit -> unit) -> 'a class Signal.signal
-    val responseSig : (LargeInt.int -> unit) -> 'a class Signal.signal
+    val closeSig : (unit -> unit) -> 'a class Signal.t
+    val responseSig : (LargeInt.int -> unit) -> 'a class Signal.t
   end

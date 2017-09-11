@@ -15,6 +15,6 @@ signature GTK_RADIO_BUTTON =
       'a class
        -> 'b class option
        -> unit
-    val groupChangedSig : (unit -> unit) -> 'a class Signal.signal
+    val groupChangedSig : (unit -> unit) -> 'a class Signal.t
     val groupProp : ('a class, 'b class option) Property.writeonly
   end

@@ -187,14 +187,14 @@ signature GTK_ICON_VIEW =
        -> unit
     val unsetModelDragDest : 'a class -> unit
     val unsetModelDragSource : 'a class -> unit
-    val activateCursorItemSig : (unit -> bool) -> 'a class Signal.signal
-    val itemActivatedSig : (tree_path_t -> unit) -> 'a class Signal.signal
-    val moveCursorSig : (movement_step_t * LargeInt.int -> bool) -> 'a class Signal.signal
-    val selectAllSig : (unit -> unit) -> 'a class Signal.signal
-    val selectCursorItemSig : (unit -> unit) -> 'a class Signal.signal
-    val selectionChangedSig : (unit -> unit) -> 'a class Signal.signal
-    val toggleCursorItemSig : (unit -> unit) -> 'a class Signal.signal
-    val unselectAllSig : (unit -> unit) -> 'a class Signal.signal
+    val activateCursorItemSig : (unit -> bool) -> 'a class Signal.t
+    val itemActivatedSig : (tree_path_t -> unit) -> 'a class Signal.t
+    val moveCursorSig : (movement_step_t * LargeInt.int -> bool) -> 'a class Signal.t
+    val selectAllSig : (unit -> unit) -> 'a class Signal.t
+    val selectCursorItemSig : (unit -> unit) -> 'a class Signal.t
+    val selectionChangedSig : (unit -> unit) -> 'a class Signal.t
+    val toggleCursorItemSig : (unit -> unit) -> 'a class Signal.t
+    val unselectAllSig : (unit -> unit) -> 'a class Signal.t
     val cellAreaProp : ('a class, base cell_area_class option, 'b cell_area_class option) Property.readwrite
     val columnSpacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val columnsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

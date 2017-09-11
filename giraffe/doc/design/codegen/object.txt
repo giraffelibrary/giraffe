@@ -100,6 +100,9 @@ signature <OBJECT_NAMESPACE>_<OBJECT_NAME> =
 
     type <varlist[N]> <local_name[N]>
                                                             -.
+    type 'a signal_t                                         | isGObject and S > 0
+                                                            -'
+                                                            -.
     type ('object, 'a) property_readonly                     |
     type ('object, 'a) property_writeonly                    | isGObject and P > 0
     type ('object, 'a, 'b) property_readwrite                |
@@ -201,6 +204,9 @@ structure <ObjectNamespace><ObjectName> :>
 
     where type <varlist[N]> <local_name[N]> = <varlist[N]> <ObjectNamespace><TypeName[N]>.<t[N]>
                                                                                           -.
+    where type 'a signal_t = 'a Signal.t                                                   | isGObject and S > 0
+                                                                                          -'
+                                                                                          -.
     where type ('object, 'a) property_readonly = ('object, 'a) Property.readonly           |
     where type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly         | isGObject and P > 0
     where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite |
@@ -243,6 +249,9 @@ structure <ObjectNamespace><ObjectName> :>
     ...
 
     type <varlist[N]> <local_name[N]> = <varlist[N]> <ObjectNamespace><TypeName[N]>.<t[N]>
+                                                                                          -.
+    type 'a signal_t = 'a Signal.t                                                         | isGObject and S > 0
+                                                                                          -'
                                                                                           -.
     type ('object, 'a) property_readonly = ('object, 'a) Property.readonly                 |
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly               | isGObject and P > 0

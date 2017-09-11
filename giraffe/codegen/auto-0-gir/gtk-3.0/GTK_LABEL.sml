@@ -117,16 +117,16 @@ signature GTK_LABEL =
       'a class
        -> LargeInt.int
        -> unit
-    val activateCurrentLinkSig : (unit -> unit) -> 'a class Signal.signal
-    val activateLinkSig : (string -> bool) -> 'a class Signal.signal
-    val copyClipboardSig : (unit -> unit) -> 'a class Signal.signal
+    val activateCurrentLinkSig : (unit -> unit) -> 'a class Signal.t
+    val activateLinkSig : (string -> bool) -> 'a class Signal.t
+    val copyClipboardSig : (unit -> unit) -> 'a class Signal.t
     val moveCursorSig :
       (movement_step_t
         * LargeInt.int
         * bool
         -> unit)
-       -> 'a class Signal.signal
-    val populatePopupSig : (base menu_class -> unit) -> 'a class Signal.signal
+       -> 'a class Signal.t
+    val populatePopupSig : (base menu_class -> unit) -> 'a class Signal.t
     val angleProp : ('a class, real, real) Property.readwrite
     val attributesProp : ('a class, Pango.AttrListRecord.t option, Pango.AttrListRecord.t option) Property.readwrite
     val cursorPositionProp : ('a class, LargeInt.int) Property.readonly

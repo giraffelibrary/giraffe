@@ -36,7 +36,7 @@ signature GTK_COLOR_BUTTON =
       'a class
        -> bool
        -> unit
-    val colorSetSig : (unit -> unit) -> 'a class Signal.signal
+    val colorSetSig : (unit -> unit) -> 'a class Signal.t
     val alphaProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val colorProp : ('a class, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
     val rgbaProp : ('a class, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite

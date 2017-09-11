@@ -57,12 +57,12 @@ signature GTK_BUTTON =
       'a class
        -> bool
        -> unit
-    val activateSig : (unit -> unit) -> 'a class Signal.signal
-    val clickedSig : (unit -> unit) -> 'a class Signal.signal
-    val enterSig : (unit -> unit) -> 'a class Signal.signal
-    val leaveSig : (unit -> unit) -> 'a class Signal.signal
-    val pressedSig : (unit -> unit) -> 'a class Signal.signal
-    val releasedSig : (unit -> unit) -> 'a class Signal.signal
+    val activateSig : (unit -> unit) -> 'a class Signal.t
+    val clickedSig : (unit -> unit) -> 'a class Signal.t
+    val enterSig : (unit -> unit) -> 'a class Signal.t
+    val leaveSig : (unit -> unit) -> 'a class Signal.t
+    val pressedSig : (unit -> unit) -> 'a class Signal.t
+    val releasedSig : (unit -> unit) -> 'a class Signal.t
     val focusOnClickProp : ('a class, bool, bool) Property.readwrite
     val imageProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
     val imagePositionProp : ('a class, position_type_t, position_type_t) Property.readwrite

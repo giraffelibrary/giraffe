@@ -10,5 +10,5 @@ signature GIO_D_BUS_AUTH_OBSERVER =
       'a class
        -> 'b i_o_stream_class * 'c credentials_class
        -> bool
-    val authorizeAuthenticatedPeerSig : (base i_o_stream_class * base credentials_class -> bool) -> 'a class Signal.signal
+    val authorizeAuthenticatedPeerSig : (base i_o_stream_class * base credentials_class -> bool) -> 'a class Signal.t
   end

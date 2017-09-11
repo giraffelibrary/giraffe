@@ -45,5 +45,5 @@ signature ATK_COMPONENT =
       'a class
        -> LargeInt.int * LargeInt.int
        -> bool
-    val boundsChangedSig : (rectangle_t -> unit) -> 'a class Signal.signal
+    val boundsChangedSig : (rectangle_t -> unit) -> 'a class Signal.t
   end

@@ -30,6 +30,6 @@ signature GIO_VOLUME =
        -> 'b async_result_class
        -> bool
     val shouldAutomount : 'a class -> bool
-    val changedSig : (unit -> unit) -> 'a class Signal.signal
-    val removedSig : (unit -> unit) -> 'a class Signal.signal
+    val changedSig : (unit -> unit) -> 'a class Signal.t
+    val removedSig : (unit -> unit) -> 'a class Signal.t
   end

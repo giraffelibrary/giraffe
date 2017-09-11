@@ -43,13 +43,13 @@ signature GTK_MENU_SHELL =
       'a class
        -> bool
        -> unit
-    val activateCurrentSig : (bool -> unit) -> 'a class Signal.signal
-    val cancelSig : (unit -> unit) -> 'a class Signal.signal
-    val cycleFocusSig : (direction_type_t -> unit) -> 'a class Signal.signal
-    val deactivateSig : (unit -> unit) -> 'a class Signal.signal
-    val insertSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.signal
-    val moveCurrentSig : (menu_direction_type_t -> unit) -> 'a class Signal.signal
-    val moveSelectedSig : (LargeInt.int -> bool) -> 'a class Signal.signal
-    val selectionDoneSig : (unit -> unit) -> 'a class Signal.signal
+    val activateCurrentSig : (bool -> unit) -> 'a class Signal.t
+    val cancelSig : (unit -> unit) -> 'a class Signal.t
+    val cycleFocusSig : (direction_type_t -> unit) -> 'a class Signal.t
+    val deactivateSig : (unit -> unit) -> 'a class Signal.t
+    val insertSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.t
+    val moveCurrentSig : (menu_direction_type_t -> unit) -> 'a class Signal.t
+    val moveSelectedSig : (LargeInt.int -> bool) -> 'a class Signal.t
+    val selectionDoneSig : (unit -> unit) -> 'a class Signal.t
     val takeFocusProp : ('a class, bool, bool) Property.readwrite
   end

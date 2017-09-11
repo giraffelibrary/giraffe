@@ -135,7 +135,7 @@ signature GTK_STYLE_CONTEXT =
       'a class
        -> state_type_t
        -> real option
-    val changedSig : (unit -> unit) -> 'a class Signal.signal
+    val changedSig : (unit -> unit) -> 'a class Signal.t
     val directionProp : ('a class, text_direction_t, text_direction_t) Property.readwrite
     val screenProp : ('a class, base Gdk.ScreenClass.class option, 'b Gdk.ScreenClass.class option) Property.readwrite
   end

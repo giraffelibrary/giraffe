@@ -31,28 +31,38 @@ SignalSpec has the form:
 
 
   val <signalName>Sig
-    : (<inParamType[1]> * ... * <inParamType[L]> -> <retExpType>) -> <var> class Signal.signal
+    : (<inParamType[1]> * ... * <inParamType[L]> -> <retExpType>) -> <var> class <Signal>
 
     if K > 0 and L > 0
 
 
   val <signalName>Sig
-    : (<inParamType[1]> * ... * <inParamType[L]> -> <retValType>) -> <var> class Signal.signal
+    : (<inParamType[1]> * ... * <inParamType[L]> -> <retValType>) -> <var> class <Signal>
 
     if K = 0 and L > 0
 
 
-  val <signalName>Sig : (unit -> <retExpType>) -> <var> class Signal.signal
+  val <signalName>Sig : (unit -> <retExpType>) -> <var> class <Signal>
 
     if K > 0 and L = 0
 
 
-  val <signalName>Sig : (unit -> <retValType>) -> <var> class Signal.signal
+  val <signalName>Sig : (unit -> <retValType>) -> <var> class <Signal>
 
     if K = 0 and L = 0
 
 
 where
+
+
+  Signal
+    is defined as follows:
+
+      Signal.t     
+        if belowGObject
+
+      signal_t
+        if isGObject
 
 
   var is a fresh type variable

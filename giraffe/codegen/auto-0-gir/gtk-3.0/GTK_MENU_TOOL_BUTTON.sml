@@ -25,6 +25,6 @@ signature GTK_MENU_TOOL_BUTTON =
       'a class
        -> 'b widget_class
        -> unit
-    val showMenuSig : (unit -> unit) -> 'a class Signal.signal
+    val showMenuSig : (unit -> unit) -> 'a class Signal.t
     val menuProp : ('a class, base menu_class option, 'b menu_class option) Property.readwrite
   end

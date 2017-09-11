@@ -48,10 +48,10 @@ signature GTK_ACTION_GROUP =
       'a class
        -> string
        -> string
-    val connectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.signal
-    val disconnectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.signal
-    val postActivateSig : (base action_class -> unit) -> 'a class Signal.signal
-    val preActivateSig : (base action_class -> unit) -> 'a class Signal.signal
+    val connectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.t
+    val disconnectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.t
+    val postActivateSig : (base action_class -> unit) -> 'a class Signal.t
+    val preActivateSig : (base action_class -> unit) -> 'a class Signal.t
     val nameProp : ('a class, string option, string option) Property.readwrite
     val sensitiveProp : ('a class, bool, bool) Property.readwrite
     val visibleProp : ('a class, bool, bool) Property.readwrite

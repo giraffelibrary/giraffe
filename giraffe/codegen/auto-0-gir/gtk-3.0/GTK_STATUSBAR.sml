@@ -31,6 +31,6 @@ signature GTK_STATUSBAR =
       'a class
        -> LargeInt.int
        -> unit
-    val textPoppedSig : (LargeInt.int * string -> unit) -> 'a class Signal.signal
-    val textPushedSig : (LargeInt.int * string -> unit) -> 'a class Signal.signal
+    val textPoppedSig : (LargeInt.int * string -> unit) -> 'a class Signal.t
+    val textPushedSig : (LargeInt.int * string -> unit) -> 'a class Signal.t
   end

@@ -154,21 +154,21 @@ signature GTK_NOTEBOOK =
       'a class
        -> 'b widget_class * bool
        -> unit
-    val changeCurrentPageSig : (LargeInt.int -> bool) -> 'a class Signal.signal
+    val changeCurrentPageSig : (LargeInt.int -> bool) -> 'a class Signal.t
     val createWindowSig :
       (base widget_class
         * LargeInt.int
         * LargeInt.int
         -> 'a class)
-       -> 'b class Signal.signal
-    val focusTabSig : (notebook_tab_t -> bool) -> 'a class Signal.signal
-    val moveFocusOutSig : (direction_type_t -> unit) -> 'a class Signal.signal
-    val pageAddedSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.signal
-    val pageRemovedSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.signal
-    val pageReorderedSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.signal
-    val reorderTabSig : (direction_type_t * bool -> bool) -> 'a class Signal.signal
-    val selectPageSig : (bool -> bool) -> 'a class Signal.signal
-    val switchPageSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.signal
+       -> 'b class Signal.t
+    val focusTabSig : (notebook_tab_t -> bool) -> 'a class Signal.t
+    val moveFocusOutSig : (direction_type_t -> unit) -> 'a class Signal.t
+    val pageAddedSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.t
+    val pageRemovedSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.t
+    val pageReorderedSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.t
+    val reorderTabSig : (direction_type_t * bool -> bool) -> 'a class Signal.t
+    val selectPageSig : (bool -> bool) -> 'a class Signal.t
+    val switchPageSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.t
     val enablePopupProp : ('a class, bool, bool) Property.readwrite
     val groupNameProp : ('a class, string option, string option) Property.readwrite
     val pageProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

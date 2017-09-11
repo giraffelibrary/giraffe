@@ -218,25 +218,25 @@ signature GTK_TEXT_VIEW =
            * LargeInt.int
            * LargeInt.int
        -> LargeInt.int * LargeInt.int
-    val backspaceSig : (unit -> unit) -> 'a class Signal.signal
-    val copyClipboardSig : (unit -> unit) -> 'a class Signal.signal
-    val cutClipboardSig : (unit -> unit) -> 'a class Signal.signal
-    val deleteFromCursorSig : (delete_type_t * LargeInt.int -> unit) -> 'a class Signal.signal
-    val insertAtCursorSig : (string -> unit) -> 'a class Signal.signal
+    val backspaceSig : (unit -> unit) -> 'a class Signal.t
+    val copyClipboardSig : (unit -> unit) -> 'a class Signal.t
+    val cutClipboardSig : (unit -> unit) -> 'a class Signal.t
+    val deleteFromCursorSig : (delete_type_t * LargeInt.int -> unit) -> 'a class Signal.t
+    val insertAtCursorSig : (string -> unit) -> 'a class Signal.t
     val moveCursorSig :
       (movement_step_t
         * LargeInt.int
         * bool
         -> unit)
-       -> 'a class Signal.signal
-    val moveViewportSig : (scroll_step_t * LargeInt.int -> unit) -> 'a class Signal.signal
-    val pasteClipboardSig : (unit -> unit) -> 'a class Signal.signal
-    val populatePopupSig : (base menu_class -> unit) -> 'a class Signal.signal
-    val preeditChangedSig : (string -> unit) -> 'a class Signal.signal
-    val selectAllSig : (bool -> unit) -> 'a class Signal.signal
-    val setAnchorSig : (unit -> unit) -> 'a class Signal.signal
-    val toggleCursorVisibleSig : (unit -> unit) -> 'a class Signal.signal
-    val toggleOverwriteSig : (unit -> unit) -> 'a class Signal.signal
+       -> 'a class Signal.t
+    val moveViewportSig : (scroll_step_t * LargeInt.int -> unit) -> 'a class Signal.t
+    val pasteClipboardSig : (unit -> unit) -> 'a class Signal.t
+    val populatePopupSig : (base menu_class -> unit) -> 'a class Signal.t
+    val preeditChangedSig : (string -> unit) -> 'a class Signal.t
+    val selectAllSig : (bool -> unit) -> 'a class Signal.t
+    val setAnchorSig : (unit -> unit) -> 'a class Signal.t
+    val toggleCursorVisibleSig : (unit -> unit) -> 'a class Signal.t
+    val toggleOverwriteSig : (unit -> unit) -> 'a class Signal.t
     val acceptsTabProp : ('a class, bool, bool) Property.readwrite
     val bufferProp : ('a class, base text_buffer_class option, 'b text_buffer_class option) Property.readwrite
     val cursorVisibleProp : ('a class, bool, bool) Property.readwrite

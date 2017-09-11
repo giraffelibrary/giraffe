@@ -86,11 +86,11 @@ signature GTK_SOURCE_BUFFER =
        -> 'b undo_manager_class option
        -> unit
     val undo : 'a class -> unit
-    val bracketMatchedSig : (Gtk.TextIterRecord.t * bracket_match_type_t -> unit) -> 'a class Signal.signal
-    val highlightUpdatedSig : (Gtk.TextIterRecord.t * Gtk.TextIterRecord.t -> unit) -> 'a class Signal.signal
-    val redoSig : (unit -> unit) -> 'a class Signal.signal
-    val sourceMarkUpdatedSig : (base Gtk.TextMarkClass.class -> unit) -> 'a class Signal.signal
-    val undoSig : (unit -> unit) -> 'a class Signal.signal
+    val bracketMatchedSig : (Gtk.TextIterRecord.t * bracket_match_type_t -> unit) -> 'a class Signal.t
+    val highlightUpdatedSig : (Gtk.TextIterRecord.t * Gtk.TextIterRecord.t -> unit) -> 'a class Signal.t
+    val redoSig : (unit -> unit) -> 'a class Signal.t
+    val sourceMarkUpdatedSig : (base Gtk.TextMarkClass.class -> unit) -> 'a class Signal.t
+    val undoSig : (unit -> unit) -> 'a class Signal.t
     val canRedoProp : ('a class, bool) Property.readonly
     val canUndoProp : ('a class, bool) Property.readonly
     val highlightMatchingBracketsProp : ('a class, bool, bool) Property.readwrite

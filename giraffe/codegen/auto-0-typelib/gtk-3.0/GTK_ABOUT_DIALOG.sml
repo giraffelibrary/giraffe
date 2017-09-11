@@ -83,7 +83,7 @@ signature GTK_ABOUT_DIALOG =
       'a class
        -> bool
        -> unit
-    val activateLinkSig : (string -> bool) -> 'a class Signal.signal
+    val activateLinkSig : (string -> bool) -> 'a class Signal.t
     val commentsProp : ('a class, string option, string option) Property.readwrite
     val copyrightProp : ('a class, string option, string option) Property.readwrite
     val licenseProp : ('a class, string option, string option) Property.readwrite

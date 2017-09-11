@@ -47,10 +47,10 @@ signature GIO_APPLICATION =
       'a class
        -> LargeInt.int
        -> unit
-    val activateSig : (unit -> unit) -> 'a class Signal.signal
-    val commandLineSig : (base application_command_line_class -> LargeInt.int) -> 'a class Signal.signal
-    val openSig : (base file_class vector * string -> unit) -> 'a class Signal.signal
-    val startupSig : (unit -> unit) -> 'a class Signal.signal
+    val activateSig : (unit -> unit) -> 'a class Signal.t
+    val commandLineSig : (base application_command_line_class -> LargeInt.int) -> 'a class Signal.t
+    val openSig : (base file_class vector * string -> unit) -> 'a class Signal.t
+    val startupSig : (unit -> unit) -> 'a class Signal.t
     val actionGroupProp : ('a class, 'b action_group_class option) Property.writeonly
     val applicationIdProp : ('a class, string option, string option) Property.readwrite
     val flagsProp : ('a class, application_flags_t, application_flags_t) Property.readwrite

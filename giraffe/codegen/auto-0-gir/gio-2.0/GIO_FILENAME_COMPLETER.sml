@@ -16,5 +16,5 @@ signature GIO_FILENAME_COMPLETER =
       'a class
        -> bool
        -> unit
-    val gotCompletionDataSig : (unit -> unit) -> 'a class Signal.signal
+    val gotCompletionDataSig : (unit -> unit) -> 'a class Signal.t
   end

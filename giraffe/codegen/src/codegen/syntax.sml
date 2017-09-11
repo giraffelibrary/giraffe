@@ -419,9 +419,9 @@ val setOptValueId : id = "setOptValue"
 val setOptValueUId : id = setOptValueId ^ "_"
 
 val signalId : id = "signal"
-val signalLId : lid = toList1 ["Signal", "signal"]
-fun signalTy (ty : ty) : ty = TyRef ([ty], signalLId)
 val signalExp : exp = mkIdLNameExp signalId
+
+val propertyId : id = "property"
 
 val getId : id = "get"
 val setId : id = "set"

@@ -27,7 +27,7 @@ signature GTK_CHECK_MENU_ITEM =
        -> bool
        -> unit
     val toggled : 'a class -> unit
-    val toggledSig : (unit -> unit) -> 'a class Signal.signal
+    val toggledSig : (unit -> unit) -> 'a class Signal.t
     val activeProp : ('a class, bool, bool) Property.readwrite
     val drawAsRadioProp : ('a class, bool, bool) Property.readwrite
     val inconsistentProp : ('a class, bool, bool) Property.readwrite
