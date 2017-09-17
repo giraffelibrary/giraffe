@@ -14,7 +14,7 @@ val structTypes : ((string * string) * struct_type) list ref = ref []
 fun getStructType structFullName =
   case List.find (fn (x, _) => x = structFullName) (!structTypes) of
     SOME (_, y) => y 
-  | NONE        => infoError "configuration does not specify type for struct"
+  | NONE        => infoExcl "struct not included by configuration (structTypes)"
 
 
 (* Record signature *)
@@ -504,7 +504,7 @@ end
 (* Struct signature *)
 
 fun addStructMethodSpecs repo vers structIRef =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     StructInfo.getNMethods
     StructInfo.getMethod
     (makeFunctionSpec repo vers (SOME structIRef))
@@ -514,8 +514,8 @@ fun makeStructSig
   (vers            : Repository.typelibvers_t)
   (structNamespace : string)
   (structInfo      : 'b StructInfoClass.class)
-  (errs'0          : infoerrorhier list)
-  : id * program * id list * infoerrorhier list =
+  (excls'0         : info_excl_hier list)
+  : id * program * id list * info_excl_hier list =
   let
     val () = checkDeprecated structInfo
 
@@ -537,14 +537,14 @@ fun makeStructSig
     val acc'0
       : spec list
          * interfaceref list
-         * infoerrorhier list =
-      ([], [], errs'0)
+         * info_excl_hier list =
+      ([], [], excls'0)
     val acc'1 = addStructMethodSpecs repo vers structIRef (structInfo, acc'0)
     val acc'2 =
       case optGetTypeSymbol of
         SOME _ => addGetTypeFunctionSpec typeIRef acc'1
       | NONE   => acc'1
-    val (specs'2, iRefs'2, errs'2) = acc'2
+    val (specs'2, iRefs'2, excls'2) = acc'2
 
     val sigIRefs =
       structIRef :: iRefs'2  (* `structIRef` for record structure dependence *)
@@ -566,7 +566,7 @@ fun makeStructSig
     val program = [ModuleDecSig sigDec]
     val sigDeps = []
   in
-    (structSigId, Portable program, sigDeps, errs'2)
+    (structSigId, Portable program, sigDeps, excls'2)
   end
 
 
@@ -587,7 +587,7 @@ fun addStructMethodStrDecsLowLevel
     (SOME (structIRef, structIRef))
 
 fun addStructMethodStrDecsHighLevel repo vers structIRef =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     StructInfo.getNMethods
     StructInfo.getMethod
     (makeFunctionStrDecHighLevel repo vers (SOME (structIRef, structIRef)))
@@ -597,8 +597,8 @@ fun makeStructStr
   (vers            : Repository.typelibvers_t)
   (structNamespace : string)
   (structInfo      : 'b StructInfoClass.class)
-  (errs'0          : infoerrorhier list)
-  : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
+  (excls'0         : info_excl_hier list)
+  : id * (spec list * strdec list) * program * interfaceref list * info_excl_hier list =
   let
     val () = checkDeprecated structInfo
 
@@ -628,15 +628,15 @@ fun makeStructStr
     val acc'0
       : strdec list
          * (interfaceref list * struct1 ListDict.t)
-         * infoerrorhier list =
-      ([], ([], ListDict.empty), errs'0)
+         * info_excl_hier list =
+      ([], ([], ListDict.empty), excls'0)
     val acc'1 =
       addStructMethodStrDecsHighLevel repo vers structIRef (structInfo, acc'0)
     val acc'2 =
       case optGetTypeSymbol of
         SOME _ => addGetTypeFunctionStrDecHighLevel typeIRef acc'1
       | NONE   => acc'1
-    val (strDecs'2, (iRefs'2, structDeps'2), errs'2) = acc'2
+    val (strDecs'2, (iRefs'2, structDeps'2), excls'2) = acc'2
 
     val strIRefs =
       structIRef :: iRefs'2  (* `structIRef` for record structure dependence *)
@@ -664,7 +664,7 @@ fun makeStructStr
             vers
             addStructGetTypeFunctionStrDecLowLevel
             structIRef
-            (structInfo, (strDecs'3, errs'2))
+            (structInfo, (strDecs'3, excls'2))
 
         val strDecs'5 =
           revMapAppend mkStructStrDec (ListDict.toList structDeps'2, strDecs'4)
@@ -711,6 +711,6 @@ fun makeStructStr
       ([structSpec], [structStrDec]),
       Specific {mlton = programMLton, polyml = programPolyML},
       strIRefs,
-      errs'2
+      excls'2
     )
   end

@@ -2,7 +2,7 @@
  * Common functions
  * -------------------------------------------------------------------------- *)
 
-fun addGetTypeFunctionSpec (typeIRef : interfaceref) (specs, iRefs, errs) =
+fun addGetTypeFunctionSpec (typeIRef : interfaceref) (specs, iRefs, excls) =
   let
     val specs' = getTypeSpec typeIRef :: specs
 
@@ -13,12 +13,12 @@ fun addGetTypeFunctionSpec (typeIRef : interfaceref) (specs, iRefs, errs) =
       | LOCALINTERFACESELF => iRefs
       | _                  => insert (iRef, iRefs)
   in
-    (specs', iRefs', errs)
+    (specs', iRefs', excls)
   end
 
 fun addGetTypeFunctionStrDecHighLevel
   (typeIRef : interfaceref)
-  (strDecs, (iRefs, structDeps), errs) =
+  (strDecs, (iRefs, structDeps), excls) =
   let
     val strDecs' = getTypeStrDecHighLevel :: strDecs
 
@@ -29,13 +29,13 @@ fun addGetTypeFunctionStrDecHighLevel
       | LOCALINTERFACESELF => iRefs
       | _                  => insert (iRef, iRefs)
   in
-    (strDecs', (iRefs', structDeps), errs)
+    (strDecs', (iRefs', structDeps), excls)
   end
 
 fun addGetTypeFunctionStrDecLowLevel
   getTypeSymbol
   isPolyML
-  (strDecs, errs) =
+  (strDecs, excls) =
   let
     val strDecs' =
       (
@@ -44,7 +44,7 @@ fun addGetTypeFunctionStrDecLowLevel
         else getTypeStrDecLowLevelMLton getTypeSymbol
       ) :: strDecs
   in
-    (strDecs', errs)
+    (strDecs', excls)
   end
 
 

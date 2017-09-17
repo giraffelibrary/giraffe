@@ -255,26 +255,26 @@ end
 (* Interface signature *)
 
 fun addInterfaceConstantSpecs x =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     InterfaceInfo.getNConstants
     InterfaceInfo.getConstant
     makeConstantSpec
     x
 
 fun addInterfaceMethodSpecs repo vers interfaceIRef =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     InterfaceInfo.getNMethods
     InterfaceInfo.getMethod
     (makeFunctionSpec repo vers (SOME interfaceIRef))
 
 fun addInterfaceSignalSpecs repo interfaceIRef =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     InterfaceInfo.getNSignals
     InterfaceInfo.getSignal
     (makeSignalSpec repo interfaceIRef)
 
 fun addInterfacePropertySpecs repo interfaceIRef =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     InterfaceInfo.getNProperties
     InterfaceInfo.getProperty
     (makePropertySpec repo interfaceIRef)
@@ -284,8 +284,8 @@ fun makeInterfaceSig
   (vers               : Repository.typelibvers_t)
   (interfaceNamespace : string)
   (interfaceInfo      : 'b InterfaceInfoClass.class)
-  (errs'0             : infoerrorhier list)
-  : id * program * id list * infoerrorhier list =
+  (excls'0            : info_excl_hier list)
+  : id * program * id list * info_excl_hier list =
   let
     val () = checkDeprecated interfaceInfo
 
@@ -305,8 +305,8 @@ fun makeInterfaceSig
     val acc'0
       : spec list
          * interfaceref list
-         * infoerrorhier list =
-      ([], [], errs'0)
+         * info_excl_hier list =
+      ([], [], excls'0)
     val acc'1 =
       addInterfacePropertySpecs repo interfaceIRef (interfaceInfo, acc'0)
     val acc'2 =
@@ -316,7 +316,7 @@ fun makeInterfaceSig
     val acc'4 = addGetTypeFunctionSpec typeIRef acc'3
     val acc'5 = addInterfaceConstantSpecs (interfaceInfo, acc'4)
     val acc'6 = acc'5
-    val (specs'6, iRefs'6, errs'6) = acc'6
+    val (specs'6, iRefs'6, excls'6) = acc'6
 
     val sigIRefs =
       interfaceIRef :: iRefs'6
@@ -363,14 +363,14 @@ fun makeInterfaceSig
     val program = [ModuleDecSig sigDec]
     val sigDeps = []
   in
-    (interfaceSigId, Portable program, sigDeps, errs'6)
+    (interfaceSigId, Portable program, sigDeps, excls'6)
   end
 
 
 (* Interface structure *)
 
 fun addInterfaceConstantStrDecs x =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     InterfaceInfo.getNConstants
     InterfaceInfo.getConstant
     makeConstantStrDec
@@ -392,20 +392,20 @@ fun addInterfaceMethodStrDecsLowLevel
     (SOME (interfaceRootIRef, interfaceIRef))
 
 fun addInterfaceMethodStrDecsHighLevel repo vers interfaceRootIRef interfaceIRef =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     InterfaceInfo.getNMethods
     InterfaceInfo.getMethod
     (makeFunctionStrDecHighLevel repo vers (SOME (interfaceRootIRef, interfaceIRef)))
 
 fun addInterfaceSignalStrDecs repo interfaceIRef =
-  fn (interfaceInfo, (strDecs, x, errs)) =>
+  fn (interfaceInfo, (strDecs, x, excls)) =>
     let
-      val (localStrDecs, x', errs') =
-        revFoldMapInfosWithErrs
+      val (localStrDecs, x', excls') =
+        revFoldMapInfosWithExcls
           InterfaceInfo.getNSignals
           InterfaceInfo.getSignal
           (makeSignalStrDec repo interfaceIRef)
-          (interfaceInfo, ([], x, errs))
+          (interfaceInfo, ([], x, excls))
     in
       case localStrDecs of
         _ :: _ =>
@@ -425,20 +425,20 @@ fun addInterfaceSignalStrDecs repo interfaceIRef =
                 mkStrDecs localStrDecs
               )
           in
-            (strDec :: strDecs, x', errs')
+            (strDec :: strDecs, x', excls')
           end
-      | _      => (strDecs, x', errs')
+      | _      => (strDecs, x', excls')
     end
 
 fun addInterfacePropertyStrDecs repo interfaceIRef =
-  fn (interfaceInfo, (strDecs, x, errs)) =>
+  fn (interfaceInfo, (strDecs, x, excls)) =>
     let
-      val (localStrDecs, x', errs') =
-        revFoldMapInfosWithErrs
+      val (localStrDecs, x', excls') =
+        revFoldMapInfosWithExcls
           InterfaceInfo.getNProperties
           InterfaceInfo.getProperty
           (makePropertyStrDec repo interfaceIRef)
-          (interfaceInfo, ([], x, errs))
+          (interfaceInfo, ([], x, excls))
     in
       case localStrDecs of
         _ :: _ =>
@@ -457,9 +457,9 @@ fun addInterfacePropertyStrDecs repo interfaceIRef =
                 mkStrDecs localStrDecs
               )
           in
-            (strDec :: strDecs, x', errs')
+            (strDec :: strDecs, x', excls')
           end
-      | _      => (strDecs, x', errs')
+      | _      => (strDecs, x', excls')
     end
 
 fun makeInterfaceStr
@@ -467,8 +467,8 @@ fun makeInterfaceStr
   (vers               : Repository.typelibvers_t)
   (interfaceNamespace : string)
   (interfaceInfo      : 'b InterfaceInfoClass.class)
-  (errs'0             : infoerrorhier list)
-  : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
+  (excls'0            : info_excl_hier list)
+  : id * (spec list * strdec list) * program * interfaceref list * info_excl_hier list =
   let
     val () = checkDeprecated interfaceInfo
 
@@ -500,8 +500,8 @@ fun makeInterfaceStr
     val acc'0
       : strdec list
          * (interfaceref list * struct1 ListDict.t)
-         * infoerrorhier list =
-      ([], ([], ListDict.empty), errs'0)
+         * info_excl_hier list =
+      ([], ([], ListDict.empty), excls'0)
     val acc'1 =
       addInterfacePropertyStrDecs repo interfaceIRef (interfaceInfo, acc'0)
     val acc'2 =
@@ -516,7 +516,7 @@ fun makeInterfaceStr
     val acc'4 = addGetTypeFunctionStrDecHighLevel typeIRef acc'3
     val acc'5 = addInterfaceConstantStrDecs (interfaceInfo, acc'4)
     val acc'6 = acc'5
-    val (strDecs'6, (iRefs'6, structDeps'6), errs'6) = acc'6
+    val (strDecs'6, (iRefs'6, structDeps'6), excls'6) = acc'6
 
     val strIRefs =
       interfaceIRef :: iRefs'6
@@ -577,7 +577,7 @@ fun makeInterfaceStr
             (addGetTypeFunctionStrDecLowLevel getTypeSymbol)
             interfaceRootIRef
             interfaceIRef
-            (interfaceInfo, (strDecs'10, errs'6))
+            (interfaceInfo, (strDecs'10, excls'6))
 
         val strDecs'12 =
           revMapAppend mkStructStrDec
@@ -633,6 +633,6 @@ fun makeInterfaceStr
       ([interfaceSpec], [interfaceStrDec]),
       Specific {mlton = programMLton, polyml = programPolyML},
       strIRefs,
-      errs'6
+      excls'6
     )
   end

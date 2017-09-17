@@ -535,12 +535,13 @@ SML_LIB_NAMES=`empty`
 POLYML_LIB_NAMES=`empty`
 MLTON_LIB_NAMES=`empty`
 
-for DIR in src/sml/*-*
+for DIR in src/sml/*-[0-9]*
 do
   if [ -f "${DIR}/package" ]
   then
     PKGNAME=`cat "${DIR}/package"`
   else
+    PKGNAME=
     echo
     echo "error: ${DIR}/package not found"
   fi

@@ -37,7 +37,7 @@ structure GIRepositoryTypeInfo :>
             if totalPtrDepth > 0
             then totalPtrDepth - 1
             else 
-              raise Fail "non-pointer for OUT or INOUT parameter"
+              raise Fail "non-pointer C type for reference"
           else
             totalPtrDepth
       in

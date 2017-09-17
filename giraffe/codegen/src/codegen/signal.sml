@@ -11,8 +11,8 @@ fun mkSignalNameId signalName =
 fun makeSignalSpec
   repo
   (containerIRef as {namespace = containerNamespace, name = containerName, ...})
-  (signalInfo, (iRefs, errs))
-  : spec * (interfaceref list * infoerrorhier list) =
+  (signalInfo, (iRefs, excls))
+  : spec * (interfaceref list * info_excl_hier list) =
   let
     val () = checkDeprecated signalInfo
 
@@ -28,7 +28,7 @@ fun makeSignalSpec
     val () =
       if GSignalFlags.anySet (signalFlags, GSignalFlags.DEPRECATED)
       then
-        infoError "deprecated"
+        infoExcl "deprecated"
       else
         ()
      *)
@@ -120,7 +120,7 @@ fun makeSignalSpec
       else toList1 [toUCC signalId, tId]
     val signalTy = TyFun (TyParen functionTy, TyRef ([containerTy], lid))
   in
-    (mkValSpec (signalNameId, signalTy), (iRefs'3, errs))
+    (mkValSpec (signalNameId, signalTy), (iRefs'3, excls))
   end
 
 
@@ -309,8 +309,8 @@ end
 fun makeSignalStrDec
   repo
   ({name = containerName, ...} : interfaceref)
-  (signalInfo, ((iRefs, structs), errs))
-  : strdec * ((interfaceref list * struct1 ListDict.t) * infoerrorhier list) =
+  (signalInfo, ((iRefs, structs), excls))
+  : strdec * ((interfaceref list * struct1 ListDict.t) * info_excl_hier list) =
   let
     val () = checkDeprecated signalInfo
 
@@ -326,7 +326,7 @@ fun makeSignalStrDec
     val () =
       if GSignalFlags.anySet (signalFlags, GSignalFlags.DEPRECATED)
       then
-        infoError "deprecated"
+        infoExcl "deprecated"
       else
         ()
      *)
@@ -507,6 +507,6 @@ fun makeSignalStrDec
           ]
         )
       ),
-      ((iRefs'3, structs'3), errs)
+      ((iRefs'3, structs'3), excls)
     )
   end

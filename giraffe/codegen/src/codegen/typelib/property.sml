@@ -51,12 +51,12 @@ fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
         (true,  false) => READONLY
       | (false, true)  => WRITEONLY
       | (true,  true)  => READWRITE
-      | (false, false) => infoError "property neither readable nor writable"
+      | (false, false) => infoExcl "property neither readable nor writable"
 
-    fun notExpected s = infoError ("type " ^ s ^ " not expected")
-    fun notSupported s = infoError ("type " ^ s ^ " not supported")
+    fun notExpected s = infoExcl ("type " ^ s ^ " not expected")
+    fun notSupported s = infoExcl ("type " ^ s ^ " not supported")
     fun noGType s =
-      infoError ("type " ^ s ^ " not expected: no corresponding GType")
+      infoExcl ("type " ^ s ^ " not expected: no corresponding GType")
 
     fun resolveType () () typeInfo =
       let
@@ -66,7 +66,7 @@ fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
           if
             TypeInfo.isPointer typeInfo
           then
-            infoError (ptrForScalar scalarToString ty)
+            infoExcl (ptrForScalar scalarToString ty)
           else
             {
               ty = ty
@@ -98,7 +98,7 @@ fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
               val () =
                 case ownershipTransfer of
                   Transfer.NOTHING => ()
-                | _                => infoError containerOrEverythingForProp
+                | _                => infoExcl containerOrEverythingForProp
 
               val utf8Info = {
                 isOpt = isOpt
@@ -113,7 +113,7 @@ fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
               val () =
                 case ownershipTransfer of
                   Transfer.NOTHING => ()
-                | _                => infoError containerOrEverythingForProp
+                | _                => infoExcl containerOrEverythingForProp
 
               val utf8Info = {
                 isOpt = isOpt
@@ -179,7 +179,7 @@ fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
                     val () =
                       case ownershipTransfer of
                         Transfer.NOTHING => ()
-                      | _                => infoError containerOrEverythingForProp
+                      | _                => infoExcl containerOrEverythingForProp
 
                     val interfaceInfo = {
                       iRef     = iRef,
@@ -215,8 +215,8 @@ fun mkParamTy isOpt ((isReadType, interfaceTyRef), tyVarIdx) =
 fun makePropertySpec
   repo
   (containerIRef as {namespace = containerNamespace, ...})
-  (propertyInfo, (iRefs, errs))
-  : spec * (interfaceref list * infoerrorhier list) =
+  (propertyInfo, (iRefs, excls))
+  : spec * (interfaceref list * info_excl_hier list) =
   let
     val () = checkDeprecated propertyInfo
 
@@ -274,7 +274,7 @@ fun makePropertySpec
             (mkTy mode isOpt (interfaceTyRef, tyVarIdx'1), iRefs')
           end
   in
-    (mkValSpec (propertyNameId, propertyTy), (iRefs'1, errs))
+    (mkValSpec (propertyNameId, propertyTy), (iRefs'1, excls))
   end
 
 
@@ -283,8 +283,8 @@ fun makePropertySpec
 fun makePropertyStrDec
   repo
   (containerIRef : interfaceref)
-  (propertyInfo, ((iRefs, structs), errs))
-  : strdec * ((interfaceref list * struct1 ListDict.t) * infoerrorhier list) =
+  (propertyInfo, ((iRefs, structs), excls))
+  : strdec * ((interfaceref list * struct1 ListDict.t) * info_excl_hier list) =
   let
     val () = checkDeprecated propertyInfo
 
@@ -349,6 +349,6 @@ fun makePropertyStrDec
   in
     (
       StrDecDec (mkIdValDec (propertyNameId, propertyExp)),
-      ((iRefs'1, structs), errs)
+      ((iRefs'1, structs), excls)
     )
   end

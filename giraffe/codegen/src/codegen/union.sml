@@ -9,8 +9,8 @@ fun makeUnionSig
   (_              : Repository.typelibvers_t)
   (unionNamespace : string)
   (unionInfo      : 'b UnionInfoClass.class)
-  (errs'0         : infoerrorhier list)
-  : id * program * id list * infoerrorhier list =
+  (excls'0        : info_excl_hier list)
+  : id * program * id list * info_excl_hier list =
   let
     val () = checkDeprecated unionInfo
 
@@ -31,7 +31,7 @@ fun makeUnionSig
     val program = []
     val sigDeps = []
   in
-    (unionSigId, Portable program, sigDeps, errs'0)
+    (unionSigId, Portable program, sigDeps, excls'0)
   end
 
 
@@ -42,8 +42,8 @@ fun makeUnionStr
   (_              : Repository.typelibvers_t)
   (unionNamespace : string)
   (unionInfo      : 'b UnionInfoClass.class)
-  (errs'0         : infoerrorhier list)
-  : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
+  (excls'0        : info_excl_hier list)
+  : id * (spec list * strdec list) * program * interfaceref list * info_excl_hier list =
   let
     val () = checkDeprecated unionInfo
 
@@ -92,6 +92,6 @@ fun makeUnionStr
       ([unionSpec], [unionStrDec]),
       Specific {mlton = programMLton, polyml = programPolyML},
       [],
-      errs'0
+      excls'0
     )
   end

@@ -75,8 +75,8 @@ in
     (vers        : Repository.typelibvers_t)
     (enumNamespace : string)
     (enumInfo    : 'b EnumInfoClass.class)
-    (errs'0      : infoerrorhier list)
-    : id * program * id list * infoerrorhier list =
+    (excls'0     : info_excl_hier list)
+    : id * program * id list * info_excl_hier list =
     let
       val () = checkDeprecated enumInfo
 
@@ -94,14 +94,14 @@ in
       val typeIRef = makeTypeIRef enumNamespace (SOME enumName)
       val optGetTypeSymbol = RegisteredTypeInfo.getTypeInit enumInfo
 
-      val acc'0 = (specs'0, [], errs'0)
+      val acc'0 = (specs'0, [], excls'0)
       val acc'1 = addFlagsEnumMethodSpecs repo vers enumIRef (enumInfo, acc'0)
       val acc'2 =
         case optGetTypeSymbol of
           SOME _ => addGetTypeFunctionSpec typeIRef acc'1
         | NONE   => acc'1
 
-      val (specs'2, iRefs'2, errs'2) = acc'2
+      val (specs'2, iRefs'2, excls'2) = acc'2
       val specs'3 = revMapAppend makeIRefLocalTypeSpec (iRefs'2, specs'2)
       val specs'4 =
         addAccessorSpecs enumNamespace enumInfo (tTy, tTy) false specs'3
@@ -114,7 +114,7 @@ in
       val program = [ModuleDecSig sigDec]
       val sigDeps = []
     in
-      (enumSigId, Portable program, sigDeps, errs'2)
+      (enumSigId, Portable program, sigDeps, excls'2)
     end
 end
 
@@ -147,8 +147,8 @@ in
     (vers          : Repository.typelibvers_t)
     (enumNamespace : string)
     (enumInfo      : 'b EnumInfoClass.class)
-    (errs'0        : infoerrorhier list)
-    : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
+    (excls'0       : info_excl_hier list)
+    : id * (spec list * strdec list) * program * interfaceref list * info_excl_hier list =
     let
       val () = checkDeprecated enumInfo
 
@@ -173,15 +173,15 @@ in
       val acc'0
         : strdec list
            * (interfaceref list * struct1 ListDict.t)
-           * infoerrorhier list =
-        ([], ([], ListDict.empty), errs'0)
+           * info_excl_hier list =
+        ([], ([], ListDict.empty), excls'0)
       val acc'1 =
         addFlagsEnumMethodStrDecsHighLevel repo vers enumIRef (enumInfo, acc'0)
       val acc'2 =
         case optGetTypeSymbol of
           SOME _ => addGetTypeFunctionStrDecHighLevel typeIRef acc'1
         | NONE   => acc'1
-      val (strDecs'2, (iRefs'2, structDeps'2), errs'2) = acc'2
+      val (strDecs'2, (iRefs'2, structDeps'2), excls'2) = acc'2
 
       val revLocalTypes = revMap makeIRefLocalType iRefs'2
       val strDecs'3 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'2)
@@ -200,7 +200,7 @@ in
               vers
               (K I)
               enumIRef
-              (enumInfo, (strDecs'3, errs'2))
+              (enumInfo, (strDecs'3, excls'2))
 
           val strDecs'5 = addAccessorStrDecs ("flags", false) isPolyML strDecs'4
           val strDecs'6 = strDecs'5
@@ -257,7 +257,7 @@ in
         (enumSpecs, enumStrDecs),
         Specific {mlton = programMLton, polyml = programPolyML},
         iRefs'3,
-        errs'2
+        excls'2
       )
     end
 end

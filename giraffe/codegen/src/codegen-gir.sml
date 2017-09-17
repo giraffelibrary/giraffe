@@ -488,3 +488,6 @@ val errorLog'1 = List.foldl insert errorLog'0 [
   gen outDir repo ("Vte", "2.90") ([], [], []),
   gen outDir repo ("Vte", "2.91") ([], [], [])
 ]
+
+val () = writeLogFile outDir errorLog'1
+

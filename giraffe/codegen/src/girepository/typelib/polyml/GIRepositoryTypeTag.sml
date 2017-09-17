@@ -79,4 +79,10 @@ structure GIRepositoryTypeTag :> G_I_REPOSITORY_TYPE_TAG =
           | n => raise Value n
       )
     open Enum
+    local
+      open PolyMLFFI
+    in
+      val toString_ = call (getSymbol "g_type_tag_to_string") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
+    end
+    fun toString type' = (FFI.withVal ---> Utf8.FFI.fromPtr 0) toString_ type'
   end

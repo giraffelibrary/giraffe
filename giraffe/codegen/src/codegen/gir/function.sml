@@ -6,7 +6,7 @@
 
 fun checkFunctionMoved functionInfo =
   case FunctionInfo.getMovedTo functionInfo of
-    SOME name => infoError ("moved to " ^ name)
+    SOME name => infoExcl ("moved to " ^ name)
   | NONE      => ()
 
 
@@ -30,16 +30,21 @@ fun checkFunctionSymbol repo vers functionInfo =
         fn (nvs, xs) =>
           List.exists (fn x => x = nv) nvs andalso List.exists p xs
       )
+    fun infoExclFunctionSymbol match =
+      infoExcl (concat ["function excluded by configuration (", match, ")"])
   in
-    if
-      check (fn x => x = symbol) (!excludedFunctionSymbols)
-       orelse
-         check (fn x => String.isPrefix x symbol)
-           (!excludedFunctionSymbolPrefixes)
-       orelse
-         check (fn x => String.isSuffix x symbol)
-           (!excludedFunctionSymbolSuffixes)
-    then infoError "manually excluded"
+    if check (fn x => x = symbol) (!excludedFunctionSymbols)
+    then infoExclFunctionSymbol "excludedFunctionSymbols"
+    else if
+      check (fn x => String.isPrefix x symbol)
+        (!excludedFunctionSymbolPrefixes)
+    then
+      infoExclFunctionSymbol "excludedFunctionSymbolPrefixes"
+    else if
+      check (fn x => String.isSuffix x symbol)
+        (!excludedFunctionSymbolSuffixes)
+    then
+      infoExclFunctionSymbol "excludedFunctionSymbolSuffixes"
     else ()
   end
 
@@ -48,7 +53,7 @@ val nonUserFunctionNames : string list ref = ref []
 
 fun checkFunctionName name =
   if List.exists (fn x => x = name) (!nonUserFunctionNames)
-  then infoError "non-user function"
+  then infoExcl "non-user function"
   else ()
 
 
@@ -68,7 +73,7 @@ val excludedAliasNames : (string * string option) list ref = ref []
 
 fun checkAliasName name =
   if List.exists (fn x => x = name) (!excludedAliasNames)
-  then infoError "manually excluded"
+  then infoExcl "alias excluded by configuration (excludedAliasNames)"
   else ()
 
 
@@ -85,65 +90,65 @@ fun arrayTypeNotSupported ty =
     " not supported"
   ]
 
-val noArrayTypeForArray = "** ARRAY with no array type not valid **"
+val noArrayTypeForArray = "ARRAY type with no array type not valid"
 
 val noTypeParamForArray =
-  "** ARRAY without type parameter not valid **"
+  "ARRAY type without type parameter not valid"
 
 val containerForUtf8 =
-  "** ownership transfer CONTAINER for UTF8 not valid **"
+  "ownership transfer CONTAINER for UTF8 type not valid"
 
 val containerForFilename =
-  "** ownership transfer CONTAINER for FILENAME not valid **"
+  "ownership transfer CONTAINER for FILENAME type not valid"
 
 val containerForInterface =
-  "** ownership transfer CONTAINER for INTERFACE not valid **"
+  "ownership transfer CONTAINER for INTERFACE type not valid"
 
-val everythingForNonPtrStruct =
-  "** ownership transfer EVERYTHING for non-pointer STRUCT INTERFACE parameter \
-  \not valid **"
+val everythingForNonPtrStructPar =
+  "ownership transfer EVERYTHING and non-pointer C type for STRUCT type \
+  \not valid"
   (* In fact this is used for a non-pointer GObject.Value out parameter where
    * the caller must call g_value_unset to free resources used by the
    * GObject.Value.  This appears to occur only for get_property functions, so
    * this is all pending property handling...
    *)
 
-val everythingForNonPtrUnion =
-  "** ownership transfer EVERYTHING for non-pointer UNION INTERFACE parameter \
-  \not valid **"
+val everythingForNonPtrUnionPar =
+  "ownership transfer EVERYTHING and non-pointer C type for UNION type \
+  \not valid"
 
-val containerForIn =
+val containerForInPar =
   "ownership transfer CONTAINER for IN parameter not supported"
 
-val everythingForIn =
+val everythingForInPar =
   "ownership transfer EVERYTHING for IN parameter not supported"
 
-val everythingForInOut =
+val everythingForInOutPar =
   "ownership transfer EVERYTHING for INOUT parameter not supported"
 
 val nonPtrForObject =
-  "non-pointer for OBJECT INTERFACE not supported"
+  "non-pointer C type for OBJECT type not supported"
 
 val nonPtrForInterface =
-  "non-pointer for INTERFACE INTERFACE not supported"
+  "non-pointer C type for INTERFACE type not supported"
 
-val nonPtrForInStruct =
-  "non-pointer IN parameter for STRUCT INTERFACE not supported"
+val nonPtrForStructInPar =
+  "non-pointer C type for STRUCT type not supported"
 
-val nonPtrForInUnion =
-  "non-pointer IN parameter for UNION INTERFACE not supported"
+val nonPtrForUnionInPar =
+  "non-pointer C type for UNION type not supported"
 
-val nonPtrForRetStruct =
-  "non-pointer return for STRUCT INTERFACE not supported"
+val nonPtrForStructRet =
+  "non-pointer C type for STRUCT type not supported"
 
-val nonPtrForRetUnion =
-  "non-pointer return for UNION INTERFACE not supported"
+val nonPtrForUnionRet =
+  "non-pointer C type for UNION type not supported"
 
 val ptrForFlags =
-  "pointer for FLAGS INTERFACE not supported"
+  "pointer C type for FLAGS type not supported"
 
 val ptrForEnum =
-  "pointer for ENUM INTERFACE not supported"
+  "pointer C type for ENUM type not supported"
 
 local
   open InfoType
@@ -159,7 +164,7 @@ local
     | FLAGS _     => "FLAGS"
     | OBJECT _    => "OBJECT"
     | INTERFACE _ => "INTERFACE"
-    | ALIAS _     => "ALIAS"
+    | ALIAS _     => "ALIAS"  (* GIR only *)
     | CONSTANT _  => "CONSTANT"
     | INVALID_0   => "INVALID_0"
     | UNION _     => "UNION"
@@ -177,10 +182,10 @@ in
 end
 
 fun ptrForScalar fmt ty =
-  concat ["pointer for scalar (", fmt ty, ") not supported"]
+  concat ["pointer C type for scalar (", fmt ty, ") not supported"]
 
 val ptrForVoid =
-  "pointer for VOID not supported"
+  "pointer C type for VOID not supported"
 
 
 datatype scalartype =
@@ -267,7 +272,7 @@ val scalarStrId =
   | STUNICHAR      => "Char"
 
 local
-  fun noGType s = infoError ("no corresponding GType for " ^ s)
+  fun noGType s = infoExcl ("no corresponding GType for " ^ s)
 in
   val scalarAccessorId =
     fn
@@ -299,7 +304,7 @@ in
 end
 
 local
-  fun noSMLType s = infoError ("no corresponding SML type for " ^ s)
+  fun noSMLType s = infoExcl ("no corresponding SML type for " ^ s)
 
   val boolTyRef = (0, toList1 ["bool"])
   val charTyRef = (0, toList1 ["char"])
@@ -487,7 +492,7 @@ fun cArrayStrId length elem =
         )
       | IUTF8 {optIRef, isOpt, ...}                => (
           if isOpt
-          then infoError "optional UTF8 as array element not supported"
+          then infoExcl "optional UTF8 as array element not supported"
           else
             case optIRef of
               NONE      => utf8StrId
@@ -495,7 +500,7 @@ fun cArrayStrId length elem =
         )
       | IARRAY {optIRef, isOpt, length, elem, ...} => (
           if isOpt
-          then infoError "optional ARRAY as array element not supported"
+          then infoExcl "optional ARRAY as array element not supported"
           else
             case optIRef of
               NONE      => cArrayStrId length elem
@@ -558,7 +563,7 @@ fun cArrayStrIdStructDeps length elem structDeps =
         )
       | IUTF8 {optIRef, isOpt, ...}                => (
           if isOpt
-          then infoError "optional UTF8 as array element not supported"
+          then infoExcl "optional UTF8 as array element not supported"
           else
             case optIRef of
               NONE      => utf8StrId
@@ -567,7 +572,7 @@ fun cArrayStrIdStructDeps length elem structDeps =
         )
       | IARRAY {optIRef, isOpt, length, elem, ...} => (
           if isOpt
-          then infoError "optional ARRAY as array element not supported"
+          then infoExcl "optional ARRAY as array element not supported"
           else
             case optIRef of
               NONE      => cArrayStrIdStructDeps length elem structDeps
@@ -724,8 +729,8 @@ fun getParInfo
             else
               TypeInfo.isPointer typeInfo NONE false
                 handle
-                  Fail msg => infoError msg
-          then infoError ptrForVoid
+                  Fail msg => infoExcl msg
+          then infoExcl ptrForVoid
           else raise Void
       | _            => ()
 
@@ -757,37 +762,37 @@ fun getParInfo
           case (dir, ownXfer) of
             (_,     NOTHING)    => SOME false
           | (OUT _, EVERYTHING) => SOME true
-          | (IN,    EVERYTHING) => infoError everythingForIn
-          | (INOUT, EVERYTHING) => infoError everythingForInOut
-          | (_,     CONTAINER)  => infoError containerForInterface
+          | (IN,    EVERYTHING) => infoExcl everythingForInPar
+          | (INOUT, EVERYTHING) => infoExcl everythingForInOutPar
+          | (_,     CONTAINER)  => infoExcl containerForInterface
         else
-          infoError nonPtrForX
+          infoExcl nonPtrForX
       val objectMsg = nonPtrForObject
       val interfaceMsg = nonPtrForInterface
 
       fun ptrOwnXferStructUnion isPtr ownXfer (nonPtrForInX, everythingForNonPtrX) =
         case (dir, isPtr, ownXfer) of
-          (IN,    false, NOTHING)    => infoError nonPtrForInX
+          (IN,    false, NOTHING)    => infoExcl nonPtrForInX
         | (_,     false, NOTHING)    => NONE
         | (_,     true,  NOTHING)    => SOME false
         | (OUT _, true,  EVERYTHING) => SOME true
-        | (_,     false, EVERYTHING) => infoError everythingForNonPtrX
-        | (IN,    true,  EVERYTHING) => infoError everythingForIn
-        | (INOUT, true,  EVERYTHING) => infoError everythingForInOut
-        | (_,     _,     CONTAINER)  => infoError containerForInterface
-      val structMsg = (nonPtrForInStruct, everythingForNonPtrStruct)
-      val unionMsg = (nonPtrForInUnion, everythingForNonPtrUnion)
+        | (_,     false, EVERYTHING) => infoExcl everythingForNonPtrX
+        | (IN,    true,  EVERYTHING) => infoExcl everythingForInPar
+        | (INOUT, true,  EVERYTHING) => infoExcl everythingForInOutPar
+        | (_,     _,     CONTAINER)  => infoExcl containerForInterface
+      val structMsg = (nonPtrForStructInPar, everythingForNonPtrStructPar)
+      val unionMsg = (nonPtrForUnionInPar, everythingForNonPtrUnionPar)
 
       fun ptrOwnXferFlagsEnum isPtr ptrForX =
         if isPtr
-        then infoError ptrForX
+        then infoExcl ptrForX
         else NONE
       val flagsMsg = ptrForFlags
       val enumMsg = ptrForEnum
     end
 
-    fun notExpected s = infoError ("parameter type " ^ s ^ " not expected")
-    fun notSupported s = infoError ("parameter type " ^ s ^ " not supported")
+    fun notExpected s = infoExcl ("type " ^ s ^ " not expected")
+    fun notSupported s = infoExcl ("type " ^ s ^ " not supported")
 
     fun resolveType optIRef cxtPtrDepth (isOpt, ownXfer) typeInfo =
       let
@@ -801,9 +806,9 @@ fun getParInfo
             else
               TypeInfo.isPointer typeInfo cxtPtrDepth isRef
                 handle
-                  Fail msg => infoError msg
+                  Fail msg => infoExcl msg
           then
-            infoError (ptrForScalar scalarToString ty)
+            infoExcl (ptrForScalar scalarToString ty)
           else
             ISCALAR {
               ty      = ty,
@@ -822,8 +827,8 @@ fun getParInfo
                 then
                   case ownXfer of
                     NOTHING    => ()
-                  | CONTAINER  => infoError containerForIn
-                  | EVERYTHING => infoError everythingForIn
+                  | CONTAINER  => infoExcl containerForInPar
+                  | EVERYTHING => infoExcl everythingForInPar
                 else ()
 
               val ownXfer' =
@@ -834,8 +839,8 @@ fun getParInfo
               val () =
                 case TypeInfo.getArrayType typeInfo of
                   SOME ArrayType.C  => ()
-                | SOME ty           => infoError (arrayTypeNotSupported ty)
-                | NONE              => infoError noArrayTypeForArray
+                | SOME ty           => infoExcl (arrayTypeNotSupported ty)
+                | NONE              => infoExcl noArrayTypeForArray
 
               val length =
                 case TypeInfo.getArrayFixedSize typeInfo of
@@ -844,7 +849,7 @@ fun getParInfo
                       ~1 => (
                         if TypeInfo.isZeroTerminated typeInfo
                         then ArrayLengthZeroTerminated
-                        else infoError "cannot determine array length"
+                        else infoExcl "cannot determine array length"
                       )
                     | n  => ArrayLengthParam (getNthArgId n)
                   )
@@ -853,7 +858,7 @@ fun getParInfo
               val elemTypeInfo =
                 case TypeInfo.getParamType typeInfo 0 of
                   SOME typeInfo => typeInfo
-                | NONE          => infoError noTypeParamForArray
+                | NONE          => infoExcl noTypeParamForArray
 
               val arrayInfo = {
                 isOpt   = isOpt,
@@ -904,9 +909,9 @@ fun getParInfo
                     NOTHING    => false
                   | EVERYTHING =>
                       if dir = IN
-                      then infoError everythingForIn
+                      then infoExcl everythingForInPar
                       else true
-                  | CONTAINER  => infoError containerForFilename,
+                  | CONTAINER  => infoExcl containerForFilename,
                 optIRef = optIRef
               }
             in
@@ -923,9 +928,9 @@ fun getParInfo
                     NOTHING    => false
                   | EVERYTHING =>
                       if dir = IN
-                      then infoError everythingForIn
+                      then infoExcl everythingForInPar
                       else true
-                  | CONTAINER  => infoError containerForUtf8,
+                  | CONTAINER  => infoExcl containerForUtf8,
                 optIRef = optIRef
               }
             in
@@ -989,11 +994,11 @@ fun getParInfo
                         | UNION _     => true
                         | FLAGS _     => false
                         | ENUM _      => false
-                        | _           => infoError (unsupportedInterface infoType)
+                        | _           => infoExcl (unsupportedInterface infoType)
                       else
                         TypeInfo.isPointer typeInfo cxtPtrDepth isRef
                           handle
-                            Fail msg => infoError msg
+                            Fail msg => infoExcl msg
 
                     val (ptrOwnXfer, rootIRef) =
                       case infoType of
@@ -1015,7 +1020,7 @@ fun getParInfo
                       | UNION _     => (ptrOwnXferStructUnion isPtr ownXfer unionMsg, iRef)
                       | FLAGS _     => (ptrOwnXferFlagsEnum isPtr flagsMsg, iRef)
                       | ENUM _      => (ptrOwnXferFlagsEnum isPtr enumMsg, iRef)
-                      | _           => infoError (unsupportedInterface infoType)
+                      | _           => infoExcl (unsupportedInterface infoType)
 
                     val interfaceInfo = {
                       rootIRef   = rootIRef,
@@ -1028,7 +1033,13 @@ fun getParInfo
                     IINTERFACE interfaceInfo
                   end
             end
+              handle
+                InfoExcl ie =>
+                  raise InfoExcl (IEGrp [mkInfoExclHier (getInterface typeInfo) ie])
       end
+        handle
+          InfoExcl ie =>
+            raise InfoExcl (IEGrp [mkInfoExclHier typeInfo ie])
   in
     PISOME {
       name  = argId,
@@ -1100,8 +1111,8 @@ fun getRetInfo
              * VOID tag, so no need to use default when `usePtrDefault`. *)
             TypeInfo.isPointer typeInfo NONE false
               handle
-                Fail msg => infoError msg
-          then infoError ptrForVoid
+                Fail msg => infoExcl msg
+          then infoExcl ptrForVoid
           else raise Void
       | _            => ()
 
@@ -1123,31 +1134,31 @@ fun getRetInfo
           case ownXfer of
             NOTHING    => SOME false
           | EVERYTHING => SOME true
-          | CONTAINER  => infoError containerForInterface
+          | CONTAINER  => infoExcl containerForInterface
         else
-          infoError nonPtrForX
+          infoExcl nonPtrForX
       val objectMsg = nonPtrForObject
       val interfaceMsg = nonPtrForInterface
 
       fun ptrOwnXferStructUnion isPtr ownXfer nonPtrForRetX =
         case (isPtr, ownXfer) of
-          (false, _)          => infoError nonPtrForRetX
+          (false, _)          => infoExcl nonPtrForRetX
         | (_,     NOTHING)    => SOME false
         | (_,     EVERYTHING) => SOME true
-        | (_,     CONTAINER)  => infoError containerForInterface
-      val structMsg = nonPtrForRetStruct
-      val unionMsg = nonPtrForRetUnion
+        | (_,     CONTAINER)  => infoExcl containerForInterface
+      val structMsg = nonPtrForStructRet
+      val unionMsg = nonPtrForUnionRet
 
       fun ptrOwnXferFlagsEnum isPtr ptrForX =
         if isPtr
-        then infoError ptrForX
+        then infoExcl ptrForX
         else NONE
       val flagsMsg = ptrForFlags
       val enumMsg = ptrForEnum
     end
 
-    fun notExpected s = infoError ("return type " ^ s ^ " not expected")
-    fun notSupported s = infoError ("return type " ^ s ^ " not supported")
+    fun notExpected s = infoExcl ("type " ^ s ^ " not expected")
+    fun notSupported s = infoExcl ("type " ^ s ^ " not supported")
 
     fun resolveType optIRef cxtPtrDepth (isOpt, ownXfer) typeInfo =
       let
@@ -1161,9 +1172,9 @@ fun getRetInfo
             else
               TypeInfo.isPointer typeInfo cxtPtrDepth isRef
                 handle
-                  Fail msg => infoError msg
+                  Fail msg => infoExcl msg
           then
-            infoError (ptrForScalar scalarToString ty)
+            infoExcl (ptrForScalar scalarToString ty)
           else
             ISCALAR {
               ty      = ty,
@@ -1185,8 +1196,8 @@ fun getRetInfo
               val () =
                 case TypeInfo.getArrayType typeInfo of
                   SOME ArrayType.C  => ()
-                | SOME ty           => infoError (arrayTypeNotSupported ty)
-                | NONE              => infoError noArrayTypeForArray
+                | SOME ty           => infoExcl (arrayTypeNotSupported ty)
+                | NONE              => infoExcl noArrayTypeForArray
 
               val length =
                 case TypeInfo.getArrayFixedSize typeInfo of
@@ -1195,7 +1206,7 @@ fun getRetInfo
                       ~1 => (
                         if TypeInfo.isZeroTerminated typeInfo
                         then ArrayLengthZeroTerminated
-                        else infoError "cannot determine array length"
+                        else infoExcl "cannot determine array length"
                       )
                     | n  => ArrayLengthParam (getNthArgId n)
                   )
@@ -1204,7 +1215,7 @@ fun getRetInfo
               val elemTypeInfo =
                 case TypeInfo.getParamType typeInfo 0 of
                   SOME typeInfo => typeInfo
-                | NONE          => infoError noTypeParamForArray
+                | NONE          => infoExcl noTypeParamForArray
 
               val arrayInfo = {
                 isOpt   = isOpt,
@@ -1254,7 +1265,7 @@ fun getRetInfo
                   case ownXfer of
                     NOTHING    => false
                   | EVERYTHING => true
-                  | CONTAINER  => infoError containerForFilename,
+                  | CONTAINER  => infoExcl containerForFilename,
                 optIRef = optIRef
               }
             in
@@ -1270,7 +1281,7 @@ fun getRetInfo
                   case ownXfer of
                     NOTHING    => false
                   | EVERYTHING => true
-                  | CONTAINER  => infoError containerForUtf8,
+                  | CONTAINER  => infoExcl containerForUtf8,
                 optIRef = optIRef
               }
             in
@@ -1334,11 +1345,11 @@ fun getRetInfo
                         | UNION _     => true
                         | FLAGS _     => false
                         | ENUM _      => false
-                        | _           => infoError (unsupportedInterface infoType)
+                        | _           => infoExcl (unsupportedInterface infoType)
                       else
                         TypeInfo.isPointer typeInfo cxtPtrDepth isRef
                           handle
-                            Fail msg => infoError msg
+                            Fail msg => infoExcl msg
 
                     val (ptrOwnXfer, rootIRef) =
                       case infoType of
@@ -1360,7 +1371,7 @@ fun getRetInfo
                       | UNION _     => (ptrOwnXferStructUnion isPtr ownXfer unionMsg, iRef)
                       | FLAGS _     => (ptrOwnXferFlagsEnum isPtr flagsMsg, iRef)
                       | ENUM _      => (ptrOwnXferFlagsEnum isPtr enumMsg, iRef)
-                      | _           => infoError (unsupportedInterface infoType)
+                      | _           => infoExcl (unsupportedInterface infoType)
 
                     val interfaceInfo = {
                       rootIRef   = rootIRef,
@@ -1373,7 +1384,13 @@ fun getRetInfo
                     IINTERFACE interfaceInfo
                   end
             end
+              handle
+                InfoExcl ie =>
+                  raise InfoExcl (IEGrp [mkInfoExclHier (getInterface typeInfo) ie])
       end
+        handle
+          InfoExcl ie =>
+            raise InfoExcl (IEGrp [mkInfoExclHier typeInfo ie])
   in
     RISOME {
       info = resolveType NONE NONE (mayReturnNull, ownershipTransfer) typeInfo
@@ -1589,8 +1606,8 @@ fun makeFunctionSpec
   repo
   vers
   (optContainerIRef : interfaceref option)
-  (functionInfo, (iRefs, errs))
-  : spec * (interfaceref list * infoerrorhier list) =
+  (functionInfo, (iRefs, excls))
+  : spec * (interfaceref list * info_excl_hier list) =
   let
     val () = checkDeprecated functionInfo
 
@@ -1638,7 +1655,7 @@ fun makeFunctionSpec
               (SOME selfTy, tyVarIdx'1)
             end
         | NONE               =>
-            infoError "function outside interface has method flag set"
+            infoExcl "function outside interface has method flag set"
       else
         (NONE, tyVarIdx'0)
     val revInTys'1 = []
@@ -1659,7 +1676,7 @@ fun makeFunctionSpec
         case optContainerIRef of
           SOME _ => optContainerIRef
         | NONE   =>
-            infoError "function outside interface has constructor flag set"
+            infoExcl "function outside interface has constructor flag set"
       else
         NONE
     val ((retValTy, _), iRefs'3) =
@@ -1730,7 +1747,7 @@ fun makeFunctionSpec
                 * the last two cases will be:
                 *
               | (_,                              _ :: _)                   =>
-                  infoError "non-BOOLEAN return type with \
+                  infoExcl "non-BOOLEAN return type with \
                             \conditional out parameters"
                 *)
           in
@@ -1739,7 +1756,7 @@ fun makeFunctionSpec
 
     val functionTy = foldr TyFun retTy argTys
   in
-    (mkValSpec (functionNameId, functionTy), (iRefs'3, errs))
+    (mkValSpec (functionNameId, functionTy), (iRefs'3, excls))
   end
 
 (*
@@ -2071,7 +2088,7 @@ local
               )
           | ENUM _      => mkLIdLNameExp (prefixInterfaceStrId iRef ["null"])
           | _           =>
-              infoError "initVal for unidentified INTERFACE not supported"
+              infoExcl "initVal for unidentified INTERFACE not supported"
         end
     | _     => mkIdLNameExp name
 
@@ -2178,7 +2195,7 @@ in
               }    => (
                 case info of
                   ISCALAR {ty, ...} => (name, mkLenParamExp ty arrayInfo arrayName) :: ms
-                | _                 => infoError "non-scalar length parameter"
+                | _                 => infoExcl "non-scalar length parameter"
               )
             | NONE => ms
           fun addN ns = (fromFunExp (), name) :: ns
@@ -2308,8 +2325,8 @@ fun makeFunctionStrDecHighLevel
   repo
   vers
   (optRootContainerIRef : (interfaceref * interfaceref) option)
-  (functionInfo, ((iRefs, structDeps), errs))
-  : strdec * ((interfaceref list * struct1 ListDict.t) * infoerrorhier list) =
+  (functionInfo, ((iRefs, structDeps), excls))
+  : strdec * ((interfaceref list * struct1 ListDict.t) * info_excl_hier list) =
   let
     val () = checkDeprecated functionInfo
 
@@ -2366,7 +2383,7 @@ fun makeFunctionStrDecHighLevel
               ([(withFun, argVal)], SOME inParamAPat)
             end
         | NONE      =>
-            infoError "function outside interface has method flag set"
+            infoExcl "function outside interface has method flag set"
       else
         ([], NONE)
     val revKs'1 = []
@@ -2405,7 +2422,7 @@ fun makeFunctionStrDecHighLevel
         case optContainerIRef of
           SOME _ => optContainerIRef
         | NONE   =>
-            infoError "function outside interface has constructor flag set"
+            infoExcl "function outside interface has constructor flag set"
       else
         NONE
     val (retFromFun, (iRefs'3, structDeps'3)) =
@@ -2541,7 +2558,7 @@ fun makeFunctionStrDecHighLevel
                 * In future, when conditional outs can be identifed
                 * the last two cases will be:
                 *
-                  infoError "non-BOOLEAN return type with \
+                  infoExcl "non-BOOLEAN return type with \
                             \conditional out parameters"
                 *)
             val retExp =
@@ -2573,7 +2590,7 @@ fun makeFunctionStrDecHighLevel
           ]
         )
       ),
-      ((iRefs'3, structDeps'3), errs)
+      ((iRefs'3, structDeps'3), excls)
     )
   end
 
@@ -2940,8 +2957,8 @@ fun makeFunctionStrDecLowLevelPolyML
   repo
   vers
   (optRootContainerIRef : (interfaceref * interfaceref) option)
-  (functionInfo, errs)
-  : strdec * infoerrorhier list =
+  (functionInfo, excls)
+  : strdec * info_excl_hier list =
   let
     val () = checkDeprecated functionInfo
 
@@ -2985,7 +3002,7 @@ fun makeFunctionStrDecLowLevelPolyML
         case optContainerIRef of
           SOME iRef => [parSelfConv iRef]
         | NONE      =>
-            infoError "function outside interface has method flag set"
+            infoExcl "function outside interface has method flag set"
       else
         []
 
@@ -3046,7 +3063,7 @@ fun makeFunctionStrDecLowLevelPolyML
   in
     (
       StrDecDec (mkIdValDec (functionNameId, functionExp)),
-      errs
+      excls
     )
   end
 
@@ -3613,8 +3630,8 @@ fun makeFunctionStrDecLowLevelMLton
   repo
   vers
   (optRootContainerIRef : (interfaceref * interfaceref) option)
-  (functionInfo, errs)
-  : strdec * infoerrorhier list =
+  (functionInfo, excls)
+  : strdec * info_excl_hier list =
   let
     val () = checkDeprecated functionInfo
 
@@ -3658,7 +3675,7 @@ fun makeFunctionStrDecLowLevelMLton
         case optContainerIRef of
           SOME iRef => [parSelfType iRef]
         | NONE      =>
-            infoError "function outside interface has method flag set"
+            infoExcl "function outside interface has method flag set"
       else
         []
 
@@ -3709,7 +3726,7 @@ fun makeFunctionStrDecLowLevelMLton
   in
     (
       StrDecDec (mkIdValDec (functionNameId, functionExp)),
-      errs
+      excls
     )
   end
 
@@ -3746,23 +3763,23 @@ fun addFunctionStrDecsLowLevel
   optRootContainerIRef =
   if isPolyML
   then
-    fn (containerInfo, (strDecs, errs)) =>
+    fn (containerInfo, (strDecs, excls)) =>
       let
         val acc'1 =
-          revMapInfosWithErrs
+          revMapInfosWithExcls
             getNMethods
             getMethod
             (makeFunctionStrDecLowLevelPolyML repo vers optRootContainerIRef)
-            (containerInfo, ([], errs))
-        val (localStrDecs'2, errs'2) = addInitStrDecs isPolyML acc'1
+            (containerInfo, ([], excls))
+        val (localStrDecs'2, excls'2) = addInitStrDecs isPolyML acc'1
       in
         case localStrDecs'2 of
-          _ :: _ => (mkPolyMLFFILocalStrDec localStrDecs'2 :: strDecs, errs'2)
-        | _      => (strDecs, errs'2)
+          _ :: _ => (mkPolyMLFFILocalStrDec localStrDecs'2 :: strDecs, excls'2)
+        | _      => (strDecs, excls'2)
       end
   else
     addInitStrDecs isPolyML o
-      revMapInfosWithErrs
+      revMapInfosWithExcls
         getNMethods
         getMethod
         (makeFunctionStrDecLowLevelMLton repo vers optRootContainerIRef)

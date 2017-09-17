@@ -26,4 +26,5 @@ signature G_I_REPOSITORY_TYPE_TAG =
     include
       ENUM
         where type t = enum
+    val toString : t -> string
   end

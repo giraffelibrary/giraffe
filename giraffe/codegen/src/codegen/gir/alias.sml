@@ -9,16 +9,16 @@ fun makeAliasSig
   (_              : 'a RepositoryClass.class)
   (aliasNamespace : string)
   (aliasInfo      : 'b AliasInfoClass.class)
-  (errs'0         : infoerrorhier list)
-  : id * program * id list * infoerrorhier list =
+  (excls'0        : info_excl_hier list)
+  : id * program * id list * info_excl_hier list =
   let
     val () = checkDeprecated aliasInfo
 
     val aliasName = getName aliasInfo
     val () = checkAliasName (aliasNamespace, SOME aliasName)
 
-    fun notExpected s = infoError ("type " ^ s ^ " not expected")
-    fun notSupported s = infoError ("type " ^ s ^ " not supported")
+    fun notExpected s = infoExcl ("type " ^ s ^ " not expected")
+    fun notSupported s = infoExcl ("type " ^ s ^ " not supported")
 
     fun makeSourceRefSig {name, namespace, ty} =
       let
@@ -137,7 +137,7 @@ fun makeAliasSig
     val sigDec = toList1 [(aliasSigId, qSig)]
     val program = [ModuleDecSig sigDec]
   in
-    (aliasSigId, Portable program, sigDeps, errs'0)
+    (aliasSigId, Portable program, sigDeps, excls'0)
   end
 
 
@@ -147,8 +147,8 @@ fun makeAliasStr
   (_              : 'a RepositoryClass.class)
   (aliasNamespace : string)
   (aliasInfo      : 'b AliasInfoClass.class)
-  (errs'0         : infoerrorhier list)
-  : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
+  (excls'0        : info_excl_hier list)
+  : id * (spec list * strdec list) * program * interfaceref list * info_excl_hier list =
   let
     val () = checkDeprecated aliasInfo
 
@@ -156,8 +156,8 @@ fun makeAliasStr
     val () = checkAliasName (aliasNamespace, SOME aliasName)
 
     (* module *)
-    fun notExpected s = infoError ("type " ^ s ^ " not expected")
-    fun notSupported s = infoError ("type " ^ s ^ " not supported")
+    fun notExpected s = infoExcl ("type " ^ s ^ " not expected")
+    fun notSupported s = infoExcl ("type " ^ s ^ " not supported")
 
     fun makeSourceRefStr {name, namespace, ty} =
       let
@@ -319,6 +319,6 @@ fun makeAliasStr
       (aliasSpecs, aliasStrDecs),
       Specific {mlton = program, polyml = program},
       iRefs,
-      errs'0
+      excls'0
     )
   end

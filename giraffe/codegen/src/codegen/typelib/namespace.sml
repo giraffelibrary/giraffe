@@ -27,7 +27,7 @@ fun translateInfo
         functions'0,
         structDeps'0
       ),
-      errs'0
+      excls'0
     )
   ) =
   case InfoType.getType baseInfo of
@@ -46,14 +46,14 @@ fun translateInfo
         ) =
           makeObjectClassStr repo namespace objectInfo
 
-        val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeObjectStr repo vers namespace objectInfo errs'0
+        val (strId, strSpecDec, strProgram, strIRefs, excls'1) =
+          makeObjectStr repo vers namespace objectInfo excls'0
 
         val classStrDeps = map makeIRefInterfaceOtherStrId classStrIRefs
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
-        val (sigId, sigProgram, sigDeps, errs'2) =
-          makeObjectSig repo vers namespace objectInfo errs'1
+        val (sigId, sigProgram, sigDeps, excls'2) =
+          makeObjectSig repo vers namespace objectInfo excls'1
 
         val isClassSigPortable = isPortable classSigProgram
         val isClassStrPortable = isPortable classStrProgram
@@ -86,7 +86,7 @@ fun translateInfo
           )
         val modules'1 = (files'1, sigs'1, strs'1)
       in
-        ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
+        ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
       end
   | InfoType.INTERFACE interfaceInfo =>
       let
@@ -103,14 +103,14 @@ fun translateInfo
         ) =
           makeInterfaceClassStr repo namespace interfaceInfo
 
-        val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeInterfaceStr repo vers namespace interfaceInfo errs'0
+        val (strId, strSpecDec, strProgram, strIRefs, excls'1) =
+          makeInterfaceStr repo vers namespace interfaceInfo excls'0
 
         val classStrDeps = map makeIRefInterfaceOtherStrId classStrIRefs
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
-        val (sigId, sigProgram, sigDeps, errs'2) =
-          makeInterfaceSig repo vers namespace interfaceInfo errs'1
+        val (sigId, sigProgram, sigDeps, excls'2) =
+          makeInterfaceSig repo vers namespace interfaceInfo excls'1
 
         val isClassSigPortable = isPortable classSigProgram
         val isClassStrPortable = isPortable classStrProgram
@@ -143,7 +143,7 @@ fun translateInfo
           )
         val modules'1 = (files'1, sigs'1, strs'1)
       in
-        ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
+        ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
       end
   | InfoType.STRUCT structInfo       =>
       let
@@ -160,14 +160,14 @@ fun translateInfo
         ) =
           makeStructRecordStr repo vers namespace structInfo
 
-        val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeStructStr repo vers namespace structInfo errs'0
+        val (strId, strSpecDec, strProgram, strIRefs, excls'1) =
+          makeStructStr repo vers namespace structInfo excls'0
 
         val recordStrDeps = map makeIRefInterfaceOtherStrId recordStrIRefs
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
-        val (sigId, sigProgram, sigDeps, errs'2) =
-          makeStructSig repo vers namespace structInfo errs'1
+        val (sigId, sigProgram, sigDeps, excls'2) =
+          makeStructSig repo vers namespace structInfo excls'1
 
         val isRecordSigPortable = isPortable recordSigProgram
         val isRecordStrPortable = isPortable recordStrProgram
@@ -200,7 +200,7 @@ fun translateInfo
           )
         val modules'1 = (files'1, sigs'1, strs'1)
       in
-        ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
+        ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
       end
   | InfoType.UNION unionInfo         =>
       if
@@ -215,13 +215,13 @@ fun translateInfo
         let
           val () = checkInterfaceType unionInfo
 
-          val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-            makeUnionStr repo vers namespace unionInfo errs'0
+          val (strId, strSpecDec, strProgram, strIRefs, excls'1) =
+            makeUnionStr repo vers namespace unionInfo excls'0
 
           val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
-          val (sigId, sigProgram, sigDeps, errs'2) =
-            makeUnionSig repo vers namespace unionInfo errs'1
+          val (sigId, sigProgram, sigDeps, excls'2) =
+            makeUnionSig repo vers namespace unionInfo excls'1
 
           val isSigPortable = isPortable sigProgram
           val isStrPortable = isPortable strProgram
@@ -243,7 +243,7 @@ fun translateInfo
             )
           val modules'1 = (files'1, sigs'1, strs'1)
         in
-          ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
+          ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
         end
       else
         acc
@@ -251,13 +251,13 @@ fun translateInfo
       let
         val () = checkInterfaceType enumInfo
 
-        val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeFlagsStr repo vers namespace enumInfo errs'0
+        val (strId, strSpecDec, strProgram, strIRefs, excls'1) =
+          makeFlagsStr repo vers namespace enumInfo excls'0
 
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
-        val (sigId, sigProgram, sigDeps, errs'2) =
-          makeFlagsSig repo vers namespace enumInfo errs'1
+        val (sigId, sigProgram, sigDeps, excls'2) =
+          makeFlagsSig repo vers namespace enumInfo excls'1
 
         val isSigPortable = isPortable sigProgram
         val isStrPortable = isPortable strProgram
@@ -279,19 +279,19 @@ fun translateInfo
           )
         val modules'1 = (files'1, sigs'1, strs'1)
       in
-        ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
+        ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
       end
   | InfoType.ENUM enumInfo           =>
       let
         val () = checkInterfaceType enumInfo
 
-        val (strId, strSpecDec, strProgram, strIRefs, errs'1) =
-          makeEnumStr repo vers namespace enumInfo errs'0
+        val (strId, strSpecDec, strProgram, strIRefs, excls'1) =
+          makeEnumStr repo vers namespace enumInfo excls'0
 
         val strDeps = map makeIRefInterfaceOtherStrId strIRefs
 
-        val (sigId, sigProgram, sigDeps, errs'2) =
-          makeEnumSig repo vers namespace enumInfo errs'1
+        val (sigId, sigProgram, sigDeps, excls'2) =
+          makeEnumSig repo vers namespace enumInfo excls'1
 
         val isSigPortable = isPortable sigProgram
         val isStrPortable = isPortable strProgram
@@ -313,37 +313,37 @@ fun translateInfo
           )
         val modules'1 = (files'1, sigs'1, strs'1)
       in
-        ((modules'1, constants'0, functions'0, structDeps'0), errs'2)
+        ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
       end
   | InfoType.CONSTANT constantInfo   =>
       let
-        val (spec, (_, errs'1)) =
-          makeConstantSpec (constantInfo, ([], errs'0))
+        val (spec, (_, excls'1)) =
+          makeConstantSpec (constantInfo, ([], excls'0))
 
-        val (strDec, ((_, structDeps'1), errs'2)) =
-          makeConstantStrDec (constantInfo, (([], structDeps'0), errs'1))
+        val (strDec, ((_, structDeps'1), excls'2)) =
+          makeConstantStrDec (constantInfo, (([], structDeps'0), excls'1))
 
         val (specs'0, strDecs'0) = constants'0
         val constants'1 = (spec :: specs'0, strDec :: strDecs'0)
       in
-        ((modules'0, constants'1, functions'0, structDeps'1), errs'2)
+        ((modules'0, constants'1, functions'0, structDeps'1), excls'2)
       end
   | InfoType.FUNCTION functionInfo   =>
       let
-        val (spec, (_, errs'1)) =
-          makeFunctionSpec repo vers NONE (functionInfo, ([], errs'0))
+        val (spec, (_, excls'1)) =
+          makeFunctionSpec repo vers NONE (functionInfo, ([], excls'0))
 
-        val (strDecHighLevel, ((_, structDeps'1), errs'2)) =
+        val (strDecHighLevel, ((_, structDeps'1), excls'2)) =
           makeFunctionStrDecHighLevel repo vers NONE
-            (functionInfo, (([], structDeps'0), errs'1))
+            (functionInfo, (([], structDeps'0), excls'1))
 
-        val (strDecLowLevelPolyML, errs'3) =
+        val (strDecLowLevelPolyML, excls'3) =
           makeFunctionStrDecLowLevelPolyML repo vers NONE
-            (functionInfo, errs'2)
+            (functionInfo, excls'2)
 
-        val (strDecLowLevelMLton, errs'4) =
+        val (strDecLowLevelMLton, excls'4) =
           makeFunctionStrDecLowLevelMLton repo vers NONE
-            (functionInfo, errs'3)
+            (functionInfo, excls'3)
 
         val (
           specs'0,
@@ -358,7 +358,7 @@ fun translateInfo
           strDecLowLevelPolyML :: strDecsLowLevelPolyML'0
         )
       in
-        ((modules'0, constants'0, functions'1, structDeps'1), errs'4)
+        ((modules'0, constants'0, functions'1, structDeps'1), excls'4)
       end
   | _                                => acc
 
@@ -369,11 +369,11 @@ fun translateLoadedNamespace repo vers namespace =
     val constants'0 = ([], [])
     val functions'0 = ([], [], [], [])
     val structDeps'0 = ListDict.empty
-    val errs'0 = []
+    val excls'0 = []
   in
-    revFoldInfosWithErrs
+    revFoldInfosWithExcls
       (Repository.getNInfos repo vers)
       (Repository.getInfo repo vers)
       (translateInfo repo vers namespace)
-      (namespace, ((modules'0, constants'0, functions'0, structDeps'0), errs'0))
+      (namespace, ((modules'0, constants'0, functions'0, structDeps'0), excls'0))
   end

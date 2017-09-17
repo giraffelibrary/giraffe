@@ -12,16 +12,16 @@ fun mkConstantNameId constantName = mkId constantName
 (* Specification *)
 
 fun makeConstantSpec
-  (constantInfo, (iRefs, errs))
-  : spec * (interfaceref list * infoerrorhier list) =
+  (constantInfo, (iRefs, excls))
+  : spec * (interfaceref list * info_excl_hier list) =
   let
     val () = checkDeprecated constantInfo
 
     val constantName = getName constantInfo
     val constantNameId = mkConstantNameId constantName
 
-    fun notExpected s = infoError ("constant type " ^ s ^ " not expected")
-    fun notSupported s = infoError ("constant type " ^ s ^ " not supported")
+    fun notExpected s = infoExcl ("type " ^ s ^ " not expected")
+    fun notSupported s = infoExcl ("type " ^ s ^ " not supported")
 
     val boolRefTy = ([], toList1 ["bool"])
     val charRefTy = ([], toList1 ["char"])
@@ -72,23 +72,23 @@ fun makeConstantSpec
 
     val iRefs'1 = iRefs
   in
-    (mkValSpec (constantNameId, constantTy), (iRefs'1, errs))
+    (mkValSpec (constantNameId, constantTy), (iRefs'1, excls))
   end
 
 
 (* Declaration *)
 
 fun makeConstantStrDec
-  (constantInfo, ((iRefs, structs), errs))
-  : strdec * ((interfaceref list * struct1 ListDict.t) * infoerrorhier list) =
+  (constantInfo, ((iRefs, structs), excls))
+  : strdec * ((interfaceref list * struct1 ListDict.t) * info_excl_hier list) =
   let
     val () = checkDeprecated constantInfo
 
     val constantName = getName constantInfo
     val constantNameId = mkConstantNameId constantName
 
-    fun notExpected s = infoError ("constant type " ^ s ^ " not expected")
-    fun notSupported s = infoError ("constant type " ^ s ^ " not supported")
+    fun notExpected s = infoExcl ("constant type " ^ s ^ " not expected")
+    fun notSupported s = infoExcl ("constant type " ^ s ^ " not supported")
 
     val value = ConstantInfo.getValue constantInfo
     open Argument
@@ -134,6 +134,6 @@ fun makeConstantStrDec
   in
     (
       StrDecDec (mkIdValDec (constantNameId, constantExp)),
-      ((iRefs'1, structs), errs)
+      ((iRefs'1, structs), excls)
     )
   end

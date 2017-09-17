@@ -10,8 +10,8 @@ fun mkInterfaceConvId interfaceName = "as" ^ toUCC interfaceName
 fun makeInterfaceConvSpec
   _
   (containerIRef as {namespace = containerNamespace, ...} : interfaceref)
-  (interfaceInfo, (iRefs, errs))
-  : spec * (interfaceref list * infoerrorhier list) =
+  (interfaceInfo, (iRefs, excls))
+  : spec * (interfaceref list * info_excl_hier list) =
   let
     val () = checkDeprecated interfaceInfo
 
@@ -48,7 +48,7 @@ fun makeInterfaceConvSpec
        makeIRefLocalTypeRef (makeRefBaseTy false) (interfaceIRef, tyVarIdx'1)
     val interfaceConvTy = TyFun (containerTy, interfaceTy)
   in
-    (mkValSpec (interfaceConvId, interfaceConvTy), (iRefs'1, errs))
+    (mkValSpec (interfaceConvId, interfaceConvTy), (iRefs'1, excls))
   end
 
 
@@ -58,8 +58,8 @@ fun makeInterfaceConvStrDec
   _
   rootObjectIRef
   ({namespace = containerNamespace, ...} : interfaceref)
-  (interfaceInfo, ((iRefs, structDeps), errs))
-  : strdec * ((interfaceref list * struct1 ListDict.t) * infoerrorhier list) =
+  (interfaceInfo, ((iRefs, structDeps), excls))
+  : strdec * ((interfaceref list * struct1 ListDict.t) * info_excl_hier list) =
   let
     val () = checkDeprecated interfaceInfo
 
@@ -132,6 +132,6 @@ fun makeInterfaceConvStrDec
           ]
         )
       ),
-      ((iRefs'1, structDeps), errs)
+      ((iRefs'1, structDeps), excls)
     )
   end

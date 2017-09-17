@@ -59,6 +59,8 @@ val errorLog'2 = List.foldl insert errorLog'1 [
   gen outDir repo ("Vte", "2.91") ([], [], [])
 ]
 
+val () = writeLogFile outDir errorLog'2
+
 
 (* Remove state file *)
 

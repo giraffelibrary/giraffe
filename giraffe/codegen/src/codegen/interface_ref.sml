@@ -10,7 +10,8 @@ fun checkInterfaceType interfaceInfo =
   in
     if
       List.exists (fn x => x = fullName) (!excludedInterfaceTypes)
-    then infoError "interface type manually excluded"
+    then infoExcl "interface type excluded by configuration \
+                                                      \(excludedInterfaceTypes)"
     else ()
   end
 

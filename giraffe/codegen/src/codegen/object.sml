@@ -386,32 +386,32 @@ end
 (* Object signature *)
 
 fun addObjectInterfaceConvSpecs repo objectIRef =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     ObjectInfo.getNInterfaces
     ObjectInfo.getInterface
     (makeInterfaceConvSpec repo objectIRef)
 
 fun addObjectConstantSpecs x =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     ObjectInfo.getNConstants
     ObjectInfo.getConstant
     makeConstantSpec
     x
 
 fun addObjectMethodSpecs repo vers objectIRef =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     ObjectInfo.getNMethods
     ObjectInfo.getMethod
     (makeFunctionSpec repo vers (SOME objectIRef))
 
 fun addObjectSignalSpecs repo objectIRef =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     ObjectInfo.getNSignals
     ObjectInfo.getSignal
     (makeSignalSpec repo objectIRef)
 
 fun addObjectPropertySpecs repo objectIRef =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     ObjectInfo.getNProperties
     ObjectInfo.getProperty
     (makePropertySpec repo objectIRef)
@@ -421,8 +421,8 @@ fun makeObjectSig
   (vers            : Repository.typelibvers_t)
   (objectNamespace : string)
   (objectInfo      : 'b ObjectInfoClass.class)
-  (errs'0          : infoerrorhier list)
-  : id * program * id list * infoerrorhier list =
+  (excls'0         : info_excl_hier list)
+  : id * program * id list * info_excl_hier list =
   let
     val () = checkDeprecated objectInfo
 
@@ -442,15 +442,15 @@ fun makeObjectSig
     val acc'0
       : spec list
          * interfaceref list
-         * infoerrorhier list =
-      ([], [], errs'0)
+         * info_excl_hier list =
+      ([], [], excls'0)
     val acc'1 = addObjectPropertySpecs repo objectIRef (objectInfo, acc'0)
     val acc'2 = addObjectSignalSpecs repo objectIRef (objectInfo, acc'1)
     val acc'3 = addObjectMethodSpecs repo vers objectIRef (objectInfo, acc'2)
     val acc'4 = addGetTypeFunctionSpec typeIRef acc'3
     val acc'5 = addObjectConstantSpecs (objectInfo, acc'4)
     val acc'6 = addObjectInterfaceConvSpecs repo objectIRef (objectInfo, acc'5)
-    val (specs'6, iRefs'6, errs'6) = acc'6
+    val (specs'6, iRefs'6, excls'6) = acc'6
 
     val sigIRefs =
       objectIRef :: iRefs'6  (* `objectIRef` for class structure dependence *)
@@ -496,20 +496,20 @@ fun makeObjectSig
     val program = [ModuleDecSig sigDec]
     val sigDeps = []
   in
-    (objectSigId, Portable program, sigDeps, errs'6)
+    (objectSigId, Portable program, sigDeps, excls'6)
   end
 
 
 (* Object structure *)
 
 fun addObjectInterfaceConvStrDecs repo rootObjectIRef objectIRef =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     ObjectInfo.getNInterfaces
     ObjectInfo.getInterface
     (makeInterfaceConvStrDec repo rootObjectIRef objectIRef)
 
 fun addObjectConstantStrDecs x =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     ObjectInfo.getNConstants
     ObjectInfo.getConstant
     makeConstantStrDec
@@ -531,20 +531,20 @@ fun addObjectMethodStrDecsLowLevel
     (SOME (rootObjectIRef, objectIRef))
 
 fun addObjectMethodStrDecsHighLevel repo vers rootObjectIRef objectIRef =
-  revFoldMapInfosWithErrs
+  revFoldMapInfosWithExcls
     ObjectInfo.getNMethods
     ObjectInfo.getMethod
     (makeFunctionStrDecHighLevel repo vers (SOME (rootObjectIRef, objectIRef)))
 
 fun addObjectSignalStrDecs repo objectIRef =
-  fn (objectInfo, (strDecs, x, errs)) =>
+  fn (objectInfo, (strDecs, x, excls)) =>
     let
-      val (localStrDecs, x', errs') =
-        revFoldMapInfosWithErrs
+      val (localStrDecs, x', excls') =
+        revFoldMapInfosWithExcls
           ObjectInfo.getNSignals
           ObjectInfo.getSignal
           (makeSignalStrDec repo objectIRef)
-          (objectInfo, ([], x, errs))
+          (objectInfo, ([], x, excls))
     in
       case localStrDecs of
         _ :: _ =>
@@ -564,20 +564,20 @@ fun addObjectSignalStrDecs repo objectIRef =
                 mkStrDecs localStrDecs
               )
           in
-            (strDec :: strDecs, x', errs')
+            (strDec :: strDecs, x', excls')
           end
-      | _      => (strDecs, x', errs')
+      | _      => (strDecs, x', excls')
     end
 
 fun addObjectPropertyStrDecs repo objectIRef =
-  fn (objectInfo, (strDecs, x, errs)) =>
+  fn (objectInfo, (strDecs, x, excls)) =>
     let
-      val (localStrDecs, x', errs') =
-        revFoldMapInfosWithErrs
+      val (localStrDecs, x', excls') =
+        revFoldMapInfosWithExcls
           ObjectInfo.getNProperties
           ObjectInfo.getProperty
           (makePropertyStrDec repo objectIRef)
-          (objectInfo, ([], x, errs))
+          (objectInfo, ([], x, excls))
     in
       case localStrDecs of
         _ :: _ =>
@@ -596,9 +596,9 @@ fun addObjectPropertyStrDecs repo objectIRef =
                 mkStrDecs localStrDecs
               )
           in
-            (strDec :: strDecs, x', errs')
+            (strDec :: strDecs, x', excls')
           end
-      | _      => (strDecs, x', errs')
+      | _      => (strDecs, x', excls')
     end
 
 fun makeObjectStr
@@ -606,8 +606,8 @@ fun makeObjectStr
   (vers            : Repository.typelibvers_t)
   (objectNamespace : string)
   (objectInfo      : 'b ObjectInfoClass.class)
-  (errs'0          : infoerrorhier list)
-  : id * (spec list * strdec list) * program * interfaceref list * infoerrorhier list =
+  (excls'0         : info_excl_hier list)
+  : id * (spec list * strdec list) * program * interfaceref list * info_excl_hier list =
   let
     val () = checkDeprecated objectInfo
 
@@ -637,8 +637,8 @@ fun makeObjectStr
     val acc'0
       : strdec list
          * (interfaceref list * struct1 ListDict.t)
-         * infoerrorhier list =
-      ([], ([], ListDict.empty), errs'0)
+         * info_excl_hier list =
+      ([], ([], ListDict.empty), excls'0)
     val acc'1 = addObjectPropertyStrDecs repo objectIRef (objectInfo, acc'0)
     val acc'2 = addObjectSignalStrDecs repo objectIRef (objectInfo, acc'1)
     val acc'3 =
@@ -656,7 +656,7 @@ fun makeObjectStr
         rootObjectIRef
         objectIRef
         (objectInfo, acc'5)
-    val (strDecs'6, (iRefs'6, structDeps'6), errs'6) = acc'6
+    val (strDecs'6, (iRefs'6, structDeps'6), excls'6) = acc'6
 
     val strIRefs =
       objectIRef :: iRefs'6  (* `objectIRef` for class structure dependence *)
@@ -716,7 +716,7 @@ fun makeObjectStr
             (addGetTypeFunctionStrDecLowLevel getTypeSymbol)
             rootObjectIRef
             objectIRef
-            (objectInfo, (strDecs'10, errs'6))
+            (objectInfo, (strDecs'10, excls'6))
 
         val strDecs'12 =
           revMapAppend mkStructStrDec
@@ -772,6 +772,6 @@ fun makeObjectStr
       ([objectSpec], [objectStrDec]),
       Specific {mlton = programMLton, polyml = programPolyML},
       strIRefs,
-      errs'6
+      excls'6
     )
   end

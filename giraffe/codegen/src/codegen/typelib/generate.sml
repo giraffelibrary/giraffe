@@ -425,7 +425,7 @@ fun generate dir repo (namespace, version) (extraVers, extraSigs, extraStrs) =
         getOpt (Repository.getDependencies repo vers namespace, [])
 
       (* generate code for the entire namespace *)
-      val ((modules, constants, functions, structDeps), errs) =
+      val ((modules, constants, functions, structDeps), excls) =
         translateLoadedNamespace repo vers namespace
 
       val (files'1, sigs'1, strs'1) = modules
@@ -504,7 +504,7 @@ fun generate dir repo (namespace, version) (extraVers, extraSigs, extraStrs) =
       ListDict.appi (writeProgramFile namespaceDir) files'2;
 
       OS.FileSys.chDir curDir;
-      errs
+      excls
     end
       handle
         e => (OS.FileSys.chDir curDir; raise e)
@@ -575,3 +575,78 @@ fun extendStrDeps strId strDeps =
       )
     )
   end
+
+
+(* Write excluded log file *)
+
+local
+  open HVTextTree
+
+  val indent = V.indentWith (H.str "  ") true
+
+  local
+    val startTag = "<tree style=\"lines\">"
+    val endTag = "</tree>"
+  in
+    fun makeTree v = V.seq [V.str startTag, indent v, V.str endTag]
+  end
+
+  local
+    val startTag = "<item>"
+    val endTag = "</item>"
+  in
+    fun makeHItem h = H.seq [H.str startTag, h, H.str endTag]
+    fun makeVItem v = V.seq [V.str startTag, indent v, V.str endTag]
+  end
+
+  fun fmtInfoExclHier ((ty, optName), infoExcl) =
+    let
+      val h = 
+        H.seq [
+          H.str ty,
+          case optName of
+            SOME name => H.seq [H.sp 1, H.str name]
+          | NONE      => H.empty,
+          case infoExcl of
+            IEMsg msg => H.seq [H.str ": ", H.str msg]
+          | IEGrp _   => H.empty
+        ]
+    in
+      case infoExcl of
+        IEMsg _     => V.line (makeHItem h)
+      | IEGrp excls => makeVItem (
+          V.seq [
+            V.line h,
+            V.seq (map fmtInfoExclHier excls)
+          ]
+        )
+    end
+
+  fun fmtLogVersion namespace (version, excls) =
+    makeVItem (
+      V.seq [
+        V.str (String.concat [namespace, "-", version]),
+        V.seq (map fmtInfoExclHier excls)
+      ]
+    )
+
+  fun fmtLogNamespace (namespace, versionDict) =
+    V.seq (revMap (fmtLogVersion namespace) (ListDict.toList versionDict))
+
+  val pageStartTag = "<page xmlns=\"http://projectmallard.org/1.0/\">"
+  val pageEndTag = "</page>"
+
+  val file = "excluded-log.page"
+in
+  fun writeLogFile dir (excludedLog : info_excl_hier list ListDict.t ListDict.t) =
+    let
+      val text =
+        V.seq [
+          V.str pageStartTag,
+          makeTree (V.seq (revMap fmtLogNamespace (ListDict.toList excludedLog))),
+          V.str pageEndTag
+        ]
+    in
+      writeFile dir file text
+    end
+end

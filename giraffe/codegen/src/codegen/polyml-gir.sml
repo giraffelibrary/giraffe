@@ -1,5 +1,5 @@
 use "utilities.sml";
-use "girepository.sml";
+use "gir/girepository.sml";
 use "syntax.sml";
 use "interface_ref.sml";
 use "gir/function.sml";
