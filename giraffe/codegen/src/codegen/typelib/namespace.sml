@@ -318,10 +318,11 @@ fun translateInfo
   | InfoType.CONSTANT constantInfo   =>
       let
         val (spec, (_, excls'1)) =
-          makeConstantSpec (constantInfo, ([], excls'0))
+          makeConstantSpec repo vers (constantInfo, ([], excls'0))
 
         val (strDec, ((_, structDeps'1), excls'2)) =
-          makeConstantStrDec (constantInfo, (([], structDeps'0), excls'1))
+          makeConstantStrDec repo vers
+            (constantInfo, (([], structDeps'0), excls'1))
 
         val (specs'0, strDecs'0) = constants'0
         val constants'1 = (spec :: specs'0, strDec :: strDecs'0)

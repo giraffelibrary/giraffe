@@ -2,6 +2,43 @@
  * Constant
  * -------------------------------------------------------------------------- *)
 
+(* Constant names to be skipped *)
+
+(* Manually specified names *)
+val excludedConstantNames : string list nvs_list ref = ref []
+val excludedConstantNamePrefixes : string list nvs_list ref = ref []
+val excludedConstantNameSuffixes : string list nvs_list ref = ref []
+
+fun checkConstantName repo vers constantInfo =
+  let
+    val name = getName constantInfo
+    val namespace = BaseInfo.getNamespace constantInfo
+    val version = Repository.getVersion repo vers namespace
+    val nv = (namespace, version)
+    fun check p =
+      List.exists (
+        fn (nvs, xs) =>
+          List.exists (fn x => x = nv) nvs andalso List.exists p xs
+      )
+    fun infoExclConstantName match =
+      infoExcl (concat ["constant excluded by configuration (", match, ")"])
+  in
+    if check (fn x => x = name) (!excludedConstantNames)
+    then infoExclConstantName "excludedConstantNames"
+    else if
+      check (fn x => String.isPrefix x name)
+        (!excludedConstantNamePrefixes)
+    then
+      infoExclConstantName "excludedConstantNamePrefixes"
+    else if
+      check (fn x => String.isSuffix x name)
+        (!excludedConstantNameSuffixes)
+    then
+      infoExclConstantName "excludedConstantNameSuffixes"
+    else ()
+  end
+
+
 (* For constant names, we must preserve the case from the GIR file beacause
  * the names of upper- and lowercase variants of a Gdk key constant are
  * usually distinguished only by case.  For example, "KEY_A" and "KEY_a".
@@ -12,10 +49,14 @@ fun mkConstantNameId constantName = mkId constantName
 (* Specification *)
 
 fun makeConstantSpec
+  repo
+  vers
   (constantInfo, (iRefs, excls))
   : spec * (interfaceref list * info_excl_hier list) =
   let
     val () = checkDeprecated constantInfo
+
+    val () = checkConstantName repo vers constantInfo
 
     val constantName = getName constantInfo
     val constantNameId = mkConstantNameId constantName
@@ -65,10 +106,14 @@ fun makeConstantSpec
 (* Declaration *)
 
 fun makeConstantStrDec
+  repo
+  vers
   (constantInfo, ((iRefs, structs), excls))
   : strdec * ((interfaceref list * struct1 ListDict.t) * info_excl_hier list) =
   let
     val () = checkDeprecated constantInfo
+
+    val () = checkConstantName repo vers constantInfo
 
     val constantName = getName constantInfo
     val constantNameId = mkConstantNameId constantName

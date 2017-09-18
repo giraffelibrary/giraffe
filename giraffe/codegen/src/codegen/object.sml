@@ -391,11 +391,11 @@ fun addObjectInterfaceConvSpecs repo objectIRef =
     ObjectInfo.getInterface
     (makeInterfaceConvSpec repo objectIRef)
 
-fun addObjectConstantSpecs x =
+fun addObjectConstantSpecs repo vers x =
   revFoldMapInfosWithExcls
     ObjectInfo.getNConstants
     ObjectInfo.getConstant
-    makeConstantSpec
+    (makeConstantSpec repo vers)
     x
 
 fun addObjectMethodSpecs repo vers objectIRef =
@@ -448,7 +448,7 @@ fun makeObjectSig
     val acc'2 = addObjectSignalSpecs repo objectIRef (objectInfo, acc'1)
     val acc'3 = addObjectMethodSpecs repo vers objectIRef (objectInfo, acc'2)
     val acc'4 = addGetTypeFunctionSpec typeIRef acc'3
-    val acc'5 = addObjectConstantSpecs (objectInfo, acc'4)
+    val acc'5 = addObjectConstantSpecs repo vers (objectInfo, acc'4)
     val acc'6 = addObjectInterfaceConvSpecs repo objectIRef (objectInfo, acc'5)
     val (specs'6, iRefs'6, excls'6) = acc'6
 
@@ -508,11 +508,11 @@ fun addObjectInterfaceConvStrDecs repo rootObjectIRef objectIRef =
     ObjectInfo.getInterface
     (makeInterfaceConvStrDec repo rootObjectIRef objectIRef)
 
-fun addObjectConstantStrDecs x =
+fun addObjectConstantStrDecs repo vers x =
   revFoldMapInfosWithExcls
     ObjectInfo.getNConstants
     ObjectInfo.getConstant
-    makeConstantStrDec
+    (makeConstantStrDec repo vers)
     x
 
 fun addObjectMethodStrDecsLowLevel
@@ -649,7 +649,7 @@ fun makeObjectStr
         objectIRef
         (objectInfo, acc'2)
     val acc'4 = addGetTypeFunctionStrDecHighLevel typeIRef acc'3
-    val acc'5 = addObjectConstantStrDecs (objectInfo, acc'4)
+    val acc'5 = addObjectConstantStrDecs repo vers (objectInfo, acc'4)
     val acc'6 =
       addObjectInterfaceConvStrDecs
         repo

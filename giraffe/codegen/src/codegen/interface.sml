@@ -254,11 +254,11 @@ end
 
 (* Interface signature *)
 
-fun addInterfaceConstantSpecs x =
+fun addInterfaceConstantSpecs repo vers x =
   revFoldMapInfosWithExcls
     InterfaceInfo.getNConstants
     InterfaceInfo.getConstant
-    makeConstantSpec
+    (makeConstantSpec repo vers)
     x
 
 fun addInterfaceMethodSpecs repo vers interfaceIRef =
@@ -314,7 +314,7 @@ fun makeInterfaceSig
     val acc'3 =
       addInterfaceMethodSpecs repo vers interfaceIRef (interfaceInfo, acc'2)
     val acc'4 = addGetTypeFunctionSpec typeIRef acc'3
-    val acc'5 = addInterfaceConstantSpecs (interfaceInfo, acc'4)
+    val acc'5 = addInterfaceConstantSpecs repo vers (interfaceInfo, acc'4)
     val acc'6 = acc'5
     val (specs'6, iRefs'6, excls'6) = acc'6
 
@@ -369,11 +369,11 @@ fun makeInterfaceSig
 
 (* Interface structure *)
 
-fun addInterfaceConstantStrDecs x =
+fun addInterfaceConstantStrDecs repo vers x =
   revFoldMapInfosWithExcls
     InterfaceInfo.getNConstants
     InterfaceInfo.getConstant
-    makeConstantStrDec
+    (makeConstantStrDec repo vers)
     x
 
 fun addInterfaceMethodStrDecsLowLevel
@@ -514,7 +514,7 @@ fun makeInterfaceStr
         interfaceIRef
         (interfaceInfo, acc'2)
     val acc'4 = addGetTypeFunctionStrDecHighLevel typeIRef acc'3
-    val acc'5 = addInterfaceConstantStrDecs (interfaceInfo, acc'4)
+    val acc'5 = addInterfaceConstantStrDecs repo vers (interfaceInfo, acc'4)
     val acc'6 = acc'5
     val (strDecs'6, (iRefs'6, structDeps'6), excls'6) = acc'6
 

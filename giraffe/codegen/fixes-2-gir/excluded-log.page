@@ -4,16 +4,34 @@
     GLib-2.0
     <item>alias Strv: type VOID not expected</item>
     <item>alias Type: alias excluded by configuration (excludedAliasNames)</item>
+    <item>constant ALLOCATOR_LIST: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant ALLOCATOR_NODE: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant ALLOCATOR_SLIST: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant ALLOC_AND_FREE: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant ALLOC_ONLY: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant ASCII_DTOSTR_BUF_SIZE: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant ATOMIC_OP_USE_GCC_BUILTINS: constant excluded by configuration (excludedConstantNames)</item>
     <item>struct Allocator: struct not included by configuration (structTypes)</item>
     <item>struct Array: struct not included by configuration (structTypes)</item>
     <item>flags AsciiType: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct AsyncQueue: struct not included by configuration (structTypes)</item>
+    <item>constant BIG_ENDIAN: constant excluded by configuration (excludedConstantNameSuffixes)</item>
     <item>struct BookmarkFile: struct not included by configuration (structTypes)</item>
     <item>struct ByteArray: struct not included by configuration (structTypes)</item>
+    <item>constant CAN_INLINE: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant CSET_A_2_Z: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant CSET_DIGITS: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant CSET_a_2_z: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>struct Cache: struct not included by configuration (structTypes)</item>
     <item>struct Checksum: struct not included by configuration (structTypes)</item>
     <item>struct Completion: struct not included by configuration (structTypes)</item>
     <item>struct Cond: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>constant DATALIST_FLAGS_MASK: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant DATE_BAD_DAY: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant DATE_BAD_JULIAN: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant DATE_BAD_YEAR: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant DIR_SEPARATOR: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant DIR_SEPARATOR_S: constant excluded by configuration (excludedConstantNameSuffixes)</item>
     <item>struct Data: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       struct Date
@@ -21,13 +39,13 @@
       <item>function set_time: deprecated</item>
       <item>
         function to_struct_tm
-        <item>arg tm: pointer for VOID not supported</item>
+        <item>arg tm: pointer C type for VOID not supported</item>
       </item>
       <item>function free: non-user function</item>
       <item>function set_time: deprecated</item>
       <item>
         function to_struct_tm
-        <item>arg tm: pointer for VOID not supported</item>
+        <item>arg tm: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>
@@ -36,33 +54,34 @@
       <item>function unref: non-user function</item>
       <item>
         function compare
-        <item>arg dt2: pointer for VOID not supported</item>
+        <item>arg dt2: pointer C type for VOID not supported</item>
       </item>
       <item>
         function equal
-        <item>arg dt2: pointer for VOID not supported</item>
+        <item>arg dt2: pointer C type for VOID not supported</item>
       </item>
       <item>
         function hash
-        <item>arg datetime: pointer for VOID not supported</item>
+        <item>arg datetime: pointer C type for VOID not supported</item>
       </item>
       <item>function ref: non-user function</item>
       <item>function unref: non-user function</item>
       <item>
         function compare
-        <item>arg dt2: pointer for VOID not supported</item>
+        <item>arg dt2: pointer C type for VOID not supported</item>
       </item>
       <item>
         function equal
-        <item>arg dt2: pointer for VOID not supported</item>
+        <item>arg dt2: pointer C type for VOID not supported</item>
       </item>
       <item>
         function hash
-        <item>arg datetime: pointer for VOID not supported</item>
+        <item>arg datetime: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct DebugKey: struct not included by configuration (structTypes)</item>
     <item>struct Dir: struct not included by configuration (structTypes)</item>
+    <item>constant E: constant excluded by configuration (excludedConstantNames)</item>
     <item>
       struct Error
       <item>
@@ -86,61 +105,89 @@
       <item>function free: non-user function</item>
       <item>function matches: function excluded by configuration (excludedFunctionSymbols)</item>
     </item>
+    <item>constant GINT16_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GINT16_MODIFIER: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GINT32_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GINT32_MODIFIER: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GINT64_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GINT64_MODIFIER: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GINTPTR_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GINTPTR_MODIFIER: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GNUC_FUNCTION: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant GNUC_PRETTY_FUNCTION: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant GSIZE_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GSIZE_MODIFIER: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GSSIZE_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GUINT16_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GUINT32_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GUINT64_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GUINTPTR_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant HAVE_GINT64: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant HAVE_GNUC_VARARGS: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant HAVE_GNUC_VISIBILITY: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant HAVE_GROWING_STACK: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant HAVE_INLINE: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant HAVE_ISO_VARARGS: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant HAVE___INLINE: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant HAVE___INLINE__: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant HOOK_FLAG_USER_SHIFT: constant excluded by configuration (excludedConstantNames)</item>
     <item>struct HashTable: struct not included by configuration (structTypes)</item>
     <item>struct HashTableIter: struct not included by configuration (structTypes)</item>
     <item>struct Hmac: struct not included by configuration (structTypes)</item>
     <item>struct Hook: struct not included by configuration (structTypes)</item>
     <item>struct HookList: struct not included by configuration (structTypes)</item>
     <item>struct IConv: struct not included by configuration (structTypes)</item>
+    <item>constant IEEE754_DOUBLE_BIAS: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant IEEE754_FLOAT_BIAS: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>
       struct IOChannel
       <item>
         function get_line_term
         <item>
           arg length
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function read
         <item>
           arg bytes_read
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function read_chars
         <item>
           arg bytes_read
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function read_line
         <item>
           arg terminator_pos
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function read_line_string
         <item>
           arg terminator_pos
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function read_to_end
         <item>
           arg length
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function read_unichar
         <item>
           arg thechar
-          <item>type gunichar: pointer for scalar (UNICHAR) not supported</item>
+          <item>type gunichar: pointer C type for scalar (UNICHAR) not supported</item>
         </item>
       </item>
       <item>function ref: non-user function</item>
@@ -149,14 +196,14 @@
         function write
         <item>
           arg bytes_written
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function write_chars
         <item>
           arg bytes_written
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
@@ -164,49 +211,49 @@
         function get_line_term
         <item>
           arg length
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function read
         <item>
           arg bytes_read
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function read_chars
         <item>
           arg bytes_read
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function read_line
         <item>
           arg terminator_pos
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function read_line_string
         <item>
           arg terminator_pos
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function read_to_end
         <item>
           arg length
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function read_unichar
         <item>
           arg thechar
-          <item>type gunichar: pointer for scalar (UNICHAR) not supported</item>
+          <item>type gunichar: pointer C type for scalar (UNICHAR) not supported</item>
         </item>
       </item>
       <item>function ref: non-user function</item>
@@ -215,14 +262,14 @@
         function write
         <item>
           arg bytes_written
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function write_chars
         <item>
           arg bytes_written
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
@@ -235,7 +282,7 @@
         function to_data
         <item>
           arg length
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
@@ -244,12 +291,19 @@
         function to_data
         <item>
           arg length
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
     </item>
+    <item>constant LITTLE_ENDIAN: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant LN10: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant LN2: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant LOG_2_BASE_10: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant LOG_FATAL_MASK: constant excluded by configuration (excludedConstantNames)</item>
     <item>struct List: struct not included by configuration (structTypes)</item>
+    <item>constant MODULE_SUFFIX: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant MUTEX_DEBUG_MAGIC: constant excluded by configuration (excludedConstantNames)</item>
     <item>
       struct MainContext
       <item>
@@ -277,11 +331,11 @@
       </item>
       <item>
         function find_source_by_funcs_user_data
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function find_source_by_user_data
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function invoke_full
@@ -297,7 +351,7 @@
         function prepare
         <item>
           arg priority
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
@@ -354,11 +408,11 @@
       </item>
       <item>
         function find_source_by_funcs_user_data
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function find_source_by_user_data
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function invoke_full
@@ -374,7 +428,7 @@
         function prepare
         <item>
           arg priority
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
@@ -424,10 +478,16 @@
     <item>struct MemVTable: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct Mutex: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct Node: struct not included by configuration (structTypes)</item>
+    <item>constant OPTION_REMAINING: constant excluded by configuration (excludedConstantNames)</item>
     <item>struct Once: struct not included by configuration (structTypes)</item>
     <item>struct OptionContext: struct not included by configuration (structTypes)</item>
     <item>struct OptionEntry: struct not included by configuration (structTypes)</item>
     <item>struct OptionGroup: struct not included by configuration (structTypes)</item>
+    <item>constant PDP_ENDIAN: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant PI: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant PI_2: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant PI_4: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant POLLFD_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
     <item>
       struct PatternSpec
       <item>function free: non-user function</item>
@@ -450,7 +510,20 @@
       <item>function escape_string: function excluded by configuration (excludedFunctionSymbols)</item>
     </item>
     <item>struct Relation: struct not included by configuration (structTypes)</item>
+    <item>constant SEARCHPATH_SEPARATOR: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant SEARCHPATH_SEPARATOR_S: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant SIZEOF_LONG: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant SIZEOF_SIZE_T: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant SIZEOF_VOID_P: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>struct SList: struct not included by configuration (structTypes)</item>
+    <item>constant SQRT2: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant STR_DELIMITERS: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant SYSDEF_AF_INET: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant SYSDEF_AF_INET6: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant SYSDEF_AF_UNIX: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant SYSDEF_MSG_DONTROUTE: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant SYSDEF_MSG_OOB: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant SYSDEF_MSG_PEEK: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>struct Scanner: struct not included by configuration (structTypes)</item>
     <item>struct ScannerConfig: struct not included by configuration (structTypes)</item>
     <item>struct Sequence: struct not included by configuration (structTypes)</item>
@@ -574,7 +647,7 @@
         function adjust_time
         <item>
           arg time_
-          <item>type gint64: pointer for scalar (INT64) not supported</item>
+          <item>type gint64: pointer C type for scalar (INT64) not supported</item>
         </item>
       </item>
       <item>function unref: non-user function</item>
@@ -582,7 +655,7 @@
         function adjust_time
         <item>
           arg time_
-          <item>type gint64: pointer for scalar (INT64) not supported</item>
+          <item>type gint64: pointer C type for scalar (INT64) not supported</item>
         </item>
       </item>
       <item>function unref: non-user function</item>
@@ -591,15 +664,17 @@
     <item>struct TrashStack: struct not included by configuration (structTypes)</item>
     <item>struct Tree: struct not included by configuration (structTypes)</item>
     <item>struct Tuples: struct not included by configuration (structTypes)</item>
+    <item>constant USEC_PER_SEC: constant excluded by configuration (excludedConstantNames)</item>
     <item>enum UnicodeBreakType: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>enum UnicodeScript: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>constant VA_COPY_AS_ARRAY: constant excluded by configuration (excludedConstantNames)</item>
     <item>
       struct Variant
       <item>
         function new_from_data
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function get_data: pointer for VOID not supported</item>
+      <item>function get_data: pointer C type for VOID not supported</item>
       <item>
         function get_fixed_array
         <item>
@@ -611,15 +686,15 @@
       <item>function ref_sink: non-user function</item>
       <item>
         function store
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>function unref: non-user function</item>
       <item>function parser_get_error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
       <item>
         function new_from_data
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function get_data: pointer for VOID not supported</item>
+      <item>function get_data: pointer C type for VOID not supported</item>
       <item>
         function get_fixed_array
         <item>
@@ -631,7 +706,7 @@
       <item>function ref_sink: non-user function</item>
       <item>
         function store
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>function unref: non-user function</item>
       <item>function parser_get_error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
@@ -650,6 +725,7 @@
         <item>arg (none): no name</item>
       </item>
     </item>
+    <item>constant WIN32_MSG_HANDLE: constant excluded by configuration (excludedConstantNames)</item>
     <item>struct _StaticAssert_347: struct not included by configuration (structTypes)</item>
     <item>function access: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function array_free: moved to Array.free</item>
@@ -689,28 +765,28 @@
       function atomic_int_add
       <item>
         arg atomic
-        <item>type gint: pointer for scalar (INT) not supported</item>
+        <item>type gint: pointer C type for scalar (INT) not supported</item>
       </item>
     </item>
     <item>
       function atomic_int_and
       <item>
         arg atomic
-        <item>type guint: pointer for scalar (UINT) not supported</item>
+        <item>type guint: pointer C type for scalar (UINT) not supported</item>
       </item>
     </item>
     <item>
       function atomic_int_compare_and_exchange
       <item>
         arg atomic
-        <item>type gint: pointer for scalar (INT) not supported</item>
+        <item>type gint: pointer C type for scalar (INT) not supported</item>
       </item>
     </item>
     <item>
       function atomic_int_dec_and_test
       <item>
         arg atomic
-        <item>type gint: pointer for scalar (INT) not supported</item>
+        <item>type gint: pointer C type for scalar (INT) not supported</item>
       </item>
     </item>
     <item>function atomic_int_exchange_and_add: deprecated</item>
@@ -718,60 +794,60 @@
       function atomic_int_get
       <item>
         arg atomic
-        <item>type gint: pointer for scalar (INT) not supported</item>
+        <item>type gint: pointer C type for scalar (INT) not supported</item>
       </item>
     </item>
     <item>
       function atomic_int_inc
       <item>
         arg atomic
-        <item>type gint: pointer for scalar (INT) not supported</item>
+        <item>type gint: pointer C type for scalar (INT) not supported</item>
       </item>
     </item>
     <item>
       function atomic_int_or
       <item>
         arg atomic
-        <item>type guint: pointer for scalar (UINT) not supported</item>
+        <item>type guint: pointer C type for scalar (UINT) not supported</item>
       </item>
     </item>
     <item>
       function atomic_int_set
       <item>
         arg atomic
-        <item>type gint: pointer for scalar (INT) not supported</item>
+        <item>type gint: pointer C type for scalar (INT) not supported</item>
       </item>
     </item>
     <item>
       function atomic_int_xor
       <item>
         arg atomic
-        <item>type guint: pointer for scalar (UINT) not supported</item>
+        <item>type guint: pointer C type for scalar (UINT) not supported</item>
       </item>
     </item>
     <item>
       function atomic_pointer_add
-      <item>arg atomic: pointer for VOID not supported</item>
+      <item>arg atomic: pointer C type for VOID not supported</item>
     </item>
     <item>
       function atomic_pointer_and
-      <item>arg atomic: pointer for VOID not supported</item>
+      <item>arg atomic: pointer C type for VOID not supported</item>
     </item>
     <item>
       function atomic_pointer_compare_and_exchange
-      <item>arg newval: pointer for VOID not supported</item>
+      <item>arg newval: pointer C type for VOID not supported</item>
     </item>
     <item>
       function atomic_pointer_or
-      <item>arg atomic: pointer for VOID not supported</item>
+      <item>arg atomic: pointer C type for VOID not supported</item>
     </item>
     <item>
       function atomic_pointer_set
-      <item>arg newval: pointer for VOID not supported</item>
+      <item>arg newval: pointer C type for VOID not supported</item>
     </item>
     <item>
       function atomic_pointer_xor
-      <item>arg atomic: pointer for VOID not supported</item>
+      <item>arg atomic: pointer C type for VOID not supported</item>
     </item>
     <item>
       function base64_decode_inplace
@@ -809,7 +885,7 @@
       function bit_lock
       <item>
         arg address
-        <item>type gint: pointer for scalar (INT) not supported</item>
+        <item>type gint: pointer C type for scalar (INT) not supported</item>
       </item>
     </item>
     <item>function bit_nth_lsf: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -819,14 +895,14 @@
       function bit_trylock
       <item>
         arg address
-        <item>type gint: pointer for scalar (INT) not supported</item>
+        <item>type gint: pointer C type for scalar (INT) not supported</item>
       </item>
     </item>
     <item>
       function bit_unlock
       <item>
         arg address
-        <item>type gint: pointer for scalar (INT) not supported</item>
+        <item>type gint: pointer C type for scalar (INT) not supported</item>
       </item>
     </item>
     <item>function blow_chunks: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -839,14 +915,14 @@
       function compute_checksum_for_data
       <item>
         arg data
-        <item>type guint8: pointer for scalar (UINT8) not supported</item>
+        <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
       </item>
     </item>
     <item>
       function compute_hmac_for_data
       <item>
         arg data
-        <item>type guint8: pointer for scalar (UINT8) not supported</item>
+        <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
       </item>
     </item>
     <item>function convert_error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
@@ -854,14 +930,14 @@
       function convert_with_fallback
       <item>
         arg bytes_written
-        <item>type gsize: pointer for scalar (SIZE) not supported</item>
+        <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
       </item>
     </item>
     <item>
       function convert_with_iconv
       <item>
         arg bytes_written
-        <item>type gsize: pointer for scalar (SIZE) not supported</item>
+        <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
       </item>
     </item>
     <item>
@@ -926,7 +1002,7 @@
     </item>
     <item>
       function dataset_destroy
-      <item>arg dataset_location: pointer for VOID not supported</item>
+      <item>arg dataset_location: pointer C type for VOID not supported</item>
     </item>
     <item>
       function dataset_id_set_data_full
@@ -955,19 +1031,19 @@
     <item>function dir_make_tmp: moved to Dir.make_tmp</item>
     <item>
       function direct_equal
-      <item>arg v2: pointer for VOID not supported</item>
+      <item>arg v2: pointer C type for VOID not supported</item>
     </item>
     <item>
       function direct_hash
-      <item>arg v: pointer for VOID not supported</item>
+      <item>arg v: pointer C type for VOID not supported</item>
     </item>
     <item>
       function double_equal
-      <item>arg v2: pointer for VOID not supported</item>
+      <item>arg v2: pointer C type for VOID not supported</item>
     </item>
     <item>
       function double_hash
-      <item>arg v: pointer for VOID not supported</item>
+      <item>arg v: pointer C type for VOID not supported</item>
     </item>
     <item>function dummy_decl: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function file_error_from_errno: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -981,14 +1057,14 @@
       function filename_from_utf8
       <item>
         arg bytes_written
-        <item>type gsize: pointer for scalar (SIZE) not supported</item>
+        <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
       </item>
     </item>
     <item>
       function filename_to_utf8
       <item>
         arg bytes_written
-        <item>type gsize: pointer for scalar (SIZE) not supported</item>
+        <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
       </item>
     </item>
     <item>function free: non-user function</item>
@@ -1012,23 +1088,23 @@
     <item>function hook_unref: moved to Hook.unref</item>
     <item>
       function idle_remove_by_data
-      <item>arg data: pointer for VOID not supported</item>
+      <item>arg data: pointer C type for VOID not supported</item>
     </item>
     <item>
       function int64_equal
-      <item>arg v2: pointer for VOID not supported</item>
+      <item>arg v2: pointer C type for VOID not supported</item>
     </item>
     <item>
       function int64_hash
-      <item>arg v: pointer for VOID not supported</item>
+      <item>arg v: pointer C type for VOID not supported</item>
     </item>
     <item>
       function int_equal
-      <item>arg v2: pointer for VOID not supported</item>
+      <item>arg v2: pointer C type for VOID not supported</item>
     </item>
     <item>
       function int_hash
-      <item>arg v: pointer for VOID not supported</item>
+      <item>arg v: pointer C type for VOID not supported</item>
     </item>
     <item>function intern_static_string: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function intern_string: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -1041,19 +1117,19 @@
       function locale_from_utf8
       <item>
         arg bytes_written
-        <item>type gsize: pointer for scalar (SIZE) not supported</item>
+        <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
       </item>
     </item>
     <item>
       function locale_to_utf8
       <item>
         arg bytes_written
-        <item>type gsize: pointer for scalar (SIZE) not supported</item>
+        <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
       </item>
     </item>
     <item>
       function log_default_handler
-      <item>arg unused_data: pointer for VOID not supported</item>
+      <item>arg unused_data: pointer C type for VOID not supported</item>
     </item>
     <item>function main_context_default: moved to MainContext.default</item>
     <item>function main_context_get_thread_default: moved to MainContext.get_thread_default</item>
@@ -1066,7 +1142,7 @@
     <item>function node_push_allocator: moved to Node.push_allocator</item>
     <item>
       function nullify_pointer
-      <item>arg nullify_location: pointer for VOID not supported</item>
+      <item>arg nullify_location: pointer C type for VOID not supported</item>
     </item>
     <item>function once_init_enter: moved to Once.init_enter</item>
     <item>function once_init_enter_impl: moved to Once.init_enter_impl</item>
@@ -1087,15 +1163,15 @@
     </item>
     <item>
       function pointer_bit_lock
-      <item>arg address: pointer for VOID not supported</item>
+      <item>arg address: pointer C type for VOID not supported</item>
     </item>
     <item>
       function pointer_bit_trylock
-      <item>arg address: pointer for VOID not supported</item>
+      <item>arg address: pointer C type for VOID not supported</item>
     </item>
     <item>
       function pointer_bit_unlock
-      <item>arg address: pointer for VOID not supported</item>
+      <item>arg address: pointer C type for VOID not supported</item>
     </item>
     <item>
       function poll
@@ -1147,17 +1223,17 @@
     <item>function shell_error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
     <item>
       function slice_free1
-      <item>arg mem_block: pointer for VOID not supported</item>
+      <item>arg mem_block: pointer C type for VOID not supported</item>
     </item>
     <item>
       function slice_free_chain_with_offset
-      <item>arg mem_chain: pointer for VOID not supported</item>
+      <item>arg mem_chain: pointer C type for VOID not supported</item>
     </item>
     <item>
       function slice_get_config_state
       <item>
         arg n_values
-        <item>type guint: pointer for scalar (UINT) not supported</item>
+        <item>type guint: pointer C type for scalar (UINT) not supported</item>
       </item>
     </item>
     <item>function slist_pop_allocator: deprecated</item>
@@ -1169,7 +1245,7 @@
     <item>function spaced_primes_closest: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>
       function spawn_async
-      <item>arg user_data: pointer for VOID not supported</item>
+      <item>arg user_data: pointer C type for VOID not supported</item>
     </item>
     <item>
       function spawn_command_line_sync
@@ -1230,11 +1306,11 @@
     <item>function strv_length: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
     <item>
       function test_queue_destroy
-      <item>arg destroy_data: pointer for VOID not supported</item>
+      <item>arg destroy_data: pointer C type for VOID not supported</item>
     </item>
     <item>
       function test_queue_free
-      <item>arg gfree_pointer: pointer for VOID not supported</item>
+      <item>arg gfree_pointer: pointer C type for VOID not supported</item>
     </item>
     <item>function thread_error_quark: moved to Thread.error_quark</item>
     <item>function thread_exit: moved to Thread.exit</item>
@@ -1274,14 +1350,14 @@
       function ucs4_to_utf16
       <item>
         arg items_written
-        <item>type glong: pointer for scalar (LONG) not supported</item>
+        <item>type glong: pointer C type for scalar (LONG) not supported</item>
       </item>
     </item>
     <item>
       function ucs4_to_utf8
       <item>
         arg items_written
-        <item>type glong: pointer for scalar (LONG) not supported</item>
+        <item>type glong: pointer C type for scalar (LONG) not supported</item>
       </item>
     </item>
     <item>function unichar_break_type: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
@@ -1321,7 +1397,7 @@
       function unicode_canonical_ordering
       <item>
         arg string
-        <item>type gunichar: pointer for scalar (UNICHAR) not supported</item>
+        <item>type gunichar: pointer C type for scalar (UNICHAR) not supported</item>
       </item>
     </item>
     <item>
@@ -1345,14 +1421,14 @@
       function utf16_to_ucs4
       <item>
         arg items_written
-        <item>type glong: pointer for scalar (LONG) not supported</item>
+        <item>type glong: pointer C type for scalar (LONG) not supported</item>
       </item>
     </item>
     <item>
       function utf16_to_utf8
       <item>
         arg items_written
-        <item>type glong: pointer for scalar (LONG) not supported</item>
+        <item>type glong: pointer C type for scalar (LONG) not supported</item>
       </item>
     </item>
     <item>function utf8_casefold: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
@@ -1401,7 +1477,7 @@
       <item>function new_simple: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function invoke
-        <item>arg invocation_hint: pointer for VOID not supported</item>
+        <item>arg invocation_hint: pointer C type for VOID not supported</item>
       </item>
       <item>function ref: non-user function</item>
       <item>function sink: non-user function</item>
@@ -1410,7 +1486,7 @@
       <item>function new_simple: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function invoke
-        <item>arg invocation_hint: pointer for VOID not supported</item>
+        <item>arg invocation_hint: pointer C type for VOID not supported</item>
       </item>
       <item>function ref: non-user function</item>
       <item>function sink: non-user function</item>
@@ -1440,7 +1516,7 @@
       </item>
       <item>
         function bind_property
-        <item>arg target: pointer for VOID not supported</item>
+        <item>arg target: pointer C type for VOID not supported</item>
       </item>
       <item>
         function bind_property_full
@@ -1454,36 +1530,36 @@
       </item>
       <item>
         function bind_property_with_closures
-        <item>arg target: pointer for VOID not supported</item>
+        <item>arg target: pointer C type for VOID not supported</item>
       </item>
       <item>
         function compat_control
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function interface_find_property
-        <item>arg g_iface: pointer for VOID not supported</item>
+        <item>arg g_iface: pointer C type for VOID not supported</item>
       </item>
       <item>
         function interface_install_property
-        <item>arg g_iface: pointer for VOID not supported</item>
+        <item>arg g_iface: pointer C type for VOID not supported</item>
       </item>
       <item>
         function interface_list_properties
-        <item>arg g_iface: pointer for VOID not supported</item>
+        <item>arg g_iface: pointer C type for VOID not supported</item>
       </item>
       <item>function force_floating: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>function get_data: pointer for VOID not supported</item>
-      <item>function get_qdata: pointer for VOID not supported</item>
+      <item>function get_data: pointer C type for VOID not supported</item>
+      <item>function get_qdata: pointer C type for VOID not supported</item>
       <item>function is_floating: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function ref: non-user function</item>
       <item>function ref_sink: non-user function</item>
       <item>
         function set_data
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
-      <item>function steal_data: pointer for VOID not supported</item>
-      <item>function steal_qdata: pointer for VOID not supported</item>
+      <item>function steal_data: pointer C type for VOID not supported</item>
+      <item>function steal_qdata: pointer C type for VOID not supported</item>
       <item>function unref: non-user function</item>
       <item>
         function newv
@@ -1500,7 +1576,7 @@
       </item>
       <item>
         function bind_property
-        <item>arg target: pointer for VOID not supported</item>
+        <item>arg target: pointer C type for VOID not supported</item>
       </item>
       <item>
         function bind_property_full
@@ -1514,56 +1590,56 @@
       </item>
       <item>
         function bind_property_with_closures
-        <item>arg target: pointer for VOID not supported</item>
+        <item>arg target: pointer C type for VOID not supported</item>
       </item>
       <item>
         function compat_control
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function interface_find_property
-        <item>arg g_iface: pointer for VOID not supported</item>
+        <item>arg g_iface: pointer C type for VOID not supported</item>
       </item>
       <item>
         function interface_install_property
-        <item>arg g_iface: pointer for VOID not supported</item>
+        <item>arg g_iface: pointer C type for VOID not supported</item>
       </item>
       <item>
         function interface_list_properties
-        <item>arg g_iface: pointer for VOID not supported</item>
+        <item>arg g_iface: pointer C type for VOID not supported</item>
       </item>
       <item>function force_floating: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>function get_data: pointer for VOID not supported</item>
-      <item>function get_qdata: pointer for VOID not supported</item>
+      <item>function get_data: pointer C type for VOID not supported</item>
+      <item>function get_qdata: pointer C type for VOID not supported</item>
       <item>function is_floating: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function ref: non-user function</item>
       <item>function ref_sink: non-user function</item>
       <item>
         function set_data
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
-      <item>function steal_data: pointer for VOID not supported</item>
-      <item>function steal_qdata: pointer for VOID not supported</item>
+      <item>function steal_data: pointer C type for VOID not supported</item>
+      <item>function steal_qdata: pointer C type for VOID not supported</item>
       <item>function unref: non-user function</item>
     </item>
     <item>struct ObjectClass: class struct</item>
     <item>struct ObjectConstructParam: struct not included by configuration (structTypes)</item>
     <item>
       object ParamSpec
-      <item>function get_qdata: pointer for VOID not supported</item>
+      <item>function get_qdata: pointer C type for VOID not supported</item>
       <item>
         function set_qdata
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>function sink: non-user function</item>
-      <item>function steal_qdata: pointer for VOID not supported</item>
-      <item>function get_qdata: pointer for VOID not supported</item>
+      <item>function steal_qdata: pointer C type for VOID not supported</item>
+      <item>function get_qdata: pointer C type for VOID not supported</item>
       <item>
         function set_qdata
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>function sink: non-user function</item>
-      <item>function steal_qdata: pointer for VOID not supported</item>
+      <item>function steal_qdata: pointer C type for VOID not supported</item>
     </item>
     <item>struct ParamSpecClass: class struct</item>
     <item>struct ParamSpecPool: struct not included by configuration (structTypes)</item>
@@ -1674,7 +1750,7 @@
       </item>
       <item>
         function sort_with_data
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function free: non-user function</item>
       <item>
@@ -1689,12 +1765,12 @@
       </item>
       <item>
         function sort_with_data
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>
       function boxed_free
-      <item>arg boxed: pointer for VOID not supported</item>
+      <item>arg boxed: pointer C type for VOID not supported</item>
     </item>
     <item>function cclosure_marshal_BOOLEAN__BOXED_BOXED: moved to CClosure.marshal_BOOLEAN__BOXED_BOXED</item>
     <item>function cclosure_marshal_BOOLEAN__FLAGS: moved to CClosure.marshal_BOOLEAN__FLAGS</item>
@@ -2027,7 +2103,7 @@
     </item>
     <item>
       function type_set_qdata
-      <item>arg data: pointer for VOID not supported</item>
+      <item>arg data: pointer C type for VOID not supported</item>
     </item>
     <item>
       function type_test_flags
@@ -2160,45 +2236,45 @@
       interface AsyncInitable
       <item>
         function newv_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function init_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function newv_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function init_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct AsyncInitableIface: class struct</item>
     <item>
       interface AsyncResult
-      <item>function get_user_data: pointer for VOID not supported</item>
-      <item>function get_user_data: pointer for VOID not supported</item>
+      <item>function get_user_data: pointer C type for VOID not supported</item>
+      <item>function get_user_data: pointer C type for VOID not supported</item>
     </item>
     <item>struct AsyncResultIface: class struct</item>
     <item>
       object BufferedInputStream
       <item>
         function fill_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function peek
-        <item>arg buffer: pointer for VOID not supported</item>
+        <item>arg buffer: pointer C type for VOID not supported</item>
       </item>
       <item>
         function fill_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function peek
-        <item>arg buffer: pointer for VOID not supported</item>
+        <item>arg buffer: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct BufferedInputStreamClass: class struct</item>
@@ -2255,11 +2331,11 @@
       interface Converter
       <item>
         function convert
-        <item>arg outbuf: pointer for VOID not supported</item>
+        <item>arg outbuf: pointer C type for VOID not supported</item>
       </item>
       <item>
         function convert
-        <item>arg outbuf: pointer for VOID not supported</item>
+        <item>arg outbuf: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct ConverterIface: class struct</item>
@@ -2271,11 +2347,11 @@
       object Credentials
       <item>
         function set_native
-        <item>arg native: pointer for VOID not supported</item>
+        <item>arg native: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_native
-        <item>arg native: pointer for VOID not supported</item>
+        <item>arg native: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct CredentialsClass: class struct</item>
@@ -2291,11 +2367,11 @@
       object DBusConnection
       <item>
         function new
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function new_for_address
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function add_filter
@@ -2309,19 +2385,19 @@
       </item>
       <item>
         function call
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function call_with_unix_fd_list
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function close
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function flush
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function register_object
@@ -2345,7 +2421,7 @@
       </item>
       <item>
         function send_message_with_reply
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function signal_subscribe
@@ -2366,11 +2442,11 @@
       </item>
       <item>
         function new
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function new_for_address
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function add_filter
@@ -2384,19 +2460,19 @@
       </item>
       <item>
         function call
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function call_with_unix_fd_list
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function close
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function flush
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function register_object
@@ -2420,7 +2496,7 @@
       </item>
       <item>
         function send_message_with_reply
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function signal_subscribe
@@ -2473,7 +2549,7 @@
         function register_error_domain
         <item>
           arg quark_volatile
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
@@ -2515,7 +2591,7 @@
         function register_error_domain
         <item>
           arg quark_volatile
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
@@ -2545,50 +2621,50 @@
         function new_from_blob
         <item>
           arg blob
-          <item>type guint8: pointer for scalar (UINT8) not supported</item>
+          <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
         </item>
       </item>
       <item>
         function bytes_needed
         <item>
           arg blob
-          <item>type guint8: pointer for scalar (UINT8) not supported</item>
+          <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
         </item>
       </item>
       <item>
         function get_header_fields
-        <item>type guint8: pointer for scalar (UINT8) not supported</item>
+        <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
       </item>
       <item>
         function to_blob
         <item>
           arg out_size
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function new_from_blob
         <item>
           arg blob
-          <item>type guint8: pointer for scalar (UINT8) not supported</item>
+          <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
         </item>
       </item>
       <item>
         function bytes_needed
         <item>
           arg blob
-          <item>type guint8: pointer for scalar (UINT8) not supported</item>
+          <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
         </item>
       </item>
       <item>
         function get_header_fields
-        <item>type guint8: pointer for scalar (UINT8) not supported</item>
+        <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
       </item>
       <item>
         function to_blob
         <item>
           arg out_size
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
     </item>
@@ -2664,11 +2740,11 @@
       </item>
       <item>
         function new
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function new_for_bus
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>property get-proxy-type-destroy-notify: type VOID not expected</item>
       <item>property get-proxy-type-func: type VOID not expected</item>
@@ -2695,11 +2771,11 @@
       </item>
       <item>
         function new
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function new_for_bus
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>property get-proxy-type-destroy-notify: type VOID not expected</item>
       <item>property get-proxy-type-func: type VOID not expected</item>
@@ -2725,35 +2801,35 @@
       object DBusProxy
       <item>
         function new
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function new_for_bus
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function call
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function call_with_unix_fd_list
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function new
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function new_for_bus
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function call
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function call_with_unix_fd_list
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct DBusProxyClass: class struct</item>
@@ -2770,27 +2846,27 @@
       object DataInputStream
       <item>
         function read_line_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function read_until_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function read_upto_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function read_line_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function read_until_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function read_upto_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct DataInputStreamClass: class struct</item>
@@ -2801,11 +2877,11 @@
       object DesktopAppInfo
       <item>
         function launch_uris_as_manager
-        <item>arg pid_callback_data: pointer for VOID not supported</item>
+        <item>arg pid_callback_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function launch_uris_as_manager
-        <item>arg pid_callback_data: pointer for VOID not supported</item>
+        <item>arg pid_callback_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct DesktopAppInfoClass: class struct</item>
@@ -2821,7 +2897,7 @@
       <item>function eject_finish: deprecated</item>
       <item>
         function eject_with_operation
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_volumes
@@ -2829,21 +2905,21 @@
       </item>
       <item>
         function poll_for_media
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function start
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function stop
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function eject: deprecated</item>
       <item>function eject_finish: deprecated</item>
       <item>
         function eject_with_operation
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_volumes
@@ -2851,15 +2927,15 @@
       </item>
       <item>
         function poll_for_media
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function start
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function stop
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct DriveIface: class struct</item>
@@ -2881,37 +2957,37 @@
       interface File
       <item>
         function hash
-        <item>arg file: pointer for VOID not supported</item>
+        <item>arg file: pointer C type for VOID not supported</item>
       </item>
       <item>
         function append_to_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function copy
-        <item>arg progress_callback_data: pointer for VOID not supported</item>
+        <item>arg progress_callback_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function create_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function create_readwrite_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function eject_mountable: deprecated</item>
       <item>function eject_mountable_finish: deprecated</item>
       <item>
         function eject_mountable_with_operation
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function enumerate_children_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function find_enclosing_mount_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function load_contents
@@ -2925,7 +3001,7 @@
       </item>
       <item>
         function load_contents_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function load_contents_finish
@@ -2949,107 +3025,107 @@
       </item>
       <item>
         function mount_enclosing_volume
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function mount_mountable
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function move
-        <item>arg progress_callback_data: pointer for VOID not supported</item>
+        <item>arg progress_callback_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function open_readwrite_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function poll_mountable
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function query_filesystem_info_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function query_info_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function read_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function replace_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function replace_contents_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function replace_readwrite_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_attribute
-        <item>arg value_p: pointer for VOID not supported</item>
+        <item>arg value_p: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_attributes_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_display_name_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function start_mountable
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function stop_mountable
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function unmount_mountable: deprecated</item>
       <item>function unmount_mountable_finish: deprecated</item>
       <item>
         function unmount_mountable_with_operation
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function hash
-        <item>arg file: pointer for VOID not supported</item>
+        <item>arg file: pointer C type for VOID not supported</item>
       </item>
       <item>
         function append_to_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function copy
-        <item>arg progress_callback_data: pointer for VOID not supported</item>
+        <item>arg progress_callback_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function create_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function create_readwrite_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function eject_mountable: deprecated</item>
       <item>function eject_mountable_finish: deprecated</item>
       <item>
         function eject_mountable_with_operation
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function enumerate_children_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function find_enclosing_mount_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function load_contents
@@ -3063,7 +3139,7 @@
       </item>
       <item>
         function load_contents_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function load_contents_finish
@@ -3087,73 +3163,73 @@
       </item>
       <item>
         function mount_enclosing_volume
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function mount_mountable
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function move
-        <item>arg progress_callback_data: pointer for VOID not supported</item>
+        <item>arg progress_callback_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function open_readwrite_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function poll_mountable
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function query_filesystem_info_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function query_info_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function read_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function replace_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function replace_contents_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function replace_readwrite_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_attribute
-        <item>arg value_p: pointer for VOID not supported</item>
+        <item>arg value_p: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_attributes_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_display_name_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function start_mountable
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function stop_mountable
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function unmount_mountable: deprecated</item>
       <item>function unmount_mountable_finish: deprecated</item>
       <item>
         function unmount_mountable_with_operation
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>
@@ -3175,11 +3251,11 @@
       object FileEnumerator
       <item>
         function close_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function next_files_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function next_files_finish
@@ -3187,11 +3263,11 @@
       </item>
       <item>
         function close_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function next_files_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function next_files_finish
@@ -3204,11 +3280,11 @@
       object FileIOStream
       <item>
         function query_info_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function query_info_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct FileIOStreamClass: class struct</item>
@@ -3219,19 +3295,19 @@
       object FileInfo
       <item>
         function get_attribute_data
-        <item>arg value_pp: pointer for VOID not supported</item>
+        <item>arg value_pp: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_attribute
-        <item>arg value_p: pointer for VOID not supported</item>
+        <item>arg value_p: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_attribute_data
-        <item>arg value_pp: pointer for VOID not supported</item>
+        <item>arg value_pp: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_attribute
-        <item>arg value_p: pointer for VOID not supported</item>
+        <item>arg value_p: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct FileInfoClass: class struct</item>
@@ -3239,11 +3315,11 @@
       object FileInputStream
       <item>
         function query_info_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function query_info_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct FileInputStreamClass: class struct</item>
@@ -3254,11 +3330,11 @@
       object FileOutputStream
       <item>
         function query_info_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function query_info_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct FileOutputStreamClass: class struct</item>
@@ -3324,19 +3400,19 @@
       object IOStream
       <item>
         function close_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function splice_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function close_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function splice_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct IOStreamAdapter: struct not included by configuration (structTypes)</item>
@@ -3346,11 +3422,11 @@
       interface Icon
       <item>
         function hash
-        <item>arg icon: pointer for VOID not supported</item>
+        <item>arg icon: pointer C type for VOID not supported</item>
       </item>
       <item>
         function hash
-        <item>arg icon: pointer for VOID not supported</item>
+        <item>arg icon: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct IconIface: class struct</item>
@@ -3360,7 +3436,7 @@
         function new_from_bytes
         <item>
           arg bytes
-          <item>type guint8: pointer for scalar (UINT8) not supported</item>
+          <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
         </item>
       </item>
       <item>property bytes: type VOID not expected</item>
@@ -3368,7 +3444,7 @@
         function new_from_bytes
         <item>
           arg bytes
-          <item>type guint8: pointer for scalar (UINT8) not supported</item>
+          <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
         </item>
       </item>
       <item>property bytes: type VOID not expected</item>
@@ -3399,43 +3475,43 @@
       object InputStream
       <item>
         function close_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function read
-        <item>arg buffer: pointer for VOID not supported</item>
+        <item>arg buffer: pointer C type for VOID not supported</item>
       </item>
       <item>
         function read_all
-        <item>arg buffer: pointer for VOID not supported</item>
+        <item>arg buffer: pointer C type for VOID not supported</item>
       </item>
       <item>
         function read_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function skip_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function close_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function read
-        <item>arg buffer: pointer for VOID not supported</item>
+        <item>arg buffer: pointer C type for VOID not supported</item>
       </item>
       <item>
         function read_all
-        <item>arg buffer: pointer for VOID not supported</item>
+        <item>arg buffer: pointer C type for VOID not supported</item>
       </item>
       <item>
         function read_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function skip_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct InputStreamClass: class struct</item>
@@ -3445,11 +3521,11 @@
       interface LoadableIcon
       <item>
         function load_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function load_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct LoadableIconIface: class struct</item>
@@ -3500,11 +3576,11 @@
     <item>struct MemoryInputStreamPrivate: struct not included by configuration (structTypes)</item>
     <item>
       object MemoryOutputStream
-      <item>function get_data: pointer for VOID not supported</item>
-      <item>function steal_data: pointer for VOID not supported</item>
+      <item>function get_data: pointer C type for VOID not supported</item>
+      <item>function steal_data: pointer C type for VOID not supported</item>
       <item>property data: type VOID not expected</item>
-      <item>function get_data: pointer for VOID not supported</item>
-      <item>function steal_data: pointer for VOID not supported</item>
+      <item>function get_data: pointer C type for VOID not supported</item>
+      <item>function steal_data: pointer C type for VOID not supported</item>
       <item>property data: type VOID not expected</item>
     </item>
     <item>struct MemoryOutputStreamClass: class struct</item>
@@ -3515,41 +3591,41 @@
       <item>function eject_finish: deprecated</item>
       <item>
         function eject_with_operation
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function guess_content_type
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function remount
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function unmount: deprecated</item>
       <item>function unmount_finish: deprecated</item>
       <item>
         function unmount_with_operation
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function eject: deprecated</item>
       <item>function eject_finish: deprecated</item>
       <item>
         function eject_with_operation
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function guess_content_type
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function remount
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function unmount: deprecated</item>
       <item>function unmount_finish: deprecated</item>
       <item>
         function unmount_with_operation
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct MountIface: class struct</item>
@@ -3581,35 +3657,35 @@
       object OutputStream
       <item>
         function close_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function flush_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function splice_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function write_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function close_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function flush_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function splice_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function write_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct OutputStreamClass: class struct</item>
@@ -3619,19 +3695,19 @@
       object Permission
       <item>
         function acquire_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function release_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function acquire_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function release_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct PermissionClass: class struct</item>
@@ -3640,11 +3716,11 @@
       interface PollableInputStream
       <item>
         function read_nonblocking
-        <item>arg buffer: pointer for VOID not supported</item>
+        <item>arg buffer: pointer C type for VOID not supported</item>
       </item>
       <item>
         function read_nonblocking
-        <item>arg buffer: pointer for VOID not supported</item>
+        <item>arg buffer: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct PollableInputStreamInterface: class struct</item>
@@ -3653,11 +3729,11 @@
       interface Proxy
       <item>
         function connect_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function connect_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct ProxyAddressClass: class struct</item>
@@ -3669,11 +3745,11 @@
       interface ProxyResolver
       <item>
         function lookup_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function lookup_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct ProxyResolverInterface: class struct</item>
@@ -3681,7 +3757,7 @@
       object Resolver
       <item>
         function lookup_by_address_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function lookup_by_name
@@ -3689,7 +3765,7 @@
       </item>
       <item>
         function lookup_by_name_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function lookup_by_name_finish
@@ -3701,7 +3777,7 @@
       </item>
       <item>
         function lookup_service_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function lookup_service_finish
@@ -3709,7 +3785,7 @@
       </item>
       <item>
         function lookup_by_address_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function lookup_by_name
@@ -3717,7 +3793,7 @@
       </item>
       <item>
         function lookup_by_name_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function lookup_by_name_finish
@@ -3729,7 +3805,7 @@
       </item>
       <item>
         function lookup_service_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function lookup_service_finish
@@ -3748,19 +3824,19 @@
       object Settings
       <item>
         function unbind
-        <item>arg object: pointer for VOID not supported</item>
+        <item>arg object: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_mapped
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function unbind
-        <item>arg object: pointer for VOID not supported</item>
+        <item>arg object: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_mapped
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct SettingsClass: class struct</item>
@@ -3769,11 +3845,11 @@
       object SimpleActionGroup
       <item>
         function add_entries
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function add_entries
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct SimpleActionGroupClass: class struct</item>
@@ -3782,7 +3858,7 @@
       object SimpleAsyncResult
       <item>
         function new
-        <item>arg source_tag: pointer for VOID not supported</item>
+        <item>arg source_tag: pointer C type for VOID not supported</item>
       </item>
       <item>
         function new_from_error
@@ -3793,7 +3869,7 @@
       </item>
       <item>
         function is_valid
-        <item>arg source_tag: pointer for VOID not supported</item>
+        <item>arg source_tag: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_from_error
@@ -3804,7 +3880,7 @@
       </item>
       <item>
         function new
-        <item>arg source_tag: pointer for VOID not supported</item>
+        <item>arg source_tag: pointer C type for VOID not supported</item>
       </item>
       <item>
         function new_from_error
@@ -3815,7 +3891,7 @@
       </item>
       <item>
         function is_valid
-        <item>arg source_tag: pointer for VOID not supported</item>
+        <item>arg source_tag: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_from_error
@@ -3832,7 +3908,7 @@
         function receive_message
         <item>
           arg flags
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
@@ -3852,7 +3928,7 @@
         function receive_message
         <item>
           arg flags
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
@@ -3873,19 +3949,19 @@
       object SocketAddress
       <item>
         function new_from_native
-        <item>arg native: pointer for VOID not supported</item>
+        <item>arg native: pointer C type for VOID not supported</item>
       </item>
       <item>
         function to_native
-        <item>arg dest: pointer for VOID not supported</item>
+        <item>arg dest: pointer C type for VOID not supported</item>
       </item>
       <item>
         function new_from_native
-        <item>arg native: pointer for VOID not supported</item>
+        <item>arg native: pointer C type for VOID not supported</item>
       </item>
       <item>
         function to_native
-        <item>arg dest: pointer for VOID not supported</item>
+        <item>arg dest: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct SocketAddressClass: class struct</item>
@@ -3893,11 +3969,11 @@
       object SocketAddressEnumerator
       <item>
         function next_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function next_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct SocketAddressEnumeratorClass: class struct</item>
@@ -3906,35 +3982,35 @@
       object SocketClient
       <item>
         function connect_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function connect_to_host_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function connect_to_service_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function connect_to_uri_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function connect_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function connect_to_host_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function connect_to_service_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function connect_to_uri_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct SocketClientClass: class struct</item>
@@ -3971,11 +4047,11 @@
       object SocketControlMessage
       <item>
         function serialize
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function serialize
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct SocketControlMessageClass: class struct</item>
@@ -3984,19 +4060,19 @@
       object SocketListener
       <item>
         function accept_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function accept_socket_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function accept_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function accept_socket_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct SocketListenerClass: class struct</item>
@@ -4089,14 +4165,14 @@
       <item>function get_use_system_certdb: deprecated</item>
       <item>
         function handshake_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function set_use_system_certdb: deprecated</item>
       <item>property use-system-certdb: deprecated</item>
       <item>function get_use_system_certdb: deprecated</item>
       <item>
         function handshake_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function set_use_system_certdb: deprecated</item>
       <item>property use-system-certdb: deprecated</item>
@@ -4107,35 +4183,35 @@
       object TlsDatabase
       <item>
         function lookup_certificate_for_handle_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function lookup_certificate_issuer_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function lookup_certificates_issued_by_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function verify_chain_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function lookup_certificate_for_handle_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function lookup_certificate_issuer_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function lookup_certificates_issued_by_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function verify_chain_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct TlsDatabaseClass: class struct</item>
@@ -4150,11 +4226,11 @@
       object TlsInteraction
       <item>
         function ask_password_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function ask_password_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct TlsInteractionClass: class struct</item>
@@ -4165,14 +4241,14 @@
         function get_value
         <item>
           arg length
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function set_value
         <item>
           arg value
-          <item>type guint8: pointer for scalar (UINT8) not supported</item>
+          <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
         </item>
       </item>
       <item>
@@ -4189,14 +4265,14 @@
         function get_value
         <item>
           arg length
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function set_value
         <item>
           arg value
-          <item>type guint8: pointer for scalar (UINT8) not supported</item>
+          <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
         </item>
       </item>
       <item>
@@ -4247,21 +4323,21 @@
       <item>function eject_finish: deprecated</item>
       <item>
         function eject_with_operation
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function mount
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function eject: deprecated</item>
       <item>function eject_finish: deprecated</item>
       <item>
         function eject_with_operation
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function mount
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct VolumeIface: class struct</item>
@@ -4309,7 +4385,7 @@
     <item>function async_initable_newv_async: moved to AsyncInitable.newv_async</item>
     <item>
       function bus_get
-      <item>arg user_data: pointer for VOID not supported</item>
+      <item>arg user_data: pointer C type for VOID not supported</item>
     </item>
     <item>
       function content_types_get_registered
@@ -4317,7 +4393,7 @@
     </item>
     <item>
       function dbus_address_get_stream
-      <item>arg user_data: pointer for VOID not supported</item>
+      <item>arg user_data: pointer C type for VOID not supported</item>
     </item>
     <item>function dbus_annotation_info_lookup: moved to DBusAnnotationInfo.lookup</item>
     <item>function dbus_error_encode_gerror: moved to DBusError.encode_gerror</item>
@@ -4438,42 +4514,42 @@
         function get_extents
         <item>
           arg height
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_position
         <item>
           arg y
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_size
         <item>
           arg height
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_extents
         <item>
           arg height
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_position
         <item>
           arg y
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_size
         <item>
           arg height
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
     </item>
@@ -4490,7 +4566,7 @@
           </item>
         </item>
       </item>
-      <item>function get_document: pointer for VOID not supported</item>
+      <item>function get_document: pointer C type for VOID not supported</item>
       <item>
         function get_attributes
         <item>
@@ -4501,7 +4577,7 @@
           </item>
         </item>
       </item>
-      <item>function get_document: pointer for VOID not supported</item>
+      <item>function get_document: pointer C type for VOID not supported</item>
     </item>
     <item>struct DocumentIface: class struct</item>
     <item>
@@ -4510,7 +4586,7 @@
         function insert_text
         <item>
           arg position
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
@@ -4530,7 +4606,7 @@
         function insert_text
         <item>
           arg position
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
@@ -4558,28 +4634,28 @@
         function get_image_position
         <item>
           arg y
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_image_size
         <item>
           arg height
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_image_position
         <item>
           arg y
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_image_size
         <item>
           arg height
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
     </item>
@@ -4603,19 +4679,19 @@
       </item>
       <item>
         function initialize
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         signals active-descendant-changed
-        <item>arg object: pointer for VOID not supported</item>
+        <item>arg object: pointer C type for VOID not supported</item>
       </item>
       <item>
         signals children-changed
-        <item>arg p0: pointer for VOID not supported</item>
+        <item>arg p0: pointer C type for VOID not supported</item>
       </item>
       <item>
         signals property-change
-        <item>arg object: pointer for VOID not supported</item>
+        <item>arg object: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_attributes
@@ -4629,19 +4705,19 @@
       </item>
       <item>
         function initialize
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         signals active-descendant-changed
-        <item>arg object: pointer for VOID not supported</item>
+        <item>arg object: pointer C type for VOID not supported</item>
       </item>
       <item>
         signals children-changed
-        <item>arg p0: pointer for VOID not supported</item>
+        <item>arg p0: pointer C type for VOID not supported</item>
       </item>
       <item>
         signals property-change
-        <item>arg object: pointer for VOID not supported</item>
+        <item>arg object: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct ObjectClass: class struct</item>
@@ -4769,28 +4845,28 @@
         function get_selected_columns
         <item>
           arg selected
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_selected_rows
         <item>
           arg selected
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_selected_columns
         <item>
           arg selected
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_selected_rows
         <item>
           arg selected
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
     </item>
@@ -4801,7 +4877,7 @@
         function get_character_extents
         <item>
           arg height
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
@@ -4818,42 +4894,42 @@
         function get_run_attributes
         <item>
           arg end_offset
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_selection
         <item>
           arg end_offset
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_text_after_offset
         <item>
           arg end_offset
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_text_at_offset
         <item>
           arg end_offset
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_text_before_offset
         <item>
           arg end_offset
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_character_extents
         <item>
           arg height
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
@@ -4870,35 +4946,35 @@
         function get_run_attributes
         <item>
           arg end_offset
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_selection
         <item>
           arg end_offset
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_text_after_offset
         <item>
           arg end_offset
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_text_at_offset
         <item>
           arg end_offset
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_text_before_offset
         <item>
           arg end_offset
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
     </item>
@@ -4932,20 +5008,20 @@
       object Pixbuf
       <item>
         function new_from_data
-        <item>arg destroy_fn_data: pointer for VOID not supported</item>
+        <item>arg destroy_fn_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function new_from_inline
         <item>
           arg data
-          <item>type guint8: pointer for scalar (UINT8) not supported</item>
+          <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
         </item>
       </item>
       <item>
         function get_file_info
         <item>
           arg height
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
@@ -4954,44 +5030,44 @@
       </item>
       <item>
         function new_from_stream_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function new_from_stream_at_scale_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_pixels
-        <item>type guint8: pointer for scalar (UINT8) not supported</item>
+        <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
       </item>
       <item>
         function save_to_bufferv
         <item>
           arg buffer_size
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function save_to_callbackv
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>property pixels: type VOID not expected</item>
       <item>
         function new_from_data
-        <item>arg destroy_fn_data: pointer for VOID not supported</item>
+        <item>arg destroy_fn_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function new_from_inline
         <item>
           arg data
-          <item>type guint8: pointer for scalar (UINT8) not supported</item>
+          <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
         </item>
       </item>
       <item>
         function get_file_info
         <item>
           arg height
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
@@ -5000,26 +5076,26 @@
       </item>
       <item>
         function new_from_stream_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function new_from_stream_at_scale_async
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_pixels
-        <item>type guint8: pointer for scalar (UINT8) not supported</item>
+        <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
       </item>
       <item>
         function save_to_bufferv
         <item>
           arg buffer_size
-          <item>type gsize: pointer for scalar (SIZE) not supported</item>
+          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
       <item>
         function save_to_callbackv
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>property pixels: type VOID not expected</item>
     </item>
@@ -5052,13 +5128,13 @@
       struct AttrList
       <item>
         function filter
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>function ref: non-user function</item>
       <item>function unref: non-user function</item>
       <item>
         function filter
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>function ref: non-user function</item>
       <item>function unref: non-user function</item>
@@ -5110,14 +5186,14 @@
         function list_sizes
         <item>
           arg n_sizes
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function list_sizes
         <item>
           arg n_sizes
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
     </item>
@@ -5132,11 +5208,11 @@
       object Fontset
       <item>
         function foreach
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function foreach
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct GlyphGeometry: struct not included by configuration (structTypes)</item>
@@ -5148,7 +5224,7 @@
         function get_logical_widths
         <item>
           arg logical_widths
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>function letter_space: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -5157,7 +5233,7 @@
         function get_logical_widths
         <item>
           arg logical_widths
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>function letter_space: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -5170,21 +5246,21 @@
         function get_logical_widths
         <item>
           arg logical_widths
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function index_to_x
         <item>
           arg x_pos
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function x_to_index
         <item>
           arg trailing
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>function free: non-user function</item>
@@ -5192,21 +5268,21 @@
         function get_logical_widths
         <item>
           arg logical_widths
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function index_to_x
         <item>
           arg x_pos
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function x_to_index
         <item>
           arg trailing
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
     </item>
@@ -5243,14 +5319,14 @@
         function get_log_attrs_readonly
         <item>
           arg n_attrs
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function move_cursor_visually
         <item>
           arg new_trailing
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
@@ -5275,14 +5351,14 @@
         function get_log_attrs_readonly
         <item>
           arg n_attrs
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function move_cursor_visually
         <item>
           arg new_trailing
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
@@ -5364,7 +5440,7 @@
         function get_tabs
         <item>
           arg locations
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>function free: non-user function</item>
@@ -5372,7 +5448,7 @@
         function get_tabs
         <item>
           arg locations
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
     </item>
@@ -5385,7 +5461,7 @@
       function find_paragraph_boundary
       <item>
         arg next_paragraph_start
-        <item>type gint: pointer for scalar (INT) not supported</item>
+        <item>type gint: pointer C type for scalar (INT) not supported</item>
       </item>
     </item>
     <item>function font_description_from_string: moved to FontDescription.from_string</item>
@@ -5394,7 +5470,7 @@
       function get_mirror_char
       <item>
         arg mirrored_ch
-        <item>type gunichar: pointer for scalar (UNICHAR) not supported</item>
+        <item>type gunichar: pointer C type for scalar (UNICHAR) not supported</item>
       </item>
     </item>
     <item>function gravity_get_for_matrix: moved to Gravity.get_for_matrix</item>
@@ -5747,11 +5823,11 @@
       <item>function get_pointer: deprecated</item>
       <item>
         function get_user_data
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function invalidate_maybe_recurse
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function peek_children
@@ -5772,11 +5848,11 @@
       <item>function get_pointer: deprecated</item>
       <item>
         function get_user_data
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function invalidate_maybe_recurse
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function peek_children
@@ -5888,7 +5964,7 @@
       object AccelGroup
       <item>
         function find
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function query
@@ -5902,7 +5978,7 @@
       </item>
       <item>
         function find
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function query
@@ -6093,20 +6169,20 @@
       interface Buildable
       <item>
         function custom_finished
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function custom_tag_end
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>function custom_tag_start: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function custom_finished
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function custom_tag_end
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>function custom_tag_start: function excluded by configuration (excludedFunctionSymbols)</item>
     </item>
@@ -6115,11 +6191,11 @@
       object Builder
       <item>
         function connect_signals
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function connect_signals_full
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_objects
@@ -6138,11 +6214,11 @@
       </item>
       <item>
         function connect_signals
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function connect_signals_full
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_objects
@@ -6219,11 +6295,11 @@
       object CellArea
       <item>
         function foreach
-        <item>arg callback_data: pointer for VOID not supported</item>
+        <item>arg callback_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function foreach_alloc
-        <item>arg callback_data: pointer for VOID not supported</item>
+        <item>arg callback_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_focus_siblings
@@ -6231,11 +6307,11 @@
       </item>
       <item>
         function foreach
-        <item>arg callback_data: pointer for VOID not supported</item>
+        <item>arg callback_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function foreach_alloc
-        <item>arg callback_data: pointer for VOID not supported</item>
+        <item>arg callback_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_focus_siblings
@@ -6318,27 +6394,27 @@
       object Clipboard
       <item>
         function request_contents
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function request_image
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function request_rich_text
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function request_targets
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function request_text
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function request_uris
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_can_store
@@ -6355,27 +6431,27 @@
       </item>
       <item>
         function request_contents
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function request_image
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function request_rich_text
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function request_targets
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function request_text
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function request_uris
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_can_store
@@ -6487,11 +6563,11 @@
       </item>
       <item>
         function forall
-        <item>arg callback_data: pointer for VOID not supported</item>
+        <item>arg callback_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function foreach
-        <item>arg callback_data: pointer for VOID not supported</item>
+        <item>arg callback_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_children
@@ -6517,11 +6593,11 @@
       </item>
       <item>
         function forall
-        <item>arg callback_data: pointer for VOID not supported</item>
+        <item>arg callback_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function foreach
-        <item>arg callback_data: pointer for VOID not supported</item>
+        <item>arg callback_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_children
@@ -6827,14 +6903,14 @@
         function get_surrounding
         <item>
           arg cursor_index
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_surrounding
         <item>
           arg cursor_index
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
     </item>
@@ -6953,7 +7029,7 @@
       </item>
       <item>
         function selected_foreach
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function enable_model_drag_dest
@@ -6987,7 +7063,7 @@
       </item>
       <item>
         function selected_foreach
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct IconViewClass: class struct</item>
@@ -7179,12 +7255,12 @@
         function toggle_size_request
         <item>
           arg requisition
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         signals toggle-size-request
-        <item>arg object: pointer for VOID not supported</item>
+        <item>arg object: pointer C type for VOID not supported</item>
       </item>
       <item>function get_right_justified: deprecated</item>
       <item>function set_right_justified: deprecated</item>
@@ -7192,12 +7268,12 @@
         function toggle_size_request
         <item>
           arg requisition
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         signals toggle-size-request
-        <item>arg object: pointer for VOID not supported</item>
+        <item>arg object: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct MenuItemClass: class struct</item>
@@ -7251,7 +7327,7 @@
       object PrintSettings
       <item>
         function foreach
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_page_ranges
@@ -7278,7 +7354,7 @@
       </item>
       <item>
         function foreach
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_page_ranges
@@ -7692,7 +7768,7 @@
       object StyleContext
       <item>
         function cancel_animations
-        <item>arg region_id: pointer for VOID not supported</item>
+        <item>arg region_id: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_property
@@ -7714,15 +7790,15 @@
       </item>
       <item>
         function notify_state_change
-        <item>arg region_id: pointer for VOID not supported</item>
+        <item>arg region_id: pointer C type for VOID not supported</item>
       </item>
       <item>
         function push_animatable_region
-        <item>arg region_id: pointer for VOID not supported</item>
+        <item>arg region_id: pointer C type for VOID not supported</item>
       </item>
       <item>
         function cancel_animations
-        <item>arg region_id: pointer for VOID not supported</item>
+        <item>arg region_id: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_property
@@ -7744,11 +7820,11 @@
       </item>
       <item>
         function notify_state_change
-        <item>arg region_id: pointer for VOID not supported</item>
+        <item>arg region_id: pointer C type for VOID not supported</item>
       </item>
       <item>
         function push_animatable_region
-        <item>arg region_id: pointer for VOID not supported</item>
+        <item>arg region_id: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct StyleContextClass: class struct</item>
@@ -7828,7 +7904,7 @@
         function find
         <item>
           arg info
-          <item>type guint: pointer for scalar (UINT) not supported</item>
+          <item>type guint: pointer C type for scalar (UINT) not supported</item>
         </item>
       </item>
       <item>function ref: non-user function</item>
@@ -7863,7 +7939,7 @@
         function find
         <item>
           arg info
-          <item>type guint: pointer for scalar (UINT) not supported</item>
+          <item>type guint: pointer C type for scalar (UINT) not supported</item>
         </item>
       </item>
       <item>function ref: non-user function</item>
@@ -7941,11 +8017,11 @@
       struct TextIter
       <item>
         function backward_find_char
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function forward_find_char
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function free: non-user function</item>
       <item>
@@ -7962,11 +8038,11 @@
       </item>
       <item>
         function backward_find_char
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function forward_find_char
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function free: non-user function</item>
       <item>
@@ -7989,11 +8065,11 @@
       object TextTagTable
       <item>
         function foreach
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function foreach
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
     </item>
     <item>struct TextTagTableClass: class struct</item>
@@ -8074,7 +8150,7 @@
       interface TreeModel
       <item>
         function foreach
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_column_type
@@ -8082,7 +8158,7 @@
       </item>
       <item>
         function foreach
-        <item>arg user_data: pointer for VOID not supported</item>
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function get_column_type
@@ -8151,7 +8227,7 @@
       </item>
       <item>
         function selected_foreach
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_select_function
@@ -8169,7 +8245,7 @@
       </item>
       <item>
         function selected_foreach
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_select_function
@@ -8371,7 +8447,7 @@
       </item>
       <item>
         function map_expanded_rows
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_column_drag_function
@@ -8469,7 +8545,7 @@
       </item>
       <item>
         function map_expanded_rows
-        <item>arg data: pointer for VOID not supported</item>
+        <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function set_column_drag_function
@@ -8974,7 +9050,7 @@
     <item>function print_error_quark: moved to PrintError.quark</item>
     <item>
       function print_run_page_setup_dialog_async
-      <item>arg data: pointer for VOID not supported</item>
+      <item>arg data: pointer C type for VOID not supported</item>
     </item>
     <item>function rc_find_module_in_path: deprecated</item>
     <item>function rc_find_pixmap_in_path: deprecated</item>
@@ -9209,14 +9285,14 @@
         function get_padding
         <item>
           arg ypad
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_padding
         <item>
           arg ypad
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
     </item>
@@ -9232,28 +9308,28 @@
         function measure
         <item>
           arg height
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function measure_markup
         <item>
           arg height
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function measure
         <item>
           arg height
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function measure_markup
         <item>
           arg height
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
     </item>
@@ -9294,14 +9370,14 @@
         function get_mark_attributes
         <item>
           arg priority
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
       <item>
         function get_mark_attributes
         <item>
           arg priority
-          <item>type gint: pointer for scalar (INT) not supported</item>
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
     </item>
@@ -9323,7 +9399,7 @@
         function get_cursor_position
         <item>
           arg row
-          <item>type glong: pointer for scalar (LONG) not supported</item>
+          <item>type glong: pointer C type for scalar (LONG) not supported</item>
         </item>
       </item>
       <item>
@@ -9344,7 +9420,7 @@
         function get_cursor_position
         <item>
           arg row
-          <item>type glong: pointer for scalar (LONG) not supported</item>
+          <item>type glong: pointer C type for scalar (LONG) not supported</item>
         </item>
       </item>
       <item>
@@ -9383,7 +9459,7 @@
         function feed_child_binary
         <item>
           arg data
-          <item>type guint8: pointer for scalar (UINT8) not supported</item>
+          <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
         </item>
       </item>
       <item>
@@ -9412,7 +9488,7 @@
         function feed_child_binary
         <item>
           arg data
-          <item>type guint8: pointer for scalar (UINT8) not supported</item>
+          <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
         </item>
       </item>
       <item>

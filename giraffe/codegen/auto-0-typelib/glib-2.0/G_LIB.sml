@@ -182,53 +182,6 @@ signature G_LIB =
         where type i_o_flags_t = IOFlags.t
         where type i_o_status_t = IOStatus.t
         where type i_o_channel_error_t = IOChannelError.t
-    val ALLOCATOR_LIST : LargeInt.int
-    val ALLOCATOR_NODE : LargeInt.int
-    val ALLOCATOR_SLIST : LargeInt.int
-    val ALLOC_AND_FREE : LargeInt.int
-    val ALLOC_ONLY : LargeInt.int
-    val ASCII_DTOSTR_BUF_SIZE : LargeInt.int
-    val ATOMIC_OP_USE_GCC_BUILTINS : LargeInt.int
-    val BIG_ENDIAN : LargeInt.int
-    val CAN_INLINE : LargeInt.int
-    val CSET_A_2_Z : string
-    val CSET_DIGITS : string
-    val CSET_a_2_z : string
-    val DATALIST_FLAGS_MASK : LargeInt.int
-    val DATE_BAD_DAY : LargeInt.int
-    val DATE_BAD_JULIAN : LargeInt.int
-    val DATE_BAD_YEAR : LargeInt.int
-    val DIR_SEPARATOR : LargeInt.int
-    val DIR_SEPARATOR_S : string
-    val E : real
-    val GINT16_FORMAT : string
-    val GINT16_MODIFIER : string
-    val GINT32_FORMAT : string
-    val GINT32_MODIFIER : string
-    val GINT64_FORMAT : string
-    val GINT64_MODIFIER : string
-    val GINTPTR_FORMAT : string
-    val GINTPTR_MODIFIER : string
-    val GNUC_FUNCTION : string
-    val GNUC_PRETTY_FUNCTION : string
-    val GSIZE_FORMAT : string
-    val GSIZE_MODIFIER : string
-    val GSSIZE_FORMAT : string
-    val GUINT16_FORMAT : string
-    val GUINT32_FORMAT : string
-    val GUINT64_FORMAT : string
-    val GUINTPTR_FORMAT : string
-    val HAVE_GINT64 : LargeInt.int
-    val HAVE_GNUC_VARARGS : LargeInt.int
-    val HAVE_GNUC_VISIBILITY : LargeInt.int
-    val HAVE_GROWING_STACK : LargeInt.int
-    val HAVE_INLINE : LargeInt.int
-    val HAVE_ISO_VARARGS : LargeInt.int
-    val HAVE___INLINE : LargeInt.int
-    val HAVE___INLINE__ : LargeInt.int
-    val HOOK_FLAG_USER_SHIFT : LargeInt.int
-    val IEEE754_DOUBLE_BIAS : LargeInt.int
-    val IEEE754_FLOAT_BIAS : LargeInt.int
     val KEY_FILE_DESKTOP_GROUP : string
     val KEY_FILE_DESKTOP_KEY_CATEGORIES : string
     val KEY_FILE_DESKTOP_KEY_COMMENT : string
@@ -252,46 +205,17 @@ signature G_LIB =
     val KEY_FILE_DESKTOP_TYPE_APPLICATION : string
     val KEY_FILE_DESKTOP_TYPE_DIRECTORY : string
     val KEY_FILE_DESKTOP_TYPE_LINK : string
-    val LITTLE_ENDIAN : LargeInt.int
-    val LN10 : real
-    val LN2 : real
-    val LOG_2_BASE_10 : real
-    val LOG_FATAL_MASK : LargeInt.int
     val LOG_LEVEL_USER_SHIFT : LargeInt.int
     val MAJOR_VERSION : LargeInt.int
     val MICRO_VERSION : LargeInt.int
     val MINOR_VERSION : LargeInt.int
-    val MODULE_SUFFIX : string
-    val MUTEX_DEBUG_MAGIC : LargeInt.int
-    val OPTION_REMAINING : string
-    val PDP_ENDIAN : LargeInt.int
-    val PI : real
-    val PI_2 : real
-    val PI_4 : real
-    val POLLFD_FORMAT : string
     val PRIORITY_DEFAULT : LargeInt.int
     val PRIORITY_DEFAULT_IDLE : LargeInt.int
     val PRIORITY_HIGH : LargeInt.int
     val PRIORITY_HIGH_IDLE : LargeInt.int
     val PRIORITY_LOW : LargeInt.int
-    val SEARCHPATH_SEPARATOR : LargeInt.int
-    val SEARCHPATH_SEPARATOR_S : string
-    val SIZEOF_LONG : LargeInt.int
-    val SIZEOF_SIZE_T : LargeInt.int
-    val SIZEOF_VOID_P : LargeInt.int
-    val SQRT2 : real
-    val STR_DELIMITERS : string
-    val SYSDEF_AF_INET : LargeInt.int
-    val SYSDEF_AF_INET6 : LargeInt.int
-    val SYSDEF_AF_UNIX : LargeInt.int
-    val SYSDEF_MSG_DONTROUTE : LargeInt.int
-    val SYSDEF_MSG_OOB : LargeInt.int
-    val SYSDEF_MSG_PEEK : LargeInt.int
     val URI_RESERVED_CHARS_GENERIC_DELIMITERS : string
     val URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS : string
-    val USEC_PER_SEC : LargeInt.int
-    val VA_COPY_AS_ARRAY : LargeInt.int
-    val WIN32_MSG_HANDLE : LargeInt.int
     val assertWarning :
       string
        * string

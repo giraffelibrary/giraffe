@@ -2,16 +2,34 @@
 <tree style="lines">
   <item>
     GLib-2.0
+    <item>constant ALLOCATOR_LIST: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant ALLOCATOR_NODE: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant ALLOCATOR_SLIST: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant ALLOC_AND_FREE: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant ALLOC_ONLY: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant ASCII_DTOSTR_BUF_SIZE: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant ATOMIC_OP_USE_GCC_BUILTINS: constant excluded by configuration (excludedConstantNames)</item>
     <item>struct Allocator: struct not included by configuration (structTypes)</item>
     <item>struct Array: struct not included by configuration (structTypes)</item>
     <item>flags AsciiType: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct AsyncQueue: struct not included by configuration (structTypes)</item>
+    <item>constant BIG_ENDIAN: constant excluded by configuration (excludedConstantNameSuffixes)</item>
     <item>struct BookmarkFile: struct not included by configuration (structTypes)</item>
     <item>struct ByteArray: struct not included by configuration (structTypes)</item>
+    <item>constant CAN_INLINE: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant CSET_A_2_Z: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant CSET_DIGITS: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant CSET_a_2_z: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>struct Cache: struct not included by configuration (structTypes)</item>
     <item>struct Checksum: struct not included by configuration (structTypes)</item>
     <item>struct Completion: struct not included by configuration (structTypes)</item>
     <item>struct Cond: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>constant DATALIST_FLAGS_MASK: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant DATE_BAD_DAY: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant DATE_BAD_JULIAN: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant DATE_BAD_YEAR: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant DIR_SEPARATOR: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant DIR_SEPARATOR_S: constant excluded by configuration (excludedConstantNameSuffixes)</item>
     <item>struct Data: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       struct Date
@@ -61,6 +79,7 @@
     </item>
     <item>struct DebugKey: struct not included by configuration (structTypes)</item>
     <item>struct Dir: struct not included by configuration (structTypes)</item>
+    <item>constant E: constant excluded by configuration (excludedConstantNames)</item>
     <item>
       struct Error
       <item>
@@ -84,12 +103,40 @@
       <item>function free: non-user function</item>
       <item>function matches: function excluded by configuration (excludedFunctionSymbols)</item>
     </item>
+    <item>constant GINT16_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GINT16_MODIFIER: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GINT32_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GINT32_MODIFIER: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GINT64_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GINT64_MODIFIER: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GINTPTR_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GINTPTR_MODIFIER: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GNUC_FUNCTION: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant GNUC_PRETTY_FUNCTION: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant GSIZE_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GSIZE_MODIFIER: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GSSIZE_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GUINT16_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GUINT32_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GUINT64_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant GUINTPTR_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant HAVE_GINT64: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant HAVE_GNUC_VARARGS: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant HAVE_GNUC_VISIBILITY: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant HAVE_GROWING_STACK: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant HAVE_INLINE: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant HAVE_ISO_VARARGS: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant HAVE___INLINE: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant HAVE___INLINE__: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant HOOK_FLAG_USER_SHIFT: constant excluded by configuration (excludedConstantNames)</item>
     <item>struct HashTable: struct not included by configuration (structTypes)</item>
     <item>struct HashTableIter: struct not included by configuration (structTypes)</item>
     <item>struct Hmac: struct not included by configuration (structTypes)</item>
     <item>struct Hook: struct not included by configuration (structTypes)</item>
     <item>struct HookList: struct not included by configuration (structTypes)</item>
     <item>struct IConv: struct not included by configuration (structTypes)</item>
+    <item>constant IEEE754_DOUBLE_BIAS: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant IEEE754_FLOAT_BIAS: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>
       struct IOChannel
       <item>
@@ -247,7 +294,14 @@
       </item>
       <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
     </item>
+    <item>constant LITTLE_ENDIAN: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant LN10: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant LN2: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant LOG_2_BASE_10: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant LOG_FATAL_MASK: constant excluded by configuration (excludedConstantNames)</item>
     <item>struct List: struct not included by configuration (structTypes)</item>
+    <item>constant MODULE_SUFFIX: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant MUTEX_DEBUG_MAGIC: constant excluded by configuration (excludedConstantNames)</item>
     <item>
       struct MainContext
       <item>
@@ -434,10 +488,16 @@
     <item>struct MemVTable: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct Mutex: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct Node: struct not included by configuration (structTypes)</item>
+    <item>constant OPTION_REMAINING: constant excluded by configuration (excludedConstantNames)</item>
     <item>struct Once: struct not included by configuration (structTypes)</item>
     <item>struct OptionContext: struct not included by configuration (structTypes)</item>
     <item>struct OptionEntry: struct not included by configuration (structTypes)</item>
     <item>struct OptionGroup: struct not included by configuration (structTypes)</item>
+    <item>constant PDP_ENDIAN: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant PI: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant PI_2: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant PI_4: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant POLLFD_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
     <item>
       struct PatternSpec
       <item>function free: non-user function</item>
@@ -460,7 +520,20 @@
       <item>function escape_string: function excluded by configuration (excludedFunctionSymbols)</item>
     </item>
     <item>struct Relation: struct not included by configuration (structTypes)</item>
+    <item>constant SEARCHPATH_SEPARATOR: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant SEARCHPATH_SEPARATOR_S: constant excluded by configuration (excludedConstantNameSuffixes)</item>
+    <item>constant SIZEOF_LONG: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant SIZEOF_SIZE_T: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant SIZEOF_VOID_P: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>struct SList: struct not included by configuration (structTypes)</item>
+    <item>constant SQRT2: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant STR_DELIMITERS: constant excluded by configuration (excludedConstantNames)</item>
+    <item>constant SYSDEF_AF_INET: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant SYSDEF_AF_INET6: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant SYSDEF_AF_UNIX: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant SYSDEF_MSG_DONTROUTE: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant SYSDEF_MSG_OOB: constant excluded by configuration (excludedConstantNamePrefixes)</item>
+    <item>constant SYSDEF_MSG_PEEK: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>struct Scanner: struct not included by configuration (structTypes)</item>
     <item>struct ScannerConfig: struct not included by configuration (structTypes)</item>
     <item>struct Sequence: struct not included by configuration (structTypes)</item>
@@ -601,8 +674,10 @@
     <item>struct TrashStack: struct not included by configuration (structTypes)</item>
     <item>struct Tree: struct not included by configuration (structTypes)</item>
     <item>struct Tuples: struct not included by configuration (structTypes)</item>
+    <item>constant USEC_PER_SEC: constant excluded by configuration (excludedConstantNames)</item>
     <item>enum UnicodeBreakType: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>enum UnicodeScript: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>constant VA_COPY_AS_ARRAY: constant excluded by configuration (excludedConstantNames)</item>
     <item>
       struct Variant
       <item>
@@ -652,6 +727,7 @@
       <item>function free: non-user function</item>
       <item>function free: non-user function</item>
     </item>
+    <item>constant WIN32_MSG_HANDLE: constant excluded by configuration (excludedConstantNames)</item>
     <item>struct _StaticAssert_347: struct not included by configuration (structTypes)</item>
     <item>function access: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>

@@ -167,7 +167,77 @@ unionNames := [
 
 
 (**
- * Function names to skip
+ * Constant names to exclude
+ *)
+
+excludedConstantNames := [
+  (
+    [("GLib", "2.0")],
+    [
+      "ASCII_DTOSTR_BUF_SIZE",
+      "ATOMIC_OP_USE_GCC_BUILTINS",
+      "CAN_INLINE",
+      "DATALIST_FLAGS_MASK",
+      "E",
+      "HAVE_GINT64",
+      "HAVE_GROWING_STACK",
+      "HAVE_INLINE",
+      "HAVE_ISO_VARARGS",
+      "HAVE___INLINE",
+      "HAVE___INLINE__",
+      "HOOK_FLAG_USER_SHIFT",
+      "LN10",
+      "LN2",
+      "LOG_2_BASE_10",
+      "LOG_FATAL_MASK",
+      "MODULE_SUFFIX",
+      "MUTEX_DEBUG_MAGIC",
+      "OPTION_REMAINING",
+      "PI",
+      "PI_2",
+      "PI_4",
+      "SQRT2",
+      "STR_DELIMITERS",
+      "USEC_PER_SEC",
+      "VA_COPY_AS_ARRAY",
+      "WIN32_MSG_HANDLE"
+    ]
+  )
+];
+
+excludedConstantNamePrefixes := [
+  (
+    [("GLib", "2.0")],
+    [
+      "ALLOCATOR_",
+      "ALLOC_",
+      "CSET_",
+      "DATE_BAD_",
+      "GNUC_",
+      "HAVE_GNUC_",
+      "IEEE754_",
+      "SIZEOF_",
+      "SYSDEF_"
+    ]
+  )
+];
+
+excludedConstantNameSuffixes := [
+  (
+    [("GLib", "2.0")],
+    [
+      "_ENDIAN",
+      "_FORMAT",
+      "_MODIFIER",
+      "_SEPARATOR",
+      "_SEPARATOR_S"
+    ]
+  )
+];
+
+
+(**
+ * Function names to exclude
  *)
 
 (* Manually specified symbols
