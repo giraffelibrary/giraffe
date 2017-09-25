@@ -4,6 +4,7 @@ structure GtkIconView :>
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a cell_layout_class = 'a GtkCellLayoutClass.class
     where type 'a scrollable_class = 'a GtkScrollableClass.class
+    where type target_entry_t = GtkTargetEntryRecord.t
     where type tree_iter_t = GtkTreeIterRecord.t
     where type icon_view_drop_position_t = GtkIconViewDropPosition.t
     where type 'a cell_renderer_class = 'a GtkCellRendererClass.class
@@ -15,6 +16,12 @@ structure GtkIconView :>
     where type 'a tree_model_class = 'a GtkTreeModelClass.class
     where type selection_mode_t = GtkSelectionMode.t =
   struct
+    structure GtkTargetEntryRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GtkTargetEntryRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     val getType_ = _import "gtk_icon_view_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_icon_view_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val newWithArea_ = _import "gtk_icon_view_new_with_area" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
@@ -43,6 +50,53 @@ structure GtkIconView :>
               x5
             )
     val createDragIcon_ = fn x1 & x2 => (_import "gtk_icon_view_create_drag_icon" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p;) (x1, x2)
+    val enableModelDragDest_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5 =>
+          (
+            _import "mlton_gtk_icon_view_enable_model_drag_dest" :
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * GtkTargetEntryRecordCVectorN.MLton.p1
+               * GtkTargetEntryRecordCVectorN.FFI.notnull GtkTargetEntryRecordCVectorN.MLton.p2
+               * GInt32.FFI.val_
+               * GdkDragAction.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
+    val enableModelDragSource_ =
+      fn
+        x1
+         & x2
+         & (x3, x4)
+         & x5
+         & x6 =>
+          (
+            _import "mlton_gtk_icon_view_enable_model_drag_source" :
+              GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
+               * GdkModifierType.FFI.val_
+               * GtkTargetEntryRecordCVectorN.MLton.p1
+               * GtkTargetEntryRecordCVectorN.FFI.notnull GtkTargetEntryRecordCVectorN.MLton.p2
+               * GInt32.FFI.val_
+               * GdkDragAction.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
     val getColumnSpacing_ = _import "gtk_icon_view_get_column_spacing" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt32.FFI.val_;
     val getColumns_ = _import "gtk_icon_view_get_columns" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt32.FFI.val_;
     val getCursor_ =
@@ -327,6 +381,7 @@ structure GtkIconView :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_layout_class = 'a GtkCellLayoutClass.class
     type 'a scrollable_class = 'a GtkScrollableClass.class
+    type target_entry_t = GtkTargetEntryRecord.t
     type tree_iter_t = GtkTreeIterRecord.t
     type icon_view_drop_position_t = GtkIconViewDropPosition.t
     type 'a cell_renderer_class = 'a GtkCellRendererClass.class
@@ -373,6 +428,56 @@ structure GtkIconView :>
         (bx, by)
       end
     fun createDragIcon self path = (GtkIconViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromPtr true) createDragIcon_ (self & path)
+    fun enableModelDragDest self (targets, actions) =
+      let
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val () =
+          (
+            GtkIconViewClass.FFI.withPtr
+             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GdkDragAction.FFI.withVal
+             ---> I
+          )
+            enableModelDragDest_
+            (
+              self
+               & targets
+               & nTargets
+               & actions
+            )
+      in
+        ()
+      end
+    fun enableModelDragSource
+      self
+      (
+        startButtonMask,
+        targets,
+        actions
+      ) =
+      let
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val () =
+          (
+            GtkIconViewClass.FFI.withPtr
+             &&&> GdkModifierType.FFI.withVal
+             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GdkDragAction.FFI.withVal
+             ---> I
+          )
+            enableModelDragSource_
+            (
+              self
+               & startButtonMask
+               & targets
+               & nTargets
+               & actions
+            )
+      in
+        ()
+      end
     fun getColumnSpacing self = (GtkIconViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getColumnSpacing_ self
     fun getColumns self = (GtkIconViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getColumns_ self
     fun getCursor self =

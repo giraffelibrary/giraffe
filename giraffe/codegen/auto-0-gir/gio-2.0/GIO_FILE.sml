@@ -121,6 +121,18 @@ signature GIO_FILE =
        -> bool
     val iconNew : 'a class -> base icon_class
     val isNative : 'a class -> bool
+    val loadContents :
+      'a class
+       -> 'b cancellable_class option
+       -> (Word8Vector.vector * string) option
+    val loadContentsFinish :
+      'a class
+       -> 'b async_result_class
+       -> (Word8Vector.vector * string) option
+    val loadPartialContentsFinish :
+      'a class
+       -> 'b async_result_class
+       -> (Word8Vector.vector * string) option
     val makeDirectory :
       'a class
        -> 'b cancellable_class option

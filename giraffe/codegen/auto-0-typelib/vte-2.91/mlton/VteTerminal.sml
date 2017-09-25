@@ -8,6 +8,12 @@ structure VteTerminal :>
     where type erase_binding_t = VteEraseBinding.t
     where type 'a pty_class = 'a VtePtyClass.class =
   struct
+    structure GdkRgbaRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GdkRgbaRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GdkRgbaRecordCVectorN = CVectorN(GdkRgbaRecordCVectorNType)
     structure GUInt8CVectorNType =
       CValueCVectorNType(
         structure CElemType = GUInt8Type
@@ -278,6 +284,31 @@ structure VteTerminal :>
     val setColorForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_foreground" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
     val setColorHighlight_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * unit GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
     val setColorHighlightForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight_foreground" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * unit GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val setColors_ =
+      fn
+        x1
+         & x2
+         & x3
+         & (x4, x5)
+         & x6 =>
+          (
+            _import "mlton_vte_terminal_set_colors" :
+              VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
+               * unit GdkRgbaRecord.FFI.p
+               * unit GdkRgbaRecord.FFI.p
+               * GdkRgbaRecordCVectorN.MLton.p1
+               * unit GdkRgbaRecordCVectorN.MLton.p2
+               * GUInt64.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
     val setCursorBlinkMode_ = fn x1 & x2 => (_import "vte_terminal_set_cursor_blink_mode" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * VteCursorBlinkMode.FFI.val_ -> unit;) (x1, x2)
     val setCursorShape_ = fn x1 & x2 => (_import "vte_terminal_set_cursor_shape" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * VteCursorShape.FFI.val_ -> unit;) (x1, x2)
     val setDefaultColors_ = _import "vte_terminal_set_default_colors" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> unit;
@@ -601,6 +632,38 @@ structure VteTerminal :>
     fun setColorForeground self foreground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setColorForeground_ (self & foreground)
     fun setColorHighlight self highlightBackground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorHighlight_ (self & highlightBackground)
     fun setColorHighlightForeground self highlightForeground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorHighlightForeground_ (self & highlightForeground)
+    fun setColors
+      self
+      (
+        foreground,
+        background,
+        palette
+      ) =
+      let
+        val paletteSize =
+          case palette of
+            SOME palette => LargeInt.fromInt (GdkRgbaRecordCVectorN.length palette)
+          | NONE => GUInt64.null
+        val () =
+          (
+            VteTerminalClass.FFI.withPtr
+             &&&> GdkRgbaRecord.FFI.withOptPtr
+             &&&> GdkRgbaRecord.FFI.withOptPtr
+             &&&> GdkRgbaRecordCVectorN.FFI.withOptPtr
+             &&&> GUInt64.FFI.withVal
+             ---> I
+          )
+            setColors_
+            (
+              self
+               & foreground
+               & background
+               & palette
+               & paletteSize
+            )
+      in
+        ()
+      end
     fun setCursorBlinkMode self mode = (VteTerminalClass.FFI.withPtr &&&> VteCursorBlinkMode.FFI.withVal ---> I) setCursorBlinkMode_ (self & mode)
     fun setCursorShape self shape = (VteTerminalClass.FFI.withPtr &&&> VteCursorShape.FFI.withVal ---> I) setCursorShape_ (self & shape)
     fun setDefaultColors self = (VteTerminalClass.FFI.withPtr ---> I) setDefaultColors_ self

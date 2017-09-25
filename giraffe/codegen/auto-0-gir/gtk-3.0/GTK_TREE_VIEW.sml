@@ -3,6 +3,7 @@ signature GTK_TREE_VIEW =
     type 'a class
     type 'a buildable_class
     type 'a scrollable_class
+    type target_entry_t
     type 'a tree_selection_class
     type tree_view_drop_position_t
     type 'a entry_class
@@ -59,6 +60,16 @@ signature GTK_TREE_VIEW =
       'a class
        -> tree_path_t
        -> Cairo.SurfaceRecord.t
+    val enableModelDragDest :
+      'a class
+       -> target_entry_t vector * Gdk.DragAction.t
+       -> unit
+    val enableModelDragSource :
+      'a class
+       -> Gdk.ModifierType.t
+           * target_entry_t vector
+           * Gdk.DragAction.t
+       -> unit
     val expandAll : 'a class -> unit
     val expandRow :
       'a class

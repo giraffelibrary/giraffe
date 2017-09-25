@@ -7,17 +7,22 @@ structure GtkTargetEntryRecord :> GTK_TARGET_ENTRY_RECORD =
     local
       open PolyMLFFI
     in
-      val dup_ = call (getSymbol "gtk_target_entry_copy") (cPtr --> cPtr)
-      val free_ = call (getSymbol "gtk_target_entry_free") (cPtr --> cVoid)
+      val new_ = call (getSymbol "giraffe_gtk_target_entry_new") (cVoid --> cPtr)
+      val copy_ = call (getSymbol "giraffe_gtk_target_entry_copy") (cPtr &&> cPtr --> cVoid)
+      val free_ = call (getSymbol "giraffe_gtk_target_entry_free") (cPtr --> cVoid)
+      val size_ = call (getSymbol "giraffe_gtk_target_entry_size") (cVoid --> GUInt.PolyML.cVal)
     end
     structure Record =
-      BoxedRecord(
+      BoxedValueRecord(
         structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
-        val dup_ = dup_
+        val new_ = new_
+        val copy_ = copy_
         val take_ = ignore
+        val clear_ = ignore
         val free_ = free_
+        val size_ = size_
       )
     open Record
     local

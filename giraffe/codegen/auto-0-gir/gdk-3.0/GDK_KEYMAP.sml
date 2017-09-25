@@ -11,6 +11,14 @@ signature GDK_KEYMAP =
     val addVirtualModifiers : 'a class -> modifier_type_t
     val getCapsLockState : 'a class -> bool
     val getDirection : 'a class -> Pango.Direction.t
+    val getEntriesForKeycode :
+      'a class
+       -> LargeInt.int
+       -> (keymap_key_t vector * LargeInt.int vector) option
+    val getEntriesForKeyval :
+      'a class
+       -> LargeInt.int
+       -> keymap_key_t vector option
     val getNumLockState : 'a class -> bool
     val haveBidiLayouts : 'a class -> bool
     val lookupKey :

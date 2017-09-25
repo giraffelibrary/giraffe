@@ -75,6 +75,8 @@ in
   GDK_MODIFIER_TYPE.sml
   GDK_NOTIFY_TYPE.sml
   GDK_OWNER_CHANGE.sml
+  GDK_POINT_RECORD.sml
+  GDK_POINT.sml
   GDK_PROP_MODE.sml
   GDK_PROPERTY_STATE.sml
   GDK_RGBA_RECORD.sml
@@ -139,6 +141,7 @@ in
     mlton/GdkModifierType.sml
     mlton/GdkNotifyType.sml
     mlton/GdkOwnerChange.sml
+    mlton/GdkPointRecord.sml
     mlton/GdkPropMode.sml
     mlton/GdkPropertyState.sml
     mlton/GdkRgbaRecord.sml
@@ -190,6 +193,7 @@ in
     mlton/GdkGeometry.sml
     mlton/GdkKeymap.sml
     mlton/GdkKeymapKey.sml
+    mlton/GdkPoint.sml
     mlton/GdkRgba.sml
     mlton/GdkScreen.sml
     mlton/GdkVisual.sml

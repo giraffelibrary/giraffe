@@ -1,12 +1,20 @@
 structure GtkTargetList :>
   GTK_TARGET_LIST
     where type t = GtkTargetListRecord.t
-    where type 'a text_buffer_class = 'a GtkTextBufferClass.class =
+    where type 'a text_buffer_class = 'a GtkTextBufferClass.class
+    where type target_entry_t = GtkTargetEntryRecord.t =
   struct
+    structure GtkTargetEntryRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GtkTargetEntryRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     local
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_target_list_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_target_list_new") (GtkTargetEntryRecordCVectorN.PolyML.cInPtr &&> GUInt32.PolyML.cVal --> GtkTargetListRecord.PolyML.cPtr)
       val add_ =
         call (getSymbol "gtk_target_list_add")
           (
@@ -33,13 +41,29 @@ structure GtkTargetList :>
              &&> GtkTextBufferClass.PolyML.cPtr
              --> cVoid
           )
+      val addTable_ =
+        call (getSymbol "gtk_target_list_add_table")
+          (
+            GtkTargetListRecord.PolyML.cPtr
+             &&> GtkTargetEntryRecordCVectorN.PolyML.cInPtr
+             &&> GUInt32.PolyML.cVal
+             --> cVoid
+          )
       val addTextTargets_ = call (getSymbol "gtk_target_list_add_text_targets") (GtkTargetListRecord.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
       val addUriTargets_ = call (getSymbol "gtk_target_list_add_uri_targets") (GtkTargetListRecord.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
       val remove_ = call (getSymbol "gtk_target_list_remove") (GtkTargetListRecord.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> cVoid)
     end
     type t = GtkTargetListRecord.t
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
+    type target_entry_t = GtkTargetEntryRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new targets =
+      let
+        val ntargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val retVal = (GtkTargetEntryRecordCVectorN.FFI.withPtr &&&> GUInt32.FFI.withVal ---> GtkTargetListRecord.FFI.fromPtr true) new_ (targets & ntargets)
+      in
+        retVal
+      end
     fun add
       self
       (
@@ -95,6 +119,25 @@ structure GtkTargetList :>
            & deserializable
            & buffer
         )
+    fun addTable self targets =
+      let
+        val ntargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val () =
+          (
+            GtkTargetListRecord.FFI.withPtr
+             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GUInt32.FFI.withVal
+             ---> I
+          )
+            addTable_
+            (
+              self
+               & targets
+               & ntargets
+            )
+      in
+        ()
+      end
     fun addTextTargets self info = (GtkTargetListRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) addTextTargets_ (self & info)
     fun addUriTargets self info = (GtkTargetListRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) addUriTargets_ (self & info)
     fun remove self target = (GtkTargetListRecord.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) remove_ (self & target)

@@ -1,8 +1,15 @@
 structure GtkAccelGroup :>
   GTK_ACCEL_GROUP
     where type 'a class = 'a GtkAccelGroupClass.class
-    where type accel_flags_t = GtkAccelFlags.t =
+    where type accel_flags_t = GtkAccelFlags.t
+    where type accel_group_entry_t = GtkAccelGroupEntryRecord.t =
   struct
+    structure GtkAccelGroupEntryRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GtkAccelGroupEntryRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GtkAccelGroupEntryRecordCVectorN = CVectorN(GtkAccelGroupEntryRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -49,10 +56,20 @@ structure GtkAccelGroup :>
       val getIsLocked_ = call (getSymbol "gtk_accel_group_get_is_locked") (GtkAccelGroupClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getModifierMask_ = call (getSymbol "gtk_accel_group_get_modifier_mask") (GtkAccelGroupClass.PolyML.cPtr --> GdkModifierType.PolyML.cVal)
       val lock_ = call (getSymbol "gtk_accel_group_lock") (GtkAccelGroupClass.PolyML.cPtr --> cVoid)
+      val query_ =
+        call (getSymbol "gtk_accel_group_query")
+          (
+            GtkAccelGroupClass.PolyML.cPtr
+             &&> GUInt.PolyML.cVal
+             &&> GdkModifierType.PolyML.cVal
+             &&> GUInt.PolyML.cRef
+             --> GtkAccelGroupEntryRecordCVectorN.PolyML.cOutPtr
+          )
       val unlock_ = call (getSymbol "gtk_accel_group_unlock") (GtkAccelGroupClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkAccelGroupClass.class
     type accel_flags_t = GtkAccelFlags.t
+    type accel_group_entry_t = GtkAccelGroupEntryRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkAccelGroupClass.FFI.fromPtr true) new_ ()
@@ -135,6 +152,26 @@ structure GtkAccelGroup :>
     fun getIsLocked self = (GtkAccelGroupClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsLocked_ self
     fun getModifierMask self = (GtkAccelGroupClass.FFI.withPtr ---> GdkModifierType.FFI.fromVal) getModifierMask_ self
     fun lock self = (GtkAccelGroupClass.FFI.withPtr ---> I) lock_ self
+    fun query self (accelKey, accelMods) =
+      let
+        val nEntries & retVal =
+          (
+            GtkAccelGroupClass.FFI.withPtr
+             &&&> GUInt.FFI.withVal
+             &&&> GdkModifierType.FFI.withVal
+             &&&> GUInt.FFI.withRefVal
+             ---> GUInt.FFI.fromVal && GtkAccelGroupEntryRecordCVectorN.FFI.fromPtr 0
+          )
+            query_
+            (
+              self
+               & accelKey
+               & accelMods
+               & GUInt.null
+            )
+      in
+        retVal (LargeInt.toInt nEntries)
+      end
     fun unlock self = (GtkAccelGroupClass.FFI.withPtr ---> I) unlock_ self
     local
       open ClosureMarshal Signal

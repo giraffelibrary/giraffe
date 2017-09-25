@@ -22,6 +22,8 @@ in
   GTK_ACCEL_FLAGS.sml
   GTK_ACCEL_GROUP_CLASS.sml
   GTK_ACCEL_GROUP.sml
+  GTK_ACCEL_GROUP_ENTRY_RECORD.sml
+  GTK_ACCEL_GROUP_ENTRY.sml
   GTK_ACCEL_KEY_RECORD.sml
   GTK_ACCEL_KEY.sml
   GTK_ACCEL_LABEL_CLASS.sml
@@ -293,6 +295,8 @@ in
   GTK_PACK_DIRECTION.sml
   GTK_PACK_TYPE.sml
   GTK_PAGE_ORIENTATION.sml
+  GTK_PAGE_RANGE_RECORD.sml
+  GTK_PAGE_RANGE.sml
   GTK_PAGE_SET.sml
   GTK_PAGE_SETUP_CLASS.sml
   GTK_PAGE_SETUP.sml
@@ -550,6 +554,7 @@ in
     mlton/GtkAllocationRecord.sml
     mlton/GtkAccelFlags.sml
     mlton/GtkAccelGroupClass.sml
+    mlton/GtkAccelGroupEntryRecord.sml
     mlton/GtkAccelKeyRecord.sml
     mlton/GtkAccelMapClass.sml
     mlton/GtkAccessibleClass.sml
@@ -632,6 +637,7 @@ in
     mlton/GtkPackDirection.sml
     mlton/GtkPackType.sml
     mlton/GtkPageOrientation.sml
+    mlton/GtkPageRangeRecord.sml
     mlton/GtkPageSet.sml
     mlton/GtkPageSetupClass.sml
     mlton/GtkPaperSizeRecord.sml
@@ -738,6 +744,7 @@ in
     mlton/GtkWindowType.sml
     mlton/GtkWrapMode.sml
     mlton/GtkAccelGroup.sml
+    mlton/GtkAccelGroupEntry.sml
     mlton/GtkAccelKey.sml
     mlton/GtkAccelMap.sml
     mlton/GtkAccessible.sml
@@ -788,6 +795,7 @@ in
     mlton/GtkMiscClass.sml
     mlton/GtkNumerableIcon.sml
     mlton/GtkOrientable.sml
+    mlton/GtkPageRange.sml
     mlton/GtkPageSetup.sml
     mlton/GtkPaperSize.sml
     mlton/GtkPrintContext.sml

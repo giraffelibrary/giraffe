@@ -3,6 +3,7 @@ structure GtkTreeView :>
     where type 'a class = 'a GtkTreeViewClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a scrollable_class = 'a GtkScrollableClass.class
+    where type target_entry_t = GtkTargetEntryRecord.t
     where type 'a tree_selection_class = 'a GtkTreeSelectionClass.class
     where type tree_view_drop_position_t = GtkTreeViewDropPosition.t
     where type 'a entry_class = 'a GtkEntryClass.class
@@ -15,6 +16,12 @@ structure GtkTreeView :>
     where type 'a tree_view_column_class = 'a GtkTreeViewColumnClass.class
     where type 'a tree_model_class = 'a GtkTreeModelClass.class =
   struct
+    structure GtkTargetEntryRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GtkTargetEntryRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -86,6 +93,25 @@ structure GtkTreeView :>
              --> cVoid
           )
       val createRowDragIcon_ = call (getSymbol "gtk_tree_view_create_row_drag_icon") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
+      val enableModelDragDest_ =
+        call (getSymbol "gtk_tree_view_enable_model_drag_dest")
+          (
+            GtkTreeViewClass.PolyML.cPtr
+             &&> GtkTargetEntryRecordCVectorN.PolyML.cInPtr
+             &&> GInt32.PolyML.cVal
+             &&> GdkDragAction.PolyML.cVal
+             --> cVoid
+          )
+      val enableModelDragSource_ =
+        call (getSymbol "gtk_tree_view_enable_model_drag_source")
+          (
+            GtkTreeViewClass.PolyML.cPtr
+             &&> GdkModifierType.PolyML.cVal
+             &&> GtkTargetEntryRecordCVectorN.PolyML.cInPtr
+             &&> GInt32.PolyML.cVal
+             &&> GdkDragAction.PolyML.cVal
+             --> cVoid
+          )
       val expandAll_ = call (getSymbol "gtk_tree_view_expand_all") (GtkTreeViewClass.PolyML.cPtr --> cVoid)
       val expandRow_ =
         call (getSymbol "gtk_tree_view_expand_row")
@@ -321,6 +347,7 @@ structure GtkTreeView :>
     type 'a class = 'a GtkTreeViewClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a scrollable_class = 'a GtkScrollableClass.class
+    type target_entry_t = GtkTargetEntryRecord.t
     type 'a tree_selection_class = 'a GtkTreeSelectionClass.class
     type tree_view_drop_position_t = GtkTreeViewDropPosition.t
     type 'a entry_class = 'a GtkEntryClass.class
@@ -500,6 +527,56 @@ structure GtkTreeView :>
         (tx, ty)
       end
     fun createRowDragIcon self path = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromPtr true) createRowDragIcon_ (self & path)
+    fun enableModelDragDest self (targets, actions) =
+      let
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val () =
+          (
+            GtkTreeViewClass.FFI.withPtr
+             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GdkDragAction.FFI.withVal
+             ---> I
+          )
+            enableModelDragDest_
+            (
+              self
+               & targets
+               & nTargets
+               & actions
+            )
+      in
+        ()
+      end
+    fun enableModelDragSource
+      self
+      (
+        startButtonMask,
+        targets,
+        actions
+      ) =
+      let
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val () =
+          (
+            GtkTreeViewClass.FFI.withPtr
+             &&&> GdkModifierType.FFI.withVal
+             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GdkDragAction.FFI.withVal
+             ---> I
+          )
+            enableModelDragSource_
+            (
+              self
+               & startButtonMask
+               & targets
+               & nTargets
+               & actions
+            )
+      in
+        ()
+      end
     fun expandAll self = (GtkTreeViewClass.FFI.withPtr ---> I) expandAll_ self
     fun expandRow self (path, openAll) =
       (

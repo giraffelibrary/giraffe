@@ -1,6 +1,7 @@
 structure GtkClipboard :>
   GTK_CLIPBOARD
     where type 'a class = 'a GtkClipboardClass.class
+    where type target_entry_t = GtkTargetEntryRecord.t
     where type selection_data_t = GtkSelectionDataRecord.t
     where type 'a text_buffer_class = 'a GtkTextBufferClass.class =
   struct
@@ -22,6 +23,12 @@ structure GtkClipboard :>
         structure ElemSequence = MonoVectorSequence(Word8Vector)
       )
     structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
+    structure GtkTargetEntryRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GtkTargetEntryRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -31,6 +38,14 @@ structure GtkClipboard :>
       val clear_ = call (getSymbol "gtk_clipboard_clear") (GtkClipboardClass.PolyML.cPtr --> cVoid)
       val getDisplay_ = call (getSymbol "gtk_clipboard_get_display") (GtkClipboardClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
       val getOwner_ = call (getSymbol "gtk_clipboard_get_owner") (GtkClipboardClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
+      val setCanStore_ =
+        call (getSymbol "gtk_clipboard_set_can_store")
+          (
+            GtkClipboardClass.PolyML.cPtr
+             &&> GtkTargetEntryRecordCVectorN.PolyML.cInOptPtr
+             &&> GInt.PolyML.cVal
+             --> cVoid
+          )
       val setImage_ = call (getSymbol "gtk_clipboard_set_image") (GtkClipboardClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cPtr --> cVoid)
       val setText_ =
         call (getSymbol "gtk_clipboard_set_text")
@@ -69,6 +84,7 @@ structure GtkClipboard :>
       val waitIsUrisAvailable_ = call (getSymbol "gtk_clipboard_wait_is_uris_available") (GtkClipboardClass.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a GtkClipboardClass.class
+    type target_entry_t = GtkTargetEntryRecord.t
     type selection_data_t = GtkSelectionDataRecord.t
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
     type t = base class
@@ -78,6 +94,28 @@ structure GtkClipboard :>
     fun clear self = (GtkClipboardClass.FFI.withPtr ---> I) clear_ self
     fun getDisplay self = (GtkClipboardClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
     fun getOwner self = (GtkClipboardClass.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getOwner_ self
+    fun setCanStore self targets =
+      let
+        val nTargets =
+          case targets of
+            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+          | NONE => GInt.null
+        val () =
+          (
+            GtkClipboardClass.FFI.withPtr
+             &&&> GtkTargetEntryRecordCVectorN.FFI.withOptPtr
+             &&&> GInt.FFI.withVal
+             ---> I
+          )
+            setCanStore_
+            (
+              self
+               & targets
+               & nTargets
+            )
+      in
+        ()
+      end
     fun setImage self pixbuf = (GtkClipboardClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> I) setImage_ (self & pixbuf)
     fun setText self (text, len) =
       (

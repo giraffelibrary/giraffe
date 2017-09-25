@@ -12,6 +12,12 @@ structure GLib : G_LIB =
         structure Sequence = ListSequence
       )
     structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
+    structure GLibDebugKeyRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GLibDebugKeyRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GLibDebugKeyRecordCVectorN = CVectorN(GLibDebugKeyRecordCVectorNType)
     structure Utf8CVectorType =
       CPointerCVectorType(
         structure CElemType = Utf8.C.ArrayType
@@ -267,6 +273,14 @@ structure GLib : G_LIB =
       val nodePopAllocator_ = call (getSymbol "g_node_pop_allocator") (cVoid --> cVoid)
       val onErrorQuery_ = call (getSymbol "g_on_error_query") (Utf8.PolyML.cInPtr --> cVoid)
       val onErrorStackTrace_ = call (getSymbol "g_on_error_stack_trace") (Utf8.PolyML.cInPtr --> cVoid)
+      val parseDebugString_ =
+        call (getSymbol "g_parse_debug_string")
+          (
+            Utf8.PolyML.cInOptPtr
+             &&> GLibDebugKeyRecordCVectorN.PolyML.cInPtr
+             &&> GUInt32.PolyML.cVal
+             --> GUInt32.PolyML.cVal
+          )
       val pathGetBasename_ = call (getSymbol "g_path_get_basename") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val pathGetDirname_ = call (getSymbol "g_path_get_dirname") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val pathIsAbsolute_ = call (getSymbol "g_path_is_absolute") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
@@ -461,6 +475,7 @@ structure GLib : G_LIB =
     structure DateMonth = GLibDateMonth
     structure DateTimeRecord = GLibDateTimeRecord
     structure DateWeekday = GLibDateWeekday
+    structure DebugKeyRecord = GLibDebugKeyRecord
     structure ErrorType = GLibErrorType
     structure FileTest = GLibFileTest
     structure FormatSizeFlags = GLibFormatSizeFlags
@@ -480,6 +495,7 @@ structure GLib : G_LIB =
     structure NormalizeMode = GLibNormalizeMode
     structure OnceStatus = GLibOnceStatus
     structure OptionArg = GLibOptionArg
+    structure OptionEntryRecord = GLibOptionEntryRecord
     structure OptionFlags = GLibOptionFlags
     structure PatternSpecRecord = GLibPatternSpecRecord
     structure RegexRecord = GLibRegexRecord
@@ -512,9 +528,11 @@ structure GLib : G_LIB =
     structure ErrorRecord = GLibErrorRecord
     structure Date = GLibDate
     structure DateTime = GLibDateTime
+    structure DebugKey = GLibDebugKey
     structure KeyFile = GLibKeyFile
     structure MainContext = GLibMainContext
     structure MatchInfo = GLibMatchInfo
+    structure OptionEntry = GLibOptionEntry
     structure PatternSpec = GLibPatternSpec
     structure Regex = GLibRegex
     structure Source = GLibSource
@@ -1058,6 +1076,25 @@ structure GLib : G_LIB =
     fun nodePopAllocator () = (I ---> I) nodePopAllocator_ ()
     fun onErrorQuery prgName = (Utf8.FFI.withPtr ---> I) onErrorQuery_ prgName
     fun onErrorStackTrace prgName = (Utf8.FFI.withPtr ---> I) onErrorStackTrace_ prgName
+    fun parseDebugString (string, keys) =
+      let
+        val nkeys = LargeInt.fromInt (GLibDebugKeyRecordCVectorN.length keys)
+        val retVal =
+          (
+            Utf8.FFI.withOptPtr
+             &&&> GLibDebugKeyRecordCVectorN.FFI.withPtr
+             &&&> GUInt32.FFI.withVal
+             ---> GUInt32.FFI.fromVal
+          )
+            parseDebugString_
+            (
+              string
+               & keys
+               & nkeys
+            )
+      in
+        retVal
+      end
     fun pathGetBasename fileName = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) pathGetBasename_ fileName
     fun pathGetDirname fileName = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) pathGetDirname_ fileName
     fun pathIsAbsolute fileName = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) pathIsAbsolute_ fileName

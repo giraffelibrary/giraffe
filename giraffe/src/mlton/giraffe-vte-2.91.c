@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016-2017 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -19,15 +19,17 @@
 /* VteTerminal */
 
 void
-giraffe_vte_terminal_set_colors (VteTerminal *terminal,
-                                 const GdkRGBA *foreground,
-                                 const GdkRGBA *background)
+mlton_vte_terminal_set_colors (VteTerminal *terminal,
+                               const GdkRGBA *foreground,
+                               const GdkRGBA *background,
+                               SML_CVECTOR_VAL(GdkRGBA, palette),
+                               gsize palette_size)
 {
   vte_terminal_set_colors (terminal,
                            foreground,
                            background,
-                           NULL,
-                           0);
+                           GET_SML_CVECTOR_VAL(GdkRGBA, palette),
+                           palette_size);
 }
 
 gboolean

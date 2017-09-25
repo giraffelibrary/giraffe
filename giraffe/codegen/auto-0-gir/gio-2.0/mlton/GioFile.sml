@@ -353,6 +353,96 @@ structure GioFile :>
             )
     val iconNew_ = _import "g_file_icon_new" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
     val isNative_ = _import "g_file_is_native" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> GBool.FFI.val_;
+    val loadContents_ =
+      fn
+        x1
+         & x2
+         & (x3, x4)
+         & x5
+         & (x6, x7)
+         & x8 =>
+          (
+            _import "mlton_g_file_load_contents" :
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * unit GioCancellableClass.FFI.p
+               * GUInt8CVectorN.MLton.r1
+               * (unit, GUInt8CVectorN.FFI.notnull) GUInt8CVectorN.MLton.r2
+               * GSize.FFI.ref_
+               * Utf8.MLton.r1
+               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7,
+              x8
+            )
+    val loadContentsFinish_ =
+      fn
+        x1
+         & x2
+         & (x3, x4)
+         & x5
+         & (x6, x7)
+         & x8 =>
+          (
+            _import "mlton_g_file_load_contents_finish" :
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * GUInt8CVectorN.MLton.r1
+               * (unit, GUInt8CVectorN.FFI.notnull) GUInt8CVectorN.MLton.r2
+               * GSize.FFI.ref_
+               * Utf8.MLton.r1
+               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7,
+              x8
+            )
+    val loadPartialContentsFinish_ =
+      fn
+        x1
+         & x2
+         & (x3, x4)
+         & x5
+         & (x6, x7)
+         & x8 =>
+          (
+            _import "mlton_g_file_load_partial_contents_finish" :
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * GUInt8CVectorN.MLton.r1
+               * (unit, GUInt8CVectorN.FFI.notnull) GUInt8CVectorN.MLton.r2
+               * GSize.FFI.ref_
+               * Utf8.MLton.r1
+               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7,
+              x8
+            )
     val makeDirectory_ =
       fn
         x1
@@ -1489,6 +1579,96 @@ structure GioFile :>
     fun hasUriScheme self uriScheme = (GioFileClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasUriScheme_ (self & uriScheme)
     fun iconNew self = (GioFileClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) iconNew_ self
     fun isNative self = (GioFileClass.FFI.withPtr ---> GBool.FFI.fromVal) isNative_ self
+    fun loadContents self cancellable =
+      let
+        val contents
+         & length
+         & etagOut
+         & retVal =
+          (
+            GioFileClass.FFI.withPtr
+             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GSize.FFI.withRefVal
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GUInt8CVectorN.FFI.fromPtr 1
+                   && GSize.FFI.fromVal
+                   && Utf8.FFI.fromPtr 1
+                   && GBool.FFI.fromVal
+          )
+            loadContents_
+            (
+              self
+               & cancellable
+               & NONE
+               & GSize.null
+               & NONE
+               & []
+            )
+      in
+        if retVal then SOME (contents (LargeInt.toInt length), etagOut) else NONE
+      end
+    fun loadContentsFinish self res =
+      let
+        val contents
+         & length
+         & etagOut
+         & retVal =
+          (
+            GioFileClass.FFI.withPtr
+             &&&> GioAsyncResultClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GSize.FFI.withRefVal
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GUInt8CVectorN.FFI.fromPtr 1
+                   && GSize.FFI.fromVal
+                   && Utf8.FFI.fromPtr 1
+                   && GBool.FFI.fromVal
+          )
+            loadContentsFinish_
+            (
+              self
+               & res
+               & NONE
+               & GSize.null
+               & NONE
+               & []
+            )
+      in
+        if retVal then SOME (contents (LargeInt.toInt length), etagOut) else NONE
+      end
+    fun loadPartialContentsFinish self res =
+      let
+        val contents
+         & length
+         & etagOut
+         & retVal =
+          (
+            GioFileClass.FFI.withPtr
+             &&&> GioAsyncResultClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GSize.FFI.withRefVal
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GUInt8CVectorN.FFI.fromPtr 1
+                   && GSize.FFI.fromVal
+                   && Utf8.FFI.fromPtr 1
+                   && GBool.FFI.fromVal
+          )
+            loadPartialContentsFinish_
+            (
+              self
+               & res
+               & NONE
+               & GSize.null
+               & NONE
+               & []
+            )
+      in
+        if retVal then SOME (contents (LargeInt.toInt length), etagOut) else NONE
+      end
     fun makeDirectory self cancellable =
       (
         GioFileClass.FFI.withPtr

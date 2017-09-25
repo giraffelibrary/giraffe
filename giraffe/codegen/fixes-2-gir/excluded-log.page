@@ -79,7 +79,6 @@
         <item>arg datetime: pointer C type for VOID not supported</item>
       </item>
     </item>
-    <item>struct DebugKey: struct not included by configuration (structTypes)</item>
     <item>struct Dir: struct not included by configuration (structTypes)</item>
     <item>constant E: constant excluded by configuration (excludedConstantNames)</item>
     <item>
@@ -481,7 +480,6 @@
     <item>constant OPTION_REMAINING: constant excluded by configuration (excludedConstantNames)</item>
     <item>struct Once: struct not included by configuration (structTypes)</item>
     <item>struct OptionContext: struct not included by configuration (structTypes)</item>
-    <item>struct OptionEntry: struct not included by configuration (structTypes)</item>
     <item>struct OptionGroup: struct not included by configuration (structTypes)</item>
     <item>constant PDP_ENDIAN: constant excluded by configuration (excludedConstantNameSuffixes)</item>
     <item>constant PI: constant excluded by configuration (excludedConstantNames)</item>
@@ -851,13 +849,7 @@
     </item>
     <item>
       function base64_decode_inplace
-      <item>
-        arg text
-        <item>
-          type array
-          <item>type guint8: non-pointer C type for reference</item>
-        </item>
-      </item>
+      <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
     </item>
     <item>
       function base64_decode_step
@@ -1149,19 +1141,6 @@
     <item>function once_init_leave: moved to Once.init_leave</item>
     <item>function option_error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
     <item>
-      function parse_debug_string
-      <item>
-        arg keys
-        <item>
-          type array
-          <item>
-            type interface
-            <item>struct DebugKey: non-pointer C type for STRUCT type not supported</item>
-          </item>
-        </item>
-      </item>
-    </item>
-    <item>
       function pointer_bit_lock
       <item>arg address: pointer C type for VOID not supported</item>
     </item>
@@ -1247,26 +1226,10 @@
       function spawn_async
       <item>arg user_data: pointer C type for VOID not supported</item>
     </item>
-    <item>
-      function spawn_command_line_sync
-      <item>
-        arg standard_error
-        <item>
-          type array
-          <item>type guint8: non-pointer C type for reference</item>
-        </item>
-      </item>
-    </item>
     <item>function spawn_error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
     <item>
       function spawn_sync
-      <item>
-        arg standard_error
-        <item>
-          type array
-          <item>type guint8: non-pointer C type for reference</item>
-        </item>
-      </item>
+      <item>arg user_data: pointer C type for VOID not supported</item>
     </item>
     <item>function stpcpy: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function str_equal: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
@@ -1324,26 +1287,6 @@
     <item>function thread_pool_set_max_unused_threads: moved to ThreadPool.set_max_unused_threads</item>
     <item>function thread_pool_stop_unused_threads: moved to ThreadPool.stop_unused_threads</item>
     <item>function time_val_from_iso8601: moved to TimeVal.from_iso8601</item>
-    <item>
-      function timeout_add_full
-      <item>
-        arg notify
-        <item>
-          type interface
-          <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
-        </item>
-      </item>
-    </item>
-    <item>
-      function timeout_add_seconds_full
-      <item>
-        arg notify
-        <item>
-          type interface
-          <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
-        </item>
-      </item>
-    </item>
     <item>function trash_stack_height: moved to TrashStack.height</item>
     <item>function trash_stack_push: moved to TrashStack.push</item>
     <item>
@@ -1509,7 +1452,7 @@
             type array
             <item>
               type interface
-              <item>struct Parameter: non-pointer C type for STRUCT type not supported</item>
+              <item>struct Parameter: struct not included by configuration (structTypes)</item>
             </item>
           </item>
         </item>
@@ -1569,7 +1512,7 @@
             type array
             <item>
               type interface
-              <item>struct Parameter: non-pointer C type for STRUCT type not supported</item>
+              <item>struct Parameter: struct not included by configuration (structTypes)</item>
             </item>
           </item>
         </item>
@@ -2990,38 +2933,8 @@
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
-        function load_contents
-        <item>
-          arg contents
-          <item>
-            type array
-            <item>type guint8: non-pointer C type for reference</item>
-          </item>
-        </item>
-      </item>
-      <item>
         function load_contents_async
         <item>arg user_data: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function load_contents_finish
-        <item>
-          arg contents
-          <item>
-            type array
-            <item>type guint8: non-pointer C type for reference</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function load_partial_contents_finish
-        <item>
-          arg contents
-          <item>
-            type array
-            <item>type guint8: non-pointer C type for reference</item>
-          </item>
-        </item>
       </item>
       <item>
         function mount_enclosing_volume
@@ -3128,38 +3041,8 @@
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
-        function load_contents
-        <item>
-          arg contents
-          <item>
-            type array
-            <item>type guint8: non-pointer C type for reference</item>
-          </item>
-        </item>
-      </item>
-      <item>
         function load_contents_async
         <item>arg user_data: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function load_contents_finish
-        <item>
-          arg contents
-          <item>
-            type array
-            <item>type guint8: non-pointer C type for reference</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function load_partial_contents_finish
-        <item>
-          arg contents
-          <item>
-            type array
-            <item>type guint8: non-pointer C type for reference</item>
-          </item>
-        </item>
       </item>
       <item>
         function mount_enclosing_volume
@@ -3690,7 +3573,7 @@
     </item>
     <item>struct OutputStreamClass: class struct</item>
     <item>struct OutputStreamPrivate: struct not included by configuration (structTypes)</item>
-    <item>struct OutputVector: struct not included by configuration (structTypes)</item>
+    <item>struct OutputVector: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       object Permission
       <item>
@@ -3919,7 +3802,7 @@
             type array
             <item>
               type interface
-              <item>struct OutputVector: non-pointer C type for STRUCT type not supported</item>
+              <item>struct OutputVector: interface type excluded by configuration (excludedInterfaceTypes)</item>
             </item>
           </item>
         </item>
@@ -3939,7 +3822,7 @@
             type array
             <item>
               type interface
-              <item>struct OutputVector: non-pointer C type for STRUCT type not supported</item>
+              <item>struct OutputVector: interface type excluded by configuration (excludedInterfaceTypes)</item>
             </item>
           </item>
         </item>
@@ -5578,7 +5461,7 @@
         function get_font_type
         <item>
           type interface
-          <item>struct FontType: non-pointer C type for STRUCT type not supported</item>
+          <item>struct FontType: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
         </item>
       </item>
       <item>
@@ -5595,7 +5478,7 @@
         function get_font_type
         <item>
           type interface
-          <item>struct FontType: non-pointer C type for STRUCT type not supported</item>
+          <item>struct FontType: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
         </item>
       </item>
     </item>
@@ -5722,62 +5605,6 @@
     <item>struct EventSetting: struct not included by configuration (structTypes)</item>
     <item>struct EventVisibility: struct not included by configuration (structTypes)</item>
     <item>struct EventWindowState: struct not included by configuration (structTypes)</item>
-    <item>
-      object Keymap
-      <item>
-        function get_entries_for_keycode
-        <item>
-          arg keys
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct KeymapKey: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function get_entries_for_keyval
-        <item>
-          arg keys
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct KeymapKey: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function get_entries_for_keycode
-        <item>
-          arg keys
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct KeymapKey: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function get_entries_for_keyval
-        <item>
-          arg keys
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct KeymapKey: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
-            </item>
-          </item>
-        </item>
-      </item>
-    </item>
-    <item>struct Point: struct not included by configuration (structTypes)</item>
     <item>
       struct RGBA
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -5967,32 +5794,11 @@
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
-        function query
-        <item>
-          type array
-          <item>
-            type interface
-            <item>struct AccelGroupEntry: non-pointer C type for STRUCT type not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
         function find
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
-      <item>
-        function query
-        <item>
-          type array
-          <item>
-            type interface
-            <item>struct AccelGroupEntry: non-pointer C type for STRUCT type not supported</item>
-          </item>
-        </item>
-      </item>
     </item>
     <item>struct AccelGroupClass: class struct</item>
-    <item>struct AccelGroupEntry: struct not included by configuration (structTypes)</item>
     <item>struct AccelGroupPrivate: struct not included by configuration (structTypes)</item>
     <item>struct AccelLabelClass: class struct</item>
     <item>struct AccelLabelPrivate: struct not included by configuration (structTypes)</item>
@@ -6417,19 +6223,6 @@
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
-        function set_can_store
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
         function request_contents
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
@@ -6453,77 +6246,9 @@
         function request_uris
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>
-        function set_can_store
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
     </item>
     <item>struct ColorButtonClass: class struct</item>
     <item>struct ColorButtonPrivate: struct not included by configuration (structTypes)</item>
-    <item>
-      object ColorSelection
-      <item>
-        function palette_from_string
-        <item>
-          arg colors
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Color: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function palette_to_string
-        <item>
-          arg colors
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Color: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function palette_from_string
-        <item>
-          arg colors
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Color: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function palette_to_string
-        <item>
-          arg colors
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Color: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-    </item>
     <item>struct ColorSelectionClass: class struct</item>
     <item>struct ColorSelectionDialogClass: class struct</item>
     <item>struct ColorSelectionDialogPrivate: struct not included by configuration (structTypes)</item>
@@ -6925,34 +6650,8 @@
     <item>
       struct IconInfo
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>
-        function get_attach_points
-        <item>
-          arg points
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Point: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
-            </item>
-          </item>
-        </item>
-      </item>
       <item>function load_symbolic_for_style: deprecated</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>
-        function get_attach_points
-        <item>
-          arg points
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Point: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
-            </item>
-          </item>
-        </item>
-      </item>
       <item>function load_symbolic_for_style: deprecated</item>
     </item>
     <item>
@@ -6998,64 +6697,12 @@
     <item>
       object IconView
       <item>
-        function enable_model_drag_dest
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function enable_model_drag_source
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
         function get_selected_items
         <item>type glist: type GLIST not supported</item>
       </item>
       <item>
         function selected_foreach
         <item>arg data: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function enable_model_drag_dest
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function enable_model_drag_source
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
       </item>
       <item>
         function get_selected_items
@@ -7114,7 +6761,7 @@
             type array
             <item>
               type interface
-              <item>struct Value: non-pointer C type for STRUCT type not supported</item>
+              <item>struct Value: struct not included by configuration (structTypes)</item>
             </item>
           </item>
         </item>
@@ -7137,7 +6784,7 @@
             type array
             <item>
               type interface
-              <item>struct Value: non-pointer C type for STRUCT type not supported</item>
+              <item>struct Value: struct not included by configuration (structTypes)</item>
             </item>
           </item>
         </item>
@@ -7160,7 +6807,7 @@
             type array
             <item>
               type interface
-              <item>struct Value: non-pointer C type for STRUCT type not supported</item>
+              <item>struct Value: struct not included by configuration (structTypes)</item>
             </item>
           </item>
         </item>
@@ -7183,7 +6830,7 @@
             type array
             <item>
               type interface
-              <item>struct Value: non-pointer C type for STRUCT type not supported</item>
+              <item>struct Value: struct not included by configuration (structTypes)</item>
             </item>
           </item>
         </item>
@@ -7297,7 +6944,6 @@
     <item>struct OrientableIface: class struct</item>
     <item>struct OverlayClass: class struct</item>
     <item>struct OverlayPrivate: struct not included by configuration (structTypes)</item>
-    <item>struct PageRange: struct not included by configuration (structTypes)</item>
     <item>struct PanedClass: class struct</item>
     <item>struct PanedPrivate: struct not included by configuration (structTypes)</item>
     <item>
@@ -7330,54 +6976,8 @@
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
-        function get_page_ranges
-        <item>
-          type array
-          <item>
-            type interface
-            <item>struct PageRange: non-pointer C type for STRUCT type not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function set_page_ranges
-        <item>
-          arg page_ranges
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct PageRange: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
         function foreach
         <item>arg user_data: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function get_page_ranges
-        <item>
-          type array
-          <item>
-            type interface
-            <item>struct PageRange: non-pointer C type for STRUCT type not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function set_page_ranges
-        <item>
-          arg page_ranges
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct PageRange: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
       </item>
     </item>
     <item>struct ProgressBarClass: class struct</item>
@@ -7875,32 +7475,6 @@
     <item>
       struct TargetList
       <item>
-        function new
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function add_table
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
         function find
         <item>
           arg info
@@ -7909,32 +7483,6 @@
       </item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>
-        function new
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function add_table
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
       <item>
         function find
         <item>
@@ -8324,7 +7872,7 @@
             type array
             <item>
               type interface
-              <item>struct Value: non-pointer C type for STRUCT type not supported</item>
+              <item>struct Value: struct not included by configuration (structTypes)</item>
             </item>
           </item>
         </item>
@@ -8347,7 +7895,7 @@
             type array
             <item>
               type interface
-              <item>struct Value: non-pointer C type for STRUCT type not supported</item>
+              <item>struct Value: struct not included by configuration (structTypes)</item>
             </item>
           </item>
         </item>
@@ -8370,7 +7918,7 @@
             type array
             <item>
               type interface
-              <item>struct Value: non-pointer C type for STRUCT type not supported</item>
+              <item>struct Value: struct not included by configuration (structTypes)</item>
             </item>
           </item>
         </item>
@@ -8393,7 +7941,7 @@
             type array
             <item>
               type interface
-              <item>struct Value: non-pointer C type for STRUCT type not supported</item>
+              <item>struct Value: struct not included by configuration (structTypes)</item>
             </item>
           </item>
         </item>
@@ -8403,32 +7951,6 @@
     <item>struct TreeStorePrivate: struct not included by configuration (structTypes)</item>
     <item>
       object TreeView
-      <item>
-        function enable_model_drag_dest
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function enable_model_drag_source
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
       <item>
         function get_columns
         <item>type glist: type GLIST not supported</item>
@@ -8501,32 +8023,6 @@
         </item>
       </item>
       <item>function set_vadjustment: deprecated</item>
-      <item>
-        function enable_model_drag_dest
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function enable_model_drag_source
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
       <item>
         function get_columns
         <item>type glist: type GLIST not supported</item>
@@ -8703,32 +8199,6 @@
     <item>
       object Widget
       <item>
-        function drag_dest_set
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function drag_source_set
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
         function get_ancestor
         <item>
           arg widget_type
@@ -8762,32 +8232,6 @@
       <item>function size_request: deprecated</item>
       <item>function style_attach: deprecated</item>
       <item>signals state-changed: deprecated</item>
-      <item>
-        function drag_dest_set
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function drag_source_set
-        <item>
-          arg targets
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
       <item>
         function get_ancestor
         <item>
@@ -9032,19 +8476,6 @@
     <item>function icon_size_register: moved to IconSize.register</item>
     <item>function icon_size_register_alias: moved to IconSize.register_alias</item>
     <item>function icon_theme_error_quark: moved to IconThemeError.quark</item>
-    <item>
-      function init_with_args
-      <item>
-        arg entries
-        <item>
-          type array
-          <item>
-            type interface
-            <item>struct OptionEntry: non-pointer C type for STRUCT type not supported</item>
-          </item>
-        </item>
-      </item>
-    </item>
     <item>function paper_size_get_default: moved to PaperSize.get_default</item>
     <item>function paper_size_get_paper_sizes: moved to PaperSize.get_paper_sizes</item>
     <item>function print_error_quark: moved to PrintError.quark</item>
@@ -9091,45 +8522,6 @@
     <item>function recent_chooser_error_quark: moved to RecentChooserError.quark</item>
     <item>function recent_manager_error_quark: moved to RecentManagerError.quark</item>
     <item>
-      function selection_add_targets
-      <item>
-        arg targets
-        <item>
-          type array
-          <item>
-            type interface
-            <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-          </item>
-        </item>
-      </item>
-    </item>
-    <item>
-      function stock_add
-      <item>
-        arg items
-        <item>
-          type array
-          <item>
-            type interface
-            <item>struct StockItem: non-pointer C type for STRUCT type not supported</item>
-          </item>
-        </item>
-      </item>
-    </item>
-    <item>
-      function stock_add_static
-      <item>
-        arg items
-        <item>
-          type array
-          <item>
-            type interface
-            <item>struct StockItem: non-pointer C type for STRUCT type not supported</item>
-          </item>
-        </item>
-      </item>
-    </item>
-    <item>
       function stock_list_ids
       <item>type gslist: type GSLIST not supported</item>
     </item>
@@ -9140,29 +8532,6 @@
         <item>
           type interface
           <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
-        </item>
-      </item>
-    </item>
-    <item>
-      function target_table_free
-      <item>
-        arg targets
-        <item>
-          type array
-          <item>
-            type interface
-            <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
-          </item>
-        </item>
-      </item>
-    </item>
-    <item>
-      function target_table_new_from_list
-      <item>
-        type array
-        <item>
-          type interface
-          <item>struct TargetEntry: non-pointer C type for STRUCT type not supported</item>
         </item>
       </item>
     </item>
@@ -9402,38 +8771,12 @@
           <item>type glong: pointer C type for scalar (LONG) not supported</item>
         </item>
       </item>
-      <item>
-        function set_colors_rgba
-        <item>
-          arg palette
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct RGBA: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
       <item>property pty: deprecated</item>
       <item>
         function get_cursor_position
         <item>
           arg row
           <item>type glong: pointer C type for scalar (LONG) not supported</item>
-        </item>
-      </item>
-      <item>
-        function set_colors_rgba
-        <item>
-          arg palette
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct RGBA: non-pointer C type for STRUCT type not supported</item>
-            </item>
-          </item>
         </item>
       </item>
       <item>property pty: deprecated</item>

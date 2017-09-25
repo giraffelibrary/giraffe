@@ -139,7 +139,9 @@ signature VTE_TERMINAL =
        -> unit
     val setColors :
       'a class
-       -> GdkRgbaRecord.t option * GdkRgbaRecord.t option
+       -> Gdk.RgbaRecord.t option
+           * Gdk.RgbaRecord.t option
+           * Gdk.RgbaRecord.t vector option
        -> unit
     val setCursorBlinkMode :
       'a class

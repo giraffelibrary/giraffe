@@ -4,8 +4,50 @@ structure GtkColorSelection :>
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a orientable_class = 'a GtkOrientableClass.class =
   struct
+    structure GdkColorRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GdkColorRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GdkColorRecordCVectorN = CVectorN(GdkColorRecordCVectorNType)
     val getType_ = _import "gtk_color_selection_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_color_selection_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val paletteFromString_ =
+      fn
+        (x1, x2)
+         & (x3, x4)
+         & x5 =>
+          (
+            _import "mlton_gtk_color_selection_palette_from_string" :
+              Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GdkColorRecordCVectorN.MLton.r1
+               * (unit, GdkColorRecordCVectorN.FFI.notnull) GdkColorRecordCVectorN.MLton.r2
+               * GInt.FFI.ref_
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
+    val paletteToString_ =
+      fn
+        (x1, x2) & x3 =>
+          (
+            _import "mlton_gtk_color_selection_palette_to_string" :
+              GdkColorRecordCVectorN.MLton.p1
+               * GdkColorRecordCVectorN.FFI.notnull GdkColorRecordCVectorN.MLton.p2
+               * GInt.FFI.val_
+               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val getCurrentAlpha_ = _import "gtk_color_selection_get_current_alpha" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p -> GUInt16.FFI.val_;
     val getCurrentColor_ = fn x1 & x2 => (_import "gtk_color_selection_get_current_color" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> unit;) (x1, x2)
     val getCurrentRgba_ = fn x1 & x2 => (_import "gtk_color_selection_get_current_rgba" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
@@ -32,6 +74,35 @@ structure GtkColorSelection :>
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkColorSelectionClass.FFI.fromPtr false) new_ ()
+    fun paletteFromString str =
+      let
+        val colors
+         & nColors
+         & retVal =
+          (
+            Utf8.FFI.withPtr
+             &&&> GdkColorRecordCVectorN.FFI.withRefOptPtr
+             &&&> GInt.FFI.withRefVal
+             ---> GdkColorRecordCVectorN.FFI.fromPtr 1
+                   && GInt.FFI.fromVal
+                   && GBool.FFI.fromVal
+          )
+            paletteFromString_
+            (
+              str
+               & NONE
+               & GInt.null
+            )
+      in
+        if retVal then SOME (colors (LargeInt.toInt nColors)) else NONE
+      end
+    fun paletteToString colors =
+      let
+        val nColors = LargeInt.fromInt (GdkColorRecordCVectorN.length colors)
+        val retVal = (GdkColorRecordCVectorN.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) paletteToString_ (colors & nColors)
+      in
+        retVal
+      end
     fun getCurrentAlpha self = (GtkColorSelectionClass.FFI.withPtr ---> GUInt16.FFI.fromVal) getCurrentAlpha_ self
     fun getCurrentColor self =
       let

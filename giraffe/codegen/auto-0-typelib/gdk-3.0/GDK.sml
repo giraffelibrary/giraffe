@@ -32,6 +32,7 @@ signature GDK =
     structure ModifierType : GDK_MODIFIER_TYPE
     structure NotifyType : GDK_NOTIFY_TYPE
     structure OwnerChange : GDK_OWNER_CHANGE
+    structure PointRecord : GDK_POINT_RECORD
     structure PropMode : GDK_PROP_MODE
     structure PropertyState : GDK_PROPERTY_STATE
     structure RgbaRecord : GDK_RGBA_RECORD
@@ -179,6 +180,9 @@ signature GDK =
     structure KeymapKey :
       GDK_KEYMAP_KEY
         where type t = KeymapKeyRecord.t
+    structure Point :
+      GDK_POINT
+        where type t = PointRecord.t
     structure Rgba :
       GDK_RGBA
         where type t = RgbaRecord.t

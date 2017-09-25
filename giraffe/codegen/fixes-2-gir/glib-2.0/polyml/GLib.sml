@@ -1,11 +1,23 @@
 structure GLib : G_LIB =
   struct
+    structure GUInt8CVectorType =
+      CValueCVectorType(
+        structure CElemType = GUInt8Type
+        structure ElemSequence = MonoVectorSequence(Word8Vector)
+      )
+    structure GUInt8CVector = CVector(GUInt8CVectorType)
     structure Utf8CVectorNType =
       CPointerCVectorNType(
         structure CElemType = Utf8.C.ArrayType
         structure Sequence = ListSequence
       )
     structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
+    structure GLibDebugKeyRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GLibDebugKeyRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GLibDebugKeyRecordCVectorN = CVectorN(GLibDebugKeyRecordCVectorNType)
     structure Utf8CVectorType =
       CPointerCVectorType(
         structure CElemType = Utf8.C.ArrayType
@@ -241,6 +253,14 @@ structure GLib : G_LIB =
           )
       val onErrorQuery_ = call (getSymbol "g_on_error_query") (Utf8.PolyML.cInPtr --> cVoid)
       val onErrorStackTrace_ = call (getSymbol "g_on_error_stack_trace") (Utf8.PolyML.cInPtr --> cVoid)
+      val parseDebugString_ =
+        call (getSymbol "g_parse_debug_string")
+          (
+            Utf8.PolyML.cInOptPtr
+             &&> GLibDebugKeyRecordCVectorN.PolyML.cInPtr
+             &&> GUInt.PolyML.cVal
+             --> GUInt.PolyML.cVal
+          )
       val pathGetBasename_ = call (getSymbol "g_path_get_basename") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val pathGetDirname_ = call (getSymbol "g_path_get_dirname") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val pathIsAbsolute_ = call (getSymbol "g_path_is_absolute") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
@@ -304,6 +324,16 @@ structure GLib : G_LIB =
           )
       val spawnClosePid_ = call (getSymbol "g_spawn_close_pid") (GLibPid.PolyML.cVal --> cVoid)
       val spawnCommandLineAsync_ = call (getSymbol "g_spawn_command_line_async") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
+      val spawnCommandLineSync_ =
+        call (getSymbol "g_spawn_command_line_sync")
+          (
+            Utf8.PolyML.cInPtr
+             &&> GUInt8CVector.PolyML.cOutRef
+             &&> GUInt8CVector.PolyML.cOutRef
+             &&> GInt.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val testBug_ = call (getSymbol "g_test_bug") (Utf8.PolyML.cInPtr --> cVoid)
       val testBugBase_ = call (getSymbol "g_test_bug_base") (Utf8.PolyML.cInPtr --> cVoid)
       val testFail_ = call (getSymbol "g_test_fail") (cVoid --> cVoid)
@@ -398,6 +428,7 @@ structure GLib : G_LIB =
     structure DateMonth = GLibDateMonth
     structure DateTimeRecord = GLibDateTimeRecord
     structure DateWeekday = GLibDateWeekday
+    structure DebugKeyRecord = GLibDebugKeyRecord
     structure ErrorType = GLibErrorType
     structure FileTest = GLibFileTest
     structure FormatSizeFlags = GLibFormatSizeFlags
@@ -417,6 +448,7 @@ structure GLib : G_LIB =
     structure NormalizeMode = GLibNormalizeMode
     structure OnceStatus = GLibOnceStatus
     structure OptionArg = GLibOptionArg
+    structure OptionEntryRecord = GLibOptionEntryRecord
     structure OptionFlags = GLibOptionFlags
     structure PatternSpecRecord = GLibPatternSpecRecord
     structure RegexRecord = GLibRegexRecord
@@ -449,9 +481,11 @@ structure GLib : G_LIB =
     structure ErrorRecord = GLibErrorRecord
     structure Date = GLibDate
     structure DateTime = GLibDateTime
+    structure DebugKey = GLibDebugKey
     structure KeyFile = GLibKeyFile
     structure MainContext = GLibMainContext
     structure MatchInfo = GLibMatchInfo
+    structure OptionEntry = GLibOptionEntry
     structure PatternSpec = GLibPatternSpec
     structure Regex = GLibRegex
     structure Source = GLibSource
@@ -959,6 +993,25 @@ structure GLib : G_LIB =
         )
     fun onErrorQuery prgName = (Utf8.FFI.withPtr ---> I) onErrorQuery_ prgName
     fun onErrorStackTrace prgName = (Utf8.FFI.withPtr ---> I) onErrorStackTrace_ prgName
+    fun parseDebugString (string, keys) =
+      let
+        val nkeys = LargeInt.fromInt (GLibDebugKeyRecordCVectorN.length keys)
+        val retVal =
+          (
+            Utf8.FFI.withOptPtr
+             &&&> GLibDebugKeyRecordCVectorN.FFI.withPtr
+             &&&> GUInt.FFI.withVal
+             ---> GUInt.FFI.fromVal
+          )
+            parseDebugString_
+            (
+              string
+               & keys
+               & nkeys
+            )
+      in
+        retVal
+      end
     fun pathGetBasename fileName = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) pathGetBasename_ fileName
     fun pathGetDirname fileName = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) pathGetDirname_ fileName
     fun pathIsAbsolute fileName = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) pathIsAbsolute_ fileName
@@ -1084,6 +1137,42 @@ structure GLib : G_LIB =
       end
     fun spawnClosePid pid = (GLibPid.FFI.withVal ---> I) spawnClosePid_ pid
     fun spawnCommandLineAsync commandLine = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) spawnCommandLineAsync_ (commandLine & [])
+    fun spawnCommandLineSync commandLine =
+      let
+        val standardOutput
+         & standardError
+         & exitStatus
+         & retVal =
+          (
+            Utf8.FFI.withPtr
+             &&&> GUInt8CVector.FFI.withRefOptPtr
+             &&&> GUInt8CVector.FFI.withRefOptPtr
+             &&&> GInt.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> GUInt8CVector.FFI.fromPtr 1
+                   && GUInt8CVector.FFI.fromPtr 1
+                   && GInt.FFI.fromVal
+                   && GBool.FFI.fromVal
+          )
+            spawnCommandLineSync_
+            (
+              commandLine
+               & NONE
+               & NONE
+               & GInt.null
+               & []
+            )
+      in
+        if retVal
+        then
+          SOME
+            (
+              standardOutput,
+              standardError,
+              exitStatus
+            )
+        else NONE
+      end
     fun testBug bugUriSnippet = (Utf8.FFI.withPtr ---> I) testBug_ bugUriSnippet
     fun testBugBase uriPattern = (Utf8.FFI.withPtr ---> I) testBugBase_ uriPattern
     fun testFail () = (I ---> I) testFail_ ()

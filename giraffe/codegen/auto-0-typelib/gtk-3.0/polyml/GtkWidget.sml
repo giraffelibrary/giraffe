@@ -4,6 +4,8 @@ structure GtkWidget :>
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type accel_flags_t = GtkAccelFlags.t
     where type orientation_t = GtkOrientation.t
+    where type dest_defaults_t = GtkDestDefaults.t
+    where type target_entry_t = GtkTargetEntryRecord.t
     where type target_list_t = GtkTargetListRecord.t
     where type 'a clipboard_class = 'a GtkClipboardClass.class
     where type widget_path_t = GtkWidgetPathRecord.t
@@ -26,6 +28,12 @@ structure GtkWidget :>
     where type 'a style_class = 'a GtkStyleClass.class
     where type align_t = GtkAlign.t =
   struct
+    structure GtkTargetEntryRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GtkTargetEntryRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -108,6 +116,16 @@ structure GtkWidget :>
           )
       val dragDestGetTargetList_ = call (getSymbol "gtk_drag_dest_get_target_list") (GtkWidgetClass.PolyML.cPtr --> GtkTargetListRecord.PolyML.cPtr)
       val dragDestGetTrackMotion_ = call (getSymbol "gtk_drag_dest_get_track_motion") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val dragDestSet_ =
+        call (getSymbol "gtk_drag_dest_set")
+          (
+            GtkWidgetClass.PolyML.cPtr
+             &&> GtkDestDefaults.PolyML.cVal
+             &&> GtkTargetEntryRecordCVectorN.PolyML.cInOptPtr
+             &&> GInt32.PolyML.cVal
+             &&> GdkDragAction.PolyML.cVal
+             --> cVoid
+          )
       val dragDestSetProxy_ =
         call (getSymbol "gtk_drag_dest_set_proxy")
           (
@@ -134,6 +152,16 @@ structure GtkWidget :>
       val dragSourceAddTextTargets_ = call (getSymbol "gtk_drag_source_add_text_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val dragSourceAddUriTargets_ = call (getSymbol "gtk_drag_source_add_uri_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val dragSourceGetTargetList_ = call (getSymbol "gtk_drag_source_get_target_list") (GtkWidgetClass.PolyML.cPtr --> GtkTargetListRecord.PolyML.cPtr)
+      val dragSourceSet_ =
+        call (getSymbol "gtk_drag_source_set")
+          (
+            GtkWidgetClass.PolyML.cPtr
+             &&> GdkModifierType.PolyML.cVal
+             &&> GtkTargetEntryRecordCVectorN.PolyML.cInOptPtr
+             &&> GInt32.PolyML.cVal
+             &&> GdkDragAction.PolyML.cVal
+             --> cVoid
+          )
       val dragSourceSetIconGicon_ = call (getSymbol "gtk_drag_source_set_icon_gicon") (GtkWidgetClass.PolyML.cPtr &&> GioIconClass.PolyML.cPtr --> cVoid)
       val dragSourceSetIconName_ = call (getSymbol "gtk_drag_source_set_icon_name") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val dragSourceSetIconPixbuf_ = call (getSymbol "gtk_drag_source_set_icon_pixbuf") (GtkWidgetClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cPtr --> cVoid)
@@ -517,6 +545,8 @@ structure GtkWidget :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type accel_flags_t = GtkAccelFlags.t
     type orientation_t = GtkOrientation.t
+    type dest_defaults_t = GtkDestDefaults.t
+    type target_entry_t = GtkTargetEntryRecord.t
     type target_list_t = GtkTargetListRecord.t
     type 'a clipboard_class = 'a GtkClipboardClass.class
     type widget_path_t = GtkWidgetPathRecord.t
@@ -700,6 +730,38 @@ structure GtkWidget :>
         )
     fun dragDestGetTargetList self = (GtkWidgetClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) dragDestGetTargetList_ self
     fun dragDestGetTrackMotion self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) dragDestGetTrackMotion_ self
+    fun dragDestSet
+      self
+      (
+        flags,
+        targets,
+        actions
+      ) =
+      let
+        val nTargets =
+          case targets of
+            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+          | NONE => GInt32.null
+        val () =
+          (
+            GtkWidgetClass.FFI.withPtr
+             &&&> GtkDestDefaults.FFI.withVal
+             &&&> GtkTargetEntryRecordCVectorN.FFI.withOptPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GdkDragAction.FFI.withVal
+             ---> I
+          )
+            dragDestSet_
+            (
+              self
+               & flags
+               & targets
+               & nTargets
+               & actions
+            )
+      in
+        ()
+      end
     fun dragDestSetProxy
       self
       (
@@ -750,6 +812,38 @@ structure GtkWidget :>
     fun dragSourceAddTextTargets self = (GtkWidgetClass.FFI.withPtr ---> I) dragSourceAddTextTargets_ self
     fun dragSourceAddUriTargets self = (GtkWidgetClass.FFI.withPtr ---> I) dragSourceAddUriTargets_ self
     fun dragSourceGetTargetList self = (GtkWidgetClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) dragSourceGetTargetList_ self
+    fun dragSourceSet
+      self
+      (
+        startButtonMask,
+        targets,
+        actions
+      ) =
+      let
+        val nTargets =
+          case targets of
+            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+          | NONE => GInt32.null
+        val () =
+          (
+            GtkWidgetClass.FFI.withPtr
+             &&&> GdkModifierType.FFI.withVal
+             &&&> GtkTargetEntryRecordCVectorN.FFI.withOptPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GdkDragAction.FFI.withVal
+             ---> I
+          )
+            dragSourceSet_
+            (
+              self
+               & startButtonMask
+               & targets
+               & nTargets
+               & actions
+            )
+      in
+        ()
+      end
     fun dragSourceSetIconGicon self icon = (GtkWidgetClass.FFI.withPtr &&&> GioIconClass.FFI.withPtr ---> I) dragSourceSetIconGicon_ (self & icon)
     fun dragSourceSetIconName self iconName = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) dragSourceSetIconName_ (self & iconName)
     fun dragSourceSetIconPixbuf self pixbuf = (GtkWidgetClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> I) dragSourceSetIconPixbuf_ (self & pixbuf)

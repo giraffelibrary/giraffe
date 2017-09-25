@@ -4,9 +4,34 @@ structure GtkIconInfo :>
     where type 'a icon_theme_class = 'a GtkIconThemeClass.class
     where type 'a style_context_class = 'a GtkStyleContextClass.class =
   struct
+    structure GdkPointRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GdkPointRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GdkPointRecordCVectorN = CVectorN(GdkPointRecordCVectorNType)
     val getType_ = _import "gtk_icon_info_get_type" : unit -> GObjectType.FFI.val_;
     val newForPixbuf_ = fn x1 & x2 => (_import "gtk_icon_info_new_for_pixbuf" : GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GtkIconInfoRecord.FFI.notnull GtkIconInfoRecord.FFI.p;) (x1, x2)
     val copy_ = _import "gtk_icon_info_copy" : GtkIconInfoRecord.FFI.notnull GtkIconInfoRecord.FFI.p -> GtkIconInfoRecord.FFI.notnull GtkIconInfoRecord.FFI.p;
+    val getAttachPoints_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4 =>
+          (
+            _import "mlton_gtk_icon_info_get_attach_points" :
+              GtkIconInfoRecord.FFI.notnull GtkIconInfoRecord.FFI.p
+               * GdkPointRecordCVectorN.MLton.r1
+               * (unit, GdkPointRecordCVectorN.FFI.notnull) GdkPointRecordCVectorN.MLton.r2
+               * GInt.FFI.ref_
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val getBaseSize_ = _import "gtk_icon_info_get_base_size" : GtkIconInfoRecord.FFI.notnull GtkIconInfoRecord.FFI.p -> GInt.FFI.val_;
     val getBuiltinPixbuf_ = _import "gtk_icon_info_get_builtin_pixbuf" : GtkIconInfoRecord.FFI.notnull GtkIconInfoRecord.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
     val getDisplayName_ = _import "gtk_icon_info_get_display_name" : GtkIconInfoRecord.FFI.notnull GtkIconInfoRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
@@ -69,6 +94,28 @@ structure GtkIconInfo :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newForPixbuf (iconTheme, pixbuf) = (GtkIconThemeClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> GtkIconInfoRecord.FFI.fromPtr true) newForPixbuf_ (iconTheme & pixbuf)
     fun copy self = (GtkIconInfoRecord.FFI.withPtr ---> GtkIconInfoRecord.FFI.fromPtr true) copy_ self
+    fun getAttachPoints self =
+      let
+        val points
+         & nPoints
+         & retVal =
+          (
+            GtkIconInfoRecord.FFI.withPtr
+             &&&> GdkPointRecordCVectorN.FFI.withRefOptPtr
+             &&&> GInt.FFI.withRefVal
+             ---> GdkPointRecordCVectorN.FFI.fromPtr 1
+                   && GInt.FFI.fromVal
+                   && GBool.FFI.fromVal
+          )
+            getAttachPoints_
+            (
+              self
+               & NONE
+               & GInt.null
+            )
+      in
+        if retVal then SOME (points (LargeInt.toInt nPoints)) else NONE
+      end
     fun getBaseSize self = (GtkIconInfoRecord.FFI.withPtr ---> GInt.FFI.fromVal) getBaseSize_ self
     fun getBuiltinPixbuf self = (GtkIconInfoRecord.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getBuiltinPixbuf_ self
     fun getDisplayName self = (GtkIconInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDisplayName_ self

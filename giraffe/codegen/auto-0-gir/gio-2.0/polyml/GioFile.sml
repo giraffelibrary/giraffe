@@ -175,6 +175,39 @@ structure GioFile :>
       val hasUriScheme_ = call (getSymbol "g_file_has_uri_scheme") (GioFileClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val iconNew_ = call (getSymbol "g_file_icon_new") (GioFileClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
       val isNative_ = call (getSymbol "g_file_is_native") (GioFileClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val loadContents_ =
+        call (getSymbol "g_file_load_contents")
+          (
+            GioFileClass.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
+             &&> GUInt8CVectorN.PolyML.cOutRef
+             &&> GSize.PolyML.cRef
+             &&> Utf8.PolyML.cOutRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
+      val loadContentsFinish_ =
+        call (getSymbol "g_file_load_contents_finish")
+          (
+            GioFileClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
+             &&> GUInt8CVectorN.PolyML.cOutRef
+             &&> GSize.PolyML.cRef
+             &&> Utf8.PolyML.cOutRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
+      val loadPartialContentsFinish_ =
+        call (getSymbol "g_file_load_partial_contents_finish")
+          (
+            GioFileClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
+             &&> GUInt8CVectorN.PolyML.cOutRef
+             &&> GSize.PolyML.cRef
+             &&> Utf8.PolyML.cOutRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val makeDirectory_ =
         call (getSymbol "g_file_make_directory")
           (
@@ -809,6 +842,96 @@ structure GioFile :>
     fun hasUriScheme self uriScheme = (GioFileClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasUriScheme_ (self & uriScheme)
     fun iconNew self = (GioFileClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) iconNew_ self
     fun isNative self = (GioFileClass.FFI.withPtr ---> GBool.FFI.fromVal) isNative_ self
+    fun loadContents self cancellable =
+      let
+        val contents
+         & length
+         & etagOut
+         & retVal =
+          (
+            GioFileClass.FFI.withPtr
+             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GSize.FFI.withRefVal
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GUInt8CVectorN.FFI.fromPtr 1
+                   && GSize.FFI.fromVal
+                   && Utf8.FFI.fromPtr 1
+                   && GBool.FFI.fromVal
+          )
+            loadContents_
+            (
+              self
+               & cancellable
+               & NONE
+               & GSize.null
+               & NONE
+               & []
+            )
+      in
+        if retVal then SOME (contents (LargeInt.toInt length), etagOut) else NONE
+      end
+    fun loadContentsFinish self res =
+      let
+        val contents
+         & length
+         & etagOut
+         & retVal =
+          (
+            GioFileClass.FFI.withPtr
+             &&&> GioAsyncResultClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GSize.FFI.withRefVal
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GUInt8CVectorN.FFI.fromPtr 1
+                   && GSize.FFI.fromVal
+                   && Utf8.FFI.fromPtr 1
+                   && GBool.FFI.fromVal
+          )
+            loadContentsFinish_
+            (
+              self
+               & res
+               & NONE
+               & GSize.null
+               & NONE
+               & []
+            )
+      in
+        if retVal then SOME (contents (LargeInt.toInt length), etagOut) else NONE
+      end
+    fun loadPartialContentsFinish self res =
+      let
+        val contents
+         & length
+         & etagOut
+         & retVal =
+          (
+            GioFileClass.FFI.withPtr
+             &&&> GioAsyncResultClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GSize.FFI.withRefVal
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GUInt8CVectorN.FFI.fromPtr 1
+                   && GSize.FFI.fromVal
+                   && Utf8.FFI.fromPtr 1
+                   && GBool.FFI.fromVal
+          )
+            loadPartialContentsFinish_
+            (
+              self
+               & res
+               & NONE
+               & GSize.null
+               & NONE
+               & []
+            )
+      in
+        if retVal then SOME (contents (LargeInt.toInt length), etagOut) else NONE
+      end
     fun makeDirectory self cancellable =
       (
         GioFileClass.FFI.withPtr

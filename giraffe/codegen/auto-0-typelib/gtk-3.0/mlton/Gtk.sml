@@ -6,12 +6,30 @@ structure Gtk : GTK =
         structure Sequence = VectorSequence
       )
     structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
+    structure GtkStockItemRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GtkStockItemRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GtkStockItemRecordCVectorN = CVectorN(GtkStockItemRecordCVectorNType)
+    structure GtkTargetEntryRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GtkTargetEntryRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     structure Utf8CVectorType =
       CPointerCVectorType(
         structure CElemType = Utf8.C.ArrayType
         structure Sequence = ListSequence
       )
     structure Utf8CVector = CVector(Utf8CVectorType)
+    structure GLibOptionEntryRecordCVectorType =
+      CPointerCVectorType(
+        structure CElemType = GLibOptionEntryRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GLibOptionEntryRecordCVector = CVector(GLibOptionEntryRecordCVectorType)
     structure Utf8CVectorNType =
       CPointerCVectorNType(
         structure CElemType = Utf8.C.ArrayType
@@ -387,6 +405,40 @@ structure Gtk : GTK =
               x1,
               x2,
               x3
+            )
+    val initWithArgs_ =
+      fn
+        x1
+         & (x2, x3)
+         & (x4, x5)
+         & (x6, x7)
+         & (x8, x9)
+         & x10 =>
+          (
+            _import "mlton_gtk_init_with_args" :
+              GInt32.FFI.ref_
+               * Utf8CVectorN.MLton.r1
+               * (Utf8CVectorN.FFI.notnull, Utf8CVectorN.FFI.notnull) Utf8CVectorN.MLton.r2
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GLibOptionEntryRecordCVector.MLton.p1
+               * GLibOptionEntryRecordCVector.FFI.notnull GLibOptionEntryRecordCVector.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7,
+              x8,
+              x9,
+              x10
             )
     val keySnooperRemove_ = _import "gtk_key_snooper_remove" : GUInt32.FFI.val_ -> unit;
     val main_ = _import "gtk_main" : unit -> unit;
@@ -1707,6 +1759,28 @@ structure Gtk : GTK =
               x3,
               x4
             )
+    val selectionAddTargets_ =
+      fn
+        x1
+         & x2
+         & (x3, x4)
+         & x5 =>
+          (
+            _import "mlton_gtk_selection_add_targets" :
+              GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+               * GtkTargetEntryRecordCVectorN.MLton.p1
+               * GtkTargetEntryRecordCVectorN.FFI.notnull GtkTargetEntryRecordCVectorN.MLton.p2
+               * GUInt32.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
     val selectionClearTargets_ = fn x1 & x2 => (_import "gtk_selection_clear_targets" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> unit;) (x1, x2)
     val selectionConvert_ =
       fn
@@ -1789,6 +1863,36 @@ structure Gtk : GTK =
               x4,
               x5
             )
+    val stockAdd_ =
+      fn
+        (x1, x2) & x3 =>
+          (
+            _import "mlton_gtk_stock_add" :
+              GtkStockItemRecordCVectorN.MLton.p1
+               * GtkStockItemRecordCVectorN.FFI.notnull GtkStockItemRecordCVectorN.MLton.p2
+               * GUInt32.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
+    val stockAddStatic_ =
+      fn
+        (x1, x2) & x3 =>
+          (
+            _import "mlton_gtk_stock_add_static" :
+              GtkStockItemRecordCVectorN.MLton.p1
+               * GtkStockItemRecordCVectorN.FFI.notnull GtkStockItemRecordCVectorN.MLton.p2
+               * GUInt32.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val stockLookup_ =
       fn
         (x1, x2) & x3 =>
@@ -1804,6 +1908,22 @@ structure Gtk : GTK =
               x2,
               x3
             )
+    val targetTableFree_ =
+      fn
+        (x1, x2) & x3 =>
+          (
+            _import "mlton_gtk_target_table_free" :
+              GtkTargetEntryRecordCVectorN.MLton.p1
+               * GtkTargetEntryRecordCVectorN.FFI.notnull GtkTargetEntryRecordCVectorN.MLton.p2
+               * GInt32.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
+    val targetTableNewFromList_ = fn x1 & x2 => (_import "gtk_target_table_new_from_list" : GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p * GInt32.FFI.ref_ -> GtkTargetEntryRecordCVectorN.FFI.notnull GtkTargetEntryRecordCVectorN.FFI.out_p;) (x1, x2)
     val targetsIncludeImage_ =
       fn
         (x1, x2)
@@ -2013,6 +2133,7 @@ structure Gtk : GTK =
     structure ActionEntry = GtkActionEntry
     structure AccelFlags = GtkAccelFlags
     structure AccelGroupClass = GtkAccelGroupClass
+    structure AccelGroupEntryRecord = GtkAccelGroupEntryRecord
     structure AccelKeyRecord = GtkAccelKeyRecord
     structure AccelMapClass = GtkAccelMapClass
     structure AccessibleClass = GtkAccessibleClass
@@ -2099,6 +2220,7 @@ structure Gtk : GTK =
     structure PackDirection = GtkPackDirection
     structure PackType = GtkPackType
     structure PageOrientation = GtkPageOrientation
+    structure PageRangeRecord = GtkPageRangeRecord
     structure PageSet = GtkPageSet
     structure PageSetupClass = GtkPageSetupClass
     structure PaperSizeRecord = GtkPaperSizeRecord
@@ -2208,6 +2330,7 @@ structure Gtk : GTK =
     structure WindowType = GtkWindowType
     structure WrapMode = GtkWrapMode
     structure AccelGroup = GtkAccelGroup
+    structure AccelGroupEntry = GtkAccelGroupEntry
     structure AccelKey = GtkAccelKey
     structure AccelMap = GtkAccelMap
     structure Accessible = GtkAccessible
@@ -2258,6 +2381,7 @@ structure Gtk : GTK =
     structure MiscClass = GtkMiscClass
     structure NumerableIcon = GtkNumerableIcon
     structure Orientable = GtkOrientable
+    structure PageRange = GtkPageRange
     structure PageSetup = GtkPageSetup
     structure PaperSize = GtkPaperSize
     structure PrintContext = GtkPrintContext
@@ -3141,6 +3265,41 @@ structure Gtk : GTK =
           )
             initCheck_
             (argc & argv)
+      in
+        (retVal, argv (LargeInt.toInt argc))
+      end
+    fun initWithArgs
+      (
+        argv,
+        parameterString,
+        entries,
+        translationDomain
+      ) =
+      let
+        val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
+        val argc
+         & argv
+         & retVal =
+          (
+            GInt32.FFI.withRefVal
+             &&&> Utf8CVectorN.FFI.withRefDupPtr 2
+             &&&> Utf8.FFI.withPtr
+             &&&> GLibOptionEntryRecordCVector.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GInt32.FFI.fromVal
+                   && Utf8CVectorN.FFI.fromPtr 2
+                   && GBool.FFI.fromVal
+          )
+            initWithArgs_
+            (
+              argc
+               & argv
+               & parameterString
+               & entries
+               & translationDomain
+               & []
+            )
       in
         (retVal, argv (LargeInt.toInt argc))
       end
@@ -4476,6 +4635,32 @@ structure Gtk : GTK =
            & target
            & info
         )
+    fun selectionAddTargets
+      (
+        widget,
+        selection,
+        targets
+      ) =
+      let
+        val ntargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val () =
+          (
+            GtkWidgetClass.FFI.withPtr
+             &&&> GdkAtomRecord.FFI.withPtr
+             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GUInt32.FFI.withVal
+             ---> I
+          )
+            selectionAddTargets_
+            (
+              widget
+               & selection
+               & targets
+               & ntargets
+            )
+      in
+        ()
+      end
     fun selectionClearTargets (widget, selection) = (GtkWidgetClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) selectionClearTargets_ (widget & selection)
     fun selectionConvert
       (
@@ -4559,11 +4744,38 @@ structure Gtk : GTK =
            & timestamp
            & []
         )
+    fun stockAdd items =
+      let
+        val nItems = LargeInt.fromInt (GtkStockItemRecordCVectorN.length items)
+        val () = (GtkStockItemRecordCVectorN.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) stockAdd_ (items & nItems)
+      in
+        ()
+      end
+    fun stockAddStatic items =
+      let
+        val nItems = LargeInt.fromInt (GtkStockItemRecordCVectorN.length items)
+        val () = (GtkStockItemRecordCVectorN.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) stockAddStatic_ (items & nItems)
+      in
+        ()
+      end
     fun stockLookup stockId =
       let
         val item & retVal = (Utf8.FFI.withPtr &&&> GtkStockItemRecord.FFI.withNewPtr ---> GtkStockItemRecord.FFI.fromPtr true && GBool.FFI.fromVal) stockLookup_ (stockId & ())
       in
         if retVal then SOME item else NONE
+      end
+    fun targetTableFree targets =
+      let
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val () = (GtkTargetEntryRecordCVectorN.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) targetTableFree_ (targets & nTargets)
+      in
+        ()
+      end
+    fun targetTableNewFromList list =
+      let
+        val nTargets & retVal = (GtkTargetListRecord.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GtkTargetEntryRecordCVectorN.FFI.fromPtr 1) targetTableNewFromList_ (list & GInt32.null)
+      in
+        retVal (LargeInt.toInt nTargets)
       end
     fun targetsIncludeImage (targets, writable) =
       let

@@ -4,6 +4,8 @@ signature GTK_WIDGET =
     type 'a buildable_class
     type accel_flags_t
     type orientation_t
+    type dest_defaults_t
+    type target_entry_t
     type target_list_t
     type 'a clipboard_class
     type widget_path_t
@@ -113,6 +115,12 @@ signature GTK_WIDGET =
        -> Gdk.AtomRecord.t
     val dragDestGetTargetList : 'a class -> target_list_t
     val dragDestGetTrackMotion : 'a class -> bool
+    val dragDestSet :
+      'a class
+       -> dest_defaults_t
+           * target_entry_t vector option
+           * Gdk.DragAction.t
+       -> unit
     val dragDestSetProxy :
       'a class
        -> 'b Gdk.WindowClass.class
@@ -139,6 +147,12 @@ signature GTK_WIDGET =
     val dragSourceAddTextTargets : 'a class -> unit
     val dragSourceAddUriTargets : 'a class -> unit
     val dragSourceGetTargetList : 'a class -> target_list_t
+    val dragSourceSet :
+      'a class
+       -> Gdk.ModifierType.t
+           * target_entry_t vector option
+           * Gdk.DragAction.t
+       -> unit
     val dragSourceSetIconGicon :
       'a class
        -> 'b Gio.IconClass.class

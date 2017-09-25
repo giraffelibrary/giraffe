@@ -8,6 +8,18 @@ structure VteTerminal :>
     where type terminal_erase_binding_t = VteTerminalEraseBinding.t
     where type 'a pty_class = 'a VtePtyClass.class =
   struct
+    structure GdkRgbaRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GdkRgbaRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GdkRgbaRecordCVectorN = CVectorN(GdkRgbaRecordCVectorNType)
+    structure GdkColorRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GdkColorRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GdkColorRecordCVectorN = CVectorN(GdkColorRecordCVectorNType)
     structure Utf8CVectorType =
       CPointerCVectorType(
         structure CElemType = Utf8.C.ArrayType
@@ -170,11 +182,23 @@ structure VteTerminal :>
       val setColorHighlight_ = call (getSymbol "vte_terminal_set_color_highlight") (VteTerminalClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cOptPtr --> cVoid)
       val setColorHighlightRgba_ = call (getSymbol "vte_terminal_set_color_highlight_rgba") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> cVoid)
       val setColors_ =
-        call (getSymbol "giraffe_vte_terminal_set_colors")
+        call (getSymbol "vte_terminal_set_colors")
           (
-            GObjectObjectClass.PolyML.cPtr
+            VteTerminalClass.PolyML.cPtr
              &&> GdkColorRecord.PolyML.cOptPtr
              &&> GdkColorRecord.PolyML.cOptPtr
+             &&> GdkColorRecordCVectorN.PolyML.cInPtr
+             &&> GLong.PolyML.cVal
+             --> cVoid
+          )
+      val setColorsRgba_ =
+        call (getSymbol "vte_terminal_set_colors_rgba")
+          (
+            VteTerminalClass.PolyML.cPtr
+             &&> GdkRgbaRecord.PolyML.cOptPtr
+             &&> GdkRgbaRecord.PolyML.cOptPtr
+             &&> GdkRgbaRecordCVectorN.PolyML.cInPtr
+             &&> GSize.PolyML.cVal
              --> cVoid
           )
       val setCursorBlinkMode_ = call (getSymbol "vte_terminal_set_cursor_blink_mode") (VteTerminalClass.PolyML.cPtr &&> VteTerminalCursorBlinkMode.PolyML.cVal --> cVoid)
@@ -449,19 +473,64 @@ structure VteTerminal :>
     fun setColorForegroundRgba self foreground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setColorForegroundRgba_ (self & foreground)
     fun setColorHighlight self highlightBackground = (VteTerminalClass.FFI.withPtr &&&> GdkColorRecord.FFI.withOptPtr ---> I) setColorHighlight_ (self & highlightBackground)
     fun setColorHighlightRgba self highlightBackground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorHighlightRgba_ (self & highlightBackground)
-    fun setColors self (foreground, background) =
+    fun setColors
+      self
       (
-        GObjectObjectClass.FFI.withPtr
-         &&&> GdkColorRecord.FFI.withOptPtr
-         &&&> GdkColorRecord.FFI.withOptPtr
-         ---> I
-      )
-        setColors_
-        (
-          self
-           & foreground
-           & background
-        )
+        foreground,
+        background,
+        palette
+      ) =
+      let
+        val paletteSize = LargeInt.fromInt (GdkColorRecordCVectorN.length palette)
+        val () =
+          (
+            VteTerminalClass.FFI.withPtr
+             &&&> GdkColorRecord.FFI.withOptPtr
+             &&&> GdkColorRecord.FFI.withOptPtr
+             &&&> GdkColorRecordCVectorN.FFI.withPtr
+             &&&> GLong.FFI.withVal
+             ---> I
+          )
+            setColors_
+            (
+              self
+               & foreground
+               & background
+               & palette
+               & paletteSize
+            )
+      in
+        ()
+      end
+    fun setColorsRgba
+      self
+      (
+        foreground,
+        background,
+        palette
+      ) =
+      let
+        val paletteSize = LargeInt.fromInt (GdkRgbaRecordCVectorN.length palette)
+        val () =
+          (
+            VteTerminalClass.FFI.withPtr
+             &&&> GdkRgbaRecord.FFI.withOptPtr
+             &&&> GdkRgbaRecord.FFI.withOptPtr
+             &&&> GdkRgbaRecordCVectorN.FFI.withPtr
+             &&&> GSize.FFI.withVal
+             ---> I
+          )
+            setColorsRgba_
+            (
+              self
+               & foreground
+               & background
+               & palette
+               & paletteSize
+            )
+      in
+        ()
+      end
     fun setCursorBlinkMode self mode = (VteTerminalClass.FFI.withPtr &&&> VteTerminalCursorBlinkMode.FFI.withVal ---> I) setCursorBlinkMode_ (self & mode)
     fun setCursorShape self shape = (VteTerminalClass.FFI.withPtr &&&> VteTerminalCursorShape.FFI.withVal ---> I) setCursorShape_ (self & shape)
     fun setDefaultColors self = (VteTerminalClass.FFI.withPtr ---> I) setDefaultColors_ self

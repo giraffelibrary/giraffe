@@ -1,6 +1,7 @@
 structure GtkClipboard :>
   GTK_CLIPBOARD
     where type 'a class = 'a GtkClipboardClass.class
+    where type target_entry_t = GtkTargetEntryRecord.t
     where type selection_data_t = GtkSelectionDataRecord.t
     where type 'a text_buffer_class = 'a GtkTextBufferClass.class =
   struct
@@ -22,12 +23,37 @@ structure GtkClipboard :>
         structure ElemSequence = MonoVectorSequence(Word8Vector)
       )
     structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
+    structure GtkTargetEntryRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GtkTargetEntryRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     val getType_ = _import "gtk_clipboard_get_type" : unit -> GObjectType.FFI.val_;
     val get_ = _import "gtk_clipboard_get" : GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p;
     val getForDisplay_ = fn x1 & x2 => (_import "gtk_clipboard_get_for_display" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p;) (x1, x2)
     val clear_ = _import "gtk_clipboard_clear" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> unit;
     val getDisplay_ = _import "gtk_clipboard_get_display" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
     val getOwner_ = _import "gtk_clipboard_get_owner" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
+    val setCanStore_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4 =>
+          (
+            _import "mlton_gtk_clipboard_set_can_store" :
+              GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p
+               * GtkTargetEntryRecordCVectorN.MLton.p1
+               * unit GtkTargetEntryRecordCVectorN.MLton.p2
+               * GInt.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val setImage_ = fn x1 & x2 => (_import "gtk_clipboard_set_image" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
     val setText_ =
       fn
@@ -98,6 +124,7 @@ structure GtkClipboard :>
     val waitIsTextAvailable_ = _import "gtk_clipboard_wait_is_text_available" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> GBool.FFI.val_;
     val waitIsUrisAvailable_ = _import "gtk_clipboard_wait_is_uris_available" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a GtkClipboardClass.class
+    type target_entry_t = GtkTargetEntryRecord.t
     type selection_data_t = GtkSelectionDataRecord.t
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
     type t = base class
@@ -107,6 +134,28 @@ structure GtkClipboard :>
     fun clear self = (GtkClipboardClass.FFI.withPtr ---> I) clear_ self
     fun getDisplay self = (GtkClipboardClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
     fun getOwner self = (GtkClipboardClass.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getOwner_ self
+    fun setCanStore self targets =
+      let
+        val nTargets =
+          case targets of
+            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+          | NONE => GInt.null
+        val () =
+          (
+            GtkClipboardClass.FFI.withPtr
+             &&&> GtkTargetEntryRecordCVectorN.FFI.withOptPtr
+             &&&> GInt.FFI.withVal
+             ---> I
+          )
+            setCanStore_
+            (
+              self
+               & targets
+               & nTargets
+            )
+      in
+        ()
+      end
     fun setImage self pixbuf = (GtkClipboardClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> I) setImage_ (self & pixbuf)
     fun setText self (text, len) =
       (

@@ -56,7 +56,8 @@ excludedInterfaceTypes := [
   ("GLib", "Mutex"),
   ("GLib", "PollFD"),
   ("GLib", "UnicodeScript"),
-  ("GLib", "UnicodeBreakType")
+  ("GLib", "UnicodeBreakType"),
+  ("Gio",  "OutputVector")
 ];
 
 
@@ -69,11 +70,13 @@ excludedInterfaceTypes := [
 structTypes := [
   (("GLib", "Date"),                  Record {dup = "gdate_copy", free = "g_date_free"}),
   (("GLib", "DateTime"),              Record {dup = "g_date_time_ref", free = "g_date_time_unref"}),
+  (("GLib", "DebugKey"),              ValueRecord),
   (("GLib", "Error"),                 Record {dup = "g_error_copy", free = "g_error_free"}),
   (("GLib", "IOChannel"),             Record {dup = "g_io_channel_ref", free = "g_io_channel_unref"}),
   (("GLib", "KeyFile"),               Record {dup = "g_key_file_ref", free = "g_key_file_unref"}),
   (("GLib", "MainContext"),           Record {dup = "g_main_context_ref", free = "g_main_context_unref"}),
   (("GLib", "MatchInfo"),             Record {dup = "g_match_info_ref", free = "g_match_info_unref"}),
+  (("GLib", "OptionEntry"),           ValueRecord),
   (("GLib", "PatternSpec"),           Record {dup = "", free = "g_pattern_spec_free"}),
   (("GLib", "PollFD"),                ValueRecord),
   (("GLib", "Regex"),                 Record {dup = "g_regex_ref", free = "g_regex_unref"}),
@@ -108,15 +111,18 @@ structTypes := [
   (("Gdk", "Geometry"),               ValueRecord),
   (("Gdk", "Color"),                  ValueRecord),
   (("Gdk", "KeymapKey"),              ValueRecord),
+  (("Gdk", "Point"),                  ValueRecord),
   (("Gdk", "RGBA"),                   ValueRecord),
   (("Gdk", "WindowAttr"),             Record {dup = "giraffe_gdk_window_attr_dup", free = "giraffe_gdk_window_attr_free"}),
   (("GdkPixbuf", "PixbufFormat"),     Record {dup = "gdk_pixbuf_format_copy", free = "gdk_pixbuf_format_free"}),
+  (("Gtk", "AccelGroupEntry"),        ValueRecord),
   (("Gtk", "AccelKey"),               ValueRecord),
   (("Gtk", "Border"),                 ValueRecord),
   (("Gtk", "FileFilterInfo"),         ValueRecord),
   (("Gtk", "IconInfo"),               Record {dup = "gtk_icon_info_copy", free = "gtk_icon_info_free"}),
   (("Gtk", "IconSet"),                Record {dup = "gtk_icon_set_ref", free = "gtk_icon_set_unref"}),
   (("Gtk", "IconSource"),             Record {dup = "gtk_icon_source_copy", free = "gtk_icon_source_free"}),
+  (("Gtk", "PageRange"),              ValueRecord),
   (("Gtk", "PaperSize"),              Record {dup = "gtk_paper_size_copy", free = "gtk_paper_size_free"}),
   (("Gtk", "RecentData"),             ValueRecord),
   (("Gtk", "RecentFilterInfo"),       ValueRecord),
@@ -126,7 +132,7 @@ structTypes := [
   (("Gtk", "SettingsValue"),          ValueRecord),
   (("Gtk", "StockItem"),              ValueRecord),
   (("Gtk", "SymbolicColor"),          Record {dup = "gtk_symbolic_color_ref", free = "gtk_symbolic_color_unref"}),
-  (("Gtk", "TargetEntry"),            Record {dup = "gtk_target_entry_copy", free = "gtk_target_entry_free"}),
+  (("Gtk", "TargetEntry"),            ValueRecord),
   (("Gtk", "TargetList"),             Record {dup = "gtk_target_list_ref", free = "gtk_target_list_unref"}),
   (("Gtk", "TextAttributes"),         Record {dup = "gtk_text_attributes_ref", free = "gtk_text_attributes_unref"}),
   (("Gtk", "TextIter"),               ValueRecord),

@@ -1,6 +1,7 @@
 signature GTK_CLIPBOARD =
   sig
     type 'a class
+    type target_entry_t
     type selection_data_t
     type 'a text_buffer_class
     type t = base class
@@ -10,6 +11,10 @@ signature GTK_CLIPBOARD =
     val clear : 'a class -> unit
     val getDisplay : 'a class -> base Gdk.DisplayClass.class
     val getOwner : 'a class -> base GObject.ObjectClass.class
+    val setCanStore :
+      'a class
+       -> target_entry_t vector option
+       -> unit
     val setImage :
       'a class
        -> 'b GdkPixbuf.PixbufClass.class

@@ -3,6 +3,7 @@ signature GTK =
     structure ActionEntry : GTK_ACTION_ENTRY
     structure AccelFlags : GTK_ACCEL_FLAGS
     structure AccelGroupClass : GTK_ACCEL_GROUP_CLASS
+    structure AccelGroupEntryRecord : GTK_ACCEL_GROUP_ENTRY_RECORD
     structure AccelKeyRecord : GTK_ACCEL_KEY_RECORD
     structure AccelMapClass : GTK_ACCEL_MAP_CLASS
     structure AccessibleClass : GTK_ACCESSIBLE_CLASS
@@ -89,6 +90,7 @@ signature GTK =
     structure PackDirection : GTK_PACK_DIRECTION
     structure PackType : GTK_PACK_TYPE
     structure PageOrientation : GTK_PAGE_ORIENTATION
+    structure PageRangeRecord : GTK_PAGE_RANGE_RECORD
     structure PageSet : GTK_PAGE_SET
     structure PageSetupClass : GTK_PAGE_SETUP_CLASS
     structure PaperSizeRecord : GTK_PAPER_SIZE_RECORD
@@ -201,6 +203,10 @@ signature GTK =
       GTK_ACCEL_GROUP
         where type 'a class = 'a AccelGroupClass.class
         where type accel_flags_t = AccelFlags.t
+        where type accel_group_entry_t = AccelGroupEntryRecord.t
+    structure AccelGroupEntry :
+      GTK_ACCEL_GROUP_ENTRY
+        where type t = AccelGroupEntryRecord.t
     structure AccelKey :
       GTK_ACCEL_KEY
         where type t = AccelKeyRecord.t
@@ -303,6 +309,7 @@ signature GTK =
     structure Clipboard :
       GTK_CLIPBOARD
         where type 'a class = 'a ClipboardClass.class
+        where type target_entry_t = TargetEntryRecord.t
         where type selection_data_t = SelectionDataRecord.t
         where type 'a text_buffer_class = 'a TextBufferClass.class
     structure ContainerClass :
@@ -415,6 +422,9 @@ signature GTK =
       GTK_ORIENTABLE
         where type 'a class = 'a OrientableClass.class
         where type orientation_t = Orientation.t
+    structure PageRange :
+      GTK_PAGE_RANGE
+        where type t = PageRangeRecord.t
     structure PageSetup :
       GTK_PAGE_SETUP
         where type 'a class = 'a PageSetupClass.class
@@ -440,6 +450,7 @@ signature GTK =
         where type print_duplex_t = PrintDuplex.t
         where type number_up_layout_t = NumberUpLayout.t
         where type page_orientation_t = PageOrientation.t
+        where type page_range_t = PageRangeRecord.t
         where type page_set_t = PageSet.t
         where type paper_size_t = PaperSizeRecord.t
         where type unit_t = Unit.t
@@ -562,6 +573,7 @@ signature GTK =
       GTK_TARGET_LIST
         where type t = TargetListRecord.t
         where type 'a text_buffer_class = 'a TextBufferClass.class
+        where type target_entry_t = TargetEntryRecord.t
     structure TextAttributes :
       GTK_TEXT_ATTRIBUTES
         where type t = TextAttributesRecord.t
@@ -1022,6 +1034,7 @@ signature GTK =
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a cell_layout_class = 'a CellLayoutClass.class
         where type 'a scrollable_class = 'a ScrollableClass.class
+        where type target_entry_t = TargetEntryRecord.t
         where type tree_iter_t = TreeIterRecord.t
         where type icon_view_drop_position_t = IconViewDropPosition.t
         where type 'a cell_renderer_class = 'a CellRendererClass.class
@@ -1148,6 +1161,7 @@ signature GTK =
         where type 'a class = 'a TreeViewClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a scrollable_class = 'a ScrollableClass.class
+        where type target_entry_t = TargetEntryRecord.t
         where type 'a tree_selection_class = 'a TreeSelectionClass.class
         where type tree_view_drop_position_t = TreeViewDropPosition.t
         where type 'a entry_class = 'a EntryClass.class
@@ -1566,6 +1580,8 @@ signature GTK =
         where type 'a buildable_class = 'a BuildableClass.class
         where type accel_flags_t = AccelFlags.t
         where type orientation_t = Orientation.t
+        where type dest_defaults_t = DestDefaults.t
+        where type target_entry_t = TargetEntryRecord.t
         where type target_list_t = TargetListRecord.t
         where type 'a clipboard_class = 'a ClipboardClass.class
         where type widget_path_t = WidgetPathRecord.t
@@ -2177,6 +2193,12 @@ signature GTK =
     val iconThemeErrorQuark : unit -> LargeInt.int
     val init : string list -> string list
     val initCheck : string list -> bool * string list
+    val initWithArgs :
+      string list
+       * string
+       * GLib.OptionEntryRecord.t vector
+       * string
+       -> bool * string list
     val keySnooperRemove : LargeInt.int -> unit
     val main : unit -> unit
     val mainDoEvent : 'a Gdk.Event.union -> unit
@@ -2583,6 +2605,11 @@ signature GTK =
        * Gdk.AtomRecord.t
        * LargeInt.int
        -> unit
+    val selectionAddTargets :
+      'a WidgetClass.class
+       * Gdk.AtomRecord.t
+       * TargetEntryRecord.t vector
+       -> unit
     val selectionClearTargets : 'a WidgetClass.class * Gdk.AtomRecord.t -> unit
     val selectionConvert :
       'a WidgetClass.class
@@ -2608,7 +2635,11 @@ signature GTK =
        * string
        * LargeInt.int
        -> bool
+    val stockAdd : StockItemRecord.t vector -> unit
+    val stockAddStatic : StockItemRecord.t vector -> unit
     val stockLookup : string -> StockItemRecord.t option
+    val targetTableFree : TargetEntryRecord.t vector -> unit
+    val targetTableNewFromList : TargetListRecord.t -> TargetEntryRecord.t vector
     val targetsIncludeImage : Gdk.AtomRecord.t vector * bool -> bool
     val targetsIncludeRichText : Gdk.AtomRecord.t vector * 'a TextBufferClass.class -> bool
     val targetsIncludeText : Gdk.AtomRecord.t vector -> bool

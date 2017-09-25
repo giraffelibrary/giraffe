@@ -25,6 +25,8 @@ in
   G_LIB_DATE_TIME_RECORD.sml
   G_LIB_DATE_TIME.sml
   G_LIB_DATE_WEEKDAY.sml
+  G_LIB_DEBUG_KEY_RECORD.sml
+  G_LIB_DEBUG_KEY.sml
   G_LIB_ERROR_RECORD.sml
   G_LIB_ERROR.sml
   G_LIB_ERROR_TYPE.sml
@@ -54,6 +56,8 @@ in
   G_LIB_NORMALIZE_MODE.sml
   G_LIB_ONCE_STATUS.sml
   G_LIB_OPTION_ARG.sml
+  G_LIB_OPTION_ENTRY_RECORD.sml
+  G_LIB_OPTION_ENTRY.sml
   G_LIB_OPTION_ERROR.sml
   G_LIB_OPTION_FLAGS.sml
   G_LIB_PATTERN_SPEC_RECORD.sml
@@ -115,6 +119,7 @@ in
     mlton/GLibDateMonth.sml
     mlton/GLibDateTimeRecord.sml
     mlton/GLibDateWeekday.sml
+    mlton/GLibDebugKeyRecord.sml
     mlton/GLibErrorType.sml
     mlton/GLibFileTest.sml
     mlton/GLibFormatSizeFlags.sml
@@ -134,6 +139,7 @@ in
     mlton/GLibNormalizeMode.sml
     mlton/GLibOnceStatus.sml
     mlton/GLibOptionArg.sml
+    mlton/GLibOptionEntryRecord.sml
     mlton/GLibOptionFlags.sml
     mlton/GLibPatternSpecRecord.sml
     mlton/GLibRegexRecord.sml
@@ -166,9 +172,11 @@ in
     mlton/GLibErrorRecord.sml
     mlton/GLibDate.sml
     mlton/GLibDateTime.sml
+    mlton/GLibDebugKey.sml
     mlton/GLibKeyFile.sml
     mlton/GLibMainContext.sml
     mlton/GLibMatchInfo.sml
+    mlton/GLibOptionEntry.sml
     mlton/GLibPatternSpec.sml
     mlton/GLibRegex.sml
     mlton/GLibSource.sml

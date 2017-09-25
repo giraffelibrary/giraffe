@@ -10,6 +10,7 @@ signature G_LIB =
     structure DateMonth : G_LIB_DATE_MONTH
     structure DateTimeRecord : G_LIB_DATE_TIME_RECORD
     structure DateWeekday : G_LIB_DATE_WEEKDAY
+    structure DebugKeyRecord : G_LIB_DEBUG_KEY_RECORD
     structure ErrorType : G_LIB_ERROR_TYPE
     structure FileTest : G_LIB_FILE_TEST
     structure FormatSizeFlags : G_LIB_FORMAT_SIZE_FLAGS
@@ -29,6 +30,7 @@ signature G_LIB =
     structure NormalizeMode : G_LIB_NORMALIZE_MODE
     structure OnceStatus : G_LIB_ONCE_STATUS
     structure OptionArg : G_LIB_OPTION_ARG
+    structure OptionEntryRecord : G_LIB_OPTION_ENTRY_RECORD
     structure OptionFlags : G_LIB_OPTION_FLAGS
     structure PatternSpecRecord : G_LIB_PATTERN_SPEC_RECORD
     structure RegexRecord : G_LIB_REGEX_RECORD
@@ -73,6 +75,9 @@ signature G_LIB =
         where type t = DateTimeRecord.t
         where type time_val_t = TimeValRecord.t
         where type time_zone_t = TimeZoneRecord.t
+    structure DebugKey :
+      G_LIB_DEBUG_KEY
+        where type t = DebugKeyRecord.t
     structure KeyFile :
       G_LIB_KEY_FILE
         where type t = KeyFileRecord.t
@@ -85,6 +90,9 @@ signature G_LIB =
       G_LIB_MATCH_INFO
         where type t = MatchInfoRecord.t
         where type regex_t = RegexRecord.t
+    structure OptionEntry :
+      G_LIB_OPTION_ENTRY
+        where type t = OptionEntryRecord.t
     structure PatternSpec :
       G_LIB_PATTERN_SPEC
         where type t = PatternSpecRecord.t
@@ -392,6 +400,7 @@ signature G_LIB =
     val nodePopAllocator : unit -> unit
     val onErrorQuery : string -> unit
     val onErrorStackTrace : string -> unit
+    val parseDebugString : string option * DebugKeyRecord.t vector -> LargeInt.int
     val pathGetBasename : string -> string
     val pathGetDirname : string -> string
     val pathIsAbsolute : string -> bool
