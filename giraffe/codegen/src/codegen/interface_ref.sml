@@ -1,21 +1,3 @@
-(* Interface types to be skipped *)
-
-val excludedInterfaceTypes : (string * string) list ref = ref []
-
-fun checkInterfaceType interfaceInfo =
-  let
-    val name = getName interfaceInfo
-    val namespace = BaseInfo.getNamespace interfaceInfo
-    val fullName = (namespace, name)
-  in
-    if
-      List.exists (fn x => x = fullName) (!excludedInterfaceTypes)
-    then infoExcl "interface type excluded by configuration \
-                                                      \(excludedInterfaceTypes)"
-    else ()
-  end
-
-
 (* Support for structure identifiers *)
 
 fun mkClassStrNameId name = toUCC name ^ "Class"

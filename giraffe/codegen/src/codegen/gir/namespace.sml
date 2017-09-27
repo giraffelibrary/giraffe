@@ -2,8 +2,6 @@
  * Namespace
  * -------------------------------------------------------------------------- *)
 
-val unionNames = ref []
-
 fun dupSig id _ = raise Fail (String.concat ["duplicate signature ", id])
 fun dupStr id _ = raise Fail (String.concat ["duplicate structure ", id])
 fun dupFile id _ = raise Fail (String.concat ["duplicate file for module ", id])

@@ -2,21 +2,6 @@
  * Struct - record modules stubbed with empty file for now
  * -------------------------------------------------------------------------- *)
 
-(* Struct types *)
-	
-datatype struct_type =
-  ValueRecord
-| Record of {dup : string, free : string}
-| DisguisedRecord
-
-val structTypes : ((string * string) * struct_type) list ref = ref []
-
-fun getStructType structFullName =
-  case List.find (fn (x, _) => x = structFullName) (!structTypes) of
-    SOME (_, y) => y 
-  | NONE        => infoExcl "struct not included by configuration (structTypes)"
-
-
 (* Record signature *)
 
 local

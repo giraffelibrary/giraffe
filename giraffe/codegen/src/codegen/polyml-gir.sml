@@ -2,6 +2,7 @@ use "utilities.sml";
 use "gir/girepository.sml";
 use "syntax.sml";
 use "interface_ref.sml";
+use "gir/configuration.sml";
 use "gir/function.sml";
 use "signal.sml";
 use "gir/property.sml";

@@ -33,13 +33,13 @@
     <item>struct Data: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       struct Date
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function set_time: deprecated</item>
       <item>
         function to_struct_tm
         <item>arg tm: pointer C type for VOID not supported</item>
       </item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function set_time: deprecated</item>
       <item>
         function to_struct_tm
@@ -48,8 +48,8 @@
     </item>
     <item>
       struct DateTime
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function compare
         <item>arg dt2: pointer C type for VOID not supported</item>
@@ -62,8 +62,8 @@
         function hash
         <item>arg datetime: pointer C type for VOID not supported</item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function compare
         <item>arg dt2: pointer C type for VOID not supported</item>
@@ -90,7 +90,7 @@
         function copy
         <item>type error: type ERROR not expected</item>
       </item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function matches: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function new_literal
@@ -100,7 +100,7 @@
         function copy
         <item>type error: type ERROR not expected</item>
       </item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function matches: function excluded by configuration (excludedFunctionSymbols)</item>
     </item>
     <item>constant GINT16_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
@@ -188,8 +188,8 @@
           <item>type gunichar: pointer C type for scalar (UNICHAR) not supported</item>
         </item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function write
         <item>
@@ -254,8 +254,8 @@
           <item>type gunichar: pointer C type for scalar (UNICHAR) not supported</item>
         </item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function write
         <item>
@@ -275,7 +275,7 @@
     <item>struct IOFuncs: struct not included by configuration (structTypes)</item>
     <item>
       struct KeyFile
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function to_data
         <item>
@@ -284,7 +284,7 @@
         </item>
       </item>
       <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function to_data
         <item>
@@ -365,7 +365,7 @@
           </item>
         </item>
       </item>
-      <item>function ref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function remove_poll
         <item>
@@ -376,7 +376,7 @@
           </item>
         </item>
       </item>
-      <item>function unref: non-user function</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function wait
         <item>
@@ -448,7 +448,7 @@
           </item>
         </item>
       </item>
-      <item>function ref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function remove_poll
         <item>
@@ -459,7 +459,7 @@
           </item>
         </item>
       </item>
-      <item>function unref: non-user function</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function wait
         <item>
@@ -477,12 +477,12 @@
     <item>struct MarkupParser: struct not included by configuration (structTypes)</item>
     <item>
       struct MatchInfo
-      <item>function free: non-user function</item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
-      <item>function free: non-user function</item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct MemChunk: struct not included by configuration (structTypes)</item>
     <item>struct MemVTable: interface type excluded by configuration (excludedInterfaceTypes)</item>
@@ -500,8 +500,8 @@
     <item>constant POLLFD_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
     <item>
       struct PatternSpec
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct PollFD: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct Private: struct not included by configuration (structTypes)</item>
@@ -510,12 +510,12 @@
     <item>struct Rand: struct not included by configuration (structTypes)</item>
     <item>
       struct Regex
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
       <item>function escape_string: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
       <item>function escape_string: function excluded by configuration (excludedFunctionSymbols)</item>
     </item>
@@ -543,7 +543,7 @@
       <item>function new: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function add_poll: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function get_current_time: deprecated</item>
-      <item>function ref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function remove_poll: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function set_callback
@@ -557,13 +557,13 @@
       </item>
       <item>function set_callback_indirect: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function set_funcs: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>function unref: non-user function</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function remove_by_funcs_user_data: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function remove_by_user_data: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function new: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function add_poll: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function get_current_time: deprecated</item>
-      <item>function ref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function remove_poll: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function set_callback
@@ -577,7 +577,7 @@
       </item>
       <item>function set_callback_indirect: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function set_funcs: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>function unref: non-user function</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function remove_by_funcs_user_data: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function remove_by_user_data: function excluded by configuration (excludedFunctionSymbols)</item>
     </item>
@@ -660,7 +660,7 @@
           <item>type gint64: pointer C type for scalar (INT64) not supported</item>
         </item>
       </item>
-      <item>function unref: non-user function</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function adjust_time
         <item>
@@ -668,7 +668,7 @@
           <item>type gint64: pointer C type for scalar (INT64) not supported</item>
         </item>
       </item>
-      <item>function unref: non-user function</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct Timer: struct not included by configuration (structTypes)</item>
     <item>struct TrashStack: struct not included by configuration (structTypes)</item>
@@ -692,13 +692,13 @@
           <item>type void: type VOID not expected</item>
         </item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function ref_sink: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref_sink: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function store
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
-      <item>function unref: non-user function</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function parser_get_error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
       <item>
         function new_from_data
@@ -712,20 +712,20 @@
           <item>type void: type VOID not expected</item>
         </item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function ref_sink: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref_sink: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function store
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
-      <item>function unref: non-user function</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function parser_get_error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
     </item>
     <item>struct VariantBuilder: struct not included by configuration (structTypes)</item>
     <item>
       struct VariantType
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>constant WIN32_MSG_HANDLE: constant excluded by configuration (excludedConstantNames)</item>
     <item>struct _StaticAssert_347: struct not included by configuration (structTypes)</item>
@@ -1099,7 +1099,7 @@
         <item>type guint64: pointer C type for scalar (UINT64) not supported</item>
       </item>
     </item>
-    <item>function free: non-user function</item>
+    <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     <item>function get_charset: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function get_filename_charsets: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>
@@ -1593,18 +1593,18 @@
         function invoke
         <item>arg invocation_hint: pointer C type for VOID not supported</item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function sink: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function sink: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function new_object: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function new_simple: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function invoke
         <item>arg invocation_hint: pointer C type for VOID not supported</item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function sink: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function sink: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct ClosureNotifyData: struct not included by configuration (structTypes)</item>
     <item>struct EnumClass: struct not included by configuration (structTypes)</item>
@@ -1656,15 +1656,15 @@
       <item>function get_data: pointer C type for VOID not supported</item>
       <item>function get_qdata: pointer C type for VOID not supported</item>
       <item>function is_floating: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>function ref: non-user function</item>
-      <item>function ref_sink: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref_sink: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function set_data
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>function steal_data: pointer C type for VOID not supported</item>
       <item>function steal_qdata: pointer C type for VOID not supported</item>
-      <item>function unref: non-user function</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function new
         <item>
@@ -1706,15 +1706,15 @@
       <item>function get_data: pointer C type for VOID not supported</item>
       <item>function get_qdata: pointer C type for VOID not supported</item>
       <item>function is_floating: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>function ref: non-user function</item>
-      <item>function ref_sink: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref_sink: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function set_data
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>function steal_data: pointer C type for VOID not supported</item>
       <item>function steal_qdata: pointer C type for VOID not supported</item>
-      <item>function unref: non-user function</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct ObjectClass: class struct</item>
     <item>struct ObjectConstructParam: struct not included by configuration (structTypes)</item>
@@ -1725,14 +1725,14 @@
         function set_qdata
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
-      <item>function sink: non-user function</item>
+      <item>function sink: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function steal_qdata: pointer C type for VOID not supported</item>
       <item>function get_qdata: pointer C type for VOID not supported</item>
       <item>
         function set_qdata
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
-      <item>function sink: non-user function</item>
+      <item>function sink: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function steal_qdata: pointer C type for VOID not supported</item>
     </item>
     <item>struct ParamSpecClass: class struct</item>
@@ -1831,12 +1831,12 @@
     <item>struct Value: struct not included by configuration (structTypes)</item>
     <item>
       struct ValueArray
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function sort
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function sort
         <item>arg user_data: pointer C type for VOID not supported</item>
@@ -2482,10 +2482,10 @@
     <item>struct CredentialsClass: class struct</item>
     <item>
       struct DBusAnnotationInfo
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct DBusArgInfo: struct not included by configuration (structTypes)</item>
     <item>
@@ -2668,7 +2668,7 @@
         function new_for_dbus_error
         <item>type error: type ERROR not expected</item>
       </item>
-      <item>function quark: non-user function</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function register_error: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function register_error_domain
@@ -2710,7 +2710,7 @@
         function new_for_dbus_error
         <item>type error: type ERROR not expected</item>
       </item>
-      <item>function quark: non-user function</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function register_error: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function register_error_domain
@@ -2742,8 +2742,8 @@
           </item>
         </item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function generate_xml
         <item>
@@ -2754,8 +2754,8 @@
           </item>
         </item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct DBusInterfaceSkeletonClass: class struct</item>
     <item>struct DBusInterfaceSkeletonPrivate: struct not included by configuration (structTypes)</item>
@@ -2815,10 +2815,10 @@
     </item>
     <item>
       struct DBusMethodInfo
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       object DBusMethodInvocation
@@ -2937,10 +2937,10 @@
     <item>struct DBusObjectSkeletonPrivate: struct not included by configuration (structTypes)</item>
     <item>
       struct DBusPropertyInfo
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       object DBusProxy
@@ -2981,10 +2981,10 @@
     <item>struct DBusProxyPrivate: struct not included by configuration (structTypes)</item>
     <item>
       struct DBusSignalInfo
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct DBusSubtreeVTable: struct not included by configuration (structTypes)</item>
     <item>
@@ -3319,17 +3319,17 @@
     </item>
     <item>
       struct FileAttributeInfoList
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       struct FileAttributeMatcher
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct FileDescriptorBasedIface: class struct</item>
     <item>
@@ -3477,8 +3477,8 @@
     <item>struct IOModuleClass: class struct</item>
     <item>
       struct IOModuleScope
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct IOSchedulerJob: struct not included by configuration (structTypes)</item>
     <item>
@@ -3900,8 +3900,8 @@
     <item>struct ResolverClass: class struct</item>
     <item>
       enum ResolverError
-      <item>function quark: non-user function</item>
-      <item>function quark: non-user function</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct ResolverPrivate: struct not included by configuration (structTypes)</item>
     <item>struct SeekableIface: class struct</item>
@@ -4301,8 +4301,8 @@
     <item>struct TlsDatabasePrivate: struct not included by configuration (structTypes)</item>
     <item>
       enum TlsError
-      <item>function quark: non-user function</item>
-      <item>function quark: non-user function</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct TlsFileDatabaseInterface: class struct</item>
     <item>
@@ -4585,7 +4585,7 @@
     <item>struct BaseInfo: struct not included by configuration (structTypes)</item>
     <item>
       object Repository
-      <item>function error_quark: non-user function</item>
+      <item>function error_quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_search_path
         <item>type gslist: type GSLIST not supported</item>
@@ -4601,7 +4601,7 @@
           <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
-      <item>function error_quark: non-user function</item>
+      <item>function error_quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_search_path
         <item>type gslist: type GSLIST not supported</item>
@@ -5173,8 +5173,8 @@
     </item>
     <item>
       struct PixbufFormat
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct PixbufLoaderClass: class struct</item>
     <item>struct PixbufSimpleAnimClass: class struct</item>
@@ -5197,14 +5197,14 @@
         function filter
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function filter
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct AttrShape: struct not included by configuration (structTypes)</item>
     <item>struct AttrSize: struct not included by configuration (structTypes)</item>
@@ -5218,8 +5218,8 @@
     </item>
     <item>
       struct Color
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct ContextClass: class struct</item>
     <item>struct Coverage: struct not included by configuration (structTypes)</item>
@@ -5244,8 +5244,8 @@
     </item>
     <item>
       struct FontDescription
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       object FontFace
@@ -5266,10 +5266,10 @@
     </item>
     <item>
       struct FontMetrics
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       object Fontset
@@ -5286,7 +5286,7 @@
     <item>struct GlyphInfo: struct not included by configuration (structTypes)</item>
     <item>
       struct GlyphItem
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_logical_widths
         <item>
@@ -5295,7 +5295,7 @@
         </item>
       </item>
       <item>function letter_space: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_logical_widths
         <item>
@@ -5308,7 +5308,7 @@
     <item>struct GlyphItemIter: struct not included by configuration (structTypes)</item>
     <item>
       struct GlyphString
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_logical_widths
         <item>
@@ -5330,7 +5330,7 @@
           <item>type gint32: pointer C type for scalar (INT32) not supported</item>
         </item>
       </item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_logical_widths
         <item>
@@ -5442,19 +5442,19 @@
     <item>struct LayoutClass: class struct</item>
     <item>
       struct LayoutIter
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       struct LayoutLine
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       struct Matrix
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function transform_pixel_rectangle
         <item>
@@ -5475,7 +5475,7 @@
           </item>
         </item>
       </item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function transform_pixel_rectangle
         <item>
@@ -5502,7 +5502,7 @@
     <item>struct ScriptIter: struct not included by configuration (structTypes)</item>
     <item>
       struct TabArray
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_tabs
         <item>
@@ -5510,7 +5510,7 @@
           <item>type gint32: pointer C type for scalar (INT32) not supported</item>
         </item>
       </item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_tabs
         <item>
@@ -5686,8 +5686,8 @@
     </item>
     <item>
       struct Color
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       object Cursor
@@ -5841,8 +5841,8 @@
     <item>struct Point: struct not included by configuration (structTypes)</item>
     <item>
       struct RGBA
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       object Screen
@@ -6211,8 +6211,8 @@
     <item>struct BindingSignal: struct not included by configuration (structTypes)</item>
     <item>
       struct Border
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct BoxClass: class struct</item>
     <item>struct BoxPrivate: struct not included by configuration (structTypes)</item>
@@ -6290,8 +6290,8 @@
     <item>struct BuilderClass: class struct</item>
     <item>
       enum BuilderError
-      <item>function quark: non-user function</item>
-      <item>function quark: non-user function</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct BuilderPrivate: struct not included by configuration (structTypes)</item>
     <item>
@@ -6683,8 +6683,8 @@
     <item>struct CssProviderClass: class struct</item>
     <item>
       enum CssProviderError
-      <item>function quark: non-user function</item>
-      <item>function quark: non-user function</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct CssProviderPrivate: struct not included by configuration (structTypes)</item>
     <item>struct CssSection: struct not included by configuration (structTypes)</item>
@@ -6782,8 +6782,8 @@
     <item>struct FileChooserDialogPrivate: struct not included by configuration (structTypes)</item>
     <item>
       enum FileChooserError
-      <item>function quark: non-user function</item>
-      <item>function quark: non-user function</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct FileChooserWidgetClass: class struct</item>
     <item>struct FileChooserWidgetPrivate: struct not included by configuration (structTypes)</item>
@@ -6967,7 +6967,7 @@
     <item>struct IconFactoryPrivate: struct not included by configuration (structTypes)</item>
     <item>
       struct IconInfo
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_attach_points
         <item>
@@ -6982,7 +6982,7 @@
         </item>
       </item>
       <item>function load_symbolic_for_style: deprecated</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_attach_points
         <item>
@@ -7000,17 +7000,17 @@
     </item>
     <item>
       struct IconSet
-      <item>function ref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function render_icon: deprecated</item>
-      <item>function unref: non-user function</item>
-      <item>function ref: non-user function</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function render_icon: deprecated</item>
-      <item>function unref: non-user function</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       struct IconSource
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       object IconTheme
@@ -7034,8 +7034,8 @@
     <item>struct IconThemeClass: class struct</item>
     <item>
       enum IconThemeError
-      <item>function quark: non-user function</item>
-      <item>function quark: non-user function</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct IconThemePrivate: struct not included by configuration (structTypes)</item>
     <item>
@@ -7345,12 +7345,12 @@
     <item>struct PanedPrivate: struct not included by configuration (structTypes)</item>
     <item>
       struct PaperSize
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_paper_sizes
         <item>type glist: type GLIST not supported</item>
       </item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_paper_sizes
         <item>type glist: type GLIST not supported</item>
@@ -7360,8 +7360,8 @@
     <item>struct PlugPrivate: struct not included by configuration (structTypes)</item>
     <item>
       enum PrintError
-      <item>function quark: non-user function</item>
-      <item>function quark: non-user function</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct PrintOperationClass: class struct</item>
     <item>struct PrintOperationPreviewIface: class struct</item>
@@ -7647,8 +7647,8 @@
     <item>struct RecentChooserDialogPrivate: struct not included by configuration (structTypes)</item>
     <item>
       enum RecentChooserError
-      <item>function quark: non-user function</item>
-      <item>function quark: non-user function</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct RecentChooserIface: class struct</item>
     <item>struct RecentChooserMenuClass: class struct</item>
@@ -7680,10 +7680,10 @@
     </item>
     <item>
       struct RecentInfo
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       object RecentManager
@@ -7699,15 +7699,15 @@
     <item>struct RecentManagerClass: class struct</item>
     <item>
       enum RecentManagerError
-      <item>function quark: non-user function</item>
-      <item>function quark: non-user function</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct RecentManagerPrivate: struct not included by configuration (structTypes)</item>
     <item>struct RequestedSize: struct not included by configuration (structTypes)</item>
     <item>
       struct Requisition
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       object ScaleButton
@@ -7724,8 +7724,8 @@
     <item>struct ScrolledWindowPrivate: struct not included by configuration (structTypes)</item>
     <item>
       struct SelectionData
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct SeparatorClass: class struct</item>
     <item>struct SeparatorMenuItemClass: class struct</item>
@@ -7784,8 +7784,8 @@
     <item>struct StatusbarPrivate: struct not included by configuration (structTypes)</item>
     <item>
       struct StockItem
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       object Style
@@ -7901,10 +7901,10 @@
     <item>struct SwitchPrivate: struct not included by configuration (structTypes)</item>
     <item>
       struct SymbolicColor
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct TableChild: struct not included by configuration (structTypes)</item>
     <item>struct TableClass: class struct</item>
@@ -7912,8 +7912,8 @@
     <item>struct TableRowCol: struct not included by configuration (structTypes)</item>
     <item>
       struct TargetEntry
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       struct TargetList
@@ -7950,8 +7950,8 @@
           <item>type guint32: pointer C type for scalar (UINT32) not supported</item>
         </item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function new
         <item>
@@ -7985,18 +7985,18 @@
           <item>type guint32: pointer C type for scalar (UINT32) not supported</item>
         </item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct TearoffMenuItemClass: class struct</item>
     <item>struct TearoffMenuItemPrivate: struct not included by configuration (structTypes)</item>
     <item>struct TextAppearance: struct not included by configuration (structTypes)</item>
     <item>
       struct TextAttributes
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct TextBTree: struct not included by configuration (structTypes)</item>
     <item>
@@ -8066,7 +8066,7 @@
         function forward_find_char
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_attributes
         <item>
@@ -8097,7 +8097,7 @@
         function forward_find_char
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_attributes
         <item>
@@ -8206,8 +8206,8 @@
     <item>struct TreeDragSourceIface: class struct</item>
     <item>
       struct TreeIter
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       interface TreeModel
@@ -8278,8 +8278,8 @@
     <item>struct TreeModelSortPrivate: struct not included by configuration (structTypes)</item>
     <item>
       struct TreePath
-      <item>function free: non-user function</item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct TreeRowReference: struct not included by configuration (structTypes)</item>
     <item>
@@ -8896,7 +8896,7 @@
           <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_object_type
         <item>type GType: type GTYPE not supported</item>
@@ -8941,8 +8941,8 @@
           <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function append_type
         <item>
@@ -8950,7 +8950,7 @@
           <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
-      <item>function free: non-user function</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_object_type
         <item>type GType: type GTYPE not supported</item>
@@ -8995,8 +8995,8 @@
           <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
-      <item>function ref: non-user function</item>
-      <item>function unref: non-user function</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct WidgetPrivate: struct not included by configuration (structTypes)</item>
     <item>
@@ -9088,7 +9088,7 @@
     <item>function bindings_activate: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function bindings_activate_event: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function distribute_natural_allocation: function excluded by configuration (excludedFunctionSymbols)</item>
-    <item>function false: non-user function</item>
+    <item>function false: non-user function excluded by configuration (nonUserFunctionNames)</item>
     <item>
       function init_with_args
       <item>
@@ -9243,7 +9243,7 @@
         <item>type GType: type GTYPE not supported</item>
       </item>
     </item>
-    <item>function true: non-user function</item>
+    <item>function true: non-user function excluded by configuration (nonUserFunctionNames)</item>
   </item>
   <item>
     GtkSource-3.0
@@ -9321,8 +9321,8 @@
     <item>struct CompletionContextPrivate: struct not included by configuration (structTypes)</item>
     <item>
       enum CompletionError
-      <item>function quark: non-user function</item>
-      <item>function quark: non-user function</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct CompletionInfoClass: class struct</item>
     <item>struct CompletionInfoPrivate: struct not included by configuration (structTypes)</item>
