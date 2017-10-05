@@ -25,9 +25,9 @@ signature GIO_SOCKET =
     val bind :
       'a class
        -> 'b socket_address_class * bool
-       -> bool
-    val checkConnectResult : 'a class -> bool
-    val close : 'a class -> bool
+       -> unit
+    val checkConnectResult : 'a class -> unit
+    val close : 'a class -> unit
     val conditionCheck :
       'a class
        -> GLib.IOCondition.t
@@ -35,11 +35,11 @@ signature GIO_SOCKET =
     val conditionWait :
       'a class
        -> GLib.IOCondition.t * 'b cancellable_class option
-       -> bool
+       -> unit
     val connect :
       'a class
        -> 'b socket_address_class * 'c cancellable_class option
-       -> bool
+       -> unit
     val connectionFactoryCreateConnection : 'a class -> base socket_connection_class
     val getBlocking : 'a class -> bool
     val getCredentials : 'a class -> base credentials_class
@@ -54,7 +54,7 @@ signature GIO_SOCKET =
     val getTimeout : 'a class -> LargeInt.int
     val isClosed : 'a class -> bool
     val isConnected : 'a class -> bool
-    val listen : 'a class -> bool
+    val listen : 'a class -> unit
     val receive :
       'a class
        -> string
@@ -110,7 +110,7 @@ signature GIO_SOCKET =
     val shutdown :
       'a class
        -> bool * bool
-       -> bool
+       -> unit
     val speaksIpv4 : 'a class -> bool
     val blockingProp : ('a class, bool, bool) Property.readwrite
     val familyProp : ('a class, socket_family_t, socket_family_t) Property.readwrite

@@ -14,11 +14,11 @@ signature GTK_FILE_CHOOSER =
     val addShortcutFolder :
       'a class
        -> string
-       -> bool
+       -> unit
     val addShortcutFolderUri :
       'a class
        -> string
-       -> bool
+       -> unit
     val getAction : 'a class -> file_chooser_action_t
     val getCreateFolders : 'a class -> bool
     val getCurrentFolder : 'a class -> string option
@@ -46,16 +46,16 @@ signature GTK_FILE_CHOOSER =
     val removeShortcutFolder :
       'a class
        -> string
-       -> bool
+       -> unit
     val removeShortcutFolderUri :
       'a class
        -> string
-       -> bool
+       -> unit
     val selectAll : 'a class -> unit
     val selectFile :
       'a class
        -> 'b Gio.FileClass.class
-       -> bool
+       -> unit
     val selectFilename :
       'a class
        -> string
@@ -79,7 +79,7 @@ signature GTK_FILE_CHOOSER =
     val setCurrentFolderFile :
       'a class
        -> 'b Gio.FileClass.class
-       -> bool
+       -> unit
     val setCurrentFolderUri :
       'a class
        -> string
@@ -99,7 +99,7 @@ signature GTK_FILE_CHOOSER =
     val setFile :
       'a class
        -> 'b Gio.FileClass.class
-       -> bool
+       -> unit
     val setFilename :
       'a class
        -> string

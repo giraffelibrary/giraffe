@@ -159,7 +159,7 @@ signature VTE_TERMINAL =
     val setEncoding :
       'a class
        -> string option
-       -> bool
+       -> unit
     val setFont :
       'a class
        -> Pango.FontDescriptionRecord.t option
@@ -214,7 +214,7 @@ signature VTE_TERMINAL =
        -> 'b Gio.OutputStreamClass.class
            * write_flags_t
            * 'c Gio.CancellableClass.class option
-       -> bool
+       -> unit
     val bellSig : (unit -> unit) -> 'a class Signal.t
     val charSizeChangedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.t
     val childExitedSig : (LargeInt.int -> unit) -> 'a class Signal.t

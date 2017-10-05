@@ -7,7 +7,7 @@ signature G_I_REPOSITORY_REPOSITORY =
     type repository_load_flags_t
     type t = base class
     val getType : unit -> GObject.Type.t
-    val dump : string -> bool
+    val dump : string -> unit
     val getDefault : unit -> base class
     val prependSearchPath : string -> unit
     val findByErrorDomain :

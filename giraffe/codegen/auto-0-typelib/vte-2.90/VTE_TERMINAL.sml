@@ -274,7 +274,7 @@ signature VTE_TERMINAL =
        -> 'b Gio.OutputStreamClass.class
            * terminal_write_flags_t
            * 'c Gio.CancellableClass.class option
-       -> bool
+       -> unit
     val beepSig : (unit -> unit) -> 'a class Signal.t
     val charSizeChangedSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.t
     val childExitedSig : (unit -> unit) -> 'a class Signal.t

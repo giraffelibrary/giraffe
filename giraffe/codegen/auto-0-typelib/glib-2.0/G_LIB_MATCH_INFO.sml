@@ -28,5 +28,5 @@ signature G_LIB_MATCH_INFO =
     val getString : t -> string
     val isPartialMatch : t -> bool
     val matches : t -> bool
-    val next : t -> bool
+    val next : t -> unit
   end

@@ -9,7 +9,7 @@ signature GIO_SIMPLE_ASYNC_RESULT =
     val completeInIdle : 'a class -> unit
     val getOpResGboolean : 'a class -> bool
     val getOpResGssize : 'a class -> LargeInt.int
-    val propagateError : 'a class -> bool
+    val propagateError : 'a class -> unit
     val setHandleCancellation :
       'a class
        -> bool

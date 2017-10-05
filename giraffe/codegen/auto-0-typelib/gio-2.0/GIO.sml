@@ -1028,7 +1028,7 @@ signature GIO =
        -> base AppInfoClass.class
     val appInfoGetDefaultForType : string * bool -> base AppInfoClass.class
     val appInfoGetDefaultForUriScheme : string -> base AppInfoClass.class
-    val appInfoLaunchDefaultForUri : string * 'a AppLaunchContextClass.class option -> bool
+    val appInfoLaunchDefaultForUri : string * 'a AppLaunchContextClass.class option -> unit
     val appInfoResetTypeAssociations : string -> unit
     val busGetFinish : 'a AsyncResultClass.class -> base DBusConnectionClass.class
     val busGetSync : BusType.t * 'a CancellableClass.class option -> base DBusConnectionClass.class
@@ -1090,7 +1090,7 @@ signature GIO =
     val dbusIsInterfaceName : string -> bool
     val dbusIsMemberName : string -> bool
     val dbusIsName : string -> bool
-    val dbusIsSupportedAddress : string -> bool
+    val dbusIsSupportedAddress : string -> unit
     val dbusIsUniqueName : string -> bool
     val fileNewForCommandlineArg : string -> base FileClass.class
     val fileNewForPath : string -> base FileClass.class

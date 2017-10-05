@@ -138,14 +138,14 @@ structure GtkBuilder :>
     fun setTranslationDomain self domain = (GtkBuilderClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTranslationDomain_ (self & domain)
     fun valueFromString self (pspec, string) =
       let
-        val value & retVal =
+        val value & () =
           (
             GtkBuilderClass.FFI.withPtr
              &&&> GObjectParamSpecClass.FFI.withPtr
              &&&> Utf8.FFI.withPtr
              &&&> GObjectValueRecord.FFI.withNewPtr
              &&&> GLibErrorRecord.handleError
-             ---> GObjectValueRecord.FFI.fromPtr true && GBool.FFI.fromVal
+             ---> GObjectValueRecord.FFI.fromPtr true && ignore
           )
             valueFromString_
             (
@@ -156,7 +156,7 @@ structure GtkBuilder :>
                & []
             )
       in
-        if retVal then SOME value else NONE
+        value
       end
     local
       open Property

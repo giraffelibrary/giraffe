@@ -84,7 +84,7 @@ signature GTK_TEXT_BUFFER =
            * Gdk.AtomRecord.t
            * text_iter_t
            * Word8Vector.vector
-       -> bool
+       -> unit
     val deserializeGetCanCreateTags :
       'a class
        -> Gdk.AtomRecord.t

@@ -88,7 +88,7 @@ structure GioMount :>
         GioMountClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         ejectWithOperationFinish_
         (
@@ -137,7 +137,7 @@ structure GioMount :>
         GioMountClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         remountFinish_
         (
@@ -151,7 +151,7 @@ structure GioMount :>
         GioMountClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         unmountWithOperationFinish_
         (

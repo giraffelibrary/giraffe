@@ -36,7 +36,7 @@ structure GioCredentials :>
         GioCredentialsClass.FFI.withPtr
          &&&> GioCredentialsClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         isSameUser_
         (
@@ -49,7 +49,7 @@ structure GioCredentials :>
         GioCredentialsClass.FFI.withPtr
          &&&> GUInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setUnixUser_
         (

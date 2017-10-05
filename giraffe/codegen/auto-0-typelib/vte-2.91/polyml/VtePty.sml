@@ -91,7 +91,7 @@ structure VtePty :>
       let
         val rows
          & columns
-         & retVal =
+         & () =
           (
             VtePtyClass.FFI.withPtr
              &&&> GInt32.FFI.withRefVal
@@ -99,7 +99,7 @@ structure VtePty :>
              &&&> GLibErrorRecord.handleError
              ---> GInt32.FFI.fromVal
                    && GInt32.FFI.fromVal
-                   && GBool.FFI.fromVal
+                   && ignore
           )
             getSize_
             (
@@ -109,7 +109,7 @@ structure VtePty :>
                & []
             )
       in
-        if retVal then SOME (rows, columns) else NONE
+        (rows, columns)
       end
     fun setSize self (rows, columns) =
       (
@@ -117,7 +117,7 @@ structure VtePty :>
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setSize_
         (
@@ -131,7 +131,7 @@ structure VtePty :>
         VtePtyClass.FFI.withPtr
          &&&> GBool.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setUtf8_
         (

@@ -91,7 +91,7 @@ structure GtkRecentChooser :>
         GtkRecentChooserClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         selectUri_
         (
@@ -104,7 +104,7 @@ structure GtkRecentChooser :>
         GtkRecentChooserClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setCurrentUri_
         (

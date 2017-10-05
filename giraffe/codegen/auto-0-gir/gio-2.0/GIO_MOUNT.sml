@@ -14,7 +14,7 @@ signature GIO_MOUNT =
     val ejectWithOperationFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val getDefaultLocation : 'a class -> base file_class
     val getDrive : 'a class -> base drive_class
     val getIcon : 'a class -> base icon_class
@@ -34,12 +34,12 @@ signature GIO_MOUNT =
     val remountFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val shadow : 'a class -> unit
     val unmountWithOperationFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val unshadow : 'a class -> unit
     val changedSig : (unit -> unit) -> 'a class Signal.t
     val preUnmountSig : (unit -> unit) -> 'a class Signal.t

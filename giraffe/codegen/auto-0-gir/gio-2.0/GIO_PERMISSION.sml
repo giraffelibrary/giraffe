@@ -8,11 +8,11 @@ signature GIO_PERMISSION =
     val acquire :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val acquireFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val getAllowed : 'a class -> bool
     val getCanAcquire : 'a class -> bool
     val getCanRelease : 'a class -> bool
@@ -25,11 +25,11 @@ signature GIO_PERMISSION =
     val release :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val releaseFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val allowedProp : ('a class, bool) Property.readonly
     val canAcquireProp : ('a class, bool) Property.readonly
     val canReleaseProp : ('a class, bool) Property.readonly

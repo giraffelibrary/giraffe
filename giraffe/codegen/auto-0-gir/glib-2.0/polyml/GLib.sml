@@ -966,7 +966,7 @@ structure GLib : G_LIB =
       let
         val argcp
          & argvp
-         & retVal =
+         & () =
           (
             Utf8.FFI.withPtr
              &&&> GInt.FFI.withRefVal
@@ -974,7 +974,7 @@ structure GLib : G_LIB =
              &&&> GLibErrorRecord.handleError
              ---> GInt.FFI.fromVal
                    && Utf8CVectorN.FFI.fromPtr 2
-                   && GBool.FFI.fromVal
+                   && ignore
           )
             shellParseArgv_
             (
@@ -984,20 +984,20 @@ structure GLib : G_LIB =
                & []
             )
       in
-        if retVal then SOME (argvp (LargeInt.toInt argcp)) else NONE
+        argvp (LargeInt.toInt argcp)
       end
     fun shellQuote unquotedString = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) shellQuote_ unquotedString
     fun shellUnquote quotedString = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) shellUnquote_ (quotedString & [])
     fun sliceGetConfig ckey = (GLibSliceConfig.FFI.withVal ---> GInt64.FFI.fromVal) sliceGetConfig_ ckey
     fun sliceSetConfig (ckey, value) = (GLibSliceConfig.FFI.withVal &&&> GInt64.FFI.withVal ---> I) sliceSetConfig_ (ckey & value)
     fun spawnClosePid pid = (GLibPid.FFI.withVal ---> I) spawnClosePid_ pid
-    fun spawnCommandLineAsync commandLine = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) spawnCommandLineAsync_ (commandLine & [])
+    fun spawnCommandLineAsync commandLine = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) spawnCommandLineAsync_ (commandLine & [])
     fun spawnCommandLineSync commandLine =
       let
         val standardOutput
          & standardError
          & exitStatus
-         & retVal =
+         & () =
           (
             Utf8.FFI.withPtr
              &&&> GUInt8CVector.FFI.withRefOptPtr
@@ -1007,7 +1007,7 @@ structure GLib : G_LIB =
              ---> GUInt8CVector.FFI.fromPtr 1
                    && GUInt8CVector.FFI.fromPtr 1
                    && GInt.FFI.fromVal
-                   && GBool.FFI.fromVal
+                   && ignore
           )
             spawnCommandLineSync_
             (
@@ -1018,15 +1018,11 @@ structure GLib : G_LIB =
                & []
             )
       in
-        if retVal
-        then
-          SOME
-            (
-              standardOutput,
-              standardError,
-              exitStatus
-            )
-        else NONE
+        (
+          standardOutput,
+          standardError,
+          exitStatus
+        )
       end
     fun testBug bugUriSnippet = (Utf8.FFI.withPtr ---> I) testBug_ bugUriSnippet
     fun testBugBase uriPattern = (Utf8.FFI.withPtr ---> I) testBugBase_ uriPattern

@@ -25,7 +25,7 @@ signature GIO_APPLICATION =
     val register :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val release : 'a class -> unit
     val run :
       'a class

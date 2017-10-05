@@ -364,7 +364,7 @@ structure GLibRegex :>
       ) =
       let
         val stringLen = LargeInt.fromInt (Utf8CVectorN.length string)
-        val matchInfo & retVal =
+        val matchInfo & () =
           (
             GLibRegexRecord.FFI.withPtr
              &&&> Utf8CVectorN.FFI.withPtr
@@ -373,7 +373,7 @@ structure GLibRegex :>
              &&&> GLibRegexMatchFlags.FFI.withVal
              &&&> GLibMatchInfoRecord.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GLibMatchInfoRecord.FFI.fromPtr true && GBool.FFI.fromVal
+             ---> GLibMatchInfoRecord.FFI.fromPtr true && ignore
           )
             matchAllFull_
             (
@@ -386,7 +386,7 @@ structure GLibRegex :>
                & []
             )
       in
-        if retVal then SOME matchInfo else NONE
+        matchInfo
       end
     fun matchFull
       self
@@ -397,7 +397,7 @@ structure GLibRegex :>
       ) =
       let
         val stringLen = LargeInt.fromInt (Utf8CVectorN.length string)
-        val matchInfo & retVal =
+        val matchInfo & () =
           (
             GLibRegexRecord.FFI.withPtr
              &&&> Utf8CVectorN.FFI.withPtr
@@ -406,7 +406,7 @@ structure GLibRegex :>
              &&&> GLibRegexMatchFlags.FFI.withVal
              &&&> GLibMatchInfoRecord.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GLibMatchInfoRecord.FFI.fromPtr true && GBool.FFI.fromVal
+             ---> GLibMatchInfoRecord.FFI.fromPtr true && ignore
           )
             matchFull_
             (
@@ -419,7 +419,7 @@ structure GLibRegex :>
                & []
             )
       in
-        if retVal then SOME matchInfo else NONE
+        matchInfo
       end
     fun replace
       self
@@ -491,12 +491,12 @@ structure GLibRegex :>
       end
     fun checkReplacement replacement =
       let
-        val hasReferences & retVal =
+        val hasReferences & () =
           (
             Utf8.FFI.withPtr
              &&&> GBool.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GBool.FFI.fromVal && GBool.FFI.fromVal
+             ---> GBool.FFI.fromVal && ignore
           )
             checkReplacement_
             (
@@ -505,7 +505,7 @@ structure GLibRegex :>
                & []
             )
       in
-        if retVal then SOME hasReferences else NONE
+        hasReferences
       end
     fun escapeNul (string, length) = (Utf8.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 1) escapeNul_ (string & length)
     fun matchSimple

@@ -37,11 +37,11 @@ signature GIO_FILE =
        -> 'b class
            * file_copy_flags_t
            * 'c cancellable_class option
-       -> bool
+       -> unit
     val copyFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val create :
       'a class
        -> file_create_flags_t * 'b cancellable_class option
@@ -61,12 +61,12 @@ signature GIO_FILE =
     val delete :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val dup : 'a class -> base class
     val ejectMountableWithOperationFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val enumerateChildren :
       'a class
        -> string
@@ -124,27 +124,27 @@ signature GIO_FILE =
     val loadContents :
       'a class
        -> 'b cancellable_class option
-       -> (Word8Vector.vector * string) option
+       -> Word8Vector.vector * string
     val loadContentsFinish :
       'a class
        -> 'b async_result_class
-       -> (Word8Vector.vector * string) option
+       -> Word8Vector.vector * string
     val loadPartialContentsFinish :
       'a class
        -> 'b async_result_class
-       -> (Word8Vector.vector * string) option
+       -> Word8Vector.vector * string
     val makeDirectory :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val makeDirectoryWithParents :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val makeSymbolicLink :
       'a class
        -> string * 'b cancellable_class option
-       -> bool
+       -> unit
     val monitor :
       'a class
        -> file_monitor_flags_t * 'b cancellable_class option
@@ -160,7 +160,7 @@ signature GIO_FILE =
     val mountEnclosingVolumeFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val mountMountableFinish :
       'a class
        -> 'b async_result_class
@@ -176,7 +176,7 @@ signature GIO_FILE =
     val pollMountableFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val queryDefaultHandler :
       'a class
        -> 'b cancellable_class option
@@ -237,11 +237,11 @@ signature GIO_FILE =
            * bool
            * file_create_flags_t
            * 'b cancellable_class option
-       -> string option
+       -> string
     val replaceContentsFinish :
       'a class
        -> 'b async_result_class
-       -> string option
+       -> string
     val replaceFinish :
       'a class
        -> 'b async_result_class
@@ -267,52 +267,52 @@ signature GIO_FILE =
            * string
            * file_query_info_flags_t
            * 'b cancellable_class option
-       -> bool
+       -> unit
     val setAttributeInt32 :
       'a class
        -> string
            * LargeInt.int
            * file_query_info_flags_t
            * 'b cancellable_class option
-       -> bool
+       -> unit
     val setAttributeInt64 :
       'a class
        -> string
            * LargeInt.int
            * file_query_info_flags_t
            * 'b cancellable_class option
-       -> bool
+       -> unit
     val setAttributeString :
       'a class
        -> string
            * string
            * file_query_info_flags_t
            * 'b cancellable_class option
-       -> bool
+       -> unit
     val setAttributeUint32 :
       'a class
        -> string
            * LargeInt.int
            * file_query_info_flags_t
            * 'b cancellable_class option
-       -> bool
+       -> unit
     val setAttributeUint64 :
       'a class
        -> string
            * LargeInt.int
            * file_query_info_flags_t
            * 'b cancellable_class option
-       -> bool
+       -> unit
     val setAttributesFinish :
       'a class
        -> 'b async_result_class
-       -> base file_info_class option
+       -> base file_info_class
     val setAttributesFromInfo :
       'a class
        -> 'b file_info_class
            * file_query_info_flags_t
            * 'c cancellable_class option
-       -> bool
+       -> unit
     val setDisplayName :
       'a class
        -> string * 'b cancellable_class option
@@ -324,18 +324,18 @@ signature GIO_FILE =
     val startMountableFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val stopMountableFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val supportsThreadContexts : 'a class -> bool
     val trash :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val unmountMountableWithOperationFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
   end

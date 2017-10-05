@@ -63,7 +63,7 @@ structure GioPermission :>
         GioPermissionClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         acquire_
         (
@@ -76,7 +76,7 @@ structure GioPermission :>
         GioPermissionClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         acquireFinish_
         (
@@ -113,7 +113,7 @@ structure GioPermission :>
         GioPermissionClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         release_
         (
@@ -126,7 +126,7 @@ structure GioPermission :>
         GioPermissionClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         releaseFinish_
         (

@@ -127,7 +127,7 @@ structure Pango : PANGO =
         val attrList
          & text
          & accelChar
-         & retVal =
+         & () =
           (
             Utf8.FFI.withPtr
              &&&> GInt.FFI.withVal
@@ -139,7 +139,7 @@ structure Pango : PANGO =
              ---> PangoAttrListRecord.FFI.fromPtr true
                    && Utf8.FFI.fromPtr 1
                    && GChar.FFI.fromVal
-                   && GBool.FFI.fromVal
+                   && ignore
           )
             parseMarkup_
             (
@@ -152,15 +152,11 @@ structure Pango : PANGO =
                & []
             )
       in
-        if retVal
-        then
-          SOME
-            (
-              attrList,
-              text,
-              accelChar
-            )
-        else NONE
+        (
+          attrList,
+          text,
+          accelChar
+        )
       end
     fun quantizeLineGeometry (thickness, position) =
       let

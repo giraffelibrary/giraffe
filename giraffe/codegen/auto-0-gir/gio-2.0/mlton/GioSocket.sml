@@ -372,7 +372,7 @@ structure GioSocket :>
          &&&> GioSocketAddressClass.FFI.withPtr
          &&&> GBool.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         bind_
         (
@@ -381,8 +381,8 @@ structure GioSocket :>
            & allowReuse
            & []
         )
-    fun checkConnectResult self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) checkConnectResult_ (self & [])
-    fun close self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) close_ (self & [])
+    fun checkConnectResult self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) checkConnectResult_ (self & [])
+    fun close self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) close_ (self & [])
     fun conditionCheck self condition = (GioSocketClass.FFI.withPtr &&&> GLibIOCondition.FFI.withVal ---> GLibIOCondition.FFI.fromVal) conditionCheck_ (self & condition)
     fun conditionWait self (condition, cancellable) =
       (
@@ -390,7 +390,7 @@ structure GioSocket :>
          &&&> GLibIOCondition.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         conditionWait_
         (
@@ -405,7 +405,7 @@ structure GioSocket :>
          &&&> GioSocketAddressClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         connect_
         (
@@ -428,7 +428,7 @@ structure GioSocket :>
     fun getTimeout self = (GioSocketClass.FFI.withPtr ---> GUInt.FFI.fromVal) getTimeout_ self
     fun isClosed self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
     fun isConnected self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) isConnected_ self
-    fun listen self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) listen_ (self & [])
+    fun listen self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) listen_ (self & [])
     fun receive
       self
       (
@@ -599,7 +599,7 @@ structure GioSocket :>
          &&&> GBool.FFI.withVal
          &&&> GBool.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         shutdown_
         (

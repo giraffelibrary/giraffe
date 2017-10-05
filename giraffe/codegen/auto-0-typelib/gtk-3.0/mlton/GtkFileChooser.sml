@@ -318,7 +318,7 @@ structure GtkFileChooser :>
         GtkFileChooserClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         addShortcutFolder_
         (
@@ -331,7 +331,7 @@ structure GtkFileChooser :>
         GtkFileChooserClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         addShortcutFolderUri_
         (
@@ -365,7 +365,7 @@ structure GtkFileChooser :>
         GtkFileChooserClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         removeShortcutFolder_
         (
@@ -378,7 +378,7 @@ structure GtkFileChooser :>
         GtkFileChooserClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         removeShortcutFolderUri_
         (
@@ -392,7 +392,7 @@ structure GtkFileChooser :>
         GtkFileChooserClass.FFI.withPtr
          &&&> GioFileClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         selectFile_
         (
@@ -410,7 +410,7 @@ structure GtkFileChooser :>
         GtkFileChooserClass.FFI.withPtr
          &&&> GioFileClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setCurrentFolderFile_
         (
@@ -427,7 +427,7 @@ structure GtkFileChooser :>
         GtkFileChooserClass.FFI.withPtr
          &&&> GioFileClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setFile_
         (

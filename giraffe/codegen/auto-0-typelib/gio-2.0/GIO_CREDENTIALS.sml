@@ -8,10 +8,10 @@ signature GIO_CREDENTIALS =
     val isSameUser :
       'a class
        -> 'b class
-       -> bool
+       -> unit
     val setUnixUser :
       'a class
        -> LargeInt.int
-       -> bool
+       -> unit
     val toString : 'a class -> string
   end

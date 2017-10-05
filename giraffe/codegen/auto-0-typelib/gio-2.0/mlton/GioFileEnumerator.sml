@@ -74,7 +74,7 @@ structure GioFileEnumerator :>
         GioFileEnumeratorClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         close_
         (
@@ -87,7 +87,7 @@ structure GioFileEnumerator :>
         GioFileEnumeratorClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         closeFinish_
         (

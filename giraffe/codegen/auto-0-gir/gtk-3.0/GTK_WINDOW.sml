@@ -16,7 +16,7 @@ signature GTK_WINDOW =
     val getDefaultIconName : unit -> string
     val setAutoStartupNotification : bool -> unit
     val setDefaultIcon : 'a GdkPixbuf.PixbufClass.class -> unit
-    val setDefaultIconFromFile : string -> bool
+    val setDefaultIconFromFile : string -> unit
     val setDefaultIconName : string -> unit
     val activateDefault : 'a class -> bool
     val activateFocus : 'a class -> bool
@@ -194,7 +194,7 @@ signature GTK_WINDOW =
     val setIconFromFile :
       'a class
        -> string
-       -> bool
+       -> unit
     val setIconName :
       'a class
        -> string option

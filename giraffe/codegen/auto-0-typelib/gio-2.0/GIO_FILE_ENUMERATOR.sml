@@ -10,11 +10,11 @@ signature GIO_FILE_ENUMERATOR =
     val close :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val closeFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val getContainer : 'a class -> base file_class
     val hasPending : 'a class -> bool
     val isClosed : 'a class -> bool

@@ -44,7 +44,7 @@ structure GioDBusInterfaceSkeleton :>
          &&&> GioDBusConnectionClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         export_
         (

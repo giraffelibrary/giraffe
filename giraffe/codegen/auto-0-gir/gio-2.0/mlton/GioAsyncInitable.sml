@@ -47,7 +47,7 @@ structure GioAsyncInitable :>
         GioAsyncInitableClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         initFinish_
         (

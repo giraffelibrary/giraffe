@@ -83,11 +83,11 @@ signature GTK_PRINT_SETTINGS =
     val loadFile :
       'a class
        -> string
-       -> bool
+       -> unit
     val loadKeyFile :
       'a class
        -> GLib.KeyFileRecord.t * string option
-       -> bool
+       -> unit
     val set :
       'a class
        -> string * string option
@@ -213,7 +213,7 @@ signature GTK_PRINT_SETTINGS =
     val toFile :
       'a class
        -> string
-       -> bool
+       -> unit
     val toKeyFile :
       'a class
        -> GLib.KeyFileRecord.t * string

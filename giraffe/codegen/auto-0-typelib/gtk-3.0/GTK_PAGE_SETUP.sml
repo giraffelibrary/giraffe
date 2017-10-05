@@ -47,11 +47,11 @@ signature GTK_PAGE_SETUP =
     val loadFile :
       'a class
        -> string
-       -> bool
+       -> unit
     val loadKeyFile :
       'a class
        -> GLib.KeyFileRecord.t * string option
-       -> bool
+       -> unit
     val setBottomMargin :
       'a class
        -> real * unit_t
@@ -83,7 +83,7 @@ signature GTK_PAGE_SETUP =
     val toFile :
       'a class
        -> string
-       -> bool
+       -> unit
     val toKeyFile :
       'a class
        -> GLib.KeyFileRecord.t * string

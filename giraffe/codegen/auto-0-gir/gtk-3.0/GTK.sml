@@ -2187,7 +2187,7 @@ signature GTK =
        * string
        * GLib.OptionEntryRecord.t vector
        * string
-       -> bool * string list
+       -> string list
     val keySnooperRemove : LargeInt.int -> unit
     val main : unit -> unit
     val mainDoEvent : 'a Gdk.Event.union -> unit
@@ -2619,7 +2619,7 @@ signature GTK =
       'a Gdk.ScreenClass.class option
        * string
        * LargeInt.int
-       -> bool
+       -> unit
     val stockAdd : StockItemRecord.t vector -> unit
     val stockAddStatic : StockItemRecord.t vector -> unit
     val stockLookup : string -> StockItemRecord.t option

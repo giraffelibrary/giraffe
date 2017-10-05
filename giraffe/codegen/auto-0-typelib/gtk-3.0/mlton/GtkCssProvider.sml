@@ -99,13 +99,13 @@ structure GtkCssProvider :>
     fun loadFromData self data =
       let
         val length = LargeInt.fromInt (GUInt8CVectorN.length data)
-        val retVal =
+        val () =
           (
             GtkCssProviderClass.FFI.withPtr
              &&&> GUInt8CVectorN.FFI.withPtr
              &&&> GInt64.FFI.withVal
              &&&> GLibErrorRecord.handleError
-             ---> GBool.FFI.fromVal
+             ---> ignore
           )
             loadFromData_
             (
@@ -115,14 +115,14 @@ structure GtkCssProvider :>
                & []
             )
       in
-        retVal
+        ()
       end
     fun loadFromFile self file =
       (
         GtkCssProviderClass.FFI.withPtr
          &&&> GioFileClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         loadFromFile_
         (
@@ -135,7 +135,7 @@ structure GtkCssProvider :>
         GtkCssProviderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         loadFromPath_
         (

@@ -16,9 +16,9 @@ signature GIO_UNIX_CONNECTION =
     val sendCredentials :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val sendFd :
       'a class
        -> LargeInt.int * 'b cancellable_class option
-       -> bool
+       -> unit
   end

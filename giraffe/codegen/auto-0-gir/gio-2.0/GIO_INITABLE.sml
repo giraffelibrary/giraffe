@@ -7,5 +7,5 @@ signature GIO_INITABLE =
     val init :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
   end

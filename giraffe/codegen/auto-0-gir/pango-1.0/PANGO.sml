@@ -193,10 +193,9 @@ signature PANGO =
       string
        * LargeInt.int
        * char
-       -> (AttrListRecord.t
-            * string
-            * char)
-            option
+       -> AttrListRecord.t
+           * string
+           * char
     val quantizeLineGeometry : LargeInt.int * LargeInt.int -> LargeInt.int * LargeInt.int
     val splitFileList : string -> string list
     val trimString : string -> string

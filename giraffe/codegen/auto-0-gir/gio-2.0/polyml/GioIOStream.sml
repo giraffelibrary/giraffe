@@ -41,14 +41,14 @@ structure GioIOStream :>
     type 'a output_stream_class = 'a GioOutputStreamClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun spliceFinish result = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) spliceFinish_ (result & [])
+    fun spliceFinish result = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) spliceFinish_ (result & [])
     fun clearPending self = (GioIOStreamClass.FFI.withPtr ---> I) clearPending_ self
     fun close self cancellable =
       (
         GioIOStreamClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         close_
         (
@@ -61,7 +61,7 @@ structure GioIOStream :>
         GioIOStreamClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         closeFinish_
         (
@@ -73,7 +73,7 @@ structure GioIOStream :>
     fun getOutputStream self = (GioIOStreamClass.FFI.withPtr ---> GioOutputStreamClass.FFI.fromPtr false) getOutputStream_ self
     fun hasPending self = (GioIOStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) hasPending_ self
     fun isClosed self = (GioIOStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
-    fun setPending self = (GioIOStreamClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) setPending_ (self & [])
+    fun setPending self = (GioIOStreamClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) setPending_ (self & [])
     local
       open Property
     in

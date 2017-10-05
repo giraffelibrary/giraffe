@@ -10,7 +10,7 @@ signature GTK_SOURCE_COMPLETION =
     val addProvider :
       'a class
        -> 'b completion_provider_class
-       -> bool
+       -> unit
     val blockInteractive : 'a class -> unit
     val createContext :
       'a class
@@ -26,7 +26,7 @@ signature GTK_SOURCE_COMPLETION =
     val removeProvider :
       'a class
        -> 'b completion_provider_class
-       -> bool
+       -> unit
     val unblockInteractive : 'a class -> unit
     val activateProposalSig : (unit -> unit) -> 'a class Signal.t
     val hideSig : (unit -> unit) -> 'a class Signal.t

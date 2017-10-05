@@ -430,13 +430,12 @@ signature G_LIB =
            * FileDesc.t
            * FileDesc.t
     val spawnClosePid : Pid.t -> unit
-    val spawnCommandLineAsync : string -> bool
+    val spawnCommandLineAsync : string -> unit
     val spawnCommandLineSync :
       string
-       -> (Word8Vector.vector
-            * Word8Vector.vector
-            * LargeInt.int)
-            option
+       -> Word8Vector.vector
+           * Word8Vector.vector
+           * LargeInt.int
     val testBug : string -> unit
     val testBugBase : string -> unit
     val testFail : unit -> unit

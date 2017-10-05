@@ -1036,7 +1036,7 @@ structure GtkTextBuffer :>
       ) =
       let
         val length = LargeInt.fromInt (GUInt8CVectorN.length data)
-        val retVal =
+        val () =
           (
             GtkTextBufferClass.FFI.withPtr
              &&&> GtkTextBufferClass.FFI.withPtr
@@ -1045,7 +1045,7 @@ structure GtkTextBuffer :>
              &&&> GUInt8CVectorN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GLibErrorRecord.handleError
-             ---> GBool.FFI.fromVal
+             ---> ignore
           )
             deserialize_
             (
@@ -1058,7 +1058,7 @@ structure GtkTextBuffer :>
                & []
             )
       in
-        retVal
+        ()
       end
     fun deserializeGetCanCreateTags self format = (GtkTextBufferClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GBool.FFI.fromVal) deserializeGetCanCreateTags_ (self & format)
     fun deserializeSetCanCreateTags self (format, canCreateTags) =

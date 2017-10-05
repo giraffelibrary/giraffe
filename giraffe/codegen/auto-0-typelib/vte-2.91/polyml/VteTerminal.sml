@@ -509,7 +509,7 @@ structure VteTerminal :>
         VteTerminalClass.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setEncoding_
         (
@@ -555,7 +555,7 @@ structure VteTerminal :>
          &&&> VteWriteFlags.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         writeContentsSync_
         (

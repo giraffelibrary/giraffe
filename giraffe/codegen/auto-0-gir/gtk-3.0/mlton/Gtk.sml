@@ -3126,7 +3126,7 @@ structure Gtk : GTK =
         val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
         val argc
          & argv
-         & retVal =
+         & () =
           (
             GInt.FFI.withRefVal
              &&&> Utf8CVectorN.FFI.withRefDupPtr 2
@@ -3136,7 +3136,7 @@ structure Gtk : GTK =
              &&&> GLibErrorRecord.handleError
              ---> GInt.FFI.fromVal
                    && Utf8CVectorN.FFI.fromPtr 2
-                   && GBool.FFI.fromVal
+                   && ignore
           )
             initWithArgs_
             (
@@ -3148,7 +3148,7 @@ structure Gtk : GTK =
                & []
             )
       in
-        (retVal, argv (LargeInt.toInt argc))
+        argv (LargeInt.toInt argc)
       end
     fun keySnooperRemove snooperHandlerId = (GUInt.FFI.withVal ---> I) keySnooperRemove_ snooperHandlerId
     fun main () = (I ---> I) main_ ()
@@ -4578,7 +4578,7 @@ structure Gtk : GTK =
          &&&> Utf8.FFI.withPtr
          &&&> GUInt32.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         showUri_
         (

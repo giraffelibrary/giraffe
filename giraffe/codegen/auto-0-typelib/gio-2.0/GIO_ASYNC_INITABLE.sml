@@ -7,7 +7,7 @@ signature GIO_ASYNC_INITABLE =
     val initFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val newFinish :
       'a class
        -> 'b async_result_class

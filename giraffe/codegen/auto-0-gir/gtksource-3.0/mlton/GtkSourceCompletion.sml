@@ -60,7 +60,7 @@ structure GtkSourceCompletion :>
         GtkSourceCompletionClass.FFI.withPtr
          &&&> GtkSourceCompletionProviderClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         addProvider_
         (
@@ -79,7 +79,7 @@ structure GtkSourceCompletion :>
         GtkSourceCompletionClass.FFI.withPtr
          &&&> GtkSourceCompletionProviderClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         removeProvider_
         (

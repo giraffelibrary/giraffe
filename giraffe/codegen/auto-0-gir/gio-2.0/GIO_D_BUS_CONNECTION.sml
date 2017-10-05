@@ -69,11 +69,11 @@ signature GIO_D_BUS_CONNECTION =
     val closeFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val closeSync :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val emitSignal :
       'a class
        -> string option
@@ -81,15 +81,15 @@ signature GIO_D_BUS_CONNECTION =
            * string
            * string
            * GLib.VariantRecord.t option
-       -> bool
+       -> unit
     val flushFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val flushSync :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val getCapabilities : 'a class -> d_bus_capability_flags_t
     val getExitOnClose : 'a class -> bool
     val getGuid : 'a class -> string
@@ -104,7 +104,7 @@ signature GIO_D_BUS_CONNECTION =
     val sendMessage :
       'a class
        -> 'b d_bus_message_class * d_bus_send_message_flags_t
-       -> LargeInt.int option
+       -> LargeInt.int
     val sendMessageWithReplyFinish :
       'a class
        -> 'b async_result_class

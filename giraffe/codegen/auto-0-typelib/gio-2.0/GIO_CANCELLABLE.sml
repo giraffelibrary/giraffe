@@ -16,6 +16,6 @@ signature GIO_CANCELLABLE =
     val pushCurrent : 'a class -> unit
     val releaseFd : 'a class -> unit
     val reset : 'a class -> unit
-    val setErrorIfCancelled : 'a class -> bool
+    val setErrorIfCancelled : 'a class -> unit
     val cancelledSig : (unit -> unit) -> 'a class Signal.t
   end

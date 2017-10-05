@@ -478,7 +478,7 @@ fun makeSignalStrDec
                      *
                      *   outParamName[1] & ... & outParamName[K] & <retVal>
                      *)
-                    val (_, retValExp) = retVal retInfo
+                    val retValExp = getRetValExp retInfo
                     val exp =
                       foldl mkAExp retValExp (map mkIdLNameExp revOutParamNames)
                   in

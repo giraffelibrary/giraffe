@@ -11,14 +11,14 @@ signature GTK_CSS_PROVIDER =
     val loadFromData :
       'a class
        -> Word8Vector.vector
-       -> bool
+       -> unit
     val loadFromFile :
       'a class
        -> 'b Gio.FileClass.class
-       -> bool
+       -> unit
     val loadFromPath :
       'a class
        -> string
-       -> bool
+       -> unit
     val toString : 'a class -> string
   end

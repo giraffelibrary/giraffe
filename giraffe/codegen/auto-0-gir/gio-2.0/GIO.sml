@@ -1079,7 +1079,7 @@ signature GIO =
     val dbusIsInterfaceName : string -> bool
     val dbusIsMemberName : string -> bool
     val dbusIsName : string -> bool
-    val dbusIsSupportedAddress : string -> bool
+    val dbusIsSupportedAddress : string -> unit
     val dbusIsUniqueName : string -> bool
     val ioErrorFromErrno : LargeInt.int -> IOErrorEnum.t
     val ioErrorQuark : unit -> GLib.Quark.t

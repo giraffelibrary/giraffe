@@ -114,7 +114,7 @@ structure GioOutputStream :>
         GioOutputStreamClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         close_
         (
@@ -127,7 +127,7 @@ structure GioOutputStream :>
         GioOutputStreamClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         closeFinish_
         (
@@ -140,7 +140,7 @@ structure GioOutputStream :>
         GioOutputStreamClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         flush_
         (
@@ -153,7 +153,7 @@ structure GioOutputStream :>
         GioOutputStreamClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         flushFinish_
         (
@@ -164,7 +164,7 @@ structure GioOutputStream :>
     fun hasPending self = (GioOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) hasPending_ self
     fun isClosed self = (GioOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
     fun isClosing self = (GioOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosing_ self
-    fun setPending self = (GioOutputStreamClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) setPending_ (self & [])
+    fun setPending self = (GioOutputStreamClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) setPending_ (self & [])
     fun splice
       self
       (
@@ -227,7 +227,7 @@ structure GioOutputStream :>
     fun writeAll self (buffer, cancellable) =
       let
         val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
-        val bytesWritten & retVal =
+        val bytesWritten & () =
           (
             GioOutputStreamClass.FFI.withPtr
              &&&> GUInt8CVectorN.FFI.withPtr
@@ -235,7 +235,7 @@ structure GioOutputStream :>
              &&&> GUInt64.FFI.withRefVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GUInt64.FFI.fromVal && GBool.FFI.fromVal
+             ---> GUInt64.FFI.fromVal && ignore
           )
             writeAll_
             (
@@ -247,7 +247,7 @@ structure GioOutputStream :>
                & []
             )
       in
-        if retVal then SOME bytesWritten else NONE
+        bytesWritten
       end
     fun writeFinish self result =
       (

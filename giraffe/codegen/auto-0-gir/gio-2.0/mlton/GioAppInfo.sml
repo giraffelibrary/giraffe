@@ -209,7 +209,7 @@ structure GioAppInfo :>
         Utf8.FFI.withPtr
          &&&> GioAppLaunchContextClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         launchDefaultForUri_
         (
@@ -223,7 +223,7 @@ structure GioAppInfo :>
         GioAppInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         addSupportsType_
         (
@@ -248,7 +248,7 @@ structure GioAppInfo :>
         GioAppInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         removeSupportsType_
         (
@@ -261,7 +261,7 @@ structure GioAppInfo :>
         GioAppInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setAsDefaultForExtension_
         (
@@ -274,7 +274,7 @@ structure GioAppInfo :>
         GioAppInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setAsDefaultForType_
         (
@@ -287,7 +287,7 @@ structure GioAppInfo :>
         GioAppInfoClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setAsLastUsedForType_
         (

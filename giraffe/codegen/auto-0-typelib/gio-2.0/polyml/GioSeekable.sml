@@ -49,7 +49,7 @@ structure GioSeekable :>
          &&&> GLibSeekType.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         seek_
         (
@@ -66,7 +66,7 @@ structure GioSeekable :>
          &&&> GInt64.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         truncate_
         (

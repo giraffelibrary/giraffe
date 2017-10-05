@@ -10,15 +10,15 @@ signature VTE_PTY =
     val childSetup : 'a class -> unit
     val close : 'a class -> unit
     val getFd : 'a class -> LargeInt.int
-    val getSize : 'a class -> (LargeInt.int * LargeInt.int) option
+    val getSize : 'a class -> LargeInt.int * LargeInt.int
     val setSize :
       'a class
        -> LargeInt.int * LargeInt.int
-       -> bool
+       -> unit
     val setUtf8 :
       'a class
        -> bool
-       -> bool
+       -> unit
     val fdProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val flagsProp : ('a class, pty_flags_t, pty_flags_t) Property.readwrite
   end

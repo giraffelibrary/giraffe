@@ -9,7 +9,7 @@ signature GIO_UNIX_F_D_MESSAGE =
     val appendFd :
       'a class
        -> LargeInt.int
-       -> bool
+       -> unit
     val getFdList : 'a class -> base unix_f_d_list_class
     val stealFds : 'a class -> LargeInt.int vector
     val fdListProp : ('a class, base unix_f_d_list_class option, 'b unix_f_d_list_class option) Property.readwrite

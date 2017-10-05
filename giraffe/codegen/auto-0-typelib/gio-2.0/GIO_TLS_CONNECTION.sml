@@ -25,11 +25,11 @@ signature GIO_TLS_CONNECTION =
     val handshake :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val handshakeFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val setCertificate :
       'a class
        -> 'b tls_certificate_class

@@ -598,7 +598,7 @@ structure GioDBusConnection :>
         GioDBusConnectionClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         closeFinish_
         (
@@ -611,7 +611,7 @@ structure GioDBusConnection :>
         GioDBusConnectionClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         closeSync_
         (
@@ -636,7 +636,7 @@ structure GioDBusConnection :>
          &&&> Utf8.FFI.withPtr
          &&&> GLibVariantRecord.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         emitSignal_
         (
@@ -653,7 +653,7 @@ structure GioDBusConnection :>
         GioDBusConnectionClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         flushFinish_
         (
@@ -666,7 +666,7 @@ structure GioDBusConnection :>
         GioDBusConnectionClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         flushSync_
         (
@@ -684,14 +684,14 @@ structure GioDBusConnection :>
     fun removeFilter self filterId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) removeFilter_ (self & filterId)
     fun sendMessage self (message, flags) =
       let
-        val outSerial & retVal =
+        val outSerial & () =
           (
             GioDBusConnectionClass.FFI.withPtr
              &&&> GioDBusMessageClass.FFI.withPtr
              &&&> GioDBusSendMessageFlags.FFI.withVal
              &&&> GUInt32.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GUInt32.FFI.fromVal && GBool.FFI.fromVal
+             ---> GUInt32.FFI.fromVal && ignore
           )
             sendMessage_
             (
@@ -702,7 +702,7 @@ structure GioDBusConnection :>
                & []
             )
       in
-        if retVal then SOME outSerial else NONE
+        outSerial
       end
     fun sendMessageWithReplyFinish self res =
       (

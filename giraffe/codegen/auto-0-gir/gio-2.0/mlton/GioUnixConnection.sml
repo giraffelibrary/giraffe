@@ -112,7 +112,7 @@ structure GioUnixConnection :>
         GioUnixConnectionClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         sendCredentials_
         (
@@ -126,7 +126,7 @@ structure GioUnixConnection :>
          &&&> GInt.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         sendFd_
         (

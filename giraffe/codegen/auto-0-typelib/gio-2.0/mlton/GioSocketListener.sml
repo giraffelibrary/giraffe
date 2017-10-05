@@ -279,7 +279,7 @@ structure GioSocketListener :>
         sourceObject
       ) =
       let
-        val effectiveAddress & retVal =
+        val effectiveAddress & () =
           (
             GioSocketListenerClass.FFI.withPtr
              &&&> GioSocketAddressClass.FFI.withPtr
@@ -288,7 +288,7 @@ structure GioSocketListener :>
              &&&> GObjectObjectClass.FFI.withOptPtr
              &&&> GioSocketAddressClass.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GioSocketAddressClass.FFI.fromPtr true && GBool.FFI.fromVal
+             ---> GioSocketAddressClass.FFI.fromPtr true && ignore
           )
             addAddress_
             (
@@ -301,7 +301,7 @@ structure GioSocketListener :>
                & []
             )
       in
-        if retVal then SOME effectiveAddress else NONE
+        effectiveAddress
       end
     fun addAnyInetPort self sourceObject =
       (
@@ -322,7 +322,7 @@ structure GioSocketListener :>
          &&&> GUInt16.FFI.withVal
          &&&> GObjectObjectClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         addInetPort_
         (
@@ -337,7 +337,7 @@ structure GioSocketListener :>
          &&&> GioSocketClass.FFI.withPtr
          &&&> GObjectObjectClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         addSocket_
         (

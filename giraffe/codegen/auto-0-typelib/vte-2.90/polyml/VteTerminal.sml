@@ -527,7 +527,7 @@ structure VteTerminal :>
          &&&> VteTerminalWriteFlags.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         writeContents_
         (

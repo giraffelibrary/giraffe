@@ -207,10 +207,9 @@ signature PANGO =
       string
        * LargeInt.int
        * char
-       -> (AttrListRecord.t
-            * string
-            * char)
-            option
+       -> AttrListRecord.t
+           * string
+           * char
     val quantizeLineGeometry : LargeInt.int * LargeInt.int -> LargeInt.int * LargeInt.int
     val scriptForUnichar : char -> Script.t
     val scriptGetSampleLanguage : Script.t -> LanguageRecord.t

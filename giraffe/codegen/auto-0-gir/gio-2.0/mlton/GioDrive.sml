@@ -124,7 +124,7 @@ structure GioDrive :>
         GioDriveClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         ejectWithOperationFinish_
         (
@@ -146,7 +146,7 @@ structure GioDrive :>
         GioDriveClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         pollForMediaFinish_
         (
@@ -159,7 +159,7 @@ structure GioDrive :>
         GioDriveClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         startFinish_
         (
@@ -172,7 +172,7 @@ structure GioDrive :>
         GioDriveClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         stopFinish_
         (

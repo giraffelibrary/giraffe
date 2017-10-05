@@ -11,35 +11,35 @@ signature GIO_DATA_OUTPUT_STREAM =
     val putByte :
       'a class
        -> Word8.word * 'b cancellable_class option
-       -> bool
+       -> unit
     val putInt16 :
       'a class
        -> LargeInt.int * 'b cancellable_class option
-       -> bool
+       -> unit
     val putInt32 :
       'a class
        -> LargeInt.int * 'b cancellable_class option
-       -> bool
+       -> unit
     val putInt64 :
       'a class
        -> LargeInt.int * 'b cancellable_class option
-       -> bool
+       -> unit
     val putString :
       'a class
        -> string * 'b cancellable_class option
-       -> bool
+       -> unit
     val putUint16 :
       'a class
        -> LargeInt.int * 'b cancellable_class option
-       -> bool
+       -> unit
     val putUint32 :
       'a class
        -> LargeInt.int * 'b cancellable_class option
-       -> bool
+       -> unit
     val putUint64 :
       'a class
        -> LargeInt.int * 'b cancellable_class option
-       -> bool
+       -> unit
     val setByteOrder :
       'a class
        -> data_stream_byte_order_t

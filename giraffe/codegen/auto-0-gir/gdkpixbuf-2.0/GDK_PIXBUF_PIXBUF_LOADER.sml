@@ -9,7 +9,7 @@ signature GDK_PIXBUF_PIXBUF_LOADER =
     val new : unit -> base class
     val newWithMimeType : string -> base class
     val newWithType : string -> base class
-    val close : 'a class -> bool
+    val close : 'a class -> unit
     val getAnimation : 'a class -> base pixbuf_animation_class
     val getFormat : 'a class -> pixbuf_format_t
     val getPixbuf : 'a class -> base pixbuf_class
@@ -20,7 +20,7 @@ signature GDK_PIXBUF_PIXBUF_LOADER =
     val write :
       'a class
        -> Word8Vector.vector
-       -> bool
+       -> unit
     val areaPreparedSig : (unit -> unit) -> 'a class Signal.t
     val areaUpdatedSig :
       (LargeInt.int

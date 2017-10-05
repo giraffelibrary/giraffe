@@ -13,7 +13,7 @@ signature GIO_VOLUME =
     val ejectWithOperationFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val enumerateIdentifiers : 'a class -> string list
     val getActivationRoot : 'a class -> base file_class
     val getDrive : 'a class -> base drive_class
@@ -28,7 +28,7 @@ signature GIO_VOLUME =
     val mountFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val shouldAutomount : 'a class -> bool
     val changedSig : (unit -> unit) -> 'a class Signal.t
     val removedSig : (unit -> unit) -> 'a class Signal.t

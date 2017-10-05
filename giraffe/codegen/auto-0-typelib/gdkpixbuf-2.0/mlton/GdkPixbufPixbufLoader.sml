@@ -95,7 +95,7 @@ structure GdkPixbufPixbufLoader :>
     fun new () = (I ---> GdkPixbufPixbufLoaderClass.FFI.fromPtr true) new_ ()
     fun newWithMimeType mimeType = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.FFI.fromPtr true) newWithMimeType_ (mimeType & [])
     fun newWithType imageType = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.FFI.fromPtr true) newWithType_ (imageType & [])
-    fun close self = (GdkPixbufPixbufLoaderClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) close_ (self & [])
+    fun close self = (GdkPixbufPixbufLoaderClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) close_ (self & [])
     fun getAnimation self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr false) getAnimation_ self
     fun getFormat self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufFormatRecord.FFI.fromPtr true) getFormat_ self
     fun getPixbuf self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
@@ -115,13 +115,13 @@ structure GdkPixbufPixbufLoader :>
     fun write self buf =
       let
         val count = LargeInt.fromInt (GUInt8CVectorN.length buf)
-        val retVal =
+        val () =
           (
             GdkPixbufPixbufLoaderClass.FFI.withPtr
              &&&> GUInt8CVectorN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GLibErrorRecord.handleError
-             ---> GBool.FFI.fromVal
+             ---> ignore
           )
             write_
             (
@@ -131,7 +131,7 @@ structure GdkPixbufPixbufLoader :>
                & []
             )
       in
-        retVal
+        ()
       end
     local
       open ClosureMarshal Signal

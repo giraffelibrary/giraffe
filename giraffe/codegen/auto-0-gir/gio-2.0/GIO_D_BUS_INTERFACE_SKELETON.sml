@@ -12,7 +12,7 @@ signature GIO_D_BUS_INTERFACE_SKELETON =
     val export :
       'a class
        -> 'b d_bus_connection_class * string
-       -> bool
+       -> unit
     val flush : 'a class -> unit
     val getConnection : 'a class -> base d_bus_connection_class
     val getFlags : 'a class -> d_bus_interface_skeleton_flags_t

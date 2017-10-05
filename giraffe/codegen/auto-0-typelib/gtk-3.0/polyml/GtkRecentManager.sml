@@ -88,7 +88,7 @@ structure GtkRecentManager :>
          &&&> Utf8.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         moveItem_
         (
@@ -103,7 +103,7 @@ structure GtkRecentManager :>
         GtkRecentManagerClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         removeItem_
         (

@@ -324,7 +324,7 @@ structure GtkPrintSettings :>
         GtkPrintSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         loadFile_
         (
@@ -338,7 +338,7 @@ structure GtkPrintSettings :>
          &&&> GLibKeyFileRecord.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         loadKeyFile_
         (
@@ -504,7 +504,7 @@ structure GtkPrintSettings :>
         GtkPrintSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         toFile_
         (

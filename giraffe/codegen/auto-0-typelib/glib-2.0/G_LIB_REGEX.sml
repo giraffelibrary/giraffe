@@ -32,13 +32,13 @@ signature G_LIB_REGEX =
        -> string list
            * LargeInt.int
            * regex_match_flags_t
-       -> match_info_t option
+       -> match_info_t
     val matchFull :
       t
        -> string list
            * LargeInt.int
            * regex_match_flags_t
-       -> match_info_t option
+       -> match_info_t
     val replace :
       t
        -> string list
@@ -53,7 +53,7 @@ signature G_LIB_REGEX =
            * string
            * regex_match_flags_t
        -> string
-    val checkReplacement : string -> bool option
+    val checkReplacement : string -> bool
     val escapeNul : string * LargeInt.int -> string
     val matchSimple :
       string

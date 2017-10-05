@@ -87,7 +87,7 @@ structure GioTlsConnection :>
         GioTlsConnectionClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         handshake_
         (
@@ -100,7 +100,7 @@ structure GioTlsConnection :>
         GioTlsConnectionClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         handshakeFinish_
         (

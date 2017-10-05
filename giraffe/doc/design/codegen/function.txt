@@ -89,40 +89,43 @@ where
     indices of non-conditional outputs are kb[1], ..., kb[K - KA], is
     defined as follows:
 
-
         retTypeInfo = GIRepository.CallableInfo.getReturnType functionInfo
         tag         = GIRepository.TypeInfo.getTag retTypeInfo
+        throws      = anySet (FunctionFlags, THROWS)
 
-          tag     0 < KA  KA < K   | retExpType
-        ===========================+===================================================
-          VOID    false   _        | <outParamType[1]> * ... * <outParamType[K]>
-        ---------------------------+---------------------------------------------------
-          _       false   _        | <retValType>
-                                   |   * <outParamType[1]> * ... * <outParamType[K]>
-        ---------------------------+---------------------------------------------------
-          BOOLEAN true    false    | (<outParamType[1]>
-                                   |    * ...
-                                   |    * <outParamType[KA]>) option
-        ---------------------------+---------------------------------------------------
-          BOOLEAN true    true     | (<outParamType[ka[1]]>
-                                   |    * ...
-                                   |    * <outParamType[ka[KA]]>) option
-                                   |   * <outParamType[kb[1]]>
-                                   |   * ...
-                                   |   * <outParamType[kb[K - KA]]>
-        ---------------------------+---------------------------------------------------
-          _       true    _        | <raise Error>                         (see note 1)
-        ---------------------------+---------------------------------------------------
+          tag     throws  0 < KA  KA < K   | retExpType
+        ===================================+===================================================
+          VOID    _       false   _        |
+          VOID    true    _       _        | <outParamType[1]> * ... * <outParamType[K]>
+          BOOLEAN true    _       _        |
+        -----------------------------------+---------------------------------------------------
+          _       _       false   _        | <retValType>
+          _       true    _       _        |   * <outParamType[1]> * ... * <outParamType[K]>
+        -----------------------------------+---------------------------------------------------
+          BOOLEAN false   true    false    | (<outParamType[1]>
+                                           |    * ...
+                                           |    * <outParamType[KA]>) option
+        -----------------------------------+---------------------------------------------------
+          BOOLEAN false   true    true     | (<outParamType[ka[1]]>
+                                           |    * ...
+                                           |    * <outParamType[ka[KA]]>) option
+                                           |   * <outParamType[kb[1]]>
+                                           |   * ...
+                                           |   * <outParamType[kb[K - KA]]>
+        -----------------------------------+---------------------------------------------------
+          _       false   true    _        | <raise Error>                         (see note 1)
+        -----------------------------------+---------------------------------------------------
 
     This logic is applied to prevent unknown/arbitrary/uninitialized out
     parameter values (especially pointers and caller-allocated structures)
     being returned to the application by using an option type for
     conditional out parameters.
 
-      Note 1: there is currently no way to know whether an out parameter
+      Note 1: there is currently no way to know whether an OUT parameter
         is conditional, so all out parameters are marked conditional and
-        taken to be so iff the function has a boolean return type.
-        Therefore this case cannot occur at the moment.
+        taken to be so iff the function cannot throw an error and has a
+        boolean return type.  Therefore this case cannot occur at the
+        moment.
 
 
   inParamType[l]
@@ -499,7 +502,7 @@ inverse of an array X is denoted X~.
       ...
       val <lenParamName[M]> = <lenParamExp[M]>
 
-      val <outParamName[1]> & ... & <outParamName[N]> & <retVal> =
+      val <outParamName[1]> & ... & <outParamName[N]> & <retValPat> =
         (<withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
           ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>)
           <functionName>_
@@ -517,7 +520,7 @@ inverse of an array X is denoted X~.
       ...
       val <lenParamName[M]> = <lenParamExp[M]>
 
-      val <outParamName[1]> & ... & <outParamName[N]> & <retVal> =
+      val <outParamName[1]> & ... & <outParamName[N]> & <retValPat> =
         (<withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
           ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>)
           <functionName>_
@@ -535,7 +538,7 @@ inverse of an array X is denoted X~.
       ...
       val <lenParamName[M]> = <lenParamExp[M]>
 
-      val <outParamName[1]> & ... & <outParamName[N]> & <retVal> =
+      val <outParamName[1]> & ... & <outParamName[N]> & <retValPat> =
         (<withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
           ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>)
           <functionName>_
@@ -603,6 +606,28 @@ where
         otherwise
 
 
+  retValPat
+    is defined as follows:
+
+        retTypeInfo = GIRepository.CallableInfo.getReturnType functionInfo
+        tag         = GIRepository.TypeInfo.getTag retTypeInfo
+        throws      = anySet (FunctionFlags, THROWS)
+
+          tag     throws          | retValPat
+        ==========================+===================
+          VOID    _               | ()
+        --------------------------+-------------------
+          BOOLEAN true            | ()
+        --------------------------+-------------------
+          _       _               | retVal
+        --------------------------+-------------------
+
+    In the forms of a high-level function, the return value is not used
+    when it is VOID or the function can throw an error.  Therefore the
+    pattern `()` or `_` is be used instead of `retVal` to avoid warnings
+    about unreferenced identifiers.
+
+
   retVal
     is defined as follows:
 
@@ -629,11 +654,6 @@ where
           SOME (LengthParam i)     --->     (LargeInt.toInt <outParamName[N~[i]]>)
 
 
-    In the forms of a high-level function, the return value is not
-    used when it is VOID.  Therefore the pattern `()` must be used instead
-    of `retVal` to avoid warnings about unreferenced identifiers.
-
-
   retExp
     when K = 0, retExp is <retVal>
 
@@ -642,53 +662,57 @@ where
     indices of non-conditional outputs are kb[1], ..., kb[K - KA], is
     defined as follows:
 
-
         retTypeInfo = GIRepository.CallableInfo.getReturnType functionInfo
         tag         = GIRepository.TypeInfo.getTag retTypeInfo
+        throws      = anySet (FunctionFlags, THROWS)
 
-          tag     0 < KA  KA < K   | retExp
-        ===========================+===================================================
-          VOID    false   _        | (<outParamExp[1]>, ..., <outParamExp[K]>)
-        ---------------------------+---------------------------------------------------
-          _       false   _        | (retVal, <outParamExp[1]>, ..., <outParamExp[K]>)
-        ---------------------------+---------------------------------------------------
-          BOOLEAN true    false    | if retVal
-                                   | then
-                                   |   SOME (
-                                   |     <outParamExp[1]>,
-                                   |     ...,
-                                   |     <outParamExp[KA]>
-                                   |   )
-                                   | else
-                                   |   NONE
-        ---------------------------+---------------------------------------------------
-          BOOLEAN true    true     | (
-                                   |   if retVal
-                                   |   then
-                                   |     SOME (
-                                   |       <outParamExp[ka[1]]>,
-                                   |       ...,
-                                   |       <outParamExp[ka[KA]]>
-                                   |     )
-                                   |   else
-                                   |     NONE,
-                                   |   <outParamName[kb[1]]>,
-                                   |   ...
-                                   |   <outParamName[kb[K - KA]]>
-                                   | )
-        ---------------------------+---------------------------------------------------
-          _       true    _        | <raise Error>                         (see note 1)
-        ---------------------------+---------------------------------------------------
+          tag     throws  0 < KA  KA < K   | retExp
+        ===================================+===================================================
+          VOID    _       false   _        |
+          VOID    true    _       _        | (<outParamExp[1]>, ..., <outParamExp[K]>)
+          BOOLEAN true    _       _        |
+        -----------------------------------+---------------------------------------------------
+          _       _       false   _        | (retVal, <outParamExp[1]>, ..., <outParamExp[K]>)
+          _       true    _       _        |
+        -----------------------------------+---------------------------------------------------
+          BOOLEAN false   true    false    | if retVal
+                                           | then
+                                           |   SOME (
+                                           |     <outParamExp[1]>,
+                                           |     ...,
+                                           |     <outParamExp[KA]>
+                                           |   )
+                                           | else
+                                           |   NONE
+        -----------------------------------+---------------------------------------------------
+          BOOLEAN false   true    true     | (
+                                           |   if retVal
+                                           |   then
+                                           |     SOME (
+                                           |       <outParamExp[ka[1]]>,
+                                           |       ...,
+                                           |       <outParamExp[ka[KA]]>
+                                           |     )
+                                           |   else
+                                           |     NONE,
+                                           |   <outParamName[kb[1]]>,
+                                           |   ...
+                                           |   <outParamName[kb[K - KA]]>
+                                           | )
+        -----------------------------------+---------------------------------------------------
+          _       false   true    _        | <raise Error>                         (see note 1)
+        -----------------------------------+---------------------------------------------------
 
     This logic is applied to prevent unknown/arbitrary/uninitialized out
     parameter values (especially pointers and caller-allocated structures)
     being returned to the application by using an option type for
     conditional out parameters.
 
-      Note 1: there is currently no way to know whether an out parameter
+      Note 1: there is currently no way to know whether an OUT parameter
         is conditional, so all out parameters are marked conditional and
-        taken to be so iff the function has a boolean return type.
-        Therefore this case cannot occur at the moment.
+        taken to be so iff the function cannot throw an error and has a
+        boolean return type.  Therefore this case cannot occur at the
+        moment.
 
     Generally, retExp is used to encode any additional logic that is applied
     above the high-level FFI.
@@ -1217,21 +1241,34 @@ where
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
-        INT8      --->    I
-        UINT8     --->    I
-        INT16     --->    I
-        UINT16    --->    I
-        INT32     --->    I
-        UINT32    --->    I
-        INT64     --->    I
-        UINT64    --->    I
+        INT8      --->    <fromValFun(GInt8.FFI)>
+        UINT8     --->    <fromValFun(GUInt8.FFI)>
+        INT16     --->    <fromValFun(GInt16.FFI)>
+        UINT16    --->    <fromValFun(GUInt16.FFI)>
+        INT32     --->    <fromValFun(GInt32.FFI)>
+        UINT32    --->    <fromValFun(GUInt32.FFI)>
+        INT64     --->    <fromValFun(GInt64.FFI)>
+        UINT64    --->    <fromValFun(GUInt64.FFI)>
         VOID      --->    <raise Fail "VOID">
-        BOOLEAN   --->    I
-        FLOAT     --->    I
-        DOUBLE    --->    I
+        BOOLEAN   --->    <fromValFun(GBool.FFI)>
+        FLOAT     --->    <fromValFun(GFloat.FFI)>
+        DOUBLE    --->    <fromValFun(GDouble.FFI)>
         UTF8      --->    <fromUtf8Fun>
-        UNICHAR   --->    I
+        UNICHAR   --->    <fromValFun(GChar.FFI)>
         INTERFACE --->    <fromInterfaceFun>
+
+
+  fromValFun(A)
+    is defined as follows:
+
+          direction       | fromValFun(A)
+        ==================+===========================
+          IN              | <A>.fromVal
+        ------------------+---------------------------
+          OUT             | <A>.fromRefVal
+        ------------------+---------------------------
+          INOUT           | <A>.fromRefVal
+        ------------------+---------------------------
 
 
   fromUtf8Fun
@@ -1520,21 +1557,37 @@ where
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
-        INT8      --->    I
-        UINT8     --->    I
-        INT16     --->    I
-        UINT16    --->    I
-        INT32     --->    I
-        UINT32    --->    I
-        INT64     --->    I
-        UINT64    --->    I
+        INT8      --->    <retFromValFun(GInt8.FFI)>
+        UINT8     --->    <retFromValFun(GUInt8.FFI)>
+        INT16     --->    <retFromValFun(GInt16.FFI)>
+        UINT16    --->    <retFromValFun(GUInt16.FFI)>
+        INT32     --->    <retFromValFun(GInt32.FFI)>
+        UINT32    --->    <retFromValFun(GUInt32.FFI)>
+        INT64     --->    <retFromValFun(GInt64.FFI)>
+        UINT64    --->    <retFromValFun(GUInt64.FFI)>
         VOID      --->    I
-        BOOLEAN   --->    I
-        FLOAT     --->    I
-        DOUBLE    --->    I
+        BOOLEAN   --->    <retFromBooleanFun>
+        FLOAT     --->    <retFromValFun(GFloat.FFI)>
+        DOUBLE    --->    <retFromValFun(GDouble.FFI)>
         UTF8      --->    <retFromUtf8Fun>
-        UNICHAR   --->    I
+        UNICHAR   --->    <retFromValFun(GChar.FFI)>
         INTERFACE --->    <retFromInterfaceFun>
+
+
+  retFromValFun(A) is defined as fromValFun(A)
+
+
+  retFromBooleanFun
+    is as follows:
+
+        throws = anySet (FunctionFlags, THROWS)
+
+          tag     throws          | retFromBooleanFun
+        ==========================+===================
+          BOOLEAN true            | ignore
+        --------------------------+-------------------
+          _       _               | <retFromValFun(GBool.FFI)>
+        --------------------------+-------------------
 
 
   retFromUtf8Fun

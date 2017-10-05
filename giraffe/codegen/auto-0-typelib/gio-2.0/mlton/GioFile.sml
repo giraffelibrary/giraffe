@@ -1384,7 +1384,7 @@ structure GioFile :>
          &&&> GioFileCopyFlags.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         copyAttributes_
         (
@@ -1399,7 +1399,7 @@ structure GioFile :>
         GioFileClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         copyFinish_
         (
@@ -1468,7 +1468,7 @@ structure GioFile :>
         GioFileClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         delete_
         (
@@ -1482,7 +1482,7 @@ structure GioFile :>
         GioFileClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         ejectMountableWithOperationFinish_
         (
@@ -1584,7 +1584,7 @@ structure GioFile :>
         val contents
          & length
          & etagOut
-         & retVal =
+         & () =
           (
             GioFileClass.FFI.withPtr
              &&&> GioCancellableClass.FFI.withOptPtr
@@ -1595,7 +1595,7 @@ structure GioFile :>
              ---> GUInt8CVectorN.FFI.fromPtr 1
                    && GUInt64.FFI.fromVal
                    && Utf8.FFI.fromPtr 1
-                   && GBool.FFI.fromVal
+                   && ignore
           )
             loadContents_
             (
@@ -1607,14 +1607,14 @@ structure GioFile :>
                & []
             )
       in
-        if retVal then SOME (contents (LargeInt.toInt length), etagOut) else NONE
+        (contents (LargeInt.toInt length), etagOut)
       end
     fun loadContentsFinish self res =
       let
         val contents
          & length
          & etagOut
-         & retVal =
+         & () =
           (
             GioFileClass.FFI.withPtr
              &&&> GioAsyncResultClass.FFI.withPtr
@@ -1625,7 +1625,7 @@ structure GioFile :>
              ---> GUInt8CVectorN.FFI.fromPtr 1
                    && GUInt64.FFI.fromVal
                    && Utf8.FFI.fromPtr 1
-                   && GBool.FFI.fromVal
+                   && ignore
           )
             loadContentsFinish_
             (
@@ -1637,14 +1637,14 @@ structure GioFile :>
                & []
             )
       in
-        if retVal then SOME (contents (LargeInt.toInt length), etagOut) else NONE
+        (contents (LargeInt.toInt length), etagOut)
       end
     fun loadPartialContentsFinish self res =
       let
         val contents
          & length
          & etagOut
-         & retVal =
+         & () =
           (
             GioFileClass.FFI.withPtr
              &&&> GioAsyncResultClass.FFI.withPtr
@@ -1655,7 +1655,7 @@ structure GioFile :>
              ---> GUInt8CVectorN.FFI.fromPtr 1
                    && GUInt64.FFI.fromVal
                    && Utf8.FFI.fromPtr 1
-                   && GBool.FFI.fromVal
+                   && ignore
           )
             loadPartialContentsFinish_
             (
@@ -1667,14 +1667,14 @@ structure GioFile :>
                & []
             )
       in
-        if retVal then SOME (contents (LargeInt.toInt length), etagOut) else NONE
+        (contents (LargeInt.toInt length), etagOut)
       end
     fun makeDirectory self cancellable =
       (
         GioFileClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         makeDirectory_
         (
@@ -1687,7 +1687,7 @@ structure GioFile :>
         GioFileClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         makeDirectoryWithParents_
         (
@@ -1701,7 +1701,7 @@ structure GioFile :>
          &&&> Utf8.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         makeSymbolicLink_
         (
@@ -1760,7 +1760,7 @@ structure GioFile :>
         GioFileClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         mountEnclosingVolumeFinish_
         (
@@ -1812,7 +1812,7 @@ structure GioFile :>
         GioFileClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         pollMountableFinish_
         (
@@ -2000,7 +2000,7 @@ structure GioFile :>
       ) =
       let
         val length = LargeInt.fromInt (GUInt8CVectorN.length contents)
-        val newEtag & retVal =
+        val newEtag & () =
           (
             GioFileClass.FFI.withPtr
              &&&> GUInt8CVectorN.FFI.withPtr
@@ -2011,7 +2011,7 @@ structure GioFile :>
              &&&> Utf8.FFI.withRefOptPtr
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr 1 && GBool.FFI.fromVal
+             ---> Utf8.FFI.fromPtr 1 && ignore
           )
             replaceContents_
             (
@@ -2026,17 +2026,17 @@ structure GioFile :>
                & []
             )
       in
-        if retVal then SOME newEtag else NONE
+        newEtag
       end
     fun replaceContentsFinish self res =
       let
-        val newEtag & retVal =
+        val newEtag & () =
           (
             GioFileClass.FFI.withPtr
              &&&> GioAsyncResultClass.FFI.withPtr
              &&&> Utf8.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr 1 && GBool.FFI.fromVal
+             ---> Utf8.FFI.fromPtr 1 && ignore
           )
             replaceContentsFinish_
             (
@@ -2046,7 +2046,7 @@ structure GioFile :>
                & []
             )
       in
-        if retVal then SOME newEtag else NONE
+        newEtag
       end
     fun replaceFinish self res =
       (
@@ -2116,7 +2116,7 @@ structure GioFile :>
          &&&> GioFileQueryInfoFlags.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setAttributeByteString_
         (
@@ -2142,7 +2142,7 @@ structure GioFile :>
          &&&> GioFileQueryInfoFlags.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setAttributeInt32_
         (
@@ -2168,7 +2168,7 @@ structure GioFile :>
          &&&> GioFileQueryInfoFlags.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setAttributeInt64_
         (
@@ -2194,7 +2194,7 @@ structure GioFile :>
          &&&> GioFileQueryInfoFlags.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setAttributeString_
         (
@@ -2220,7 +2220,7 @@ structure GioFile :>
          &&&> GioFileQueryInfoFlags.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setAttributeUint32_
         (
@@ -2246,7 +2246,7 @@ structure GioFile :>
          &&&> GioFileQueryInfoFlags.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setAttributeUint64_
         (
@@ -2259,13 +2259,13 @@ structure GioFile :>
         )
     fun setAttributesFinish self result =
       let
-        val info & retVal =
+        val info & () =
           (
             GioFileClass.FFI.withPtr
              &&&> GioAsyncResultClass.FFI.withPtr
              &&&> GioFileInfoClass.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GioFileInfoClass.FFI.fromPtr true && GBool.FFI.fromVal
+             ---> GioFileInfoClass.FFI.fromPtr true && ignore
           )
             setAttributesFinish_
             (
@@ -2275,7 +2275,7 @@ structure GioFile :>
                & []
             )
       in
-        if retVal then SOME info else NONE
+        info
       end
     fun setAttributesFromInfo
       self
@@ -2290,7 +2290,7 @@ structure GioFile :>
          &&&> GioFileQueryInfoFlags.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setAttributesFromInfo_
         (
@@ -2333,7 +2333,7 @@ structure GioFile :>
         GioFileClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         startMountableFinish_
         (
@@ -2346,7 +2346,7 @@ structure GioFile :>
         GioFileClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         stopMountableFinish_
         (
@@ -2360,7 +2360,7 @@ structure GioFile :>
         GioFileClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         trash_
         (
@@ -2373,7 +2373,7 @@ structure GioFile :>
         GioFileClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         unmountMountableWithOperationFinish_
         (

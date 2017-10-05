@@ -1440,46 +1440,55 @@ fun makeFunctionSpec
       | (SOME selfTy, op :: tys1) => [selfTy, mkProdTy1 tys1]
       | (NONE,        op :: tys1) => [mkProdTy1 tys1]
 
+    val throws =
+      FunctionInfoFlags.anySet (functionFlags, FunctionInfoFlags.THROWS)
+
     (* `revOutTys'2` contains out parameter types associated with
      * the caller-allocates flag for each out parameter. *)
     val retTy =
-      case revOutTys'2 of
-        []     => retValTy
-      | _ :: _ =>
+      case (revOutTys'2, throws) of
+        ([],     false) => retValTy
+      | _               =>
           let
             fun getTy (ty, _) = ty
             fun getCondTy (ty, isCond) = if isCond then SOME ty else NONE
 
             val (outParamTysCond, outParamTysUncond) =
               partitionRevMap (getCondTy, getTy) revOutTys'2
+            val outParamTys = outParamTysCond @ outParamTysUncond
 
             val retTys =
-              case (retInfo, outParamTysCond) of
-                (RIVOID,                         [])                       =>
-                  outParamTysUncond
+              case (retInfo, throws, outParamTysCond) of
+                (RIVOID, _,     [])        => outParamTys
 
-              | (_,                              [])                       =>
-                  retValTy :: outParamTysUncond
+              | (RIVOID, true,  _)         => outParamTys
 
-              | (RISOME {info = ISCALAR {ty = STBOOLEAN, ...}}, ty :: tys) =>
+              | (RISOME {info = ISCALAR {ty = STBOOLEAN, ...}},
+                         true,  _)         => outParamTys
+
+              | (_,      _,     [])        => retValTy :: outParamTys
+
+              | (_,      true,  _)         => retValTy :: outParamTys
+
+              | (RISOME {info = ISCALAR {ty = STBOOLEAN, ...}},
+                         false, ty :: tys) =>
                   optionTy (mkProdTy1 (ty, tys)) :: outParamTysUncond
 
-              | (RIVOID,                         _ :: _)                   =>
-                  outParamTysCond @ outParamTysUncond
+              | (RIVOID, false, _ :: _)    => outParamTys
 
-              | (_,                              _ :: _)                   =>
-                  retValTy :: (outParamTysCond @ outParamTysUncond)
+              | (_,      false, _ :: _)    => retValTy :: outParamTys
 
                (*
-                * In future, when conditional outs can be identifed
-                * the last two cases will be:
+                * If conditional OUT parameters are explicitly identifed and the
+                * return value provides the condition, the last two cases would
+                * be replaced by:
                 *
-              | (_,                              _ :: _)                   =>
+              | (_,      false, _ :: _)     =>
                   infoExcl "non-BOOLEAN return type with \
-                            \conditional out parameters"
+                            \conditional OUT parameters"
                 *)
           in
-            mkProdTy0 retTys  (* `length retTys > 0` so result not unit type *)
+            mkProdTy0 retTys
           end
 
     val functionTy = foldr TyFun retTy argTys
@@ -1921,7 +1930,7 @@ in
           (js', ks', ls', ms', ns', iRefs', structDeps')
         end
 
-  fun addRetInfo optConstructorIRef (retInfo, acc as (iRefs, structDeps)) =
+  fun addRetInfo optConstructorIRef throws (retInfo, acc as (iRefs, structDeps)) =
     case retInfo of
       RIVOID        => (mkIdLNameExp "I", acc)
     | RISOME {info} =>
@@ -1953,19 +1962,22 @@ in
 
           val (fromFunExp, structDeps') =
             case info' of
-              ISCALAR scalarParInfo       =>
+              ISCALAR (scalarParInfo as {ty, ...}) =>
                 let
-                  val fromFunExp = fromFunScalar scalarParInfo
+                  val fromFunExp =
+                    case (ty, throws) of
+                      (STBOOLEAN, true) => mkIdLNameExp ignoreId
+                    | _                 => fromFunScalar scalarParInfo
                 in
                   (fromFunExp, structDeps)
                 end
-            | IUTF8 utf8ParInfo           =>
+            | IUTF8 utf8ParInfo                    =>
                 let
                   val fromFunExp = fromFunUtf8 (false, utf8ParInfo)
                 in
                   (fromFunExp, structDeps)
                 end
-            | IARRAY arrayParInfo         =>
+            | IARRAY arrayParInfo                  =>
                 let
                   val {length, elem, ...} = arrayParInfo
                   val (strId, structDeps') =
@@ -1975,7 +1987,7 @@ in
                 in
                   (fromFunExp, structDeps')
                 end
-            | IINTERFACE interfaceParInfo =>
+            | IINTERFACE interfaceParInfo          =>
                 let
                   val fromFunExp = fromFunInterface (false, interfaceParInfo)
                 in
@@ -2002,13 +2014,21 @@ val retValId : id = "retVal"
 val retValPat : pat = mkIdVarPat retValId
 val retValExp : exp = mkIdLNameExp retValId
 
-val retVal =
+fun getRetValPat throws =
   fn
-    RIVOID              => (PatA (APatConst ConstUnit), ExpConst ConstUnit)
+    RIVOID        => PatA (APatConst ConstUnit)
+  | RISOME {info} =>
+      case (info, throws) of
+        (ISCALAR {ty = STBOOLEAN, ...}, true) => PatA (APatConst ConstUnit)
+      | _                                     => retValPat
+
+val getRetValExp =
+  fn
+    RIVOID        => ExpConst ConstUnit
   | RISOME {info} =>
       case info of
-        IARRAY {length, ...} => (retValPat, mkArrayLenExp length retValExp)
-      | _                    => (retValPat, retValExp)
+        IARRAY {length, ...} => mkArrayLenExp length retValExp
+      | _                    => retValExp
 
 
 val aInfixId = "&"
@@ -2133,8 +2153,12 @@ fun makeFunctionStrDecHighLevel
             infoExcl "function outside interface has constructor flag set"
       else
         NONE
+
+    val throws =
+      FunctionInfoFlags.anySet (functionFlags, FunctionInfoFlags.THROWS)
+
     val (retFromFun, (iRefs'3, structDeps'3)) =
-      addRetInfo optConstructorIRef (retInfo, (iRefs'2, structDeps'2))
+      addRetInfo optConstructorIRef throws (retInfo, (iRefs'2, structDeps'2))
 
     (* Construct curried function arguments with the form:
      *
@@ -2222,7 +2246,7 @@ fun makeFunctionStrDecHighLevel
      *     ...
      *     val <lenParamName[M]> = <lenParamExp[M]>
      *
-     *     val <outParamName[1]> & ... & <outParamName[N]> & <retVal> =
+     *     val <outParamName[1]> & ... & <outParamName[N]> & <retValPat> =
      *       <functionCoreExp>
      *   in
      *     <retExp>
@@ -2244,31 +2268,41 @@ fun makeFunctionStrDecHighLevel
 
             val (outParamExpsCond, outParamExpsUncond) =
               partitionRevMap (getCondNameExp, getNameExp) revKs'2
+            val outParamExps = outParamExpsCond @ outParamExpsUncond
 
-            val (retValPat, retValExp) = retVal retInfo
+            val retValPat = getRetValPat throws retInfo
+            val retValExp = getRetValExp retInfo
             val retExps =
-              case (retInfo, outParamExpsCond) of
-                (RIVOID,                         [])                     =>
-                  outParamExpsUncond
+              case (retInfo, throws, outParamExpsCond) of
+                (RIVOID, _,     [])      => outParamExps
 
-              | (_,                              [])                     =>
-                  retValExp :: outParamExpsUncond
+              | (RIVOID, true,  _)       => outParamExps
 
-              | (RISOME {info = ISCALAR {ty = STBOOLEAN, ...}}, e :: es) =>
+              | (RISOME {info = ISCALAR {ty = STBOOLEAN, ...}},
+                         true,  _)       => outParamExps
+
+              | (_,      _,     [])      => retValExp :: outParamExps
+
+              | (_,      true,  _)       => retValExp :: outParamExps
+
+              | (RISOME {info = ISCALAR {ty = STBOOLEAN, ...}},
+                         false, e :: es) =>
                   retValCondExp retValExp (e, es) :: outParamExpsUncond
 
-              | (RIVOID,                         _ :: _)                 =>
-                  outParamExpsCond @ outParamExpsUncond
+              | (RIVOID, false, _ :: _)  => outParamExps
 
-              | (_,                              _ :: _)                 =>
-                  retValExp :: (outParamExpsCond @ outParamExpsUncond)
+              | (_,      false, _ :: _)  => retValExp :: outParamExps
+
                (*
-                * In future, when conditional outs can be identifed
-                * the last two cases will be:
+                * If conditional OUT parameters are explicitly identifed and the
+                * return value provides the condition, the last two cases would
+                * be replaced by:
                 *
+              | (_,      false, _ :: _)  =>
                   infoExcl "non-BOOLEAN return type with \
                             \conditional out parameters"
                 *)
+
             val retExp =
               case retExps of
                 []      => ExpConst ConstUnit

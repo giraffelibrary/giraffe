@@ -26,12 +26,12 @@ signature GTK_RECENT_MANAGER =
     val moveItem :
       'a class
        -> string * string option
-       -> bool
+       -> unit
     val purgeItems : 'a class -> LargeInt.int
     val removeItem :
       'a class
        -> string
-       -> bool
+       -> unit
     val changedSig : (unit -> unit) -> 'a class Signal.t
     val filenameProp : ('a class, string option, string option) Property.readwrite
     val sizeProp : ('a class, LargeInt.int) Property.readonly

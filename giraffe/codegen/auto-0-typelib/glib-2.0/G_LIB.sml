@@ -418,7 +418,7 @@ signature G_LIB =
     val randomInt : unit -> LargeInt.int
     val randomIntRange : LargeInt.int * LargeInt.int -> LargeInt.int
     val randomSetSeed : LargeInt.int -> unit
-    val regexCheckReplacement : string -> bool option
+    val regexCheckReplacement : string -> bool
     val regexEscapeNul : string * LargeInt.int -> string
     val regexMatchSimple :
       string
@@ -444,7 +444,7 @@ signature G_LIB =
        * string
        * bool
        -> bool
-    val shellParseArgv : string -> string list option
+    val shellParseArgv : string -> string list
     val shellQuote : string -> string
     val shellUnquote : string -> string
     val sliceGetConfig : SliceConfig.t -> LargeInt.int
@@ -452,13 +452,12 @@ signature G_LIB =
     val sourceRemove : LargeInt.int -> bool
     val sourceSetNameById : LargeInt.int * string -> unit
     val spawnClosePid : LargeInt.int -> unit
-    val spawnCommandLineAsync : string -> bool
+    val spawnCommandLineAsync : string -> unit
     val spawnCommandLineSync :
       string
-       -> (Word8Vector.vector
-            * Word8Vector.vector
-            * LargeInt.int)
-            option
+       -> Word8Vector.vector
+           * Word8Vector.vector
+           * LargeInt.int
     val testBug : string -> unit
     val testBugBase : string -> unit
     val testFail : unit -> unit

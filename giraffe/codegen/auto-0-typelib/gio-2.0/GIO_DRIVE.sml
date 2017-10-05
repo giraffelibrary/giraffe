@@ -14,7 +14,7 @@ signature GIO_DRIVE =
     val ejectWithOperationFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val enumerateIdentifiers : 'a class -> string list
     val getIcon : 'a class -> base icon_class
     val getIdentifier :
@@ -30,15 +30,15 @@ signature GIO_DRIVE =
     val pollForMediaFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val startFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val stopFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val changedSig : (unit -> unit) -> 'a class Signal.t
     val disconnectedSig : (unit -> unit) -> 'a class Signal.t
     val ejectButtonSig : (unit -> unit) -> 'a class Signal.t

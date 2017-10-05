@@ -31,11 +31,11 @@ signature GTK_RECENT_CHOOSER =
     val selectUri :
       'a class
        -> string
-       -> bool
+       -> unit
     val setCurrentUri :
       'a class
        -> string
-       -> bool
+       -> unit
     val setFilter :
       'a class
        -> 'b recent_filter_class

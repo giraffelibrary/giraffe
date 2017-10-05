@@ -11,23 +11,23 @@ signature GIO_OUTPUT_STREAM =
     val close :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val closeFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val flush :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val flushFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val hasPending : 'a class -> bool
     val isClosed : 'a class -> bool
     val isClosing : 'a class -> bool
-    val setPending : 'a class -> bool
+    val setPending : 'a class -> unit
     val splice :
       'a class
        -> 'b input_stream_class
@@ -45,7 +45,7 @@ signature GIO_OUTPUT_STREAM =
     val writeAll :
       'a class
        -> Word8Vector.vector * 'b cancellable_class option
-       -> LargeInt.int option
+       -> LargeInt.int
     val writeFinish :
       'a class
        -> 'b async_result_class

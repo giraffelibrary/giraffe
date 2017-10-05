@@ -5,7 +5,7 @@ signature G_LIB_KEY_FILE =
     val getBoolean :
       t
        -> string * string
-       -> bool
+       -> unit
     val getBooleanList :
       t
        -> string * string
@@ -72,36 +72,36 @@ signature G_LIB_KEY_FILE =
        -> string
            * LargeInt.int
            * key_file_flags_t
-       -> bool
+       -> unit
     val loadFromDataDirs :
       t
        -> string
            * string
            * key_file_flags_t
-       -> bool
+       -> unit
     val loadFromDirs :
       t
        -> string
            * string
            * string
            * key_file_flags_t
-       -> bool
+       -> unit
     val loadFromFile :
       t
        -> string * key_file_flags_t
-       -> bool
+       -> unit
     val removeComment :
       t
        -> string * string
-       -> bool
+       -> unit
     val removeGroup :
       t
        -> string
-       -> bool
+       -> unit
     val removeKey :
       t
        -> string * string
-       -> bool
+       -> unit
     val setBoolean :
       t
        -> string
@@ -120,7 +120,7 @@ signature G_LIB_KEY_FILE =
        -> string
            * string
            * string
-       -> bool
+       -> unit
     val setDouble :
       t
        -> string

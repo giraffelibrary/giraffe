@@ -185,7 +185,7 @@ structure GioDataOutputStream :>
          &&&> GUInt8.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         putByte_
         (
@@ -200,7 +200,7 @@ structure GioDataOutputStream :>
          &&&> GInt16.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         putInt16_
         (
@@ -215,7 +215,7 @@ structure GioDataOutputStream :>
          &&&> GInt32.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         putInt32_
         (
@@ -230,7 +230,7 @@ structure GioDataOutputStream :>
          &&&> GInt64.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         putInt64_
         (
@@ -245,7 +245,7 @@ structure GioDataOutputStream :>
          &&&> Utf8.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         putString_
         (
@@ -260,7 +260,7 @@ structure GioDataOutputStream :>
          &&&> GUInt16.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         putUint16_
         (
@@ -275,7 +275,7 @@ structure GioDataOutputStream :>
          &&&> GUInt32.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         putUint32_
         (
@@ -290,7 +290,7 @@ structure GioDataOutputStream :>
          &&&> GUInt64.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         putUint64_
         (

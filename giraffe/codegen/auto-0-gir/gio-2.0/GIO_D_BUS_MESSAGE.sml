@@ -116,6 +116,6 @@ signature GIO_D_BUS_MESSAGE =
       'a class
        -> 'b unix_f_d_list_class option
        -> unit
-    val toGerror : 'a class -> bool
+    val toGerror : 'a class -> unit
     val lockedProp : ('a class, bool) Property.readonly
   end

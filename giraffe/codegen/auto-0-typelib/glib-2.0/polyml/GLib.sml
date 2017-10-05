@@ -1129,12 +1129,12 @@ structure GLib : G_LIB =
     fun randomSetSeed seed = (GUInt32.FFI.withVal ---> I) randomSetSeed_ seed
     fun regexCheckReplacement replacement =
       let
-        val hasReferences & retVal =
+        val hasReferences & () =
           (
             Utf8.FFI.withPtr
              &&&> GBool.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GBool.FFI.fromVal && GBool.FFI.fromVal
+             ---> GBool.FFI.fromVal && ignore
           )
             regexCheckReplacement_
             (
@@ -1143,7 +1143,7 @@ structure GLib : G_LIB =
                & []
             )
       in
-        if retVal then SOME hasReferences else NONE
+        hasReferences
       end
     fun regexEscapeNul (string, length) = (Utf8.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 1) regexEscapeNul_ (string & length)
     fun regexMatchSimple
@@ -1215,7 +1215,7 @@ structure GLib : G_LIB =
       let
         val argcp
          & argvp
-         & retVal =
+         & () =
           (
             Utf8.FFI.withPtr
              &&&> GInt32.FFI.withRefVal
@@ -1223,7 +1223,7 @@ structure GLib : G_LIB =
              &&&> GLibErrorRecord.handleError
              ---> GInt32.FFI.fromVal
                    && Utf8CVectorN.FFI.fromPtr 2
-                   && GBool.FFI.fromVal
+                   && ignore
           )
             shellParseArgv_
             (
@@ -1233,7 +1233,7 @@ structure GLib : G_LIB =
                & []
             )
       in
-        if retVal then SOME (argvp (LargeInt.toInt argcp)) else NONE
+        argvp (LargeInt.toInt argcp)
       end
     fun shellQuote unquotedString = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) shellQuote_ unquotedString
     fun shellUnquote quotedString = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) shellUnquote_ (quotedString & [])
@@ -1242,13 +1242,13 @@ structure GLib : G_LIB =
     fun sourceRemove tag = (GUInt32.FFI.withVal ---> GBool.FFI.fromVal) sourceRemove_ tag
     fun sourceSetNameById (tag, name) = (GUInt32.FFI.withVal &&&> Utf8.FFI.withPtr ---> I) sourceSetNameById_ (tag & name)
     fun spawnClosePid pid = (GInt32.FFI.withVal ---> I) spawnClosePid_ pid
-    fun spawnCommandLineAsync commandLine = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) spawnCommandLineAsync_ (commandLine & [])
+    fun spawnCommandLineAsync commandLine = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) spawnCommandLineAsync_ (commandLine & [])
     fun spawnCommandLineSync commandLine =
       let
         val standardOutput
          & standardError
          & exitStatus
-         & retVal =
+         & () =
           (
             Utf8.FFI.withPtr
              &&&> GUInt8CVector.FFI.withRefOptPtr
@@ -1258,7 +1258,7 @@ structure GLib : G_LIB =
              ---> GUInt8CVector.FFI.fromPtr 1
                    && GUInt8CVector.FFI.fromPtr 1
                    && GInt32.FFI.fromVal
-                   && GBool.FFI.fromVal
+                   && ignore
           )
             spawnCommandLineSync_
             (
@@ -1269,15 +1269,11 @@ structure GLib : G_LIB =
                & []
             )
       in
-        if retVal
-        then
-          SOME
-            (
-              standardOutput,
-              standardError,
-              exitStatus
-            )
-        else NONE
+        (
+          standardOutput,
+          standardError,
+          exitStatus
+        )
       end
     fun testBug bugUriSnippet = (Utf8.FFI.withPtr ---> I) testBug_ bugUriSnippet
     fun testBugBase uriPattern = (Utf8.FFI.withPtr ---> I) testBugBase_ uriPattern

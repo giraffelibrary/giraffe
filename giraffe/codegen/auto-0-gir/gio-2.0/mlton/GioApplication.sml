@@ -166,7 +166,7 @@ structure GioApplication :>
         GioApplicationClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         register_
         (

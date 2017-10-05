@@ -37,7 +37,7 @@ structure GioUnixFDMessage :>
         GioUnixFDMessageClass.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         appendFd_
         (

@@ -13,12 +13,12 @@ signature GIO_APP_INFO =
        -> base class
     val getDefaultForType : string * bool -> base class
     val getDefaultForUriScheme : string -> base class
-    val launchDefaultForUri : string * 'a app_launch_context_class option -> bool
+    val launchDefaultForUri : string * 'a app_launch_context_class option -> unit
     val resetTypeAssociations : string -> unit
     val addSupportsType :
       'a class
        -> string
-       -> bool
+       -> unit
     val canDelete : 'a class -> bool
     val canRemoveSupportsType : 'a class -> bool
     val delete : 'a class -> bool
@@ -37,19 +37,19 @@ signature GIO_APP_INFO =
     val removeSupportsType :
       'a class
        -> string
-       -> bool
+       -> unit
     val setAsDefaultForExtension :
       'a class
        -> string
-       -> bool
+       -> unit
     val setAsDefaultForType :
       'a class
        -> string
-       -> bool
+       -> unit
     val setAsLastUsedForType :
       'a class
        -> string
-       -> bool
+       -> unit
     val shouldShow : 'a class -> bool
     val supportsFiles : 'a class -> bool
     val supportsUris : 'a class -> bool

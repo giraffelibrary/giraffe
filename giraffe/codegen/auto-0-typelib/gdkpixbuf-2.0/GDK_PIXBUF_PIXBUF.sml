@@ -37,7 +37,7 @@ signature GDK_PIXBUF_PIXBUF =
     val newFromStreamFinish : 'a Gio.AsyncResultClass.class -> base class
     val newFromXpmData : string -> base class
     val gettext : string -> string
-    val saveToStreamFinish : 'a Gio.AsyncResultClass.class -> bool
+    val saveToStreamFinish : 'a Gio.AsyncResultClass.class -> unit
     val addAlpha :
       'a class
        -> bool
@@ -142,7 +142,7 @@ signature GDK_PIXBUF_PIXBUF =
            * string
            * string list
            * string list
-       -> bool
+       -> unit
     val scale :
       'a class
        -> 'b class

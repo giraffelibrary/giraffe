@@ -962,7 +962,7 @@ structure GLibKeyFile :>
          &&&> Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         getBoolean_
         (
@@ -1232,7 +1232,7 @@ structure GLibKeyFile :>
          &&&> GUInt64.FFI.withVal
          &&&> GLibKeyFileFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         loadFromData_
         (
@@ -1255,7 +1255,7 @@ structure GLibKeyFile :>
          &&&> Utf8.FFI.withPtr
          &&&> GLibKeyFileFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         loadFromDataDirs_
         (
@@ -1280,7 +1280,7 @@ structure GLibKeyFile :>
          &&&> Utf8.FFI.withPtr
          &&&> GLibKeyFileFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         loadFromDirs_
         (
@@ -1297,7 +1297,7 @@ structure GLibKeyFile :>
          &&&> Utf8.FFI.withPtr
          &&&> GLibKeyFileFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         loadFromFile_
         (
@@ -1312,7 +1312,7 @@ structure GLibKeyFile :>
          &&&> Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         removeComment_
         (
@@ -1326,7 +1326,7 @@ structure GLibKeyFile :>
         GLibKeyFileRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         removeGroup_
         (
@@ -1340,7 +1340,7 @@ structure GLibKeyFile :>
          &&&> Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         removeKey_
         (
@@ -1407,7 +1407,7 @@ structure GLibKeyFile :>
          &&&> Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         setComment_
         (

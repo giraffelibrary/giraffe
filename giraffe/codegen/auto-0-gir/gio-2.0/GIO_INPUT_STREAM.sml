@@ -9,18 +9,18 @@ signature GIO_INPUT_STREAM =
     val close :
       'a class
        -> 'b cancellable_class option
-       -> bool
+       -> unit
     val closeFinish :
       'a class
        -> 'b async_result_class
-       -> bool
+       -> unit
     val hasPending : 'a class -> bool
     val isClosed : 'a class -> bool
     val readFinish :
       'a class
        -> 'b async_result_class
        -> LargeInt.int
-    val setPending : 'a class -> bool
+    val setPending : 'a class -> unit
     val skip :
       'a class
        -> LargeInt.int * 'b cancellable_class option

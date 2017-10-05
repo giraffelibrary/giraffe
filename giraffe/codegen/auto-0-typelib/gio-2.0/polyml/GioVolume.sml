@@ -60,7 +60,7 @@ structure GioVolume :>
         GioVolumeClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         ejectWithOperationFinish_
         (
@@ -81,7 +81,7 @@ structure GioVolume :>
         GioVolumeClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         mountFinish_
         (

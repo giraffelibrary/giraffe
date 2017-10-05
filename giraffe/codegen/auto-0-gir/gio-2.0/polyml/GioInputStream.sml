@@ -65,7 +65,7 @@ structure GioInputStream :>
         GioInputStreamClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         close_
         (
@@ -78,7 +78,7 @@ structure GioInputStream :>
         GioInputStreamClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GBool.FFI.fromVal
+         ---> ignore
       )
         closeFinish_
         (
@@ -101,7 +101,7 @@ structure GioInputStream :>
            & result
            & []
         )
-    fun setPending self = (GioInputStreamClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GBool.FFI.fromVal) setPending_ (self & [])
+    fun setPending self = (GioInputStreamClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) setPending_ (self & [])
     fun skip self (count, cancellable) =
       (
         GioInputStreamClass.FFI.withPtr

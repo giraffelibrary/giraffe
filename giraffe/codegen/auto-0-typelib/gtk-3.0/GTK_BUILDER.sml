@@ -34,6 +34,6 @@ signature GTK_BUILDER =
     val valueFromString :
       'a class
        -> 'b GObject.ParamSpecClass.class * string
-       -> GObject.ValueRecord.t option
+       -> GObject.ValueRecord.t
     val translationDomainProp : ('a class, string option, string option) Property.readwrite
   end
