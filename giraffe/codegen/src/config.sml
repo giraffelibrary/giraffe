@@ -388,7 +388,8 @@ excludedFunctionSymbols := [
       "gtk_rc_property_parse_enum",
       "gtk_rc_property_parse_flags",
       "gtk_rc_property_parse_requisition",
-      "gtk_tree_drag_source_drag_data_get"  (* see note 1 *)
+      "gtk_tree_drag_source_drag_data_get",  (* see note 1 *)
+      "gtk_widget_destroyed"
     ]
   ),
   (

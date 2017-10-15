@@ -85,10 +85,6 @@ signature GTK_WIDGET =
        -> string
        -> base Pango.LayoutClass.class
     val destroy : 'a class -> unit
-    val destroyed :
-      'a class
-       -> 'b class
-       -> 'b class
     val deviceIsShadowed :
       'a class
        -> 'b Gdk.DeviceClass.class

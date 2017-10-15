@@ -81,7 +81,6 @@ structure GtkWidget :>
       val createPangoContext_ = call (getSymbol "gtk_widget_create_pango_context") (GtkWidgetClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
       val createPangoLayout_ = call (getSymbol "gtk_widget_create_pango_layout") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PangoLayoutClass.PolyML.cPtr)
       val destroy_ = call (getSymbol "gtk_widget_destroy") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val destroyed_ = call (getSymbol "gtk_widget_destroyed") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cInOutRef --> cVoid)
       val deviceIsShadowed_ = call (getSymbol "gtk_widget_device_is_shadowed") (GtkWidgetClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val dragBegin_ =
         call (getSymbol "gtk_drag_begin")
@@ -657,12 +656,6 @@ structure GtkWidget :>
     fun createPangoContext self = (GtkWidgetClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr true) createPangoContext_ self
     fun createPangoLayout self text = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr true) createPangoLayout_ (self & text)
     fun destroy self = (GtkWidgetClass.FFI.withPtr ---> I) destroy_ self
-    fun destroyed self widgetPointer =
-      let
-        val widgetPointer & () = (GtkWidgetClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withRefDupPtr ---> GtkWidgetClass.FFI.fromPtr true && I) destroyed_ (self & widgetPointer)
-      in
-        widgetPointer
-      end
     fun deviceIsShadowed self device = (GtkWidgetClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> GBool.FFI.fromVal) deviceIsShadowed_ (self & device)
     fun dragBegin
       self
