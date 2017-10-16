@@ -1,3 +1,31 @@
+1.0.0-alpha.7 (2017-10-18)
+
+    Poly/ML 5.6 required.
+    Poly/ML 5.7 supported.
+    Poly/ML-specific changes:
+      - Introduced finalizers based on weak references.
+      - Used the new FFI (provided by the structure Foreign).
+    MLton-specific changes:
+      - Added required MLton annotations to Giraffe library MLB files.
+    Added support for C array types.
+    Updated support for object types.  For a class C, object types are changed
+     as follows:
+        'a <C>Class.t   --->  'a <C>Class.class
+        <none>          --->     <C>Class.t  (new local type)
+        'a <C>.class_t  --->  'a <C>.class
+           <C>.t        <-->     <C>.t  (no change)
+    Added support for structure types.  (Previously, a limited number of record
+     modules were created manually.)  For a record R, structure type
+     <R>.record_t has been removed.
+    Added remaining parts of namespaces that can be supported.
+    Changed type names in the module Signal:
+        Signal.signal     --->  Signal.t
+        Signal.signal_id  --->  Signal.id
+    Generated codegen log in 'excluded-log.page'.
+    Used non-option type for 'out' parameters conditional on error and ignored
+     boolean return value if it indicates an error.
+
+
 1.0.0-alpha.6 (2015-09-16)
 
     Added type abbreviation for object and structure types:
