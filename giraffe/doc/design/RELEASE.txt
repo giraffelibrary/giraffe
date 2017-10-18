@@ -17,6 +17,12 @@ Set up the release directory.
       cd ${REPODIR}
       git archive ${VERSION} giraffe | tar -x -C ${RELEASEDIR}
 
+    Add external dependencies to the release that provide an XML
+    parser and GIR/TYPELIB files indexed by package and GI version.
+    (For details see ${RELEASEDIR}/giraffe/codegen/README.)
+
+      tar -xJf ~/SML/Giraffe/archive/xml.tar.xz -C ${RELEASEDIR}/giraffe/codegen/src/
+      tar -xJf ~/SML/Giraffe/archive/girepository.tar.xz -C ${RELEASEDIR}/giraffe/codegen/
 
  B. To create an informal release from the current working directory, 
     operate in the working directory.
@@ -27,8 +33,11 @@ Set up the release directory.
 Create library code by patching generated code and copy to src/sml:
 
   cd ${RELEASEDIR}/giraffe/codegen
-  ./make-gir
-  ./copy-gir
+  ./codegen gir
+  ./codegen update-gir
+  ./codegen fixed
+  ./codegen update-fixed
+  ./codegen update-source
 
 
 Create source release archive:
