@@ -47,7 +47,7 @@ structure GtkRecentChooser :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val setFilter_ = call (getSymbol "gtk_recent_chooser_set_filter") (GtkRecentChooserClass.PolyML.cPtr &&> GtkRecentFilterClass.PolyML.cPtr --> cVoid)
+      val setFilter_ = call (getSymbol "gtk_recent_chooser_set_filter") (GtkRecentChooserClass.PolyML.cPtr &&> GtkRecentFilterClass.PolyML.cOptPtr --> cVoid)
       val setLimit_ = call (getSymbol "gtk_recent_chooser_set_limit") (GtkRecentChooserClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
       val setLocalOnly_ = call (getSymbol "gtk_recent_chooser_set_local_only") (GtkRecentChooserClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setSelectMultiple_ = call (getSymbol "gtk_recent_chooser_set_select_multiple") (GtkRecentChooserClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
@@ -112,7 +112,7 @@ structure GtkRecentChooser :>
            & uri
            & []
         )
-    fun setFilter self filter = (GtkRecentChooserClass.FFI.withPtr &&&> GtkRecentFilterClass.FFI.withPtr ---> I) setFilter_ (self & filter)
+    fun setFilter self filter = (GtkRecentChooserClass.FFI.withPtr &&&> GtkRecentFilterClass.FFI.withOptPtr ---> I) setFilter_ (self & filter)
     fun setLimit self limit = (GtkRecentChooserClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setLimit_ (self & limit)
     fun setLocalOnly self localOnly = (GtkRecentChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setLocalOnly_ (self & localOnly)
     fun setSelectMultiple self selectMultiple = (GtkRecentChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSelectMultiple_ (self & selectMultiple)

@@ -3,8 +3,15 @@ structure PangoLanguage :>
     where type t = PangoLanguageRecord.t
     where type script_t = PangoScript.t =
   struct
+    structure PangoScriptCVectorNType =
+      CValueCVectorNType(
+        structure CElemType = PangoScript.C.ValueType
+        structure ElemSequence = CValueVectorSequence(PangoScript.C.ValueType)
+      )
+    structure PangoScriptCVectorN = CVectorN(PangoScriptCVectorNType)
     val getType_ = _import "pango_language_get_type" : unit -> GObjectType.FFI.val_;
     val getSampleString_ = _import "pango_language_get_sample_string" : PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getScripts_ = fn x1 & x2 => (_import "pango_language_get_scripts" : PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p * GInt.FFI.ref_ -> PangoScriptCVectorN.FFI.notnull PangoScriptCVectorN.FFI.out_p;) (x1, x2)
     val includesScript_ = fn x1 & x2 => (_import "pango_language_includes_script" : PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p * PangoScript.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val matches_ =
       fn
@@ -28,9 +35,15 @@ structure PangoLanguage :>
     type script_t = PangoScript.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getSampleString self = (PangoLanguageRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSampleString_ self
+    fun getScripts self =
+      let
+        val numScripts & retVal = (PangoLanguageRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && PangoScriptCVectorN.FFI.fromPtr 0) getScripts_ (self & GInt.null)
+      in
+        retVal (LargeInt.toInt numScripts)
+      end
     fun includesScript self script = (PangoLanguageRecord.FFI.withPtr &&&> PangoScript.FFI.withVal ---> GBool.FFI.fromVal) includesScript_ (self & script)
     fun matches self rangeList = (PangoLanguageRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) matches_ (self & rangeList)
     fun toString self = (PangoLanguageRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) toString_ self
-    fun fromString language = (Utf8.FFI.withOptPtr ---> PangoLanguageRecord.FFI.fromPtr true) fromString_ language
-    fun getDefault () = (I ---> PangoLanguageRecord.FFI.fromPtr true) getDefault_ ()
+    fun fromString language = (Utf8.FFI.withOptPtr ---> PangoLanguageRecord.FFI.fromPtr false) fromString_ language
+    fun getDefault () = (I ---> PangoLanguageRecord.FFI.fromPtr false) getDefault_ ()
   end

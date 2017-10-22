@@ -124,7 +124,7 @@ structure GtkCellRenderer :>
         call (getSymbol "gtk_cell_renderer_get_state")
           (
             GtkCellRendererClass.PolyML.cPtr
-             &&> GtkWidgetClass.PolyML.cPtr
+             &&> GtkWidgetClass.PolyML.cOptPtr
              &&> GtkCellRendererState.PolyML.cVal
              --> GtkStateFlags.PolyML.cVal
           )
@@ -171,7 +171,7 @@ structure GtkCellRenderer :>
         call (getSymbol "gtk_cell_renderer_start_editing")
           (
             GtkCellRendererClass.PolyML.cPtr
-             &&> GdkEvent.PolyML.cPtr
+             &&> GdkEvent.PolyML.cOptPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GdkRectangleRecord.PolyML.cPtr
@@ -483,7 +483,7 @@ structure GtkCellRenderer :>
     fun getState self (widget, cellState) =
       (
         GtkCellRendererClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
          &&&> GtkCellRendererState.FFI.withVal
          ---> GtkStateFlags.FFI.fromVal
       )
@@ -575,7 +575,7 @@ structure GtkCellRenderer :>
       ) =
       (
         GtkCellRendererClass.FFI.withPtr
-         &&&> GdkEvent.FFI.withPtr
+         &&&> GdkEvent.FFI.withOptPtr
          &&&> GtkWidgetClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GdkRectangleRecord.FFI.withPtr

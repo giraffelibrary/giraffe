@@ -14,6 +14,7 @@ signature GTK_PRINT_SETTINGS =
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
     val newFromFile : string -> base class
+    val newFromGvariant : GLib.VariantRecord.t -> base class
     val newFromKeyFile : GLib.KeyFileRecord.t * string option -> base class
     val copy : 'a class -> base class
     val get :
@@ -214,6 +215,7 @@ signature GTK_PRINT_SETTINGS =
       'a class
        -> string
        -> unit
+    val toGvariant : 'a class -> GLib.VariantRecord.t
     val toKeyFile :
       'a class
        -> GLib.KeyFileRecord.t * string

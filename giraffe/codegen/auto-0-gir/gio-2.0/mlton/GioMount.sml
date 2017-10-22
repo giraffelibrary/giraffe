@@ -2,8 +2,8 @@ structure GioMount :>
   GIO_MOUNT
     where type 'a class = 'a GioMountClass.class
     where type 'a drive_class = 'a GioDriveClass.class
-    where type 'a icon_class = 'a GioIconClass.class
     where type 'a file_class = 'a GioFileClass.class
+    where type 'a icon_class = 'a GioIconClass.class
     where type 'a volume_class = 'a GioVolumeClass.class
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
@@ -56,6 +56,8 @@ structure GioMount :>
     val getIcon_ = _import "g_mount_get_icon" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
     val getName_ = _import "g_mount_get_name" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getRoot_ = _import "g_mount_get_root" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+    val getSortKey_ = _import "g_mount_get_sort_key" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getSymbolicIcon_ = _import "g_mount_get_symbolic_icon" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
     val getUuid_ = _import "g_mount_get_uuid" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getVolume_ = _import "g_mount_get_volume" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p;
     val guessContentTypeFinish_ =
@@ -151,8 +153,8 @@ structure GioMount :>
     val unshadow_ = _import "g_mount_unshadow" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> unit;
     type 'a class = 'a GioMountClass.class
     type 'a drive_class = 'a GioDriveClass.class
-    type 'a icon_class = 'a GioIconClass.class
     type 'a file_class = 'a GioFileClass.class
+    type 'a icon_class = 'a GioIconClass.class
     type 'a volume_class = 'a GioVolumeClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
@@ -191,6 +193,8 @@ structure GioMount :>
     fun getIcon self = (GioMountClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getIcon_ self
     fun getName self = (GioMountClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getName_ self
     fun getRoot self = (GioMountClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getRoot_ self
+    fun getSortKey self = (GioMountClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSortKey_ self
+    fun getSymbolicIcon self = (GioMountClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getSymbolicIcon_ self
     fun getUuid self = (GioMountClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUuid_ self
     fun getVolume self = (GioMountClass.FFI.withPtr ---> GioVolumeClass.FFI.fromPtr true) getVolume_ self
     fun guessContentTypeFinish self result =

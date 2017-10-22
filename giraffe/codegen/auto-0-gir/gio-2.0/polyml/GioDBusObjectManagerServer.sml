@@ -13,6 +13,7 @@ structure GioDBusObjectManagerServer :>
       val export_ = call (getSymbol "g_dbus_object_manager_server_export") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusObjectSkeletonClass.PolyML.cPtr --> cVoid)
       val exportUniquely_ = call (getSymbol "g_dbus_object_manager_server_export_uniquely") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusObjectSkeletonClass.PolyML.cPtr --> cVoid)
       val getConnection_ = call (getSymbol "g_dbus_object_manager_server_get_connection") (GioDBusObjectManagerServerClass.PolyML.cPtr --> GioDBusConnectionClass.PolyML.cPtr)
+      val isExported_ = call (getSymbol "g_dbus_object_manager_server_is_exported") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusObjectSkeletonClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setConnection_ = call (getSymbol "g_dbus_object_manager_server_set_connection") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> GioDBusConnectionClass.PolyML.cOptPtr --> cVoid)
       val unexport_ = call (getSymbol "g_dbus_object_manager_server_unexport") (GioDBusObjectManagerServerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
     end
@@ -27,6 +28,7 @@ structure GioDBusObjectManagerServer :>
     fun export self object = (GioDBusObjectManagerServerClass.FFI.withPtr &&&> GioDBusObjectSkeletonClass.FFI.withPtr ---> I) export_ (self & object)
     fun exportUniquely self object = (GioDBusObjectManagerServerClass.FFI.withPtr &&&> GioDBusObjectSkeletonClass.FFI.withPtr ---> I) exportUniquely_ (self & object)
     fun getConnection self = (GioDBusObjectManagerServerClass.FFI.withPtr ---> GioDBusConnectionClass.FFI.fromPtr true) getConnection_ self
+    fun isExported self object = (GioDBusObjectManagerServerClass.FFI.withPtr &&&> GioDBusObjectSkeletonClass.FFI.withPtr ---> GBool.FFI.fromVal) isExported_ (self & object)
     fun setConnection self connection = (GioDBusObjectManagerServerClass.FFI.withPtr &&&> GioDBusConnectionClass.FFI.withOptPtr ---> I) setConnection_ (self & connection)
     fun unexport self objectPath = (GioDBusObjectManagerServerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) unexport_ (self & objectPath)
     local

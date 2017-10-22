@@ -4,6 +4,7 @@ structure GtkRegionFlags :> GTK_REGION_FLAGS =
     val ODD = 0w2
     val FIRST = 0w4
     val LAST = 0w8
+    val ONLY = 0w16
     val SORTED = 0w32
     val allFlags =
       [
@@ -11,6 +12,7 @@ structure GtkRegionFlags :> GTK_REGION_FLAGS =
         ODD,
         FIRST,
         LAST,
+        ONLY,
         SORTED
       ]
     structure Flags =

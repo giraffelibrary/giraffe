@@ -38,7 +38,7 @@ signature GTK_RECENT_CHOOSER =
        -> unit
     val setFilter :
       'a class
-       -> 'b recent_filter_class
+       -> 'b recent_filter_class option
        -> unit
     val setLimit :
       'a class

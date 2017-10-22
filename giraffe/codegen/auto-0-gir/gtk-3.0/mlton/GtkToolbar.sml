@@ -7,6 +7,7 @@ structure GtkToolbar :>
     where type relief_style_t = GtkReliefStyle.t
     where type 'a tool_item_class = 'a GtkToolItemClass.class
     where type orientation_t = GtkOrientation.t
+    where type icon_size_t = GtkIconSize.t
     where type toolbar_style_t = GtkToolbarStyle.t =
   struct
     val getType_ = _import "gtk_toolbar_get_type" : unit -> GObjectType.FFI.val_;
@@ -28,7 +29,7 @@ structure GtkToolbar :>
               x2,
               x3
             )
-    val getIconSize_ = _import "gtk_toolbar_get_icon_size" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> GInt.FFI.val_;
+    val getIconSize_ = _import "gtk_toolbar_get_icon_size" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> GtkIconSize.FFI.val_;
     val getItemIndex_ = fn x1 & x2 => (_import "gtk_toolbar_get_item_index" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p * GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
     val getNItems_ = _import "gtk_toolbar_get_n_items" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> GInt.FFI.val_;
     val getNthItem_ = fn x1 & x2 => (_import "gtk_toolbar_get_nth_item" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p * GInt.FFI.val_ -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;) (x1, x2)
@@ -69,7 +70,7 @@ structure GtkToolbar :>
               x2,
               x3
             )
-    val setIconSize_ = fn x1 & x2 => (_import "gtk_toolbar_set_icon_size" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setIconSize_ = fn x1 & x2 => (_import "gtk_toolbar_set_icon_size" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p * GtkIconSize.FFI.val_ -> unit;) (x1, x2)
     val setShowArrow_ = fn x1 & x2 => (_import "gtk_toolbar_set_show_arrow" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setStyle_ = fn x1 & x2 => (_import "gtk_toolbar_set_style" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p * GtkToolbarStyle.FFI.val_ -> unit;) (x1, x2)
     val unsetIconSize_ = _import "gtk_toolbar_unset_icon_size" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> unit;
@@ -81,6 +82,7 @@ structure GtkToolbar :>
     type relief_style_t = GtkReliefStyle.t
     type 'a tool_item_class = 'a GtkToolItemClass.class
     type orientation_t = GtkOrientation.t
+    type icon_size_t = GtkIconSize.t
     type toolbar_style_t = GtkToolbarStyle.t
     type t = base class
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
@@ -102,7 +104,7 @@ structure GtkToolbar :>
            & x
            & y
         )
-    fun getIconSize self = (GtkToolbarClass.FFI.withPtr ---> GInt.FFI.fromVal) getIconSize_ self
+    fun getIconSize self = (GtkToolbarClass.FFI.withPtr ---> GtkIconSize.FFI.fromVal) getIconSize_ self
     fun getItemIndex self item = (GtkToolbarClass.FFI.withPtr &&&> GtkToolItemClass.FFI.withPtr ---> GInt.FFI.fromVal) getItemIndex_ (self & item)
     fun getNItems self = (GtkToolbarClass.FFI.withPtr ---> GInt.FFI.fromVal) getNItems_ self
     fun getNthItem self n = (GtkToolbarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkToolItemClass.FFI.fromPtr false) getNthItem_ (self & n)
@@ -135,7 +137,7 @@ structure GtkToolbar :>
            & toolItem
            & index
         )
-    fun setIconSize self iconSize = (GtkToolbarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setIconSize_ (self & iconSize)
+    fun setIconSize self iconSize = (GtkToolbarClass.FFI.withPtr &&&> GtkIconSize.FFI.withVal ---> I) setIconSize_ (self & iconSize)
     fun setShowArrow self showArrow = (GtkToolbarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowArrow_ (self & showArrow)
     fun setStyle self style = (GtkToolbarClass.FFI.withPtr &&&> GtkToolbarStyle.FFI.withVal ---> I) setStyle_ (self & style)
     fun unsetIconSize self = (GtkToolbarClass.FFI.withPtr ---> I) unsetIconSize_ self
@@ -172,8 +174,8 @@ structure GtkToolbar :>
     in
       val iconSizeProp =
         {
-          get = fn x => get "icon-size" int x,
-          set = fn x => set "icon-size" int x
+          get = fn x => get "icon-size" GtkIconSize.t x,
+          set = fn x => set "icon-size" GtkIconSize.t x
         }
       val iconSizeSetProp =
         {

@@ -40,6 +40,10 @@ signature ATK_STATE_TYPE =
     | DEFAULT
     | ANIMATED
     | VISITED
+    | CHECKABLE
+    | HAS_POPUP
+    | HAS_TOOLTIP
+    | READ_ONLY
     | LAST_DEFINED
     include
       ENUM

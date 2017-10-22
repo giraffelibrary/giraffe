@@ -112,11 +112,11 @@ structure AtkTextAttribute :> ATK_TEXT_ATTRIBUTE =
         }
     val forName_ = _import "mlton_atk_text_attribute_for_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> FFI.val_;
     val getName_ = _import "atk_text_attribute_get_name" : FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getValue_ = fn x1 & x2 => (_import "atk_text_attribute_get_value" : FFI.val_ * GInt32.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val getValue_ = fn x1 & x2 => (_import "atk_text_attribute_get_value" : FFI.val_ * GInt32.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
     val register_ = _import "mlton_atk_text_attribute_register" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> FFI.val_;
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun forName name = (Utf8.FFI.withPtr ---> FFI.fromVal) forName_ name
     fun getName attr = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ attr
-    fun getValue (attr, index) = (FFI.withVal &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) getValue_ (attr & index)
+    fun getValue (attr, index) = (FFI.withVal &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getValue_ (attr & index)
     fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
   end

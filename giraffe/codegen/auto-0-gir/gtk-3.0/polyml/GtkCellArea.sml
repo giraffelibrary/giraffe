@@ -76,6 +76,14 @@ structure GtkCellArea :>
              &&> Utf8.PolyML.cInPtr
              --> cVoid
           )
+      val attributeGetColumn_ =
+        call (getSymbol "gtk_cell_area_attribute_get_column")
+          (
+            GtkCellAreaClass.PolyML.cPtr
+             &&> GtkCellRendererClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             --> GInt.PolyML.cVal
+          )
       val cellGetProperty_ =
         call (getSymbol "gtk_cell_area_cell_get_property")
           (
@@ -373,6 +381,19 @@ structure GtkCellArea :>
          ---> I
       )
         attributeDisconnect_
+        (
+          self
+           & renderer
+           & attribute
+        )
+    fun attributeGetColumn self (renderer, attribute) =
+      (
+        GtkCellAreaClass.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> GInt.FFI.fromVal
+      )
+        attributeGetColumn_
         (
           self
            & renderer
@@ -770,7 +791,7 @@ structure GtkCellArea :>
           (
             get 0w1 GtkCellRendererClass.t
              &&&> get 0w2 GtkCellEditableClass.t
-             &&&> get 0w3 CairoRectangleIntRecord.t
+             &&&> get 0w3 GdkRectangleRecord.t
              &&&> get 0w4 string
              ---> ret_void
           )

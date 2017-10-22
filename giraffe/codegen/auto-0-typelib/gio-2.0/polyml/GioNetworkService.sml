@@ -13,7 +13,7 @@ structure GioNetworkService :>
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             --> GioSocketConnectableClass.PolyML.cPtr
+             --> GioNetworkServiceClass.PolyML.cPtr
           )
       val getDomain_ = call (getSymbol "g_network_service_get_domain") (GioNetworkServiceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getProtocol_ = call (getSymbol "g_network_service_get_protocol") (GioNetworkServiceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
@@ -36,7 +36,7 @@ structure GioNetworkService :>
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         ---> GioSocketConnectableClass.FFI.fromPtr true
+         ---> GioNetworkServiceClass.FFI.fromPtr true
       )
         new_
         (

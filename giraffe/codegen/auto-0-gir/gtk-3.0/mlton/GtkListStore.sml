@@ -8,6 +8,12 @@ structure GtkListStore :>
     where type 'a tree_sortable_class = 'a GtkTreeSortableClass.class
     where type tree_iter_t = GtkTreeIterRecord.t =
   struct
+    structure GIntCVectorType =
+      CValueCVectorType(
+        structure CElemType = GIntType
+        structure ElemSequence = CValueVectorSequence(GIntType)
+      )
+    structure GIntCVector = CVector(GIntCVectorType)
     val getType_ = _import "gtk_list_store_get_type" : unit -> GObjectType.FFI.val_;
     val append_ = fn x1 & x2 => (_import "gtk_list_store_append" : GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
     val clear_ = _import "gtk_list_store_clear" : GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p -> unit;
@@ -99,6 +105,21 @@ structure GtkListStore :>
             )
     val prepend_ = fn x1 & x2 => (_import "gtk_list_store_prepend" : GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
     val remove_ = fn x1 & x2 => (_import "gtk_list_store_remove" : GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val reorder_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_gtk_list_store_reorder" :
+              GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
+               * GIntCVector.MLton.p1
+               * GIntCVector.FFI.notnull GIntCVector.MLton.p2
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val setValue_ =
       fn
         x1
@@ -245,6 +266,7 @@ structure GtkListStore :>
         iter
       end
     fun remove self iter = (GtkListStoreClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) remove_ (self & iter)
+    fun reorder self newOrder = (GtkListStoreClass.FFI.withPtr &&&> GIntCVector.FFI.withPtr ---> I) reorder_ (self & newOrder)
     fun setValue
       self
       (

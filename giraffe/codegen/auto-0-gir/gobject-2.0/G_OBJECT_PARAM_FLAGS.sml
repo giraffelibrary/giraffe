@@ -3,6 +3,7 @@ signature G_OBJECT_PARAM_FLAGS =
     include FLAGS
     val READABLE : t
     val WRITABLE : t
+    val READWRITE : t
     val CONSTRUCT : t
     val CONSTRUCT_ONLY : t
     val LAX_VALIDATION : t
@@ -10,5 +11,6 @@ signature G_OBJECT_PARAM_FLAGS =
     val PRIVATE : t
     val STATIC_NICK : t
     val STATIC_BLURB : t
+    val EXPLICIT_NOTIFY : t
     val DEPRECATED : t
   end

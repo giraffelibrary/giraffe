@@ -3,6 +3,7 @@ signature GIO_APP_INFO =
     type 'a class
     type app_info_create_flags_t
     type 'a app_launch_context_class
+    type 'a async_result_class
     type 'a icon_class
     type t = base class
     val getType : unit -> GObject.Type.t
@@ -14,6 +15,7 @@ signature GIO_APP_INFO =
     val getDefaultForType : string * bool -> base class
     val getDefaultForUriScheme : string -> base class
     val launchDefaultForUri : string * 'a app_launch_context_class option -> unit
+    val launchDefaultForUriFinish : 'a async_result_class -> unit
     val resetTypeAssociations : string -> unit
     val addSupportsType :
       'a class
@@ -34,6 +36,7 @@ signature GIO_APP_INFO =
     val getIcon : 'a class -> base icon_class
     val getId : 'a class -> string
     val getName : 'a class -> string
+    val getSupportedTypes : 'a class -> string list
     val removeSupportsType :
       'a class
        -> string

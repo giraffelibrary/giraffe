@@ -141,6 +141,7 @@ structure GtkComboBox :>
       open ClosureMarshal Signal
     in
       fun changedSig f = signal "changed" (void ---> ret_void) f
+      fun formatEntryTextSig f = signal "format-entry-text" (get 0w1 string ---> ret string) f
       fun moveActiveSig f = signal "move-active" (get 0w1 GtkScrollType.t ---> ret_void) f
       fun popdownSig f = signal "popdown" (void ---> ret boolean) f
       fun popupSig f = signal "popup" (void ---> ret_void) f
@@ -182,11 +183,6 @@ structure GtkComboBox :>
         {
           get = fn x => get "entry-text-column" int x,
           set = fn x => set "entry-text-column" int x
-        }
-      val focusOnClickProp =
-        {
-          get = fn x => get "focus-on-click" boolean x,
-          set = fn x => set "focus-on-click" boolean x
         }
       val hasEntryProp =
         {

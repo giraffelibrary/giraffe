@@ -9,6 +9,7 @@ structure GtkCssSectionType :> GTK_CSS_SECTION_TYPE =
     | SELECTOR
     | DECLARATION
     | VALUE
+    | KEYFRAMES
     structure Enum =
       Enum(
         type enum = enum
@@ -23,6 +24,7 @@ structure GtkCssSectionType :> GTK_CSS_SECTION_TYPE =
           | SELECTOR => 5
           | DECLARATION => 6
           | VALUE => 7
+          | KEYFRAMES => 8
         exception Value of GInt32.t
         val fromInt =
           fn
@@ -34,6 +36,7 @@ structure GtkCssSectionType :> GTK_CSS_SECTION_TYPE =
           | 5 => SELECTOR
           | 6 => DECLARATION
           | 7 => VALUE
+          | 8 => KEYFRAMES
           | n => raise Value n
       )
     open Enum

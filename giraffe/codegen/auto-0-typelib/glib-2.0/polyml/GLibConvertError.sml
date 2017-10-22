@@ -9,6 +9,7 @@ structure GLibConvertError :>
     | PARTIAL_INPUT
     | BAD_URI
     | NOT_ABSOLUTE_PATH
+    | NO_MEMORY
     structure Enum =
       Enum(
         type enum = enum
@@ -21,6 +22,7 @@ structure GLibConvertError :>
           | PARTIAL_INPUT => 3
           | BAD_URI => 4
           | NOT_ABSOLUTE_PATH => 5
+          | NO_MEMORY => 6
         exception Value of GInt32.t
         val fromInt =
           fn
@@ -30,6 +32,7 @@ structure GLibConvertError :>
           | 3 => PARTIAL_INPUT
           | 4 => BAD_URI
           | 5 => NOT_ABSOLUTE_PATH
+          | 6 => NO_MEMORY
           | n => raise Value n
       )
     open Enum

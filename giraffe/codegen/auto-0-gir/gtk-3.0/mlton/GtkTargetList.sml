@@ -17,7 +17,7 @@ structure GtkTargetList :>
           (
             _import "mlton_gtk_target_list_new" :
               GtkTargetEntryRecordCVectorN.MLton.p1
-               * GtkTargetEntryRecordCVectorN.FFI.notnull GtkTargetEntryRecordCVectorN.MLton.p2
+               * unit GtkTargetEntryRecordCVectorN.MLton.p2
                * GUInt.FFI.val_
                -> GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p;
           )
@@ -104,6 +104,23 @@ structure GtkTargetList :>
             )
     val addTextTargets_ = fn x1 & x2 => (_import "gtk_target_list_add_text_targets" : GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     val addUriTargets_ = fn x1 & x2 => (_import "gtk_target_list_add_uri_targets" : GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val find_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "gtk_target_list_find" :
+              GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p
+               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+               * GUInt.FFI.ref_
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val remove_ = fn x1 & x2 => (_import "gtk_target_list_remove" : GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> unit;) (x1, x2)
     type t = GtkTargetListRecord.t
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
@@ -111,8 +128,11 @@ structure GtkTargetList :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new targets =
       let
-        val ntargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
-        val retVal = (GtkTargetEntryRecordCVectorN.FFI.withPtr &&&> GUInt.FFI.withVal ---> GtkTargetListRecord.FFI.fromPtr true) new_ (targets & ntargets)
+        val ntargets =
+          case targets of
+            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+          | NONE => GUInt.null
+        val retVal = (GtkTargetEntryRecordCVectorN.FFI.withOptPtr &&&> GUInt.FFI.withVal ---> GtkTargetListRecord.FFI.fromPtr true) new_ (targets & ntargets)
       in
         retVal
       end
@@ -192,5 +212,23 @@ structure GtkTargetList :>
       end
     fun addTextTargets self info = (GtkTargetListRecord.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) addTextTargets_ (self & info)
     fun addUriTargets self info = (GtkTargetListRecord.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) addUriTargets_ (self & info)
+    fun find self target =
+      let
+        val info & retVal =
+          (
+            GtkTargetListRecord.FFI.withPtr
+             &&&> GdkAtomRecord.FFI.withPtr
+             &&&> GUInt.FFI.withRefVal
+             ---> GUInt.FFI.fromVal && GBool.FFI.fromVal
+          )
+            find_
+            (
+              self
+               & target
+               & GUInt.null
+            )
+      in
+        if retVal then SOME info else NONE
+      end
     fun remove self target = (GtkTargetListRecord.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) remove_ (self & target)
   end

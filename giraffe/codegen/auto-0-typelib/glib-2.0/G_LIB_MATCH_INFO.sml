@@ -6,15 +6,16 @@ signature G_LIB_MATCH_INFO =
     val expandReferences :
       t
        -> string
-       -> string
+       -> string option
     val fetch :
       t
        -> LargeInt.int
-       -> string
+       -> string option
+    val fetchAll : t -> string list
     val fetchNamed :
       t
        -> string
-       -> string
+       -> string option
     val fetchNamedPos :
       t
        -> string

@@ -24,7 +24,6 @@ structure GLibTokenType :> G_LIB_TOKEN_TYPE =
     | IDENTIFIER_NULL
     | COMMENT_SINGLE
     | COMMENT_MULTI
-    | LAST
     structure Enum =
       Enum(
         type enum = enum
@@ -54,7 +53,6 @@ structure GLibTokenType :> G_LIB_TOKEN_TYPE =
           | IDENTIFIER_NULL => 267
           | COMMENT_SINGLE => 268
           | COMMENT_MULTI => 269
-          | LAST => 270
         exception Value of GInt.t
         val fromInt =
           fn
@@ -81,7 +79,6 @@ structure GLibTokenType :> G_LIB_TOKEN_TYPE =
           | 267 => IDENTIFIER_NULL
           | 268 => COMMENT_SINGLE
           | 269 => COMMENT_MULTI
-          | 270 => LAST
           | n => raise Value n
       )
     open Enum

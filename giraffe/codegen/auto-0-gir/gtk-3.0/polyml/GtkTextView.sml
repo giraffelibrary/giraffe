@@ -6,15 +6,17 @@ structure GtkTextView :>
     where type 'a text_child_anchor_class = 'a GtkTextChildAnchorClass.class
     where type text_attributes_t = GtkTextAttributesRecord.t
     where type 'a adjustment_class = 'a GtkAdjustmentClass.class
-    where type 'a widget_class = 'a GtkWidgetClass.class
     where type 'a text_mark_class = 'a GtkTextMarkClass.class
-    where type text_iter_t = GtkTextIterRecord.t
     where type text_window_type_t = GtkTextWindowType.t
     where type delete_type_t = GtkDeleteType.t
+    where type text_iter_t = GtkTextIterRecord.t
+    where type text_extend_selection_t = GtkTextExtendSelection.t
     where type movement_step_t = GtkMovementStep.t
     where type scroll_step_t = GtkScrollStep.t
-    where type 'a menu_class = 'a GtkMenuClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class
     where type 'a text_buffer_class = 'a GtkTextBufferClass.class
+    where type input_hints_t = GtkInputHints.t
+    where type input_purpose_t = GtkInputPurpose.t
     where type justification_t = GtkJustification.t
     where type wrap_mode_t = GtkWrapMode.t =
   struct
@@ -59,6 +61,7 @@ structure GtkTextView :>
       val forwardDisplayLineEnd_ = call (getSymbol "gtk_text_view_forward_display_line_end") (GtkTextViewClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getAcceptsTab_ = call (getSymbol "gtk_text_view_get_accepts_tab") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getBorderWindowSize_ = call (getSymbol "gtk_text_view_get_border_window_size") (GtkTextViewClass.PolyML.cPtr &&> GtkTextWindowType.PolyML.cVal --> GInt.PolyML.cVal)
+      val getBottomMargin_ = call (getSymbol "gtk_text_view_get_bottom_margin") (GtkTextViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getBuffer_ = call (getSymbol "gtk_text_view_get_buffer") (GtkTextViewClass.PolyML.cPtr --> GtkTextBufferClass.PolyML.cPtr)
       val getCursorLocations_ =
         call (getSymbol "gtk_text_view_get_cursor_locations")
@@ -74,6 +77,8 @@ structure GtkTextView :>
       val getEditable_ = call (getSymbol "gtk_text_view_get_editable") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getHadjustment_ = call (getSymbol "gtk_text_view_get_hadjustment") (GtkTextViewClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getIndent_ = call (getSymbol "gtk_text_view_get_indent") (GtkTextViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getInputHints_ = call (getSymbol "gtk_text_view_get_input_hints") (GtkTextViewClass.PolyML.cPtr --> GtkInputHints.PolyML.cVal)
+      val getInputPurpose_ = call (getSymbol "gtk_text_view_get_input_purpose") (GtkTextViewClass.PolyML.cPtr --> GtkInputPurpose.PolyML.cVal)
       val getIterAtLocation_ =
         call (getSymbol "gtk_text_view_get_iter_at_location")
           (
@@ -81,7 +86,7 @@ structure GtkTextView :>
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> cVoid
+             --> GBool.PolyML.cVal
           )
       val getIterAtPosition_ =
         call (getSymbol "gtk_text_view_get_iter_at_position")
@@ -91,7 +96,7 @@ structure GtkTextView :>
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> cVoid
+             --> GBool.PolyML.cVal
           )
       val getIterLocation_ =
         call (getSymbol "gtk_text_view_get_iter_location")
@@ -121,12 +126,14 @@ structure GtkTextView :>
              &&> GInt.PolyML.cRef
              --> cVoid
           )
+      val getMonospace_ = call (getSymbol "gtk_text_view_get_monospace") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getOverwrite_ = call (getSymbol "gtk_text_view_get_overwrite") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getPixelsAboveLines_ = call (getSymbol "gtk_text_view_get_pixels_above_lines") (GtkTextViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getPixelsBelowLines_ = call (getSymbol "gtk_text_view_get_pixels_below_lines") (GtkTextViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getPixelsInsideWrap_ = call (getSymbol "gtk_text_view_get_pixels_inside_wrap") (GtkTextViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getRightMargin_ = call (getSymbol "gtk_text_view_get_right_margin") (GtkTextViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getTabs_ = call (getSymbol "gtk_text_view_get_tabs") (GtkTextViewClass.PolyML.cPtr --> PangoTabArrayRecord.PolyML.cPtr)
+      val getTopMargin_ = call (getSymbol "gtk_text_view_get_top_margin") (GtkTextViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getVadjustment_ = call (getSymbol "gtk_text_view_get_vadjustment") (GtkTextViewClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getVisibleRect_ = call (getSymbol "gtk_text_view_get_visible_rect") (GtkTextViewClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> cVoid)
       val getWindow_ = call (getSymbol "gtk_text_view_get_window") (GtkTextViewClass.PolyML.cPtr &&> GtkTextWindowType.PolyML.cVal --> GdkWindowClass.PolyML.cPtr)
@@ -152,6 +159,7 @@ structure GtkTextView :>
              --> GBool.PolyML.cVal
           )
       val placeCursorOnscreen_ = call (getSymbol "gtk_text_view_place_cursor_onscreen") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val resetCursorBlink_ = call (getSymbol "gtk_text_view_reset_cursor_blink") (GtkTextViewClass.PolyML.cPtr --> cVoid)
       val resetImContext_ = call (getSymbol "gtk_text_view_reset_im_context") (GtkTextViewClass.PolyML.cPtr --> cVoid)
       val scrollMarkOnscreen_ = call (getSymbol "gtk_text_view_scroll_mark_onscreen") (GtkTextViewClass.PolyML.cPtr &&> GtkTextMarkClass.PolyML.cPtr --> cVoid)
       val scrollToIter_ =
@@ -185,18 +193,23 @@ structure GtkTextView :>
              &&> GInt.PolyML.cVal
              --> cVoid
           )
+      val setBottomMargin_ = call (getSymbol "gtk_text_view_set_bottom_margin") (GtkTextViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setBuffer_ = call (getSymbol "gtk_text_view_set_buffer") (GtkTextViewClass.PolyML.cPtr &&> GtkTextBufferClass.PolyML.cOptPtr --> cVoid)
       val setCursorVisible_ = call (getSymbol "gtk_text_view_set_cursor_visible") (GtkTextViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setEditable_ = call (getSymbol "gtk_text_view_set_editable") (GtkTextViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setIndent_ = call (getSymbol "gtk_text_view_set_indent") (GtkTextViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setInputHints_ = call (getSymbol "gtk_text_view_set_input_hints") (GtkTextViewClass.PolyML.cPtr &&> GtkInputHints.PolyML.cVal --> cVoid)
+      val setInputPurpose_ = call (getSymbol "gtk_text_view_set_input_purpose") (GtkTextViewClass.PolyML.cPtr &&> GtkInputPurpose.PolyML.cVal --> cVoid)
       val setJustification_ = call (getSymbol "gtk_text_view_set_justification") (GtkTextViewClass.PolyML.cPtr &&> GtkJustification.PolyML.cVal --> cVoid)
       val setLeftMargin_ = call (getSymbol "gtk_text_view_set_left_margin") (GtkTextViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setMonospace_ = call (getSymbol "gtk_text_view_set_monospace") (GtkTextViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setOverwrite_ = call (getSymbol "gtk_text_view_set_overwrite") (GtkTextViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setPixelsAboveLines_ = call (getSymbol "gtk_text_view_set_pixels_above_lines") (GtkTextViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setPixelsBelowLines_ = call (getSymbol "gtk_text_view_set_pixels_below_lines") (GtkTextViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setPixelsInsideWrap_ = call (getSymbol "gtk_text_view_set_pixels_inside_wrap") (GtkTextViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setRightMargin_ = call (getSymbol "gtk_text_view_set_right_margin") (GtkTextViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setTabs_ = call (getSymbol "gtk_text_view_set_tabs") (GtkTextViewClass.PolyML.cPtr &&> PangoTabArrayRecord.PolyML.cPtr --> cVoid)
+      val setTopMargin_ = call (getSymbol "gtk_text_view_set_top_margin") (GtkTextViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setWrapMode_ = call (getSymbol "gtk_text_view_set_wrap_mode") (GtkTextViewClass.PolyML.cPtr &&> GtkWrapMode.PolyML.cVal --> cVoid)
       val startsDisplayLine_ = call (getSymbol "gtk_text_view_starts_display_line") (GtkTextViewClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val windowToBufferCoords_ =
@@ -217,15 +230,17 @@ structure GtkTextView :>
     type 'a text_child_anchor_class = 'a GtkTextChildAnchorClass.class
     type text_attributes_t = GtkTextAttributesRecord.t
     type 'a adjustment_class = 'a GtkAdjustmentClass.class
-    type 'a widget_class = 'a GtkWidgetClass.class
     type 'a text_mark_class = 'a GtkTextMarkClass.class
-    type text_iter_t = GtkTextIterRecord.t
     type text_window_type_t = GtkTextWindowType.t
     type delete_type_t = GtkDeleteType.t
+    type text_iter_t = GtkTextIterRecord.t
+    type text_extend_selection_t = GtkTextExtendSelection.t
     type movement_step_t = GtkMovementStep.t
     type scroll_step_t = GtkScrollStep.t
-    type 'a menu_class = 'a GtkMenuClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
+    type input_hints_t = GtkInputHints.t
+    type input_purpose_t = GtkInputPurpose.t
     type justification_t = GtkJustification.t
     type wrap_mode_t = GtkWrapMode.t
     type t = base class
@@ -312,6 +327,7 @@ structure GtkTextView :>
     fun forwardDisplayLineEnd self iter = (GtkTextViewClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) forwardDisplayLineEnd_ (self & iter)
     fun getAcceptsTab self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getAcceptsTab_ self
     fun getBorderWindowSize self type' = (GtkTextViewClass.FFI.withPtr &&&> GtkTextWindowType.FFI.withVal ---> GInt.FFI.fromVal) getBorderWindowSize_ (self & type')
+    fun getBottomMargin self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getBottomMargin_ self
     fun getBuffer self = (GtkTextViewClass.FFI.withPtr ---> GtkTextBufferClass.FFI.fromPtr false) getBuffer_ self
     fun getCursorLocations self iter =
       let
@@ -342,15 +358,17 @@ structure GtkTextView :>
     fun getEditable self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getEditable_ self
     fun getHadjustment self = (GtkTextViewClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
     fun getIndent self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getIndent_ self
+    fun getInputHints self = (GtkTextViewClass.FFI.withPtr ---> GtkInputHints.FFI.fromVal) getInputHints_ self
+    fun getInputPurpose self = (GtkTextViewClass.FFI.withPtr ---> GtkInputPurpose.FFI.fromVal) getInputPurpose_ self
     fun getIterAtLocation self (x, y) =
       let
-        val iter & () =
+        val iter & retVal =
           (
             GtkTextViewClass.FFI.withPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal
-             ---> GtkTextIterRecord.FFI.fromPtr true && I
+             ---> GtkTextIterRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
             getIterAtLocation_
             (
@@ -360,13 +378,13 @@ structure GtkTextView :>
                & y
             )
       in
-        iter
+        if retVal then SOME iter else NONE
       end
     fun getIterAtPosition self (x, y) =
       let
         val iter
          & trailing
-         & () =
+         & retVal =
           (
             GtkTextViewClass.FFI.withPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
@@ -375,7 +393,7 @@ structure GtkTextView :>
              &&&> GInt.FFI.withVal
              ---> GtkTextIterRecord.FFI.fromPtr true
                    && GInt.FFI.fromVal
-                   && I
+                   && GBool.FFI.fromVal
           )
             getIterAtPosition_
             (
@@ -386,7 +404,7 @@ structure GtkTextView :>
                & y
             )
       in
-        (iter, trailing)
+        if retVal then SOME (iter, trailing) else NONE
       end
     fun getIterLocation self iter =
       let
@@ -456,12 +474,14 @@ structure GtkTextView :>
       in
         (y, height)
       end
+    fun getMonospace self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getMonospace_ self
     fun getOverwrite self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getOverwrite_ self
     fun getPixelsAboveLines self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getPixelsAboveLines_ self
     fun getPixelsBelowLines self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getPixelsBelowLines_ self
     fun getPixelsInsideWrap self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getPixelsInsideWrap_ self
     fun getRightMargin self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getRightMargin_ self
     fun getTabs self = (GtkTextViewClass.FFI.withPtr ---> PangoTabArrayRecord.FFI.fromPtr true) getTabs_ self
+    fun getTopMargin self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getTopMargin_ self
     fun getVadjustment self = (GtkTextViewClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
     fun getVisibleRect self =
       let
@@ -509,6 +529,7 @@ structure GtkTextView :>
            & count
         )
     fun placeCursorOnscreen self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) placeCursorOnscreen_ self
+    fun resetCursorBlink self = (GtkTextViewClass.FFI.withPtr ---> I) resetCursorBlink_ self
     fun resetImContext self = (GtkTextViewClass.FFI.withPtr ---> I) resetImContext_ self
     fun scrollMarkOnscreen self mark = (GtkTextViewClass.FFI.withPtr &&&> GtkTextMarkClass.FFI.withPtr ---> I) scrollMarkOnscreen_ (self & mark)
     fun scrollToIter
@@ -579,18 +600,23 @@ structure GtkTextView :>
            & type'
            & size
         )
+    fun setBottomMargin self bottomMargin = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setBottomMargin_ (self & bottomMargin)
     fun setBuffer self buffer = (GtkTextViewClass.FFI.withPtr &&&> GtkTextBufferClass.FFI.withOptPtr ---> I) setBuffer_ (self & buffer)
     fun setCursorVisible self setting = (GtkTextViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCursorVisible_ (self & setting)
     fun setEditable self setting = (GtkTextViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setEditable_ (self & setting)
     fun setIndent self indent = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setIndent_ (self & indent)
+    fun setInputHints self hints = (GtkTextViewClass.FFI.withPtr &&&> GtkInputHints.FFI.withVal ---> I) setInputHints_ (self & hints)
+    fun setInputPurpose self purpose = (GtkTextViewClass.FFI.withPtr &&&> GtkInputPurpose.FFI.withVal ---> I) setInputPurpose_ (self & purpose)
     fun setJustification self justification = (GtkTextViewClass.FFI.withPtr &&&> GtkJustification.FFI.withVal ---> I) setJustification_ (self & justification)
     fun setLeftMargin self leftMargin = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setLeftMargin_ (self & leftMargin)
+    fun setMonospace self monospace = (GtkTextViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setMonospace_ (self & monospace)
     fun setOverwrite self overwrite = (GtkTextViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setOverwrite_ (self & overwrite)
     fun setPixelsAboveLines self pixelsAboveLines = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setPixelsAboveLines_ (self & pixelsAboveLines)
     fun setPixelsBelowLines self pixelsBelowLines = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setPixelsBelowLines_ (self & pixelsBelowLines)
     fun setPixelsInsideWrap self pixelsInsideWrap = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setPixelsInsideWrap_ (self & pixelsInsideWrap)
     fun setRightMargin self rightMargin = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setRightMargin_ (self & rightMargin)
     fun setTabs self tabs = (GtkTextViewClass.FFI.withPtr &&&> PangoTabArrayRecord.FFI.withPtr ---> I) setTabs_ (self & tabs)
+    fun setTopMargin self topMargin = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setTopMargin_ (self & topMargin)
     fun setWrapMode self wrapMode = (GtkTextViewClass.FFI.withPtr &&&> GtkWrapMode.FFI.withVal ---> I) setWrapMode_ (self & wrapMode)
     fun startsDisplayLine self iter = (GtkTextViewClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) startsDisplayLine_ (self & iter)
     fun windowToBufferCoords
@@ -634,6 +660,29 @@ structure GtkTextView :>
       fun copyClipboardSig f = signal "copy-clipboard" (void ---> ret_void) f
       fun cutClipboardSig f = signal "cut-clipboard" (void ---> ret_void) f
       fun deleteFromCursorSig f = signal "delete-from-cursor" (get 0w1 GtkDeleteType.t &&&> get 0w2 int ---> ret_void) (fn type' & count => f (type', count))
+      fun extendSelectionSig f =
+        signal "extend-selection"
+          (
+            get 0w1 GtkTextExtendSelection.t
+             &&&> get 0w2 GtkTextIterRecord.t
+             &&&> get 0w3 GtkTextIterRecord.t
+             &&&> get 0w4 GtkTextIterRecord.t
+             ---> ret boolean
+          )
+          (
+            fn
+              granularity
+               & location
+               & start
+               & end' =>
+                f
+                  (
+                    granularity,
+                    location,
+                    start,
+                    end'
+                  )
+          )
       fun insertAtCursorSig f = signal "insert-at-cursor" (get 0w1 string ---> ret_void) f
       fun moveCursorSig f =
         signal "move-cursor"
@@ -657,7 +706,7 @@ structure GtkTextView :>
           )
       fun moveViewportSig f = signal "move-viewport" (get 0w1 GtkScrollStep.t &&&> get 0w2 int ---> ret_void) (fn step & count => f (step, count))
       fun pasteClipboardSig f = signal "paste-clipboard" (void ---> ret_void) f
-      fun populatePopupSig f = signal "populate-popup" (get 0w1 GtkMenuClass.t ---> ret_void) f
+      fun populatePopupSig f = signal "populate-popup" (get 0w1 GtkWidgetClass.t ---> ret_void) f
       fun preeditChangedSig f = signal "preedit-changed" (get 0w1 string ---> ret_void) f
       fun selectAllSig f = signal "select-all" (get 0w1 boolean ---> ret_void) f
       fun setAnchorSig f = signal "set-anchor" (void ---> ret_void) f
@@ -671,6 +720,11 @@ structure GtkTextView :>
         {
           get = fn x => get "accepts-tab" boolean x,
           set = fn x => set "accepts-tab" boolean x
+        }
+      val bottomMarginProp =
+        {
+          get = fn x => get "bottom-margin" int x,
+          set = fn x => set "bottom-margin" int x
         }
       val bufferProp =
         {
@@ -697,6 +751,16 @@ structure GtkTextView :>
           get = fn x => get "indent" int x,
           set = fn x => set "indent" int x
         }
+      val inputHintsProp =
+        {
+          get = fn x => get "input-hints" GtkInputHints.t x,
+          set = fn x => set "input-hints" GtkInputHints.t x
+        }
+      val inputPurposeProp =
+        {
+          get = fn x => get "input-purpose" GtkInputPurpose.t x,
+          set = fn x => set "input-purpose" GtkInputPurpose.t x
+        }
       val justificationProp =
         {
           get = fn x => get "justification" GtkJustification.t x,
@@ -706,6 +770,11 @@ structure GtkTextView :>
         {
           get = fn x => get "left-margin" int x,
           set = fn x => set "left-margin" int x
+        }
+      val monospaceProp =
+        {
+          get = fn x => get "monospace" boolean x,
+          set = fn x => set "monospace" boolean x
         }
       val overwriteProp =
         {
@@ -727,6 +796,11 @@ structure GtkTextView :>
           get = fn x => get "pixels-inside-wrap" int x,
           set = fn x => set "pixels-inside-wrap" int x
         }
+      val populateAllProp =
+        {
+          get = fn x => get "populate-all" boolean x,
+          set = fn x => set "populate-all" boolean x
+        }
       val rightMarginProp =
         {
           get = fn x => get "right-margin" int x,
@@ -736,6 +810,11 @@ structure GtkTextView :>
         {
           get = fn x => get "tabs" PangoTabArrayRecord.tOpt x,
           set = fn x => set "tabs" PangoTabArrayRecord.tOpt x
+        }
+      val topMarginProp =
+        {
+          get = fn x => get "top-margin" int x,
+          set = fn x => set "top-margin" int x
         }
       val wrapModeProp =
         {

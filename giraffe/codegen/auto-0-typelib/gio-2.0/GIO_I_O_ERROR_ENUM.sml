@@ -45,6 +45,9 @@ signature GIO_I_O_ERROR_ENUM =
     | PROXY_AUTH_FAILED
     | PROXY_NEED_AUTH
     | PROXY_NOT_ALLOWED
+    | BROKEN_PIPE
+    | NOT_CONNECTED
+    | MESSAGE_TOO_LARGE
     include
       ENUM
         where type t = enum

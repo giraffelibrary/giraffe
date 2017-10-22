@@ -106,10 +106,20 @@ structure GtkSourceCompletionItem :>
     local
       open Property
     in
+      val giconProp =
+        {
+          get = fn x => get "gicon" GioIconClass.tOpt x,
+          set = fn x => set "gicon" GioIconClass.tOpt x
+        }
       val iconProp =
         {
           get = fn x => get "icon" GdkPixbufPixbufClass.tOpt x,
           set = fn x => set "icon" GdkPixbufPixbufClass.tOpt x
+        }
+      val iconNameProp =
+        {
+          get = fn x => get "icon-name" stringOpt x,
+          set = fn x => set "icon-name" stringOpt x
         }
       val infoProp =
         {

@@ -22,19 +22,26 @@ in
   GDK_EVENT_KEY_RECORD.sml
   GDK_EVENT_MOTION_RECORD.sml
   GDK_EVENT_OWNER_CHANGE_RECORD.sml
+  GDK_EVENT_PAD_AXIS_RECORD.sml
+  GDK_EVENT_PAD_BUTTON_RECORD.sml
+  GDK_EVENT_PAD_GROUP_MODE_RECORD.sml
   GDK_EVENT_PROPERTY_RECORD.sml
   GDK_EVENT_PROXIMITY_RECORD.sml
   GDK_EVENT_SCROLL_RECORD.sml
   GDK_EVENT_SELECTION_RECORD.sml
   GDK_EVENT_SETTING_RECORD.sml
+  GDK_EVENT_TOUCHPAD_PINCH_RECORD.sml
+  GDK_EVENT_TOUCHPAD_SWIPE_RECORD.sml
+  GDK_EVENT_TOUCH_RECORD.sml
   GDK_EVENT_VISIBILITY_RECORD.sml
   GDK_EVENT_WINDOW_STATE_RECORD.sml
   CLASSIFY_EVENT.sml
-  GDK_RECTANGLE_RECORD.sml
+  GDK_ANCHOR_HINTS.sml
   GDK_APP_LAUNCH_CONTEXT_CLASS.sml
   GDK_APP_LAUNCH_CONTEXT.sml
   GDK_ATOM_RECORD.sml
   GDK_ATOM.sml
+  GDK_AXIS_FLAGS.sml
   GDK_AXIS_USE.sml
   GDK_BYTE_ORDER.sml
   GDK_COLOR_RECORD.sml
@@ -47,20 +54,39 @@ in
   GDK_DEVICE.sml
   GDK_DEVICE_MANAGER_CLASS.sml
   GDK_DEVICE_MANAGER.sml
+  GDK_DEVICE_PAD_CLASS.sml
+  GDK_DEVICE_PAD.sml
+  GDK_DEVICE_PAD_FEATURE.sml
+  GDK_DEVICE_TOOL_CLASS.sml
+  GDK_DEVICE_TOOL.sml
+  GDK_DEVICE_TOOL_TYPE.sml
   GDK_DEVICE_TYPE.sml
   GDK_DISPLAY_CLASS.sml
   GDK_DISPLAY.sml
   GDK_DISPLAY_MANAGER_CLASS.sml
   GDK_DISPLAY_MANAGER.sml
   GDK_DRAG_ACTION.sml
+  GDK_DRAG_CANCEL_REASON.sml
   GDK_DRAG_CONTEXT_CLASS.sml
   GDK_DRAG_CONTEXT.sml
   GDK_DRAG_PROTOCOL.sml
+  GDK_DRAWING_CONTEXT_CLASS.sml
+  GDK_DRAWING_CONTEXT.sml
   GDK_EVENT.sml
   GDK_EVENT_MASK.sml
+  GDK_EVENT_SEQUENCE_RECORD.sml
+  GDK_EVENT_SEQUENCE.sml
   GDK_EVENT_TYPE.sml
-  GDK_EXTENSION_MODE.sml
   GDK_FILTER_RETURN.sml
+  GDK_FRAME_CLOCK_CLASS.sml
+  GDK_FRAME_CLOCK.sml
+  GDK_FRAME_CLOCK_PHASE.sml
+  GDK_FRAME_TIMINGS_RECORD.sml
+  GDK_FRAME_TIMINGS.sml
+  GDK_FULLSCREEN_MODE.sml
+  GDK_G_L_CONTEXT_CLASS.sml
+  GDK_G_L_CONTEXT.sml
+  GDK_G_L_ERROR.sml
   GDK_GEOMETRY_RECORD.sml
   GDK_GEOMETRY.sml
   GDK_GRAB_OWNERSHIP.sml
@@ -72,7 +98,10 @@ in
   GDK_KEYMAP.sml
   GDK_KEYMAP_KEY_RECORD.sml
   GDK_KEYMAP_KEY.sml
+  GDK_MODIFIER_INTENT.sml
   GDK_MODIFIER_TYPE.sml
+  GDK_MONITOR_CLASS.sml
+  GDK_MONITOR.sml
   GDK_NOTIFY_TYPE.sml
   GDK_OWNER_CHANGE.sml
   GDK_POINT_RECORD.sml
@@ -81,11 +110,18 @@ in
   GDK_PROPERTY_STATE.sml
   GDK_RGBA_RECORD.sml
   GDK_RGBA.sml
+  GDK_RECTANGLE_RECORD.sml
+  GDK_RECTANGLE.sml
   GDK_SCREEN_CLASS.sml
   GDK_SCREEN.sml
   GDK_SCROLL_DIRECTION.sml
+  GDK_SEAT_CLASS.sml
+  GDK_SEAT.sml
+  GDK_SEAT_CAPABILITIES.sml
   GDK_SETTING_ACTION.sml
   GDK_STATUS.sml
+  GDK_SUBPIXEL_LAYOUT.sml
+  GDK_TOUCHPAD_GESTURE_PHASE.sml
   GDK_VISIBILITY_STATE.sml
   GDK_VISUAL_CLASS.sml
   GDK_VISUAL.sml
@@ -108,9 +144,10 @@ in
     "allowFFI true"
     "resolveScope topdec"
   in
-    mlton/GdkRectangleRecord.sml
+    mlton/GdkAnchorHints.sml
     mlton/GdkAppLaunchContextClass.sml
     mlton/GdkAtomRecord.sml
+    mlton/GdkAxisFlags.sml
     mlton/GdkAxisUse.sml
     mlton/GdkByteOrder.sml
     mlton/GdkColorRecord.sml
@@ -119,17 +156,29 @@ in
     mlton/GdkCursorType.sml
     mlton/GdkDeviceClass.sml
     mlton/GdkDeviceManagerClass.sml
+    mlton/GdkDevicePadClass.sml
+    mlton/GdkDevicePadFeature.sml
+    mlton/GdkDeviceToolClass.sml
+    mlton/GdkDeviceToolType.sml
     mlton/GdkDeviceType.sml
     mlton/GdkDisplayClass.sml
     mlton/GdkDisplayManagerClass.sml
     mlton/GdkDragAction.sml
+    mlton/GdkDragCancelReason.sml
     mlton/GdkDragContextClass.sml
     mlton/GdkDragProtocol.sml
+    mlton/GdkDrawingContextClass.sml
     mlton/GdkEvent.sml
     mlton/GdkEventMask.sml
+    mlton/GdkEventSequenceRecord.sml
     mlton/GdkEventType.sml
-    mlton/GdkExtensionMode.sml
     mlton/GdkFilterReturn.sml
+    mlton/GdkFrameClockClass.sml
+    mlton/GdkFrameClockPhase.sml
+    mlton/GdkFrameTimingsRecord.sml
+    mlton/GdkFullscreenMode.sml
+    mlton/GdkGLContextClass.sml
+    mlton/GdkGLError.sml
     mlton/GdkGeometryRecord.sml
     mlton/GdkGrabOwnership.sml
     mlton/GdkGrabStatus.sml
@@ -138,17 +187,24 @@ in
     mlton/GdkInputSource.sml
     mlton/GdkKeymapClass.sml
     mlton/GdkKeymapKeyRecord.sml
+    mlton/GdkModifierIntent.sml
     mlton/GdkModifierType.sml
+    mlton/GdkMonitorClass.sml
     mlton/GdkNotifyType.sml
     mlton/GdkOwnerChange.sml
     mlton/GdkPointRecord.sml
     mlton/GdkPropMode.sml
     mlton/GdkPropertyState.sml
     mlton/GdkRgbaRecord.sml
+    mlton/GdkRectangleRecord.sml
     mlton/GdkScreenClass.sml
     mlton/GdkScrollDirection.sml
+    mlton/GdkSeatClass.sml
+    mlton/GdkSeatCapabilities.sml
     mlton/GdkSettingAction.sml
     mlton/GdkStatus.sml
+    mlton/GdkSubpixelLayout.sml
+    mlton/GdkTouchpadGesturePhase.sml
     mlton/GdkVisibilityState.sml
     mlton/GdkVisualClass.sml
     mlton/GdkVisualType.sml
@@ -174,11 +230,17 @@ in
     mlton/GdkEventKeyRecord.sml
     mlton/GdkEventMotionRecord.sml
     mlton/GdkEventOwnerChangeRecord.sml
+    mlton/GdkEventPadAxisRecord.sml
+    mlton/GdkEventPadButtonRecord.sml
+    mlton/GdkEventPadGroupModeRecord.sml
     mlton/GdkEventPropertyRecord.sml
     mlton/GdkEventProximityRecord.sml
     mlton/GdkEventScrollRecord.sml
     mlton/GdkEventSelectionRecord.sml
     mlton/GdkEventSettingRecord.sml
+    mlton/GdkEventTouchpadPinchRecord.sml
+    mlton/GdkEventTouchpadSwipeRecord.sml
+    mlton/GdkEventTouchRecord.sml
     mlton/GdkEventVisibilityRecord.sml
     mlton/GdkEventWindowStateRecord.sml
     mlton/GdkAppLaunchContext.sml
@@ -187,15 +249,25 @@ in
     mlton/GdkCursor.sml
     mlton/GdkDevice.sml
     mlton/GdkDeviceManager.sml
+    mlton/GdkDevicePad.sml
+    mlton/GdkDeviceTool.sml
     mlton/GdkDisplay.sml
     mlton/GdkDisplayManager.sml
     mlton/GdkDragContext.sml
+    mlton/GdkDrawingContext.sml
+    mlton/GdkEventSequence.sml
+    mlton/GdkFrameClock.sml
+    mlton/GdkFrameTimings.sml
+    mlton/GdkGLContext.sml
     mlton/GdkGeometry.sml
     mlton/GdkKeymap.sml
     mlton/GdkKeymapKey.sml
+    mlton/GdkMonitor.sml
     mlton/GdkPoint.sml
     mlton/GdkRgba.sml
+    mlton/GdkRectangle.sml
     mlton/GdkScreen.sml
+    mlton/GdkSeat.sml
     mlton/GdkVisual.sml
     mlton/GdkWindow.sml
     mlton/GdkWindowAttr.sml

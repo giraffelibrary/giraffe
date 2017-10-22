@@ -6,7 +6,7 @@ signature GDK_DEVICE_MANAGER =
     type t = base class
     val getType : unit -> GObject.Type.t
     val getClientPointer : 'a class -> base device_class
-    val getDisplay : 'a class -> base display_class
+    val getDisplay : 'a class -> base display_class option
     val deviceAddedSig : (base device_class -> unit) -> 'a class Signal.t
     val deviceChangedSig : (base device_class -> unit) -> 'a class Signal.t
     val deviceRemovedSig : (base device_class -> unit) -> 'a class Signal.t

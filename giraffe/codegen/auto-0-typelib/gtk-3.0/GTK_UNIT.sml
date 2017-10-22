@@ -1,7 +1,7 @@
 signature GTK_UNIT =
   sig
     datatype enum =
-      PIXEL
+      NONE
     | POINTS
     | INCH
     | MM

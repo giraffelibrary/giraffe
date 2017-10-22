@@ -21,7 +21,7 @@ signature GTK_CELL_AREA =
       'a class
        -> 'b cell_area_context_class
            * 'c widget_class
-           * Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
            * cell_renderer_state_t
            * bool
        -> bool
@@ -30,7 +30,7 @@ signature GTK_CELL_AREA =
        -> 'b widget_class
            * 'c cell_renderer_class
            * 'd Gdk.Event.union
-           * Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
            * cell_renderer_state_t
        -> bool
     val add :
@@ -58,6 +58,10 @@ signature GTK_CELL_AREA =
       'a class
        -> 'b cell_renderer_class * string
        -> unit
+    val attributeGetColumn :
+      'a class
+       -> 'b cell_renderer_class * string
+       -> LargeInt.int
     val cellGetProperty :
       'a class
        -> 'b cell_renderer_class
@@ -80,7 +84,7 @@ signature GTK_CELL_AREA =
        -> 'b cell_area_context_class
            * 'c widget_class
            * 'd Gdk.Event.union
-           * Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
            * cell_renderer_state_t
        -> LargeInt.int
     val focus :
@@ -92,16 +96,16 @@ signature GTK_CELL_AREA =
        -> 'b cell_area_context_class
            * 'c widget_class
            * 'd cell_renderer_class
-           * Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
+       -> Gdk.RectangleRecord.t
     val getCellAtPosition :
       'a class
        -> 'b cell_area_context_class
            * 'c widget_class
-           * Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
            * LargeInt.int
            * LargeInt.int
-       -> base cell_renderer_class * Cairo.RectangleIntRecord.t
+       -> base cell_renderer_class * Gdk.RectangleRecord.t
     val getCurrentPathString : 'a class -> string
     val getEditWidget : 'a class -> base cell_editable_class
     val getEditedCell : 'a class -> base cell_renderer_class
@@ -109,7 +113,7 @@ signature GTK_CELL_AREA =
     val getFocusFromSibling :
       'a class
        -> 'b cell_renderer_class
-       -> base cell_renderer_class
+       -> base cell_renderer_class option
     val getPreferredHeight :
       'a class
        -> 'b cell_area_context_class * 'c widget_class
@@ -137,8 +141,8 @@ signature GTK_CELL_AREA =
        -> bool
     val innerCellArea :
       'a class
-       -> 'b widget_class * Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+       -> 'b widget_class * Gdk.RectangleRecord.t
+       -> Gdk.RectangleRecord.t
     val isActivatable : 'a class -> bool
     val isFocusSibling :
       'a class
@@ -157,8 +161,8 @@ signature GTK_CELL_AREA =
        -> 'b cell_area_context_class
            * 'c widget_class
            * Cairo.ContextRecord.t
-           * Cairo.RectangleIntRecord.t
-           * Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
+           * Gdk.RectangleRecord.t
            * cell_renderer_state_t
            * bool
        -> unit
@@ -180,7 +184,7 @@ signature GTK_CELL_AREA =
     val addEditableSig :
       (base cell_renderer_class
         * base cell_editable_class
-        * Cairo.RectangleIntRecord.t
+        * Gdk.RectangleRecord.t
         * string
         -> unit)
        -> 'a class Signal.t

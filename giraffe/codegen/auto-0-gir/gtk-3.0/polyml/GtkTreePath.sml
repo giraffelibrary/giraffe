@@ -14,6 +14,7 @@ structure GtkTreePath :>
       val getType_ = call (getSymbol "gtk_tree_path_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_tree_path_new") (cVoid --> GtkTreePathRecord.PolyML.cPtr)
       val newFirst_ = call (getSymbol "gtk_tree_path_new_first") (cVoid --> GtkTreePathRecord.PolyML.cPtr)
+      val newFromIndicesv_ = call (getSymbol "gtk_tree_path_new_from_indicesv") (GIntCVectorN.PolyML.cInPtr &&> GSize.PolyML.cVal --> GtkTreePathRecord.PolyML.cPtr)
       val newFromString_ = call (getSymbol "gtk_tree_path_new_from_string") (Utf8.PolyML.cInPtr --> GtkTreePathRecord.PolyML.cPtr)
       val appendIndex_ = call (getSymbol "gtk_tree_path_append_index") (GtkTreePathRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val compare_ = call (getSymbol "gtk_tree_path_compare") (GtkTreePathRecord.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GInt.PolyML.cVal)
@@ -33,6 +34,13 @@ structure GtkTreePath :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkTreePathRecord.FFI.fromPtr true) new_ ()
     fun newFirst () = (I ---> GtkTreePathRecord.FFI.fromPtr true) newFirst_ ()
+    fun newFromIndicesv indices =
+      let
+        val length = LargeInt.fromInt (GIntCVectorN.length indices)
+        val retVal = (GIntCVectorN.FFI.withPtr &&&> GSize.FFI.withVal ---> GtkTreePathRecord.FFI.fromPtr true) newFromIndicesv_ (indices & length)
+      in
+        retVal
+      end
     fun newFromString path = (Utf8.FFI.withPtr ---> GtkTreePathRecord.FFI.fromPtr true) newFromString_ path
     fun appendIndex self index = (GtkTreePathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> I) appendIndex_ (self & index)
     fun compare self b = (GtkTreePathRecord.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GInt.FFI.fromVal) compare_ (self & b)

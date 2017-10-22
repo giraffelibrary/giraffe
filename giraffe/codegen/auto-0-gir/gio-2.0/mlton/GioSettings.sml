@@ -2,7 +2,9 @@ structure GioSettings :>
   GIO_SETTINGS
     where type 'a class = 'a GioSettingsClass.class
     where type settings_backend_t = GioSettingsBackendRecord.t
-    where type settings_bind_flags_t = GioSettingsBindFlags.t =
+    where type settings_bind_flags_t = GioSettingsBindFlags.t
+    where type 'a action_class = 'a GioActionClass.class
+    where type settings_schema_t = GioSettingsSchemaRecord.t =
   struct
     structure GLibQuarkCVectorNType =
       CValueCVectorNType(
@@ -18,6 +20,25 @@ structure GioSettings :>
     structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_settings_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "mlton_g_settings_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p;
+    val newFull_ =
+      fn
+        x1
+         & x2
+         & (x3, x4) =>
+          (
+            _import "mlton_g_settings_new_full" :
+              GioSettingsSchemaRecord.FFI.notnull GioSettingsSchemaRecord.FFI.p
+               * unit GioSettingsBackendRecord.FFI.p
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               -> GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val newWithBackend_ =
       fn
         (x1, x2) & x3 =>
@@ -74,6 +95,21 @@ structure GioSettings :>
     val listRelocatableSchemas_ = _import "g_settings_list_relocatable_schemas" : unit -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
     val listSchemas_ = _import "g_settings_list_schemas" : unit -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
     val sync_ = _import "g_settings_sync" : unit -> unit;
+    val unbind_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_g_settings_unbind" :
+              GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val apply_ = _import "g_settings_apply" : GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p -> unit;
     val bind_ =
       fn
@@ -129,6 +165,21 @@ structure GioSettings :>
               x6,
               x7
             )
+    val createAction_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_g_settings_create_action" :
+              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GioActionClass.FFI.notnull GioActionClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val delay_ = _import "g_settings_delay" : GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p -> unit;
     val getBoolean_ =
       fn
@@ -154,6 +205,21 @@ structure GioSettings :>
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                -> GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
+    val getDefaultValue_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_g_settings_get_default_value" :
+              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -221,6 +287,21 @@ structure GioSettings :>
               x2,
               x3
             )
+    val getInt64_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_g_settings_get_int64" :
+              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GInt64.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val getRange_ =
       fn
         x1 & (x2, x3) =>
@@ -275,6 +356,36 @@ structure GioSettings :>
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                -> GUInt.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
+    val getUint64_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_g_settings_get_uint64" :
+              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GUInt64.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
+    val getUserValue_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_g_settings_get_user_value" :
+              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -443,6 +554,25 @@ structure GioSettings :>
               x3,
               x4
             )
+    val setInt64_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4 =>
+          (
+            _import "mlton_g_settings_set_int64" :
+              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt64.FFI.val_
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val setString_ =
       fn
         x1
@@ -504,6 +634,25 @@ structure GioSettings :>
               x3,
               x4
             )
+    val setUint64_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4 =>
+          (
+            _import "mlton_g_settings_set_uint64" :
+              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GUInt64.FFI.val_
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val setValue_ =
       fn
         x1
@@ -526,13 +675,33 @@ structure GioSettings :>
     type 'a class = 'a GioSettingsClass.class
     type settings_backend_t = GioSettingsBackendRecord.t
     type settings_bind_flags_t = GioSettingsBindFlags.t
+    type 'a action_class = 'a GioActionClass.class
+    type settings_schema_t = GioSettingsSchemaRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new schema = (Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) new_ schema
-    fun newWithBackend (schema, backend) = (Utf8.FFI.withPtr &&&> GioSettingsBackendRecord.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithBackend_ (schema & backend)
-    fun newWithBackendAndPath
+    fun new schemaId = (Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) new_ schemaId
+    fun newFull
       (
         schema,
+        backend,
+        path
+      ) =
+      (
+        GioSettingsSchemaRecord.FFI.withPtr
+         &&&> GioSettingsBackendRecord.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         ---> GioSettingsClass.FFI.fromPtr true
+      )
+        newFull_
+        (
+          schema
+           & backend
+           & path
+        )
+    fun newWithBackend (schemaId, backend) = (Utf8.FFI.withPtr &&&> GioSettingsBackendRecord.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithBackend_ (schemaId & backend)
+    fun newWithBackendAndPath
+      (
+        schemaId,
         backend,
         path
       ) =
@@ -544,14 +713,15 @@ structure GioSettings :>
       )
         newWithBackendAndPath_
         (
-          schema
+          schemaId
            & backend
            & path
         )
-    fun newWithPath (schema, path) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithPath_ (schema & path)
+    fun newWithPath (schemaId, path) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithPath_ (schemaId & path)
     fun listRelocatableSchemas () = (I ---> Utf8CVector.FFI.fromPtr 0) listRelocatableSchemas_ ()
     fun listSchemas () = (I ---> Utf8CVector.FFI.fromPtr 0) listSchemas_ ()
     fun sync () = (I ---> I) sync_ ()
+    fun unbind (object, property) = (GObjectObjectClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) unbind_ (object & property)
     fun apply self = (GioSettingsClass.FFI.withPtr ---> I) apply_ self
     fun bind
       self
@@ -601,18 +771,23 @@ structure GioSettings :>
            & property
            & inverted
         )
+    fun createAction self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioActionClass.FFI.fromPtr true) createAction_ (self & key)
     fun delay self = (GioSettingsClass.FFI.withPtr ---> I) delay_ self
     fun getBoolean self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) getBoolean_ (self & key)
     fun getChild self name = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) getChild_ (self & name)
+    fun getDefaultValue self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getDefaultValue_ (self & key)
     fun getDouble self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GDouble.FFI.fromVal) getDouble_ (self & key)
     fun getEnum self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) getEnum_ (self & key)
     fun getFlags self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt.FFI.fromVal) getFlags_ (self & key)
     fun getHasUnapplied self = (GioSettingsClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasUnapplied_ self
     fun getInt self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) getInt_ (self & key)
+    fun getInt64 self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt64.FFI.fromVal) getInt64_ (self & key)
     fun getRange self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getRange_ (self & key)
     fun getString self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getString_ (self & key)
     fun getStrv self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getStrv_ (self & key)
     fun getUint self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt.FFI.fromVal) getUint_ (self & key)
+    fun getUint64 self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt64.FFI.fromVal) getUint64_ (self & key)
+    fun getUserValue self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getUserValue_ (self & key)
     fun getValue self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getValue_ (self & key)
     fun isWritable self name = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) isWritable_ (self & name)
     fun listChildren self = (GioSettingsClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listChildren_ self
@@ -697,6 +872,19 @@ structure GioSettings :>
            & key
            & value
         )
+    fun setInt64 self (key, value) =
+      (
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt64.FFI.withVal
+         ---> GBool.FFI.fromVal
+      )
+        setInt64_
+        (
+          self
+           & key
+           & value
+        )
     fun setString self (key, value) =
       (
         GioSettingsClass.FFI.withPtr
@@ -731,6 +919,19 @@ structure GioSettings :>
          ---> GBool.FFI.fromVal
       )
         setUint_
+        (
+          self
+           & key
+           & value
+        )
+    fun setUint64 self (key, value) =
+      (
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt64.FFI.withVal
+         ---> GBool.FFI.fromVal
+      )
+        setUint64_
         (
           self
            & key
@@ -771,6 +972,16 @@ structure GioSettings :>
         {
           get = fn x => get "schema" stringOpt x,
           set = fn x => set "schema" stringOpt x
+        }
+      val schemaIdProp =
+        {
+          get = fn x => get "schema-id" stringOpt x,
+          set = fn x => set "schema-id" stringOpt x
+        }
+      val settingsSchemaProp =
+        {
+          get = fn x => get "settings-schema" GioSettingsSchemaRecord.tOpt x,
+          set = fn x => set "settings-schema" GioSettingsSchemaRecord.tOpt x
         }
     end
   end

@@ -1,6 +1,7 @@
 signature G_LIB_OPTION_FLAGS =
   sig
     include FLAGS
+    val NONE : t
     val HIDDEN : t
     val IN_MAIN : t
     val REVERSE : t

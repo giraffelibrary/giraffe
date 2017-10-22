@@ -67,7 +67,7 @@ structure GtkRecentManager :>
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p;
+               -> unit GtkRecentInfoRecord.FFI.p;
           )
             (
               x1,
@@ -146,7 +146,7 @@ structure GtkRecentManager :>
         GtkRecentManagerClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GtkRecentInfoRecord.FFI.fromPtr true
+         ---> GtkRecentInfoRecord.FFI.fromOptPtr true
       )
         lookupItem_
         (

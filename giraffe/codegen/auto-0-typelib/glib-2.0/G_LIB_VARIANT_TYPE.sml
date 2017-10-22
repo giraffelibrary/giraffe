@@ -3,6 +3,9 @@ signature G_LIB_VARIANT_TYPE =
     type t
     val getType : unit -> GObject.Type.t
     val new : string -> t
+    val newArray : t -> t
+    val newDictEntry : t * t -> t
+    val newMaybe : t -> t
     val newTuple : t vector -> t
     val copy : t -> t
     val dupString : t -> string
@@ -28,12 +31,6 @@ signature G_LIB_VARIANT_TYPE =
     val isVariant : t -> bool
     val key : t -> t
     val nItems : t -> LargeInt.int
-    val newArray : t -> t
-    val newDictEntry :
-      t
-       -> t
-       -> t
-    val newMaybe : t -> t
     val next : t -> t
     val value : t -> t
     val checked : string -> t

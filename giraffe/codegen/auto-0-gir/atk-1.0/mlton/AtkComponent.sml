@@ -28,8 +28,71 @@ structure AtkComponent :>
               x4
             )
     val getAlpha_ = _import "atk_component_get_alpha" : AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p -> GDouble.FFI.val_;
+    val getExtents_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6 =>
+          (
+            _import "atk_component_get_extents" :
+              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+               * GInt.FFI.ref_
+               * GInt.FFI.ref_
+               * GInt.FFI.ref_
+               * GInt.FFI.ref_
+               * AtkCoordType.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
     val getLayer_ = _import "atk_component_get_layer" : AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p -> AtkLayer.FFI.val_;
     val getMdiZorder_ = _import "atk_component_get_mdi_zorder" : AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p -> GInt.FFI.val_;
+    val getPosition_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4 =>
+          (
+            _import "atk_component_get_position" :
+              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+               * GInt.FFI.ref_
+               * GInt.FFI.ref_
+               * AtkCoordType.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
+    val getSize_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "atk_component_get_size" :
+              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+               * GInt.FFI.ref_
+               * GInt.FFI.ref_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val grabFocus_ = _import "atk_component_grab_focus" : AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p -> GBool.FFI.val_;
     val refAccessibleAtPoint_ =
       fn
@@ -144,8 +207,91 @@ structure AtkComponent :>
            & coordType
         )
     fun getAlpha self = (AtkComponentClass.FFI.withPtr ---> GDouble.FFI.fromVal) getAlpha_ self
+    fun getExtents self coordType =
+      let
+        val x
+         & y
+         & width
+         & height
+         & () =
+          (
+            AtkComponentClass.FFI.withPtr
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             &&&> AtkCoordType.FFI.withVal
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && I
+          )
+            getExtents_
+            (
+              self
+               & GInt.null
+               & GInt.null
+               & GInt.null
+               & GInt.null
+               & coordType
+            )
+      in
+        (
+          x,
+          y,
+          width,
+          height
+        )
+      end
     fun getLayer self = (AtkComponentClass.FFI.withPtr ---> AtkLayer.FFI.fromVal) getLayer_ self
     fun getMdiZorder self = (AtkComponentClass.FFI.withPtr ---> GInt.FFI.fromVal) getMdiZorder_ self
+    fun getPosition self coordType =
+      let
+        val x
+         & y
+         & () =
+          (
+            AtkComponentClass.FFI.withPtr
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             &&&> AtkCoordType.FFI.withVal
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && I
+          )
+            getPosition_
+            (
+              self
+               & GInt.null
+               & GInt.null
+               & coordType
+            )
+      in
+        (x, y)
+      end
+    fun getSize self =
+      let
+        val width
+         & height
+         & () =
+          (
+            AtkComponentClass.FFI.withPtr
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && I
+          )
+            getSize_
+            (
+              self
+               & GInt.null
+               & GInt.null
+            )
+      in
+        (width, height)
+      end
     fun grabFocus self = (AtkComponentClass.FFI.withPtr ---> GBool.FFI.fromVal) grabFocus_ self
     fun refAccessibleAtPoint
       self

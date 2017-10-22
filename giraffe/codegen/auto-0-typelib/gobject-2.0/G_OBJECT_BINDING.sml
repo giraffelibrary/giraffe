@@ -14,6 +14,7 @@ signature G_OBJECT_BINDING =
     val getSourceProperty : 'a class -> string
     val getTarget : 'a class -> base object_class
     val getTargetProperty : 'a class -> string
+    val unbind : 'a class -> unit
     val flagsProp : ('a class, binding_flags_t, binding_flags_t) property_readwrite
     val sourceProp : ('a class, base object_class option, 'b object_class option) property_readwrite
     val sourcePropertyProp : ('a class, string option, string option) property_readwrite

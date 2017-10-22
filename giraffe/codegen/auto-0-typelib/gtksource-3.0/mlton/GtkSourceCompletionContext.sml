@@ -6,7 +6,7 @@ structure GtkSourceCompletionContext :>
   struct
     val getType_ = _import "gtk_source_completion_context_get_type" : unit -> GObjectType.FFI.val_;
     val getActivation_ = _import "gtk_source_completion_context_get_activation" : GtkSourceCompletionContextClass.FFI.notnull GtkSourceCompletionContextClass.FFI.p -> GtkSourceCompletionActivation.FFI.val_;
-    val getIter_ = fn x1 & x2 => (_import "gtk_source_completion_context_get_iter" : GtkSourceCompletionContextClass.FFI.notnull GtkSourceCompletionContextClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> unit;) (x1, x2)
+    val getIter_ = fn x1 & x2 => (_import "gtk_source_completion_context_get_iter" : GtkSourceCompletionContextClass.FFI.notnull GtkSourceCompletionContextClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     type 'a class = 'a GtkSourceCompletionContextClass.class
     type completion_activation_t = GtkSourceCompletionActivation.t
     type 'a completion_class = 'a GtkSourceCompletionClass.class
@@ -15,9 +15,9 @@ structure GtkSourceCompletionContext :>
     fun getActivation self = (GtkSourceCompletionContextClass.FFI.withPtr ---> GtkSourceCompletionActivation.FFI.fromVal) getActivation_ self
     fun getIter self =
       let
-        val iter & () = (GtkSourceCompletionContextClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withNewPtr ---> GtkTextIterRecord.FFI.fromPtr true && I) getIter_ (self & ())
+        val iter & retVal = (GtkSourceCompletionContextClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withNewPtr ---> GtkTextIterRecord.FFI.fromPtr true && GBool.FFI.fromVal) getIter_ (self & ())
       in
-        iter
+        if retVal then SOME iter else NONE
       end
     local
       open ClosureMarshal Signal

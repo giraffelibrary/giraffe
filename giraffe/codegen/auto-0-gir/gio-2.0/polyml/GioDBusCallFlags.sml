@@ -6,7 +6,13 @@ structure GioDBusCallFlags :> GIO_D_BUS_CALL_FLAGS =
       val NONE = NONE ()
     end
     val NO_AUTO_START = 0w1
-    val allFlags = [NONE, NO_AUTO_START]
+    val ALLOW_INTERACTIVE_AUTHORIZATION = 0w2
+    val allFlags =
+      [
+        NONE,
+        NO_AUTO_START,
+        ALLOW_INTERACTIVE_AUTHORIZATION
+      ]
     structure Flags =
       Flags(
         val allFlags = allFlags

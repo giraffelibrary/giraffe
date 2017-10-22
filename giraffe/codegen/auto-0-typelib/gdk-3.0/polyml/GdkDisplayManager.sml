@@ -8,8 +8,8 @@ structure GdkDisplayManager :>
     in
       val getType_ = call (getSymbol "gdk_display_manager_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val get_ = call (getSymbol "gdk_display_manager_get") (cVoid --> GdkDisplayManagerClass.PolyML.cPtr)
-      val getDefaultDisplay_ = call (getSymbol "gdk_display_manager_get_default_display") (GdkDisplayManagerClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
-      val openDisplay_ = call (getSymbol "gdk_display_manager_open_display") (GdkDisplayManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GdkDisplayClass.PolyML.cPtr)
+      val getDefaultDisplay_ = call (getSymbol "gdk_display_manager_get_default_display") (GdkDisplayManagerClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cOptPtr)
+      val openDisplay_ = call (getSymbol "gdk_display_manager_open_display") (GdkDisplayManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GdkDisplayClass.PolyML.cOptPtr)
       val setDefaultDisplay_ = call (getSymbol "gdk_display_manager_set_default_display") (GdkDisplayManagerClass.PolyML.cPtr &&> GdkDisplayClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GdkDisplayManagerClass.class
@@ -17,8 +17,8 @@ structure GdkDisplayManager :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun get () = (I ---> GdkDisplayManagerClass.FFI.fromPtr false) get_ ()
-    fun getDefaultDisplay self = (GdkDisplayManagerClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDefaultDisplay_ self
-    fun openDisplay self name = (GdkDisplayManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) openDisplay_ (self & name)
+    fun getDefaultDisplay self = (GdkDisplayManagerClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromOptPtr false) getDefaultDisplay_ self
+    fun openDisplay self name = (GdkDisplayManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GdkDisplayClass.FFI.fromOptPtr false) openDisplay_ (self & name)
     fun setDefaultDisplay self display = (GdkDisplayManagerClass.FFI.withPtr &&&> GdkDisplayClass.FFI.withPtr ---> I) setDefaultDisplay_ (self & display)
     local
       open ClosureMarshal Signal

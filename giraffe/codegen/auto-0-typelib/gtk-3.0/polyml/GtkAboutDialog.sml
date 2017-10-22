@@ -15,6 +15,14 @@ structure GtkAboutDialog :>
     in
       val getType_ = call (getSymbol "gtk_about_dialog_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_about_dialog_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val addCreditSection_ =
+        call (getSymbol "gtk_about_dialog_add_credit_section")
+          (
+            GtkAboutDialogClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8CVector.PolyML.cInPtr
+             --> cVoid
+          )
       val getArtists_ = call (getSymbol "gtk_about_dialog_get_artists") (GtkAboutDialogClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val getAuthors_ = call (getSymbol "gtk_about_dialog_get_authors") (GtkAboutDialogClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val getComments_ = call (getSymbol "gtk_about_dialog_get_comments") (GtkAboutDialogClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
@@ -33,7 +41,7 @@ structure GtkAboutDialog :>
       val setArtists_ = call (getSymbol "gtk_about_dialog_set_artists") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8CVector.PolyML.cInPtr --> cVoid)
       val setAuthors_ = call (getSymbol "gtk_about_dialog_set_authors") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8CVector.PolyML.cInPtr --> cVoid)
       val setComments_ = call (getSymbol "gtk_about_dialog_set_comments") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
-      val setCopyright_ = call (getSymbol "gtk_about_dialog_set_copyright") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setCopyright_ = call (getSymbol "gtk_about_dialog_set_copyright") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
       val setDocumenters_ = call (getSymbol "gtk_about_dialog_set_documenters") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8CVector.PolyML.cInPtr --> cVoid)
       val setLicense_ = call (getSymbol "gtk_about_dialog_set_license") (GtkAboutDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
       val setLicenseType_ = call (getSymbol "gtk_about_dialog_set_license_type") (GtkAboutDialogClass.PolyML.cPtr &&> GtkLicense.PolyML.cVal --> cVoid)
@@ -54,6 +62,19 @@ structure GtkAboutDialog :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkAboutDialogClass.FFI.fromPtr false) new_ ()
+    fun addCreditSection self (sectionName, people) =
+      (
+        GtkAboutDialogClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8CVector.FFI.withPtr
+         ---> I
+      )
+        addCreditSection_
+        (
+          self
+           & sectionName
+           & people
+        )
     fun getArtists self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getArtists_ self
     fun getAuthors self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getAuthors_ self
     fun getComments self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getComments_ self
@@ -72,7 +93,7 @@ structure GtkAboutDialog :>
     fun setArtists self artists = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> I) setArtists_ (self & artists)
     fun setAuthors self authors = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> I) setAuthors_ (self & authors)
     fun setComments self comments = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setComments_ (self & comments)
-    fun setCopyright self copyright = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setCopyright_ (self & copyright)
+    fun setCopyright self copyright = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setCopyright_ (self & copyright)
     fun setDocumenters self documenters = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> I) setDocumenters_ (self & documenters)
     fun setLicense self license = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setLicense_ (self & license)
     fun setLicenseType self licenseType = (GtkAboutDialogClass.FFI.withPtr &&&> GtkLicense.FFI.withVal ---> I) setLicenseType_ (self & licenseType)

@@ -580,6 +580,28 @@ structure GtkTextBuffer :>
               x4,
               x5
             )
+    val insertMarkup_ =
+      fn
+        x1
+         & x2
+         & (x3, x4)
+         & x5 =>
+          (
+            _import "mlton_gtk_text_buffer_insert_markup" :
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
     val insertPixbuf_ =
       fn
         x1
@@ -1398,6 +1420,27 @@ structure GtkTextBuffer :>
            & text
            & len
            & defaultEditable
+        )
+    fun insertMarkup
+      self
+      (
+        iter,
+        markup,
+        len
+      ) =
+      (
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         ---> I
+      )
+        insertMarkup_
+        (
+          self
+           & iter
+           & markup
+           & len
         )
     fun insertPixbuf self (iter, pixbuf) =
       (

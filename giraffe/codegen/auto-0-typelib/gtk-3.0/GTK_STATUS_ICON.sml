@@ -14,27 +14,30 @@ signature GTK_STATUS_ICON =
     val newFromPixbuf : 'a GdkPixbuf.PixbufClass.class -> base class
     val newFromStock : string -> base class
     val positionMenu :
-      'a menu_class * 'b class
-       -> LargeInt.int
+      'a menu_class
+       * LargeInt.int
+       * LargeInt.int
+       * 'b class
+       -> bool
            * LargeInt.int
-           * bool
+           * LargeInt.int
     val getGeometry :
       'a class
        -> (base Gdk.ScreenClass.class
-            * Cairo.RectangleIntRecord.t
+            * Gdk.RectangleRecord.t
             * orientation_t)
             option
-    val getGicon : 'a class -> base Gio.IconClass.class
+    val getGicon : 'a class -> base Gio.IconClass.class option
     val getHasTooltip : 'a class -> bool
-    val getIconName : 'a class -> string
-    val getPixbuf : 'a class -> base GdkPixbuf.PixbufClass.class
+    val getIconName : 'a class -> string option
+    val getPixbuf : 'a class -> base GdkPixbuf.PixbufClass.class option
     val getScreen : 'a class -> base Gdk.ScreenClass.class
     val getSize : 'a class -> LargeInt.int
-    val getStock : 'a class -> string
+    val getStock : 'a class -> string option
     val getStorageType : 'a class -> image_type_t
     val getTitle : 'a class -> string
-    val getTooltipMarkup : 'a class -> string
-    val getTooltipText : 'a class -> string
+    val getTooltipMarkup : 'a class -> string option
+    val getTooltipText : 'a class -> string option
     val getVisible : 'a class -> bool
     val getX11WindowId : 'a class -> LargeInt.int
     val isEmbedded : 'a class -> bool

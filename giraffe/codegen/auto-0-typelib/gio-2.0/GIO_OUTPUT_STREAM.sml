@@ -46,6 +46,18 @@ signature GIO_OUTPUT_STREAM =
       'a class
        -> Word8Vector.vector * 'b cancellable_class option
        -> LargeInt.int
+    val writeAllFinish :
+      'a class
+       -> 'b async_result_class
+       -> LargeInt.int
+    val writeBytes :
+      'a class
+       -> GLib.BytesRecord.t * 'b cancellable_class option
+       -> LargeInt.int
+    val writeBytesFinish :
+      'a class
+       -> 'b async_result_class
+       -> LargeInt.int
     val writeFinish :
       'a class
        -> 'b async_result_class

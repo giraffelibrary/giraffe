@@ -1,21 +1,21 @@
 structure GdkWindowWindowClass :> GDK_WINDOW_WINDOW_CLASS =
   struct
     datatype enum =
-      OUTPUT
-    | ONLY
+      INPUT_OUTPUT
+    | INPUT_ONLY
     structure Enum =
       Enum(
         type enum = enum
-        val null = OUTPUT
+        val null = INPUT_OUTPUT
         val toInt =
           fn
-            OUTPUT => 0
-          | ONLY => 1
+            INPUT_OUTPUT => 0
+          | INPUT_ONLY => 1
         exception Value of GInt32.t
         val fromInt =
           fn
-            0 => OUTPUT
-          | 1 => ONLY
+            0 => INPUT_OUTPUT
+          | 1 => INPUT_ONLY
           | n => raise Value n
       )
     open Enum

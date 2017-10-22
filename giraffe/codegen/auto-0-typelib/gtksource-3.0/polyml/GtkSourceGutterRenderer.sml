@@ -13,7 +13,7 @@ structure GtkSourceGutterRenderer :>
           (
             GtkSourceGutterRendererClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              &&> GdkEvent.PolyML.cPtr
              --> cVoid
           )
@@ -22,8 +22,8 @@ structure GtkSourceGutterRenderer :>
           (
             GtkSourceGutterRendererClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              --> cVoid
@@ -33,8 +33,8 @@ structure GtkSourceGutterRenderer :>
           (
             GtkSourceGutterRendererClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkSourceGutterRendererState.PolyML.cVal
@@ -68,7 +68,7 @@ structure GtkSourceGutterRenderer :>
           (
             GtkSourceGutterRendererClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              &&> GdkEvent.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
@@ -86,7 +86,7 @@ structure GtkSourceGutterRenderer :>
           (
             GtkSourceGutterRendererClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
              &&> GtkTooltipClass.PolyML.cPtr
@@ -129,7 +129,7 @@ structure GtkSourceGutterRenderer :>
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GdkEvent.FFI.withPtr
          ---> I
       )
@@ -152,8 +152,8 @@ structure GtkSourceGutterRenderer :>
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
          ---> I
@@ -180,8 +180,8 @@ structure GtkSourceGutterRenderer :>
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
          &&&> GtkSourceGutterRendererState.FFI.withVal
@@ -263,7 +263,7 @@ structure GtkSourceGutterRenderer :>
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GdkEvent.FFI.withPtr
          ---> GBool.FFI.fromVal
       )
@@ -307,7 +307,7 @@ structure GtkSourceGutterRenderer :>
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GtkTooltipClass.FFI.withPtr
@@ -360,7 +360,7 @@ structure GtkSourceGutterRenderer :>
         signal "activate"
           (
             get 0w1 GtkTextIterRecord.t
-             &&&> get 0w2 CairoRectangleIntRecord.t
+             &&&> get 0w2 GdkRectangleRecord.t
              &&&> get 0w3 GdkEvent.t
              ---> ret_void
           )
@@ -380,7 +380,7 @@ structure GtkSourceGutterRenderer :>
         signal "query-activatable"
           (
             get 0w1 GtkTextIterRecord.t
-             &&&> get 0w2 CairoRectangleIntRecord.t
+             &&&> get 0w2 GdkRectangleRecord.t
              &&&> get 0w3 GdkEvent.t
              ---> ret boolean
           )
@@ -420,7 +420,7 @@ structure GtkSourceGutterRenderer :>
         signal "query-tooltip"
           (
             get 0w1 GtkTextIterRecord.t
-             &&&> get 0w2 CairoRectangleIntRecord.t
+             &&&> get 0w2 GdkRectangleRecord.t
              &&&> get 0w3 int
              &&&> get 0w4 int
              &&&> get 0w5 GtkTooltipClass.t

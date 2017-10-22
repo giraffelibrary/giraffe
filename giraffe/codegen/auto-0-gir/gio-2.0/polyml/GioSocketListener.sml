@@ -7,7 +7,8 @@ structure GioSocketListener :>
     where type socket_protocol_t = GioSocketProtocol.t
     where type socket_type_t = GioSocketType.t
     where type 'a socket_address_class = 'a GioSocketAddressClass.class
-    where type 'a socket_class = 'a GioSocketClass.class =
+    where type 'a socket_class = 'a GioSocketClass.class
+    where type socket_listener_event_t = GioSocketListenerEvent.t =
   struct
     local
       open PolyMLFFI
@@ -99,6 +100,7 @@ structure GioSocketListener :>
     type socket_type_t = GioSocketType.t
     type 'a socket_address_class = 'a GioSocketAddressClass.class
     type 'a socket_class = 'a GioSocketClass.class
+    type socket_listener_event_t = GioSocketListenerEvent.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioSocketListenerClass.FFI.fromPtr true) new_ ()
@@ -260,6 +262,11 @@ structure GioSocketListener :>
         )
     fun close self = (GioSocketListenerClass.FFI.withPtr ---> I) close_ self
     fun setBacklog self listenBacklog = (GioSocketListenerClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setBacklog_ (self & listenBacklog)
+    local
+      open ClosureMarshal Signal
+    in
+      fun eventSig f = signal "event" (get 0w1 GioSocketListenerEvent.t &&&> get 0w2 GioSocketClass.t ---> ret_void) (fn event & socket => f (event, socket))
+    end
     local
       open Property
     in

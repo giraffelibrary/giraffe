@@ -8,6 +8,9 @@ signature GDK_AXIS_USE =
     | XTILT
     | YTILT
     | WHEEL
+    | DISTANCE
+    | ROTATION
+    | SLIDER
     | LAST
     include
       ENUM

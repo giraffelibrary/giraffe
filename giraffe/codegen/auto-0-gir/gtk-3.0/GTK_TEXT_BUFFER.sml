@@ -176,6 +176,12 @@ signature GTK_TEXT_BUFFER =
            * LargeInt.int
            * bool
        -> bool
+    val insertMarkup :
+      'a class
+       -> text_iter_t
+           * string
+           * LargeInt.int
+       -> unit
     val insertPixbuf :
       'a class
        -> text_iter_t * 'b GdkPixbuf.PixbufClass.class

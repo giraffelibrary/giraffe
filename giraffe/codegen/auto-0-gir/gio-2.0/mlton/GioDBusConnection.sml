@@ -5,7 +5,10 @@ structure GioDBusConnection :>
     where type 'a initable_class = 'a GioInitableClass.class
     where type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     where type d_bus_call_flags_t = GioDBusCallFlags.t
+    where type 'a action_group_class = 'a GioActionGroupClass.class
+    where type 'a menu_model_class = 'a GioMenuModelClass.class
     where type 'a credentials_class = 'a GioCredentialsClass.class
+    where type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t
     where type 'a async_result_class = 'a GioAsyncResultClass.class
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type d_bus_send_message_flags_t = GioDBusSendMessageFlags.t
@@ -105,7 +108,7 @@ structure GioDBusConnection :>
             _import "mlton_g_dbus_connection_call_sync" :
               GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
@@ -176,7 +179,7 @@ structure GioDBusConnection :>
             _import "mlton_g_dbus_connection_call_with_unix_fd_list_sync" :
               GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
@@ -283,6 +286,50 @@ structure GioDBusConnection :>
               x10,
               x11
             )
+    val exportActionGroup_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5 =>
+          (
+            _import "mlton_g_dbus_connection_export_action_group" :
+              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GUInt.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
+    val exportMenuModel_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5 =>
+          (
+            _import "mlton_g_dbus_connection_export_menu_model" :
+              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GUInt.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
     val flushFinish_ =
       fn
         x1
@@ -320,10 +367,42 @@ structure GioDBusConnection :>
     val getCapabilities_ = _import "g_dbus_connection_get_capabilities" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GioDBusCapabilityFlags.FFI.val_;
     val getExitOnClose_ = _import "g_dbus_connection_get_exit_on_close" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GBool.FFI.val_;
     val getGuid_ = _import "g_dbus_connection_get_guid" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getLastSerial_ = _import "g_dbus_connection_get_last_serial" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GUInt32.FFI.val_;
     val getPeerCredentials_ = _import "g_dbus_connection_get_peer_credentials" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GioCredentialsClass.FFI.notnull GioCredentialsClass.FFI.p;
     val getStream_ = _import "g_dbus_connection_get_stream" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p;
     val getUniqueName_ = _import "g_dbus_connection_get_unique_name" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val isClosed_ = _import "g_dbus_connection_is_closed" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GBool.FFI.val_;
+    val registerObjectWithClosures_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5
+         & x6
+         & x7
+         & x8 =>
+          (
+            _import "mlton_g_dbus_connection_register_object_with_closures" :
+              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GioDBusInterfaceInfoRecord.FFI.notnull GioDBusInterfaceInfoRecord.FFI.p
+               * unit GObjectClosureRecord.FFI.p
+               * unit GObjectClosureRecord.FFI.p
+               * unit GObjectClosureRecord.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GUInt.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7,
+              x8
+            )
     val removeFilter_ = fn x1 & x2 => (_import "g_dbus_connection_remove_filter" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     val sendMessage_ =
       fn
@@ -397,6 +476,8 @@ structure GioDBusConnection :>
     val setExitOnClose_ = fn x1 & x2 => (_import "g_dbus_connection_set_exit_on_close" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val signalUnsubscribe_ = fn x1 & x2 => (_import "g_dbus_connection_signal_unsubscribe" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     val startMessageProcessing_ = _import "g_dbus_connection_start_message_processing" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> unit;
+    val unexportActionGroup_ = fn x1 & x2 => (_import "g_dbus_connection_unexport_action_group" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val unexportMenuModel_ = fn x1 & x2 => (_import "g_dbus_connection_unexport_menu_model" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     val unregisterObject_ = fn x1 & x2 => (_import "g_dbus_connection_unregister_object" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p * GUInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val unregisterSubtree_ = fn x1 & x2 => (_import "g_dbus_connection_unregister_subtree" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p * GUInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     type 'a class = 'a GioDBusConnectionClass.class
@@ -404,7 +485,10 @@ structure GioDBusConnection :>
     type 'a initable_class = 'a GioInitableClass.class
     type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     type d_bus_call_flags_t = GioDBusCallFlags.t
+    type 'a action_group_class = 'a GioActionGroupClass.class
+    type 'a menu_model_class = 'a GioMenuModelClass.class
     type 'a credentials_class = 'a GioCredentialsClass.class
+    type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type d_bus_send_message_flags_t = GioDBusSendMessageFlags.t
@@ -496,7 +580,7 @@ structure GioDBusConnection :>
       ) =
       (
         GioDBusConnectionClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -560,7 +644,7 @@ structure GioDBusConnection :>
         val outFdList & retVal =
           (
             GioDBusConnectionClass.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withOptPtr
              &&&> Utf8.FFI.withPtr
              &&&> Utf8.FFI.withPtr
              &&&> Utf8.FFI.withPtr
@@ -648,6 +732,36 @@ structure GioDBusConnection :>
            & parameters
            & []
         )
+    fun exportActionGroup self (objectPath, actionGroup) =
+      (
+        GioDBusConnectionClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioActionGroupClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> GUInt.FFI.fromVal
+      )
+        exportActionGroup_
+        (
+          self
+           & objectPath
+           & actionGroup
+           & []
+        )
+    fun exportMenuModel self (objectPath, menu) =
+      (
+        GioDBusConnectionClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioMenuModelClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> GUInt.FFI.fromVal
+      )
+        exportMenuModel_
+        (
+          self
+           & objectPath
+           & menu
+           & []
+        )
     fun flushFinish self res =
       (
         GioDBusConnectionClass.FFI.withPtr
@@ -677,10 +791,40 @@ structure GioDBusConnection :>
     fun getCapabilities self = (GioDBusConnectionClass.FFI.withPtr ---> GioDBusCapabilityFlags.FFI.fromVal) getCapabilities_ self
     fun getExitOnClose self = (GioDBusConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) getExitOnClose_ self
     fun getGuid self = (GioDBusConnectionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getGuid_ self
+    fun getLastSerial self = (GioDBusConnectionClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getLastSerial_ self
     fun getPeerCredentials self = (GioDBusConnectionClass.FFI.withPtr ---> GioCredentialsClass.FFI.fromPtr false) getPeerCredentials_ self
     fun getStream self = (GioDBusConnectionClass.FFI.withPtr ---> GioIOStreamClass.FFI.fromPtr false) getStream_ self
     fun getUniqueName self = (GioDBusConnectionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUniqueName_ self
     fun isClosed self = (GioDBusConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
+    fun registerObjectWithClosures
+      self
+      (
+        objectPath,
+        interfaceInfo,
+        methodCallClosure,
+        getPropertyClosure,
+        setPropertyClosure
+      ) =
+      (
+        GioDBusConnectionClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioDBusInterfaceInfoRecord.FFI.withPtr
+         &&&> GObjectClosureRecord.FFI.withOptPtr
+         &&&> GObjectClosureRecord.FFI.withOptPtr
+         &&&> GObjectClosureRecord.FFI.withOptPtr
+         &&&> GLibErrorRecord.handleError
+         ---> GUInt.FFI.fromVal
+      )
+        registerObjectWithClosures_
+        (
+          self
+           & objectPath
+           & interfaceInfo
+           & methodCallClosure
+           & getPropertyClosure
+           & setPropertyClosure
+           & []
+        )
     fun removeFilter self filterId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) removeFilter_ (self & filterId)
     fun sendMessage self (message, flags) =
       let
@@ -753,6 +897,8 @@ structure GioDBusConnection :>
     fun setExitOnClose self exitOnClose = (GioDBusConnectionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setExitOnClose_ (self & exitOnClose)
     fun signalUnsubscribe self subscriptionId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) signalUnsubscribe_ (self & subscriptionId)
     fun startMessageProcessing self = (GioDBusConnectionClass.FFI.withPtr ---> I) startMessageProcessing_ self
+    fun unexportActionGroup self exportId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) unexportActionGroup_ (self & exportId)
+    fun unexportMenuModel self exportId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) unexportMenuModel_ (self & exportId)
     fun unregisterObject self registrationId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GBool.FFI.fromVal) unregisterObject_ (self & registrationId)
     fun unregisterSubtree self registrationId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GBool.FFI.fromVal) unregisterSubtree_ (self & registrationId)
     local

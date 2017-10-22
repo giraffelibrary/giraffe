@@ -6,6 +6,7 @@ signature GTK_SOURCE_COMPLETION =
     type 'a completion_context_class
     type 'a view_class
     type t = base class
+    val asBuildable : 'a class -> base Gtk.BuildableClass.class
     val getType : unit -> GObject.Type.t
     val addProvider :
       'a class

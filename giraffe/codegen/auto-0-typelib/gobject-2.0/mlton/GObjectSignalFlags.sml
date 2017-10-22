@@ -8,6 +8,7 @@ structure GObjectSignalFlags :> G_OBJECT_SIGNAL_FLAGS =
     val ACTION = 0w32
     val NO_HOOKS = 0w64
     val MUST_COLLECT = 0w128
+    val DEPRECATED = 0w256
     val allFlags =
       [
         RUN_FIRST,
@@ -17,7 +18,8 @@ structure GObjectSignalFlags :> G_OBJECT_SIGNAL_FLAGS =
         DETAILED,
         ACTION,
         NO_HOOKS,
-        MUST_COLLECT
+        MUST_COLLECT,
+        DEPRECATED
       ]
     structure Flags =
       Flags(

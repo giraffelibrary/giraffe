@@ -71,16 +71,24 @@ signature PANGO_RENDERER =
            * real
            * real
        -> unit
+    val getAlpha :
+      'a class
+       -> render_part_t
+       -> LargeInt.int
     val getColor :
       'a class
        -> render_part_t
-       -> color_t
-    val getLayout : 'a class -> base layout_class
-    val getLayoutLine : 'a class -> layout_line_t
-    val getMatrix : 'a class -> matrix_t
+       -> color_t option
+    val getLayout : 'a class -> base layout_class option
+    val getLayoutLine : 'a class -> layout_line_t option
+    val getMatrix : 'a class -> matrix_t option
     val partChanged :
       'a class
        -> render_part_t
+       -> unit
+    val setAlpha :
+      'a class
+       -> render_part_t * LargeInt.int
        -> unit
     val setColor :
       'a class

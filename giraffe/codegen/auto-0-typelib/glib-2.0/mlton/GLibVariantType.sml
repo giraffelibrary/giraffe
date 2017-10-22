@@ -10,6 +10,9 @@ structure GLibVariantType :>
     structure GLibVariantTypeRecordCVectorN = CVectorN(GLibVariantTypeRecordCVectorNType)
     val getType_ = _import "g_variant_type_get_gtype" : unit -> GObjectType.FFI.val_;
     val new_ = _import "mlton_g_variant_type_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
+    val newArray_ = _import "g_variant_type_new_array" : GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
+    val newDictEntry_ = fn x1 & x2 => (_import "g_variant_type_new_dict_entry" : GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p * GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;) (x1, x2)
+    val newMaybe_ = _import "g_variant_type_new_maybe" : GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
     val newTuple_ =
       fn
         (x1, x2) & x3 =>
@@ -43,9 +46,6 @@ structure GLibVariantType :>
     val isVariant_ = _import "g_variant_type_is_variant" : GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GBool.FFI.val_;
     val key_ = _import "g_variant_type_key" : GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
     val nItems_ = _import "g_variant_type_n_items" : GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GUInt64.FFI.val_;
-    val newArray_ = _import "g_variant_type_new_array" : GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
-    val newDictEntry_ = fn x1 & x2 => (_import "g_variant_type_new_dict_entry" : GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p * GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;) (x1, x2)
-    val newMaybe_ = _import "g_variant_type_new_maybe" : GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
     val next_ = _import "g_variant_type_next" : GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
     val value_ = _import "g_variant_type_value" : GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
     val checked_ = _import "mlton_g_variant_type_checked_" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
@@ -76,6 +76,9 @@ structure GLibVariantType :>
     type t = GLibVariantTypeRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new typeString = (Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) new_ typeString
+    fun newArray element = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newArray_ element
+    fun newDictEntry (key, value) = (GLibVariantTypeRecord.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newDictEntry_ (key & value)
+    fun newMaybe element = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newMaybe_ element
     fun newTuple items =
       let
         val length = LargeInt.fromInt (GLibVariantTypeRecordCVectorN.length items)
@@ -101,12 +104,9 @@ structure GLibVariantType :>
     fun isVariant self = (GLibVariantTypeRecord.FFI.withPtr ---> GBool.FFI.fromVal) isVariant_ self
     fun key self = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) key_ self
     fun nItems self = (GLibVariantTypeRecord.FFI.withPtr ---> GUInt64.FFI.fromVal) nItems_ self
-    fun newArray self = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newArray_ self
-    fun newDictEntry self value = (GLibVariantTypeRecord.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newDictEntry_ (self & value)
-    fun newMaybe self = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newMaybe_ self
     fun next self = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) next_ self
     fun value self = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) value_ self
-    fun checked unknown = (Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) checked_ unknown
+    fun checked arg0 = (Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) checked_ arg0
     fun stringIsValid typeString = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) stringIsValid_ typeString
     fun stringScan (string, limit) =
       let

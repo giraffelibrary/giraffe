@@ -66,7 +66,7 @@ structure GtkRecentChooser :>
               x3,
               x4
             )
-    val setFilter_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_filter" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p -> unit;) (x1, x2)
+    val setFilter_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_filter" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * unit GtkRecentFilterClass.FFI.p -> unit;) (x1, x2)
     val setLimit_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_limit" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val setLocalOnly_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_local_only" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setSelectMultiple_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_select_multiple" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
@@ -144,7 +144,7 @@ structure GtkRecentChooser :>
            & uri
            & []
         )
-    fun setFilter self filter = (GtkRecentChooserClass.FFI.withPtr &&&> GtkRecentFilterClass.FFI.withPtr ---> I) setFilter_ (self & filter)
+    fun setFilter self filter = (GtkRecentChooserClass.FFI.withPtr &&&> GtkRecentFilterClass.FFI.withOptPtr ---> I) setFilter_ (self & filter)
     fun setLimit self limit = (GtkRecentChooserClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setLimit_ (self & limit)
     fun setLocalOnly self localOnly = (GtkRecentChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setLocalOnly_ (self & localOnly)
     fun setSelectMultiple self selectMultiple = (GtkRecentChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSelectMultiple_ (self & selectMultiple)

@@ -44,7 +44,7 @@ structure GtkAppChooserDialog :>
               x3,
               x4
             )
-    val getHeading_ = _import "gtk_app_chooser_dialog_get_heading" : GtkAppChooserDialogClass.FFI.notnull GtkAppChooserDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getHeading_ = _import "gtk_app_chooser_dialog_get_heading" : GtkAppChooserDialogClass.FFI.notnull GtkAppChooserDialogClass.FFI.p -> unit Utf8.FFI.out_p;
     val getWidget_ = _import "gtk_app_chooser_dialog_get_widget" : GtkAppChooserDialogClass.FFI.notnull GtkAppChooserDialogClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val setHeading_ =
       fn
@@ -108,7 +108,7 @@ structure GtkAppChooserDialog :>
            & flags
            & contentType
         )
-    fun getHeading self = (GtkAppChooserDialogClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getHeading_ self
+    fun getHeading self = (GtkAppChooserDialogClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getHeading_ self
     fun getWidget self = (GtkAppChooserDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self
     fun setHeading self heading = (GtkAppChooserDialogClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setHeading_ (self & heading)
     local

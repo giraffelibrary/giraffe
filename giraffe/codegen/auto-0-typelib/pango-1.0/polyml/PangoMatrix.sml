@@ -7,8 +7,16 @@ structure PangoMatrix :>
     in
       val getType_ = call (getSymbol "pango_matrix_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val concat_ = call (getSymbol "pango_matrix_concat") (PangoMatrixRecord.PolyML.cPtr &&> PangoMatrixRecord.PolyML.cPtr --> cVoid)
-      val copy_ = call (getSymbol "pango_matrix_copy") (PangoMatrixRecord.PolyML.cPtr --> PangoMatrixRecord.PolyML.cPtr)
+      val copy_ = call (getSymbol "pango_matrix_copy") (PangoMatrixRecord.PolyML.cPtr --> PangoMatrixRecord.PolyML.cOptPtr)
       val getFontScaleFactor_ = call (getSymbol "pango_matrix_get_font_scale_factor") (PangoMatrixRecord.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getFontScaleFactors_ =
+        call (getSymbol "pango_matrix_get_font_scale_factors")
+          (
+            PangoMatrixRecord.PolyML.cPtr
+             &&> GDouble.PolyML.cRef
+             &&> GDouble.PolyML.cRef
+             --> cVoid
+          )
       val rotate_ = call (getSymbol "pango_matrix_rotate") (PangoMatrixRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
       val scale_ =
         call (getSymbol "pango_matrix_scale")
@@ -46,8 +54,30 @@ structure PangoMatrix :>
     type t = PangoMatrixRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun concat self newMatrix = (PangoMatrixRecord.FFI.withPtr &&&> PangoMatrixRecord.FFI.withPtr ---> I) concat_ (self & newMatrix)
-    fun copy self = (PangoMatrixRecord.FFI.withPtr ---> PangoMatrixRecord.FFI.fromPtr true) copy_ self
+    fun copy self = (PangoMatrixRecord.FFI.withPtr ---> PangoMatrixRecord.FFI.fromOptPtr true) copy_ self
     fun getFontScaleFactor self = (PangoMatrixRecord.FFI.withPtr ---> GDouble.FFI.fromVal) getFontScaleFactor_ self
+    fun getFontScaleFactors self =
+      let
+        val xscale
+         & yscale
+         & () =
+          (
+            PangoMatrixRecord.FFI.withPtr
+             &&&> GDouble.FFI.withRefVal
+             &&&> GDouble.FFI.withRefVal
+             ---> GDouble.FFI.fromVal
+                   && GDouble.FFI.fromVal
+                   && I
+          )
+            getFontScaleFactors_
+            (
+              self
+               & GDouble.null
+               & GDouble.null
+            )
+      in
+        (xscale, yscale)
+      end
     fun rotate self degrees = (PangoMatrixRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) rotate_ (self & degrees)
     fun scale self (scaleX, scaleY) =
       (

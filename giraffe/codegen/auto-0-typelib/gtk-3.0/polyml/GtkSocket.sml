@@ -10,7 +10,7 @@ structure GtkSocket :>
       val new_ = call (getSymbol "gtk_socket_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val addId_ = call (getSymbol "gtk_socket_add_id") (GtkSocketClass.PolyML.cPtr &&> GUInt64.PolyML.cVal --> cVoid)
       val getId_ = call (getSymbol "gtk_socket_get_id") (GtkSocketClass.PolyML.cPtr --> GUInt64.PolyML.cVal)
-      val getPlugWindow_ = call (getSymbol "gtk_socket_get_plug_window") (GtkSocketClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getPlugWindow_ = call (getSymbol "gtk_socket_get_plug_window") (GtkSocketClass.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
     end
     type 'a class = 'a GtkSocketClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -21,7 +21,7 @@ structure GtkSocket :>
     fun new () = (I ---> GtkSocketClass.FFI.fromPtr false) new_ ()
     fun addId self window = (GtkSocketClass.FFI.withPtr &&&> GUInt64.FFI.withVal ---> I) addId_ (self & window)
     fun getId self = (GtkSocketClass.FFI.withPtr ---> GUInt64.FFI.fromVal) getId_ self
-    fun getPlugWindow self = (GtkSocketClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getPlugWindow_ self
+    fun getPlugWindow self = (GtkSocketClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getPlugWindow_ self
     local
       open ClosureMarshal Signal
     in

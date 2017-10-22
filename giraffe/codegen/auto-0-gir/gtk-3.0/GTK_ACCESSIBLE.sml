@@ -8,6 +8,7 @@ signature GTK_ACCESSIBLE =
     val getWidget : 'a class -> base widget_class
     val setWidget :
       'a class
-       -> 'b widget_class
+       -> 'b widget_class option
        -> unit
+    val widgetProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
   end

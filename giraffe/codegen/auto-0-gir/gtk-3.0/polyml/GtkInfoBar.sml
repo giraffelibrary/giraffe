@@ -3,6 +3,7 @@ structure GtkInfoBar :>
     where type 'a class = 'a GtkInfoBarClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a orientable_class = 'a GtkOrientableClass.class
+    where type 'a button_class = 'a GtkButtonClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class
     where type message_type_t = GtkMessageType.t =
   struct
@@ -25,11 +26,12 @@ structure GtkInfoBar :>
             GtkInfoBarClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt.PolyML.cVal
-             --> GtkWidgetClass.PolyML.cPtr
+             --> GtkButtonClass.PolyML.cPtr
           )
       val getActionArea_ = call (getSymbol "gtk_info_bar_get_action_area") (GtkInfoBarClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getContentArea_ = call (getSymbol "gtk_info_bar_get_content_area") (GtkInfoBarClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getMessageType_ = call (getSymbol "gtk_info_bar_get_message_type") (GtkInfoBarClass.PolyML.cPtr --> GtkMessageType.PolyML.cVal)
+      val getShowCloseButton_ = call (getSymbol "gtk_info_bar_get_show_close_button") (GtkInfoBarClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val response_ = call (getSymbol "gtk_info_bar_response") (GtkInfoBarClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setDefaultResponse_ = call (getSymbol "gtk_info_bar_set_default_response") (GtkInfoBarClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setMessageType_ = call (getSymbol "gtk_info_bar_set_message_type") (GtkInfoBarClass.PolyML.cPtr &&> GtkMessageType.PolyML.cVal --> cVoid)
@@ -41,10 +43,12 @@ structure GtkInfoBar :>
              &&> GBool.PolyML.cVal
              --> cVoid
           )
+      val setShowCloseButton_ = call (getSymbol "gtk_info_bar_set_show_close_button") (GtkInfoBarClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkInfoBarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
+    type 'a button_class = 'a GtkButtonClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type message_type_t = GtkMessageType.t
     type t = base class
@@ -71,7 +75,7 @@ structure GtkInfoBar :>
         GtkInfoBarClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GInt.FFI.withVal
-         ---> GtkWidgetClass.FFI.fromPtr false
+         ---> GtkButtonClass.FFI.fromPtr false
       )
         addButton_
         (
@@ -82,6 +86,7 @@ structure GtkInfoBar :>
     fun getActionArea self = (GtkInfoBarClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getActionArea_ self
     fun getContentArea self = (GtkInfoBarClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getContentArea_ self
     fun getMessageType self = (GtkInfoBarClass.FFI.withPtr ---> GtkMessageType.FFI.fromVal) getMessageType_ self
+    fun getShowCloseButton self = (GtkInfoBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowCloseButton_ self
     fun response self responseId = (GtkInfoBarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) response_ (self & responseId)
     fun setDefaultResponse self responseId = (GtkInfoBarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setDefaultResponse_ (self & responseId)
     fun setMessageType self messageType = (GtkInfoBarClass.FFI.withPtr &&&> GtkMessageType.FFI.withVal ---> I) setMessageType_ (self & messageType)
@@ -98,6 +103,7 @@ structure GtkInfoBar :>
            & responseId
            & setting
         )
+    fun setShowCloseButton self setting = (GtkInfoBarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowCloseButton_ (self & setting)
     local
       open ClosureMarshal Signal
     in
@@ -111,6 +117,11 @@ structure GtkInfoBar :>
         {
           get = fn x => get "message-type" GtkMessageType.t x,
           set = fn x => set "message-type" GtkMessageType.t x
+        }
+      val showCloseButtonProp =
+        {
+          get = fn x => get "show-close-button" boolean x,
+          set = fn x => set "show-close-button" boolean x
         }
     end
   end

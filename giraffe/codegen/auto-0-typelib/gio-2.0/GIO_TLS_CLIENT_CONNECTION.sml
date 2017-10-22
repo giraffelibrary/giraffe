@@ -6,7 +6,11 @@ signature GIO_TLS_CLIENT_CONNECTION =
     type tls_certificate_flags_t
     type t = base class
     val getType : unit -> GObject.Type.t
-    val new : 'a i_o_stream_class * 'b socket_connectable_class option -> base i_o_stream_class
+    val new : 'a i_o_stream_class * 'b socket_connectable_class option -> base class
+    val copySessionState :
+      'a class
+       -> 'b class
+       -> unit
     val getServerIdentity : 'a class -> base socket_connectable_class
     val getUseSsl3 : 'a class -> bool
     val getValidationFlags : 'a class -> tls_certificate_flags_t

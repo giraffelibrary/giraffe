@@ -38,6 +38,17 @@ signature GDK_EVENT_TYPE =
     | OWNER_CHANGE
     | GRAB_BROKEN
     | DAMAGE
+    | TOUCH_BEGIN
+    | TOUCH_UPDATE
+    | TOUCH_END
+    | TOUCH_CANCEL
+    | TOUCHPAD_SWIPE
+    | TOUCHPAD_PINCH
+    | PAD_BUTTON_PRESS
+    | PAD_BUTTON_RELEASE
+    | PAD_RING
+    | PAD_STRIP
+    | PAD_GROUP_MODE
     | EVENT_LAST
     include
       ENUM

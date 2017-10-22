@@ -8,7 +8,7 @@ signature GTK_TEXT_MARK =
     val getBuffer : 'a class -> base text_buffer_class
     val getDeleted : 'a class -> bool
     val getLeftGravity : 'a class -> bool
-    val getName : 'a class -> string
+    val getName : 'a class -> string option
     val getVisible : 'a class -> bool
     val setVisible :
       'a class

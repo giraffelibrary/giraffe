@@ -117,6 +117,26 @@ structure GioMountOperation :>
           )
       fun askQuestionSig f = signal "ask-question" (get 0w1 string &&&> get 0w2 Utf8CVector.t ---> ret_void) (fn message & choices => f (message, choices))
       fun replySig f = signal "reply" (get 0w1 GioMountOperationResult.t ---> ret_void) f
+      fun showUnmountProgressSig f =
+        signal "show-unmount-progress"
+          (
+            get 0w1 string
+             &&&> get 0w2 long
+             &&&> get 0w3 long
+             ---> ret_void
+          )
+          (
+            fn
+              message
+               & timeLeft
+               & bytesLeft =>
+                f
+                  (
+                    message,
+                    timeLeft,
+                    bytesLeft
+                  )
+          )
     end
     local
       open Property

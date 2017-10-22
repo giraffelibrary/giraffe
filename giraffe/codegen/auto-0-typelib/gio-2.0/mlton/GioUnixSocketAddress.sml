@@ -4,12 +4,12 @@ structure GioUnixSocketAddress :>
     where type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     where type unix_socket_address_type_t = GioUnixSocketAddressType.t =
   struct
-    structure GUInt8CVectorNType =
+    structure GInt8CVectorNType =
       CValueCVectorNType(
-        structure CElemType = GUInt8Type
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
+        structure CElemType = GInt8Type
+        structure ElemSequence = CValueVectorSequence(GInt8Type)
       )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
+    structure GInt8CVectorN = CVectorN(GInt8CVectorNType)
     val getType_ = _import "g_unix_socket_address_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "mlton_g_unix_socket_address_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
     val newAbstract_ =
@@ -17,8 +17,8 @@ structure GioUnixSocketAddress :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_unix_socket_address_new_abstract" :
-              GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+              GInt8CVectorN.MLton.p1
+               * GInt8CVectorN.FFI.notnull GInt8CVectorN.MLton.p2
                * GInt32.FFI.val_
                -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
           )
@@ -34,8 +34,8 @@ structure GioUnixSocketAddress :>
          & x4 =>
           (
             _import "mlton_g_unix_socket_address_new_with_type" :
-              GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+              GInt8CVectorN.MLton.p1
+               * GInt8CVectorN.FFI.notnull GInt8CVectorN.MLton.p2
                * GInt32.FFI.val_
                * GioUnixSocketAddressType.FFI.val_
                -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
@@ -60,17 +60,17 @@ structure GioUnixSocketAddress :>
     fun new path = (Utf8.FFI.withPtr ---> GioUnixSocketAddressClass.FFI.fromPtr true) new_ path
     fun newAbstract path =
       let
-        val pathLen = LargeInt.fromInt (GUInt8CVectorN.length path)
-        val retVal = (GUInt8CVectorN.FFI.withPtr &&&> GInt32.FFI.withVal ---> GioUnixSocketAddressClass.FFI.fromPtr true) newAbstract_ (path & pathLen)
+        val pathLen = LargeInt.fromInt (GInt8CVectorN.length path)
+        val retVal = (GInt8CVectorN.FFI.withPtr &&&> GInt32.FFI.withVal ---> GioUnixSocketAddressClass.FFI.fromPtr true) newAbstract_ (path & pathLen)
       in
         retVal
       end
     fun newWithType (path, type') =
       let
-        val pathLen = LargeInt.fromInt (GUInt8CVectorN.length path)
+        val pathLen = LargeInt.fromInt (GInt8CVectorN.length path)
         val retVal =
           (
-            GUInt8CVectorN.FFI.withPtr
+            GInt8CVectorN.FFI.withPtr
              &&&> GInt32.FFI.withVal
              &&&> GioUnixSocketAddressType.FFI.withVal
              ---> GioUnixSocketAddressClass.FFI.fromPtr true

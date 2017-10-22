@@ -20,6 +20,14 @@ structure AtkRelationSet :>
              --> cVoid
           )
       val contains_ = call (getSymbol "atk_relation_set_contains") (AtkRelationSetClass.PolyML.cPtr &&> AtkRelationType.PolyML.cVal --> GBool.PolyML.cVal)
+      val containsTarget_ =
+        call (getSymbol "atk_relation_set_contains_target")
+          (
+            AtkRelationSetClass.PolyML.cPtr
+             &&> AtkRelationType.PolyML.cVal
+             &&> AtkObjectClass.PolyML.cPtr
+             --> GBool.PolyML.cVal
+          )
       val getNRelations_ = call (getSymbol "atk_relation_set_get_n_relations") (AtkRelationSetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getRelation_ = call (getSymbol "atk_relation_set_get_relation") (AtkRelationSetClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> AtkRelationClass.PolyML.cPtr)
       val getRelationByType_ = call (getSymbol "atk_relation_set_get_relation_by_type") (AtkRelationSetClass.PolyML.cPtr &&> AtkRelationType.PolyML.cVal --> AtkRelationClass.PolyML.cPtr)
@@ -47,6 +55,19 @@ structure AtkRelationSet :>
            & target
         )
     fun contains self relationship = (AtkRelationSetClass.FFI.withPtr &&&> AtkRelationType.FFI.withVal ---> GBool.FFI.fromVal) contains_ (self & relationship)
+    fun containsTarget self (relationship, target) =
+      (
+        AtkRelationSetClass.FFI.withPtr
+         &&&> AtkRelationType.FFI.withVal
+         &&&> AtkObjectClass.FFI.withPtr
+         ---> GBool.FFI.fromVal
+      )
+        containsTarget_
+        (
+          self
+           & relationship
+           & target
+        )
     fun getNRelations self = (AtkRelationSetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNRelations_ self
     fun getRelation self i = (AtkRelationSetClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> AtkRelationClass.FFI.fromPtr false) getRelation_ (self & i)
     fun getRelationByType self relationship = (AtkRelationSetClass.FFI.withPtr &&&> AtkRelationType.FFI.withVal ---> AtkRelationClass.FFI.fromPtr false) getRelationByType_ (self & relationship)

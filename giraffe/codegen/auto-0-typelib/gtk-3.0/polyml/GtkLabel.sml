@@ -11,10 +11,10 @@ structure GtkLabel :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_label_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_label_new") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
-      val newWithMnemonic_ = call (getSymbol "gtk_label_new_with_mnemonic") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
+      val new_ = call (getSymbol "gtk_label_new") (Utf8.PolyML.cInOptPtr --> GtkWidgetClass.PolyML.cPtr)
+      val newWithMnemonic_ = call (getSymbol "gtk_label_new_with_mnemonic") (Utf8.PolyML.cInOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val getAngle_ = call (getSymbol "gtk_label_get_angle") (GtkLabelClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val getAttributes_ = call (getSymbol "gtk_label_get_attributes") (GtkLabelClass.PolyML.cPtr --> PangoAttrListRecord.PolyML.cPtr)
+      val getAttributes_ = call (getSymbol "gtk_label_get_attributes") (GtkLabelClass.PolyML.cPtr --> PangoAttrListRecord.PolyML.cOptPtr)
       val getCurrentUri_ = call (getSymbol "gtk_label_get_current_uri") (GtkLabelClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getEllipsize_ = call (getSymbol "gtk_label_get_ellipsize") (GtkLabelClass.PolyML.cPtr --> PangoEllipsizeMode.PolyML.cVal)
       val getJustify_ = call (getSymbol "gtk_label_get_justify") (GtkLabelClass.PolyML.cPtr --> GtkJustification.PolyML.cVal)
@@ -30,9 +30,10 @@ structure GtkLabel :>
           )
       val getLineWrap_ = call (getSymbol "gtk_label_get_line_wrap") (GtkLabelClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getLineWrapMode_ = call (getSymbol "gtk_label_get_line_wrap_mode") (GtkLabelClass.PolyML.cPtr --> PangoWrapMode.PolyML.cVal)
+      val getLines_ = call (getSymbol "gtk_label_get_lines") (GtkLabelClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getMaxWidthChars_ = call (getSymbol "gtk_label_get_max_width_chars") (GtkLabelClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getMnemonicKeyval_ = call (getSymbol "gtk_label_get_mnemonic_keyval") (GtkLabelClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
-      val getMnemonicWidget_ = call (getSymbol "gtk_label_get_mnemonic_widget") (GtkLabelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getMnemonicWidget_ = call (getSymbol "gtk_label_get_mnemonic_widget") (GtkLabelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getSelectable_ = call (getSymbol "gtk_label_get_selectable") (GtkLabelClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSelectionBounds_ =
         call (getSymbol "gtk_label_get_selection_bounds")
@@ -48,6 +49,8 @@ structure GtkLabel :>
       val getUseMarkup_ = call (getSymbol "gtk_label_get_use_markup") (GtkLabelClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getUseUnderline_ = call (getSymbol "gtk_label_get_use_underline") (GtkLabelClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getWidthChars_ = call (getSymbol "gtk_label_get_width_chars") (GtkLabelClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getXalign_ = call (getSymbol "gtk_label_get_xalign") (GtkLabelClass.PolyML.cPtr --> GFloat.PolyML.cVal)
+      val getYalign_ = call (getSymbol "gtk_label_get_yalign") (GtkLabelClass.PolyML.cPtr --> GFloat.PolyML.cVal)
       val selectRegion_ =
         call (getSymbol "gtk_label_select_region")
           (
@@ -57,12 +60,13 @@ structure GtkLabel :>
              --> cVoid
           )
       val setAngle_ = call (getSymbol "gtk_label_set_angle") (GtkLabelClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
-      val setAttributes_ = call (getSymbol "gtk_label_set_attributes") (GtkLabelClass.PolyML.cPtr &&> PangoAttrListRecord.PolyML.cPtr --> cVoid)
+      val setAttributes_ = call (getSymbol "gtk_label_set_attributes") (GtkLabelClass.PolyML.cPtr &&> PangoAttrListRecord.PolyML.cOptPtr --> cVoid)
       val setEllipsize_ = call (getSymbol "gtk_label_set_ellipsize") (GtkLabelClass.PolyML.cPtr &&> PangoEllipsizeMode.PolyML.cVal --> cVoid)
       val setJustify_ = call (getSymbol "gtk_label_set_justify") (GtkLabelClass.PolyML.cPtr &&> GtkJustification.PolyML.cVal --> cVoid)
       val setLabel_ = call (getSymbol "gtk_label_set_label") (GtkLabelClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val setLineWrap_ = call (getSymbol "gtk_label_set_line_wrap") (GtkLabelClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setLineWrapMode_ = call (getSymbol "gtk_label_set_line_wrap_mode") (GtkLabelClass.PolyML.cPtr &&> PangoWrapMode.PolyML.cVal --> cVoid)
+      val setLines_ = call (getSymbol "gtk_label_set_lines") (GtkLabelClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
       val setMarkup_ = call (getSymbol "gtk_label_set_markup") (GtkLabelClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val setMarkupWithMnemonic_ = call (getSymbol "gtk_label_set_markup_with_mnemonic") (GtkLabelClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val setMaxWidthChars_ = call (getSymbol "gtk_label_set_max_width_chars") (GtkLabelClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
@@ -76,6 +80,8 @@ structure GtkLabel :>
       val setUseMarkup_ = call (getSymbol "gtk_label_set_use_markup") (GtkLabelClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setUseUnderline_ = call (getSymbol "gtk_label_set_use_underline") (GtkLabelClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setWidthChars_ = call (getSymbol "gtk_label_set_width_chars") (GtkLabelClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val setXalign_ = call (getSymbol "gtk_label_set_xalign") (GtkLabelClass.PolyML.cPtr &&> GFloat.PolyML.cVal --> cVoid)
+      val setYalign_ = call (getSymbol "gtk_label_set_yalign") (GtkLabelClass.PolyML.cPtr &&> GFloat.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkLabelClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -87,10 +93,10 @@ structure GtkLabel :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new str = (Utf8.FFI.withPtr ---> GtkLabelClass.FFI.fromPtr false) new_ str
-    fun newWithMnemonic str = (Utf8.FFI.withPtr ---> GtkLabelClass.FFI.fromPtr false) newWithMnemonic_ str
+    fun new str = (Utf8.FFI.withOptPtr ---> GtkLabelClass.FFI.fromPtr false) new_ str
+    fun newWithMnemonic str = (Utf8.FFI.withOptPtr ---> GtkLabelClass.FFI.fromPtr false) newWithMnemonic_ str
     fun getAngle self = (GtkLabelClass.FFI.withPtr ---> GDouble.FFI.fromVal) getAngle_ self
-    fun getAttributes self = (GtkLabelClass.FFI.withPtr ---> PangoAttrListRecord.FFI.fromPtr false) getAttributes_ self
+    fun getAttributes self = (GtkLabelClass.FFI.withPtr ---> PangoAttrListRecord.FFI.fromOptPtr false) getAttributes_ self
     fun getCurrentUri self = (GtkLabelClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCurrentUri_ self
     fun getEllipsize self = (GtkLabelClass.FFI.withPtr ---> PangoEllipsizeMode.FFI.fromVal) getEllipsize_ self
     fun getJustify self = (GtkLabelClass.FFI.withPtr ---> GtkJustification.FFI.fromVal) getJustify_ self
@@ -120,9 +126,10 @@ structure GtkLabel :>
       end
     fun getLineWrap self = (GtkLabelClass.FFI.withPtr ---> GBool.FFI.fromVal) getLineWrap_ self
     fun getLineWrapMode self = (GtkLabelClass.FFI.withPtr ---> PangoWrapMode.FFI.fromVal) getLineWrapMode_ self
+    fun getLines self = (GtkLabelClass.FFI.withPtr ---> GInt32.FFI.fromVal) getLines_ self
     fun getMaxWidthChars self = (GtkLabelClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMaxWidthChars_ self
     fun getMnemonicKeyval self = (GtkLabelClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getMnemonicKeyval_ self
-    fun getMnemonicWidget self = (GtkLabelClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getMnemonicWidget_ self
+    fun getMnemonicWidget self = (GtkLabelClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getMnemonicWidget_ self
     fun getSelectable self = (GtkLabelClass.FFI.withPtr ---> GBool.FFI.fromVal) getSelectable_ self
     fun getSelectionBounds self =
       let
@@ -152,6 +159,8 @@ structure GtkLabel :>
     fun getUseMarkup self = (GtkLabelClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseMarkup_ self
     fun getUseUnderline self = (GtkLabelClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseUnderline_ self
     fun getWidthChars self = (GtkLabelClass.FFI.withPtr ---> GInt32.FFI.fromVal) getWidthChars_ self
+    fun getXalign self = (GtkLabelClass.FFI.withPtr ---> GFloat.FFI.fromVal) getXalign_ self
+    fun getYalign self = (GtkLabelClass.FFI.withPtr ---> GFloat.FFI.fromVal) getYalign_ self
     fun selectRegion self (startOffset, endOffset) =
       (
         GtkLabelClass.FFI.withPtr
@@ -166,12 +175,13 @@ structure GtkLabel :>
            & endOffset
         )
     fun setAngle self angle = (GtkLabelClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setAngle_ (self & angle)
-    fun setAttributes self attrs = (GtkLabelClass.FFI.withPtr &&&> PangoAttrListRecord.FFI.withPtr ---> I) setAttributes_ (self & attrs)
+    fun setAttributes self attrs = (GtkLabelClass.FFI.withPtr &&&> PangoAttrListRecord.FFI.withOptPtr ---> I) setAttributes_ (self & attrs)
     fun setEllipsize self mode = (GtkLabelClass.FFI.withPtr &&&> PangoEllipsizeMode.FFI.withVal ---> I) setEllipsize_ (self & mode)
     fun setJustify self jtype = (GtkLabelClass.FFI.withPtr &&&> GtkJustification.FFI.withVal ---> I) setJustify_ (self & jtype)
     fun setLabel self str = (GtkLabelClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setLabel_ (self & str)
     fun setLineWrap self wrap = (GtkLabelClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setLineWrap_ (self & wrap)
     fun setLineWrapMode self wrapMode = (GtkLabelClass.FFI.withPtr &&&> PangoWrapMode.FFI.withVal ---> I) setLineWrapMode_ (self & wrapMode)
+    fun setLines self lines = (GtkLabelClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setLines_ (self & lines)
     fun setMarkup self str = (GtkLabelClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setMarkup_ (self & str)
     fun setMarkupWithMnemonic self str = (GtkLabelClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setMarkupWithMnemonic_ (self & str)
     fun setMaxWidthChars self nChars = (GtkLabelClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setMaxWidthChars_ (self & nChars)
@@ -185,6 +195,8 @@ structure GtkLabel :>
     fun setUseMarkup self setting = (GtkLabelClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseMarkup_ (self & setting)
     fun setUseUnderline self setting = (GtkLabelClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseUnderline_ (self & setting)
     fun setWidthChars self nChars = (GtkLabelClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setWidthChars_ (self & nChars)
+    fun setXalign self xalign = (GtkLabelClass.FFI.withPtr &&&> GFloat.FFI.withVal ---> I) setXalign_ (self & xalign)
+    fun setYalign self yalign = (GtkLabelClass.FFI.withPtr &&&> GFloat.FFI.withVal ---> I) setYalign_ (self & yalign)
     local
       open ClosureMarshal Signal
     in
@@ -242,6 +254,11 @@ structure GtkLabel :>
           get = fn x => get "label" stringOpt x,
           set = fn x => set "label" stringOpt x
         }
+      val linesProp =
+        {
+          get = fn x => get "lines" int x,
+          set = fn x => set "lines" int x
+        }
       val maxWidthCharsProp =
         {
           get = fn x => get "max-width-chars" int x,
@@ -294,6 +311,16 @@ structure GtkLabel :>
         {
           get = fn x => get "wrap-mode" PangoWrapMode.t x,
           set = fn x => set "wrap-mode" PangoWrapMode.t x
+        }
+      val xalignProp =
+        {
+          get = fn x => get "xalign" float x,
+          set = fn x => set "xalign" float x
+        }
+      val yalignProp =
+        {
+          get = fn x => get "yalign" float x,
+          set = fn x => set "yalign" float x
         }
     end
   end

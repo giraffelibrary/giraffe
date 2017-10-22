@@ -13,7 +13,7 @@ structure GtkThemingEngine :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_theming_engine_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val load_ = call (getSymbol "gtk_theming_engine_load") (Utf8.PolyML.cInPtr --> GtkThemingEngineClass.PolyML.cPtr)
+      val load_ = call (getSymbol "gtk_theming_engine_load") (Utf8.PolyML.cInPtr --> GtkThemingEngineClass.PolyML.cOptPtr)
       val getBackgroundColor_ =
         call (getSymbol "gtk_theming_engine_get_background_color")
           (
@@ -66,7 +66,7 @@ structure GtkThemingEngine :>
              --> cVoid
           )
       val getPath_ = call (getSymbol "gtk_theming_engine_get_path") (GtkThemingEngineClass.PolyML.cPtr --> GtkWidgetPathRecord.PolyML.cPtr)
-      val getScreen_ = call (getSymbol "gtk_theming_engine_get_screen") (GtkThemingEngineClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
+      val getScreen_ = call (getSymbol "gtk_theming_engine_get_screen") (GtkThemingEngineClass.PolyML.cPtr --> GdkScreenClass.PolyML.cOptPtr)
       val getState_ = call (getSymbol "gtk_theming_engine_get_state") (GtkThemingEngineClass.PolyML.cPtr --> GtkStateFlags.PolyML.cVal)
       val getStyleProperty_ =
         call (getSymbol "gtk_theming_engine_get_style_property")
@@ -112,7 +112,7 @@ structure GtkThemingEngine :>
     type state_type_t = GtkStateType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun load name = (Utf8.FFI.withPtr ---> GtkThemingEngineClass.FFI.fromPtr false) load_ name
+    fun load name = (Utf8.FFI.withPtr ---> GtkThemingEngineClass.FFI.fromOptPtr false) load_ name
     fun getBackgroundColor self state =
       let
         val color & () =
@@ -225,21 +225,26 @@ structure GtkThemingEngine :>
         padding
       end
     fun getPath self = (GtkThemingEngineClass.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self
-    fun getScreen self = (GtkThemingEngineClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
+    fun getScreen self = (GtkThemingEngineClass.FFI.withPtr ---> GdkScreenClass.FFI.fromOptPtr false) getScreen_ self
     fun getState self = (GtkThemingEngineClass.FFI.withPtr ---> GtkStateFlags.FFI.fromVal) getState_ self
-    fun getStyleProperty self (propertyName, value) =
-      (
-        GtkThemingEngineClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectValueRecord.FFI.withPtr
-         ---> I
-      )
-        getStyleProperty_
-        (
-          self
-           & propertyName
-           & value
-        )
+    fun getStyleProperty self propertyName =
+      let
+        val value & () =
+          (
+            GtkThemingEngineClass.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GObjectValueRecord.FFI.withNewPtr
+             ---> GObjectValueRecord.FFI.fromPtr true && I
+          )
+            getStyleProperty_
+            (
+              self
+               & propertyName
+               & ()
+            )
+      in
+        value
+      end
     fun hasClass self styleClass = (GtkThemingEngineClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasClass_ (self & styleClass)
     fun hasRegion self styleRegion =
       let

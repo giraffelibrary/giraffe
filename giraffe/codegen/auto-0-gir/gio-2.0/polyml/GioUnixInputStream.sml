@@ -1,6 +1,7 @@
 structure GioUnixInputStream :>
   GIO_UNIX_INPUT_STREAM
     where type 'a class = 'a GioUnixInputStreamClass.class
+    where type 'a file_descriptor_based_class = 'a GioFileDescriptorBasedClass.class
     where type 'a pollable_input_stream_class = 'a GioPollableInputStreamClass.class =
   struct
     local
@@ -13,8 +14,10 @@ structure GioUnixInputStream :>
       val setCloseFd_ = call (getSymbol "g_unix_input_stream_set_close_fd") (GioUnixInputStreamClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GioUnixInputStreamClass.class
+    type 'a file_descriptor_based_class = 'a GioFileDescriptorBasedClass.class
     type 'a pollable_input_stream_class = 'a GioPollableInputStreamClass.class
     type t = base class
+    fun asFileDescriptorBased self = (GObjectObjectClass.FFI.withPtr ---> GioFileDescriptorBasedClass.FFI.fromPtr false) I self
     fun asPollableInputStream self = (GObjectObjectClass.FFI.withPtr ---> GioPollableInputStreamClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (fd, closeFd) = (GInt.FFI.withVal &&&> GBool.FFI.withVal ---> GioUnixInputStreamClass.FFI.fromPtr true) new_ (fd & closeFd)

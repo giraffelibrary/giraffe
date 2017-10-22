@@ -60,5 +60,10 @@ structure GtkCellRendererPixbuf :>
           get = fn x => get "stock-size" uint x,
           set = fn x => set "stock-size" uint x
         }
+      val surfaceProp =
+        {
+          get = fn x => get "surface" CairoSurfaceRecord.tOpt x,
+          set = fn x => set "surface" CairoSurfaceRecord.tOpt x
+        }
     end
   end

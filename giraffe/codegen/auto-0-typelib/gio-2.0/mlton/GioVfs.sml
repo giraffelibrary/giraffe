@@ -59,6 +59,21 @@ structure GioVfs :>
               x2,
               x3
             )
+    val unregisterUriScheme_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_g_vfs_unregister_uri_scheme" :
+              GioVfsClass.FFI.notnull GioVfsClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     type 'a class = 'a GioVfsClass.class
     type 'a file_class = 'a GioFileClass.class
     type t = base class
@@ -70,4 +85,5 @@ structure GioVfs :>
     fun getSupportedUriSchemes self = (GioVfsClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getSupportedUriSchemes_ self
     fun isActive self = (GioVfsClass.FFI.withPtr ---> GBool.FFI.fromVal) isActive_ self
     fun parseName self parseName = (GioVfsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) parseName_ (self & parseName)
+    fun unregisterUriScheme self scheme = (GioVfsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) unregisterUriScheme_ (self & scheme)
   end

@@ -9,6 +9,9 @@ structure GioFileMonitorEvent :> GIO_FILE_MONITOR_EVENT =
     | PRE_UNMOUNT
     | UNMOUNTED
     | MOVED
+    | RENAMED
+    | MOVED_IN
+    | MOVED_OUT
     structure Enum =
       Enum(
         type enum = enum
@@ -23,6 +26,9 @@ structure GioFileMonitorEvent :> GIO_FILE_MONITOR_EVENT =
           | PRE_UNMOUNT => 5
           | UNMOUNTED => 6
           | MOVED => 7
+          | RENAMED => 8
+          | MOVED_IN => 9
+          | MOVED_OUT => 10
         exception Value of GInt.t
         val fromInt =
           fn
@@ -34,6 +40,9 @@ structure GioFileMonitorEvent :> GIO_FILE_MONITOR_EVENT =
           | 5 => PRE_UNMOUNT
           | 6 => UNMOUNTED
           | 7 => MOVED
+          | 8 => RENAMED
+          | 9 => MOVED_IN
+          | 10 => MOVED_OUT
           | n => raise Value n
       )
     open Enum

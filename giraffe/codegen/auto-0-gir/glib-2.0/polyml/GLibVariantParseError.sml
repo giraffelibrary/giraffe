@@ -1,4 +1,6 @@
-structure GLibVariantParseError :> G_LIB_VARIANT_PARSE_ERROR =
+structure GLibVariantParseError :>
+  G_LIB_VARIANT_PARSE_ERROR
+    where type error_handler = GLibErrorRecord.handler =
   struct
     datatype enum =
       FAILED
@@ -67,4 +69,14 @@ structure GLibVariantParseError :> G_LIB_VARIANT_PARSE_ERROR =
           | n => raise Value n
       )
     open Enum
+    exception Error of t
+    type error_handler = GLibErrorRecord.handler
+    val handler =
+      GLibErrorRecord.makeHandler
+        (
+          "g-variant-parse-error-quark",
+          FFI.fromVal,
+          Error
+        )
   end
+exception GLibVariantParseError = GLibVariantParseError.Error

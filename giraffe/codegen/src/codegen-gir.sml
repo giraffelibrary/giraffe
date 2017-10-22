@@ -414,11 +414,17 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         newSig "GDK_EVENT_KEY_RECORD" [],
         newSig "GDK_EVENT_MOTION_RECORD" [],
         newSig "GDK_EVENT_OWNER_CHANGE_RECORD" [],
+        newSig "GDK_EVENT_PAD_AXIS_RECORD" [],
+        newSig "GDK_EVENT_PAD_BUTTON_RECORD" [],
+        newSig "GDK_EVENT_PAD_GROUP_MODE_RECORD" [],
         newSig "GDK_EVENT_PROPERTY_RECORD" [],
         newSig "GDK_EVENT_PROXIMITY_RECORD" [],
         newSig "GDK_EVENT_SCROLL_RECORD" [],
         newSig "GDK_EVENT_SELECTION_RECORD" [],
         newSig "GDK_EVENT_SETTING_RECORD" [],
+        newSig "GDK_EVENT_TOUCHPAD_PINCH_RECORD" [],
+        newSig "GDK_EVENT_TOUCHPAD_SWIPE_RECORD" [],
+        newSig "GDK_EVENT_TOUCH_RECORD" [],
         newSig "GDK_EVENT_VISIBILITY_RECORD" [],
         newSig "GDK_EVENT_WINDOW_STATE_RECORD" [],
         newSig "CLASSIFY_EVENT" []
@@ -460,6 +466,15 @@ val errorLog'1 = List.foldl insert errorLog'0 [
             ("Gdk", "EventOwnerChangeRecord", "GDK_EVENT_OWNER_CHANGE_RECORD")
             [eventLocalType],
           newStr
+            ("Gdk", "EventPadAxisRecord", "GDK_EVENT_PAD_AXIS_RECORD")
+            [eventLocalType],
+          newStr
+            ("Gdk", "EventPadButtonRecord", "GDK_EVENT_PAD_BUTTON_RECORD")
+            [eventLocalType],
+          newStr
+            ("Gdk", "EventPadGroupModeRecord", "GDK_EVENT_PAD_GROUP_MODE_RECORD")
+            [eventLocalType],
+          newStr
             ("Gdk", "EventPropertyRecord", "GDK_EVENT_PROPERTY_RECORD")
             [eventLocalType],
           newStr
@@ -473,6 +488,15 @@ val errorLog'1 = List.foldl insert errorLog'0 [
             [eventLocalType],
           newStr
             ("Gdk", "EventSettingRecord", "GDK_EVENT_SETTING_RECORD")
+            [eventLocalType],
+          newStr
+            ("Gdk", "EventTouchpadPinchRecord", "GDK_EVENT_TOUCHPAD_PINCH_RECORD")
+            [eventLocalType],
+          newStr
+            ("Gdk", "EventTouchpadSwipeRecord", "GDK_EVENT_TOUCHPAD_SWIPE_RECORD")
+            [eventLocalType],
+          newStr
+            ("Gdk", "EventTouchRecord", "GDK_EVENT_TOUCH_RECORD")
             [eventLocalType],
           newStr
             ("Gdk", "EventVisibilityRecord", "GDK_EVENT_VISIBILITY_RECORD")
@@ -493,11 +517,17 @@ val errorLog'1 = List.foldl insert errorLog'0 [
               "GdkEventKeyRecord",
               "GdkEventMotionRecord",
               "GdkEventOwnerChangeRecord",
+              "GdkEventPadAxisRecord",
+              "GdkEventPadButtonRecord",
+              "GdkEventPadGroupModeRecord",
               "GdkEventPropertyRecord",
               "GdkEventProximityRecord",
               "GdkEventScrollRecord",
               "GdkEventSelectionRecord",
               "GdkEventSettingRecord",
+              "GdkEventTouchpadPinchRecord",
+              "GdkEventTouchpadSwipeRecord",
+              "GdkEventTouchRecord",
               "GdkEventVisibilityRecord",
               "GdkEventWindowStateRecord"
             ]

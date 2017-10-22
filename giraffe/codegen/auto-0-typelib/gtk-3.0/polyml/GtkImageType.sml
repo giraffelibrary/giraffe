@@ -8,6 +8,7 @@ structure GtkImageType :> GTK_IMAGE_TYPE =
     | ANIMATION
     | ICON_NAME
     | GICON
+    | SURFACE
     structure Enum =
       Enum(
         type enum = enum
@@ -21,6 +22,7 @@ structure GtkImageType :> GTK_IMAGE_TYPE =
           | ANIMATION => 4
           | ICON_NAME => 5
           | GICON => 6
+          | SURFACE => 7
         exception Value of GInt32.t
         val fromInt =
           fn
@@ -31,6 +33,7 @@ structure GtkImageType :> GTK_IMAGE_TYPE =
           | 4 => ANIMATION
           | 5 => ICON_NAME
           | 6 => GICON
+          | 7 => SURFACE
           | n => raise Value n
       )
     open Enum

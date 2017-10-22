@@ -6,6 +6,7 @@ structure GtkButtonBoxStyle :> GTK_BUTTON_BOX_STYLE =
     | START
     | END
     | CENTER
+    | EXPAND
     structure Enum =
       Enum(
         type enum = enum
@@ -17,6 +18,7 @@ structure GtkButtonBoxStyle :> GTK_BUTTON_BOX_STYLE =
           | START => 3
           | END => 4
           | CENTER => 5
+          | EXPAND => 6
         exception Value of GInt32.t
         val fromInt =
           fn
@@ -25,6 +27,7 @@ structure GtkButtonBoxStyle :> GTK_BUTTON_BOX_STYLE =
           | 3 => START
           | 4 => END
           | 5 => CENTER
+          | 6 => EXPAND
           | n => raise Value n
       )
     open Enum

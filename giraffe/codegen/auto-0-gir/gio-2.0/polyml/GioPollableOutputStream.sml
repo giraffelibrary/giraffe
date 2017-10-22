@@ -14,6 +14,7 @@ structure GioPollableOutputStream :>
     in
       val getType_ = call (getSymbol "g_pollable_output_stream_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val canPoll_ = call (getSymbol "g_pollable_output_stream_can_poll") (GioPollableOutputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val createSource_ = call (getSymbol "g_pollable_output_stream_create_source") (GioPollableOutputStreamClass.PolyML.cPtr &&> GioCancellableClass.PolyML.cOptPtr --> GLibSourceRecord.PolyML.cPtr)
       val isWritable_ = call (getSymbol "g_pollable_output_stream_is_writable") (GioPollableOutputStreamClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val writeNonblocking_ =
         call (getSymbol "g_pollable_output_stream_write_nonblocking")
@@ -31,10 +32,11 @@ structure GioPollableOutputStream :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun canPoll self = (GioPollableOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) canPoll_ self
+    fun createSource self cancellable = (GioPollableOutputStreamClass.FFI.withPtr &&&> GioCancellableClass.FFI.withOptPtr ---> GLibSourceRecord.FFI.fromPtr true) createSource_ (self & cancellable)
     fun isWritable self = (GioPollableOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isWritable_ self
     fun writeNonblocking self (buffer, cancellable) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
         val retVal =
           (
             GioPollableOutputStreamClass.FFI.withPtr
@@ -48,7 +50,7 @@ structure GioPollableOutputStream :>
             (
               self
                & buffer
-               & size
+               & count
                & cancellable
                & []
             )

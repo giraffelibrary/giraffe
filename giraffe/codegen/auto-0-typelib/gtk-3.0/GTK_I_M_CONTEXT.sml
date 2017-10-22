@@ -1,6 +1,8 @@
 signature GTK_I_M_CONTEXT =
   sig
     type 'a class
+    type input_hints_t
+    type input_purpose_t
     type t = base class
     val getType : unit -> GObject.Type.t
     val deleteSurrounding :
@@ -18,6 +20,7 @@ signature GTK_I_M_CONTEXT =
        -> string
            * Pango.AttrListRecord.t
            * LargeInt.int
+    val getSurrounding : 'a class -> (string * LargeInt.int) option
     val reset : 'a class -> unit
     val setClientWindow :
       'a class
@@ -25,7 +28,7 @@ signature GTK_I_M_CONTEXT =
        -> unit
     val setCursorLocation :
       'a class
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
        -> unit
     val setSurrounding :
       'a class
@@ -43,4 +46,6 @@ signature GTK_I_M_CONTEXT =
     val preeditEndSig : (unit -> unit) -> 'a class Signal.t
     val preeditStartSig : (unit -> unit) -> 'a class Signal.t
     val retrieveSurroundingSig : (unit -> bool) -> 'a class Signal.t
+    val inputHintsProp : ('a class, input_hints_t, input_hints_t) Property.readwrite
+    val inputPurposeProp : ('a class, input_purpose_t, input_purpose_t) Property.readwrite
   end

@@ -8,6 +8,9 @@ structure GdkAxisUse :> GDK_AXIS_USE =
     | XTILT
     | YTILT
     | WHEEL
+    | DISTANCE
+    | ROTATION
+    | SLIDER
     | LAST
     structure Enum =
       Enum(
@@ -22,7 +25,10 @@ structure GdkAxisUse :> GDK_AXIS_USE =
           | XTILT => 4
           | YTILT => 5
           | WHEEL => 6
-          | LAST => 7
+          | DISTANCE => 7
+          | ROTATION => 8
+          | SLIDER => 9
+          | LAST => 10
         exception Value of GInt32.t
         val fromInt =
           fn
@@ -33,7 +39,10 @@ structure GdkAxisUse :> GDK_AXIS_USE =
           | 4 => XTILT
           | 5 => YTILT
           | 6 => WHEEL
-          | 7 => LAST
+          | 7 => DISTANCE
+          | 8 => ROTATION
+          | 9 => SLIDER
+          | 10 => LAST
           | n => raise Value n
       )
     open Enum

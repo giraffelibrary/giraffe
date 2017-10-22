@@ -22,8 +22,10 @@ structure GioProxyAddress :>
           )
       val getDestinationHostname_ = call (getSymbol "g_proxy_address_get_destination_hostname") (GioProxyAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getDestinationPort_ = call (getSymbol "g_proxy_address_get_destination_port") (GioProxyAddressClass.PolyML.cPtr --> GUInt16.PolyML.cVal)
+      val getDestinationProtocol_ = call (getSymbol "g_proxy_address_get_destination_protocol") (GioProxyAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getPassword_ = call (getSymbol "g_proxy_address_get_password") (GioProxyAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getProtocol_ = call (getSymbol "g_proxy_address_get_protocol") (GioProxyAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getUri_ = call (getSymbol "g_proxy_address_get_uri") (GioProxyAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getUsername_ = call (getSymbol "g_proxy_address_get_username") (GioProxyAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class = 'a GioProxyAddressClass.class
@@ -64,8 +66,10 @@ structure GioProxyAddress :>
         )
     fun getDestinationHostname self = (GioProxyAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDestinationHostname_ self
     fun getDestinationPort self = (GioProxyAddressClass.FFI.withPtr ---> GUInt16.FFI.fromVal) getDestinationPort_ self
+    fun getDestinationProtocol self = (GioProxyAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDestinationProtocol_ self
     fun getPassword self = (GioProxyAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPassword_ self
     fun getProtocol self = (GioProxyAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getProtocol_ self
+    fun getUri self = (GioProxyAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUri_ self
     fun getUsername self = (GioProxyAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUsername_ self
     local
       open Property
@@ -80,6 +84,11 @@ structure GioProxyAddress :>
           get = fn x => get "destination-port" uint x,
           set = fn x => set "destination-port" uint x
         }
+      val destinationProtocolProp =
+        {
+          get = fn x => get "destination-protocol" stringOpt x,
+          set = fn x => set "destination-protocol" stringOpt x
+        }
       val passwordProp =
         {
           get = fn x => get "password" stringOpt x,
@@ -89,6 +98,11 @@ structure GioProxyAddress :>
         {
           get = fn x => get "protocol" stringOpt x,
           set = fn x => set "protocol" stringOpt x
+        }
+      val uriProp =
+        {
+          get = fn x => get "uri" stringOpt x,
+          set = fn x => set "uri" stringOpt x
         }
       val usernameProp =
         {

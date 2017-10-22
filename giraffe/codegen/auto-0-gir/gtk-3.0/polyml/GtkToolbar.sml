@@ -7,6 +7,7 @@ structure GtkToolbar :>
     where type relief_style_t = GtkReliefStyle.t
     where type 'a tool_item_class = 'a GtkToolItemClass.class
     where type orientation_t = GtkOrientation.t
+    where type icon_size_t = GtkIconSize.t
     where type toolbar_style_t = GtkToolbarStyle.t =
   struct
     local
@@ -22,7 +23,7 @@ structure GtkToolbar :>
              &&> GInt.PolyML.cVal
              --> GInt.PolyML.cVal
           )
-      val getIconSize_ = call (getSymbol "gtk_toolbar_get_icon_size") (GtkToolbarClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getIconSize_ = call (getSymbol "gtk_toolbar_get_icon_size") (GtkToolbarClass.PolyML.cPtr --> GtkIconSize.PolyML.cVal)
       val getItemIndex_ = call (getSymbol "gtk_toolbar_get_item_index") (GtkToolbarClass.PolyML.cPtr &&> GtkToolItemClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getNItems_ = call (getSymbol "gtk_toolbar_get_n_items") (GtkToolbarClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getNthItem_ = call (getSymbol "gtk_toolbar_get_nth_item") (GtkToolbarClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkToolItemClass.PolyML.cPtr)
@@ -45,7 +46,7 @@ structure GtkToolbar :>
              &&> GInt.PolyML.cVal
              --> cVoid
           )
-      val setIconSize_ = call (getSymbol "gtk_toolbar_set_icon_size") (GtkToolbarClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setIconSize_ = call (getSymbol "gtk_toolbar_set_icon_size") (GtkToolbarClass.PolyML.cPtr &&> GtkIconSize.PolyML.cVal --> cVoid)
       val setShowArrow_ = call (getSymbol "gtk_toolbar_set_show_arrow") (GtkToolbarClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setStyle_ = call (getSymbol "gtk_toolbar_set_style") (GtkToolbarClass.PolyML.cPtr &&> GtkToolbarStyle.PolyML.cVal --> cVoid)
       val unsetIconSize_ = call (getSymbol "gtk_toolbar_unset_icon_size") (GtkToolbarClass.PolyML.cPtr --> cVoid)
@@ -58,6 +59,7 @@ structure GtkToolbar :>
     type relief_style_t = GtkReliefStyle.t
     type 'a tool_item_class = 'a GtkToolItemClass.class
     type orientation_t = GtkOrientation.t
+    type icon_size_t = GtkIconSize.t
     type toolbar_style_t = GtkToolbarStyle.t
     type t = base class
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
@@ -79,7 +81,7 @@ structure GtkToolbar :>
            & x
            & y
         )
-    fun getIconSize self = (GtkToolbarClass.FFI.withPtr ---> GInt.FFI.fromVal) getIconSize_ self
+    fun getIconSize self = (GtkToolbarClass.FFI.withPtr ---> GtkIconSize.FFI.fromVal) getIconSize_ self
     fun getItemIndex self item = (GtkToolbarClass.FFI.withPtr &&&> GtkToolItemClass.FFI.withPtr ---> GInt.FFI.fromVal) getItemIndex_ (self & item)
     fun getNItems self = (GtkToolbarClass.FFI.withPtr ---> GInt.FFI.fromVal) getNItems_ self
     fun getNthItem self n = (GtkToolbarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkToolItemClass.FFI.fromPtr false) getNthItem_ (self & n)
@@ -112,7 +114,7 @@ structure GtkToolbar :>
            & toolItem
            & index
         )
-    fun setIconSize self iconSize = (GtkToolbarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setIconSize_ (self & iconSize)
+    fun setIconSize self iconSize = (GtkToolbarClass.FFI.withPtr &&&> GtkIconSize.FFI.withVal ---> I) setIconSize_ (self & iconSize)
     fun setShowArrow self showArrow = (GtkToolbarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowArrow_ (self & showArrow)
     fun setStyle self style = (GtkToolbarClass.FFI.withPtr &&&> GtkToolbarStyle.FFI.withVal ---> I) setStyle_ (self & style)
     fun unsetIconSize self = (GtkToolbarClass.FFI.withPtr ---> I) unsetIconSize_ self
@@ -149,8 +151,8 @@ structure GtkToolbar :>
     in
       val iconSizeProp =
         {
-          get = fn x => get "icon-size" int x,
-          set = fn x => set "icon-size" int x
+          get = fn x => get "icon-size" GtkIconSize.t x,
+          set = fn x => set "icon-size" GtkIconSize.t x
         }
       val iconSizeSetProp =
         {

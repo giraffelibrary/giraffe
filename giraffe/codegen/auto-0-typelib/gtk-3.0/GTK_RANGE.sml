@@ -17,7 +17,7 @@ signature GTK_RANGE =
     val getInverted : 'a class -> bool
     val getLowerStepperSensitivity : 'a class -> sensitivity_type_t
     val getMinSliderSize : 'a class -> LargeInt.int
-    val getRangeRect : 'a class -> Cairo.RectangleIntRecord.t
+    val getRangeRect : 'a class -> Gdk.RectangleRecord.t
     val getRestrictToFillLevel : 'a class -> bool
     val getRoundDigits : 'a class -> LargeInt.int
     val getShowFillLevel : 'a class -> bool

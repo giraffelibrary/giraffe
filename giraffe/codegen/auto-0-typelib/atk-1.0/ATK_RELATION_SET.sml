@@ -19,6 +19,10 @@ signature ATK_RELATION_SET =
       'a class
        -> relation_type_t
        -> bool
+    val containsTarget :
+      'a class
+       -> relation_type_t * 'b object_class
+       -> bool
     val getNRelations : 'a class -> LargeInt.int
     val getRelation :
       'a class

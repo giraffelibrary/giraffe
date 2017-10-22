@@ -11,6 +11,7 @@ structure GtkMenu :>
     in
       val getType_ = call (getSymbol "gtk_menu_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_menu_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val newFromModel_ = call (getSymbol "gtk_menu_new_from_model") (GioMenuModelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val attach_ =
         call (getSymbol "gtk_menu_attach")
           (
@@ -31,7 +32,30 @@ structure GtkMenu :>
       val getReserveToggleSize_ = call (getSymbol "gtk_menu_get_reserve_toggle_size") (GtkMenuClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getTearoffState_ = call (getSymbol "gtk_menu_get_tearoff_state") (GtkMenuClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getTitle_ = call (getSymbol "gtk_menu_get_title") (GtkMenuClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val placeOnMonitor_ = call (getSymbol "gtk_menu_place_on_monitor") (GtkMenuClass.PolyML.cPtr &&> GdkMonitorClass.PolyML.cPtr --> cVoid)
       val popdown_ = call (getSymbol "gtk_menu_popdown") (GtkMenuClass.PolyML.cPtr --> cVoid)
+      val popupAtPointer_ = call (getSymbol "gtk_menu_popup_at_pointer") (GtkMenuClass.PolyML.cPtr &&> GdkEvent.PolyML.cOptPtr --> cVoid)
+      val popupAtRect_ =
+        call (getSymbol "gtk_menu_popup_at_rect")
+          (
+            GtkMenuClass.PolyML.cPtr
+             &&> GdkWindowClass.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             &&> GdkGravity.PolyML.cVal
+             &&> GdkGravity.PolyML.cVal
+             &&> GdkEvent.PolyML.cOptPtr
+             --> cVoid
+          )
+      val popupAtWidget_ =
+        call (getSymbol "gtk_menu_popup_at_widget")
+          (
+            GtkMenuClass.PolyML.cPtr
+             &&> GtkWidgetClass.PolyML.cPtr
+             &&> GdkGravity.PolyML.cVal
+             &&> GdkGravity.PolyML.cVal
+             &&> GdkEvent.PolyML.cOptPtr
+             --> cVoid
+          )
       val reorderChild_ =
         call (getSymbol "gtk_menu_reorder_child")
           (
@@ -60,6 +84,7 @@ structure GtkMenu :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkMenuClass.FFI.fromPtr false) new_ ()
+    fun newFromModel model = (GioMenuModelClass.FFI.withPtr ---> GtkMenuClass.FFI.fromPtr false) newFromModel_ model
     fun attach
       self
       (
@@ -96,7 +121,60 @@ structure GtkMenu :>
     fun getReserveToggleSize self = (GtkMenuClass.FFI.withPtr ---> GBool.FFI.fromVal) getReserveToggleSize_ self
     fun getTearoffState self = (GtkMenuClass.FFI.withPtr ---> GBool.FFI.fromVal) getTearoffState_ self
     fun getTitle self = (GtkMenuClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTitle_ self
+    fun placeOnMonitor self monitor = (GtkMenuClass.FFI.withPtr &&&> GdkMonitorClass.FFI.withPtr ---> I) placeOnMonitor_ (self & monitor)
     fun popdown self = (GtkMenuClass.FFI.withPtr ---> I) popdown_ self
+    fun popupAtPointer self triggerEvent = (GtkMenuClass.FFI.withPtr &&&> GdkEvent.FFI.withOptPtr ---> I) popupAtPointer_ (self & triggerEvent)
+    fun popupAtRect
+      self
+      (
+        rectWindow,
+        rect,
+        rectAnchor,
+        menuAnchor,
+        triggerEvent
+      ) =
+      (
+        GtkMenuClass.FFI.withPtr
+         &&&> GdkWindowClass.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
+         &&&> GdkGravity.FFI.withVal
+         &&&> GdkGravity.FFI.withVal
+         &&&> GdkEvent.FFI.withOptPtr
+         ---> I
+      )
+        popupAtRect_
+        (
+          self
+           & rectWindow
+           & rect
+           & rectAnchor
+           & menuAnchor
+           & triggerEvent
+        )
+    fun popupAtWidget
+      self
+      (
+        widget,
+        widgetAnchor,
+        menuAnchor,
+        triggerEvent
+      ) =
+      (
+        GtkMenuClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GdkGravity.FFI.withVal
+         &&&> GdkGravity.FFI.withVal
+         &&&> GdkEvent.FFI.withOptPtr
+         ---> I
+      )
+        popupAtWidget_
+        (
+          self
+           & widget
+           & widgetAnchor
+           & menuAnchor
+           & triggerEvent
+        )
     fun reorderChild self (child, position) =
       (
         GtkMenuClass.FFI.withPtr
@@ -142,15 +220,35 @@ structure GtkMenu :>
           get = fn x => get "active" int x,
           set = fn x => set "active" int x
         }
+      val anchorHintsProp =
+        {
+          get = fn x => get "anchor-hints" GdkAnchorHints.t x,
+          set = fn x => set "anchor-hints" GdkAnchorHints.t x
+        }
       val attachWidgetProp =
         {
           get = fn x => get "attach-widget" GtkWidgetClass.tOpt x,
           set = fn x => set "attach-widget" GtkWidgetClass.tOpt x
         }
+      val menuTypeHintProp =
+        {
+          get = fn x => get "menu-type-hint" GdkWindowTypeHint.t x,
+          set = fn x => set "menu-type-hint" GdkWindowTypeHint.t x
+        }
       val monitorProp =
         {
           get = fn x => get "monitor" int x,
           set = fn x => set "monitor" int x
+        }
+      val rectAnchorDxProp =
+        {
+          get = fn x => get "rect-anchor-dx" int x,
+          set = fn x => set "rect-anchor-dx" int x
+        }
+      val rectAnchorDyProp =
+        {
+          get = fn x => get "rect-anchor-dy" int x,
+          set = fn x => set "rect-anchor-dy" int x
         }
       val reserveToggleSizeProp =
         {

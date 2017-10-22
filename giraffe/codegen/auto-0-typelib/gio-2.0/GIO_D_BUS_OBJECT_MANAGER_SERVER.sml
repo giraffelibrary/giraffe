@@ -17,6 +17,10 @@ signature GIO_D_BUS_OBJECT_MANAGER_SERVER =
        -> 'b d_bus_object_skeleton_class
        -> unit
     val getConnection : 'a class -> base d_bus_connection_class
+    val isExported :
+      'a class
+       -> 'b d_bus_object_skeleton_class
+       -> bool
     val setConnection :
       'a class
        -> 'b d_bus_connection_class option

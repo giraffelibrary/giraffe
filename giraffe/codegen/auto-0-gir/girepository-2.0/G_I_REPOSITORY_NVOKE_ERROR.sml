@@ -7,6 +7,4 @@ signature G_I_REPOSITORY_NVOKE_ERROR =
     include
       ENUM
         where type t = enum
-    exception Error of t
-    val handler : GLib.ErrorRecord.handler
   end

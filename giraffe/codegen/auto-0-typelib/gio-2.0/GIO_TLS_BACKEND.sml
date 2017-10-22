@@ -6,5 +6,6 @@ signature GIO_TLS_BACKEND =
     val getType : unit -> GObject.Type.t
     val getDefault : unit -> base class
     val getDefaultDatabase : 'a class -> base tls_database_class
+    val supportsDtls : 'a class -> bool
     val supportsTls : 'a class -> bool
   end

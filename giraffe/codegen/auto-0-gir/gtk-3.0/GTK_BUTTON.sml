@@ -1,6 +1,7 @@
 signature GTK_BUTTON =
   sig
     type 'a class
+    type 'a actionable_class
     type 'a activatable_class
     type 'a buildable_class
     type 'a widget_class
@@ -8,16 +9,19 @@ signature GTK_BUTTON =
     type relief_style_t
     type t = base class
     val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asActionable : 'a class -> base actionable_class
     val asActivatable : 'a class -> base activatable_class
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
+    val newFromIconName : string option * LargeInt.int -> base class
     val newFromStock : string -> base class
     val newWithLabel : string -> base class
     val newWithMnemonic : string -> base class
     val clicked : 'a class -> unit
     val enter : 'a class -> unit
     val getAlignment : 'a class -> real * real
+    val getAlwaysShowImage : 'a class -> bool
     val getEventWindow : 'a class -> base Gdk.WindowClass.class
     val getFocusOnClick : 'a class -> bool
     val getImage : 'a class -> base widget_class
@@ -32,6 +36,10 @@ signature GTK_BUTTON =
     val setAlignment :
       'a class
        -> real * real
+       -> unit
+    val setAlwaysShowImage :
+      'a class
+       -> bool
        -> unit
     val setFocusOnClick :
       'a class
@@ -67,7 +75,7 @@ signature GTK_BUTTON =
     val leaveSig : (unit -> unit) -> 'a class Signal.t
     val pressedSig : (unit -> unit) -> 'a class Signal.t
     val releasedSig : (unit -> unit) -> 'a class Signal.t
-    val focusOnClickProp : ('a class, bool, bool) Property.readwrite
+    val alwaysShowImageProp : ('a class, bool, bool) Property.readwrite
     val imageProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
     val imagePositionProp : ('a class, position_type_t, position_type_t) Property.readwrite
     val labelProp : ('a class, string option, string option) Property.readwrite

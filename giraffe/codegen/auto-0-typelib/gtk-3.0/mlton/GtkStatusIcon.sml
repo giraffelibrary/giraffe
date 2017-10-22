@@ -46,7 +46,7 @@ structure GtkStatusIcon :>
             _import "gtk_status_icon_get_geometry" :
               GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p
                * (unit, GdkScreenClass.FFI.notnull) GdkScreenClass.FFI.r
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
                * GtkOrientation.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -56,17 +56,17 @@ structure GtkStatusIcon :>
               x3,
               x4
             )
-    val getGicon_ = _import "gtk_status_icon_get_gicon" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
+    val getGicon_ = _import "gtk_status_icon_get_gicon" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> unit GioIconClass.FFI.p;
     val getHasTooltip_ = _import "gtk_status_icon_get_has_tooltip" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GBool.FFI.val_;
-    val getIconName_ = _import "gtk_status_icon_get_icon_name" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPixbuf_ = _import "gtk_status_icon_get_pixbuf" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+    val getIconName_ = _import "gtk_status_icon_get_icon_name" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> unit Utf8.FFI.out_p;
+    val getPixbuf_ = _import "gtk_status_icon_get_pixbuf" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> unit GdkPixbufPixbufClass.FFI.p;
     val getScreen_ = _import "gtk_status_icon_get_screen" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p;
     val getSize_ = _import "gtk_status_icon_get_size" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GInt32.FFI.val_;
-    val getStock_ = _import "gtk_status_icon_get_stock" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getStock_ = _import "gtk_status_icon_get_stock" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> unit Utf8.FFI.out_p;
     val getStorageType_ = _import "gtk_status_icon_get_storage_type" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GtkImageType.FFI.val_;
     val getTitle_ = _import "gtk_status_icon_get_title" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getTooltipMarkup_ = _import "gtk_status_icon_get_tooltip_markup" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getTooltipText_ = _import "gtk_status_icon_get_tooltip_text" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getTooltipMarkup_ = _import "gtk_status_icon_get_tooltip_markup" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> unit Utf8.FFI.out_p;
+    val getTooltipText_ = _import "gtk_status_icon_get_tooltip_text" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> unit Utf8.FFI.out_p;
     val getVisible_ = _import "gtk_status_icon_get_visible" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GBool.FFI.val_;
     val getX11WindowId_ = _import "gtk_status_icon_get_x11_window_id" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GUInt32.FFI.val_;
     val isEmbedded_ = _import "gtk_status_icon_is_embedded" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GBool.FFI.val_;
@@ -193,7 +193,13 @@ structure GtkStatusIcon :>
     fun newFromIconName iconName = (Utf8.FFI.withPtr ---> GtkStatusIconClass.FFI.fromPtr true) newFromIconName_ iconName
     fun newFromPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withPtr ---> GtkStatusIconClass.FFI.fromPtr true) newFromPixbuf_ pixbuf
     fun newFromStock stockId = (Utf8.FFI.withPtr ---> GtkStatusIconClass.FFI.fromPtr true) newFromStock_ stockId
-    fun positionMenu (menu, userData) =
+    fun positionMenu
+      (
+        menu,
+        x,
+        y,
+        userData
+      ) =
       let
         val x
          & y
@@ -213,16 +219,16 @@ structure GtkStatusIcon :>
             positionMenu_
             (
               menu
-               & GInt32.null
-               & GInt32.null
+               & x
+               & y
                & GBool.null
                & userData
             )
       in
         (
+          pushIn,
           x,
-          y,
-          pushIn
+          y
         )
       end
     fun getGeometry self =
@@ -234,10 +240,10 @@ structure GtkStatusIcon :>
           (
             GtkStatusIconClass.FFI.withPtr
              &&&> GdkScreenClass.FFI.withRefOptPtr
-             &&&> CairoRectangleIntRecord.FFI.withNewPtr
+             &&&> GdkRectangleRecord.FFI.withNewPtr
              &&&> GtkOrientation.FFI.withRefVal
              ---> GdkScreenClass.FFI.fromPtr false
-                   && CairoRectangleIntRecord.FFI.fromPtr true
+                   && GdkRectangleRecord.FFI.fromPtr true
                    && GtkOrientation.FFI.fromVal
                    && GBool.FFI.fromVal
           )
@@ -259,17 +265,17 @@ structure GtkStatusIcon :>
             )
         else NONE
       end
-    fun getGicon self = (GtkStatusIconClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getGicon_ self
+    fun getGicon self = (GtkStatusIconClass.FFI.withPtr ---> GioIconClass.FFI.fromOptPtr false) getGicon_ self
     fun getHasTooltip self = (GtkStatusIconClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasTooltip_ self
-    fun getIconName self = (GtkStatusIconClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getIconName_ self
-    fun getPixbuf self = (GtkStatusIconClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
+    fun getIconName self = (GtkStatusIconClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getIconName_ self
+    fun getPixbuf self = (GtkStatusIconClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getPixbuf_ self
     fun getScreen self = (GtkStatusIconClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
     fun getSize self = (GtkStatusIconClass.FFI.withPtr ---> GInt32.FFI.fromVal) getSize_ self
-    fun getStock self = (GtkStatusIconClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStock_ self
+    fun getStock self = (GtkStatusIconClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getStock_ self
     fun getStorageType self = (GtkStatusIconClass.FFI.withPtr ---> GtkImageType.FFI.fromVal) getStorageType_ self
     fun getTitle self = (GtkStatusIconClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTitle_ self
-    fun getTooltipMarkup self = (GtkStatusIconClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getTooltipMarkup_ self
-    fun getTooltipText self = (GtkStatusIconClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getTooltipText_ self
+    fun getTooltipMarkup self = (GtkStatusIconClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getTooltipMarkup_ self
+    fun getTooltipText self = (GtkStatusIconClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getTooltipText_ self
     fun getVisible self = (GtkStatusIconClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
     fun getX11WindowId self = (GtkStatusIconClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getX11WindowId_ self
     fun isEmbedded self = (GtkStatusIconClass.FFI.withPtr ---> GBool.FFI.fromVal) isEmbedded_ self

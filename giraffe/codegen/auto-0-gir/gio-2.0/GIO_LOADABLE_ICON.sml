@@ -12,6 +12,6 @@ signature GIO_LOADABLE_ICON =
        -> base input_stream_class * string
     val loadFinish :
       'a class
-       -> 'b async_result_class * string
-       -> base input_stream_class
+       -> 'b async_result_class
+       -> base input_stream_class * string
   end

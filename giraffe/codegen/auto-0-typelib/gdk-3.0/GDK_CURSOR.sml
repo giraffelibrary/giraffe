@@ -7,16 +7,27 @@ signature GDK_CURSOR =
     val getType : unit -> GObject.Type.t
     val new : cursor_type_t -> base class
     val newForDisplay : 'a display_class * cursor_type_t -> base class
-    val newFromName : 'a display_class * string -> base class
+    val newFromName : 'a display_class * string -> base class option
     val newFromPixbuf :
       'a display_class
        * 'b GdkPixbuf.PixbufClass.class
        * LargeInt.int
        * LargeInt.int
        -> base class
+    val newFromSurface :
+      'a display_class
+       * Cairo.SurfaceRecord.t
+       * real
+       * real
+       -> base class
     val getCursorType : 'a class -> cursor_type_t
     val getDisplay : 'a class -> base display_class
-    val getImage : 'a class -> base GdkPixbuf.PixbufClass.class
+    val getImage : 'a class -> base GdkPixbuf.PixbufClass.class option
+    val getSurface :
+      'a class
+       -> Cairo.SurfaceRecord.t option
+           * real
+           * real
     val cursorTypeProp : ('a class, cursor_type_t, cursor_type_t) Property.readwrite
     val displayProp : ('a class, base display_class option, 'b display_class option) Property.readwrite
   end

@@ -9,10 +9,13 @@ structure GdkDevice :>
     where type axis_use_t = GdkAxisUse.t
     where type modifier_type_t = GdkModifierType.t
     where type 'a screen_class = 'a GdkScreenClass.class
+    where type axis_flags_t = GdkAxisFlags.t
     where type 'a device_manager_class = 'a GdkDeviceManagerClass.class
     where type 'a display_class = 'a GdkDisplayClass.class
     where type input_mode_t = GdkInputMode.t
     where type input_source_t = GdkInputSource.t
+    where type 'a seat_class = 'a GdkSeatClass.class
+    where type 'a device_tool_class = 'a GdkDeviceToolClass.class
     where type device_type_t = GdkDeviceType.t =
   struct
     val getType_ = _import "gdk_device_get_type" : unit -> GObjectType.FFI.val_;
@@ -37,6 +40,7 @@ structure GdkDevice :>
               x4
             )
     val getAssociatedDevice_ = _import "gdk_device_get_associated_device" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p;
+    val getAxes_ = _import "gdk_device_get_axes" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkAxisFlags.FFI.val_;
     val getAxisUse_ = fn x1 & x2 => (_import "gdk_device_get_axis_use" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p * GUInt.FFI.val_ -> GdkAxisUse.FFI.val_;) (x1, x2)
     val getDeviceType_ = _import "gdk_device_get_device_type" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkDeviceType.FFI.val_;
     val getDisplay_ = _import "gdk_device_get_display" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
@@ -61,6 +65,7 @@ structure GdkDevice :>
               x3,
               x4
             )
+    val getLastEventWindow_ = _import "gdk_device_get_last_event_window" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
     val getMode_ = _import "gdk_device_get_mode" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkInputMode.FFI.val_;
     val getNAxes_ = _import "gdk_device_get_n_axes" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GInt.FFI.val_;
     val getNKeys_ = _import "gdk_device_get_n_keys" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GInt.FFI.val_;
@@ -85,7 +90,30 @@ structure GdkDevice :>
               x3,
               x4
             )
+    val getPositionDouble_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4 =>
+          (
+            _import "gdk_device_get_position_double" :
+              GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
+               * (unit, GdkScreenClass.FFI.notnull) GdkScreenClass.FFI.r
+               * GDouble.FFI.ref_
+               * GDouble.FFI.ref_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
+    val getProductId_ = _import "gdk_device_get_product_id" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getSeat_ = _import "gdk_device_get_seat" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p;
     val getSource_ = _import "gdk_device_get_source" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkInputSource.FFI.val_;
+    val getVendorId_ = _import "gdk_device_get_vendor_id" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getWindowAtPosition_ =
       fn
         x1
@@ -96,6 +124,23 @@ structure GdkDevice :>
               GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
+               -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
+    val getWindowAtPositionDouble_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "gdk_device_get_window_at_position_double" :
+              GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
+               * GDouble.FFI.ref_
+               * GDouble.FFI.ref_
                -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
           )
             (
@@ -200,10 +245,13 @@ structure GdkDevice :>
     type axis_use_t = GdkAxisUse.t
     type modifier_type_t = GdkModifierType.t
     type 'a screen_class = 'a GdkScreenClass.class
+    type axis_flags_t = GdkAxisFlags.t
     type 'a device_manager_class = 'a GdkDeviceManagerClass.class
     type 'a display_class = 'a GdkDisplayClass.class
     type input_mode_t = GdkInputMode.t
     type input_source_t = GdkInputSource.t
+    type 'a seat_class = 'a GdkSeatClass.class
+    type 'a device_tool_class = 'a GdkDeviceToolClass.class
     type device_type_t = GdkDeviceType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -232,6 +280,7 @@ structure GdkDevice :>
         if retVal then SOME (grabWindow, ownerEvents) else NONE
       end
     fun getAssociatedDevice self = (GdkDeviceClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromPtr false) getAssociatedDevice_ self
+    fun getAxes self = (GdkDeviceClass.FFI.withPtr ---> GdkAxisFlags.FFI.fromVal) getAxes_ self
     fun getAxisUse self index = (GdkDeviceClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GdkAxisUse.FFI.fromVal) getAxisUse_ (self & index)
     fun getDeviceType self = (GdkDeviceClass.FFI.withPtr ---> GdkDeviceType.FFI.fromVal) getDeviceType_ self
     fun getDisplay self = (GdkDeviceClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
@@ -260,6 +309,7 @@ structure GdkDevice :>
       in
         if retVal then SOME (keyval, modifiers) else NONE
       end
+    fun getLastEventWindow self = (GdkDeviceClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getLastEventWindow_ self
     fun getMode self = (GdkDeviceClass.FFI.withPtr ---> GdkInputMode.FFI.fromVal) getMode_ self
     fun getNAxes self = (GdkDeviceClass.FFI.withPtr ---> GInt.FFI.fromVal) getNAxes_ self
     fun getNKeys self = (GdkDeviceClass.FFI.withPtr ---> GInt.FFI.fromVal) getNKeys_ self
@@ -294,7 +344,40 @@ structure GdkDevice :>
           y
         )
       end
+    fun getPositionDouble self =
+      let
+        val screen
+         & x
+         & y
+         & () =
+          (
+            GdkDeviceClass.FFI.withPtr
+             &&&> GdkScreenClass.FFI.withRefOptPtr
+             &&&> GDouble.FFI.withRefVal
+             &&&> GDouble.FFI.withRefVal
+             ---> GdkScreenClass.FFI.fromPtr false
+                   && GDouble.FFI.fromVal
+                   && GDouble.FFI.fromVal
+                   && I
+          )
+            getPositionDouble_
+            (
+              self
+               & NONE
+               & GDouble.null
+               & GDouble.null
+            )
+      in
+        (
+          screen,
+          x,
+          y
+        )
+      end
+    fun getProductId self = (GdkDeviceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getProductId_ self
+    fun getSeat self = (GdkDeviceClass.FFI.withPtr ---> GdkSeatClass.FFI.fromPtr false) getSeat_ self
     fun getSource self = (GdkDeviceClass.FFI.withPtr ---> GdkInputSource.FFI.fromVal) getSource_ self
+    fun getVendorId self = (GdkDeviceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getVendorId_ self
     fun getWindowAtPosition self =
       let
         val winX
@@ -313,6 +396,32 @@ structure GdkDevice :>
               self
                & GInt.null
                & GInt.null
+            )
+      in
+        (
+          retVal,
+          winX,
+          winY
+        )
+      end
+    fun getWindowAtPositionDouble self =
+      let
+        val winX
+         & winY
+         & retVal =
+          (
+            GdkDeviceClass.FFI.withPtr
+             &&&> GDouble.FFI.withRefVal
+             &&&> GDouble.FFI.withRefVal
+             ---> GDouble.FFI.fromVal
+                   && GDouble.FFI.fromVal
+                   && GdkWindowClass.FFI.fromPtr false
+          )
+            getWindowAtPositionDouble_
+            (
+              self
+               & GDouble.null
+               & GDouble.null
             )
       in
         (
@@ -412,11 +521,13 @@ structure GdkDevice :>
       open ClosureMarshal Signal
     in
       fun changedSig f = signal "changed" (void ---> ret_void) f
+      fun toolChangedSig f = signal "tool-changed" (get 0w1 GdkDeviceToolClass.t ---> ret_void) f
     end
     local
       open Property
     in
       val associatedDeviceProp = {get = fn x => get "associated-device" GdkDeviceClass.tOpt x}
+      val axesProp = {get = fn x => get "axes" GdkAxisFlags.t x}
       val deviceManagerProp =
         {
           get = fn x => get "device-manager" GdkDeviceManagerClass.tOpt x,
@@ -448,10 +559,31 @@ structure GdkDevice :>
           get = fn x => get "name" stringOpt x,
           set = fn x => set "name" stringOpt x
         }
+      val numTouchesProp =
+        {
+          get = fn x => get "num-touches" uint x,
+          set = fn x => set "num-touches" uint x
+        }
+      val productIdProp =
+        {
+          get = fn x => get "product-id" stringOpt x,
+          set = fn x => set "product-id" stringOpt x
+        }
+      val seatProp =
+        {
+          get = fn x => get "seat" GdkSeatClass.tOpt x,
+          set = fn x => set "seat" GdkSeatClass.tOpt x
+        }
+      val toolProp = {get = fn x => get "tool" GdkDeviceToolClass.tOpt x}
       val typeProp =
         {
           get = fn x => get "type" GdkDeviceType.t x,
           set = fn x => set "type" GdkDeviceType.t x
+        }
+      val vendorIdProp =
+        {
+          get = fn x => get "vendor-id" stringOpt x,
+          set = fn x => set "vendor-id" stringOpt x
         }
     end
   end

@@ -21,6 +21,7 @@ structure PangoContext :>
     structure PangoFontFamilyClassCVectorN = CVectorN(PangoFontFamilyClassCVectorNType)
     val getType_ = _import "pango_context_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "pango_context_new" : unit -> PangoContextClass.FFI.notnull PangoContextClass.FFI.p;
+    val changed_ = _import "pango_context_changed" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> unit;
     val getBaseDir_ = _import "pango_context_get_base_dir" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoDirection.FFI.val_;
     val getBaseGravity_ = _import "pango_context_get_base_gravity" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoGravity.FFI.val_;
     val getFontDescription_ = _import "pango_context_get_font_description" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;
@@ -46,6 +47,7 @@ structure PangoContext :>
               x2,
               x3
             )
+    val getSerial_ = _import "pango_context_get_serial" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> GUInt.FFI.val_;
     val listFamilies_ =
       fn
         x1
@@ -105,6 +107,7 @@ structure PangoContext :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> PangoContextClass.FFI.fromPtr true) new_ ()
+    fun changed self = (PangoContextClass.FFI.withPtr ---> I) changed_ self
     fun getBaseDir self = (PangoContextClass.FFI.withPtr ---> PangoDirection.FFI.fromVal) getBaseDir_ self
     fun getBaseGravity self = (PangoContextClass.FFI.withPtr ---> PangoGravity.FFI.fromVal) getBaseGravity_ self
     fun getFontDescription self = (PangoContextClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFontDescription_ self
@@ -126,6 +129,7 @@ structure PangoContext :>
            & desc
            & language
         )
+    fun getSerial self = (PangoContextClass.FFI.withPtr ---> GUInt.FFI.fromVal) getSerial_ self
     fun listFamilies self =
       let
         val families
@@ -135,7 +139,7 @@ structure PangoContext :>
             PangoContextClass.FFI.withPtr
              &&&> PangoFontFamilyClassCVectorN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> PangoFontFamilyClassCVectorN.FFI.fromPtr 2
+             ---> PangoFontFamilyClassCVectorN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && I
           )

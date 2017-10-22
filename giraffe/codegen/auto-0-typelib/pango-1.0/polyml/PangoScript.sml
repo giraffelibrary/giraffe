@@ -82,6 +82,45 @@ structure PangoScript :>
     | CARIAN
     | LYCIAN
     | LYDIAN
+    | BATAK
+    | BRAHMI
+    | MANDAIC
+    | CHAKMA
+    | MEROITIC_CURSIVE
+    | MEROITIC_HIEROGLYPHS
+    | MIAO
+    | SHARADA
+    | SORA_SOMPENG
+    | TAKRI
+    | BASSA_VAH
+    | CAUCASIAN_ALBANIAN
+    | DUPLOYAN
+    | ELBASAN
+    | GRANTHA
+    | KHOJKI
+    | KHUDAWADI
+    | LINEAR_A
+    | MAHAJANI
+    | MANICHAEAN
+    | MENDE_KIKAKUI
+    | MODI
+    | MRO
+    | NABATAEAN
+    | OLD_NORTH_ARABIAN
+    | OLD_PERMIC
+    | PAHAWH_HMONG
+    | PALMYRENE
+    | PAU_CIN_HAU
+    | PSALTER_PAHLAVI
+    | SIDDHAM
+    | TIRHUTA
+    | WARANG_CITI
+    | AHOM
+    | ANATOLIAN_HIEROGLYPHS
+    | HATRAN
+    | MULTANI
+    | OLD_HUNGARIAN
+    | SIGNWRITING
     structure Enum =
       Enum(
         type enum = enum
@@ -167,6 +206,45 @@ structure PangoScript :>
           | CARIAN => 75
           | LYCIAN => 76
           | LYDIAN => 77
+          | BATAK => 78
+          | BRAHMI => 79
+          | MANDAIC => 80
+          | CHAKMA => 81
+          | MEROITIC_CURSIVE => 82
+          | MEROITIC_HIEROGLYPHS => 83
+          | MIAO => 84
+          | SHARADA => 85
+          | SORA_SOMPENG => 86
+          | TAKRI => 87
+          | BASSA_VAH => 88
+          | CAUCASIAN_ALBANIAN => 89
+          | DUPLOYAN => 90
+          | ELBASAN => 91
+          | GRANTHA => 92
+          | KHOJKI => 93
+          | KHUDAWADI => 94
+          | LINEAR_A => 95
+          | MAHAJANI => 96
+          | MANICHAEAN => 97
+          | MENDE_KIKAKUI => 98
+          | MODI => 99
+          | MRO => 100
+          | NABATAEAN => 101
+          | OLD_NORTH_ARABIAN => 102
+          | OLD_PERMIC => 103
+          | PAHAWH_HMONG => 104
+          | PALMYRENE => 105
+          | PAU_CIN_HAU => 106
+          | PSALTER_PAHLAVI => 107
+          | SIDDHAM => 108
+          | TIRHUTA => 109
+          | WARANG_CITI => 110
+          | AHOM => 111
+          | ANATOLIAN_HIEROGLYPHS => 112
+          | HATRAN => 113
+          | MULTANI => 114
+          | OLD_HUNGARIAN => 115
+          | SIGNWRITING => 116
         exception Value of GInt32.t
         val fromInt =
           fn
@@ -249,6 +327,45 @@ structure PangoScript :>
           | 75 => CARIAN
           | 76 => LYCIAN
           | 77 => LYDIAN
+          | 78 => BATAK
+          | 79 => BRAHMI
+          | 80 => MANDAIC
+          | 81 => CHAKMA
+          | 82 => MEROITIC_CURSIVE
+          | 83 => MEROITIC_HIEROGLYPHS
+          | 84 => MIAO
+          | 85 => SHARADA
+          | 86 => SORA_SOMPENG
+          | 87 => TAKRI
+          | 88 => BASSA_VAH
+          | 89 => CAUCASIAN_ALBANIAN
+          | 90 => DUPLOYAN
+          | 91 => ELBASAN
+          | 92 => GRANTHA
+          | 93 => KHOJKI
+          | 94 => KHUDAWADI
+          | 95 => LINEAR_A
+          | 96 => MAHAJANI
+          | 97 => MANICHAEAN
+          | 98 => MENDE_KIKAKUI
+          | 99 => MODI
+          | 100 => MRO
+          | 101 => NABATAEAN
+          | 102 => OLD_NORTH_ARABIAN
+          | 103 => OLD_PERMIC
+          | 104 => PAHAWH_HMONG
+          | 105 => PALMYRENE
+          | 106 => PAU_CIN_HAU
+          | 107 => PSALTER_PAHLAVI
+          | 108 => SIDDHAM
+          | 109 => TIRHUTA
+          | 110 => WARANG_CITI
+          | 111 => AHOM
+          | 112 => ANATOLIAN_HIEROGLYPHS
+          | 113 => HATRAN
+          | 114 => MULTANI
+          | 115 => OLD_HUNGARIAN
+          | 116 => SIGNWRITING
           | n => raise Value n
       )
     open Enum
@@ -270,10 +387,10 @@ structure PangoScript :>
       open PolyMLFFI
     in
       val forUnichar_ = call (getSymbol "pango_script_for_unichar") (GChar.PolyML.cVal --> PolyML.cVal)
-      val getSampleLanguage_ = call (getSymbol "pango_script_get_sample_language") (PolyML.cVal --> PangoLanguageRecord.PolyML.cPtr)
+      val getSampleLanguage_ = call (getSymbol "pango_script_get_sample_language") (PolyML.cVal --> PangoLanguageRecord.PolyML.cOptPtr)
     end
     type language_t = PangoLanguageRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun forUnichar ch = (GChar.FFI.withVal ---> FFI.fromVal) forUnichar_ ch
-    fun getSampleLanguage script = (FFI.withVal ---> PangoLanguageRecord.FFI.fromPtr true) getSampleLanguage_ script
+    fun getSampleLanguage script = (FFI.withVal ---> PangoLanguageRecord.FFI.fromOptPtr true) getSampleLanguage_ script
   end

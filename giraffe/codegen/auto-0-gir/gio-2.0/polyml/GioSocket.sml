@@ -1,21 +1,23 @@
 structure GioSocket :>
   GIO_SOCKET
     where type 'a class = 'a GioSocketClass.class
+    where type 'a datagram_based_class = 'a GioDatagramBasedClass.class
     where type 'a initable_class = 'a GioInitableClass.class
     where type 'a socket_connection_class = 'a GioSocketConnectionClass.class
     where type 'a credentials_class = 'a GioCredentialsClass.class
+    where type 'a inet_address_class = 'a GioInetAddressClass.class
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type socket_family_t = GioSocketFamily.t
     where type socket_protocol_t = GioSocketProtocol.t
     where type 'a socket_address_class = 'a GioSocketAddressClass.class
     where type socket_type_t = GioSocketType.t =
   struct
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
+    structure GUInt8CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GUInt8Type
+        structure ElemSequence = MonoVectorSequence(Word8Vector)
       )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
+    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -50,6 +52,16 @@ structure GioSocket :>
       val checkConnectResult_ = call (getSymbol "g_socket_check_connect_result") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val close_ = call (getSymbol "g_socket_close") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val conditionCheck_ = call (getSymbol "g_socket_condition_check") (GioSocketClass.PolyML.cPtr &&> GLibIOCondition.PolyML.cVal --> GLibIOCondition.PolyML.cVal)
+      val conditionTimedWait_ =
+        call (getSymbol "g_socket_condition_timed_wait")
+          (
+            GioSocketClass.PolyML.cPtr
+             &&> GLibIOCondition.PolyML.cVal
+             &&> GInt64.PolyML.cVal
+             &&> GioCancellableClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val conditionWait_ =
         call (getSymbol "g_socket_condition_wait")
           (
@@ -69,25 +81,60 @@ structure GioSocket :>
              --> GBool.PolyML.cVal
           )
       val connectionFactoryCreateConnection_ = call (getSymbol "g_socket_connection_factory_create_connection") (GioSocketClass.PolyML.cPtr --> GioSocketConnectionClass.PolyML.cPtr)
+      val getAvailableBytes_ = call (getSymbol "g_socket_get_available_bytes") (GioSocketClass.PolyML.cPtr --> GSSize.PolyML.cVal)
       val getBlocking_ = call (getSymbol "g_socket_get_blocking") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getBroadcast_ = call (getSymbol "g_socket_get_broadcast") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getCredentials_ = call (getSymbol "g_socket_get_credentials") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioCredentialsClass.PolyML.cPtr)
       val getFamily_ = call (getSymbol "g_socket_get_family") (GioSocketClass.PolyML.cPtr --> GioSocketFamily.PolyML.cVal)
       val getFd_ = call (getSymbol "g_socket_get_fd") (GioSocketClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getKeepalive_ = call (getSymbol "g_socket_get_keepalive") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getListenBacklog_ = call (getSymbol "g_socket_get_listen_backlog") (GioSocketClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getLocalAddress_ = call (getSymbol "g_socket_get_local_address") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioSocketAddressClass.PolyML.cPtr)
+      val getMulticastLoopback_ = call (getSymbol "g_socket_get_multicast_loopback") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getMulticastTtl_ = call (getSymbol "g_socket_get_multicast_ttl") (GioSocketClass.PolyML.cPtr --> GUInt.PolyML.cVal)
+      val getOption_ =
+        call (getSymbol "g_socket_get_option")
+          (
+            GioSocketClass.PolyML.cPtr
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val getProtocol_ = call (getSymbol "g_socket_get_protocol") (GioSocketClass.PolyML.cPtr --> GioSocketProtocol.PolyML.cVal)
       val getRemoteAddress_ = call (getSymbol "g_socket_get_remote_address") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioSocketAddressClass.PolyML.cPtr)
       val getSocketType_ = call (getSymbol "g_socket_get_socket_type") (GioSocketClass.PolyML.cPtr --> GioSocketType.PolyML.cVal)
       val getTimeout_ = call (getSymbol "g_socket_get_timeout") (GioSocketClass.PolyML.cPtr --> GUInt.PolyML.cVal)
+      val getTtl_ = call (getSymbol "g_socket_get_ttl") (GioSocketClass.PolyML.cPtr --> GUInt.PolyML.cVal)
       val isClosed_ = call (getSymbol "g_socket_is_closed") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val isConnected_ = call (getSymbol "g_socket_is_connected") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val joinMulticastGroup_ =
+        call (getSymbol "g_socket_join_multicast_group")
+          (
+            GioSocketClass.PolyML.cPtr
+             &&> GioInetAddressClass.PolyML.cPtr
+             &&> GBool.PolyML.cVal
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
+      val leaveMulticastGroup_ =
+        call (getSymbol "g_socket_leave_multicast_group")
+          (
+            GioSocketClass.PolyML.cPtr
+             &&> GioInetAddressClass.PolyML.cPtr
+             &&> GBool.PolyML.cVal
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val listen_ = call (getSymbol "g_socket_listen") (GioSocketClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val receive_ =
         call (getSymbol "g_socket_receive")
           (
             GioSocketClass.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> GUInt8CVectorN.PolyML.cInPtr
              &&> GSize.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -97,8 +144,8 @@ structure GioSocket :>
         call (getSymbol "g_socket_receive_from")
           (
             GioSocketClass.PolyML.cPtr
-             &&> GioSocketAddressClass.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> GioSocketAddressClass.PolyML.cOutRef
+             &&> GUInt8CVectorN.PolyML.cInPtr
              &&> GSize.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -108,7 +155,7 @@ structure GioSocket :>
         call (getSymbol "g_socket_receive_with_blocking")
           (
             GioSocketClass.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> GUInt8CVectorN.PolyML.cInPtr
              &&> GSize.PolyML.cVal
              &&> GBool.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -119,7 +166,7 @@ structure GioSocket :>
         call (getSymbol "g_socket_send")
           (
             GioSocketClass.PolyML.cPtr
-             &&> Utf8CVectorN.PolyML.cInPtr
+             &&> GUInt8CVectorN.PolyML.cInPtr
              &&> GSize.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -129,8 +176,8 @@ structure GioSocket :>
         call (getSymbol "g_socket_send_to")
           (
             GioSocketClass.PolyML.cPtr
-             &&> GioSocketAddressClass.PolyML.cPtr
-             &&> Utf8CVectorN.PolyML.cInPtr
+             &&> GioSocketAddressClass.PolyML.cOptPtr
+             &&> GUInt8CVectorN.PolyML.cInPtr
              &&> GSize.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -140,7 +187,7 @@ structure GioSocket :>
         call (getSymbol "g_socket_send_with_blocking")
           (
             GioSocketClass.PolyML.cPtr
-             &&> Utf8CVectorN.PolyML.cInPtr
+             &&> GUInt8CVectorN.PolyML.cInPtr
              &&> GSize.PolyML.cVal
              &&> GBool.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -148,9 +195,23 @@ structure GioSocket :>
              --> GSSize.PolyML.cVal
           )
       val setBlocking_ = call (getSymbol "g_socket_set_blocking") (GioSocketClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setBroadcast_ = call (getSymbol "g_socket_set_broadcast") (GioSocketClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setKeepalive_ = call (getSymbol "g_socket_set_keepalive") (GioSocketClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setListenBacklog_ = call (getSymbol "g_socket_set_listen_backlog") (GioSocketClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setMulticastLoopback_ = call (getSymbol "g_socket_set_multicast_loopback") (GioSocketClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setMulticastTtl_ = call (getSymbol "g_socket_set_multicast_ttl") (GioSocketClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
+      val setOption_ =
+        call (getSymbol "g_socket_set_option")
+          (
+            GioSocketClass.PolyML.cPtr
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val setTimeout_ = call (getSymbol "g_socket_set_timeout") (GioSocketClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
+      val setTtl_ = call (getSymbol "g_socket_set_ttl") (GioSocketClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
       val shutdown_ =
         call (getSymbol "g_socket_shutdown")
           (
@@ -163,15 +224,18 @@ structure GioSocket :>
       val speaksIpv4_ = call (getSymbol "g_socket_speaks_ipv4") (GioSocketClass.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a GioSocketClass.class
+    type 'a datagram_based_class = 'a GioDatagramBasedClass.class
     type 'a initable_class = 'a GioInitableClass.class
     type 'a socket_connection_class = 'a GioSocketConnectionClass.class
     type 'a credentials_class = 'a GioCredentialsClass.class
+    type 'a inet_address_class = 'a GioInetAddressClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type socket_family_t = GioSocketFamily.t
     type socket_protocol_t = GioSocketProtocol.t
     type 'a socket_address_class = 'a GioSocketAddressClass.class
     type socket_type_t = GioSocketType.t
     type t = base class
+    fun asDatagramBased self = (GObjectObjectClass.FFI.withPtr ---> GioDatagramBasedClass.FFI.fromPtr false) I self
     fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
@@ -226,6 +290,29 @@ structure GioSocket :>
     fun checkConnectResult self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) checkConnectResult_ (self & [])
     fun close self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) close_ (self & [])
     fun conditionCheck self condition = (GioSocketClass.FFI.withPtr &&&> GLibIOCondition.FFI.withVal ---> GLibIOCondition.FFI.fromVal) conditionCheck_ (self & condition)
+    fun conditionTimedWait
+      self
+      (
+        condition,
+        timeout,
+        cancellable
+      ) =
+      (
+        GioSocketClass.FFI.withPtr
+         &&&> GLibIOCondition.FFI.withVal
+         &&&> GInt64.FFI.withVal
+         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        conditionTimedWait_
+        (
+          self
+           & condition
+           & timeout
+           & cancellable
+           & []
+        )
     fun conditionWait self (condition, cancellable) =
       (
         GioSocketClass.FFI.withPtr
@@ -257,102 +344,179 @@ structure GioSocket :>
            & []
         )
     fun connectionFactoryCreateConnection self = (GioSocketClass.FFI.withPtr ---> GioSocketConnectionClass.FFI.fromPtr true) connectionFactoryCreateConnection_ self
+    fun getAvailableBytes self = (GioSocketClass.FFI.withPtr ---> GSSize.FFI.fromVal) getAvailableBytes_ self
     fun getBlocking self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) getBlocking_ self
+    fun getBroadcast self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) getBroadcast_ self
     fun getCredentials self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioCredentialsClass.FFI.fromPtr true) getCredentials_ (self & [])
     fun getFamily self = (GioSocketClass.FFI.withPtr ---> GioSocketFamily.FFI.fromVal) getFamily_ self
     fun getFd self = (GioSocketClass.FFI.withPtr ---> GInt.FFI.fromVal) getFd_ self
     fun getKeepalive self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) getKeepalive_ self
     fun getListenBacklog self = (GioSocketClass.FFI.withPtr ---> GInt.FFI.fromVal) getListenBacklog_ self
     fun getLocalAddress self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.FFI.fromPtr true) getLocalAddress_ (self & [])
+    fun getMulticastLoopback self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) getMulticastLoopback_ self
+    fun getMulticastTtl self = (GioSocketClass.FFI.withPtr ---> GUInt.FFI.fromVal) getMulticastTtl_ self
+    fun getOption self (level, optname) =
+      let
+        val value & () =
+          (
+            GioSocketClass.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             &&&> GInt.FFI.withVal
+             &&&> GInt.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> GInt.FFI.fromVal && ignore
+          )
+            getOption_
+            (
+              self
+               & level
+               & optname
+               & GInt.null
+               & []
+            )
+      in
+        value
+      end
     fun getProtocol self = (GioSocketClass.FFI.withPtr ---> GioSocketProtocol.FFI.fromVal) getProtocol_ self
     fun getRemoteAddress self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.FFI.fromPtr true) getRemoteAddress_ (self & [])
     fun getSocketType self = (GioSocketClass.FFI.withPtr ---> GioSocketType.FFI.fromVal) getSocketType_ self
     fun getTimeout self = (GioSocketClass.FFI.withPtr ---> GUInt.FFI.fromVal) getTimeout_ self
+    fun getTtl self = (GioSocketClass.FFI.withPtr ---> GUInt.FFI.fromVal) getTtl_ self
     fun isClosed self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
     fun isConnected self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) isConnected_ self
+    fun joinMulticastGroup
+      self
+      (
+        group,
+        sourceSpecific,
+        iface
+      ) =
+      (
+        GioSocketClass.FFI.withPtr
+         &&&> GioInetAddressClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        joinMulticastGroup_
+        (
+          self
+           & group
+           & sourceSpecific
+           & iface
+           & []
+        )
+    fun leaveMulticastGroup
+      self
+      (
+        group,
+        sourceSpecific,
+        iface
+      ) =
+      (
+        GioSocketClass.FFI.withPtr
+         &&&> GioInetAddressClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        leaveMulticastGroup_
+        (
+          self
+           & group
+           & sourceSpecific
+           & iface
+           & []
+        )
     fun listen self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) listen_ (self & [])
-    fun receive
-      self
-      (
-        buffer,
-        size,
-        cancellable
-      ) =
-      (
-        GioSocketClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GSize.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
-         &&&> GLibErrorRecord.handleError
-         ---> GSSize.FFI.fromVal
-      )
-        receive_
-        (
-          self
-           & buffer
-           & size
-           & cancellable
-           & []
-        )
-    fun receiveFrom
-      self
-      (
-        address,
-        buffer,
-        size,
-        cancellable
-      ) =
-      (
-        GioSocketClass.FFI.withPtr
-         &&&> GioSocketAddressClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GSize.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
-         &&&> GLibErrorRecord.handleError
-         ---> GSSize.FFI.fromVal
-      )
-        receiveFrom_
-        (
-          self
-           & address
-           & buffer
-           & size
-           & cancellable
-           & []
-        )
+    fun receive self (buffer, cancellable) =
+      let
+        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val retVal =
+          (
+            GioSocketClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GSize.FFI.withVal
+             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GSSize.FFI.fromVal
+          )
+            receive_
+            (
+              self
+               & buffer
+               & size
+               & cancellable
+               & []
+            )
+      in
+        retVal
+      end
+    fun receiveFrom self (buffer, cancellable) =
+      let
+        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val address & retVal =
+          (
+            GioSocketClass.FFI.withPtr
+             &&&> GioSocketAddressClass.FFI.withRefOptPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GSize.FFI.withVal
+             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GioSocketAddressClass.FFI.fromPtr true && GSSize.FFI.fromVal
+          )
+            receiveFrom_
+            (
+              self
+               & NONE
+               & buffer
+               & size
+               & cancellable
+               & []
+            )
+      in
+        (retVal, address)
+      end
     fun receiveWithBlocking
       self
       (
         buffer,
-        size,
         blocking,
         cancellable
       ) =
-      (
-        GioSocketClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GSize.FFI.withVal
-         &&&> GBool.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
-         &&&> GLibErrorRecord.handleError
-         ---> GSSize.FFI.fromVal
-      )
-        receiveWithBlocking_
-        (
-          self
-           & buffer
-           & size
-           & blocking
-           & cancellable
-           & []
-        )
-    fun send self (buffer, cancellable) =
       let
-        val size = LargeInt.fromInt (Utf8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
         val retVal =
           (
             GioSocketClass.FFI.withPtr
-             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GSize.FFI.withVal
+             &&&> GBool.FFI.withVal
+             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GSSize.FFI.fromVal
+          )
+            receiveWithBlocking_
+            (
+              self
+               & buffer
+               & size
+               & blocking
+               & cancellable
+               & []
+            )
+      in
+        retVal
+      end
+    fun send self (buffer, cancellable) =
+      let
+        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val retVal =
+          (
+            GioSocketClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
              &&&> GSize.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
@@ -377,12 +541,12 @@ structure GioSocket :>
         cancellable
       ) =
       let
-        val size = LargeInt.fromInt (Utf8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
         val retVal =
           (
             GioSocketClass.FFI.withPtr
-             &&&> GioSocketAddressClass.FFI.withPtr
-             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> GioSocketAddressClass.FFI.withOptPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
              &&&> GSize.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
@@ -408,11 +572,11 @@ structure GioSocket :>
         cancellable
       ) =
       let
-        val size = LargeInt.fromInt (Utf8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
         val retVal =
           (
             GioSocketClass.FFI.withPtr
-             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
              &&&> GSize.FFI.withVal
              &&&> GBool.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
@@ -432,9 +596,36 @@ structure GioSocket :>
         retVal
       end
     fun setBlocking self blocking = (GioSocketClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setBlocking_ (self & blocking)
+    fun setBroadcast self broadcast = (GioSocketClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setBroadcast_ (self & broadcast)
     fun setKeepalive self keepalive = (GioSocketClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setKeepalive_ (self & keepalive)
     fun setListenBacklog self backlog = (GioSocketClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setListenBacklog_ (self & backlog)
+    fun setMulticastLoopback self loopback = (GioSocketClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setMulticastLoopback_ (self & loopback)
+    fun setMulticastTtl self ttl = (GioSocketClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setMulticastTtl_ (self & ttl)
+    fun setOption
+      self
+      (
+        level,
+        optname,
+        value
+      ) =
+      (
+        GioSocketClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        setOption_
+        (
+          self
+           & level
+           & optname
+           & value
+           & []
+        )
     fun setTimeout self timeout = (GioSocketClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setTimeout_ (self & timeout)
+    fun setTtl self ttl = (GioSocketClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setTtl_ (self & ttl)
     fun shutdown self (shutdownRead, shutdownWrite) =
       (
         GioSocketClass.FFI.withPtr
@@ -459,6 +650,11 @@ structure GioSocket :>
           get = fn x => get "blocking" boolean x,
           set = fn x => set "blocking" boolean x
         }
+      val broadcastProp =
+        {
+          get = fn x => get "broadcast" boolean x,
+          set = fn x => set "broadcast" boolean x
+        }
       val familyProp =
         {
           get = fn x => get "family" GioSocketFamily.t x,
@@ -480,6 +676,16 @@ structure GioSocket :>
           set = fn x => set "listen-backlog" int x
         }
       val localAddressProp = {get = fn x => get "local-address" GioSocketAddressClass.tOpt x}
+      val multicastLoopbackProp =
+        {
+          get = fn x => get "multicast-loopback" boolean x,
+          set = fn x => set "multicast-loopback" boolean x
+        }
+      val multicastTtlProp =
+        {
+          get = fn x => get "multicast-ttl" uint x,
+          set = fn x => set "multicast-ttl" uint x
+        }
       val protocolProp =
         {
           get = fn x => get "protocol" GioSocketProtocol.t x,
@@ -490,6 +696,11 @@ structure GioSocket :>
         {
           get = fn x => get "timeout" uint x,
           set = fn x => set "timeout" uint x
+        }
+      val ttlProp =
+        {
+          get = fn x => get "ttl" uint x,
+          set = fn x => set "ttl" uint x
         }
       val typeProp =
         {

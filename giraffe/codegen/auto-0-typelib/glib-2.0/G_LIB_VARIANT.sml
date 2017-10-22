@@ -2,6 +2,7 @@ signature G_LIB_VARIANT =
   sig
     type t
     type variant_class_t
+    type bytes_t
     type variant_type_t
     val newArray : variant_type_t option * t vector option -> t
     val newBoolean : bool -> t
@@ -10,6 +11,11 @@ signature G_LIB_VARIANT =
     val newBytestringArray : string list -> t
     val newDictEntry : t * t -> t
     val newDouble : real -> t
+    val newFromBytes :
+      variant_type_t
+       * bytes_t
+       * bool
+       -> t
     val newHandle : LargeInt.int -> t
     val newInt16 : LargeInt.int -> t
     val newInt32 : LargeInt.int -> t
@@ -26,6 +32,10 @@ signature G_LIB_VARIANT =
     val newUint64 : LargeInt.int -> t
     val newVariant : t -> t
     val byteswap : t -> t
+    val checkFormatString :
+      t
+       -> string * bool
+       -> bool
     val classify : t -> variant_class_t
     val compare :
       t
@@ -48,17 +58,19 @@ signature G_LIB_VARIANT =
       t
        -> LargeInt.int
        -> t
+    val getDataAsBytes : t -> bytes_t
     val getDouble : t -> real
     val getHandle : t -> LargeInt.int
     val getInt16 : t -> LargeInt.int
     val getInt32 : t -> LargeInt.int
     val getInt64 : t -> LargeInt.int
-    val getMaybe : t -> t
+    val getMaybe : t -> t option
     val getNormalForm : t -> t
     val getObjv : t -> string list
     val getSize : t -> LargeInt.int
     val getString : t -> string * LargeInt.int
     val getStrv : t -> string list
+    val getType : t -> variant_type_t
     val getTypeString : t -> string
     val getUint16 : t -> LargeInt.int
     val getUint32 : t -> LargeInt.int
@@ -85,9 +97,9 @@ signature G_LIB_VARIANT =
     val isObjectPath : string -> bool
     val isSignature : string -> bool
     val parse :
-      variant_type_t
+      variant_type_t option
        * string
-       * string
-       * string
+       * string option
+       * string option
        -> t
   end

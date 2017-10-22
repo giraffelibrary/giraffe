@@ -4,7 +4,7 @@ signature GIO_CANCELLABLE =
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val getCurrent : unit -> base class
+    val getCurrent : unit -> base class option
     val cancel : 'a class -> unit
     val disconnect :
       'a class

@@ -24,11 +24,14 @@ signature PANGO_ATTR_TYPE =
     | ABSOLUTE_SIZE
     | GRAVITY
     | GRAVITY_HINT
+    | FONT_FEATURES
+    | FOREGROUND_ALPHA
+    | BACKGROUND_ALPHA
     include
       ENUM
         where type t = enum
     val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
-    val getName : t -> string
+    val getName : t -> string option
     val register : string -> t
   end

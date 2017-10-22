@@ -70,7 +70,7 @@ structure GtkRecentFilter :>
             )
     val addPixbufFormats_ = _import "gtk_recent_filter_add_pixbuf_formats" : GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p -> unit;
     val filter_ = fn x1 & x2 => (_import "gtk_recent_filter_filter" : GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p * GtkRecentFilterInfoRecord.FFI.notnull GtkRecentFilterInfoRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getName_ = _import "gtk_recent_filter_get_name" : GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getName_ = _import "gtk_recent_filter_get_name" : GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p -> unit Utf8.FFI.out_p;
     val getNeeded_ = _import "gtk_recent_filter_get_needed" : GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p -> GtkRecentFilterFlags.FFI.val_;
     val setName_ =
       fn
@@ -102,7 +102,7 @@ structure GtkRecentFilter :>
     fun addPattern self pattern = (GtkRecentFilterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addPattern_ (self & pattern)
     fun addPixbufFormats self = (GtkRecentFilterClass.FFI.withPtr ---> I) addPixbufFormats_ self
     fun filter self filterInfo = (GtkRecentFilterClass.FFI.withPtr &&&> GtkRecentFilterInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) filter_ (self & filterInfo)
-    fun getName self = (GtkRecentFilterClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getName self = (GtkRecentFilterClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getName_ self
     fun getNeeded self = (GtkRecentFilterClass.FFI.withPtr ---> GtkRecentFilterFlags.FFI.fromVal) getNeeded_ self
     fun setName self name = (GtkRecentFilterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setName_ (self & name)
   end

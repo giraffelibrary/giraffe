@@ -91,11 +91,7 @@ structure GioIOStream :>
     local
       open Property
     in
-      val closedProp =
-        {
-          get = fn x => get "closed" boolean x,
-          set = fn x => set "closed" boolean x
-        }
+      val closedProp = {get = fn x => get "closed" boolean x}
       val inputStreamProp = {get = fn x => get "input-stream" GioInputStreamClass.tOpt x}
       val outputStreamProp = {get = fn x => get "output-stream" GioOutputStreamClass.tOpt x}
     end

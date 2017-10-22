@@ -25,6 +25,21 @@ structure GtkSymbolicColor :>
             )
     val newName_ = _import "mlton_gtk_symbolic_color_new_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p;
     val newShade_ = fn x1 & x2 => (_import "gtk_symbolic_color_new_shade" : GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p * GDouble.FFI.val_ -> GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p;) (x1, x2)
+    val newWin32_ =
+      fn
+        (x1, x2) & x3 =>
+          (
+            _import "mlton_gtk_symbolic_color_new_win32" :
+              Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt.FFI.val_
+               -> GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val resolve_ =
       fn
         x1
@@ -68,6 +83,7 @@ structure GtkSymbolicColor :>
         )
     fun newName name = (Utf8.FFI.withPtr ---> GtkSymbolicColorRecord.FFI.fromPtr true) newName_ name
     fun newShade (color, factor) = (GtkSymbolicColorRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newShade_ (color & factor)
+    fun newWin32 (themeClass, id) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newWin32_ (themeClass & id)
     fun resolve self props =
       let
         val resolvedColor & retVal =

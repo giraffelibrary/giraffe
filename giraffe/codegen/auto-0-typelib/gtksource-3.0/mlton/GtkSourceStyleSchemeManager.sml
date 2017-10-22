@@ -43,7 +43,7 @@ structure GtkSourceStyleSchemeManager :>
               x2,
               x3
             )
-    val getSchemeIds_ = _import "gtk_source_style_scheme_manager_get_scheme_ids" : GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+    val getSchemeIds_ = _import "gtk_source_style_scheme_manager_get_scheme_ids" : GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p -> unit Utf8CVector.FFI.out_p;
     val getSearchPath_ = _import "gtk_source_style_scheme_manager_get_search_path" : GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
     val prependSearchPath_ =
       fn
@@ -84,7 +84,7 @@ structure GtkSourceStyleSchemeManager :>
     fun appendSearchPath self path = (GtkSourceStyleSchemeManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) appendSearchPath_ (self & path)
     fun forceRescan self = (GtkSourceStyleSchemeManagerClass.FFI.withPtr ---> I) forceRescan_ self
     fun getScheme self schemeId = (GtkSourceStyleSchemeManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceStyleSchemeClass.FFI.fromPtr false) getScheme_ (self & schemeId)
-    fun getSchemeIds self = (GtkSourceStyleSchemeManagerClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getSchemeIds_ self
+    fun getSchemeIds self = (GtkSourceStyleSchemeManagerClass.FFI.withPtr ---> Utf8CVector.FFI.fromOptPtr 0) getSchemeIds_ self
     fun getSearchPath self = (GtkSourceStyleSchemeManagerClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getSearchPath_ self
     fun prependSearchPath self path = (GtkSourceStyleSchemeManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) prependSearchPath_ (self & path)
     fun setSearchPath self path = (GtkSourceStyleSchemeManagerClass.FFI.withPtr &&&> Utf8CVector.FFI.withOptPtr ---> I) setSearchPath_ (self & path)

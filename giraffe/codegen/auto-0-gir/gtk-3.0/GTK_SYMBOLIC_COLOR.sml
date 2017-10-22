@@ -12,6 +12,7 @@ signature GTK_SYMBOLIC_COLOR =
        -> t
     val newName : string -> t
     val newShade : t * real -> t
+    val newWin32 : string * LargeInt.int -> t
     val resolve :
       t
        -> 'a style_properties_class option

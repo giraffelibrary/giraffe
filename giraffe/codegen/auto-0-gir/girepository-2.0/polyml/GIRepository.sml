@@ -15,21 +15,14 @@ structure GIRepository : G_I_REPOSITORY =
       val argInfoIsSkip_ = call (getSymbol "g_arg_info_is_skip") (GIRepositoryArgInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val argInfoLoadType_ = call (getSymbol "g_arg_info_load_type") (GIRepositoryArgInfoRecord.PolyML.cPtr &&> GIRepositoryTypeInfoRecord.PolyML.cPtr --> cVoid)
       val argInfoMayBeNull_ = call (getSymbol "g_arg_info_may_be_null") (GIRepositoryArgInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val baseInfoGetType_ = call (getSymbol "g_base_info_get_type") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> GIRepositoryInfoType.PolyML.cVal)
+      val callableInfoCanThrowGerror_ = call (getSymbol "g_callable_info_can_throw_gerror") (GIRepositoryCallableInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val callableInfoGetArg_ = call (getSymbol "g_callable_info_get_arg") (GIRepositoryCallableInfoRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> GIRepositoryArgInfoRecord.PolyML.cPtr)
       val callableInfoGetCallerOwns_ = call (getSymbol "g_callable_info_get_caller_owns") (GIRepositoryCallableInfoRecord.PolyML.cPtr --> GIRepositoryTransfer.PolyML.cVal)
+      val callableInfoGetInstanceOwnershipTransfer_ = call (getSymbol "g_callable_info_get_instance_ownership_transfer") (GIRepositoryCallableInfoRecord.PolyML.cPtr --> GIRepositoryTransfer.PolyML.cVal)
       val callableInfoGetNArgs_ = call (getSymbol "g_callable_info_get_n_args") (GIRepositoryCallableInfoRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val callableInfoGetReturnAttribute_ = call (getSymbol "g_callable_info_get_return_attribute") (GIRepositoryCallableInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val callableInfoGetReturnType_ = call (getSymbol "g_callable_info_get_return_type") (GIRepositoryCallableInfoRecord.PolyML.cPtr --> GIRepositoryTypeInfoRecord.PolyML.cPtr)
-      val callableInfoIterateReturnAttributes_ =
-        call (getSymbol "g_callable_info_iterate_return_attributes")
-          (
-            GIRepositoryCallableInfoRecord.PolyML.cPtr
-             &&> GIRepositoryAttributeIterRecord.PolyML.cPtr
-             &&> Utf8.PolyML.cOutRef
-             &&> Utf8.PolyML.cOutRef
-             --> GBool.PolyML.cVal
-          )
+      val callableInfoIsMethod_ = call (getSymbol "g_callable_info_is_method") (GIRepositoryCallableInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val callableInfoLoadArg_ =
         call (getSymbol "g_callable_info_load_arg")
           (
@@ -67,6 +60,7 @@ structure GIRepository : G_I_REPOSITORY =
           )
       val infoTypeToString_ = call (getSymbol "g_info_type_to_string") (GIRepositoryInfoType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val interfaceInfoFindMethod_ = call (getSymbol "g_interface_info_find_method") (GIRepositoryInterfaceInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GIRepositoryFunctionInfoRecord.PolyML.cPtr)
+      val interfaceInfoFindSignal_ = call (getSymbol "g_interface_info_find_signal") (GIRepositoryInterfaceInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GIRepositorySignalInfoRecord.PolyML.cPtr)
       val interfaceInfoFindVfunc_ = call (getSymbol "g_interface_info_find_vfunc") (GIRepositoryInterfaceInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GIRepositoryVFuncInfoRecord.PolyML.cPtr)
       val interfaceInfoGetConstant_ = call (getSymbol "g_interface_info_get_constant") (GIRepositoryInterfaceInfoRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> GIRepositoryConstantInfoRecord.PolyML.cPtr)
       val interfaceInfoGetIfaceStruct_ = call (getSymbol "g_interface_info_get_iface_struct") (GIRepositoryInterfaceInfoRecord.PolyML.cPtr --> GIRepositoryStructInfoRecord.PolyML.cPtr)
@@ -91,7 +85,16 @@ structure GIRepository : G_I_REPOSITORY =
              &&> GIRepositoryObjectInfoRecord.PolyML.cOutRef
              --> GIRepositoryFunctionInfoRecord.PolyML.cPtr
           )
+      val objectInfoFindSignal_ = call (getSymbol "g_object_info_find_signal") (GIRepositoryObjectInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GIRepositorySignalInfoRecord.PolyML.cPtr)
       val objectInfoFindVfunc_ = call (getSymbol "g_object_info_find_vfunc") (GIRepositoryObjectInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GIRepositoryVFuncInfoRecord.PolyML.cPtr)
+      val objectInfoFindVfuncUsingInterfaces_ =
+        call (getSymbol "g_object_info_find_vfunc_using_interfaces")
+          (
+            GIRepositoryObjectInfoRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GIRepositoryObjectInfoRecord.PolyML.cOutRef
+             --> GIRepositoryVFuncInfoRecord.PolyML.cPtr
+          )
       val objectInfoGetAbstract_ = call (getSymbol "g_object_info_get_abstract") (GIRepositoryObjectInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val objectInfoGetClassStruct_ = call (getSymbol "g_object_info_get_class_struct") (GIRepositoryObjectInfoRecord.PolyML.cPtr --> GIRepositoryStructInfoRecord.PolyML.cPtr)
       val objectInfoGetConstant_ = call (getSymbol "g_object_info_get_constant") (GIRepositoryObjectInfoRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> GIRepositoryConstantInfoRecord.PolyML.cPtr)
@@ -124,6 +127,7 @@ structure GIRepository : G_I_REPOSITORY =
       val signalInfoGetClassClosure_ = call (getSymbol "g_signal_info_get_class_closure") (GIRepositorySignalInfoRecord.PolyML.cPtr --> GIRepositoryVFuncInfoRecord.PolyML.cPtr)
       val signalInfoGetFlags_ = call (getSymbol "g_signal_info_get_flags") (GIRepositorySignalInfoRecord.PolyML.cPtr --> GObjectSignalFlags.PolyML.cVal)
       val signalInfoTrueStopsEmit_ = call (getSymbol "g_signal_info_true_stops_emit") (GIRepositorySignalInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val structInfoFindField_ = call (getSymbol "g_struct_info_find_field") (GIRepositoryStructInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GIRepositoryFieldInfoRecord.PolyML.cPtr)
       val structInfoFindMethod_ = call (getSymbol "g_struct_info_find_method") (GIRepositoryStructInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GIRepositoryFunctionInfoRecord.PolyML.cPtr)
       val structInfoGetAlignment_ = call (getSymbol "g_struct_info_get_alignment") (GIRepositoryStructInfoRecord.PolyML.cPtr --> GSize.PolyML.cVal)
       val structInfoGetField_ = call (getSymbol "g_struct_info_get_field") (GIRepositoryStructInfoRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> GIRepositoryFieldInfoRecord.PolyML.cPtr)
@@ -174,7 +178,6 @@ structure GIRepository : G_I_REPOSITORY =
     structure TypeTag = GIRepositoryTypeTag
     structure VFuncInfoFlags = GIRepositoryVFuncInfoFlags
     structure NvokeError = GIRepositoryNvokeError
-    exception NvokeError = GIRepositoryNvokeError
     structure ArgInfoRecord = GIRepositoryArgInfoRecord
     structure CallableInfoRecord = GIRepositoryCallableInfoRecord
     structure CallbackInfoRecord = GIRepositoryCallbackInfoRecord
@@ -210,36 +213,14 @@ structure GIRepository : G_I_REPOSITORY =
         type'
       end
     fun argInfoMayBeNull info = (GIRepositoryArgInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) argInfoMayBeNull_ info
-    fun baseInfoGetType info = (GIRepositoryBaseInfoRecord.FFI.withPtr ---> GIRepositoryInfoType.FFI.fromVal) baseInfoGetType_ info
+    fun callableInfoCanThrowGerror info = (GIRepositoryCallableInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) callableInfoCanThrowGerror_ info
     fun callableInfoGetArg (info, n) = (GIRepositoryCallableInfoRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GIRepositoryArgInfoRecord.FFI.fromPtr true) callableInfoGetArg_ (info & n)
     fun callableInfoGetCallerOwns info = (GIRepositoryCallableInfoRecord.FFI.withPtr ---> GIRepositoryTransfer.FFI.fromVal) callableInfoGetCallerOwns_ info
+    fun callableInfoGetInstanceOwnershipTransfer info = (GIRepositoryCallableInfoRecord.FFI.withPtr ---> GIRepositoryTransfer.FFI.fromVal) callableInfoGetInstanceOwnershipTransfer_ info
     fun callableInfoGetNArgs info = (GIRepositoryCallableInfoRecord.FFI.withPtr ---> GInt.FFI.fromVal) callableInfoGetNArgs_ info
     fun callableInfoGetReturnAttribute (info, name) = (GIRepositoryCallableInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) callableInfoGetReturnAttribute_ (info & name)
     fun callableInfoGetReturnType info = (GIRepositoryCallableInfoRecord.FFI.withPtr ---> GIRepositoryTypeInfoRecord.FFI.fromPtr true) callableInfoGetReturnType_ info
-    fun callableInfoIterateReturnAttributes (info, iterator) =
-      let
-        val name
-         & value
-         & retVal =
-          (
-            GIRepositoryCallableInfoRecord.FFI.withPtr
-             &&&> GIRepositoryAttributeIterRecord.FFI.withPtr
-             &&&> Utf8.FFI.withRefOptPtr
-             &&&> Utf8.FFI.withRefOptPtr
-             ---> Utf8.FFI.fromPtr 0
-                   && Utf8.FFI.fromPtr 0
-                   && GBool.FFI.fromVal
-          )
-            callableInfoIterateReturnAttributes_
-            (
-              info
-               & iterator
-               & NONE
-               & NONE
-            )
-      in
-        if retVal then SOME (name, value) else NONE
-      end
+    fun callableInfoIsMethod info = (GIRepositoryCallableInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) callableInfoIsMethod_ info
     fun callableInfoLoadArg (info, n) =
       let
         val arg & () =
@@ -304,6 +285,7 @@ structure GIRepository : G_I_REPOSITORY =
         )
     fun infoTypeToString type' = (GIRepositoryInfoType.FFI.withVal ---> Utf8.FFI.fromPtr 0) infoTypeToString_ type'
     fun interfaceInfoFindMethod (info, name) = (GIRepositoryInterfaceInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GIRepositoryFunctionInfoRecord.FFI.fromPtr true) interfaceInfoFindMethod_ (info & name)
+    fun interfaceInfoFindSignal (info, name) = (GIRepositoryInterfaceInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GIRepositorySignalInfoRecord.FFI.fromPtr true) interfaceInfoFindSignal_ (info & name)
     fun interfaceInfoFindVfunc (info, name) = (GIRepositoryInterfaceInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GIRepositoryVFuncInfoRecord.FFI.fromPtr true) interfaceInfoFindVfunc_ (info & name)
     fun interfaceInfoGetConstant (info, n) = (GIRepositoryInterfaceInfoRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GIRepositoryConstantInfoRecord.FFI.fromPtr true) interfaceInfoGetConstant_ (info & n)
     fun interfaceInfoGetIfaceStruct info = (GIRepositoryInterfaceInfoRecord.FFI.withPtr ---> GIRepositoryStructInfoRecord.FFI.fromPtr true) interfaceInfoGetIfaceStruct_ info
@@ -338,7 +320,26 @@ structure GIRepository : G_I_REPOSITORY =
       in
         (retVal, implementor)
       end
+    fun objectInfoFindSignal (info, name) = (GIRepositoryObjectInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GIRepositorySignalInfoRecord.FFI.fromPtr true) objectInfoFindSignal_ (info & name)
     fun objectInfoFindVfunc (info, name) = (GIRepositoryObjectInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GIRepositoryVFuncInfoRecord.FFI.fromPtr true) objectInfoFindVfunc_ (info & name)
+    fun objectInfoFindVfuncUsingInterfaces (info, name) =
+      let
+        val implementor & retVal =
+          (
+            GIRepositoryObjectInfoRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GIRepositoryObjectInfoRecord.FFI.withRefOptPtr
+             ---> GIRepositoryObjectInfoRecord.FFI.fromPtr true && GIRepositoryVFuncInfoRecord.FFI.fromPtr true
+          )
+            objectInfoFindVfuncUsingInterfaces_
+            (
+              info
+               & name
+               & NONE
+            )
+      in
+        (retVal, implementor)
+      end
     fun objectInfoGetAbstract info = (GIRepositoryObjectInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) objectInfoGetAbstract_ info
     fun objectInfoGetClassStruct info = (GIRepositoryObjectInfoRecord.FFI.withPtr ---> GIRepositoryStructInfoRecord.FFI.fromPtr true) objectInfoGetClassStruct_ info
     fun objectInfoGetConstant (info, n) = (GIRepositoryObjectInfoRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GIRepositoryConstantInfoRecord.FFI.fromPtr true) objectInfoGetConstant_ (info & n)
@@ -371,6 +372,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun signalInfoGetClassClosure info = (GIRepositorySignalInfoRecord.FFI.withPtr ---> GIRepositoryVFuncInfoRecord.FFI.fromPtr true) signalInfoGetClassClosure_ info
     fun signalInfoGetFlags info = (GIRepositorySignalInfoRecord.FFI.withPtr ---> GObjectSignalFlags.FFI.fromVal) signalInfoGetFlags_ info
     fun signalInfoTrueStopsEmit info = (GIRepositorySignalInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) signalInfoTrueStopsEmit_ info
+    fun structInfoFindField (info, name) = (GIRepositoryStructInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GIRepositoryFieldInfoRecord.FFI.fromPtr true) structInfoFindField_ (info & name)
     fun structInfoFindMethod (info, name) = (GIRepositoryStructInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GIRepositoryFunctionInfoRecord.FFI.fromPtr true) structInfoFindMethod_ (info & name)
     fun structInfoGetAlignment info = (GIRepositoryStructInfoRecord.FFI.withPtr ---> GSize.FFI.fromVal) structInfoGetAlignment_ info
     fun structInfoGetField (info, n) = (GIRepositoryStructInfoRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GIRepositoryFieldInfoRecord.FFI.fromPtr true) structInfoGetField_ (info & n)

@@ -405,7 +405,7 @@ structure GtkTextBuffer :>
               GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p;
+               -> unit GtkTextMarkClass.FFI.p;
           )
             (
               x1,
@@ -572,6 +572,28 @@ structure GtkTextBuffer :>
                * GInt32.FFI.val_
                * GBool.FFI.val_
                -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
+    val insertMarkup_ =
+      fn
+        x1
+         & x2
+         & (x3, x4)
+         & x5 =>
+          (
+            _import "mlton_gtk_text_buffer_insert_markup" :
+              GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt32.FFI.val_
+               -> unit;
           )
             (
               x1,
@@ -1226,7 +1248,7 @@ structure GtkTextBuffer :>
         iter
       end
     fun getLineCount self = (GtkTextBufferClass.FFI.withPtr ---> GInt32.FFI.fromVal) getLineCount_ self
-    fun getMark self name = (GtkTextBufferClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkTextMarkClass.FFI.fromPtr false) getMark_ (self & name)
+    fun getMark self name = (GtkTextBufferClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkTextMarkClass.FFI.fromOptPtr false) getMark_ (self & name)
     fun getModified self = (GtkTextBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getModified_ self
     fun getPasteTargetList self = (GtkTextBufferClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) getPasteTargetList_ self
     fun getSelectionBound self = (GtkTextBufferClass.FFI.withPtr ---> GtkTextMarkClass.FFI.fromPtr false) getSelectionBound_ self
@@ -1398,6 +1420,27 @@ structure GtkTextBuffer :>
            & text
            & len
            & defaultEditable
+        )
+    fun insertMarkup
+      self
+      (
+        iter,
+        markup,
+        len
+      ) =
+      (
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         ---> I
+      )
+        insertMarkup_
+        (
+          self
+           & iter
+           & markup
+           & len
         )
     fun insertPixbuf self (iter, pixbuf) =
       (

@@ -51,6 +51,12 @@ signature GIO_MOUNT_OPERATION =
        -> 'a class Signal.t
     val askQuestionSig : (string * string list -> unit) -> 'a class Signal.t
     val replySig : (mount_operation_result_t -> unit) -> 'a class Signal.t
+    val showUnmountProgressSig :
+      (string
+        * LargeInt.int
+        * LargeInt.int
+        -> unit)
+       -> 'a class Signal.t
     val anonymousProp : ('a class, bool, bool) Property.readwrite
     val choiceProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val domainProp : ('a class, string option, string option) Property.readwrite

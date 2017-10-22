@@ -13,10 +13,12 @@ structure GtkImage :>
       val newFromAnimation_ = call (getSymbol "gtk_image_new_from_animation") (GdkPixbufPixbufAnimationClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val newFromFile_ = call (getSymbol "gtk_image_new_from_file") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newFromGicon_ = call (getSymbol "gtk_image_new_from_gicon") (GioIconClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
-      val newFromIconName_ = call (getSymbol "gtk_image_new_from_icon_name") (Utf8.PolyML.cInPtr &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val newFromIconName_ = call (getSymbol "gtk_image_new_from_icon_name") (Utf8.PolyML.cInOptPtr &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
       val newFromIconSet_ = call (getSymbol "gtk_image_new_from_icon_set") (GtkIconSetRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
       val newFromPixbuf_ = call (getSymbol "gtk_image_new_from_pixbuf") (GdkPixbufPixbufClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
+      val newFromResource_ = call (getSymbol "gtk_image_new_from_resource") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newFromStock_ = call (getSymbol "gtk_image_new_from_stock") (Utf8.PolyML.cInPtr &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val newFromSurface_ = call (getSymbol "gtk_image_new_from_surface") (CairoSurfaceRecord.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val clear_ = call (getSymbol "gtk_image_clear") (GtkImageClass.PolyML.cPtr --> cVoid)
       val getAnimation_ = call (getSymbol "gtk_image_get_animation") (GtkImageClass.PolyML.cPtr --> GdkPixbufPixbufAnimationClass.PolyML.cPtr)
       val getGicon_ =
@@ -68,7 +70,7 @@ structure GtkImage :>
         call (getSymbol "gtk_image_set_from_icon_name")
           (
             GtkImageClass.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
              &&> GInt.PolyML.cVal
              --> cVoid
           )
@@ -81,6 +83,7 @@ structure GtkImage :>
              --> cVoid
           )
       val setFromPixbuf_ = call (getSymbol "gtk_image_set_from_pixbuf") (GtkImageClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> cVoid)
+      val setFromResource_ = call (getSymbol "gtk_image_set_from_resource") (GtkImageClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
       val setFromStock_ =
         call (getSymbol "gtk_image_set_from_stock")
           (
@@ -89,6 +92,7 @@ structure GtkImage :>
              &&> GInt.PolyML.cVal
              --> cVoid
           )
+      val setFromSurface_ = call (getSymbol "gtk_image_set_from_surface") (GtkImageClass.PolyML.cPtr &&> CairoSurfaceRecord.PolyML.cOptPtr --> cVoid)
       val setPixelSize_ = call (getSymbol "gtk_image_set_pixel_size") (GtkImageClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkImageClass.class
@@ -103,10 +107,12 @@ structure GtkImage :>
     fun newFromAnimation animation = (GdkPixbufPixbufAnimationClass.FFI.withPtr ---> GtkImageClass.FFI.fromPtr false) newFromAnimation_ animation
     fun newFromFile filename = (Utf8.FFI.withPtr ---> GtkImageClass.FFI.fromPtr false) newFromFile_ filename
     fun newFromGicon (icon, size) = (GioIconClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromGicon_ (icon & size)
-    fun newFromIconName (iconName, size) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromIconName_ (iconName & size)
+    fun newFromIconName (iconName, size) = (Utf8.FFI.withOptPtr &&&> GInt.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromIconName_ (iconName & size)
     fun newFromIconSet (iconSet, size) = (GtkIconSetRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromIconSet_ (iconSet & size)
     fun newFromPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withOptPtr ---> GtkImageClass.FFI.fromPtr false) newFromPixbuf_ pixbuf
+    fun newFromResource resourcePath = (Utf8.FFI.withPtr ---> GtkImageClass.FFI.fromPtr false) newFromResource_ resourcePath
     fun newFromStock (stockId, size) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromStock_ (stockId & size)
+    fun newFromSurface surface = (CairoSurfaceRecord.FFI.withOptPtr ---> GtkImageClass.FFI.fromPtr false) newFromSurface_ surface
     fun clear self = (GtkImageClass.FFI.withPtr ---> I) clear_ self
     fun getAnimation self = (GtkImageClass.FFI.withPtr ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr false) getAnimation_ self
     fun getGicon self =
@@ -218,7 +224,7 @@ structure GtkImage :>
     fun setFromIconName self (iconName, size) =
       (
         GtkImageClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> GInt.FFI.withVal
          ---> I
       )
@@ -242,6 +248,7 @@ structure GtkImage :>
            & size
         )
     fun setFromPixbuf self pixbuf = (GtkImageClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withOptPtr ---> I) setFromPixbuf_ (self & pixbuf)
+    fun setFromResource self resourcePath = (GtkImageClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setFromResource_ (self & resourcePath)
     fun setFromStock self (stockId, size) =
       (
         GtkImageClass.FFI.withPtr
@@ -255,6 +262,7 @@ structure GtkImage :>
            & stockId
            & size
         )
+    fun setFromSurface self surface = (GtkImageClass.FFI.withPtr &&&> CairoSurfaceRecord.FFI.withOptPtr ---> I) setFromSurface_ (self & surface)
     fun setPixelSize self pixelSize = (GtkImageClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setPixelSize_ (self & pixelSize)
     local
       open Property
@@ -299,12 +307,22 @@ structure GtkImage :>
           get = fn x => get "pixel-size" int x,
           set = fn x => set "pixel-size" int x
         }
+      val resourceProp =
+        {
+          get = fn x => get "resource" stringOpt x,
+          set = fn x => set "resource" stringOpt x
+        }
       val stockProp =
         {
           get = fn x => get "stock" stringOpt x,
           set = fn x => set "stock" stringOpt x
         }
       val storageTypeProp = {get = fn x => get "storage-type" GtkImageType.t x}
+      val surfaceProp =
+        {
+          get = fn x => get "surface" CairoSurfaceRecord.tOpt x,
+          set = fn x => set "surface" CairoSurfaceRecord.tOpt x
+        }
       val useFallbackProp =
         {
           get = fn x => get "use-fallback" boolean x,

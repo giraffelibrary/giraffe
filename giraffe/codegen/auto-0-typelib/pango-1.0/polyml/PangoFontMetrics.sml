@@ -6,6 +6,7 @@ structure PangoFontMetrics :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "pango_font_metrics_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "pango_font_metrics_new") (cVoid --> PangoFontMetricsRecord.PolyML.cPtr)
       val getApproximateCharWidth_ = call (getSymbol "pango_font_metrics_get_approximate_char_width") (PangoFontMetricsRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getApproximateDigitWidth_ = call (getSymbol "pango_font_metrics_get_approximate_digit_width") (PangoFontMetricsRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getAscent_ = call (getSymbol "pango_font_metrics_get_ascent") (PangoFontMetricsRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
@@ -17,6 +18,7 @@ structure PangoFontMetrics :>
     end
     type t = PangoFontMetricsRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> PangoFontMetricsRecord.FFI.fromPtr true) new_ ()
     fun getApproximateCharWidth self = (PangoFontMetricsRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getApproximateCharWidth_ self
     fun getApproximateDigitWidth self = (PangoFontMetricsRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getApproximateDigitWidth_ self
     fun getAscent self = (PangoFontMetricsRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getAscent_ self

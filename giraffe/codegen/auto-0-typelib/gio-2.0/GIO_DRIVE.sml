@@ -1,8 +1,8 @@
 signature GIO_DRIVE =
   sig
     type 'a class
-    type 'a icon_class
     type drive_start_stop_type_t
+    type 'a icon_class
     type 'a async_result_class
     type t = base class
     val getType : unit -> GObject.Type.t
@@ -26,11 +26,14 @@ signature GIO_DRIVE =
        -> string
        -> string
     val getName : 'a class -> string
+    val getSortKey : 'a class -> string
     val getStartStopType : 'a class -> drive_start_stop_type_t
+    val getSymbolicIcon : 'a class -> base icon_class
     val hasMedia : 'a class -> bool
     val hasVolumes : 'a class -> bool
     val isMediaCheckAutomatic : 'a class -> bool
     val isMediaRemovable : 'a class -> bool
+    val isRemovable : 'a class -> bool
     val pollForMediaFinish :
       'a class
        -> 'b async_result_class

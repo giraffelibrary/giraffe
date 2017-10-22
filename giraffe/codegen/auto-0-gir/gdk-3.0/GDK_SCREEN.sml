@@ -37,10 +37,18 @@ signature GDK_SCREEN =
       'a class
        -> LargeInt.int
        -> string
+    val getMonitorScaleFactor :
+      'a class
+       -> LargeInt.int
+       -> LargeInt.int
     val getMonitorWidthMm :
       'a class
        -> LargeInt.int
        -> LargeInt.int
+    val getMonitorWorkarea :
+      'a class
+       -> LargeInt.int
+       -> rectangle_t
     val getNMonitors : 'a class -> LargeInt.int
     val getNumber : 'a class -> LargeInt.int
     val getPrimaryMonitor : 'a class -> LargeInt.int

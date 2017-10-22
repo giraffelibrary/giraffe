@@ -121,6 +121,11 @@ structure GtkCellRendererText :>
           get = fn x => get "max-width-chars" int x,
           set = fn x => set "max-width-chars" int x
         }
+      val placeholderTextProp =
+        {
+          get = fn x => get "placeholder-text" stringOpt x,
+          set = fn x => set "placeholder-text" stringOpt x
+        }
       val riseProp =
         {
           get = fn x => get "rise" int x,

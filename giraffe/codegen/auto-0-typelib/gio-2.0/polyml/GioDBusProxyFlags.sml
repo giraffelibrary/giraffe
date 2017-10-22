@@ -8,12 +8,16 @@ structure GioDBusProxyFlags :> GIO_D_BUS_PROXY_FLAGS =
     val DO_NOT_LOAD_PROPERTIES = 0w1
     val DO_NOT_CONNECT_SIGNALS = 0w2
     val DO_NOT_AUTO_START = 0w4
+    val GET_INVALIDATED_PROPERTIES = 0w8
+    val DO_NOT_AUTO_START_AT_CONSTRUCTION = 0w16
     val allFlags =
       [
         NONE,
         DO_NOT_LOAD_PROPERTIES,
         DO_NOT_CONNECT_SIGNALS,
-        DO_NOT_AUTO_START
+        DO_NOT_AUTO_START,
+        GET_INVALIDATED_PROPERTIES,
+        DO_NOT_AUTO_START_AT_CONSTRUCTION
       ]
     structure Flags =
       Flags(

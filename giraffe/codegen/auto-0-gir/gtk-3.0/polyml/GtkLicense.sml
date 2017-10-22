@@ -10,6 +10,11 @@ structure GtkLicense :> GTK_LICENSE =
     | BSD
     | MIT_X_11
     | ARTISTIC
+    | GPL_2_0_ONLY
+    | GPL_3_0_ONLY
+    | LGPL_2_1_ONLY
+    | LGPL_3_0_ONLY
+    | AGPL_3_0
     structure Enum =
       Enum(
         type enum = enum
@@ -25,6 +30,11 @@ structure GtkLicense :> GTK_LICENSE =
           | BSD => 6
           | MIT_X_11 => 7
           | ARTISTIC => 8
+          | GPL_2_0_ONLY => 9
+          | GPL_3_0_ONLY => 10
+          | LGPL_2_1_ONLY => 11
+          | LGPL_3_0_ONLY => 12
+          | AGPL_3_0 => 13
         exception Value of GInt.t
         val fromInt =
           fn
@@ -37,6 +47,11 @@ structure GtkLicense :> GTK_LICENSE =
           | 6 => BSD
           | 7 => MIT_X_11
           | 8 => ARTISTIC
+          | 9 => GPL_2_0_ONLY
+          | 10 => GPL_3_0_ONLY
+          | 11 => LGPL_2_1_ONLY
+          | 12 => LGPL_3_0_ONLY
+          | 13 => AGPL_3_0
           | n => raise Value n
       )
     open Enum

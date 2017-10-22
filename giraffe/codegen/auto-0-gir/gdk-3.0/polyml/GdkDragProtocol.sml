@@ -8,6 +8,7 @@ structure GdkDragProtocol :> GDK_DRAG_PROTOCOL =
     | WIN_32_DROPFILES
     | OLE_2
     | LOCAL
+    | WAYLAND
     structure Enum =
       Enum(
         type enum = enum
@@ -21,6 +22,7 @@ structure GdkDragProtocol :> GDK_DRAG_PROTOCOL =
           | WIN_32_DROPFILES => 4
           | OLE_2 => 5
           | LOCAL => 6
+          | WAYLAND => 7
         exception Value of GInt.t
         val fromInt =
           fn
@@ -31,6 +33,7 @@ structure GdkDragProtocol :> GDK_DRAG_PROTOCOL =
           | 4 => WIN_32_DROPFILES
           | 5 => OLE_2
           | 6 => LOCAL
+          | 7 => WAYLAND
           | n => raise Value n
       )
     open Enum

@@ -16,6 +16,26 @@ signature GIO_INPUT_STREAM =
        -> unit
     val hasPending : 'a class -> bool
     val isClosed : 'a class -> bool
+    val read :
+      'a class
+       -> Word8Vector.vector * 'b cancellable_class option
+       -> LargeInt.int
+    val readAll :
+      'a class
+       -> Word8Vector.vector * 'b cancellable_class option
+       -> LargeInt.int
+    val readAllFinish :
+      'a class
+       -> 'b async_result_class
+       -> LargeInt.int
+    val readBytes :
+      'a class
+       -> LargeInt.int * 'b cancellable_class option
+       -> GLib.BytesRecord.t
+    val readBytesFinish :
+      'a class
+       -> 'b async_result_class
+       -> GLib.BytesRecord.t
     val readFinish :
       'a class
        -> 'b async_result_class

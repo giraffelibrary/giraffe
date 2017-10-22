@@ -9,6 +9,10 @@ signature GIO_TLS_CERTIFICATE =
     val newFromFiles : string * string -> base class
     val newFromPem : string * LargeInt.int -> base class
     val getIssuer : 'a class -> base class
+    val isSame :
+      'a class
+       -> 'b class
+       -> bool
     val verify :
       'a class
        -> 'b socket_connectable_class option * 'c class option

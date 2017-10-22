@@ -12,16 +12,18 @@ signature GTK_IMAGE =
     val newFromAnimation : 'a GdkPixbuf.PixbufAnimationClass.class -> base class
     val newFromFile : string -> base class
     val newFromGicon : 'a Gio.IconClass.class * LargeInt.int -> base class
-    val newFromIconName : string * LargeInt.int -> base class
+    val newFromIconName : string option * LargeInt.int -> base class
     val newFromIconSet : icon_set_t * LargeInt.int -> base class
     val newFromPixbuf : 'a GdkPixbuf.PixbufClass.class option -> base class
+    val newFromResource : string -> base class
     val newFromStock : string * LargeInt.int -> base class
+    val newFromSurface : Cairo.SurfaceRecord.t option -> base class
     val clear : 'a class -> unit
-    val getAnimation : 'a class -> base GdkPixbuf.PixbufAnimationClass.class
+    val getAnimation : 'a class -> base GdkPixbuf.PixbufAnimationClass.class option
     val getGicon : 'a class -> base Gio.IconClass.class * LargeInt.int
     val getIconName : 'a class -> string * LargeInt.int
     val getIconSet : 'a class -> icon_set_t * LargeInt.int
-    val getPixbuf : 'a class -> base GdkPixbuf.PixbufClass.class
+    val getPixbuf : 'a class -> base GdkPixbuf.PixbufClass.class option
     val getPixelSize : 'a class -> LargeInt.int
     val getStock : 'a class -> string * LargeInt.int
     val getStorageType : 'a class -> image_type_t
@@ -39,7 +41,7 @@ signature GTK_IMAGE =
        -> unit
     val setFromIconName :
       'a class
-       -> string * LargeInt.int
+       -> string option * LargeInt.int
        -> unit
     val setFromIconSet :
       'a class
@@ -49,9 +51,17 @@ signature GTK_IMAGE =
       'a class
        -> 'b GdkPixbuf.PixbufClass.class option
        -> unit
+    val setFromResource :
+      'a class
+       -> string option
+       -> unit
     val setFromStock :
       'a class
        -> string * LargeInt.int
+       -> unit
+    val setFromSurface :
+      'a class
+       -> Cairo.SurfaceRecord.t option
        -> unit
     val setPixelSize :
       'a class
@@ -65,7 +75,9 @@ signature GTK_IMAGE =
     val pixbufProp : ('a class, base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option) Property.readwrite
     val pixbufAnimationProp : ('a class, base GdkPixbuf.PixbufAnimationClass.class option, 'b GdkPixbuf.PixbufAnimationClass.class option) Property.readwrite
     val pixelSizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val resourceProp : ('a class, string option, string option) Property.readwrite
     val stockProp : ('a class, string option, string option) Property.readwrite
     val storageTypeProp : ('a class, image_type_t) Property.readonly
+    val surfaceProp : ('a class, Cairo.SurfaceRecord.t option, Cairo.SurfaceRecord.t option) Property.readwrite
     val useFallbackProp : ('a class, bool, bool) Property.readwrite
   end

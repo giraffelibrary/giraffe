@@ -10,7 +10,7 @@ signature GTK_THEMING_ENGINE =
     type state_type_t
     type t = base class
     val getType : unit -> GObject.Type.t
-    val load : string -> base class
+    val load : string -> base class option
     val getBackgroundColor :
       'a class
        -> state_flags_t
@@ -42,12 +42,12 @@ signature GTK_THEMING_ENGINE =
        -> state_flags_t
        -> border_t
     val getPath : 'a class -> widget_path_t
-    val getScreen : 'a class -> base Gdk.ScreenClass.class
+    val getScreen : 'a class -> base Gdk.ScreenClass.class option
     val getState : 'a class -> state_flags_t
     val getStyleProperty :
       'a class
-       -> string * GObject.ValueRecord.t
-       -> unit
+       -> string
+       -> GObject.ValueRecord.t
     val hasClass :
       'a class
        -> string

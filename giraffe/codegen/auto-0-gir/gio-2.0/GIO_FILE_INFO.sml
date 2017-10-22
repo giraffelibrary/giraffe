@@ -64,6 +64,7 @@ signature GIO_FILE_INFO =
        -> string
        -> LargeInt.int
     val getContentType : 'a class -> string
+    val getDeletionDate : 'a class -> GLib.DateTimeRecord.t
     val getDisplayName : 'a class -> string
     val getEditName : 'a class -> string
     val getEtag : 'a class -> string
@@ -72,13 +73,11 @@ signature GIO_FILE_INFO =
     val getIsBackup : 'a class -> bool
     val getIsHidden : 'a class -> bool
     val getIsSymlink : 'a class -> bool
-    val getModificationTime :
-      'a class
-       -> GLib.TimeValRecord.t
-       -> unit
+    val getModificationTime : 'a class -> GLib.TimeValRecord.t
     val getName : 'a class -> string
     val getSize : 'a class -> LargeInt.int
     val getSortOrder : 'a class -> LargeInt.int
+    val getSymbolicIcon : 'a class -> base icon_class
     val getSymlinkTarget : 'a class -> string
     val hasAttribute :
       'a class
@@ -90,7 +89,7 @@ signature GIO_FILE_INFO =
        -> bool
     val listAttributes :
       'a class
-       -> string
+       -> string option
        -> string list
     val removeAttribute :
       'a class
@@ -125,10 +124,6 @@ signature GIO_FILE_INFO =
        -> string * file_attribute_status_t
        -> bool
     val setAttributeString :
-      'a class
-       -> string * string
-       -> unit
-    val setAttributeStringv :
       'a class
        -> string * string
        -> unit
@@ -183,6 +178,10 @@ signature GIO_FILE_INFO =
     val setSortOrder :
       'a class
        -> LargeInt.int
+       -> unit
+    val setSymbolicIcon :
+      'a class
+       -> 'b icon_class
        -> unit
     val setSymlinkTarget :
       'a class

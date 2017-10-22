@@ -3,6 +3,9 @@ signature GIO_ACTION =
     type 'a class
     type t = base class
     val getType : unit -> GObject.Type.t
+    val nameIsValid : string -> bool
+    val parseDetailedName : string -> string * GLib.VariantRecord.t
+    val printDetailedName : string * GLib.VariantRecord.t option -> string
     val activate :
       'a class
        -> GLib.VariantRecord.t option

@@ -7,6 +7,7 @@ signature GTK_CLIPBOARD =
     type t = base class
     val getType : unit -> GObject.Type.t
     val get : Gdk.AtomRecord.t -> base class
+    val getDefault : 'a Gdk.DisplayClass.class -> base class
     val getForDisplay : 'a Gdk.DisplayClass.class * Gdk.AtomRecord.t -> base class
     val clear : 'a class -> unit
     val getDisplay : 'a class -> base Gdk.DisplayClass.class

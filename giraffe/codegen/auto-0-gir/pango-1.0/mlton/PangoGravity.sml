@@ -42,7 +42,7 @@ structure PangoGravity :>
           getValue = (I ---> FFI.fromVal) getValue_,
           setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val getForMatrix_ = _import "pango_gravity_get_for_matrix" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p -> FFI.val_;
+    val getForMatrix_ = _import "pango_gravity_get_for_matrix" : unit PangoMatrixRecord.FFI.p -> FFI.val_;
     val getForScript_ =
       fn
         x1
@@ -85,7 +85,7 @@ structure PangoGravity :>
     type gravity_hint_t = PangoGravityHint.t
     type script_t = PangoScript.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getForMatrix matrix = (PangoMatrixRecord.FFI.withPtr ---> FFI.fromVal) getForMatrix_ matrix
+    fun getForMatrix matrix = (PangoMatrixRecord.FFI.withOptPtr ---> FFI.fromVal) getForMatrix_ matrix
     fun getForScript
       (
         script,

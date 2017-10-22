@@ -64,7 +64,7 @@ structure GioFileMonitor :>
         signal "changed"
           (
             get 0w1 GioFileClass.t
-             &&&> get 0w2 GioFileClass.t
+             &&&> get 0w2 GioFileClass.tOpt
              &&&> get 0w3 GioFileMonitorEvent.t
              ---> ret_void
           )

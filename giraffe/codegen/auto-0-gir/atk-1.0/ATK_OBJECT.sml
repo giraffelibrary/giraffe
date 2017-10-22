@@ -1,6 +1,7 @@
 signature ATK_OBJECT =
   sig
     type 'a class
+    type layer_t
     type state_t
     type 'a relation_set_class
     type 'a state_set_class
@@ -14,14 +15,18 @@ signature ATK_OBJECT =
        -> bool
     val getDescription : 'a class -> string
     val getIndexInParent : 'a class -> LargeInt.int
+    val getLayer : 'a class -> layer_t
+    val getMdiZorder : 'a class -> LargeInt.int
     val getNAccessibleChildren : 'a class -> LargeInt.int
     val getName : 'a class -> string
+    val getObjectLocale : 'a class -> string
     val getParent : 'a class -> base class
     val getRole : 'a class -> role_t
     val notifyStateChange :
       'a class
        -> state_t * bool
        -> unit
+    val peekParent : 'a class -> base class
     val refAccessibleChild :
       'a class
        -> LargeInt.int

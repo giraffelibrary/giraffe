@@ -9,7 +9,7 @@ structure GtkHScale :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_hscale_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_hscale_new") (GtkAdjustmentClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val new_ = call (getSymbol "gtk_hscale_new") (GtkAdjustmentClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithRange_ =
         call (getSymbol "gtk_hscale_new_with_range")
           (
@@ -28,7 +28,7 @@ structure GtkHScale :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new adjustment = (GtkAdjustmentClass.FFI.withPtr ---> GtkHScaleClass.FFI.fromPtr false) new_ adjustment
+    fun new adjustment = (GtkAdjustmentClass.FFI.withOptPtr ---> GtkHScaleClass.FFI.fromPtr false) new_ adjustment
     fun newWithRange
       (
         min,

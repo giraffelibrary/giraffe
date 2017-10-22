@@ -16,7 +16,7 @@ structure GioTlsServerConnection :>
               GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p
                * unit GioTlsCertificateClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p;
+               -> GioTlsServerConnectionClass.FFI.notnull GioTlsServerConnectionClass.FFI.p;
           )
             (
               x1,
@@ -34,7 +34,7 @@ structure GioTlsServerConnection :>
         GioIOStreamClass.FFI.withPtr
          &&&> GioTlsCertificateClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioIOStreamClass.FFI.fromPtr true
+         ---> GioTlsServerConnectionClass.FFI.fromPtr true
       )
         new_
         (

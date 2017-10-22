@@ -13,6 +13,10 @@ signature GTK_SOURCE_LANGUAGE =
     val getMimeTypes : 'a class -> string list
     val getName : 'a class -> string
     val getSection : 'a class -> string
+    val getStyleFallback :
+      'a class
+       -> string
+       -> string
     val getStyleIds : 'a class -> string list
     val getStyleName :
       'a class

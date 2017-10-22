@@ -4,6 +4,7 @@ structure GtkPolicyType :> GTK_POLICY_TYPE =
       ALWAYS
     | AUTOMATIC
     | NEVER
+    | EXTERNAL
     structure Enum =
       Enum(
         type enum = enum
@@ -13,12 +14,14 @@ structure GtkPolicyType :> GTK_POLICY_TYPE =
             ALWAYS => 0
           | AUTOMATIC => 1
           | NEVER => 2
+          | EXTERNAL => 3
         exception Value of GInt.t
         val fromInt =
           fn
             0 => ALWAYS
           | 1 => AUTOMATIC
           | 2 => NEVER
+          | 3 => EXTERNAL
           | n => raise Value n
       )
     open Enum

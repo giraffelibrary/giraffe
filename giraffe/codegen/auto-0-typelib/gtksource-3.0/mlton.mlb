@@ -15,9 +15,11 @@ local
   ../pango-1.0/mlton.mlb
   ../gtk-3.0/mlton.mlb
 in
+  GTK_SOURCE_BACKGROUND_PATTERN_TYPE.sml
   GTK_SOURCE_BRACKET_MATCH_TYPE.sml
   GTK_SOURCE_BUFFER_CLASS.sml
   GTK_SOURCE_BUFFER.sml
+  GTK_SOURCE_CHANGE_CASE_TYPE.sml
   GTK_SOURCE_COMPLETION_CLASS.sml
   GTK_SOURCE_COMPLETION.sml
   GTK_SOURCE_COMPLETION_ACTIVATION.sml
@@ -34,7 +36,19 @@ in
   GTK_SOURCE_COMPLETION_PROVIDER.sml
   GTK_SOURCE_COMPLETION_WORDS_CLASS.sml
   GTK_SOURCE_COMPLETION_WORDS.sml
+  GTK_SOURCE_COMPRESSION_TYPE.sml
   GTK_SOURCE_DRAW_SPACES_FLAGS.sml
+  GTK_SOURCE_ENCODING_RECORD.sml
+  GTK_SOURCE_ENCODING.sml
+  GTK_SOURCE_FILE_CLASS.sml
+  GTK_SOURCE_FILE.sml
+  GTK_SOURCE_FILE_LOADER_CLASS.sml
+  GTK_SOURCE_FILE_LOADER.sml
+  GTK_SOURCE_FILE_LOADER_ERROR.sml
+  GTK_SOURCE_FILE_SAVER_CLASS.sml
+  GTK_SOURCE_FILE_SAVER.sml
+  GTK_SOURCE_FILE_SAVER_ERROR.sml
+  GTK_SOURCE_FILE_SAVER_FLAGS.sml
   GTK_SOURCE_GUTTER_CLASS.sml
   GTK_SOURCE_GUTTER.sml
   GTK_SOURCE_GUTTER_RENDERER_CLASS.sml
@@ -49,19 +63,39 @@ in
   GTK_SOURCE_LANGUAGE.sml
   GTK_SOURCE_LANGUAGE_MANAGER_CLASS.sml
   GTK_SOURCE_LANGUAGE_MANAGER.sml
+  GTK_SOURCE_MAP_CLASS.sml
+  GTK_SOURCE_MAP.sml
   GTK_SOURCE_MARK_CLASS.sml
   GTK_SOURCE_MARK.sml
   GTK_SOURCE_MARK_ATTRIBUTES_CLASS.sml
   GTK_SOURCE_MARK_ATTRIBUTES.sml
+  GTK_SOURCE_NEWLINE_TYPE.sml
   GTK_SOURCE_PRINT_COMPOSITOR_CLASS.sml
   GTK_SOURCE_PRINT_COMPOSITOR.sml
+  GTK_SOURCE_REGION_CLASS.sml
+  GTK_SOURCE_REGION.sml
+  GTK_SOURCE_REGION_ITER_RECORD.sml
+  GTK_SOURCE_REGION_ITER.sml
+  GTK_SOURCE_SEARCH_CONTEXT_CLASS.sml
+  GTK_SOURCE_SEARCH_CONTEXT.sml
+  GTK_SOURCE_SEARCH_SETTINGS_CLASS.sml
+  GTK_SOURCE_SEARCH_SETTINGS.sml
   GTK_SOURCE_SMART_HOME_END_TYPE.sml
+  GTK_SOURCE_SORT_FLAGS.sml
   GTK_SOURCE_STYLE_CLASS.sml
   GTK_SOURCE_STYLE.sml
   GTK_SOURCE_STYLE_SCHEME_CLASS.sml
   GTK_SOURCE_STYLE_SCHEME.sml
+  GTK_SOURCE_STYLE_SCHEME_CHOOSER_CLASS.sml
+  GTK_SOURCE_STYLE_SCHEME_CHOOSER.sml
+  GTK_SOURCE_STYLE_SCHEME_CHOOSER_BUTTON_CLASS.sml
+  GTK_SOURCE_STYLE_SCHEME_CHOOSER_BUTTON.sml
+  GTK_SOURCE_STYLE_SCHEME_CHOOSER_WIDGET_CLASS.sml
+  GTK_SOURCE_STYLE_SCHEME_CHOOSER_WIDGET.sml
   GTK_SOURCE_STYLE_SCHEME_MANAGER_CLASS.sml
   GTK_SOURCE_STYLE_SCHEME_MANAGER.sml
+  GTK_SOURCE_TAG_CLASS.sml
+  GTK_SOURCE_TAG.sml
   GTK_SOURCE_UNDO_MANAGER_CLASS.sml
   GTK_SOURCE_UNDO_MANAGER.sml
   GTK_SOURCE_VIEW_CLASS.sml
@@ -72,8 +106,10 @@ in
     "allowFFI true"
     "resolveScope topdec"
   in
+    mlton/GtkSourceBackgroundPatternType.sml
     mlton/GtkSourceBracketMatchType.sml
     mlton/GtkSourceBufferClass.sml
+    mlton/GtkSourceChangeCaseType.sml
     mlton/GtkSourceCompletionClass.sml
     mlton/GtkSourceCompletionActivation.sml
     mlton/GtkSourceCompletionContextClass.sml
@@ -83,7 +119,15 @@ in
     mlton/GtkSourceCompletionProposalClass.sml
     mlton/GtkSourceCompletionProviderClass.sml
     mlton/GtkSourceCompletionWordsClass.sml
+    mlton/GtkSourceCompressionType.sml
     mlton/GtkSourceDrawSpacesFlags.sml
+    mlton/GtkSourceEncodingRecord.sml
+    mlton/GtkSourceFileClass.sml
+    mlton/GtkSourceFileLoaderClass.sml
+    mlton/GtkSourceFileLoaderError.sml
+    mlton/GtkSourceFileSaverClass.sml
+    mlton/GtkSourceFileSaverError.sml
+    mlton/GtkSourceFileSaverFlags.sml
     mlton/GtkSourceGutterClass.sml
     mlton/GtkSourceGutterRendererClass.sml
     mlton/GtkSourceGutterRendererAlignmentMode.sml
@@ -92,11 +136,21 @@ in
     mlton/GtkSourceLanguageManagerClass.sml
     mlton/GtkSourceMarkClass.sml
     mlton/GtkSourceMarkAttributesClass.sml
+    mlton/GtkSourceNewlineType.sml
     mlton/GtkSourcePrintCompositorClass.sml
+    mlton/GtkSourceRegionClass.sml
+    mlton/GtkSourceRegionIterRecord.sml
+    mlton/GtkSourceSearchContextClass.sml
+    mlton/GtkSourceSearchSettingsClass.sml
     mlton/GtkSourceSmartHomeEndType.sml
+    mlton/GtkSourceSortFlags.sml
     mlton/GtkSourceStyleClass.sml
     mlton/GtkSourceStyleSchemeClass.sml
+    mlton/GtkSourceStyleSchemeChooserClass.sml
+    mlton/GtkSourceStyleSchemeChooserButtonClass.sml
+    mlton/GtkSourceStyleSchemeChooserWidgetClass.sml
     mlton/GtkSourceStyleSchemeManagerClass.sml
+    mlton/GtkSourceTagClass.sml
     mlton/GtkSourceUndoManagerClass.sml
     mlton/GtkSourceViewClass.sml
     mlton/GtkSourceViewGutterPosition.sml
@@ -108,22 +162,36 @@ in
     mlton/GtkSourceCompletionProposal.sml
     mlton/GtkSourceCompletionProvider.sml
     mlton/GtkSourceCompletionWords.sml
+    mlton/GtkSourceEncoding.sml
+    mlton/GtkSourceFile.sml
+    mlton/GtkSourceFileLoader.sml
+    mlton/GtkSourceFileSaver.sml
     mlton/GtkSourceGutter.sml
     mlton/GtkSourceGutterRenderer.sml
     mlton/GtkSourceGutterRendererPixbufClass.sml
     mlton/GtkSourceGutterRendererTextClass.sml
     mlton/GtkSourceLanguage.sml
     mlton/GtkSourceLanguageManager.sml
+    mlton/GtkSourceMapClass.sml
     mlton/GtkSourceMark.sml
     mlton/GtkSourceMarkAttributes.sml
     mlton/GtkSourcePrintCompositor.sml
+    mlton/GtkSourceRegion.sml
+    mlton/GtkSourceRegionIter.sml
+    mlton/GtkSourceSearchContext.sml
+    mlton/GtkSourceSearchSettings.sml
     mlton/GtkSourceStyle.sml
     mlton/GtkSourceStyleScheme.sml
+    mlton/GtkSourceStyleSchemeChooser.sml
+    mlton/GtkSourceStyleSchemeChooserButton.sml
+    mlton/GtkSourceStyleSchemeChooserWidget.sml
     mlton/GtkSourceStyleSchemeManager.sml
+    mlton/GtkSourceTag.sml
     mlton/GtkSourceUndoManager.sml
     mlton/GtkSourceView.sml
     mlton/GtkSourceGutterRendererPixbuf.sml
     mlton/GtkSourceGutterRendererText.sml
+    mlton/GtkSourceMap.sml
     mlton/GtkSource.sml
   end
 end

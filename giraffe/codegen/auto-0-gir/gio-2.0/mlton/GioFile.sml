@@ -4,7 +4,6 @@ structure GioFile :>
     where type file_copy_flags_t = GioFileCopyFlags.t
     where type 'a file_enumerator_class = 'a GioFileEnumeratorClass.class
     where type 'a mount_class = 'a GioMountClass.class
-    where type 'a icon_class = 'a GioIconClass.class
     where type 'a file_monitor_class = 'a GioFileMonitorClass.class
     where type file_monitor_flags_t = GioFileMonitorFlags.t
     where type 'a app_info_class = 'a GioAppInfoClass.class
@@ -27,8 +26,44 @@ structure GioFile :>
     structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "g_file_get_type" : unit -> GObjectType.FFI.val_;
     val newForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+    val newForCommandlineArgAndCwd_ =
+      fn
+        (x1, x2) & (x3, x4) =>
+          (
+            _import "mlton_g_file_new_for_commandline_arg_and_cwd" :
+              Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val newForPath_ = _import "mlton_g_file_new_for_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
     val newForUri_ = _import "mlton_g_file_new_for_uri" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+    val newTmp_ =
+      fn
+        (x1, x2)
+         & x3
+         & x4 =>
+          (
+            _import "mlton_g_file_new_tmp" :
+              Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * (unit, GioFileIOStreamClass.FFI.notnull) GioFileIOStreamClass.FFI.r
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val parseName_ = _import "mlton_g_file_parse_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
     val appendTo_ =
       fn
@@ -198,6 +233,23 @@ structure GioFile :>
               x2,
               x3
             )
+    val deleteFinish_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "g_file_delete_finish" :
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val dup_ = _import "g_file_dup" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
     val ejectMountableFinish_ =
       fn
@@ -351,7 +403,7 @@ structure GioFile :>
     val getRelativePath_ = fn x1 & x2 => (_import "g_file_get_relative_path" : GioFileClass.FFI.notnull GioFileClass.FFI.p * GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
     val getUri_ = _import "g_file_get_uri" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getUriScheme_ = _import "g_file_get_uri_scheme" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val hasParent_ = fn x1 & x2 => (_import "g_file_has_parent" : GioFileClass.FFI.notnull GioFileClass.FFI.p * GioFileClass.FFI.notnull GioFileClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val hasParent_ = fn x1 & x2 => (_import "g_file_has_parent" : GioFileClass.FFI.notnull GioFileClass.FFI.p * unit GioFileClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val hasPrefix_ = fn x1 & x2 => (_import "g_file_has_prefix" : GioFileClass.FFI.notnull GioFileClass.FFI.p * GioFileClass.FFI.notnull GioFileClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val hasUriScheme_ =
       fn
@@ -368,7 +420,7 @@ structure GioFile :>
               x2,
               x3
             )
-    val iconNew_ = _import "g_file_icon_new" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
+    val hash_ = _import "g_file_hash" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> GUInt.FFI.val_;
     val isNative_ = _import "g_file_is_native" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> GBool.FFI.val_;
     val loadContents_ =
       fn
@@ -477,6 +529,23 @@ structure GioFile :>
               x2,
               x3
             )
+    val makeDirectoryFinish_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "g_file_make_directory_finish" :
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val makeDirectoryWithParents_ =
       fn
         x1
@@ -515,6 +584,32 @@ structure GioFile :>
               x3,
               x4,
               x5
+            )
+    val measureDiskUsageFinish_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6 =>
+          (
+            _import "g_file_measure_disk_usage_finish" :
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * GUInt64.FFI.ref_
+               * GUInt64.FFI.ref_
+               * GUInt64.FFI.ref_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
             )
     val monitor_ =
       fn
@@ -1319,6 +1414,23 @@ structure GioFile :>
               x2,
               x3
             )
+    val trashFinish_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "g_file_trash_finish" :
+              GioFileClass.FFI.notnull GioFileClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val unmountMountableFinish_ =
       fn
         x1
@@ -1357,7 +1469,6 @@ structure GioFile :>
     type file_copy_flags_t = GioFileCopyFlags.t
     type 'a file_enumerator_class = 'a GioFileEnumeratorClass.class
     type 'a mount_class = 'a GioMountClass.class
-    type 'a icon_class = 'a GioIconClass.class
     type 'a file_monitor_class = 'a GioFileMonitorClass.class
     type file_monitor_flags_t = GioFileMonitorFlags.t
     type 'a app_info_class = 'a GioAppInfoClass.class
@@ -1374,8 +1485,27 @@ structure GioFile :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newForCommandlineArg arg = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) newForCommandlineArg_ arg
+    fun newForCommandlineArgAndCwd (arg, cwd) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) newForCommandlineArgAndCwd_ (arg & cwd)
     fun newForPath path = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) newForPath_ path
     fun newForUri uri = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) newForUri_ uri
+    fun newTmp tmpl =
+      let
+        val iostream & retVal =
+          (
+            Utf8.FFI.withOptPtr
+             &&&> GioFileIOStreamClass.FFI.withRefOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GioFileIOStreamClass.FFI.fromPtr true && GioFileClass.FFI.fromPtr true
+          )
+            newTmp_
+            (
+              tmpl
+               & NONE
+               & []
+            )
+      in
+        (retVal, iostream)
+      end
     fun parseName parseName = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) parseName_ parseName
     fun appendTo self (flags, cancellable) =
       (
@@ -1510,6 +1640,19 @@ structure GioFile :>
            & cancellable
            & []
         )
+    fun deleteFinish self result =
+      (
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        deleteFinish_
+        (
+          self
+           & result
+           & []
+        )
     fun dup self = (GioFileClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) dup_ self
     fun ejectMountableFinish self result =
       (
@@ -1621,10 +1764,10 @@ structure GioFile :>
     fun getRelativePath self descendant = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getRelativePath_ (self & descendant)
     fun getUri self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUri_ self
     fun getUriScheme self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUriScheme_ self
-    fun hasParent self parent = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> GBool.FFI.fromVal) hasParent_ (self & parent)
+    fun hasParent self parent = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withOptPtr ---> GBool.FFI.fromVal) hasParent_ (self & parent)
     fun hasPrefix self prefix = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> GBool.FFI.fromVal) hasPrefix_ (self & prefix)
     fun hasUriScheme self uriScheme = (GioFileClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasUriScheme_ (self & uriScheme)
-    fun iconNew self = (GioFileClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) iconNew_ self
+    fun hash self = (GioFileClass.FFI.withPtr ---> GUInt.FFI.fromVal) hash_ self
     fun isNative self = (GioFileClass.FFI.withPtr ---> GBool.FFI.fromVal) isNative_ self
     fun loadContents self cancellable =
       let
@@ -1729,6 +1872,19 @@ structure GioFile :>
            & cancellable
            & []
         )
+    fun makeDirectoryFinish self result =
+      (
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        makeDirectoryFinish_
+        (
+          self
+           & result
+           & []
+        )
     fun makeDirectoryWithParents self cancellable =
       (
         GioFileClass.FFI.withPtr
@@ -1757,6 +1913,40 @@ structure GioFile :>
            & cancellable
            & []
         )
+    fun measureDiskUsageFinish self result =
+      let
+        val diskUsage
+         & numDirs
+         & numFiles
+         & () =
+          (
+            GioFileClass.FFI.withPtr
+             &&&> GioAsyncResultClass.FFI.withPtr
+             &&&> GUInt64.FFI.withRefVal
+             &&&> GUInt64.FFI.withRefVal
+             &&&> GUInt64.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> GUInt64.FFI.fromVal
+                   && GUInt64.FFI.fromVal
+                   && GUInt64.FFI.fromVal
+                   && ignore
+          )
+            measureDiskUsageFinish_
+            (
+              self
+               & result
+               & GUInt64.null
+               & GUInt64.null
+               & GUInt64.null
+               & []
+            )
+      in
+        (
+          diskUsage,
+          numDirs,
+          numFiles
+        )
+      end
     fun monitor self (flags, cancellable) =
       (
         GioFileClass.FFI.withPtr
@@ -2413,6 +2603,19 @@ structure GioFile :>
         (
           self
            & cancellable
+           & []
+        )
+    fun trashFinish self result =
+      (
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        trashFinish_
+        (
+          self
+           & result
            & []
         )
     fun unmountMountableFinish self result =

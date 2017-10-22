@@ -11,15 +11,17 @@ structure AtkDocument :>
               AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> unit Utf8.FFI.out_p;
           )
             (
               x1,
               x2,
               x3
             )
+    val getCurrentPageNumber_ = _import "atk_document_get_current_page_number" : AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p -> GInt32.FFI.val_;
     val getDocumentType_ = _import "atk_document_get_document_type" : AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getLocale_ = _import "atk_document_get_locale" : AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getPageCount_ = _import "atk_document_get_page_count" : AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p -> GInt32.FFI.val_;
     val setAttributeValue_ =
       fn
         x1
@@ -44,9 +46,11 @@ structure AtkDocument :>
     type 'a class = 'a AtkDocumentClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getAttributeValue self attributeName = (AtkDocumentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAttributeValue_ (self & attributeName)
+    fun getAttributeValue self attributeName = (AtkDocumentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getAttributeValue_ (self & attributeName)
+    fun getCurrentPageNumber self = (AtkDocumentClass.FFI.withPtr ---> GInt32.FFI.fromVal) getCurrentPageNumber_ self
     fun getDocumentType self = (AtkDocumentClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDocumentType_ self
     fun getLocale self = (AtkDocumentClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLocale_ self
+    fun getPageCount self = (AtkDocumentClass.FFI.withPtr ---> GInt32.FFI.fromVal) getPageCount_ self
     fun setAttributeValue self (attributeName, attributeValue) =
       (
         AtkDocumentClass.FFI.withPtr
@@ -65,6 +69,7 @@ structure AtkDocument :>
     in
       fun loadCompleteSig f = signal "load-complete" (void ---> ret_void) f
       fun loadStoppedSig f = signal "load-stopped" (void ---> ret_void) f
+      fun pageChangedSig f = signal "page-changed" (get 0w1 int ---> ret_void) f
       fun reloadSig f = signal "reload" (void ---> ret_void) f
     end
   end

@@ -6,7 +6,7 @@ signature GIO_EMBLEMED_ICON =
     type t = base class
     val asIcon : 'a class -> base icon_class
     val getType : unit -> GObject.Type.t
-    val new : 'a icon_class * 'b emblem_class option -> base icon_class
+    val new : 'a icon_class * 'b emblem_class option -> base class
     val addEmblem :
       'a class
        -> 'b emblem_class

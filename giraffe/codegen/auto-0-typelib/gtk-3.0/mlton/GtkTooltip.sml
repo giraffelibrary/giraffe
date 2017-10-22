@@ -92,7 +92,7 @@ structure GtkTooltip :>
               x2,
               x3
             )
-    val setTipArea_ = fn x1 & x2 => (_import "gtk_tooltip_set_tip_area" : GtkTooltipClass.FFI.notnull GtkTooltipClass.FFI.p * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p -> unit;) (x1, x2)
+    val setTipArea_ = fn x1 & x2 => (_import "gtk_tooltip_set_tip_area" : GtkTooltipClass.FFI.notnull GtkTooltipClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkTooltipClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
@@ -141,5 +141,5 @@ structure GtkTooltip :>
         )
     fun setMarkup self markup = (GtkTooltipClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setMarkup_ (self & markup)
     fun setText self text = (GtkTooltipClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setText_ (self & text)
-    fun setTipArea self rect = (GtkTooltipClass.FFI.withPtr &&&> CairoRectangleIntRecord.FFI.withPtr ---> I) setTipArea_ (self & rect)
+    fun setTipArea self rect = (GtkTooltipClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) setTipArea_ (self & rect)
   end

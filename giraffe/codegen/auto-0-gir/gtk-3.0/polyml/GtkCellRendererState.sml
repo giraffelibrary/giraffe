@@ -5,13 +5,17 @@ structure GtkCellRendererState :> GTK_CELL_RENDERER_STATE =
     val INSENSITIVE = 0w4
     val SORTED = 0w8
     val FOCUSED = 0w16
+    val EXPANDABLE = 0w32
+    val EXPANDED = 0w64
     val allFlags =
       [
         SELECTED,
         PRELIT,
         INSENSITIVE,
         SORTED,
-        FOCUSED
+        FOCUSED,
+        EXPANDABLE,
+        EXPANDED
       ]
     structure Flags =
       Flags(

@@ -9,10 +9,12 @@ signature GTK_ENTRY =
     type delete_type_t
     type entry_icon_position_t
     type movement_step_t
-    type 'a menu_class
+    type 'a widget_class
     type 'a entry_buffer_class
     type 'a entry_completion_class
     type border_t
+    type input_hints_t
+    type input_purpose_t
     type image_type_t
     type shadow_type_t
     type t = base class
@@ -25,6 +27,7 @@ signature GTK_ENTRY =
     val newWithBuffer : 'a entry_buffer_class -> base class
     val getActivatesDefault : 'a class -> bool
     val getAlignment : 'a class -> real
+    val getAttributes : 'a class -> Pango.AttrListRecord.t
     val getBuffer : 'a class -> base entry_buffer_class
     val getCompletion : 'a class -> base entry_completion_class
     val getCurrentIconDragSource : 'a class -> LargeInt.int
@@ -75,19 +78,24 @@ signature GTK_ENTRY =
        -> entry_icon_position_t
        -> string
     val getInnerBorder : 'a class -> border_t
+    val getInputHints : 'a class -> input_hints_t
+    val getInputPurpose : 'a class -> input_purpose_t
     val getInvisibleChar : 'a class -> char
     val getLayout : 'a class -> base Pango.LayoutClass.class
     val getLayoutOffsets : 'a class -> LargeInt.int * LargeInt.int
     val getMaxLength : 'a class -> LargeInt.int
+    val getMaxWidthChars : 'a class -> LargeInt.int
     val getOverwriteMode : 'a class -> bool
     val getPlaceholderText : 'a class -> string
     val getProgressFraction : 'a class -> real
     val getProgressPulseStep : 'a class -> real
+    val getTabs : 'a class -> Pango.TabArrayRecord.t
     val getText : 'a class -> string
     val getTextArea : 'a class -> Gdk.RectangleRecord.t
     val getTextLength : 'a class -> LargeInt.int
     val getVisibility : 'a class -> bool
     val getWidthChars : 'a class -> LargeInt.int
+    val grabFocusWithoutSelecting : 'a class -> unit
     val imContextFilterKeypress :
       'a class
        -> Gdk.EventKeyRecord.t
@@ -106,6 +114,10 @@ signature GTK_ENTRY =
       'a class
        -> real
        -> unit
+    val setAttributes :
+      'a class
+       -> Pango.AttrListRecord.t
+       -> unit
     val setBuffer :
       'a class
        -> 'b entry_buffer_class
@@ -116,7 +128,7 @@ signature GTK_ENTRY =
        -> unit
     val setCursorHadjustment :
       'a class
-       -> 'b adjustment_class
+       -> 'b adjustment_class option
        -> unit
     val setHasFrame :
       'a class
@@ -164,11 +176,23 @@ signature GTK_ENTRY =
       'a class
        -> border_t option
        -> unit
+    val setInputHints :
+      'a class
+       -> input_hints_t
+       -> unit
+    val setInputPurpose :
+      'a class
+       -> input_purpose_t
+       -> unit
     val setInvisibleChar :
       'a class
        -> char
        -> unit
     val setMaxLength :
+      'a class
+       -> LargeInt.int
+       -> unit
+    val setMaxWidthChars :
       'a class
        -> LargeInt.int
        -> unit
@@ -178,7 +202,7 @@ signature GTK_ENTRY =
        -> unit
     val setPlaceholderText :
       'a class
-       -> string
+       -> string option
        -> unit
     val setProgressFraction :
       'a class
@@ -187,6 +211,10 @@ signature GTK_ENTRY =
     val setProgressPulseStep :
       'a class
        -> real
+       -> unit
+    val setTabs :
+      'a class
+       -> Pango.TabArrayRecord.t
        -> unit
     val setText :
       'a class
@@ -220,10 +248,11 @@ signature GTK_ENTRY =
         -> unit)
        -> 'a class Signal.t
     val pasteClipboardSig : (unit -> unit) -> 'a class Signal.t
-    val populatePopupSig : (base menu_class -> unit) -> 'a class Signal.t
+    val populatePopupSig : (base widget_class -> unit) -> 'a class Signal.t
     val preeditChangedSig : (string -> unit) -> 'a class Signal.t
     val toggleOverwriteSig : (unit -> unit) -> 'a class Signal.t
     val activatesDefaultProp : ('a class, bool, bool) Property.readwrite
+    val attributesProp : ('a class, Pango.AttrListRecord.t option, Pango.AttrListRecord.t option) Property.readwrite
     val bufferProp : ('a class, base entry_buffer_class option, 'b entry_buffer_class option) Property.readwrite
     val capsLockWarningProp : ('a class, bool, bool) Property.readwrite
     val completionProp : ('a class, base entry_completion_class option, 'b entry_completion_class option) Property.readwrite
@@ -232,11 +261,15 @@ signature GTK_ENTRY =
     val hasFrameProp : ('a class, bool, bool) Property.readwrite
     val imModuleProp : ('a class, string option, string option) Property.readwrite
     val innerBorderProp : ('a class, border_t option, border_t option) Property.readwrite
+    val inputHintsProp : ('a class, input_hints_t, input_hints_t) Property.readwrite
+    val inputPurposeProp : ('a class, input_purpose_t, input_purpose_t) Property.readwrite
     val invisibleCharProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val invisibleCharSetProp : ('a class, bool, bool) Property.readwrite
     val maxLengthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val maxWidthCharsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val overwriteModeProp : ('a class, bool, bool) Property.readwrite
     val placeholderTextProp : ('a class, string option, string option) Property.readwrite
+    val populateAllProp : ('a class, bool, bool) Property.readwrite
     val primaryIconActivatableProp : ('a class, bool, bool) Property.readwrite
     val primaryIconGiconProp : ('a class, base Gio.IconClass.class option, 'b Gio.IconClass.class option) Property.readwrite
     val primaryIconNameProp : ('a class, string option, string option) Property.readwrite
@@ -260,6 +293,7 @@ signature GTK_ENTRY =
     val secondaryIconTooltipTextProp : ('a class, string option, string option) Property.readwrite
     val selectionBoundProp : ('a class, LargeInt.int) Property.readonly
     val shadowTypeProp : ('a class, shadow_type_t, shadow_type_t) Property.readwrite
+    val tabsProp : ('a class, Pango.TabArrayRecord.t option, Pango.TabArrayRecord.t option) Property.readwrite
     val textProp : ('a class, string option, string option) Property.readwrite
     val textLengthProp : ('a class, LargeInt.int) Property.readonly
     val truncateMultilineProp : ('a class, bool, bool) Property.readwrite

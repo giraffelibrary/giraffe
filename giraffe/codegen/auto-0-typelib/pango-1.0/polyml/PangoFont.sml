@@ -13,7 +13,7 @@ structure PangoFont :>
       val getType_ = call (getSymbol "pango_font_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val describe_ = call (getSymbol "pango_font_describe") (PangoFontClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
       val describeWithAbsoluteSize_ = call (getSymbol "pango_font_describe_with_absolute_size") (PangoFontClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
-      val getFontMap_ = call (getSymbol "pango_font_get_font_map") (PangoFontClass.PolyML.cPtr --> PangoFontMapClass.PolyML.cPtr)
+      val getFontMap_ = call (getSymbol "pango_font_get_font_map") (PangoFontClass.PolyML.cPtr --> PangoFontMapClass.PolyML.cOptPtr)
       val getGlyphExtents_ =
         call (getSymbol "pango_font_get_glyph_extents")
           (
@@ -35,7 +35,7 @@ structure PangoFont :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun describe self = (PangoFontClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr true) describe_ self
     fun describeWithAbsoluteSize self = (PangoFontClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr true) describeWithAbsoluteSize_ self
-    fun getFontMap self = (PangoFontClass.FFI.withPtr ---> PangoFontMapClass.FFI.fromPtr false) getFontMap_ self
+    fun getFontMap self = (PangoFontClass.FFI.withPtr ---> PangoFontMapClass.FFI.fromOptPtr false) getFontMap_ self
     fun getGlyphExtents self glyph =
       let
         val inkRect

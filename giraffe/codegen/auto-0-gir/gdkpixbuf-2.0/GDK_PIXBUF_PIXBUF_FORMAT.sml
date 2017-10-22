@@ -9,6 +9,10 @@ signature GDK_PIXBUF_PIXBUF_FORMAT =
     val getMimeTypes : t -> string list
     val getName : t -> string
     val isDisabled : t -> bool
+    val isSaveOptionSupported :
+      t
+       -> string
+       -> bool
     val isScalable : t -> bool
     val isWritable : t -> bool
     val setDisabled :

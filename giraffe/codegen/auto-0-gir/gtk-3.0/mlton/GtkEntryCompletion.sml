@@ -12,6 +12,21 @@ structure GtkEntryCompletion :>
     val new_ = _import "gtk_entry_completion_new" : unit -> GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p;
     val newWithArea_ = _import "gtk_entry_completion_new_with_area" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p;
     val complete_ = _import "gtk_entry_completion_complete" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> unit;
+    val computePrefix_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_gtk_entry_completion_compute_prefix" :
+              GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val deleteAction_ = fn x1 & x2 => (_import "gtk_entry_completion_delete_action" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val getCompletionPrefix_ = _import "gtk_entry_completion_get_completion_prefix" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getEntry_ = _import "gtk_entry_completion_get_entry" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
@@ -84,6 +99,7 @@ structure GtkEntryCompletion :>
     fun new () = (I ---> GtkEntryCompletionClass.FFI.fromPtr true) new_ ()
     fun newWithArea area = (GtkCellAreaClass.FFI.withPtr ---> GtkEntryCompletionClass.FFI.fromPtr true) newWithArea_ area
     fun complete self = (GtkEntryCompletionClass.FFI.withPtr ---> I) complete_ self
+    fun computePrefix self key = (GtkEntryCompletionClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) computePrefix_ (self & key)
     fun deleteAction self index = (GtkEntryCompletionClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) deleteAction_ (self & index)
     fun getCompletionPrefix self = (GtkEntryCompletionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCompletionPrefix_ self
     fun getEntry self = (GtkEntryCompletionClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getEntry_ self
@@ -137,6 +153,7 @@ structure GtkEntryCompletion :>
       fun cursorOnMatchSig f = signal "cursor-on-match" (get 0w1 GtkTreeModelClass.t &&&> get 0w2 GtkTreeIterRecord.t ---> ret boolean) (fn model & iter => f (model, iter))
       fun insertPrefixSig f = signal "insert-prefix" (get 0w1 string ---> ret boolean) f
       fun matchSelectedSig f = signal "match-selected" (get 0w1 GtkTreeModelClass.t &&&> get 0w2 GtkTreeIterRecord.t ---> ret boolean) (fn model & iter => f (model, iter))
+      fun noMatchesSig f = signal "no-matches" (void ---> ret_void) f
     end
     local
       open Property

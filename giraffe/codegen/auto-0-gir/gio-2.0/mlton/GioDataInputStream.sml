@@ -1,6 +1,7 @@
 structure GioDataInputStream :>
   GIO_DATA_INPUT_STREAM
     where type 'a class = 'a GioDataInputStreamClass.class
+    where type 'a seekable_class = 'a GioSeekableClass.class
     where type 'a input_stream_class = 'a GioInputStreamClass.class
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class
@@ -312,12 +313,14 @@ structure GioDataInputStream :>
     val setByteOrder_ = fn x1 & x2 => (_import "g_data_input_stream_set_byte_order" : GioDataInputStreamClass.FFI.notnull GioDataInputStreamClass.FFI.p * GioDataStreamByteOrder.FFI.val_ -> unit;) (x1, x2)
     val setNewlineType_ = fn x1 & x2 => (_import "g_data_input_stream_set_newline_type" : GioDataInputStreamClass.FFI.notnull GioDataInputStreamClass.FFI.p * GioDataStreamNewlineType.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioDataInputStreamClass.class
+    type 'a seekable_class = 'a GioSeekableClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type data_stream_byte_order_t = GioDataStreamByteOrder.t
     type data_stream_newline_type_t = GioDataStreamNewlineType.t
     type t = base class
+    fun asSeekable self = (GObjectObjectClass.FFI.withPtr ---> GioSeekableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new baseStream = (GioInputStreamClass.FFI.withPtr ---> GioDataInputStreamClass.FFI.fromPtr true) new_ baseStream
     fun getByteOrder self = (GioDataInputStreamClass.FFI.withPtr ---> GioDataStreamByteOrder.FFI.fromVal) getByteOrder_ self

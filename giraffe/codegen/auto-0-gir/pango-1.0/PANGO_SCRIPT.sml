@@ -80,6 +80,45 @@ signature PANGO_SCRIPT =
     | CARIAN
     | LYCIAN
     | LYDIAN
+    | BATAK
+    | BRAHMI
+    | MANDAIC
+    | CHAKMA
+    | MEROITIC_CURSIVE
+    | MEROITIC_HIEROGLYPHS
+    | MIAO
+    | SHARADA
+    | SORA_SOMPENG
+    | TAKRI
+    | BASSA_VAH
+    | CAUCASIAN_ALBANIAN
+    | DUPLOYAN
+    | ELBASAN
+    | GRANTHA
+    | KHOJKI
+    | KHUDAWADI
+    | LINEAR_A
+    | MAHAJANI
+    | MANICHAEAN
+    | MENDE_KIKAKUI
+    | MODI
+    | MRO
+    | NABATAEAN
+    | OLD_NORTH_ARABIAN
+    | OLD_PERMIC
+    | PAHAWH_HMONG
+    | PALMYRENE
+    | PAU_CIN_HAU
+    | PSALTER_PAHLAVI
+    | SIDDHAM
+    | TIRHUTA
+    | WARANG_CITI
+    | AHOM
+    | ANATOLIAN_HIEROGLYPHS
+    | HATRAN
+    | MULTANI
+    | OLD_HUNGARIAN
+    | SIGNWRITING
     include
       ENUM
         where type t = enum

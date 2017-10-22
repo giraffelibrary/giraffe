@@ -8,6 +8,7 @@ signature GIO_APPLICATION_FLAGS =
     val HANDLES_COMMAND_LINE : t
     val SEND_ENVIRONMENT : t
     val NON_UNIQUE : t
+    val CAN_OVERRIDE_APP_ID : t
     val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

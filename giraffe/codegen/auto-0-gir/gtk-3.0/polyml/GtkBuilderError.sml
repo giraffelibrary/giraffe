@@ -10,6 +10,11 @@ structure GtkBuilderError :> GTK_BUILDER_ERROR =
     | INVALID_VALUE
     | VERSION_MISMATCH
     | DUPLICATE_ID
+    | OBJECT_TYPE_REFUSED
+    | TEMPLATE_MISMATCH
+    | INVALID_PROPERTY
+    | INVALID_SIGNAL
+    | INVALID_ID
     structure Enum =
       Enum(
         type enum = enum
@@ -25,6 +30,11 @@ structure GtkBuilderError :> GTK_BUILDER_ERROR =
           | INVALID_VALUE => 6
           | VERSION_MISMATCH => 7
           | DUPLICATE_ID => 8
+          | OBJECT_TYPE_REFUSED => 9
+          | TEMPLATE_MISMATCH => 10
+          | INVALID_PROPERTY => 11
+          | INVALID_SIGNAL => 12
+          | INVALID_ID => 13
         exception Value of GInt.t
         val fromInt =
           fn
@@ -37,6 +47,11 @@ structure GtkBuilderError :> GTK_BUILDER_ERROR =
           | 6 => INVALID_VALUE
           | 7 => VERSION_MISMATCH
           | 8 => DUPLICATE_ID
+          | 9 => OBJECT_TYPE_REFUSED
+          | 10 => TEMPLATE_MISMATCH
+          | 11 => INVALID_PROPERTY
+          | 12 => INVALID_SIGNAL
+          | 13 => INVALID_ID
           | n => raise Value n
       )
     open Enum

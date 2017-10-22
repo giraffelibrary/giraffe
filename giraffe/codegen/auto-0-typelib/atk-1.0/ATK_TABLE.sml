@@ -12,7 +12,7 @@ signature ATK_TABLE =
       'a class
        -> LargeInt.int
        -> bool
-    val getCaption : 'a class -> base object_class
+    val getCaption : 'a class -> base object_class option
     val getColumnAtIndex :
       'a class
        -> LargeInt.int
@@ -28,7 +28,7 @@ signature ATK_TABLE =
     val getColumnHeader :
       'a class
        -> LargeInt.int
-       -> base object_class
+       -> base object_class option
     val getIndexAt :
       'a class
        -> LargeInt.int * LargeInt.int
@@ -42,7 +42,7 @@ signature ATK_TABLE =
     val getRowDescription :
       'a class
        -> LargeInt.int
-       -> string
+       -> string option
     val getRowExtentAt :
       'a class
        -> LargeInt.int * LargeInt.int
@@ -50,7 +50,7 @@ signature ATK_TABLE =
     val getRowHeader :
       'a class
        -> LargeInt.int
-       -> base object_class
+       -> base object_class option
     val getSummary : 'a class -> base object_class
     val isColumnSelected :
       'a class

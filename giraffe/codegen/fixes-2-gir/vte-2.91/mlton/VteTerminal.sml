@@ -2,6 +2,7 @@ structure VteTerminal :>
   VTE_TERMINAL
     where type 'a class = 'a VteTerminalClass.class
     where type pty_flags_t = VtePtyFlags.t
+    where type regex_t = VteRegexRecord.t
     where type write_flags_t = VteWriteFlags.t
     where type cursor_blink_mode_t = VteCursorBlinkMode.t
     where type cursor_shape_t = VteCursorShape.t
@@ -39,7 +40,7 @@ structure VteTerminal :>
             _import "mlton_vte_terminal_feed" :
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
                * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * unit GUInt8CVectorN.MLton.p2
                * GSSize.FFI.val_
                -> unit;
           )
@@ -58,8 +59,27 @@ structure VteTerminal :>
             _import "mlton_vte_terminal_feed_child" :
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit Utf8.MLton.p2
                * GSSize.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
+    val feedChildBinary_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4 =>
+          (
+            _import "mlton_vte_terminal_feed_child_binary" :
+              VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
+               * GUInt8CVectorN.MLton.p1
+               * unit GUInt8CVectorN.MLton.p2
+               * GSize.FFI.val_
                -> unit;
           )
             (
@@ -126,6 +146,7 @@ structure VteTerminal :>
     val getRewrapOnResize_ = _import "vte_terminal_get_rewrap_on_resize" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GBool.FFI.val_;
     val getRowCount_ = _import "vte_terminal_get_row_count" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GLong.FFI.val_;
     val getWindowTitle_ = _import "vte_terminal_get_window_title" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getWordCharExceptions_ = _import "vte_terminal_get_word_char_exceptions" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val matchAddGregex_ =
       fn
         x1
@@ -136,6 +157,23 @@ structure VteTerminal :>
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
                * GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p
                * GLibRegexMatchFlags.FFI.val_
+               -> GInt.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
+    val matchAddRegex_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "vte_terminal_match_add_regex" :
+              VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
+               * VteRegexRecord.FFI.notnull VteRegexRecord.FFI.p
+               * GUInt32.FFI.val_
                -> GInt.FFI.val_;
           )
             (
@@ -277,6 +315,7 @@ structure VteTerminal :>
     val searchFindNext_ = _import "vte_terminal_search_find_next" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GBool.FFI.val_;
     val searchFindPrevious_ = _import "vte_terminal_search_find_previous" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GBool.FFI.val_;
     val searchGetGregex_ = _import "vte_terminal_search_get_gregex" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p;
+    val searchGetRegex_ = _import "vte_terminal_search_get_regex" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> VteRegexRecord.FFI.notnull VteRegexRecord.FFI.p;
     val searchGetWrapAround_ = _import "vte_terminal_search_get_wrap_around" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GBool.FFI.val_;
     val searchSetGregex_ =
       fn
@@ -295,6 +334,23 @@ structure VteTerminal :>
               x2,
               x3
             )
+    val searchSetRegex_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "vte_terminal_search_set_regex" :
+              VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
+               * unit VteRegexRecord.FFI.p
+               * GUInt32.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val searchSetWrapAround_ = fn x1 & x2 => (_import "vte_terminal_search_set_wrap_around" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val selectAll_ = _import "vte_terminal_select_all" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> unit;
     val setAllowBold_ = fn x1 & x2 => (_import "vte_terminal_set_allow_bold" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
@@ -304,6 +360,7 @@ structure VteTerminal :>
     val setColorBackground_ = fn x1 & x2 => (_import "vte_terminal_set_color_background" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
     val setColorBold_ = fn x1 & x2 => (_import "vte_terminal_set_color_bold" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * unit GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
     val setColorCursor_ = fn x1 & x2 => (_import "vte_terminal_set_color_cursor" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * unit GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val setColorCursorForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_cursor_foreground" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * unit GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
     val setColorForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_foreground" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
     val setColorHighlight_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * unit GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
     val setColorHighlightForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight_foreground" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * unit GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
@@ -364,6 +421,7 @@ structure VteTerminal :>
     val setRewrapOnResize_ = fn x1 & x2 => (_import "vte_terminal_set_rewrap_on_resize" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setScrollOnKeystroke_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_on_keystroke" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setScrollOnOutput_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_on_output" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setScrollSpeed_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_speed" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     val setScrollbackLines_ = fn x1 & x2 => (_import "vte_terminal_set_scrollback_lines" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GLong.FFI.val_ -> unit;) (x1, x2)
     val setSize_ =
       fn
@@ -375,6 +433,21 @@ structure VteTerminal :>
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
                * GLong.FFI.val_
                * GLong.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
+    val setWordCharExceptions_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_vte_terminal_set_word_char_exceptions" :
+              VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
                -> unit;
           )
             (
@@ -443,6 +516,7 @@ structure VteTerminal :>
             )
     type 'a class = 'a VteTerminalClass.class
     type pty_flags_t = VtePtyFlags.t
+    type regex_t = VteRegexRecord.t
     type write_flags_t = VteWriteFlags.t
     type cursor_blink_mode_t = VteCursorBlinkMode.t
     type cursor_shape_t = VteCursorShape.t
@@ -458,11 +532,14 @@ structure VteTerminal :>
     fun copyPrimary self = (VteTerminalClass.FFI.withPtr ---> I) copyPrimary_ self
     fun feed self data =
       let
-        val length = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val length =
+          case data of
+            SOME data => LargeInt.fromInt (GUInt8CVectorN.length data)
+          | NONE => GSSize.null
         val () =
           (
             VteTerminalClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withOptPtr
              &&&> GSSize.FFI.withVal
              ---> I
           )
@@ -478,7 +555,7 @@ structure VteTerminal :>
     fun feedChild self (text, length) =
       (
         VteTerminalClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> GSSize.FFI.withVal
          ---> I
       )
@@ -488,6 +565,28 @@ structure VteTerminal :>
            & text
            & length
         )
+    fun feedChildBinary self data =
+      let
+        val length =
+          case data of
+            SOME data => LargeInt.fromInt (GUInt8CVectorN.length data)
+          | NONE => GSize.null
+        val () =
+          (
+            VteTerminalClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withOptPtr
+             &&&> GSize.FFI.withVal
+             ---> I
+          )
+            feedChildBinary_
+            (
+              self
+               & data
+               & length
+            )
+      in
+        ()
+      end
     fun getAllowBold self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getAllowBold_ self
     fun getAudibleBell self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getAudibleBell_ self
     fun getCharHeight self = (VteTerminalClass.FFI.withPtr ---> GLong.FFI.fromVal) getCharHeight_ self
@@ -551,7 +650,8 @@ structure VteTerminal :>
     fun getRewrapOnResize self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getRewrapOnResize_ self
     fun getRowCount self = (VteTerminalClass.FFI.withPtr ---> GLong.FFI.fromVal) getRowCount_ self
     fun getWindowTitle self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getWindowTitle_ self
-    fun matchAddGregex self (regex, flags) =
+    fun getWordCharExceptions self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getWordCharExceptions_ self
+    fun matchAddGregex self (gregex, gflags) =
       (
         VteTerminalClass.FFI.withPtr
          &&&> GLibRegexRecord.FFI.withPtr
@@ -559,6 +659,19 @@ structure VteTerminal :>
          ---> GInt.FFI.fromVal
       )
         matchAddGregex_
+        (
+          self
+           & gregex
+           & gflags
+        )
+    fun matchAddRegex self (regex, flags) =
+      (
+        VteTerminalClass.FFI.withPtr
+         &&&> VteRegexRecord.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         ---> GInt.FFI.fromVal
+      )
+        matchAddRegex_
         (
           self
            & regex
@@ -676,8 +789,9 @@ structure VteTerminal :>
     fun searchFindNext self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) searchFindNext_ self
     fun searchFindPrevious self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) searchFindPrevious_ self
     fun searchGetGregex self = (VteTerminalClass.FFI.withPtr ---> GLibRegexRecord.FFI.fromPtr false) searchGetGregex_ self
+    fun searchGetRegex self = (VteTerminalClass.FFI.withPtr ---> VteRegexRecord.FFI.fromPtr false) searchGetRegex_ self
     fun searchGetWrapAround self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) searchGetWrapAround_ self
-    fun searchSetGregex self (regex, flags) =
+    fun searchSetGregex self (gregex, gflags) =
       (
         VteTerminalClass.FFI.withPtr
          &&&> GLibRegexRecord.FFI.withOptPtr
@@ -685,6 +799,19 @@ structure VteTerminal :>
          ---> I
       )
         searchSetGregex_
+        (
+          self
+           & gregex
+           & gflags
+        )
+    fun searchSetRegex self (regex, flags) =
+      (
+        VteTerminalClass.FFI.withPtr
+         &&&> VteRegexRecord.FFI.withOptPtr
+         &&&> GUInt32.FFI.withVal
+         ---> I
+      )
+        searchSetRegex_
         (
           self
            & regex
@@ -699,6 +826,7 @@ structure VteTerminal :>
     fun setColorBackground self background = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setColorBackground_ (self & background)
     fun setColorBold self bold = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorBold_ (self & bold)
     fun setColorCursor self cursorBackground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorCursor_ (self & cursorBackground)
+    fun setColorCursorForeground self cursorForeground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorCursorForeground_ (self & cursorForeground)
     fun setColorForeground self foreground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setColorForeground_ (self & foreground)
     fun setColorHighlight self highlightBackground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorHighlight_ (self & highlightBackground)
     fun setColorHighlightForeground self highlightForeground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorHighlightForeground_ (self & highlightForeground)
@@ -760,6 +888,7 @@ structure VteTerminal :>
     fun setRewrapOnResize self rewrap = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRewrapOnResize_ (self & rewrap)
     fun setScrollOnKeystroke self scroll = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setScrollOnKeystroke_ (self & scroll)
     fun setScrollOnOutput self scroll = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setScrollOnOutput_ (self & scroll)
+    fun setScrollSpeed self scrollSpeed = (VteTerminalClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setScrollSpeed_ (self & scrollSpeed)
     fun setScrollbackLines self lines = (VteTerminalClass.FFI.withPtr &&&> GLong.FFI.withVal ---> I) setScrollbackLines_ (self & lines)
     fun setSize self (columns, rows) =
       (
@@ -774,6 +903,7 @@ structure VteTerminal :>
            & columns
            & rows
         )
+    fun setWordCharExceptions self exceptions = (VteTerminalClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setWordCharExceptions_ (self & exceptions)
     fun spawnSync terminal (ptyFlags, workingDirectory, argv, envv, spawnFlags, childSetup, cancellable) =
       let
         val
@@ -856,6 +986,7 @@ structure VteTerminal :>
       fun lowerWindowSig f = signal "lower-window" (void ---> ret_void) f
       fun maximizeWindowSig f = signal "maximize-window" (void ---> ret_void) f
       fun moveWindowSig f = signal "move-window" (get 0w1 uint &&&> get 0w2 uint ---> ret_void) (fn x & y => f (x, y))
+      fun notificationReceivedSig f = signal "notification-received" (get 0w1 string &&&> get 0w2 stringOpt ---> ret_void) (fn summary & body => f (summary, body))
       fun pasteClipboardSig f = signal "paste-clipboard" (void ---> ret_void) f
       fun raiseWindowSig f = signal "raise-window" (void ---> ret_void) f
       fun refreshWindowSig f = signal "refresh-window" (void ---> ret_void) f
@@ -954,11 +1085,17 @@ structure VteTerminal :>
           get = fn x => get "scroll-on-output" boolean x,
           set = fn x => set "scroll-on-output" boolean x
         }
+      val scrollSpeedProp =
+        {
+          get = fn x => get "scroll-speed" uint x,
+          set = fn x => set "scroll-speed" uint x
+        }
       val scrollbackLinesProp =
         {
           get = fn x => get "scrollback-lines" uint x,
           set = fn x => set "scrollback-lines" uint x
         }
       val windowTitleProp = {get = fn x => get "window-title" stringOpt x}
+      val wordCharExceptionsProp = {get = fn x => get "word-char-exceptions" stringOpt x}
     end
   end

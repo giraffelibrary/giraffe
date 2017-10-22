@@ -47,6 +47,7 @@ structure GtkNotebook :>
               x3,
               x4
             )
+    val detachTab_ = fn x1 & x2 => (_import "gtk_notebook_detach_tab" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     val getActionWidget_ = fn x1 & x2 => (_import "gtk_notebook_get_action_widget" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GtkPackType.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
     val getCurrentPage_ = _import "gtk_notebook_get_current_page" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> GInt.FFI.val_;
     val getGroupName_ = _import "gtk_notebook_get_group_name" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
@@ -356,6 +357,7 @@ structure GtkNotebook :>
            & tabLabel
            & menuLabel
         )
+    fun detachTab self child = (GtkNotebookClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) detachTab_ (self & child)
     fun getActionWidget self packType = (GtkNotebookClass.FFI.withPtr &&&> GtkPackType.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getActionWidget_ (self & packType)
     fun getCurrentPage self = (GtkNotebookClass.FFI.withPtr ---> GInt.FFI.fromVal) getCurrentPage_ self
     fun getGroupName self = (GtkNotebookClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getGroupName_ self

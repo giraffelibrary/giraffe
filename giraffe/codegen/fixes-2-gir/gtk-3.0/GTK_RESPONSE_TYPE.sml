@@ -4,7 +4,7 @@ signature GTK_RESPONSE_TYPE =
     val NONE : t
     val REJECT : t
     val ACCEPT : t
-    val DELETEEVENT : t
+    val DELETE_EVENT : t
     val OK : t
     val CANCEL : t
     val CLOSE : t

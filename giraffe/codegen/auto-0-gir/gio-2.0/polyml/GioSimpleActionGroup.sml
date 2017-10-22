@@ -2,6 +2,7 @@ structure GioSimpleActionGroup :>
   GIO_SIMPLE_ACTION_GROUP
     where type 'a class = 'a GioSimpleActionGroupClass.class
     where type 'a action_group_class = 'a GioActionGroupClass.class
+    where type 'a action_map_class = 'a GioActionMapClass.class
     where type 'a action_class = 'a GioActionClass.class =
   struct
     local
@@ -15,9 +16,11 @@ structure GioSimpleActionGroup :>
     end
     type 'a class = 'a GioSimpleActionGroupClass.class
     type 'a action_group_class = 'a GioActionGroupClass.class
+    type 'a action_map_class = 'a GioActionMapClass.class
     type 'a action_class = 'a GioActionClass.class
     type t = base class
     fun asActionGroup self = (GObjectObjectClass.FFI.withPtr ---> GioActionGroupClass.FFI.fromPtr false) I self
+    fun asActionMap self = (GObjectObjectClass.FFI.withPtr ---> GioActionMapClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioSimpleActionGroupClass.FFI.fromPtr true) new_ ()
     fun insert self action = (GioSimpleActionGroupClass.FFI.withPtr &&&> GioActionClass.FFI.withPtr ---> I) insert_ (self & action)

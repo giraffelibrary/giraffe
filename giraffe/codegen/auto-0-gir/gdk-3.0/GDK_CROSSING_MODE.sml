@@ -7,6 +7,9 @@ signature GDK_CROSSING_MODE =
     | GTK_GRAB
     | GTK_UNGRAB
     | STATE_CHANGED
+    | TOUCH_BEGIN
+    | TOUCH_END
+    | DEVICE_SWITCH
     include
       ENUM
         where type t = enum

@@ -5,13 +5,21 @@ structure GtkIconLookupFlags :> GTK_ICON_LOOKUP_FLAGS =
     val USE_BUILTIN = 0w4
     val GENERIC_FALLBACK = 0w8
     val FORCE_SIZE = 0w16
+    val FORCE_REGULAR = 0w32
+    val FORCE_SYMBOLIC = 0w64
+    val DIR_LTR = 0w128
+    val DIR_RTL = 0w256
     val allFlags =
       [
         NO_SVG,
         FORCE_SVG,
         USE_BUILTIN,
         GENERIC_FALLBACK,
-        FORCE_SIZE
+        FORCE_SIZE,
+        FORCE_REGULAR,
+        FORCE_SYMBOLIC,
+        DIR_LTR,
+        DIR_RTL
       ]
     structure Flags =
       Flags(

@@ -8,6 +8,7 @@ signature GDK_DRAG_PROTOCOL =
     | WIN_32_DROPFILES
     | OLE_2
     | LOCAL
+    | WAYLAND
     include
       ENUM
         where type t = enum

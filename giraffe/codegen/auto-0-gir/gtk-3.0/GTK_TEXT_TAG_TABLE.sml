@@ -10,7 +10,7 @@ signature GTK_TEXT_TAG_TABLE =
     val add :
       'a class
        -> 'b text_tag_class
-       -> unit
+       -> bool
     val getSize : 'a class -> LargeInt.int
     val lookup :
       'a class

@@ -12,7 +12,7 @@ signature GTK_EXPANDER =
     val getExpanded : 'a class -> bool
     val getLabel : 'a class -> string
     val getLabelFill : 'a class -> bool
-    val getLabelWidget : 'a class -> base widget_class
+    val getLabelWidget : 'a class -> base widget_class option
     val getResizeToplevel : 'a class -> bool
     val getSpacing : 'a class -> LargeInt.int
     val getUseMarkup : 'a class -> bool

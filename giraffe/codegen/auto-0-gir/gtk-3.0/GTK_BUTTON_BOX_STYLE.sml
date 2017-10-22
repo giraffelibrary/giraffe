@@ -6,6 +6,7 @@ signature GTK_BUTTON_BOX_STYLE =
     | START
     | END
     | CENTER
+    | EXPAND
     include
       ENUM
         where type t = enum

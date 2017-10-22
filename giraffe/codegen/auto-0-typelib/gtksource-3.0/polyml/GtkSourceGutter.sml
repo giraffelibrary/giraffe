@@ -14,7 +14,7 @@ structure GtkSourceGutter :>
             GtkSourceGutterClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
-             --> GtkSourceGutterRendererClass.PolyML.cPtr
+             --> GtkSourceGutterRendererClass.PolyML.cOptPtr
           )
       val getWindow_ = call (getSymbol "gtk_source_gutter_get_window") (GtkSourceGutterClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val insert_ =
@@ -54,7 +54,7 @@ structure GtkSourceGutter :>
         GtkSourceGutterClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
-         ---> GtkSourceGutterRendererClass.FFI.fromPtr false
+         ---> GtkSourceGutterRendererClass.FFI.fromOptPtr false
       )
         getRendererAtPos_
         (

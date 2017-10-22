@@ -6,6 +6,7 @@ signature GTK_SOURCE_COMPLETION =
     type 'a completion_context_class
     type 'a view_class
     type t = base class
+    val asBuildable : 'a class -> base Gtk.BuildableClass.class
     val getType : unit -> GObject.Type.t
     val addProvider :
       'a class
@@ -17,7 +18,7 @@ signature GTK_SOURCE_COMPLETION =
        -> Gtk.TextIterRecord.t option
        -> base completion_context_class
     val getInfoWindow : 'a class -> base completion_info_class
-    val getView : 'a class -> base view_class
+    val getView : 'a class -> base view_class option
     val hide : 'a class -> unit
     val moveWindow :
       'a class

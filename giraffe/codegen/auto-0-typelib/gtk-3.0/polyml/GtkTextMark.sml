@@ -11,7 +11,7 @@ structure GtkTextMark :>
       val getBuffer_ = call (getSymbol "gtk_text_mark_get_buffer") (GtkTextMarkClass.PolyML.cPtr --> GtkTextBufferClass.PolyML.cPtr)
       val getDeleted_ = call (getSymbol "gtk_text_mark_get_deleted") (GtkTextMarkClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getLeftGravity_ = call (getSymbol "gtk_text_mark_get_left_gravity") (GtkTextMarkClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getName_ = call (getSymbol "gtk_text_mark_get_name") (GtkTextMarkClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getName_ = call (getSymbol "gtk_text_mark_get_name") (GtkTextMarkClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getVisible_ = call (getSymbol "gtk_text_mark_get_visible") (GtkTextMarkClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setVisible_ = call (getSymbol "gtk_text_mark_set_visible") (GtkTextMarkClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
@@ -23,7 +23,7 @@ structure GtkTextMark :>
     fun getBuffer self = (GtkTextMarkClass.FFI.withPtr ---> GtkTextBufferClass.FFI.fromPtr false) getBuffer_ self
     fun getDeleted self = (GtkTextMarkClass.FFI.withPtr ---> GBool.FFI.fromVal) getDeleted_ self
     fun getLeftGravity self = (GtkTextMarkClass.FFI.withPtr ---> GBool.FFI.fromVal) getLeftGravity_ self
-    fun getName self = (GtkTextMarkClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getName self = (GtkTextMarkClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getName_ self
     fun getVisible self = (GtkTextMarkClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
     fun setVisible self setting = (GtkTextMarkClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisible_ (self & setting)
     local

@@ -1,7 +1,7 @@
 structure GtkIconTheme :>
   GTK_ICON_THEME
     where type 'a class = 'a GtkIconThemeClass.class
-    where type icon_info_t = GtkIconInfoRecord.t
+    where type 'a icon_info_class = 'a GtkIconInfoClass.class
     where type icon_lookup_flags_t = GtkIconLookupFlags.t =
   struct
     structure Utf8CVectorNType =
@@ -45,6 +45,21 @@ structure GtkIconTheme :>
             )
     val getDefault_ = _import "gtk_icon_theme_get_default" : unit -> GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p;
     val getForScreen_ = _import "gtk_icon_theme_get_for_screen" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p;
+    val addResourcePath_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_gtk_icon_theme_add_resource_path" :
+              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val appendSearchPath_ =
       fn
         x1 & (x2, x3) =>
@@ -73,7 +88,7 @@ structure GtkIconTheme :>
                * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
                * GInt32.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> GtkIconInfoRecord.FFI.notnull GtkIconInfoRecord.FFI.p;
+               -> unit GtkIconInfoClass.FFI.p;
           )
             (
               x1,
@@ -82,7 +97,32 @@ structure GtkIconTheme :>
               x4,
               x5
             )
-    val getExampleIconName_ = _import "gtk_icon_theme_get_example_icon_name" : GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val chooseIconForScale_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5
+         & x6 =>
+          (
+            _import "mlton_gtk_icon_theme_choose_icon_for_scale" :
+              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+               * Utf8CVector.MLton.p1
+               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               * GInt32.FFI.val_
+               * GInt32.FFI.val_
+               * GtkIconLookupFlags.FFI.val_
+               -> unit GtkIconInfoClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
+    val getExampleIconName_ = _import "gtk_icon_theme_get_example_icon_name" : GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p -> unit Utf8.FFI.out_p;
     val getIconSizes_ =
       fn
         x1 & (x2, x3) =>
@@ -147,7 +187,7 @@ structure GtkIconTheme :>
                * GInt32.FFI.val_
                * GtkIconLookupFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               -> unit GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -156,6 +196,65 @@ structure GtkIconTheme :>
               x4,
               x5,
               x6
+            )
+    val loadIconForScale_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5
+         & x6
+         & x7 =>
+          (
+            _import "mlton_gtk_icon_theme_load_icon_for_scale" :
+              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt32.FFI.val_
+               * GInt32.FFI.val_
+               * GtkIconLookupFlags.FFI.val_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> unit GdkPixbufPixbufClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7
+            )
+    val loadSurface_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5
+         & x6
+         & x7
+         & x8 =>
+          (
+            _import "mlton_gtk_icon_theme_load_surface" :
+              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt32.FFI.val_
+               * GInt32.FFI.val_
+               * unit GdkWindowClass.FFI.p
+               * GtkIconLookupFlags.FFI.val_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> unit CairoSurfaceRecord.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7,
+              x8
             )
     val lookupByGicon_ =
       fn
@@ -169,13 +268,36 @@ structure GtkIconTheme :>
                * GioIconClass.FFI.notnull GioIconClass.FFI.p
                * GInt32.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> GtkIconInfoRecord.FFI.notnull GtkIconInfoRecord.FFI.p;
+               -> unit GtkIconInfoClass.FFI.p;
           )
             (
               x1,
               x2,
               x3,
               x4
+            )
+    val lookupByGiconForScale_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5 =>
+          (
+            _import "gtk_icon_theme_lookup_by_gicon_for_scale" :
+              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+               * GioIconClass.FFI.notnull GioIconClass.FFI.p
+               * GInt32.FFI.val_
+               * GInt32.FFI.val_
+               * GtkIconLookupFlags.FFI.val_
+               -> unit GtkIconInfoClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
             )
     val lookupIcon_ =
       fn
@@ -190,7 +312,7 @@ structure GtkIconTheme :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GInt32.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> GtkIconInfoRecord.FFI.notnull GtkIconInfoRecord.FFI.p;
+               -> unit GtkIconInfoClass.FFI.p;
           )
             (
               x1,
@@ -198,6 +320,31 @@ structure GtkIconTheme :>
               x3,
               x4,
               x5
+            )
+    val lookupIconForScale_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5
+         & x6 =>
+          (
+            _import "mlton_gtk_icon_theme_lookup_icon_for_scale" :
+              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GInt32.FFI.val_
+               * GInt32.FFI.val_
+               * GtkIconLookupFlags.FFI.val_
+               -> unit GtkIconInfoClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
             )
     val prependSearchPath_ =
       fn
@@ -251,7 +398,7 @@ structure GtkIconTheme :>
               x4
             )
     type 'a class = 'a GtkIconThemeClass.class
-    type icon_info_t = GtkIconInfoRecord.t
+    type 'a icon_info_class = 'a GtkIconInfoClass.class
     type icon_lookup_flags_t = GtkIconLookupFlags.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -276,6 +423,7 @@ structure GtkIconTheme :>
         )
     fun getDefault () = (I ---> GtkIconThemeClass.FFI.fromPtr false) getDefault_ ()
     fun getForScreen screen = (GdkScreenClass.FFI.withPtr ---> GtkIconThemeClass.FFI.fromPtr false) getForScreen_ screen
+    fun addResourcePath self path = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addResourcePath_ (self & path)
     fun appendSearchPath self path = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) appendSearchPath_ (self & path)
     fun chooseIcon
       self
@@ -289,7 +437,7 @@ structure GtkIconTheme :>
          &&&> Utf8CVector.FFI.withPtr
          &&&> GInt32.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoRecord.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         chooseIcon_
         (
@@ -298,8 +446,32 @@ structure GtkIconTheme :>
            & size
            & flags
         )
-    fun getExampleIconName self = (GtkIconThemeClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getExampleIconName_ self
-    fun getIconSizes self iconName = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt32CVector.FFI.fromPtr 0) getIconSizes_ (self & iconName)
+    fun chooseIconForScale
+      self
+      (
+        iconNames,
+        size,
+        scale,
+        flags
+      ) =
+      (
+        GtkIconThemeClass.FFI.withPtr
+         &&&> Utf8CVector.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         &&&> GtkIconLookupFlags.FFI.withVal
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
+      )
+        chooseIconForScale_
+        (
+          self
+           & iconNames
+           & size
+           & scale
+           & flags
+        )
+    fun getExampleIconName self = (GtkIconThemeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getExampleIconName_ self
+    fun getIconSizes self iconName = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt32CVector.FFI.fromPtr 1) getIconSizes_ (self & iconName)
     fun getSearchPath self =
       let
         val path
@@ -336,13 +508,68 @@ structure GtkIconTheme :>
          &&&> GInt32.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GdkPixbufPixbufClass.FFI.fromPtr true
+         ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
       )
         loadIcon_
         (
           self
            & iconName
            & size
+           & flags
+           & []
+        )
+    fun loadIconForScale
+      self
+      (
+        iconName,
+        size,
+        scale,
+        flags
+      ) =
+      (
+        GtkIconThemeClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         &&&> GtkIconLookupFlags.FFI.withVal
+         &&&> GLibErrorRecord.handleError
+         ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
+      )
+        loadIconForScale_
+        (
+          self
+           & iconName
+           & size
+           & scale
+           & flags
+           & []
+        )
+    fun loadSurface
+      self
+      (
+        iconName,
+        size,
+        scale,
+        forWindow,
+        flags
+      ) =
+      (
+        GtkIconThemeClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         &&&> GdkWindowClass.FFI.withOptPtr
+         &&&> GtkIconLookupFlags.FFI.withVal
+         &&&> GLibErrorRecord.handleError
+         ---> CairoSurfaceRecord.FFI.fromOptPtr true
+      )
+        loadSurface_
+        (
+          self
+           & iconName
+           & size
+           & scale
+           & forWindow
            & flags
            & []
         )
@@ -358,13 +585,37 @@ structure GtkIconTheme :>
          &&&> GioIconClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoRecord.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         lookupByGicon_
         (
           self
            & icon
            & size
+           & flags
+        )
+    fun lookupByGiconForScale
+      self
+      (
+        icon,
+        size,
+        scale,
+        flags
+      ) =
+      (
+        GtkIconThemeClass.FFI.withPtr
+         &&&> GioIconClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         &&&> GtkIconLookupFlags.FFI.withVal
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
+      )
+        lookupByGiconForScale_
+        (
+          self
+           & icon
+           & size
+           & scale
            & flags
         )
     fun lookupIcon
@@ -379,13 +630,37 @@ structure GtkIconTheme :>
          &&&> Utf8.FFI.withPtr
          &&&> GInt32.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoRecord.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         lookupIcon_
         (
           self
            & iconName
            & size
+           & flags
+        )
+    fun lookupIconForScale
+      self
+      (
+        iconName,
+        size,
+        scale,
+        flags
+      ) =
+      (
+        GtkIconThemeClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         &&&> GtkIconLookupFlags.FFI.withVal
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
+      )
+        lookupIconForScale_
+        (
+          self
+           & iconName
+           & size
+           & scale
            & flags
         )
     fun prependSearchPath self path = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) prependSearchPath_ (self & path)

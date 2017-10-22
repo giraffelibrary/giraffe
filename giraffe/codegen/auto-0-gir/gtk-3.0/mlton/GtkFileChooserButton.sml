@@ -4,7 +4,7 @@ structure GtkFileChooserButton :>
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a orientable_class = 'a GtkOrientableClass.class
     where type file_chooser_action_t = GtkFileChooserAction.t
-    where type 'a widget_class = 'a GtkWidgetClass.class
+    where type 'a dialog_class = 'a GtkDialogClass.class
     where type 'a file_chooser_class = 'a GtkFileChooserClass.class =
   struct
     val getType_ = _import "gtk_file_chooser_button_get_type" : unit -> GObjectType.FFI.val_;
@@ -23,7 +23,7 @@ structure GtkFileChooserButton :>
               x2,
               x3
             )
-    val newWithDialog_ = _import "gtk_file_chooser_button_new_with_dialog" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val newWithDialog_ = _import "gtk_file_chooser_button_new_with_dialog" : GtkDialogClass.FFI.notnull GtkDialogClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val getFocusOnClick_ = _import "gtk_file_chooser_button_get_focus_on_click" : GtkFileChooserButtonClass.FFI.notnull GtkFileChooserButtonClass.FFI.p -> GBool.FFI.val_;
     val getTitle_ = _import "gtk_file_chooser_button_get_title" : GtkFileChooserButtonClass.FFI.notnull GtkFileChooserButtonClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getWidthChars_ = _import "gtk_file_chooser_button_get_width_chars" : GtkFileChooserButtonClass.FFI.notnull GtkFileChooserButtonClass.FFI.p -> GInt.FFI.val_;
@@ -48,7 +48,7 @@ structure GtkFileChooserButton :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
     type file_chooser_action_t = GtkFileChooserAction.t
-    type 'a widget_class = 'a GtkWidgetClass.class
+    type 'a dialog_class = 'a GtkDialogClass.class
     type 'a file_chooser_class = 'a GtkFileChooserClass.class
     type t = base class
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
@@ -57,7 +57,7 @@ structure GtkFileChooserButton :>
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (title, action) = (Utf8.FFI.withPtr &&&> GtkFileChooserAction.FFI.withVal ---> GtkFileChooserButtonClass.FFI.fromPtr false) new_ (title & action)
-    fun newWithDialog dialog = (GtkWidgetClass.FFI.withPtr ---> GtkFileChooserButtonClass.FFI.fromPtr false) newWithDialog_ dialog
+    fun newWithDialog dialog = (GtkDialogClass.FFI.withPtr ---> GtkFileChooserButtonClass.FFI.fromPtr false) newWithDialog_ dialog
     fun getFocusOnClick self = (GtkFileChooserButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getFocusOnClick_ self
     fun getTitle self = (GtkFileChooserButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTitle_ self
     fun getWidthChars self = (GtkFileChooserButtonClass.FFI.withPtr ---> GInt.FFI.fromVal) getWidthChars_ self
@@ -73,11 +73,6 @@ structure GtkFileChooserButton :>
       open Property
     in
       val dialogProp = {set = fn x => set "dialog" GtkFileChooserClass.tOpt x}
-      val focusOnClickProp =
-        {
-          get = fn x => get "focus-on-click" boolean x,
-          set = fn x => set "focus-on-click" boolean x
-        }
       val titleProp =
         {
           get = fn x => get "title" stringOpt x,

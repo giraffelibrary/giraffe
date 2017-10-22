@@ -260,7 +260,7 @@ structure GtkCellRenderer :>
           (
             _import "gtk_cell_renderer_get_state" :
               GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * unit GtkWidgetClass.FFI.p
                * GtkCellRendererState.FFI.val_
                -> GtkStateFlags.FFI.val_;
           )
@@ -362,7 +362,7 @@ structure GtkCellRenderer :>
           (
             _import "mlton_gtk_cell_renderer_start_editing" :
               GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
-               * GdkEvent.FFI.notnull GdkEvent.FFI.p
+               * unit GdkEvent.FFI.p
                * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
@@ -684,7 +684,7 @@ structure GtkCellRenderer :>
     fun getState self (widget, cellState) =
       (
         GtkCellRendererClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
          &&&> GtkCellRendererState.FFI.withVal
          ---> GtkStateFlags.FFI.fromVal
       )
@@ -776,7 +776,7 @@ structure GtkCellRenderer :>
       ) =
       (
         GtkCellRendererClass.FFI.withPtr
-         &&&> GdkEvent.FFI.withPtr
+         &&&> GdkEvent.FFI.withOptPtr
          &&&> GtkWidgetClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GdkRectangleRecord.FFI.withPtr

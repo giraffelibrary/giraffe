@@ -1,6 +1,7 @@
 structure GtkLockButton :>
   GTK_LOCK_BUTTON
     where type 'a class = 'a GtkLockButtonClass.class
+    where type 'a actionable_class = 'a GtkActionableClass.class
     where type 'a activatable_class = 'a GtkActivatableClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
@@ -9,17 +10,21 @@ structure GtkLockButton :>
     in
       val getType_ = call (getSymbol "gtk_lock_button_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_lock_button_new") (GioPermissionClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getPermission_ = call (getSymbol "gtk_lock_button_get_permission") (GtkLockButtonClass.PolyML.cPtr --> GioPermissionClass.PolyML.cPtr)
       val setPermission_ = call (getSymbol "gtk_lock_button_set_permission") (GtkLockButtonClass.PolyML.cPtr &&> GioPermissionClass.PolyML.cOptPtr --> cVoid)
     end
     type 'a class = 'a GtkLockButtonClass.class
+    type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new permission = (GioPermissionClass.FFI.withOptPtr ---> GtkLockButtonClass.FFI.fromPtr false) new_ permission
+    fun getPermission self = (GtkLockButtonClass.FFI.withPtr ---> GioPermissionClass.FFI.fromPtr false) getPermission_ self
     fun setPermission self permission = (GtkLockButtonClass.FFI.withPtr &&&> GioPermissionClass.FFI.withOptPtr ---> I) setPermission_ (self & permission)
     local
       open Property

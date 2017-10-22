@@ -3,8 +3,15 @@ structure GioAppInfo :>
     where type 'a class = 'a GioAppInfoClass.class
     where type app_info_create_flags_t = GioAppInfoCreateFlags.t
     where type 'a app_launch_context_class = 'a GioAppLaunchContextClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class
     where type 'a icon_class = 'a GioIconClass.class =
   struct
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -28,6 +35,7 @@ structure GioAppInfo :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
+      val launchDefaultForUriFinish_ = call (getSymbol "g_app_info_launch_default_for_uri_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val resetTypeAssociations_ = call (getSymbol "g_app_info_reset_type_associations") (Utf8.PolyML.cInPtr --> cVoid)
       val addSupportsType_ =
         call (getSymbol "g_app_info_add_supports_type")
@@ -49,6 +57,7 @@ structure GioAppInfo :>
       val getIcon_ = call (getSymbol "g_app_info_get_icon") (GioAppInfoClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
       val getId_ = call (getSymbol "g_app_info_get_id") (GioAppInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getName_ = call (getSymbol "g_app_info_get_name") (GioAppInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getSupportedTypes_ = call (getSymbol "g_app_info_get_supported_types") (GioAppInfoClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val removeSupportsType_ =
         call (getSymbol "g_app_info_remove_supports_type")
           (
@@ -88,6 +97,7 @@ structure GioAppInfo :>
     type 'a class = 'a GioAppInfoClass.class
     type app_info_create_flags_t = GioAppInfoCreateFlags.t
     type 'a app_launch_context_class = 'a GioAppLaunchContextClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
     type 'a icon_class = 'a GioIconClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -126,6 +136,7 @@ structure GioAppInfo :>
            & launchContext
            & []
         )
+    fun launchDefaultForUriFinish result = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) launchDefaultForUriFinish_ (result & [])
     fun resetTypeAssociations contentType = (Utf8.FFI.withPtr ---> I) resetTypeAssociations_ contentType
     fun addSupportsType self contentType =
       (
@@ -152,6 +163,7 @@ structure GioAppInfo :>
     fun getIcon self = (GioAppInfoClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getIcon_ self
     fun getId self = (GioAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getId_ self
     fun getName self = (GioAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getSupportedTypes self = (GioAppInfoClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getSupportedTypes_ self
     fun removeSupportsType self contentType =
       (
         GioAppInfoClass.FFI.withPtr

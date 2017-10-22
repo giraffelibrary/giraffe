@@ -4,11 +4,13 @@ structure GioUnixMountMonitor :>
   struct
     val getType_ = _import "g_unix_mount_monitor_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "g_unix_mount_monitor_new" : unit -> GioUnixMountMonitorClass.FFI.notnull GioUnixMountMonitorClass.FFI.p;
+    val get_ = _import "g_unix_mount_monitor_get" : unit -> GioUnixMountMonitorClass.FFI.notnull GioUnixMountMonitorClass.FFI.p;
     val setRateLimit_ = fn x1 & x2 => (_import "g_unix_mount_monitor_set_rate_limit" : GioUnixMountMonitorClass.FFI.notnull GioUnixMountMonitorClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioUnixMountMonitorClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioUnixMountMonitorClass.FFI.fromPtr true) new_ ()
+    fun get () = (I ---> GioUnixMountMonitorClass.FFI.fromPtr true) get_ ()
     fun setRateLimit self limitMsec = (GioUnixMountMonitorClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setRateLimit_ (self & limitMsec)
     local
       open ClosureMarshal Signal

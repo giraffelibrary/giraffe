@@ -10,7 +10,7 @@ structure GtkAspectFrame :>
       val new_ =
         call (getSymbol "gtk_aspect_frame_new")
           (
-            Utf8.PolyML.cInPtr
+            Utf8.PolyML.cInOptPtr
              &&> GFloat.PolyML.cVal
              &&> GFloat.PolyML.cVal
              &&> GFloat.PolyML.cVal
@@ -43,7 +43,7 @@ structure GtkAspectFrame :>
         obeyChild
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withOptPtr
          &&&> GFloat.FFI.withVal
          &&&> GFloat.FFI.withVal
          &&&> GFloat.FFI.withVal

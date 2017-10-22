@@ -1,6 +1,7 @@
 structure AtkObject :>
   ATK_OBJECT
     where type 'a class = 'a AtkObjectClass.class
+    where type layer_t = AtkLayer.t
     where type state_t = AtkState.t
     where type 'a relation_set_class = 'a AtkRelationSetClass.class
     where type 'a state_set_class = 'a AtkStateSetClass.class
@@ -21,8 +22,11 @@ structure AtkObject :>
           )
       val getDescription_ = call (getSymbol "atk_object_get_description") (AtkObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getIndexInParent_ = call (getSymbol "atk_object_get_index_in_parent") (AtkObjectClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getLayer_ = call (getSymbol "atk_object_get_layer") (AtkObjectClass.PolyML.cPtr --> AtkLayer.PolyML.cVal)
+      val getMdiZorder_ = call (getSymbol "atk_object_get_mdi_zorder") (AtkObjectClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getNAccessibleChildren_ = call (getSymbol "atk_object_get_n_accessible_children") (AtkObjectClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getName_ = call (getSymbol "atk_object_get_name") (AtkObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getObjectLocale_ = call (getSymbol "atk_object_get_object_locale") (AtkObjectClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getParent_ = call (getSymbol "atk_object_get_parent") (AtkObjectClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
       val getRole_ = call (getSymbol "atk_object_get_role") (AtkObjectClass.PolyML.cPtr --> AtkRole.PolyML.cVal)
       val notifyStateChange_ =
@@ -33,6 +37,7 @@ structure AtkObject :>
              &&> GBool.PolyML.cVal
              --> cVoid
           )
+      val peekParent_ = call (getSymbol "atk_object_peek_parent") (AtkObjectClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
       val refAccessibleChild_ = call (getSymbol "atk_object_ref_accessible_child") (AtkObjectClass.PolyML.cPtr &&> GInt.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
       val refRelationSet_ = call (getSymbol "atk_object_ref_relation_set") (AtkObjectClass.PolyML.cPtr --> AtkRelationSetClass.PolyML.cPtr)
       val refStateSet_ = call (getSymbol "atk_object_ref_state_set") (AtkObjectClass.PolyML.cPtr --> AtkStateSetClass.PolyML.cPtr)
@@ -51,6 +56,7 @@ structure AtkObject :>
       val setRole_ = call (getSymbol "atk_object_set_role") (AtkObjectClass.PolyML.cPtr &&> AtkRole.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a AtkObjectClass.class
+    type layer_t = AtkLayer.t
     type state_t = AtkState.t
     type 'a relation_set_class = 'a AtkRelationSetClass.class
     type 'a state_set_class = 'a AtkStateSetClass.class
@@ -73,8 +79,11 @@ structure AtkObject :>
         )
     fun getDescription self = (AtkObjectClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDescription_ self
     fun getIndexInParent self = (AtkObjectClass.FFI.withPtr ---> GInt.FFI.fromVal) getIndexInParent_ self
+    fun getLayer self = (AtkObjectClass.FFI.withPtr ---> AtkLayer.FFI.fromVal) getLayer_ self
+    fun getMdiZorder self = (AtkObjectClass.FFI.withPtr ---> GInt.FFI.fromVal) getMdiZorder_ self
     fun getNAccessibleChildren self = (AtkObjectClass.FFI.withPtr ---> GInt.FFI.fromVal) getNAccessibleChildren_ self
     fun getName self = (AtkObjectClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getObjectLocale self = (AtkObjectClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getObjectLocale_ self
     fun getParent self = (AtkObjectClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr false) getParent_ self
     fun getRole self = (AtkObjectClass.FFI.withPtr ---> AtkRole.FFI.fromVal) getRole_ self
     fun notifyStateChange self (state, value) =
@@ -90,6 +99,7 @@ structure AtkObject :>
            & state
            & value
         )
+    fun peekParent self = (AtkObjectClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr false) peekParent_ self
     fun refAccessibleChild self i = (AtkObjectClass.FFI.withPtr &&&> GInt.FFI.withVal ---> AtkObjectClass.FFI.fromPtr true) refAccessibleChild_ (self & i)
     fun refRelationSet self = (AtkObjectClass.FFI.withPtr ---> AtkRelationSetClass.FFI.fromPtr true) refRelationSet_ self
     fun refStateSet self = (AtkObjectClass.FFI.withPtr ---> AtkStateSetClass.FFI.fromPtr true) refStateSet_ self
@@ -115,7 +125,7 @@ structure AtkObject :>
       open ClosureMarshal Signal
     in
       fun focusEventSig f = signal "focus-event" (get 0w1 boolean ---> ret_void) f
-      fun stateChangeSig f = signal "state-change" (get 0w1 string &&&> get 0w2 boolean ---> ret_void) (fn object & p0 => f (object, p0))
+      fun stateChangeSig f = signal "state-change" (get 0w1 string &&&> get 0w2 boolean ---> ret_void) (fn arg1 & arg2 => f (arg1, arg2))
       fun visibleDataChangedSig f = signal "visible-data-changed" (void ---> ret_void) f
     end
     local

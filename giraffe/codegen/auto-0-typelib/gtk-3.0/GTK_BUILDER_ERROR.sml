@@ -10,6 +10,11 @@ signature GTK_BUILDER_ERROR =
     | INVALID_VALUE
     | VERSION_MISMATCH
     | DUPLICATE_ID
+    | OBJECT_TYPE_REFUSED
+    | TEMPLATE_MISMATCH
+    | INVALID_PROPERTY
+    | INVALID_SIGNAL
+    | INVALID_ID
     include
       ENUM
         where type t = enum

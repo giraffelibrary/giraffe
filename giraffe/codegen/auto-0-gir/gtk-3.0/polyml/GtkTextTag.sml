@@ -11,6 +11,7 @@ structure GtkTextTag :>
     in
       val getType_ = call (getSymbol "gtk_text_tag_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_text_tag_new") (Utf8.PolyML.cInOptPtr --> GtkTextTagClass.PolyML.cPtr)
+      val changed_ = call (getSymbol "gtk_text_tag_changed") (GtkTextTagClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val event_ =
         call (getSymbol "gtk_text_tag_event")
           (
@@ -31,6 +32,7 @@ structure GtkTextTag :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new name = (Utf8.FFI.withOptPtr ---> GtkTextTagClass.FFI.fromPtr true) new_ name
+    fun changed self sizeChanged = (GtkTextTagClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) changed_ (self & sizeChanged)
     fun event
       self
       (
@@ -127,6 +129,16 @@ structure GtkTextTag :>
           get = fn x => get "editable-set" boolean x,
           set = fn x => set "editable-set" boolean x
         }
+      val fallbackProp =
+        {
+          get = fn x => get "fallback" boolean x,
+          set = fn x => set "fallback" boolean x
+        }
+      val fallbackSetProp =
+        {
+          get = fn x => get "fallback-set" boolean x,
+          set = fn x => set "fallback-set" boolean x
+        }
       val familyProp =
         {
           get = fn x => get "family" stringOpt x,
@@ -146,6 +158,16 @@ structure GtkTextTag :>
         {
           get = fn x => get "font-desc" PangoFontDescriptionRecord.tOpt x,
           set = fn x => set "font-desc" PangoFontDescriptionRecord.tOpt x
+        }
+      val fontFeaturesProp =
+        {
+          get = fn x => get "font-features" stringOpt x,
+          set = fn x => set "font-features" stringOpt x
+        }
+      val fontFeaturesSetProp =
+        {
+          get = fn x => get "font-features-set" boolean x,
+          set = fn x => set "font-features-set" boolean x
         }
       val foregroundProp = {set = fn x => set "foreground" stringOpt x}
       val foregroundGdkProp =
@@ -212,6 +234,16 @@ structure GtkTextTag :>
         {
           get = fn x => get "left-margin-set" boolean x,
           set = fn x => set "left-margin-set" boolean x
+        }
+      val letterSpacingProp =
+        {
+          get = fn x => get "letter-spacing" int x,
+          set = fn x => set "letter-spacing" int x
+        }
+      val letterSpacingSetProp =
+        {
+          get = fn x => get "letter-spacing-set" boolean x,
+          set = fn x => set "letter-spacing-set" boolean x
         }
       val nameProp =
         {
@@ -324,6 +356,16 @@ structure GtkTextTag :>
           get = fn x => get "strikethrough" boolean x,
           set = fn x => set "strikethrough" boolean x
         }
+      val strikethroughRgbaProp =
+        {
+          get = fn x => get "strikethrough-rgba" GdkRgbaRecord.tOpt x,
+          set = fn x => set "strikethrough-rgba" GdkRgbaRecord.tOpt x
+        }
+      val strikethroughRgbaSetProp =
+        {
+          get = fn x => get "strikethrough-rgba-set" boolean x,
+          set = fn x => set "strikethrough-rgba-set" boolean x
+        }
       val strikethroughSetProp =
         {
           get = fn x => get "strikethrough-set" boolean x,
@@ -353,6 +395,16 @@ structure GtkTextTag :>
         {
           get = fn x => get "underline" PangoUnderline.t x,
           set = fn x => set "underline" PangoUnderline.t x
+        }
+      val underlineRgbaProp =
+        {
+          get = fn x => get "underline-rgba" GdkRgbaRecord.tOpt x,
+          set = fn x => set "underline-rgba" GdkRgbaRecord.tOpt x
+        }
+      val underlineRgbaSetProp =
+        {
+          get = fn x => get "underline-rgba-set" boolean x,
+          set = fn x => set "underline-rgba-set" boolean x
         }
       val underlineSetProp =
         {

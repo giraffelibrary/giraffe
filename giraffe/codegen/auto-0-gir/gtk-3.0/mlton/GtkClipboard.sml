@@ -31,6 +31,7 @@ structure GtkClipboard :>
     structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     val getType_ = _import "gtk_clipboard_get_type" : unit -> GObjectType.FFI.val_;
     val get_ = _import "gtk_clipboard_get" : GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p;
+    val getDefault_ = _import "gtk_clipboard_get_default" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p;
     val getForDisplay_ = fn x1 & x2 => (_import "gtk_clipboard_get_for_display" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p;) (x1, x2)
     val clear_ = _import "gtk_clipboard_clear" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> unit;
     val getDisplay_ = _import "gtk_clipboard_get_display" : GtkClipboardClass.FFI.notnull GtkClipboardClass.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
@@ -130,6 +131,7 @@ structure GtkClipboard :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun get selection = (GdkAtomRecord.FFI.withPtr ---> GtkClipboardClass.FFI.fromPtr false) get_ selection
+    fun getDefault display = (GdkDisplayClass.FFI.withPtr ---> GtkClipboardClass.FFI.fromPtr false) getDefault_ display
     fun getForDisplay (display, selection) = (GdkDisplayClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GtkClipboardClass.FFI.fromPtr false) getForDisplay_ (display & selection)
     fun clear self = (GtkClipboardClass.FFI.withPtr ---> I) clear_ self
     fun getDisplay self = (GtkClipboardClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self

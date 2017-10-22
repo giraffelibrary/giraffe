@@ -11,6 +11,7 @@ structure AtkHyperlink :>
     val getStartIndex_ = _import "atk_hyperlink_get_start_index" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GInt32.FFI.val_;
     val getUri_ = fn x1 & x2 => (_import "atk_hyperlink_get_uri" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p * GInt32.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
     val isInline_ = _import "atk_hyperlink_is_inline" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GBool.FFI.val_;
+    val isSelectedLink_ = _import "atk_hyperlink_is_selected_link" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GBool.FFI.val_;
     val isValid_ = _import "atk_hyperlink_is_valid" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a AtkHyperlinkClass.class
     type 'a action_class = 'a AtkActionClass.class
@@ -24,6 +25,7 @@ structure AtkHyperlink :>
     fun getStartIndex self = (AtkHyperlinkClass.FFI.withPtr ---> GInt32.FFI.fromVal) getStartIndex_ self
     fun getUri self i = (AtkHyperlinkClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 1) getUri_ (self & i)
     fun isInline self = (AtkHyperlinkClass.FFI.withPtr ---> GBool.FFI.fromVal) isInline_ self
+    fun isSelectedLink self = (AtkHyperlinkClass.FFI.withPtr ---> GBool.FFI.fromVal) isSelectedLink_ self
     fun isValid self = (AtkHyperlinkClass.FFI.withPtr ---> GBool.FFI.fromVal) isValid_ self
     local
       open ClosureMarshal Signal

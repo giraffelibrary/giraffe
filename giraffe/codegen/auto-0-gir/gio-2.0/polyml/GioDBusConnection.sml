@@ -5,7 +5,10 @@ structure GioDBusConnection :>
     where type 'a initable_class = 'a GioInitableClass.class
     where type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     where type d_bus_call_flags_t = GioDBusCallFlags.t
+    where type 'a action_group_class = 'a GioActionGroupClass.class
+    where type 'a menu_model_class = 'a GioMenuModelClass.class
     where type 'a credentials_class = 'a GioCredentialsClass.class
+    where type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t
     where type 'a async_result_class = 'a GioAsyncResultClass.class
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type d_bus_send_message_flags_t = GioDBusSendMessageFlags.t
@@ -54,7 +57,7 @@ structure GioDBusConnection :>
         call (getSymbol "g_dbus_connection_call_sync")
           (
             GioDBusConnectionClass.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -79,7 +82,7 @@ structure GioDBusConnection :>
         call (getSymbol "g_dbus_connection_call_with_unix_fd_list_sync")
           (
             GioDBusConnectionClass.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -121,6 +124,24 @@ structure GioDBusConnection :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
+      val exportActionGroup_ =
+        call (getSymbol "g_dbus_connection_export_action_group")
+          (
+            GioDBusConnectionClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GioActionGroupClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GUInt.PolyML.cVal
+          )
+      val exportMenuModel_ =
+        call (getSymbol "g_dbus_connection_export_menu_model")
+          (
+            GioDBusConnectionClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GioMenuModelClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GUInt.PolyML.cVal
+          )
       val flushFinish_ =
         call (getSymbol "g_dbus_connection_flush_finish")
           (
@@ -140,10 +161,23 @@ structure GioDBusConnection :>
       val getCapabilities_ = call (getSymbol "g_dbus_connection_get_capabilities") (GioDBusConnectionClass.PolyML.cPtr --> GioDBusCapabilityFlags.PolyML.cVal)
       val getExitOnClose_ = call (getSymbol "g_dbus_connection_get_exit_on_close") (GioDBusConnectionClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getGuid_ = call (getSymbol "g_dbus_connection_get_guid") (GioDBusConnectionClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getLastSerial_ = call (getSymbol "g_dbus_connection_get_last_serial") (GioDBusConnectionClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
       val getPeerCredentials_ = call (getSymbol "g_dbus_connection_get_peer_credentials") (GioDBusConnectionClass.PolyML.cPtr --> GioCredentialsClass.PolyML.cPtr)
       val getStream_ = call (getSymbol "g_dbus_connection_get_stream") (GioDBusConnectionClass.PolyML.cPtr --> GioIOStreamClass.PolyML.cPtr)
       val getUniqueName_ = call (getSymbol "g_dbus_connection_get_unique_name") (GioDBusConnectionClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val isClosed_ = call (getSymbol "g_dbus_connection_is_closed") (GioDBusConnectionClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val registerObjectWithClosures_ =
+        call (getSymbol "g_dbus_connection_register_object_with_closures")
+          (
+            GioDBusConnectionClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GioDBusInterfaceInfoRecord.PolyML.cPtr
+             &&> GObjectClosureRecord.PolyML.cOptPtr
+             &&> GObjectClosureRecord.PolyML.cOptPtr
+             &&> GObjectClosureRecord.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GUInt.PolyML.cVal
+          )
       val removeFilter_ = call (getSymbol "g_dbus_connection_remove_filter") (GioDBusConnectionClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
       val sendMessage_ =
         call (getSymbol "g_dbus_connection_send_message")
@@ -178,6 +212,8 @@ structure GioDBusConnection :>
       val setExitOnClose_ = call (getSymbol "g_dbus_connection_set_exit_on_close") (GioDBusConnectionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val signalUnsubscribe_ = call (getSymbol "g_dbus_connection_signal_unsubscribe") (GioDBusConnectionClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
       val startMessageProcessing_ = call (getSymbol "g_dbus_connection_start_message_processing") (GioDBusConnectionClass.PolyML.cPtr --> cVoid)
+      val unexportActionGroup_ = call (getSymbol "g_dbus_connection_unexport_action_group") (GioDBusConnectionClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
+      val unexportMenuModel_ = call (getSymbol "g_dbus_connection_unexport_menu_model") (GioDBusConnectionClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
       val unregisterObject_ = call (getSymbol "g_dbus_connection_unregister_object") (GioDBusConnectionClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> GBool.PolyML.cVal)
       val unregisterSubtree_ = call (getSymbol "g_dbus_connection_unregister_subtree") (GioDBusConnectionClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> GBool.PolyML.cVal)
     end
@@ -186,7 +222,10 @@ structure GioDBusConnection :>
     type 'a initable_class = 'a GioInitableClass.class
     type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     type d_bus_call_flags_t = GioDBusCallFlags.t
+    type 'a action_group_class = 'a GioActionGroupClass.class
+    type 'a menu_model_class = 'a GioMenuModelClass.class
     type 'a credentials_class = 'a GioCredentialsClass.class
+    type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type d_bus_send_message_flags_t = GioDBusSendMessageFlags.t
@@ -278,7 +317,7 @@ structure GioDBusConnection :>
       ) =
       (
         GioDBusConnectionClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
@@ -342,7 +381,7 @@ structure GioDBusConnection :>
         val outFdList & retVal =
           (
             GioDBusConnectionClass.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withOptPtr
              &&&> Utf8.FFI.withPtr
              &&&> Utf8.FFI.withPtr
              &&&> Utf8.FFI.withPtr
@@ -430,6 +469,36 @@ structure GioDBusConnection :>
            & parameters
            & []
         )
+    fun exportActionGroup self (objectPath, actionGroup) =
+      (
+        GioDBusConnectionClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioActionGroupClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> GUInt.FFI.fromVal
+      )
+        exportActionGroup_
+        (
+          self
+           & objectPath
+           & actionGroup
+           & []
+        )
+    fun exportMenuModel self (objectPath, menu) =
+      (
+        GioDBusConnectionClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioMenuModelClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> GUInt.FFI.fromVal
+      )
+        exportMenuModel_
+        (
+          self
+           & objectPath
+           & menu
+           & []
+        )
     fun flushFinish self res =
       (
         GioDBusConnectionClass.FFI.withPtr
@@ -459,10 +528,40 @@ structure GioDBusConnection :>
     fun getCapabilities self = (GioDBusConnectionClass.FFI.withPtr ---> GioDBusCapabilityFlags.FFI.fromVal) getCapabilities_ self
     fun getExitOnClose self = (GioDBusConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) getExitOnClose_ self
     fun getGuid self = (GioDBusConnectionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getGuid_ self
+    fun getLastSerial self = (GioDBusConnectionClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getLastSerial_ self
     fun getPeerCredentials self = (GioDBusConnectionClass.FFI.withPtr ---> GioCredentialsClass.FFI.fromPtr false) getPeerCredentials_ self
     fun getStream self = (GioDBusConnectionClass.FFI.withPtr ---> GioIOStreamClass.FFI.fromPtr false) getStream_ self
     fun getUniqueName self = (GioDBusConnectionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUniqueName_ self
     fun isClosed self = (GioDBusConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
+    fun registerObjectWithClosures
+      self
+      (
+        objectPath,
+        interfaceInfo,
+        methodCallClosure,
+        getPropertyClosure,
+        setPropertyClosure
+      ) =
+      (
+        GioDBusConnectionClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GioDBusInterfaceInfoRecord.FFI.withPtr
+         &&&> GObjectClosureRecord.FFI.withOptPtr
+         &&&> GObjectClosureRecord.FFI.withOptPtr
+         &&&> GObjectClosureRecord.FFI.withOptPtr
+         &&&> GLibErrorRecord.handleError
+         ---> GUInt.FFI.fromVal
+      )
+        registerObjectWithClosures_
+        (
+          self
+           & objectPath
+           & interfaceInfo
+           & methodCallClosure
+           & getPropertyClosure
+           & setPropertyClosure
+           & []
+        )
     fun removeFilter self filterId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) removeFilter_ (self & filterId)
     fun sendMessage self (message, flags) =
       let
@@ -535,6 +634,8 @@ structure GioDBusConnection :>
     fun setExitOnClose self exitOnClose = (GioDBusConnectionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setExitOnClose_ (self & exitOnClose)
     fun signalUnsubscribe self subscriptionId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) signalUnsubscribe_ (self & subscriptionId)
     fun startMessageProcessing self = (GioDBusConnectionClass.FFI.withPtr ---> I) startMessageProcessing_ self
+    fun unexportActionGroup self exportId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) unexportActionGroup_ (self & exportId)
+    fun unexportMenuModel self exportId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) unexportMenuModel_ (self & exportId)
     fun unregisterObject self registrationId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GBool.FFI.fromVal) unregisterObject_ (self & registrationId)
     fun unregisterSubtree self registrationId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GBool.FFI.fromVal) unregisterSubtree_ (self & registrationId)
     local

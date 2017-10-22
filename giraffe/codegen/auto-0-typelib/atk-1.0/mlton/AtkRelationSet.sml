@@ -26,6 +26,23 @@ structure AtkRelationSet :>
               x3
             )
     val contains_ = fn x1 & x2 => (_import "atk_relation_set_contains" : AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p * AtkRelationType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val containsTarget_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "atk_relation_set_contains_target" :
+              AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p
+               * AtkRelationType.FFI.val_
+               * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val getNRelations_ = _import "atk_relation_set_get_n_relations" : AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p -> GInt32.FFI.val_;
     val getRelation_ = fn x1 & x2 => (_import "atk_relation_set_get_relation" : AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p * GInt32.FFI.val_ -> AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p;) (x1, x2)
     val getRelationByType_ = fn x1 & x2 => (_import "atk_relation_set_get_relation_by_type" : AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p * AtkRelationType.FFI.val_ -> AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p;) (x1, x2)
@@ -52,6 +69,19 @@ structure AtkRelationSet :>
            & target
         )
     fun contains self relationship = (AtkRelationSetClass.FFI.withPtr &&&> AtkRelationType.FFI.withVal ---> GBool.FFI.fromVal) contains_ (self & relationship)
+    fun containsTarget self (relationship, target) =
+      (
+        AtkRelationSetClass.FFI.withPtr
+         &&&> AtkRelationType.FFI.withVal
+         &&&> AtkObjectClass.FFI.withPtr
+         ---> GBool.FFI.fromVal
+      )
+        containsTarget_
+        (
+          self
+           & relationship
+           & target
+        )
     fun getNRelations self = (AtkRelationSetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNRelations_ self
     fun getRelation self i = (AtkRelationSetClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> AtkRelationClass.FFI.fromPtr false) getRelation_ (self & i)
     fun getRelationByType self relationship = (AtkRelationSetClass.FFI.withPtr &&&> AtkRelationType.FFI.withVal ---> AtkRelationClass.FFI.fromPtr false) getRelationByType_ (self & relationship)

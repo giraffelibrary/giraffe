@@ -1,7 +1,6 @@
 structure GioTlsFileDatabase :>
   GIO_TLS_FILE_DATABASE
-    where type 'a class = 'a GioTlsFileDatabaseClass.class
-    where type 'a tls_database_class = 'a GioTlsDatabaseClass.class =
+    where type 'a class = 'a GioTlsFileDatabaseClass.class =
   struct
     val getType_ = _import "g_tls_file_database_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
@@ -12,7 +11,7 @@ structure GioTlsFileDatabase :>
               Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p;
+               -> GioTlsFileDatabaseClass.FFI.notnull GioTlsFileDatabaseClass.FFI.p;
           )
             (
               x1,
@@ -20,10 +19,9 @@ structure GioTlsFileDatabase :>
               x3
             )
     type 'a class = 'a GioTlsFileDatabaseClass.class
-    type 'a tls_database_class = 'a GioTlsDatabaseClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new anchors = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsDatabaseClass.FFI.fromPtr true) new_ (anchors & [])
+    fun new anchors = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsFileDatabaseClass.FFI.fromPtr true) new_ (anchors & [])
     local
       open Property
     in

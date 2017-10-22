@@ -17,6 +17,7 @@ structure GLibMainContext :>
     val wakeup_ = _import "g_main_context_wakeup" : GLibMainContextRecord.FFI.notnull GLibMainContextRecord.FFI.p -> unit;
     val default_ = _import "g_main_context_default" : unit -> GLibMainContextRecord.FFI.notnull GLibMainContextRecord.FFI.p;
     val getThreadDefault_ = _import "g_main_context_get_thread_default" : unit -> GLibMainContextRecord.FFI.notnull GLibMainContextRecord.FFI.p;
+    val refThreadDefault_ = _import "g_main_context_ref_thread_default" : unit -> GLibMainContextRecord.FFI.notnull GLibMainContextRecord.FFI.p;
     type t = GLibMainContextRecord.t
     type source_t = GLibSourceRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -33,4 +34,5 @@ structure GLibMainContext :>
     fun wakeup self = (GLibMainContextRecord.FFI.withPtr ---> I) wakeup_ self
     fun default () = (I ---> GLibMainContextRecord.FFI.fromPtr false) default_ ()
     fun getThreadDefault () = (I ---> GLibMainContextRecord.FFI.fromPtr false) getThreadDefault_ ()
+    fun refThreadDefault () = (I ---> GLibMainContextRecord.FFI.fromPtr true) refThreadDefault_ ()
   end

@@ -45,6 +45,10 @@ signature GTK_LIST_STORE =
       'a class
        -> tree_iter_t
        -> bool
+    val reorder :
+      'a class
+       -> LargeInt.int vector
+       -> unit
     val setValue :
       'a class
        -> tree_iter_t

@@ -4,6 +4,7 @@ signature GIO_UNIX_MOUNT_MONITOR =
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
+    val get : unit -> base class
     val setRateLimit :
       'a class
        -> LargeInt.int

@@ -5,6 +5,12 @@ structure GLibRegex :>
     where type regex_match_flags_t = GLibRegexMatchFlags.t
     where type regex_compile_flags_t = GLibRegexCompileFlags.t =
   struct
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
     structure Utf8CVectorNType =
       CPointerCVectorNType(
         structure CElemType = Utf8.C.ArrayType
@@ -25,7 +31,7 @@ structure GLibRegex :>
                * GLibRegexCompileFlags.FFI.val_
                * GLibRegexMatchFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p;
+               -> unit GLibRegexRecord.FFI.p;
           )
             (
               x1,
@@ -36,8 +42,10 @@ structure GLibRegex :>
             )
     val getCaptureCount_ = _import "g_regex_get_capture_count" : GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p -> GInt32.FFI.val_;
     val getCompileFlags_ = _import "g_regex_get_compile_flags" : GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p -> GLibRegexCompileFlags.FFI.val_;
+    val getHasCrOrLf_ = _import "g_regex_get_has_cr_or_lf" : GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p -> GBool.FFI.val_;
     val getMatchFlags_ = _import "g_regex_get_match_flags" : GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p -> GLibRegexMatchFlags.FFI.val_;
     val getMaxBackref_ = _import "g_regex_get_max_backref" : GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p -> GInt32.FFI.val_;
+    val getMaxLookbehind_ = _import "g_regex_get_max_lookbehind" : GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p -> GInt32.FFI.val_;
     val getPattern_ = _import "g_regex_get_pattern" : GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getStringNumber_ =
       fn
@@ -226,6 +234,56 @@ structure GLibRegex :>
               x8,
               x9
             )
+    val split_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4 =>
+          (
+            _import "mlton_g_regex_split" :
+              GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GLibRegexMatchFlags.FFI.val_
+               -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
+    val splitFull_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5
+         & x6
+         & x7
+         & x8 =>
+          (
+            _import "mlton_g_regex_split_full" :
+              GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p
+               * Utf8CVectorN.MLton.p1
+               * Utf8CVectorN.FFI.notnull Utf8CVectorN.MLton.p2
+               * GInt64.FFI.val_
+               * GInt32.FFI.val_
+               * GLibRegexMatchFlags.FFI.val_
+               * GInt32.FFI.val_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7,
+              x8
+            )
     val checkReplacement_ =
       fn
         (x1, x2)
@@ -284,6 +342,30 @@ structure GLibRegex :>
               x5,
               x6
             )
+    val splitSimple_ =
+      fn
+        (x1, x2)
+         & (x3, x4)
+         & x5
+         & x6 =>
+          (
+            _import "mlton_g_regex_split_simple" :
+              Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GLibRegexCompileFlags.FFI.val_
+               * GLibRegexMatchFlags.FFI.val_
+               -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
     type t = GLibRegexRecord.t
     type match_info_t = GLibMatchInfoRecord.t
     type regex_match_flags_t = GLibRegexMatchFlags.t
@@ -300,7 +382,7 @@ structure GLibRegex :>
          &&&> GLibRegexCompileFlags.FFI.withVal
          &&&> GLibRegexMatchFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GLibRegexRecord.FFI.fromPtr true
+         ---> GLibRegexRecord.FFI.fromOptPtr true
       )
         new_
         (
@@ -311,8 +393,10 @@ structure GLibRegex :>
         )
     fun getCaptureCount self = (GLibRegexRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getCaptureCount_ self
     fun getCompileFlags self = (GLibRegexRecord.FFI.withPtr ---> GLibRegexCompileFlags.FFI.fromVal) getCompileFlags_ self
+    fun getHasCrOrLf self = (GLibRegexRecord.FFI.withPtr ---> GBool.FFI.fromVal) getHasCrOrLf_ self
     fun getMatchFlags self = (GLibRegexRecord.FFI.withPtr ---> GLibRegexMatchFlags.FFI.fromVal) getMatchFlags_ self
     fun getMaxBackref self = (GLibRegexRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getMaxBackref_ self
+    fun getMaxLookbehind self = (GLibRegexRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getMaxLookbehind_ self
     fun getPattern self = (GLibRegexRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPattern_ self
     fun getStringNumber self name = (GLibRegexRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt32.FFI.fromVal) getStringNumber_ (self & name)
     fun match self (string, matchOptions) =
@@ -489,6 +573,53 @@ structure GLibRegex :>
       in
         retVal
       end
+    fun split self (string, matchOptions) =
+      (
+        GLibRegexRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibRegexMatchFlags.FFI.withVal
+         ---> Utf8CVector.FFI.fromPtr 2
+      )
+        split_
+        (
+          self
+           & string
+           & matchOptions
+        )
+    fun splitFull
+      self
+      (
+        string,
+        startPosition,
+        matchOptions,
+        maxTokens
+      ) =
+      let
+        val stringLen = LargeInt.fromInt (Utf8CVectorN.length string)
+        val retVal =
+          (
+            GLibRegexRecord.FFI.withPtr
+             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> GInt64.FFI.withVal
+             &&&> GInt32.FFI.withVal
+             &&&> GLibRegexMatchFlags.FFI.withVal
+             &&&> GInt32.FFI.withVal
+             &&&> GLibErrorRecord.handleError
+             ---> Utf8CVector.FFI.fromPtr 2
+          )
+            splitFull_
+            (
+              self
+               & string
+               & stringLen
+               & startPosition
+               & matchOptions
+               & maxTokens
+               & []
+            )
+      in
+        retVal
+      end
     fun checkReplacement replacement =
       let
         val hasReferences & () =
@@ -523,6 +654,27 @@ structure GLibRegex :>
          ---> GBool.FFI.fromVal
       )
         matchSimple_
+        (
+          pattern
+           & string
+           & compileOptions
+           & matchOptions
+        )
+    fun splitSimple
+      (
+        pattern,
+        string,
+        compileOptions,
+        matchOptions
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibRegexCompileFlags.FFI.withVal
+         &&&> GLibRegexMatchFlags.FFI.withVal
+         ---> Utf8CVector.FFI.fromPtr 2
+      )
+        splitSimple_
         (
           pattern
            & string

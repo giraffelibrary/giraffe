@@ -3,8 +3,8 @@ signature GIO_VOLUME =
     type 'a class
     type 'a file_class
     type 'a drive_class
-    type 'a icon_class
     type 'a mount_class
+    type 'a icon_class
     type 'a async_result_class
     type t = base class
     val getType : unit -> GObject.Type.t
@@ -19,7 +19,7 @@ signature GIO_VOLUME =
        -> 'b async_result_class
        -> unit
     val enumerateIdentifiers : 'a class -> string list
-    val getActivationRoot : 'a class -> base file_class
+    val getActivationRoot : 'a class -> base file_class option
     val getDrive : 'a class -> base drive_class
     val getIcon : 'a class -> base icon_class
     val getIdentifier :
@@ -28,6 +28,8 @@ signature GIO_VOLUME =
        -> string
     val getMount : 'a class -> base mount_class
     val getName : 'a class -> string
+    val getSortKey : 'a class -> string
+    val getSymbolicIcon : 'a class -> base icon_class
     val getUuid : 'a class -> string
     val mountFinish :
       'a class

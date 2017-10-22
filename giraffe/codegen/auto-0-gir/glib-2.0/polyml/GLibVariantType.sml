@@ -13,6 +13,9 @@ structure GLibVariantType :>
     in
       val getType_ = call (getSymbol "g_variant_type_get_gtype") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_variant_type_new") (Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cPtr)
+      val newArray_ = call (getSymbol "g_variant_type_new_array") (GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
+      val newDictEntry_ = call (getSymbol "g_variant_type_new_dict_entry") (GLibVariantTypeRecord.PolyML.cPtr &&> GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
+      val newMaybe_ = call (getSymbol "g_variant_type_new_maybe") (GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
       val newTuple_ = call (getSymbol "g_variant_type_new_tuple") (GLibVariantTypeRecordCVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GLibVariantTypeRecord.PolyML.cPtr)
       val copy_ = call (getSymbol "g_variant_type_copy") (GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
       val dupString_ = call (getSymbol "g_variant_type_dup_string") (GLibVariantTypeRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
@@ -32,11 +35,9 @@ structure GLibVariantType :>
       val isVariant_ = call (getSymbol "g_variant_type_is_variant") (GLibVariantTypeRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val key_ = call (getSymbol "g_variant_type_key") (GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
       val nItems_ = call (getSymbol "g_variant_type_n_items") (GLibVariantTypeRecord.PolyML.cPtr --> GSize.PolyML.cVal)
-      val newArray_ = call (getSymbol "g_variant_type_new_array") (GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
-      val newDictEntry_ = call (getSymbol "g_variant_type_new_dict_entry") (GLibVariantTypeRecord.PolyML.cPtr &&> GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
-      val newMaybe_ = call (getSymbol "g_variant_type_new_maybe") (GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
       val next_ = call (getSymbol "g_variant_type_next") (GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
       val value_ = call (getSymbol "g_variant_type_value") (GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
+      val checked_ = call (getSymbol "g_variant_type_checked_") (Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cPtr)
       val stringIsValid_ = call (getSymbol "g_variant_type_string_is_valid") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val stringScan_ =
         call (getSymbol "g_variant_type_string_scan")
@@ -50,6 +51,9 @@ structure GLibVariantType :>
     type t = GLibVariantTypeRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new typeString = (Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) new_ typeString
+    fun newArray element = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newArray_ element
+    fun newDictEntry (key, value) = (GLibVariantTypeRecord.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newDictEntry_ (key & value)
+    fun newMaybe element = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newMaybe_ element
     fun newTuple items =
       let
         val length = LargeInt.fromInt (GLibVariantTypeRecordCVectorN.length items)
@@ -75,11 +79,9 @@ structure GLibVariantType :>
     fun isVariant self = (GLibVariantTypeRecord.FFI.withPtr ---> GBool.FFI.fromVal) isVariant_ self
     fun key self = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) key_ self
     fun nItems self = (GLibVariantTypeRecord.FFI.withPtr ---> GSize.FFI.fromVal) nItems_ self
-    fun newArray self = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newArray_ self
-    fun newDictEntry self value = (GLibVariantTypeRecord.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newDictEntry_ (self & value)
-    fun newMaybe self = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newMaybe_ self
     fun next self = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) next_ self
     fun value self = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) value_ self
+    fun checked arg0 = (Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) checked_ arg0
     fun stringIsValid typeString = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) stringIsValid_ typeString
     fun stringScan (string, limit) =
       let

@@ -75,7 +75,13 @@ structure GtkStatusIcon :>
     fun newFromIconName iconName = (Utf8.FFI.withPtr ---> GtkStatusIconClass.FFI.fromPtr true) newFromIconName_ iconName
     fun newFromPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withPtr ---> GtkStatusIconClass.FFI.fromPtr true) newFromPixbuf_ pixbuf
     fun newFromStock stockId = (Utf8.FFI.withPtr ---> GtkStatusIconClass.FFI.fromPtr true) newFromStock_ stockId
-    fun positionMenu (menu, userData) =
+    fun positionMenu
+      (
+        menu,
+        x,
+        y,
+        userData
+      ) =
       let
         val x
          & y
@@ -95,16 +101,16 @@ structure GtkStatusIcon :>
             positionMenu_
             (
               menu
-               & GInt.null
-               & GInt.null
+               & x
+               & y
                & GBool.null
                & userData
             )
       in
         (
+          pushIn,
           x,
-          y,
-          pushIn
+          y
         )
       end
     fun getGeometry self =

@@ -20,6 +20,12 @@ structure VteTerminal :>
         structure Sequence = VectorSequence
       )
     structure GdkColorRecordCVectorN = CVectorN(GdkColorRecordCVectorNType)
+    structure GUInt8CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GUInt8Type
+        structure ElemSequence = MonoVectorSequence(Word8Vector)
+      )
+    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "vte_terminal_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "vte_terminal_new" : unit -> VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p;
     val copyClipboard_ = _import "vte_terminal_copy_clipboard" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> unit;
@@ -32,8 +38,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_feed" :
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GUInt8CVectorN.MLton.p1
+               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
                * GInt64.FFI.val_
                -> unit;
           )
@@ -87,7 +93,26 @@ structure VteTerminal :>
     val getCharWidth_ = _import "vte_terminal_get_char_width" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GInt64.FFI.val_;
     val getChildExitStatus_ = _import "vte_terminal_get_child_exit_status" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GInt32.FFI.val_;
     val getColumnCount_ = _import "vte_terminal_get_column_count" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GInt64.FFI.val_;
+    val getCurrentDirectoryUri_ = _import "vte_terminal_get_current_directory_uri" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getCurrentFileUri_ = _import "vte_terminal_get_current_file_uri" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getCursorBlinkMode_ = _import "vte_terminal_get_cursor_blink_mode" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> VteTerminalCursorBlinkMode.FFI.val_;
+    val getCursorPosition_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "vte_terminal_get_cursor_position" :
+              VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
+               * GInt64.FFI.ref_
+               * GInt64.FFI.ref_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val getCursorShape_ = _import "vte_terminal_get_cursor_shape" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> VteTerminalCursorShape.FFI.val_;
     val getDefaultEmulation_ = _import "vte_terminal_get_default_emulation" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getEmulation_ = _import "vte_terminal_get_emulation" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
@@ -97,11 +122,11 @@ structure VteTerminal :>
     val getIconTitle_ = _import "vte_terminal_get_icon_title" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getMouseAutohide_ = _import "vte_terminal_get_mouse_autohide" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GBool.FFI.val_;
     val getPtyObject_ = _import "vte_terminal_get_pty_object" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> VtePtyClass.FFI.notnull VtePtyClass.FFI.p;
+    val getRewrapOnResize_ = _import "vte_terminal_get_rewrap_on_resize" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GBool.FFI.val_;
     val getRowCount_ = _import "vte_terminal_get_row_count" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GInt64.FFI.val_;
     val getStatusLine_ = _import "vte_terminal_get_status_line" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getVisibleBell_ = _import "vte_terminal_get_visible_bell" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GBool.FFI.val_;
     val getWindowTitle_ = _import "vte_terminal_get_window_title" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val imAppendMenuitems_ = fn x1 & x2 => (_import "vte_terminal_im_append_menuitems" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p -> unit;) (x1, x2)
     val isWordChar_ = fn x1 & x2 => (_import "vte_terminal_is_word_char" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GChar.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val matchAddGregex_ =
       fn
@@ -241,25 +266,6 @@ structure VteTerminal :>
     val selectNone_ = _import "vte_terminal_select_none" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> unit;
     val setAllowBold_ = fn x1 & x2 => (_import "vte_terminal_set_allow_bold" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setAudibleBell_ = fn x1 & x2 => (_import "vte_terminal_set_audible_bell" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setBackgroundImage_ = fn x1 & x2 => (_import "vte_terminal_set_background_image" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * unit GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
-    val setBackgroundImageFile_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_vte_terminal_set_background_image_file" :
-              VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
-    val setBackgroundSaturation_ = fn x1 & x2 => (_import "vte_terminal_set_background_saturation" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setBackgroundTintColor_ = fn x1 & x2 => (_import "vte_terminal_set_background_tint_color" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> unit;) (x1, x2)
-    val setBackgroundTransparent_ = fn x1 & x2 => (_import "vte_terminal_set_background_transparent" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setBackspaceBinding_ = fn x1 & x2 => (_import "vte_terminal_set_backspace_binding" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * VteTerminalEraseBinding.FFI.val_ -> unit;) (x1, x2)
     val setColorBackground_ = fn x1 & x2 => (_import "vte_terminal_set_color_background" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> unit;) (x1, x2)
     val setColorBackgroundRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_background_rgba" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
@@ -272,6 +278,8 @@ structure VteTerminal :>
     val setColorForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_foreground" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> unit;) (x1, x2)
     val setColorForegroundRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_foreground_rgba" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
     val setColorHighlight_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * unit GdkColorRecord.FFI.p -> unit;) (x1, x2)
+    val setColorHighlightForeground_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight_foreground" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * unit GdkColorRecord.FFI.p -> unit;) (x1, x2)
+    val setColorHighlightForegroundRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight_foreground_rgba" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * unit GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
     val setColorHighlightRgba_ = fn x1 & x2 => (_import "vte_terminal_set_color_highlight_rgba" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * unit GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
     val setColors_ =
       fn
@@ -374,9 +382,8 @@ structure VteTerminal :>
               x3
             )
     val setMouseAutohide_ = fn x1 & x2 => (_import "vte_terminal_set_mouse_autohide" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setOpacity_ = fn x1 & x2 => (_import "vte_terminal_set_opacity" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GUInt16.FFI.val_ -> unit;) (x1, x2)
     val setPtyObject_ = fn x1 & x2 => (_import "vte_terminal_set_pty_object" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * unit VtePtyClass.FFI.p -> unit;) (x1, x2)
-    val setScrollBackground_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_background" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setRewrapOnResize_ = fn x1 & x2 => (_import "vte_terminal_set_rewrap_on_resize" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setScrollOnKeystroke_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_on_keystroke" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setScrollOnOutput_ = fn x1 & x2 => (_import "vte_terminal_set_scroll_on_output" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setScrollbackLines_ = fn x1 & x2 => (_import "vte_terminal_set_scrollback_lines" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GInt64.FFI.val_ -> unit;) (x1, x2)
@@ -452,19 +459,25 @@ structure VteTerminal :>
     fun new () = (I ---> VteTerminalClass.FFI.fromPtr false) new_ ()
     fun copyClipboard self = (VteTerminalClass.FFI.withPtr ---> I) copyClipboard_ self
     fun copyPrimary self = (VteTerminalClass.FFI.withPtr ---> I) copyPrimary_ self
-    fun feed self (data, length) =
-      (
-        VteTerminalClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GInt64.FFI.withVal
-         ---> I
-      )
-        feed_
-        (
-          self
-           & data
-           & length
-        )
+    fun feed self data =
+      let
+        val length = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val () =
+          (
+            VteTerminalClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GInt64.FFI.withVal
+             ---> I
+          )
+            feed_
+            (
+              self
+               & data
+               & length
+            )
+      in
+        ()
+      end
     fun feedChild self (text, length) =
       (
         VteTerminalClass.FFI.withPtr
@@ -497,7 +510,31 @@ structure VteTerminal :>
     fun getCharWidth self = (VteTerminalClass.FFI.withPtr ---> GInt64.FFI.fromVal) getCharWidth_ self
     fun getChildExitStatus self = (VteTerminalClass.FFI.withPtr ---> GInt32.FFI.fromVal) getChildExitStatus_ self
     fun getColumnCount self = (VteTerminalClass.FFI.withPtr ---> GInt64.FFI.fromVal) getColumnCount_ self
+    fun getCurrentDirectoryUri self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCurrentDirectoryUri_ self
+    fun getCurrentFileUri self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCurrentFileUri_ self
     fun getCursorBlinkMode self = (VteTerminalClass.FFI.withPtr ---> VteTerminalCursorBlinkMode.FFI.fromVal) getCursorBlinkMode_ self
+    fun getCursorPosition self =
+      let
+        val column
+         & row
+         & () =
+          (
+            VteTerminalClass.FFI.withPtr
+             &&&> GInt64.FFI.withRefVal
+             &&&> GInt64.FFI.withRefVal
+             ---> GInt64.FFI.fromVal
+                   && GInt64.FFI.fromVal
+                   && I
+          )
+            getCursorPosition_
+            (
+              self
+               & GInt64.null
+               & GInt64.null
+            )
+      in
+        (column, row)
+      end
     fun getCursorShape self = (VteTerminalClass.FFI.withPtr ---> VteTerminalCursorShape.FFI.fromVal) getCursorShape_ self
     fun getDefaultEmulation self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDefaultEmulation_ self
     fun getEmulation self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getEmulation_ self
@@ -507,11 +544,11 @@ structure VteTerminal :>
     fun getIconTitle self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getIconTitle_ self
     fun getMouseAutohide self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getMouseAutohide_ self
     fun getPtyObject self = (VteTerminalClass.FFI.withPtr ---> VtePtyClass.FFI.fromPtr false) getPtyObject_ self
+    fun getRewrapOnResize self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getRewrapOnResize_ self
     fun getRowCount self = (VteTerminalClass.FFI.withPtr ---> GInt64.FFI.fromVal) getRowCount_ self
     fun getStatusLine self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStatusLine_ self
     fun getVisibleBell self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisibleBell_ self
     fun getWindowTitle self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getWindowTitle_ self
-    fun imAppendMenuitems self menushell = (VteTerminalClass.FFI.withPtr &&&> GtkMenuShellClass.FFI.withPtr ---> I) imAppendMenuitems_ (self & menushell)
     fun isWordChar self c = (VteTerminalClass.FFI.withPtr &&&> GChar.FFI.withVal ---> GBool.FFI.fromVal) isWordChar_ (self & c)
     fun matchAddGregex self (regex, flags) =
       (
@@ -625,11 +662,6 @@ structure VteTerminal :>
     fun selectNone self = (VteTerminalClass.FFI.withPtr ---> I) selectNone_ self
     fun setAllowBold self allowBold = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAllowBold_ (self & allowBold)
     fun setAudibleBell self isAudible = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAudibleBell_ (self & isAudible)
-    fun setBackgroundImage self image = (VteTerminalClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withOptPtr ---> I) setBackgroundImage_ (self & image)
-    fun setBackgroundImageFile self path = (VteTerminalClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setBackgroundImageFile_ (self & path)
-    fun setBackgroundSaturation self saturation = (VteTerminalClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setBackgroundSaturation_ (self & saturation)
-    fun setBackgroundTintColor self color = (VteTerminalClass.FFI.withPtr &&&> GdkColorRecord.FFI.withPtr ---> I) setBackgroundTintColor_ (self & color)
-    fun setBackgroundTransparent self transparent = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setBackgroundTransparent_ (self & transparent)
     fun setBackspaceBinding self binding = (VteTerminalClass.FFI.withPtr &&&> VteTerminalEraseBinding.FFI.withVal ---> I) setBackspaceBinding_ (self & binding)
     fun setColorBackground self background = (VteTerminalClass.FFI.withPtr &&&> GdkColorRecord.FFI.withPtr ---> I) setColorBackground_ (self & background)
     fun setColorBackgroundRgba self background = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setColorBackgroundRgba_ (self & background)
@@ -642,6 +674,8 @@ structure VteTerminal :>
     fun setColorForeground self foreground = (VteTerminalClass.FFI.withPtr &&&> GdkColorRecord.FFI.withPtr ---> I) setColorForeground_ (self & foreground)
     fun setColorForegroundRgba self foreground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setColorForegroundRgba_ (self & foreground)
     fun setColorHighlight self highlightBackground = (VteTerminalClass.FFI.withPtr &&&> GdkColorRecord.FFI.withOptPtr ---> I) setColorHighlight_ (self & highlightBackground)
+    fun setColorHighlightForeground self highlightForeground = (VteTerminalClass.FFI.withPtr &&&> GdkColorRecord.FFI.withOptPtr ---> I) setColorHighlightForeground_ (self & highlightForeground)
+    fun setColorHighlightForegroundRgba self highlightForeground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorHighlightForegroundRgba_ (self & highlightForeground)
     fun setColorHighlightRgba self highlightBackground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorHighlightRgba_ (self & highlightBackground)
     fun setColors
       self
@@ -710,9 +744,8 @@ structure VteTerminal :>
     fun setFont self fontDesc = (VteTerminalClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withOptPtr ---> I) setFont_ (self & fontDesc)
     fun setFontFromString self name = (VteTerminalClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setFontFromString_ (self & name)
     fun setMouseAutohide self setting = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setMouseAutohide_ (self & setting)
-    fun setOpacity self opacity = (VteTerminalClass.FFI.withPtr &&&> GUInt16.FFI.withVal ---> I) setOpacity_ (self & opacity)
     fun setPtyObject self pty = (VteTerminalClass.FFI.withPtr &&&> VtePtyClass.FFI.withOptPtr ---> I) setPtyObject_ (self & pty)
-    fun setScrollBackground self scroll = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setScrollBackground_ (self & scroll)
+    fun setRewrapOnResize self rewrap = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRewrapOnResize_ (self & rewrap)
     fun setScrollOnKeystroke self scroll = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setScrollOnKeystroke_ (self & scroll)
     fun setScrollOnOutput self scroll = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setScrollOnOutput_ (self & scroll)
     fun setScrollbackLines self lines = (VteTerminalClass.FFI.withPtr &&&> GInt64.FFI.withVal ---> I) setScrollbackLines_ (self & lines)
@@ -764,6 +797,8 @@ structure VteTerminal :>
       fun commitSig f = signal "commit" (get 0w1 string &&&> get 0w2 uint ---> ret_void) (fn text & size => f (text, size))
       fun contentsChangedSig f = signal "contents-changed" (void ---> ret_void) f
       fun copyClipboardSig f = signal "copy-clipboard" (void ---> ret_void) f
+      fun currentDirectoryUriChangedSig f = signal "current-directory-uri-changed" (void ---> ret_void) f
+      fun currentFileUriChangedSig f = signal "current-file-uri-changed" (void ---> ret_void) f
       fun cursorMovedSig f = signal "cursor-moved" (void ---> ret_void) f
       fun decreaseFontSizeSig f = signal "decrease-font-size" (void ---> ret_void) f
       fun deiconifyWindowSig f = signal "deiconify-window" (void ---> ret_void) f
@@ -837,6 +872,8 @@ structure VteTerminal :>
           get = fn x => get "backspace-binding" VteTerminalEraseBinding.t x,
           set = fn x => set "backspace-binding" VteTerminalEraseBinding.t x
         }
+      val currentDirectoryUriProp = {get = fn x => get "current-directory-uri" stringOpt x}
+      val currentFileUriProp = {get = fn x => get "current-file-uri" stringOpt x}
       val cursorBlinkModeProp =
         {
           get = fn x => get "cursor-blink-mode" VteTerminalCursorBlinkMode.t x,
@@ -882,6 +919,11 @@ structure VteTerminal :>
         {
           get = fn x => get "pty-object" VtePtyClass.tOpt x,
           set = fn x => set "pty-object" VtePtyClass.tOpt x
+        }
+      val rewrapOnResizeProp =
+        {
+          get = fn x => get "rewrap-on-resize" boolean x,
+          set = fn x => set "rewrap-on-resize" boolean x
         }
       val scrollBackgroundProp =
         {

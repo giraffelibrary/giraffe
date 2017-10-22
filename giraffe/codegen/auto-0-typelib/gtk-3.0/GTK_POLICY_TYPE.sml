@@ -4,6 +4,7 @@ signature GTK_POLICY_TYPE =
       ALWAYS
     | AUTOMATIC
     | NEVER
+    | EXTERNAL
     include
       ENUM
         where type t = enum

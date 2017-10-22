@@ -24,6 +24,9 @@ signature PANGO_ATTR_TYPE =
     | ABSOLUTE_SIZE
     | GRAVITY
     | GRAVITY_HINT
+    | FONT_FEATURES
+    | FOREGROUND_ALPHA
+    | BACKGROUND_ALPHA
     include
       ENUM
         where type t = enum

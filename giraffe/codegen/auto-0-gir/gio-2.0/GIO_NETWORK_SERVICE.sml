@@ -9,7 +9,7 @@ signature GIO_NETWORK_SERVICE =
       string
        * string
        * string
-       -> base socket_connectable_class
+       -> base class
     val getDomain : 'a class -> string
     val getProtocol : 'a class -> string
     val getScheme : 'a class -> string

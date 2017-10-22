@@ -17,7 +17,7 @@ structure GioDBusServer :>
             Utf8.PolyML.cInPtr
              &&> GioDBusServerFlags.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
-             &&> GioDBusAuthObserverClass.PolyML.cPtr
+             &&> GioDBusAuthObserverClass.PolyML.cOptPtr
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioDBusServerClass.PolyML.cPtr
@@ -50,7 +50,7 @@ structure GioDBusServer :>
         Utf8.FFI.withPtr
          &&&> GioDBusServerFlags.FFI.withVal
          &&&> Utf8.FFI.withPtr
-         &&&> GioDBusAuthObserverClass.FFI.withPtr
+         &&&> GioDBusAuthObserverClass.FFI.withOptPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioDBusServerClass.FFI.fromPtr true

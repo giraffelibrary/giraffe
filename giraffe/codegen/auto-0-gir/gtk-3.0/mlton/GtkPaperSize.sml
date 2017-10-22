@@ -32,6 +32,26 @@ structure GtkPaperSize :>
               x6,
               x7
             )
+    val newFromGvariant_ = _import "gtk_paper_size_new_from_gvariant" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p;
+    val newFromIpp_ =
+      fn
+        (x1, x2)
+         & x3
+         & x4 =>
+          (
+            _import "mlton_gtk_paper_size_new_from_ipp" :
+              Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
+               -> GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val newFromKeyFile_ =
       fn
         x1
@@ -87,6 +107,7 @@ structure GtkPaperSize :>
     val getWidth_ = fn x1 & x2 => (_import "gtk_paper_size_get_width" : GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
     val isCustom_ = _import "gtk_paper_size_is_custom" : GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p -> GBool.FFI.val_;
     val isEqual_ = fn x1 & x2 => (_import "gtk_paper_size_is_equal" : GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p * GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val isIpp_ = _import "gtk_paper_size_is_ipp" : GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p -> GBool.FFI.val_;
     val setSize_ =
       fn
         x1
@@ -107,6 +128,7 @@ structure GtkPaperSize :>
               x3,
               x4
             )
+    val toGvariant_ = _import "gtk_paper_size_to_gvariant" : GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
     val toKeyFile_ =
       fn
         x1
@@ -155,6 +177,25 @@ structure GtkPaperSize :>
            & height
            & unit
         )
+    fun newFromGvariant variant = (GLibVariantRecord.FFI.withPtr ---> GtkPaperSizeRecord.FFI.fromPtr true) newFromGvariant_ variant
+    fun newFromIpp
+      (
+        ippName,
+        width,
+        height
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> GtkPaperSizeRecord.FFI.fromPtr true
+      )
+        newFromIpp_
+        (
+          ippName
+           & width
+           & height
+        )
     fun newFromKeyFile (keyFile, groupName) =
       (
         GLibKeyFileRecord.FFI.withPtr
@@ -201,6 +242,7 @@ structure GtkPaperSize :>
     fun getWidth self unit = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getWidth_ (self & unit)
     fun isCustom self = (GtkPaperSizeRecord.FFI.withPtr ---> GBool.FFI.fromVal) isCustom_ self
     fun isEqual self size2 = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkPaperSizeRecord.FFI.withPtr ---> GBool.FFI.fromVal) isEqual_ (self & size2)
+    fun isIpp self = (GtkPaperSizeRecord.FFI.withPtr ---> GBool.FFI.fromVal) isIpp_ self
     fun setSize
       self
       (
@@ -222,6 +264,7 @@ structure GtkPaperSize :>
            & height
            & unit
         )
+    fun toGvariant self = (GtkPaperSizeRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self
     fun toKeyFile self (keyFile, groupName) =
       (
         GtkPaperSizeRecord.FFI.withPtr

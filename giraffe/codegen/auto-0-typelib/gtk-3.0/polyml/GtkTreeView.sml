@@ -123,26 +123,27 @@ structure GtkTreeView :>
              --> GBool.PolyML.cVal
           )
       val expandToPath_ = call (getSymbol "gtk_tree_view_expand_to_path") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> cVoid)
+      val getActivateOnSingleClick_ = call (getSymbol "gtk_tree_view_get_activate_on_single_click") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getBackgroundArea_ =
         call (getSymbol "gtk_tree_view_get_background_area")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cOptPtr
              &&> GtkTreeViewColumnClass.PolyML.cOptPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              --> cVoid
           )
-      val getBinWindow_ = call (getSymbol "gtk_tree_view_get_bin_window") (GtkTreeViewClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getBinWindow_ = call (getSymbol "gtk_tree_view_get_bin_window") (GtkTreeViewClass.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
       val getCellArea_ =
         call (getSymbol "gtk_tree_view_get_cell_area")
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cOptPtr
              &&> GtkTreeViewColumnClass.PolyML.cOptPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              --> cVoid
           )
-      val getColumn_ = call (getSymbol "gtk_tree_view_get_column") (GtkTreeViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GtkTreeViewColumnClass.PolyML.cPtr)
+      val getColumn_ = call (getSymbol "gtk_tree_view_get_column") (GtkTreeViewClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GtkTreeViewColumnClass.PolyML.cOptPtr)
       val getCursor_ =
         call (getSymbol "gtk_tree_view_get_cursor")
           (
@@ -180,7 +181,8 @@ structure GtkTreeView :>
       val getHoverExpand_ = call (getSymbol "gtk_tree_view_get_hover_expand") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getHoverSelection_ = call (getSymbol "gtk_tree_view_get_hover_selection") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getLevelIndentation_ = call (getSymbol "gtk_tree_view_get_level_indentation") (GtkTreeViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getModel_ = call (getSymbol "gtk_tree_view_get_model") (GtkTreeViewClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
+      val getModel_ = call (getSymbol "gtk_tree_view_get_model") (GtkTreeViewClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cOptPtr)
+      val getNColumns_ = call (getSymbol "gtk_tree_view_get_n_columns") (GtkTreeViewClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
       val getPathAtPos_ =
         call (getSymbol "gtk_tree_view_get_path_at_pos")
           (
@@ -222,7 +224,7 @@ structure GtkTreeView :>
              &&> GtkTreePathRecord.PolyML.cOutRef
              --> GBool.PolyML.cVal
           )
-      val getVisibleRect_ = call (getSymbol "gtk_tree_view_get_visible_rect") (GtkTreeViewClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> cVoid)
+      val getVisibleRect_ = call (getSymbol "gtk_tree_view_get_visible_rect") (GtkTreeViewClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> cVoid)
       val insertColumn_ =
         call (getSymbol "gtk_tree_view_insert_column")
           (
@@ -281,6 +283,7 @@ structure GtkTreeView :>
              &&> GInt32.PolyML.cVal
              --> cVoid
           )
+      val setActivateOnSingleClick_ = call (getSymbol "gtk_tree_view_set_activate_on_single_click") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setCursor_ =
         call (getSymbol "gtk_tree_view_set_cursor")
           (
@@ -598,6 +601,7 @@ structure GtkTreeView :>
            & openAll
         )
     fun expandToPath self path = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) expandToPath_ (self & path)
+    fun getActivateOnSingleClick self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getActivateOnSingleClick_ self
     fun getBackgroundArea self (path, column) =
       let
         val rect & () =
@@ -605,8 +609,8 @@ structure GtkTreeView :>
             GtkTreeViewClass.FFI.withPtr
              &&&> GtkTreePathRecord.FFI.withOptPtr
              &&&> GtkTreeViewColumnClass.FFI.withOptPtr
-             &&&> CairoRectangleIntRecord.FFI.withNewPtr
-             ---> CairoRectangleIntRecord.FFI.fromPtr true && I
+             &&&> GdkRectangleRecord.FFI.withNewPtr
+             ---> GdkRectangleRecord.FFI.fromPtr true && I
           )
             getBackgroundArea_
             (
@@ -618,7 +622,7 @@ structure GtkTreeView :>
       in
         rect
       end
-    fun getBinWindow self = (GtkTreeViewClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self
+    fun getBinWindow self = (GtkTreeViewClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getBinWindow_ self
     fun getCellArea self (path, column) =
       let
         val rect & () =
@@ -626,8 +630,8 @@ structure GtkTreeView :>
             GtkTreeViewClass.FFI.withPtr
              &&&> GtkTreePathRecord.FFI.withOptPtr
              &&&> GtkTreeViewColumnClass.FFI.withOptPtr
-             &&&> CairoRectangleIntRecord.FFI.withNewPtr
-             ---> CairoRectangleIntRecord.FFI.fromPtr true && I
+             &&&> GdkRectangleRecord.FFI.withNewPtr
+             ---> GdkRectangleRecord.FFI.fromPtr true && I
           )
             getCellArea_
             (
@@ -639,7 +643,7 @@ structure GtkTreeView :>
       in
         rect
       end
-    fun getColumn self n = (GtkTreeViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GtkTreeViewColumnClass.FFI.fromPtr false) getColumn_ (self & n)
+    fun getColumn self n = (GtkTreeViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GtkTreeViewColumnClass.FFI.fromOptPtr false) getColumn_ (self & n)
     fun getCursor self =
       let
         val path
@@ -721,7 +725,8 @@ structure GtkTreeView :>
     fun getHoverExpand self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getHoverExpand_ self
     fun getHoverSelection self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getHoverSelection_ self
     fun getLevelIndentation self = (GtkTreeViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getLevelIndentation_ self
-    fun getModel self = (GtkTreeViewClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
+    fun getModel self = (GtkTreeViewClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromOptPtr false) getModel_ self
+    fun getNColumns self = (GtkTreeViewClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getNColumns_ self
     fun getPathAtPos self (x, y) =
       let
         val path
@@ -852,7 +857,7 @@ structure GtkTreeView :>
       end
     fun getVisibleRect self =
       let
-        val visibleRect & () = (GtkTreeViewClass.FFI.withPtr &&&> CairoRectangleIntRecord.FFI.withNewPtr ---> CairoRectangleIntRecord.FFI.fromPtr true && I) getVisibleRect_ (self & ())
+        val visibleRect & () = (GtkTreeViewClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getVisibleRect_ (self & ())
       in
         visibleRect
       end
@@ -981,6 +986,7 @@ structure GtkTreeView :>
            & treeX
            & treeY
         )
+    fun setActivateOnSingleClick self single = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setActivateOnSingleClick_ (self & single)
     fun setCursor
       self
       (
@@ -1123,7 +1129,7 @@ structure GtkTreeView :>
                     p1
                   )
           )
-      fun moveCursorSig f = signal "move-cursor" (get 0w1 GtkMovementStep.t &&&> get 0w2 int ---> ret boolean) (fn object & p0 => f (object, p0))
+      fun moveCursorSig f = signal "move-cursor" (get 0w1 GtkMovementStep.t &&&> get 0w2 int ---> ret boolean) (fn step & direction => f (step, direction))
       fun rowActivatedSig f = signal "row-activated" (get 0w1 GtkTreePathRecord.t &&&> get 0w2 GtkTreeViewColumnClass.t ---> ret_void) (fn path & column => f (path, column))
       fun rowCollapsedSig f = signal "row-collapsed" (get 0w1 GtkTreeIterRecord.t &&&> get 0w2 GtkTreePathRecord.t ---> ret_void) (fn iter & path => f (iter, path))
       fun rowExpandedSig f = signal "row-expanded" (get 0w1 GtkTreeIterRecord.t &&&> get 0w2 GtkTreePathRecord.t ---> ret_void) (fn iter & path => f (iter, path))
@@ -1139,6 +1145,11 @@ structure GtkTreeView :>
     local
       open Property
     in
+      val activateOnSingleClickProp =
+        {
+          get = fn x => get "activate-on-single-click" boolean x,
+          set = fn x => set "activate-on-single-click" boolean x
+        }
       val enableGridLinesProp =
         {
           get = fn x => get "enable-grid-lines" GtkTreeViewGridLines.t x,

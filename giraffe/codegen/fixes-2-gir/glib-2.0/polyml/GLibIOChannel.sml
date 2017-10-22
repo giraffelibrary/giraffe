@@ -8,6 +8,12 @@ structure GLibIOChannel :>
     where type i_o_status_t = GLibIOStatus.t
     where type i_o_channel_error_t = GLibIOChannelError.t =
   struct
+    structure GUInt8CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GUInt8Type
+        structure ElemSequence = MonoVectorSequence(Word8Vector)
+      )
+    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -30,6 +36,33 @@ structure GLibIOChannel :>
       val getEncoding_ = call (getSymbol "g_io_channel_get_encoding") (GLibIOChannelRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getFlags_ = call (getSymbol "g_io_channel_get_flags") (GLibIOChannelRecord.PolyML.cPtr --> GLibIOFlags.PolyML.cVal)
       val init_ = call (getSymbol "g_io_channel_init") (GLibIOChannelRecord.PolyML.cPtr --> cVoid)
+      val readLine_ =
+        call (getSymbol "g_io_channel_read_line")
+          (
+            GLibIOChannelRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cOutRef
+             &&> GSize.PolyML.cRef
+             &&> GSize.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GLibIOStatus.PolyML.cVal
+          )
+      val readToEnd_ =
+        call (getSymbol "g_io_channel_read_to_end")
+          (
+            GLibIOChannelRecord.PolyML.cPtr
+             &&> GUInt8CVectorN.PolyML.cOutRef
+             &&> GSize.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GLibIOStatus.PolyML.cVal
+          )
+      val readUnichar_ =
+        call (getSymbol "g_io_channel_read_unichar")
+          (
+            GLibIOChannelRecord.PolyML.cPtr
+             &&> GChar.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GLibIOStatus.PolyML.cVal
+          )
       val seek_ =
         call (getSymbol "g_io_channel_seek")
           (
@@ -54,7 +87,7 @@ structure GLibIOChannel :>
         call (getSymbol "g_io_channel_set_encoding")
           (
             GLibIOChannelRecord.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibIOStatus.PolyML.cVal
           )
@@ -70,7 +103,7 @@ structure GLibIOChannel :>
         call (getSymbol "g_io_channel_set_line_term")
           (
             GLibIOChannelRecord.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
              &&> GInt.PolyML.cVal
              --> cVoid
           )
@@ -124,6 +157,81 @@ structure GLibIOChannel :>
     fun getEncoding self = (GLibIOChannelRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getEncoding_ self
     fun getFlags self = (GLibIOChannelRecord.FFI.withPtr ---> GLibIOFlags.FFI.fromVal) getFlags_ self
     fun init self = (GLibIOChannelRecord.FFI.withPtr ---> I) init_ self
+    fun readLine self =
+      let
+        val strReturn
+         & length
+         & terminatorPos
+         & retVal =
+          (
+            GLibIOChannelRecord.FFI.withPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GSize.FFI.withRefVal
+             &&&> GSize.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> Utf8.FFI.fromPtr 1
+                   && GSize.FFI.fromVal
+                   && GSize.FFI.fromVal
+                   && GLibIOStatus.FFI.fromVal
+          )
+            readLine_
+            (
+              self
+               & NONE
+               & GSize.null
+               & GSize.null
+               & []
+            )
+      in
+        (
+          retVal,
+          strReturn,
+          length,
+          terminatorPos
+        )
+      end
+    fun readToEnd self =
+      let
+        val strReturn
+         & length
+         & retVal =
+          (
+            GLibIOChannelRecord.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GSize.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> GUInt8CVectorN.FFI.fromPtr 1
+                   && GSize.FFI.fromVal
+                   && GLibIOStatus.FFI.fromVal
+          )
+            readToEnd_
+            (
+              self
+               & NONE
+               & GSize.null
+               & []
+            )
+      in
+        (retVal, strReturn (LargeInt.toInt length))
+      end
+    fun readUnichar self =
+      let
+        val thechar & retVal =
+          (
+            GLibIOChannelRecord.FFI.withPtr
+             &&&> GChar.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> GChar.FFI.fromVal && GLibIOStatus.FFI.fromVal
+          )
+            readUnichar_
+            (
+              self
+               & GChar.null
+               & []
+            )
+      in
+        (retVal, thechar)
+      end
     fun seek self (offset, type') =
       (
         GLibIOChannelRecord.FFI.withPtr
@@ -158,7 +266,7 @@ structure GLibIOChannel :>
     fun setEncoding self encoding =
       (
         GLibIOChannelRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.FFI.fromVal
       )
@@ -184,7 +292,7 @@ structure GLibIOChannel :>
     fun setLineTerm self (lineTerm, length) =
       (
         GLibIOChannelRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> GInt.FFI.withVal
          ---> I
       )

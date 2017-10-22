@@ -61,6 +61,7 @@ structure GioTlsCertificate :>
               x4
             )
     val getIssuer_ = _import "g_tls_certificate_get_issuer" : GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
+    val isSame_ = fn x1 & x2 => (_import "g_tls_certificate_is_same" : GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p * GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val verify_ =
       fn
         x1
@@ -111,6 +112,7 @@ structure GioTlsCertificate :>
            & []
         )
     fun getIssuer self = (GioTlsCertificateClass.FFI.withPtr ---> GioTlsCertificateClass.FFI.fromPtr false) getIssuer_ self
+    fun isSame self certTwo = (GioTlsCertificateClass.FFI.withPtr &&&> GioTlsCertificateClass.FFI.withPtr ---> GBool.FFI.fromVal) isSame_ (self & certTwo)
     fun verify self (identity, trustedCa) =
       (
         GioTlsCertificateClass.FFI.withPtr

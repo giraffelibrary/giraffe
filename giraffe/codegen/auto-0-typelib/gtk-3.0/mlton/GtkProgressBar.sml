@@ -11,7 +11,7 @@ structure GtkProgressBar :>
     val getInverted_ = _import "gtk_progress_bar_get_inverted" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p -> GBool.FFI.val_;
     val getPulseStep_ = _import "gtk_progress_bar_get_pulse_step" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p -> GDouble.FFI.val_;
     val getShowText_ = _import "gtk_progress_bar_get_show_text" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p -> GBool.FFI.val_;
-    val getText_ = _import "gtk_progress_bar_get_text" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getText_ = _import "gtk_progress_bar_get_text" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p -> unit Utf8.FFI.out_p;
     val pulse_ = _import "gtk_progress_bar_pulse" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p -> unit;
     val setEllipsize_ = fn x1 & x2 => (_import "gtk_progress_bar_set_ellipsize" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p * PangoEllipsizeMode.FFI.val_ -> unit;) (x1, x2)
     val setFraction_ = fn x1 & x2 => (_import "gtk_progress_bar_set_fraction" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
@@ -47,7 +47,7 @@ structure GtkProgressBar :>
     fun getInverted self = (GtkProgressBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getInverted_ self
     fun getPulseStep self = (GtkProgressBarClass.FFI.withPtr ---> GDouble.FFI.fromVal) getPulseStep_ self
     fun getShowText self = (GtkProgressBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowText_ self
-    fun getText self = (GtkProgressBarClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getText_ self
+    fun getText self = (GtkProgressBarClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getText_ self
     fun pulse self = (GtkProgressBarClass.FFI.withPtr ---> I) pulse_ self
     fun setEllipsize self mode = (GtkProgressBarClass.FFI.withPtr &&&> PangoEllipsizeMode.FFI.withVal ---> I) setEllipsize_ (self & mode)
     fun setFraction self fraction = (GtkProgressBarClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setFraction_ (self & fraction)

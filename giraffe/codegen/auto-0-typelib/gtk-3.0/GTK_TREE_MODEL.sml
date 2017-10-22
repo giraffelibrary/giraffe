@@ -81,6 +81,12 @@ signature GTK_TREE_MODEL =
       'a class
        -> tree_path_t * tree_iter_t
        -> unit
+    val rowsReordered :
+      'a class
+       -> tree_path_t
+           * tree_iter_t option
+           * LargeInt.int vector
+       -> unit
     val sortNewWithModel : 'a class -> base class
     val unrefNode :
       'a class

@@ -7,6 +7,7 @@ signature GTK_FONT_CHOOSER =
     val getFontDesc : 'a class -> Pango.FontDescriptionRecord.t
     val getFontFace : 'a class -> base Pango.FontFaceClass.class
     val getFontFamily : 'a class -> base Pango.FontFamilyClass.class
+    val getFontMap : 'a class -> base Pango.FontMapClass.class
     val getFontSize : 'a class -> LargeInt.int
     val getPreviewText : 'a class -> string
     val getShowPreviewEntry : 'a class -> bool
@@ -17,6 +18,10 @@ signature GTK_FONT_CHOOSER =
     val setFontDesc :
       'a class
        -> Pango.FontDescriptionRecord.t
+       -> unit
+    val setFontMap :
+      'a class
+       -> 'b Pango.FontMapClass.class option
        -> unit
     val setPreviewText :
       'a class

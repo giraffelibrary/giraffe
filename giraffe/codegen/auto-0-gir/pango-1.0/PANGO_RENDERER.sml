@@ -72,6 +72,10 @@ signature PANGO_RENDERER =
            * real
            * real
        -> unit
+    val getAlpha :
+      'a class
+       -> render_part_t
+       -> LargeInt.int
     val getColor :
       'a class
        -> render_part_t
@@ -82,6 +86,10 @@ signature PANGO_RENDERER =
     val partChanged :
       'a class
        -> render_part_t
+       -> unit
+    val setAlpha :
+      'a class
+       -> render_part_t * LargeInt.int
        -> unit
     val setColor :
       'a class

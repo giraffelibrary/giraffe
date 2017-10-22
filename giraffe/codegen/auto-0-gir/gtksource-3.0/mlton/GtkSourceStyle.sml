@@ -3,10 +3,12 @@ structure GtkSourceStyle :>
     where type 'a class = 'a GtkSourceStyleClass.class =
   struct
     val getType_ = _import "gtk_source_style_get_type" : unit -> GObjectType.FFI.val_;
+    val apply_ = fn x1 & x2 => (_import "gtk_source_style_apply" : GtkSourceStyleClass.FFI.notnull GtkSourceStyleClass.FFI.p * GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p -> unit;) (x1, x2)
     val copy_ = _import "gtk_source_style_copy" : GtkSourceStyleClass.FFI.notnull GtkSourceStyleClass.FFI.p -> GtkSourceStyleClass.FFI.notnull GtkSourceStyleClass.FFI.p;
     type 'a class = 'a GtkSourceStyleClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun apply self tag = (GtkSourceStyleClass.FFI.withPtr &&&> GtkTextTagClass.FFI.withPtr ---> I) apply_ (self & tag)
     fun copy self = (GtkSourceStyleClass.FFI.withPtr ---> GtkSourceStyleClass.FFI.fromPtr true) copy_ self
     local
       open Property
@@ -61,6 +63,21 @@ structure GtkSourceStyle :>
           get = fn x => get "line-background-set" boolean x,
           set = fn x => set "line-background-set" boolean x
         }
+      val pangoUnderlineProp =
+        {
+          get = fn x => get "pango-underline" PangoUnderline.t x,
+          set = fn x => set "pango-underline" PangoUnderline.t x
+        }
+      val scaleProp =
+        {
+          get = fn x => get "scale" stringOpt x,
+          set = fn x => set "scale" stringOpt x
+        }
+      val scaleSetProp =
+        {
+          get = fn x => get "scale-set" boolean x,
+          set = fn x => set "scale-set" boolean x
+        }
       val strikethroughProp =
         {
           get = fn x => get "strikethrough" boolean x,
@@ -75,6 +92,16 @@ structure GtkSourceStyle :>
         {
           get = fn x => get "underline" boolean x,
           set = fn x => set "underline" boolean x
+        }
+      val underlineColorProp =
+        {
+          get = fn x => get "underline-color" stringOpt x,
+          set = fn x => set "underline-color" stringOpt x
+        }
+      val underlineColorSetProp =
+        {
+          get = fn x => get "underline-color-set" boolean x,
+          set = fn x => set "underline-color-set" boolean x
         }
       val underlineSetProp =
         {

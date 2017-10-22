@@ -115,7 +115,12 @@ structure PangoLayoutIter :>
     fun atLastLine self = (PangoLayoutIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) atLastLine_ self
     fun copy self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoLayoutIterRecord.FFI.fromPtr true) copy_ self
     fun getBaseline self = (PangoLayoutIterRecord.FFI.withPtr ---> GInt.FFI.fromVal) getBaseline_ self
-    fun getCharExtents self logicalRect = (PangoLayoutIterRecord.FFI.withPtr &&&> PangoRectangleRecord.FFI.withPtr ---> I) getCharExtents_ (self & logicalRect)
+    fun getCharExtents self =
+      let
+        val logicalRect & () = (PangoLayoutIterRecord.FFI.withPtr &&&> PangoRectangleRecord.FFI.withNewPtr ---> PangoRectangleRecord.FFI.fromPtr true && I) getCharExtents_ (self & ())
+      in
+        logicalRect
+      end
     fun getClusterExtents self =
       let
         val inkRect
@@ -185,7 +190,7 @@ structure PangoLayoutIter :>
       in
         (inkRect, logicalRect)
       end
-    fun getLineReadonly self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoLayoutLineRecord.FFI.fromPtr true) getLineReadonly_ self
+    fun getLineReadonly self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoLayoutLineRecord.FFI.fromPtr false) getLineReadonly_ self
     fun getLineYrange self =
       let
         val y0

@@ -23,7 +23,7 @@ structure GioDBusServer :>
                * GioDBusServerFlags.FFI.val_
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * GioDBusAuthObserverClass.FFI.notnull GioDBusAuthObserverClass.FFI.p
+               * unit GioDBusAuthObserverClass.FFI.p
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GioDBusServerClass.FFI.notnull GioDBusServerClass.FFI.p;
@@ -65,7 +65,7 @@ structure GioDBusServer :>
         Utf8.FFI.withPtr
          &&&> GioDBusServerFlags.FFI.withVal
          &&&> Utf8.FFI.withPtr
-         &&&> GioDBusAuthObserverClass.FFI.withPtr
+         &&&> GioDBusAuthObserverClass.FFI.withOptPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> GioDBusServerClass.FFI.fromPtr true

@@ -5,11 +5,11 @@ signature GDK_DISPLAY_MANAGER =
     type t = base class
     val getType : unit -> GObject.Type.t
     val get : unit -> base class
-    val getDefaultDisplay : 'a class -> base display_class
+    val getDefaultDisplay : 'a class -> base display_class option
     val openDisplay :
       'a class
        -> string
-       -> base display_class
+       -> base display_class option
     val setDefaultDisplay :
       'a class
        -> 'b display_class

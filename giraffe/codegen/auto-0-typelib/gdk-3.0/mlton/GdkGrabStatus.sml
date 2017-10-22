@@ -6,6 +6,7 @@ structure GdkGrabStatus :> GDK_GRAB_STATUS =
     | INVALID_TIME
     | NOT_VIEWABLE
     | FROZEN
+    | FAILED
     structure Enum =
       Enum(
         type enum = enum
@@ -17,6 +18,7 @@ structure GdkGrabStatus :> GDK_GRAB_STATUS =
           | INVALID_TIME => 2
           | NOT_VIEWABLE => 3
           | FROZEN => 4
+          | FAILED => 5
         exception Value of GInt32.t
         val fromInt =
           fn
@@ -25,6 +27,7 @@ structure GdkGrabStatus :> GDK_GRAB_STATUS =
           | 2 => INVALID_TIME
           | 3 => NOT_VIEWABLE
           | 4 => FROZEN
+          | 5 => FAILED
           | n => raise Value n
       )
     open Enum

@@ -4,15 +4,22 @@ structure AtkRelation :>
     where type 'a object_class = 'a AtkObjectClass.class
     where type relation_type_t = AtkRelationType.t =
   struct
+    structure AtkObjectClassCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = AtkObjectClass.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure AtkObjectClassCVectorN = CVectorN(AtkObjectClassCVectorNType)
     val getType_ = _import "atk_relation_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
-        x1
-         & x2
-         & x3 =>
+        (x1, x2)
+         & x3
+         & x4 =>
           (
-            _import "atk_relation_new" :
-              AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+            _import "mlton_atk_relation_new" :
+              AtkObjectClassCVectorN.MLton.p1
+               * AtkObjectClassCVectorN.FFI.notnull AtkObjectClassCVectorN.MLton.p2
                * GInt32.FFI.val_
                * AtkRelationType.FFI.val_
                -> AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p;
@@ -20,7 +27,8 @@ structure AtkRelation :>
             (
               x1,
               x2,
-              x3
+              x3,
+              x4
             )
     val addTarget_ = fn x1 & x2 => (_import "atk_relation_add_target" : AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> unit;) (x1, x2)
     val getRelationType_ = _import "atk_relation_get_relation_type" : AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p -> AtkRelationType.FFI.val_;
@@ -30,24 +38,25 @@ structure AtkRelation :>
     type relation_type_t = AtkRelationType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new
-      (
-        targets,
-        nTargets,
-        relationship
-      ) =
-      (
-        AtkObjectClass.FFI.withPtr
-         &&&> GInt32.FFI.withVal
-         &&&> AtkRelationType.FFI.withVal
-         ---> AtkRelationClass.FFI.fromPtr true
-      )
-        new_
-        (
-          targets
-           & nTargets
-           & relationship
-        )
+    fun new (targets, relationship) =
+      let
+        val nTargets = LargeInt.fromInt (AtkObjectClassCVectorN.length targets)
+        val retVal =
+          (
+            AtkObjectClassCVectorN.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> AtkRelationType.FFI.withVal
+             ---> AtkRelationClass.FFI.fromPtr true
+          )
+            new_
+            (
+              targets
+               & nTargets
+               & relationship
+            )
+      in
+        retVal
+      end
     fun addTarget self target = (AtkRelationClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> I) addTarget_ (self & target)
     fun getRelationType self = (AtkRelationClass.FFI.withPtr ---> AtkRelationType.FFI.fromVal) getRelationType_ self
     fun removeTarget self target = (AtkRelationClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> GBool.FFI.fromVal) removeTarget_ (self & target)

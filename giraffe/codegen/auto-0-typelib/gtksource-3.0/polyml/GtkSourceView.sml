@@ -4,6 +4,8 @@ structure GtkSourceView :>
     where type 'a buffer_class = 'a GtkSourceBufferClass.class
     where type 'a gutter_class = 'a GtkSourceGutterClass.class
     where type 'a mark_attributes_class = 'a GtkSourceMarkAttributesClass.class
+    where type change_case_type_t = GtkSourceChangeCaseType.t
+    where type background_pattern_type_t = GtkSourceBackgroundPatternType.t
     where type 'a completion_class = 'a GtkSourceCompletionClass.class
     where type draw_spaces_flags_t = GtkSourceDrawSpacesFlags.t
     where type smart_home_end_type_t = GtkSourceSmartHomeEndType.t =
@@ -15,6 +17,7 @@ structure GtkSourceView :>
       val new_ = call (getSymbol "gtk_source_view_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val newWithBuffer_ = call (getSymbol "gtk_source_view_new_with_buffer") (GtkSourceBufferClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getAutoIndent_ = call (getSymbol "gtk_source_view_get_auto_indent") (GtkSourceViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getBackgroundPattern_ = call (getSymbol "gtk_source_view_get_background_pattern") (GtkSourceViewClass.PolyML.cPtr --> GtkSourceBackgroundPatternType.PolyML.cVal)
       val getCompletion_ = call (getSymbol "gtk_source_view_get_completion") (GtkSourceViewClass.PolyML.cPtr --> GtkSourceCompletionClass.PolyML.cPtr)
       val getDrawSpaces_ = call (getSymbol "gtk_source_view_get_draw_spaces") (GtkSourceViewClass.PolyML.cPtr --> GtkSourceDrawSpacesFlags.PolyML.cVal)
       val getGutter_ = call (getSymbol "gtk_source_view_get_gutter") (GtkSourceViewClass.PolyML.cPtr &&> GtkTextWindowType.PolyML.cVal --> GtkSourceGutterClass.PolyML.cPtr)
@@ -26,10 +29,20 @@ structure GtkSourceView :>
       val getShowLineMarks_ = call (getSymbol "gtk_source_view_get_show_line_marks") (GtkSourceViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getShowLineNumbers_ = call (getSymbol "gtk_source_view_get_show_line_numbers") (GtkSourceViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getShowRightMargin_ = call (getSymbol "gtk_source_view_get_show_right_margin") (GtkSourceViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getSmartBackspace_ = call (getSymbol "gtk_source_view_get_smart_backspace") (GtkSourceViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSmartHomeEnd_ = call (getSymbol "gtk_source_view_get_smart_home_end") (GtkSourceViewClass.PolyML.cPtr --> GtkSourceSmartHomeEndType.PolyML.cVal)
       val getTabWidth_ = call (getSymbol "gtk_source_view_get_tab_width") (GtkSourceViewClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
       val getVisualColumn_ = call (getSymbol "gtk_source_view_get_visual_column") (GtkSourceViewClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GUInt32.PolyML.cVal)
+      val indentLines_ =
+        call (getSymbol "gtk_source_view_indent_lines")
+          (
+            GtkSourceViewClass.PolyML.cPtr
+             &&> GtkTextIterRecord.PolyML.cPtr
+             &&> GtkTextIterRecord.PolyML.cPtr
+             --> cVoid
+          )
       val setAutoIndent_ = call (getSymbol "gtk_source_view_set_auto_indent") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setBackgroundPattern_ = call (getSymbol "gtk_source_view_set_background_pattern") (GtkSourceViewClass.PolyML.cPtr &&> GtkSourceBackgroundPatternType.PolyML.cVal --> cVoid)
       val setDrawSpaces_ = call (getSymbol "gtk_source_view_set_draw_spaces") (GtkSourceViewClass.PolyML.cPtr &&> GtkSourceDrawSpacesFlags.PolyML.cVal --> cVoid)
       val setHighlightCurrentLine_ = call (getSymbol "gtk_source_view_set_highlight_current_line") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setIndentOnTab_ = call (getSymbol "gtk_source_view_set_indent_on_tab") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
@@ -48,13 +61,24 @@ structure GtkSourceView :>
       val setShowLineMarks_ = call (getSymbol "gtk_source_view_set_show_line_marks") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setShowLineNumbers_ = call (getSymbol "gtk_source_view_set_show_line_numbers") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setShowRightMargin_ = call (getSymbol "gtk_source_view_set_show_right_margin") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setSmartBackspace_ = call (getSymbol "gtk_source_view_set_smart_backspace") (GtkSourceViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setSmartHomeEnd_ = call (getSymbol "gtk_source_view_set_smart_home_end") (GtkSourceViewClass.PolyML.cPtr &&> GtkSourceSmartHomeEndType.PolyML.cVal --> cVoid)
       val setTabWidth_ = call (getSymbol "gtk_source_view_set_tab_width") (GtkSourceViewClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
+      val unindentLines_ =
+        call (getSymbol "gtk_source_view_unindent_lines")
+          (
+            GtkSourceViewClass.PolyML.cPtr
+             &&> GtkTextIterRecord.PolyML.cPtr
+             &&> GtkTextIterRecord.PolyML.cPtr
+             --> cVoid
+          )
     end
     type 'a class = 'a GtkSourceViewClass.class
     type 'a buffer_class = 'a GtkSourceBufferClass.class
     type 'a gutter_class = 'a GtkSourceGutterClass.class
     type 'a mark_attributes_class = 'a GtkSourceMarkAttributesClass.class
+    type change_case_type_t = GtkSourceChangeCaseType.t
+    type background_pattern_type_t = GtkSourceBackgroundPatternType.t
     type 'a completion_class = 'a GtkSourceCompletionClass.class
     type draw_spaces_flags_t = GtkSourceDrawSpacesFlags.t
     type smart_home_end_type_t = GtkSourceSmartHomeEndType.t
@@ -66,6 +90,7 @@ structure GtkSourceView :>
     fun new () = (I ---> GtkSourceViewClass.FFI.fromPtr false) new_ ()
     fun newWithBuffer buffer = (GtkSourceBufferClass.FFI.withPtr ---> GtkSourceViewClass.FFI.fromPtr false) newWithBuffer_ buffer
     fun getAutoIndent self = (GtkSourceViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getAutoIndent_ self
+    fun getBackgroundPattern self = (GtkSourceViewClass.FFI.withPtr ---> GtkSourceBackgroundPatternType.FFI.fromVal) getBackgroundPattern_ self
     fun getCompletion self = (GtkSourceViewClass.FFI.withPtr ---> GtkSourceCompletionClass.FFI.fromPtr false) getCompletion_ self
     fun getDrawSpaces self = (GtkSourceViewClass.FFI.withPtr ---> GtkSourceDrawSpacesFlags.FFI.fromVal) getDrawSpaces_ self
     fun getGutter self windowType = (GtkSourceViewClass.FFI.withPtr &&&> GtkTextWindowType.FFI.withVal ---> GtkSourceGutterClass.FFI.fromPtr false) getGutter_ (self & windowType)
@@ -77,12 +102,27 @@ structure GtkSourceView :>
     fun getShowLineMarks self = (GtkSourceViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowLineMarks_ self
     fun getShowLineNumbers self = (GtkSourceViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowLineNumbers_ self
     fun getShowRightMargin self = (GtkSourceViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowRightMargin_ self
+    fun getSmartBackspace self = (GtkSourceViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getSmartBackspace_ self
     fun getSmartHomeEnd self = (GtkSourceViewClass.FFI.withPtr ---> GtkSourceSmartHomeEndType.FFI.fromVal) getSmartHomeEnd_ self
     fun getTabWidth self = (GtkSourceViewClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getTabWidth_ self
     fun getVisualColumn self iter = (GtkSourceViewClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GUInt32.FFI.fromVal) getVisualColumn_ (self & iter)
+    fun indentLines self (start, end') =
+      (
+        GtkSourceViewClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         ---> I
+      )
+        indentLines_
+        (
+          self
+           & start
+           & end'
+        )
     fun setAutoIndent self enable = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAutoIndent_ (self & enable)
+    fun setBackgroundPattern self backgroundPattern = (GtkSourceViewClass.FFI.withPtr &&&> GtkSourceBackgroundPatternType.FFI.withVal ---> I) setBackgroundPattern_ (self & backgroundPattern)
     fun setDrawSpaces self flags = (GtkSourceViewClass.FFI.withPtr &&&> GtkSourceDrawSpacesFlags.FFI.withVal ---> I) setDrawSpaces_ (self & flags)
-    fun setHighlightCurrentLine self hl = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHighlightCurrentLine_ (self & hl)
+    fun setHighlightCurrentLine self highlight = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHighlightCurrentLine_ (self & highlight)
     fun setIndentOnTab self enable = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setIndentOnTab_ (self & enable)
     fun setIndentWidth self width = (GtkSourceViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setIndentWidth_ (self & width)
     fun setInsertSpacesInsteadOfTabs self enable = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setInsertSpacesInsteadOfTabs_ (self & enable)
@@ -111,13 +151,31 @@ structure GtkSourceView :>
     fun setShowLineMarks self show = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowLineMarks_ (self & show)
     fun setShowLineNumbers self show = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowLineNumbers_ (self & show)
     fun setShowRightMargin self show = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowRightMargin_ (self & show)
-    fun setSmartHomeEnd self smartHe = (GtkSourceViewClass.FFI.withPtr &&&> GtkSourceSmartHomeEndType.FFI.withVal ---> I) setSmartHomeEnd_ (self & smartHe)
+    fun setSmartBackspace self smartBackspace = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSmartBackspace_ (self & smartBackspace)
+    fun setSmartHomeEnd self smartHomeEnd = (GtkSourceViewClass.FFI.withPtr &&&> GtkSourceSmartHomeEndType.FFI.withVal ---> I) setSmartHomeEnd_ (self & smartHomeEnd)
     fun setTabWidth self width = (GtkSourceViewClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setTabWidth_ (self & width)
+    fun unindentLines self (start, end') =
+      (
+        GtkSourceViewClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         ---> I
+      )
+        unindentLines_
+        (
+          self
+           & start
+           & end'
+        )
     local
       open ClosureMarshal Signal
     in
+      fun changeCaseSig f = signal "change-case" (get 0w1 GtkSourceChangeCaseType.t ---> ret_void) f
+      fun changeNumberSig f = signal "change-number" (get 0w1 int ---> ret_void) f
+      fun joinLinesSig f = signal "join-lines" (void ---> ret_void) f
       fun lineMarkActivatedSig f = signal "line-mark-activated" (get 0w1 GtkTextIterRecord.t &&&> get 0w2 GdkEvent.t ---> ret_void) (fn iter & event => f (iter, event))
       fun moveLinesSig f = signal "move-lines" (get 0w1 boolean &&&> get 0w2 int ---> ret_void) (fn copy & count => f (copy, count))
+      fun moveToMatchingBracketSig f = signal "move-to-matching-bracket" (get 0w1 boolean ---> ret_void) f
       fun moveWordsSig f = signal "move-words" (get 0w1 int ---> ret_void) f
       fun redoSig f = signal "redo" (void ---> ret_void) f
       fun showCompletionSig f = signal "show-completion" (void ---> ret_void) f
@@ -131,6 +189,11 @@ structure GtkSourceView :>
         {
           get = fn x => get "auto-indent" boolean x,
           set = fn x => set "auto-indent" boolean x
+        }
+      val backgroundPatternProp =
+        {
+          get = fn x => get "background-pattern" GtkSourceBackgroundPatternType.t x,
+          set = fn x => set "background-pattern" GtkSourceBackgroundPatternType.t x
         }
       val completionProp = {get = fn x => get "completion" GtkSourceCompletionClass.tOpt x}
       val drawSpacesProp =
@@ -177,6 +240,11 @@ structure GtkSourceView :>
         {
           get = fn x => get "show-right-margin" boolean x,
           set = fn x => set "show-right-margin" boolean x
+        }
+      val smartBackspaceProp =
+        {
+          get = fn x => get "smart-backspace" boolean x,
+          set = fn x => set "smart-backspace" boolean x
         }
       val smartHomeEndProp =
         {

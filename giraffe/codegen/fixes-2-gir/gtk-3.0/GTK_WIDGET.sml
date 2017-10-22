@@ -15,7 +15,6 @@ signature GTK_WIDGET =
     type 'a rc_style_class
     type 'a accel_group_class
     type 'a window_class
-    type allocation_t
     type requisition_t
     type text_direction_t
     type drag_result_t
@@ -23,6 +22,7 @@ signature GTK_WIDGET =
     type 'a tooltip_class
     type selection_data_t
     type widget_help_type_t
+    type allocation_t
     type state_type_t
     type state_flags_t
     type 'a container_class
@@ -82,7 +82,7 @@ signature GTK_WIDGET =
     val createPangoContext : 'a class -> base Pango.ContextClass.class
     val createPangoLayout :
       'a class
-       -> string
+       -> string option
        -> base Pango.LayoutClass.class
     val destroy : 'a class -> unit
     val deviceIsShadowed :
@@ -94,7 +94,16 @@ signature GTK_WIDGET =
        -> target_list_t
            * Gdk.DragAction.t
            * LargeInt.int
-           * 'b Gdk.Event.union
+           * 'b Gdk.Event.union option
+       -> base Gdk.DragContextClass.class
+    val dragBeginWithCoordinates :
+      'a class
+       -> target_list_t
+           * Gdk.DragAction.t
+           * LargeInt.int
+           * 'b Gdk.Event.union option
+           * LargeInt.int
+           * LargeInt.int
        -> base Gdk.DragContextClass.class
     val dragCheckThreshold :
       'a class
@@ -184,7 +193,13 @@ signature GTK_WIDGET =
        -> bool
     val freezeChildNotify : 'a class -> unit
     val getAccessible : 'a class -> base Atk.ObjectClass.class
+    val getActionGroup :
+      'a class
+       -> string
+       -> base Gio.ActionGroupClass.class
+    val getAllocatedBaseline : 'a class -> LargeInt.int
     val getAllocatedHeight : 'a class -> LargeInt.int
+    val getAllocatedSize : 'a class -> allocation_t * LargeInt.int
     val getAllocatedWidth : 'a class -> LargeInt.int
     val getAllocation : 'a class -> allocation_t
     val getAppPaintable : 'a class -> bool
@@ -192,6 +207,7 @@ signature GTK_WIDGET =
     val getCanFocus : 'a class -> bool
     val getChildRequisition : 'a class -> requisition_t
     val getChildVisible : 'a class -> bool
+    val getClip : 'a class -> allocation_t
     val getClipboard :
       'a class
        -> Gdk.AtomRecord.t
@@ -209,6 +225,10 @@ signature GTK_WIDGET =
     val getDisplay : 'a class -> base Gdk.DisplayClass.class
     val getDoubleBuffered : 'a class -> bool
     val getEvents : 'a class -> Gdk.EventMask.t
+    val getFocusOnClick : 'a class -> bool
+    val getFontMap : 'a class -> base Pango.FontMapClass.class
+    val getFontOptions : 'a class -> Cairo.FontOptionsRecord.t
+    val getFrameClock : 'a class -> base Gdk.FrameClockClass.class
     val getHalign : 'a class -> align_t
     val getHasTooltip : 'a class -> bool
     val getHasWindow : 'a class -> bool
@@ -216,18 +236,32 @@ signature GTK_WIDGET =
     val getHexpandSet : 'a class -> bool
     val getMapped : 'a class -> bool
     val getMarginBottom : 'a class -> LargeInt.int
+    val getMarginEnd : 'a class -> LargeInt.int
     val getMarginLeft : 'a class -> LargeInt.int
     val getMarginRight : 'a class -> LargeInt.int
+    val getMarginStart : 'a class -> LargeInt.int
     val getMarginTop : 'a class -> LargeInt.int
+    val getModifierMask :
+      'a class
+       -> Gdk.ModifierIntent.t
+       -> Gdk.ModifierType.t
     val getModifierStyle : 'a class -> base rc_style_class
     val getName : 'a class -> string
     val getNoShowAll : 'a class -> bool
+    val getOpacity : 'a class -> real
     val getPangoContext : 'a class -> base Pango.ContextClass.class
     val getParent : 'a class -> base class
     val getParentWindow : 'a class -> base Gdk.WindowClass.class
     val getPath : 'a class -> widget_path_t
     val getPointer : 'a class -> LargeInt.int * LargeInt.int
     val getPreferredHeight : 'a class -> LargeInt.int * LargeInt.int
+    val getPreferredHeightAndBaselineForWidth :
+      'a class
+       -> LargeInt.int
+       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
     val getPreferredHeightForWidth :
       'a class
        -> LargeInt.int
@@ -243,6 +277,7 @@ signature GTK_WIDGET =
     val getRequestMode : 'a class -> size_request_mode_t
     val getRequisition : 'a class -> requisition_t
     val getRootWindow : 'a class -> base Gdk.WindowClass.class
+    val getScaleFactor : 'a class -> LargeInt.int
     val getScreen : 'a class -> base Gdk.ScreenClass.class
     val getSensitive : 'a class -> bool
     val getSettings : 'a class -> base settings_class
@@ -257,6 +292,7 @@ signature GTK_WIDGET =
     val getTooltipWindow : 'a class -> base window_class
     val getToplevel : 'a class -> base class
     val getValign : 'a class -> align_t
+    val getValignWithBaseline : 'a class -> align_t
     val getVexpand : 'a class -> bool
     val getVexpandSet : 'a class -> bool
     val getVisible : 'a class -> bool
@@ -275,14 +311,19 @@ signature GTK_WIDGET =
     val hide : 'a class -> unit
     val hideOnDelete : 'a class -> bool
     val inDestruction : 'a class -> bool
+    val initTemplate : 'a class -> unit
     val inputShapeCombineRegion :
       'a class
        -> Cairo.RegionRecord.t option
        -> unit
+    val insertActionGroup :
+      'a class
+       -> string * 'b Gio.ActionGroupClass.class option
+       -> unit
     val intersect :
       'a class
-       -> Gdk.RectangleRecord.t * Gdk.RectangleRecord.t
-       -> bool
+       -> Gdk.RectangleRecord.t
+       -> Gdk.RectangleRecord.t option
     val isAncestor :
       'a class
        -> 'b class
@@ -292,10 +333,12 @@ signature GTK_WIDGET =
     val isFocus : 'a class -> bool
     val isSensitive : 'a class -> bool
     val isToplevel : 'a class -> bool
+    val isVisible : 'a class -> bool
     val keynavFailed :
       'a class
        -> direction_type_t
        -> bool
+    val listActionPrefixes : 'a class -> string list
     val map : 'a class -> unit
     val mnemonicActivate :
       'a class
@@ -311,7 +354,7 @@ signature GTK_WIDGET =
        -> unit
     val modifyCursor :
       'a class
-       -> Gdk.ColorRecord.t * Gdk.ColorRecord.t
+       -> Gdk.ColorRecord.t option * Gdk.ColorRecord.t option
        -> unit
     val modifyFg :
       'a class
@@ -354,6 +397,7 @@ signature GTK_WIDGET =
        -> LargeInt.int
            * string
            * string
+    val queueAllocate : 'a class -> unit
     val queueComputeExpand : 'a class -> unit
     val queueDraw : 'a class -> unit
     val queueDrawArea :
@@ -374,6 +418,10 @@ signature GTK_WIDGET =
       'a class
        -> Cairo.RegionRecord.t
        -> Cairo.RegionRecord.t
+    val registerWindow :
+      'a class
+       -> 'b Gdk.WindowClass.class
+       -> unit
     val removeAccelerator :
       'a class
        -> 'b accel_group_class
@@ -383,6 +431,10 @@ signature GTK_WIDGET =
     val removeMnemonicLabel :
       'a class
        -> 'b class
+       -> unit
+    val removeTickCallback :
+      'a class
+       -> LargeInt.int
        -> unit
     val renderIcon :
       'a class
@@ -432,6 +484,10 @@ signature GTK_WIDGET =
       'a class
        -> bool
        -> unit
+    val setClip :
+      'a class
+       -> allocation_t
+       -> unit
     val setCompositeName :
       'a class
        -> string
@@ -455,6 +511,18 @@ signature GTK_WIDGET =
     val setEvents :
       'a class
        -> Gdk.EventMask.t
+       -> unit
+    val setFocusOnClick :
+      'a class
+       -> bool
+       -> unit
+    val setFontMap :
+      'a class
+       -> 'b Pango.FontMapClass.class option
+       -> unit
+    val setFontOptions :
+      'a class
+       -> Cairo.FontOptionsRecord.t option
        -> unit
     val setHalign :
       'a class
@@ -484,11 +552,19 @@ signature GTK_WIDGET =
       'a class
        -> LargeInt.int
        -> unit
+    val setMarginEnd :
+      'a class
+       -> LargeInt.int
+       -> unit
     val setMarginLeft :
       'a class
        -> LargeInt.int
        -> unit
     val setMarginRight :
+      'a class
+       -> LargeInt.int
+       -> unit
+    val setMarginStart :
       'a class
        -> LargeInt.int
        -> unit
@@ -503,6 +579,10 @@ signature GTK_WIDGET =
     val setNoShowAll :
       'a class
        -> bool
+       -> unit
+    val setOpacity :
+      'a class
+       -> real
        -> unit
     val setParent :
       'a class
@@ -554,7 +634,7 @@ signature GTK_WIDGET =
        -> unit
     val setTooltipText :
       'a class
-       -> string
+       -> string option
        -> unit
     val setTooltipWindow :
       'a class
@@ -578,7 +658,7 @@ signature GTK_WIDGET =
        -> unit
     val setVisual :
       'a class
-       -> 'b Gdk.VisualClass.class
+       -> 'b Gdk.VisualClass.class option
        -> unit
     val shapeCombineRegion :
       'a class
@@ -590,6 +670,10 @@ signature GTK_WIDGET =
     val sizeAllocate :
       'a class
        -> allocation_t
+       -> unit
+    val sizeAllocateWithBaseline :
+      'a class
+       -> allocation_t * LargeInt.int
        -> unit
     val sizeRequest : 'a class -> requisition_t
     val styleAttach : 'a class -> unit
@@ -608,6 +692,10 @@ signature GTK_WIDGET =
     val unmap : 'a class -> unit
     val unparent : 'a class -> unit
     val unrealize : 'a class -> unit
+    val unregisterWindow :
+      'a class
+       -> 'b Gdk.WindowClass.class
+       -> unit
     val unsetStateFlags :
       'a class
        -> state_flags_t
@@ -707,11 +795,12 @@ signature GTK_WIDGET =
     val selectionRequestEventSig : (Gdk.EventSelectionRecord.t -> bool) -> 'a class Signal.t
     val showSig : (unit -> unit) -> 'a class Signal.t
     val showHelpSig : (widget_help_type_t -> bool) -> 'a class Signal.t
-    val sizeAllocateSig : (Cairo.RectangleIntRecord.t -> unit) -> 'a class Signal.t
+    val sizeAllocateSig : (allocation_t -> unit) -> 'a class Signal.t
     val stateChangedSig : (state_type_t -> unit) -> 'a class Signal.t
     val stateFlagsChangedSig : (state_flags_t -> unit) -> 'a class Signal.t
     val styleSetSig : (base style_class option -> unit) -> 'a class Signal.t
     val styleUpdatedSig : (unit -> unit) -> 'a class Signal.t
+    val touchEventSig : (base Gdk.Event.union -> bool) -> 'a class Signal.t
     val unmapSig : (unit -> unit) -> 'a class Signal.t
     val unmapEventSig : (Gdk.EventAnyRecord.t -> bool) -> 'a class Signal.t
     val unrealizeSig : (unit -> unit) -> 'a class Signal.t
@@ -724,6 +813,7 @@ signature GTK_WIDGET =
     val doubleBufferedProp : ('a class, bool, bool) Property.readwrite
     val eventsProp : ('a class, Gdk.EventMask.t, Gdk.EventMask.t) Property.readwrite
     val expandProp : ('a class, bool, bool) Property.readwrite
+    val focusOnClickProp : ('a class, bool, bool) Property.readwrite
     val halignProp : ('a class, align_t, align_t) Property.readwrite
     val hasDefaultProp : ('a class, bool, bool) Property.readwrite
     val hasFocusProp : ('a class, bool, bool) Property.readwrite
@@ -734,13 +824,17 @@ signature GTK_WIDGET =
     val isFocusProp : ('a class, bool, bool) Property.readwrite
     val marginProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val marginBottomProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val marginEndProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val marginLeftProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val marginRightProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val marginStartProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val marginTopProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val nameProp : ('a class, string option, string option) Property.readwrite
     val noShowAllProp : ('a class, bool, bool) Property.readwrite
+    val opacityProp : ('a class, real, real) Property.readwrite
     val parentProp : ('a class, base container_class option, 'b container_class option) Property.readwrite
     val receivesDefaultProp : ('a class, bool, bool) Property.readwrite
+    val scaleFactorProp : ('a class, LargeInt.int) Property.readonly
     val sensitiveProp : ('a class, bool, bool) Property.readwrite
     val styleProp : ('a class, base style_class option, 'b style_class option) Property.readwrite
     val tooltipMarkupProp : ('a class, string option, string option) Property.readwrite

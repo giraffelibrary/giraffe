@@ -149,6 +149,25 @@ structure GtkCellArea :>
               x3,
               x4
             )
+    val attributeGetColumn_ =
+      fn
+        x1
+         & x2
+         & (x3, x4) =>
+          (
+            _import "mlton_gtk_cell_area_attribute_get_column" :
+              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
+               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GInt.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val cellGetProperty_ =
       fn
         x1
@@ -644,6 +663,19 @@ structure GtkCellArea :>
            & renderer
            & attribute
         )
+    fun attributeGetColumn self (renderer, attribute) =
+      (
+        GtkCellAreaClass.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> GInt.FFI.fromVal
+      )
+        attributeGetColumn_
+        (
+          self
+           & renderer
+           & attribute
+        )
     fun cellGetProperty
       self
       (
@@ -1036,7 +1068,7 @@ structure GtkCellArea :>
           (
             get 0w1 GtkCellRendererClass.t
              &&&> get 0w2 GtkCellEditableClass.t
-             &&&> get 0w3 CairoRectangleIntRecord.t
+             &&&> get 0w3 GdkRectangleRecord.t
              &&&> get 0w4 string
              ---> ret_void
           )

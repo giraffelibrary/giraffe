@@ -10,19 +10,19 @@ signature GTK_SOURCE_GUTTER_RENDERER_PIXBUF =
     val getStockId : 'a class -> string
     val setGicon :
       'a class
-       -> 'b Gio.IconClass.class
+       -> 'b Gio.IconClass.class option
        -> unit
     val setIconName :
       'a class
-       -> string
+       -> string option
        -> unit
     val setPixbuf :
       'a class
-       -> 'b GdkPixbuf.PixbufClass.class
+       -> 'b GdkPixbuf.PixbufClass.class option
        -> unit
     val setStockId :
       'a class
-       -> string
+       -> string option
        -> unit
     val giconProp : ('a class, base Gio.IconClass.class option, 'b Gio.IconClass.class option) Property.readwrite
     val iconNameProp : ('a class, string option, string option) Property.readwrite

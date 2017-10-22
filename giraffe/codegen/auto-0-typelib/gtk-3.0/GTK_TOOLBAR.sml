@@ -7,6 +7,7 @@ signature GTK_TOOLBAR =
     type relief_style_t
     type 'a tool_item_class
     type orientation_t
+    type icon_size_t
     type toolbar_style_t
     type t = base class
     val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
@@ -19,7 +20,7 @@ signature GTK_TOOLBAR =
       'a class
        -> LargeInt.int * LargeInt.int
        -> LargeInt.int
-    val getIconSize : 'a class -> LargeInt.int
+    val getIconSize : 'a class -> icon_size_t
     val getItemIndex :
       'a class
        -> 'b tool_item_class
@@ -28,7 +29,7 @@ signature GTK_TOOLBAR =
     val getNthItem :
       'a class
        -> LargeInt.int
-       -> base tool_item_class
+       -> base tool_item_class option
     val getReliefStyle : 'a class -> relief_style_t
     val getShowArrow : 'a class -> bool
     val getStyle : 'a class -> toolbar_style_t
@@ -42,7 +43,7 @@ signature GTK_TOOLBAR =
        -> unit
     val setIconSize :
       'a class
-       -> LargeInt.int
+       -> icon_size_t
        -> unit
     val setShowArrow :
       'a class
@@ -63,7 +64,7 @@ signature GTK_TOOLBAR =
         -> bool)
        -> 'a class Signal.t
     val styleChangedSig : (toolbar_style_t -> unit) -> 'a class Signal.t
-    val iconSizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val iconSizeProp : ('a class, icon_size_t, icon_size_t) Property.readwrite
     val iconSizeSetProp : ('a class, bool, bool) Property.readwrite
     val showArrowProp : ('a class, bool, bool) Property.readwrite
     val toolbarStyleProp : ('a class, toolbar_style_t, toolbar_style_t) Property.readwrite

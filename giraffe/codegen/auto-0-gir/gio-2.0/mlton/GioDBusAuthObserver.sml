@@ -6,6 +6,21 @@ structure GioDBusAuthObserver :>
   struct
     val getType_ = _import "g_dbus_auth_observer_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "g_dbus_auth_observer_new" : unit -> GioDBusAuthObserverClass.FFI.notnull GioDBusAuthObserverClass.FFI.p;
+    val allowMechanism_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_g_dbus_auth_observer_allow_mechanism" :
+              GioDBusAuthObserverClass.FFI.notnull GioDBusAuthObserverClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val authorizeAuthenticatedPeer_ =
       fn
         x1
@@ -15,7 +30,7 @@ structure GioDBusAuthObserver :>
             _import "g_dbus_auth_observer_authorize_authenticated_peer" :
               GioDBusAuthObserverClass.FFI.notnull GioDBusAuthObserverClass.FFI.p
                * GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p
-               * GioCredentialsClass.FFI.notnull GioCredentialsClass.FFI.p
+               * unit GioCredentialsClass.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -29,11 +44,12 @@ structure GioDBusAuthObserver :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioDBusAuthObserverClass.FFI.fromPtr true) new_ ()
+    fun allowMechanism self mechanism = (GioDBusAuthObserverClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) allowMechanism_ (self & mechanism)
     fun authorizeAuthenticatedPeer self (stream, credentials) =
       (
         GioDBusAuthObserverClass.FFI.withPtr
          &&&> GioIOStreamClass.FFI.withPtr
-         &&&> GioCredentialsClass.FFI.withPtr
+         &&&> GioCredentialsClass.FFI.withOptPtr
          ---> GBool.FFI.fromVal
       )
         authorizeAuthenticatedPeer_
@@ -45,6 +61,7 @@ structure GioDBusAuthObserver :>
     local
       open ClosureMarshal Signal
     in
-      fun authorizeAuthenticatedPeerSig f = signal "authorize-authenticated-peer" (get 0w1 GioIOStreamClass.t &&&> get 0w2 GioCredentialsClass.t ---> ret boolean) (fn stream & credentials => f (stream, credentials))
+      fun allowMechanismSig f = signal "allow-mechanism" (get 0w1 string ---> ret boolean) f
+      fun authorizeAuthenticatedPeerSig f = signal "authorize-authenticated-peer" (get 0w1 GioIOStreamClass.t &&&> get 0w2 GioCredentialsClass.tOpt ---> ret boolean) (fn stream & credentials => f (stream, credentials))
     end
   end

@@ -22,6 +22,7 @@ signature G_LIB_SOURCE =
     val getId : t -> LargeInt.int
     val getName : t -> string
     val getPriority : t -> LargeInt.int
+    val getReadyTime : t -> LargeInt.int
     val getTime : t -> LargeInt.int
     val isDestroyed : t -> bool
     val removeChildSource :
@@ -37,6 +38,10 @@ signature G_LIB_SOURCE =
        -> string
        -> unit
     val setPriority :
+      t
+       -> LargeInt.int
+       -> unit
+    val setReadyTime :
       t
        -> LargeInt.int
        -> unit

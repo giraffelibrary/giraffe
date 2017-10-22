@@ -17,12 +17,16 @@ signature GIO_PROXY_ADDRESS =
        -> base class
     val getDestinationHostname : 'a class -> string
     val getDestinationPort : 'a class -> LargeInt.int
+    val getDestinationProtocol : 'a class -> string
     val getPassword : 'a class -> string
     val getProtocol : 'a class -> string
+    val getUri : 'a class -> string
     val getUsername : 'a class -> string
     val destinationHostnameProp : ('a class, string option, string option) Property.readwrite
     val destinationPortProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val destinationProtocolProp : ('a class, string option, string option) Property.readwrite
     val passwordProp : ('a class, string option, string option) Property.readwrite
     val protocolProp : ('a class, string option, string option) Property.readwrite
+    val uriProp : ('a class, string option, string option) Property.readwrite
     val usernameProp : ('a class, string option, string option) Property.readwrite
   end

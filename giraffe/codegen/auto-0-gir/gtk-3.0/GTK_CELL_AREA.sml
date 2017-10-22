@@ -58,6 +58,10 @@ signature GTK_CELL_AREA =
       'a class
        -> 'b cell_renderer_class * string
        -> unit
+    val attributeGetColumn :
+      'a class
+       -> 'b cell_renderer_class * string
+       -> LargeInt.int
     val cellGetProperty :
       'a class
        -> 'b cell_renderer_class
@@ -180,7 +184,7 @@ signature GTK_CELL_AREA =
     val addEditableSig :
       (base cell_renderer_class
         * base cell_editable_class
-        * Cairo.RectangleIntRecord.t
+        * Gdk.RectangleRecord.t
         * string
         -> unit)
        -> 'a class Signal.t

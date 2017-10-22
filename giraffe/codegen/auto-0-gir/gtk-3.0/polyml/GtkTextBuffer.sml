@@ -273,6 +273,15 @@ structure GtkTextBuffer :>
              &&> GBool.PolyML.cVal
              --> GBool.PolyML.cVal
           )
+      val insertMarkup_ =
+        call (getSymbol "gtk_text_buffer_insert_markup")
+          (
+            GtkTextBufferClass.PolyML.cPtr
+             &&> GtkTextIterRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GInt.PolyML.cVal
+             --> cVoid
+          )
       val insertPixbuf_ =
         call (getSymbol "gtk_text_buffer_insert_pixbuf")
           (
@@ -932,6 +941,27 @@ structure GtkTextBuffer :>
            & text
            & len
            & defaultEditable
+        )
+    fun insertMarkup
+      self
+      (
+        iter,
+        markup,
+        len
+      ) =
+      (
+        GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextIterRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         ---> I
+      )
+        insertMarkup_
+        (
+          self
+           & iter
+           & markup
+           & len
         )
     fun insertPixbuf self (iter, pixbuf) =
       (

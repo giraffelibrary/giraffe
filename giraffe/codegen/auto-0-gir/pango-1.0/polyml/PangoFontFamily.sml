@@ -39,7 +39,7 @@ structure PangoFontFamily :>
             PangoFontFamilyClass.FFI.withPtr
              &&&> PangoFontFaceClassCVectorN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> PangoFontFaceClassCVectorN.FFI.fromPtr 2
+             ---> PangoFontFaceClassCVectorN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && I
           )

@@ -12,8 +12,8 @@ structure GtkFontChooserDialog :>
           (
             _import "mlton_gtk_font_chooser_dialog_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GtkWindowClass.FFI.notnull GtkWindowClass.FFI.p
+               * unit Utf8.MLton.p2
+               * unit GtkWindowClass.FFI.p
                -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
           )
             (
@@ -30,5 +30,5 @@ structure GtkFontChooserDialog :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asFontChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkFontChooserClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (title, window) = (Utf8.FFI.withPtr &&&> GtkWindowClass.FFI.withPtr ---> GtkFontChooserDialogClass.FFI.fromPtr false) new_ (title & window)
+    fun new (title, parent) = (Utf8.FFI.withOptPtr &&&> GtkWindowClass.FFI.withOptPtr ---> GtkFontChooserDialogClass.FFI.fromPtr false) new_ (title & parent)
   end

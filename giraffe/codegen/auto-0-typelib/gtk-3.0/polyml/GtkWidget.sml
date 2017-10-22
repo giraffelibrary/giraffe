@@ -28,6 +28,12 @@ structure GtkWidget :>
     where type 'a style_class = 'a GtkStyleClass.class
     where type align_t = GtkAlign.t =
   struct
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
     structure GtkTargetEntryRecordCVectorNType =
       CPointerCVectorNType(
         structure CElemType = GtkTargetEntryRecord.C.PointerType
@@ -79,7 +85,7 @@ structure GtkWidget :>
           )
       val computeExpand_ = call (getSymbol "gtk_widget_compute_expand") (GtkWidgetClass.PolyML.cPtr &&> GtkOrientation.PolyML.cVal --> GBool.PolyML.cVal)
       val createPangoContext_ = call (getSymbol "gtk_widget_create_pango_context") (GtkWidgetClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
-      val createPangoLayout_ = call (getSymbol "gtk_widget_create_pango_layout") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> PangoLayoutClass.PolyML.cPtr)
+      val createPangoLayout_ = call (getSymbol "gtk_widget_create_pango_layout") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PangoLayoutClass.PolyML.cPtr)
       val destroy_ = call (getSymbol "gtk_widget_destroy") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val deviceIsShadowed_ = call (getSymbol "gtk_widget_device_is_shadowed") (GtkWidgetClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val dragBegin_ =
@@ -89,7 +95,19 @@ structure GtkWidget :>
              &&> GtkTargetListRecord.PolyML.cPtr
              &&> GdkDragAction.PolyML.cVal
              &&> GInt32.PolyML.cVal
-             &&> GdkEvent.PolyML.cPtr
+             &&> GdkEvent.PolyML.cOptPtr
+             --> GdkDragContextClass.PolyML.cPtr
+          )
+      val dragBeginWithCoordinates_ =
+        call (getSymbol "gtk_drag_begin_with_coordinates")
+          (
+            GtkWidgetClass.PolyML.cPtr
+             &&> GtkTargetListRecord.PolyML.cPtr
+             &&> GdkDragAction.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GdkEvent.PolyML.cOptPtr
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
              --> GdkDragContextClass.PolyML.cPtr
           )
       val dragCheckThreshold_ =
@@ -113,7 +131,7 @@ structure GtkWidget :>
              &&> GtkTargetListRecord.PolyML.cOptPtr
              --> GdkAtomRecord.PolyML.cPtr
           )
-      val dragDestGetTargetList_ = call (getSymbol "gtk_drag_dest_get_target_list") (GtkWidgetClass.PolyML.cPtr --> GtkTargetListRecord.PolyML.cPtr)
+      val dragDestGetTargetList_ = call (getSymbol "gtk_drag_dest_get_target_list") (GtkWidgetClass.PolyML.cPtr --> GtkTargetListRecord.PolyML.cOptPtr)
       val dragDestGetTrackMotion_ = call (getSymbol "gtk_drag_dest_get_track_motion") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val dragDestSet_ =
         call (getSymbol "gtk_drag_dest_set")
@@ -150,7 +168,7 @@ structure GtkWidget :>
       val dragSourceAddImageTargets_ = call (getSymbol "gtk_drag_source_add_image_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val dragSourceAddTextTargets_ = call (getSymbol "gtk_drag_source_add_text_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val dragSourceAddUriTargets_ = call (getSymbol "gtk_drag_source_add_uri_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val dragSourceGetTargetList_ = call (getSymbol "gtk_drag_source_get_target_list") (GtkWidgetClass.PolyML.cPtr --> GtkTargetListRecord.PolyML.cPtr)
+      val dragSourceGetTargetList_ = call (getSymbol "gtk_drag_source_get_target_list") (GtkWidgetClass.PolyML.cPtr --> GtkTargetListRecord.PolyML.cOptPtr)
       val dragSourceSet_ =
         call (getSymbol "gtk_drag_source_set")
           (
@@ -174,14 +192,25 @@ structure GtkWidget :>
       val event_ = call (getSymbol "gtk_widget_event") (GtkWidgetClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> GBool.PolyML.cVal)
       val freezeChildNotify_ = call (getSymbol "gtk_widget_freeze_child_notify") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val getAccessible_ = call (getSymbol "gtk_widget_get_accessible") (GtkWidgetClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
+      val getActionGroup_ = call (getSymbol "gtk_widget_get_action_group") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioActionGroupClass.PolyML.cOptPtr)
+      val getAllocatedBaseline_ = call (getSymbol "gtk_widget_get_allocated_baseline") (GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getAllocatedHeight_ = call (getSymbol "gtk_widget_get_allocated_height") (GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getAllocatedSize_ =
+        call (getSymbol "gtk_widget_get_allocated_size")
+          (
+            GtkWidgetClass.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             &&> GInt32.PolyML.cRef
+             --> cVoid
+          )
       val getAllocatedWidth_ = call (getSymbol "gtk_widget_get_allocated_width") (GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getAllocation_ = call (getSymbol "gtk_widget_get_allocation") (GtkWidgetClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> cVoid)
+      val getAllocation_ = call (getSymbol "gtk_widget_get_allocation") (GtkWidgetClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> cVoid)
       val getAppPaintable_ = call (getSymbol "gtk_widget_get_app_paintable") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getCanDefault_ = call (getSymbol "gtk_widget_get_can_default") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getCanFocus_ = call (getSymbol "gtk_widget_get_can_focus") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getChildRequisition_ = call (getSymbol "gtk_widget_get_child_requisition") (GtkWidgetClass.PolyML.cPtr &&> GtkRequisitionRecord.PolyML.cPtr --> cVoid)
       val getChildVisible_ = call (getSymbol "gtk_widget_get_child_visible") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getClip_ = call (getSymbol "gtk_widget_get_clip") (GtkWidgetClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> cVoid)
       val getClipboard_ = call (getSymbol "gtk_widget_get_clipboard") (GtkWidgetClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> GtkClipboardClass.PolyML.cPtr)
       val getCompositeName_ = call (getSymbol "gtk_widget_get_composite_name") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getDeviceEnabled_ = call (getSymbol "gtk_widget_get_device_enabled") (GtkWidgetClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -190,6 +219,10 @@ structure GtkWidget :>
       val getDisplay_ = call (getSymbol "gtk_widget_get_display") (GtkWidgetClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
       val getDoubleBuffered_ = call (getSymbol "gtk_widget_get_double_buffered") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getEvents_ = call (getSymbol "gtk_widget_get_events") (GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getFocusOnClick_ = call (getSymbol "gtk_widget_get_focus_on_click") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getFontMap_ = call (getSymbol "gtk_widget_get_font_map") (GtkWidgetClass.PolyML.cPtr --> PangoFontMapClass.PolyML.cOptPtr)
+      val getFontOptions_ = call (getSymbol "gtk_widget_get_font_options") (GtkWidgetClass.PolyML.cPtr --> CairoFontOptionsRecord.PolyML.cOptPtr)
+      val getFrameClock_ = call (getSymbol "gtk_widget_get_frame_clock") (GtkWidgetClass.PolyML.cPtr --> GdkFrameClockClass.PolyML.cOptPtr)
       val getHalign_ = call (getSymbol "gtk_widget_get_halign") (GtkWidgetClass.PolyML.cPtr --> GtkAlign.PolyML.cVal)
       val getHasTooltip_ = call (getSymbol "gtk_widget_get_has_tooltip") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getHasWindow_ = call (getSymbol "gtk_widget_get_has_window") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -197,14 +230,18 @@ structure GtkWidget :>
       val getHexpandSet_ = call (getSymbol "gtk_widget_get_hexpand_set") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getMapped_ = call (getSymbol "gtk_widget_get_mapped") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getMarginBottom_ = call (getSymbol "gtk_widget_get_margin_bottom") (GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getMarginEnd_ = call (getSymbol "gtk_widget_get_margin_end") (GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getMarginLeft_ = call (getSymbol "gtk_widget_get_margin_left") (GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getMarginRight_ = call (getSymbol "gtk_widget_get_margin_right") (GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getMarginStart_ = call (getSymbol "gtk_widget_get_margin_start") (GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getMarginTop_ = call (getSymbol "gtk_widget_get_margin_top") (GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getModifierMask_ = call (getSymbol "gtk_widget_get_modifier_mask") (GtkWidgetClass.PolyML.cPtr &&> GdkModifierIntent.PolyML.cVal --> GdkModifierType.PolyML.cVal)
       val getModifierStyle_ = call (getSymbol "gtk_widget_get_modifier_style") (GtkWidgetClass.PolyML.cPtr --> GtkRcStyleClass.PolyML.cPtr)
       val getName_ = call (getSymbol "gtk_widget_get_name") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getNoShowAll_ = call (getSymbol "gtk_widget_get_no_show_all") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getOpacity_ = call (getSymbol "gtk_widget_get_opacity") (GtkWidgetClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val getPangoContext_ = call (getSymbol "gtk_widget_get_pango_context") (GtkWidgetClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
-      val getParent_ = call (getSymbol "gtk_widget_get_parent") (GtkWidgetClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getParent_ = call (getSymbol "gtk_widget_get_parent") (GtkWidgetClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getParentWindow_ = call (getSymbol "gtk_widget_get_parent_window") (GtkWidgetClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getPath_ = call (getSymbol "gtk_widget_get_path") (GtkWidgetClass.PolyML.cPtr --> GtkWidgetPathRecord.PolyML.cPtr)
       val getPointer_ =
@@ -219,6 +256,17 @@ structure GtkWidget :>
         call (getSymbol "gtk_widget_get_preferred_height")
           (
             GtkWidgetClass.PolyML.cPtr
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             --> cVoid
+          )
+      val getPreferredHeightAndBaselineForWidth_ =
+        call (getSymbol "gtk_widget_get_preferred_height_and_baseline_for_width")
+          (
+            GtkWidgetClass.PolyML.cPtr
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
              &&> GInt32.PolyML.cRef
              &&> GInt32.PolyML.cRef
              --> cVoid
@@ -262,6 +310,7 @@ structure GtkWidget :>
       val getRequestMode_ = call (getSymbol "gtk_widget_get_request_mode") (GtkWidgetClass.PolyML.cPtr --> GtkSizeRequestMode.PolyML.cVal)
       val getRequisition_ = call (getSymbol "gtk_widget_get_requisition") (GtkWidgetClass.PolyML.cPtr &&> GtkRequisitionRecord.PolyML.cPtr --> cVoid)
       val getRootWindow_ = call (getSymbol "gtk_widget_get_root_window") (GtkWidgetClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getScaleFactor_ = call (getSymbol "gtk_widget_get_scale_factor") (GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getScreen_ = call (getSymbol "gtk_widget_get_screen") (GtkWidgetClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
       val getSensitive_ = call (getSymbol "gtk_widget_get_sensitive") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSettings_ = call (getSymbol "gtk_widget_get_settings") (GtkWidgetClass.PolyML.cPtr --> GtkSettingsClass.PolyML.cPtr)
@@ -278,16 +327,17 @@ structure GtkWidget :>
       val getStyle_ = call (getSymbol "gtk_widget_get_style") (GtkWidgetClass.PolyML.cPtr --> GtkStyleClass.PolyML.cPtr)
       val getStyleContext_ = call (getSymbol "gtk_widget_get_style_context") (GtkWidgetClass.PolyML.cPtr --> GtkStyleContextClass.PolyML.cPtr)
       val getSupportMultidevice_ = call (getSymbol "gtk_widget_get_support_multidevice") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getTooltipMarkup_ = call (getSymbol "gtk_widget_get_tooltip_markup") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getTooltipText_ = call (getSymbol "gtk_widget_get_tooltip_text") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getTooltipMarkup_ = call (getSymbol "gtk_widget_get_tooltip_markup") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getTooltipText_ = call (getSymbol "gtk_widget_get_tooltip_text") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getTooltipWindow_ = call (getSymbol "gtk_widget_get_tooltip_window") (GtkWidgetClass.PolyML.cPtr --> GtkWindowClass.PolyML.cPtr)
       val getToplevel_ = call (getSymbol "gtk_widget_get_toplevel") (GtkWidgetClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getValign_ = call (getSymbol "gtk_widget_get_valign") (GtkWidgetClass.PolyML.cPtr --> GtkAlign.PolyML.cVal)
+      val getValignWithBaseline_ = call (getSymbol "gtk_widget_get_valign_with_baseline") (GtkWidgetClass.PolyML.cPtr --> GtkAlign.PolyML.cVal)
       val getVexpand_ = call (getSymbol "gtk_widget_get_vexpand") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getVexpandSet_ = call (getSymbol "gtk_widget_get_vexpand_set") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getVisible_ = call (getSymbol "gtk_widget_get_visible") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getVisual_ = call (getSymbol "gtk_widget_get_visual") (GtkWidgetClass.PolyML.cPtr --> GdkVisualClass.PolyML.cPtr)
-      val getWindow_ = call (getSymbol "gtk_widget_get_window") (GtkWidgetClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getWindow_ = call (getSymbol "gtk_widget_get_window") (GtkWidgetClass.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
       val grabAdd_ = call (getSymbol "gtk_grab_add") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val grabDefault_ = call (getSymbol "gtk_widget_grab_default") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val grabFocus_ = call (getSymbol "gtk_widget_grab_focus") (GtkWidgetClass.PolyML.cPtr --> cVoid)
@@ -301,13 +351,22 @@ structure GtkWidget :>
       val hide_ = call (getSymbol "gtk_widget_hide") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val hideOnDelete_ = call (getSymbol "gtk_widget_hide_on_delete") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val inDestruction_ = call (getSymbol "gtk_widget_in_destruction") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val initTemplate_ = call (getSymbol "gtk_widget_init_template") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val inputShapeCombineRegion_ = call (getSymbol "gtk_widget_input_shape_combine_region") (GtkWidgetClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cOptPtr --> cVoid)
+      val insertActionGroup_ =
+        call (getSymbol "gtk_widget_insert_action_group")
+          (
+            GtkWidgetClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GioActionGroupClass.PolyML.cOptPtr
+             --> cVoid
+          )
       val intersect_ =
         call (getSymbol "gtk_widget_intersect")
           (
             GtkWidgetClass.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
       val isAncestor_ = call (getSymbol "gtk_widget_is_ancestor") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -316,7 +375,9 @@ structure GtkWidget :>
       val isFocus_ = call (getSymbol "gtk_widget_is_focus") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val isSensitive_ = call (getSymbol "gtk_widget_is_sensitive") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val isToplevel_ = call (getSymbol "gtk_widget_is_toplevel") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isVisible_ = call (getSymbol "gtk_widget_is_visible") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val keynavFailed_ = call (getSymbol "gtk_widget_keynav_failed") (GtkWidgetClass.PolyML.cPtr &&> GtkDirectionType.PolyML.cVal --> GBool.PolyML.cVal)
+      val listActionPrefixes_ = call (getSymbol "gtk_widget_list_action_prefixes") (GtkWidgetClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val map_ = call (getSymbol "gtk_widget_map") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val mnemonicActivate_ = call (getSymbol "gtk_widget_mnemonic_activate") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> GBool.PolyML.cVal)
       val modifyBase_ =
@@ -339,8 +400,8 @@ structure GtkWidget :>
         call (getSymbol "gtk_widget_modify_cursor")
           (
             GtkWidgetClass.PolyML.cPtr
-             &&> GdkColorRecord.PolyML.cPtr
-             &&> GdkColorRecord.PolyML.cPtr
+             &&> GdkColorRecord.PolyML.cOptPtr
+             &&> GdkColorRecord.PolyML.cOptPtr
              --> cVoid
           )
       val modifyFg_ =
@@ -403,6 +464,7 @@ structure GtkWidget :>
              &&> Utf8.PolyML.cOutRef
              --> cVoid
           )
+      val queueAllocate_ = call (getSymbol "gtk_widget_queue_allocate") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val queueComputeExpand_ = call (getSymbol "gtk_widget_queue_compute_expand") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val queueDraw_ = call (getSymbol "gtk_widget_queue_draw") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val queueDrawArea_ =
@@ -420,6 +482,7 @@ structure GtkWidget :>
       val queueResizeNoRedraw_ = call (getSymbol "gtk_widget_queue_resize_no_redraw") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val realize_ = call (getSymbol "gtk_widget_realize") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val regionIntersect_ = call (getSymbol "gtk_widget_region_intersect") (GtkWidgetClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cPtr --> CairoRegionRecord.PolyML.cPtr)
+      val registerWindow_ = call (getSymbol "gtk_widget_register_window") (GtkWidgetClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
       val removeAccelerator_ =
         call (getSymbol "gtk_widget_remove_accelerator")
           (
@@ -430,6 +493,7 @@ structure GtkWidget :>
              --> GBool.PolyML.cVal
           )
       val removeMnemonicLabel_ = call (getSymbol "gtk_widget_remove_mnemonic_label") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val removeTickCallback_ = call (getSymbol "gtk_widget_remove_tick_callback") (GtkWidgetClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
       val renderIcon_ =
         call (getSymbol "gtk_widget_render_icon")
           (
@@ -437,7 +501,7 @@ structure GtkWidget :>
              &&> Utf8.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
              &&> Utf8.PolyML.cInOptPtr
-             --> GdkPixbufPixbufClass.PolyML.cPtr
+             --> GdkPixbufPixbufClass.PolyML.cOptPtr
           )
       val renderIconPixbuf_ =
         call (getSymbol "gtk_widget_render_icon_pixbuf")
@@ -445,7 +509,7 @@ structure GtkWidget :>
             GtkWidgetClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
-             --> GdkPixbufPixbufClass.PolyML.cPtr
+             --> GdkPixbufPixbufClass.PolyML.cOptPtr
           )
       val reparent_ = call (getSymbol "gtk_widget_reparent") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
       val resetRcStyles_ = call (getSymbol "gtk_widget_reset_rc_styles") (GtkWidgetClass.PolyML.cPtr --> cVoid)
@@ -460,11 +524,12 @@ structure GtkWidget :>
              &&> GtkAccelGroupClass.PolyML.cOptPtr
              --> cVoid
           )
-      val setAllocation_ = call (getSymbol "gtk_widget_set_allocation") (GtkWidgetClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> cVoid)
+      val setAllocation_ = call (getSymbol "gtk_widget_set_allocation") (GtkWidgetClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> cVoid)
       val setAppPaintable_ = call (getSymbol "gtk_widget_set_app_paintable") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setCanDefault_ = call (getSymbol "gtk_widget_set_can_default") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setCanFocus_ = call (getSymbol "gtk_widget_set_can_focus") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setChildVisible_ = call (getSymbol "gtk_widget_set_child_visible") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setClip_ = call (getSymbol "gtk_widget_set_clip") (GtkWidgetClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> cVoid)
       val setCompositeName_ = call (getSymbol "gtk_widget_set_composite_name") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val setDeviceEnabled_ =
         call (getSymbol "gtk_widget_set_device_enabled")
@@ -485,6 +550,9 @@ structure GtkWidget :>
       val setDirection_ = call (getSymbol "gtk_widget_set_direction") (GtkWidgetClass.PolyML.cPtr &&> GtkTextDirection.PolyML.cVal --> cVoid)
       val setDoubleBuffered_ = call (getSymbol "gtk_widget_set_double_buffered") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setEvents_ = call (getSymbol "gtk_widget_set_events") (GtkWidgetClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val setFocusOnClick_ = call (getSymbol "gtk_widget_set_focus_on_click") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setFontMap_ = call (getSymbol "gtk_widget_set_font_map") (GtkWidgetClass.PolyML.cPtr &&> PangoFontMapClass.PolyML.cOptPtr --> cVoid)
+      val setFontOptions_ = call (getSymbol "gtk_widget_set_font_options") (GtkWidgetClass.PolyML.cPtr &&> CairoFontOptionsRecord.PolyML.cOptPtr --> cVoid)
       val setHalign_ = call (getSymbol "gtk_widget_set_halign") (GtkWidgetClass.PolyML.cPtr &&> GtkAlign.PolyML.cVal --> cVoid)
       val setHasTooltip_ = call (getSymbol "gtk_widget_set_has_tooltip") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setHasWindow_ = call (getSymbol "gtk_widget_set_has_window") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
@@ -492,11 +560,14 @@ structure GtkWidget :>
       val setHexpandSet_ = call (getSymbol "gtk_widget_set_hexpand_set") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setMapped_ = call (getSymbol "gtk_widget_set_mapped") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setMarginBottom_ = call (getSymbol "gtk_widget_set_margin_bottom") (GtkWidgetClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val setMarginEnd_ = call (getSymbol "gtk_widget_set_margin_end") (GtkWidgetClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
       val setMarginLeft_ = call (getSymbol "gtk_widget_set_margin_left") (GtkWidgetClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
       val setMarginRight_ = call (getSymbol "gtk_widget_set_margin_right") (GtkWidgetClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val setMarginStart_ = call (getSymbol "gtk_widget_set_margin_start") (GtkWidgetClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
       val setMarginTop_ = call (getSymbol "gtk_widget_set_margin_top") (GtkWidgetClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
       val setName_ = call (getSymbol "gtk_widget_set_name") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val setNoShowAll_ = call (getSymbol "gtk_widget_set_no_show_all") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setOpacity_ = call (getSymbol "gtk_widget_set_opacity") (GtkWidgetClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
       val setParent_ = call (getSymbol "gtk_widget_set_parent") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
       val setParentWindow_ = call (getSymbol "gtk_widget_set_parent_window") (GtkWidgetClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
       val setRealized_ = call (getSymbol "gtk_widget_set_realized") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
@@ -523,18 +594,26 @@ structure GtkWidget :>
       val setStyle_ = call (getSymbol "gtk_widget_set_style") (GtkWidgetClass.PolyML.cPtr &&> GtkStyleClass.PolyML.cOptPtr --> cVoid)
       val setSupportMultidevice_ = call (getSymbol "gtk_widget_set_support_multidevice") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setTooltipMarkup_ = call (getSymbol "gtk_widget_set_tooltip_markup") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
-      val setTooltipText_ = call (getSymbol "gtk_widget_set_tooltip_text") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setTooltipText_ = call (getSymbol "gtk_widget_set_tooltip_text") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
       val setTooltipWindow_ = call (getSymbol "gtk_widget_set_tooltip_window") (GtkWidgetClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cOptPtr --> cVoid)
       val setValign_ = call (getSymbol "gtk_widget_set_valign") (GtkWidgetClass.PolyML.cPtr &&> GtkAlign.PolyML.cVal --> cVoid)
       val setVexpand_ = call (getSymbol "gtk_widget_set_vexpand") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setVexpandSet_ = call (getSymbol "gtk_widget_set_vexpand_set") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setVisible_ = call (getSymbol "gtk_widget_set_visible") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setVisual_ = call (getSymbol "gtk_widget_set_visual") (GtkWidgetClass.PolyML.cPtr &&> GdkVisualClass.PolyML.cPtr --> cVoid)
+      val setVisual_ = call (getSymbol "gtk_widget_set_visual") (GtkWidgetClass.PolyML.cPtr &&> GdkVisualClass.PolyML.cOptPtr --> cVoid)
       val shapeCombineRegion_ = call (getSymbol "gtk_widget_shape_combine_region") (GtkWidgetClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cOptPtr --> cVoid)
       val show_ = call (getSymbol "gtk_widget_show") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val showAll_ = call (getSymbol "gtk_widget_show_all") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val showNow_ = call (getSymbol "gtk_widget_show_now") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val sizeAllocate_ = call (getSymbol "gtk_widget_size_allocate") (GtkWidgetClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> cVoid)
+      val sizeAllocate_ = call (getSymbol "gtk_widget_size_allocate") (GtkWidgetClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> cVoid)
+      val sizeAllocateWithBaseline_ =
+        call (getSymbol "gtk_widget_size_allocate_with_baseline")
+          (
+            GtkWidgetClass.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             &&> GInt32.PolyML.cVal
+             --> cVoid
+          )
       val sizeRequest_ = call (getSymbol "gtk_widget_size_request") (GtkWidgetClass.PolyML.cPtr &&> GtkRequisitionRecord.PolyML.cPtr --> cVoid)
       val styleAttach_ = call (getSymbol "gtk_widget_style_attach") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val styleGetProperty_ =
@@ -561,6 +640,7 @@ structure GtkWidget :>
       val unmap_ = call (getSymbol "gtk_widget_unmap") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val unparent_ = call (getSymbol "gtk_widget_unparent") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val unrealize_ = call (getSymbol "gtk_widget_unrealize") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val unregisterWindow_ = call (getSymbol "gtk_widget_unregister_window") (GtkWidgetClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
       val unsetStateFlags_ = call (getSymbol "gtk_widget_unset_state_flags") (GtkWidgetClass.PolyML.cPtr &&> GtkStateFlags.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkWidgetClass.class
@@ -677,7 +757,7 @@ structure GtkWidget :>
       end
     fun computeExpand self orientation = (GtkWidgetClass.FFI.withPtr &&&> GtkOrientation.FFI.withVal ---> GBool.FFI.fromVal) computeExpand_ (self & orientation)
     fun createPangoContext self = (GtkWidgetClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr true) createPangoContext_ self
-    fun createPangoLayout self text = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr true) createPangoLayout_ (self & text)
+    fun createPangoLayout self text = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> PangoLayoutClass.FFI.fromPtr true) createPangoLayout_ (self & text)
     fun destroy self = (GtkWidgetClass.FFI.withPtr ---> I) destroy_ self
     fun deviceIsShadowed self device = (GtkWidgetClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> GBool.FFI.fromVal) deviceIsShadowed_ (self & device)
     fun dragBegin
@@ -693,7 +773,7 @@ structure GtkWidget :>
          &&&> GtkTargetListRecord.FFI.withPtr
          &&&> GdkDragAction.FFI.withVal
          &&&> GInt32.FFI.withVal
-         &&&> GdkEvent.FFI.withPtr
+         &&&> GdkEvent.FFI.withOptPtr
          ---> GdkDragContextClass.FFI.fromPtr false
       )
         dragBegin_
@@ -703,6 +783,36 @@ structure GtkWidget :>
            & actions
            & button
            & event
+        )
+    fun dragBeginWithCoordinates
+      self
+      (
+        targets,
+        actions,
+        button,
+        event,
+        x,
+        y
+      ) =
+      (
+        GtkWidgetClass.FFI.withPtr
+         &&&> GtkTargetListRecord.FFI.withPtr
+         &&&> GdkDragAction.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         &&&> GdkEvent.FFI.withOptPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         ---> GdkDragContextClass.FFI.fromPtr false
+      )
+        dragBeginWithCoordinates_
+        (
+          self
+           & targets
+           & actions
+           & button
+           & event
+           & x
+           & y
         )
     fun dragCheckThreshold
       self
@@ -744,7 +854,7 @@ structure GtkWidget :>
            & context
            & targetList
         )
-    fun dragDestGetTargetList self = (GtkWidgetClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) dragDestGetTargetList_ self
+    fun dragDestGetTargetList self = (GtkWidgetClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromOptPtr false) dragDestGetTargetList_ self
     fun dragDestGetTrackMotion self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) dragDestGetTrackMotion_ self
     fun dragDestSet
       self
@@ -827,7 +937,7 @@ structure GtkWidget :>
     fun dragSourceAddImageTargets self = (GtkWidgetClass.FFI.withPtr ---> I) dragSourceAddImageTargets_ self
     fun dragSourceAddTextTargets self = (GtkWidgetClass.FFI.withPtr ---> I) dragSourceAddTextTargets_ self
     fun dragSourceAddUriTargets self = (GtkWidgetClass.FFI.withPtr ---> I) dragSourceAddUriTargets_ self
-    fun dragSourceGetTargetList self = (GtkWidgetClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) dragSourceGetTargetList_ self
+    fun dragSourceGetTargetList self = (GtkWidgetClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromOptPtr false) dragSourceGetTargetList_ self
     fun dragSourceSet
       self
       (
@@ -873,11 +983,35 @@ structure GtkWidget :>
     fun event self event = (GtkWidgetClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> GBool.FFI.fromVal) event_ (self & event)
     fun freezeChildNotify self = (GtkWidgetClass.FFI.withPtr ---> I) freezeChildNotify_ self
     fun getAccessible self = (GtkWidgetClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr false) getAccessible_ self
+    fun getActionGroup self prefix = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioActionGroupClass.FFI.fromOptPtr false) getActionGroup_ (self & prefix)
+    fun getAllocatedBaseline self = (GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getAllocatedBaseline_ self
     fun getAllocatedHeight self = (GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getAllocatedHeight_ self
+    fun getAllocatedSize self =
+      let
+        val allocation
+         & baseline
+         & () =
+          (
+            GtkWidgetClass.FFI.withPtr
+             &&&> GdkRectangleRecord.FFI.withNewPtr
+             &&&> GInt32.FFI.withRefVal
+             ---> GdkRectangleRecord.FFI.fromPtr true
+                   && GInt32.FFI.fromVal
+                   && I
+          )
+            getAllocatedSize_
+            (
+              self
+               & ()
+               & GInt32.null
+            )
+      in
+        (allocation, baseline)
+      end
     fun getAllocatedWidth self = (GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getAllocatedWidth_ self
     fun getAllocation self =
       let
-        val allocation & () = (GtkWidgetClass.FFI.withPtr &&&> CairoRectangleIntRecord.FFI.withNewPtr ---> CairoRectangleIntRecord.FFI.fromPtr true && I) getAllocation_ (self & ())
+        val allocation & () = (GtkWidgetClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getAllocation_ (self & ())
       in
         allocation
       end
@@ -891,6 +1025,12 @@ structure GtkWidget :>
         requisition
       end
     fun getChildVisible self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getChildVisible_ self
+    fun getClip self =
+      let
+        val clip & () = (GtkWidgetClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getClip_ (self & ())
+      in
+        clip
+      end
     fun getClipboard self selection = (GtkWidgetClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GtkClipboardClass.FFI.fromPtr false) getClipboard_ (self & selection)
     fun getCompositeName self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getCompositeName_ self
     fun getDeviceEnabled self device = (GtkWidgetClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> GBool.FFI.fromVal) getDeviceEnabled_ (self & device)
@@ -899,6 +1039,10 @@ structure GtkWidget :>
     fun getDisplay self = (GtkWidgetClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
     fun getDoubleBuffered self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getDoubleBuffered_ self
     fun getEvents self = (GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getEvents_ self
+    fun getFocusOnClick self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getFocusOnClick_ self
+    fun getFontMap self = (GtkWidgetClass.FFI.withPtr ---> PangoFontMapClass.FFI.fromOptPtr false) getFontMap_ self
+    fun getFontOptions self = (GtkWidgetClass.FFI.withPtr ---> CairoFontOptionsRecord.FFI.fromOptPtr false) getFontOptions_ self
+    fun getFrameClock self = (GtkWidgetClass.FFI.withPtr ---> GdkFrameClockClass.FFI.fromOptPtr false) getFrameClock_ self
     fun getHalign self = (GtkWidgetClass.FFI.withPtr ---> GtkAlign.FFI.fromVal) getHalign_ self
     fun getHasTooltip self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasTooltip_ self
     fun getHasWindow self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasWindow_ self
@@ -906,14 +1050,18 @@ structure GtkWidget :>
     fun getHexpandSet self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getHexpandSet_ self
     fun getMapped self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getMapped_ self
     fun getMarginBottom self = (GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMarginBottom_ self
+    fun getMarginEnd self = (GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMarginEnd_ self
     fun getMarginLeft self = (GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMarginLeft_ self
     fun getMarginRight self = (GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMarginRight_ self
+    fun getMarginStart self = (GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMarginStart_ self
     fun getMarginTop self = (GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMarginTop_ self
+    fun getModifierMask self intent = (GtkWidgetClass.FFI.withPtr &&&> GdkModifierIntent.FFI.withVal ---> GdkModifierType.FFI.fromVal) getModifierMask_ (self & intent)
     fun getModifierStyle self = (GtkWidgetClass.FFI.withPtr ---> GtkRcStyleClass.FFI.fromPtr false) getModifierStyle_ self
     fun getName self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
     fun getNoShowAll self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getNoShowAll_ self
+    fun getOpacity self = (GtkWidgetClass.FFI.withPtr ---> GDouble.FFI.fromVal) getOpacity_ self
     fun getPangoContext self = (GtkWidgetClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr false) getPangoContext_ self
-    fun getParent self = (GtkWidgetClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getParent_ self
+    fun getParent self = (GtkWidgetClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getParent_ self
     fun getParentWindow self = (GtkWidgetClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getParentWindow_ self
     fun getPath self = (GtkWidgetClass.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self
     fun getPointer self =
@@ -959,6 +1107,43 @@ structure GtkWidget :>
             )
       in
         (minimumHeight, naturalHeight)
+      end
+    fun getPreferredHeightAndBaselineForWidth self width =
+      let
+        val minimumHeight
+         & naturalHeight
+         & minimumBaseline
+         & naturalBaseline
+         & () =
+          (
+            GtkWidgetClass.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && I
+          )
+            getPreferredHeightAndBaselineForWidth_
+            (
+              self
+               & width
+               & GInt32.null
+               & GInt32.null
+               & GInt32.null
+               & GInt32.null
+            )
+      in
+        (
+          minimumHeight,
+          naturalHeight,
+          minimumBaseline,
+          naturalBaseline
+        )
       end
     fun getPreferredHeightForWidth self width =
       let
@@ -1062,6 +1247,7 @@ structure GtkWidget :>
         requisition
       end
     fun getRootWindow self = (GtkWidgetClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getRootWindow_ self
+    fun getScaleFactor self = (GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getScaleFactor_ self
     fun getScreen self = (GtkWidgetClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
     fun getSensitive self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getSensitive_ self
     fun getSettings self = (GtkWidgetClass.FFI.withPtr ---> GtkSettingsClass.FFI.fromPtr false) getSettings_ self
@@ -1092,16 +1278,17 @@ structure GtkWidget :>
     fun getStyle self = (GtkWidgetClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr false) getStyle_ self
     fun getStyleContext self = (GtkWidgetClass.FFI.withPtr ---> GtkStyleContextClass.FFI.fromPtr false) getStyleContext_ self
     fun getSupportMultidevice self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getSupportMultidevice_ self
-    fun getTooltipMarkup self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getTooltipMarkup_ self
-    fun getTooltipText self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getTooltipText_ self
+    fun getTooltipMarkup self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getTooltipMarkup_ self
+    fun getTooltipText self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getTooltipText_ self
     fun getTooltipWindow self = (GtkWidgetClass.FFI.withPtr ---> GtkWindowClass.FFI.fromPtr false) getTooltipWindow_ self
     fun getToplevel self = (GtkWidgetClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getToplevel_ self
     fun getValign self = (GtkWidgetClass.FFI.withPtr ---> GtkAlign.FFI.fromVal) getValign_ self
+    fun getValignWithBaseline self = (GtkWidgetClass.FFI.withPtr ---> GtkAlign.FFI.fromVal) getValignWithBaseline_ self
     fun getVexpand self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getVexpand_ self
     fun getVexpandSet self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getVexpandSet_ self
     fun getVisible self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
     fun getVisual self = (GtkWidgetClass.FFI.withPtr ---> GdkVisualClass.FFI.fromPtr false) getVisual_ self
-    fun getWindow self = (GtkWidgetClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getWindow_ self
+    fun getWindow self = (GtkWidgetClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self
     fun grabAdd self = (GtkWidgetClass.FFI.withPtr ---> I) grabAdd_ self
     fun grabDefault self = (GtkWidgetClass.FFI.withPtr ---> I) grabDefault_ self
     fun grabFocus self = (GtkWidgetClass.FFI.withPtr ---> I) grabFocus_ self
@@ -1115,27 +1302,48 @@ structure GtkWidget :>
     fun hide self = (GtkWidgetClass.FFI.withPtr ---> I) hide_ self
     fun hideOnDelete self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) hideOnDelete_ self
     fun inDestruction self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) inDestruction_ self
+    fun initTemplate self = (GtkWidgetClass.FFI.withPtr ---> I) initTemplate_ self
     fun inputShapeCombineRegion self region = (GtkWidgetClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withOptPtr ---> I) inputShapeCombineRegion_ (self & region)
-    fun intersect self (area, intersection) =
+    fun insertActionGroup self (name, group) =
       (
         GtkWidgetClass.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
-         ---> GBool.FFI.fromVal
+         &&&> Utf8.FFI.withPtr
+         &&&> GioActionGroupClass.FFI.withOptPtr
+         ---> I
       )
-        intersect_
+        insertActionGroup_
         (
           self
-           & area
-           & intersection
+           & name
+           & group
         )
+    fun intersect self area =
+      let
+        val intersection & retVal =
+          (
+            GtkWidgetClass.FFI.withPtr
+             &&&> GdkRectangleRecord.FFI.withPtr
+             &&&> GdkRectangleRecord.FFI.withNewPtr
+             ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal
+          )
+            intersect_
+            (
+              self
+               & area
+               & ()
+            )
+      in
+        if retVal then SOME intersection else NONE
+      end
     fun isAncestor self ancestor = (GtkWidgetClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isAncestor_ (self & ancestor)
     fun isComposited self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isComposited_ self
     fun isDrawable self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isDrawable_ self
     fun isFocus self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isFocus_ self
     fun isSensitive self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isSensitive_ self
     fun isToplevel self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isToplevel_ self
+    fun isVisible self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isVisible_ self
     fun keynavFailed self direction = (GtkWidgetClass.FFI.withPtr &&&> GtkDirectionType.FFI.withVal ---> GBool.FFI.fromVal) keynavFailed_ (self & direction)
+    fun listActionPrefixes self = (GtkWidgetClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 1) listActionPrefixes_ self
     fun map self = (GtkWidgetClass.FFI.withPtr ---> I) map_ self
     fun mnemonicActivate self groupCycling = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) mnemonicActivate_ (self & groupCycling)
     fun modifyBase self (state, color) =
@@ -1167,8 +1375,8 @@ structure GtkWidget :>
     fun modifyCursor self (primary, secondary) =
       (
         GtkWidgetClass.FFI.withPtr
-         &&&> GdkColorRecord.FFI.withPtr
-         &&&> GdkColorRecord.FFI.withPtr
+         &&&> GdkColorRecord.FFI.withOptPtr
+         &&&> GdkColorRecord.FFI.withOptPtr
          ---> I
       )
         modifyCursor_
@@ -1288,6 +1496,7 @@ structure GtkWidget :>
           pathReversed
         )
       end
+    fun queueAllocate self = (GtkWidgetClass.FFI.withPtr ---> I) queueAllocate_ self
     fun queueComputeExpand self = (GtkWidgetClass.FFI.withPtr ---> I) queueComputeExpand_ self
     fun queueDraw self = (GtkWidgetClass.FFI.withPtr ---> I) queueDraw_ self
     fun queueDrawArea
@@ -1319,6 +1528,7 @@ structure GtkWidget :>
     fun queueResizeNoRedraw self = (GtkWidgetClass.FFI.withPtr ---> I) queueResizeNoRedraw_ self
     fun realize self = (GtkWidgetClass.FFI.withPtr ---> I) realize_ self
     fun regionIntersect self region = (GtkWidgetClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withPtr ---> CairoRegionRecord.FFI.fromPtr true) regionIntersect_ (self & region)
+    fun registerWindow self window = (GtkWidgetClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> I) registerWindow_ (self & window)
     fun removeAccelerator
       self
       (
@@ -1341,6 +1551,7 @@ structure GtkWidget :>
            & accelMods
         )
     fun removeMnemonicLabel self label = (GtkWidgetClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) removeMnemonicLabel_ (self & label)
+    fun removeTickCallback self id = (GtkWidgetClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) removeTickCallback_ (self & id)
     fun renderIcon
       self
       (
@@ -1353,7 +1564,7 @@ structure GtkWidget :>
          &&&> Utf8.FFI.withPtr
          &&&> GInt32.FFI.withVal
          &&&> Utf8.FFI.withOptPtr
-         ---> GdkPixbufPixbufClass.FFI.fromPtr true
+         ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
       )
         renderIcon_
         (
@@ -1367,7 +1578,7 @@ structure GtkWidget :>
         GtkWidgetClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GInt32.FFI.withVal
-         ---> GdkPixbufPixbufClass.FFI.fromPtr true
+         ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
       )
         renderIconPixbuf_
         (
@@ -1393,11 +1604,12 @@ structure GtkWidget :>
            & accelPath
            & accelGroup
         )
-    fun setAllocation self allocation = (GtkWidgetClass.FFI.withPtr &&&> CairoRectangleIntRecord.FFI.withPtr ---> I) setAllocation_ (self & allocation)
+    fun setAllocation self allocation = (GtkWidgetClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) setAllocation_ (self & allocation)
     fun setAppPaintable self appPaintable = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAppPaintable_ (self & appPaintable)
     fun setCanDefault self canDefault = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCanDefault_ (self & canDefault)
     fun setCanFocus self canFocus = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCanFocus_ (self & canFocus)
     fun setChildVisible self isVisible = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setChildVisible_ (self & isVisible)
+    fun setClip self clip = (GtkWidgetClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) setClip_ (self & clip)
     fun setCompositeName self name = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setCompositeName_ (self & name)
     fun setDeviceEnabled self (device, enabled) =
       (
@@ -1428,6 +1640,9 @@ structure GtkWidget :>
     fun setDirection self dir = (GtkWidgetClass.FFI.withPtr &&&> GtkTextDirection.FFI.withVal ---> I) setDirection_ (self & dir)
     fun setDoubleBuffered self doubleBuffered = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDoubleBuffered_ (self & doubleBuffered)
     fun setEvents self events = (GtkWidgetClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setEvents_ (self & events)
+    fun setFocusOnClick self focusOnClick = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setFocusOnClick_ (self & focusOnClick)
+    fun setFontMap self fontMap = (GtkWidgetClass.FFI.withPtr &&&> PangoFontMapClass.FFI.withOptPtr ---> I) setFontMap_ (self & fontMap)
+    fun setFontOptions self options = (GtkWidgetClass.FFI.withPtr &&&> CairoFontOptionsRecord.FFI.withOptPtr ---> I) setFontOptions_ (self & options)
     fun setHalign self align = (GtkWidgetClass.FFI.withPtr &&&> GtkAlign.FFI.withVal ---> I) setHalign_ (self & align)
     fun setHasTooltip self hasTooltip = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasTooltip_ (self & hasTooltip)
     fun setHasWindow self hasWindow = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasWindow_ (self & hasWindow)
@@ -1435,11 +1650,14 @@ structure GtkWidget :>
     fun setHexpandSet self set = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHexpandSet_ (self & set)
     fun setMapped self mapped = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setMapped_ (self & mapped)
     fun setMarginBottom self margin = (GtkWidgetClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setMarginBottom_ (self & margin)
+    fun setMarginEnd self margin = (GtkWidgetClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setMarginEnd_ (self & margin)
     fun setMarginLeft self margin = (GtkWidgetClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setMarginLeft_ (self & margin)
     fun setMarginRight self margin = (GtkWidgetClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setMarginRight_ (self & margin)
+    fun setMarginStart self margin = (GtkWidgetClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setMarginStart_ (self & margin)
     fun setMarginTop self margin = (GtkWidgetClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setMarginTop_ (self & margin)
     fun setName self name = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setName_ (self & name)
     fun setNoShowAll self noShowAll = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setNoShowAll_ (self & noShowAll)
+    fun setOpacity self opacity = (GtkWidgetClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setOpacity_ (self & opacity)
     fun setParent self parent = (GtkWidgetClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) setParent_ (self & parent)
     fun setParentWindow self parentWindow = (GtkWidgetClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> I) setParentWindow_ (self & parentWindow)
     fun setRealized self realized = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRealized_ (self & realized)
@@ -1476,18 +1694,31 @@ structure GtkWidget :>
     fun setStyle self style = (GtkWidgetClass.FFI.withPtr &&&> GtkStyleClass.FFI.withOptPtr ---> I) setStyle_ (self & style)
     fun setSupportMultidevice self supportMultidevice = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSupportMultidevice_ (self & supportMultidevice)
     fun setTooltipMarkup self markup = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTooltipMarkup_ (self & markup)
-    fun setTooltipText self text = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTooltipText_ (self & text)
+    fun setTooltipText self text = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTooltipText_ (self & text)
     fun setTooltipWindow self customWindow = (GtkWidgetClass.FFI.withPtr &&&> GtkWindowClass.FFI.withOptPtr ---> I) setTooltipWindow_ (self & customWindow)
     fun setValign self align = (GtkWidgetClass.FFI.withPtr &&&> GtkAlign.FFI.withVal ---> I) setValign_ (self & align)
     fun setVexpand self expand = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVexpand_ (self & expand)
     fun setVexpandSet self set = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVexpandSet_ (self & set)
     fun setVisible self visible = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
-    fun setVisual self visual = (GtkWidgetClass.FFI.withPtr &&&> GdkVisualClass.FFI.withPtr ---> I) setVisual_ (self & visual)
+    fun setVisual self visual = (GtkWidgetClass.FFI.withPtr &&&> GdkVisualClass.FFI.withOptPtr ---> I) setVisual_ (self & visual)
     fun shapeCombineRegion self region = (GtkWidgetClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withOptPtr ---> I) shapeCombineRegion_ (self & region)
     fun show self = (GtkWidgetClass.FFI.withPtr ---> I) show_ self
     fun showAll self = (GtkWidgetClass.FFI.withPtr ---> I) showAll_ self
     fun showNow self = (GtkWidgetClass.FFI.withPtr ---> I) showNow_ self
-    fun sizeAllocate self allocation = (GtkWidgetClass.FFI.withPtr &&&> CairoRectangleIntRecord.FFI.withPtr ---> I) sizeAllocate_ (self & allocation)
+    fun sizeAllocate self allocation = (GtkWidgetClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) sizeAllocate_ (self & allocation)
+    fun sizeAllocateWithBaseline self (allocation, baseline) =
+      (
+        GtkWidgetClass.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         ---> I
+      )
+        sizeAllocateWithBaseline_
+        (
+          self
+           & allocation
+           & baseline
+        )
     fun sizeRequest self =
       let
         val requisition & () = (GtkWidgetClass.FFI.withPtr &&&> GtkRequisitionRecord.FFI.withNewPtr ---> GtkRequisitionRecord.FFI.fromPtr true && I) sizeRequest_ (self & ())
@@ -1547,6 +1778,7 @@ structure GtkWidget :>
     fun unmap self = (GtkWidgetClass.FFI.withPtr ---> I) unmap_ self
     fun unparent self = (GtkWidgetClass.FFI.withPtr ---> I) unparent_ self
     fun unrealize self = (GtkWidgetClass.FFI.withPtr ---> I) unrealize_ self
+    fun unregisterWindow self window = (GtkWidgetClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> I) unregisterWindow_ (self & window)
     fun unsetStateFlags self flags = (GtkWidgetClass.FFI.withPtr &&&> GtkStateFlags.FFI.withVal ---> I) unsetStateFlags_ (self & flags)
     local
       open ClosureMarshal Signal
@@ -1576,13 +1808,13 @@ structure GtkWidget :>
           )
           (
             fn
-              dragContext
+              context
                & data
                & info
                & time =>
                 f
                   (
-                    dragContext,
+                    context,
                     data,
                     info,
                     time
@@ -1601,7 +1833,7 @@ structure GtkWidget :>
           )
           (
             fn
-              dragContext
+              context
                & x
                & y
                & data
@@ -1609,7 +1841,7 @@ structure GtkWidget :>
                & time =>
                 f
                   (
-                    dragContext,
+                    context,
                     x,
                     y,
                     data,
@@ -1628,21 +1860,21 @@ structure GtkWidget :>
           )
           (
             fn
-              dragContext
+              context
                & x
                & y
                & time =>
                 f
                   (
-                    dragContext,
+                    context,
                     x,
                     y,
                     time
                   )
           )
       fun dragEndSig f = signal "drag-end" (get 0w1 GdkDragContextClass.t ---> ret_void) f
-      fun dragFailedSig f = signal "drag-failed" (get 0w1 GdkDragContextClass.t &&&> get 0w2 GtkDragResult.t ---> ret boolean) (fn dragContext & result => f (dragContext, result))
-      fun dragLeaveSig f = signal "drag-leave" (get 0w1 GdkDragContextClass.t &&&> get 0w2 uint ---> ret_void) (fn dragContext & time => f (dragContext, time))
+      fun dragFailedSig f = signal "drag-failed" (get 0w1 GdkDragContextClass.t &&&> get 0w2 GtkDragResult.t ---> ret boolean) (fn context & result => f (context, result))
+      fun dragLeaveSig f = signal "drag-leave" (get 0w1 GdkDragContextClass.t &&&> get 0w2 uint ---> ret_void) (fn context & time => f (context, time))
       fun dragMotionSig f =
         signal "drag-motion"
           (
@@ -1654,13 +1886,13 @@ structure GtkWidget :>
           )
           (
             fn
-              dragContext
+              context
                & x
                & y
                & time =>
                 f
                   (
-                    dragContext,
+                    context,
                     x,
                     y,
                     time
@@ -1729,26 +1961,27 @@ structure GtkWidget :>
           )
           (
             fn
-              object
-               & p0
-               & p1 =>
+              data
+               & info
+               & time =>
                 f
                   (
-                    object,
-                    p0,
-                    p1
+                    data,
+                    info,
+                    time
                   )
           )
       fun selectionNotifyEventSig f = signal "selection-notify-event" (get 0w1 GdkEventSelectionRecord.t ---> ret boolean) f
-      fun selectionReceivedSig f = signal "selection-received" (get 0w1 GtkSelectionDataRecord.t &&&> get 0w2 uint ---> ret_void) (fn object & p0 => f (object, p0))
+      fun selectionReceivedSig f = signal "selection-received" (get 0w1 GtkSelectionDataRecord.t &&&> get 0w2 uint ---> ret_void) (fn data & time => f (data, time))
       fun selectionRequestEventSig f = signal "selection-request-event" (get 0w1 GdkEventSelectionRecord.t ---> ret boolean) f
       fun showSig f = signal "show" (void ---> ret_void) f
       fun showHelpSig f = signal "show-help" (get 0w1 GtkWidgetHelpType.t ---> ret boolean) f
-      fun sizeAllocateSig f = signal "size-allocate" (get 0w1 CairoRectangleIntRecord.t ---> ret_void) f
+      fun sizeAllocateSig f = signal "size-allocate" (get 0w1 GdkRectangleRecord.t ---> ret_void) f
       fun stateChangedSig f = signal "state-changed" (get 0w1 GtkStateType.t ---> ret_void) f
       fun stateFlagsChangedSig f = signal "state-flags-changed" (get 0w1 GtkStateFlags.t ---> ret_void) f
       fun styleSetSig f = signal "style-set" (get 0w1 GtkStyleClass.tOpt ---> ret_void) f
       fun styleUpdatedSig f = signal "style-updated" (void ---> ret_void) f
+      fun touchEventSig f = signal "touch-event" (get 0w1 GdkEvent.t ---> ret boolean) f
       fun unmapSig f = signal "unmap" (void ---> ret_void) f
       fun unmapEventSig f = signal "unmap-event" (get 0w1 GdkEventAnyRecord.t ---> ret boolean) f
       fun unrealizeSig f = signal "unrealize" (void ---> ret_void) f
@@ -1788,6 +2021,11 @@ structure GtkWidget :>
         {
           get = fn x => get "expand" boolean x,
           set = fn x => set "expand" boolean x
+        }
+      val focusOnClickProp =
+        {
+          get = fn x => get "focus-on-click" boolean x,
+          set = fn x => set "focus-on-click" boolean x
         }
       val halignProp =
         {
@@ -1839,6 +2077,11 @@ structure GtkWidget :>
           get = fn x => get "margin-bottom" int x,
           set = fn x => set "margin-bottom" int x
         }
+      val marginEndProp =
+        {
+          get = fn x => get "margin-end" int x,
+          set = fn x => set "margin-end" int x
+        }
       val marginLeftProp =
         {
           get = fn x => get "margin-left" int x,
@@ -1848,6 +2091,11 @@ structure GtkWidget :>
         {
           get = fn x => get "margin-right" int x,
           set = fn x => set "margin-right" int x
+        }
+      val marginStartProp =
+        {
+          get = fn x => get "margin-start" int x,
+          set = fn x => set "margin-start" int x
         }
       val marginTopProp =
         {
@@ -1864,6 +2112,11 @@ structure GtkWidget :>
           get = fn x => get "no-show-all" boolean x,
           set = fn x => set "no-show-all" boolean x
         }
+      val opacityProp =
+        {
+          get = fn x => get "opacity" double x,
+          set = fn x => set "opacity" double x
+        }
       val parentProp =
         {
           get = fn x => get "parent" GtkContainerClass.tOpt x,
@@ -1874,6 +2127,7 @@ structure GtkWidget :>
           get = fn x => get "receives-default" boolean x,
           set = fn x => set "receives-default" boolean x
         }
+      val scaleFactorProp = {get = fn x => get "scale-factor" int x}
       val sensitiveProp =
         {
           get = fn x => get "sensitive" boolean x,

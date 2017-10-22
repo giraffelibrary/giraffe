@@ -10,15 +10,18 @@ signature GTK =
     structure AccessibleClass : GTK_ACCESSIBLE_CLASS
     structure ActionClass : GTK_ACTION_CLASS
     structure ActionGroupClass : GTK_ACTION_GROUP_CLASS
+    structure ActionableClass : GTK_ACTIONABLE_CLASS
     structure ActivatableClass : GTK_ACTIVATABLE_CLASS
     structure AdjustmentClass : GTK_ADJUSTMENT_CLASS
     structure Align : GTK_ALIGN
     structure AppChooserClass : GTK_APP_CHOOSER_CLASS
     structure ApplicationClass : GTK_APPLICATION_CLASS
+    structure ApplicationInhibitFlags : GTK_APPLICATION_INHIBIT_FLAGS
     structure ArrowPlacement : GTK_ARROW_PLACEMENT
     structure ArrowType : GTK_ARROW_TYPE
     structure AssistantPageType : GTK_ASSISTANT_PAGE_TYPE
     structure AttachOptions : GTK_ATTACH_OPTIONS
+    structure BaselinePosition : GTK_BASELINE_POSITION
     structure BorderRecord : GTK_BORDER_RECORD
     structure BorderStyle : GTK_BORDER_STYLE
     structure BuildableClass : GTK_BUILDABLE_CLASS
@@ -26,8 +29,10 @@ signature GTK =
     structure BuilderError : GTK_BUILDER_ERROR
     exception BuilderError of BuilderError.t
     structure ButtonBoxStyle : GTK_BUTTON_BOX_STYLE
+    structure ButtonRole : GTK_BUTTON_ROLE
     structure ButtonsType : GTK_BUTTONS_TYPE
     structure CalendarDisplayOptions : GTK_CALENDAR_DISPLAY_OPTIONS
+    structure CellAccessibleParentClass : GTK_CELL_ACCESSIBLE_PARENT_CLASS
     structure CellAreaClass : GTK_CELL_AREA_CLASS
     structure CellAreaContextClass : GTK_CELL_AREA_CONTEXT_CLASS
     structure CellEditableClass : GTK_CELL_EDITABLE_CLASS
@@ -37,10 +42,12 @@ signature GTK =
     structure CellRendererMode : GTK_CELL_RENDERER_MODE
     structure CellRendererState : GTK_CELL_RENDERER_STATE
     structure ClipboardClass : GTK_CLIPBOARD_CLASS
+    structure ColorChooserClass : GTK_COLOR_CHOOSER_CLASS
     structure CornerType : GTK_CORNER_TYPE
     structure CssProviderClass : GTK_CSS_PROVIDER_CLASS
     structure CssProviderError : GTK_CSS_PROVIDER_ERROR
     exception CssProviderError of CssProviderError.t
+    structure CssSectionRecord : GTK_CSS_SECTION_RECORD
     structure CssSectionType : GTK_CSS_SECTION_TYPE
     structure DebugFlag : GTK_DEBUG_FLAG
     structure DeleteType : GTK_DELETE_TYPE
@@ -51,7 +58,10 @@ signature GTK =
     structure EditableClass : GTK_EDITABLE_CLASS
     structure EntryBufferClass : GTK_ENTRY_BUFFER_CLASS
     structure EntryCompletionClass : GTK_ENTRY_COMPLETION_CLASS
+    structure EntryIconAccessibleClass : GTK_ENTRY_ICON_ACCESSIBLE_CLASS
     structure EntryIconPosition : GTK_ENTRY_ICON_POSITION
+    structure EventControllerClass : GTK_EVENT_CONTROLLER_CLASS
+    structure EventSequenceState : GTK_EVENT_SEQUENCE_STATE
     structure ExpanderStyle : GTK_EXPANDER_STYLE
     structure FileChooserClass : GTK_FILE_CHOOSER_CLASS
     structure FileChooserAction : GTK_FILE_CHOOSER_ACTION
@@ -66,7 +76,7 @@ signature GTK =
     structure IMPreeditStyle : GTK_I_M_PREEDIT_STYLE
     structure IMStatusStyle : GTK_I_M_STATUS_STYLE
     structure IconFactoryClass : GTK_ICON_FACTORY_CLASS
-    structure IconInfoRecord : GTK_ICON_INFO_RECORD
+    structure IconInfoClass : GTK_ICON_INFO_CLASS
     structure IconLookupFlags : GTK_ICON_LOOKUP_FLAGS
     structure IconSetRecord : GTK_ICON_SET_RECORD
     structure IconSourceRecord : GTK_ICON_SOURCE_RECORD
@@ -75,14 +85,19 @@ signature GTK =
     exception IconThemeError of IconThemeError.t
     structure IconViewDropPosition : GTK_ICON_VIEW_DROP_POSITION
     structure ImageType : GTK_IMAGE_TYPE
+    structure InputHints : GTK_INPUT_HINTS
+    structure InputPurpose : GTK_INPUT_PURPOSE
     structure JunctionSides : GTK_JUNCTION_SIDES
     structure Justification : GTK_JUSTIFICATION
+    structure LevelBarMode : GTK_LEVEL_BAR_MODE
     structure License : GTK_LICENSE
     structure ListStoreClass : GTK_LIST_STORE_CLASS
     structure MenuDirectionType : GTK_MENU_DIRECTION_TYPE
     structure MessageType : GTK_MESSAGE_TYPE
     structure MountOperationClass : GTK_MOUNT_OPERATION_CLASS
     structure MovementStep : GTK_MOVEMENT_STEP
+    structure NativeDialogClass : GTK_NATIVE_DIALOG_CLASS
+    structure NotebookPageAccessibleClass : GTK_NOTEBOOK_PAGE_ACCESSIBLE_CLASS
     structure NotebookTab : GTK_NOTEBOOK_TAB
     structure NumberUpLayout : GTK_NUMBER_UP_LAYOUT
     structure NumerableIconClass : GTK_NUMERABLE_ICON_CLASS
@@ -90,14 +105,18 @@ signature GTK =
     structure Orientation : GTK_ORIENTATION
     structure PackDirection : GTK_PACK_DIRECTION
     structure PackType : GTK_PACK_TYPE
+    structure PadActionType : GTK_PAD_ACTION_TYPE
     structure PageOrientation : GTK_PAGE_ORIENTATION
     structure PageRangeRecord : GTK_PAGE_RANGE_RECORD
     structure PageSet : GTK_PAGE_SET
     structure PageSetupClass : GTK_PAGE_SETUP_CLASS
+    structure PanDirection : GTK_PAN_DIRECTION
     structure PaperSizeRecord : GTK_PAPER_SIZE_RECORD
     structure PathPriorityType : GTK_PATH_PRIORITY_TYPE
     structure PathType : GTK_PATH_TYPE
+    structure PlacesOpenFlags : GTK_PLACES_OPEN_FLAGS
     structure PolicyType : GTK_POLICY_TYPE
+    structure PopoverConstraint : GTK_POPOVER_CONSTRAINT
     structure PositionType : GTK_POSITION_TYPE
     structure PrintContextClass : GTK_PRINT_CONTEXT_CLASS
     structure PrintDuplex : GTK_PRINT_DUPLEX
@@ -111,6 +130,7 @@ signature GTK =
     structure PrintQuality : GTK_PRINT_QUALITY
     structure PrintSettingsClass : GTK_PRINT_SETTINGS_CLASS
     structure PrintStatus : GTK_PRINT_STATUS
+    structure PropagationPhase : GTK_PROPAGATION_PHASE
     structure RcFlags : GTK_RC_FLAGS
     structure RcStyleClass : GTK_RC_STYLE_CLASS
     structure RcTokenType : GTK_RC_TOKEN_TYPE
@@ -131,6 +151,7 @@ signature GTK =
     structure RequisitionRecord : GTK_REQUISITION_RECORD
     structure ResizeMode : GTK_RESIZE_MODE
     structure ResponseType : GTK_RESPONSE_TYPE
+    structure RevealerTransitionType : GTK_REVEALER_TRANSITION_TYPE
     structure ScrollStep : GTK_SCROLL_STEP
     structure ScrollType : GTK_SCROLL_TYPE
     structure ScrollableClass : GTK_SCROLLABLE_CLASS
@@ -141,18 +162,21 @@ signature GTK =
     structure SettingsClass : GTK_SETTINGS_CLASS
     structure SettingsValueRecord : GTK_SETTINGS_VALUE_RECORD
     structure ShadowType : GTK_SHADOW_TYPE
+    structure ShortcutType : GTK_SHORTCUT_TYPE
     structure SizeGroupClass : GTK_SIZE_GROUP_CLASS
     structure SizeGroupMode : GTK_SIZE_GROUP_MODE
     structure SizeRequestMode : GTK_SIZE_REQUEST_MODE
     structure SortType : GTK_SORT_TYPE
     structure SpinButtonUpdatePolicy : GTK_SPIN_BUTTON_UPDATE_POLICY
     structure SpinType : GTK_SPIN_TYPE
+    structure StackTransitionType : GTK_STACK_TRANSITION_TYPE
     structure StateFlags : GTK_STATE_FLAGS
     structure StateType : GTK_STATE_TYPE
     structure StatusIconClass : GTK_STATUS_ICON_CLASS
     structure StockItemRecord : GTK_STOCK_ITEM_RECORD
     structure StyleClass : GTK_STYLE_CLASS
     structure StyleContextClass : GTK_STYLE_CONTEXT_CLASS
+    structure StyleContextPrintFlags : GTK_STYLE_CONTEXT_PRINT_FLAGS
     structure StylePropertiesClass : GTK_STYLE_PROPERTIES_CLASS
     structure StyleProviderClass : GTK_STYLE_PROVIDER_CLASS
     structure SymbolicColorRecord : GTK_SYMBOLIC_COLOR_RECORD
@@ -164,11 +188,13 @@ signature GTK =
     structure TextBufferTargetInfo : GTK_TEXT_BUFFER_TARGET_INFO
     structure TextChildAnchorClass : GTK_TEXT_CHILD_ANCHOR_CLASS
     structure TextDirection : GTK_TEXT_DIRECTION
+    structure TextExtendSelection : GTK_TEXT_EXTEND_SELECTION
     structure TextIterRecord : GTK_TEXT_ITER_RECORD
     structure TextMarkClass : GTK_TEXT_MARK_CLASS
     structure TextSearchFlags : GTK_TEXT_SEARCH_FLAGS
     structure TextTagClass : GTK_TEXT_TAG_CLASS
     structure TextTagTableClass : GTK_TEXT_TAG_TABLE_CLASS
+    structure TextViewLayer : GTK_TEXT_VIEW_LAYER
     structure TextWindowType : GTK_TEXT_WINDOW_TYPE
     structure ThemingEngineClass : GTK_THEMING_ENGINE_CLASS
     structure ToolPaletteDragTargets : GTK_TOOL_PALETTE_DRAG_TARGETS
@@ -176,6 +202,7 @@ signature GTK =
     structure ToolbarSpaceStyle : GTK_TOOLBAR_SPACE_STYLE
     structure ToolbarStyle : GTK_TOOLBAR_STYLE
     structure TooltipClass : GTK_TOOLTIP_CLASS
+    structure ToplevelAccessibleClass : GTK_TOPLEVEL_ACCESSIBLE_CLASS
     structure TreeDragDestClass : GTK_TREE_DRAG_DEST_CLASS
     structure TreeDragSourceClass : GTK_TREE_DRAG_SOURCE_CLASS
     structure TreeIterRecord : GTK_TREE_ITER_RECORD
@@ -227,6 +254,9 @@ signature GTK =
         where type 'a widget_class = 'a WidgetClass.class
         where type 'a accel_group_class = 'a AccelGroupClass.class
         where type 'a action_group_class = 'a ActionGroupClass.class
+    structure Actionable :
+      GTK_ACTIONABLE
+        where type 'a class = 'a ActionableClass.class
     structure Activatable :
       GTK_ACTIVATABLE
         where type 'a class = 'a ActivatableClass.class
@@ -247,9 +277,13 @@ signature GTK =
     structure Builder :
       GTK_BUILDER
         where type 'a class = 'a BuilderClass.class
+        where type 'a application_class = 'a ApplicationClass.class
     structure CalendarClass :
       GTK_CALENDAR_CLASS
         where type 'a widget_class = 'a WidgetClass.class
+    structure CellAccessibleClass :
+      GTK_CELL_ACCESSIBLE_CLASS
+        where type 'a accessible_class = 'a AccessibleClass.class
     structure CellArea :
       GTK_CELL_AREA
         where type 'a class = 'a CellAreaClass.class
@@ -314,6 +348,10 @@ signature GTK =
         where type target_entry_t = TargetEntryRecord.t
         where type selection_data_t = SelectionDataRecord.t
         where type 'a text_buffer_class = 'a TextBufferClass.class
+    structure ColorChooser :
+      GTK_COLOR_CHOOSER
+        where type 'a class = 'a ColorChooserClass.class
+        where type orientation_t = Orientation.t
     structure ContainerClass :
       GTK_CONTAINER_CLASS
         where type 'a widget_class = 'a WidgetClass.class
@@ -321,6 +359,10 @@ signature GTK =
       GTK_CSS_PROVIDER
         where type 'a class = 'a CssProviderClass.class
         where type 'a style_provider_class = 'a StyleProviderClass.class
+    structure CssSection :
+      GTK_CSS_SECTION
+        where type t = CssSectionRecord.t
+        where type css_section_type_t = CssSectionType.t
     structure DrawingAreaClass :
       GTK_DRAWING_AREA_CLASS
         where type 'a widget_class = 'a WidgetClass.class
@@ -342,6 +384,14 @@ signature GTK =
         where type tree_iter_t = TreeIterRecord.t
         where type 'a cell_area_class = 'a CellAreaClass.class
         where type 'a tree_model_class = 'a TreeModelClass.class
+    structure EntryIconAccessible :
+      GTK_ENTRY_ICON_ACCESSIBLE
+        where type 'a class = 'a EntryIconAccessibleClass.class
+    structure EventController :
+      GTK_EVENT_CONTROLLER
+        where type 'a class = 'a EventControllerClass.class
+        where type propagation_phase_t = PropagationPhase.t
+        where type 'a widget_class = 'a WidgetClass.class
     structure FileChooser :
       GTK_FILE_CHOOSER
         where type 'a class = 'a FileChooserClass.class
@@ -349,6 +399,9 @@ signature GTK =
         where type file_chooser_action_t = FileChooserAction.t
         where type 'a file_filter_class = 'a FileFilterClass.class
         where type 'a widget_class = 'a WidgetClass.class
+    structure FileChooserNativeClass :
+      GTK_FILE_CHOOSER_NATIVE_CLASS
+        where type 'a native_dialog_class = 'a NativeDialogClass.class
     structure FileFilter :
       GTK_FILE_FILTER
         where type 'a class = 'a FileFilterClass.class
@@ -361,12 +414,20 @@ signature GTK =
     structure FontChooser :
       GTK_FONT_CHOOSER
         where type 'a class = 'a FontChooserClass.class
+    structure GLAreaClass :
+      GTK_G_L_AREA_CLASS
+        where type 'a widget_class = 'a WidgetClass.class
+    structure GestureClass :
+      GTK_GESTURE_CLASS
+        where type 'a event_controller_class = 'a EventControllerClass.class
     structure HsvClass :
       GTK_HSV_CLASS
         where type 'a widget_class = 'a WidgetClass.class
     structure IMContext :
       GTK_I_M_CONTEXT
         where type 'a class = 'a IMContextClass.class
+        where type input_hints_t = InputHints.t
+        where type input_purpose_t = InputPurpose.t
     structure IMContextSimpleClass :
       GTK_I_M_CONTEXT_SIMPLE_CLASS
         where type 'a i_m_context_class = 'a IMContextClass.class
@@ -380,7 +441,7 @@ signature GTK =
         where type icon_set_t = IconSetRecord.t
     structure IconInfo :
       GTK_ICON_INFO
-        where type t = IconInfoRecord.t
+        where type 'a class = 'a IconInfoClass.class
         where type 'a icon_theme_class = 'a IconThemeClass.class
         where type 'a style_context_class = 'a StyleContextClass.class
         where type state_type_t = StateType.t
@@ -405,10 +466,13 @@ signature GTK =
     structure IconTheme :
       GTK_ICON_THEME
         where type 'a class = 'a IconThemeClass.class
-        where type icon_info_t = IconInfoRecord.t
+        where type 'a icon_info_class = 'a IconInfoClass.class
         where type icon_lookup_flags_t = IconLookupFlags.t
     structure InvisibleClass :
       GTK_INVISIBLE_CLASS
+        where type 'a widget_class = 'a WidgetClass.class
+    structure LevelBarClass :
+      GTK_LEVEL_BAR_CLASS
         where type 'a widget_class = 'a WidgetClass.class
     structure ListStore :
       GTK_LIST_STORE
@@ -430,6 +494,9 @@ signature GTK =
       GTK_ORIENTABLE
         where type 'a class = 'a OrientableClass.class
         where type orientation_t = Orientation.t
+    structure PadControllerClass :
+      GTK_PAD_CONTROLLER_CLASS
+        where type 'a event_controller_class = 'a EventControllerClass.class
     structure PageRange :
       GTK_PAGE_RANGE
         where type t = PageRangeRecord.t
@@ -509,6 +576,7 @@ signature GTK =
     structure Scrollable :
       GTK_SCROLLABLE
         where type 'a class = 'a ScrollableClass.class
+        where type border_t = BorderRecord.t
         where type 'a adjustment_class = 'a AdjustmentClass.class
         where type scrollable_policy_t = ScrollablePolicy.t
     structure SelectionData :
@@ -546,6 +614,7 @@ signature GTK =
       GTK_STYLE_CONTEXT
         where type 'a class = 'a StyleContextClass.class
         where type border_t = BorderRecord.t
+        where type css_section_t = CssSectionRecord.t
         where type region_flags_t = RegionFlags.t
         where type icon_set_t = IconSetRecord.t
         where type 'a style_provider_class = 'a StyleProviderClass.class
@@ -553,6 +622,7 @@ signature GTK =
         where type widget_path_t = WidgetPathRecord.t
         where type state_flags_t = StateFlags.t
         where type state_type_t = StateType.t
+        where type style_context_print_flags_t = StyleContextPrintFlags.t
         where type text_direction_t = TextDirection.t
     structure StyleProperties :
       GTK_STYLE_PROPERTIES
@@ -646,6 +716,9 @@ signature GTK =
       GTK_TOOLTIP
         where type 'a class = 'a TooltipClass.class
         where type 'a widget_class = 'a WidgetClass.class
+    structure ToplevelAccessible :
+      GTK_TOPLEVEL_ACCESSIBLE
+        where type 'a class = 'a ToplevelAccessibleClass.class
     structure TreeDragDest :
       GTK_TREE_DRAG_DEST
         where type 'a class = 'a TreeDragDestClass.class
@@ -716,20 +789,28 @@ signature GTK =
         where type 'a action_group_class = 'a ActionGroupClass.class
         where type 'a widget_class = 'a WidgetClass.class
         where type 'a action_class = 'a ActionClass.class
+    structure WidgetAccessibleClass :
+      GTK_WIDGET_ACCESSIBLE_CLASS
+        where type 'a accessible_class = 'a AccessibleClass.class
     structure WidgetPath :
       GTK_WIDGET_PATH
         where type t = WidgetPathRecord.t
         where type 'a widget_class = 'a WidgetClass.class
         where type region_flags_t = RegionFlags.t
+        where type state_flags_t = StateFlags.t
     structure ActionGroup :
       GTK_ACTION_GROUP
         where type 'a class = 'a ActionGroupClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a widget_class = 'a WidgetClass.class
         where type 'a action_class = 'a ActionClass.class
+        where type 'a accel_group_class = 'a AccelGroupClass.class
     structure ArrowClass :
       GTK_ARROW_CLASS
         where type 'a misc_class = 'a MiscClass.class
+    structure ArrowAccessibleClass :
+      GTK_ARROW_ACCESSIBLE_CLASS
+        where type 'a widget_accessible_class = 'a WidgetAccessibleClass.class
     structure BinClass :
       GTK_BIN_CLASS
         where type 'a container_class = 'a ContainerClass.class
@@ -741,6 +822,14 @@ signature GTK =
         where type 'a class = 'a CalendarClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type calendar_display_options_t = CalendarDisplayOptions.t
+    structure CellAccessible :
+      GTK_CELL_ACCESSIBLE
+        where type 'a class = 'a CellAccessibleClass.class
+    structure CellAccessibleParent :
+      GTK_CELL_ACCESSIBLE_PARENT
+        where type 'a class = 'a CellAccessibleParentClass.class
+        where type cell_renderer_state_t = CellRendererState.t
+        where type 'a cell_accessible_class = 'a CellAccessibleClass.class
     structure CellAreaBox :
       GTK_CELL_AREA_BOX
         where type 'a class = 'a CellAreaBoxClass.class
@@ -793,13 +882,61 @@ signature GTK =
         where type 'a adjustment_class = 'a AdjustmentClass.class
         where type 'a widget_class = 'a WidgetClass.class
         where type resize_mode_t = ResizeMode.t
+    structure ContainerAccessibleClass :
+      GTK_CONTAINER_ACCESSIBLE_CLASS
+        where type 'a widget_accessible_class = 'a WidgetAccessibleClass.class
+    structure ContainerCellAccessibleClass :
+      GTK_CONTAINER_CELL_ACCESSIBLE_CLASS
+        where type 'a cell_accessible_class = 'a CellAccessibleClass.class
     structure DrawingArea :
       GTK_DRAWING_AREA
         where type 'a class = 'a DrawingAreaClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+    structure Entry :
+      GTK_ENTRY
+        where type 'a class = 'a EntryClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a cell_editable_class = 'a CellEditableClass.class
+        where type 'a editable_class = 'a EditableClass.class
+        where type 'a adjustment_class = 'a AdjustmentClass.class
+        where type target_list_t = TargetListRecord.t
+        where type delete_type_t = DeleteType.t
+        where type entry_icon_position_t = EntryIconPosition.t
+        where type movement_step_t = MovementStep.t
+        where type 'a widget_class = 'a WidgetClass.class
+        where type 'a entry_buffer_class = 'a EntryBufferClass.class
+        where type 'a entry_completion_class = 'a EntryCompletionClass.class
+        where type border_t = BorderRecord.t
+        where type input_hints_t = InputHints.t
+        where type input_purpose_t = InputPurpose.t
+        where type image_type_t = ImageType.t
+        where type shadow_type_t = ShadowType.t
+    structure EntryAccessibleClass :
+      GTK_ENTRY_ACCESSIBLE_CLASS
+        where type 'a widget_accessible_class = 'a WidgetAccessibleClass.class
     structure FixedClass :
       GTK_FIXED_CLASS
         where type 'a container_class = 'a ContainerClass.class
+    structure FlowBoxClass :
+      GTK_FLOW_BOX_CLASS
+        where type 'a container_class = 'a ContainerClass.class
+    structure GLArea :
+      GTK_G_L_AREA
+        where type 'a class = 'a GLAreaClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+    structure Gesture :
+      GTK_GESTURE
+        where type 'a class = 'a GestureClass.class
+        where type event_sequence_state_t = EventSequenceState.t
+    structure GestureRotateClass :
+      GTK_GESTURE_ROTATE_CLASS
+        where type 'a gesture_class = 'a GestureClass.class
+    structure GestureSingleClass :
+      GTK_GESTURE_SINGLE_CLASS
+        where type 'a gesture_class = 'a GestureClass.class
+    structure GestureZoomClass :
+      GTK_GESTURE_ZOOM_CLASS
+        where type 'a gesture_class = 'a GestureClass.class
     structure GridClass :
       GTK_GRID_CLASS
         where type 'a container_class = 'a ContainerClass.class
@@ -811,6 +948,9 @@ signature GTK =
     structure HSeparatorClass :
       GTK_H_SEPARATOR_CLASS
         where type 'a separator_class = 'a SeparatorClass.class
+    structure HeaderBarClass :
+      GTK_HEADER_BAR_CLASS
+        where type 'a container_class = 'a ContainerClass.class
     structure IMContextSimple :
       GTK_I_M_CONTEXT_SIMPLE
         where type 'a class = 'a IMContextSimpleClass.class
@@ -820,6 +960,9 @@ signature GTK =
     structure ImageClass :
       GTK_IMAGE_CLASS
         where type 'a misc_class = 'a MiscClass.class
+    structure ImageAccessibleClass :
+      GTK_IMAGE_ACCESSIBLE_CLASS
+        where type 'a widget_accessible_class = 'a WidgetAccessibleClass.class
     structure Invisible :
       GTK_INVISIBLE
         where type 'a class = 'a InvisibleClass.class
@@ -827,8 +970,23 @@ signature GTK =
     structure LabelClass :
       GTK_LABEL_CLASS
         where type 'a misc_class = 'a MiscClass.class
+    structure LabelAccessibleClass :
+      GTK_LABEL_ACCESSIBLE_CLASS
+        where type 'a widget_accessible_class = 'a WidgetAccessibleClass.class
     structure LayoutClass :
       GTK_LAYOUT_CLASS
+        where type 'a container_class = 'a ContainerClass.class
+    structure LevelBar :
+      GTK_LEVEL_BAR
+        where type 'a class = 'a LevelBarClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a orientable_class = 'a OrientableClass.class
+        where type level_bar_mode_t = LevelBarMode.t
+    structure LevelBarAccessibleClass :
+      GTK_LEVEL_BAR_ACCESSIBLE_CLASS
+        where type 'a widget_accessible_class = 'a WidgetAccessibleClass.class
+    structure ListBoxClass :
+      GTK_LIST_BOX_CLASS
         where type 'a container_class = 'a ContainerClass.class
     structure MenuShellClass :
       GTK_MENU_SHELL_CLASS
@@ -848,6 +1006,9 @@ signature GTK =
         where type 'a class = 'a ProgressBarClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a orientable_class = 'a OrientableClass.class
+    structure ProgressBarAccessibleClass :
+      GTK_PROGRESS_BAR_ACCESSIBLE_CLASS
+        where type 'a widget_accessible_class = 'a WidgetAccessibleClass.class
     structure RadioActionClass :
       GTK_RADIO_ACTION_CLASS
         where type 'a toggle_action_class = 'a ToggleActionClass.class
@@ -859,18 +1020,27 @@ signature GTK =
         where type scroll_type_t = ScrollType.t
         where type 'a adjustment_class = 'a AdjustmentClass.class
         where type sensitivity_type_t = SensitivityType.t
+    structure RangeAccessibleClass :
+      GTK_RANGE_ACCESSIBLE_CLASS
+        where type 'a widget_accessible_class = 'a WidgetAccessibleClass.class
     structure RecentAction :
       GTK_RECENT_ACTION
         where type 'a class = 'a RecentActionClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a recent_chooser_class = 'a RecentChooserClass.class
         where type 'a recent_manager_class = 'a RecentManagerClass.class
+    structure RendererCellAccessibleClass :
+      GTK_RENDERER_CELL_ACCESSIBLE_CLASS
+        where type 'a cell_accessible_class = 'a CellAccessibleClass.class
     structure ScaleClass :
       GTK_SCALE_CLASS
         where type 'a range_class = 'a RangeClass.class
     structure ScrollbarClass :
       GTK_SCROLLBAR_CLASS
         where type 'a range_class = 'a RangeClass.class
+    structure SearchEntryClass :
+      GTK_SEARCH_ENTRY_CLASS
+        where type 'a entry_class = 'a EntryClass.class
     structure Separator :
       GTK_SEPARATOR
         where type 'a class = 'a SeparatorClass.class
@@ -898,11 +1068,21 @@ signature GTK =
       GTK_SPINNER
         where type 'a class = 'a SpinnerClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+    structure SpinnerAccessibleClass :
+      GTK_SPINNER_ACCESSIBLE_CLASS
+        where type 'a widget_accessible_class = 'a WidgetAccessibleClass.class
+    structure StackClass :
+      GTK_STACK_CLASS
+        where type 'a container_class = 'a ContainerClass.class
     structure Switch :
       GTK_SWITCH
         where type 'a class = 'a SwitchClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+    structure SwitchAccessibleClass :
+      GTK_SWITCH_ACCESSIBLE_CLASS
+        where type 'a widget_accessible_class = 'a WidgetAccessibleClass.class
     structure TableClass :
       GTK_TABLE_CLASS
         where type 'a container_class = 'a ContainerClass.class
@@ -928,9 +1108,15 @@ signature GTK =
     structure VSeparatorClass :
       GTK_V_SEPARATOR_CLASS
         where type 'a separator_class = 'a SeparatorClass.class
+    structure WidgetAccessible :
+      GTK_WIDGET_ACCESSIBLE
+        where type 'a class = 'a WidgetAccessibleClass.class
     structure AccelLabelClass :
       GTK_ACCEL_LABEL_CLASS
         where type 'a label_class = 'a LabelClass.class
+    structure ActionBarClass :
+      GTK_ACTION_BAR_CLASS
+        where type 'a bin_class = 'a BinClass.class
     structure AlignmentClass :
       GTK_ALIGNMENT_CLASS
         where type 'a bin_class = 'a BinClass.class
@@ -943,11 +1129,17 @@ signature GTK =
         where type 'a buildable_class = 'a BuildableClass.class
         where type arrow_type_t = ArrowType.t
         where type shadow_type_t = ShadowType.t
+    structure ArrowAccessible :
+      GTK_ARROW_ACCESSIBLE
+        where type 'a class = 'a ArrowAccessibleClass.class
     structure Bin :
       GTK_BIN
         where type 'a class = 'a BinClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a widget_class = 'a WidgetClass.class
+    structure BooleanCellAccessibleClass :
+      GTK_BOOLEAN_CELL_ACCESSIBLE_CLASS
+        where type 'a renderer_cell_accessible_class = 'a RendererCellAccessibleClass.class
     structure Box :
       GTK_BOX
         where type 'a class = 'a BoxClass.class
@@ -956,9 +1148,13 @@ signature GTK =
         where type orientation_t = Orientation.t
         where type pack_type_t = PackType.t
         where type 'a widget_class = 'a WidgetClass.class
+        where type baseline_position_t = BaselinePosition.t
     structure ButtonClass :
       GTK_BUTTON_CLASS
         where type 'a bin_class = 'a BinClass.class
+    structure ButtonAccessibleClass :
+      GTK_BUTTON_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
     structure ButtonBoxClass :
       GTK_BUTTON_BOX_CLASS
         where type 'a box_class = 'a BoxClass.class
@@ -975,18 +1171,37 @@ signature GTK =
       GTK_CELL_RENDERER_SPIN
         where type 'a class = 'a CellRendererSpinClass.class
         where type 'a adjustment_class = 'a AdjustmentClass.class
+    structure ColorChooserWidgetClass :
+      GTK_COLOR_CHOOSER_WIDGET_CLASS
+        where type 'a box_class = 'a BoxClass.class
     structure ColorSelectionClass :
       GTK_COLOR_SELECTION_CLASS
         where type 'a box_class = 'a BoxClass.class
     structure ComboBoxClass :
       GTK_COMBO_BOX_CLASS
         where type 'a bin_class = 'a BinClass.class
+    structure ComboBoxAccessibleClass :
+      GTK_COMBO_BOX_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
+    structure ContainerAccessible :
+      GTK_CONTAINER_ACCESSIBLE
+        where type 'a class = 'a ContainerAccessibleClass.class
+    structure ContainerCellAccessible :
+      GTK_CONTAINER_CELL_ACCESSIBLE
+        where type 'a class = 'a ContainerCellAccessibleClass.class
+        where type 'a cell_accessible_class = 'a CellAccessibleClass.class
+    structure EntryAccessible :
+      GTK_ENTRY_ACCESSIBLE
+        where type 'a class = 'a EntryAccessibleClass.class
     structure EventBoxClass :
       GTK_EVENT_BOX_CLASS
         where type 'a bin_class = 'a BinClass.class
     structure ExpanderClass :
       GTK_EXPANDER_CLASS
         where type 'a bin_class = 'a BinClass.class
+    structure ExpanderAccessibleClass :
+      GTK_EXPANDER_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
     structure FileChooserButtonClass :
       GTK_FILE_CHOOSER_BUTTON_CLASS
         where type 'a box_class = 'a BoxClass.class
@@ -998,6 +1213,15 @@ signature GTK =
         where type 'a class = 'a FixedClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a widget_class = 'a WidgetClass.class
+    structure FlowBoxAccessibleClass :
+      GTK_FLOW_BOX_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
+    structure FlowBoxChildClass :
+      GTK_FLOW_BOX_CHILD_CLASS
+        where type 'a bin_class = 'a BinClass.class
+    structure FlowBoxChildAccessibleClass :
+      GTK_FLOW_BOX_CHILD_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
     structure FontChooserWidgetClass :
       GTK_FONT_CHOOSER_WIDGET_CLASS
         where type 'a box_class = 'a BoxClass.class
@@ -1007,6 +1231,32 @@ signature GTK =
     structure FrameClass :
       GTK_FRAME_CLASS
         where type 'a bin_class = 'a BinClass.class
+    structure FrameAccessibleClass :
+      GTK_FRAME_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
+    structure GestureDragClass :
+      GTK_GESTURE_DRAG_CLASS
+        where type 'a gesture_single_class = 'a GestureSingleClass.class
+    structure GestureLongPressClass :
+      GTK_GESTURE_LONG_PRESS_CLASS
+        where type 'a gesture_single_class = 'a GestureSingleClass.class
+    structure GestureMultiPressClass :
+      GTK_GESTURE_MULTI_PRESS_CLASS
+        where type 'a gesture_single_class = 'a GestureSingleClass.class
+    structure GestureRotate :
+      GTK_GESTURE_ROTATE
+        where type 'a class = 'a GestureRotateClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+    structure GestureSingle :
+      GTK_GESTURE_SINGLE
+        where type 'a class = 'a GestureSingleClass.class
+    structure GestureSwipeClass :
+      GTK_GESTURE_SWIPE_CLASS
+        where type 'a gesture_single_class = 'a GestureSingleClass.class
+    structure GestureZoom :
+      GTK_GESTURE_ZOOM
+        where type 'a class = 'a GestureZoomClass.class
+        where type 'a widget_class = 'a WidgetClass.class
     structure Grid :
       GTK_GRID
         where type 'a class = 'a GridClass.class
@@ -1014,6 +1264,7 @@ signature GTK =
         where type 'a orientable_class = 'a OrientableClass.class
         where type position_type_t = PositionType.t
         where type 'a widget_class = 'a WidgetClass.class
+        where type baseline_position_t = BaselinePosition.t
     structure HBoxClass :
       GTK_H_BOX_CLASS
         where type 'a box_class = 'a BoxClass.class
@@ -1034,6 +1285,11 @@ signature GTK =
     structure HandleBoxClass :
       GTK_HANDLE_BOX_CLASS
         where type 'a bin_class = 'a BinClass.class
+    structure HeaderBar :
+      GTK_HEADER_BAR
+        where type 'a class = 'a HeaderBarClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a widget_class = 'a WidgetClass.class
     structure IMMulticontext :
       GTK_I_M_MULTICONTEXT
         where type 'a class = 'a IMMulticontextClass.class
@@ -1055,15 +1311,27 @@ signature GTK =
         where type orientation_t = Orientation.t
         where type 'a tree_model_class = 'a TreeModelClass.class
         where type selection_mode_t = SelectionMode.t
+    structure IconViewAccessibleClass :
+      GTK_ICON_VIEW_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
     structure Image :
       GTK_IMAGE
         where type 'a class = 'a ImageClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type icon_set_t = IconSetRecord.t
         where type image_type_t = ImageType.t
+    structure ImageAccessible :
+      GTK_IMAGE_ACCESSIBLE
+        where type 'a class = 'a ImageAccessibleClass.class
+    structure ImageCellAccessibleClass :
+      GTK_IMAGE_CELL_ACCESSIBLE_CLASS
+        where type 'a renderer_cell_accessible_class = 'a RendererCellAccessibleClass.class
     structure InfoBarClass :
       GTK_INFO_BAR_CLASS
         where type 'a box_class = 'a BoxClass.class
+    structure LabelAccessible :
+      GTK_LABEL_ACCESSIBLE
+        where type 'a class = 'a LabelAccessibleClass.class
     structure Layout :
       GTK_LAYOUT
         where type 'a class = 'a LayoutClass.class
@@ -1071,6 +1339,18 @@ signature GTK =
         where type 'a scrollable_class = 'a ScrollableClass.class
         where type 'a widget_class = 'a WidgetClass.class
         where type 'a adjustment_class = 'a AdjustmentClass.class
+    structure LevelBarAccessible :
+      GTK_LEVEL_BAR_ACCESSIBLE
+        where type 'a class = 'a LevelBarAccessibleClass.class
+    structure ListBoxAccessibleClass :
+      GTK_LIST_BOX_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
+    structure ListBoxRowClass :
+      GTK_LIST_BOX_ROW_CLASS
+        where type 'a bin_class = 'a BinClass.class
+    structure ListBoxRowAccessibleClass :
+      GTK_LIST_BOX_ROW_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
     structure MenuClass :
       GTK_MENU_CLASS
         where type 'a menu_shell_class = 'a MenuShellClass.class
@@ -1080,13 +1360,12 @@ signature GTK =
     structure MenuItemClass :
       GTK_MENU_ITEM_CLASS
         where type 'a bin_class = 'a BinClass.class
-    structure MenuShell :
-      GTK_MENU_SHELL
-        where type 'a class = 'a MenuShellClass.class
-        where type 'a buildable_class = 'a BuildableClass.class
-        where type direction_type_t = DirectionType.t
-        where type 'a widget_class = 'a WidgetClass.class
-        where type menu_direction_type_t = MenuDirectionType.t
+    structure MenuItemAccessibleClass :
+      GTK_MENU_ITEM_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
+    structure MenuShellAccessibleClass :
+      GTK_MENU_SHELL_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
     structure Notebook :
       GTK_NOTEBOOK
         where type 'a class = 'a NotebookClass.class
@@ -1096,6 +1375,9 @@ signature GTK =
         where type direction_type_t = DirectionType.t
         where type 'a widget_class = 'a WidgetClass.class
         where type position_type_t = PositionType.t
+    structure NotebookAccessibleClass :
+      GTK_NOTEBOOK_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
     structure OverlayClass :
       GTK_OVERLAY_CLASS
         where type 'a bin_class = 'a BinClass.class
@@ -1107,13 +1389,35 @@ signature GTK =
         where type orientation_t = Orientation.t
         where type 'a widget_class = 'a WidgetClass.class
         where type scroll_type_t = ScrollType.t
+    structure PanedAccessibleClass :
+      GTK_PANED_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
+    structure PopoverClass :
+      GTK_POPOVER_CLASS
+        where type 'a bin_class = 'a BinClass.class
+    structure PopoverAccessibleClass :
+      GTK_POPOVER_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
+    structure ProgressBarAccessible :
+      GTK_PROGRESS_BAR_ACCESSIBLE
+        where type 'a class = 'a ProgressBarAccessibleClass.class
     structure RadioAction :
       GTK_RADIO_ACTION
         where type 'a class = 'a RadioActionClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+    structure RangeAccessible :
+      GTK_RANGE_ACCESSIBLE
+        where type 'a class = 'a RangeAccessibleClass.class
     structure RecentChooserWidgetClass :
       GTK_RECENT_CHOOSER_WIDGET_CLASS
         where type 'a box_class = 'a BoxClass.class
+    structure RendererCellAccessible :
+      GTK_RENDERER_CELL_ACCESSIBLE
+        where type 'a class = 'a RendererCellAccessibleClass.class
+        where type 'a cell_renderer_class = 'a CellRendererClass.class
+    structure RevealerClass :
+      GTK_REVEALER_CLASS
+        where type 'a bin_class = 'a BinClass.class
     structure Scale :
       GTK_SCALE
         where type 'a class = 'a ScaleClass.class
@@ -1122,6 +1426,9 @@ signature GTK =
         where type 'a adjustment_class = 'a AdjustmentClass.class
         where type orientation_t = Orientation.t
         where type position_type_t = PositionType.t
+    structure ScaleAccessibleClass :
+      GTK_SCALE_ACCESSIBLE_CLASS
+        where type 'a range_accessible_class = 'a RangeAccessibleClass.class
     structure Scrollbar :
       GTK_SCROLLBAR
         where type 'a class = 'a ScrollbarClass.class
@@ -1132,6 +1439,30 @@ signature GTK =
     structure ScrolledWindowClass :
       GTK_SCROLLED_WINDOW_CLASS
         where type 'a bin_class = 'a BinClass.class
+    structure ScrolledWindowAccessibleClass :
+      GTK_SCROLLED_WINDOW_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
+    structure SearchBarClass :
+      GTK_SEARCH_BAR_CLASS
+        where type 'a bin_class = 'a BinClass.class
+    structure SearchEntry :
+      GTK_SEARCH_ENTRY
+        where type 'a class = 'a SearchEntryClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a cell_editable_class = 'a CellEditableClass.class
+        where type 'a editable_class = 'a EditableClass.class
+    structure ShortcutLabelClass :
+      GTK_SHORTCUT_LABEL_CLASS
+        where type 'a box_class = 'a BoxClass.class
+    structure ShortcutsGroupClass :
+      GTK_SHORTCUTS_GROUP_CLASS
+        where type 'a box_class = 'a BoxClass.class
+    structure ShortcutsSectionClass :
+      GTK_SHORTCUTS_SECTION_CLASS
+        where type 'a box_class = 'a BoxClass.class
+    structure ShortcutsShortcutClass :
+      GTK_SHORTCUTS_SHORTCUT_CLASS
+        where type 'a box_class = 'a BoxClass.class
     structure Socket :
       GTK_SOCKET
         where type 'a class = 'a SocketClass.class
@@ -1142,19 +1473,74 @@ signature GTK =
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a cell_editable_class = 'a CellEditableClass.class
         where type 'a editable_class = 'a EditableClass.class
+        where type 'a orientable_class = 'a OrientableClass.class
         where type spin_type_t = SpinType.t
         where type scroll_type_t = ScrollType.t
         where type 'a adjustment_class = 'a AdjustmentClass.class
         where type spin_button_update_policy_t = SpinButtonUpdatePolicy.t
+    structure SpinButtonAccessibleClass :
+      GTK_SPIN_BUTTON_ACCESSIBLE_CLASS
+        where type 'a entry_accessible_class = 'a EntryAccessibleClass.class
+    structure SpinnerAccessible :
+      GTK_SPINNER_ACCESSIBLE
+        where type 'a class = 'a SpinnerAccessibleClass.class
+    structure Stack :
+      GTK_STACK
+        where type 'a class = 'a StackClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type stack_transition_type_t = StackTransitionType.t
+        where type 'a widget_class = 'a WidgetClass.class
+    structure StackAccessibleClass :
+      GTK_STACK_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
+    structure StackSidebarClass :
+      GTK_STACK_SIDEBAR_CLASS
+        where type 'a bin_class = 'a BinClass.class
+    structure StackSwitcherClass :
+      GTK_STACK_SWITCHER_CLASS
+        where type 'a box_class = 'a BoxClass.class
     structure StatusbarClass :
       GTK_STATUSBAR_CLASS
         where type 'a box_class = 'a BoxClass.class
+    structure StatusbarAccessibleClass :
+      GTK_STATUSBAR_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
+    structure SwitchAccessible :
+      GTK_SWITCH_ACCESSIBLE
+        where type 'a class = 'a SwitchAccessibleClass.class
     structure Table :
       GTK_TABLE
         where type 'a class = 'a TableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type attach_options_t = AttachOptions.t
         where type 'a widget_class = 'a WidgetClass.class
+    structure TextCellAccessibleClass :
+      GTK_TEXT_CELL_ACCESSIBLE_CLASS
+        where type 'a renderer_cell_accessible_class = 'a RendererCellAccessibleClass.class
+    structure TextView :
+      GTK_TEXT_VIEW
+        where type 'a class = 'a TextViewClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a scrollable_class = 'a ScrollableClass.class
+        where type 'a text_child_anchor_class = 'a TextChildAnchorClass.class
+        where type text_attributes_t = TextAttributesRecord.t
+        where type 'a adjustment_class = 'a AdjustmentClass.class
+        where type 'a text_mark_class = 'a TextMarkClass.class
+        where type text_window_type_t = TextWindowType.t
+        where type delete_type_t = DeleteType.t
+        where type text_iter_t = TextIterRecord.t
+        where type text_extend_selection_t = TextExtendSelection.t
+        where type movement_step_t = MovementStep.t
+        where type scroll_step_t = ScrollStep.t
+        where type 'a widget_class = 'a WidgetClass.class
+        where type 'a text_buffer_class = 'a TextBufferClass.class
+        where type input_hints_t = InputHints.t
+        where type input_purpose_t = InputPurpose.t
+        where type justification_t = Justification.t
+        where type wrap_mode_t = WrapMode.t
+    structure TextViewAccessibleClass :
+      GTK_TEXT_VIEW_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
     structure ToolItemClass :
       GTK_TOOL_ITEM_CLASS
         where type 'a bin_class = 'a BinClass.class
@@ -1184,6 +1570,9 @@ signature GTK =
         where type tree_view_grid_lines_t = TreeViewGridLines.t
         where type 'a tree_view_column_class = 'a TreeViewColumnClass.class
         where type 'a tree_model_class = 'a TreeModelClass.class
+    structure TreeViewAccessibleClass :
+      GTK_TREE_VIEW_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
     structure VBoxClass :
       GTK_V_BOX_CLASS
         where type 'a box_class = 'a BoxClass.class
@@ -1207,9 +1596,17 @@ signature GTK =
     structure WindowClass :
       GTK_WINDOW_CLASS
         where type 'a bin_class = 'a BinClass.class
+    structure WindowAccessibleClass :
+      GTK_WINDOW_ACCESSIBLE_CLASS
+        where type 'a container_accessible_class = 'a ContainerAccessibleClass.class
     structure AccelLabel :
       GTK_ACCEL_LABEL
         where type 'a class = 'a AccelLabelClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+    structure ActionBar :
+      GTK_ACTION_BAR
+        where type 'a class = 'a ActionBarClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a widget_class = 'a WidgetClass.class
     structure Alignment :
@@ -1229,6 +1626,10 @@ signature GTK =
     structure Application :
       GTK_APPLICATION
         where type 'a class = 'a ApplicationClass.class
+        where type application_inhibit_flags_t = ApplicationInhibitFlags.t
+        where type 'a window_class = 'a WindowClass.class
+    structure ApplicationWindowClass :
+      GTK_APPLICATION_WINDOW_CLASS
         where type 'a window_class = 'a WindowClass.class
     structure AspectFrameClass :
       GTK_ASPECT_FRAME_CLASS
@@ -1236,14 +1637,21 @@ signature GTK =
     structure AssistantClass :
       GTK_ASSISTANT_CLASS
         where type 'a window_class = 'a WindowClass.class
+    structure BooleanCellAccessible :
+      GTK_BOOLEAN_CELL_ACCESSIBLE
+        where type 'a class = 'a BooleanCellAccessibleClass.class
     structure Button :
       GTK_BUTTON
         where type 'a class = 'a ButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a widget_class = 'a WidgetClass.class
         where type position_type_t = PositionType.t
         where type relief_style_t = ReliefStyle.t
+    structure ButtonAccessible :
+      GTK_BUTTON_ACCESSIBLE
+        where type 'a class = 'a ButtonAccessibleClass.class
     structure ButtonBox :
       GTK_BUTTON_BOX
         where type 'a class = 'a ButtonBoxClass.class
@@ -1255,9 +1663,18 @@ signature GTK =
     structure CheckMenuItemClass :
       GTK_CHECK_MENU_ITEM_CLASS
         where type 'a menu_item_class = 'a MenuItemClass.class
+    structure CheckMenuItemAccessibleClass :
+      GTK_CHECK_MENU_ITEM_ACCESSIBLE_CLASS
+        where type 'a menu_item_accessible_class = 'a MenuItemAccessibleClass.class
     structure ColorButtonClass :
       GTK_COLOR_BUTTON_CLASS
         where type 'a button_class = 'a ButtonClass.class
+    structure ColorChooserWidget :
+      GTK_COLOR_CHOOSER_WIDGET
+        where type 'a class = 'a ColorChooserWidgetClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a color_chooser_class = 'a ColorChooserClass.class
+        where type 'a orientable_class = 'a OrientableClass.class
     structure ColorSelection :
       GTK_COLOR_SELECTION
         where type 'a class = 'a ColorSelectionClass.class
@@ -1274,29 +1691,15 @@ signature GTK =
         where type sensitivity_type_t = SensitivityType.t
         where type 'a cell_area_class = 'a CellAreaClass.class
         where type 'a tree_model_class = 'a TreeModelClass.class
+    structure ComboBoxAccessible :
+      GTK_COMBO_BOX_ACCESSIBLE
+        where type 'a class = 'a ComboBoxAccessibleClass.class
     structure ComboBoxTextClass :
       GTK_COMBO_BOX_TEXT_CLASS
         where type 'a combo_box_class = 'a ComboBoxClass.class
     structure DialogClass :
       GTK_DIALOG_CLASS
         where type 'a window_class = 'a WindowClass.class
-    structure Entry :
-      GTK_ENTRY
-        where type 'a class = 'a EntryClass.class
-        where type 'a buildable_class = 'a BuildableClass.class
-        where type 'a cell_editable_class = 'a CellEditableClass.class
-        where type 'a editable_class = 'a EditableClass.class
-        where type 'a adjustment_class = 'a AdjustmentClass.class
-        where type target_list_t = TargetListRecord.t
-        where type delete_type_t = DeleteType.t
-        where type entry_icon_position_t = EntryIconPosition.t
-        where type movement_step_t = MovementStep.t
-        where type 'a menu_class = 'a MenuClass.class
-        where type 'a entry_buffer_class = 'a EntryBufferClass.class
-        where type 'a entry_completion_class = 'a EntryCompletionClass.class
-        where type border_t = BorderRecord.t
-        where type image_type_t = ImageType.t
-        where type shadow_type_t = ShadowType.t
     structure EventBox :
       GTK_EVENT_BOX
         where type 'a class = 'a EventBoxClass.class
@@ -1306,14 +1709,15 @@ signature GTK =
         where type 'a class = 'a ExpanderClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a widget_class = 'a WidgetClass.class
-    structure FileChooserButton :
-      GTK_FILE_CHOOSER_BUTTON
-        where type 'a class = 'a FileChooserButtonClass.class
-        where type 'a buildable_class = 'a BuildableClass.class
-        where type 'a orientable_class = 'a OrientableClass.class
-        where type file_chooser_action_t = FileChooserAction.t
-        where type 'a widget_class = 'a WidgetClass.class
+    structure ExpanderAccessible :
+      GTK_EXPANDER_ACCESSIBLE
+        where type 'a class = 'a ExpanderAccessibleClass.class
+    structure FileChooserNative :
+      GTK_FILE_CHOOSER_NATIVE
+        where type 'a class = 'a FileChooserNativeClass.class
         where type 'a file_chooser_class = 'a FileChooserClass.class
+        where type file_chooser_action_t = FileChooserAction.t
+        where type 'a window_class = 'a WindowClass.class
     structure FileChooserWidget :
       GTK_FILE_CHOOSER_WIDGET
         where type 'a class = 'a FileChooserWidgetClass.class
@@ -1321,6 +1725,26 @@ signature GTK =
         where type 'a file_chooser_class = 'a FileChooserClass.class
         where type 'a orientable_class = 'a OrientableClass.class
         where type file_chooser_action_t = FileChooserAction.t
+    structure FlowBox :
+      GTK_FLOW_BOX
+        where type 'a class = 'a FlowBoxClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a orientable_class = 'a OrientableClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+        where type 'a adjustment_class = 'a AdjustmentClass.class
+        where type 'a flow_box_child_class = 'a FlowBoxChildClass.class
+        where type movement_step_t = MovementStep.t
+        where type selection_mode_t = SelectionMode.t
+    structure FlowBoxAccessible :
+      GTK_FLOW_BOX_ACCESSIBLE
+        where type 'a class = 'a FlowBoxAccessibleClass.class
+    structure FlowBoxChild :
+      GTK_FLOW_BOX_CHILD
+        where type 'a class = 'a FlowBoxChildClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+    structure FlowBoxChildAccessible :
+      GTK_FLOW_BOX_CHILD_ACCESSIBLE
+        where type 'a class = 'a FlowBoxChildAccessibleClass.class
     structure FontButtonClass :
       GTK_FONT_BUTTON_CLASS
         where type 'a button_class = 'a ButtonClass.class
@@ -1342,6 +1766,28 @@ signature GTK =
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a widget_class = 'a WidgetClass.class
         where type shadow_type_t = ShadowType.t
+    structure FrameAccessible :
+      GTK_FRAME_ACCESSIBLE
+        where type 'a class = 'a FrameAccessibleClass.class
+    structure GestureDrag :
+      GTK_GESTURE_DRAG
+        where type 'a class = 'a GestureDragClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+    structure GestureLongPress :
+      GTK_GESTURE_LONG_PRESS
+        where type 'a class = 'a GestureLongPressClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+    structure GestureMultiPress :
+      GTK_GESTURE_MULTI_PRESS
+        where type 'a class = 'a GestureMultiPressClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+    structure GesturePanClass :
+      GTK_GESTURE_PAN_CLASS
+        where type 'a gesture_drag_class = 'a GestureDragClass.class
+    structure GestureSwipe :
+      GTK_GESTURE_SWIPE
+        where type 'a class = 'a GestureSwipeClass.class
+        where type 'a widget_class = 'a WidgetClass.class
     structure HBox :
       GTK_H_BOX
         where type 'a class = 'a HBoxClass.class
@@ -1374,6 +1820,12 @@ signature GTK =
         where type 'a widget_class = 'a WidgetClass.class
         where type shadow_type_t = ShadowType.t
         where type position_type_t = PositionType.t
+    structure IconViewAccessible :
+      GTK_ICON_VIEW_ACCESSIBLE
+        where type 'a class = 'a IconViewAccessibleClass.class
+    structure ImageCellAccessible :
+      GTK_IMAGE_CELL_ACCESSIBLE
+        where type 'a class = 'a ImageCellAccessibleClass.class
     structure ImageMenuItemClass :
       GTK_IMAGE_MENU_ITEM_CLASS
         where type 'a menu_item_class = 'a MenuItemClass.class
@@ -1382,6 +1834,7 @@ signature GTK =
         where type 'a class = 'a InfoBarClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a orientable_class = 'a OrientableClass.class
+        where type 'a button_class = 'a ButtonClass.class
         where type 'a widget_class = 'a WidgetClass.class
         where type message_type_t = MessageType.t
     structure Label :
@@ -1395,9 +1848,35 @@ signature GTK =
     structure LinkButtonClass :
       GTK_LINK_BUTTON_CLASS
         where type 'a button_class = 'a ButtonClass.class
+    structure LinkButtonAccessibleClass :
+      GTK_LINK_BUTTON_ACCESSIBLE_CLASS
+        where type 'a button_accessible_class = 'a ButtonAccessibleClass.class
+    structure ListBox :
+      GTK_LIST_BOX
+        where type 'a class = 'a ListBoxClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a adjustment_class = 'a AdjustmentClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+        where type movement_step_t = MovementStep.t
+        where type 'a list_box_row_class = 'a ListBoxRowClass.class
+        where type selection_mode_t = SelectionMode.t
+    structure ListBoxAccessible :
+      GTK_LIST_BOX_ACCESSIBLE
+        where type 'a class = 'a ListBoxAccessibleClass.class
+    structure ListBoxRow :
+      GTK_LIST_BOX_ROW
+        where type 'a class = 'a ListBoxRowClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+    structure ListBoxRowAccessible :
+      GTK_LIST_BOX_ROW_ACCESSIBLE
+        where type 'a class = 'a ListBoxRowAccessibleClass.class
     structure LockButtonClass :
       GTK_LOCK_BUTTON_CLASS
         where type 'a button_class = 'a ButtonClass.class
+    structure LockButtonAccessibleClass :
+      GTK_LOCK_BUTTON_ACCESSIBLE_CLASS
+        where type 'a button_accessible_class = 'a ButtonAccessibleClass.class
     structure Menu :
       GTK_MENU
         where type 'a class = 'a MenuClass.class
@@ -1405,6 +1884,9 @@ signature GTK =
         where type scroll_type_t = ScrollType.t
         where type 'a accel_group_class = 'a AccelGroupClass.class
         where type 'a widget_class = 'a WidgetClass.class
+    structure MenuAccessibleClass :
+      GTK_MENU_ACCESSIBLE_CLASS
+        where type 'a menu_shell_accessible_class = 'a MenuShellAccessibleClass.class
     structure MenuBar :
       GTK_MENU_BAR
         where type 'a class = 'a MenuBarClass.class
@@ -1413,14 +1895,44 @@ signature GTK =
     structure MenuItem :
       GTK_MENU_ITEM
         where type 'a class = 'a MenuItemClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a widget_class = 'a WidgetClass.class
         where type 'a menu_class = 'a MenuClass.class
+    structure MenuItemAccessible :
+      GTK_MENU_ITEM_ACCESSIBLE
+        where type 'a class = 'a MenuItemAccessibleClass.class
+    structure MenuShell :
+      GTK_MENU_SHELL
+        where type 'a class = 'a MenuShellClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a menu_item_class = 'a MenuItemClass.class
+        where type direction_type_t = DirectionType.t
+        where type 'a widget_class = 'a WidgetClass.class
+        where type menu_direction_type_t = MenuDirectionType.t
+    structure MenuShellAccessible :
+      GTK_MENU_SHELL_ACCESSIBLE
+        where type 'a class = 'a MenuShellAccessibleClass.class
+    structure ModelButtonClass :
+      GTK_MODEL_BUTTON_CLASS
+        where type 'a button_class = 'a ButtonClass.class
     structure MountOperation :
       GTK_MOUNT_OPERATION
         where type 'a class = 'a MountOperationClass.class
         where type 'a window_class = 'a WindowClass.class
+    structure NativeDialog :
+      GTK_NATIVE_DIALOG
+        where type 'a class = 'a NativeDialogClass.class
+        where type 'a window_class = 'a WindowClass.class
+    structure NotebookAccessible :
+      GTK_NOTEBOOK_ACCESSIBLE
+        where type 'a class = 'a NotebookAccessibleClass.class
+    structure NotebookPageAccessible :
+      GTK_NOTEBOOK_PAGE_ACCESSIBLE
+        where type 'a class = 'a NotebookPageAccessibleClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+        where type 'a notebook_accessible_class = 'a NotebookAccessibleClass.class
     structure OffscreenWindowClass :
       GTK_OFFSCREEN_WINDOW_CLASS
         where type 'a window_class = 'a WindowClass.class
@@ -1429,9 +1941,33 @@ signature GTK =
         where type 'a class = 'a OverlayClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a widget_class = 'a WidgetClass.class
+    structure PadController :
+      GTK_PAD_CONTROLLER
+        where type 'a class = 'a PadControllerClass.class
+        where type 'a window_class = 'a WindowClass.class
+        where type pad_action_type_t = PadActionType.t
+    structure PanedAccessible :
+      GTK_PANED_ACCESSIBLE
+        where type 'a class = 'a PanedAccessibleClass.class
+    structure PlacesSidebarClass :
+      GTK_PLACES_SIDEBAR_CLASS
+        where type 'a scrolled_window_class = 'a ScrolledWindowClass.class
     structure PlugClass :
       GTK_PLUG_CLASS
         where type 'a window_class = 'a WindowClass.class
+    structure Popover :
+      GTK_POPOVER
+        where type 'a class = 'a PopoverClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type popover_constraint_t = PopoverConstraint.t
+        where type position_type_t = PositionType.t
+        where type 'a widget_class = 'a WidgetClass.class
+    structure PopoverAccessible :
+      GTK_POPOVER_ACCESSIBLE
+        where type 'a class = 'a PopoverAccessibleClass.class
+    structure PopoverMenuClass :
+      GTK_POPOVER_MENU_CLASS
+        where type 'a popover_class = 'a PopoverClass.class
     structure PrintOperation :
       GTK_PRINT_OPERATION
         where type 'a class = 'a PrintOperationClass.class
@@ -1455,26 +1991,90 @@ signature GTK =
         where type 'a orientable_class = 'a OrientableClass.class
         where type 'a recent_chooser_class = 'a RecentChooserClass.class
         where type 'a recent_manager_class = 'a RecentManagerClass.class
+    structure Revealer :
+      GTK_REVEALER
+        where type 'a class = 'a RevealerClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type revealer_transition_type_t = RevealerTransitionType.t
+    structure ScaleAccessible :
+      GTK_SCALE_ACCESSIBLE
+        where type 'a class = 'a ScaleAccessibleClass.class
     structure ScaleButtonClass :
       GTK_SCALE_BUTTON_CLASS
         where type 'a button_class = 'a ButtonClass.class
+    structure ScaleButtonAccessibleClass :
+      GTK_SCALE_BUTTON_ACCESSIBLE_CLASS
+        where type 'a button_accessible_class = 'a ButtonAccessibleClass.class
     structure ScrolledWindow :
       GTK_SCROLLED_WINDOW
         where type 'a class = 'a ScrolledWindowClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a widget_class = 'a WidgetClass.class
+        where type position_type_t = PositionType.t
         where type direction_type_t = DirectionType.t
         where type scroll_type_t = ScrollType.t
         where type shadow_type_t = ShadowType.t
         where type 'a adjustment_class = 'a AdjustmentClass.class
         where type policy_type_t = PolicyType.t
         where type corner_type_t = CornerType.t
+    structure ScrolledWindowAccessible :
+      GTK_SCROLLED_WINDOW_ACCESSIBLE
+        where type 'a class = 'a ScrolledWindowAccessibleClass.class
+    structure SearchBar :
+      GTK_SEARCH_BAR
+        where type 'a class = 'a SearchBarClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a entry_class = 'a EntryClass.class
     structure SeparatorMenuItemClass :
       GTK_SEPARATOR_MENU_ITEM_CLASS
         where type 'a menu_item_class = 'a MenuItemClass.class
     structure SeparatorToolItemClass :
       GTK_SEPARATOR_TOOL_ITEM_CLASS
         where type 'a tool_item_class = 'a ToolItemClass.class
+    structure ShortcutLabel :
+      GTK_SHORTCUT_LABEL
+        where type 'a class = 'a ShortcutLabelClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a orientable_class = 'a OrientableClass.class
+    structure ShortcutsGroup :
+      GTK_SHORTCUTS_GROUP
+        where type 'a class = 'a ShortcutsGroupClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a orientable_class = 'a OrientableClass.class
+        where type 'a size_group_class = 'a SizeGroupClass.class
+    structure ShortcutsSection :
+      GTK_SHORTCUTS_SECTION
+        where type 'a class = 'a ShortcutsSectionClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a orientable_class = 'a OrientableClass.class
+    structure ShortcutsShortcut :
+      GTK_SHORTCUTS_SHORTCUT
+        where type 'a class = 'a ShortcutsShortcutClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a orientable_class = 'a OrientableClass.class
+        where type text_direction_t = TextDirection.t
+        where type shortcut_type_t = ShortcutType.t
+        where type 'a size_group_class = 'a SizeGroupClass.class
+    structure ShortcutsWindowClass :
+      GTK_SHORTCUTS_WINDOW_CLASS
+        where type 'a window_class = 'a WindowClass.class
+    structure SpinButtonAccessible :
+      GTK_SPIN_BUTTON_ACCESSIBLE
+        where type 'a class = 'a SpinButtonAccessibleClass.class
+    structure StackAccessible :
+      GTK_STACK_ACCESSIBLE
+        where type 'a class = 'a StackAccessibleClass.class
+    structure StackSidebar :
+      GTK_STACK_SIDEBAR
+        where type 'a class = 'a StackSidebarClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a stack_class = 'a StackClass.class
+    structure StackSwitcher :
+      GTK_STACK_SWITCHER
+        where type 'a class = 'a StackSwitcherClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a orientable_class = 'a OrientableClass.class
+        where type 'a stack_class = 'a StackClass.class
     structure StatusIcon :
       GTK_STATUS_ICON
         where type 'a class = 'a StatusIconClass.class
@@ -1487,32 +2087,25 @@ signature GTK =
         where type 'a class = 'a StatusbarClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a orientable_class = 'a OrientableClass.class
-        where type 'a widget_class = 'a WidgetClass.class
+        where type 'a box_class = 'a BoxClass.class
+    structure StatusbarAccessible :
+      GTK_STATUSBAR_ACCESSIBLE
+        where type 'a class = 'a StatusbarAccessibleClass.class
     structure TearoffMenuItemClass :
       GTK_TEAROFF_MENU_ITEM_CLASS
         where type 'a menu_item_class = 'a MenuItemClass.class
-    structure TextView :
-      GTK_TEXT_VIEW
-        where type 'a class = 'a TextViewClass.class
-        where type 'a buildable_class = 'a BuildableClass.class
-        where type 'a scrollable_class = 'a ScrollableClass.class
-        where type 'a text_child_anchor_class = 'a TextChildAnchorClass.class
-        where type text_attributes_t = TextAttributesRecord.t
-        where type 'a adjustment_class = 'a AdjustmentClass.class
-        where type 'a widget_class = 'a WidgetClass.class
-        where type 'a text_mark_class = 'a TextMarkClass.class
-        where type text_iter_t = TextIterRecord.t
-        where type text_window_type_t = TextWindowType.t
-        where type delete_type_t = DeleteType.t
-        where type movement_step_t = MovementStep.t
-        where type scroll_step_t = ScrollStep.t
-        where type 'a menu_class = 'a MenuClass.class
-        where type 'a text_buffer_class = 'a TextBufferClass.class
-        where type justification_t = Justification.t
-        where type wrap_mode_t = WrapMode.t
+    structure TextCellAccessible :
+      GTK_TEXT_CELL_ACCESSIBLE
+        where type 'a class = 'a TextCellAccessibleClass.class
+    structure TextViewAccessible :
+      GTK_TEXT_VIEW_ACCESSIBLE
+        where type 'a class = 'a TextViewAccessibleClass.class
     structure ToggleButtonClass :
       GTK_TOGGLE_BUTTON_CLASS
         where type 'a button_class = 'a ButtonClass.class
+    structure ToggleButtonAccessibleClass :
+      GTK_TOGGLE_BUTTON_ACCESSIBLE_CLASS
+        where type 'a button_accessible_class = 'a ButtonAccessibleClass.class
     structure ToolButtonClass :
       GTK_TOOL_BUTTON_CLASS
         where type 'a tool_item_class = 'a ToolItemClass.class
@@ -1559,7 +2152,12 @@ signature GTK =
         where type relief_style_t = ReliefStyle.t
         where type 'a tool_item_class = 'a ToolItemClass.class
         where type orientation_t = Orientation.t
+        where type icon_size_t = IconSize.t
         where type toolbar_style_t = ToolbarStyle.t
+    structure TreeViewAccessible :
+      GTK_TREE_VIEW_ACCESSIBLE
+        where type 'a class = 'a TreeViewAccessibleClass.class
+        where type 'a cell_accessible_parent_class = 'a CellAccessibleParentClass.class
     structure VBox :
       GTK_V_BOX
         where type 'a class = 'a VBoxClass.class
@@ -1609,7 +2207,6 @@ signature GTK =
         where type 'a rc_style_class = 'a RcStyleClass.class
         where type 'a accel_group_class = 'a AccelGroupClass.class
         where type 'a window_class = 'a WindowClass.class
-        where type allocation_t = AllocationRecord.t
         where type requisition_t = RequisitionRecord.t
         where type text_direction_t = TextDirection.t
         where type drag_result_t = DragResult.t
@@ -1617,6 +2214,7 @@ signature GTK =
         where type 'a tooltip_class = 'a TooltipClass.class
         where type selection_data_t = SelectionDataRecord.t
         where type widget_help_type_t = WidgetHelpType.t
+        where type allocation_t = AllocationRecord.t
         where type state_type_t = StateType.t
         where type state_flags_t = StateFlags.t
         where type 'a container_class = 'a ContainerClass.class
@@ -1628,10 +2226,13 @@ signature GTK =
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a window_group_class = 'a WindowGroupClass.class
         where type 'a accel_group_class = 'a AccelGroupClass.class
-        where type 'a widget_class = 'a WidgetClass.class
         where type 'a application_class = 'a ApplicationClass.class
+        where type 'a widget_class = 'a WidgetClass.class
         where type window_type_t = WindowType.t
         where type window_position_t = WindowPosition.t
+    structure WindowAccessible :
+      GTK_WINDOW_ACCESSIBLE
+        where type 'a class = 'a WindowAccessibleClass.class
     structure WindowGroup :
       GTK_WINDOW_GROUP
         where type 'a class = 'a WindowGroupClass.class
@@ -1650,6 +2251,12 @@ signature GTK =
     structure AppChooserDialogClass :
       GTK_APP_CHOOSER_DIALOG_CLASS
         where type 'a dialog_class = 'a DialogClass.class
+    structure ApplicationWindow :
+      GTK_APPLICATION_WINDOW
+        where type 'a class = 'a ApplicationWindowClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a application_class = 'a ApplicationClass.class
+        where type 'a shortcuts_window_class = 'a ShortcutsWindowClass.class
     structure AspectFrame :
       GTK_ASPECT_FRAME
         where type 'a class = 'a AspectFrameClass.class
@@ -1666,13 +2273,22 @@ signature GTK =
     structure CheckMenuItem :
       GTK_CHECK_MENU_ITEM
         where type 'a class = 'a CheckMenuItemClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+    structure CheckMenuItemAccessible :
+      GTK_CHECK_MENU_ITEM_ACCESSIBLE
+        where type 'a class = 'a CheckMenuItemAccessibleClass.class
     structure ColorButton :
       GTK_COLOR_BUTTON
         where type 'a class = 'a ColorButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a color_chooser_class = 'a ColorChooserClass.class
+    structure ColorChooserDialogClass :
+      GTK_COLOR_CHOOSER_DIALOG_CLASS
+        where type 'a dialog_class = 'a DialogClass.class
     structure ColorSelectionDialogClass :
       GTK_COLOR_SELECTION_DIALOG_CLASS
         where type 'a dialog_class = 'a DialogClass.class
@@ -1686,13 +2302,23 @@ signature GTK =
       GTK_DIALOG
         where type 'a class = 'a DialogClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a box_class = 'a BoxClass.class
         where type 'a widget_class = 'a WidgetClass.class
+    structure FileChooserButton :
+      GTK_FILE_CHOOSER_BUTTON
+        where type 'a class = 'a FileChooserButtonClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a orientable_class = 'a OrientableClass.class
+        where type file_chooser_action_t = FileChooserAction.t
+        where type 'a dialog_class = 'a DialogClass.class
+        where type 'a file_chooser_class = 'a FileChooserClass.class
     structure FileChooserDialogClass :
       GTK_FILE_CHOOSER_DIALOG_CLASS
         where type 'a dialog_class = 'a DialogClass.class
     structure FontButton :
       GTK_FONT_BUTTON
         where type 'a class = 'a FontButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a font_chooser_class = 'a FontChooserClass.class
@@ -1702,6 +2328,12 @@ signature GTK =
     structure FontSelectionDialogClass :
       GTK_FONT_SELECTION_DIALOG_CLASS
         where type 'a dialog_class = 'a DialogClass.class
+    structure GesturePan :
+      GTK_GESTURE_PAN
+        where type 'a class = 'a GesturePanClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+        where type pan_direction_t = PanDirection.t
+        where type orientation_t = Orientation.t
     structure HButtonBox :
       GTK_H_BUTTON_BOX
         where type 'a class = 'a HButtonBoxClass.class
@@ -1710,6 +2342,7 @@ signature GTK =
     structure ImageMenuItem :
       GTK_IMAGE_MENU_ITEM
         where type 'a class = 'a ImageMenuItemClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a accel_group_class = 'a AccelGroupClass.class
@@ -1717,30 +2350,70 @@ signature GTK =
     structure LinkButton :
       GTK_LINK_BUTTON
         where type 'a class = 'a LinkButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+    structure LinkButtonAccessible :
+      GTK_LINK_BUTTON_ACCESSIBLE
+        where type 'a class = 'a LinkButtonAccessibleClass.class
     structure LockButton :
       GTK_LOCK_BUTTON
         where type 'a class = 'a LockButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+    structure LockButtonAccessible :
+      GTK_LOCK_BUTTON_ACCESSIBLE
+        where type 'a class = 'a LockButtonAccessibleClass.class
+    structure MenuAccessible :
+      GTK_MENU_ACCESSIBLE
+        where type 'a class = 'a MenuAccessibleClass.class
+    structure MenuButtonClass :
+      GTK_MENU_BUTTON_CLASS
+        where type 'a toggle_button_class = 'a ToggleButtonClass.class
+    structure MenuButtonAccessibleClass :
+      GTK_MENU_BUTTON_ACCESSIBLE_CLASS
+        where type 'a toggle_button_accessible_class = 'a ToggleButtonAccessibleClass.class
     structure MenuToolButtonClass :
       GTK_MENU_TOOL_BUTTON_CLASS
         where type 'a tool_button_class = 'a ToolButtonClass.class
     structure MessageDialogClass :
       GTK_MESSAGE_DIALOG_CLASS
         where type 'a dialog_class = 'a DialogClass.class
+    structure ModelButton :
+      GTK_MODEL_BUTTON
+        where type 'a class = 'a ModelButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
+        where type 'a activatable_class = 'a ActivatableClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type button_role_t = ButtonRole.t
     structure OffscreenWindow :
       GTK_OFFSCREEN_WINDOW
         where type 'a class = 'a OffscreenWindowClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+    structure PlacesSidebar :
+      GTK_PLACES_SIDEBAR
+        where type 'a class = 'a PlacesSidebarClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+        where type places_open_flags_t = PlacesOpenFlags.t
     structure Plug :
       GTK_PLUG
         where type 'a class = 'a PlugClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+    structure PopoverMenu :
+      GTK_POPOVER_MENU
+        where type 'a class = 'a PopoverMenuClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+    structure RadioButtonAccessibleClass :
+      GTK_RADIO_BUTTON_ACCESSIBLE_CLASS
+        where type 'a toggle_button_accessible_class = 'a ToggleButtonAccessibleClass.class
     structure RadioMenuItemClass :
       GTK_RADIO_MENU_ITEM_CLASS
         where type 'a check_menu_item_class = 'a CheckMenuItemClass.class
+    structure RadioMenuItemAccessibleClass :
+      GTK_RADIO_MENU_ITEM_ACCESSIBLE_CLASS
+        where type 'a check_menu_item_accessible_class = 'a CheckMenuItemAccessibleClass.class
     structure RecentChooserDialogClass :
       GTK_RECENT_CHOOSER_DIALOG_CLASS
         where type 'a dialog_class = 'a DialogClass.class
@@ -1754,15 +2427,21 @@ signature GTK =
     structure ScaleButton :
       GTK_SCALE_BUTTON
         where type 'a class = 'a ScaleButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a orientable_class = 'a OrientableClass.class
+        where type 'a button_class = 'a ButtonClass.class
         where type 'a widget_class = 'a WidgetClass.class
         where type 'a adjustment_class = 'a AdjustmentClass.class
         where type icon_size_t = IconSize.t
+    structure ScaleButtonAccessible :
+      GTK_SCALE_BUTTON_ACCESSIBLE
+        where type 'a class = 'a ScaleButtonAccessibleClass.class
     structure SeparatorMenuItem :
       GTK_SEPARATOR_MENU_ITEM
         where type 'a class = 'a SeparatorMenuItemClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
     structure SeparatorToolItem :
@@ -1770,22 +2449,32 @@ signature GTK =
         where type 'a class = 'a SeparatorToolItemClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+    structure ShortcutsWindow :
+      GTK_SHORTCUTS_WINDOW
+        where type 'a class = 'a ShortcutsWindowClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
     structure TearoffMenuItem :
       GTK_TEAROFF_MENU_ITEM
         where type 'a class = 'a TearoffMenuItemClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
     structure ToggleButton :
       GTK_TOGGLE_BUTTON
         where type 'a class = 'a ToggleButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+    structure ToggleButtonAccessible :
+      GTK_TOGGLE_BUTTON_ACCESSIBLE
+        where type 'a class = 'a ToggleButtonAccessibleClass.class
     structure ToggleToolButtonClass :
       GTK_TOGGLE_TOOL_BUTTON_CLASS
         where type 'a tool_button_class = 'a ToolButtonClass.class
     structure ToolButton :
       GTK_TOOL_BUTTON
         where type 'a class = 'a ToolButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a widget_class = 'a WidgetClass.class
@@ -1813,8 +2502,15 @@ signature GTK =
     structure CheckButton :
       GTK_CHECK_BUTTON
         where type 'a class = 'a CheckButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+    structure ColorChooserDialog :
+      GTK_COLOR_CHOOSER_DIALOG
+        where type 'a class = 'a ColorChooserDialogClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a color_chooser_class = 'a ColorChooserClass.class
+        where type 'a window_class = 'a WindowClass.class
     structure ColorSelectionDialog :
       GTK_COLOR_SELECTION_DIALOG
         where type 'a class = 'a ColorSelectionDialogClass.class
@@ -1836,9 +2532,24 @@ signature GTK =
         where type 'a class = 'a FontSelectionDialogClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a widget_class = 'a WidgetClass.class
+    structure MenuButton :
+      GTK_MENU_BUTTON
+        where type 'a class = 'a MenuButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
+        where type 'a activatable_class = 'a ActivatableClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+        where type 'a container_class = 'a ContainerClass.class
+        where type arrow_type_t = ArrowType.t
+        where type 'a popover_class = 'a PopoverClass.class
+        where type 'a menu_class = 'a MenuClass.class
+    structure MenuButtonAccessible :
+      GTK_MENU_BUTTON_ACCESSIBLE
+        where type 'a class = 'a MenuButtonAccessibleClass.class
     structure MenuToolButton :
       GTK_MENU_TOOL_BUTTON
         where type 'a class = 'a MenuToolButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a widget_class = 'a WidgetClass.class
@@ -1853,11 +2564,18 @@ signature GTK =
     structure RadioButtonClass :
       GTK_RADIO_BUTTON_CLASS
         where type 'a check_button_class = 'a CheckButtonClass.class
+    structure RadioButtonAccessible :
+      GTK_RADIO_BUTTON_ACCESSIBLE
+        where type 'a class = 'a RadioButtonAccessibleClass.class
     structure RadioMenuItem :
       GTK_RADIO_MENU_ITEM
         where type 'a class = 'a RadioMenuItemClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+    structure RadioMenuItemAccessible :
+      GTK_RADIO_MENU_ITEM_ACCESSIBLE
+        where type 'a class = 'a RadioMenuItemAccessibleClass.class
     structure RadioToolButtonClass :
       GTK_RADIO_TOOL_BUTTON_CLASS
         where type 'a toggle_tool_button_class = 'a ToggleToolButtonClass.class
@@ -1869,27 +2587,34 @@ signature GTK =
     structure ToggleToolButton :
       GTK_TOGGLE_TOOL_BUTTON
         where type 'a class = 'a ToggleToolButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
     structure VolumeButton :
       GTK_VOLUME_BUTTON
         where type 'a class = 'a VolumeButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a orientable_class = 'a OrientableClass.class
     structure RadioButton :
       GTK_RADIO_BUTTON
         where type 'a class = 'a RadioButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
     structure RadioToolButton :
       GTK_RADIO_TOOL_BUTTON
         where type 'a class = 'a RadioToolButtonClass.class
+        where type 'a actionable_class = 'a ActionableClass.class
         where type 'a activatable_class = 'a ActivatableClass.class
         where type 'a buildable_class = 'a BuildableClass.class
     val BINARY_AGE : LargeInt.int
     val INPUT_ERROR : LargeInt.int
     val INTERFACE_AGE : LargeInt.int
+    val LEVEL_BAR_OFFSET_FULL : string
+    val LEVEL_BAR_OFFSET_HIGH : string
+    val LEVEL_BAR_OFFSET_LOW : string
     val MAJOR_VERSION : LargeInt.int
     val MAX_COMPOSE_LEN : LargeInt.int
     val MICRO_VERSION : LargeInt.int
@@ -1912,7 +2637,9 @@ signature GTK =
     val PRINT_SETTINGS_NUMBER_UP_LAYOUT : string
     val PRINT_SETTINGS_N_COPIES : string
     val PRINT_SETTINGS_ORIENTATION : string
+    val PRINT_SETTINGS_OUTPUT_BASENAME : string
     val PRINT_SETTINGS_OUTPUT_BIN : string
+    val PRINT_SETTINGS_OUTPUT_DIR : string
     val PRINT_SETTINGS_OUTPUT_FILE_FORMAT : string
     val PRINT_SETTINGS_OUTPUT_URI : string
     val PRINT_SETTINGS_PAGE_RANGES : string
@@ -2039,18 +2766,26 @@ signature GTK =
     val STOCK_ZOOM_IN : string
     val STOCK_ZOOM_OUT : string
     val STYLE_CLASS_ACCELERATOR : string
+    val STYLE_CLASS_ARROW : string
     val STYLE_CLASS_BACKGROUND : string
+    val STYLE_CLASS_BOTTOM : string
     val STYLE_CLASS_BUTTON : string
     val STYLE_CLASS_CALENDAR : string
     val STYLE_CLASS_CELL : string
     val STYLE_CLASS_CHECK : string
     val STYLE_CLASS_COMBOBOX_ENTRY : string
+    val STYLE_CLASS_CONTEXT_MENU : string
+    val STYLE_CLASS_CSD : string
+    val STYLE_CLASS_CURSOR_HANDLE : string
     val STYLE_CLASS_DEFAULT : string
+    val STYLE_CLASS_DESTRUCTIVE_ACTION : string
+    val STYLE_CLASS_DIM_LABEL : string
     val STYLE_CLASS_DND : string
     val STYLE_CLASS_DOCK : string
     val STYLE_CLASS_ENTRY : string
     val STYLE_CLASS_ERROR : string
     val STYLE_CLASS_EXPANDER : string
+    val STYLE_CLASS_FLAT : string
     val STYLE_CLASS_FRAME : string
     val STYLE_CLASS_GRIP : string
     val STYLE_CLASS_HEADER : string
@@ -2059,33 +2794,61 @@ signature GTK =
     val STYLE_CLASS_IMAGE : string
     val STYLE_CLASS_INFO : string
     val STYLE_CLASS_INLINE_TOOLBAR : string
+    val STYLE_CLASS_INSERTION_CURSOR : string
+    val STYLE_CLASS_LABEL : string
+    val STYLE_CLASS_LEFT : string
+    val STYLE_CLASS_LEVEL_BAR : string
+    val STYLE_CLASS_LINKED : string
+    val STYLE_CLASS_LIST : string
+    val STYLE_CLASS_LIST_ROW : string
     val STYLE_CLASS_MARK : string
     val STYLE_CLASS_MENU : string
     val STYLE_CLASS_MENUBAR : string
     val STYLE_CLASS_MENUITEM : string
+    val STYLE_CLASS_MESSAGE_DIALOG : string
+    val STYLE_CLASS_MONOSPACE : string
+    val STYLE_CLASS_NEEDS_ATTENTION : string
     val STYLE_CLASS_NOTEBOOK : string
+    val STYLE_CLASS_OSD : string
+    val STYLE_CLASS_OVERSHOOT : string
     val STYLE_CLASS_PANE_SEPARATOR : string
+    val STYLE_CLASS_PAPER : string
+    val STYLE_CLASS_POPOVER : string
+    val STYLE_CLASS_POPUP : string
     val STYLE_CLASS_PRIMARY_TOOLBAR : string
     val STYLE_CLASS_PROGRESSBAR : string
+    val STYLE_CLASS_PULSE : string
     val STYLE_CLASS_QUESTION : string
     val STYLE_CLASS_RADIO : string
     val STYLE_CLASS_RAISED : string
+    val STYLE_CLASS_READ_ONLY : string
+    val STYLE_CLASS_RIGHT : string
     val STYLE_CLASS_RUBBERBAND : string
     val STYLE_CLASS_SCALE : string
     val STYLE_CLASS_SCALE_HAS_MARKS_ABOVE : string
     val STYLE_CLASS_SCALE_HAS_MARKS_BELOW : string
     val STYLE_CLASS_SCROLLBAR : string
+    val STYLE_CLASS_SCROLLBARS_JUNCTION : string
     val STYLE_CLASS_SEPARATOR : string
     val STYLE_CLASS_SIDEBAR : string
     val STYLE_CLASS_SLIDER : string
     val STYLE_CLASS_SPINBUTTON : string
     val STYLE_CLASS_SPINNER : string
+    val STYLE_CLASS_STATUSBAR : string
+    val STYLE_CLASS_SUBTITLE : string
+    val STYLE_CLASS_SUGGESTED_ACTION : string
+    val STYLE_CLASS_TITLE : string
+    val STYLE_CLASS_TITLEBAR : string
     val STYLE_CLASS_TOOLBAR : string
     val STYLE_CLASS_TOOLTIP : string
+    val STYLE_CLASS_TOP : string
+    val STYLE_CLASS_TOUCH_SELECTION : string
     val STYLE_CLASS_TROUGH : string
+    val STYLE_CLASS_UNDERSHOOT : string
     val STYLE_CLASS_VERTICAL : string
     val STYLE_CLASS_VIEW : string
     val STYLE_CLASS_WARNING : string
+    val STYLE_CLASS_WIDE : string
     val STYLE_PROPERTY_BACKGROUND_COLOR : string
     val STYLE_PROPERTY_BACKGROUND_IMAGE : string
     val STYLE_PROPERTY_BORDER_COLOR : string
@@ -2106,6 +2869,8 @@ signature GTK =
     val STYLE_REGION_ROW : string
     val STYLE_REGION_TAB : string
     val TEXT_VIEW_PRIORITY_VALIDATE : LargeInt.int
+    val TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID : LargeInt.int
+    val TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID : LargeInt.int
     val accelGroupsActivate :
       'a GObject.ObjectClass.class
        * LargeInt.int
@@ -2113,8 +2878,25 @@ signature GTK =
        -> bool
     val acceleratorGetDefaultModMask : unit -> Gdk.ModifierType.t
     val acceleratorGetLabel : LargeInt.int * Gdk.ModifierType.t -> string
+    val acceleratorGetLabelWithKeycode :
+      'a Gdk.DisplayClass.class option
+       * LargeInt.int
+       * LargeInt.int
+       * Gdk.ModifierType.t
+       -> string
     val acceleratorName : LargeInt.int * Gdk.ModifierType.t -> string
+    val acceleratorNameWithKeycode :
+      'a Gdk.DisplayClass.class option
+       * LargeInt.int
+       * LargeInt.int
+       * Gdk.ModifierType.t
+       -> string
     val acceleratorParse : string -> LargeInt.int * Gdk.ModifierType.t
+    val acceleratorParseWithKeycode :
+      string
+       -> LargeInt.int
+           * LargeInt.int vector
+           * Gdk.ModifierType.t
     val acceleratorSetDefaultModMask : Gdk.ModifierType.t -> unit
     val acceleratorValid : LargeInt.int * Gdk.ModifierType.t -> bool
     val alternativeDialogButtonOrder : 'a Gdk.ScreenClass.class option -> bool
@@ -2136,6 +2918,7 @@ signature GTK =
        -> unit
     val deviceGrabRemove : 'a WidgetClass.class * 'b Gdk.DeviceClass.class -> unit
     val disableSetlocale : unit -> unit
+    val dragCancel : 'a Gdk.DragContextClass.class -> unit
     val dragFinish :
       'a Gdk.DragContextClass.class
        * bool
@@ -2193,17 +2976,19 @@ signature GTK =
     val getDefaultLanguage : unit -> Pango.LanguageRecord.t
     val getEventWidget : 'a Gdk.Event.union -> base WidgetClass.class
     val getInterfaceAge : unit -> LargeInt.int
+    val getLocaleDirection : unit -> TextDirection.t
     val getMajorVersion : unit -> LargeInt.int
     val getMicroVersion : unit -> LargeInt.int
     val getMinorVersion : unit -> LargeInt.int
+    val getOptionGroup : bool -> GLib.OptionGroupRecord.t
     val grabGetCurrent : unit -> base WidgetClass.class
     val init : string list -> string list
     val initCheck : string list -> bool * string list
     val initWithArgs :
       string list
-       * string
+       * string option
        * GLib.OptionEntryRecord.t vector
-       * string
+       * string option
        -> string list
     val keySnooperRemove : LargeInt.int -> unit
     val main : unit -> unit
@@ -2500,6 +3285,13 @@ signature GTK =
        * real
        * real
        -> unit
+    val renderBackgroundGetClip :
+      'a StyleContextClass.class
+       * real
+       * real
+       * real
+       * real
+       -> Gdk.RectangleRecord.t
     val renderCheck :
       'a StyleContextClass.class
        * Cairo.ContextRecord.t
@@ -2572,6 +3364,22 @@ signature GTK =
        * IconSourceRecord.t
        * LargeInt.int
        -> base GdkPixbuf.PixbufClass.class
+    val renderIconSurface :
+      'a StyleContextClass.class
+       * Cairo.ContextRecord.t
+       * Cairo.SurfaceRecord.t
+       * real
+       * real
+       -> unit
+    val renderInsertionCursor :
+      'a StyleContextClass.class
+       * Cairo.ContextRecord.t
+       * real
+       * real
+       * 'b Pango.LayoutClass.class
+       * LargeInt.int
+       * Pango.Direction.t
+       -> unit
     val renderLayout :
       'a StyleContextClass.class
        * Cairo.ContextRecord.t
@@ -2647,6 +3455,11 @@ signature GTK =
        * string
        * LargeInt.int
        -> unit
+    val showUriOnWindow :
+      'a WindowClass.class option
+       * string
+       * LargeInt.int
+       -> unit
     val stockAdd : StockItemRecord.t vector -> unit
     val stockAddStatic : StockItemRecord.t vector -> unit
     val stockLookup : string -> StockItemRecord.t option
@@ -2678,6 +3491,7 @@ signature GTK =
        * LargeInt.int
        * Gdk.ModifierType.t
        -> bool
+    val testWidgetWaitForDraw : 'a WidgetClass.class -> unit
     val treeGetRowDragData : SelectionDataRecord.t -> (base TreeModelClass.class * TreePathRecord.t) option
     val treeSetRowDragData :
       SelectionDataRecord.t

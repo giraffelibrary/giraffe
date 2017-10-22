@@ -51,6 +51,23 @@ structure GtkContainer :>
               x3,
               x4
             )
+    val childNotifyByPspec_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "gtk_container_child_notify_by_pspec" :
+              GtkContainerClass.FFI.notnull GtkContainerClass.FFI.p
+               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * GObjectParamSpecClass.FFI.notnull GObjectParamSpecClass.FFI.p
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val childSetProperty_ =
       fn
         x1
@@ -75,8 +92,8 @@ structure GtkContainer :>
             )
     val getBorderWidth_ = _import "gtk_container_get_border_width" : GtkContainerClass.FFI.notnull GtkContainerClass.FFI.p -> GUInt32.FFI.val_;
     val getFocusChild_ = _import "gtk_container_get_focus_child" : GtkContainerClass.FFI.notnull GtkContainerClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val getFocusHadjustment_ = _import "gtk_container_get_focus_hadjustment" : GtkContainerClass.FFI.notnull GtkContainerClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
-    val getFocusVadjustment_ = _import "gtk_container_get_focus_vadjustment" : GtkContainerClass.FFI.notnull GtkContainerClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
+    val getFocusHadjustment_ = _import "gtk_container_get_focus_hadjustment" : GtkContainerClass.FFI.notnull GtkContainerClass.FFI.p -> unit GtkAdjustmentClass.FFI.p;
+    val getFocusVadjustment_ = _import "gtk_container_get_focus_vadjustment" : GtkContainerClass.FFI.notnull GtkContainerClass.FFI.p -> unit GtkAdjustmentClass.FFI.p;
     val getPathForChild_ = fn x1 & x2 => (_import "gtk_container_get_path_for_child" : GtkContainerClass.FFI.notnull GtkContainerClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p;) (x1, x2)
     val getResizeMode_ = _import "gtk_container_get_resize_mode" : GtkContainerClass.FFI.notnull GtkContainerClass.FFI.p -> GtkResizeMode.FFI.val_;
     val propagateDraw_ =
@@ -151,6 +168,19 @@ structure GtkContainer :>
            & child
            & childProperty
         )
+    fun childNotifyByPspec self (child, pspec) =
+      (
+        GtkContainerClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GObjectParamSpecClass.FFI.withPtr
+         ---> I
+      )
+        childNotifyByPspec_
+        (
+          self
+           & child
+           & pspec
+        )
     fun childSetProperty
       self
       (
@@ -174,8 +204,8 @@ structure GtkContainer :>
         )
     fun getBorderWidth self = (GtkContainerClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getBorderWidth_ self
     fun getFocusChild self = (GtkContainerClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getFocusChild_ self
-    fun getFocusHadjustment self = (GtkContainerClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getFocusHadjustment_ self
-    fun getFocusVadjustment self = (GtkContainerClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getFocusVadjustment_ self
+    fun getFocusHadjustment self = (GtkContainerClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromOptPtr false) getFocusHadjustment_ self
+    fun getFocusVadjustment self = (GtkContainerClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromOptPtr false) getFocusVadjustment_ self
     fun getPathForChild self child = (GtkContainerClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr true) getPathForChild_ (self & child)
     fun getResizeMode self = (GtkContainerClass.FFI.withPtr ---> GtkResizeMode.FFI.fromVal) getResizeMode_ self
     fun propagateDraw self (child, cr) =

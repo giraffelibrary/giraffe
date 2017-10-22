@@ -15,8 +15,9 @@ structure GtkAssistant :>
       val commit_ = call (getSymbol "gtk_assistant_commit") (GtkAssistantClass.PolyML.cPtr --> cVoid)
       val getCurrentPage_ = call (getSymbol "gtk_assistant_get_current_page") (GtkAssistantClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getNPages_ = call (getSymbol "gtk_assistant_get_n_pages") (GtkAssistantClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getNthPage_ = call (getSymbol "gtk_assistant_get_nth_page") (GtkAssistantClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val getNthPage_ = call (getSymbol "gtk_assistant_get_nth_page") (GtkAssistantClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GtkWidgetClass.PolyML.cOptPtr)
       val getPageComplete_ = call (getSymbol "gtk_assistant_get_page_complete") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getPageHasPadding_ = call (getSymbol "gtk_assistant_get_page_has_padding") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getPageHeaderImage_ = call (getSymbol "gtk_assistant_get_page_header_image") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
       val getPageSideImage_ = call (getSymbol "gtk_assistant_get_page_side_image") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
       val getPageTitle_ = call (getSymbol "gtk_assistant_get_page_title") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
@@ -37,6 +38,14 @@ structure GtkAssistant :>
       val setCurrentPage_ = call (getSymbol "gtk_assistant_set_current_page") (GtkAssistantClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
       val setPageComplete_ =
         call (getSymbol "gtk_assistant_set_page_complete")
+          (
+            GtkAssistantClass.PolyML.cPtr
+             &&> GtkWidgetClass.PolyML.cPtr
+             &&> GBool.PolyML.cVal
+             --> cVoid
+          )
+      val setPageHasPadding_ =
+        call (getSymbol "gtk_assistant_set_page_has_padding")
           (
             GtkAssistantClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
@@ -91,8 +100,9 @@ structure GtkAssistant :>
     fun commit self = (GtkAssistantClass.FFI.withPtr ---> I) commit_ self
     fun getCurrentPage self = (GtkAssistantClass.FFI.withPtr ---> GInt32.FFI.fromVal) getCurrentPage_ self
     fun getNPages self = (GtkAssistantClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNPages_ self
-    fun getNthPage self pageNum = (GtkAssistantClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getNthPage_ (self & pageNum)
+    fun getNthPage self pageNum = (GtkAssistantClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getNthPage_ (self & pageNum)
     fun getPageComplete self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getPageComplete_ (self & page)
+    fun getPageHasPadding self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getPageHasPadding_ (self & page)
     fun getPageHeaderImage self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPageHeaderImage_ (self & page)
     fun getPageSideImage self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPageSideImage_ (self & page)
     fun getPageTitle self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPageTitle_ (self & page)
@@ -128,6 +138,19 @@ structure GtkAssistant :>
           self
            & page
            & complete
+        )
+    fun setPageHasPadding self (page, hasPadding) =
+      (
+        GtkAssistantClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         ---> I
+      )
+        setPageHasPadding_
+        (
+          self
+           & page
+           & hasPadding
         )
     fun setPageHeaderImage self (page, pixbuf) =
       (
@@ -188,6 +211,16 @@ structure GtkAssistant :>
       fun applySig f = signal "apply" (void ---> ret_void) f
       fun cancelSig f = signal "cancel" (void ---> ret_void) f
       fun closeSig f = signal "close" (void ---> ret_void) f
+      fun escapeSig f = signal "escape" (void ---> ret_void) f
       fun prepareSig f = signal "prepare" (get 0w1 GtkWidgetClass.t ---> ret_void) f
+    end
+    local
+      open Property
+    in
+      val useHeaderBarProp =
+        {
+          get = fn x => get "use-header-bar" int x,
+          set = fn x => set "use-header-bar" int x
+        }
     end
   end

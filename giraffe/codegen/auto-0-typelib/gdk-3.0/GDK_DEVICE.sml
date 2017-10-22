@@ -9,15 +9,19 @@ signature GDK_DEVICE =
     type axis_use_t
     type modifier_type_t
     type 'a screen_class
+    type axis_flags_t
     type 'a device_manager_class
     type 'a display_class
     type input_mode_t
     type input_source_t
+    type 'a seat_class
+    type 'a device_tool_class
     type device_type_t
     type t = base class
     val getType : unit -> GObject.Type.t
     val grabInfoLibgtkOnly : 'a display_class * 'b class -> (base window_class * bool) option
-    val getAssociatedDevice : 'a class -> base class
+    val getAssociatedDevice : 'a class -> base class option
+    val getAxes : 'a class -> axis_flags_t
     val getAxisUse :
       'a class
        -> LargeInt.int
@@ -29,6 +33,7 @@ signature GDK_DEVICE =
       'a class
        -> LargeInt.int
        -> (LargeInt.int * modifier_type_t) option
+    val getLastEventWindow : 'a class -> base window_class option
     val getMode : 'a class -> input_mode_t
     val getNAxes : 'a class -> LargeInt.int
     val getNKeys : 'a class -> LargeInt.int
@@ -38,12 +43,25 @@ signature GDK_DEVICE =
        -> base screen_class
            * LargeInt.int
            * LargeInt.int
+    val getPositionDouble :
+      'a class
+       -> base screen_class
+           * real
+           * real
+    val getProductId : 'a class -> string option
+    val getSeat : 'a class -> base seat_class
     val getSource : 'a class -> input_source_t
+    val getVendorId : 'a class -> string option
     val getWindowAtPosition :
       'a class
-       -> base window_class
+       -> base window_class option
            * LargeInt.int
            * LargeInt.int
+    val getWindowAtPositionDouble :
+      'a class
+       -> base window_class option
+           * real
+           * real
     val grab :
       'a class
        -> 'b window_class
@@ -78,7 +96,9 @@ signature GDK_DEVICE =
            * LargeInt.int
        -> unit
     val changedSig : (unit -> unit) -> 'a class Signal.t
+    val toolChangedSig : (base device_tool_class -> unit) -> 'a class Signal.t
     val associatedDeviceProp : ('a class, base class option) Property.readonly
+    val axesProp : ('a class, axis_flags_t) Property.readonly
     val deviceManagerProp : ('a class, base device_manager_class option, 'b device_manager_class option) Property.readwrite
     val displayProp : ('a class, base display_class option, 'b display_class option) Property.readwrite
     val hasCursorProp : ('a class, bool, bool) Property.readwrite
@@ -86,5 +106,10 @@ signature GDK_DEVICE =
     val inputSourceProp : ('a class, input_source_t, input_source_t) Property.readwrite
     val nAxesProp : ('a class, LargeInt.int) Property.readonly
     val nameProp : ('a class, string option, string option) Property.readwrite
+    val numTouchesProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val productIdProp : ('a class, string option, string option) Property.readwrite
+    val seatProp : ('a class, base seat_class option, 'b seat_class option) Property.readwrite
+    val toolProp : ('a class, base device_tool_class option) Property.readonly
     val typeProp : ('a class, device_type_t, device_type_t) Property.readwrite
+    val vendorIdProp : ('a class, string option, string option) Property.readwrite
   end

@@ -6,6 +6,10 @@ structure GLibTimeZone :>
     local
       open PolyMLFFI
     in
+      val getType_ = call (getSymbol "g_time_zone_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_time_zone_new") (Utf8.PolyML.cInOptPtr --> GLibTimeZoneRecord.PolyML.cPtr)
+      val newLocal_ = call (getSymbol "g_time_zone_new_local") (cVoid --> GLibTimeZoneRecord.PolyML.cPtr)
+      val newUtc_ = call (getSymbol "g_time_zone_new_utc") (cVoid --> GLibTimeZoneRecord.PolyML.cPtr)
       val findInterval_ =
         call (getSymbol "g_time_zone_find_interval")
           (
@@ -20,6 +24,10 @@ structure GLibTimeZone :>
     end
     type t = GLibTimeZoneRecord.t
     type time_type_t = GLibTimeType.t
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new identifier = (Utf8.FFI.withOptPtr ---> GLibTimeZoneRecord.FFI.fromPtr true) new_ identifier
+    fun newLocal () = (I ---> GLibTimeZoneRecord.FFI.fromPtr true) newLocal_ ()
+    fun newUtc () = (I ---> GLibTimeZoneRecord.FFI.fromPtr true) newUtc_ ()
     fun findInterval self (type', time) =
       (
         GLibTimeZoneRecord.FFI.withPtr

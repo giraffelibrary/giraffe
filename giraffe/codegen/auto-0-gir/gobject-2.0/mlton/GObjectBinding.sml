@@ -14,6 +14,7 @@ structure GObjectBinding :>
     val getSourceProperty_ = _import "g_binding_get_source_property" : GObjectBindingClass.FFI.notnull GObjectBindingClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getTarget_ = _import "g_binding_get_target" : GObjectBindingClass.FFI.notnull GObjectBindingClass.FFI.p -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
     val getTargetProperty_ = _import "g_binding_get_target_property" : GObjectBindingClass.FFI.notnull GObjectBindingClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val unbind_ = _import "g_binding_unbind" : GObjectBindingClass.FFI.notnull GObjectBindingClass.FFI.p -> unit;
     type 'a class = 'a GObjectBindingClass.class
     type type_t = GObjectType.t
     type binding_flags_t = GObjectBindingFlags.t
@@ -28,6 +29,7 @@ structure GObjectBinding :>
     fun getSourceProperty self = (GObjectBindingClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSourceProperty_ self
     fun getTarget self = (GObjectBindingClass.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getTarget_ self
     fun getTargetProperty self = (GObjectBindingClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTargetProperty_ self
+    fun unbind self = (GObjectBindingClass.FFI.withPtr ---> I) unbind_ self
     local
       open Property
     in

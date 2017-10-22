@@ -6,6 +6,7 @@ signature GDK_GRAB_STATUS =
     | INVALID_TIME
     | NOT_VIEWABLE
     | FROZEN
+    | FAILED
     include
       ENUM
         where type t = enum

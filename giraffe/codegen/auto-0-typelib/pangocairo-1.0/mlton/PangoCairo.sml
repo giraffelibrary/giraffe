@@ -1,8 +1,8 @@
 structure PangoCairo : PANGO_CAIRO =
   struct
-    val contextGetFontOptions_ = _import "pango_cairo_context_get_font_options" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> CairoFontOptionsRecord.FFI.notnull CairoFontOptionsRecord.FFI.p;
+    val contextGetFontOptions_ = _import "pango_cairo_context_get_font_options" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> unit CairoFontOptionsRecord.FFI.p;
     val contextGetResolution_ = _import "pango_cairo_context_get_resolution" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> GDouble.FFI.val_;
-    val contextSetFontOptions_ = fn x1 & x2 => (_import "pango_cairo_context_set_font_options" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * CairoFontOptionsRecord.FFI.notnull CairoFontOptionsRecord.FFI.p -> unit;) (x1, x2)
+    val contextSetFontOptions_ = fn x1 & x2 => (_import "pango_cairo_context_set_font_options" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * unit CairoFontOptionsRecord.FFI.p -> unit;) (x1, x2)
     val contextSetResolution_ = fn x1 & x2 => (_import "pango_cairo_context_set_resolution" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
     val createContext_ = _import "pango_cairo_create_context" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p -> PangoContextClass.FFI.notnull PangoContextClass.FFI.p;
     val createLayout_ = _import "pango_cairo_create_layout" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p -> PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p;
@@ -119,9 +119,9 @@ structure PangoCairo : PANGO_CAIRO =
     structure FcFontMap = PangoCairoFcFontMap
     structure Font = PangoCairoFont
     structure FontMap = PangoCairoFontMap
-    fun contextGetFontOptions context = (PangoContextClass.FFI.withPtr ---> CairoFontOptionsRecord.FFI.fromPtr false) contextGetFontOptions_ context
+    fun contextGetFontOptions context = (PangoContextClass.FFI.withPtr ---> CairoFontOptionsRecord.FFI.fromOptPtr false) contextGetFontOptions_ context
     fun contextGetResolution context = (PangoContextClass.FFI.withPtr ---> GDouble.FFI.fromVal) contextGetResolution_ context
-    fun contextSetFontOptions (context, options) = (PangoContextClass.FFI.withPtr &&&> CairoFontOptionsRecord.FFI.withPtr ---> I) contextSetFontOptions_ (context & options)
+    fun contextSetFontOptions (context, options) = (PangoContextClass.FFI.withPtr &&&> CairoFontOptionsRecord.FFI.withOptPtr ---> I) contextSetFontOptions_ (context & options)
     fun contextSetResolution (context, dpi) = (PangoContextClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) contextSetResolution_ (context & dpi)
     fun createContext cr = (CairoContextRecord.FFI.withPtr ---> PangoContextClass.FFI.fromPtr true) createContext_ cr
     fun createLayout cr = (CairoContextRecord.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr true) createLayout_ cr

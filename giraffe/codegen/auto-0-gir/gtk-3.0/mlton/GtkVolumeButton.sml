@@ -1,6 +1,7 @@
 structure GtkVolumeButton :>
   GTK_VOLUME_BUTTON
     where type 'a class = 'a GtkVolumeButtonClass.class
+    where type 'a actionable_class = 'a GtkActionableClass.class
     where type 'a activatable_class = 'a GtkActivatableClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a orientable_class = 'a GtkOrientableClass.class =
@@ -8,11 +9,13 @@ structure GtkVolumeButton :>
     val getType_ = _import "gtk_volume_button_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_volume_button_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     type 'a class = 'a GtkVolumeButtonClass.class
+    type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
     type t = base class
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self

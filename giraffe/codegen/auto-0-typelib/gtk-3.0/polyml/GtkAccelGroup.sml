@@ -15,7 +15,7 @@ structure GtkAccelGroup :>
     in
       val getType_ = call (getSymbol "gtk_accel_group_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_accel_group_new") (cVoid --> GtkAccelGroupClass.PolyML.cPtr)
-      val fromAccelClosure_ = call (getSymbol "gtk_accel_group_from_accel_closure") (GObjectClosureRecord.PolyML.cPtr --> GtkAccelGroupClass.PolyML.cPtr)
+      val fromAccelClosure_ = call (getSymbol "gtk_accel_group_from_accel_closure") (GObjectClosureRecord.PolyML.cPtr --> GtkAccelGroupClass.PolyML.cOptPtr)
       val activate_ =
         call (getSymbol "gtk_accel_group_activate")
           (
@@ -63,7 +63,7 @@ structure GtkAccelGroup :>
              &&> GUInt32.PolyML.cVal
              &&> GdkModifierType.PolyML.cVal
              &&> GUInt32.PolyML.cRef
-             --> GtkAccelGroupEntryRecordCVectorN.PolyML.cOutPtr
+             --> GtkAccelGroupEntryRecordCVectorN.PolyML.cOutOptPtr
           )
       val unlock_ = call (getSymbol "gtk_accel_group_unlock") (GtkAccelGroupClass.PolyML.cPtr --> cVoid)
     end
@@ -73,7 +73,7 @@ structure GtkAccelGroup :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkAccelGroupClass.FFI.fromPtr true) new_ ()
-    fun fromAccelClosure closure = (GObjectClosureRecord.FFI.withPtr ---> GtkAccelGroupClass.FFI.fromPtr false) fromAccelClosure_ closure
+    fun fromAccelClosure closure = (GObjectClosureRecord.FFI.withPtr ---> GtkAccelGroupClass.FFI.fromOptPtr false) fromAccelClosure_ closure
     fun activate
       self
       (
@@ -160,7 +160,7 @@ structure GtkAccelGroup :>
              &&&> GUInt32.FFI.withVal
              &&&> GdkModifierType.FFI.withVal
              &&&> GUInt32.FFI.withRefVal
-             ---> GUInt32.FFI.fromVal && GtkAccelGroupEntryRecordCVectorN.FFI.fromPtr 0
+             ---> GUInt32.FFI.fromVal && GtkAccelGroupEntryRecordCVectorN.FFI.fromOptPtr 0
           )
             query_
             (

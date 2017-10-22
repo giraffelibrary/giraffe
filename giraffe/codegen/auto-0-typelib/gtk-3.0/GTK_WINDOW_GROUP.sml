@@ -13,7 +13,7 @@ signature GTK_WINDOW_GROUP =
     val getCurrentDeviceGrab :
       'a class
        -> 'b Gdk.DeviceClass.class
-       -> base widget_class
+       -> base widget_class option
     val getCurrentGrab : 'a class -> base widget_class
     val removeWindow :
       'a class

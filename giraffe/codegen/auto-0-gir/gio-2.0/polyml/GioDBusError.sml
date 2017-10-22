@@ -42,6 +42,10 @@ structure GioDBusError :> GIO_D_BUS_ERROR =
     | SELINUX_SECURITY_CONTEXT_UNKNOWN
     | ADT_AUDIT_DATA_UNKNOWN
     | OBJECT_PATH_IN_USE
+    | UNKNOWN_OBJECT
+    | UNKNOWN_INTERFACE
+    | UNKNOWN_PROPERTY
+    | PROPERTY_READ_ONLY
     structure Enum =
       Enum(
         type enum = enum
@@ -89,6 +93,10 @@ structure GioDBusError :> GIO_D_BUS_ERROR =
           | SELINUX_SECURITY_CONTEXT_UNKNOWN => 38
           | ADT_AUDIT_DATA_UNKNOWN => 39
           | OBJECT_PATH_IN_USE => 40
+          | UNKNOWN_OBJECT => 41
+          | UNKNOWN_INTERFACE => 42
+          | UNKNOWN_PROPERTY => 43
+          | PROPERTY_READ_ONLY => 44
         exception Value of GInt.t
         val fromInt =
           fn
@@ -133,6 +141,10 @@ structure GioDBusError :> GIO_D_BUS_ERROR =
           | 38 => SELINUX_SECURITY_CONTEXT_UNKNOWN
           | 39 => ADT_AUDIT_DATA_UNKNOWN
           | 40 => OBJECT_PATH_IN_USE
+          | 41 => UNKNOWN_OBJECT
+          | 42 => UNKNOWN_INTERFACE
+          | 43 => UNKNOWN_PROPERTY
+          | 44 => PROPERTY_READ_ONLY
           | n => raise Value n
       )
     open Enum
@@ -150,5 +162,14 @@ structure GioDBusError :> GIO_D_BUS_ERROR =
           getValue = (I ---> FFI.fromVal) getValue_,
           setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
+    exception Error of t
+    val handler =
+      GLibErrorRecord.makeHandler
+        (
+          "g-dbus-error-quark",
+          FFI.fromVal,
+          Error
+        )
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end
+exception GioDBusError = GioDBusError.Error

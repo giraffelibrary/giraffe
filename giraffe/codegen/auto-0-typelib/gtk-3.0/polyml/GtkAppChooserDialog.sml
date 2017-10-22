@@ -27,7 +27,7 @@ structure GtkAppChooserDialog :>
              &&> Utf8.PolyML.cInPtr
              --> GtkWidgetClass.PolyML.cPtr
           )
-      val getHeading_ = call (getSymbol "gtk_app_chooser_dialog_get_heading") (GtkAppChooserDialogClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getHeading_ = call (getSymbol "gtk_app_chooser_dialog_get_heading") (GtkAppChooserDialogClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getWidget_ = call (getSymbol "gtk_app_chooser_dialog_get_widget") (GtkAppChooserDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val setHeading_ = call (getSymbol "gtk_app_chooser_dialog_set_heading") (GtkAppChooserDialogClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
     end
@@ -78,7 +78,7 @@ structure GtkAppChooserDialog :>
            & flags
            & contentType
         )
-    fun getHeading self = (GtkAppChooserDialogClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getHeading_ self
+    fun getHeading self = (GtkAppChooserDialogClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getHeading_ self
     fun getWidget self = (GtkAppChooserDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self
     fun setHeading self heading = (GtkAppChooserDialogClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setHeading_ (self & heading)
     local

@@ -3,9 +3,16 @@ signature GIO_SETTINGS =
     type 'a class
     type settings_backend_t
     type settings_bind_flags_t
+    type 'a action_class
+    type settings_schema_t
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : string -> base class
+    val newFull :
+      settings_schema_t
+       * settings_backend_t option
+       * string option
+       -> base class
     val newWithBackend : string * settings_backend_t -> base class
     val newWithBackendAndPath :
       string
@@ -16,6 +23,7 @@ signature GIO_SETTINGS =
     val listRelocatableSchemas : unit -> string list
     val listSchemas : unit -> string list
     val sync : unit -> unit
+    val unbind : 'a GObject.ObjectClass.class * string -> unit
     val apply : 'a class -> unit
     val bind :
       'a class
@@ -31,6 +39,10 @@ signature GIO_SETTINGS =
            * string
            * bool
        -> unit
+    val createAction :
+      'a class
+       -> string
+       -> base action_class
     val delay : 'a class -> unit
     val getBoolean :
       'a class
@@ -40,6 +52,10 @@ signature GIO_SETTINGS =
       'a class
        -> string
        -> base class
+    val getDefaultValue :
+      'a class
+       -> string
+       -> GLib.VariantRecord.t
     val getDouble :
       'a class
        -> string
@@ -54,6 +70,10 @@ signature GIO_SETTINGS =
        -> LargeInt.int
     val getHasUnapplied : 'a class -> bool
     val getInt :
+      'a class
+       -> string
+       -> LargeInt.int
+    val getInt64 :
       'a class
        -> string
        -> LargeInt.int
@@ -73,6 +93,14 @@ signature GIO_SETTINGS =
       'a class
        -> string
        -> LargeInt.int
+    val getUint64 :
+      'a class
+       -> string
+       -> LargeInt.int
+    val getUserValue :
+      'a class
+       -> string
+       -> GLib.VariantRecord.t
     val getValue :
       'a class
        -> string
@@ -112,6 +140,10 @@ signature GIO_SETTINGS =
       'a class
        -> string * LargeInt.int
        -> bool
+    val setInt64 :
+      'a class
+       -> string * LargeInt.int
+       -> bool
     val setString :
       'a class
        -> string * string
@@ -121,6 +153,10 @@ signature GIO_SETTINGS =
        -> string * string list option
        -> bool
     val setUint :
+      'a class
+       -> string * LargeInt.int
+       -> bool
+    val setUint64 :
       'a class
        -> string * LargeInt.int
        -> bool
@@ -136,4 +172,6 @@ signature GIO_SETTINGS =
     val hasUnappliedProp : ('a class, bool) Property.readonly
     val pathProp : ('a class, string option, string option) Property.readwrite
     val schemaProp : ('a class, string option, string option) Property.readwrite
+    val schemaIdProp : ('a class, string option, string option) Property.readwrite
+    val settingsSchemaProp : ('a class, settings_schema_t option, settings_schema_t option) Property.readwrite
   end

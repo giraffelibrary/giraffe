@@ -6,7 +6,7 @@ signature GDK_PIXBUF_PIXBUF_ANIMATION_ITER =
     val getType : unit -> GObject.Type.t
     val advance :
       'a class
-       -> GLib.TimeValRecord.t
+       -> GLib.TimeValRecord.t option
        -> bool
     val getDelayTime : 'a class -> LargeInt.int
     val getPixbuf : 'a class -> base pixbuf_class

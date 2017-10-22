@@ -2,6 +2,7 @@ structure GdkKeymap :>
   GDK_KEYMAP
     where type 'a class = 'a GdkKeymapClass.class
     where type 'a display_class = 'a GdkDisplayClass.class
+    where type modifier_intent_t = GdkModifierIntent.t
     where type keymap_key_t = GdkKeymapKeyRecord.t
     where type modifier_type_t = GdkModifierType.t =
   struct
@@ -72,7 +73,10 @@ structure GdkKeymap :>
               x4,
               x5
             )
+    val getModifierMask_ = fn x1 & x2 => (_import "gdk_keymap_get_modifier_mask" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p * GdkModifierIntent.FFI.val_ -> GdkModifierType.FFI.val_;) (x1, x2)
+    val getModifierState_ = _import "gdk_keymap_get_modifier_state" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p -> GUInt.FFI.val_;
     val getNumLockState_ = _import "gdk_keymap_get_num_lock_state" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p -> GBool.FFI.val_;
+    val getScrollLockState_ = _import "gdk_keymap_get_scroll_lock_state" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p -> GBool.FFI.val_;
     val haveBidiLayouts_ = _import "gdk_keymap_have_bidi_layouts" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p -> GBool.FFI.val_;
     val lookupKey_ = fn x1 & x2 => (_import "gdk_keymap_lookup_key" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p * GdkKeymapKeyRecord.FFI.notnull GdkKeymapKeyRecord.FFI.p -> GUInt.FFI.val_;) (x1, x2)
     val mapVirtualModifiers_ = fn x1 & x2 => (_import "gdk_keymap_map_virtual_modifiers" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p * GdkModifierType.FFI.ref_ -> GBool.FFI.val_;) (x1, x2)
@@ -110,15 +114,16 @@ structure GdkKeymap :>
             )
     type 'a class = 'a GdkKeymapClass.class
     type 'a display_class = 'a GdkDisplayClass.class
+    type modifier_intent_t = GdkModifierIntent.t
     type keymap_key_t = GdkKeymapKeyRecord.t
     type modifier_type_t = GdkModifierType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefault () = (I ---> GdkKeymapClass.FFI.fromPtr false) getDefault_ ()
     fun getForDisplay display = (GdkDisplayClass.FFI.withPtr ---> GdkKeymapClass.FFI.fromPtr false) getForDisplay_ display
-    fun addVirtualModifiers self =
+    fun addVirtualModifiers self state =
       let
-        val state & () = (GdkKeymapClass.FFI.withPtr &&&> GdkModifierType.FFI.withRefVal ---> GdkModifierType.FFI.fromVal && I) addVirtualModifiers_ (self & GdkModifierType.flags [])
+        val state & () = (GdkKeymapClass.FFI.withPtr &&&> GdkModifierType.FFI.withRefVal ---> GdkModifierType.FFI.fromVal && I) addVirtualModifiers_ (self & state)
       in
         state
       end
@@ -176,14 +181,17 @@ structure GdkKeymap :>
       in
         if retVal then SOME (keys (LargeInt.toInt nKeys)) else NONE
       end
+    fun getModifierMask self intent = (GdkKeymapClass.FFI.withPtr &&&> GdkModifierIntent.FFI.withVal ---> GdkModifierType.FFI.fromVal) getModifierMask_ (self & intent)
+    fun getModifierState self = (GdkKeymapClass.FFI.withPtr ---> GUInt.FFI.fromVal) getModifierState_ self
     fun getNumLockState self = (GdkKeymapClass.FFI.withPtr ---> GBool.FFI.fromVal) getNumLockState_ self
+    fun getScrollLockState self = (GdkKeymapClass.FFI.withPtr ---> GBool.FFI.fromVal) getScrollLockState_ self
     fun haveBidiLayouts self = (GdkKeymapClass.FFI.withPtr ---> GBool.FFI.fromVal) haveBidiLayouts_ self
     fun lookupKey self key = (GdkKeymapClass.FFI.withPtr &&&> GdkKeymapKeyRecord.FFI.withPtr ---> GUInt.FFI.fromVal) lookupKey_ (self & key)
-    fun mapVirtualModifiers self =
+    fun mapVirtualModifiers self state =
       let
-        val state & retVal = (GdkKeymapClass.FFI.withPtr &&&> GdkModifierType.FFI.withRefVal ---> GdkModifierType.FFI.fromVal && GBool.FFI.fromVal) mapVirtualModifiers_ (self & GdkModifierType.flags [])
+        val state & retVal = (GdkKeymapClass.FFI.withPtr &&&> GdkModifierType.FFI.withRefVal ---> GdkModifierType.FFI.fromVal && GBool.FFI.fromVal) mapVirtualModifiers_ (self & state)
       in
-        if retVal then SOME state else NONE
+        (retVal, state)
       end
     fun translateKeyboardState
       self

@@ -11,6 +11,8 @@ structure GLibTestLogType :> G_LIB_TEST_LOG_TYPE =
     | MIN_RESULT
     | MAX_RESULT
     | MESSAGE
+    | START_SUITE
+    | STOP_SUITE
     structure Enum =
       Enum(
         type enum = enum
@@ -27,6 +29,8 @@ structure GLibTestLogType :> G_LIB_TEST_LOG_TYPE =
           | MIN_RESULT => 7
           | MAX_RESULT => 8
           | MESSAGE => 9
+          | START_SUITE => 10
+          | STOP_SUITE => 11
         exception Value of GInt32.t
         val fromInt =
           fn
@@ -40,6 +44,8 @@ structure GLibTestLogType :> G_LIB_TEST_LOG_TYPE =
           | 7 => MIN_RESULT
           | 8 => MAX_RESULT
           | 9 => MESSAGE
+          | 10 => START_SUITE
+          | 11 => STOP_SUITE
           | n => raise Value n
       )
     open Enum

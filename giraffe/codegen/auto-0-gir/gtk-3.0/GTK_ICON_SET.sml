@@ -29,4 +29,11 @@ signature GTK_ICON_SET =
       t
        -> 'a style_context_class * LargeInt.int
        -> base GdkPixbuf.PixbufClass.class
+    val renderIconSurface :
+      t
+       -> 'a style_context_class
+           * LargeInt.int
+           * LargeInt.int
+           * 'b Gdk.WindowClass.class option
+       -> Cairo.SurfaceRecord.t
   end

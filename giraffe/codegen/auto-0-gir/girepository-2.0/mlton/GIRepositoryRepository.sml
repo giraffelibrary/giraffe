@@ -29,6 +29,7 @@ structure GIRepositoryRepository :>
               x3
             )
     val getDefault_ = _import "g_irepository_get_default" : unit -> GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p;
+    val prependLibraryPath_ = _import "mlton_g_irepository_prepend_library_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
     val prependSearchPath_ = _import "mlton_g_irepository_prepend_search_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
     val findByErrorDomain_ = fn x1 & x2 => (_import "g_irepository_find_by_error_domain" : GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p * GLibQuark.FFI.val_ -> GIRepositoryEnumInfoRecord.FFI.notnull GIRepositoryEnumInfoRecord.FFI.p;) (x1, x2)
     val findByName_ =
@@ -72,6 +73,21 @@ structure GIRepositoryRepository :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_irepository_get_dependencies" :
+              GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
+    val getImmediateDependencies_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_g_irepository_get_immediate_dependencies" :
               GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
@@ -271,6 +287,7 @@ structure GIRepositoryRepository :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun dump arg = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) dump_ (arg & [])
     fun getDefault () = (I ---> GIRepositoryRepositoryClass.FFI.fromPtr false) getDefault_ ()
+    fun prependLibraryPath directory = (Utf8.FFI.withPtr ---> I) prependLibraryPath_ directory
     fun prependSearchPath directory = (Utf8.FFI.withPtr ---> I) prependSearchPath_ directory
     fun findByErrorDomain self domain = (GIRepositoryRepositoryClass.FFI.withPtr &&&> GLibQuark.FFI.withVal ---> GIRepositoryEnumInfoRecord.FFI.fromPtr true) findByErrorDomain_ (self & domain)
     fun findByName self (namespace, name) =
@@ -288,6 +305,7 @@ structure GIRepositoryRepository :>
         )
     fun getCPrefix self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCPrefix_ (self & namespace)
     fun getDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getDependencies_ (self & namespace)
+    fun getImmediateDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getImmediateDependencies_ (self & namespace)
     fun getInfo self (namespace, index) =
       (
         GIRepositoryRepositoryClass.FFI.withPtr

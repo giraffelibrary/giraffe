@@ -86,6 +86,29 @@ structure GtkIconSet :>
               x2,
               x3
             )
+    val renderIconSurface_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5 =>
+          (
+            _import "gtk_icon_set_render_icon_surface" :
+              GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p
+               * GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+               * GInt.FFI.val_
+               * GInt.FFI.val_
+               * unit GdkWindowClass.FFI.p
+               -> CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
     type t = GtkIconSetRecord.t
     type icon_source_t = GtkIconSourceRecord.t
     type 'a widget_class = 'a GtkWidgetClass.class
@@ -162,5 +185,29 @@ structure GtkIconSet :>
           self
            & context
            & size
+        )
+    fun renderIconSurface
+      self
+      (
+        context,
+        size,
+        scale,
+        forWindow
+      ) =
+      (
+        GtkIconSetRecord.FFI.withPtr
+         &&&> GtkStyleContextClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GdkWindowClass.FFI.withOptPtr
+         ---> CairoSurfaceRecord.FFI.fromPtr true
+      )
+        renderIconSurface_
+        (
+          self
+           & context
+           & size
+           & scale
+           & forWindow
         )
   end

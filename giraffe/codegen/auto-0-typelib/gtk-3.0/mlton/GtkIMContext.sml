@@ -1,6 +1,8 @@
 structure GtkIMContext :>
   GTK_I_M_CONTEXT
-    where type 'a class = 'a GtkIMContextClass.class =
+    where type 'a class = 'a GtkIMContextClass.class
+    where type input_hints_t = GtkInputHints.t
+    where type input_purpose_t = GtkInputPurpose.t =
   struct
     val getType_ = _import "gtk_im_context_get_type" : unit -> GObjectType.FFI.val_;
     val deleteSurrounding_ =
@@ -45,9 +47,28 @@ structure GtkIMContext :>
               x4,
               x5
             )
+    val getSurrounding_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4 =>
+          (
+            _import "mlton_gtk_im_context_get_surrounding" :
+              GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p
+               * Utf8.MLton.r1
+               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * GInt32.FFI.ref_
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val reset_ = _import "gtk_im_context_reset" : GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p -> unit;
     val setClientWindow_ = fn x1 & x2 => (_import "gtk_im_context_set_client_window" : GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p * unit GdkWindowClass.FFI.p -> unit;) (x1, x2)
-    val setCursorLocation_ = fn x1 & x2 => (_import "gtk_im_context_set_cursor_location" : GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p -> unit;) (x1, x2)
+    val setCursorLocation_ = fn x1 & x2 => (_import "gtk_im_context_set_cursor_location" : GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
     val setSurrounding_ =
       fn
         x1
@@ -72,6 +93,8 @@ structure GtkIMContext :>
             )
     val setUsePreedit_ = fn x1 & x2 => (_import "gtk_im_context_set_use_preedit" : GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkIMContextClass.class
+    type input_hints_t = GtkInputHints.t
+    type input_purpose_t = GtkInputPurpose.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun deleteSurrounding self (offset, nChars) =
@@ -120,9 +143,31 @@ structure GtkIMContext :>
           cursorPos
         )
       end
+    fun getSurrounding self =
+      let
+        val text
+         & cursorIndex
+         & retVal =
+          (
+            GtkIMContextClass.FFI.withPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GInt32.FFI.withRefVal
+             ---> Utf8.FFI.fromPtr 1
+                   && GInt32.FFI.fromVal
+                   && GBool.FFI.fromVal
+          )
+            getSurrounding_
+            (
+              self
+               & NONE
+               & GInt32.null
+            )
+      in
+        if retVal then SOME (text, cursorIndex) else NONE
+      end
     fun reset self = (GtkIMContextClass.FFI.withPtr ---> I) reset_ self
     fun setClientWindow self window = (GtkIMContextClass.FFI.withPtr &&&> GdkWindowClass.FFI.withOptPtr ---> I) setClientWindow_ (self & window)
-    fun setCursorLocation self area = (GtkIMContextClass.FFI.withPtr &&&> CairoRectangleIntRecord.FFI.withPtr ---> I) setCursorLocation_ (self & area)
+    fun setCursorLocation self area = (GtkIMContextClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) setCursorLocation_ (self & area)
     fun setSurrounding
       self
       (
@@ -154,5 +199,19 @@ structure GtkIMContext :>
       fun preeditEndSig f = signal "preedit-end" (void ---> ret_void) f
       fun preeditStartSig f = signal "preedit-start" (void ---> ret_void) f
       fun retrieveSurroundingSig f = signal "retrieve-surrounding" (void ---> ret boolean) f
+    end
+    local
+      open Property
+    in
+      val inputHintsProp =
+        {
+          get = fn x => get "input-hints" GtkInputHints.t x,
+          set = fn x => set "input-hints" GtkInputHints.t x
+        }
+      val inputPurposeProp =
+        {
+          get = fn x => get "input-purpose" GtkInputPurpose.t x,
+          set = fn x => set "input-purpose" GtkInputPurpose.t x
+        }
     end
   end

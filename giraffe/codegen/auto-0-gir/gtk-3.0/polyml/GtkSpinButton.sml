@@ -4,6 +4,7 @@ structure GtkSpinButton :>
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a cell_editable_class = 'a GtkCellEditableClass.class
     where type 'a editable_class = 'a GtkEditableClass.class
+    where type 'a orientable_class = 'a GtkOrientableClass.class
     where type spin_type_t = GtkSpinType.t
     where type scroll_type_t = GtkScrollType.t
     where type 'a adjustment_class = 'a GtkAdjustmentClass.class
@@ -99,6 +100,7 @@ structure GtkSpinButton :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_editable_class = 'a GtkCellEditableClass.class
     type 'a editable_class = 'a GtkEditableClass.class
+    type 'a orientable_class = 'a GtkOrientableClass.class
     type spin_type_t = GtkSpinType.t
     type scroll_type_t = GtkScrollType.t
     type 'a adjustment_class = 'a GtkAdjustmentClass.class
@@ -108,6 +110,7 @@ structure GtkSpinButton :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asCellEditable self = (GObjectObjectClass.FFI.withPtr ---> GtkCellEditableClass.FFI.fromPtr false) I self
     fun asEditable self = (GObjectObjectClass.FFI.withPtr ---> GtkEditableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
       (

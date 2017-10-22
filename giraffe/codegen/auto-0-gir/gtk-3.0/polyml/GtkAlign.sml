@@ -5,6 +5,7 @@ structure GtkAlign :> GTK_ALIGN =
     | START
     | END
     | CENTER
+    | BASELINE
     structure Enum =
       Enum(
         type enum = enum
@@ -15,6 +16,7 @@ structure GtkAlign :> GTK_ALIGN =
           | START => 1
           | END => 2
           | CENTER => 3
+          | BASELINE => 4
         exception Value of GInt.t
         val fromInt =
           fn
@@ -22,6 +24,7 @@ structure GtkAlign :> GTK_ALIGN =
           | 1 => START
           | 2 => END
           | 3 => CENTER
+          | 4 => BASELINE
           | n => raise Value n
       )
     open Enum

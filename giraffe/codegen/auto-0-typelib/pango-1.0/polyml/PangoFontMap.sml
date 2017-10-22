@@ -18,7 +18,10 @@ structure PangoFontMap :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "pango_font_map_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val changed_ = call (getSymbol "pango_font_map_changed") (PangoFontMapClass.PolyML.cPtr --> cVoid)
       val createContext_ = call (getSymbol "pango_font_map_create_context") (PangoFontMapClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
+      val getSerial_ = call (getSymbol "pango_font_map_get_serial") (PangoFontMapClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
+      val getShapeEngineType_ = call (getSymbol "pango_font_map_get_shape_engine_type") (PangoFontMapClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val listFamilies_ =
         call (getSymbol "pango_font_map_list_families")
           (
@@ -33,7 +36,7 @@ structure PangoFontMap :>
             PangoFontMapClass.PolyML.cPtr
              &&> PangoContextClass.PolyML.cPtr
              &&> PangoFontDescriptionRecord.PolyML.cPtr
-             --> PangoFontClass.PolyML.cPtr
+             --> PangoFontClass.PolyML.cOptPtr
           )
       val loadFontset_ =
         call (getSymbol "pango_font_map_load_fontset")
@@ -42,7 +45,7 @@ structure PangoFontMap :>
              &&> PangoContextClass.PolyML.cPtr
              &&> PangoFontDescriptionRecord.PolyML.cPtr
              &&> PangoLanguageRecord.PolyML.cPtr
-             --> PangoFontsetClass.PolyML.cPtr
+             --> PangoFontsetClass.PolyML.cOptPtr
           )
     end
     type 'a class = 'a PangoFontMapClass.class
@@ -54,7 +57,10 @@ structure PangoFontMap :>
     type 'a context_class = 'a PangoContextClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun changed self = (PangoFontMapClass.FFI.withPtr ---> I) changed_ self
     fun createContext self = (PangoFontMapClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr true) createContext_ self
+    fun getSerial self = (PangoFontMapClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getSerial_ self
+    fun getShapeEngineType self = (PangoFontMapClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getShapeEngineType_ self
     fun listFamilies self =
       let
         val families
@@ -64,7 +70,7 @@ structure PangoFontMap :>
             PangoFontMapClass.FFI.withPtr
              &&&> PangoFontFamilyClassCVectorN.FFI.withRefOptPtr
              &&&> GInt32.FFI.withRefVal
-             ---> PangoFontFamilyClassCVectorN.FFI.fromPtr 2
+             ---> PangoFontFamilyClassCVectorN.FFI.fromPtr 1
                    && GInt32.FFI.fromVal
                    && I
           )
@@ -82,7 +88,7 @@ structure PangoFontMap :>
         PangoFontMapClass.FFI.withPtr
          &&&> PangoContextClass.FFI.withPtr
          &&&> PangoFontDescriptionRecord.FFI.withPtr
-         ---> PangoFontClass.FFI.fromPtr true
+         ---> PangoFontClass.FFI.fromOptPtr true
       )
         loadFont_
         (
@@ -102,7 +108,7 @@ structure PangoFontMap :>
          &&&> PangoContextClass.FFI.withPtr
          &&&> PangoFontDescriptionRecord.FFI.withPtr
          &&&> PangoLanguageRecord.FFI.withPtr
-         ---> PangoFontsetClass.FFI.fromPtr true
+         ---> PangoFontsetClass.FFI.fromOptPtr true
       )
         loadFontset_
         (

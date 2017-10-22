@@ -23,8 +23,12 @@ signature GTK_ASSISTANT =
     val getNthPage :
       'a class
        -> LargeInt.int
-       -> base widget_class
+       -> base widget_class option
     val getPageComplete :
+      'a class
+       -> 'b widget_class
+       -> bool
+    val getPageHasPadding :
       'a class
        -> 'b widget_class
        -> bool
@@ -70,6 +74,10 @@ signature GTK_ASSISTANT =
       'a class
        -> 'b widget_class * bool
        -> unit
+    val setPageHasPadding :
+      'a class
+       -> 'b widget_class * bool
+       -> unit
     val setPageHeaderImage :
       'a class
        -> 'b widget_class * 'c GdkPixbuf.PixbufClass.class option
@@ -90,5 +98,7 @@ signature GTK_ASSISTANT =
     val applySig : (unit -> unit) -> 'a class Signal.t
     val cancelSig : (unit -> unit) -> 'a class Signal.t
     val closeSig : (unit -> unit) -> 'a class Signal.t
+    val escapeSig : (unit -> unit) -> 'a class Signal.t
     val prepareSig : (base widget_class -> unit) -> 'a class Signal.t
+    val useHeaderBarProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
   end

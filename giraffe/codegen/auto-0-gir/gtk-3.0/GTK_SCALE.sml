@@ -27,6 +27,7 @@ signature GTK_SCALE =
     val clearMarks : 'a class -> unit
     val getDigits : 'a class -> LargeInt.int
     val getDrawValue : 'a class -> bool
+    val getHasOrigin : 'a class -> bool
     val getLayout : 'a class -> base Pango.LayoutClass.class
     val getLayoutOffsets : 'a class -> LargeInt.int * LargeInt.int
     val getValuePos : 'a class -> position_type_t
@@ -38,6 +39,10 @@ signature GTK_SCALE =
       'a class
        -> bool
        -> unit
+    val setHasOrigin :
+      'a class
+       -> bool
+       -> unit
     val setValuePos :
       'a class
        -> position_type_t
@@ -45,5 +50,6 @@ signature GTK_SCALE =
     val formatValueSig : (real -> string) -> 'a class Signal.t
     val digitsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val drawValueProp : ('a class, bool, bool) Property.readwrite
+    val hasOriginProp : ('a class, bool, bool) Property.readwrite
     val valuePosProp : ('a class, position_type_t, position_type_t) Property.readwrite
   end

@@ -71,8 +71,10 @@ structure Gio : GIO =
       val contentTypeEquals_ = call (getSymbol "g_content_type_equals") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val contentTypeFromMimeType_ = call (getSymbol "g_content_type_from_mime_type") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val contentTypeGetDescription_ = call (getSymbol "g_content_type_get_description") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val contentTypeGetGenericIconName_ = call (getSymbol "g_content_type_get_generic_icon_name") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val contentTypeGetIcon_ = call (getSymbol "g_content_type_get_icon") (Utf8.PolyML.cInPtr --> GioIconClass.PolyML.cPtr)
       val contentTypeGetMimeType_ = call (getSymbol "g_content_type_get_mime_type") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val contentTypeGetSymbolicIcon_ = call (getSymbol "g_content_type_get_symbolic_icon") (Utf8.PolyML.cInPtr --> GioIconClass.PolyML.cPtr)
       val contentTypeGuess_ =
         call (getSymbol "g_content_type_guess")
           (
@@ -85,6 +87,7 @@ structure Gio : GIO =
       val contentTypeGuessForTree_ = call (getSymbol "g_content_type_guess_for_tree") (GioFileClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val contentTypeIsA_ = call (getSymbol "g_content_type_is_a") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val contentTypeIsUnknown_ = call (getSymbol "g_content_type_is_unknown") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val dbusAddressEscapeValue_ = call (getSymbol "g_dbus_address_escape_value") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val dbusAddressGetForBusSync_ =
         call (getSymbol "g_dbus_address_get_for_bus_sync")
           (
@@ -97,7 +100,7 @@ structure Gio : GIO =
         call (getSymbol "g_dbus_address_get_stream_finish")
           (
             GioAsyncResultClass.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cOutRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioIOStreamClass.PolyML.cPtr
           )
@@ -105,7 +108,7 @@ structure Gio : GIO =
         call (getSymbol "g_dbus_address_get_stream_sync")
           (
             Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cOutRef
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioIOStreamClass.PolyML.cPtr
@@ -125,6 +128,86 @@ structure Gio : GIO =
       val ioModulesScanAllInDirectory_ = call (getSymbol "g_io_modules_scan_all_in_directory") (Utf8.PolyML.cInPtr --> cVoid)
       val ioModulesScanAllInDirectoryWithScope_ = call (getSymbol "g_io_modules_scan_all_in_directory_with_scope") (Utf8.PolyML.cInPtr &&> GioIOModuleScopeRecord.PolyML.cPtr --> cVoid)
       val ioSchedulerCancelAllJobs_ = call (getSymbol "g_io_scheduler_cancel_all_jobs") (cVoid --> cVoid)
+      val networkingInit_ = call (getSymbol "g_networking_init") (cVoid --> cVoid)
+      val pollableSourceNew_ = call (getSymbol "g_pollable_source_new") (GObjectObjectClass.PolyML.cPtr --> GLibSourceRecord.PolyML.cPtr)
+      val pollableSourceNewFull_ =
+        call (getSymbol "g_pollable_source_new_full")
+          (
+            GObjectObjectClass.PolyML.cPtr
+             &&> GLibSourceRecord.PolyML.cOptPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
+             --> GLibSourceRecord.PolyML.cPtr
+          )
+      val pollableStreamRead_ =
+        call (getSymbol "g_pollable_stream_read")
+          (
+            GioInputStreamClass.PolyML.cPtr
+             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GSize.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             &&> GioCancellableClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GSSize.PolyML.cVal
+          )
+      val pollableStreamWrite_ =
+        call (getSymbol "g_pollable_stream_write")
+          (
+            GioOutputStreamClass.PolyML.cPtr
+             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GSize.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             &&> GioCancellableClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GSSize.PolyML.cVal
+          )
+      val pollableStreamWriteAll_ =
+        call (getSymbol "g_pollable_stream_write_all")
+          (
+            GioOutputStreamClass.PolyML.cPtr
+             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GSize.PolyML.cVal
+             &&> GBool.PolyML.cVal
+             &&> GSize.PolyML.cRef
+             &&> GioCancellableClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
+      val resourcesEnumerateChildren_ =
+        call (getSymbol "g_resources_enumerate_children")
+          (
+            Utf8.PolyML.cInPtr
+             &&> GioResourceLookupFlags.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> Utf8CVector.PolyML.cOutPtr
+          )
+      val resourcesGetInfo_ =
+        call (getSymbol "g_resources_get_info")
+          (
+            Utf8.PolyML.cInPtr
+             &&> GioResourceLookupFlags.PolyML.cVal
+             &&> GSize.PolyML.cRef
+             &&> GUInt32.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
+      val resourcesLookupData_ =
+        call (getSymbol "g_resources_lookup_data")
+          (
+            Utf8.PolyML.cInPtr
+             &&> GioResourceLookupFlags.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GLibBytesRecord.PolyML.cPtr
+          )
+      val resourcesOpenStream_ =
+        call (getSymbol "g_resources_open_stream")
+          (
+            Utf8.PolyML.cInPtr
+             &&> GioResourceLookupFlags.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GioInputStreamClass.PolyML.cPtr
+          )
+      val resourcesRegister_ = call (getSymbol "g_resources_register") (GioResourceRecord.PolyML.cPtr --> cVoid)
+      val resourcesUnregister_ = call (getSymbol "g_resources_unregister") (GioResourceRecord.PolyML.cPtr --> cVoid)
       val unixIsMountPathSystemInternal_ = call (getSymbol "g_unix_is_mount_path_system_internal") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val unixMountCompare_ = call (getSymbol "g_unix_mount_compare") (GioUnixMountEntryRecord.PolyML.cPtr &&> GioUnixMountEntryRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val unixMountFree_ = call (getSymbol "g_unix_mount_free") (GioUnixMountEntryRecord.PolyML.cPtr --> cVoid)
@@ -135,6 +218,7 @@ structure Gio : GIO =
       val unixMountGuessIcon_ = call (getSymbol "g_unix_mount_guess_icon") (GioUnixMountEntryRecord.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
       val unixMountGuessName_ = call (getSymbol "g_unix_mount_guess_name") (GioUnixMountEntryRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val unixMountGuessShouldDisplay_ = call (getSymbol "g_unix_mount_guess_should_display") (GioUnixMountEntryRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val unixMountGuessSymbolicIcon_ = call (getSymbol "g_unix_mount_guess_symbolic_icon") (GioUnixMountEntryRecord.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
       val unixMountIsReadonly_ = call (getSymbol "g_unix_mount_is_readonly") (GioUnixMountEntryRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val unixMountIsSystemInternal_ = call (getSymbol "g_unix_mount_is_system_internal") (GioUnixMountEntryRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val unixMountPointsChangedSince_ = call (getSymbol "g_unix_mount_points_changed_since") (GUInt64.PolyML.cVal --> GBool.PolyML.cVal)
@@ -142,8 +226,10 @@ structure Gio : GIO =
     end
     structure ActionClass = GioActionClass
     structure ActionGroupClass = GioActionGroupClass
+    structure ActionMapClass = GioActionMapClass
     structure AppInfoClass = GioAppInfoClass
     structure AppInfoCreateFlags = GioAppInfoCreateFlags
+    structure AppInfoMonitorClass = GioAppInfoMonitorClass
     structure AppLaunchContextClass = GioAppLaunchContextClass
     structure ApplicationClass = GioApplicationClass
     structure ApplicationCommandLineClass = GioApplicationCommandLineClass
@@ -154,6 +240,7 @@ structure Gio : GIO =
     structure BusNameOwnerFlags = GioBusNameOwnerFlags
     structure BusNameWatcherFlags = GioBusNameWatcherFlags
     structure BusType = GioBusType
+    structure BytesIconClass = GioBytesIconClass
     structure CancellableClass = GioCancellableClass
     structure CharsetConverterClass = GioCharsetConverterClass
     structure ConverterClass = GioConverterClass
@@ -161,13 +248,16 @@ structure Gio : GIO =
     structure ConverterResult = GioConverterResult
     structure CredentialsClass = GioCredentialsClass
     structure CredentialsType = GioCredentialsType
+    structure DBusActionGroupClass = GioDBusActionGroupClass
     structure DBusAnnotationInfoRecord = GioDBusAnnotationInfoRecord
+    structure DBusArgInfoRecord = GioDBusArgInfoRecord
     structure DBusAuthObserverClass = GioDBusAuthObserverClass
     structure DBusCallFlags = GioDBusCallFlags
     structure DBusCapabilityFlags = GioDBusCapabilityFlags
     structure DBusConnectionClass = GioDBusConnectionClass
     structure DBusConnectionFlags = GioDBusConnectionFlags
     structure DBusError = GioDBusError
+    exception DBusError = GioDBusError
     structure DBusInterfaceClass = GioDBusInterfaceClass
     structure DBusInterfaceInfoRecord = GioDBusInterfaceInfoRecord
     structure DBusInterfaceSkeletonClass = GioDBusInterfaceSkeletonClass
@@ -179,6 +269,7 @@ structure Gio : GIO =
     structure DBusMessageType = GioDBusMessageType
     structure DBusMethodInfoRecord = GioDBusMethodInfoRecord
     structure DBusMethodInvocationClass = GioDBusMethodInvocationClass
+    structure DBusNodeInfoRecord = GioDBusNodeInfoRecord
     structure DBusObjectClass = GioDBusObjectClass
     structure DBusObjectManagerClass = GioDBusObjectManagerClass
     structure DBusObjectManagerClientClass = GioDBusObjectManagerClientClass
@@ -198,11 +289,15 @@ structure Gio : GIO =
     structure DBusSubtreeFlags = GioDBusSubtreeFlags
     structure DataStreamByteOrder = GioDataStreamByteOrder
     structure DataStreamNewlineType = GioDataStreamNewlineType
+    structure DatagramBasedClass = GioDatagramBasedClass
     structure DesktopAppInfoClass = GioDesktopAppInfoClass
     structure DesktopAppInfoLookupClass = GioDesktopAppInfoLookupClass
     structure DriveClass = GioDriveClass
     structure DriveStartFlags = GioDriveStartFlags
     structure DriveStartStopType = GioDriveStartStopType
+    structure DtlsClientConnectionClass = GioDtlsClientConnectionClass
+    structure DtlsConnectionClass = GioDtlsConnectionClass
+    structure DtlsServerConnectionClass = GioDtlsServerConnectionClass
     structure EmblemClass = GioEmblemClass
     structure EmblemOrigin = GioEmblemOrigin
     structure EmblemedIconClass = GioEmblemedIconClass
@@ -219,6 +314,7 @@ structure Gio : GIO =
     structure FileEnumeratorClass = GioFileEnumeratorClass
     structure FileIconClass = GioFileIconClass
     structure FileInfoClass = GioFileInfoClass
+    structure FileMeasureFlags = GioFileMeasureFlags
     structure FileMonitorClass = GioFileMonitorClass
     structure FileMonitorEvent = GioFileMonitorEvent
     structure FileMonitorFlags = GioFileMonitorFlags
@@ -237,50 +333,83 @@ structure Gio : GIO =
     structure IOStreamSpliceFlags = GioIOStreamSpliceFlags
     structure IconClass = GioIconClass
     structure InetAddressClass = GioInetAddressClass
+    structure InetAddressMaskClass = GioInetAddressMaskClass
     structure InitableClass = GioInitableClass
     structure InputStreamClass = GioInputStreamClass
+    structure ListModelClass = GioListModelClass
+    structure ListStoreClass = GioListStoreClass
     structure LoadableIconClass = GioLoadableIconClass
+    structure MenuAttributeIterClass = GioMenuAttributeIterClass
+    structure MenuItemClass = GioMenuItemClass
+    structure MenuLinkIterClass = GioMenuLinkIterClass
+    structure MenuModelClass = GioMenuModelClass
     structure MountClass = GioMountClass
     structure MountMountFlags = GioMountMountFlags
     structure MountOperationClass = GioMountOperationClass
     structure MountOperationResult = GioMountOperationResult
     structure MountUnmountFlags = GioMountUnmountFlags
     structure NetworkAddressClass = GioNetworkAddressClass
+    structure NetworkConnectivity = GioNetworkConnectivity
+    structure NetworkMonitorClass = GioNetworkMonitorClass
     structure NetworkServiceClass = GioNetworkServiceClass
+    structure NotificationClass = GioNotificationClass
+    structure NotificationPriority = GioNotificationPriority
     structure OutputStreamClass = GioOutputStreamClass
     structure OutputStreamSpliceFlags = GioOutputStreamSpliceFlags
     structure PasswordSave = GioPasswordSave
     structure PermissionClass = GioPermissionClass
     structure PollableInputStreamClass = GioPollableInputStreamClass
     structure PollableOutputStreamClass = GioPollableOutputStreamClass
+    structure PropertyActionClass = GioPropertyActionClass
     structure ProxyClass = GioProxyClass
     structure ProxyResolverClass = GioProxyResolverClass
+    structure RemoteActionGroupClass = GioRemoteActionGroupClass
     structure ResolverClass = GioResolverClass
     structure ResolverError = GioResolverError
     exception ResolverError = GioResolverError
+    structure ResolverRecordType = GioResolverRecordType
+    structure ResourceRecord = GioResourceRecord
+    structure ResourceError = GioResourceError
+    exception ResourceError = GioResourceError
+    structure ResourceFlags = GioResourceFlags
+    structure ResourceLookupFlags = GioResourceLookupFlags
     structure SeekableClass = GioSeekableClass
     structure SettingsClass = GioSettingsClass
     structure SettingsBackendRecord = GioSettingsBackendRecord
     structure SettingsBindFlags = GioSettingsBindFlags
+    structure SettingsSchemaRecord = GioSettingsSchemaRecord
+    structure SettingsSchemaKeyRecord = GioSettingsSchemaKeyRecord
+    structure SettingsSchemaSourceRecord = GioSettingsSchemaSourceRecord
     structure SimpleActionClass = GioSimpleActionClass
     structure SimpleActionGroupClass = GioSimpleActionGroupClass
     structure SimpleAsyncResultClass = GioSimpleAsyncResultClass
+    structure SimpleProxyResolverClass = GioSimpleProxyResolverClass
     structure SocketClass = GioSocketClass
     structure SocketAddressClass = GioSocketAddressClass
     structure SocketAddressEnumeratorClass = GioSocketAddressEnumeratorClass
     structure SocketClientClass = GioSocketClientClass
+    structure SocketClientEvent = GioSocketClientEvent
     structure SocketConnectableClass = GioSocketConnectableClass
     structure SocketControlMessageClass = GioSocketControlMessageClass
     structure SocketFamily = GioSocketFamily
     structure SocketListenerClass = GioSocketListenerClass
+    structure SocketListenerEvent = GioSocketListenerEvent
     structure SocketMsgFlags = GioSocketMsgFlags
     structure SocketProtocol = GioSocketProtocol
     structure SocketType = GioSocketType
+    structure SrvTargetRecord = GioSrvTargetRecord
+    structure SubprocessClass = GioSubprocessClass
+    structure SubprocessFlags = GioSubprocessFlags
+    structure SubprocessLauncherClass = GioSubprocessLauncherClass
+    structure TaskClass = GioTaskClass
+    structure TestDBusClass = GioTestDBusClass
+    structure TestDBusFlags = GioTestDBusFlags
     structure ThemedIconClass = GioThemedIconClass
     structure TlsAuthenticationMode = GioTlsAuthenticationMode
     structure TlsBackendClass = GioTlsBackendClass
     structure TlsCertificateClass = GioTlsCertificateClass
     structure TlsCertificateFlags = GioTlsCertificateFlags
+    structure TlsCertificateRequestFlags = GioTlsCertificateRequestFlags
     structure TlsClientConnectionClass = GioTlsClientConnectionClass
     structure TlsDatabaseClass = GioTlsDatabaseClass
     structure TlsDatabaseLookupFlags = GioTlsDatabaseLookupFlags
@@ -297,6 +426,7 @@ structure Gio : GIO =
     structure UnixFDListClass = GioUnixFDListClass
     structure UnixMountEntryRecord = GioUnixMountEntryRecord
     structure UnixMountMonitorClass = GioUnixMountMonitorClass
+    structure UnixMountPointRecord = GioUnixMountPointRecord
     structure UnixSocketAddressType = GioUnixSocketAddressType
     structure VfsClass = GioVfsClass
     structure VolumeClass = GioVolumeClass
@@ -306,25 +436,32 @@ structure Gio : GIO =
     structure ZlibDecompressorClass = GioZlibDecompressorClass
     structure Action = GioAction
     structure ActionGroup = GioActionGroup
+    structure ActionMap = GioActionMap
     structure AppInfo = GioAppInfo
+    structure AppInfoMonitor = GioAppInfoMonitor
     structure AppLaunchContext = GioAppLaunchContext
     structure Application = GioApplication
     structure ApplicationCommandLine = GioApplicationCommandLine
     structure AsyncInitable = GioAsyncInitable
     structure AsyncResult = GioAsyncResult
+    structure BytesIcon = GioBytesIcon
     structure Cancellable = GioCancellable
     structure CharsetConverter = GioCharsetConverter
     structure Converter = GioConverter
     structure Credentials = GioCredentials
+    structure DBusActionGroup = GioDBusActionGroup
     structure DBusAnnotationInfo = GioDBusAnnotationInfo
+    structure DBusArgInfo = GioDBusArgInfo
     structure DBusAuthObserver = GioDBusAuthObserver
     structure DBusConnection = GioDBusConnection
     structure DBusInterface = GioDBusInterface
     structure DBusInterfaceInfo = GioDBusInterfaceInfo
     structure DBusInterfaceSkeleton = GioDBusInterfaceSkeleton
+    structure DBusMenuModelClass = GioDBusMenuModelClass
     structure DBusMessage = GioDBusMessage
     structure DBusMethodInfo = GioDBusMethodInfo
     structure DBusMethodInvocation = GioDBusMethodInvocation
+    structure DBusNodeInfo = GioDBusNodeInfo
     structure DBusObject = GioDBusObject
     structure DBusObjectManager = GioDBusObjectManager
     structure DBusObjectManagerClient = GioDBusObjectManagerClient
@@ -335,9 +472,13 @@ structure Gio : GIO =
     structure DBusProxy = GioDBusProxy
     structure DBusServer = GioDBusServer
     structure DBusSignalInfo = GioDBusSignalInfo
+    structure DatagramBased = GioDatagramBased
     structure DesktopAppInfo = GioDesktopAppInfo
     structure DesktopAppInfoLookup = GioDesktopAppInfoLookup
     structure Drive = GioDrive
+    structure DtlsClientConnection = GioDtlsClientConnection
+    structure DtlsConnection = GioDtlsConnection
+    structure DtlsServerConnection = GioDtlsServerConnection
     structure Emblem = GioEmblem
     structure EmblemedIcon = GioEmblemedIcon
     structure FileAttributeInfo = GioFileAttributeInfo
@@ -361,37 +502,60 @@ structure Gio : GIO =
     structure IOStream = GioIOStream
     structure Icon = GioIcon
     structure InetAddress = GioInetAddress
+    structure InetAddressMask = GioInetAddressMask
     structure InetSocketAddressClass = GioInetSocketAddressClass
     structure Initable = GioInitable
     structure InputStream = GioInputStream
+    structure ListModel = GioListModel
+    structure ListStore = GioListStore
     structure LoadableIcon = GioLoadableIcon
     structure MemoryInputStreamClass = GioMemoryInputStreamClass
     structure MemoryOutputStreamClass = GioMemoryOutputStreamClass
+    structure MenuClass = GioMenuClass
+    structure MenuAttributeIter = GioMenuAttributeIter
+    structure MenuItem = GioMenuItem
+    structure MenuLinkIter = GioMenuLinkIter
+    structure MenuModel = GioMenuModel
     structure Mount = GioMount
     structure MountOperation = GioMountOperation
     structure NativeVolumeMonitorClass = GioNativeVolumeMonitorClass
     structure NetworkAddress = GioNetworkAddress
+    structure NetworkMonitor = GioNetworkMonitor
     structure NetworkService = GioNetworkService
+    structure Notification = GioNotification
     structure OutputStream = GioOutputStream
     structure Permission = GioPermission
     structure PollableInputStream = GioPollableInputStream
     structure PollableOutputStream = GioPollableOutputStream
+    structure PropertyAction = GioPropertyAction
     structure ProxyAddressEnumeratorClass = GioProxyAddressEnumeratorClass
     structure ProxyResolver = GioProxyResolver
+    structure RemoteActionGroup = GioRemoteActionGroup
     structure Resolver = GioResolver
+    structure Resource = GioResource
     structure Seekable = GioSeekable
     structure Settings = GioSettings
     structure SettingsBackend = GioSettingsBackend
+    structure SettingsSchema = GioSettingsSchema
+    structure SettingsSchemaKey = GioSettingsSchemaKey
+    structure SettingsSchemaSource = GioSettingsSchemaSource
     structure SimpleAction = GioSimpleAction
     structure SimpleActionGroup = GioSimpleActionGroup
     structure SimpleAsyncResult = GioSimpleAsyncResult
+    structure SimpleIOStreamClass = GioSimpleIOStreamClass
     structure SimplePermissionClass = GioSimplePermissionClass
+    structure SimpleProxyResolver = GioSimpleProxyResolver
     structure SocketAddress = GioSocketAddress
     structure SocketAddressEnumerator = GioSocketAddressEnumerator
     structure SocketConnectable = GioSocketConnectable
     structure SocketConnectionClass = GioSocketConnectionClass
     structure SocketControlMessage = GioSocketControlMessage
     structure SocketServiceClass = GioSocketServiceClass
+    structure SrvTarget = GioSrvTarget
+    structure Subprocess = GioSubprocess
+    structure SubprocessLauncher = GioSubprocessLauncher
+    structure Task = GioTask
+    structure TestDBus = GioTestDBus
     structure ThemedIcon = GioThemedIcon
     structure TlsBackend = GioTlsBackend
     structure TlsCertificate = GioTlsCertificate
@@ -399,7 +563,6 @@ structure Gio : GIO =
     structure TlsConnectionClass = GioTlsConnectionClass
     structure TlsDatabase = GioTlsDatabase
     structure TlsFileDatabase = GioTlsFileDatabase
-    structure TlsInteraction = GioTlsInteraction
     structure TlsPassword = GioTlsPassword
     structure TlsServerConnection = GioTlsServerConnection
     structure UnixCredentialsMessageClass = GioUnixCredentialsMessageClass
@@ -408,6 +571,7 @@ structure Gio : GIO =
     structure UnixInputStreamClass = GioUnixInputStreamClass
     structure UnixMountEntry = GioUnixMountEntry
     structure UnixMountMonitor = GioUnixMountMonitor
+    structure UnixMountPoint = GioUnixMountPoint
     structure UnixOutputStreamClass = GioUnixOutputStreamClass
     structure UnixSocketAddressClass = GioUnixSocketAddressClass
     structure Vfs = GioVfs
@@ -419,6 +583,7 @@ structure Gio : GIO =
     structure BufferedOutputStreamClass = GioBufferedOutputStreamClass
     structure ConverterInputStreamClass = GioConverterInputStreamClass
     structure ConverterOutputStreamClass = GioConverterOutputStreamClass
+    structure DBusMenuModel = GioDBusMenuModel
     structure DataOutputStreamClass = GioDataOutputStreamClass
     structure File = GioFile
     structure FileIOStream = GioFileIOStream
@@ -429,9 +594,11 @@ structure Gio : GIO =
     structure InetSocketAddress = GioInetSocketAddress
     structure MemoryInputStream = GioMemoryInputStream
     structure MemoryOutputStream = GioMemoryOutputStream
+    structure Menu = GioMenu
     structure NativeVolumeMonitor = GioNativeVolumeMonitor
     structure ProxyAddressClass = GioProxyAddressClass
     structure ProxyAddressEnumerator = GioProxyAddressEnumerator
+    structure SimpleIOStream = GioSimpleIOStream
     structure SimplePermission = GioSimplePermission
     structure Socket = GioSocket
     structure SocketClient = GioSocketClient
@@ -441,6 +608,7 @@ structure Gio : GIO =
     structure TcpConnectionClass = GioTcpConnectionClass
     structure ThreadedSocketServiceClass = GioThreadedSocketServiceClass
     structure TlsConnection = GioTlsConnection
+    structure TlsInteraction = GioTlsInteraction
     structure UnixConnectionClass = GioUnixConnectionClass
     structure UnixCredentialsMessage = GioUnixCredentialsMessage
     structure UnixFDMessage = GioUnixFDMessage
@@ -473,8 +641,10 @@ structure Gio : GIO =
     val FILE_ATTRIBUTE_ETAG_VALUE = "etag::value"
     val FILE_ATTRIBUTE_FILESYSTEM_FREE = "filesystem::free"
     val FILE_ATTRIBUTE_FILESYSTEM_READONLY = "filesystem::readonly"
+    val FILE_ATTRIBUTE_FILESYSTEM_REMOTE = "filesystem::remote"
     val FILE_ATTRIBUTE_FILESYSTEM_SIZE = "filesystem::size"
     val FILE_ATTRIBUTE_FILESYSTEM_TYPE = "filesystem::type"
+    val FILE_ATTRIBUTE_FILESYSTEM_USED = "filesystem::used"
     val FILE_ATTRIBUTE_FILESYSTEM_USE_PREVIEW = "filesystem::use-preview"
     val FILE_ATTRIBUTE_GVFS_BACKEND = "gvfs::backend"
     val FILE_ATTRIBUTE_ID_FILE = "id::file"
@@ -508,13 +678,16 @@ structure Gio : GIO =
     val FILE_ATTRIBUTE_STANDARD_IS_HIDDEN = "standard::is-hidden"
     val FILE_ATTRIBUTE_STANDARD_IS_SYMLINK = "standard::is-symlink"
     val FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL = "standard::is-virtual"
+    val FILE_ATTRIBUTE_STANDARD_IS_VOLATILE = "standard::is-volatile"
     val FILE_ATTRIBUTE_STANDARD_NAME = "standard::name"
     val FILE_ATTRIBUTE_STANDARD_SIZE = "standard::size"
     val FILE_ATTRIBUTE_STANDARD_SORT_ORDER = "standard::sort-order"
+    val FILE_ATTRIBUTE_STANDARD_SYMBOLIC_ICON = "standard::symbolic-icon"
     val FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET = "standard::symlink-target"
     val FILE_ATTRIBUTE_STANDARD_TARGET_URI = "standard::target-uri"
     val FILE_ATTRIBUTE_STANDARD_TYPE = "standard::type"
     val FILE_ATTRIBUTE_THUMBNAILING_FAILED = "thumbnail::failed"
+    val FILE_ATTRIBUTE_THUMBNAIL_IS_VALID = "thumbnail::is-valid"
     val FILE_ATTRIBUTE_THUMBNAIL_PATH = "thumbnail::path"
     val FILE_ATTRIBUTE_TIME_ACCESS = "time::access"
     val FILE_ATTRIBUTE_TIME_ACCESS_USEC = "time::access-usec"
@@ -537,13 +710,22 @@ structure Gio : GIO =
     val FILE_ATTRIBUTE_UNIX_NLINK = "unix::nlink"
     val FILE_ATTRIBUTE_UNIX_RDEV = "unix::rdev"
     val FILE_ATTRIBUTE_UNIX_UID = "unix::uid"
+    val MENU_ATTRIBUTE_ACTION = "action"
+    val MENU_ATTRIBUTE_ACTION_NAMESPACE = "action-namespace"
+    val MENU_ATTRIBUTE_ICON = "icon"
+    val MENU_ATTRIBUTE_LABEL = "label"
+    val MENU_ATTRIBUTE_TARGET = "target"
+    val MENU_LINK_SECTION = "section"
+    val MENU_LINK_SUBMENU = "submenu"
     val NATIVE_VOLUME_MONITOR_EXTENSION_POINT_NAME = "gio-native-volume-monitor"
+    val NETWORK_MONITOR_EXTENSION_POINT_NAME = "gio-network-monitor"
     val PROXY_EXTENSION_POINT_NAME = "gio-proxy"
     val PROXY_RESOLVER_EXTENSION_POINT_NAME = "gio-proxy-resolver"
     val TLS_BACKEND_EXTENSION_POINT_NAME = "gio-tls-backend"
     val TLS_DATABASE_PURPOSE_AUTHENTICATE_CLIENT = "1.3.6.1.5.5.7.3.2"
     val TLS_DATABASE_PURPOSE_AUTHENTICATE_SERVER = "1.3.6.1.5.5.7.3.1"
     val VFS_EXTENSION_POINT_NAME = "gio-vfs"
+    val VOLUME_IDENTIFIER_KIND_CLASS = "class"
     val VOLUME_IDENTIFIER_KIND_HAL_UDI = "hal-udi"
     val VOLUME_IDENTIFIER_KIND_LABEL = "label"
     val VOLUME_IDENTIFIER_KIND_NFS_MOUNT = "nfs-mount"
@@ -669,8 +851,10 @@ structure Gio : GIO =
     fun contentTypeEquals (type1, type2) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeEquals_ (type1 & type2)
     fun contentTypeFromMimeType mimeType = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) contentTypeFromMimeType_ mimeType
     fun contentTypeGetDescription type' = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) contentTypeGetDescription_ type'
+    fun contentTypeGetGenericIconName type' = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) contentTypeGetGenericIconName_ type'
     fun contentTypeGetIcon type' = (Utf8.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) contentTypeGetIcon_ type'
     fun contentTypeGetMimeType type' = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) contentTypeGetMimeType_ type'
+    fun contentTypeGetSymbolicIcon type' = (Utf8.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) contentTypeGetSymbolicIcon_ type'
     fun contentTypeGuess (filename, data) =
       let
         val dataSize =
@@ -698,6 +882,7 @@ structure Gio : GIO =
     fun contentTypeGuessForTree root = (GioFileClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) contentTypeGuessForTree_ root
     fun contentTypeIsA (type', supertype) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsA_ (type' & supertype)
     fun contentTypeIsUnknown type' = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsUnknown_ type'
+    fun dbusAddressEscapeValue string = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) dbusAddressEscapeValue_ string
     fun dbusAddressGetForBusSync (busType, cancellable) =
       (
         GioBusType.FFI.withVal
@@ -711,42 +896,52 @@ structure Gio : GIO =
            & cancellable
            & []
         )
-    fun dbusAddressGetStreamFinish (res, outGuid) =
-      (
-        GioAsyncResultClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibErrorRecord.handleError
-         ---> GioIOStreamClass.FFI.fromPtr true
-      )
-        dbusAddressGetStreamFinish_
-        (
-          res
-           & outGuid
-           & []
-        )
-    fun dbusAddressGetStreamSync
-      (
-        address,
-        outGuid,
-        cancellable
-      ) =
-      (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
-         &&&> GLibErrorRecord.handleError
-         ---> GioIOStreamClass.FFI.fromPtr true
-      )
-        dbusAddressGetStreamSync_
-        (
-          address
-           & outGuid
-           & cancellable
-           & []
-        )
+    fun dbusAddressGetStreamFinish res =
+      let
+        val outGuid & retVal =
+          (
+            GioAsyncResultClass.FFI.withPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> Utf8.FFI.fromPtr 1 && GioIOStreamClass.FFI.fromPtr true
+          )
+            dbusAddressGetStreamFinish_
+            (
+              res
+               & NONE
+               & []
+            )
+      in
+        (retVal, outGuid)
+      end
+    fun dbusAddressGetStreamSync (address, cancellable) =
+      let
+        val outGuid & retVal =
+          (
+            Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> Utf8.FFI.fromPtr 1 && GioIOStreamClass.FFI.fromPtr true
+          )
+            dbusAddressGetStreamSync_
+            (
+              address
+               & NONE
+               & cancellable
+               & []
+            )
+      in
+        (retVal, outGuid)
+      end
     fun dbusGenerateGuid () = (I ---> Utf8.FFI.fromPtr 1) dbusGenerateGuid_ ()
     fun dbusGvalueToGvariant (gvalue, type') = (GObjectValueRecord.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) dbusGvalueToGvariant_ (gvalue & type')
-    fun dbusGvariantToGvalue (value, outGvalue) = (GLibVariantRecord.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> I) dbusGvariantToGvalue_ (value & outGvalue)
+    fun dbusGvariantToGvalue value =
+      let
+        val outGvalue & () = (GLibVariantRecord.FFI.withPtr &&&> GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I) dbusGvariantToGvalue_ (value & ())
+      in
+        outGvalue
+      end
     fun dbusIsAddress string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) dbusIsAddress_ string
     fun dbusIsGuid string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) dbusIsGuid_ string
     fun dbusIsInterfaceName string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) dbusIsInterfaceName_ string
@@ -759,6 +954,188 @@ structure Gio : GIO =
     fun ioModulesScanAllInDirectory dirname = (Utf8.FFI.withPtr ---> I) ioModulesScanAllInDirectory_ dirname
     fun ioModulesScanAllInDirectoryWithScope (dirname, scope) = (Utf8.FFI.withPtr &&&> GioIOModuleScopeRecord.FFI.withPtr ---> I) ioModulesScanAllInDirectoryWithScope_ (dirname & scope)
     fun ioSchedulerCancelAllJobs () = (I ---> I) ioSchedulerCancelAllJobs_ ()
+    fun networkingInit () = (I ---> I) networkingInit_ ()
+    fun pollableSourceNew pollableStream = (GObjectObjectClass.FFI.withPtr ---> GLibSourceRecord.FFI.fromPtr true) pollableSourceNew_ pollableStream
+    fun pollableSourceNewFull
+      (
+        pollableStream,
+        childSource,
+        cancellable
+      ) =
+      (
+        GObjectObjectClass.FFI.withPtr
+         &&&> GLibSourceRecord.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
+         ---> GLibSourceRecord.FFI.fromPtr true
+      )
+        pollableSourceNewFull_
+        (
+          pollableStream
+           & childSource
+           & cancellable
+        )
+    fun pollableStreamRead
+      (
+        stream,
+        buffer,
+        blocking,
+        cancellable
+      ) =
+      let
+        val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val retVal =
+          (
+            GioInputStreamClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GSize.FFI.withVal
+             &&&> GBool.FFI.withVal
+             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GSSize.FFI.fromVal
+          )
+            pollableStreamRead_
+            (
+              stream
+               & buffer
+               & count
+               & blocking
+               & cancellable
+               & []
+            )
+      in
+        retVal
+      end
+    fun pollableStreamWrite
+      (
+        stream,
+        buffer,
+        blocking,
+        cancellable
+      ) =
+      let
+        val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val retVal =
+          (
+            GioOutputStreamClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GSize.FFI.withVal
+             &&&> GBool.FFI.withVal
+             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GSSize.FFI.fromVal
+          )
+            pollableStreamWrite_
+            (
+              stream
+               & buffer
+               & count
+               & blocking
+               & cancellable
+               & []
+            )
+      in
+        retVal
+      end
+    fun pollableStreamWriteAll
+      (
+        stream,
+        buffer,
+        blocking,
+        cancellable
+      ) =
+      let
+        val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val bytesWritten & () =
+          (
+            GioOutputStreamClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GSize.FFI.withVal
+             &&&> GBool.FFI.withVal
+             &&&> GSize.FFI.withRefVal
+             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GSize.FFI.fromVal && ignore
+          )
+            pollableStreamWriteAll_
+            (
+              stream
+               & buffer
+               & count
+               & blocking
+               & GSize.null
+               & cancellable
+               & []
+            )
+      in
+        bytesWritten
+      end
+    fun resourcesEnumerateChildren (path, lookupFlags) =
+      (
+        Utf8.FFI.withPtr
+         &&&> GioResourceLookupFlags.FFI.withVal
+         &&&> GLibErrorRecord.handleError
+         ---> Utf8CVector.FFI.fromPtr 2
+      )
+        resourcesEnumerateChildren_
+        (
+          path
+           & lookupFlags
+           & []
+        )
+    fun resourcesGetInfo (path, lookupFlags) =
+      let
+        val size
+         & flags
+         & () =
+          (
+            Utf8.FFI.withPtr
+             &&&> GioResourceLookupFlags.FFI.withVal
+             &&&> GSize.FFI.withRefVal
+             &&&> GUInt32.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> GSize.FFI.fromVal
+                   && GUInt32.FFI.fromVal
+                   && ignore
+          )
+            resourcesGetInfo_
+            (
+              path
+               & lookupFlags
+               & GSize.null
+               & GUInt32.null
+               & []
+            )
+      in
+        (size, flags)
+      end
+    fun resourcesLookupData (path, lookupFlags) =
+      (
+        Utf8.FFI.withPtr
+         &&&> GioResourceLookupFlags.FFI.withVal
+         &&&> GLibErrorRecord.handleError
+         ---> GLibBytesRecord.FFI.fromPtr true
+      )
+        resourcesLookupData_
+        (
+          path
+           & lookupFlags
+           & []
+        )
+    fun resourcesOpenStream (path, lookupFlags) =
+      (
+        Utf8.FFI.withPtr
+         &&&> GioResourceLookupFlags.FFI.withVal
+         &&&> GLibErrorRecord.handleError
+         ---> GioInputStreamClass.FFI.fromPtr true
+      )
+        resourcesOpenStream_
+        (
+          path
+           & lookupFlags
+           & []
+        )
+    fun resourcesRegister resource = (GioResourceRecord.FFI.withPtr ---> I) resourcesRegister_ resource
+    fun resourcesUnregister resource = (GioResourceRecord.FFI.withPtr ---> I) resourcesUnregister_ resource
     fun unixIsMountPathSystemInternal mountPath = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) unixIsMountPathSystemInternal_ mountPath
     fun unixMountCompare (mount1, mount2) = (GioUnixMountEntryRecord.FFI.withPtr &&&> GioUnixMountEntryRecord.FFI.withPtr ---> GInt.FFI.fromVal) unixMountCompare_ (mount1 & mount2)
     fun unixMountFree mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> I) unixMountFree_ mountEntry
@@ -769,6 +1146,7 @@ structure Gio : GIO =
     fun unixMountGuessIcon mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) unixMountGuessIcon_ mountEntry
     fun unixMountGuessName mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) unixMountGuessName_ mountEntry
     fun unixMountGuessShouldDisplay mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> GBool.FFI.fromVal) unixMountGuessShouldDisplay_ mountEntry
+    fun unixMountGuessSymbolicIcon mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) unixMountGuessSymbolicIcon_ mountEntry
     fun unixMountIsReadonly mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> GBool.FFI.fromVal) unixMountIsReadonly_ mountEntry
     fun unixMountIsSystemInternal mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> GBool.FFI.fromVal) unixMountIsSystemInternal_ mountEntry
     fun unixMountPointsChangedSince time = (GUInt64.FFI.withVal ---> GBool.FFI.fromVal) unixMountPointsChangedSince_ time

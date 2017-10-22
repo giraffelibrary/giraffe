@@ -7,6 +7,7 @@ structure GdkPixbufPixbufError :> GDK_PIXBUF_PIXBUF_ERROR =
     | UNKNOWN_TYPE
     | UNSUPPORTED_OPERATION
     | FAILED
+    | INCOMPLETE_ANIMATION
     structure Enum =
       Enum(
         type enum = enum
@@ -19,6 +20,7 @@ structure GdkPixbufPixbufError :> GDK_PIXBUF_PIXBUF_ERROR =
           | UNKNOWN_TYPE => 3
           | UNSUPPORTED_OPERATION => 4
           | FAILED => 5
+          | INCOMPLETE_ANIMATION => 6
         exception Value of GInt32.t
         val fromInt =
           fn
@@ -28,6 +30,7 @@ structure GdkPixbufPixbufError :> GDK_PIXBUF_PIXBUF_ERROR =
           | 3 => UNKNOWN_TYPE
           | 4 => UNSUPPORTED_OPERATION
           | 5 => FAILED
+          | 6 => INCOMPLETE_ANIMATION
           | n => raise Value n
       )
     open Enum

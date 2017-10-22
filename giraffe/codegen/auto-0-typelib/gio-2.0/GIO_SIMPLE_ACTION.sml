@@ -19,11 +19,15 @@ signature GIO_SIMPLE_ACTION =
       'a class
        -> GLib.VariantRecord.t
        -> unit
+    val setStateHint :
+      'a class
+       -> GLib.VariantRecord.t option
+       -> unit
     val activateSig : (GLib.VariantRecord.t option -> unit) -> 'a class Signal.t
     val changeStateSig : (GLib.VariantRecord.t option -> unit) -> 'a class Signal.t
-    val enabledProp : ('a class, bool) Property.readonly
-    val nameProp : ('a class, string option) Property.readonly
-    val parameterTypeProp : ('a class, GLib.VariantTypeRecord.t option) Property.readonly
-    val stateProp : ('a class, GLib.VariantRecord.t option) Property.readonly
+    val enabledProp : ('a class, bool, bool) Property.readwrite
+    val nameProp : ('a class, string option, string option) Property.readwrite
+    val parameterTypeProp : ('a class, GLib.VariantTypeRecord.t option, GLib.VariantTypeRecord.t option) Property.readwrite
+    val stateProp : ('a class, GLib.VariantRecord.t option, GLib.VariantRecord.t option) Property.readwrite
     val stateTypeProp : ('a class, GLib.VariantTypeRecord.t option) Property.readonly
   end

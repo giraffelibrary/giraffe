@@ -15,8 +15,9 @@ structure GioTlsClientConnection :>
             GioIOStreamClass.PolyML.cPtr
              &&> GioSocketConnectableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GioIOStreamClass.PolyML.cPtr
+             --> GioTlsClientConnectionClass.PolyML.cPtr
           )
+      val copySessionState_ = call (getSymbol "g_tls_client_connection_copy_session_state") (GioTlsClientConnectionClass.PolyML.cPtr &&> GioTlsClientConnectionClass.PolyML.cPtr --> cVoid)
       val getServerIdentity_ = call (getSymbol "g_tls_client_connection_get_server_identity") (GioTlsClientConnectionClass.PolyML.cPtr --> GioSocketConnectableClass.PolyML.cPtr)
       val getUseSsl3_ = call (getSymbol "g_tls_client_connection_get_use_ssl3") (GioTlsClientConnectionClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getValidationFlags_ = call (getSymbol "g_tls_client_connection_get_validation_flags") (GioTlsClientConnectionClass.PolyML.cPtr --> GioTlsCertificateFlags.PolyML.cVal)
@@ -35,7 +36,7 @@ structure GioTlsClientConnection :>
         GioIOStreamClass.FFI.withPtr
          &&&> GioSocketConnectableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioIOStreamClass.FFI.fromPtr true
+         ---> GioTlsClientConnectionClass.FFI.fromPtr true
       )
         new_
         (
@@ -43,6 +44,7 @@ structure GioTlsClientConnection :>
            & serverIdentity
            & []
         )
+    fun copySessionState self source = (GioTlsClientConnectionClass.FFI.withPtr &&&> GioTlsClientConnectionClass.FFI.withPtr ---> I) copySessionState_ (self & source)
     fun getServerIdentity self = (GioTlsClientConnectionClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) getServerIdentity_ self
     fun getUseSsl3 self = (GioTlsClientConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseSsl3_ self
     fun getValidationFlags self = (GioTlsClientConnectionClass.FFI.withPtr ---> GioTlsCertificateFlags.FFI.fromVal) getValidationFlags_ self

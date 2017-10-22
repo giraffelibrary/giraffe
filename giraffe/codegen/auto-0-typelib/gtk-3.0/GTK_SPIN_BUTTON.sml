@@ -4,6 +4,7 @@ signature GTK_SPIN_BUTTON =
     type 'a buildable_class
     type 'a cell_editable_class
     type 'a editable_class
+    type 'a orientable_class
     type spin_type_t
     type scroll_type_t
     type 'a adjustment_class
@@ -13,6 +14,7 @@ signature GTK_SPIN_BUTTON =
     val asBuildable : 'a class -> base buildable_class
     val asCellEditable : 'a class -> base cell_editable_class
     val asEditable : 'a class -> base editable_class
+    val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
     val new :
       'a adjustment_class option

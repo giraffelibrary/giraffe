@@ -1,14 +1,17 @@
 signature GTK_SCALE_BUTTON =
   sig
     type 'a class
+    type 'a actionable_class
     type 'a activatable_class
     type 'a buildable_class
     type 'a orientable_class
+    type 'a button_class
     type 'a widget_class
     type 'a adjustment_class
     type icon_size_t
     type t = base class
     val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asActionable : 'a class -> base actionable_class
     val asActivatable : 'a class -> base activatable_class
     val asBuildable : 'a class -> base buildable_class
     val asOrientable : 'a class -> base orientable_class
@@ -21,8 +24,8 @@ signature GTK_SCALE_BUTTON =
        * string list option
        -> base class
     val getAdjustment : 'a class -> base adjustment_class
-    val getMinusButton : 'a class -> base widget_class
-    val getPlusButton : 'a class -> base widget_class
+    val getMinusButton : 'a class -> base button_class
+    val getPlusButton : 'a class -> base button_class
     val getPopup : 'a class -> base widget_class
     val getValue : 'a class -> real
     val setAdjustment :

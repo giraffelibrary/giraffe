@@ -10,10 +10,14 @@ structure GLibRegexCompileFlags :> G_LIB_REGEX_COMPILE_FLAGS =
     val RAW = 0w2048
     val NO_AUTO_CAPTURE = 0w4096
     val OPTIMIZE = 0w8192
+    val FIRSTLINE = 0w262144
     val DUPNAMES = 0w524288
     val NEWLINE_CR = 0w1048576
     val NEWLINE_LF = 0w2097152
     val NEWLINE_CRLF = 0w3145728
+    val NEWLINE_ANYCRLF = 0w5242880
+    val BSR_ANYCRLF = 0w8388608
+    val JAVASCRIPT_COMPAT = 0w33554432
     val allFlags =
       [
         CASELESS,
@@ -26,10 +30,14 @@ structure GLibRegexCompileFlags :> G_LIB_REGEX_COMPILE_FLAGS =
         RAW,
         NO_AUTO_CAPTURE,
         OPTIMIZE,
+        FIRSTLINE,
         DUPNAMES,
         NEWLINE_CR,
         NEWLINE_LF,
-        NEWLINE_CRLF
+        NEWLINE_CRLF,
+        NEWLINE_ANYCRLF,
+        BSR_ANYCRLF,
+        JAVASCRIPT_COMPAT
       ]
     structure Flags =
       Flags(

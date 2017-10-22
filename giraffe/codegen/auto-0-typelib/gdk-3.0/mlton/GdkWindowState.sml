@@ -7,6 +7,8 @@ structure GdkWindowState :> GDK_WINDOW_STATE =
     val FULLSCREEN = 0w16
     val ABOVE = 0w32
     val BELOW = 0w64
+    val FOCUSED = 0w128
+    val TILED = 0w256
     val allFlags =
       [
         WITHDRAWN,
@@ -15,7 +17,9 @@ structure GdkWindowState :> GDK_WINDOW_STATE =
         STICKY,
         FULLSCREEN,
         ABOVE,
-        BELOW
+        BELOW,
+        FOCUSED,
+        TILED
       ]
     structure Flags =
       Flags(

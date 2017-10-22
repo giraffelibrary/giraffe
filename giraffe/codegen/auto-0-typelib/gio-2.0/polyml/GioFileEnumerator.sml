@@ -26,16 +26,27 @@ structure GioFileEnumerator :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
+      val getChild_ = call (getSymbol "g_file_enumerator_get_child") (GioFileEnumeratorClass.PolyML.cPtr &&> GioFileInfoClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
       val getContainer_ = call (getSymbol "g_file_enumerator_get_container") (GioFileEnumeratorClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
       val hasPending_ = call (getSymbol "g_file_enumerator_has_pending") (GioFileEnumeratorClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val isClosed_ = call (getSymbol "g_file_enumerator_is_closed") (GioFileEnumeratorClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val iterate_ =
+        call (getSymbol "g_file_enumerator_iterate")
+          (
+            GioFileEnumeratorClass.PolyML.cPtr
+             &&> GioFileInfoClass.PolyML.cOutRef
+             &&> GioFileClass.PolyML.cOutRef
+             &&> GioCancellableClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val nextFile_ =
         call (getSymbol "g_file_enumerator_next_file")
           (
             GioFileEnumeratorClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GioFileInfoClass.PolyML.cPtr
+             --> GioFileInfoClass.PolyML.cOptPtr
           )
       val setPending_ = call (getSymbol "g_file_enumerator_set_pending") (GioFileEnumeratorClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
@@ -72,15 +83,42 @@ structure GioFileEnumerator :>
            & result
            & []
         )
+    fun getChild self info = (GioFileEnumeratorClass.FFI.withPtr &&&> GioFileInfoClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getChild_ (self & info)
     fun getContainer self = (GioFileEnumeratorClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr false) getContainer_ self
     fun hasPending self = (GioFileEnumeratorClass.FFI.withPtr ---> GBool.FFI.fromVal) hasPending_ self
     fun isClosed self = (GioFileEnumeratorClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
+    fun iterate self cancellable =
+      let
+        val outInfo
+         & outChild
+         & () =
+          (
+            GioFileEnumeratorClass.FFI.withPtr
+             &&&> GioFileInfoClass.FFI.withRefOptPtr
+             &&&> GioFileClass.FFI.withRefOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GioFileInfoClass.FFI.fromPtr false
+                   && GioFileClass.FFI.fromPtr false
+                   && ignore
+          )
+            iterate_
+            (
+              self
+               & NONE
+               & NONE
+               & cancellable
+               & []
+            )
+      in
+        (outInfo, outChild)
+      end
     fun nextFile self cancellable =
       (
         GioFileEnumeratorClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileInfoClass.FFI.fromPtr true
+         ---> GioFileInfoClass.FFI.fromOptPtr true
       )
         nextFile_
         (

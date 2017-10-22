@@ -14,6 +14,10 @@ signature GTK_ENTRY_COMPLETION =
     val new : unit -> base class
     val newWithArea : 'a cell_area_class -> base class
     val complete : 'a class -> unit
+    val computePrefix :
+      'a class
+       -> string
+       -> string
     val deleteAction :
       'a class
        -> LargeInt.int
@@ -73,6 +77,7 @@ signature GTK_ENTRY_COMPLETION =
     val cursorOnMatchSig : (base tree_model_class * tree_iter_t -> bool) -> 'a class Signal.t
     val insertPrefixSig : (string -> bool) -> 'a class Signal.t
     val matchSelectedSig : (base tree_model_class * tree_iter_t -> bool) -> 'a class Signal.t
+    val noMatchesSig : (unit -> unit) -> 'a class Signal.t
     val cellAreaProp : ('a class, base cell_area_class option, 'b cell_area_class option) Property.readwrite
     val inlineCompletionProp : ('a class, bool, bool) Property.readwrite
     val inlineSelectionProp : ('a class, bool, bool) Property.readwrite

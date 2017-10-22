@@ -16,6 +16,7 @@ signature ATK =
     structure MiscClass : ATK_MISC_CLASS
     structure ObjectClass : ATK_OBJECT_CLASS
     structure ObjectFactoryClass : ATK_OBJECT_FACTORY_CLASS
+    structure RangeRecord : ATK_RANGE_RECORD
     structure RectangleRecord : ATK_RECTANGLE_RECORD
     structure RegistryClass : ATK_REGISTRY_CLASS
     structure RelationClass : ATK_RELATION_CLASS
@@ -27,14 +28,17 @@ signature ATK =
     structure StateType : ATK_STATE_TYPE
     structure StreamableContentClass : ATK_STREAMABLE_CONTENT_CLASS
     structure TableClass : ATK_TABLE_CLASS
+    structure TableCellClass : ATK_TABLE_CELL_CLASS
     structure TextClass : ATK_TEXT_CLASS
     structure TextAttribute : ATK_TEXT_ATTRIBUTE
     structure TextBoundary : ATK_TEXT_BOUNDARY
     structure TextClipType : ATK_TEXT_CLIP_TYPE
+    structure TextGranularity : ATK_TEXT_GRANULARITY
     structure TextRangeRecord : ATK_TEXT_RANGE_RECORD
     structure TextRectangleRecord : ATK_TEXT_RECTANGLE_RECORD
     structure UtilClass : ATK_UTIL_CLASS
     structure ValueClass : ATK_VALUE_CLASS
+    structure ValueType : ATK_VALUE_TYPE
     structure WindowClass : ATK_WINDOW_CLASS
     structure Action :
       ATK_ACTION
@@ -71,6 +75,7 @@ signature ATK =
     structure Image :
       ATK_IMAGE
         where type 'a class = 'a ImageClass.class
+        where type coord_type_t = CoordType.t
     structure ImplementorIface :
       ATK_IMPLEMENTOR_IFACE
         where type 'a class = 'a ImplementorIfaceClass.class
@@ -86,6 +91,7 @@ signature ATK =
     structure Object :
       ATK_OBJECT
         where type 'a class = 'a ObjectClass.class
+        where type layer_t = Layer.t
         where type 'a relation_set_class = 'a RelationSetClass.class
         where type 'a state_set_class = 'a StateSetClass.class
         where type relation_type_t = RelationType.t
@@ -97,6 +103,9 @@ signature ATK =
     structure PlugClass :
       ATK_PLUG_CLASS
         where type 'a object_class = 'a ObjectClass.class
+    structure Range :
+      ATK_RANGE
+        where type t = RangeRecord.t
     structure Rectangle :
       ATK_RECTANGLE
         where type t = RectangleRecord.t
@@ -132,6 +141,10 @@ signature ATK =
       ATK_TABLE
         where type 'a class = 'a TableClass.class
         where type 'a object_class = 'a ObjectClass.class
+    structure TableCell :
+      ATK_TABLE_CELL
+        where type 'a class = 'a TableCellClass.class
+        where type 'a object_class = 'a ObjectClass.class
     structure Text :
       ATK_TEXT
         where type 'a class = 'a TextClass.class
@@ -139,6 +152,8 @@ signature ATK =
         where type text_clip_type_t = TextClipType.t
         where type text_rectangle_t = TextRectangleRecord.t
         where type coord_type_t = CoordType.t
+        where type text_granularity_t = TextGranularity.t
+        where type text_boundary_t = TextBoundary.t
     structure TextRange :
       ATK_TEXT_RANGE
         where type t = TextRangeRecord.t
@@ -151,6 +166,7 @@ signature ATK =
     structure Value :
       ATK_VALUE
         where type 'a class = 'a ValueClass.class
+        where type range_t = RangeRecord.t
     structure Window :
       ATK_WINDOW
         where type 'a class = 'a WindowClass.class
@@ -169,6 +185,7 @@ signature ATK =
         where type 'a image_class = 'a ImageClass.class
         where type 'a selection_class = 'a SelectionClass.class
         where type 'a table_class = 'a TableClass.class
+        where type 'a table_cell_class = 'a TableCellClass.class
         where type 'a text_class = 'a TextClass.class
         where type 'a value_class = 'a ValueClass.class
         where type 'a window_class = 'a WindowClass.class
@@ -183,9 +200,20 @@ signature ATK =
       ATK_SOCKET
         where type 'a class = 'a SocketClass.class
         where type 'a component_class = 'a ComponentClass.class
+    val BINARY_AGE : LargeInt.int
+    val INTERFACE_AGE : LargeInt.int
+    val MAJOR_VERSION : LargeInt.int
+    val MICRO_VERSION : LargeInt.int
+    val MINOR_VERSION : LargeInt.int
+    val VERSION_MIN_REQUIRED : LargeInt.int
     val focusTrackerNotify : 'a ObjectClass.class -> unit
+    val getBinaryAge : unit -> LargeInt.int
     val getDefaultRegistry : unit -> base RegistryClass.class
     val getFocusObject : unit -> base ObjectClass.class
+    val getInterfaceAge : unit -> LargeInt.int
+    val getMajorVersion : unit -> LargeInt.int
+    val getMicroVersion : unit -> LargeInt.int
+    val getMinorVersion : unit -> LargeInt.int
     val getRoot : unit -> base ObjectClass.class
     val getToolkitName : unit -> string
     val getToolkitVersion : unit -> string
@@ -205,7 +233,8 @@ signature ATK =
     val stateTypeRegister : string -> StateType.t
     val textAttributeForName : string -> TextAttribute.t
     val textAttributeGetName : TextAttribute.t -> string
-    val textAttributeGetValue : TextAttribute.t * LargeInt.int -> string
+    val textAttributeGetValue : TextAttribute.t * LargeInt.int -> string option
     val textAttributeRegister : string -> TextAttribute.t
-    val textFreeRanges : TextRangeRecord.t -> unit
+    val valueTypeGetLocalizedName : ValueType.t -> string
+    val valueTypeGetName : ValueType.t -> string
   end

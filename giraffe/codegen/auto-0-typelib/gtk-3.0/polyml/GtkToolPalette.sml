@@ -39,7 +39,7 @@ structure GtkToolPalette :>
             GtkToolPaletteClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
-             --> GtkToolItemGroupClass.PolyML.cPtr
+             --> GtkToolItemGroupClass.PolyML.cOptPtr
           )
       val getDropItem_ =
         call (getSymbol "gtk_tool_palette_get_drop_item")
@@ -47,7 +47,7 @@ structure GtkToolPalette :>
             GtkToolPaletteClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
-             --> GtkToolItemClass.PolyML.cPtr
+             --> GtkToolItemClass.PolyML.cOptPtr
           )
       val getExclusive_ = call (getSymbol "gtk_tool_palette_get_exclusive") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolItemGroupClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getExpand_ = call (getSymbol "gtk_tool_palette_get_expand") (GtkToolPaletteClass.PolyML.cPtr &&> GtkToolItemGroupClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -139,7 +139,7 @@ structure GtkToolPalette :>
         GtkToolPaletteClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
-         ---> GtkToolItemGroupClass.FFI.fromPtr false
+         ---> GtkToolItemGroupClass.FFI.fromOptPtr false
       )
         getDropGroup_
         (
@@ -152,7 +152,7 @@ structure GtkToolPalette :>
         GtkToolPaletteClass.FFI.withPtr
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
-         ---> GtkToolItemClass.FFI.fromPtr false
+         ---> GtkToolItemClass.FFI.fromOptPtr false
       )
         getDropItem_
         (

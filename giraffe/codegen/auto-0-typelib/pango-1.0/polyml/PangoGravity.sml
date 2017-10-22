@@ -49,7 +49,7 @@ structure PangoGravity :>
     local
       open PolyMLFFI
     in
-      val getForMatrix_ = call (getSymbol "pango_gravity_get_for_matrix") (PangoMatrixRecord.PolyML.cPtr --> PolyML.cVal)
+      val getForMatrix_ = call (getSymbol "pango_gravity_get_for_matrix") (PangoMatrixRecord.PolyML.cOptPtr --> PolyML.cVal)
       val getForScript_ =
         call (getSymbol "pango_gravity_get_for_script")
           (
@@ -73,7 +73,7 @@ structure PangoGravity :>
     type gravity_hint_t = PangoGravityHint.t
     type script_t = PangoScript.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getForMatrix matrix = (PangoMatrixRecord.FFI.withPtr ---> FFI.fromVal) getForMatrix_ matrix
+    fun getForMatrix matrix = (PangoMatrixRecord.FFI.withOptPtr ---> FFI.fromVal) getForMatrix_ matrix
     fun getForScript
       (
         script,

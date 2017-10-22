@@ -22,6 +22,7 @@ structure GtkPageSetup :>
               x2,
               x3
             )
+    val newFromGvariant_ = _import "gtk_page_setup_new_from_gvariant" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p;
     val newFromKeyFile_ =
       fn
         x1
@@ -183,6 +184,7 @@ structure GtkPageSetup :>
               x3,
               x4
             )
+    val toGvariant_ = _import "gtk_page_setup_to_gvariant" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
     val toKeyFile_ =
       fn
         x1
@@ -210,6 +212,7 @@ structure GtkPageSetup :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkPageSetupClass.FFI.fromPtr true) new_ ()
     fun newFromFile fileName = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GtkPageSetupClass.FFI.fromPtr true) newFromFile_ (fileName & [])
+    fun newFromGvariant variant = (GLibVariantRecord.FFI.withPtr ---> GtkPageSetupClass.FFI.fromPtr true) newFromGvariant_ variant
     fun newFromKeyFile (keyFile, groupName) =
       (
         GLibKeyFileRecord.FFI.withPtr
@@ -230,7 +233,7 @@ structure GtkPageSetup :>
     fun getPageHeight self unit = (GtkPageSetupClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPageHeight_ (self & unit)
     fun getPageWidth self unit = (GtkPageSetupClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPageWidth_ (self & unit)
     fun getPaperHeight self unit = (GtkPageSetupClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPaperHeight_ (self & unit)
-    fun getPaperSize self = (GtkPageSetupClass.FFI.withPtr ---> GtkPaperSizeRecord.FFI.fromPtr true) getPaperSize_ self
+    fun getPaperSize self = (GtkPageSetupClass.FFI.withPtr ---> GtkPaperSizeRecord.FFI.fromPtr false) getPaperSize_ self
     fun getPaperWidth self unit = (GtkPageSetupClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPaperWidth_ (self & unit)
     fun getRightMargin self unit = (GtkPageSetupClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getRightMargin_ (self & unit)
     fun getTopMargin self unit = (GtkPageSetupClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getTopMargin_ (self & unit)
@@ -330,6 +333,7 @@ structure GtkPageSetup :>
            & fileName
            & []
         )
+    fun toGvariant self = (GtkPageSetupClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self
     fun toKeyFile self (keyFile, groupName) =
       (
         GtkPageSetupClass.FFI.withPtr

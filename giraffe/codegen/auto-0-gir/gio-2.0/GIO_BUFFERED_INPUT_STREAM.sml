@@ -1,10 +1,12 @@
 signature GIO_BUFFERED_INPUT_STREAM =
   sig
     type 'a class
+    type 'a seekable_class
     type 'a input_stream_class
     type 'a async_result_class
     type 'a cancellable_class
     type t = base class
+    val asSeekable : 'a class -> base seekable_class
     val getType : unit -> GObject.Type.t
     val new : 'a input_stream_class -> base class
     val newSized : 'a input_stream_class * LargeInt.int -> base class
@@ -18,6 +20,10 @@ signature GIO_BUFFERED_INPUT_STREAM =
        -> LargeInt.int
     val getAvailable : 'a class -> LargeInt.int
     val getBufferSize : 'a class -> LargeInt.int
+    val peek :
+      'a class
+       -> Word8Vector.vector * LargeInt.int
+       -> LargeInt.int
     val peekBuffer : 'a class -> Word8Vector.vector
     val readByte :
       'a class

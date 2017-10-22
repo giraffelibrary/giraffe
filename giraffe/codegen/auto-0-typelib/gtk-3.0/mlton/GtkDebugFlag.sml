@@ -13,6 +13,15 @@ structure GtkDebugFlag :> GTK_DEBUG_FLAG =
     val PRINTING = 0w1024
     val BUILDER = 0w2048
     val SIZE_REQUEST = 0w4096
+    val NO_CSS_CACHE = 0w8192
+    val BASELINES = 0w16384
+    val PIXEL_CACHE = 0w32768
+    val NO_PIXEL_CACHE = 0w65536
+    val INTERACTIVE = 0w131072
+    val TOUCHSCREEN = 0w262144
+    val ACTIONS = 0w524288
+    val RESIZE = 0w1048576
+    val LAYOUT = 0w2097152
     val allFlags =
       [
         MISC,
@@ -27,7 +36,16 @@ structure GtkDebugFlag :> GTK_DEBUG_FLAG =
         ICONTHEME,
         PRINTING,
         BUILDER,
-        SIZE_REQUEST
+        SIZE_REQUEST,
+        NO_CSS_CACHE,
+        BASELINES,
+        PIXEL_CACHE,
+        NO_PIXEL_CACHE,
+        INTERACTIVE,
+        TOUCHSCREEN,
+        ACTIONS,
+        RESIZE,
+        LAYOUT
       ]
     structure Flags =
       Flags(

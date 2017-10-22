@@ -32,6 +32,7 @@ signature GTK_CELL_RENDERER_TEXT =
     val languageSetProp : ('a class, bool, bool) Property.readwrite
     val markupProp : ('a class, string option) Property.writeonly
     val maxWidthCharsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val placeholderTextProp : ('a class, string option, string option) Property.readwrite
     val riseProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val riseSetProp : ('a class, bool, bool) Property.readwrite
     val scaleProp : ('a class, real, real) Property.readwrite

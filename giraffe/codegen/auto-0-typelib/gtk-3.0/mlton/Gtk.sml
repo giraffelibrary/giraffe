@@ -36,6 +36,12 @@ structure Gtk : GTK =
         structure Sequence = ListSequence
       )
     structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
+    structure GUInt32CVectorType =
+      CValueCVectorType(
+        structure CElemType = GUInt32Type
+        structure ElemSequence = CValueVectorSequence(GUInt32Type)
+      )
+    structure GUInt32CVector = CVector(GUInt32CVectorType)
     val accelGroupsActivate_ =
       fn
         x1
@@ -55,7 +61,47 @@ structure Gtk : GTK =
             )
     val acceleratorGetDefaultModMask_ = _import "gtk_accelerator_get_default_mod_mask" : unit -> GdkModifierType.FFI.val_;
     val acceleratorGetLabel_ = fn x1 & x2 => (_import "gtk_accelerator_get_label" : GUInt32.FFI.val_ * GdkModifierType.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val acceleratorGetLabelWithKeycode_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4 =>
+          (
+            _import "gtk_accelerator_get_label_with_keycode" :
+              unit GdkDisplayClass.FFI.p
+               * GUInt32.FFI.val_
+               * GUInt32.FFI.val_
+               * GdkModifierType.FFI.val_
+               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val acceleratorName_ = fn x1 & x2 => (_import "gtk_accelerator_name" : GUInt32.FFI.val_ * GdkModifierType.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val acceleratorNameWithKeycode_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4 =>
+          (
+            _import "gtk_accelerator_name_with_keycode" :
+              unit GdkDisplayClass.FFI.p
+               * GUInt32.FFI.val_
+               * GUInt32.FFI.val_
+               * GdkModifierType.FFI.val_
+               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val acceleratorParse_ =
       fn
         (x1, x2)
@@ -74,6 +120,30 @@ structure Gtk : GTK =
               x2,
               x3,
               x4
+            )
+    val acceleratorParseWithKeycode_ =
+      fn
+        (x1, x2)
+         & x3
+         & (x4, x5)
+         & x6 =>
+          (
+            _import "mlton_gtk_accelerator_parse_with_keycode" :
+              Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GUInt32.FFI.ref_
+               * GUInt32CVector.MLton.r1
+               * (unit, GUInt32CVector.FFI.notnull) GUInt32CVector.MLton.r2
+               * GdkModifierType.FFI.ref_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
             )
     val acceleratorSetDefaultModMask_ = _import "gtk_accelerator_set_default_mod_mask" : GdkModifierType.FFI.val_ -> unit;
     val acceleratorValid_ = fn x1 & x2 => (_import "gtk_accelerator_valid" : GUInt32.FFI.val_ * GdkModifierType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
@@ -107,7 +177,7 @@ structure Gtk : GTK =
               GUInt32.FFI.val_
                * GUInt32.FFI.val_
                * GUInt32.FFI.val_
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> unit Utf8.FFI.out_p;
           )
             (
               x1,
@@ -134,6 +204,7 @@ structure Gtk : GTK =
             )
     val deviceGrabRemove_ = fn x1 & x2 => (_import "gtk_device_grab_remove" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit;) (x1, x2)
     val disableSetlocale_ = _import "gtk_disable_setlocale" : unit -> unit;
+    val dragCancel_ = _import "gtk_drag_cancel" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> unit;
     val dragFinish_ =
       fn
         x1
@@ -154,7 +225,7 @@ structure Gtk : GTK =
               x3,
               x4
             )
-    val dragGetSourceWidget_ = _import "gtk_drag_get_source_widget" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val dragGetSourceWidget_ = _import "gtk_drag_get_source_widget" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> unit GtkWidgetClass.FFI.p;
     val dragSetIconDefault_ = _import "gtk_drag_set_icon_default" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> unit;
     val dragSetIconGicon_ =
       fn
@@ -273,7 +344,7 @@ structure Gtk : GTK =
             _import "gtk_draw_insertion_cursor" :
               GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
                * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
                * GBool.FFI.val_
                * GtkTextDirection.FFI.val_
                * GBool.FFI.val_
@@ -290,18 +361,20 @@ structure Gtk : GTK =
     val eventsPending_ = _import "gtk_events_pending" : unit -> GBool.FFI.val_;
     val fileChooserErrorQuark_ = _import "gtk_file_chooser_error_quark" : unit -> GUInt32.FFI.val_;
     val getBinaryAge_ = _import "gtk_get_binary_age" : unit -> GUInt32.FFI.val_;
-    val getCurrentEvent_ = _import "gtk_get_current_event" : unit -> GdkEvent.FFI.notnull GdkEvent.FFI.p;
-    val getCurrentEventDevice_ = _import "gtk_get_current_event_device" : unit -> GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p;
+    val getCurrentEvent_ = _import "gtk_get_current_event" : unit -> unit GdkEvent.FFI.p;
+    val getCurrentEventDevice_ = _import "gtk_get_current_event_device" : unit -> unit GdkDeviceClass.FFI.p;
     val getCurrentEventState_ = _import "gtk_get_current_event_state" : GdkModifierType.FFI.ref_ -> GBool.FFI.val_;
     val getCurrentEventTime_ = _import "gtk_get_current_event_time" : unit -> GUInt32.FFI.val_;
     val getDebugFlags_ = _import "gtk_get_debug_flags" : unit -> GUInt32.FFI.val_;
     val getDefaultLanguage_ = _import "gtk_get_default_language" : unit -> PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p;
-    val getEventWidget_ = _import "gtk_get_event_widget" : GdkEvent.FFI.notnull GdkEvent.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getEventWidget_ = _import "gtk_get_event_widget" : GdkEvent.FFI.notnull GdkEvent.FFI.p -> unit GtkWidgetClass.FFI.p;
     val getInterfaceAge_ = _import "gtk_get_interface_age" : unit -> GUInt32.FFI.val_;
+    val getLocaleDirection_ = _import "gtk_get_locale_direction" : unit -> GtkTextDirection.FFI.val_;
     val getMajorVersion_ = _import "gtk_get_major_version" : unit -> GUInt32.FFI.val_;
     val getMicroVersion_ = _import "gtk_get_micro_version" : unit -> GUInt32.FFI.val_;
     val getMinorVersion_ = _import "gtk_get_minor_version" : unit -> GUInt32.FFI.val_;
-    val grabGetCurrent_ = _import "gtk_grab_get_current" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getOptionGroup_ = _import "gtk_get_option_group" : GBool.FFI.val_ -> GLibOptionGroupRecord.FFI.notnull GLibOptionGroupRecord.FFI.p;
+    val grabGetCurrent_ = _import "gtk_grab_get_current" : unit -> unit GtkWidgetClass.FFI.p;
     val iconSizeFromName_ = _import "mlton_gtk_icon_size_from_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GInt32.FFI.val_;
     val iconSizeGetName_ = _import "gtk_icon_size_get_name" : GInt32.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val iconSizeLookup_ =
@@ -420,11 +493,11 @@ structure Gtk : GTK =
                * Utf8CVectorN.MLton.r1
                * (Utf8CVectorN.FFI.notnull, Utf8CVectorN.FFI.notnull) Utf8CVectorN.MLton.r2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit Utf8.MLton.p2
                * GLibOptionEntryRecordCVector.MLton.p1
                * GLibOptionEntryRecordCVector.FFI.notnull GLibOptionEntryRecordCVector.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
@@ -1385,6 +1458,32 @@ structure Gtk : GTK =
               x5,
               x6
             )
+    val renderBackgroundGetClip_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6 =>
+          (
+            _import "gtk_render_background_get_clip" :
+              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
     val renderCheck_ =
       fn
         x1
@@ -1618,6 +1717,58 @@ structure Gtk : GTK =
               x1,
               x2,
               x3
+            )
+    val renderIconSurface_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5 =>
+          (
+            _import "gtk_render_icon_surface" :
+              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+               * CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
+    val renderInsertionCursor_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6
+         & x7 =>
+          (
+            _import "gtk_render_insertion_cursor" :
+              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
+               * PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+               * GInt32.FFI.val_
+               * PangoDirection.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7
             )
     val renderLayout_ =
       fn
@@ -1873,6 +2024,28 @@ structure Gtk : GTK =
               x4,
               x5
             )
+    val showUriOnWindow_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5 =>
+          (
+            _import "mlton_gtk_show_uri_on_window" :
+              unit GtkWindowClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GUInt32.FFI.val_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
     val stockAdd_ =
       fn
         (x1, x2) & x3 =>
@@ -2104,6 +2277,7 @@ structure Gtk : GTK =
               x2,
               x3
             )
+    val testWidgetWaitForDraw_ = _import "gtk_test_widget_wait_for_draw" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;
     val treeGetRowDragData_ =
       fn
         x1
@@ -2149,15 +2323,18 @@ structure Gtk : GTK =
     structure AccessibleClass = GtkAccessibleClass
     structure ActionClass = GtkActionClass
     structure ActionGroupClass = GtkActionGroupClass
+    structure ActionableClass = GtkActionableClass
     structure ActivatableClass = GtkActivatableClass
     structure AdjustmentClass = GtkAdjustmentClass
     structure Align = GtkAlign
     structure AppChooserClass = GtkAppChooserClass
     structure ApplicationClass = GtkApplicationClass
+    structure ApplicationInhibitFlags = GtkApplicationInhibitFlags
     structure ArrowPlacement = GtkArrowPlacement
     structure ArrowType = GtkArrowType
     structure AssistantPageType = GtkAssistantPageType
     structure AttachOptions = GtkAttachOptions
+    structure BaselinePosition = GtkBaselinePosition
     structure BorderRecord = GtkBorderRecord
     structure BorderStyle = GtkBorderStyle
     structure BuildableClass = GtkBuildableClass
@@ -2165,8 +2342,10 @@ structure Gtk : GTK =
     structure BuilderError = GtkBuilderError
     exception BuilderError = GtkBuilderError
     structure ButtonBoxStyle = GtkButtonBoxStyle
+    structure ButtonRole = GtkButtonRole
     structure ButtonsType = GtkButtonsType
     structure CalendarDisplayOptions = GtkCalendarDisplayOptions
+    structure CellAccessibleParentClass = GtkCellAccessibleParentClass
     structure CellAreaClass = GtkCellAreaClass
     structure CellAreaContextClass = GtkCellAreaContextClass
     structure CellEditableClass = GtkCellEditableClass
@@ -2176,10 +2355,12 @@ structure Gtk : GTK =
     structure CellRendererMode = GtkCellRendererMode
     structure CellRendererState = GtkCellRendererState
     structure ClipboardClass = GtkClipboardClass
+    structure ColorChooserClass = GtkColorChooserClass
     structure CornerType = GtkCornerType
     structure CssProviderClass = GtkCssProviderClass
     structure CssProviderError = GtkCssProviderError
     exception CssProviderError = GtkCssProviderError
+    structure CssSectionRecord = GtkCssSectionRecord
     structure CssSectionType = GtkCssSectionType
     structure DebugFlag = GtkDebugFlag
     structure DeleteType = GtkDeleteType
@@ -2190,7 +2371,10 @@ structure Gtk : GTK =
     structure EditableClass = GtkEditableClass
     structure EntryBufferClass = GtkEntryBufferClass
     structure EntryCompletionClass = GtkEntryCompletionClass
+    structure EntryIconAccessibleClass = GtkEntryIconAccessibleClass
     structure EntryIconPosition = GtkEntryIconPosition
+    structure EventControllerClass = GtkEventControllerClass
+    structure EventSequenceState = GtkEventSequenceState
     structure ExpanderStyle = GtkExpanderStyle
     structure FileChooserClass = GtkFileChooserClass
     structure FileChooserAction = GtkFileChooserAction
@@ -2205,7 +2389,7 @@ structure Gtk : GTK =
     structure IMPreeditStyle = GtkIMPreeditStyle
     structure IMStatusStyle = GtkIMStatusStyle
     structure IconFactoryClass = GtkIconFactoryClass
-    structure IconInfoRecord = GtkIconInfoRecord
+    structure IconInfoClass = GtkIconInfoClass
     structure IconLookupFlags = GtkIconLookupFlags
     structure IconSetRecord = GtkIconSetRecord
     structure IconSourceRecord = GtkIconSourceRecord
@@ -2214,14 +2398,19 @@ structure Gtk : GTK =
     exception IconThemeError = GtkIconThemeError
     structure IconViewDropPosition = GtkIconViewDropPosition
     structure ImageType = GtkImageType
+    structure InputHints = GtkInputHints
+    structure InputPurpose = GtkInputPurpose
     structure JunctionSides = GtkJunctionSides
     structure Justification = GtkJustification
+    structure LevelBarMode = GtkLevelBarMode
     structure License = GtkLicense
     structure ListStoreClass = GtkListStoreClass
     structure MenuDirectionType = GtkMenuDirectionType
     structure MessageType = GtkMessageType
     structure MountOperationClass = GtkMountOperationClass
     structure MovementStep = GtkMovementStep
+    structure NativeDialogClass = GtkNativeDialogClass
+    structure NotebookPageAccessibleClass = GtkNotebookPageAccessibleClass
     structure NotebookTab = GtkNotebookTab
     structure NumberUpLayout = GtkNumberUpLayout
     structure NumerableIconClass = GtkNumerableIconClass
@@ -2229,14 +2418,18 @@ structure Gtk : GTK =
     structure Orientation = GtkOrientation
     structure PackDirection = GtkPackDirection
     structure PackType = GtkPackType
+    structure PadActionType = GtkPadActionType
     structure PageOrientation = GtkPageOrientation
     structure PageRangeRecord = GtkPageRangeRecord
     structure PageSet = GtkPageSet
     structure PageSetupClass = GtkPageSetupClass
+    structure PanDirection = GtkPanDirection
     structure PaperSizeRecord = GtkPaperSizeRecord
     structure PathPriorityType = GtkPathPriorityType
     structure PathType = GtkPathType
+    structure PlacesOpenFlags = GtkPlacesOpenFlags
     structure PolicyType = GtkPolicyType
+    structure PopoverConstraint = GtkPopoverConstraint
     structure PositionType = GtkPositionType
     structure PrintContextClass = GtkPrintContextClass
     structure PrintDuplex = GtkPrintDuplex
@@ -2250,6 +2443,7 @@ structure Gtk : GTK =
     structure PrintQuality = GtkPrintQuality
     structure PrintSettingsClass = GtkPrintSettingsClass
     structure PrintStatus = GtkPrintStatus
+    structure PropagationPhase = GtkPropagationPhase
     structure RcFlags = GtkRcFlags
     structure RcStyleClass = GtkRcStyleClass
     structure RcTokenType = GtkRcTokenType
@@ -2270,6 +2464,7 @@ structure Gtk : GTK =
     structure RequisitionRecord = GtkRequisitionRecord
     structure ResizeMode = GtkResizeMode
     structure ResponseType = GtkResponseType
+    structure RevealerTransitionType = GtkRevealerTransitionType
     structure ScrollStep = GtkScrollStep
     structure ScrollType = GtkScrollType
     structure ScrollableClass = GtkScrollableClass
@@ -2280,18 +2475,21 @@ structure Gtk : GTK =
     structure SettingsClass = GtkSettingsClass
     structure SettingsValueRecord = GtkSettingsValueRecord
     structure ShadowType = GtkShadowType
+    structure ShortcutType = GtkShortcutType
     structure SizeGroupClass = GtkSizeGroupClass
     structure SizeGroupMode = GtkSizeGroupMode
     structure SizeRequestMode = GtkSizeRequestMode
     structure SortType = GtkSortType
     structure SpinButtonUpdatePolicy = GtkSpinButtonUpdatePolicy
     structure SpinType = GtkSpinType
+    structure StackTransitionType = GtkStackTransitionType
     structure StateFlags = GtkStateFlags
     structure StateType = GtkStateType
     structure StatusIconClass = GtkStatusIconClass
     structure StockItemRecord = GtkStockItemRecord
     structure StyleClass = GtkStyleClass
     structure StyleContextClass = GtkStyleContextClass
+    structure StyleContextPrintFlags = GtkStyleContextPrintFlags
     structure StylePropertiesClass = GtkStylePropertiesClass
     structure StyleProviderClass = GtkStyleProviderClass
     structure SymbolicColorRecord = GtkSymbolicColorRecord
@@ -2303,11 +2501,13 @@ structure Gtk : GTK =
     structure TextBufferTargetInfo = GtkTextBufferTargetInfo
     structure TextChildAnchorClass = GtkTextChildAnchorClass
     structure TextDirection = GtkTextDirection
+    structure TextExtendSelection = GtkTextExtendSelection
     structure TextIterRecord = GtkTextIterRecord
     structure TextMarkClass = GtkTextMarkClass
     structure TextSearchFlags = GtkTextSearchFlags
     structure TextTagClass = GtkTextTagClass
     structure TextTagTableClass = GtkTextTagTableClass
+    structure TextViewLayer = GtkTextViewLayer
     structure TextWindowType = GtkTextWindowType
     structure ThemingEngineClass = GtkThemingEngineClass
     structure ToolPaletteDragTargets = GtkToolPaletteDragTargets
@@ -2315,6 +2515,7 @@ structure Gtk : GTK =
     structure ToolbarSpaceStyle = GtkToolbarSpaceStyle
     structure ToolbarStyle = GtkToolbarStyle
     structure TooltipClass = GtkTooltipClass
+    structure ToplevelAccessibleClass = GtkToplevelAccessibleClass
     structure TreeDragDestClass = GtkTreeDragDestClass
     structure TreeDragSourceClass = GtkTreeDragSourceClass
     structure TreeIterRecord = GtkTreeIterRecord
@@ -2346,6 +2547,7 @@ structure Gtk : GTK =
     structure AccelMap = GtkAccelMap
     structure Accessible = GtkAccessible
     structure Action = GtkAction
+    structure Actionable = GtkActionable
     structure Activatable = GtkActivatable
     structure Adjustment = GtkAdjustment
     structure AppChooser = GtkAppChooser
@@ -2353,6 +2555,7 @@ structure Gtk : GTK =
     structure Buildable = GtkBuildable
     structure Builder = GtkBuilder
     structure CalendarClass = GtkCalendarClass
+    structure CellAccessibleClass = GtkCellAccessibleClass
     structure CellArea = GtkCellArea
     structure CellAreaBoxClass = GtkCellAreaBoxClass
     structure CellAreaContext = GtkCellAreaContext
@@ -2366,17 +2569,24 @@ structure Gtk : GTK =
     structure CellRendererToggleClass = GtkCellRendererToggleClass
     structure CellViewClass = GtkCellViewClass
     structure Clipboard = GtkClipboard
+    structure ColorChooser = GtkColorChooser
     structure ContainerClass = GtkContainerClass
     structure CssProvider = GtkCssProvider
+    structure CssSection = GtkCssSection
     structure DrawingAreaClass = GtkDrawingAreaClass
     structure Editable = GtkEditable
     structure EntryClass = GtkEntryClass
     structure EntryBuffer = GtkEntryBuffer
     structure EntryCompletion = GtkEntryCompletion
+    structure EntryIconAccessible = GtkEntryIconAccessible
+    structure EventController = GtkEventController
     structure FileChooser = GtkFileChooser
+    structure FileChooserNativeClass = GtkFileChooserNativeClass
     structure FileFilter = GtkFileFilter
     structure FileFilterInfo = GtkFileFilterInfo
     structure FontChooser = GtkFontChooser
+    structure GLAreaClass = GtkGLAreaClass
+    structure GestureClass = GtkGestureClass
     structure HsvClass = GtkHsvClass
     structure IMContext = GtkIMContext
     structure IMContextSimpleClass = GtkIMContextSimpleClass
@@ -2388,10 +2598,12 @@ structure Gtk : GTK =
     structure IconSource = GtkIconSource
     structure IconTheme = GtkIconTheme
     structure InvisibleClass = GtkInvisibleClass
+    structure LevelBarClass = GtkLevelBarClass
     structure ListStore = GtkListStore
     structure MiscClass = GtkMiscClass
     structure NumerableIcon = GtkNumerableIcon
     structure Orientable = GtkOrientable
+    structure PadControllerClass = GtkPadControllerClass
     structure PageRange = GtkPageRange
     structure PageSetup = GtkPageSetup
     structure PaperSize = GtkPaperSize
@@ -2435,6 +2647,7 @@ structure Gtk : GTK =
     structure ToggleActionClass = GtkToggleActionClass
     structure ToolShell = GtkToolShell
     structure Tooltip = GtkTooltip
+    structure ToplevelAccessible = GtkToplevelAccessible
     structure TreeDragDest = GtkTreeDragDest
     structure TreeDragSource = GtkTreeDragSource
     structure TreeIter = GtkTreeIter
@@ -2446,12 +2659,16 @@ structure Gtk : GTK =
     structure TreeStore = GtkTreeStore
     structure TreeViewColumn = GtkTreeViewColumn
     structure UIManager = GtkUIManager
+    structure WidgetAccessibleClass = GtkWidgetAccessibleClass
     structure WidgetPath = GtkWidgetPath
     structure ActionGroup = GtkActionGroup
     structure ArrowClass = GtkArrowClass
+    structure ArrowAccessibleClass = GtkArrowAccessibleClass
     structure BinClass = GtkBinClass
     structure BoxClass = GtkBoxClass
     structure Calendar = GtkCalendar
+    structure CellAccessible = GtkCellAccessible
+    structure CellAccessibleParent = GtkCellAccessibleParent
     structure CellAreaBox = GtkCellAreaBox
     structure CellRendererAccelClass = GtkCellRendererAccelClass
     structure CellRendererComboClass = GtkCellRendererComboClass
@@ -2463,33 +2680,56 @@ structure Gtk : GTK =
     structure CellRendererToggle = GtkCellRendererToggle
     structure CellView = GtkCellView
     structure Container = GtkContainer
+    structure ContainerAccessibleClass = GtkContainerAccessibleClass
+    structure ContainerCellAccessibleClass = GtkContainerCellAccessibleClass
     structure DrawingArea = GtkDrawingArea
+    structure Entry = GtkEntry
+    structure EntryAccessibleClass = GtkEntryAccessibleClass
     structure FixedClass = GtkFixedClass
+    structure FlowBoxClass = GtkFlowBoxClass
+    structure GLArea = GtkGLArea
+    structure Gesture = GtkGesture
+    structure GestureRotateClass = GtkGestureRotateClass
+    structure GestureSingleClass = GtkGestureSingleClass
+    structure GestureZoomClass = GtkGestureZoomClass
     structure GridClass = GtkGridClass
     structure Hsv = GtkHsv
     structure HSeparatorClass = GtkHSeparatorClass
+    structure HeaderBarClass = GtkHeaderBarClass
     structure IMContextSimple = GtkIMContextSimple
     structure IconViewClass = GtkIconViewClass
     structure ImageClass = GtkImageClass
+    structure ImageAccessibleClass = GtkImageAccessibleClass
     structure Invisible = GtkInvisible
     structure LabelClass = GtkLabelClass
+    structure LabelAccessibleClass = GtkLabelAccessibleClass
     structure LayoutClass = GtkLayoutClass
+    structure LevelBar = GtkLevelBar
+    structure LevelBarAccessibleClass = GtkLevelBarAccessibleClass
+    structure ListBoxClass = GtkListBoxClass
     structure MenuShellClass = GtkMenuShellClass
     structure Misc = GtkMisc
     structure NotebookClass = GtkNotebookClass
     structure PanedClass = GtkPanedClass
     structure ProgressBar = GtkProgressBar
+    structure ProgressBarAccessibleClass = GtkProgressBarAccessibleClass
     structure RadioActionClass = GtkRadioActionClass
     structure Range = GtkRange
+    structure RangeAccessibleClass = GtkRangeAccessibleClass
     structure RecentAction = GtkRecentAction
+    structure RendererCellAccessibleClass = GtkRendererCellAccessibleClass
     structure ScaleClass = GtkScaleClass
     structure ScrollbarClass = GtkScrollbarClass
+    structure SearchEntryClass = GtkSearchEntryClass
     structure Separator = GtkSeparator
     structure Settings = GtkSettings
     structure SocketClass = GtkSocketClass
     structure SpinButtonClass = GtkSpinButtonClass
     structure Spinner = GtkSpinner
+    structure SpinnerAccessibleClass = GtkSpinnerAccessibleClass
+    structure StackClass = GtkStackClass
     structure Switch = GtkSwitch
+    structure SwitchAccessibleClass = GtkSwitchAccessibleClass
     structure TableClass = GtkTableClass
     structure TextViewClass = GtkTextViewClass
     structure ToggleAction = GtkToggleAction
@@ -2498,27 +2738,49 @@ structure Gtk : GTK =
     structure ToolbarClass = GtkToolbarClass
     structure TreeViewClass = GtkTreeViewClass
     structure VSeparatorClass = GtkVSeparatorClass
+    structure WidgetAccessible = GtkWidgetAccessible
     structure AccelLabelClass = GtkAccelLabelClass
+    structure ActionBarClass = GtkActionBarClass
     structure AlignmentClass = GtkAlignmentClass
     structure AppChooserWidgetClass = GtkAppChooserWidgetClass
     structure Arrow = GtkArrow
+    structure ArrowAccessible = GtkArrowAccessible
     structure Bin = GtkBin
+    structure BooleanCellAccessibleClass = GtkBooleanCellAccessibleClass
     structure Box = GtkBox
     structure ButtonClass = GtkButtonClass
+    structure ButtonAccessibleClass = GtkButtonAccessibleClass
     structure ButtonBoxClass = GtkButtonBoxClass
     structure CellRendererAccel = GtkCellRendererAccel
     structure CellRendererCombo = GtkCellRendererCombo
     structure CellRendererSpin = GtkCellRendererSpin
+    structure ColorChooserWidgetClass = GtkColorChooserWidgetClass
     structure ColorSelectionClass = GtkColorSelectionClass
     structure ComboBoxClass = GtkComboBoxClass
+    structure ComboBoxAccessibleClass = GtkComboBoxAccessibleClass
+    structure ContainerAccessible = GtkContainerAccessible
+    structure ContainerCellAccessible = GtkContainerCellAccessible
+    structure EntryAccessible = GtkEntryAccessible
     structure EventBoxClass = GtkEventBoxClass
     structure ExpanderClass = GtkExpanderClass
+    structure ExpanderAccessibleClass = GtkExpanderAccessibleClass
     structure FileChooserButtonClass = GtkFileChooserButtonClass
     structure FileChooserWidgetClass = GtkFileChooserWidgetClass
     structure Fixed = GtkFixed
+    structure FlowBoxAccessibleClass = GtkFlowBoxAccessibleClass
+    structure FlowBoxChildClass = GtkFlowBoxChildClass
+    structure FlowBoxChildAccessibleClass = GtkFlowBoxChildAccessibleClass
     structure FontChooserWidgetClass = GtkFontChooserWidgetClass
     structure FontSelectionClass = GtkFontSelectionClass
     structure FrameClass = GtkFrameClass
+    structure FrameAccessibleClass = GtkFrameAccessibleClass
+    structure GestureDragClass = GtkGestureDragClass
+    structure GestureLongPressClass = GtkGestureLongPressClass
+    structure GestureMultiPressClass = GtkGestureMultiPressClass
+    structure GestureRotate = GtkGestureRotate
+    structure GestureSingle = GtkGestureSingle
+    structure GestureSwipeClass = GtkGestureSwipeClass
+    structure GestureZoom = GtkGestureZoom
     structure Grid = GtkGrid
     structure HBoxClass = GtkHBoxClass
     structure HPanedClass = GtkHPanedClass
@@ -2526,30 +2788,68 @@ structure Gtk : GTK =
     structure HScrollbarClass = GtkHScrollbarClass
     structure HSeparator = GtkHSeparator
     structure HandleBoxClass = GtkHandleBoxClass
+    structure HeaderBar = GtkHeaderBar
     structure IMMulticontext = GtkIMMulticontext
     structure IconView = GtkIconView
+    structure IconViewAccessibleClass = GtkIconViewAccessibleClass
     structure Image = GtkImage
+    structure ImageAccessible = GtkImageAccessible
+    structure ImageCellAccessibleClass = GtkImageCellAccessibleClass
     structure InfoBarClass = GtkInfoBarClass
+    structure LabelAccessible = GtkLabelAccessible
     structure Layout = GtkLayout
+    structure LevelBarAccessible = GtkLevelBarAccessible
+    structure ListBoxAccessibleClass = GtkListBoxAccessibleClass
+    structure ListBoxRowClass = GtkListBoxRowClass
+    structure ListBoxRowAccessibleClass = GtkListBoxRowAccessibleClass
     structure MenuClass = GtkMenuClass
     structure MenuBarClass = GtkMenuBarClass
     structure MenuItemClass = GtkMenuItemClass
-    structure MenuShell = GtkMenuShell
+    structure MenuItemAccessibleClass = GtkMenuItemAccessibleClass
+    structure MenuShellAccessibleClass = GtkMenuShellAccessibleClass
     structure Notebook = GtkNotebook
+    structure NotebookAccessibleClass = GtkNotebookAccessibleClass
     structure OverlayClass = GtkOverlayClass
     structure Paned = GtkPaned
+    structure PanedAccessibleClass = GtkPanedAccessibleClass
+    structure PopoverClass = GtkPopoverClass
+    structure PopoverAccessibleClass = GtkPopoverAccessibleClass
+    structure ProgressBarAccessible = GtkProgressBarAccessible
     structure RadioAction = GtkRadioAction
+    structure RangeAccessible = GtkRangeAccessible
     structure RecentChooserWidgetClass = GtkRecentChooserWidgetClass
+    structure RendererCellAccessible = GtkRendererCellAccessible
+    structure RevealerClass = GtkRevealerClass
     structure Scale = GtkScale
+    structure ScaleAccessibleClass = GtkScaleAccessibleClass
     structure Scrollbar = GtkScrollbar
     structure ScrolledWindowClass = GtkScrolledWindowClass
+    structure ScrolledWindowAccessibleClass = GtkScrolledWindowAccessibleClass
+    structure SearchBarClass = GtkSearchBarClass
+    structure SearchEntry = GtkSearchEntry
+    structure ShortcutLabelClass = GtkShortcutLabelClass
+    structure ShortcutsGroupClass = GtkShortcutsGroupClass
+    structure ShortcutsSectionClass = GtkShortcutsSectionClass
+    structure ShortcutsShortcutClass = GtkShortcutsShortcutClass
     structure Socket = GtkSocket
     structure SpinButton = GtkSpinButton
+    structure SpinButtonAccessibleClass = GtkSpinButtonAccessibleClass
+    structure SpinnerAccessible = GtkSpinnerAccessible
+    structure Stack = GtkStack
+    structure StackAccessibleClass = GtkStackAccessibleClass
+    structure StackSidebarClass = GtkStackSidebarClass
+    structure StackSwitcherClass = GtkStackSwitcherClass
     structure StatusbarClass = GtkStatusbarClass
+    structure StatusbarAccessibleClass = GtkStatusbarAccessibleClass
+    structure SwitchAccessible = GtkSwitchAccessible
     structure Table = GtkTable
+    structure TextCellAccessibleClass = GtkTextCellAccessibleClass
+    structure TextView = GtkTextView
+    structure TextViewAccessibleClass = GtkTextViewAccessibleClass
     structure ToolItemClass = GtkToolItemClass
     structure TreeSelection = GtkTreeSelection
     structure TreeView = GtkTreeView
+    structure TreeViewAccessibleClass = GtkTreeViewAccessibleClass
     structure VBoxClass = GtkVBoxClass
     structure VPanedClass = GtkVPanedClass
     structure VScaleClass = GtkVScaleClass
@@ -2557,65 +2857,123 @@ structure Gtk : GTK =
     structure VSeparator = GtkVSeparator
     structure ViewportClass = GtkViewportClass
     structure WindowClass = GtkWindowClass
+    structure WindowAccessibleClass = GtkWindowAccessibleClass
     structure AccelLabel = GtkAccelLabel
+    structure ActionBar = GtkActionBar
     structure Alignment = GtkAlignment
     structure AppChooserButtonClass = GtkAppChooserButtonClass
     structure AppChooserWidget = GtkAppChooserWidget
     structure Application = GtkApplication
+    structure ApplicationWindowClass = GtkApplicationWindowClass
     structure AspectFrameClass = GtkAspectFrameClass
     structure AssistantClass = GtkAssistantClass
+    structure BooleanCellAccessible = GtkBooleanCellAccessible
     structure Button = GtkButton
+    structure ButtonAccessible = GtkButtonAccessible
     structure ButtonBox = GtkButtonBox
     structure CheckMenuItemClass = GtkCheckMenuItemClass
+    structure CheckMenuItemAccessibleClass = GtkCheckMenuItemAccessibleClass
     structure ColorButtonClass = GtkColorButtonClass
+    structure ColorChooserWidget = GtkColorChooserWidget
     structure ColorSelection = GtkColorSelection
     structure ComboBox = GtkComboBox
+    structure ComboBoxAccessible = GtkComboBoxAccessible
     structure ComboBoxTextClass = GtkComboBoxTextClass
     structure DialogClass = GtkDialogClass
-    structure Entry = GtkEntry
     structure EventBox = GtkEventBox
     structure Expander = GtkExpander
-    structure FileChooserButton = GtkFileChooserButton
+    structure ExpanderAccessible = GtkExpanderAccessible
+    structure FileChooserNative = GtkFileChooserNative
     structure FileChooserWidget = GtkFileChooserWidget
+    structure FlowBox = GtkFlowBox
+    structure FlowBoxAccessible = GtkFlowBoxAccessible
+    structure FlowBoxChild = GtkFlowBoxChild
+    structure FlowBoxChildAccessible = GtkFlowBoxChildAccessible
     structure FontButtonClass = GtkFontButtonClass
     structure FontChooserWidget = GtkFontChooserWidget
     structure FontSelection = GtkFontSelection
     structure Frame = GtkFrame
+    structure FrameAccessible = GtkFrameAccessible
+    structure GestureDrag = GtkGestureDrag
+    structure GestureLongPress = GtkGestureLongPress
+    structure GestureMultiPress = GtkGestureMultiPress
+    structure GesturePanClass = GtkGesturePanClass
+    structure GestureSwipe = GtkGestureSwipe
     structure HBox = GtkHBox
     structure HButtonBoxClass = GtkHButtonBoxClass
     structure HPaned = GtkHPaned
     structure HScale = GtkHScale
     structure HScrollbar = GtkHScrollbar
     structure HandleBox = GtkHandleBox
+    structure IconViewAccessible = GtkIconViewAccessible
+    structure ImageCellAccessible = GtkImageCellAccessible
     structure ImageMenuItemClass = GtkImageMenuItemClass
     structure InfoBar = GtkInfoBar
     structure Label = GtkLabel
     structure LinkButtonClass = GtkLinkButtonClass
+    structure LinkButtonAccessibleClass = GtkLinkButtonAccessibleClass
+    structure ListBox = GtkListBox
+    structure ListBoxAccessible = GtkListBoxAccessible
+    structure ListBoxRow = GtkListBoxRow
+    structure ListBoxRowAccessible = GtkListBoxRowAccessible
     structure LockButtonClass = GtkLockButtonClass
+    structure LockButtonAccessibleClass = GtkLockButtonAccessibleClass
     structure Menu = GtkMenu
+    structure MenuAccessibleClass = GtkMenuAccessibleClass
     structure MenuBar = GtkMenuBar
     structure MenuItem = GtkMenuItem
+    structure MenuItemAccessible = GtkMenuItemAccessible
+    structure MenuShell = GtkMenuShell
+    structure MenuShellAccessible = GtkMenuShellAccessible
+    structure ModelButtonClass = GtkModelButtonClass
     structure MountOperation = GtkMountOperation
+    structure NativeDialog = GtkNativeDialog
+    structure NotebookAccessible = GtkNotebookAccessible
+    structure NotebookPageAccessible = GtkNotebookPageAccessible
     structure OffscreenWindowClass = GtkOffscreenWindowClass
     structure Overlay = GtkOverlay
+    structure PadController = GtkPadController
+    structure PanedAccessible = GtkPanedAccessible
+    structure PlacesSidebarClass = GtkPlacesSidebarClass
     structure PlugClass = GtkPlugClass
+    structure Popover = GtkPopover
+    structure PopoverAccessible = GtkPopoverAccessible
+    structure PopoverMenuClass = GtkPopoverMenuClass
     structure PrintOperation = GtkPrintOperation
     structure RecentChooserMenuClass = GtkRecentChooserMenuClass
     structure RecentChooserWidget = GtkRecentChooserWidget
+    structure Revealer = GtkRevealer
+    structure ScaleAccessible = GtkScaleAccessible
     structure ScaleButtonClass = GtkScaleButtonClass
+    structure ScaleButtonAccessibleClass = GtkScaleButtonAccessibleClass
     structure ScrolledWindow = GtkScrolledWindow
+    structure ScrolledWindowAccessible = GtkScrolledWindowAccessible
+    structure SearchBar = GtkSearchBar
     structure SeparatorMenuItemClass = GtkSeparatorMenuItemClass
     structure SeparatorToolItemClass = GtkSeparatorToolItemClass
+    structure ShortcutLabel = GtkShortcutLabel
+    structure ShortcutsGroup = GtkShortcutsGroup
+    structure ShortcutsSection = GtkShortcutsSection
+    structure ShortcutsShortcut = GtkShortcutsShortcut
+    structure ShortcutsWindowClass = GtkShortcutsWindowClass
+    structure SpinButtonAccessible = GtkSpinButtonAccessible
+    structure StackAccessible = GtkStackAccessible
+    structure StackSidebar = GtkStackSidebar
+    structure StackSwitcher = GtkStackSwitcher
     structure StatusIcon = GtkStatusIcon
     structure Statusbar = GtkStatusbar
+    structure StatusbarAccessible = GtkStatusbarAccessible
     structure TearoffMenuItemClass = GtkTearoffMenuItemClass
-    structure TextView = GtkTextView
+    structure TextCellAccessible = GtkTextCellAccessible
+    structure TextViewAccessible = GtkTextViewAccessible
     structure ToggleButtonClass = GtkToggleButtonClass
+    structure ToggleButtonAccessibleClass = GtkToggleButtonAccessibleClass
     structure ToolButtonClass = GtkToolButtonClass
     structure ToolItem = GtkToolItem
     structure ToolItemGroup = GtkToolItemGroup
     structure ToolPalette = GtkToolPalette
     structure Toolbar = GtkToolbar
+    structure TreeViewAccessible = GtkTreeViewAccessible
     structure VBox = GtkVBox
     structure VButtonBoxClass = GtkVButtonBoxClass
     structure VPaned = GtkVPaned
@@ -2624,38 +2982,57 @@ structure Gtk : GTK =
     structure Viewport = GtkViewport
     structure Widget = GtkWidget
     structure Window = GtkWindow
+    structure WindowAccessible = GtkWindowAccessible
     structure WindowGroup = GtkWindowGroup
     structure AboutDialogClass = GtkAboutDialogClass
     structure AppChooserButton = GtkAppChooserButton
     structure AppChooserDialogClass = GtkAppChooserDialogClass
+    structure ApplicationWindow = GtkApplicationWindow
     structure AspectFrame = GtkAspectFrame
     structure Assistant = GtkAssistant
     structure CheckButtonClass = GtkCheckButtonClass
     structure CheckMenuItem = GtkCheckMenuItem
+    structure CheckMenuItemAccessible = GtkCheckMenuItemAccessible
     structure ColorButton = GtkColorButton
+    structure ColorChooserDialogClass = GtkColorChooserDialogClass
     structure ColorSelectionDialogClass = GtkColorSelectionDialogClass
     structure ComboBoxText = GtkComboBoxText
     structure Dialog = GtkDialog
+    structure FileChooserButton = GtkFileChooserButton
     structure FileChooserDialogClass = GtkFileChooserDialogClass
     structure FontButton = GtkFontButton
     structure FontChooserDialogClass = GtkFontChooserDialogClass
     structure FontSelectionDialogClass = GtkFontSelectionDialogClass
+    structure GesturePan = GtkGesturePan
     structure HButtonBox = GtkHButtonBox
     structure ImageMenuItem = GtkImageMenuItem
     structure LinkButton = GtkLinkButton
+    structure LinkButtonAccessible = GtkLinkButtonAccessible
     structure LockButton = GtkLockButton
+    structure LockButtonAccessible = GtkLockButtonAccessible
+    structure MenuAccessible = GtkMenuAccessible
+    structure MenuButtonClass = GtkMenuButtonClass
+    structure MenuButtonAccessibleClass = GtkMenuButtonAccessibleClass
     structure MenuToolButtonClass = GtkMenuToolButtonClass
     structure MessageDialogClass = GtkMessageDialogClass
+    structure ModelButton = GtkModelButton
     structure OffscreenWindow = GtkOffscreenWindow
+    structure PlacesSidebar = GtkPlacesSidebar
     structure Plug = GtkPlug
+    structure PopoverMenu = GtkPopoverMenu
+    structure RadioButtonAccessibleClass = GtkRadioButtonAccessibleClass
     structure RadioMenuItemClass = GtkRadioMenuItemClass
+    structure RadioMenuItemAccessibleClass = GtkRadioMenuItemAccessibleClass
     structure RecentChooserDialogClass = GtkRecentChooserDialogClass
     structure RecentChooserMenu = GtkRecentChooserMenu
     structure ScaleButton = GtkScaleButton
+    structure ScaleButtonAccessible = GtkScaleButtonAccessible
     structure SeparatorMenuItem = GtkSeparatorMenuItem
     structure SeparatorToolItem = GtkSeparatorToolItem
+    structure ShortcutsWindow = GtkShortcutsWindow
     structure TearoffMenuItem = GtkTearoffMenuItem
     structure ToggleButton = GtkToggleButton
+    structure ToggleButtonAccessible = GtkToggleButtonAccessible
     structure ToggleToolButtonClass = GtkToggleToolButtonClass
     structure ToolButton = GtkToolButton
     structure VButtonBox = GtkVButtonBox
@@ -2663,27 +3040,35 @@ structure Gtk : GTK =
     structure AboutDialog = GtkAboutDialog
     structure AppChooserDialog = GtkAppChooserDialog
     structure CheckButton = GtkCheckButton
+    structure ColorChooserDialog = GtkColorChooserDialog
     structure ColorSelectionDialog = GtkColorSelectionDialog
     structure FileChooserDialog = GtkFileChooserDialog
     structure FontChooserDialog = GtkFontChooserDialog
     structure FontSelectionDialog = GtkFontSelectionDialog
+    structure MenuButton = GtkMenuButton
+    structure MenuButtonAccessible = GtkMenuButtonAccessible
     structure MenuToolButton = GtkMenuToolButton
     structure MessageDialog = GtkMessageDialog
     structure RadioButtonClass = GtkRadioButtonClass
+    structure RadioButtonAccessible = GtkRadioButtonAccessible
     structure RadioMenuItem = GtkRadioMenuItem
+    structure RadioMenuItemAccessible = GtkRadioMenuItemAccessible
     structure RadioToolButtonClass = GtkRadioToolButtonClass
     structure RecentChooserDialog = GtkRecentChooserDialog
     structure ToggleToolButton = GtkToggleToolButton
     structure VolumeButton = GtkVolumeButton
     structure RadioButton = GtkRadioButton
     structure RadioToolButton = GtkRadioToolButton
-    val BINARY_AGE = 204
+    val BINARY_AGE = 2217
     val INPUT_ERROR = ~1
-    val INTERFACE_AGE = 4
+    val INTERFACE_AGE = 17
+    val LEVEL_BAR_OFFSET_FULL = "full"
+    val LEVEL_BAR_OFFSET_HIGH = "high"
+    val LEVEL_BAR_OFFSET_LOW = "low"
     val MAJOR_VERSION = 3
     val MAX_COMPOSE_LEN = 7
-    val MICRO_VERSION = 4
-    val MINOR_VERSION = 2
+    val MICRO_VERSION = 17
+    val MINOR_VERSION = 22
     val PAPER_NAME_A3 = "iso_a3"
     val PAPER_NAME_A4 = "iso_a4"
     val PAPER_NAME_A5 = "iso_a5"
@@ -2702,7 +3087,9 @@ structure Gtk : GTK =
     val PRINT_SETTINGS_NUMBER_UP_LAYOUT = "number-up-layout"
     val PRINT_SETTINGS_N_COPIES = "n-copies"
     val PRINT_SETTINGS_ORIENTATION = "orientation"
+    val PRINT_SETTINGS_OUTPUT_BASENAME = "output-basename"
     val PRINT_SETTINGS_OUTPUT_BIN = "output-bin"
+    val PRINT_SETTINGS_OUTPUT_DIR = "output-dir"
     val PRINT_SETTINGS_OUTPUT_FILE_FORMAT = "output-file-format"
     val PRINT_SETTINGS_OUTPUT_URI = "output-uri"
     val PRINT_SETTINGS_PAGE_RANGES = "page-ranges"
@@ -2829,18 +3216,26 @@ structure Gtk : GTK =
     val STOCK_ZOOM_IN = "gtk-zoom-in"
     val STOCK_ZOOM_OUT = "gtk-zoom-out"
     val STYLE_CLASS_ACCELERATOR = "accelerator"
+    val STYLE_CLASS_ARROW = "arrow"
     val STYLE_CLASS_BACKGROUND = "background"
+    val STYLE_CLASS_BOTTOM = "bottom"
     val STYLE_CLASS_BUTTON = "button"
     val STYLE_CLASS_CALENDAR = "calendar"
     val STYLE_CLASS_CELL = "cell"
     val STYLE_CLASS_CHECK = "check"
     val STYLE_CLASS_COMBOBOX_ENTRY = "combobox-entry"
+    val STYLE_CLASS_CONTEXT_MENU = "context-menu"
+    val STYLE_CLASS_CSD = "csd"
+    val STYLE_CLASS_CURSOR_HANDLE = "cursor-handle"
     val STYLE_CLASS_DEFAULT = "default"
+    val STYLE_CLASS_DESTRUCTIVE_ACTION = "destructive-action"
+    val STYLE_CLASS_DIM_LABEL = "dim-label"
     val STYLE_CLASS_DND = "dnd"
     val STYLE_CLASS_DOCK = "dock"
     val STYLE_CLASS_ENTRY = "entry"
     val STYLE_CLASS_ERROR = "error"
     val STYLE_CLASS_EXPANDER = "expander"
+    val STYLE_CLASS_FLAT = "flat"
     val STYLE_CLASS_FRAME = "frame"
     val STYLE_CLASS_GRIP = "grip"
     val STYLE_CLASS_HEADER = "header"
@@ -2849,33 +3244,61 @@ structure Gtk : GTK =
     val STYLE_CLASS_IMAGE = "image"
     val STYLE_CLASS_INFO = "info"
     val STYLE_CLASS_INLINE_TOOLBAR = "inline-toolbar"
+    val STYLE_CLASS_INSERTION_CURSOR = "insertion-cursor"
+    val STYLE_CLASS_LABEL = "label"
+    val STYLE_CLASS_LEFT = "left"
+    val STYLE_CLASS_LEVEL_BAR = "level-bar"
+    val STYLE_CLASS_LINKED = "linked"
+    val STYLE_CLASS_LIST = "list"
+    val STYLE_CLASS_LIST_ROW = "list-row"
     val STYLE_CLASS_MARK = "mark"
     val STYLE_CLASS_MENU = "menu"
     val STYLE_CLASS_MENUBAR = "menubar"
     val STYLE_CLASS_MENUITEM = "menuitem"
+    val STYLE_CLASS_MESSAGE_DIALOG = "message-dialog"
+    val STYLE_CLASS_MONOSPACE = "monospace"
+    val STYLE_CLASS_NEEDS_ATTENTION = "needs-attention"
     val STYLE_CLASS_NOTEBOOK = "notebook"
+    val STYLE_CLASS_OSD = "osd"
+    val STYLE_CLASS_OVERSHOOT = "overshoot"
     val STYLE_CLASS_PANE_SEPARATOR = "pane-separator"
+    val STYLE_CLASS_PAPER = "paper"
+    val STYLE_CLASS_POPOVER = "popover"
+    val STYLE_CLASS_POPUP = "popup"
     val STYLE_CLASS_PRIMARY_TOOLBAR = "primary-toolbar"
     val STYLE_CLASS_PROGRESSBAR = "progressbar"
+    val STYLE_CLASS_PULSE = "pulse"
     val STYLE_CLASS_QUESTION = "question"
     val STYLE_CLASS_RADIO = "radio"
     val STYLE_CLASS_RAISED = "raised"
+    val STYLE_CLASS_READ_ONLY = "read-only"
+    val STYLE_CLASS_RIGHT = "right"
     val STYLE_CLASS_RUBBERBAND = "rubberband"
     val STYLE_CLASS_SCALE = "scale"
     val STYLE_CLASS_SCALE_HAS_MARKS_ABOVE = "scale-has-marks-above"
     val STYLE_CLASS_SCALE_HAS_MARKS_BELOW = "scale-has-marks-below"
     val STYLE_CLASS_SCROLLBAR = "scrollbar"
+    val STYLE_CLASS_SCROLLBARS_JUNCTION = "scrollbars-junction"
     val STYLE_CLASS_SEPARATOR = "separator"
     val STYLE_CLASS_SIDEBAR = "sidebar"
     val STYLE_CLASS_SLIDER = "slider"
     val STYLE_CLASS_SPINBUTTON = "spinbutton"
     val STYLE_CLASS_SPINNER = "spinner"
+    val STYLE_CLASS_STATUSBAR = "statusbar"
+    val STYLE_CLASS_SUBTITLE = "subtitle"
+    val STYLE_CLASS_SUGGESTED_ACTION = "suggested-action"
+    val STYLE_CLASS_TITLE = "title"
+    val STYLE_CLASS_TITLEBAR = "titlebar"
     val STYLE_CLASS_TOOLBAR = "toolbar"
     val STYLE_CLASS_TOOLTIP = "tooltip"
+    val STYLE_CLASS_TOP = "top"
+    val STYLE_CLASS_TOUCH_SELECTION = "touch-selection"
     val STYLE_CLASS_TROUGH = "trough"
+    val STYLE_CLASS_UNDERSHOOT = "undershoot"
     val STYLE_CLASS_VERTICAL = "vertical"
     val STYLE_CLASS_VIEW = "view"
     val STYLE_CLASS_WARNING = "warning"
+    val STYLE_CLASS_WIDE = "wide"
     val STYLE_PROPERTY_BACKGROUND_COLOR = "background-color"
     val STYLE_PROPERTY_BACKGROUND_IMAGE = "background-image"
     val STYLE_PROPERTY_BORDER_COLOR = "border-color"
@@ -2896,6 +3319,8 @@ structure Gtk : GTK =
     val STYLE_REGION_ROW = "row"
     val STYLE_REGION_TAB = "tab"
     val TEXT_VIEW_PRIORITY_VALIDATE = 5
+    val TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID = ~1
+    val TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID = ~2
     fun accelGroupsActivate
       (
         object,
@@ -2916,7 +3341,49 @@ structure Gtk : GTK =
         )
     fun acceleratorGetDefaultModMask () = (I ---> GdkModifierType.FFI.fromVal) acceleratorGetDefaultModMask_ ()
     fun acceleratorGetLabel (acceleratorKey, acceleratorMods) = (GUInt32.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> Utf8.FFI.fromPtr 1) acceleratorGetLabel_ (acceleratorKey & acceleratorMods)
+    fun acceleratorGetLabelWithKeycode
+      (
+        display,
+        acceleratorKey,
+        keycode,
+        acceleratorMods
+      ) =
+      (
+        GdkDisplayClass.FFI.withOptPtr
+         &&&> GUInt32.FFI.withVal
+         &&&> GUInt32.FFI.withVal
+         &&&> GdkModifierType.FFI.withVal
+         ---> Utf8.FFI.fromPtr 1
+      )
+        acceleratorGetLabelWithKeycode_
+        (
+          display
+           & acceleratorKey
+           & keycode
+           & acceleratorMods
+        )
     fun acceleratorName (acceleratorKey, acceleratorMods) = (GUInt32.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> Utf8.FFI.fromPtr 1) acceleratorName_ (acceleratorKey & acceleratorMods)
+    fun acceleratorNameWithKeycode
+      (
+        display,
+        acceleratorKey,
+        keycode,
+        acceleratorMods
+      ) =
+      (
+        GdkDisplayClass.FFI.withOptPtr
+         &&&> GUInt32.FFI.withVal
+         &&&> GUInt32.FFI.withVal
+         &&&> GdkModifierType.FFI.withVal
+         ---> Utf8.FFI.fromPtr 1
+      )
+        acceleratorNameWithKeycode_
+        (
+          display
+           & acceleratorKey
+           & keycode
+           & acceleratorMods
+        )
     fun acceleratorParse accelerator =
       let
         val acceleratorKey
@@ -2938,6 +3405,36 @@ structure Gtk : GTK =
             )
       in
         (acceleratorKey, acceleratorMods)
+      end
+    fun acceleratorParseWithKeycode accelerator =
+      let
+        val acceleratorKey
+         & acceleratorCodes
+         & acceleratorMods
+         & () =
+          (
+            Utf8.FFI.withPtr
+             &&&> GUInt32.FFI.withRefVal
+             &&&> GUInt32CVector.FFI.withRefOptPtr
+             &&&> GdkModifierType.FFI.withRefVal
+             ---> GUInt32.FFI.fromVal
+                   && GUInt32CVector.FFI.fromPtr 1
+                   && GdkModifierType.FFI.fromVal
+                   && I
+          )
+            acceleratorParseWithKeycode_
+            (
+              accelerator
+               & GUInt32.null
+               & NONE
+               & GdkModifierType.flags []
+            )
+      in
+        (
+          acceleratorKey,
+          acceleratorCodes,
+          acceleratorMods
+        )
       end
     fun acceleratorSetDefaultModMask defaultModMask = (GdkModifierType.FFI.withVal ---> I) acceleratorSetDefaultModMask_ defaultModMask
     fun acceleratorValid (keyval, modifiers) = (GUInt32.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> GBool.FFI.fromVal) acceleratorValid_ (keyval & modifiers)
@@ -2972,7 +3469,7 @@ structure Gtk : GTK =
         GUInt32.FFI.withVal
          &&&> GUInt32.FFI.withVal
          &&&> GUInt32.FFI.withVal
-         ---> Utf8.FFI.fromPtr 0
+         ---> Utf8.FFI.fromOptPtr 0
       )
         checkVersion_
         (
@@ -3001,6 +3498,7 @@ structure Gtk : GTK =
         )
     fun deviceGrabRemove (widget, device) = (GtkWidgetClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> I) deviceGrabRemove_ (widget & device)
     fun disableSetlocale () = (I ---> I) disableSetlocale_ ()
+    fun dragCancel context = (GdkDragContextClass.FFI.withPtr ---> I) dragCancel_ context
     fun dragFinish
       (
         context,
@@ -3022,7 +3520,7 @@ structure Gtk : GTK =
            & del
            & time
         )
-    fun dragGetSourceWidget context = (GdkDragContextClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) dragGetSourceWidget_ context
+    fun dragGetSourceWidget context = (GdkDragContextClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) dragGetSourceWidget_ context
     fun dragSetIconDefault context = (GdkDragContextClass.FFI.withPtr ---> I) dragSetIconDefault_ context
     fun dragSetIconGicon
       (
@@ -3142,7 +3640,7 @@ structure Gtk : GTK =
       (
         GtkWidgetClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GBool.FFI.withVal
          &&&> GtkTextDirection.FFI.withVal
          &&&> GBool.FFI.withVal
@@ -3160,8 +3658,8 @@ structure Gtk : GTK =
     fun eventsPending () = (I ---> GBool.FFI.fromVal) eventsPending_ ()
     fun fileChooserErrorQuark () = (I ---> GUInt32.FFI.fromVal) fileChooserErrorQuark_ ()
     fun getBinaryAge () = (I ---> GUInt32.FFI.fromVal) getBinaryAge_ ()
-    fun getCurrentEvent () = (I ---> GdkEvent.FFI.fromPtr true) getCurrentEvent_ ()
-    fun getCurrentEventDevice () = (I ---> GdkDeviceClass.FFI.fromPtr false) getCurrentEventDevice_ ()
+    fun getCurrentEvent () = (I ---> GdkEvent.FFI.fromOptPtr true) getCurrentEvent_ ()
+    fun getCurrentEventDevice () = (I ---> GdkDeviceClass.FFI.fromOptPtr false) getCurrentEventDevice_ ()
     fun getCurrentEventState () =
       let
         val state & retVal = (GdkModifierType.FFI.withRefVal ---> GdkModifierType.FFI.fromVal && GBool.FFI.fromVal) getCurrentEventState_ (GdkModifierType.flags [])
@@ -3170,13 +3668,15 @@ structure Gtk : GTK =
       end
     fun getCurrentEventTime () = (I ---> GUInt32.FFI.fromVal) getCurrentEventTime_ ()
     fun getDebugFlags () = (I ---> GUInt32.FFI.fromVal) getDebugFlags_ ()
-    fun getDefaultLanguage () = (I ---> PangoLanguageRecord.FFI.fromPtr true) getDefaultLanguage_ ()
-    fun getEventWidget event = (GdkEvent.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getEventWidget_ event
+    fun getDefaultLanguage () = (I ---> PangoLanguageRecord.FFI.fromPtr false) getDefaultLanguage_ ()
+    fun getEventWidget event = (GdkEvent.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getEventWidget_ event
     fun getInterfaceAge () = (I ---> GUInt32.FFI.fromVal) getInterfaceAge_ ()
+    fun getLocaleDirection () = (I ---> GtkTextDirection.FFI.fromVal) getLocaleDirection_ ()
     fun getMajorVersion () = (I ---> GUInt32.FFI.fromVal) getMajorVersion_ ()
     fun getMicroVersion () = (I ---> GUInt32.FFI.fromVal) getMicroVersion_ ()
     fun getMinorVersion () = (I ---> GUInt32.FFI.fromVal) getMinorVersion_ ()
-    fun grabGetCurrent () = (I ---> GtkWidgetClass.FFI.fromPtr false) grabGetCurrent_ ()
+    fun getOptionGroup openDefaultDisplay = (GBool.FFI.withVal ---> GLibOptionGroupRecord.FFI.fromPtr true) getOptionGroup_ openDefaultDisplay
+    fun grabGetCurrent () = (I ---> GtkWidgetClass.FFI.fromOptPtr false) grabGetCurrent_ ()
     fun iconSizeFromName name = (Utf8.FFI.withPtr ---> GInt32.FFI.fromVal) iconSizeFromName_ name
     fun iconSizeGetName size = (GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) iconSizeGetName_ size
     fun iconSizeLookup size =
@@ -3294,9 +3794,9 @@ structure Gtk : GTK =
           (
             GInt32.FFI.withRefVal
              &&&> Utf8CVectorN.FFI.withRefDupPtr 2
-             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withOptPtr
              &&&> GLibOptionEntryRecordCVector.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
              ---> GInt32.FFI.fromVal
                    && Utf8CVectorN.FFI.fromPtr 2
@@ -4245,6 +4745,37 @@ structure Gtk : GTK =
            & width
            & height
         )
+    fun renderBackgroundGetClip
+      (
+        context,
+        x,
+        y,
+        width,
+        height
+      ) =
+      let
+        val outClip & () =
+          (
+            GtkStyleContextClass.FFI.withPtr
+             &&&> GDouble.FFI.withVal
+             &&&> GDouble.FFI.withVal
+             &&&> GDouble.FFI.withVal
+             &&&> GDouble.FFI.withVal
+             &&&> GdkRectangleRecord.FFI.withNewPtr
+             ---> GdkRectangleRecord.FFI.fromPtr true && I
+          )
+            renderBackgroundGetClip_
+            (
+              context
+               & x
+               & y
+               & width
+               & height
+               & ()
+            )
+      in
+        outClip
+      end
     fun renderCheck
       (
         context,
@@ -4487,6 +5018,60 @@ structure Gtk : GTK =
           context
            & source
            & size
+        )
+    fun renderIconSurface
+      (
+        context,
+        cr,
+        surface,
+        x,
+        y
+      ) =
+      (
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> CairoSurfaceRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> I
+      )
+        renderIconSurface_
+        (
+          context
+           & cr
+           & surface
+           & x
+           & y
+        )
+    fun renderInsertionCursor
+      (
+        context,
+        cr,
+        x,
+        y,
+        layout,
+        index,
+        direction
+      ) =
+      (
+        GtkStyleContextClass.FFI.withPtr
+         &&&> CairoContextRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> PangoLayoutClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> PangoDirection.FFI.withVal
+         ---> I
+      )
+        renderInsertionCursor_
+        (
+          context
+           & cr
+           & x
+           & y
+           & layout
+           & index
+           & direction
         )
     fun renderLayout
       (
@@ -4765,6 +5350,26 @@ structure Gtk : GTK =
            & timestamp
            & []
         )
+    fun showUriOnWindow
+      (
+        parent,
+        uri,
+        timestamp
+      ) =
+      (
+        GtkWindowClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        showUriOnWindow_
+        (
+          parent
+           & uri
+           & timestamp
+           & []
+        )
     fun stockAdd items =
       let
         val nItems = LargeInt.fromInt (GtkStockItemRecordCVectorN.length items)
@@ -4911,6 +5516,7 @@ structure Gtk : GTK =
            & keyval
            & modifiers
         )
+    fun testWidgetWaitForDraw widget = (GtkWidgetClass.FFI.withPtr ---> I) testWidgetWaitForDraw_ widget
     fun treeGetRowDragData selectionData =
       let
         val treeModel
@@ -4920,7 +5526,7 @@ structure Gtk : GTK =
             GtkSelectionDataRecord.FFI.withPtr
              &&&> GtkTreeModelClass.FFI.withRefOptPtr
              &&&> GtkTreePathRecord.FFI.withRefOptPtr
-             ---> GtkTreeModelClass.FFI.fromPtr true
+             ---> GtkTreeModelClass.FFI.fromPtr false
                    && GtkTreePathRecord.FFI.fromPtr true
                    && GBool.FFI.fromVal
           )

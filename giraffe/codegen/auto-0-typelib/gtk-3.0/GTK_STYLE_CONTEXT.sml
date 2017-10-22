@@ -2,6 +2,7 @@ signature GTK_STYLE_CONTEXT =
   sig
     type 'a class
     type border_t
+    type css_section_t
     type region_flags_t
     type icon_set_t
     type 'a style_provider_class
@@ -9,6 +10,7 @@ signature GTK_STYLE_CONTEXT =
     type widget_path_t
     type state_flags_t
     type state_type_t
+    type style_context_print_flags_t
     type text_direction_t
     type t = base class
     val getType : unit -> GObject.Type.t
@@ -53,6 +55,7 @@ signature GTK_STYLE_CONTEXT =
       'a class
        -> state_flags_t
        -> Pango.FontDescriptionRecord.t
+    val getFrameClock : 'a class -> base Gdk.FrameClockClass.class option
     val getJunctionSides : 'a class -> junction_sides_t
     val getMargin :
       'a class
@@ -62,8 +65,14 @@ signature GTK_STYLE_CONTEXT =
       'a class
        -> state_flags_t
        -> border_t
+    val getParent : 'a class -> base class option
     val getPath : 'a class -> widget_path_t
+    val getScale : 'a class -> LargeInt.int
     val getScreen : 'a class -> base Gdk.ScreenClass.class
+    val getSection :
+      'a class
+       -> string
+       -> css_section_t option
     val getState : 'a class -> state_flags_t
     val getStyleProperty :
       'a class
@@ -85,7 +94,7 @@ signature GTK_STYLE_CONTEXT =
     val lookupIconSet :
       'a class
        -> string
-       -> icon_set_t
+       -> icon_set_t option
     val popAnimatableRegion : 'a class -> unit
     val removeClass :
       'a class
@@ -115,13 +124,25 @@ signature GTK_STYLE_CONTEXT =
       'a class
        -> text_direction_t
        -> unit
+    val setFrameClock :
+      'a class
+       -> 'b Gdk.FrameClockClass.class
+       -> unit
     val setJunctionSides :
       'a class
        -> junction_sides_t
        -> unit
+    val setParent :
+      'a class
+       -> 'b class option
+       -> unit
     val setPath :
       'a class
        -> widget_path_t
+       -> unit
+    val setScale :
+      'a class
+       -> LargeInt.int
        -> unit
     val setScreen :
       'a class
@@ -135,7 +156,13 @@ signature GTK_STYLE_CONTEXT =
       'a class
        -> state_type_t
        -> real option
+    val toString :
+      'a class
+       -> style_context_print_flags_t
+       -> string
     val changedSig : (unit -> unit) -> 'a class Signal.t
     val directionProp : ('a class, text_direction_t, text_direction_t) Property.readwrite
+    val paintClockProp : ('a class, base Gdk.FrameClockClass.class option, 'b Gdk.FrameClockClass.class option) Property.readwrite
+    val parentProp : ('a class, base class option, 'b class option) Property.readwrite
     val screenProp : ('a class, base Gdk.ScreenClass.class option, 'b Gdk.ScreenClass.class option) Property.readwrite
   end

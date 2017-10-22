@@ -24,7 +24,7 @@ structure GioLoadableIcon :>
           (
             GioLoadableIconClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cOutRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioInputStreamClass.PolyML.cPtr
           )
@@ -57,19 +57,24 @@ structure GioLoadableIcon :>
       in
         (retVal, type')
       end
-    fun loadFinish self (res, type') =
-      (
-        GioLoadableIconClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibErrorRecord.handleError
-         ---> GioInputStreamClass.FFI.fromPtr true
-      )
-        loadFinish_
-        (
-          self
-           & res
-           & type'
-           & []
-        )
+    fun loadFinish self res =
+      let
+        val type' & retVal =
+          (
+            GioLoadableIconClass.FFI.withPtr
+             &&&> GioAsyncResultClass.FFI.withPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> Utf8.FFI.fromPtr 1 && GioInputStreamClass.FFI.fromPtr true
+          )
+            loadFinish_
+            (
+              self
+               & res
+               & NONE
+               & []
+            )
+      in
+        (retVal, type')
+      end
   end

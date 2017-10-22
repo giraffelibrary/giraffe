@@ -16,7 +16,7 @@ structure GioThemedIcon :>
       )
     structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     val getType_ = _import "g_themed_icon_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_g_themed_icon_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
+    val new_ = _import "mlton_g_themed_icon_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioThemedIconClass.FFI.notnull GioThemedIconClass.FFI.p;
     val newFromNames_ =
       fn
         (x1, x2) & x3 =>
@@ -25,14 +25,14 @@ structure GioThemedIcon :>
               Utf8CVectorN.MLton.p1
                * Utf8CVectorN.FFI.notnull Utf8CVectorN.MLton.p2
                * GInt32.FFI.val_
-               -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
+               -> GioThemedIconClass.FFI.notnull GioThemedIconClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newWithDefaultFallbacks_ = _import "mlton_g_themed_icon_new_with_default_fallbacks" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
+    val newWithDefaultFallbacks_ = _import "mlton_g_themed_icon_new_with_default_fallbacks" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioThemedIconClass.FFI.notnull GioThemedIconClass.FFI.p;
     val appendName_ =
       fn
         x1 & (x2, x3) =>
@@ -69,15 +69,15 @@ structure GioThemedIcon :>
     type t = base class
     fun asIcon self = (GObjectObjectClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new iconname = (Utf8.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) new_ iconname
+    fun new iconname = (Utf8.FFI.withPtr ---> GioThemedIconClass.FFI.fromPtr true) new_ iconname
     fun newFromNames iconnames =
       let
         val len = LargeInt.fromInt (Utf8CVectorN.length iconnames)
-        val retVal = (Utf8CVectorN.FFI.withPtr &&&> GInt32.FFI.withVal ---> GioIconClass.FFI.fromPtr true) newFromNames_ (iconnames & len)
+        val retVal = (Utf8CVectorN.FFI.withPtr &&&> GInt32.FFI.withVal ---> GioThemedIconClass.FFI.fromPtr true) newFromNames_ (iconnames & len)
       in
         retVal
       end
-    fun newWithDefaultFallbacks iconname = (Utf8.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) newWithDefaultFallbacks_ iconname
+    fun newWithDefaultFallbacks iconname = (Utf8.FFI.withPtr ---> GioThemedIconClass.FFI.fromPtr true) newWithDefaultFallbacks_ iconname
     fun appendName self iconname = (GioThemedIconClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) appendName_ (self & iconname)
     fun getNames self = (GioThemedIconClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getNames_ self
     fun prependName self iconname = (GioThemedIconClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) prependName_ (self & iconname)

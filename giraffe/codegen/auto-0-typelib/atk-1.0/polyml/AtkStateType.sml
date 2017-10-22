@@ -40,6 +40,10 @@ structure AtkStateType :> ATK_STATE_TYPE =
     | DEFAULT
     | ANIMATED
     | VISITED
+    | CHECKABLE
+    | HAS_POPUP
+    | HAS_TOOLTIP
+    | READ_ONLY
     | LAST_DEFINED
     structure Enum =
       Enum(
@@ -86,7 +90,11 @@ structure AtkStateType :> ATK_STATE_TYPE =
           | DEFAULT => 36
           | ANIMATED => 37
           | VISITED => 38
-          | LAST_DEFINED => 39
+          | CHECKABLE => 39
+          | HAS_POPUP => 40
+          | HAS_TOOLTIP => 41
+          | READ_ONLY => 42
+          | LAST_DEFINED => 43
         exception Value of GInt32.t
         val fromInt =
           fn
@@ -129,7 +137,11 @@ structure AtkStateType :> ATK_STATE_TYPE =
           | 36 => DEFAULT
           | 37 => ANIMATED
           | 38 => VISITED
-          | 39 => LAST_DEFINED
+          | 39 => CHECKABLE
+          | 40 => HAS_POPUP
+          | 41 => HAS_TOOLTIP
+          | 42 => READ_ONLY
+          | 43 => LAST_DEFINED
           | n => raise Value n
       )
     open Enum

@@ -13,4 +13,5 @@ signature GTK_CELL_RENDERER_PIXBUF =
     val stockDetailProp : ('a class, string option, string option) Property.readwrite
     val stockIdProp : ('a class, string option, string option) Property.readwrite
     val stockSizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val surfaceProp : ('a class, Cairo.SurfaceRecord.t option, Cairo.SurfaceRecord.t option) Property.readwrite
   end

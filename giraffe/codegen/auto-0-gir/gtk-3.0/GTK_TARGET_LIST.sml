@@ -4,7 +4,7 @@ signature GTK_TARGET_LIST =
     type 'a text_buffer_class
     type target_entry_t
     val getType : unit -> GObject.Type.t
-    val new : target_entry_t vector -> t
+    val new : target_entry_t vector option -> t
     val add :
       t
        -> Gdk.AtomRecord.t
@@ -33,6 +33,10 @@ signature GTK_TARGET_LIST =
       t
        -> LargeInt.int
        -> unit
+    val find :
+      t
+       -> Gdk.AtomRecord.t
+       -> LargeInt.int option
     val remove :
       t
        -> Gdk.AtomRecord.t

@@ -8,9 +8,14 @@ signature GTK_ACCEL_LABEL =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : string -> base class
-    val getAccelWidget : 'a class -> base widget_class
+    val getAccel : 'a class -> LargeInt.int * Gdk.ModifierType.t
+    val getAccelWidget : 'a class -> base widget_class option
     val getAccelWidth : 'a class -> LargeInt.int
     val refetch : 'a class -> bool
+    val setAccel :
+      'a class
+       -> LargeInt.int * Gdk.ModifierType.t
+       -> unit
     val setAccelClosure :
       'a class
        -> GObject.ClosureRecord.t

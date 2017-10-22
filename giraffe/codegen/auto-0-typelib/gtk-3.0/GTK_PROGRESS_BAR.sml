@@ -14,7 +14,7 @@ signature GTK_PROGRESS_BAR =
     val getInverted : 'a class -> bool
     val getPulseStep : 'a class -> real
     val getShowText : 'a class -> bool
-    val getText : 'a class -> string
+    val getText : 'a class -> string option
     val pulse : 'a class -> unit
     val setEllipsize :
       'a class

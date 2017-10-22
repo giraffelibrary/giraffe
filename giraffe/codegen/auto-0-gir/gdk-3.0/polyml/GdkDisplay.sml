@@ -8,7 +8,9 @@ structure GdkDisplay :>
     where type 'a event_union = 'a GdkEvent.union
     where type atom_t = GdkAtomRecord.t
     where type 'a window_class = 'a GdkWindowClass.class
-    where type 'a screen_class = 'a GdkScreenClass.class =
+    where type 'a screen_class = 'a GdkScreenClass.class
+    where type 'a monitor_class = 'a GdkMonitorClass.class
+    where type 'a seat_class = 'a GdkSeatClass.class =
   struct
     structure GdkAtomRecordCVectorNType =
       CPointerCVectorNType(
@@ -31,6 +33,7 @@ structure GdkDisplay :>
       val getDefaultCursorSize_ = call (getSymbol "gdk_display_get_default_cursor_size") (GdkDisplayClass.PolyML.cPtr --> GUInt.PolyML.cVal)
       val getDefaultGroup_ = call (getSymbol "gdk_display_get_default_group") (GdkDisplayClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getDefaultScreen_ = call (getSymbol "gdk_display_get_default_screen") (GdkDisplayClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
+      val getDefaultSeat_ = call (getSymbol "gdk_display_get_default_seat") (GdkDisplayClass.PolyML.cPtr --> GdkSeatClass.PolyML.cPtr)
       val getDeviceManager_ = call (getSymbol "gdk_display_get_device_manager") (GdkDisplayClass.PolyML.cPtr --> GdkDeviceManagerClass.PolyML.cPtr)
       val getEvent_ = call (getSymbol "gdk_display_get_event") (GdkDisplayClass.PolyML.cPtr --> GdkEvent.PolyML.cPtr)
       val getMaximalCursorSize_ =
@@ -41,6 +44,17 @@ structure GdkDisplay :>
              &&> GUInt.PolyML.cRef
              --> cVoid
           )
+      val getMonitor_ = call (getSymbol "gdk_display_get_monitor") (GdkDisplayClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GdkMonitorClass.PolyML.cPtr)
+      val getMonitorAtPoint_ =
+        call (getSymbol "gdk_display_get_monitor_at_point")
+          (
+            GdkDisplayClass.PolyML.cPtr
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> GdkMonitorClass.PolyML.cPtr
+          )
+      val getMonitorAtWindow_ = call (getSymbol "gdk_display_get_monitor_at_window") (GdkDisplayClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> GdkMonitorClass.PolyML.cPtr)
+      val getNMonitors_ = call (getSymbol "gdk_display_get_n_monitors") (GdkDisplayClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getNScreens_ = call (getSymbol "gdk_display_get_n_screens") (GdkDisplayClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getName_ = call (getSymbol "gdk_display_get_name") (GdkDisplayClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getPointer_ =
@@ -53,6 +67,7 @@ structure GdkDisplay :>
              &&> GdkModifierType.PolyML.cRef
              --> cVoid
           )
+      val getPrimaryMonitor_ = call (getSymbol "gdk_display_get_primary_monitor") (GdkDisplayClass.PolyML.cPtr --> GdkMonitorClass.PolyML.cPtr)
       val getScreen_ = call (getSymbol "gdk_display_get_screen") (GdkDisplayClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GdkScreenClass.PolyML.cPtr)
       val getWindowAtPointer_ =
         call (getSymbol "gdk_display_get_window_at_pointer")
@@ -79,7 +94,7 @@ structure GdkDisplay :>
             GdkDisplayClass.PolyML.cPtr
              &&> GdkWindowClass.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
-             &&> GdkAtomRecordCVectorN.PolyML.cInPtr
+             &&> GdkAtomRecordCVectorN.PolyML.cInOptPtr
              &&> GInt.PolyML.cVal
              --> cVoid
           )
@@ -110,6 +125,8 @@ structure GdkDisplay :>
     type atom_t = GdkAtomRecord.t
     type 'a window_class = 'a GdkWindowClass.class
     type 'a screen_class = 'a GdkScreenClass.class
+    type 'a monitor_class = 'a GdkMonitorClass.class
+    type 'a seat_class = 'a GdkSeatClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefault () = (I ---> GdkDisplayClass.FFI.fromPtr false) getDefault_ ()
@@ -123,6 +140,7 @@ structure GdkDisplay :>
     fun getDefaultCursorSize self = (GdkDisplayClass.FFI.withPtr ---> GUInt.FFI.fromVal) getDefaultCursorSize_ self
     fun getDefaultGroup self = (GdkDisplayClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getDefaultGroup_ self
     fun getDefaultScreen self = (GdkDisplayClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getDefaultScreen_ self
+    fun getDefaultSeat self = (GdkDisplayClass.FFI.withPtr ---> GdkSeatClass.FFI.fromPtr false) getDefaultSeat_ self
     fun getDeviceManager self = (GdkDisplayClass.FFI.withPtr ---> GdkDeviceManagerClass.FFI.fromPtr false) getDeviceManager_ self
     fun getEvent self = (GdkDisplayClass.FFI.withPtr ---> GdkEvent.FFI.fromPtr true) getEvent_ self
     fun getMaximalCursorSize self =
@@ -147,6 +165,22 @@ structure GdkDisplay :>
       in
         (width, height)
       end
+    fun getMonitor self monitorNum = (GdkDisplayClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GdkMonitorClass.FFI.fromPtr false) getMonitor_ (self & monitorNum)
+    fun getMonitorAtPoint self (x, y) =
+      (
+        GdkDisplayClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GdkMonitorClass.FFI.fromPtr false
+      )
+        getMonitorAtPoint_
+        (
+          self
+           & x
+           & y
+        )
+    fun getMonitorAtWindow self window = (GdkDisplayClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> GdkMonitorClass.FFI.fromPtr false) getMonitorAtWindow_ (self & window)
+    fun getNMonitors self = (GdkDisplayClass.FFI.withPtr ---> GInt.FFI.fromVal) getNMonitors_ self
     fun getNScreens self = (GdkDisplayClass.FFI.withPtr ---> GInt.FFI.fromVal) getNScreens_ self
     fun getName self = (GdkDisplayClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
     fun getPointer self =
@@ -184,6 +218,7 @@ structure GdkDisplay :>
           mask
         )
       end
+    fun getPrimaryMonitor self = (GdkDisplayClass.FFI.withPtr ---> GdkMonitorClass.FFI.fromPtr false) getPrimaryMonitor_ self
     fun getScreen self screenNum = (GdkDisplayClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GdkScreenClass.FFI.fromPtr false) getScreen_ (self & screenNum)
     fun getWindowAtPointer self =
       let
@@ -230,13 +265,16 @@ structure GdkDisplay :>
         targets
       ) =
       let
-        val nTargets = LargeInt.fromInt (GdkAtomRecordCVectorN.length targets)
+        val nTargets =
+          case targets of
+            SOME targets => LargeInt.fromInt (GdkAtomRecordCVectorN.length targets)
+          | NONE => GInt.null
         val () =
           (
             GdkDisplayClass.FFI.withPtr
              &&&> GdkWindowClass.FFI.withPtr
              &&&> GUInt32.FFI.withVal
-             &&&> GdkAtomRecordCVectorN.FFI.withPtr
+             &&&> GdkAtomRecordCVectorN.FFI.withOptPtr
              &&&> GInt.FFI.withVal
              ---> I
           )
@@ -284,6 +322,10 @@ structure GdkDisplay :>
       open ClosureMarshal Signal
     in
       fun closedSig f = signal "closed" (get 0w1 boolean ---> ret_void) f
+      fun monitorAddedSig f = signal "monitor-added" (get 0w1 GdkMonitorClass.t ---> ret_void) f
+      fun monitorRemovedSig f = signal "monitor-removed" (get 0w1 GdkMonitorClass.t ---> ret_void) f
       fun openedSig f = signal "opened" (void ---> ret_void) f
+      fun seatAddedSig f = signal "seat-added" (get 0w1 GdkSeatClass.t ---> ret_void) f
+      fun seatRemovedSig f = signal "seat-removed" (get 0w1 GdkSeatClass.t ---> ret_void) f
     end
   end

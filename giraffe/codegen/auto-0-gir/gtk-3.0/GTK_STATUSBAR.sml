@@ -3,7 +3,7 @@ signature GTK_STATUSBAR =
     type 'a class
     type 'a buildable_class
     type 'a orientable_class
-    type 'a widget_class
+    type 'a box_class
     type t = base class
     val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
     val asBuildable : 'a class -> base buildable_class
@@ -14,7 +14,7 @@ signature GTK_STATUSBAR =
       'a class
        -> string
        -> LargeInt.int
-    val getMessageArea : 'a class -> base widget_class
+    val getMessageArea : 'a class -> base box_class
     val pop :
       'a class
        -> LargeInt.int

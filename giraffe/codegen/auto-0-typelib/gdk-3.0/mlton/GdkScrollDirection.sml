@@ -5,6 +5,7 @@ structure GdkScrollDirection :> GDK_SCROLL_DIRECTION =
     | DOWN
     | LEFT
     | RIGHT
+    | SMOOTH
     structure Enum =
       Enum(
         type enum = enum
@@ -15,6 +16,7 @@ structure GdkScrollDirection :> GDK_SCROLL_DIRECTION =
           | DOWN => 1
           | LEFT => 2
           | RIGHT => 3
+          | SMOOTH => 4
         exception Value of GInt32.t
         val fromInt =
           fn
@@ -22,6 +24,7 @@ structure GdkScrollDirection :> GDK_SCROLL_DIRECTION =
           | 1 => DOWN
           | 2 => LEFT
           | 3 => RIGHT
+          | 4 => SMOOTH
           | n => raise Value n
       )
     open Enum

@@ -13,13 +13,13 @@ signature PANGO_FONT_DESCRIPTION =
       t
        -> t option * t
        -> bool
-    val copy : t -> t
-    val copyStatic : t -> t
+    val copy : t -> t option
+    val copyStatic : t -> t option
     val equal :
       t
        -> t
        -> bool
-    val getFamily : t -> string
+    val getFamily : t -> string option
     val getGravity : t -> gravity_t
     val getSetFields : t -> font_mask_t
     val getSize : t -> LargeInt.int

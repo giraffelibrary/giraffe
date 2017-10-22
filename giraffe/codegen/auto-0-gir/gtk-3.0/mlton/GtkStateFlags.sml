@@ -7,6 +7,13 @@ structure GtkStateFlags :> GTK_STATE_FLAGS =
     val INSENSITIVE = 0w8
     val INCONSISTENT = 0w16
     val FOCUSED = 0w32
+    val BACKDROP = 0w64
+    val DIR_LTR = 0w128
+    val DIR_RTL = 0w256
+    val LINK = 0w512
+    val VISITED = 0w1024
+    val CHECKED = 0w2048
+    val DROP_ACTIVE = 0w4096
     val allFlags =
       [
         NORMAL,
@@ -15,7 +22,14 @@ structure GtkStateFlags :> GTK_STATE_FLAGS =
         SELECTED,
         INSENSITIVE,
         INCONSISTENT,
-        FOCUSED
+        FOCUSED,
+        BACKDROP,
+        DIR_LTR,
+        DIR_RTL,
+        LINK,
+        VISITED,
+        CHECKED,
+        DROP_ACTIVE
       ]
     structure Flags =
       Flags(

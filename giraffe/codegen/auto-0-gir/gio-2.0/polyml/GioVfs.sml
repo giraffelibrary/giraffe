@@ -20,6 +20,7 @@ structure GioVfs :>
       val getSupportedUriSchemes_ = call (getSymbol "g_vfs_get_supported_uri_schemes") (GioVfsClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val isActive_ = call (getSymbol "g_vfs_is_active") (GioVfsClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val parseName_ = call (getSymbol "g_vfs_parse_name") (GioVfsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
+      val unregisterUriScheme_ = call (getSymbol "g_vfs_unregister_uri_scheme") (GioVfsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a GioVfsClass.class
     type 'a file_class = 'a GioFileClass.class
@@ -32,4 +33,5 @@ structure GioVfs :>
     fun getSupportedUriSchemes self = (GioVfsClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getSupportedUriSchemes_ self
     fun isActive self = (GioVfsClass.FFI.withPtr ---> GBool.FFI.fromVal) isActive_ self
     fun parseName self parseName = (GioVfsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) parseName_ (self & parseName)
+    fun unregisterUriScheme self scheme = (GioVfsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) unregisterUriScheme_ (self & scheme)
   end

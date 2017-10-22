@@ -46,8 +46,8 @@ signature GTK_THEMING_ENGINE =
     val getState : 'a class -> state_flags_t
     val getStyleProperty :
       'a class
-       -> string * GObject.ValueRecord.t
-       -> unit
+       -> string
+       -> GObject.ValueRecord.t
     val hasClass :
       'a class
        -> string

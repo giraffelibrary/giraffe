@@ -18,6 +18,7 @@ structure GtkPaned :>
       val getChild2_ = call (getSymbol "gtk_paned_get_child2") (GtkPanedClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getHandleWindow_ = call (getSymbol "gtk_paned_get_handle_window") (GtkPanedClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getPosition_ = call (getSymbol "gtk_paned_get_position") (GtkPanedClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getWideHandle_ = call (getSymbol "gtk_paned_get_wide_handle") (GtkPanedClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val pack1_ =
         call (getSymbol "gtk_paned_pack1")
           (
@@ -37,6 +38,7 @@ structure GtkPaned :>
              --> cVoid
           )
       val setPosition_ = call (getSymbol "gtk_paned_set_position") (GtkPanedClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setWideHandle_ = call (getSymbol "gtk_paned_set_wide_handle") (GtkPanedClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkPanedClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -56,6 +58,7 @@ structure GtkPaned :>
     fun getChild2 self = (GtkPanedClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getChild2_ self
     fun getHandleWindow self = (GtkPanedClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getHandleWindow_ self
     fun getPosition self = (GtkPanedClass.FFI.withPtr ---> GInt.FFI.fromVal) getPosition_ self
+    fun getWideHandle self = (GtkPanedClass.FFI.withPtr ---> GBool.FFI.fromVal) getWideHandle_ self
     fun pack1
       self
       (
@@ -99,6 +102,7 @@ structure GtkPaned :>
            & shrink
         )
     fun setPosition self position = (GtkPanedClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setPosition_ (self & position)
+    fun setWideHandle self wide = (GtkPanedClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setWideHandle_ (self & wide)
     local
       open ClosureMarshal Signal
     in
@@ -123,6 +127,11 @@ structure GtkPaned :>
         {
           get = fn x => get "position-set" boolean x,
           set = fn x => set "position-set" boolean x
+        }
+      val wideHandleProp =
+        {
+          get = fn x => get "wide-handle" boolean x,
+          set = fn x => set "wide-handle" boolean x
         }
     end
   end

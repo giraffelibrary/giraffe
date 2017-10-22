@@ -155,7 +155,7 @@ structure GtkSelectionData :>
       in
         if retVal then SOME (targets (LargeInt.toInt nAtoms)) else NONE
       end
-    fun getText self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getText_ self
+    fun getText self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getText_ self
     fun getUris self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getUris_ self
     fun set
       self

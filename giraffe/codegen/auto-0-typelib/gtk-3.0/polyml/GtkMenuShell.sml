@@ -2,6 +2,7 @@ structure GtkMenuShell :>
   GTK_MENU_SHELL
     where type 'a class = 'a GtkMenuShellClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a menu_item_class = 'a GtkMenuItemClass.class
     where type direction_type_t = GtkDirectionType.t
     where type 'a widget_class = 'a GtkWidgetClass.class
     where type menu_direction_type_t = GtkMenuDirectionType.t =
@@ -18,7 +19,16 @@ structure GtkMenuShell :>
              &&> GBool.PolyML.cVal
              --> cVoid
           )
-      val append_ = call (getSymbol "gtk_menu_shell_append") (GtkMenuShellClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val append_ = call (getSymbol "gtk_menu_shell_append") (GtkMenuShellClass.PolyML.cPtr &&> GtkMenuItemClass.PolyML.cPtr --> cVoid)
+      val bindModel_ =
+        call (getSymbol "gtk_menu_shell_bind_model")
+          (
+            GtkMenuShellClass.PolyML.cPtr
+             &&> GioMenuModelClass.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GBool.PolyML.cVal
+             --> cVoid
+          )
       val cancel_ = call (getSymbol "gtk_menu_shell_cancel") (GtkMenuShellClass.PolyML.cPtr --> cVoid)
       val deactivate_ = call (getSymbol "gtk_menu_shell_deactivate") (GtkMenuShellClass.PolyML.cPtr --> cVoid)
       val deselect_ = call (getSymbol "gtk_menu_shell_deselect") (GtkMenuShellClass.PolyML.cPtr --> cVoid)
@@ -40,6 +50,7 @@ structure GtkMenuShell :>
     end
     type 'a class = 'a GtkMenuShellClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a menu_item_class = 'a GtkMenuItemClass.class
     type direction_type_t = GtkDirectionType.t
     type 'a widget_class = 'a GtkWidgetClass.class
     type menu_direction_type_t = GtkMenuDirectionType.t
@@ -60,7 +71,28 @@ structure GtkMenuShell :>
            & menuItem
            & forceDeactivate
         )
-    fun append self child = (GtkMenuShellClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) append_ (self & child)
+    fun append self child = (GtkMenuShellClass.FFI.withPtr &&&> GtkMenuItemClass.FFI.withPtr ---> I) append_ (self & child)
+    fun bindModel
+      self
+      (
+        model,
+        actionNamespace,
+        withSeparators
+      ) =
+      (
+        GtkMenuShellClass.FFI.withPtr
+         &&&> GioMenuModelClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GBool.FFI.withVal
+         ---> I
+      )
+        bindModel_
+        (
+          self
+           & model
+           & actionNamespace
+           & withSeparators
+        )
     fun cancel self = (GtkMenuShellClass.FFI.withPtr ---> I) cancel_ self
     fun deactivate self = (GtkMenuShellClass.FFI.withPtr ---> I) deactivate_ self
     fun deselect self = (GtkMenuShellClass.FFI.withPtr ---> I) deselect_ self

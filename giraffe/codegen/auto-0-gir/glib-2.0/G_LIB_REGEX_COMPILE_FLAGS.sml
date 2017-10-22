@@ -11,8 +11,12 @@ signature G_LIB_REGEX_COMPILE_FLAGS =
     val RAW : t
     val NO_AUTO_CAPTURE : t
     val OPTIMIZE : t
+    val FIRSTLINE : t
     val DUPNAMES : t
     val NEWLINE_CR : t
     val NEWLINE_LF : t
     val NEWLINE_CRLF : t
+    val NEWLINE_ANYCRLF : t
+    val BSR_ANYCRLF : t
+    val JAVASCRIPT_COMPAT : t
   end

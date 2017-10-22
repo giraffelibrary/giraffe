@@ -3,6 +3,46 @@ structure GioAction :>
     where type 'a class = 'a GioActionClass.class =
   struct
     val getType_ = _import "g_action_get_type" : unit -> GObjectType.FFI.val_;
+    val nameIsValid_ = _import "mlton_g_action_name_is_valid" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
+    val parseDetailedName_ =
+      fn
+        (x1, x2)
+         & (x3, x4)
+         & x5
+         & x6 =>
+          (
+            _import "mlton_g_action_parse_detailed_name" :
+              Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.MLton.r1
+               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (unit, GLibVariantRecord.FFI.notnull) GLibVariantRecord.FFI.r
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
+    val printDetailedName_ =
+      fn
+        (x1, x2) & x3 =>
+          (
+            _import "mlton_g_action_print_detailed_name" :
+              Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit GLibVariantRecord.FFI.p
+               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val activate_ = fn x1 & x2 => (_import "g_action_activate" : GioActionClass.FFI.notnull GioActionClass.FFI.p * unit GLibVariantRecord.FFI.p -> unit;) (x1, x2)
     val changeState_ = fn x1 & x2 => (_import "g_action_change_state" : GioActionClass.FFI.notnull GioActionClass.FFI.p * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> unit;) (x1, x2)
     val getEnabled_ = _import "g_action_get_enabled" : GioActionClass.FFI.notnull GioActionClass.FFI.p -> GBool.FFI.val_;
@@ -14,6 +54,32 @@ structure GioAction :>
     type 'a class = 'a GioActionClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun nameIsValid actionName = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) nameIsValid_ actionName
+    fun parseDetailedName detailedName =
+      let
+        val actionName
+         & targetValue
+         & () =
+          (
+            Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GLibVariantRecord.FFI.withRefOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> Utf8.FFI.fromPtr 1
+                   && GLibVariantRecord.FFI.fromPtr true
+                   && ignore
+          )
+            parseDetailedName_
+            (
+              detailedName
+               & NONE
+               & NONE
+               & []
+            )
+      in
+        (actionName, targetValue)
+      end
+    fun printDetailedName (actionName, targetValue) = (Utf8.FFI.withPtr &&&> GLibVariantRecord.FFI.withOptPtr ---> Utf8.FFI.fromPtr 1) printDetailedName_ (actionName & targetValue)
     fun activate self parameter = (GioActionClass.FFI.withPtr &&&> GLibVariantRecord.FFI.withOptPtr ---> I) activate_ (self & parameter)
     fun changeState self value = (GioActionClass.FFI.withPtr &&&> GLibVariantRecord.FFI.withPtr ---> I) changeState_ (self & value)
     fun getEnabled self = (GioActionClass.FFI.withPtr ---> GBool.FFI.fromVal) getEnabled_ self

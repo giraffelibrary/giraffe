@@ -7,6 +7,7 @@ signature G_LIB_CONVERT_ERROR =
     | PARTIAL_INPUT
     | BAD_URI
     | NOT_ABSOLUTE_PATH
+    | NO_MEMORY
     include
       ENUM
         where type t = enum

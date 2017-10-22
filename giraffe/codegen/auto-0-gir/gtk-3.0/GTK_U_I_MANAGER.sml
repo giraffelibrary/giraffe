@@ -24,6 +24,10 @@ signature GTK_U_I_MANAGER =
       'a class
        -> string
        -> LargeInt.int
+    val addUiFromResource :
+      'a class
+       -> string
+       -> LargeInt.int
     val addUiFromString :
       'a class
        -> string * LargeInt.int

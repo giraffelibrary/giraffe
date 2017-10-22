@@ -33,6 +33,14 @@ structure GtkUIManager :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GUInt32.PolyML.cVal
           )
+      val addUiFromResource_ =
+        call (getSymbol "gtk_ui_manager_add_ui_from_resource")
+          (
+            GtkUIManagerClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GUInt32.PolyML.cVal
+          )
       val addUiFromString_ =
         call (getSymbol "gtk_ui_manager_add_ui_from_string")
           (
@@ -113,6 +121,19 @@ structure GtkUIManager :>
         (
           self
            & filename
+           & []
+        )
+    fun addUiFromResource self resourcePath =
+      (
+        GtkUIManagerClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> GUInt32.FFI.fromVal
+      )
+        addUiFromResource_
+        (
+          self
+           & resourcePath
            & []
         )
     fun addUiFromString self (buffer, length) =

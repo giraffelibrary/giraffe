@@ -5,6 +5,7 @@ signature GTK_GRID =
     type 'a orientable_class
     type position_type_t
     type 'a widget_class
+    type baseline_position_t
     type t = base class
     val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
     val asBuildable : 'a class -> base buildable_class
@@ -22,13 +23,22 @@ signature GTK_GRID =
     val attachNextTo :
       'a class
        -> 'b widget_class
-           * 'c widget_class
+           * 'c widget_class option
            * position_type_t
            * LargeInt.int
            * LargeInt.int
        -> unit
+    val getBaselineRow : 'a class -> LargeInt.int
+    val getChildAt :
+      'a class
+       -> LargeInt.int * LargeInt.int
+       -> base widget_class
     val getColumnHomogeneous : 'a class -> bool
     val getColumnSpacing : 'a class -> LargeInt.int
+    val getRowBaselinePosition :
+      'a class
+       -> LargeInt.int
+       -> baseline_position_t
     val getRowHomogeneous : 'a class -> bool
     val getRowSpacing : 'a class -> LargeInt.int
     val insertColumn :
@@ -43,6 +53,18 @@ signature GTK_GRID =
       'a class
        -> LargeInt.int
        -> unit
+    val removeColumn :
+      'a class
+       -> LargeInt.int
+       -> unit
+    val removeRow :
+      'a class
+       -> LargeInt.int
+       -> unit
+    val setBaselineRow :
+      'a class
+       -> LargeInt.int
+       -> unit
     val setColumnHomogeneous :
       'a class
        -> bool
@@ -50,6 +72,10 @@ signature GTK_GRID =
     val setColumnSpacing :
       'a class
        -> LargeInt.int
+       -> unit
+    val setRowBaselinePosition :
+      'a class
+       -> LargeInt.int * baseline_position_t
        -> unit
     val setRowHomogeneous :
       'a class
@@ -59,6 +85,7 @@ signature GTK_GRID =
       'a class
        -> LargeInt.int
        -> unit
+    val baselineRowProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val columnHomogeneousProp : ('a class, bool, bool) Property.readwrite
     val columnSpacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val rowHomogeneousProp : ('a class, bool, bool) Property.readwrite

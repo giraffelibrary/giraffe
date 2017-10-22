@@ -2,8 +2,8 @@ signature GIO_MOUNT =
   sig
     type 'a class
     type 'a drive_class
-    type 'a icon_class
     type 'a file_class
+    type 'a icon_class
     type 'a volume_class
     type 'a cancellable_class
     type 'a async_result_class
@@ -24,6 +24,8 @@ signature GIO_MOUNT =
     val getIcon : 'a class -> base icon_class
     val getName : 'a class -> string
     val getRoot : 'a class -> base file_class
+    val getSortKey : 'a class -> string
+    val getSymbolicIcon : 'a class -> base icon_class
     val getUuid : 'a class -> string
     val getVolume : 'a class -> base volume_class
     val guessContentTypeFinish :

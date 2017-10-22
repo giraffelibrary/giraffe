@@ -1,17 +1,13 @@
 structure PangoAttrList :>
   PANGO_ATTR_LIST
-    where type t = PangoAttrListRecord.t
-    where type attribute_t = PangoAttributeRecord.t =
+    where type t = PangoAttrListRecord.t =
   struct
     local
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "pango_attr_list_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "pango_attr_list_new") (cVoid --> PangoAttrListRecord.PolyML.cPtr)
-      val change_ = call (getSymbol "pango_attr_list_change") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> cVoid)
       val copy_ = call (getSymbol "pango_attr_list_copy") (PangoAttrListRecord.PolyML.cPtr --> PangoAttrListRecord.PolyML.cPtr)
-      val insert_ = call (getSymbol "pango_attr_list_insert") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> cVoid)
-      val insertBefore_ = call (getSymbol "pango_attr_list_insert_before") (PangoAttrListRecord.PolyML.cPtr &&> PangoAttributeRecord.PolyML.cPtr --> cVoid)
       val splice_ =
         call (getSymbol "pango_attr_list_splice")
           (
@@ -23,13 +19,9 @@ structure PangoAttrList :>
           )
     end
     type t = PangoAttrListRecord.t
-    type attribute_t = PangoAttributeRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> PangoAttrListRecord.FFI.fromPtr true) new_ ()
-    fun change self attr = (PangoAttrListRecord.FFI.withPtr &&&> PangoAttributeRecord.FFI.withPtr ---> I) change_ (self & attr)
     fun copy self = (PangoAttrListRecord.FFI.withPtr ---> PangoAttrListRecord.FFI.fromPtr true) copy_ self
-    fun insert self attr = (PangoAttrListRecord.FFI.withPtr &&&> PangoAttributeRecord.FFI.withPtr ---> I) insert_ (self & attr)
-    fun insertBefore self attr = (PangoAttrListRecord.FFI.withPtr &&&> PangoAttributeRecord.FFI.withPtr ---> I) insertBefore_ (self & attr)
     fun splice
       self
       (

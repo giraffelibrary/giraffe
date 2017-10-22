@@ -5,7 +5,7 @@ structure GdkDisplayManager :>
   struct
     val getType_ = _import "gdk_display_manager_get_type" : unit -> GObjectType.FFI.val_;
     val get_ = _import "gdk_display_manager_get" : unit -> GdkDisplayManagerClass.FFI.notnull GdkDisplayManagerClass.FFI.p;
-    val getDefaultDisplay_ = _import "gdk_display_manager_get_default_display" : GdkDisplayManagerClass.FFI.notnull GdkDisplayManagerClass.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
+    val getDefaultDisplay_ = _import "gdk_display_manager_get_default_display" : GdkDisplayManagerClass.FFI.notnull GdkDisplayManagerClass.FFI.p -> unit GdkDisplayClass.FFI.p;
     val openDisplay_ =
       fn
         x1 & (x2, x3) =>
@@ -14,7 +14,7 @@ structure GdkDisplayManager :>
               GdkDisplayManagerClass.FFI.notnull GdkDisplayManagerClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
+               -> unit GdkDisplayClass.FFI.p;
           )
             (
               x1,
@@ -27,8 +27,8 @@ structure GdkDisplayManager :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun get () = (I ---> GdkDisplayManagerClass.FFI.fromPtr false) get_ ()
-    fun getDefaultDisplay self = (GdkDisplayManagerClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDefaultDisplay_ self
-    fun openDisplay self name = (GdkDisplayManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) openDisplay_ (self & name)
+    fun getDefaultDisplay self = (GdkDisplayManagerClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromOptPtr false) getDefaultDisplay_ self
+    fun openDisplay self name = (GdkDisplayManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GdkDisplayClass.FFI.fromOptPtr false) openDisplay_ (self & name)
     fun setDefaultDisplay self display = (GdkDisplayManagerClass.FFI.withPtr &&&> GdkDisplayClass.FFI.withPtr ---> I) setDefaultDisplay_ (self & display)
     local
       open ClosureMarshal Signal

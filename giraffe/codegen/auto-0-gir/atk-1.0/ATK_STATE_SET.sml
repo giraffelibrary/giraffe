@@ -9,6 +9,10 @@ signature ATK_STATE_SET =
       'a class
        -> state_type_t
        -> bool
+    val addStates :
+      'a class
+       -> state_type_t vector
+       -> unit
     val andSets :
       'a class
        -> 'b class
@@ -17,6 +21,10 @@ signature ATK_STATE_SET =
     val containsState :
       'a class
        -> state_type_t
+       -> bool
+    val containsStates :
+      'a class
+       -> state_type_t vector
        -> bool
     val isEmpty : 'a class -> bool
     val orSets :

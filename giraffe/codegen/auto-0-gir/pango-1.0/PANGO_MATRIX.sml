@@ -8,6 +8,7 @@ signature PANGO_MATRIX =
        -> unit
     val copy : t -> t
     val getFontScaleFactor : t -> real
+    val getFontScaleFactors : t -> real * real
     val rotate :
       t
        -> real

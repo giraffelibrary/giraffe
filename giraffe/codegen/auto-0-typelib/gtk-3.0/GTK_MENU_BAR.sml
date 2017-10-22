@@ -8,6 +8,7 @@ signature GTK_MENU_BAR =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
+    val newFromModel : 'a Gio.MenuModelClass.class -> base class
     val getChildPackDirection : 'a class -> pack_direction_t
     val getPackDirection : 'a class -> pack_direction_t
     val setChildPackDirection :

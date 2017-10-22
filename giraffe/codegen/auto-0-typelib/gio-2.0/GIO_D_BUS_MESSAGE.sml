@@ -6,13 +6,15 @@ signature GIO_D_BUS_MESSAGE =
     type d_bus_message_header_field_t
     type d_bus_message_type_t
     type 'a unix_f_d_list_class
+    type d_bus_capability_flags_t
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
+    val newFromBlob : Word8Vector.vector * d_bus_capability_flags_t -> base class
     val newMethodCall :
-      string
+      string option
        * string
-       * string
+       * string option
        * string
        -> base class
     val newSignal :
@@ -20,6 +22,7 @@ signature GIO_D_BUS_MESSAGE =
        * string
        * string
        -> base class
+    val bytesNeeded : Word8Vector.vector -> LargeInt.int
     val copy : 'a class -> base class
     val getArg0 : 'a class -> string
     val getBody : 'a class -> GLib.VariantRecord.t
@@ -31,6 +34,7 @@ signature GIO_D_BUS_MESSAGE =
       'a class
        -> d_bus_message_header_field_t
        -> GLib.VariantRecord.t
+    val getHeaderFields : 'a class -> Word8Vector.vector
     val getInterface : 'a class -> string
     val getLocked : 'a class -> bool
     val getMember : 'a class -> string
@@ -74,7 +78,7 @@ signature GIO_D_BUS_MESSAGE =
        -> unit
     val setHeader :
       'a class
-       -> d_bus_message_header_field_t * GLib.VariantRecord.t
+       -> d_bus_message_header_field_t * GLib.VariantRecord.t option
        -> unit
     val setInterface :
       'a class
@@ -116,6 +120,10 @@ signature GIO_D_BUS_MESSAGE =
       'a class
        -> 'b unix_f_d_list_class option
        -> unit
+    val toBlob :
+      'a class
+       -> d_bus_capability_flags_t
+       -> Word8Vector.vector
     val toGerror : 'a class -> unit
     val lockedProp : ('a class, bool) Property.readonly
   end

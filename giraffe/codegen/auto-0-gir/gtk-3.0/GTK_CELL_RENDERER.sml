@@ -59,7 +59,7 @@ signature GTK_CELL_RENDERER =
            * LargeInt.int
     val getState :
       'a class
-       -> 'b widget_class * cell_renderer_state_t
+       -> 'b widget_class option * cell_renderer_state_t
        -> state_flags_t
     val getVisible : 'a class -> bool
     val isActivatable : 'a class -> bool
@@ -93,7 +93,7 @@ signature GTK_CELL_RENDERER =
        -> unit
     val startEditing :
       'a class
-       -> 'b Gdk.Event.union
+       -> 'b Gdk.Event.union option
            * 'c widget_class
            * string
            * Gdk.RectangleRecord.t

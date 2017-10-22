@@ -5,6 +5,8 @@ signature GIO_CREDENTIALS_TYPE =
     | LINUX_UCRED
     | FREEBSD_CMSGCRED
     | OPENBSD_SOCKPEERCRED
+    | SOLARIS_UCRED
+    | NETBSD_UNPCBID
     include
       ENUM
         where type t = enum

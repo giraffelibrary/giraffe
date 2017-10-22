@@ -7,6 +7,10 @@ signature G_OBJECT =
     type ('object, 'a, 'b) property_readwrite
     structure Type : G_OBJECT_TYPE
     structure ConnectFlags : G_OBJECT_CONNECT_FLAGS
+    structure EnumClassRecord : G_OBJECT_ENUM_CLASS_RECORD
+    structure EnumValueRecord : G_OBJECT_ENUM_VALUE_RECORD
+    structure FlagsClassRecord : G_OBJECT_FLAGS_CLASS_RECORD
+    structure FlagsValueRecord : G_OBJECT_FLAGS_VALUE_RECORD
     structure ParamFlags : G_OBJECT_PARAM_FLAGS
     structure SignalFlags : G_OBJECT_SIGNAL_FLAGS
     structure SignalMatchType : G_OBJECT_SIGNAL_MATCH_TYPE
@@ -23,6 +27,18 @@ signature G_OBJECT =
       G_OBJECT_BINDING_FLAGS
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
         where type type_t = Type.t
+    structure EnumClass :
+      G_OBJECT_ENUM_CLASS
+        where type t = EnumClassRecord.t
+    structure EnumValue :
+      G_OBJECT_ENUM_VALUE
+        where type t = EnumValueRecord.t
+    structure FlagsClass :
+      G_OBJECT_FLAGS_CLASS
+        where type t = FlagsClassRecord.t
+    structure FlagsValue :
+      G_OBJECT_FLAGS_VALUE
+        where type t = FlagsValueRecord.t
     structure Value :
       G_OBJECT_VALUE
         where type t = ValueRecord.t
@@ -56,6 +72,7 @@ signature G_OBJECT =
     structure ParamSpec :
       G_OBJECT_PARAM_SPEC
         where type 'a class = 'a ParamSpecClass.class
+        where type value_t = ValueRecord.t
     structure ParamSpecBooleanClass :
       G_OBJECT_PARAM_SPEC_BOOLEAN_CLASS
         where type 'a param_spec_class = 'a ParamSpecClass.class
@@ -251,12 +268,13 @@ signature G_OBJECT =
       G_OBJECT_OBJECT
         where type 'a class = 'a ObjectClass.class
         where type type_t = Type.t
+        where type 'a binding_class = 'a BindingClass.class
+        where type binding_flags_t = BindingFlags.t
         where type value_t = ValueRecord.t
         where type closure_t = ClosureRecord.t
         where type 'a param_spec_class = 'a ParamSpecClass.class
         where type 'a signal_t = 'a signal_t
     val PARAM_MASK : LargeInt.int
-    val PARAM_READWRITE : LargeInt.int
     val PARAM_STATIC_STRINGS : LargeInt.int
     val PARAM_USER_SHIFT : LargeInt.int
     val SIGNAL_FLAGS_MASK : LargeInt.int
@@ -270,6 +288,130 @@ signature G_OBJECT =
     val TYPE_RESERVED_USER_FIRST : LargeInt.int
     val VALUE_COLLECT_FORMAT_MAX_LENGTH : LargeInt.int
     val VALUE_NOCOPY_CONTENTS : LargeInt.int
+    val enumGetValue : EnumClassRecord.t * LargeInt.int -> EnumValueRecord.t
+    val enumGetValueByName : EnumClassRecord.t * string -> EnumValueRecord.t
+    val enumGetValueByNick : EnumClassRecord.t * string -> EnumValueRecord.t
+    val flagsGetFirstValue : FlagsClassRecord.t * LargeInt.int -> FlagsValueRecord.t
+    val flagsGetValueByName : FlagsClassRecord.t * string -> FlagsValueRecord.t
+    val flagsGetValueByNick : FlagsClassRecord.t * string -> FlagsValueRecord.t
+    val paramSpecBoolean :
+      string
+       * string
+       * string
+       * bool
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecChar :
+      string
+       * string
+       * string
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecDouble :
+      string
+       * string
+       * string
+       * real
+       * real
+       * real
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecFloat :
+      string
+       * string
+       * string
+       * real
+       * real
+       * real
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecInt :
+      string
+       * string
+       * string
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecInt64 :
+      string
+       * string
+       * string
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecLong :
+      string
+       * string
+       * string
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecPointer :
+      string
+       * string
+       * string
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecString :
+      string
+       * string
+       * string
+       * string option
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecUchar :
+      string
+       * string
+       * string
+       * Word8.word
+       * Word8.word
+       * Word8.word
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecUint :
+      string
+       * string
+       * string
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecUint64 :
+      string
+       * string
+       * string
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecUlong :
+      string
+       * string
+       * string
+       * LargeInt.int
+       * LargeInt.int
+       * LargeInt.int
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecUnichar :
+      string
+       * string
+       * string
+       * char
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val typeGetTypeRegistrationSerial : unit -> LargeInt.int
     val typeInit : unit -> unit
     val typeInitWithDebugFlags : TypeDebugFlags.t -> unit
   end

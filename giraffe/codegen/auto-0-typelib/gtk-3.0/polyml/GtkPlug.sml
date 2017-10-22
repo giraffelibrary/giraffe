@@ -20,7 +20,7 @@ structure GtkPlug :>
           )
       val getEmbedded_ = call (getSymbol "gtk_plug_get_embedded") (GtkPlugClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getId_ = call (getSymbol "gtk_plug_get_id") (GtkPlugClass.PolyML.cPtr --> GUInt64.PolyML.cVal)
-      val getSocketWindow_ = call (getSymbol "gtk_plug_get_socket_window") (GtkPlugClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getSocketWindow_ = call (getSymbol "gtk_plug_get_socket_window") (GtkPlugClass.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
     end
     type 'a class = 'a GtkPlugClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -46,7 +46,7 @@ structure GtkPlug :>
         )
     fun getEmbedded self = (GtkPlugClass.FFI.withPtr ---> GBool.FFI.fromVal) getEmbedded_ self
     fun getId self = (GtkPlugClass.FFI.withPtr ---> GUInt64.FFI.fromVal) getId_ self
-    fun getSocketWindow self = (GtkPlugClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getSocketWindow_ self
+    fun getSocketWindow self = (GtkPlugClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getSocketWindow_ self
     local
       open ClosureMarshal Signal
     in

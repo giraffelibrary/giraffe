@@ -3,6 +3,7 @@ signature GTK_WIDGET_PATH =
     type t
     type 'a widget_class
     type region_flags_t
+    type state_flags_t
     val getType : unit -> GObject.Type.t
     val new : unit -> t
     val appendForWidget :
@@ -36,6 +37,10 @@ signature GTK_WIDGET_PATH =
       t
        -> LargeInt.int
        -> string
+    val iterGetObjectName :
+      t
+       -> LargeInt.int
+       -> string
     val iterGetSiblingIndex :
       t
        -> LargeInt.int
@@ -44,6 +49,10 @@ signature GTK_WIDGET_PATH =
       t
        -> LargeInt.int
        -> t
+    val iterGetState :
+      t
+       -> LargeInt.int
+       -> state_flags_t
     val iterHasClass :
       t
        -> LargeInt.int * string
@@ -79,6 +88,14 @@ signature GTK_WIDGET_PATH =
     val iterSetName :
       t
        -> LargeInt.int * string
+       -> unit
+    val iterSetObjectName :
+      t
+       -> LargeInt.int * string option
+       -> unit
+    val iterSetState :
+      t
+       -> LargeInt.int * state_flags_t
        -> unit
     val length : t -> LargeInt.int
     val toString : t -> string

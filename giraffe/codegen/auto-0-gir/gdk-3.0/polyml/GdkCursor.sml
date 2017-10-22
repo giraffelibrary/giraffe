@@ -20,9 +20,26 @@ structure GdkCursor :>
              &&> GInt.PolyML.cVal
              --> GdkCursorClass.PolyML.cPtr
           )
+      val newFromSurface_ =
+        call (getSymbol "gdk_cursor_new_from_surface")
+          (
+            GdkDisplayClass.PolyML.cPtr
+             &&> CairoSurfaceRecord.PolyML.cPtr
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             --> GdkCursorClass.PolyML.cPtr
+          )
       val getCursorType_ = call (getSymbol "gdk_cursor_get_cursor_type") (GdkCursorClass.PolyML.cPtr --> GdkCursorType.PolyML.cVal)
       val getDisplay_ = call (getSymbol "gdk_cursor_get_display") (GdkCursorClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
       val getImage_ = call (getSymbol "gdk_cursor_get_image") (GdkCursorClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val getSurface_ =
+        call (getSymbol "gdk_cursor_get_surface")
+          (
+            GdkCursorClass.PolyML.cPtr
+             &&> GDouble.PolyML.cRef
+             &&> GDouble.PolyML.cRef
+             --> CairoSurfaceRecord.PolyML.cPtr
+          )
     end
     type 'a class = 'a GdkCursorClass.class
     type cursor_type_t = GdkCursorType.t
@@ -53,9 +70,56 @@ structure GdkCursor :>
            & x
            & y
         )
+    fun newFromSurface
+      (
+        display,
+        surface,
+        x,
+        y
+      ) =
+      (
+        GdkDisplayClass.FFI.withPtr
+         &&&> CairoSurfaceRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> GdkCursorClass.FFI.fromPtr true
+      )
+        newFromSurface_
+        (
+          display
+           & surface
+           & x
+           & y
+        )
     fun getCursorType self = (GdkCursorClass.FFI.withPtr ---> GdkCursorType.FFI.fromVal) getCursorType_ self
     fun getDisplay self = (GdkCursorClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
     fun getImage self = (GdkCursorClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) getImage_ self
+    fun getSurface self =
+      let
+        val xHot
+         & yHot
+         & retVal =
+          (
+            GdkCursorClass.FFI.withPtr
+             &&&> GDouble.FFI.withRefVal
+             &&&> GDouble.FFI.withRefVal
+             ---> GDouble.FFI.fromVal
+                   && GDouble.FFI.fromVal
+                   && CairoSurfaceRecord.FFI.fromPtr true
+          )
+            getSurface_
+            (
+              self
+               & GDouble.null
+               & GDouble.null
+            )
+      in
+        (
+          retVal,
+          xHot,
+          yHot
+        )
+      end
     local
       open Property
     in

@@ -10,9 +10,13 @@ in
   GIO_ACTION.sml
   GIO_ACTION_GROUP_CLASS.sml
   GIO_ACTION_GROUP.sml
+  GIO_ACTION_MAP_CLASS.sml
+  GIO_ACTION_MAP.sml
   GIO_APP_INFO_CLASS.sml
   GIO_APP_INFO.sml
   GIO_APP_INFO_CREATE_FLAGS.sml
+  GIO_APP_INFO_MONITOR_CLASS.sml
+  GIO_APP_INFO_MONITOR.sml
   GIO_APP_LAUNCH_CONTEXT_CLASS.sml
   GIO_APP_LAUNCH_CONTEXT.sml
   GIO_APPLICATION_CLASS.sml
@@ -32,6 +36,8 @@ in
   GIO_BUS_NAME_OWNER_FLAGS.sml
   GIO_BUS_NAME_WATCHER_FLAGS.sml
   GIO_BUS_TYPE.sml
+  GIO_BYTES_ICON_CLASS.sml
+  GIO_BYTES_ICON.sml
   GIO_CANCELLABLE_CLASS.sml
   GIO_CANCELLABLE.sml
   GIO_CHARSET_CONVERTER_CLASS.sml
@@ -47,8 +53,12 @@ in
   GIO_CREDENTIALS_CLASS.sml
   GIO_CREDENTIALS.sml
   GIO_CREDENTIALS_TYPE.sml
+  GIO_D_BUS_ACTION_GROUP_CLASS.sml
+  GIO_D_BUS_ACTION_GROUP.sml
   GIO_D_BUS_ANNOTATION_INFO_RECORD.sml
   GIO_D_BUS_ANNOTATION_INFO.sml
+  GIO_D_BUS_ARG_INFO_RECORD.sml
+  GIO_D_BUS_ARG_INFO.sml
   GIO_D_BUS_AUTH_OBSERVER_CLASS.sml
   GIO_D_BUS_AUTH_OBSERVER.sml
   GIO_D_BUS_CALL_FLAGS.sml
@@ -64,6 +74,8 @@ in
   GIO_D_BUS_INTERFACE_SKELETON_CLASS.sml
   GIO_D_BUS_INTERFACE_SKELETON.sml
   GIO_D_BUS_INTERFACE_SKELETON_FLAGS.sml
+  GIO_D_BUS_MENU_MODEL_CLASS.sml
+  GIO_D_BUS_MENU_MODEL.sml
   GIO_D_BUS_MESSAGE_CLASS.sml
   GIO_D_BUS_MESSAGE.sml
   GIO_D_BUS_MESSAGE_BYTE_ORDER.sml
@@ -74,6 +86,8 @@ in
   GIO_D_BUS_METHOD_INFO.sml
   GIO_D_BUS_METHOD_INVOCATION_CLASS.sml
   GIO_D_BUS_METHOD_INVOCATION.sml
+  GIO_D_BUS_NODE_INFO_RECORD.sml
+  GIO_D_BUS_NODE_INFO.sml
   GIO_D_BUS_OBJECT_CLASS.sml
   GIO_D_BUS_OBJECT.sml
   GIO_D_BUS_OBJECT_MANAGER_CLASS.sml
@@ -107,6 +121,8 @@ in
   GIO_DATA_OUTPUT_STREAM.sml
   GIO_DATA_STREAM_BYTE_ORDER.sml
   GIO_DATA_STREAM_NEWLINE_TYPE.sml
+  GIO_DATAGRAM_BASED_CLASS.sml
+  GIO_DATAGRAM_BASED.sml
   GIO_DESKTOP_APP_INFO_CLASS.sml
   GIO_DESKTOP_APP_INFO.sml
   GIO_DESKTOP_APP_INFO_LOOKUP_CLASS.sml
@@ -115,6 +131,12 @@ in
   GIO_DRIVE.sml
   GIO_DRIVE_START_FLAGS.sml
   GIO_DRIVE_START_STOP_TYPE.sml
+  GIO_DTLS_CLIENT_CONNECTION_CLASS.sml
+  GIO_DTLS_CLIENT_CONNECTION.sml
+  GIO_DTLS_CONNECTION_CLASS.sml
+  GIO_DTLS_CONNECTION.sml
+  GIO_DTLS_SERVER_CONNECTION_CLASS.sml
+  GIO_DTLS_SERVER_CONNECTION.sml
   GIO_EMBLEM_CLASS.sml
   GIO_EMBLEM.sml
   GIO_EMBLEM_ORIGIN.sml
@@ -145,6 +167,7 @@ in
   GIO_FILE_INFO.sml
   GIO_FILE_INPUT_STREAM_CLASS.sml
   GIO_FILE_INPUT_STREAM.sml
+  GIO_FILE_MEASURE_FLAGS.sml
   GIO_FILE_MONITOR_CLASS.sml
   GIO_FILE_MONITOR.sml
   GIO_FILE_MONITOR_EVENT.sml
@@ -177,18 +200,34 @@ in
   GIO_ICON.sml
   GIO_INET_ADDRESS_CLASS.sml
   GIO_INET_ADDRESS.sml
+  GIO_INET_ADDRESS_MASK_CLASS.sml
+  GIO_INET_ADDRESS_MASK.sml
   GIO_INET_SOCKET_ADDRESS_CLASS.sml
   GIO_INET_SOCKET_ADDRESS.sml
   GIO_INITABLE_CLASS.sml
   GIO_INITABLE.sml
   GIO_INPUT_STREAM_CLASS.sml
   GIO_INPUT_STREAM.sml
+  GIO_LIST_MODEL_CLASS.sml
+  GIO_LIST_MODEL.sml
+  GIO_LIST_STORE_CLASS.sml
+  GIO_LIST_STORE.sml
   GIO_LOADABLE_ICON_CLASS.sml
   GIO_LOADABLE_ICON.sml
   GIO_MEMORY_INPUT_STREAM_CLASS.sml
   GIO_MEMORY_INPUT_STREAM.sml
   GIO_MEMORY_OUTPUT_STREAM_CLASS.sml
   GIO_MEMORY_OUTPUT_STREAM.sml
+  GIO_MENU_CLASS.sml
+  GIO_MENU.sml
+  GIO_MENU_ATTRIBUTE_ITER_CLASS.sml
+  GIO_MENU_ATTRIBUTE_ITER.sml
+  GIO_MENU_ITEM_CLASS.sml
+  GIO_MENU_ITEM.sml
+  GIO_MENU_LINK_ITER_CLASS.sml
+  GIO_MENU_LINK_ITER.sml
+  GIO_MENU_MODEL_CLASS.sml
+  GIO_MENU_MODEL.sml
   GIO_MOUNT_CLASS.sml
   GIO_MOUNT.sml
   GIO_MOUNT_MOUNT_FLAGS.sml
@@ -200,8 +239,14 @@ in
   GIO_NATIVE_VOLUME_MONITOR.sml
   GIO_NETWORK_ADDRESS_CLASS.sml
   GIO_NETWORK_ADDRESS.sml
+  GIO_NETWORK_CONNECTIVITY.sml
+  GIO_NETWORK_MONITOR_CLASS.sml
+  GIO_NETWORK_MONITOR.sml
   GIO_NETWORK_SERVICE_CLASS.sml
   GIO_NETWORK_SERVICE.sml
+  GIO_NOTIFICATION_CLASS.sml
+  GIO_NOTIFICATION.sml
+  GIO_NOTIFICATION_PRIORITY.sml
   GIO_OUTPUT_STREAM_CLASS.sml
   GIO_OUTPUT_STREAM.sml
   GIO_OUTPUT_STREAM_SPLICE_FLAGS.sml
@@ -212,6 +257,8 @@ in
   GIO_POLLABLE_INPUT_STREAM.sml
   GIO_POLLABLE_OUTPUT_STREAM_CLASS.sml
   GIO_POLLABLE_OUTPUT_STREAM.sml
+  GIO_PROPERTY_ACTION_CLASS.sml
+  GIO_PROPERTY_ACTION.sml
   GIO_PROXY_CLASS.sml
   GIO_PROXY.sml
   GIO_PROXY_ADDRESS_CLASS.sml
@@ -220,9 +267,17 @@ in
   GIO_PROXY_ADDRESS_ENUMERATOR.sml
   GIO_PROXY_RESOLVER_CLASS.sml
   GIO_PROXY_RESOLVER.sml
+  GIO_REMOTE_ACTION_GROUP_CLASS.sml
+  GIO_REMOTE_ACTION_GROUP.sml
   GIO_RESOLVER_CLASS.sml
   GIO_RESOLVER.sml
   GIO_RESOLVER_ERROR.sml
+  GIO_RESOLVER_RECORD_TYPE.sml
+  GIO_RESOURCE_RECORD.sml
+  GIO_RESOURCE.sml
+  GIO_RESOURCE_ERROR.sml
+  GIO_RESOURCE_FLAGS.sml
+  GIO_RESOURCE_LOOKUP_FLAGS.sml
   GIO_SEEKABLE_CLASS.sml
   GIO_SEEKABLE.sml
   GIO_SETTINGS_CLASS.sml
@@ -230,14 +285,24 @@ in
   GIO_SETTINGS_BACKEND_RECORD.sml
   GIO_SETTINGS_BACKEND.sml
   GIO_SETTINGS_BIND_FLAGS.sml
+  GIO_SETTINGS_SCHEMA_RECORD.sml
+  GIO_SETTINGS_SCHEMA.sml
+  GIO_SETTINGS_SCHEMA_KEY_RECORD.sml
+  GIO_SETTINGS_SCHEMA_KEY.sml
+  GIO_SETTINGS_SCHEMA_SOURCE_RECORD.sml
+  GIO_SETTINGS_SCHEMA_SOURCE.sml
   GIO_SIMPLE_ACTION_CLASS.sml
   GIO_SIMPLE_ACTION.sml
   GIO_SIMPLE_ACTION_GROUP_CLASS.sml
   GIO_SIMPLE_ACTION_GROUP.sml
   GIO_SIMPLE_ASYNC_RESULT_CLASS.sml
   GIO_SIMPLE_ASYNC_RESULT.sml
+  GIO_SIMPLE_I_O_STREAM_CLASS.sml
+  GIO_SIMPLE_I_O_STREAM.sml
   GIO_SIMPLE_PERMISSION_CLASS.sml
   GIO_SIMPLE_PERMISSION.sml
+  GIO_SIMPLE_PROXY_RESOLVER_CLASS.sml
+  GIO_SIMPLE_PROXY_RESOLVER.sml
   GIO_SOCKET_CLASS.sml
   GIO_SOCKET.sml
   GIO_SOCKET_ADDRESS_CLASS.sml
@@ -246,6 +311,7 @@ in
   GIO_SOCKET_ADDRESS_ENUMERATOR.sml
   GIO_SOCKET_CLIENT_CLASS.sml
   GIO_SOCKET_CLIENT.sml
+  GIO_SOCKET_CLIENT_EVENT.sml
   GIO_SOCKET_CONNECTABLE_CLASS.sml
   GIO_SOCKET_CONNECTABLE.sml
   GIO_SOCKET_CONNECTION_CLASS.sml
@@ -255,15 +321,28 @@ in
   GIO_SOCKET_FAMILY.sml
   GIO_SOCKET_LISTENER_CLASS.sml
   GIO_SOCKET_LISTENER.sml
+  GIO_SOCKET_LISTENER_EVENT.sml
   GIO_SOCKET_MSG_FLAGS.sml
   GIO_SOCKET_PROTOCOL.sml
   GIO_SOCKET_SERVICE_CLASS.sml
   GIO_SOCKET_SERVICE.sml
   GIO_SOCKET_TYPE.sml
+  GIO_SRV_TARGET_RECORD.sml
+  GIO_SRV_TARGET.sml
+  GIO_SUBPROCESS_CLASS.sml
+  GIO_SUBPROCESS.sml
+  GIO_SUBPROCESS_FLAGS.sml
+  GIO_SUBPROCESS_LAUNCHER_CLASS.sml
+  GIO_SUBPROCESS_LAUNCHER.sml
+  GIO_TASK_CLASS.sml
+  GIO_TASK.sml
   GIO_TCP_CONNECTION_CLASS.sml
   GIO_TCP_CONNECTION.sml
   GIO_TCP_WRAPPER_CONNECTION_CLASS.sml
   GIO_TCP_WRAPPER_CONNECTION.sml
+  GIO_TEST_D_BUS_CLASS.sml
+  GIO_TEST_D_BUS.sml
+  GIO_TEST_D_BUS_FLAGS.sml
   GIO_THEMED_ICON_CLASS.sml
   GIO_THEMED_ICON.sml
   GIO_THREADED_SOCKET_SERVICE_CLASS.sml
@@ -274,6 +353,7 @@ in
   GIO_TLS_CERTIFICATE_CLASS.sml
   GIO_TLS_CERTIFICATE.sml
   GIO_TLS_CERTIFICATE_FLAGS.sml
+  GIO_TLS_CERTIFICATE_REQUEST_FLAGS.sml
   GIO_TLS_CLIENT_CONNECTION_CLASS.sml
   GIO_TLS_CLIENT_CONNECTION.sml
   GIO_TLS_CONNECTION_CLASS.sml
@@ -308,6 +388,8 @@ in
   GIO_UNIX_MOUNT_ENTRY.sml
   GIO_UNIX_MOUNT_MONITOR_CLASS.sml
   GIO_UNIX_MOUNT_MONITOR.sml
+  GIO_UNIX_MOUNT_POINT_RECORD.sml
+  GIO_UNIX_MOUNT_POINT.sml
   GIO_UNIX_OUTPUT_STREAM_CLASS.sml
   GIO_UNIX_OUTPUT_STREAM.sml
   GIO_UNIX_SOCKET_ADDRESS_CLASS.sml
@@ -331,8 +413,10 @@ in
   in
     mlton/GioActionClass.sml
     mlton/GioActionGroupClass.sml
+    mlton/GioActionMapClass.sml
     mlton/GioAppInfoClass.sml
     mlton/GioAppInfoCreateFlags.sml
+    mlton/GioAppInfoMonitorClass.sml
     mlton/GioAppLaunchContextClass.sml
     mlton/GioApplicationClass.sml
     mlton/GioApplicationCommandLineClass.sml
@@ -343,6 +427,7 @@ in
     mlton/GioBusNameOwnerFlags.sml
     mlton/GioBusNameWatcherFlags.sml
     mlton/GioBusType.sml
+    mlton/GioBytesIconClass.sml
     mlton/GioCancellableClass.sml
     mlton/GioCharsetConverterClass.sml
     mlton/GioConverterClass.sml
@@ -350,7 +435,9 @@ in
     mlton/GioConverterResult.sml
     mlton/GioCredentialsClass.sml
     mlton/GioCredentialsType.sml
+    mlton/GioDBusActionGroupClass.sml
     mlton/GioDBusAnnotationInfoRecord.sml
+    mlton/GioDBusArgInfoRecord.sml
     mlton/GioDBusAuthObserverClass.sml
     mlton/GioDBusCallFlags.sml
     mlton/GioDBusCapabilityFlags.sml
@@ -368,6 +455,7 @@ in
     mlton/GioDBusMessageType.sml
     mlton/GioDBusMethodInfoRecord.sml
     mlton/GioDBusMethodInvocationClass.sml
+    mlton/GioDBusNodeInfoRecord.sml
     mlton/GioDBusObjectClass.sml
     mlton/GioDBusObjectManagerClass.sml
     mlton/GioDBusObjectManagerClientClass.sml
@@ -387,11 +475,15 @@ in
     mlton/GioDBusSubtreeFlags.sml
     mlton/GioDataStreamByteOrder.sml
     mlton/GioDataStreamNewlineType.sml
+    mlton/GioDatagramBasedClass.sml
     mlton/GioDesktopAppInfoClass.sml
     mlton/GioDesktopAppInfoLookupClass.sml
     mlton/GioDriveClass.sml
     mlton/GioDriveStartFlags.sml
     mlton/GioDriveStartStopType.sml
+    mlton/GioDtlsClientConnectionClass.sml
+    mlton/GioDtlsConnectionClass.sml
+    mlton/GioDtlsServerConnectionClass.sml
     mlton/GioEmblemClass.sml
     mlton/GioEmblemOrigin.sml
     mlton/GioEmblemedIconClass.sml
@@ -408,6 +500,7 @@ in
     mlton/GioFileEnumeratorClass.sml
     mlton/GioFileIconClass.sml
     mlton/GioFileInfoClass.sml
+    mlton/GioFileMeasureFlags.sml
     mlton/GioFileMonitorClass.sml
     mlton/GioFileMonitorEvent.sml
     mlton/GioFileMonitorFlags.sml
@@ -425,49 +518,81 @@ in
     mlton/GioIOStreamSpliceFlags.sml
     mlton/GioIconClass.sml
     mlton/GioInetAddressClass.sml
+    mlton/GioInetAddressMaskClass.sml
     mlton/GioInitableClass.sml
     mlton/GioInputStreamClass.sml
+    mlton/GioListModelClass.sml
+    mlton/GioListStoreClass.sml
     mlton/GioLoadableIconClass.sml
+    mlton/GioMenuAttributeIterClass.sml
+    mlton/GioMenuItemClass.sml
+    mlton/GioMenuLinkIterClass.sml
+    mlton/GioMenuModelClass.sml
     mlton/GioMountClass.sml
     mlton/GioMountMountFlags.sml
     mlton/GioMountOperationClass.sml
     mlton/GioMountOperationResult.sml
     mlton/GioMountUnmountFlags.sml
     mlton/GioNetworkAddressClass.sml
+    mlton/GioNetworkConnectivity.sml
+    mlton/GioNetworkMonitorClass.sml
     mlton/GioNetworkServiceClass.sml
+    mlton/GioNotificationClass.sml
+    mlton/GioNotificationPriority.sml
     mlton/GioOutputStreamClass.sml
     mlton/GioOutputStreamSpliceFlags.sml
     mlton/GioPasswordSave.sml
     mlton/GioPermissionClass.sml
     mlton/GioPollableInputStreamClass.sml
     mlton/GioPollableOutputStreamClass.sml
+    mlton/GioPropertyActionClass.sml
     mlton/GioProxyClass.sml
     mlton/GioProxyResolverClass.sml
+    mlton/GioRemoteActionGroupClass.sml
     mlton/GioResolverClass.sml
     mlton/GioResolverError.sml
+    mlton/GioResolverRecordType.sml
+    mlton/GioResourceRecord.sml
+    mlton/GioResourceError.sml
+    mlton/GioResourceFlags.sml
+    mlton/GioResourceLookupFlags.sml
     mlton/GioSeekableClass.sml
     mlton/GioSettingsClass.sml
     mlton/GioSettingsBackendRecord.sml
     mlton/GioSettingsBindFlags.sml
+    mlton/GioSettingsSchemaRecord.sml
+    mlton/GioSettingsSchemaKeyRecord.sml
+    mlton/GioSettingsSchemaSourceRecord.sml
     mlton/GioSimpleActionClass.sml
     mlton/GioSimpleActionGroupClass.sml
     mlton/GioSimpleAsyncResultClass.sml
+    mlton/GioSimpleProxyResolverClass.sml
     mlton/GioSocketClass.sml
     mlton/GioSocketAddressClass.sml
     mlton/GioSocketAddressEnumeratorClass.sml
     mlton/GioSocketClientClass.sml
+    mlton/GioSocketClientEvent.sml
     mlton/GioSocketConnectableClass.sml
     mlton/GioSocketControlMessageClass.sml
     mlton/GioSocketFamily.sml
     mlton/GioSocketListenerClass.sml
+    mlton/GioSocketListenerEvent.sml
     mlton/GioSocketMsgFlags.sml
     mlton/GioSocketProtocol.sml
     mlton/GioSocketType.sml
+    mlton/GioSrvTargetRecord.sml
+    mlton/GioSubprocessClass.sml
+    mlton/GioSubprocessFlags.sml
+    mlton/GioSubprocessLauncherClass.sml
+    mlton/GioTaskClass.sml
+    mlton/GioTestDBusClass.sml
+    mlton/GioTestDBusFlags.sml
     mlton/GioThemedIconClass.sml
     mlton/GioTlsAuthenticationMode.sml
     mlton/GioTlsBackendClass.sml
     mlton/GioTlsCertificateClass.sml
     mlton/GioTlsCertificateFlags.sml
+    mlton/GioTlsCertificateRequestFlags.sml
     mlton/GioTlsClientConnectionClass.sml
     mlton/GioTlsDatabaseClass.sml
     mlton/GioTlsDatabaseLookupFlags.sml
@@ -483,6 +608,7 @@ in
     mlton/GioUnixFDListClass.sml
     mlton/GioUnixMountEntryRecord.sml
     mlton/GioUnixMountMonitorClass.sml
+    mlton/GioUnixMountPointRecord.sml
     mlton/GioUnixSocketAddressType.sml
     mlton/GioVfsClass.sml
     mlton/GioVolumeClass.sml
@@ -492,25 +618,32 @@ in
     mlton/GioZlibDecompressorClass.sml
     mlton/GioAction.sml
     mlton/GioActionGroup.sml
+    mlton/GioActionMap.sml
     mlton/GioAppInfo.sml
+    mlton/GioAppInfoMonitor.sml
     mlton/GioAppLaunchContext.sml
     mlton/GioApplication.sml
     mlton/GioApplicationCommandLine.sml
     mlton/GioAsyncInitable.sml
     mlton/GioAsyncResult.sml
+    mlton/GioBytesIcon.sml
     mlton/GioCancellable.sml
     mlton/GioCharsetConverter.sml
     mlton/GioConverter.sml
     mlton/GioCredentials.sml
+    mlton/GioDBusActionGroup.sml
     mlton/GioDBusAnnotationInfo.sml
+    mlton/GioDBusArgInfo.sml
     mlton/GioDBusAuthObserver.sml
     mlton/GioDBusConnection.sml
     mlton/GioDBusInterface.sml
     mlton/GioDBusInterfaceInfo.sml
     mlton/GioDBusInterfaceSkeleton.sml
+    mlton/GioDBusMenuModelClass.sml
     mlton/GioDBusMessage.sml
     mlton/GioDBusMethodInfo.sml
     mlton/GioDBusMethodInvocation.sml
+    mlton/GioDBusNodeInfo.sml
     mlton/GioDBusObject.sml
     mlton/GioDBusObjectManager.sml
     mlton/GioDBusObjectManagerClient.sml
@@ -521,9 +654,13 @@ in
     mlton/GioDBusProxy.sml
     mlton/GioDBusServer.sml
     mlton/GioDBusSignalInfo.sml
+    mlton/GioDatagramBased.sml
     mlton/GioDesktopAppInfo.sml
     mlton/GioDesktopAppInfoLookup.sml
     mlton/GioDrive.sml
+    mlton/GioDtlsClientConnection.sml
+    mlton/GioDtlsConnection.sml
+    mlton/GioDtlsServerConnection.sml
     mlton/GioEmblem.sml
     mlton/GioEmblemedIcon.sml
     mlton/GioFileAttributeInfo.sml
@@ -547,37 +684,60 @@ in
     mlton/GioIOStream.sml
     mlton/GioIcon.sml
     mlton/GioInetAddress.sml
+    mlton/GioInetAddressMask.sml
     mlton/GioInetSocketAddressClass.sml
     mlton/GioInitable.sml
     mlton/GioInputStream.sml
+    mlton/GioListModel.sml
+    mlton/GioListStore.sml
     mlton/GioLoadableIcon.sml
     mlton/GioMemoryInputStreamClass.sml
     mlton/GioMemoryOutputStreamClass.sml
+    mlton/GioMenuClass.sml
+    mlton/GioMenuAttributeIter.sml
+    mlton/GioMenuItem.sml
+    mlton/GioMenuLinkIter.sml
+    mlton/GioMenuModel.sml
     mlton/GioMount.sml
     mlton/GioMountOperation.sml
     mlton/GioNativeVolumeMonitorClass.sml
     mlton/GioNetworkAddress.sml
+    mlton/GioNetworkMonitor.sml
     mlton/GioNetworkService.sml
+    mlton/GioNotification.sml
     mlton/GioOutputStream.sml
     mlton/GioPermission.sml
     mlton/GioPollableInputStream.sml
     mlton/GioPollableOutputStream.sml
+    mlton/GioPropertyAction.sml
     mlton/GioProxyAddressEnumeratorClass.sml
     mlton/GioProxyResolver.sml
+    mlton/GioRemoteActionGroup.sml
     mlton/GioResolver.sml
+    mlton/GioResource.sml
     mlton/GioSeekable.sml
     mlton/GioSettings.sml
     mlton/GioSettingsBackend.sml
+    mlton/GioSettingsSchema.sml
+    mlton/GioSettingsSchemaKey.sml
+    mlton/GioSettingsSchemaSource.sml
     mlton/GioSimpleAction.sml
     mlton/GioSimpleActionGroup.sml
     mlton/GioSimpleAsyncResult.sml
+    mlton/GioSimpleIOStreamClass.sml
     mlton/GioSimplePermissionClass.sml
+    mlton/GioSimpleProxyResolver.sml
     mlton/GioSocketAddress.sml
     mlton/GioSocketAddressEnumerator.sml
     mlton/GioSocketConnectable.sml
     mlton/GioSocketConnectionClass.sml
     mlton/GioSocketControlMessage.sml
     mlton/GioSocketServiceClass.sml
+    mlton/GioSrvTarget.sml
+    mlton/GioSubprocess.sml
+    mlton/GioSubprocessLauncher.sml
+    mlton/GioTask.sml
+    mlton/GioTestDBus.sml
     mlton/GioThemedIcon.sml
     mlton/GioTlsBackend.sml
     mlton/GioTlsCertificate.sml
@@ -585,7 +745,6 @@ in
     mlton/GioTlsConnectionClass.sml
     mlton/GioTlsDatabase.sml
     mlton/GioTlsFileDatabase.sml
-    mlton/GioTlsInteraction.sml
     mlton/GioTlsPassword.sml
     mlton/GioTlsServerConnection.sml
     mlton/GioUnixCredentialsMessageClass.sml
@@ -594,6 +753,7 @@ in
     mlton/GioUnixInputStreamClass.sml
     mlton/GioUnixMountEntry.sml
     mlton/GioUnixMountMonitor.sml
+    mlton/GioUnixMountPoint.sml
     mlton/GioUnixOutputStreamClass.sml
     mlton/GioUnixSocketAddressClass.sml
     mlton/GioVfs.sml
@@ -605,6 +765,7 @@ in
     mlton/GioBufferedOutputStreamClass.sml
     mlton/GioConverterInputStreamClass.sml
     mlton/GioConverterOutputStreamClass.sml
+    mlton/GioDBusMenuModel.sml
     mlton/GioDataOutputStreamClass.sml
     mlton/GioFile.sml
     mlton/GioFileIOStream.sml
@@ -615,9 +776,11 @@ in
     mlton/GioInetSocketAddress.sml
     mlton/GioMemoryInputStream.sml
     mlton/GioMemoryOutputStream.sml
+    mlton/GioMenu.sml
     mlton/GioNativeVolumeMonitor.sml
     mlton/GioProxyAddressClass.sml
     mlton/GioProxyAddressEnumerator.sml
+    mlton/GioSimpleIOStream.sml
     mlton/GioSimplePermission.sml
     mlton/GioSocket.sml
     mlton/GioSocketClient.sml
@@ -627,6 +790,7 @@ in
     mlton/GioTcpConnectionClass.sml
     mlton/GioThreadedSocketServiceClass.sml
     mlton/GioTlsConnection.sml
+    mlton/GioTlsInteraction.sml
     mlton/GioUnixConnectionClass.sml
     mlton/GioUnixCredentialsMessage.sml
     mlton/GioUnixFDMessage.sml

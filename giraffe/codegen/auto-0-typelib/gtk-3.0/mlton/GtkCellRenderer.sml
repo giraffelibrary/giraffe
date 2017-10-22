@@ -26,8 +26,8 @@ structure GtkCellRenderer :>
                * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
                * GtkCellRendererState.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -53,8 +53,8 @@ structure GtkCellRenderer :>
               GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
                * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
                * GtkCellRendererState.FFI.val_
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -236,7 +236,7 @@ structure GtkCellRenderer :>
             _import "gtk_cell_renderer_get_size" :
               GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
                * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * unit CairoRectangleIntRecord.FFI.p
+               * unit GdkRectangleRecord.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
@@ -260,7 +260,7 @@ structure GtkCellRenderer :>
           (
             _import "gtk_cell_renderer_get_state" :
               GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * unit GtkWidgetClass.FFI.p
                * GtkCellRendererState.FFI.val_
                -> GtkStateFlags.FFI.val_;
           )
@@ -284,8 +284,8 @@ structure GtkCellRenderer :>
               GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
                * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
                * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
                * GtkCellRendererState.FFI.val_
                -> unit;
           )
@@ -362,14 +362,14 @@ structure GtkCellRenderer :>
           (
             _import "mlton_gtk_cell_renderer_start_editing" :
               GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
-               * GdkEvent.FFI.notnull GdkEvent.FFI.p
+               * unit GdkEvent.FFI.p
                * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
                * GtkCellRendererState.FFI.val_
-               -> GtkCellEditableClass.FFI.notnull GtkCellEditableClass.FFI.p;
+               -> unit GtkCellEditableClass.FFI.p;
           )
             (
               x1,
@@ -407,8 +407,8 @@ structure GtkCellRenderer :>
          &&&> GdkEvent.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkCellRendererState.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -435,9 +435,9 @@ structure GtkCellRenderer :>
             GtkCellRendererClass.FFI.withPtr
              &&&> GtkWidgetClass.FFI.withPtr
              &&&> GtkCellRendererState.FFI.withVal
-             &&&> CairoRectangleIntRecord.FFI.withPtr
-             &&&> CairoRectangleIntRecord.FFI.withNewPtr
-             ---> CairoRectangleIntRecord.FFI.fromPtr true && I
+             &&&> GdkRectangleRecord.FFI.withPtr
+             &&&> GdkRectangleRecord.FFI.withNewPtr
+             ---> GdkRectangleRecord.FFI.fromPtr true && I
           )
             getAlignedArea_
             (
@@ -652,7 +652,7 @@ structure GtkCellRenderer :>
           (
             GtkCellRendererClass.FFI.withPtr
              &&&> GtkWidgetClass.FFI.withPtr
-             &&&> CairoRectangleIntRecord.FFI.withOptPtr
+             &&&> GdkRectangleRecord.FFI.withOptPtr
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
@@ -684,7 +684,7 @@ structure GtkCellRenderer :>
     fun getState self (widget, cellState) =
       (
         GtkCellRendererClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
          &&&> GtkCellRendererState.FFI.withVal
          ---> GtkStateFlags.FFI.fromVal
       )
@@ -709,8 +709,8 @@ structure GtkCellRenderer :>
         GtkCellRendererClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkCellRendererState.FFI.withVal
          ---> I
       )
@@ -776,13 +776,13 @@ structure GtkCellRenderer :>
       ) =
       (
         GtkCellRendererClass.FFI.withPtr
-         &&&> GdkEvent.FFI.withPtr
+         &&&> GdkEvent.FFI.withOptPtr
          &&&> GtkWidgetClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkCellRendererState.FFI.withVal
-         ---> GtkCellEditableClass.FFI.fromPtr false
+         ---> GtkCellEditableClass.FFI.fromOptPtr false
       )
         startEditing_
         (

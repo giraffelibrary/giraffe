@@ -464,7 +464,7 @@ structure GioDBusProxy :>
       fun gSignalSig f =
         signal "g-signal"
           (
-            get 0w1 string
+            get 0w1 stringOpt
              &&&> get 0w2 string
              &&&> get 0w3 GLibVariantRecord.t
              ---> ret_void

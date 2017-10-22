@@ -4,6 +4,7 @@ signature GTK_TREE_PATH =
     val getType : unit -> GObject.Type.t
     val new : unit -> t
     val newFirst : unit -> t
+    val newFromIndices : LargeInt.int vector -> t
     val newFromString : string -> t
     val appendIndex :
       t

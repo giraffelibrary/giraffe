@@ -9,6 +9,7 @@ signature ATK_NO_OP_OBJECT =
     type 'a image_class
     type 'a selection_class
     type 'a table_class
+    type 'a table_cell_class
     type 'a text_class
     type 'a value_class
     type 'a window_class
@@ -21,6 +22,7 @@ signature ATK_NO_OP_OBJECT =
     val asImage : 'a class -> base image_class
     val asSelection : 'a class -> base selection_class
     val asTable : 'a class -> base table_class
+    val asTableCell : 'a class -> base table_cell_class
     val asText : 'a class -> base text_class
     val asValue : 'a class -> base value_class
     val asWindow : 'a class -> base window_class

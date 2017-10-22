@@ -8,6 +8,7 @@ signature GIO_SOCKET_LISTENER =
     type socket_type_t
     type 'a socket_address_class
     type 'a socket_class
+    type socket_listener_event_t
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
@@ -51,5 +52,6 @@ signature GIO_SOCKET_LISTENER =
       'a class
        -> LargeInt.int
        -> unit
+    val eventSig : (socket_listener_event_t * base socket_class -> unit) -> 'a class Signal.t
     val listenBacklogProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
   end

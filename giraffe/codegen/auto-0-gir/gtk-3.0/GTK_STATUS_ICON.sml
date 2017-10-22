@@ -14,10 +14,13 @@ signature GTK_STATUS_ICON =
     val newFromPixbuf : 'a GdkPixbuf.PixbufClass.class -> base class
     val newFromStock : string -> base class
     val positionMenu :
-      'a menu_class * 'b class
-       -> LargeInt.int
+      'a menu_class
+       * LargeInt.int
+       * LargeInt.int
+       * 'b class
+       -> bool
            * LargeInt.int
-           * bool
+           * LargeInt.int
     val getGeometry :
       'a class
        -> (base Gdk.ScreenClass.class

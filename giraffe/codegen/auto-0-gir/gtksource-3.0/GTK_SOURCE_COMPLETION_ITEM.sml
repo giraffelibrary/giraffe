@@ -23,7 +23,9 @@ signature GTK_SOURCE_COMPLETION_ITEM =
        * 'a GdkPixbuf.PixbufClass.class option
        * string option
        -> base class
+    val giconProp : ('a class, base Gio.IconClass.class option, 'b Gio.IconClass.class option) Property.readwrite
     val iconProp : ('a class, base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option) Property.readwrite
+    val iconNameProp : ('a class, string option, string option) Property.readwrite
     val infoProp : ('a class, string option, string option) Property.readwrite
     val labelProp : ('a class, string option, string option) Property.readwrite
     val markupProp : ('a class, string option, string option) Property.readwrite

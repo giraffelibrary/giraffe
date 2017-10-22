@@ -7,6 +7,7 @@ structure GioCredentials :>
     in
       val getType_ = call (getSymbol "g_credentials_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_credentials_new") (cVoid --> GioCredentialsClass.PolyML.cPtr)
+      val getUnixPid_ = call (getSymbol "g_credentials_get_unix_pid") (GioCredentialsClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GInt32.PolyML.cVal)
       val getUnixUser_ = call (getSymbol "g_credentials_get_unix_user") (GioCredentialsClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GUInt32.PolyML.cVal)
       val isSameUser_ =
         call (getSymbol "g_credentials_is_same_user")
@@ -30,6 +31,7 @@ structure GioCredentials :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioCredentialsClass.FFI.fromPtr true) new_ ()
+    fun getUnixPid self = (GioCredentialsClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GInt32.FFI.fromVal) getUnixPid_ (self & [])
     fun getUnixUser self = (GioCredentialsClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GUInt32.FFI.fromVal) getUnixUser_ (self & [])
     fun isSameUser self otherCredentials =
       (

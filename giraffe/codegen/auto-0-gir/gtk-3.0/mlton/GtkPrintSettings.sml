@@ -34,6 +34,7 @@ structure GtkPrintSettings :>
               x2,
               x3
             )
+    val newFromGvariant_ = _import "gtk_print_settings_new_from_gvariant" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p;
     val newFromKeyFile_ =
       fn
         x1
@@ -547,6 +548,7 @@ structure GtkPrintSettings :>
               x3,
               x4
             )
+    val toGvariant_ = _import "gtk_print_settings_to_gvariant" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
     val toKeyFile_ =
       fn
         x1
@@ -595,6 +597,7 @@ structure GtkPrintSettings :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkPrintSettingsClass.FFI.fromPtr true) new_ ()
     fun newFromFile fileName = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GtkPrintSettingsClass.FFI.fromPtr true) newFromFile_ (fileName & [])
+    fun newFromGvariant variant = (GLibVariantRecord.FFI.withPtr ---> GtkPrintSettingsClass.FFI.fromPtr true) newFromGvariant_ variant
     fun newFromKeyFile (keyFile, groupName) =
       (
         GLibKeyFileRecord.FFI.withPtr
@@ -877,6 +880,7 @@ structure GtkPrintSettings :>
            & fileName
            & []
         )
+    fun toGvariant self = (GtkPrintSettingsClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self
     fun toKeyFile self (keyFile, groupName) =
       (
         GtkPrintSettingsClass.FFI.withPtr

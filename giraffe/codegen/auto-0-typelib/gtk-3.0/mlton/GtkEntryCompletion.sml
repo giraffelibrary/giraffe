@@ -12,13 +12,28 @@ structure GtkEntryCompletion :>
     val new_ = _import "gtk_entry_completion_new" : unit -> GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p;
     val newWithArea_ = _import "gtk_entry_completion_new_with_area" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p;
     val complete_ = _import "gtk_entry_completion_complete" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> unit;
+    val computePrefix_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_gtk_entry_completion_compute_prefix" :
+              GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> unit Utf8.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val deleteAction_ = fn x1 & x2 => (_import "gtk_entry_completion_delete_action" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val getCompletionPrefix_ = _import "gtk_entry_completion_get_completion_prefix" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getEntry_ = _import "gtk_entry_completion_get_entry" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val getInlineCompletion_ = _import "gtk_entry_completion_get_inline_completion" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
     val getInlineSelection_ = _import "gtk_entry_completion_get_inline_selection" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
     val getMinimumKeyLength_ = _import "gtk_entry_completion_get_minimum_key_length" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GInt32.FFI.val_;
-    val getModel_ = _import "gtk_entry_completion_get_model" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p;
+    val getModel_ = _import "gtk_entry_completion_get_model" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> unit GtkTreeModelClass.FFI.p;
     val getPopupCompletion_ = _import "gtk_entry_completion_get_popup_completion" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
     val getPopupSetWidth_ = _import "gtk_entry_completion_get_popup_set_width" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
     val getPopupSingleMatch_ = _import "gtk_entry_completion_get_popup_single_match" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
@@ -84,13 +99,14 @@ structure GtkEntryCompletion :>
     fun new () = (I ---> GtkEntryCompletionClass.FFI.fromPtr true) new_ ()
     fun newWithArea area = (GtkCellAreaClass.FFI.withPtr ---> GtkEntryCompletionClass.FFI.fromPtr true) newWithArea_ area
     fun complete self = (GtkEntryCompletionClass.FFI.withPtr ---> I) complete_ self
+    fun computePrefix self key = (GtkEntryCompletionClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) computePrefix_ (self & key)
     fun deleteAction self index = (GtkEntryCompletionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) deleteAction_ (self & index)
     fun getCompletionPrefix self = (GtkEntryCompletionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCompletionPrefix_ self
     fun getEntry self = (GtkEntryCompletionClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getEntry_ self
     fun getInlineCompletion self = (GtkEntryCompletionClass.FFI.withPtr ---> GBool.FFI.fromVal) getInlineCompletion_ self
     fun getInlineSelection self = (GtkEntryCompletionClass.FFI.withPtr ---> GBool.FFI.fromVal) getInlineSelection_ self
     fun getMinimumKeyLength self = (GtkEntryCompletionClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMinimumKeyLength_ self
-    fun getModel self = (GtkEntryCompletionClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
+    fun getModel self = (GtkEntryCompletionClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromOptPtr false) getModel_ self
     fun getPopupCompletion self = (GtkEntryCompletionClass.FFI.withPtr ---> GBool.FFI.fromVal) getPopupCompletion_ self
     fun getPopupSetWidth self = (GtkEntryCompletionClass.FFI.withPtr ---> GBool.FFI.fromVal) getPopupSetWidth_ self
     fun getPopupSingleMatch self = (GtkEntryCompletionClass.FFI.withPtr ---> GBool.FFI.fromVal) getPopupSingleMatch_ self
@@ -137,6 +153,7 @@ structure GtkEntryCompletion :>
       fun cursorOnMatchSig f = signal "cursor-on-match" (get 0w1 GtkTreeModelClass.t &&&> get 0w2 GtkTreeIterRecord.t ---> ret boolean) (fn model & iter => f (model, iter))
       fun insertPrefixSig f = signal "insert-prefix" (get 0w1 string ---> ret boolean) f
       fun matchSelectedSig f = signal "match-selected" (get 0w1 GtkTreeModelClass.t &&&> get 0w2 GtkTreeIterRecord.t ---> ret boolean) (fn model & iter => f (model, iter))
+      fun noMatchesSig f = signal "no-matches" (void ---> ret_void) f
     end
     local
       open Property

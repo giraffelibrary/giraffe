@@ -1,12 +1,14 @@
 signature GTK_MENU_ITEM =
   sig
     type 'a class
+    type 'a actionable_class
     type 'a activatable_class
     type 'a buildable_class
     type 'a widget_class
     type 'a menu_class
     type t = base class
     val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
+    val asActionable : 'a class -> base actionable_class
     val asActivatable : 'a class -> base activatable_class
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
@@ -40,7 +42,7 @@ signature GTK_MENU_ITEM =
        -> unit
     val setSubmenu :
       'a class
-       -> 'b widget_class option
+       -> 'b menu_class option
        -> unit
     val setUseUnderline :
       'a class
@@ -50,6 +52,10 @@ signature GTK_MENU_ITEM =
       'a class
        -> LargeInt.int
        -> unit
+    val toggleSizeRequest :
+      'a class
+       -> LargeInt.int
+       -> LargeInt.int
     val activateSig : (unit -> unit) -> 'a class Signal.t
     val activateItemSig : (unit -> unit) -> 'a class Signal.t
     val deselectSig : (unit -> unit) -> 'a class Signal.t

@@ -7,6 +7,7 @@ structure GdkWindowType :> GDK_WINDOW_TYPE =
     | TEMP
     | FOREIGN
     | OFFSCREEN
+    | SUBSURFACE
     structure Enum =
       Enum(
         type enum = enum
@@ -19,6 +20,7 @@ structure GdkWindowType :> GDK_WINDOW_TYPE =
           | TEMP => 3
           | FOREIGN => 4
           | OFFSCREEN => 5
+          | SUBSURFACE => 6
         exception Value of GInt.t
         val fromInt =
           fn
@@ -28,6 +30,7 @@ structure GdkWindowType :> GDK_WINDOW_TYPE =
           | 3 => TEMP
           | 4 => FOREIGN
           | 5 => OFFSCREEN
+          | 6 => SUBSURFACE
           | n => raise Value n
       )
     open Enum

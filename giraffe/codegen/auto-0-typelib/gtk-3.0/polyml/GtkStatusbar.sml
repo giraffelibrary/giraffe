@@ -3,7 +3,7 @@ structure GtkStatusbar :>
     where type 'a class = 'a GtkStatusbarClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a orientable_class = 'a GtkOrientableClass.class
-    where type 'a widget_class = 'a GtkWidgetClass.class =
+    where type 'a box_class = 'a GtkBoxClass.class =
   struct
     local
       open PolyMLFFI
@@ -11,7 +11,7 @@ structure GtkStatusbar :>
       val getType_ = call (getSymbol "gtk_statusbar_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_statusbar_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val getContextId_ = call (getSymbol "gtk_statusbar_get_context_id") (GtkStatusbarClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt32.PolyML.cVal)
-      val getMessageArea_ = call (getSymbol "gtk_statusbar_get_message_area") (GtkStatusbarClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getMessageArea_ = call (getSymbol "gtk_statusbar_get_message_area") (GtkStatusbarClass.PolyML.cPtr --> GtkBoxClass.PolyML.cPtr)
       val pop_ = call (getSymbol "gtk_statusbar_pop") (GtkStatusbarClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
       val push_ =
         call (getSymbol "gtk_statusbar_push")
@@ -34,7 +34,7 @@ structure GtkStatusbar :>
     type 'a class = 'a GtkStatusbarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
-    type 'a widget_class = 'a GtkWidgetClass.class
+    type 'a box_class = 'a GtkBoxClass.class
     type t = base class
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
@@ -42,7 +42,7 @@ structure GtkStatusbar :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkStatusbarClass.FFI.fromPtr false) new_ ()
     fun getContextId self contextDescription = (GtkStatusbarClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt32.FFI.fromVal) getContextId_ (self & contextDescription)
-    fun getMessageArea self = (GtkStatusbarClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getMessageArea_ self
+    fun getMessageArea self = (GtkStatusbarClass.FFI.withPtr ---> GtkBoxClass.FFI.fromPtr false) getMessageArea_ self
     fun pop self contextId = (GtkStatusbarClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) pop_ (self & contextId)
     fun push self (contextId, text) =
       (

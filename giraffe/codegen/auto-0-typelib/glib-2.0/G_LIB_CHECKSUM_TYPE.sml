@@ -4,6 +4,7 @@ signature G_LIB_CHECKSUM_TYPE =
       MD_5
     | SHA_1
     | SHA_256
+    | SHA_512
     include
       ENUM
         where type t = enum

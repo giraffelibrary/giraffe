@@ -9,6 +9,172 @@ structure GObject :
     local
       open PolyMLFFI
     in
+      val enumGetValue_ = call (getSymbol "g_enum_get_value") (GObjectEnumClassRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> GObjectEnumValueRecord.PolyML.cPtr)
+      val enumGetValueByName_ = call (getSymbol "g_enum_get_value_by_name") (GObjectEnumClassRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectEnumValueRecord.PolyML.cPtr)
+      val enumGetValueByNick_ = call (getSymbol "g_enum_get_value_by_nick") (GObjectEnumClassRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectEnumValueRecord.PolyML.cPtr)
+      val flagsGetFirstValue_ = call (getSymbol "g_flags_get_first_value") (GObjectFlagsClassRecord.PolyML.cPtr &&> GUInt32.PolyML.cVal --> GObjectFlagsValueRecord.PolyML.cPtr)
+      val flagsGetValueByName_ = call (getSymbol "g_flags_get_value_by_name") (GObjectFlagsClassRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectFlagsValueRecord.PolyML.cPtr)
+      val flagsGetValueByNick_ = call (getSymbol "g_flags_get_value_by_nick") (GObjectFlagsClassRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectFlagsValueRecord.PolyML.cPtr)
+      val paramSpecBoolean_ =
+        call (getSymbol "g_param_spec_boolean")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GBool.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecChar_ =
+        call (getSymbol "g_param_spec_char")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GInt8.PolyML.cVal
+             &&> GInt8.PolyML.cVal
+             &&> GInt8.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecDouble_ =
+        call (getSymbol "g_param_spec_double")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GDouble.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecFloat_ =
+        call (getSymbol "g_param_spec_float")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GFloat.PolyML.cVal
+             &&> GFloat.PolyML.cVal
+             &&> GFloat.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecInt_ =
+        call (getSymbol "g_param_spec_int")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecInt64_ =
+        call (getSymbol "g_param_spec_int64")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GInt64.PolyML.cVal
+             &&> GInt64.PolyML.cVal
+             &&> GInt64.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecLong_ =
+        call (getSymbol "g_param_spec_long")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GInt64.PolyML.cVal
+             &&> GInt64.PolyML.cVal
+             &&> GInt64.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecPointer_ =
+        call (getSymbol "g_param_spec_pointer")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecString_ =
+        call (getSymbol "g_param_spec_string")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecUchar_ =
+        call (getSymbol "g_param_spec_uchar")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GUInt8.PolyML.cVal
+             &&> GUInt8.PolyML.cVal
+             &&> GUInt8.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecUint_ =
+        call (getSymbol "g_param_spec_uint")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GUInt32.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecUint64_ =
+        call (getSymbol "g_param_spec_uint64")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GUInt64.PolyML.cVal
+             &&> GUInt64.PolyML.cVal
+             &&> GUInt64.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecUlong_ =
+        call (getSymbol "g_param_spec_ulong")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GUInt64.PolyML.cVal
+             &&> GUInt64.PolyML.cVal
+             &&> GUInt64.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecUnichar_ =
+        call (getSymbol "g_param_spec_unichar")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GChar.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val typeGetTypeRegistrationSerial_ = call (getSymbol "g_type_get_type_registration_serial") (cVoid --> GUInt32.PolyML.cVal)
       val typeInit_ = call (getSymbol "g_type_init") (cVoid --> cVoid)
       val typeInitWithDebugFlags_ = call (getSymbol "g_type_init_with_debug_flags") (GObjectTypeDebugFlags.PolyML.cVal --> cVoid)
     end
@@ -19,6 +185,10 @@ structure GObject :
     type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite
     structure Type = GObjectType
     structure ConnectFlags = GObjectConnectFlags
+    structure EnumClassRecord = GObjectEnumClassRecord
+    structure EnumValueRecord = GObjectEnumValueRecord
+    structure FlagsClassRecord = GObjectFlagsClassRecord
+    structure FlagsValueRecord = GObjectFlagsValueRecord
     structure ParamFlags = GObjectParamFlags
     structure SignalFlags = GObjectSignalFlags
     structure SignalMatchType = GObjectSignalMatchType
@@ -28,6 +198,10 @@ structure GObject :
     structure ValueArrayRecord = GObjectValueArrayRecord
     structure ValueRecord = GObjectValueRecord
     structure BindingFlags = GObjectBindingFlags
+    structure EnumClass = GObjectEnumClass
+    structure EnumValue = GObjectEnumValue
+    structure FlagsClass = GObjectFlagsClass
+    structure FlagsValue = GObjectFlagsValue
     structure Value = GObjectValue
     structure ValueArray = GObjectValueArray
     structure ClosureRecord = GObjectClosureRecord
@@ -91,11 +265,11 @@ structure GObject :
     structure TypePlugin = GObjectTypePlugin
     structure Object = GObjectObject
     val PARAM_MASK = 255
-    val PARAM_READWRITE = 0
     val PARAM_STATIC_STRINGS = 0
     val PARAM_USER_SHIFT = 8
-    val SIGNAL_FLAGS_MASK = 255
+    val SIGNAL_FLAGS_MASK = 511
     val SIGNAL_MATCH_MASK = 63
+    val TYPE_FLAG_RESERVED_ID_BIT = 1
     val TYPE_FUNDAMENTAL_MAX = 255
     val TYPE_FUNDAMENTAL_SHIFT = 2
     val TYPE_RESERVED_BSE_FIRST = 32
@@ -105,6 +279,406 @@ structure GObject :
     val TYPE_RESERVED_USER_FIRST = 49
     val VALUE_COLLECT_FORMAT_MAX_LENGTH = 8
     val VALUE_NOCOPY_CONTENTS = 134217728
+    fun enumGetValue (enumClass, value) = (GObjectEnumClassRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValue_ (enumClass & value)
+    fun enumGetValueByName (enumClass, name) = (GObjectEnumClassRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValueByName_ (enumClass & name)
+    fun enumGetValueByNick (enumClass, nick) = (GObjectEnumClassRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValueByNick_ (enumClass & nick)
+    fun flagsGetFirstValue (flagsClass, value) = (GObjectFlagsClassRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetFirstValue_ (flagsClass & value)
+    fun flagsGetValueByName (flagsClass, name) = (GObjectFlagsClassRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetValueByName_ (flagsClass & name)
+    fun flagsGetValueByNick (flagsClass, nick) = (GObjectFlagsClassRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetValueByNick_ (flagsClass & nick)
+    fun paramSpecBoolean
+      (
+        name,
+        nick,
+        blurb,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecBoolean_
+        (
+          name
+           & nick
+           & blurb
+           & defaultValue
+           & flags
+        )
+    fun paramSpecChar
+      (
+        name,
+        nick,
+        blurb,
+        minimum,
+        maximum,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt8.FFI.withVal
+         &&&> GInt8.FFI.withVal
+         &&&> GInt8.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecChar_
+        (
+          name
+           & nick
+           & blurb
+           & minimum
+           & maximum
+           & defaultValue
+           & flags
+        )
+    fun paramSpecDouble
+      (
+        name,
+        nick,
+        blurb,
+        minimum,
+        maximum,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecDouble_
+        (
+          name
+           & nick
+           & blurb
+           & minimum
+           & maximum
+           & defaultValue
+           & flags
+        )
+    fun paramSpecFloat
+      (
+        name,
+        nick,
+        blurb,
+        minimum,
+        maximum,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GFloat.FFI.withVal
+         &&&> GFloat.FFI.withVal
+         &&&> GFloat.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecFloat_
+        (
+          name
+           & nick
+           & blurb
+           & minimum
+           & maximum
+           & defaultValue
+           & flags
+        )
+    fun paramSpecInt
+      (
+        name,
+        nick,
+        blurb,
+        minimum,
+        maximum,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecInt_
+        (
+          name
+           & nick
+           & blurb
+           & minimum
+           & maximum
+           & defaultValue
+           & flags
+        )
+    fun paramSpecInt64
+      (
+        name,
+        nick,
+        blurb,
+        minimum,
+        maximum,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt64.FFI.withVal
+         &&&> GInt64.FFI.withVal
+         &&&> GInt64.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecInt64_
+        (
+          name
+           & nick
+           & blurb
+           & minimum
+           & maximum
+           & defaultValue
+           & flags
+        )
+    fun paramSpecLong
+      (
+        name,
+        nick,
+        blurb,
+        minimum,
+        maximum,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt64.FFI.withVal
+         &&&> GInt64.FFI.withVal
+         &&&> GInt64.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecLong_
+        (
+          name
+           & nick
+           & blurb
+           & minimum
+           & maximum
+           & defaultValue
+           & flags
+        )
+    fun paramSpecPointer
+      (
+        name,
+        nick,
+        blurb,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecPointer_
+        (
+          name
+           & nick
+           & blurb
+           & flags
+        )
+    fun paramSpecString
+      (
+        name,
+        nick,
+        blurb,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecString_
+        (
+          name
+           & nick
+           & blurb
+           & defaultValue
+           & flags
+        )
+    fun paramSpecUchar
+      (
+        name,
+        nick,
+        blurb,
+        minimum,
+        maximum,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt8.FFI.withVal
+         &&&> GUInt8.FFI.withVal
+         &&&> GUInt8.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecUchar_
+        (
+          name
+           & nick
+           & blurb
+           & minimum
+           & maximum
+           & defaultValue
+           & flags
+        )
+    fun paramSpecUint
+      (
+        name,
+        nick,
+        blurb,
+        minimum,
+        maximum,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt32.FFI.withVal
+         &&&> GUInt32.FFI.withVal
+         &&&> GUInt32.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecUint_
+        (
+          name
+           & nick
+           & blurb
+           & minimum
+           & maximum
+           & defaultValue
+           & flags
+        )
+    fun paramSpecUint64
+      (
+        name,
+        nick,
+        blurb,
+        minimum,
+        maximum,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt64.FFI.withVal
+         &&&> GUInt64.FFI.withVal
+         &&&> GUInt64.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecUint64_
+        (
+          name
+           & nick
+           & blurb
+           & minimum
+           & maximum
+           & defaultValue
+           & flags
+        )
+    fun paramSpecUlong
+      (
+        name,
+        nick,
+        blurb,
+        minimum,
+        maximum,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt64.FFI.withVal
+         &&&> GUInt64.FFI.withVal
+         &&&> GUInt64.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecUlong_
+        (
+          name
+           & nick
+           & blurb
+           & minimum
+           & maximum
+           & defaultValue
+           & flags
+        )
+    fun paramSpecUnichar
+      (
+        name,
+        nick,
+        blurb,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GChar.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecUnichar_
+        (
+          name
+           & nick
+           & blurb
+           & defaultValue
+           & flags
+        )
+    fun typeGetTypeRegistrationSerial () = (I ---> GUInt32.FFI.fromVal) typeGetTypeRegistrationSerial_ ()
     fun typeInit () = (I ---> I) typeInit_ ()
     fun typeInitWithDebugFlags debugFlags = (GObjectTypeDebugFlags.FFI.withVal ---> I) typeInitWithDebugFlags_ debugFlags
   end

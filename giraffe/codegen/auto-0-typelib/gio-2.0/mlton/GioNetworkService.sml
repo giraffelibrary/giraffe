@@ -17,7 +17,7 @@ structure GioNetworkService :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioSocketConnectableClass.FFI.notnull GioSocketConnectableClass.FFI.p;
+               -> GioNetworkServiceClass.FFI.notnull GioNetworkServiceClass.FFI.p;
           )
             (
               x1,
@@ -61,7 +61,7 @@ structure GioNetworkService :>
         Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         ---> GioSocketConnectableClass.FFI.fromPtr true
+         ---> GioNetworkServiceClass.FFI.fromPtr true
       )
         new_
         (

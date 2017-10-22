@@ -123,6 +123,7 @@ structure GtkTreeView :>
              --> GBool.PolyML.cVal
           )
       val expandToPath_ = call (getSymbol "gtk_tree_view_expand_to_path") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> cVoid)
+      val getActivateOnSingleClick_ = call (getSymbol "gtk_tree_view_get_activate_on_single_click") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getBackgroundArea_ =
         call (getSymbol "gtk_tree_view_get_background_area")
           (
@@ -181,6 +182,7 @@ structure GtkTreeView :>
       val getHoverSelection_ = call (getSymbol "gtk_tree_view_get_hover_selection") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getLevelIndentation_ = call (getSymbol "gtk_tree_view_get_level_indentation") (GtkTreeViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getModel_ = call (getSymbol "gtk_tree_view_get_model") (GtkTreeViewClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
+      val getNColumns_ = call (getSymbol "gtk_tree_view_get_n_columns") (GtkTreeViewClass.PolyML.cPtr --> GUInt.PolyML.cVal)
       val getPathAtPos_ =
         call (getSymbol "gtk_tree_view_get_path_at_pos")
           (
@@ -281,6 +283,7 @@ structure GtkTreeView :>
              &&> GInt.PolyML.cVal
              --> cVoid
           )
+      val setActivateOnSingleClick_ = call (getSymbol "gtk_tree_view_set_activate_on_single_click") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setCursor_ =
         call (getSymbol "gtk_tree_view_set_cursor")
           (
@@ -598,6 +601,7 @@ structure GtkTreeView :>
            & openAll
         )
     fun expandToPath self path = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) expandToPath_ (self & path)
+    fun getActivateOnSingleClick self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getActivateOnSingleClick_ self
     fun getBackgroundArea self (path, column) =
       let
         val rect & () =
@@ -722,6 +726,7 @@ structure GtkTreeView :>
     fun getHoverSelection self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getHoverSelection_ self
     fun getLevelIndentation self = (GtkTreeViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getLevelIndentation_ self
     fun getModel self = (GtkTreeViewClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
+    fun getNColumns self = (GtkTreeViewClass.FFI.withPtr ---> GUInt.FFI.fromVal) getNColumns_ self
     fun getPathAtPos self (x, y) =
       let
         val path
@@ -981,6 +986,7 @@ structure GtkTreeView :>
            & treeX
            & treeY
         )
+    fun setActivateOnSingleClick self single = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setActivateOnSingleClick_ (self & single)
     fun setCursor
       self
       (
@@ -1123,7 +1129,7 @@ structure GtkTreeView :>
                     p1
                   )
           )
-      fun moveCursorSig f = signal "move-cursor" (get 0w1 GtkMovementStep.t &&&> get 0w2 int ---> ret boolean) (fn object & p0 => f (object, p0))
+      fun moveCursorSig f = signal "move-cursor" (get 0w1 GtkMovementStep.t &&&> get 0w2 int ---> ret boolean) (fn step & direction => f (step, direction))
       fun rowActivatedSig f = signal "row-activated" (get 0w1 GtkTreePathRecord.t &&&> get 0w2 GtkTreeViewColumnClass.t ---> ret_void) (fn path & column => f (path, column))
       fun rowCollapsedSig f = signal "row-collapsed" (get 0w1 GtkTreeIterRecord.t &&&> get 0w2 GtkTreePathRecord.t ---> ret_void) (fn iter & path => f (iter, path))
       fun rowExpandedSig f = signal "row-expanded" (get 0w1 GtkTreeIterRecord.t &&&> get 0w2 GtkTreePathRecord.t ---> ret_void) (fn iter & path => f (iter, path))
@@ -1139,6 +1145,11 @@ structure GtkTreeView :>
     local
       open Property
     in
+      val activateOnSingleClickProp =
+        {
+          get = fn x => get "activate-on-single-click" boolean x,
+          set = fn x => set "activate-on-single-click" boolean x
+        }
       val enableGridLinesProp =
         {
           get = fn x => get "enable-grid-lines" GtkTreeViewGridLines.t x,

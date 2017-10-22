@@ -42,9 +42,15 @@ signature GIO_D_BUS_ERROR =
     | SELINUX_SECURITY_CONTEXT_UNKNOWN
     | ADT_AUDIT_DATA_UNKNOWN
     | OBJECT_PATH_IN_USE
+    | UNKNOWN_OBJECT
+    | UNKNOWN_INTERFACE
+    | UNKNOWN_PROPERTY
+    | PROPERTY_READ_ONLY
     include
       ENUM
         where type t = enum
+    exception Error of t
+    val handler : GLib.ErrorRecord.handler
     val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

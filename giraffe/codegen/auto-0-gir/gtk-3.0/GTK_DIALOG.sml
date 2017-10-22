@@ -2,6 +2,7 @@ signature GTK_DIALOG =
   sig
     type 'a class
     type 'a buildable_class
+    type 'a box_class
     type 'a widget_class
     type t = base class
     val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
@@ -17,7 +18,8 @@ signature GTK_DIALOG =
        -> string * LargeInt.int
        -> base widget_class
     val getActionArea : 'a class -> base widget_class
-    val getContentArea : 'a class -> base widget_class
+    val getContentArea : 'a class -> base box_class
+    val getHeaderBar : 'a class -> base widget_class
     val getResponseForWidget :
       'a class
        -> 'b widget_class
@@ -45,4 +47,5 @@ signature GTK_DIALOG =
        -> unit
     val closeSig : (unit -> unit) -> 'a class Signal.t
     val responseSig : (LargeInt.int -> unit) -> 'a class Signal.t
+    val useHeaderBarProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
   end

@@ -50,6 +50,8 @@ structure GioFileAttributeMatcher :>
               x2,
               x3
             )
+    val subtract_ = fn x1 & x2 => (_import "g_file_attribute_matcher_subtract" : GioFileAttributeMatcherRecord.FFI.notnull GioFileAttributeMatcherRecord.FFI.p * GioFileAttributeMatcherRecord.FFI.notnull GioFileAttributeMatcherRecord.FFI.p -> GioFileAttributeMatcherRecord.FFI.notnull GioFileAttributeMatcherRecord.FFI.p;) (x1, x2)
+    val toString_ = _import "g_file_attribute_matcher_to_string" : GioFileAttributeMatcherRecord.FFI.notnull GioFileAttributeMatcherRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     type t = GioFileAttributeMatcherRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new attributes = (Utf8.FFI.withPtr ---> GioFileAttributeMatcherRecord.FFI.fromPtr true) new_ attributes
@@ -57,4 +59,6 @@ structure GioFileAttributeMatcher :>
     fun enumerateNext self = (GioFileAttributeMatcherRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) enumerateNext_ self
     fun matches self attribute = (GioFileAttributeMatcherRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) matches_ (self & attribute)
     fun matchesOnly self attribute = (GioFileAttributeMatcherRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) matchesOnly_ (self & attribute)
+    fun subtract self subtract = (GioFileAttributeMatcherRecord.FFI.withPtr &&&> GioFileAttributeMatcherRecord.FFI.withPtr ---> GioFileAttributeMatcherRecord.FFI.fromPtr true) subtract_ (self & subtract)
+    fun toString self = (GioFileAttributeMatcherRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
   end

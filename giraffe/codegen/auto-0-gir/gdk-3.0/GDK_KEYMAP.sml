@@ -2,13 +2,17 @@ signature GDK_KEYMAP =
   sig
     type 'a class
     type 'a display_class
+    type modifier_intent_t
     type keymap_key_t
     type modifier_type_t
     type t = base class
     val getType : unit -> GObject.Type.t
     val getDefault : unit -> base class
     val getForDisplay : 'a display_class -> base class
-    val addVirtualModifiers : 'a class -> modifier_type_t
+    val addVirtualModifiers :
+      'a class
+       -> modifier_type_t
+       -> modifier_type_t
     val getCapsLockState : 'a class -> bool
     val getDirection : 'a class -> Pango.Direction.t
     val getEntriesForKeycode :
@@ -19,13 +23,22 @@ signature GDK_KEYMAP =
       'a class
        -> LargeInt.int
        -> keymap_key_t vector option
+    val getModifierMask :
+      'a class
+       -> modifier_intent_t
+       -> modifier_type_t
+    val getModifierState : 'a class -> LargeInt.int
     val getNumLockState : 'a class -> bool
+    val getScrollLockState : 'a class -> bool
     val haveBidiLayouts : 'a class -> bool
     val lookupKey :
       'a class
        -> keymap_key_t
        -> LargeInt.int
-    val mapVirtualModifiers : 'a class -> modifier_type_t option
+    val mapVirtualModifiers :
+      'a class
+       -> modifier_type_t
+       -> bool * modifier_type_t
     val translateKeyboardState :
       'a class
        -> LargeInt.int

@@ -1,25 +1,22 @@
 structure GioMountMountFlags :> GIO_MOUNT_MOUNT_FLAGS =
   struct
-    datatype enum =
-      NONE
-    structure Enum =
-      Enum(
-        type enum = enum
-        val null = NONE
-        val toInt = fn NONE => 0
-        exception Value of GInt.t
-        val fromInt =
-          fn
-            0 => NONE
-          | n => raise Value n
+    local
+      fun NONE () = 0w0
+    in
+      val NONE = NONE ()
+    end
+    val allFlags = [NONE]
+    structure Flags =
+      Flags(
+        val allFlags = allFlags
       )
-    open Enum
+    open Flags
     local
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "g_mount_mount_flags_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val getValue_ = call (getSymbol "g_value_get_enum") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
-      val setValue_ = call (getSymbol "g_value_set_enum") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> cVoid)
+      val getValue_ = call (getSymbol "g_value_get_flags") (GObjectValueRecord.PolyML.cPtr --> PolyML.cVal)
+      val setValue_ = call (getSymbol "g_value_set_flags") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> cVoid)
     end
     val t =
       ValueAccessor.C.createAccessor

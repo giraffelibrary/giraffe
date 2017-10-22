@@ -19,6 +19,14 @@ signature G_LIB_I_O_CHANNEL =
     val getEncoding : t -> string
     val getFlags : t -> i_o_flags_t
     val init : t -> unit
+    val readLine :
+      t
+       -> i_o_status_t
+           * string
+           * LargeInt.int
+           * LargeInt.int
+    val readToEnd : t -> i_o_status_t * Word8Vector.vector
+    val readUnichar : t -> i_o_status_t * char
     val seek :
       t
        -> LargeInt.int * seek_type_t
@@ -41,7 +49,7 @@ signature G_LIB_I_O_CHANNEL =
        -> unit
     val setEncoding :
       t
-       -> string
+       -> string option
        -> i_o_status_t
     val setFlags :
       t
@@ -49,7 +57,7 @@ signature G_LIB_I_O_CHANNEL =
        -> i_o_status_t
     val setLineTerm :
       t
-       -> string * LargeInt.int
+       -> string option * LargeInt.int
        -> unit
     val shutdown :
       t

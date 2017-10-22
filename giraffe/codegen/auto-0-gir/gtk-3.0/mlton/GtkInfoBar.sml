@@ -3,6 +3,7 @@ structure GtkInfoBar :>
     where type 'a class = 'a GtkInfoBarClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a orientable_class = 'a GtkOrientableClass.class
+    where type 'a button_class = 'a GtkButtonClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class
     where type message_type_t = GtkMessageType.t =
   struct
@@ -36,7 +37,7 @@ structure GtkInfoBar :>
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GInt.FFI.val_
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               -> GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p;
           )
             (
               x1,
@@ -47,6 +48,7 @@ structure GtkInfoBar :>
     val getActionArea_ = _import "gtk_info_bar_get_action_area" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val getContentArea_ = _import "gtk_info_bar_get_content_area" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val getMessageType_ = _import "gtk_info_bar_get_message_type" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p -> GtkMessageType.FFI.val_;
+    val getShowCloseButton_ = _import "gtk_info_bar_get_show_close_button" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p -> GBool.FFI.val_;
     val response_ = fn x1 & x2 => (_import "gtk_info_bar_response" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val setDefaultResponse_ = fn x1 & x2 => (_import "gtk_info_bar_set_default_response" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val setMessageType_ = fn x1 & x2 => (_import "gtk_info_bar_set_message_type" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p * GtkMessageType.FFI.val_ -> unit;) (x1, x2)
@@ -67,9 +69,11 @@ structure GtkInfoBar :>
               x2,
               x3
             )
+    val setShowCloseButton_ = fn x1 & x2 => (_import "gtk_info_bar_set_show_close_button" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkInfoBarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
+    type 'a button_class = 'a GtkButtonClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type message_type_t = GtkMessageType.t
     type t = base class
@@ -96,7 +100,7 @@ structure GtkInfoBar :>
         GtkInfoBarClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GInt.FFI.withVal
-         ---> GtkWidgetClass.FFI.fromPtr false
+         ---> GtkButtonClass.FFI.fromPtr false
       )
         addButton_
         (
@@ -107,6 +111,7 @@ structure GtkInfoBar :>
     fun getActionArea self = (GtkInfoBarClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getActionArea_ self
     fun getContentArea self = (GtkInfoBarClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getContentArea_ self
     fun getMessageType self = (GtkInfoBarClass.FFI.withPtr ---> GtkMessageType.FFI.fromVal) getMessageType_ self
+    fun getShowCloseButton self = (GtkInfoBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowCloseButton_ self
     fun response self responseId = (GtkInfoBarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) response_ (self & responseId)
     fun setDefaultResponse self responseId = (GtkInfoBarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setDefaultResponse_ (self & responseId)
     fun setMessageType self messageType = (GtkInfoBarClass.FFI.withPtr &&&> GtkMessageType.FFI.withVal ---> I) setMessageType_ (self & messageType)
@@ -123,6 +128,7 @@ structure GtkInfoBar :>
            & responseId
            & setting
         )
+    fun setShowCloseButton self setting = (GtkInfoBarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowCloseButton_ (self & setting)
     local
       open ClosureMarshal Signal
     in
@@ -136,6 +142,11 @@ structure GtkInfoBar :>
         {
           get = fn x => get "message-type" GtkMessageType.t x,
           set = fn x => set "message-type" GtkMessageType.t x
+        }
+      val showCloseButtonProp =
+        {
+          get = fn x => get "show-close-button" boolean x,
+          set = fn x => set "show-close-button" boolean x
         }
     end
   end

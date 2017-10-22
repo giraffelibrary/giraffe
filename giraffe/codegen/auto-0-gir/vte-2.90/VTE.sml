@@ -23,5 +23,6 @@ signature VTE =
         where type terminal_cursor_shape_t = TerminalCursorShape.t
         where type terminal_erase_binding_t = TerminalEraseBinding.t
         where type 'a pty_class = 'a PtyClass.class
+    val SPAWN_NO_PARENT_ENVV : LargeInt.int
     val getUserShell : unit -> string
   end

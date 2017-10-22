@@ -2,6 +2,7 @@ signature VTE_TERMINAL =
   sig
     type 'a class
     type pty_flags_t
+    type regex_t
     type write_flags_t
     type cursor_blink_mode_t
     type cursor_shape_t
@@ -17,11 +18,15 @@ signature VTE_TERMINAL =
     val copyPrimary : 'a class -> unit
     val feed :
       'a class
-       -> Word8Vector.vector
+       -> Word8Vector.vector option
        -> unit
     val feedChild :
       'a class
-       -> string * LargeInt.int
+       -> string option * LargeInt.int
+       -> unit
+    val feedChildBinary :
+      'a class
+       -> Word8Vector.vector option
        -> unit
     val getAllowBold : 'a class -> bool
     val getAudibleBell : 'a class -> bool
@@ -49,9 +54,14 @@ signature VTE_TERMINAL =
     val getRewrapOnResize : 'a class -> bool
     val getRowCount : 'a class -> LargeInt.int
     val getWindowTitle : 'a class -> string
+    val getWordCharExceptions : 'a class -> string
     val matchAddGregex :
       'a class
        -> GLib.RegexRecord.t * GLib.RegexMatchFlags.t
+       -> LargeInt.int
+    val matchAddRegex :
+      'a class
+       -> regex_t * LargeInt.int
        -> LargeInt.int
     val matchCheck :
       'a class
@@ -91,10 +101,15 @@ signature VTE_TERMINAL =
     val searchFindNext : 'a class -> bool
     val searchFindPrevious : 'a class -> bool
     val searchGetGregex : 'a class -> GLib.RegexRecord.t
+    val searchGetRegex : 'a class -> regex_t
     val searchGetWrapAround : 'a class -> bool
     val searchSetGregex :
       'a class
        -> GLib.RegexRecord.t option * GLib.RegexMatchFlags.t
+       -> unit
+    val searchSetRegex :
+      'a class
+       -> regex_t option * LargeInt.int
        -> unit
     val searchSetWrapAround :
       'a class
@@ -126,6 +141,10 @@ signature VTE_TERMINAL =
        -> Gdk.RgbaRecord.t option
        -> unit
     val setColorCursor :
+      'a class
+       -> Gdk.RgbaRecord.t option
+       -> unit
+    val setColorCursorForeground :
       'a class
        -> Gdk.RgbaRecord.t option
        -> unit
@@ -200,6 +219,10 @@ signature VTE_TERMINAL =
       'a class
        -> bool
        -> unit
+    val setScrollSpeed :
+      'a class
+       -> LargeInt.int
+       -> unit
     val setScrollbackLines :
       'a class
        -> LargeInt.int
@@ -207,6 +230,10 @@ signature VTE_TERMINAL =
     val setSize :
       'a class
        -> LargeInt.int * LargeInt.int
+       -> unit
+    val setWordCharExceptions :
+      'a class
+       -> string
        -> unit
     val unselectAll : 'a class -> unit
     val watchChild :
@@ -238,6 +265,7 @@ signature VTE_TERMINAL =
     val lowerWindowSig : (unit -> unit) -> 'a class Signal.t
     val maximizeWindowSig : (unit -> unit) -> 'a class Signal.t
     val moveWindowSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.t
+    val notificationReceivedSig : (string * string option -> unit) -> 'a class Signal.t
     val pasteClipboardSig : (unit -> unit) -> 'a class Signal.t
     val raiseWindowSig : (unit -> unit) -> 'a class Signal.t
     val refreshWindowSig : (unit -> unit) -> 'a class Signal.t
@@ -268,6 +296,8 @@ signature VTE_TERMINAL =
     val rewrapOnResizeProp : ('a class, bool, bool) Property.readwrite
     val scrollOnKeystrokeProp : ('a class, bool, bool) Property.readwrite
     val scrollOnOutputProp : ('a class, bool, bool) Property.readwrite
+    val scrollSpeedProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val scrollbackLinesProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val windowTitleProp : ('a class, string option) Property.readonly
+    val wordCharExceptionsProp : ('a class, string option) Property.readonly
   end

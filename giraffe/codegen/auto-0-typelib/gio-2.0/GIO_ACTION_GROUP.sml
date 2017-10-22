@@ -34,24 +34,33 @@ signature GIO_ACTION_GROUP =
     val getActionParameterType :
       'a class
        -> string
-       -> GLib.VariantTypeRecord.t
+       -> GLib.VariantTypeRecord.t option
     val getActionState :
       'a class
        -> string
-       -> GLib.VariantRecord.t
+       -> GLib.VariantRecord.t option
     val getActionStateHint :
       'a class
        -> string
-       -> GLib.VariantRecord.t
+       -> GLib.VariantRecord.t option
     val getActionStateType :
       'a class
        -> string
-       -> GLib.VariantTypeRecord.t
+       -> GLib.VariantTypeRecord.t option
     val hasAction :
       'a class
        -> string
        -> bool
     val listActions : 'a class -> string list
+    val queryAction :
+      'a class
+       -> string
+       -> (bool
+            * GLib.VariantTypeRecord.t
+            * GLib.VariantTypeRecord.t
+            * GLib.VariantRecord.t
+            * GLib.VariantRecord.t)
+            option
     val actionAddedSig : (string -> unit) -> 'a class Signal.t
     val actionEnabledChangedSig : (string * bool -> unit) -> 'a class Signal.t
     val actionRemovedSig : (string -> unit) -> 'a class Signal.t

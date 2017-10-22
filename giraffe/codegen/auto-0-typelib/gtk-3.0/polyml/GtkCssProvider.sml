@@ -41,6 +41,7 @@ structure GtkCssProvider :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
+      val loadFromResource_ = call (getSymbol "gtk_css_provider_load_from_resource") (GtkCssProviderClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val toString_ = call (getSymbol "gtk_css_provider_to_string") (GtkCssProviderClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type 'a class = 'a GtkCssProviderClass.class
@@ -98,5 +99,6 @@ structure GtkCssProvider :>
            & path
            & []
         )
+    fun loadFromResource self resourcePath = (GtkCssProviderClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) loadFromResource_ (self & resourcePath)
     fun toString self = (GtkCssProviderClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
   end

@@ -9,11 +9,13 @@ signature G_LIB_REGEX =
       string
        * regex_compile_flags_t
        * regex_match_flags_t
-       -> t
+       -> t option
     val getCaptureCount : t -> LargeInt.int
     val getCompileFlags : t -> regex_compile_flags_t
+    val getHasCrOrLf : t -> bool
     val getMatchFlags : t -> regex_match_flags_t
     val getMaxBackref : t -> LargeInt.int
+    val getMaxLookbehind : t -> LargeInt.int
     val getPattern : t -> string
     val getStringNumber :
       t
@@ -53,6 +55,17 @@ signature G_LIB_REGEX =
            * string
            * regex_match_flags_t
        -> string
+    val split :
+      t
+       -> string * regex_match_flags_t
+       -> string list
+    val splitFull :
+      t
+       -> string list
+           * LargeInt.int
+           * regex_match_flags_t
+           * LargeInt.int
+       -> string list
     val checkReplacement : string -> bool
     val escapeNul : string * LargeInt.int -> string
     val matchSimple :
@@ -61,4 +74,10 @@ signature G_LIB_REGEX =
        * regex_compile_flags_t
        * regex_match_flags_t
        -> bool
+    val splitSimple :
+      string
+       * string
+       * regex_compile_flags_t
+       * regex_match_flags_t
+       -> string list
   end

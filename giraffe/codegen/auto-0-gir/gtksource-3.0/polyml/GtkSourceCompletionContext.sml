@@ -9,7 +9,7 @@ structure GtkSourceCompletionContext :>
     in
       val getType_ = call (getSymbol "gtk_source_completion_context_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getActivation_ = call (getSymbol "gtk_source_completion_context_get_activation") (GtkSourceCompletionContextClass.PolyML.cPtr --> GtkSourceCompletionActivation.PolyML.cVal)
-      val getIter_ = call (getSymbol "gtk_source_completion_context_get_iter") (GtkSourceCompletionContextClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> cVoid)
+      val getIter_ = call (getSymbol "gtk_source_completion_context_get_iter") (GtkSourceCompletionContextClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a GtkSourceCompletionContextClass.class
     type completion_activation_t = GtkSourceCompletionActivation.t
@@ -19,9 +19,9 @@ structure GtkSourceCompletionContext :>
     fun getActivation self = (GtkSourceCompletionContextClass.FFI.withPtr ---> GtkSourceCompletionActivation.FFI.fromVal) getActivation_ self
     fun getIter self =
       let
-        val iter & () = (GtkSourceCompletionContextClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withNewPtr ---> GtkTextIterRecord.FFI.fromPtr true && I) getIter_ (self & ())
+        val iter & retVal = (GtkSourceCompletionContextClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withNewPtr ---> GtkTextIterRecord.FFI.fromPtr true && GBool.FFI.fromVal) getIter_ (self & ())
       in
-        iter
+        if retVal then SOME iter else NONE
       end
     local
       open ClosureMarshal Signal

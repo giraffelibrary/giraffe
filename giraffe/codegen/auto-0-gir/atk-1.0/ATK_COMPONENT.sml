@@ -14,8 +14,20 @@ signature ATK_COMPONENT =
            * coord_type_t
        -> bool
     val getAlpha : 'a class -> real
+    val getExtents :
+      'a class
+       -> coord_type_t
+       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
     val getLayer : 'a class -> layer_t
     val getMdiZorder : 'a class -> LargeInt.int
+    val getPosition :
+      'a class
+       -> coord_type_t
+       -> LargeInt.int * LargeInt.int
+    val getSize : 'a class -> LargeInt.int * LargeInt.int
     val grabFocus : 'a class -> bool
     val refAccessibleAtPoint :
       'a class

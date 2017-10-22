@@ -1,6 +1,7 @@
 structure GioBufferedOutputStream :>
   GIO_BUFFERED_OUTPUT_STREAM
     where type 'a class = 'a GioBufferedOutputStreamClass.class
+    where type 'a seekable_class = 'a GioSeekableClass.class
     where type 'a output_stream_class = 'a GioOutputStreamClass.class =
   struct
     local
@@ -15,8 +16,10 @@ structure GioBufferedOutputStream :>
       val setBufferSize_ = call (getSymbol "g_buffered_output_stream_set_buffer_size") (GioBufferedOutputStreamClass.PolyML.cPtr &&> GUInt64.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GioBufferedOutputStreamClass.class
+    type 'a seekable_class = 'a GioSeekableClass.class
     type 'a output_stream_class = 'a GioOutputStreamClass.class
     type t = base class
+    fun asSeekable self = (GObjectObjectClass.FFI.withPtr ---> GioSeekableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new baseStream = (GioOutputStreamClass.FFI.withPtr ---> GioBufferedOutputStreamClass.FFI.fromPtr true) new_ baseStream
     fun newSized (baseStream, size) = (GioOutputStreamClass.FFI.withPtr &&&> GUInt64.FFI.withVal ---> GioBufferedOutputStreamClass.FFI.fromPtr true) newSized_ (baseStream & size)

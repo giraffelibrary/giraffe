@@ -5,6 +5,12 @@ structure GtkTreeModel :>
     where type tree_iter_t = GtkTreeIterRecord.t
     where type tree_path_t = GtkTreePathRecord.t =
   struct
+    structure GIntCVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GIntType
+        structure ElemSequence = CValueVectorSequence(GIntType)
+      )
+    structure GIntCVectorN = CVectorN(GIntCVectorNType)
     local
       open PolyMLFFI
     in
@@ -93,6 +99,16 @@ structure GtkTreeModel :>
             GtkTreeModelClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cPtr
+             --> cVoid
+          )
+      val rowsReorderedWithLength_ =
+        call (getSymbol "gtk_tree_model_rows_reordered_with_length")
+          (
+            GtkTreeModelClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cOptPtr
+             &&> GIntCVectorN.PolyML.cInPtr
+             &&> GInt.PolyML.cVal
              --> cVoid
           )
       val sortNewWithModel_ = call (getSymbol "gtk_tree_model_sort_new_with_model") (GtkTreeModelClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
@@ -272,6 +288,35 @@ structure GtkTreeModel :>
            & path
            & iter
         )
+    fun rowsReorderedWithLength
+      self
+      (
+        path,
+        iter,
+        newOrder
+      ) =
+      let
+        val length = LargeInt.fromInt (GIntCVectorN.length newOrder)
+        val () =
+          (
+            GtkTreeModelClass.FFI.withPtr
+             &&&> GtkTreePathRecord.FFI.withPtr
+             &&&> GtkTreeIterRecord.FFI.withOptPtr
+             &&&> GIntCVectorN.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             ---> I
+          )
+            rowsReorderedWithLength_
+            (
+              self
+               & path
+               & iter
+               & newOrder
+               & length
+            )
+      in
+        ()
+      end
     fun sortNewWithModel self = (GtkTreeModelClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr true) sortNewWithModel_ self
     fun unrefNode self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> I) unrefNode_ (self & iter)
     local

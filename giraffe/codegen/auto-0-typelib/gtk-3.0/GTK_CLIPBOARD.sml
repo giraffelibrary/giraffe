@@ -7,10 +7,11 @@ signature GTK_CLIPBOARD =
     type t = base class
     val getType : unit -> GObject.Type.t
     val get : Gdk.AtomRecord.t -> base class
+    val getDefault : 'a Gdk.DisplayClass.class -> base class
     val getForDisplay : 'a Gdk.DisplayClass.class * Gdk.AtomRecord.t -> base class
     val clear : 'a class -> unit
     val getDisplay : 'a class -> base Gdk.DisplayClass.class
-    val getOwner : 'a class -> base GObject.ObjectClass.class
+    val getOwner : 'a class -> base GObject.ObjectClass.class option
     val setCanStore :
       'a class
        -> target_entry_t vector option
@@ -27,15 +28,15 @@ signature GTK_CLIPBOARD =
     val waitForContents :
       'a class
        -> Gdk.AtomRecord.t
-       -> selection_data_t
-    val waitForImage : 'a class -> base GdkPixbuf.PixbufClass.class
+       -> selection_data_t option
+    val waitForImage : 'a class -> base GdkPixbuf.PixbufClass.class option
     val waitForRichText :
       'a class
        -> 'b text_buffer_class
-       -> Word8Vector.vector * Gdk.AtomRecord.t
+       -> Word8Vector.vector option * Gdk.AtomRecord.t
     val waitForTargets : 'a class -> Gdk.AtomRecord.t vector option
-    val waitForText : 'a class -> string
-    val waitForUris : 'a class -> string list
+    val waitForText : 'a class -> string option
+    val waitForUris : 'a class -> string list option
     val waitIsImageAvailable : 'a class -> bool
     val waitIsRichTextAvailable :
       'a class

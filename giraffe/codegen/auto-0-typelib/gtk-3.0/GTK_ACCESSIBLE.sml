@@ -5,9 +5,10 @@ signature GTK_ACCESSIBLE =
     type t = base class
     val getType : unit -> GObject.Type.t
     val connectWidgetDestroyed : 'a class -> unit
-    val getWidget : 'a class -> base widget_class
+    val getWidget : 'a class -> base widget_class option
     val setWidget :
       'a class
-       -> 'b widget_class
+       -> 'b widget_class option
        -> unit
+    val widgetProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
   end

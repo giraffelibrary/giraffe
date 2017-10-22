@@ -8,6 +8,7 @@ signature GTK_IMAGE_TYPE =
     | ANIMATION
     | ICON_NAME
     | GICON
+    | SURFACE
     include
       ENUM
         where type t = enum

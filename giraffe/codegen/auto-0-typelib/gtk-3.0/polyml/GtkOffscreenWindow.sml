@@ -8,8 +8,8 @@ structure GtkOffscreenWindow :>
     in
       val getType_ = call (getSymbol "gtk_offscreen_window_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_offscreen_window_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val getPixbuf_ = call (getSymbol "gtk_offscreen_window_get_pixbuf") (GtkOffscreenWindowClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
-      val getSurface_ = call (getSymbol "gtk_offscreen_window_get_surface") (GtkOffscreenWindowClass.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
+      val getPixbuf_ = call (getSymbol "gtk_offscreen_window_get_pixbuf") (GtkOffscreenWindowClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cOptPtr)
+      val getSurface_ = call (getSymbol "gtk_offscreen_window_get_surface") (GtkOffscreenWindowClass.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cOptPtr)
     end
     type 'a class = 'a GtkOffscreenWindowClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -18,6 +18,6 @@ structure GtkOffscreenWindow :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkOffscreenWindowClass.FFI.fromPtr false) new_ ()
-    fun getPixbuf self = (GtkOffscreenWindowClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) getPixbuf_ self
-    fun getSurface self = (GtkOffscreenWindowClass.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromPtr false) getSurface_ self
+    fun getPixbuf self = (GtkOffscreenWindowClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) getPixbuf_ self
+    fun getSurface self = (GtkOffscreenWindowClass.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromOptPtr false) getSurface_ self
   end

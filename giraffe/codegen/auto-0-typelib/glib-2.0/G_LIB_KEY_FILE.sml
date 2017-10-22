@@ -1,7 +1,10 @@
 signature G_LIB_KEY_FILE =
   sig
     type t
+    type bytes_t
     type key_file_flags_t
+    val getType : unit -> GObject.Type.t
+    val new : unit -> t
     val getBoolean :
       t
        -> string * string
@@ -12,7 +15,7 @@ signature G_LIB_KEY_FILE =
        -> bool vector
     val getComment :
       t
-       -> string * string
+       -> string option * string
        -> string
     val getDouble :
       t
@@ -22,6 +25,7 @@ signature G_LIB_KEY_FILE =
       t
        -> string * string
        -> real vector
+    val getGroups : t -> string list * LargeInt.int
     val getInt64 :
       t
        -> string * string
@@ -34,6 +38,10 @@ signature G_LIB_KEY_FILE =
       t
        -> string * string
        -> LargeInt.int vector
+    val getKeys :
+      t
+       -> string
+       -> string list * LargeInt.int
     val getLocaleString :
       t
        -> string
@@ -67,6 +75,10 @@ signature G_LIB_KEY_FILE =
       t
        -> string
        -> bool
+    val loadFromBytes :
+      t
+       -> bytes_t * key_file_flags_t
+       -> unit
     val loadFromData :
       t
        -> string
@@ -75,24 +87,21 @@ signature G_LIB_KEY_FILE =
        -> unit
     val loadFromDataDirs :
       t
+       -> string * key_file_flags_t
        -> string
-           * string
-           * key_file_flags_t
-       -> unit
     val loadFromDirs :
       t
        -> string
-           * string
-           * string
+           * string list
            * key_file_flags_t
-       -> unit
+       -> string
     val loadFromFile :
       t
        -> string * key_file_flags_t
        -> unit
     val removeComment :
       t
-       -> string * string
+       -> string option * string option
        -> unit
     val removeGroup :
       t
@@ -101,6 +110,10 @@ signature G_LIB_KEY_FILE =
     val removeKey :
       t
        -> string * string
+       -> unit
+    val saveToFile :
+      t
+       -> string
        -> unit
     val setBoolean :
       t
@@ -112,13 +125,12 @@ signature G_LIB_KEY_FILE =
       t
        -> string
            * string
-           * bool
-           * LargeInt.int
+           * bool vector
        -> unit
     val setComment :
       t
-       -> string
-           * string
+       -> string option
+           * string option
            * string
        -> unit
     val setDouble :
@@ -131,8 +143,7 @@ signature G_LIB_KEY_FILE =
       t
        -> string
            * string
-           * real
-           * LargeInt.int
+           * real vector
        -> unit
     val setInt64 :
       t
@@ -150,12 +161,11 @@ signature G_LIB_KEY_FILE =
       t
        -> string
            * string
-           * LargeInt.int
-           * LargeInt.int
+           * LargeInt.int vector
        -> unit
     val setListSeparator :
       t
-       -> Word8.word
+       -> LargeInt.int
        -> unit
     val setLocaleString :
       t
@@ -169,8 +179,7 @@ signature G_LIB_KEY_FILE =
        -> string
            * string
            * string
-           * string
-           * LargeInt.int
+           * string list
        -> unit
     val setString :
       t
@@ -196,4 +205,5 @@ signature G_LIB_KEY_FILE =
            * string
            * string
        -> unit
+    val toData : t -> string * LargeInt.int
   end

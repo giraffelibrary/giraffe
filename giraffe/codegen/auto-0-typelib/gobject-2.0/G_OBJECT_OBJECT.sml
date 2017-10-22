@@ -2,12 +2,30 @@ signature G_OBJECT_OBJECT =
   sig
     type 'a class
     type type_t
+    type 'a binding_class
+    type binding_flags_t
     type value_t
     type closure_t
     type 'a param_spec_class
     type 'a signal_t
     type t = base class
     val getType : unit -> type_t
+    val bindProperty :
+      'a class
+       -> string
+           * 'b class
+           * string
+           * binding_flags_t
+       -> base binding_class
+    val bindPropertyFull :
+      'a class
+       -> string
+           * 'b class
+           * string
+           * binding_flags_t
+           * closure_t
+           * closure_t
+       -> base binding_class
     val freezeNotify : 'a class -> unit
     val getProperty :
       'a class

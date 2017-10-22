@@ -5,6 +5,12 @@ structure GLibRegex :>
     where type regex_match_flags_t = GLibRegexMatchFlags.t
     where type regex_compile_flags_t = GLibRegexCompileFlags.t =
   struct
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
     structure Utf8CVectorNType =
       CPointerCVectorNType(
         structure CElemType = Utf8.C.ArrayType
@@ -26,8 +32,10 @@ structure GLibRegex :>
           )
       val getCaptureCount_ = call (getSymbol "g_regex_get_capture_count") (GLibRegexRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val getCompileFlags_ = call (getSymbol "g_regex_get_compile_flags") (GLibRegexRecord.PolyML.cPtr --> GLibRegexCompileFlags.PolyML.cVal)
+      val getHasCrOrLf_ = call (getSymbol "g_regex_get_has_cr_or_lf") (GLibRegexRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getMatchFlags_ = call (getSymbol "g_regex_get_match_flags") (GLibRegexRecord.PolyML.cPtr --> GLibRegexMatchFlags.PolyML.cVal)
       val getMaxBackref_ = call (getSymbol "g_regex_get_max_backref") (GLibRegexRecord.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getMaxLookbehind_ = call (getSymbol "g_regex_get_max_lookbehind") (GLibRegexRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val getPattern_ = call (getSymbol "g_regex_get_pattern") (GLibRegexRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getStringNumber_ = call (getSymbol "g_regex_get_string_number") (GLibRegexRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GInt.PolyML.cVal)
       val match_ =
@@ -96,6 +104,26 @@ structure GLibRegex :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
+      val split_ =
+        call (getSymbol "g_regex_split")
+          (
+            GLibRegexRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibRegexMatchFlags.PolyML.cVal
+             --> Utf8CVector.PolyML.cOutPtr
+          )
+      val splitFull_ =
+        call (getSymbol "g_regex_split_full")
+          (
+            GLibRegexRecord.PolyML.cPtr
+             &&> Utf8CVectorN.PolyML.cInPtr
+             &&> GSSize.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GLibRegexMatchFlags.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> Utf8CVector.PolyML.cOutPtr
+          )
       val checkReplacement_ =
         call (getSymbol "g_regex_check_replacement")
           (
@@ -113,6 +141,15 @@ structure GLibRegex :>
              &&> GLibRegexCompileFlags.PolyML.cVal
              &&> GLibRegexMatchFlags.PolyML.cVal
              --> GBool.PolyML.cVal
+          )
+      val splitSimple_ =
+        call (getSymbol "g_regex_split_simple")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibRegexCompileFlags.PolyML.cVal
+             &&> GLibRegexMatchFlags.PolyML.cVal
+             --> Utf8CVector.PolyML.cOutPtr
           )
     end
     type t = GLibRegexRecord.t
@@ -142,8 +179,10 @@ structure GLibRegex :>
         )
     fun getCaptureCount self = (GLibRegexRecord.FFI.withPtr ---> GInt.FFI.fromVal) getCaptureCount_ self
     fun getCompileFlags self = (GLibRegexRecord.FFI.withPtr ---> GLibRegexCompileFlags.FFI.fromVal) getCompileFlags_ self
+    fun getHasCrOrLf self = (GLibRegexRecord.FFI.withPtr ---> GBool.FFI.fromVal) getHasCrOrLf_ self
     fun getMatchFlags self = (GLibRegexRecord.FFI.withPtr ---> GLibRegexMatchFlags.FFI.fromVal) getMatchFlags_ self
     fun getMaxBackref self = (GLibRegexRecord.FFI.withPtr ---> GInt.FFI.fromVal) getMaxBackref_ self
+    fun getMaxLookbehind self = (GLibRegexRecord.FFI.withPtr ---> GInt.FFI.fromVal) getMaxLookbehind_ self
     fun getPattern self = (GLibRegexRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPattern_ self
     fun getStringNumber self name = (GLibRegexRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) getStringNumber_ (self & name)
     fun match self (string, matchOptions) =
@@ -320,6 +359,53 @@ structure GLibRegex :>
       in
         retVal
       end
+    fun split self (string, matchOptions) =
+      (
+        GLibRegexRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibRegexMatchFlags.FFI.withVal
+         ---> Utf8CVector.FFI.fromPtr 2
+      )
+        split_
+        (
+          self
+           & string
+           & matchOptions
+        )
+    fun splitFull
+      self
+      (
+        string,
+        startPosition,
+        matchOptions,
+        maxTokens
+      ) =
+      let
+        val stringLen = LargeInt.fromInt (Utf8CVectorN.length string)
+        val retVal =
+          (
+            GLibRegexRecord.FFI.withPtr
+             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> GSSize.FFI.withVal
+             &&&> GInt.FFI.withVal
+             &&&> GLibRegexMatchFlags.FFI.withVal
+             &&&> GInt.FFI.withVal
+             &&&> GLibErrorRecord.handleError
+             ---> Utf8CVector.FFI.fromPtr 2
+          )
+            splitFull_
+            (
+              self
+               & string
+               & stringLen
+               & startPosition
+               & matchOptions
+               & maxTokens
+               & []
+            )
+      in
+        retVal
+      end
     fun checkReplacement replacement =
       let
         val hasReferences & () =
@@ -354,6 +440,27 @@ structure GLibRegex :>
          ---> GBool.FFI.fromVal
       )
         matchSimple_
+        (
+          pattern
+           & string
+           & compileOptions
+           & matchOptions
+        )
+    fun splitSimple
+      (
+        pattern,
+        string,
+        compileOptions,
+        matchOptions
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibRegexCompileFlags.FFI.withVal
+         &&&> GLibRegexMatchFlags.FFI.withVal
+         ---> Utf8CVector.FFI.fromPtr 2
+      )
+        splitSimple_
         (
           pattern
            & string

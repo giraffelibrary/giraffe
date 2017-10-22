@@ -10,8 +10,8 @@ structure GtkStyleProvider :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_style_provider_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val getIconFactory_ = call (getSymbol "gtk_style_provider_get_icon_factory") (GtkStyleProviderClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> GtkIconFactoryClass.PolyML.cPtr)
-      val getStyle_ = call (getSymbol "gtk_style_provider_get_style") (GtkStyleProviderClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> GtkStylePropertiesClass.PolyML.cPtr)
+      val getIconFactory_ = call (getSymbol "gtk_style_provider_get_icon_factory") (GtkStyleProviderClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> GtkIconFactoryClass.PolyML.cOptPtr)
+      val getStyle_ = call (getSymbol "gtk_style_provider_get_style") (GtkStyleProviderClass.PolyML.cPtr &&> GtkWidgetPathRecord.PolyML.cPtr --> GtkStylePropertiesClass.PolyML.cOptPtr)
       val getStyleProperty_ =
         call (getSymbol "gtk_style_provider_get_style_property")
           (
@@ -30,8 +30,8 @@ structure GtkStyleProvider :>
     type widget_path_t = GtkWidgetPathRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getIconFactory self path = (GtkStyleProviderClass.FFI.withPtr &&&> GtkWidgetPathRecord.FFI.withPtr ---> GtkIconFactoryClass.FFI.fromPtr false) getIconFactory_ (self & path)
-    fun getStyle self path = (GtkStyleProviderClass.FFI.withPtr &&&> GtkWidgetPathRecord.FFI.withPtr ---> GtkStylePropertiesClass.FFI.fromPtr true) getStyle_ (self & path)
+    fun getIconFactory self path = (GtkStyleProviderClass.FFI.withPtr &&&> GtkWidgetPathRecord.FFI.withPtr ---> GtkIconFactoryClass.FFI.fromOptPtr false) getIconFactory_ (self & path)
+    fun getStyle self path = (GtkStyleProviderClass.FFI.withPtr &&&> GtkWidgetPathRecord.FFI.withPtr ---> GtkStylePropertiesClass.FFI.fromOptPtr true) getStyle_ (self & path)
     fun getStyleProperty
       self
       (

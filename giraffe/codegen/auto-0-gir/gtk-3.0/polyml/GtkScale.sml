@@ -33,6 +33,7 @@ structure GtkScale :>
       val clearMarks_ = call (getSymbol "gtk_scale_clear_marks") (GtkScaleClass.PolyML.cPtr --> cVoid)
       val getDigits_ = call (getSymbol "gtk_scale_get_digits") (GtkScaleClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getDrawValue_ = call (getSymbol "gtk_scale_get_draw_value") (GtkScaleClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getHasOrigin_ = call (getSymbol "gtk_scale_get_has_origin") (GtkScaleClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getLayout_ = call (getSymbol "gtk_scale_get_layout") (GtkScaleClass.PolyML.cPtr --> PangoLayoutClass.PolyML.cPtr)
       val getLayoutOffsets_ =
         call (getSymbol "gtk_scale_get_layout_offsets")
@@ -45,6 +46,7 @@ structure GtkScale :>
       val getValuePos_ = call (getSymbol "gtk_scale_get_value_pos") (GtkScaleClass.PolyML.cPtr --> GtkPositionType.PolyML.cVal)
       val setDigits_ = call (getSymbol "gtk_scale_set_digits") (GtkScaleClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setDrawValue_ = call (getSymbol "gtk_scale_set_draw_value") (GtkScaleClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setHasOrigin_ = call (getSymbol "gtk_scale_set_has_origin") (GtkScaleClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setValuePos_ = call (getSymbol "gtk_scale_set_value_pos") (GtkScaleClass.PolyML.cPtr &&> GtkPositionType.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkScaleClass.class
@@ -104,6 +106,7 @@ structure GtkScale :>
     fun clearMarks self = (GtkScaleClass.FFI.withPtr ---> I) clearMarks_ self
     fun getDigits self = (GtkScaleClass.FFI.withPtr ---> GInt.FFI.fromVal) getDigits_ self
     fun getDrawValue self = (GtkScaleClass.FFI.withPtr ---> GBool.FFI.fromVal) getDrawValue_ self
+    fun getHasOrigin self = (GtkScaleClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasOrigin_ self
     fun getLayout self = (GtkScaleClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self
     fun getLayoutOffsets self =
       let
@@ -130,6 +133,7 @@ structure GtkScale :>
     fun getValuePos self = (GtkScaleClass.FFI.withPtr ---> GtkPositionType.FFI.fromVal) getValuePos_ self
     fun setDigits self digits = (GtkScaleClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setDigits_ (self & digits)
     fun setDrawValue self drawValue = (GtkScaleClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDrawValue_ (self & drawValue)
+    fun setHasOrigin self hasOrigin = (GtkScaleClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasOrigin_ (self & hasOrigin)
     fun setValuePos self pos = (GtkScaleClass.FFI.withPtr &&&> GtkPositionType.FFI.withVal ---> I) setValuePos_ (self & pos)
     local
       open ClosureMarshal Signal
@@ -148,6 +152,11 @@ structure GtkScale :>
         {
           get = fn x => get "draw-value" boolean x,
           set = fn x => set "draw-value" boolean x
+        }
+      val hasOriginProp =
+        {
+          get = fn x => get "has-origin" boolean x,
+          set = fn x => set "has-origin" boolean x
         }
       val valuePosProp =
         {

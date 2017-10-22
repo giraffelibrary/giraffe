@@ -21,7 +21,7 @@ structure GtkSourceCompletion :>
       val blockInteractive_ = call (getSymbol "gtk_source_completion_block_interactive") (GtkSourceCompletionClass.PolyML.cPtr --> cVoid)
       val createContext_ = call (getSymbol "gtk_source_completion_create_context") (GtkSourceCompletionClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cOptPtr --> GtkSourceCompletionContextClass.PolyML.cPtr)
       val getInfoWindow_ = call (getSymbol "gtk_source_completion_get_info_window") (GtkSourceCompletionClass.PolyML.cPtr --> GtkSourceCompletionInfoClass.PolyML.cPtr)
-      val getView_ = call (getSymbol "gtk_source_completion_get_view") (GtkSourceCompletionClass.PolyML.cPtr --> GtkSourceViewClass.PolyML.cPtr)
+      val getView_ = call (getSymbol "gtk_source_completion_get_view") (GtkSourceCompletionClass.PolyML.cPtr --> GtkSourceViewClass.PolyML.cOptPtr)
       val hide_ = call (getSymbol "gtk_source_completion_hide") (GtkSourceCompletionClass.PolyML.cPtr --> cVoid)
       val moveWindow_ = call (getSymbol "gtk_source_completion_move_window") (GtkSourceCompletionClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> cVoid)
       val removeProvider_ =
@@ -40,6 +40,7 @@ structure GtkSourceCompletion :>
     type 'a completion_context_class = 'a GtkSourceCompletionContextClass.class
     type 'a view_class = 'a GtkSourceViewClass.class
     type t = base class
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun addProvider self provider =
       (
@@ -55,9 +56,9 @@ structure GtkSourceCompletion :>
            & []
         )
     fun blockInteractive self = (GtkSourceCompletionClass.FFI.withPtr ---> I) blockInteractive_ self
-    fun createContext self position = (GtkSourceCompletionClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withOptPtr ---> GtkSourceCompletionContextClass.FFI.fromPtr true) createContext_ (self & position)
+    fun createContext self position = (GtkSourceCompletionClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withOptPtr ---> GtkSourceCompletionContextClass.FFI.fromPtr false) createContext_ (self & position)
     fun getInfoWindow self = (GtkSourceCompletionClass.FFI.withPtr ---> GtkSourceCompletionInfoClass.FFI.fromPtr false) getInfoWindow_ self
-    fun getView self = (GtkSourceCompletionClass.FFI.withPtr ---> GtkSourceViewClass.FFI.fromPtr false) getView_ self
+    fun getView self = (GtkSourceCompletionClass.FFI.withPtr ---> GtkSourceViewClass.FFI.fromOptPtr false) getView_ self
     fun hide self = (GtkSourceCompletionClass.FFI.withPtr ---> I) hide_ self
     fun moveWindow self iter = (GtkSourceCompletionClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> I) moveWindow_ (self & iter)
     fun removeProvider self provider =

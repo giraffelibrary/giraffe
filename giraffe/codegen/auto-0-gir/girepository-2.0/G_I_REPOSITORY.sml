@@ -15,7 +15,6 @@ signature G_I_REPOSITORY =
     structure TypeTag : G_I_REPOSITORY_TYPE_TAG
     structure VFuncInfoFlags : G_I_REPOSITORY_V_FUNC_INFO_FLAGS
     structure NvokeError : G_I_REPOSITORY_NVOKE_ERROR
-    exception NvokeError of NvokeError.t
     structure ArgInfoRecord : G_I_REPOSITORY_ARG_INFO_RECORD
     structure CallableInfoRecord : G_I_REPOSITORY_CALLABLE_INFO_RECORD
     structure CallbackInfoRecord : G_I_REPOSITORY_CALLBACK_INFO_RECORD
@@ -52,13 +51,14 @@ signature G_I_REPOSITORY =
     val argInfoIsSkip : ArgInfoRecord.t -> bool
     val argInfoLoadType : ArgInfoRecord.t -> TypeInfoRecord.t
     val argInfoMayBeNull : ArgInfoRecord.t -> bool
-    val baseInfoGetType : BaseInfoRecord.t -> InfoType.t
+    val callableInfoCanThrowGerror : CallableInfoRecord.t -> bool
     val callableInfoGetArg : CallableInfoRecord.t * LargeInt.int -> ArgInfoRecord.t
     val callableInfoGetCallerOwns : CallableInfoRecord.t -> Transfer.t
+    val callableInfoGetInstanceOwnershipTransfer : CallableInfoRecord.t -> Transfer.t
     val callableInfoGetNArgs : CallableInfoRecord.t -> LargeInt.int
     val callableInfoGetReturnAttribute : CallableInfoRecord.t * string -> string
     val callableInfoGetReturnType : CallableInfoRecord.t -> TypeInfoRecord.t
-    val callableInfoIterateReturnAttributes : CallableInfoRecord.t * AttributeIterRecord.t -> (string * string) option
+    val callableInfoIsMethod : CallableInfoRecord.t -> bool
     val callableInfoLoadArg : CallableInfoRecord.t * LargeInt.int -> ArgInfoRecord.t
     val callableInfoLoadReturnType : CallableInfoRecord.t -> TypeInfoRecord.t
     val callableInfoMayReturnNull : CallableInfoRecord.t -> bool
@@ -86,6 +86,7 @@ signature G_I_REPOSITORY =
        -> BaseInfoRecord.t
     val infoTypeToString : InfoType.t -> string
     val interfaceInfoFindMethod : InterfaceInfoRecord.t * string -> FunctionInfoRecord.t
+    val interfaceInfoFindSignal : InterfaceInfoRecord.t * string -> SignalInfoRecord.t
     val interfaceInfoFindVfunc : InterfaceInfoRecord.t * string -> VFuncInfoRecord.t
     val interfaceInfoGetConstant : InterfaceInfoRecord.t * LargeInt.int -> ConstantInfoRecord.t
     val interfaceInfoGetIfaceStruct : InterfaceInfoRecord.t -> StructInfoRecord.t
@@ -103,7 +104,9 @@ signature G_I_REPOSITORY =
     val invokeErrorQuark : unit -> GLib.Quark.t
     val objectInfoFindMethod : ObjectInfoRecord.t * string -> FunctionInfoRecord.t
     val objectInfoFindMethodUsingInterfaces : ObjectInfoRecord.t * string -> FunctionInfoRecord.t * ObjectInfoRecord.t
+    val objectInfoFindSignal : ObjectInfoRecord.t * string -> SignalInfoRecord.t
     val objectInfoFindVfunc : ObjectInfoRecord.t * string -> VFuncInfoRecord.t
+    val objectInfoFindVfuncUsingInterfaces : ObjectInfoRecord.t * string -> VFuncInfoRecord.t * ObjectInfoRecord.t
     val objectInfoGetAbstract : ObjectInfoRecord.t -> bool
     val objectInfoGetClassStruct : ObjectInfoRecord.t -> StructInfoRecord.t
     val objectInfoGetConstant : ObjectInfoRecord.t * LargeInt.int -> ConstantInfoRecord.t
@@ -136,6 +139,7 @@ signature G_I_REPOSITORY =
     val signalInfoGetClassClosure : SignalInfoRecord.t -> VFuncInfoRecord.t
     val signalInfoGetFlags : SignalInfoRecord.t -> GObject.SignalFlags.t
     val signalInfoTrueStopsEmit : SignalInfoRecord.t -> bool
+    val structInfoFindField : StructInfoRecord.t * string -> FieldInfoRecord.t
     val structInfoFindMethod : StructInfoRecord.t * string -> FunctionInfoRecord.t
     val structInfoGetAlignment : StructInfoRecord.t -> LargeInt.int
     val structInfoGetField : StructInfoRecord.t * LargeInt.int -> FieldInfoRecord.t

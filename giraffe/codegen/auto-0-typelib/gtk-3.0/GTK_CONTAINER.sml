@@ -25,6 +25,10 @@ signature GTK_CONTAINER =
       'a class
        -> 'b widget_class * string
        -> unit
+    val childNotifyByPspec :
+      'a class
+       -> 'b widget_class * 'c GObject.ParamSpecClass.class
+       -> unit
     val childSetProperty :
       'a class
        -> 'b widget_class
@@ -33,8 +37,8 @@ signature GTK_CONTAINER =
        -> unit
     val getBorderWidth : 'a class -> LargeInt.int
     val getFocusChild : 'a class -> base widget_class option
-    val getFocusHadjustment : 'a class -> base adjustment_class
-    val getFocusVadjustment : 'a class -> base adjustment_class
+    val getFocusHadjustment : 'a class -> base adjustment_class option
+    val getFocusVadjustment : 'a class -> base adjustment_class option
     val getPathForChild :
       'a class
        -> 'b widget_class

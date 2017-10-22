@@ -9,10 +9,7 @@ signature PANGO_LAYOUT_ITER =
     val atLastLine : t -> bool
     val copy : t -> t
     val getBaseline : t -> LargeInt.int
-    val getCharExtents :
-      t
-       -> rectangle_t
-       -> unit
+    val getCharExtents : t -> rectangle_t
     val getClusterExtents : t -> rectangle_t * rectangle_t
     val getIndex : t -> LargeInt.int
     val getLayout : t -> base layout_class

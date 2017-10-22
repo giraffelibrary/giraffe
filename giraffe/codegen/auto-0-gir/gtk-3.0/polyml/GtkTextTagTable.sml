@@ -9,7 +9,7 @@ structure GtkTextTagTable :>
     in
       val getType_ = call (getSymbol "gtk_text_tag_table_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_text_tag_table_new") (cVoid --> GtkTextTagTableClass.PolyML.cPtr)
-      val add_ = call (getSymbol "gtk_text_tag_table_add") (GtkTextTagTableClass.PolyML.cPtr &&> GtkTextTagClass.PolyML.cPtr --> cVoid)
+      val add_ = call (getSymbol "gtk_text_tag_table_add") (GtkTextTagTableClass.PolyML.cPtr &&> GtkTextTagClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSize_ = call (getSymbol "gtk_text_tag_table_get_size") (GtkTextTagTableClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val lookup_ = call (getSymbol "gtk_text_tag_table_lookup") (GtkTextTagTableClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkTextTagClass.PolyML.cPtr)
       val remove_ = call (getSymbol "gtk_text_tag_table_remove") (GtkTextTagTableClass.PolyML.cPtr &&> GtkTextTagClass.PolyML.cPtr --> cVoid)
@@ -21,7 +21,7 @@ structure GtkTextTagTable :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkTextTagTableClass.FFI.fromPtr true) new_ ()
-    fun add self tag = (GtkTextTagTableClass.FFI.withPtr &&&> GtkTextTagClass.FFI.withPtr ---> I) add_ (self & tag)
+    fun add self tag = (GtkTextTagTableClass.FFI.withPtr &&&> GtkTextTagClass.FFI.withPtr ---> GBool.FFI.fromVal) add_ (self & tag)
     fun getSize self = (GtkTextTagTableClass.FFI.withPtr ---> GInt.FFI.fromVal) getSize_ self
     fun lookup self name = (GtkTextTagTableClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkTextTagClass.FFI.fromPtr false) lookup_ (self & name)
     fun remove self tag = (GtkTextTagTableClass.FFI.withPtr &&&> GtkTextTagClass.FFI.withPtr ---> I) remove_ (self & tag)

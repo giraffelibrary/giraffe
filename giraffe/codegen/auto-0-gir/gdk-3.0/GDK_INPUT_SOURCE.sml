@@ -6,6 +6,10 @@ signature GDK_INPUT_SOURCE =
     | ERASER
     | CURSOR
     | KEYBOARD
+    | TOUCHSCREEN
+    | TOUCHPAD
+    | TRACKPOINT
+    | TABLET_PAD
     include
       ENUM
         where type t = enum

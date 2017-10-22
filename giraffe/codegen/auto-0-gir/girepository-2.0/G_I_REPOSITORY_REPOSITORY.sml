@@ -9,6 +9,7 @@ signature G_I_REPOSITORY_REPOSITORY =
     val getType : unit -> GObject.Type.t
     val dump : string -> unit
     val getDefault : unit -> base class
+    val prependLibraryPath : string -> unit
     val prependSearchPath : string -> unit
     val findByErrorDomain :
       'a class
@@ -23,6 +24,10 @@ signature G_I_REPOSITORY_REPOSITORY =
        -> string
        -> string
     val getDependencies :
+      'a class
+       -> string
+       -> string list
+    val getImmediateDependencies :
       'a class
        -> string
        -> string list

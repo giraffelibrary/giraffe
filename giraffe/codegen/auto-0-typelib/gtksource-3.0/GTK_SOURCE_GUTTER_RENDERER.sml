@@ -8,22 +8,22 @@ signature GTK_SOURCE_GUTTER_RENDERER =
     val activate :
       'a class
        -> Gtk.TextIterRecord.t
-           * Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
            * 'b Gdk.Event.union
        -> unit
     val begin :
       'a class
        -> Cairo.ContextRecord.t
-           * Cairo.RectangleIntRecord.t
-           * Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
+           * Gdk.RectangleRecord.t
            * Gtk.TextIterRecord.t
            * Gtk.TextIterRecord.t
        -> unit
     val draw :
       'a class
        -> Cairo.ContextRecord.t
-           * Cairo.RectangleIntRecord.t
-           * Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
+           * Gdk.RectangleRecord.t
            * Gtk.TextIterRecord.t
            * Gtk.TextIterRecord.t
            * gutter_renderer_state_t
@@ -40,7 +40,7 @@ signature GTK_SOURCE_GUTTER_RENDERER =
     val queryActivatable :
       'a class
        -> Gtk.TextIterRecord.t
-           * Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
            * 'b Gdk.Event.union
        -> bool
     val queryData :
@@ -52,7 +52,7 @@ signature GTK_SOURCE_GUTTER_RENDERER =
     val queryTooltip :
       'a class
        -> Gtk.TextIterRecord.t
-           * Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
            * LargeInt.int
            * LargeInt.int
            * 'b Gtk.TooltipClass.class
@@ -84,13 +84,13 @@ signature GTK_SOURCE_GUTTER_RENDERER =
        -> unit
     val activateSig :
       (Gtk.TextIterRecord.t
-        * Cairo.RectangleIntRecord.t
+        * Gdk.RectangleRecord.t
         * base Gdk.Event.union
         -> unit)
        -> 'a class Signal.t
     val queryActivatableSig :
       (Gtk.TextIterRecord.t
-        * Cairo.RectangleIntRecord.t
+        * Gdk.RectangleRecord.t
         * base Gdk.Event.union
         -> bool)
        -> 'a class Signal.t
@@ -102,7 +102,7 @@ signature GTK_SOURCE_GUTTER_RENDERER =
        -> 'a class Signal.t
     val queryTooltipSig :
       (Gtk.TextIterRecord.t
-        * Cairo.RectangleIntRecord.t
+        * Gdk.RectangleRecord.t
         * LargeInt.int
         * LargeInt.int
         * base Gtk.TooltipClass.class

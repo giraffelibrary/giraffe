@@ -7,11 +7,13 @@ structure GioDBusMessageFlags :> GIO_D_BUS_MESSAGE_FLAGS =
     end
     val NO_REPLY_EXPECTED = 0w1
     val NO_AUTO_START = 0w2
+    val ALLOW_INTERACTIVE_AUTHORIZATION = 0w4
     val allFlags =
       [
         NONE,
         NO_REPLY_EXPECTED,
-        NO_AUTO_START
+        NO_AUTO_START,
+        ALLOW_INTERACTIVE_AUTHORIZATION
       ]
     structure Flags =
       Flags(

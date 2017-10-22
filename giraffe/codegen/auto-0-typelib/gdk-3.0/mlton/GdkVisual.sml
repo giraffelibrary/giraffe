@@ -9,7 +9,7 @@ structure GdkVisual :>
     val getBest_ = _import "gdk_visual_get_best" : unit -> GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p;
     val getBestDepth_ = _import "gdk_visual_get_best_depth" : unit -> GInt32.FFI.val_;
     val getBestType_ = _import "gdk_visual_get_best_type" : unit -> GdkVisualType.FFI.val_;
-    val getBestWithBoth_ = fn x1 & x2 => (_import "gdk_visual_get_best_with_both" : GInt32.FFI.val_ * GdkVisualType.FFI.val_ -> GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p;) (x1, x2)
+    val getBestWithBoth_ = fn x1 & x2 => (_import "gdk_visual_get_best_with_both" : GInt32.FFI.val_ * GdkVisualType.FFI.val_ -> unit GdkVisualClass.FFI.p;) (x1, x2)
     val getBestWithDepth_ = _import "gdk_visual_get_best_with_depth" : GInt32.FFI.val_ -> GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p;
     val getBestWithType_ = _import "gdk_visual_get_best_with_type" : GdkVisualType.FFI.val_ -> GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p;
     val getSystem_ = _import "gdk_visual_get_system" : unit -> GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p;
@@ -88,7 +88,7 @@ structure GdkVisual :>
     fun getBest () = (I ---> GdkVisualClass.FFI.fromPtr false) getBest_ ()
     fun getBestDepth () = (I ---> GInt32.FFI.fromVal) getBestDepth_ ()
     fun getBestType () = (I ---> GdkVisualType.FFI.fromVal) getBestType_ ()
-    fun getBestWithBoth (depth, visualType) = (GInt32.FFI.withVal &&&> GdkVisualType.FFI.withVal ---> GdkVisualClass.FFI.fromPtr false) getBestWithBoth_ (depth & visualType)
+    fun getBestWithBoth (depth, visualType) = (GInt32.FFI.withVal &&&> GdkVisualType.FFI.withVal ---> GdkVisualClass.FFI.fromOptPtr false) getBestWithBoth_ (depth & visualType)
     fun getBestWithDepth depth = (GInt32.FFI.withVal ---> GdkVisualClass.FFI.fromPtr false) getBestWithDepth_ depth
     fun getBestWithType visualType = (GdkVisualType.FFI.withVal ---> GdkVisualClass.FFI.fromPtr false) getBestWithType_ visualType
     fun getSystem () = (I ---> GdkVisualClass.FFI.fromPtr false) getSystem_ ()

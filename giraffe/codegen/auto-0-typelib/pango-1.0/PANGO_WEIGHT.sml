@@ -4,6 +4,7 @@ signature PANGO_WEIGHT =
       THIN
     | ULTRALIGHT
     | LIGHT
+    | SEMILIGHT
     | BOOK
     | NORMAL
     | MEDIUM

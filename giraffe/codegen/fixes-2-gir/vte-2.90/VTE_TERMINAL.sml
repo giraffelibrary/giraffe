@@ -17,7 +17,7 @@ signature VTE_TERMINAL =
     val copyPrimary : 'a class -> unit
     val feed :
       'a class
-       -> string * LargeInt.int
+       -> Word8Vector.vector
        -> unit
     val feedChild :
       'a class
@@ -41,7 +41,10 @@ signature VTE_TERMINAL =
     val getCharWidth : 'a class -> LargeInt.int
     val getChildExitStatus : 'a class -> LargeInt.int
     val getColumnCount : 'a class -> LargeInt.int
+    val getCurrentDirectoryUri : 'a class -> string
+    val getCurrentFileUri : 'a class -> string
     val getCursorBlinkMode : 'a class -> terminal_cursor_blink_mode_t
+    val getCursorPosition : 'a class -> LargeInt.int * LargeInt.int
     val getCursorShape : 'a class -> terminal_cursor_shape_t
     val getDefaultEmulation : 'a class -> string
     val getEmulation : 'a class -> string
@@ -51,14 +54,11 @@ signature VTE_TERMINAL =
     val getIconTitle : 'a class -> string
     val getMouseAutohide : 'a class -> bool
     val getPtyObject : 'a class -> base pty_class
+    val getRewrapOnResize : 'a class -> bool
     val getRowCount : 'a class -> LargeInt.int
     val getStatusLine : 'a class -> string
     val getVisibleBell : 'a class -> bool
     val getWindowTitle : 'a class -> string
-    val imAppendMenuitems :
-      'a class
-       -> 'b Gtk.MenuShellClass.class
-       -> unit
     val isWordChar :
       'a class
        -> char
@@ -120,26 +120,6 @@ signature VTE_TERMINAL =
       'a class
        -> bool
        -> unit
-    val setBackgroundImage :
-      'a class
-       -> 'b GdkPixbuf.PixbufClass.class option
-       -> unit
-    val setBackgroundImageFile :
-      'a class
-       -> string
-       -> unit
-    val setBackgroundSaturation :
-      'a class
-       -> real
-       -> unit
-    val setBackgroundTintColor :
-      'a class
-       -> Gdk.ColorRecord.t
-       -> unit
-    val setBackgroundTransparent :
-      'a class
-       -> bool
-       -> unit
     val setBackspaceBinding :
       'a class
        -> terminal_erase_binding_t
@@ -187,6 +167,14 @@ signature VTE_TERMINAL =
     val setColorHighlight :
       'a class
        -> Gdk.ColorRecord.t option
+       -> unit
+    val setColorHighlightForeground :
+      'a class
+       -> Gdk.ColorRecord.t option
+       -> unit
+    val setColorHighlightForegroundRgba :
+      'a class
+       -> Gdk.RgbaRecord.t option
        -> unit
     val setColorHighlightRgba :
       'a class
@@ -237,15 +225,11 @@ signature VTE_TERMINAL =
       'a class
        -> bool
        -> unit
-    val setOpacity :
-      'a class
-       -> LargeInt.int
-       -> unit
     val setPtyObject :
       'a class
        -> 'b pty_class option
        -> unit
-    val setScrollBackground :
+    val setRewrapOnResize :
       'a class
        -> bool
        -> unit
@@ -289,6 +273,8 @@ signature VTE_TERMINAL =
     val commitSig : (string * LargeInt.int -> unit) -> 'a class Signal.t
     val contentsChangedSig : (unit -> unit) -> 'a class Signal.t
     val copyClipboardSig : (unit -> unit) -> 'a class Signal.t
+    val currentDirectoryUriChangedSig : (unit -> unit) -> 'a class Signal.t
+    val currentFileUriChangedSig : (unit -> unit) -> 'a class Signal.t
     val cursorMovedSig : (unit -> unit) -> 'a class Signal.t
     val decreaseFontSizeSig : (unit -> unit) -> 'a class Signal.t
     val deiconifyWindowSig : (unit -> unit) -> 'a class Signal.t
@@ -322,6 +308,8 @@ signature VTE_TERMINAL =
     val backgroundTintColorProp : ('a class, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
     val backgroundTransparentProp : ('a class, bool, bool) Property.readwrite
     val backspaceBindingProp : ('a class, terminal_erase_binding_t, terminal_erase_binding_t) Property.readwrite
+    val currentDirectoryUriProp : ('a class, string option) Property.readonly
+    val currentFileUriProp : ('a class, string option) Property.readonly
     val cursorBlinkModeProp : ('a class, terminal_cursor_blink_mode_t, terminal_cursor_blink_mode_t) Property.readwrite
     val cursorShapeProp : ('a class, terminal_cursor_shape_t, terminal_cursor_shape_t) Property.readwrite
     val deleteBindingProp : ('a class, terminal_erase_binding_t, terminal_erase_binding_t) Property.readwrite
@@ -332,6 +320,7 @@ signature VTE_TERMINAL =
     val pointerAutohideProp : ('a class, bool, bool) Property.readwrite
     val ptyProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val ptyObjectProp : ('a class, base pty_class option, 'b pty_class option) Property.readwrite
+    val rewrapOnResizeProp : ('a class, bool, bool) Property.readwrite
     val scrollBackgroundProp : ('a class, bool, bool) Property.readwrite
     val scrollOnKeystrokeProp : ('a class, bool, bool) Property.readwrite
     val scrollOnOutputProp : ('a class, bool, bool) Property.readwrite

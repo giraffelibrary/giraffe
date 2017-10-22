@@ -4,6 +4,7 @@ signature GIO_CREDENTIALS =
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
+    val getUnixPid : 'a class -> LargeInt.int
     val getUnixUser : 'a class -> LargeInt.int
     val isSameUser :
       'a class

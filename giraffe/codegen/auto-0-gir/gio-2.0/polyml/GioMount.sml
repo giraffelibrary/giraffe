@@ -2,8 +2,8 @@ structure GioMount :>
   GIO_MOUNT
     where type 'a class = 'a GioMountClass.class
     where type 'a drive_class = 'a GioDriveClass.class
-    where type 'a icon_class = 'a GioIconClass.class
     where type 'a file_class = 'a GioFileClass.class
+    where type 'a icon_class = 'a GioIconClass.class
     where type 'a volume_class = 'a GioVolumeClass.class
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
@@ -41,6 +41,8 @@ structure GioMount :>
       val getIcon_ = call (getSymbol "g_mount_get_icon") (GioMountClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
       val getName_ = call (getSymbol "g_mount_get_name") (GioMountClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getRoot_ = call (getSymbol "g_mount_get_root") (GioMountClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
+      val getSortKey_ = call (getSymbol "g_mount_get_sort_key") (GioMountClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getSymbolicIcon_ = call (getSymbol "g_mount_get_symbolic_icon") (GioMountClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
       val getUuid_ = call (getSymbol "g_mount_get_uuid") (GioMountClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getVolume_ = call (getSymbol "g_mount_get_volume") (GioMountClass.PolyML.cPtr --> GioVolumeClass.PolyML.cPtr)
       val guessContentTypeFinish_ =
@@ -90,8 +92,8 @@ structure GioMount :>
     end
     type 'a class = 'a GioMountClass.class
     type 'a drive_class = 'a GioDriveClass.class
-    type 'a icon_class = 'a GioIconClass.class
     type 'a file_class = 'a GioFileClass.class
+    type 'a icon_class = 'a GioIconClass.class
     type 'a volume_class = 'a GioVolumeClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
@@ -130,6 +132,8 @@ structure GioMount :>
     fun getIcon self = (GioMountClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getIcon_ self
     fun getName self = (GioMountClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getName_ self
     fun getRoot self = (GioMountClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getRoot_ self
+    fun getSortKey self = (GioMountClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSortKey_ self
+    fun getSymbolicIcon self = (GioMountClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getSymbolicIcon_ self
     fun getUuid self = (GioMountClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUuid_ self
     fun getVolume self = (GioMountClass.FFI.withPtr ---> GioVolumeClass.FFI.fromPtr true) getVolume_ self
     fun guessContentTypeFinish self result =

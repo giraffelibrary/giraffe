@@ -7,6 +7,7 @@ structure GtkFontChooser :>
     val getFontDesc_ = _import "gtk_font_chooser_get_font_desc" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;
     val getFontFace_ = _import "gtk_font_chooser_get_font_face" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> PangoFontFaceClass.FFI.notnull PangoFontFaceClass.FFI.p;
     val getFontFamily_ = _import "gtk_font_chooser_get_font_family" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> PangoFontFamilyClass.FFI.notnull PangoFontFamilyClass.FFI.p;
+    val getFontMap_ = _import "gtk_font_chooser_get_font_map" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p;
     val getFontSize_ = _import "gtk_font_chooser_get_font_size" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> GInt.FFI.val_;
     val getPreviewText_ = _import "gtk_font_chooser_get_preview_text" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getShowPreviewEntry_ = _import "gtk_font_chooser_get_show_preview_entry" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> GBool.FFI.val_;
@@ -26,6 +27,7 @@ structure GtkFontChooser :>
               x3
             )
     val setFontDesc_ = fn x1 & x2 => (_import "gtk_font_chooser_set_font_desc" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p * PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> unit;) (x1, x2)
+    val setFontMap_ = fn x1 & x2 => (_import "gtk_font_chooser_set_font_map" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p * unit PangoFontMapClass.FFI.p -> unit;) (x1, x2)
     val setPreviewText_ =
       fn
         x1 & (x2, x3) =>
@@ -49,11 +51,13 @@ structure GtkFontChooser :>
     fun getFontDesc self = (GtkFontChooserClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr true) getFontDesc_ self
     fun getFontFace self = (GtkFontChooserClass.FFI.withPtr ---> PangoFontFaceClass.FFI.fromPtr false) getFontFace_ self
     fun getFontFamily self = (GtkFontChooserClass.FFI.withPtr ---> PangoFontFamilyClass.FFI.fromPtr false) getFontFamily_ self
+    fun getFontMap self = (GtkFontChooserClass.FFI.withPtr ---> PangoFontMapClass.FFI.fromPtr true) getFontMap_ self
     fun getFontSize self = (GtkFontChooserClass.FFI.withPtr ---> GInt.FFI.fromVal) getFontSize_ self
     fun getPreviewText self = (GtkFontChooserClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getPreviewText_ self
     fun getShowPreviewEntry self = (GtkFontChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowPreviewEntry_ self
     fun setFont self fontname = (GtkFontChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setFont_ (self & fontname)
     fun setFontDesc self fontDesc = (GtkFontChooserClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withPtr ---> I) setFontDesc_ (self & fontDesc)
+    fun setFontMap self fontmap = (GtkFontChooserClass.FFI.withPtr &&&> PangoFontMapClass.FFI.withOptPtr ---> I) setFontMap_ (self & fontmap)
     fun setPreviewText self text = (GtkFontChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setPreviewText_ (self & text)
     fun setShowPreviewEntry self showPreviewEntry = (GtkFontChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowPreviewEntry_ (self & showPreviewEntry)
     local

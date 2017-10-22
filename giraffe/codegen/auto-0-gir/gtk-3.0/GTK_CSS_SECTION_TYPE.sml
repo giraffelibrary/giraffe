@@ -9,6 +9,7 @@ signature GTK_CSS_SECTION_TYPE =
     | SELECTOR
     | DECLARATION
     | VALUE
+    | KEYFRAMES
     include
       ENUM
         where type t = enum

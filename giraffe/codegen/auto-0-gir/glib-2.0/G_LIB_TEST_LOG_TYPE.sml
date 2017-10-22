@@ -11,6 +11,8 @@ signature G_LIB_TEST_LOG_TYPE =
     | MIN_RESULT
     | MAX_RESULT
     | MESSAGE
+    | START_SUITE
+    | STOP_SUITE
     include
       ENUM
         where type t = enum

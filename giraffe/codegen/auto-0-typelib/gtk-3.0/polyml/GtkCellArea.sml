@@ -24,7 +24,7 @@ structure GtkCellArea :>
             GtkCellAreaClass.PolyML.cPtr
              &&> GtkCellAreaContextClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              &&> GtkCellRendererState.PolyML.cVal
              &&> GBool.PolyML.cVal
              --> GBool.PolyML.cVal
@@ -36,7 +36,7 @@ structure GtkCellArea :>
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
              &&> GdkEvent.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              &&> GtkCellRendererState.PolyML.cVal
              --> GBool.PolyML.cVal
           )
@@ -76,6 +76,14 @@ structure GtkCellArea :>
              &&> Utf8.PolyML.cInPtr
              --> cVoid
           )
+      val attributeGetColumn_ =
+        call (getSymbol "gtk_cell_area_attribute_get_column")
+          (
+            GtkCellAreaClass.PolyML.cPtr
+             &&> GtkCellRendererClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             --> GInt32.PolyML.cVal
+          )
       val cellGetProperty_ =
         call (getSymbol "gtk_cell_area_cell_get_property")
           (
@@ -103,7 +111,7 @@ structure GtkCellArea :>
              &&> GtkCellAreaContextClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GdkEvent.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              &&> GtkCellRendererState.PolyML.cVal
              --> GInt32.PolyML.cVal
           )
@@ -115,8 +123,8 @@ structure GtkCellArea :>
              &&> GtkCellAreaContextClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkCellRendererClass.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              --> cVoid
           )
       val getCellAtPosition_ =
@@ -125,17 +133,17 @@ structure GtkCellArea :>
             GtkCellAreaClass.PolyML.cPtr
              &&> GtkCellAreaContextClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              --> GtkCellRendererClass.PolyML.cPtr
           )
       val getCurrentPathString_ = call (getSymbol "gtk_cell_area_get_current_path_string") (GtkCellAreaClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getEditWidget_ = call (getSymbol "gtk_cell_area_get_edit_widget") (GtkCellAreaClass.PolyML.cPtr --> GtkCellEditableClass.PolyML.cPtr)
       val getEditedCell_ = call (getSymbol "gtk_cell_area_get_edited_cell") (GtkCellAreaClass.PolyML.cPtr --> GtkCellRendererClass.PolyML.cPtr)
       val getFocusCell_ = call (getSymbol "gtk_cell_area_get_focus_cell") (GtkCellAreaClass.PolyML.cPtr --> GtkCellRendererClass.PolyML.cPtr)
-      val getFocusFromSibling_ = call (getSymbol "gtk_cell_area_get_focus_from_sibling") (GtkCellAreaClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> GtkCellRendererClass.PolyML.cPtr)
+      val getFocusFromSibling_ = call (getSymbol "gtk_cell_area_get_focus_from_sibling") (GtkCellAreaClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> GtkCellRendererClass.PolyML.cOptPtr)
       val getPreferredHeight_ =
         call (getSymbol "gtk_cell_area_get_preferred_height")
           (
@@ -185,8 +193,8 @@ structure GtkCellArea :>
           (
             GtkCellAreaClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              --> cVoid
           )
       val isActivatable_ = call (getSymbol "gtk_cell_area_is_activatable") (GtkCellAreaClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -214,8 +222,8 @@ structure GtkCellArea :>
              &&> GtkCellAreaContextClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              &&> GtkCellRendererState.PolyML.cVal
              &&> GBool.PolyML.cVal
              --> cVoid
@@ -265,7 +273,7 @@ structure GtkCellArea :>
         GtkCellAreaClass.FFI.withPtr
          &&&> GtkCellAreaContextClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkCellRendererState.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -293,7 +301,7 @@ structure GtkCellArea :>
          &&&> GtkWidgetClass.FFI.withPtr
          &&&> GtkCellRendererClass.FFI.withPtr
          &&&> GdkEvent.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkCellRendererState.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -378,6 +386,19 @@ structure GtkCellArea :>
            & renderer
            & attribute
         )
+    fun attributeGetColumn self (renderer, attribute) =
+      (
+        GtkCellAreaClass.FFI.withPtr
+         &&&> GtkCellRendererClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> GInt32.FFI.fromVal
+      )
+        attributeGetColumn_
+        (
+          self
+           & renderer
+           & attribute
+        )
     fun cellGetProperty
       self
       (
@@ -436,7 +457,7 @@ structure GtkCellArea :>
          &&&> GtkCellAreaContextClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
          &&&> GdkEvent.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkCellRendererState.FFI.withVal
          ---> GInt32.FFI.fromVal
       )
@@ -465,9 +486,9 @@ structure GtkCellArea :>
              &&&> GtkCellAreaContextClass.FFI.withPtr
              &&&> GtkWidgetClass.FFI.withPtr
              &&&> GtkCellRendererClass.FFI.withPtr
-             &&&> CairoRectangleIntRecord.FFI.withPtr
-             &&&> CairoRectangleIntRecord.FFI.withNewPtr
-             ---> CairoRectangleIntRecord.FFI.fromPtr true && I
+             &&&> GdkRectangleRecord.FFI.withPtr
+             &&&> GdkRectangleRecord.FFI.withNewPtr
+             ---> GdkRectangleRecord.FFI.fromPtr true && I
           )
             getCellAllocation_
             (
@@ -496,11 +517,11 @@ structure GtkCellArea :>
             GtkCellAreaClass.FFI.withPtr
              &&&> GtkCellAreaContextClass.FFI.withPtr
              &&&> GtkWidgetClass.FFI.withPtr
-             &&&> CairoRectangleIntRecord.FFI.withPtr
+             &&&> GdkRectangleRecord.FFI.withPtr
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
-             &&&> CairoRectangleIntRecord.FFI.withNewPtr
-             ---> CairoRectangleIntRecord.FFI.fromPtr true && GtkCellRendererClass.FFI.fromPtr false
+             &&&> GdkRectangleRecord.FFI.withNewPtr
+             ---> GdkRectangleRecord.FFI.fromPtr true && GtkCellRendererClass.FFI.fromPtr false
           )
             getCellAtPosition_
             (
@@ -519,7 +540,7 @@ structure GtkCellArea :>
     fun getEditWidget self = (GtkCellAreaClass.FFI.withPtr ---> GtkCellEditableClass.FFI.fromPtr false) getEditWidget_ self
     fun getEditedCell self = (GtkCellAreaClass.FFI.withPtr ---> GtkCellRendererClass.FFI.fromPtr false) getEditedCell_ self
     fun getFocusCell self = (GtkCellAreaClass.FFI.withPtr ---> GtkCellRendererClass.FFI.fromPtr false) getFocusCell_ self
-    fun getFocusFromSibling self renderer = (GtkCellAreaClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> GtkCellRendererClass.FFI.fromPtr false) getFocusFromSibling_ (self & renderer)
+    fun getFocusFromSibling self renderer = (GtkCellAreaClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> GtkCellRendererClass.FFI.fromOptPtr false) getFocusFromSibling_ (self & renderer)
     fun getPreferredHeight self (context, widget) =
       let
         val minimumHeight
@@ -648,9 +669,9 @@ structure GtkCellArea :>
           (
             GtkCellAreaClass.FFI.withPtr
              &&&> GtkWidgetClass.FFI.withPtr
-             &&&> CairoRectangleIntRecord.FFI.withPtr
-             &&&> CairoRectangleIntRecord.FFI.withNewPtr
-             ---> CairoRectangleIntRecord.FFI.fromPtr true && I
+             &&&> GdkRectangleRecord.FFI.withPtr
+             &&&> GdkRectangleRecord.FFI.withNewPtr
+             ---> GdkRectangleRecord.FFI.fromPtr true && I
           )
             innerCellArea_
             (
@@ -706,8 +727,8 @@ structure GtkCellArea :>
          &&&> GtkCellAreaContextClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkCellRendererState.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> I
@@ -770,7 +791,7 @@ structure GtkCellArea :>
           (
             get 0w1 GtkCellRendererClass.t
              &&&> get 0w2 GtkCellEditableClass.t
-             &&&> get 0w3 CairoRectangleIntRecord.t
+             &&&> get 0w3 GdkRectangleRecord.t
              &&&> get 0w4 string
              ---> ret_void
           )

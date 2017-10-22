@@ -39,7 +39,16 @@ structure GdkScreen :>
           )
       val getMonitorHeightMm_ = call (getSymbol "gdk_screen_get_monitor_height_mm") (GdkScreenClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GInt.PolyML.cVal)
       val getMonitorPlugName_ = call (getSymbol "gdk_screen_get_monitor_plug_name") (GdkScreenClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getMonitorScaleFactor_ = call (getSymbol "gdk_screen_get_monitor_scale_factor") (GdkScreenClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GInt.PolyML.cVal)
       val getMonitorWidthMm_ = call (getSymbol "gdk_screen_get_monitor_width_mm") (GdkScreenClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GInt.PolyML.cVal)
+      val getMonitorWorkarea_ =
+        call (getSymbol "gdk_screen_get_monitor_workarea")
+          (
+            GdkScreenClass.PolyML.cPtr
+             &&> GInt.PolyML.cVal
+             &&> GdkRectangleRecord.PolyML.cPtr
+             --> cVoid
+          )
       val getNMonitors_ = call (getSymbol "gdk_screen_get_n_monitors") (GdkScreenClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getNumber_ = call (getSymbol "gdk_screen_get_number") (GdkScreenClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getPrimaryMonitor_ = call (getSymbol "gdk_screen_get_primary_monitor") (GdkScreenClass.PolyML.cPtr --> GInt.PolyML.cVal)
@@ -113,7 +122,26 @@ structure GdkScreen :>
       end
     fun getMonitorHeightMm self monitorNum = (GdkScreenClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) getMonitorHeightMm_ (self & monitorNum)
     fun getMonitorPlugName self monitorNum = (GdkScreenClass.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) getMonitorPlugName_ (self & monitorNum)
+    fun getMonitorScaleFactor self monitorNum = (GdkScreenClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) getMonitorScaleFactor_ (self & monitorNum)
     fun getMonitorWidthMm self monitorNum = (GdkScreenClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) getMonitorWidthMm_ (self & monitorNum)
+    fun getMonitorWorkarea self monitorNum =
+      let
+        val dest & () =
+          (
+            GdkScreenClass.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             &&&> GdkRectangleRecord.FFI.withNewPtr
+             ---> GdkRectangleRecord.FFI.fromPtr true && I
+          )
+            getMonitorWorkarea_
+            (
+              self
+               & monitorNum
+               & ()
+            )
+      in
+        dest
+      end
     fun getNMonitors self = (GdkScreenClass.FFI.withPtr ---> GInt.FFI.fromVal) getNMonitors_ self
     fun getNumber self = (GdkScreenClass.FFI.withPtr ---> GInt.FFI.fromVal) getNumber_ self
     fun getPrimaryMonitor self = (GdkScreenClass.FFI.withPtr ---> GInt.FFI.fromVal) getPrimaryMonitor_ self

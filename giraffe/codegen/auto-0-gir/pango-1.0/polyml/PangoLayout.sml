@@ -1,13 +1,13 @@
 structure PangoLayout :>
   PANGO_LAYOUT
     where type 'a class = 'a PangoLayoutClass.class
-    where type attr_list_t = PangoAttrListRecord.t
     where type 'a context_class = 'a PangoContextClass.class
     where type layout_iter_t = PangoLayoutIterRecord.t
     where type layout_line_t = PangoLayoutLineRecord.t
     where type log_attr_t = PangoLogAttrRecord.t
     where type rectangle_t = PangoRectangleRecord.t
     where type alignment_t = PangoAlignment.t
+    where type attr_list_t = PangoAttrListRecord.t
     where type ellipsize_mode_t = PangoEllipsizeMode.t
     where type font_description_t = PangoFontDescriptionRecord.t
     where type tab_array_t = PangoTabArrayRecord.t
@@ -66,6 +66,7 @@ structure PangoLayout :>
              &&> GInt.PolyML.cRef
              --> cVoid
           )
+      val getLogAttrsReadonly_ = call (getSymbol "pango_layout_get_log_attrs_readonly") (PangoLayoutClass.PolyML.cPtr &&> GInt.PolyML.cRef --> PangoLogAttrRecordCVectorN.PolyML.cOutPtr)
       val getPixelExtents_ =
         call (getSymbol "pango_layout_get_pixel_extents")
           (
@@ -82,6 +83,7 @@ structure PangoLayout :>
              &&> GInt.PolyML.cRef
              --> cVoid
           )
+      val getSerial_ = call (getSymbol "pango_layout_get_serial") (PangoLayoutClass.PolyML.cPtr --> GUInt.PolyML.cVal)
       val getSingleParagraphMode_ = call (getSymbol "pango_layout_get_single_paragraph_mode") (PangoLayoutClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSize_ =
         call (getSymbol "pango_layout_get_size")
@@ -117,7 +119,20 @@ structure PangoLayout :>
           )
       val isEllipsized_ = call (getSymbol "pango_layout_is_ellipsized") (PangoLayoutClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val isWrapped_ = call (getSymbol "pango_layout_is_wrapped") (PangoLayoutClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val moveCursorVisually_ =
+        call (getSymbol "pango_layout_move_cursor_visually")
+          (
+            PangoLayoutClass.PolyML.cPtr
+             &&> GBool.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cRef
+             &&> GInt.PolyML.cRef
+             --> cVoid
+          )
       val setAlignment_ = call (getSymbol "pango_layout_set_alignment") (PangoLayoutClass.PolyML.cPtr &&> PangoAlignment.PolyML.cVal --> cVoid)
+      val setAttributes_ = call (getSymbol "pango_layout_set_attributes") (PangoLayoutClass.PolyML.cPtr &&> PangoAttrListRecord.PolyML.cOptPtr --> cVoid)
       val setAutoDir_ = call (getSymbol "pango_layout_set_auto_dir") (PangoLayoutClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setEllipsize_ = call (getSymbol "pango_layout_set_ellipsize") (PangoLayoutClass.PolyML.cPtr &&> PangoEllipsizeMode.PolyML.cVal --> cVoid)
       val setFontDescription_ = call (getSymbol "pango_layout_set_font_description") (PangoLayoutClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cOptPtr --> cVoid)
@@ -167,13 +182,13 @@ structure PangoLayout :>
           )
     end
     type 'a class = 'a PangoLayoutClass.class
-    type attr_list_t = PangoAttrListRecord.t
     type 'a context_class = 'a PangoContextClass.class
     type layout_iter_t = PangoLayoutIterRecord.t
     type layout_line_t = PangoLayoutLineRecord.t
     type log_attr_t = PangoLogAttrRecord.t
     type rectangle_t = PangoRectangleRecord.t
     type alignment_t = PangoAlignment.t
+    type attr_list_t = PangoAttrListRecord.t
     type ellipsize_mode_t = PangoEllipsizeMode.t
     type font_description_t = PangoFontDescriptionRecord.t
     type tab_array_t = PangoTabArrayRecord.t
@@ -184,7 +199,7 @@ structure PangoLayout :>
     fun contextChanged self = (PangoLayoutClass.FFI.withPtr ---> I) contextChanged_ self
     fun copy self = (PangoLayoutClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr true) copy_ self
     fun getAlignment self = (PangoLayoutClass.FFI.withPtr ---> PangoAlignment.FFI.fromVal) getAlignment_ self
-    fun getAttributes self = (PangoLayoutClass.FFI.withPtr ---> PangoAttrListRecord.FFI.fromPtr true) getAttributes_ self
+    fun getAttributes self = (PangoLayoutClass.FFI.withPtr ---> PangoAttrListRecord.FFI.fromPtr false) getAttributes_ self
     fun getAutoDir self = (PangoLayoutClass.FFI.withPtr ---> GBool.FFI.fromVal) getAutoDir_ self
     fun getBaseline self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getBaseline_ self
     fun getCharacterCount self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getCharacterCount_ self
@@ -266,6 +281,12 @@ structure PangoLayout :>
       in
         attrs (LargeInt.toInt nAttrs)
       end
+    fun getLogAttrsReadonly self =
+      let
+        val nAttrs & retVal = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && PangoLogAttrRecordCVectorN.FFI.fromPtr 0) getLogAttrsReadonly_ (self & GInt.null)
+      in
+        retVal (LargeInt.toInt nAttrs)
+      end
     fun getPixelExtents self =
       let
         val inkRect
@@ -310,6 +331,7 @@ structure PangoLayout :>
       in
         (width, height)
       end
+    fun getSerial self = (PangoLayoutClass.FFI.withPtr ---> GUInt.FFI.fromVal) getSerial_ self
     fun getSingleParagraphMode self = (PangoLayoutClass.FFI.withPtr ---> GBool.FFI.fromVal) getSingleParagraphMode_ self
     fun getSize self =
       let
@@ -385,7 +407,45 @@ structure PangoLayout :>
       end
     fun isEllipsized self = (PangoLayoutClass.FFI.withPtr ---> GBool.FFI.fromVal) isEllipsized_ self
     fun isWrapped self = (PangoLayoutClass.FFI.withPtr ---> GBool.FFI.fromVal) isWrapped_ self
+    fun moveCursorVisually
+      self
+      (
+        strong,
+        oldIndex,
+        oldTrailing,
+        direction
+      ) =
+      let
+        val newIndex
+         & newTrailing
+         & () =
+          (
+            PangoLayoutClass.FFI.withPtr
+             &&&> GBool.FFI.withVal
+             &&&> GInt.FFI.withVal
+             &&&> GInt.FFI.withVal
+             &&&> GInt.FFI.withVal
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && I
+          )
+            moveCursorVisually_
+            (
+              self
+               & strong
+               & oldIndex
+               & oldTrailing
+               & direction
+               & GInt.null
+               & GInt.null
+            )
+      in
+        (newIndex, newTrailing)
+      end
     fun setAlignment self alignment = (PangoLayoutClass.FFI.withPtr &&&> PangoAlignment.FFI.withVal ---> I) setAlignment_ (self & alignment)
+    fun setAttributes self attrs = (PangoLayoutClass.FFI.withPtr &&&> PangoAttrListRecord.FFI.withOptPtr ---> I) setAttributes_ (self & attrs)
     fun setAutoDir self autoDir = (PangoLayoutClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAutoDir_ (self & autoDir)
     fun setEllipsize self ellipsize = (PangoLayoutClass.FFI.withPtr &&&> PangoEllipsizeMode.FFI.withVal ---> I) setEllipsize_ (self & ellipsize)
     fun setFontDescription self desc = (PangoLayoutClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withOptPtr ---> I) setFontDescription_ (self & desc)

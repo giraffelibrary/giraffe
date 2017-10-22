@@ -3,31 +3,103 @@ structure GdkDragContext :>
     where type 'a class = 'a GdkDragContextClass.class
     where type drag_protocol_t = GdkDragProtocol.t
     where type 'a window_class = 'a GdkWindowClass.class
+    where type 'a device_class = 'a GdkDeviceClass.class
     where type drag_action_t = GdkDragAction.t
-    where type 'a device_class = 'a GdkDeviceClass.class =
+    where type drag_cancel_reason_t = GdkDragCancelReason.t =
   struct
     val getType_ = _import "gdk_drag_context_get_type" : unit -> GObjectType.FFI.val_;
     val getActions_ = _import "gdk_drag_context_get_actions" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkDragAction.FFI.val_;
     val getDestWindow_ = _import "gdk_drag_context_get_dest_window" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
     val getDevice_ = _import "gdk_drag_context_get_device" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p;
+    val getDragWindow_ = _import "gdk_drag_context_get_drag_window" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> unit GdkWindowClass.FFI.p;
     val getProtocol_ = _import "gdk_drag_context_get_protocol" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkDragProtocol.FFI.val_;
     val getSelectedAction_ = _import "gdk_drag_context_get_selected_action" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkDragAction.FFI.val_;
     val getSourceWindow_ = _import "gdk_drag_context_get_source_window" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
     val getSuggestedAction_ = _import "gdk_drag_context_get_suggested_action" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkDragAction.FFI.val_;
+    val manageDnd_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "gdk_drag_context_manage_dnd" :
+              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
+               * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+               * GdkDragAction.FFI.val_
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val setDevice_ = fn x1 & x2 => (_import "gdk_drag_context_set_device" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit;) (x1, x2)
+    val setHotspot_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "gdk_drag_context_set_hotspot" :
+              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
+               * GInt32.FFI.val_
+               * GInt32.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     type 'a class = 'a GdkDragContextClass.class
     type drag_protocol_t = GdkDragProtocol.t
     type 'a window_class = 'a GdkWindowClass.class
-    type drag_action_t = GdkDragAction.t
     type 'a device_class = 'a GdkDeviceClass.class
+    type drag_action_t = GdkDragAction.t
+    type drag_cancel_reason_t = GdkDragCancelReason.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getActions self = (GdkDragContextClass.FFI.withPtr ---> GdkDragAction.FFI.fromVal) getActions_ self
     fun getDestWindow self = (GdkDragContextClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getDestWindow_ self
     fun getDevice self = (GdkDragContextClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromPtr false) getDevice_ self
+    fun getDragWindow self = (GdkDragContextClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getDragWindow_ self
     fun getProtocol self = (GdkDragContextClass.FFI.withPtr ---> GdkDragProtocol.FFI.fromVal) getProtocol_ self
     fun getSelectedAction self = (GdkDragContextClass.FFI.withPtr ---> GdkDragAction.FFI.fromVal) getSelectedAction_ self
     fun getSourceWindow self = (GdkDragContextClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getSourceWindow_ self
     fun getSuggestedAction self = (GdkDragContextClass.FFI.withPtr ---> GdkDragAction.FFI.fromVal) getSuggestedAction_ self
+    fun manageDnd self (ipcWindow, actions) =
+      (
+        GdkDragContextClass.FFI.withPtr
+         &&&> GdkWindowClass.FFI.withPtr
+         &&&> GdkDragAction.FFI.withVal
+         ---> GBool.FFI.fromVal
+      )
+        manageDnd_
+        (
+          self
+           & ipcWindow
+           & actions
+        )
     fun setDevice self device = (GdkDragContextClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> I) setDevice_ (self & device)
+    fun setHotspot self (hotX, hotY) =
+      (
+        GdkDragContextClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         ---> I
+      )
+        setHotspot_
+        (
+          self
+           & hotX
+           & hotY
+        )
+    local
+      open ClosureMarshal Signal
+    in
+      fun actionChangedSig f = signal "action-changed" (get 0w1 GdkDragAction.t ---> ret_void) f
+      fun cancelSig f = signal "cancel" (get 0w1 GdkDragCancelReason.t ---> ret_void) f
+      fun dndFinishedSig f = signal "dnd-finished" (void ---> ret_void) f
+      fun dropPerformedSig f = signal "drop-performed" (get 0w1 int ---> ret_void) f
+    end
   end

@@ -99,11 +99,20 @@ structure PangoRenderer :>
              &&> GDouble.PolyML.cVal
              --> cVoid
           )
+      val getAlpha_ = call (getSymbol "pango_renderer_get_alpha") (PangoRendererClass.PolyML.cPtr &&> PangoRenderPart.PolyML.cVal --> GUInt16.PolyML.cVal)
       val getColor_ = call (getSymbol "pango_renderer_get_color") (PangoRendererClass.PolyML.cPtr &&> PangoRenderPart.PolyML.cVal --> PangoColorRecord.PolyML.cPtr)
       val getLayout_ = call (getSymbol "pango_renderer_get_layout") (PangoRendererClass.PolyML.cPtr --> PangoLayoutClass.PolyML.cPtr)
       val getLayoutLine_ = call (getSymbol "pango_renderer_get_layout_line") (PangoRendererClass.PolyML.cPtr --> PangoLayoutLineRecord.PolyML.cPtr)
       val getMatrix_ = call (getSymbol "pango_renderer_get_matrix") (PangoRendererClass.PolyML.cPtr --> PangoMatrixRecord.PolyML.cPtr)
       val partChanged_ = call (getSymbol "pango_renderer_part_changed") (PangoRendererClass.PolyML.cPtr &&> PangoRenderPart.PolyML.cVal --> cVoid)
+      val setAlpha_ =
+        call (getSymbol "pango_renderer_set_alpha")
+          (
+            PangoRendererClass.PolyML.cPtr
+             &&> PangoRenderPart.PolyML.cVal
+             &&> GUInt16.PolyML.cVal
+             --> cVoid
+          )
       val setColor_ =
         call (getSymbol "pango_renderer_set_color")
           (
@@ -326,11 +335,25 @@ structure PangoRenderer :>
            & x12
            & x22
         )
-    fun getColor self part = (PangoRendererClass.FFI.withPtr &&&> PangoRenderPart.FFI.withVal ---> PangoColorRecord.FFI.fromPtr true) getColor_ (self & part)
+    fun getAlpha self part = (PangoRendererClass.FFI.withPtr &&&> PangoRenderPart.FFI.withVal ---> GUInt16.FFI.fromVal) getAlpha_ (self & part)
+    fun getColor self part = (PangoRendererClass.FFI.withPtr &&&> PangoRenderPart.FFI.withVal ---> PangoColorRecord.FFI.fromPtr false) getColor_ (self & part)
     fun getLayout self = (PangoRendererClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self
-    fun getLayoutLine self = (PangoRendererClass.FFI.withPtr ---> PangoLayoutLineRecord.FFI.fromPtr true) getLayoutLine_ self
+    fun getLayoutLine self = (PangoRendererClass.FFI.withPtr ---> PangoLayoutLineRecord.FFI.fromPtr false) getLayoutLine_ self
     fun getMatrix self = (PangoRendererClass.FFI.withPtr ---> PangoMatrixRecord.FFI.fromPtr false) getMatrix_ self
     fun partChanged self part = (PangoRendererClass.FFI.withPtr &&&> PangoRenderPart.FFI.withVal ---> I) partChanged_ (self & part)
+    fun setAlpha self (part, alpha) =
+      (
+        PangoRendererClass.FFI.withPtr
+         &&&> PangoRenderPart.FFI.withVal
+         &&&> GUInt16.FFI.withVal
+         ---> I
+      )
+        setAlpha_
+        (
+          self
+           & part
+           & alpha
+        )
     fun setColor self (part, color) =
       (
         PangoRendererClass.FFI.withPtr

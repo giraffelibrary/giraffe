@@ -8,6 +8,10 @@ signature GTK_ABOUT_DIALOG =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
+    val addCreditSection :
+      'a class
+       -> string * string list
+       -> unit
     val getArtists : 'a class -> string list
     val getAuthors : 'a class -> string list
     val getComments : 'a class -> string
@@ -37,7 +41,7 @@ signature GTK_ABOUT_DIALOG =
        -> unit
     val setCopyright :
       'a class
-       -> string
+       -> string option
        -> unit
     val setDocumenters :
       'a class

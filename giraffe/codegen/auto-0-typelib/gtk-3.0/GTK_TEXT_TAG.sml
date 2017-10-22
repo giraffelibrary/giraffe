@@ -8,6 +8,10 @@ signature GTK_TEXT_TAG =
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : string option -> base class
+    val changed :
+      'a class
+       -> bool
+       -> unit
     val event :
       'a class
        -> 'b GObject.ObjectClass.class
@@ -35,10 +39,14 @@ signature GTK_TEXT_TAG =
     val directionProp : ('a class, text_direction_t, text_direction_t) Property.readwrite
     val editableProp : ('a class, bool, bool) Property.readwrite
     val editableSetProp : ('a class, bool, bool) Property.readwrite
+    val fallbackProp : ('a class, bool, bool) Property.readwrite
+    val fallbackSetProp : ('a class, bool, bool) Property.readwrite
     val familyProp : ('a class, string option, string option) Property.readwrite
     val familySetProp : ('a class, bool, bool) Property.readwrite
     val fontProp : ('a class, string option, string option) Property.readwrite
     val fontDescProp : ('a class, Pango.FontDescriptionRecord.t option, Pango.FontDescriptionRecord.t option) Property.readwrite
+    val fontFeaturesProp : ('a class, string option, string option) Property.readwrite
+    val fontFeaturesSetProp : ('a class, bool, bool) Property.readwrite
     val foregroundProp : ('a class, string option) Property.writeonly
     val foregroundGdkProp : ('a class, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
     val foregroundRgbaProp : ('a class, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite
@@ -53,6 +61,8 @@ signature GTK_TEXT_TAG =
     val languageSetProp : ('a class, bool, bool) Property.readwrite
     val leftMarginProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val leftMarginSetProp : ('a class, bool, bool) Property.readwrite
+    val letterSpacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val letterSpacingSetProp : ('a class, bool, bool) Property.readwrite
     val nameProp : ('a class, string option, string option) Property.readwrite
     val paragraphBackgroundProp : ('a class, string option) Property.writeonly
     val paragraphBackgroundGdkProp : ('a class, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
@@ -76,12 +86,16 @@ signature GTK_TEXT_TAG =
     val stretchProp : ('a class, Pango.Stretch.t, Pango.Stretch.t) Property.readwrite
     val stretchSetProp : ('a class, bool, bool) Property.readwrite
     val strikethroughProp : ('a class, bool, bool) Property.readwrite
+    val strikethroughRgbaProp : ('a class, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite
+    val strikethroughRgbaSetProp : ('a class, bool, bool) Property.readwrite
     val strikethroughSetProp : ('a class, bool, bool) Property.readwrite
     val styleProp : ('a class, Pango.Style.t, Pango.Style.t) Property.readwrite
     val styleSetProp : ('a class, bool, bool) Property.readwrite
     val tabsProp : ('a class, Pango.TabArrayRecord.t option, Pango.TabArrayRecord.t option) Property.readwrite
     val tabsSetProp : ('a class, bool, bool) Property.readwrite
     val underlineProp : ('a class, Pango.Underline.t, Pango.Underline.t) Property.readwrite
+    val underlineRgbaProp : ('a class, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite
+    val underlineRgbaSetProp : ('a class, bool, bool) Property.readwrite
     val underlineSetProp : ('a class, bool, bool) Property.readwrite
     val variantProp : ('a class, Pango.Variant.t, Pango.Variant.t) Property.readwrite
     val variantSetProp : ('a class, bool, bool) Property.readwrite

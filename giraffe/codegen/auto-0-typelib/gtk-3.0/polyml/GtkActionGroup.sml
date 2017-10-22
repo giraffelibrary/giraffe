@@ -3,7 +3,8 @@ structure GtkActionGroup :>
     where type 'a class = 'a GtkActionGroupClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class
-    where type 'a action_class = 'a GtkActionClass.class =
+    where type 'a action_class = 'a GtkActionClass.class
+    where type 'a accel_group_class = 'a GtkAccelGroupClass.class =
   struct
     local
       open PolyMLFFI
@@ -19,11 +20,13 @@ structure GtkActionGroup :>
              &&> Utf8.PolyML.cInOptPtr
              --> cVoid
           )
+      val getAccelGroup_ = call (getSymbol "gtk_action_group_get_accel_group") (GtkActionGroupClass.PolyML.cPtr --> GtkAccelGroupClass.PolyML.cPtr)
       val getAction_ = call (getSymbol "gtk_action_group_get_action") (GtkActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkActionClass.PolyML.cPtr)
       val getName_ = call (getSymbol "gtk_action_group_get_name") (GtkActionGroupClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getSensitive_ = call (getSymbol "gtk_action_group_get_sensitive") (GtkActionGroupClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getVisible_ = call (getSymbol "gtk_action_group_get_visible") (GtkActionGroupClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val removeAction_ = call (getSymbol "gtk_action_group_remove_action") (GtkActionGroupClass.PolyML.cPtr &&> GtkActionClass.PolyML.cPtr --> cVoid)
+      val setAccelGroup_ = call (getSymbol "gtk_action_group_set_accel_group") (GtkActionGroupClass.PolyML.cPtr &&> GtkAccelGroupClass.PolyML.cOptPtr --> cVoid)
       val setSensitive_ = call (getSymbol "gtk_action_group_set_sensitive") (GtkActionGroupClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setTranslationDomain_ = call (getSymbol "gtk_action_group_set_translation_domain") (GtkActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
       val setVisible_ = call (getSymbol "gtk_action_group_set_visible") (GtkActionGroupClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
@@ -33,6 +36,7 @@ structure GtkActionGroup :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type 'a action_class = 'a GtkActionClass.class
+    type 'a accel_group_class = 'a GtkAccelGroupClass.class
     type t = base class
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -51,11 +55,13 @@ structure GtkActionGroup :>
            & action
            & accelerator
         )
+    fun getAccelGroup self = (GtkActionGroupClass.FFI.withPtr ---> GtkAccelGroupClass.FFI.fromPtr false) getAccelGroup_ self
     fun getAction self actionName = (GtkActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkActionClass.FFI.fromPtr false) getAction_ (self & actionName)
     fun getName self = (GtkActionGroupClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
     fun getSensitive self = (GtkActionGroupClass.FFI.withPtr ---> GBool.FFI.fromVal) getSensitive_ self
     fun getVisible self = (GtkActionGroupClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
     fun removeAction self action = (GtkActionGroupClass.FFI.withPtr &&&> GtkActionClass.FFI.withPtr ---> I) removeAction_ (self & action)
+    fun setAccelGroup self accelGroup = (GtkActionGroupClass.FFI.withPtr &&&> GtkAccelGroupClass.FFI.withOptPtr ---> I) setAccelGroup_ (self & accelGroup)
     fun setSensitive self sensitive = (GtkActionGroupClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSensitive_ (self & sensitive)
     fun setTranslationDomain self domain = (GtkActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTranslationDomain_ (self & domain)
     fun setVisible self visible = (GtkActionGroupClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
@@ -71,6 +77,11 @@ structure GtkActionGroup :>
     local
       open Property
     in
+      val accelGroupProp =
+        {
+          get = fn x => get "accel-group" GtkAccelGroupClass.tOpt x,
+          set = fn x => set "accel-group" GtkAccelGroupClass.tOpt x
+        }
       val nameProp =
         {
           get = fn x => get "name" stringOpt x,

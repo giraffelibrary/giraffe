@@ -18,6 +18,14 @@ in
   G_OBJECT_CLOSURE_RECORD.sml
   G_OBJECT_CLOSURE.sml
   G_OBJECT_CONNECT_FLAGS.sml
+  G_OBJECT_ENUM_CLASS_RECORD.sml
+  G_OBJECT_ENUM_CLASS.sml
+  G_OBJECT_ENUM_VALUE_RECORD.sml
+  G_OBJECT_ENUM_VALUE.sml
+  G_OBJECT_FLAGS_CLASS_RECORD.sml
+  G_OBJECT_FLAGS_CLASS.sml
+  G_OBJECT_FLAGS_VALUE_RECORD.sml
+  G_OBJECT_FLAGS_VALUE.sml
   G_OBJECT_INITIALLY_UNOWNED_CLASS.sml
   G_OBJECT_INITIALLY_UNOWNED.sml
   G_OBJECT_OBJECT_CLASS.sml
@@ -90,6 +98,10 @@ in
     mlton/ValueAccessor.sml
     mlton/GObjectType.sml
     mlton/GObjectConnectFlags.sml
+    mlton/GObjectEnumClassRecord.sml
+    mlton/GObjectEnumValueRecord.sml
+    mlton/GObjectFlagsClassRecord.sml
+    mlton/GObjectFlagsValueRecord.sml
     mlton/GObjectParamFlags.sml
     mlton/GObjectSignalFlags.sml
     mlton/GObjectSignalMatchType.sml
@@ -99,6 +111,10 @@ in
     mlton/GObjectValueArrayRecord.sml
     mlton/GObjectValueRecord.sml
     mlton/GObjectBindingFlags.sml
+    mlton/GObjectEnumClass.sml
+    mlton/GObjectEnumValue.sml
+    mlton/GObjectFlagsClass.sml
+    mlton/GObjectFlagsValue.sml
     mlton/GObjectValue.sml
     mlton/GObjectValueArray.sml
     mlton/CVector.sml

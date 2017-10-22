@@ -21,7 +21,11 @@ structure GdkEventMask :> GDK_EVENT_MASK =
     val PROXIMITY_OUT_MASK = 0w524288
     val SUBSTRUCTURE_MASK = 0w1048576
     val SCROLL_MASK = 0w2097152
-    val ALL_EVENTS_MASK = 0w4194302
+    val TOUCH_MASK = 0w4194304
+    val SMOOTH_SCROLL_MASK = 0w8388608
+    val TOUCHPAD_GESTURE_MASK = 0w16777216
+    val TABLET_PAD_MASK = 0w33554432
+    val ALL_EVENTS_MASK = 0w16777214
     val allFlags =
       [
         EXPOSURE_MASK,
@@ -45,6 +49,10 @@ structure GdkEventMask :> GDK_EVENT_MASK =
         PROXIMITY_OUT_MASK,
         SUBSTRUCTURE_MASK,
         SCROLL_MASK,
+        TOUCH_MASK,
+        SMOOTH_SCROLL_MASK,
+        TOUCHPAD_GESTURE_MASK,
+        TABLET_PAD_MASK,
         ALL_EVENTS_MASK
       ]
     structure Flags =

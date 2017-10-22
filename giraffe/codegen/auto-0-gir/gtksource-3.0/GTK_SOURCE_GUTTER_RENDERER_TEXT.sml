@@ -4,6 +4,14 @@ signature GTK_SOURCE_GUTTER_RENDERER_TEXT =
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
+    val measure :
+      'a class
+       -> string
+       -> LargeInt.int * LargeInt.int
+    val measureMarkup :
+      'a class
+       -> string
+       -> LargeInt.int * LargeInt.int
     val setMarkup :
       'a class
        -> string * LargeInt.int

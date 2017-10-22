@@ -1,6 +1,7 @@
 structure GLibKeyFile :>
   G_LIB_KEY_FILE
     where type t = GLibKeyFileRecord.t
+    where type bytes_t = GLibBytesRecord.t
     where type key_file_flags_t = GLibKeyFileFlags.t =
   struct
     structure Utf8CVectorNType =
@@ -15,6 +16,12 @@ structure GLibKeyFile :>
         structure ElemSequence = CValueVectorSequence(GIntType)
       )
     structure GIntCVectorN = CVectorN(GIntCVectorNType)
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
     structure GDoubleCVectorNType =
       CValueCVectorNType(
         structure CElemType = GDoubleType
@@ -30,6 +37,8 @@ structure GLibKeyFile :>
     local
       open PolyMLFFI
     in
+      val getType_ = call (getSymbol "g_key_file_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_key_file_new") (cVoid --> GLibKeyFileRecord.PolyML.cPtr)
       val getBoolean_ =
         call (getSymbol "g_key_file_get_boolean")
           (
@@ -53,7 +62,7 @@ structure GLibKeyFile :>
         call (getSymbol "g_key_file_get_comment")
           (
             GLibKeyFileRecord.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
@@ -77,6 +86,7 @@ structure GLibKeyFile :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GDoubleCVectorN.PolyML.cOutPtr
           )
+      val getGroups_ = call (getSymbol "g_key_file_get_groups") (GLibKeyFileRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CVector.PolyML.cOutPtr)
       val getInt64_ =
         call (getSymbol "g_key_file_get_int64")
           (
@@ -104,6 +114,15 @@ structure GLibKeyFile :>
              &&> GSize.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GIntCVectorN.PolyML.cOutPtr
+          )
+      val getKeys_ =
+        call (getSymbol "g_key_file_get_keys")
+          (
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GSize.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> Utf8CVector.PolyML.cOutPtr
           )
       val getLocaleString_ =
         call (getSymbol "g_key_file_get_locale_string")
@@ -165,6 +184,15 @@ structure GLibKeyFile :>
              --> Utf8.PolyML.cOutPtr
           )
       val hasGroup_ = call (getSymbol "g_key_file_has_group") (GLibKeyFileRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val loadFromBytes_ =
+        call (getSymbol "g_key_file_load_from_bytes")
+          (
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> GLibBytesRecord.PolyML.cPtr
+             &&> GLibKeyFileFlags.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val loadFromData_ =
         call (getSymbol "g_key_file_load_from_data")
           (
@@ -180,7 +208,7 @@ structure GLibKeyFile :>
           (
             GLibKeyFileRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cOutRef
              &&> GLibKeyFileFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
@@ -190,8 +218,8 @@ structure GLibKeyFile :>
           (
             GLibKeyFileRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> Utf8CVector.PolyML.cInPtr
+             &&> Utf8.PolyML.cOutRef
              &&> GLibKeyFileFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
@@ -209,8 +237,8 @@ structure GLibKeyFile :>
         call (getSymbol "g_key_file_remove_comment")
           (
             GLibKeyFileRecord.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
@@ -231,6 +259,14 @@ structure GLibKeyFile :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
+      val saveToFile_ =
+        call (getSymbol "g_key_file_save_to_file")
+          (
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val setBoolean_ =
         call (getSymbol "g_key_file_set_boolean")
           (
@@ -246,7 +282,7 @@ structure GLibKeyFile :>
             GLibKeyFileRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             &&> GBool.PolyML.cVal
+             &&> GBoolCVectorN.PolyML.cInPtr
              &&> GSize.PolyML.cVal
              --> cVoid
           )
@@ -254,8 +290,8 @@ structure GLibKeyFile :>
         call (getSymbol "g_key_file_set_comment")
           (
             GLibKeyFileRecord.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
@@ -275,7 +311,7 @@ structure GLibKeyFile :>
             GLibKeyFileRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             &&> GDouble.PolyML.cVal
+             &&> GDoubleCVectorN.PolyML.cInPtr
              &&> GSize.PolyML.cVal
              --> cVoid
           )
@@ -303,7 +339,7 @@ structure GLibKeyFile :>
             GLibKeyFileRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             &&> GInt.PolyML.cVal
+             &&> GIntCVectorN.PolyML.cInPtr
              &&> GSize.PolyML.cVal
              --> cVoid
           )
@@ -325,7 +361,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> Utf8CVectorN.PolyML.cInPtr
              &&> GSize.PolyML.cVal
              --> cVoid
           )
@@ -366,9 +402,20 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              --> cVoid
           )
+      val toData_ =
+        call (getSymbol "g_key_file_to_data")
+          (
+            GLibKeyFileRecord.PolyML.cPtr
+             &&> GSize.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> Utf8.PolyML.cOutPtr
+          )
     end
     type t = GLibKeyFileRecord.t
+    type bytes_t = GLibBytesRecord.t
     type key_file_flags_t = GLibKeyFileFlags.t
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GLibKeyFileRecord.FFI.fromPtr true) new_ ()
     fun getBoolean self (groupName, key) =
       (
         GLibKeyFileRecord.FFI.withPtr
@@ -409,7 +456,7 @@ structure GLibKeyFile :>
     fun getComment self (groupName, key) =
       (
         GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> Utf8.FFI.fromPtr 1
@@ -457,6 +504,12 @@ structure GLibKeyFile :>
             )
       in
         retVal (LargeInt.toInt length)
+      end
+    fun getGroups self =
+      let
+        val length & retVal = (GLibKeyFileRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CVector.FFI.fromPtr 2) getGroups_ (self & GSize.null)
+      in
+        (retVal, length)
       end
     fun getInt64 self (groupName, key) =
       (
@@ -509,6 +562,26 @@ structure GLibKeyFile :>
             )
       in
         retVal (LargeInt.toInt length)
+      end
+    fun getKeys self groupName =
+      let
+        val length & retVal =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GSize.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> GSize.FFI.fromVal && Utf8CVector.FFI.fromPtr 2
+          )
+            getKeys_
+            (
+              self
+               & groupName
+               & GSize.null
+               & []
+            )
+      in
+        (retVal, length)
       end
     fun getLocaleString
       self
@@ -632,6 +705,21 @@ structure GLibKeyFile :>
            & []
         )
     fun hasGroup self groupName = (GLibKeyFileRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasGroup_ (self & groupName)
+    fun loadFromBytes self (bytes, flags) =
+      (
+        GLibKeyFileRecord.FFI.withPtr
+         &&&> GLibBytesRecord.FFI.withPtr
+         &&&> GLibKeyFileFlags.FFI.withVal
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        loadFromBytes_
+        (
+          self
+           & bytes
+           & flags
+           & []
+        )
     fun loadFromData
       self
       (
@@ -655,55 +743,58 @@ structure GLibKeyFile :>
            & flags
            & []
         )
-    fun loadFromDataDirs
-      self
-      (
-        file,
-        fullPath,
-        flags
-      ) =
-      (
-        GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibKeyFileFlags.FFI.withVal
-         &&&> GLibErrorRecord.handleError
-         ---> ignore
-      )
-        loadFromDataDirs_
-        (
-          self
-           & file
-           & fullPath
-           & flags
-           & []
-        )
+    fun loadFromDataDirs self (file, flags) =
+      let
+        val fullPath & () =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GLibKeyFileFlags.FFI.withVal
+             &&&> GLibErrorRecord.handleError
+             ---> Utf8.FFI.fromPtr 1 && ignore
+          )
+            loadFromDataDirs_
+            (
+              self
+               & file
+               & NONE
+               & flags
+               & []
+            )
+      in
+        fullPath
+      end
     fun loadFromDirs
       self
       (
         file,
         searchDirs,
-        fullPath,
         flags
       ) =
-      (
-        GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibKeyFileFlags.FFI.withVal
-         &&&> GLibErrorRecord.handleError
-         ---> ignore
-      )
-        loadFromDirs_
-        (
-          self
-           & file
-           & searchDirs
-           & fullPath
-           & flags
-           & []
-        )
+      let
+        val fullPath & () =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8CVector.FFI.withPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GLibKeyFileFlags.FFI.withVal
+             &&&> GLibErrorRecord.handleError
+             ---> Utf8.FFI.fromPtr 1 && ignore
+          )
+            loadFromDirs_
+            (
+              self
+               & file
+               & searchDirs
+               & NONE
+               & flags
+               & []
+            )
+      in
+        fullPath
+      end
     fun loadFromFile self (file, flags) =
       (
         GLibKeyFileRecord.FFI.withPtr
@@ -722,8 +813,8 @@ structure GLibKeyFile :>
     fun removeComment self (groupName, key) =
       (
         GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -762,6 +853,19 @@ structure GLibKeyFile :>
            & key
            & []
         )
+    fun saveToFile self filename =
+      (
+        GLibKeyFileRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        saveToFile_
+        (
+          self
+           & filename
+           & []
+        )
     fun setBoolean
       self
       (
@@ -788,25 +892,30 @@ structure GLibKeyFile :>
       (
         groupName,
         key,
-        list,
-        length
+        list
       ) =
-      (
-        GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GBool.FFI.withVal
-         &&&> GSize.FFI.withVal
-         ---> I
-      )
-        setBooleanList_
-        (
-          self
-           & groupName
-           & key
-           & list
-           & length
-        )
+      let
+        val length = LargeInt.fromInt (GBoolCVectorN.length list)
+        val () =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GBoolCVectorN.FFI.withPtr
+             &&&> GSize.FFI.withVal
+             ---> I
+          )
+            setBooleanList_
+            (
+              self
+               & groupName
+               & key
+               & list
+               & length
+            )
+      in
+        ()
+      end
     fun setComment
       self
       (
@@ -816,8 +925,8 @@ structure GLibKeyFile :>
       ) =
       (
         GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> ignore
@@ -856,25 +965,30 @@ structure GLibKeyFile :>
       (
         groupName,
         key,
-        list,
-        length
+        list
       ) =
-      (
-        GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GDouble.FFI.withVal
-         &&&> GSize.FFI.withVal
-         ---> I
-      )
-        setDoubleList_
-        (
-          self
-           & groupName
-           & key
-           & list
-           & length
-        )
+      let
+        val length = LargeInt.fromInt (GDoubleCVectorN.length list)
+        val () =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GDoubleCVectorN.FFI.withPtr
+             &&&> GSize.FFI.withVal
+             ---> I
+          )
+            setDoubleList_
+            (
+              self
+               & groupName
+               & key
+               & list
+               & length
+            )
+      in
+        ()
+      end
     fun setInt64
       self
       (
@@ -922,25 +1036,30 @@ structure GLibKeyFile :>
       (
         groupName,
         key,
-        list,
-        length
+        list
       ) =
-      (
-        GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GInt.FFI.withVal
-         &&&> GSize.FFI.withVal
-         ---> I
-      )
-        setIntegerList_
-        (
-          self
-           & groupName
-           & key
-           & list
-           & length
-        )
+      let
+        val length = LargeInt.fromInt (GIntCVectorN.length list)
+        val () =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GIntCVectorN.FFI.withPtr
+             &&&> GSize.FFI.withVal
+             ---> I
+          )
+            setIntegerList_
+            (
+              self
+               & groupName
+               & key
+               & list
+               & length
+            )
+      in
+        ()
+      end
     fun setListSeparator self separator = (GLibKeyFileRecord.FFI.withPtr &&&> GChar.FFI.withVal ---> I) setListSeparator_ (self & separator)
     fun setLocaleString
       self
@@ -972,27 +1091,32 @@ structure GLibKeyFile :>
         groupName,
         key,
         locale,
-        list,
-        length
+        list
       ) =
-      (
-        GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GSize.FFI.withVal
-         ---> I
-      )
-        setLocaleStringList_
-        (
-          self
-           & groupName
-           & key
-           & locale
-           & list
-           & length
-        )
+      let
+        val length = LargeInt.fromInt (Utf8CVectorN.length list)
+        val () =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> GSize.FFI.withVal
+             ---> I
+          )
+            setLocaleStringList_
+            (
+              self
+               & groupName
+               & key
+               & locale
+               & list
+               & length
+            )
+      in
+        ()
+      end
     fun setString
       self
       (
@@ -1085,4 +1209,22 @@ structure GLibKeyFile :>
            & key
            & value
         )
+    fun toData self =
+      let
+        val length & retVal =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> GSize.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> GSize.FFI.fromVal && Utf8.FFI.fromPtr 1
+          )
+            toData_
+            (
+              self
+               & GSize.null
+               & []
+            )
+      in
+        (retVal, length)
+      end
   end

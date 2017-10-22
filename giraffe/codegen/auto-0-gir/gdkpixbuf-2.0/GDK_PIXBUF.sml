@@ -11,11 +11,14 @@ signature GDK_PIXBUF =
     structure PixbufFormatRecord : GDK_PIXBUF_PIXBUF_FORMAT_RECORD
     structure PixbufLoaderClass : GDK_PIXBUF_PIXBUF_LOADER_CLASS
     structure PixbufRotation : GDK_PIXBUF_PIXBUF_ROTATION
+    structure PixdataRecord : GDK_PIXBUF_PIXDATA_RECORD
     structure PixdataDumpType : GDK_PIXBUF_PIXDATA_DUMP_TYPE
     structure PixdataType : GDK_PIXBUF_PIXDATA_TYPE
     structure Pixbuf :
       GDK_PIXBUF_PIXBUF
         where type 'a class = 'a PixbufClass.class
+        where type pixdata_t = PixdataRecord.t
+        where type pixbuf_format_t = PixbufFormatRecord.t
         where type pixbuf_rotation_t = PixbufRotation.t
         where type interp_type_t = InterpType.t
         where type colorspace_t = Colorspace.t
@@ -43,6 +46,10 @@ signature GDK_PIXBUF =
     structure PixbufSimpleAnimIterClass :
       GDK_PIXBUF_PIXBUF_SIMPLE_ANIM_ITER_CLASS
         where type 'a pixbuf_animation_iter_class = 'a PixbufAnimationIterClass.class
+    structure Pixdata :
+      GDK_PIXBUF_PIXDATA
+        where type t = PixdataRecord.t
+        where type pixdata_dump_type_t = PixdataDumpType.t
     structure PixbufSimpleAnim :
       GDK_PIXBUF_PIXBUF_SIMPLE_ANIM
         where type 'a class = 'a PixbufSimpleAnimClass.class

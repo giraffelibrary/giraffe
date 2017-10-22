@@ -45,6 +45,9 @@ structure GioIOErrorEnum :> GIO_I_O_ERROR_ENUM =
     | PROXY_AUTH_FAILED
     | PROXY_NEED_AUTH
     | PROXY_NOT_ALLOWED
+    | BROKEN_PIPE
+    | NOT_CONNECTED
+    | MESSAGE_TOO_LARGE
     structure Enum =
       Enum(
         type enum = enum
@@ -95,6 +98,9 @@ structure GioIOErrorEnum :> GIO_I_O_ERROR_ENUM =
           | PROXY_AUTH_FAILED => 41
           | PROXY_NEED_AUTH => 42
           | PROXY_NOT_ALLOWED => 43
+          | BROKEN_PIPE => 44
+          | NOT_CONNECTED => 45
+          | MESSAGE_TOO_LARGE => 46
         exception Value of GInt.t
         val fromInt =
           fn
@@ -142,6 +148,9 @@ structure GioIOErrorEnum :> GIO_I_O_ERROR_ENUM =
           | 41 => PROXY_AUTH_FAILED
           | 42 => PROXY_NEED_AUTH
           | 43 => PROXY_NOT_ALLOWED
+          | 44 => BROKEN_PIPE
+          | 45 => NOT_CONNECTED
+          | 46 => MESSAGE_TOO_LARGE
           | n => raise Value n
       )
     open Enum

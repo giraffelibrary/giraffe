@@ -2,6 +2,7 @@ signature GTK_MENU_SHELL =
   sig
     type 'a class
     type 'a buildable_class
+    type 'a menu_item_class
     type direction_type_t
     type 'a widget_class
     type menu_direction_type_t
@@ -15,7 +16,13 @@ signature GTK_MENU_SHELL =
        -> unit
     val append :
       'a class
-       -> 'b widget_class
+       -> 'b menu_item_class
+       -> unit
+    val bindModel :
+      'a class
+       -> 'b Gio.MenuModelClass.class option
+           * string option
+           * bool
        -> unit
     val cancel : 'a class -> unit
     val deactivate : 'a class -> unit

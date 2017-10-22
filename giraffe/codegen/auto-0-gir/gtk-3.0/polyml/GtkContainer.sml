@@ -30,6 +30,14 @@ structure GtkContainer :>
              &&> Utf8.PolyML.cInPtr
              --> cVoid
           )
+      val childNotifyByPspec_ =
+        call (getSymbol "gtk_container_child_notify_by_pspec")
+          (
+            GtkContainerClass.PolyML.cPtr
+             &&> GtkWidgetClass.PolyML.cPtr
+             &&> GObjectParamSpecClass.PolyML.cPtr
+             --> cVoid
+          )
       val childSetProperty_ =
         call (getSymbol "gtk_container_child_set_property")
           (
@@ -108,6 +116,19 @@ structure GtkContainer :>
           self
            & child
            & childProperty
+        )
+    fun childNotifyByPspec self (child, pspec) =
+      (
+        GtkContainerClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GObjectParamSpecClass.FFI.withPtr
+         ---> I
+      )
+        childNotifyByPspec_
+        (
+          self
+           & child
+           & pspec
         )
     fun childSetProperty
       self

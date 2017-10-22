@@ -35,6 +35,6 @@ signature GTK_TOOLTIP =
        -> unit
     val setTipArea :
       'a class
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
        -> unit
   end

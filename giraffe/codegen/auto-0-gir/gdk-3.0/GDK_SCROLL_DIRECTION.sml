@@ -5,6 +5,7 @@ signature GDK_SCROLL_DIRECTION =
     | DOWN
     | LEFT
     | RIGHT
+    | SMOOTH
     include
       ENUM
         where type t = enum

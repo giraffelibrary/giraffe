@@ -5,6 +5,7 @@ signature GTK_ALIGN =
     | START
     | END
     | CENTER
+    | BASELINE
     include
       ENUM
         where type t = enum

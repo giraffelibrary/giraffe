@@ -22,13 +22,4 @@ structure GIRepositoryNvokeError :> G_I_REPOSITORY_NVOKE_ERROR =
           | n => raise Value n
       )
     open Enum
-    exception Error of t
-    val handler =
-      GLibErrorRecord.makeHandler
-        (
-          "g-invoke-error-quark",
-          FFI.fromVal,
-          Error
-        )
   end
-exception GIRepositoryNvokeError = GIRepositoryNvokeError.Error

@@ -217,6 +217,10 @@ signature GTK_TEXT_ITER =
        -> unit
     val startsLine : t -> bool
     val startsSentence : t -> bool
+    val startsTag :
+      t
+       -> 'a text_tag_class option
+       -> bool
     val startsWord : t -> bool
     val togglesTag :
       t

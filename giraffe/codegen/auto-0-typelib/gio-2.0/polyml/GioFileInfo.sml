@@ -34,6 +34,7 @@ structure GioFileInfo :>
       val getAttributeUint32_ = call (getSymbol "g_file_info_get_attribute_uint32") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt32.PolyML.cVal)
       val getAttributeUint64_ = call (getSymbol "g_file_info_get_attribute_uint64") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt64.PolyML.cVal)
       val getContentType_ = call (getSymbol "g_file_info_get_content_type") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getDeletionDate_ = call (getSymbol "g_file_info_get_deletion_date") (GioFileInfoClass.PolyML.cPtr --> GLibDateTimeRecord.PolyML.cPtr)
       val getDisplayName_ = call (getSymbol "g_file_info_get_display_name") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getEditName_ = call (getSymbol "g_file_info_get_edit_name") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getEtag_ = call (getSymbol "g_file_info_get_etag") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
@@ -46,10 +47,11 @@ structure GioFileInfo :>
       val getName_ = call (getSymbol "g_file_info_get_name") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getSize_ = call (getSymbol "g_file_info_get_size") (GioFileInfoClass.PolyML.cPtr --> GInt64.PolyML.cVal)
       val getSortOrder_ = call (getSymbol "g_file_info_get_sort_order") (GioFileInfoClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getSymbolicIcon_ = call (getSymbol "g_file_info_get_symbolic_icon") (GioFileInfoClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
       val getSymlinkTarget_ = call (getSymbol "g_file_info_get_symlink_target") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val hasAttribute_ = call (getSymbol "g_file_info_has_attribute") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val hasNamespace_ = call (getSymbol "g_file_info_has_namespace") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val listAttributes_ = call (getSymbol "g_file_info_list_attributes") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
+      val listAttributes_ = call (getSymbol "g_file_info_list_attributes") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> Utf8CVector.PolyML.cOutOptPtr)
       val removeAttribute_ = call (getSymbol "g_file_info_remove_attribute") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val setAttributeBoolean_ =
         call (getSymbol "g_file_info_set_attribute_boolean")
@@ -108,14 +110,6 @@ structure GioFileInfo :>
              &&> Utf8.PolyML.cInPtr
              --> cVoid
           )
-      val setAttributeStringv_ =
-        call (getSymbol "g_file_info_set_attribute_stringv")
-          (
-            GioFileInfoClass.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
-             --> cVoid
-          )
       val setAttributeUint32_ =
         call (getSymbol "g_file_info_set_attribute_uint32")
           (
@@ -143,6 +137,7 @@ structure GioFileInfo :>
       val setName_ = call (getSymbol "g_file_info_set_name") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val setSize_ = call (getSymbol "g_file_info_set_size") (GioFileInfoClass.PolyML.cPtr &&> GInt64.PolyML.cVal --> cVoid)
       val setSortOrder_ = call (getSymbol "g_file_info_set_sort_order") (GioFileInfoClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> cVoid)
+      val setSymbolicIcon_ = call (getSymbol "g_file_info_set_symbolic_icon") (GioFileInfoClass.PolyML.cPtr &&> GioIconClass.PolyML.cPtr --> cVoid)
       val setSymlinkTarget_ = call (getSymbol "g_file_info_set_symlink_target") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val unsetAttributeMask_ = call (getSymbol "g_file_info_unset_attribute_mask") (GioFileInfoClass.PolyML.cPtr --> cVoid)
     end
@@ -171,6 +166,7 @@ structure GioFileInfo :>
     fun getAttributeUint32 self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt32.FFI.fromVal) getAttributeUint32_ (self & attribute)
     fun getAttributeUint64 self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt64.FFI.fromVal) getAttributeUint64_ (self & attribute)
     fun getContentType self = (GioFileInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getContentType_ self
+    fun getDeletionDate self = (GioFileInfoClass.FFI.withPtr ---> GLibDateTimeRecord.FFI.fromPtr true) getDeletionDate_ self
     fun getDisplayName self = (GioFileInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
     fun getEditName self = (GioFileInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getEditName_ self
     fun getEtag self = (GioFileInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getEtag_ self
@@ -179,14 +175,20 @@ structure GioFileInfo :>
     fun getIsBackup self = (GioFileInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsBackup_ self
     fun getIsHidden self = (GioFileInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsHidden_ self
     fun getIsSymlink self = (GioFileInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsSymlink_ self
-    fun getModificationTime self result = (GioFileInfoClass.FFI.withPtr &&&> GLibTimeValRecord.FFI.withPtr ---> I) getModificationTime_ (self & result)
+    fun getModificationTime self =
+      let
+        val result & () = (GioFileInfoClass.FFI.withPtr &&&> GLibTimeValRecord.FFI.withNewPtr ---> GLibTimeValRecord.FFI.fromPtr true && I) getModificationTime_ (self & ())
+      in
+        result
+      end
     fun getName self = (GioFileInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
     fun getSize self = (GioFileInfoClass.FFI.withPtr ---> GInt64.FFI.fromVal) getSize_ self
     fun getSortOrder self = (GioFileInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getSortOrder_ self
+    fun getSymbolicIcon self = (GioFileInfoClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getSymbolicIcon_ self
     fun getSymlinkTarget self = (GioFileInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSymlinkTarget_ self
     fun hasAttribute self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasAttribute_ (self & attribute)
     fun hasNamespace self nameSpace = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasNamespace_ (self & nameSpace)
-    fun listAttributes self nameSpace = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listAttributes_ (self & nameSpace)
+    fun listAttributes self nameSpace = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> Utf8CVector.FFI.fromOptPtr 2) listAttributes_ (self & nameSpace)
     fun removeAttribute self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) removeAttribute_ (self & attribute)
     fun setAttributeBoolean self (attribute, attrValue) =
       (
@@ -280,19 +282,6 @@ structure GioFileInfo :>
            & attribute
            & attrValue
         )
-    fun setAttributeStringv self (attribute, attrValue) =
-      (
-        GioFileInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         ---> I
-      )
-        setAttributeStringv_
-        (
-          self
-           & attribute
-           & attrValue
-        )
     fun setAttributeUint32 self (attribute, attrValue) =
       (
         GioFileInfoClass.FFI.withPtr
@@ -330,6 +319,7 @@ structure GioFileInfo :>
     fun setName self name = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setName_ (self & name)
     fun setSize self size = (GioFileInfoClass.FFI.withPtr &&&> GInt64.FFI.withVal ---> I) setSize_ (self & size)
     fun setSortOrder self sortOrder = (GioFileInfoClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setSortOrder_ (self & sortOrder)
+    fun setSymbolicIcon self icon = (GioFileInfoClass.FFI.withPtr &&&> GioIconClass.FFI.withPtr ---> I) setSymbolicIcon_ (self & icon)
     fun setSymlinkTarget self symlinkTarget = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setSymlinkTarget_ (self & symlinkTarget)
     fun unsetAttributeMask self = (GioFileInfoClass.FFI.withPtr ---> I) unsetAttributeMask_ self
   end

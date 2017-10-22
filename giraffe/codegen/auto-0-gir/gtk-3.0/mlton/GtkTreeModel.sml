@@ -5,6 +5,12 @@ structure GtkTreeModel :>
     where type tree_iter_t = GtkTreeIterRecord.t
     where type tree_path_t = GtkTreePathRecord.t =
   struct
+    structure GIntCVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GIntType
+        structure ElemSequence = CValueVectorSequence(GIntType)
+      )
+    structure GIntCVectorN = CVectorN(GIntCVectorNType)
     val getType_ = _import "gtk_tree_model_get_type" : unit -> GObjectType.FFI.val_;
     val filterNew_ = fn x1 & x2 => (_import "gtk_tree_model_filter_new" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * unit GtkTreePathRecord.FFI.p -> GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p;) (x1, x2)
     val getFlags_ = _import "gtk_tree_model_get_flags" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p -> GtkTreeModelFlags.FFI.val_;
@@ -178,6 +184,31 @@ structure GtkTreeModel :>
               x1,
               x2,
               x3
+            )
+    val rowsReorderedWithLength_ =
+      fn
+        x1
+         & x2
+         & x3
+         & (x4, x5)
+         & x6 =>
+          (
+            _import "mlton_gtk_tree_model_rows_reordered_with_length" :
+              GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p
+               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
+               * unit GtkTreeIterRecord.FFI.p
+               * GIntCVectorN.MLton.p1
+               * GIntCVectorN.FFI.notnull GIntCVectorN.MLton.p2
+               * GInt.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
             )
     val sortNewWithModel_ = _import "gtk_tree_model_sort_new_with_model" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p -> GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p;
     val unrefNode_ = fn x1 & x2 => (_import "gtk_tree_model_unref_node" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
@@ -355,6 +386,35 @@ structure GtkTreeModel :>
            & path
            & iter
         )
+    fun rowsReorderedWithLength
+      self
+      (
+        path,
+        iter,
+        newOrder
+      ) =
+      let
+        val length = LargeInt.fromInt (GIntCVectorN.length newOrder)
+        val () =
+          (
+            GtkTreeModelClass.FFI.withPtr
+             &&&> GtkTreePathRecord.FFI.withPtr
+             &&&> GtkTreeIterRecord.FFI.withOptPtr
+             &&&> GIntCVectorN.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             ---> I
+          )
+            rowsReorderedWithLength_
+            (
+              self
+               & path
+               & iter
+               & newOrder
+               & length
+            )
+      in
+        ()
+      end
     fun sortNewWithModel self = (GtkTreeModelClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr true) sortNewWithModel_ self
     fun unrefNode self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> I) unrefNode_ (self & iter)
     local

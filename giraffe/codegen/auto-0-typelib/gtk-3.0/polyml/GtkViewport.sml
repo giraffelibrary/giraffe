@@ -10,7 +10,7 @@ structure GtkViewport :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_viewport_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_viewport_new") (GtkAdjustmentClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val new_ = call (getSymbol "gtk_viewport_new") (GtkAdjustmentClass.PolyML.cOptPtr &&> GtkAdjustmentClass.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val getBinWindow_ = call (getSymbol "gtk_viewport_get_bin_window") (GtkViewportClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getHadjustment_ = call (getSymbol "gtk_viewport_get_hadjustment") (GtkViewportClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getShadowType_ = call (getSymbol "gtk_viewport_get_shadow_type") (GtkViewportClass.PolyML.cPtr --> GtkShadowType.PolyML.cVal)
@@ -30,7 +30,7 @@ structure GtkViewport :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asScrollable self = (GObjectObjectClass.FFI.withPtr ---> GtkScrollableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> GtkViewportClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
+    fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withOptPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> GtkViewportClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
     fun getBinWindow self = (GtkViewportClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self
     fun getHadjustment self = (GtkViewportClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
     fun getShadowType self = (GtkViewportClass.FFI.withPtr ---> GtkShadowType.FFI.fromVal) getShadowType_ self

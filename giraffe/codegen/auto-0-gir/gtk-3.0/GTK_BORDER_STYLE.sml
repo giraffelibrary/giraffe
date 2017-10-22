@@ -5,6 +5,12 @@ signature GTK_BORDER_STYLE =
     | SOLID
     | INSET
     | OUTSET
+    | HIDDEN
+    | DOTTED
+    | DASHED
+    | DOUBLE
+    | GROOVE
+    | RIDGE
     include
       ENUM
         where type t = enum

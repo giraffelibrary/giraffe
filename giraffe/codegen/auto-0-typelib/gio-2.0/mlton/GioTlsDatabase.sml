@@ -11,7 +11,7 @@ structure GioTlsDatabase :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     val getType_ = _import "g_tls_database_get_type" : unit -> GObjectType.FFI.val_;
-    val createCertificateHandle_ = fn x1 & x2 => (_import "g_tls_database_create_certificate_handle" : GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p * GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val createCertificateHandle_ = fn x1 & x2 => (_import "g_tls_database_create_certificate_handle" : GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p * GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p -> unit Utf8.FFI.out_p;) (x1, x2)
     val lookupCertificateForHandle_ =
       fn
         x1
@@ -29,7 +29,7 @@ structure GioTlsDatabase :>
                * GioTlsDatabaseLookupFlags.FFI.val_
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
+               -> unit GioTlsCertificateClass.FFI.p;
           )
             (
               x1,
@@ -162,7 +162,7 @@ structure GioTlsDatabase :>
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun createCertificateHandle self certificate = (GioTlsDatabaseClass.FFI.withPtr &&&> GioTlsCertificateClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) createCertificateHandle_ (self & certificate)
+    fun createCertificateHandle self certificate = (GioTlsDatabaseClass.FFI.withPtr &&&> GioTlsCertificateClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) createCertificateHandle_ (self & certificate)
     fun lookupCertificateForHandle
       self
       (
@@ -178,7 +178,7 @@ structure GioTlsDatabase :>
          &&&> GioTlsDatabaseLookupFlags.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioTlsCertificateClass.FFI.fromPtr true
+         ---> GioTlsCertificateClass.FFI.fromOptPtr true
       )
         lookupCertificateForHandle_
         (

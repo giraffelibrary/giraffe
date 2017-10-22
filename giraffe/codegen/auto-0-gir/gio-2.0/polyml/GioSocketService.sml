@@ -23,6 +23,15 @@ structure GioSocketService :>
     local
       open ClosureMarshal Signal
     in
-      fun incomingSig f = signal "incoming" (get 0w1 GioSocketConnectionClass.t &&&> get 0w2 GObjectObjectClass.t ---> ret boolean) (fn connection & sourceObject => f (connection, sourceObject))
+      fun incomingSig f = signal "incoming" (get 0w1 GioSocketConnectionClass.t &&&> get 0w2 GObjectObjectClass.tOpt ---> ret boolean) (fn connection & sourceObject => f (connection, sourceObject))
+    end
+    local
+      open Property
+    in
+      val activeProp =
+        {
+          get = fn x => get "active" boolean x,
+          set = fn x => set "active" boolean x
+        }
     end
   end

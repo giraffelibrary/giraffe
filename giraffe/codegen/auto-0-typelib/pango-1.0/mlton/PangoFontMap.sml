@@ -15,7 +15,10 @@ structure PangoFontMap :>
       )
     structure PangoFontFamilyClassCVectorN = CVectorN(PangoFontFamilyClassCVectorNType)
     val getType_ = _import "pango_font_map_get_type" : unit -> GObjectType.FFI.val_;
+    val changed_ = _import "pango_font_map_changed" : PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p -> unit;
     val createContext_ = _import "pango_font_map_create_context" : PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p -> PangoContextClass.FFI.notnull PangoContextClass.FFI.p;
+    val getSerial_ = _import "pango_font_map_get_serial" : PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p -> GUInt32.FFI.val_;
+    val getShapeEngineType_ = _import "pango_font_map_get_shape_engine_type" : PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val listFamilies_ =
       fn
         x1
@@ -45,7 +48,7 @@ structure PangoFontMap :>
               PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p
                * PangoContextClass.FFI.notnull PangoContextClass.FFI.p
                * PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p
-               -> PangoFontClass.FFI.notnull PangoFontClass.FFI.p;
+               -> unit PangoFontClass.FFI.p;
           )
             (
               x1,
@@ -64,7 +67,7 @@ structure PangoFontMap :>
                * PangoContextClass.FFI.notnull PangoContextClass.FFI.p
                * PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p
                * PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p
-               -> PangoFontsetClass.FFI.notnull PangoFontsetClass.FFI.p;
+               -> unit PangoFontsetClass.FFI.p;
           )
             (
               x1,
@@ -81,7 +84,10 @@ structure PangoFontMap :>
     type 'a context_class = 'a PangoContextClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun changed self = (PangoFontMapClass.FFI.withPtr ---> I) changed_ self
     fun createContext self = (PangoFontMapClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr true) createContext_ self
+    fun getSerial self = (PangoFontMapClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getSerial_ self
+    fun getShapeEngineType self = (PangoFontMapClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getShapeEngineType_ self
     fun listFamilies self =
       let
         val families
@@ -91,7 +97,7 @@ structure PangoFontMap :>
             PangoFontMapClass.FFI.withPtr
              &&&> PangoFontFamilyClassCVectorN.FFI.withRefOptPtr
              &&&> GInt32.FFI.withRefVal
-             ---> PangoFontFamilyClassCVectorN.FFI.fromPtr 2
+             ---> PangoFontFamilyClassCVectorN.FFI.fromPtr 1
                    && GInt32.FFI.fromVal
                    && I
           )
@@ -109,7 +115,7 @@ structure PangoFontMap :>
         PangoFontMapClass.FFI.withPtr
          &&&> PangoContextClass.FFI.withPtr
          &&&> PangoFontDescriptionRecord.FFI.withPtr
-         ---> PangoFontClass.FFI.fromPtr true
+         ---> PangoFontClass.FFI.fromOptPtr true
       )
         loadFont_
         (
@@ -129,7 +135,7 @@ structure PangoFontMap :>
          &&&> PangoContextClass.FFI.withPtr
          &&&> PangoFontDescriptionRecord.FFI.withPtr
          &&&> PangoLanguageRecord.FFI.withPtr
-         ---> PangoFontsetClass.FFI.fromPtr true
+         ---> PangoFontsetClass.FFI.fromOptPtr true
       )
         loadFontset_
         (

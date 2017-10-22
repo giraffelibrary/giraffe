@@ -2,6 +2,7 @@ signature PANGO_FONT_METRICS =
   sig
     type t
     val getType : unit -> GObject.Type.t
+    val new : unit -> t
     val getApproximateCharWidth : t -> LargeInt.int
     val getApproximateDigitWidth : t -> LargeInt.int
     val getAscent : t -> LargeInt.int

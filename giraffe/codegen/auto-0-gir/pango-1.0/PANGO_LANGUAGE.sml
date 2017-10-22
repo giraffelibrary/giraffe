@@ -4,6 +4,7 @@ signature PANGO_LANGUAGE =
     type script_t
     val getType : unit -> GObject.Type.t
     val getSampleString : t -> string
+    val getScripts : t -> script_t vector
     val includesScript :
       t
        -> script_t

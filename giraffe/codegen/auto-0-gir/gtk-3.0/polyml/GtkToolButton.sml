@@ -1,6 +1,7 @@
 structure GtkToolButton :>
   GTK_TOOL_BUTTON
     where type 'a class = 'a GtkToolButtonClass.class
+    where type 'a actionable_class = 'a GtkActionableClass.class
     where type 'a activatable_class = 'a GtkActivatableClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class =
@@ -25,11 +26,13 @@ structure GtkToolButton :>
       val setUseUnderline_ = call (getSymbol "gtk_tool_button_set_use_underline") (GtkToolButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkToolButtonClass.class
+    type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

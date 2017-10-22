@@ -30,6 +30,7 @@ structure GtkNotebook :>
              &&> GtkWidgetClass.PolyML.cOptPtr
              --> GInt.PolyML.cVal
           )
+      val detachTab_ = call (getSymbol "gtk_notebook_detach_tab") (GtkNotebookClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
       val getActionWidget_ = call (getSymbol "gtk_notebook_get_action_widget") (GtkNotebookClass.PolyML.cPtr &&> GtkPackType.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
       val getCurrentPage_ = call (getSymbol "gtk_notebook_get_current_page") (GtkNotebookClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getGroupName_ = call (getSymbol "gtk_notebook_get_group_name") (GtkNotebookClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
@@ -206,6 +207,7 @@ structure GtkNotebook :>
            & tabLabel
            & menuLabel
         )
+    fun detachTab self child = (GtkNotebookClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) detachTab_ (self & child)
     fun getActionWidget self packType = (GtkNotebookClass.FFI.withPtr &&&> GtkPackType.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getActionWidget_ (self & packType)
     fun getCurrentPage self = (GtkNotebookClass.FFI.withPtr ---> GInt.FFI.fromVal) getCurrentPage_ self
     fun getGroupName self = (GtkNotebookClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getGroupName_ self

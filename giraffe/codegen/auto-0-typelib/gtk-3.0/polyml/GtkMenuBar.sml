@@ -9,6 +9,7 @@ structure GtkMenuBar :>
     in
       val getType_ = call (getSymbol "gtk_menu_bar_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_menu_bar_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
+      val newFromModel_ = call (getSymbol "gtk_menu_bar_new_from_model") (GioMenuModelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getChildPackDirection_ = call (getSymbol "gtk_menu_bar_get_child_pack_direction") (GtkMenuBarClass.PolyML.cPtr --> GtkPackDirection.PolyML.cVal)
       val getPackDirection_ = call (getSymbol "gtk_menu_bar_get_pack_direction") (GtkMenuBarClass.PolyML.cPtr --> GtkPackDirection.PolyML.cVal)
       val setChildPackDirection_ = call (getSymbol "gtk_menu_bar_set_child_pack_direction") (GtkMenuBarClass.PolyML.cPtr &&> GtkPackDirection.PolyML.cVal --> cVoid)
@@ -22,6 +23,7 @@ structure GtkMenuBar :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkMenuBarClass.FFI.fromPtr false) new_ ()
+    fun newFromModel model = (GioMenuModelClass.FFI.withPtr ---> GtkMenuBarClass.FFI.fromPtr false) newFromModel_ model
     fun getChildPackDirection self = (GtkMenuBarClass.FFI.withPtr ---> GtkPackDirection.FFI.fromVal) getChildPackDirection_ self
     fun getPackDirection self = (GtkMenuBarClass.FFI.withPtr ---> GtkPackDirection.FFI.fromVal) getPackDirection_ self
     fun setChildPackDirection self childPackDir = (GtkMenuBarClass.FFI.withPtr &&&> GtkPackDirection.FFI.withVal ---> I) setChildPackDirection_ (self & childPackDir)

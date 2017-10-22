@@ -15,7 +15,7 @@ structure GtkSourceGutterRenderer :>
             _import "gtk_source_gutter_renderer_activate" :
               GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
                * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
                * GdkEvent.FFI.notnull GdkEvent.FFI.p
                -> unit;
           )
@@ -37,8 +37,8 @@ structure GtkSourceGutterRenderer :>
             _import "gtk_source_gutter_renderer_begin" :
               GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
                * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
                * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                -> unit;
@@ -64,8 +64,8 @@ structure GtkSourceGutterRenderer :>
             _import "gtk_source_gutter_renderer_draw" :
               GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
                * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
                * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                * GtkSourceGutterRendererState.FFI.val_
@@ -131,7 +131,7 @@ structure GtkSourceGutterRenderer :>
             _import "gtk_source_gutter_renderer_query_activatable" :
               GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
                * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
                * GdkEvent.FFI.notnull GdkEvent.FFI.p
                -> GBool.FFI.val_;
           )
@@ -173,7 +173,7 @@ structure GtkSourceGutterRenderer :>
             _import "gtk_source_gutter_renderer_query_tooltip" :
               GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
                * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * CairoRectangleIntRecord.FFI.notnull CairoRectangleIntRecord.FFI.p
+               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GtkTooltipClass.FFI.notnull GtkTooltipClass.FFI.p
@@ -241,7 +241,7 @@ structure GtkSourceGutterRenderer :>
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GdkEvent.FFI.withPtr
          ---> I
       )
@@ -264,8 +264,8 @@ structure GtkSourceGutterRenderer :>
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
          ---> I
@@ -292,8 +292,8 @@ structure GtkSourceGutterRenderer :>
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
          &&&> GtkSourceGutterRendererState.FFI.withVal
@@ -375,7 +375,7 @@ structure GtkSourceGutterRenderer :>
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GdkEvent.FFI.withPtr
          ---> GBool.FFI.fromVal
       )
@@ -419,7 +419,7 @@ structure GtkSourceGutterRenderer :>
       (
         GtkSourceGutterRendererClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GtkTooltipClass.FFI.withPtr
@@ -472,7 +472,7 @@ structure GtkSourceGutterRenderer :>
         signal "activate"
           (
             get 0w1 GtkTextIterRecord.t
-             &&&> get 0w2 CairoRectangleIntRecord.t
+             &&&> get 0w2 GdkRectangleRecord.t
              &&&> get 0w3 GdkEvent.t
              ---> ret_void
           )
@@ -492,7 +492,7 @@ structure GtkSourceGutterRenderer :>
         signal "query-activatable"
           (
             get 0w1 GtkTextIterRecord.t
-             &&&> get 0w2 CairoRectangleIntRecord.t
+             &&&> get 0w2 GdkRectangleRecord.t
              &&&> get 0w3 GdkEvent.t
              ---> ret boolean
           )
@@ -532,7 +532,7 @@ structure GtkSourceGutterRenderer :>
         signal "query-tooltip"
           (
             get 0w1 GtkTextIterRecord.t
-             &&&> get 0w2 CairoRectangleIntRecord.t
+             &&&> get 0w2 GdkRectangleRecord.t
              &&&> get 0w3 int
              &&&> get 0w4 int
              &&&> get 0w5 GtkTooltipClass.t

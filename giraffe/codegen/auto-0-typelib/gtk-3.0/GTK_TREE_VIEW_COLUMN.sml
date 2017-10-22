@@ -28,7 +28,7 @@ signature GTK_TREE_VIEW_COLUMN =
        -> (LargeInt.int * LargeInt.int) option
     val cellGetSize :
       'a class
-       -> Cairo.RectangleIntRecord.t option
+       -> Gdk.RectangleRecord.t option
        -> LargeInt.int
            * LargeInt.int
            * LargeInt.int
@@ -66,9 +66,9 @@ signature GTK_TREE_VIEW_COLUMN =
     val getSortOrder : 'a class -> sort_type_t
     val getSpacing : 'a class -> LargeInt.int
     val getTitle : 'a class -> string
-    val getTreeView : 'a class -> base widget_class
+    val getTreeView : 'a class -> base widget_class option
     val getVisible : 'a class -> bool
-    val getWidget : 'a class -> base widget_class
+    val getWidget : 'a class -> base widget_class option
     val getWidth : 'a class -> LargeInt.int
     val getXOffset : 'a class -> LargeInt.int
     val packEnd :

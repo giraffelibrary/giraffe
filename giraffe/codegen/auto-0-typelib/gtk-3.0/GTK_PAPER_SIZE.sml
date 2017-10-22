@@ -11,6 +11,12 @@ signature GTK_PAPER_SIZE =
        * real
        * unit_t
        -> t
+    val newFromGvariant : GLib.VariantRecord.t -> t
+    val newFromIpp :
+      string
+       * real
+       * real
+       -> t
     val newFromKeyFile : GLib.KeyFileRecord.t * string -> t
     val newFromPpd :
       string
@@ -51,12 +57,14 @@ signature GTK_PAPER_SIZE =
       t
        -> t
        -> bool
+    val isIpp : t -> bool
     val setSize :
       t
        -> real
            * real
            * unit_t
        -> unit
+    val toGvariant : t -> GLib.VariantRecord.t
     val toKeyFile :
       t
        -> GLib.KeyFileRecord.t * string

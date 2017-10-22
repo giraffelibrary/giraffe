@@ -13,7 +13,7 @@ signature GIO_D_BUS_SERVER =
       string
        * d_bus_server_flags_t
        * string
-       * 'a d_bus_auth_observer_class
+       * 'a d_bus_auth_observer_class option
        * 'b cancellable_class option
        -> base class
     val getClientAddress : 'a class -> string

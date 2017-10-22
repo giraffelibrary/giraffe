@@ -11,6 +11,21 @@ structure GtkTreePath :>
     val getType_ = _import "gtk_tree_path_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_tree_path_new" : unit -> GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p;
     val newFirst_ = _import "gtk_tree_path_new_first" : unit -> GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p;
+    val newFromIndicesv_ =
+      fn
+        (x1, x2) & x3 =>
+          (
+            _import "mlton_gtk_tree_path_new_from_indicesv" :
+              GIntCVectorN.MLton.p1
+               * GIntCVectorN.FFI.notnull GIntCVectorN.MLton.p2
+               * GSize.FFI.val_
+               -> GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val newFromString_ = _import "mlton_gtk_tree_path_new_from_string" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p;
     val appendIndex_ = fn x1 & x2 => (_import "gtk_tree_path_append_index" : GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val compare_ = fn x1 & x2 => (_import "gtk_tree_path_compare" : GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
@@ -29,6 +44,13 @@ structure GtkTreePath :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkTreePathRecord.FFI.fromPtr true) new_ ()
     fun newFirst () = (I ---> GtkTreePathRecord.FFI.fromPtr true) newFirst_ ()
+    fun newFromIndicesv indices =
+      let
+        val length = LargeInt.fromInt (GIntCVectorN.length indices)
+        val retVal = (GIntCVectorN.FFI.withPtr &&&> GSize.FFI.withVal ---> GtkTreePathRecord.FFI.fromPtr true) newFromIndicesv_ (indices & length)
+      in
+        retVal
+      end
     fun newFromString path = (Utf8.FFI.withPtr ---> GtkTreePathRecord.FFI.fromPtr true) newFromString_ path
     fun appendIndex self index = (GtkTreePathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> I) appendIndex_ (self & index)
     fun compare self b = (GtkTreePathRecord.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GInt.FFI.fromVal) compare_ (self & b)

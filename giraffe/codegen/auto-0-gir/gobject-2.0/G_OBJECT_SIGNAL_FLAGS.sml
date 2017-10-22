@@ -9,4 +9,5 @@ signature G_OBJECT_SIGNAL_FLAGS =
     val ACTION : t
     val NO_HOOKS : t
     val MUST_COLLECT : t
+    val DEPRECATED : t
   end

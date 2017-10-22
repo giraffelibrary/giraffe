@@ -6,7 +6,15 @@ structure GioDBusSignalFlags :> GIO_D_BUS_SIGNAL_FLAGS =
       val NONE = NONE ()
     end
     val NO_MATCH_RULE = 0w1
-    val allFlags = [NONE, NO_MATCH_RULE]
+    val MATCH_ARG_0_NAMESPACE = 0w2
+    val MATCH_ARG_0_PATH = 0w4
+    val allFlags =
+      [
+        NONE,
+        NO_MATCH_RULE,
+        MATCH_ARG_0_NAMESPACE,
+        MATCH_ARG_0_PATH
+      ]
     structure Flags =
       Flags(
         val allFlags = allFlags

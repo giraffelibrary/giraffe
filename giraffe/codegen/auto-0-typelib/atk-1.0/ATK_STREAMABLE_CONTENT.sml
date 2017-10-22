@@ -15,5 +15,5 @@ signature ATK_STREAMABLE_CONTENT =
     val getUri :
       'a class
        -> string
-       -> string
+       -> string option
   end

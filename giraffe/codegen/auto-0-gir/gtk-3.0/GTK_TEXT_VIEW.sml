@@ -6,15 +6,17 @@ signature GTK_TEXT_VIEW =
     type 'a text_child_anchor_class
     type text_attributes_t
     type 'a adjustment_class
-    type 'a widget_class
     type 'a text_mark_class
-    type text_iter_t
     type text_window_type_t
     type delete_type_t
+    type text_iter_t
+    type text_extend_selection_t
     type movement_step_t
     type scroll_step_t
-    type 'a menu_class
+    type 'a widget_class
     type 'a text_buffer_class
+    type input_hints_t
+    type input_purpose_t
     type justification_t
     type wrap_mode_t
     type t = base class
@@ -62,6 +64,7 @@ signature GTK_TEXT_VIEW =
       'a class
        -> text_window_type_t
        -> LargeInt.int
+    val getBottomMargin : 'a class -> LargeInt.int
     val getBuffer : 'a class -> base text_buffer_class
     val getCursorLocations :
       'a class
@@ -72,14 +75,16 @@ signature GTK_TEXT_VIEW =
     val getEditable : 'a class -> bool
     val getHadjustment : 'a class -> base adjustment_class
     val getIndent : 'a class -> LargeInt.int
+    val getInputHints : 'a class -> input_hints_t
+    val getInputPurpose : 'a class -> input_purpose_t
     val getIterAtLocation :
       'a class
        -> LargeInt.int * LargeInt.int
-       -> text_iter_t
+       -> text_iter_t option
     val getIterAtPosition :
       'a class
        -> LargeInt.int * LargeInt.int
-       -> text_iter_t * LargeInt.int
+       -> (text_iter_t * LargeInt.int) option
     val getIterLocation :
       'a class
        -> text_iter_t
@@ -94,12 +99,14 @@ signature GTK_TEXT_VIEW =
       'a class
        -> text_iter_t
        -> LargeInt.int * LargeInt.int
+    val getMonospace : 'a class -> bool
     val getOverwrite : 'a class -> bool
     val getPixelsAboveLines : 'a class -> LargeInt.int
     val getPixelsBelowLines : 'a class -> LargeInt.int
     val getPixelsInsideWrap : 'a class -> LargeInt.int
     val getRightMargin : 'a class -> LargeInt.int
     val getTabs : 'a class -> Pango.TabArrayRecord.t
+    val getTopMargin : 'a class -> LargeInt.int
     val getVadjustment : 'a class -> base adjustment_class
     val getVisibleRect : 'a class -> Gdk.RectangleRecord.t
     val getWindow :
@@ -130,6 +137,7 @@ signature GTK_TEXT_VIEW =
        -> text_iter_t * LargeInt.int
        -> bool
     val placeCursorOnscreen : 'a class -> bool
+    val resetCursorBlink : 'a class -> unit
     val resetImContext : 'a class -> unit
     val scrollMarkOnscreen :
       'a class
@@ -159,6 +167,10 @@ signature GTK_TEXT_VIEW =
       'a class
        -> text_window_type_t * LargeInt.int
        -> unit
+    val setBottomMargin :
+      'a class
+       -> LargeInt.int
+       -> unit
     val setBuffer :
       'a class
        -> 'b text_buffer_class option
@@ -175,6 +187,14 @@ signature GTK_TEXT_VIEW =
       'a class
        -> LargeInt.int
        -> unit
+    val setInputHints :
+      'a class
+       -> input_hints_t
+       -> unit
+    val setInputPurpose :
+      'a class
+       -> input_purpose_t
+       -> unit
     val setJustification :
       'a class
        -> justification_t
@@ -182,6 +202,10 @@ signature GTK_TEXT_VIEW =
     val setLeftMargin :
       'a class
        -> LargeInt.int
+       -> unit
+    val setMonospace :
+      'a class
+       -> bool
        -> unit
     val setOverwrite :
       'a class
@@ -207,6 +231,10 @@ signature GTK_TEXT_VIEW =
       'a class
        -> Pango.TabArrayRecord.t
        -> unit
+    val setTopMargin :
+      'a class
+       -> LargeInt.int
+       -> unit
     val setWrapMode :
       'a class
        -> wrap_mode_t
@@ -225,6 +253,13 @@ signature GTK_TEXT_VIEW =
     val copyClipboardSig : (unit -> unit) -> 'a class Signal.t
     val cutClipboardSig : (unit -> unit) -> 'a class Signal.t
     val deleteFromCursorSig : (delete_type_t * LargeInt.int -> unit) -> 'a class Signal.t
+    val extendSelectionSig :
+      (text_extend_selection_t
+        * text_iter_t
+        * text_iter_t
+        * text_iter_t
+        -> bool)
+       -> 'a class Signal.t
     val insertAtCursorSig : (string -> unit) -> 'a class Signal.t
     val moveCursorSig :
       (movement_step_t
@@ -234,25 +269,31 @@ signature GTK_TEXT_VIEW =
        -> 'a class Signal.t
     val moveViewportSig : (scroll_step_t * LargeInt.int -> unit) -> 'a class Signal.t
     val pasteClipboardSig : (unit -> unit) -> 'a class Signal.t
-    val populatePopupSig : (base menu_class -> unit) -> 'a class Signal.t
+    val populatePopupSig : (base widget_class -> unit) -> 'a class Signal.t
     val preeditChangedSig : (string -> unit) -> 'a class Signal.t
     val selectAllSig : (bool -> unit) -> 'a class Signal.t
     val setAnchorSig : (unit -> unit) -> 'a class Signal.t
     val toggleCursorVisibleSig : (unit -> unit) -> 'a class Signal.t
     val toggleOverwriteSig : (unit -> unit) -> 'a class Signal.t
     val acceptsTabProp : ('a class, bool, bool) Property.readwrite
+    val bottomMarginProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val bufferProp : ('a class, base text_buffer_class option, 'b text_buffer_class option) Property.readwrite
     val cursorVisibleProp : ('a class, bool, bool) Property.readwrite
     val editableProp : ('a class, bool, bool) Property.readwrite
     val imModuleProp : ('a class, string option, string option) Property.readwrite
     val indentProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val inputHintsProp : ('a class, input_hints_t, input_hints_t) Property.readwrite
+    val inputPurposeProp : ('a class, input_purpose_t, input_purpose_t) Property.readwrite
     val justificationProp : ('a class, justification_t, justification_t) Property.readwrite
     val leftMarginProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val monospaceProp : ('a class, bool, bool) Property.readwrite
     val overwriteProp : ('a class, bool, bool) Property.readwrite
     val pixelsAboveLinesProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val pixelsBelowLinesProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val pixelsInsideWrapProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val populateAllProp : ('a class, bool, bool) Property.readwrite
     val rightMarginProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val tabsProp : ('a class, Pango.TabArrayRecord.t option, Pango.TabArrayRecord.t option) Property.readwrite
+    val topMarginProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val wrapModeProp : ('a class, wrap_mode_t, wrap_mode_t) Property.readwrite
   end

@@ -21,6 +21,7 @@ structure PangoContext :>
     structure PangoFontFamilyClassCVectorN = CVectorN(PangoFontFamilyClassCVectorNType)
     val getType_ = _import "pango_context_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "pango_context_new" : unit -> PangoContextClass.FFI.notnull PangoContextClass.FFI.p;
+    val changed_ = _import "pango_context_changed" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> unit;
     val getBaseDir_ = _import "pango_context_get_base_dir" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoDirection.FFI.val_;
     val getBaseGravity_ = _import "pango_context_get_base_gravity" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoGravity.FFI.val_;
     val getFontDescription_ = _import "pango_context_get_font_description" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;
@@ -28,7 +29,7 @@ structure PangoContext :>
     val getGravity_ = _import "pango_context_get_gravity" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoGravity.FFI.val_;
     val getGravityHint_ = _import "pango_context_get_gravity_hint" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoGravityHint.FFI.val_;
     val getLanguage_ = _import "pango_context_get_language" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p;
-    val getMatrix_ = _import "pango_context_get_matrix" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p;
+    val getMatrix_ = _import "pango_context_get_matrix" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> unit PangoMatrixRecord.FFI.p;
     val getMetrics_ =
       fn
         x1
@@ -46,6 +47,7 @@ structure PangoContext :>
               x2,
               x3
             )
+    val getSerial_ = _import "pango_context_get_serial" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> GUInt32.FFI.val_;
     val listFamilies_ =
       fn
         x1
@@ -65,7 +67,7 @@ structure PangoContext :>
               x3,
               x4
             )
-    val loadFont_ = fn x1 & x2 => (_import "pango_context_load_font" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> PangoFontClass.FFI.notnull PangoFontClass.FFI.p;) (x1, x2)
+    val loadFont_ = fn x1 & x2 => (_import "pango_context_load_font" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> unit PangoFontClass.FFI.p;) (x1, x2)
     val loadFontset_ =
       fn
         x1
@@ -76,7 +78,7 @@ structure PangoContext :>
               PangoContextClass.FFI.notnull PangoContextClass.FFI.p
                * PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p
                * PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p
-               -> PangoFontsetClass.FFI.notnull PangoFontsetClass.FFI.p;
+               -> unit PangoFontsetClass.FFI.p;
           )
             (
               x1,
@@ -105,6 +107,7 @@ structure PangoContext :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> PangoContextClass.FFI.fromPtr true) new_ ()
+    fun changed self = (PangoContextClass.FFI.withPtr ---> I) changed_ self
     fun getBaseDir self = (PangoContextClass.FFI.withPtr ---> PangoDirection.FFI.fromVal) getBaseDir_ self
     fun getBaseGravity self = (PangoContextClass.FFI.withPtr ---> PangoGravity.FFI.fromVal) getBaseGravity_ self
     fun getFontDescription self = (PangoContextClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFontDescription_ self
@@ -112,7 +115,7 @@ structure PangoContext :>
     fun getGravity self = (PangoContextClass.FFI.withPtr ---> PangoGravity.FFI.fromVal) getGravity_ self
     fun getGravityHint self = (PangoContextClass.FFI.withPtr ---> PangoGravityHint.FFI.fromVal) getGravityHint_ self
     fun getLanguage self = (PangoContextClass.FFI.withPtr ---> PangoLanguageRecord.FFI.fromPtr true) getLanguage_ self
-    fun getMatrix self = (PangoContextClass.FFI.withPtr ---> PangoMatrixRecord.FFI.fromPtr false) getMatrix_ self
+    fun getMatrix self = (PangoContextClass.FFI.withPtr ---> PangoMatrixRecord.FFI.fromOptPtr false) getMatrix_ self
     fun getMetrics self (desc, language) =
       (
         PangoContextClass.FFI.withPtr
@@ -126,6 +129,7 @@ structure PangoContext :>
            & desc
            & language
         )
+    fun getSerial self = (PangoContextClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getSerial_ self
     fun listFamilies self =
       let
         val families
@@ -135,7 +139,7 @@ structure PangoContext :>
             PangoContextClass.FFI.withPtr
              &&&> PangoFontFamilyClassCVectorN.FFI.withRefOptPtr
              &&&> GInt32.FFI.withRefVal
-             ---> PangoFontFamilyClassCVectorN.FFI.fromPtr 2
+             ---> PangoFontFamilyClassCVectorN.FFI.fromPtr 1
                    && GInt32.FFI.fromVal
                    && I
           )
@@ -148,13 +152,13 @@ structure PangoContext :>
       in
         families (LargeInt.toInt nFamilies)
       end
-    fun loadFont self desc = (PangoContextClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withPtr ---> PangoFontClass.FFI.fromPtr true) loadFont_ (self & desc)
+    fun loadFont self desc = (PangoContextClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withPtr ---> PangoFontClass.FFI.fromOptPtr true) loadFont_ (self & desc)
     fun loadFontset self (desc, language) =
       (
         PangoContextClass.FFI.withPtr
          &&&> PangoFontDescriptionRecord.FFI.withPtr
          &&&> PangoLanguageRecord.FFI.withPtr
-         ---> PangoFontsetClass.FFI.fromPtr true
+         ---> PangoFontsetClass.FFI.fromOptPtr true
       )
         loadFontset_
         (

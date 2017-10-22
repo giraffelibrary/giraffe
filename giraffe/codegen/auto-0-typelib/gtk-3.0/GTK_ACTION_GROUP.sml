@@ -4,6 +4,7 @@ signature GTK_ACTION_GROUP =
     type 'a buildable_class
     type 'a widget_class
     type 'a action_class
+    type 'a accel_group_class
     type t = base class
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
@@ -16,6 +17,7 @@ signature GTK_ACTION_GROUP =
       'a class
        -> 'b action_class * string option
        -> unit
+    val getAccelGroup : 'a class -> base accel_group_class
     val getAction :
       'a class
        -> string
@@ -26,6 +28,10 @@ signature GTK_ACTION_GROUP =
     val removeAction :
       'a class
        -> 'b action_class
+       -> unit
+    val setAccelGroup :
+      'a class
+       -> 'b accel_group_class option
        -> unit
     val setSensitive :
       'a class
@@ -47,6 +53,7 @@ signature GTK_ACTION_GROUP =
     val disconnectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.t
     val postActivateSig : (base action_class -> unit) -> 'a class Signal.t
     val preActivateSig : (base action_class -> unit) -> 'a class Signal.t
+    val accelGroupProp : ('a class, base accel_group_class option, 'b accel_group_class option) Property.readwrite
     val nameProp : ('a class, string option, string option) Property.readwrite
     val sensitiveProp : ('a class, bool, bool) Property.readwrite
     val visibleProp : ('a class, bool, bool) Property.readwrite

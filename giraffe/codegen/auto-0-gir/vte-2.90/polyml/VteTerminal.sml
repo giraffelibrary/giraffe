@@ -20,6 +20,12 @@ structure VteTerminal :>
         structure Sequence = VectorSequence
       )
     structure GdkColorRecordCVectorN = CVectorN(GdkColorRecordCVectorNType)
+    structure GUInt8CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GUInt8Type
+        structure ElemSequence = MonoVectorSequence(Word8Vector)
+      )
+    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -31,7 +37,7 @@ structure VteTerminal :>
         call (getSymbol "vte_terminal_feed")
           (
             VteTerminalClass.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
+             &&> GUInt8CVectorN.PolyML.cInPtr
              &&> GLong.PolyML.cVal
              --> cVoid
           )
@@ -57,7 +63,17 @@ structure VteTerminal :>
       val getCharWidth_ = call (getSymbol "vte_terminal_get_char_width") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
       val getChildExitStatus_ = call (getSymbol "vte_terminal_get_child_exit_status") (VteTerminalClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getColumnCount_ = call (getSymbol "vte_terminal_get_column_count") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
+      val getCurrentDirectoryUri_ = call (getSymbol "vte_terminal_get_current_directory_uri") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getCurrentFileUri_ = call (getSymbol "vte_terminal_get_current_file_uri") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getCursorBlinkMode_ = call (getSymbol "vte_terminal_get_cursor_blink_mode") (VteTerminalClass.PolyML.cPtr --> VteTerminalCursorBlinkMode.PolyML.cVal)
+      val getCursorPosition_ =
+        call (getSymbol "vte_terminal_get_cursor_position")
+          (
+            VteTerminalClass.PolyML.cPtr
+             &&> GLong.PolyML.cRef
+             &&> GLong.PolyML.cRef
+             --> cVoid
+          )
       val getCursorShape_ = call (getSymbol "vte_terminal_get_cursor_shape") (VteTerminalClass.PolyML.cPtr --> VteTerminalCursorShape.PolyML.cVal)
       val getDefaultEmulation_ = call (getSymbol "vte_terminal_get_default_emulation") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getEmulation_ = call (getSymbol "vte_terminal_get_emulation") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
@@ -67,11 +83,11 @@ structure VteTerminal :>
       val getIconTitle_ = call (getSymbol "vte_terminal_get_icon_title") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getMouseAutohide_ = call (getSymbol "vte_terminal_get_mouse_autohide") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getPtyObject_ = call (getSymbol "vte_terminal_get_pty_object") (VteTerminalClass.PolyML.cPtr --> VtePtyClass.PolyML.cPtr)
+      val getRewrapOnResize_ = call (getSymbol "vte_terminal_get_rewrap_on_resize") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getRowCount_ = call (getSymbol "vte_terminal_get_row_count") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
       val getStatusLine_ = call (getSymbol "vte_terminal_get_status_line") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getVisibleBell_ = call (getSymbol "vte_terminal_get_visible_bell") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getWindowTitle_ = call (getSymbol "vte_terminal_get_window_title") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val imAppendMenuitems_ = call (getSymbol "vte_terminal_im_append_menuitems") (VteTerminalClass.PolyML.cPtr &&> GtkMenuShellClass.PolyML.cPtr --> cVoid)
       val isWordChar_ = call (getSymbol "vte_terminal_is_word_char") (VteTerminalClass.PolyML.cPtr &&> GChar.PolyML.cVal --> GBool.PolyML.cVal)
       val matchAddGregex_ =
         call (getSymbol "vte_terminal_match_add_gregex")
@@ -144,11 +160,6 @@ structure VteTerminal :>
       val selectNone_ = call (getSymbol "vte_terminal_select_none") (VteTerminalClass.PolyML.cPtr --> cVoid)
       val setAllowBold_ = call (getSymbol "vte_terminal_set_allow_bold") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setAudibleBell_ = call (getSymbol "vte_terminal_set_audible_bell") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setBackgroundImage_ = call (getSymbol "vte_terminal_set_background_image") (VteTerminalClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cOptPtr --> cVoid)
-      val setBackgroundImageFile_ = call (getSymbol "vte_terminal_set_background_image_file") (VteTerminalClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
-      val setBackgroundSaturation_ = call (getSymbol "vte_terminal_set_background_saturation") (VteTerminalClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
-      val setBackgroundTintColor_ = call (getSymbol "vte_terminal_set_background_tint_color") (VteTerminalClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> cVoid)
-      val setBackgroundTransparent_ = call (getSymbol "vte_terminal_set_background_transparent") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setBackspaceBinding_ = call (getSymbol "vte_terminal_set_backspace_binding") (VteTerminalClass.PolyML.cPtr &&> VteTerminalEraseBinding.PolyML.cVal --> cVoid)
       val setColorBackground_ = call (getSymbol "vte_terminal_set_color_background") (VteTerminalClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> cVoid)
       val setColorBackgroundRgba_ = call (getSymbol "vte_terminal_set_color_background_rgba") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> cVoid)
@@ -161,6 +172,8 @@ structure VteTerminal :>
       val setColorForeground_ = call (getSymbol "vte_terminal_set_color_foreground") (VteTerminalClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> cVoid)
       val setColorForegroundRgba_ = call (getSymbol "vte_terminal_set_color_foreground_rgba") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> cVoid)
       val setColorHighlight_ = call (getSymbol "vte_terminal_set_color_highlight") (VteTerminalClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cOptPtr --> cVoid)
+      val setColorHighlightForeground_ = call (getSymbol "vte_terminal_set_color_highlight_foreground") (VteTerminalClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cOptPtr --> cVoid)
+      val setColorHighlightForegroundRgba_ = call (getSymbol "vte_terminal_set_color_highlight_foreground_rgba") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> cVoid)
       val setColorHighlightRgba_ = call (getSymbol "vte_terminal_set_color_highlight_rgba") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> cVoid)
       val setColors_ =
         call (getSymbol "vte_terminal_set_colors")
@@ -191,9 +204,8 @@ structure VteTerminal :>
       val setFont_ = call (getSymbol "vte_terminal_set_font") (VteTerminalClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cOptPtr --> cVoid)
       val setFontFromString_ = call (getSymbol "vte_terminal_set_font_from_string") (VteTerminalClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val setMouseAutohide_ = call (getSymbol "vte_terminal_set_mouse_autohide") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setOpacity_ = call (getSymbol "vte_terminal_set_opacity") (VteTerminalClass.PolyML.cPtr &&> GUInt16.PolyML.cVal --> cVoid)
       val setPtyObject_ = call (getSymbol "vte_terminal_set_pty_object") (VteTerminalClass.PolyML.cPtr &&> VtePtyClass.PolyML.cOptPtr --> cVoid)
-      val setScrollBackground_ = call (getSymbol "vte_terminal_set_scroll_background") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setRewrapOnResize_ = call (getSymbol "vte_terminal_set_rewrap_on_resize") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setScrollOnKeystroke_ = call (getSymbol "vte_terminal_set_scroll_on_keystroke") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setScrollOnOutput_ = call (getSymbol "vte_terminal_set_scroll_on_output") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setScrollbackLines_ = call (getSymbol "vte_terminal_set_scrollback_lines") (VteTerminalClass.PolyML.cPtr &&> GLong.PolyML.cVal --> cVoid)
@@ -234,19 +246,25 @@ structure VteTerminal :>
     fun new () = (I ---> VteTerminalClass.FFI.fromPtr false) new_ ()
     fun copyClipboard self = (VteTerminalClass.FFI.withPtr ---> I) copyClipboard_ self
     fun copyPrimary self = (VteTerminalClass.FFI.withPtr ---> I) copyPrimary_ self
-    fun feed self (data, length) =
-      (
-        VteTerminalClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLong.FFI.withVal
-         ---> I
-      )
-        feed_
-        (
-          self
-           & data
-           & length
-        )
+    fun feed self data =
+      let
+        val length = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val () =
+          (
+            VteTerminalClass.FFI.withPtr
+             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GLong.FFI.withVal
+             ---> I
+          )
+            feed_
+            (
+              self
+               & data
+               & length
+            )
+      in
+        ()
+      end
     fun feedChild self (text, length) =
       (
         VteTerminalClass.FFI.withPtr
@@ -279,7 +297,31 @@ structure VteTerminal :>
     fun getCharWidth self = (VteTerminalClass.FFI.withPtr ---> GLong.FFI.fromVal) getCharWidth_ self
     fun getChildExitStatus self = (VteTerminalClass.FFI.withPtr ---> GInt.FFI.fromVal) getChildExitStatus_ self
     fun getColumnCount self = (VteTerminalClass.FFI.withPtr ---> GLong.FFI.fromVal) getColumnCount_ self
+    fun getCurrentDirectoryUri self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCurrentDirectoryUri_ self
+    fun getCurrentFileUri self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCurrentFileUri_ self
     fun getCursorBlinkMode self = (VteTerminalClass.FFI.withPtr ---> VteTerminalCursorBlinkMode.FFI.fromVal) getCursorBlinkMode_ self
+    fun getCursorPosition self =
+      let
+        val column
+         & row
+         & () =
+          (
+            VteTerminalClass.FFI.withPtr
+             &&&> GLong.FFI.withRefVal
+             &&&> GLong.FFI.withRefVal
+             ---> GLong.FFI.fromVal
+                   && GLong.FFI.fromVal
+                   && I
+          )
+            getCursorPosition_
+            (
+              self
+               & GLong.null
+               & GLong.null
+            )
+      in
+        (column, row)
+      end
     fun getCursorShape self = (VteTerminalClass.FFI.withPtr ---> VteTerminalCursorShape.FFI.fromVal) getCursorShape_ self
     fun getDefaultEmulation self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDefaultEmulation_ self
     fun getEmulation self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getEmulation_ self
@@ -289,11 +331,11 @@ structure VteTerminal :>
     fun getIconTitle self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getIconTitle_ self
     fun getMouseAutohide self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getMouseAutohide_ self
     fun getPtyObject self = (VteTerminalClass.FFI.withPtr ---> VtePtyClass.FFI.fromPtr false) getPtyObject_ self
+    fun getRewrapOnResize self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getRewrapOnResize_ self
     fun getRowCount self = (VteTerminalClass.FFI.withPtr ---> GLong.FFI.fromVal) getRowCount_ self
     fun getStatusLine self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStatusLine_ self
     fun getVisibleBell self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisibleBell_ self
     fun getWindowTitle self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getWindowTitle_ self
-    fun imAppendMenuitems self menushell = (VteTerminalClass.FFI.withPtr &&&> GtkMenuShellClass.FFI.withPtr ---> I) imAppendMenuitems_ (self & menushell)
     fun isWordChar self c = (VteTerminalClass.FFI.withPtr &&&> GChar.FFI.withVal ---> GBool.FFI.fromVal) isWordChar_ (self & c)
     fun matchAddGregex self (regex, flags) =
       (
@@ -407,11 +449,6 @@ structure VteTerminal :>
     fun selectNone self = (VteTerminalClass.FFI.withPtr ---> I) selectNone_ self
     fun setAllowBold self allowBold = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAllowBold_ (self & allowBold)
     fun setAudibleBell self isAudible = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAudibleBell_ (self & isAudible)
-    fun setBackgroundImage self image = (VteTerminalClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withOptPtr ---> I) setBackgroundImage_ (self & image)
-    fun setBackgroundImageFile self path = (VteTerminalClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setBackgroundImageFile_ (self & path)
-    fun setBackgroundSaturation self saturation = (VteTerminalClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setBackgroundSaturation_ (self & saturation)
-    fun setBackgroundTintColor self color = (VteTerminalClass.FFI.withPtr &&&> GdkColorRecord.FFI.withPtr ---> I) setBackgroundTintColor_ (self & color)
-    fun setBackgroundTransparent self transparent = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setBackgroundTransparent_ (self & transparent)
     fun setBackspaceBinding self binding = (VteTerminalClass.FFI.withPtr &&&> VteTerminalEraseBinding.FFI.withVal ---> I) setBackspaceBinding_ (self & binding)
     fun setColorBackground self background = (VteTerminalClass.FFI.withPtr &&&> GdkColorRecord.FFI.withPtr ---> I) setColorBackground_ (self & background)
     fun setColorBackgroundRgba self background = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setColorBackgroundRgba_ (self & background)
@@ -424,6 +461,8 @@ structure VteTerminal :>
     fun setColorForeground self foreground = (VteTerminalClass.FFI.withPtr &&&> GdkColorRecord.FFI.withPtr ---> I) setColorForeground_ (self & foreground)
     fun setColorForegroundRgba self foreground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setColorForegroundRgba_ (self & foreground)
     fun setColorHighlight self highlightBackground = (VteTerminalClass.FFI.withPtr &&&> GdkColorRecord.FFI.withOptPtr ---> I) setColorHighlight_ (self & highlightBackground)
+    fun setColorHighlightForeground self highlightForeground = (VteTerminalClass.FFI.withPtr &&&> GdkColorRecord.FFI.withOptPtr ---> I) setColorHighlightForeground_ (self & highlightForeground)
+    fun setColorHighlightForegroundRgba self highlightForeground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorHighlightForegroundRgba_ (self & highlightForeground)
     fun setColorHighlightRgba self highlightBackground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorHighlightRgba_ (self & highlightBackground)
     fun setColors
       self
@@ -492,9 +531,8 @@ structure VteTerminal :>
     fun setFont self fontDesc = (VteTerminalClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withOptPtr ---> I) setFont_ (self & fontDesc)
     fun setFontFromString self name = (VteTerminalClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setFontFromString_ (self & name)
     fun setMouseAutohide self setting = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setMouseAutohide_ (self & setting)
-    fun setOpacity self opacity = (VteTerminalClass.FFI.withPtr &&&> GUInt16.FFI.withVal ---> I) setOpacity_ (self & opacity)
     fun setPtyObject self pty = (VteTerminalClass.FFI.withPtr &&&> VtePtyClass.FFI.withOptPtr ---> I) setPtyObject_ (self & pty)
-    fun setScrollBackground self scroll = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setScrollBackground_ (self & scroll)
+    fun setRewrapOnResize self rewrap = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRewrapOnResize_ (self & rewrap)
     fun setScrollOnKeystroke self scroll = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setScrollOnKeystroke_ (self & scroll)
     fun setScrollOnOutput self scroll = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setScrollOnOutput_ (self & scroll)
     fun setScrollbackLines self lines = (VteTerminalClass.FFI.withPtr &&&> GLong.FFI.withVal ---> I) setScrollbackLines_ (self & lines)
@@ -546,6 +584,8 @@ structure VteTerminal :>
       fun commitSig f = signal "commit" (get 0w1 string &&&> get 0w2 uint ---> ret_void) (fn text & size => f (text, size))
       fun contentsChangedSig f = signal "contents-changed" (void ---> ret_void) f
       fun copyClipboardSig f = signal "copy-clipboard" (void ---> ret_void) f
+      fun currentDirectoryUriChangedSig f = signal "current-directory-uri-changed" (void ---> ret_void) f
+      fun currentFileUriChangedSig f = signal "current-file-uri-changed" (void ---> ret_void) f
       fun cursorMovedSig f = signal "cursor-moved" (void ---> ret_void) f
       fun decreaseFontSizeSig f = signal "decrease-font-size" (void ---> ret_void) f
       fun deiconifyWindowSig f = signal "deiconify-window" (void ---> ret_void) f
@@ -619,6 +659,8 @@ structure VteTerminal :>
           get = fn x => get "backspace-binding" VteTerminalEraseBinding.t x,
           set = fn x => set "backspace-binding" VteTerminalEraseBinding.t x
         }
+      val currentDirectoryUriProp = {get = fn x => get "current-directory-uri" stringOpt x}
+      val currentFileUriProp = {get = fn x => get "current-file-uri" stringOpt x}
       val cursorBlinkModeProp =
         {
           get = fn x => get "cursor-blink-mode" VteTerminalCursorBlinkMode.t x,
@@ -664,6 +706,11 @@ structure VteTerminal :>
         {
           get = fn x => get "pty-object" VtePtyClass.tOpt x,
           set = fn x => set "pty-object" VtePtyClass.tOpt x
+        }
+      val rewrapOnResizeProp =
+        {
+          get = fn x => get "rewrap-on-resize" boolean x,
+          set = fn x => set "rewrap-on-resize" boolean x
         }
       val scrollBackgroundProp =
         {

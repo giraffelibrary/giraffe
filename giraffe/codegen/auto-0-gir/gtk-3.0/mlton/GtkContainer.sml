@@ -51,6 +51,23 @@ structure GtkContainer :>
               x3,
               x4
             )
+    val childNotifyByPspec_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "gtk_container_child_notify_by_pspec" :
+              GtkContainerClass.FFI.notnull GtkContainerClass.FFI.p
+               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * GObjectParamSpecClass.FFI.notnull GObjectParamSpecClass.FFI.p
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val childSetProperty_ =
       fn
         x1
@@ -150,6 +167,19 @@ structure GtkContainer :>
           self
            & child
            & childProperty
+        )
+    fun childNotifyByPspec self (child, pspec) =
+      (
+        GtkContainerClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GObjectParamSpecClass.FFI.withPtr
+         ---> I
+      )
+        childNotifyByPspec_
+        (
+          self
+           & child
+           & pspec
         )
     fun childSetProperty
       self

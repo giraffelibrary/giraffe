@@ -21,7 +21,7 @@ structure GtkAppChooserButton :>
              --> cVoid
           )
       val appendSeparator_ = call (getSymbol "gtk_app_chooser_button_append_separator") (GtkAppChooserButtonClass.PolyML.cPtr --> cVoid)
-      val getHeading_ = call (getSymbol "gtk_app_chooser_button_get_heading") (GtkAppChooserButtonClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getHeading_ = call (getSymbol "gtk_app_chooser_button_get_heading") (GtkAppChooserButtonClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getShowDefaultItem_ = call (getSymbol "gtk_app_chooser_button_get_show_default_item") (GtkAppChooserButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getShowDialogItem_ = call (getSymbol "gtk_app_chooser_button_get_show_dialog_item") (GtkAppChooserButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setActiveCustomItem_ = call (getSymbol "gtk_app_chooser_button_set_active_custom_item") (GtkAppChooserButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
@@ -64,7 +64,7 @@ structure GtkAppChooserButton :>
            & icon
         )
     fun appendSeparator self = (GtkAppChooserButtonClass.FFI.withPtr ---> I) appendSeparator_ self
-    fun getHeading self = (GtkAppChooserButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getHeading_ self
+    fun getHeading self = (GtkAppChooserButtonClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getHeading_ self
     fun getShowDefaultItem self = (GtkAppChooserButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowDefaultItem_ self
     fun getShowDialogItem self = (GtkAppChooserButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowDialogItem_ self
     fun setActiveCustomItem self name = (GtkAppChooserButtonClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setActiveCustomItem_ (self & name)

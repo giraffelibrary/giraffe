@@ -22,25 +22,29 @@ signature GTK_NOTEBOOK =
            * 'c widget_class option
            * 'd widget_class option
        -> LargeInt.int
+    val detachTab :
+      'a class
+       -> 'b widget_class
+       -> unit
     val getActionWidget :
       'a class
        -> pack_type_t
-       -> base widget_class
+       -> base widget_class option
     val getCurrentPage : 'a class -> LargeInt.int
-    val getGroupName : 'a class -> string
+    val getGroupName : 'a class -> string option
     val getMenuLabel :
       'a class
        -> 'b widget_class
-       -> base widget_class
+       -> base widget_class option
     val getMenuLabelText :
       'a class
        -> 'b widget_class
-       -> string
+       -> string option
     val getNPages : 'a class -> LargeInt.int
     val getNthPage :
       'a class
        -> LargeInt.int
-       -> base widget_class
+       -> base widget_class option
     val getScrollable : 'a class -> bool
     val getShowBorder : 'a class -> bool
     val getShowTabs : 'a class -> bool
@@ -52,11 +56,11 @@ signature GTK_NOTEBOOK =
     val getTabLabel :
       'a class
        -> 'b widget_class
-       -> base widget_class
+       -> base widget_class option
     val getTabLabelText :
       'a class
        -> 'b widget_class
-       -> string
+       -> string option
     val getTabPos : 'a class -> position_type_t
     val getTabReorderable :
       'a class

@@ -17,7 +17,7 @@ structure GtkRange :>
       val getInverted_ = call (getSymbol "gtk_range_get_inverted") (GtkRangeClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getLowerStepperSensitivity_ = call (getSymbol "gtk_range_get_lower_stepper_sensitivity") (GtkRangeClass.PolyML.cPtr --> GtkSensitivityType.PolyML.cVal)
       val getMinSliderSize_ = call (getSymbol "gtk_range_get_min_slider_size") (GtkRangeClass.PolyML.cPtr --> GInt32.PolyML.cVal)
-      val getRangeRect_ = call (getSymbol "gtk_range_get_range_rect") (GtkRangeClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> cVoid)
+      val getRangeRect_ = call (getSymbol "gtk_range_get_range_rect") (GtkRangeClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> cVoid)
       val getRestrictToFillLevel_ = call (getSymbol "gtk_range_get_restrict_to_fill_level") (GtkRangeClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getRoundDigits_ = call (getSymbol "gtk_range_get_round_digits") (GtkRangeClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getShowFillLevel_ = call (getSymbol "gtk_range_get_show_fill_level") (GtkRangeClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -80,7 +80,7 @@ structure GtkRange :>
     fun getMinSliderSize self = (GtkRangeClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMinSliderSize_ self
     fun getRangeRect self =
       let
-        val rangeRect & () = (GtkRangeClass.FFI.withPtr &&&> CairoRectangleIntRecord.FFI.withNewPtr ---> CairoRectangleIntRecord.FFI.fromPtr true && I) getRangeRect_ (self & ())
+        val rangeRect & () = (GtkRangeClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getRangeRect_ (self & ())
       in
         rangeRect
       end

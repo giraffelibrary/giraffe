@@ -19,7 +19,7 @@ signature GIO_FILE_MONITOR =
        -> unit
     val changedSig :
       (base file_class
-        * base file_class
+        * base file_class option
         * file_monitor_event_t
         -> unit)
        -> 'a class Signal.t

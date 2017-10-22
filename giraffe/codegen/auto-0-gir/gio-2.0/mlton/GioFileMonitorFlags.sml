@@ -7,11 +7,15 @@ structure GioFileMonitorFlags :> GIO_FILE_MONITOR_FLAGS =
     end
     val WATCH_MOUNTS = 0w1
     val SEND_MOVED = 0w2
+    val WATCH_HARD_LINKS = 0w4
+    val WATCH_MOVES = 0w8
     val allFlags =
       [
         NONE,
         WATCH_MOUNTS,
-        SEND_MOVED
+        SEND_MOVED,
+        WATCH_HARD_LINKS,
+        WATCH_MOVES
       ]
     structure Flags =
       Flags(

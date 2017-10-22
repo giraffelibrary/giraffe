@@ -2,6 +2,7 @@ structure GtkDialog :>
   GTK_DIALOG
     where type 'a class = 'a GtkDialogClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a box_class = 'a GtkBoxClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     structure GIntCVectorNType =
@@ -32,7 +33,8 @@ structure GtkDialog :>
              --> GtkWidgetClass.PolyML.cPtr
           )
       val getActionArea_ = call (getSymbol "gtk_dialog_get_action_area") (GtkDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getContentArea_ = call (getSymbol "gtk_dialog_get_content_area") (GtkDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getContentArea_ = call (getSymbol "gtk_dialog_get_content_area") (GtkDialogClass.PolyML.cPtr --> GtkBoxClass.PolyML.cPtr)
+      val getHeaderBar_ = call (getSymbol "gtk_dialog_get_header_bar") (GtkDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getResponseForWidget_ = call (getSymbol "gtk_dialog_get_response_for_widget") (GtkDialogClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getWidgetForResponse_ = call (getSymbol "gtk_dialog_get_widget_for_response") (GtkDialogClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
       val response_ = call (getSymbol "gtk_dialog_response") (GtkDialogClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
@@ -57,6 +59,7 @@ structure GtkDialog :>
     end
     type 'a class = 'a GtkDialogClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a box_class = 'a GtkBoxClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
@@ -90,7 +93,8 @@ structure GtkDialog :>
            & responseId
         )
     fun getActionArea self = (GtkDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getActionArea_ self
-    fun getContentArea self = (GtkDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getContentArea_ self
+    fun getContentArea self = (GtkDialogClass.FFI.withPtr ---> GtkBoxClass.FFI.fromPtr false) getContentArea_ self
+    fun getHeaderBar self = (GtkDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getHeaderBar_ self
     fun getResponseForWidget self widget = (GtkDialogClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getResponseForWidget_ (self & widget)
     fun getWidgetForResponse self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getWidgetForResponse_ (self & responseId)
     fun response self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) response_ (self & responseId)
@@ -133,5 +137,14 @@ structure GtkDialog :>
     in
       fun closeSig f = signal "close" (void ---> ret_void) f
       fun responseSig f = signal "response" (get 0w1 int ---> ret_void) f
+    end
+    local
+      open Property
+    in
+      val useHeaderBarProp =
+        {
+          get = fn x => get "use-header-bar" int x,
+          set = fn x => set "use-header-bar" int x
+        }
     end
   end

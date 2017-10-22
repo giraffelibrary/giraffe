@@ -4,7 +4,8 @@ structure GtkGrid :>
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a orientable_class = 'a GtkOrientableClass.class
     where type position_type_t = GtkPositionType.t
-    where type 'a widget_class = 'a GtkWidgetClass.class =
+    where type 'a widget_class = 'a GtkWidgetClass.class
+    where type baseline_position_t = GtkBaselinePosition.t =
   struct
     local
       open PolyMLFFI
@@ -27,14 +28,24 @@ structure GtkGrid :>
           (
             GtkGridClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> GtkWidgetClass.PolyML.cPtr
+             &&> GtkWidgetClass.PolyML.cOptPtr
              &&> GtkPositionType.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              --> cVoid
           )
+      val getBaselineRow_ = call (getSymbol "gtk_grid_get_baseline_row") (GtkGridClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getChildAt_ =
+        call (getSymbol "gtk_grid_get_child_at")
+          (
+            GtkGridClass.PolyML.cPtr
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> GtkWidgetClass.PolyML.cPtr
+          )
       val getColumnHomogeneous_ = call (getSymbol "gtk_grid_get_column_homogeneous") (GtkGridClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getColumnSpacing_ = call (getSymbol "gtk_grid_get_column_spacing") (GtkGridClass.PolyML.cPtr --> GUInt.PolyML.cVal)
+      val getRowBaselinePosition_ = call (getSymbol "gtk_grid_get_row_baseline_position") (GtkGridClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkBaselinePosition.PolyML.cVal)
       val getRowHomogeneous_ = call (getSymbol "gtk_grid_get_row_homogeneous") (GtkGridClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getRowSpacing_ = call (getSymbol "gtk_grid_get_row_spacing") (GtkGridClass.PolyML.cPtr --> GUInt.PolyML.cVal)
       val insertColumn_ = call (getSymbol "gtk_grid_insert_column") (GtkGridClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
@@ -47,8 +58,19 @@ structure GtkGrid :>
              --> cVoid
           )
       val insertRow_ = call (getSymbol "gtk_grid_insert_row") (GtkGridClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val removeColumn_ = call (getSymbol "gtk_grid_remove_column") (GtkGridClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val removeRow_ = call (getSymbol "gtk_grid_remove_row") (GtkGridClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setBaselineRow_ = call (getSymbol "gtk_grid_set_baseline_row") (GtkGridClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setColumnHomogeneous_ = call (getSymbol "gtk_grid_set_column_homogeneous") (GtkGridClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setColumnSpacing_ = call (getSymbol "gtk_grid_set_column_spacing") (GtkGridClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
+      val setRowBaselinePosition_ =
+        call (getSymbol "gtk_grid_set_row_baseline_position")
+          (
+            GtkGridClass.PolyML.cPtr
+             &&> GInt.PolyML.cVal
+             &&> GtkBaselinePosition.PolyML.cVal
+             --> cVoid
+          )
       val setRowHomogeneous_ = call (getSymbol "gtk_grid_set_row_homogeneous") (GtkGridClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setRowSpacing_ = call (getSymbol "gtk_grid_set_row_spacing") (GtkGridClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
     end
@@ -57,6 +79,7 @@ structure GtkGrid :>
     type 'a orientable_class = 'a GtkOrientableClass.class
     type position_type_t = GtkPositionType.t
     type 'a widget_class = 'a GtkWidgetClass.class
+    type baseline_position_t = GtkBaselinePosition.t
     type t = base class
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
@@ -102,7 +125,7 @@ structure GtkGrid :>
       (
         GtkGridClass.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
          &&&> GtkPositionType.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -117,8 +140,23 @@ structure GtkGrid :>
            & width
            & height
         )
+    fun getBaselineRow self = (GtkGridClass.FFI.withPtr ---> GInt.FFI.fromVal) getBaselineRow_ self
+    fun getChildAt self (left, top) =
+      (
+        GtkGridClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GtkWidgetClass.FFI.fromPtr false
+      )
+        getChildAt_
+        (
+          self
+           & left
+           & top
+        )
     fun getColumnHomogeneous self = (GtkGridClass.FFI.withPtr ---> GBool.FFI.fromVal) getColumnHomogeneous_ self
     fun getColumnSpacing self = (GtkGridClass.FFI.withPtr ---> GUInt.FFI.fromVal) getColumnSpacing_ self
+    fun getRowBaselinePosition self row = (GtkGridClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkBaselinePosition.FFI.fromVal) getRowBaselinePosition_ (self & row)
     fun getRowHomogeneous self = (GtkGridClass.FFI.withPtr ---> GBool.FFI.fromVal) getRowHomogeneous_ self
     fun getRowSpacing self = (GtkGridClass.FFI.withPtr ---> GUInt.FFI.fromVal) getRowSpacing_ self
     fun insertColumn self position = (GtkGridClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) insertColumn_ (self & position)
@@ -136,13 +174,34 @@ structure GtkGrid :>
            & side
         )
     fun insertRow self position = (GtkGridClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) insertRow_ (self & position)
+    fun removeColumn self position = (GtkGridClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) removeColumn_ (self & position)
+    fun removeRow self position = (GtkGridClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) removeRow_ (self & position)
+    fun setBaselineRow self row = (GtkGridClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setBaselineRow_ (self & row)
     fun setColumnHomogeneous self homogeneous = (GtkGridClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setColumnHomogeneous_ (self & homogeneous)
     fun setColumnSpacing self spacing = (GtkGridClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setColumnSpacing_ (self & spacing)
+    fun setRowBaselinePosition self (row, pos) =
+      (
+        GtkGridClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GtkBaselinePosition.FFI.withVal
+         ---> I
+      )
+        setRowBaselinePosition_
+        (
+          self
+           & row
+           & pos
+        )
     fun setRowHomogeneous self homogeneous = (GtkGridClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRowHomogeneous_ (self & homogeneous)
     fun setRowSpacing self spacing = (GtkGridClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setRowSpacing_ (self & spacing)
     local
       open Property
     in
+      val baselineRowProp =
+        {
+          get = fn x => get "baseline-row" int x,
+          set = fn x => set "baseline-row" int x
+        }
       val columnHomogeneousProp =
         {
           get = fn x => get "column-homogeneous" boolean x,

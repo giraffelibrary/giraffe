@@ -54,6 +54,7 @@ structure GtkSourceCompletion :>
     type 'a completion_context_class = 'a GtkSourceCompletionContextClass.class
     type 'a view_class = 'a GtkSourceViewClass.class
     type t = base class
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun addProvider self provider =
       (
@@ -69,7 +70,7 @@ structure GtkSourceCompletion :>
            & []
         )
     fun blockInteractive self = (GtkSourceCompletionClass.FFI.withPtr ---> I) blockInteractive_ self
-    fun createContext self position = (GtkSourceCompletionClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withOptPtr ---> GtkSourceCompletionContextClass.FFI.fromPtr true) createContext_ (self & position)
+    fun createContext self position = (GtkSourceCompletionClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withOptPtr ---> GtkSourceCompletionContextClass.FFI.fromPtr false) createContext_ (self & position)
     fun getInfoWindow self = (GtkSourceCompletionClass.FFI.withPtr ---> GtkSourceCompletionInfoClass.FFI.fromPtr false) getInfoWindow_ self
     fun getView self = (GtkSourceCompletionClass.FFI.withPtr ---> GtkSourceViewClass.FFI.fromPtr false) getView_ self
     fun hide self = (GtkSourceCompletionClass.FFI.withPtr ---> I) hide_ self

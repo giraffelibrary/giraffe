@@ -4,6 +4,7 @@ structure GLibChecksumType :> G_LIB_CHECKSUM_TYPE =
       MD_5
     | SHA_1
     | SHA_256
+    | SHA_512
     structure Enum =
       Enum(
         type enum = enum
@@ -13,12 +14,14 @@ structure GLibChecksumType :> G_LIB_CHECKSUM_TYPE =
             MD_5 => 0
           | SHA_1 => 1
           | SHA_256 => 2
+          | SHA_512 => 3
         exception Value of GInt.t
         val fromInt =
           fn
             0 => MD_5
           | 1 => SHA_1
           | 2 => SHA_256
+          | 3 => SHA_512
           | n => raise Value n
       )
     open Enum

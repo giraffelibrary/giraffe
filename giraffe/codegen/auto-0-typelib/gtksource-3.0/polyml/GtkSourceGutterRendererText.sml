@@ -7,6 +7,24 @@ structure GtkSourceGutterRendererText :>
     in
       val getType_ = call (getSymbol "gtk_source_gutter_renderer_text_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_source_gutter_renderer_text_new") (cVoid --> GtkSourceGutterRendererClass.PolyML.cPtr)
+      val measure_ =
+        call (getSymbol "gtk_source_gutter_renderer_text_measure")
+          (
+            GtkSourceGutterRendererTextClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             --> cVoid
+          )
+      val measureMarkup_ =
+        call (getSymbol "gtk_source_gutter_renderer_text_measure_markup")
+          (
+            GtkSourceGutterRendererTextClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             --> cVoid
+          )
       val setMarkup_ =
         call (getSymbol "gtk_source_gutter_renderer_text_set_markup")
           (
@@ -28,6 +46,54 @@ structure GtkSourceGutterRendererText :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSourceGutterRendererTextClass.FFI.fromPtr true) new_ ()
+    fun measure self text =
+      let
+        val width
+         & height
+         & () =
+          (
+            GtkSourceGutterRendererTextClass.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && I
+          )
+            measure_
+            (
+              self
+               & text
+               & GInt32.null
+               & GInt32.null
+            )
+      in
+        (width, height)
+      end
+    fun measureMarkup self markup =
+      let
+        val width
+         & height
+         & () =
+          (
+            GtkSourceGutterRendererTextClass.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && I
+          )
+            measureMarkup_
+            (
+              self
+               & markup
+               & GInt32.null
+               & GInt32.null
+            )
+      in
+        (width, height)
+      end
     fun setMarkup self (markup, length) =
       (
         GtkSourceGutterRendererTextClass.FFI.withPtr

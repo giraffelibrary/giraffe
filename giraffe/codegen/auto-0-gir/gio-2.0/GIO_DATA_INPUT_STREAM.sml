@@ -1,12 +1,14 @@
 signature GIO_DATA_INPUT_STREAM =
   sig
     type 'a class
+    type 'a seekable_class
     type 'a input_stream_class
     type 'a cancellable_class
     type 'a async_result_class
     type data_stream_byte_order_t
     type data_stream_newline_type_t
     type t = base class
+    val asSeekable : 'a class -> base seekable_class
     val getType : unit -> GObject.Type.t
     val new : 'a input_stream_class -> base class
     val getByteOrder : 'a class -> data_stream_byte_order_t

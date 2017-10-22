@@ -3,6 +3,12 @@ structure PangoFontFace :>
     where type 'a class = 'a PangoFontFaceClass.class
     where type font_description_t = PangoFontDescriptionRecord.t =
   struct
+    structure GInt32CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GInt32Type
+        structure ElemSequence = CValueVectorSequence(GInt32Type)
+      )
+    structure GInt32CVectorN = CVectorN(GInt32CVectorNType)
     local
       open PolyMLFFI
     in
@@ -10,6 +16,14 @@ structure PangoFontFace :>
       val describe_ = call (getSymbol "pango_font_face_describe") (PangoFontFaceClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
       val getFaceName_ = call (getSymbol "pango_font_face_get_face_name") (PangoFontFaceClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val isSynthesized_ = call (getSymbol "pango_font_face_is_synthesized") (PangoFontFaceClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val listSizes_ =
+        call (getSymbol "pango_font_face_list_sizes")
+          (
+            PangoFontFaceClass.PolyML.cPtr
+             &&> GInt32CVectorN.PolyML.cOutRef
+             &&> GInt32.PolyML.cRef
+             --> cVoid
+          )
     end
     type 'a class = 'a PangoFontFaceClass.class
     type font_description_t = PangoFontDescriptionRecord.t
@@ -18,4 +32,26 @@ structure PangoFontFace :>
     fun describe self = (PangoFontFaceClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr true) describe_ self
     fun getFaceName self = (PangoFontFaceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getFaceName_ self
     fun isSynthesized self = (PangoFontFaceClass.FFI.withPtr ---> GBool.FFI.fromVal) isSynthesized_ self
+    fun listSizes self =
+      let
+        val sizes
+         & nSizes
+         & () =
+          (
+            PangoFontFaceClass.FFI.withPtr
+             &&&> GInt32CVectorN.FFI.withRefOptPtr
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32CVectorN.FFI.fromPtr 1
+                   && GInt32.FFI.fromVal
+                   && I
+          )
+            listSizes_
+            (
+              self
+               & NONE
+               & GInt32.null
+            )
+      in
+        sizes (LargeInt.toInt nSizes)
+      end
   end

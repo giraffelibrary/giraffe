@@ -1,13 +1,13 @@
 signature PANGO_LAYOUT =
   sig
     type 'a class
-    type attr_list_t
     type 'a context_class
     type layout_iter_t
     type layout_line_t
     type log_attr_t
     type rectangle_t
     type alignment_t
+    type attr_list_t
     type ellipsize_mode_t
     type font_description_t
     type tab_array_t
@@ -44,8 +44,10 @@ signature PANGO_LAYOUT =
        -> LargeInt.int
        -> layout_line_t
     val getLogAttrs : 'a class -> log_attr_t vector
+    val getLogAttrsReadonly : 'a class -> log_attr_t vector
     val getPixelExtents : 'a class -> rectangle_t * rectangle_t
     val getPixelSize : 'a class -> LargeInt.int * LargeInt.int
+    val getSerial : 'a class -> LargeInt.int
     val getSingleParagraphMode : 'a class -> bool
     val getSize : 'a class -> LargeInt.int * LargeInt.int
     val getSpacing : 'a class -> LargeInt.int
@@ -64,9 +66,20 @@ signature PANGO_LAYOUT =
        -> rectangle_t
     val isEllipsized : 'a class -> bool
     val isWrapped : 'a class -> bool
+    val moveCursorVisually :
+      'a class
+       -> bool
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+       -> LargeInt.int * LargeInt.int
     val setAlignment :
       'a class
        -> alignment_t
+       -> unit
+    val setAttributes :
+      'a class
+       -> attr_list_t option
        -> unit
     val setAutoDir :
       'a class

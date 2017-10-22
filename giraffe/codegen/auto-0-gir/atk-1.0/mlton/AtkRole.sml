@@ -2,7 +2,7 @@ structure AtkRole :> ATK_ROLE =
   struct
     datatype enum =
       INVALID
-    | ACCEL_LABEL
+    | ACCELERATOR_LABEL
     | ALERT
     | ANIMATION
     | ARROW
@@ -76,7 +76,7 @@ structure AtkRole :> ATK_ROLE =
     | RULER
     | APPLICATION
     | AUTOCOMPLETE
-    | EDITBAR
+    | EDIT_BAR
     | EMBEDDED
     | ENTRY
     | CHART
@@ -102,6 +102,27 @@ structure AtkRole :> ATK_ROLE =
     | IMAGE_MAP
     | NOTIFICATION
     | INFO_BAR
+    | LEVEL_BAR
+    | TITLE_BAR
+    | BLOCK_QUOTE
+    | AUDIO
+    | VIDEO
+    | DEFINITION
+    | ARTICLE
+    | LANDMARK
+    | LOG
+    | MARQUEE
+    | MATH
+    | RATING
+    | TIMER
+    | DESCRIPTION_LIST
+    | DESCRIPTION_TERM
+    | DESCRIPTION_VALUE
+    | STATIC
+    | MATH_FRACTION
+    | MATH_ROOT
+    | SUBSCRIPT
+    | SUPERSCRIPT
     | LAST_DEFINED
     structure Enum =
       Enum(
@@ -110,7 +131,7 @@ structure AtkRole :> ATK_ROLE =
         val toInt =
           fn
             INVALID => 0
-          | ACCEL_LABEL => 1
+          | ACCELERATOR_LABEL => 1
           | ALERT => 2
           | ANIMATION => 3
           | ARROW => 4
@@ -184,7 +205,7 @@ structure AtkRole :> ATK_ROLE =
           | RULER => 72
           | APPLICATION => 73
           | AUTOCOMPLETE => 74
-          | EDITBAR => 75
+          | EDIT_BAR => 75
           | EMBEDDED => 76
           | ENTRY => 77
           | CHART => 78
@@ -210,12 +231,33 @@ structure AtkRole :> ATK_ROLE =
           | IMAGE_MAP => 98
           | NOTIFICATION => 99
           | INFO_BAR => 100
-          | LAST_DEFINED => 101
+          | LEVEL_BAR => 101
+          | TITLE_BAR => 102
+          | BLOCK_QUOTE => 103
+          | AUDIO => 104
+          | VIDEO => 105
+          | DEFINITION => 106
+          | ARTICLE => 107
+          | LANDMARK => 108
+          | LOG => 109
+          | MARQUEE => 110
+          | MATH => 111
+          | RATING => 112
+          | TIMER => 113
+          | DESCRIPTION_LIST => 114
+          | DESCRIPTION_TERM => 115
+          | DESCRIPTION_VALUE => 116
+          | STATIC => 117
+          | MATH_FRACTION => 118
+          | MATH_ROOT => 119
+          | SUBSCRIPT => 120
+          | SUPERSCRIPT => 121
+          | LAST_DEFINED => 122
         exception Value of GInt.t
         val fromInt =
           fn
             0 => INVALID
-          | 1 => ACCEL_LABEL
+          | 1 => ACCELERATOR_LABEL
           | 2 => ALERT
           | 3 => ANIMATION
           | 4 => ARROW
@@ -289,7 +331,7 @@ structure AtkRole :> ATK_ROLE =
           | 72 => RULER
           | 73 => APPLICATION
           | 74 => AUTOCOMPLETE
-          | 75 => EDITBAR
+          | 75 => EDIT_BAR
           | 76 => EMBEDDED
           | 77 => ENTRY
           | 78 => CHART
@@ -315,7 +357,28 @@ structure AtkRole :> ATK_ROLE =
           | 98 => IMAGE_MAP
           | 99 => NOTIFICATION
           | 100 => INFO_BAR
-          | 101 => LAST_DEFINED
+          | 101 => LEVEL_BAR
+          | 102 => TITLE_BAR
+          | 103 => BLOCK_QUOTE
+          | 104 => AUDIO
+          | 105 => VIDEO
+          | 106 => DEFINITION
+          | 107 => ARTICLE
+          | 108 => LANDMARK
+          | 109 => LOG
+          | 110 => MARQUEE
+          | 111 => MATH
+          | 112 => RATING
+          | 113 => TIMER
+          | 114 => DESCRIPTION_LIST
+          | 115 => DESCRIPTION_TERM
+          | 116 => DESCRIPTION_VALUE
+          | 117 => STATIC
+          | 118 => MATH_FRACTION
+          | 119 => MATH_ROOT
+          | 120 => SUBSCRIPT
+          | 121 => SUPERSCRIPT
+          | 122 => LAST_DEFINED
           | n => raise Value n
       )
     open Enum

@@ -8,7 +8,7 @@ structure PangoLayoutIter :>
   struct
     val getType_ = _import "pango_layout_iter_get_type" : unit -> GObjectType.FFI.val_;
     val atLastLine_ = _import "pango_layout_iter_at_last_line" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> GBool.FFI.val_;
-    val copy_ = _import "pango_layout_iter_copy" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p;
+    val copy_ = _import "pango_layout_iter_copy" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> unit PangoLayoutIterRecord.FFI.p;
     val getBaseline_ = _import "pango_layout_iter_get_baseline" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> GInt32.FFI.val_;
     val getCharExtents_ = fn x1 & x2 => (_import "pango_layout_iter_get_char_extents" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p -> unit;) (x1, x2)
     val getClusterExtents_ =
@@ -83,7 +83,7 @@ structure PangoLayoutIter :>
               x2,
               x3
             )
-    val getRun_ = _import "pango_layout_iter_get_run" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> PangoGlyphItemRecord.FFI.notnull PangoGlyphItemRecord.FFI.p;
+    val getRun_ = _import "pango_layout_iter_get_run" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> unit PangoGlyphItemRecord.FFI.p;
     val getRunExtents_ =
       fn
         x1
@@ -101,7 +101,7 @@ structure PangoLayoutIter :>
               x2,
               x3
             )
-    val getRunReadonly_ = _import "pango_layout_iter_get_run_readonly" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> PangoGlyphItemRecord.FFI.notnull PangoGlyphItemRecord.FFI.p;
+    val getRunReadonly_ = _import "pango_layout_iter_get_run_readonly" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> unit PangoGlyphItemRecord.FFI.p;
     val nextChar_ = _import "pango_layout_iter_next_char" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> GBool.FFI.val_;
     val nextCluster_ = _import "pango_layout_iter_next_cluster" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> GBool.FFI.val_;
     val nextLine_ = _import "pango_layout_iter_next_line" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> GBool.FFI.val_;
@@ -113,9 +113,14 @@ structure PangoLayoutIter :>
     type glyph_item_t = PangoGlyphItemRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun atLastLine self = (PangoLayoutIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) atLastLine_ self
-    fun copy self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoLayoutIterRecord.FFI.fromPtr true) copy_ self
+    fun copy self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoLayoutIterRecord.FFI.fromOptPtr true) copy_ self
     fun getBaseline self = (PangoLayoutIterRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getBaseline_ self
-    fun getCharExtents self logicalRect = (PangoLayoutIterRecord.FFI.withPtr &&&> PangoRectangleRecord.FFI.withPtr ---> I) getCharExtents_ (self & logicalRect)
+    fun getCharExtents self =
+      let
+        val logicalRect & () = (PangoLayoutIterRecord.FFI.withPtr &&&> PangoRectangleRecord.FFI.withNewPtr ---> PangoRectangleRecord.FFI.fromPtr true && I) getCharExtents_ (self & ())
+      in
+        logicalRect
+      end
     fun getClusterExtents self =
       let
         val inkRect
@@ -185,7 +190,7 @@ structure PangoLayoutIter :>
       in
         (inkRect, logicalRect)
       end
-    fun getLineReadonly self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoLayoutLineRecord.FFI.fromPtr true) getLineReadonly_ self
+    fun getLineReadonly self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoLayoutLineRecord.FFI.fromPtr false) getLineReadonly_ self
     fun getLineYrange self =
       let
         val y0
@@ -208,7 +213,7 @@ structure PangoLayoutIter :>
       in
         (y0, y1)
       end
-    fun getRun self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoGlyphItemRecord.FFI.fromPtr false) getRun_ self
+    fun getRun self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoGlyphItemRecord.FFI.fromOptPtr false) getRun_ self
     fun getRunExtents self =
       let
         val inkRect
@@ -231,7 +236,7 @@ structure PangoLayoutIter :>
       in
         (inkRect, logicalRect)
       end
-    fun getRunReadonly self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoGlyphItemRecord.FFI.fromPtr false) getRunReadonly_ self
+    fun getRunReadonly self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoGlyphItemRecord.FFI.fromOptPtr false) getRunReadonly_ self
     fun nextChar self = (PangoLayoutIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) nextChar_ self
     fun nextCluster self = (PangoLayoutIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) nextCluster_ self
     fun nextLine self = (PangoLayoutIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) nextLine_ self

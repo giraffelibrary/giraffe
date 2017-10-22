@@ -205,11 +205,29 @@ structure PangoRenderer :>
               x7,
               x8
             )
-    val getColor_ = fn x1 & x2 => (_import "pango_renderer_get_color" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p * PangoRenderPart.FFI.val_ -> PangoColorRecord.FFI.notnull PangoColorRecord.FFI.p;) (x1, x2)
-    val getLayout_ = _import "pango_renderer_get_layout" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p;
-    val getLayoutLine_ = _import "pango_renderer_get_layout_line" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p;
-    val getMatrix_ = _import "pango_renderer_get_matrix" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p;
+    val getAlpha_ = fn x1 & x2 => (_import "pango_renderer_get_alpha" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p * PangoRenderPart.FFI.val_ -> GUInt16.FFI.val_;) (x1, x2)
+    val getColor_ = fn x1 & x2 => (_import "pango_renderer_get_color" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p * PangoRenderPart.FFI.val_ -> unit PangoColorRecord.FFI.p;) (x1, x2)
+    val getLayout_ = _import "pango_renderer_get_layout" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> unit PangoLayoutClass.FFI.p;
+    val getLayoutLine_ = _import "pango_renderer_get_layout_line" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> unit PangoLayoutLineRecord.FFI.p;
+    val getMatrix_ = _import "pango_renderer_get_matrix" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> unit PangoMatrixRecord.FFI.p;
     val partChanged_ = fn x1 & x2 => (_import "pango_renderer_part_changed" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p * PangoRenderPart.FFI.val_ -> unit;) (x1, x2)
+    val setAlpha_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "pango_renderer_set_alpha" :
+              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+               * PangoRenderPart.FFI.val_
+               * GUInt16.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val setColor_ =
       fn
         x1
@@ -439,11 +457,25 @@ structure PangoRenderer :>
            & x12
            & x22
         )
-    fun getColor self part = (PangoRendererClass.FFI.withPtr &&&> PangoRenderPart.FFI.withVal ---> PangoColorRecord.FFI.fromPtr true) getColor_ (self & part)
-    fun getLayout self = (PangoRendererClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self
-    fun getLayoutLine self = (PangoRendererClass.FFI.withPtr ---> PangoLayoutLineRecord.FFI.fromPtr true) getLayoutLine_ self
-    fun getMatrix self = (PangoRendererClass.FFI.withPtr ---> PangoMatrixRecord.FFI.fromPtr false) getMatrix_ self
+    fun getAlpha self part = (PangoRendererClass.FFI.withPtr &&&> PangoRenderPart.FFI.withVal ---> GUInt16.FFI.fromVal) getAlpha_ (self & part)
+    fun getColor self part = (PangoRendererClass.FFI.withPtr &&&> PangoRenderPart.FFI.withVal ---> PangoColorRecord.FFI.fromOptPtr false) getColor_ (self & part)
+    fun getLayout self = (PangoRendererClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromOptPtr false) getLayout_ self
+    fun getLayoutLine self = (PangoRendererClass.FFI.withPtr ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLayoutLine_ self
+    fun getMatrix self = (PangoRendererClass.FFI.withPtr ---> PangoMatrixRecord.FFI.fromOptPtr false) getMatrix_ self
     fun partChanged self part = (PangoRendererClass.FFI.withPtr &&&> PangoRenderPart.FFI.withVal ---> I) partChanged_ (self & part)
+    fun setAlpha self (part, alpha) =
+      (
+        PangoRendererClass.FFI.withPtr
+         &&&> PangoRenderPart.FFI.withVal
+         &&&> GUInt16.FFI.withVal
+         ---> I
+      )
+        setAlpha_
+        (
+          self
+           & part
+           & alpha
+        )
     fun setColor self (part, color) =
       (
         PangoRendererClass.FFI.withPtr

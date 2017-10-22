@@ -41,8 +41,8 @@ structure GioLoadableIcon :>
             _import "mlton_g_loadable_icon_load_finish" :
               GioLoadableIconClass.FFI.notnull GioLoadableIconClass.FFI.p
                * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.MLton.r1
+               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
           )
@@ -81,19 +81,24 @@ structure GioLoadableIcon :>
       in
         (retVal, type')
       end
-    fun loadFinish self (res, type') =
-      (
-        GioLoadableIconClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibErrorRecord.handleError
-         ---> GioInputStreamClass.FFI.fromPtr true
-      )
-        loadFinish_
-        (
-          self
-           & res
-           & type'
-           & []
-        )
+    fun loadFinish self res =
+      let
+        val type' & retVal =
+          (
+            GioLoadableIconClass.FFI.withPtr
+             &&&> GioAsyncResultClass.FFI.withPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> Utf8.FFI.fromPtr 1 && GioInputStreamClass.FFI.fromPtr true
+          )
+            loadFinish_
+            (
+              self
+               & res
+               & NONE
+               & []
+            )
+      in
+        (retVal, type')
+      end
   end

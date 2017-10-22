@@ -1,6 +1,7 @@
 structure GioUnixInputStream :>
   GIO_UNIX_INPUT_STREAM
     where type 'a class = 'a GioUnixInputStreamClass.class
+    where type 'a file_descriptor_based_class = 'a GioFileDescriptorBasedClass.class
     where type 'a pollable_input_stream_class = 'a GioPollableInputStreamClass.class =
   struct
     val getType_ = _import "g_unix_input_stream_get_type" : unit -> GObjectType.FFI.val_;
@@ -9,8 +10,10 @@ structure GioUnixInputStream :>
     val getFd_ = _import "g_unix_input_stream_get_fd" : GioUnixInputStreamClass.FFI.notnull GioUnixInputStreamClass.FFI.p -> GInt.FFI.val_;
     val setCloseFd_ = fn x1 & x2 => (_import "g_unix_input_stream_set_close_fd" : GioUnixInputStreamClass.FFI.notnull GioUnixInputStreamClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioUnixInputStreamClass.class
+    type 'a file_descriptor_based_class = 'a GioFileDescriptorBasedClass.class
     type 'a pollable_input_stream_class = 'a GioPollableInputStreamClass.class
     type t = base class
+    fun asFileDescriptorBased self = (GObjectObjectClass.FFI.withPtr ---> GioFileDescriptorBasedClass.FFI.fromPtr false) I self
     fun asPollableInputStream self = (GObjectObjectClass.FFI.withPtr ---> GioPollableInputStreamClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (fd, closeFd) = (GInt.FFI.withVal &&&> GBool.FFI.withVal ---> GioUnixInputStreamClass.FFI.fromPtr true) new_ (fd & closeFd)

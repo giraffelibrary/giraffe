@@ -8,6 +8,7 @@ signature GTK_FILE_FILTER =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
+    val newFromGvariant : GLib.VariantRecord.t -> base class
     val addMimeType :
       'a class
        -> string
@@ -21,10 +22,11 @@ signature GTK_FILE_FILTER =
       'a class
        -> file_filter_info_t
        -> bool
-    val getName : 'a class -> string
+    val getName : 'a class -> string option
     val getNeeded : 'a class -> file_filter_flags_t
     val setName :
       'a class
        -> string option
        -> unit
+    val toGvariant : 'a class -> GLib.VariantRecord.t
   end

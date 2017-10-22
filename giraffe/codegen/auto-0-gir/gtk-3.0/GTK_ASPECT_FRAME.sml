@@ -7,7 +7,7 @@ signature GTK_ASPECT_FRAME =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new :
-      string
+      string option
        * real
        * real
        * real

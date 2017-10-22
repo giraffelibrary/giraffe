@@ -1,8 +1,8 @@
 structure GioDrive :>
   GIO_DRIVE
     where type 'a class = 'a GioDriveClass.class
-    where type 'a icon_class = 'a GioIconClass.class
     where type drive_start_stop_type_t = GioDriveStartStopType.t
+    where type 'a icon_class = 'a GioIconClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     structure Utf8CVectorType =
@@ -40,11 +40,14 @@ structure GioDrive :>
       val getIcon_ = call (getSymbol "g_drive_get_icon") (GioDriveClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
       val getIdentifier_ = call (getSymbol "g_drive_get_identifier") (GioDriveClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val getName_ = call (getSymbol "g_drive_get_name") (GioDriveClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getSortKey_ = call (getSymbol "g_drive_get_sort_key") (GioDriveClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getStartStopType_ = call (getSymbol "g_drive_get_start_stop_type") (GioDriveClass.PolyML.cPtr --> GioDriveStartStopType.PolyML.cVal)
+      val getSymbolicIcon_ = call (getSymbol "g_drive_get_symbolic_icon") (GioDriveClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
       val hasMedia_ = call (getSymbol "g_drive_has_media") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val hasVolumes_ = call (getSymbol "g_drive_has_volumes") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val isMediaCheckAutomatic_ = call (getSymbol "g_drive_is_media_check_automatic") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val isMediaRemovable_ = call (getSymbol "g_drive_is_media_removable") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isRemovable_ = call (getSymbol "g_drive_is_removable") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val pollForMediaFinish_ =
         call (getSymbol "g_drive_poll_for_media_finish")
           (
@@ -71,8 +74,8 @@ structure GioDrive :>
           )
     end
     type 'a class = 'a GioDriveClass.class
-    type 'a icon_class = 'a GioIconClass.class
     type drive_start_stop_type_t = GioDriveStartStopType.t
+    type 'a icon_class = 'a GioIconClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -111,11 +114,14 @@ structure GioDrive :>
     fun getIcon self = (GioDriveClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getIcon_ self
     fun getIdentifier self kind = (GioDriveClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getIdentifier_ (self & kind)
     fun getName self = (GioDriveClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getName_ self
+    fun getSortKey self = (GioDriveClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSortKey_ self
     fun getStartStopType self = (GioDriveClass.FFI.withPtr ---> GioDriveStartStopType.FFI.fromVal) getStartStopType_ self
+    fun getSymbolicIcon self = (GioDriveClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getSymbolicIcon_ self
     fun hasMedia self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) hasMedia_ self
     fun hasVolumes self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) hasVolumes_ self
     fun isMediaCheckAutomatic self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) isMediaCheckAutomatic_ self
     fun isMediaRemovable self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) isMediaRemovable_ self
+    fun isRemovable self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) isRemovable_ self
     fun pollForMediaFinish self result =
       (
         GioDriveClass.FFI.withPtr

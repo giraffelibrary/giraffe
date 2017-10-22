@@ -39,6 +39,14 @@ structure GdkPixbufPixbufLoader :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
+      val writeBytes_ =
+        call (getSymbol "gdk_pixbuf_loader_write_bytes")
+          (
+            GdkPixbufPixbufLoaderClass.PolyML.cPtr
+             &&> GLibBytesRecord.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
     end
     type 'a class = 'a GdkPixbufPixbufLoaderClass.class
     type 'a pixbuf_animation_class = 'a GdkPixbufPixbufAnimationClass.class
@@ -51,7 +59,7 @@ structure GdkPixbufPixbufLoader :>
     fun newWithType imageType = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.FFI.fromPtr true) newWithType_ (imageType & [])
     fun close self = (GdkPixbufPixbufLoaderClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) close_ (self & [])
     fun getAnimation self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr false) getAnimation_ self
-    fun getFormat self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufFormatRecord.FFI.fromPtr true) getFormat_ self
+    fun getFormat self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufFormatRecord.FFI.fromPtr false) getFormat_ self
     fun getPixbuf self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
     fun setSize self (width, height) =
       (
@@ -87,6 +95,19 @@ structure GdkPixbufPixbufLoader :>
       in
         ()
       end
+    fun writeBytes self buffer =
+      (
+        GdkPixbufPixbufLoaderClass.FFI.withPtr
+         &&&> GLibBytesRecord.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        writeBytes_
+        (
+          self
+           & buffer
+           & []
+        )
     local
       open ClosureMarshal Signal
     in

@@ -40,6 +40,7 @@ structure GioSimpleAction :>
             )
     val setEnabled_ = fn x1 & x2 => (_import "g_simple_action_set_enabled" : GioSimpleActionClass.FFI.notnull GioSimpleActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setState_ = fn x1 & x2 => (_import "g_simple_action_set_state" : GioSimpleActionClass.FFI.notnull GioSimpleActionClass.FFI.p * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> unit;) (x1, x2)
+    val setStateHint_ = fn x1 & x2 => (_import "g_simple_action_set_state_hint" : GioSimpleActionClass.FFI.notnull GioSimpleActionClass.FFI.p * unit GLibVariantRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GioSimpleActionClass.class
     type 'a action_class = 'a GioActionClass.class
     type t = base class
@@ -66,6 +67,7 @@ structure GioSimpleAction :>
         )
     fun setEnabled self enabled = (GioSimpleActionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setEnabled_ (self & enabled)
     fun setState self value = (GioSimpleActionClass.FFI.withPtr &&&> GLibVariantRecord.FFI.withPtr ---> I) setState_ (self & value)
+    fun setStateHint self stateHint = (GioSimpleActionClass.FFI.withPtr &&&> GLibVariantRecord.FFI.withOptPtr ---> I) setStateHint_ (self & stateHint)
     local
       open ClosureMarshal Signal
     in
@@ -75,10 +77,26 @@ structure GioSimpleAction :>
     local
       open Property
     in
-      val enabledProp = {get = fn x => get "enabled" boolean x}
-      val nameProp = {get = fn x => get "name" stringOpt x}
-      val parameterTypeProp = {get = fn x => get "parameter-type" GLibVariantTypeRecord.tOpt x}
-      val stateProp = {get = fn x => get "state" GLibVariantRecord.tOpt x}
+      val enabledProp =
+        {
+          get = fn x => get "enabled" boolean x,
+          set = fn x => set "enabled" boolean x
+        }
+      val nameProp =
+        {
+          get = fn x => get "name" stringOpt x,
+          set = fn x => set "name" stringOpt x
+        }
+      val parameterTypeProp =
+        {
+          get = fn x => get "parameter-type" GLibVariantTypeRecord.tOpt x,
+          set = fn x => set "parameter-type" GLibVariantTypeRecord.tOpt x
+        }
+      val stateProp =
+        {
+          get = fn x => get "state" GLibVariantRecord.tOpt x,
+          set = fn x => set "state" GLibVariantRecord.tOpt x
+        }
       val stateTypeProp = {get = fn x => get "state-type" GLibVariantTypeRecord.tOpt x}
     end
   end

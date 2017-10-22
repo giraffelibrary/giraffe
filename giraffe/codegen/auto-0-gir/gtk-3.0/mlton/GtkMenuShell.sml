@@ -2,6 +2,7 @@ structure GtkMenuShell :>
   GTK_MENU_SHELL
     where type 'a class = 'a GtkMenuShellClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
+    where type 'a menu_item_class = 'a GtkMenuItemClass.class
     where type direction_type_t = GtkDirectionType.t
     where type 'a widget_class = 'a GtkWidgetClass.class
     where type menu_direction_type_t = GtkMenuDirectionType.t =
@@ -24,7 +25,29 @@ structure GtkMenuShell :>
               x2,
               x3
             )
-    val append_ = fn x1 & x2 => (_import "gtk_menu_shell_append" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val append_ = fn x1 & x2 => (_import "gtk_menu_shell_append" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p * GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> unit;) (x1, x2)
+    val bindModel_ =
+      fn
+        x1
+         & x2
+         & (x3, x4)
+         & x5 =>
+          (
+            _import "mlton_gtk_menu_shell_bind_model" :
+              GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p
+               * unit GioMenuModelClass.FFI.p
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * GBool.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
     val cancel_ = _import "gtk_menu_shell_cancel" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p -> unit;
     val deactivate_ = _import "gtk_menu_shell_deactivate" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p -> unit;
     val deselect_ = _import "gtk_menu_shell_deselect" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p -> unit;
@@ -54,6 +77,7 @@ structure GtkMenuShell :>
     val setTakeFocus_ = fn x1 & x2 => (_import "gtk_menu_shell_set_take_focus" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkMenuShellClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
+    type 'a menu_item_class = 'a GtkMenuItemClass.class
     type direction_type_t = GtkDirectionType.t
     type 'a widget_class = 'a GtkWidgetClass.class
     type menu_direction_type_t = GtkMenuDirectionType.t
@@ -74,7 +98,28 @@ structure GtkMenuShell :>
            & menuItem
            & forceDeactivate
         )
-    fun append self child = (GtkMenuShellClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) append_ (self & child)
+    fun append self child = (GtkMenuShellClass.FFI.withPtr &&&> GtkMenuItemClass.FFI.withPtr ---> I) append_ (self & child)
+    fun bindModel
+      self
+      (
+        model,
+        actionNamespace,
+        withSeparators
+      ) =
+      (
+        GtkMenuShellClass.FFI.withPtr
+         &&&> GioMenuModelClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GBool.FFI.withVal
+         ---> I
+      )
+        bindModel_
+        (
+          self
+           & model
+           & actionNamespace
+           & withSeparators
+        )
     fun cancel self = (GtkMenuShellClass.FFI.withPtr ---> I) cancel_ self
     fun deactivate self = (GtkMenuShellClass.FFI.withPtr ---> I) deactivate_ self
     fun deselect self = (GtkMenuShellClass.FFI.withPtr ---> I) deselect_ self

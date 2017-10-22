@@ -54,7 +54,8 @@ structure GtkScale :>
     val clearMarks_ = _import "gtk_scale_clear_marks" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> unit;
     val getDigits_ = _import "gtk_scale_get_digits" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> GInt32.FFI.val_;
     val getDrawValue_ = _import "gtk_scale_get_draw_value" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> GBool.FFI.val_;
-    val getLayout_ = _import "gtk_scale_get_layout" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p;
+    val getHasOrigin_ = _import "gtk_scale_get_has_origin" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> GBool.FFI.val_;
+    val getLayout_ = _import "gtk_scale_get_layout" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> unit PangoLayoutClass.FFI.p;
     val getLayoutOffsets_ =
       fn
         x1
@@ -75,6 +76,7 @@ structure GtkScale :>
     val getValuePos_ = _import "gtk_scale_get_value_pos" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> GtkPositionType.FFI.val_;
     val setDigits_ = fn x1 & x2 => (_import "gtk_scale_set_digits" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val setDrawValue_ = fn x1 & x2 => (_import "gtk_scale_set_draw_value" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHasOrigin_ = fn x1 & x2 => (_import "gtk_scale_set_has_origin" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setValuePos_ = fn x1 & x2 => (_import "gtk_scale_set_value_pos" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p * GtkPositionType.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkScaleClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -133,7 +135,8 @@ structure GtkScale :>
     fun clearMarks self = (GtkScaleClass.FFI.withPtr ---> I) clearMarks_ self
     fun getDigits self = (GtkScaleClass.FFI.withPtr ---> GInt32.FFI.fromVal) getDigits_ self
     fun getDrawValue self = (GtkScaleClass.FFI.withPtr ---> GBool.FFI.fromVal) getDrawValue_ self
-    fun getLayout self = (GtkScaleClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self
+    fun getHasOrigin self = (GtkScaleClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasOrigin_ self
+    fun getLayout self = (GtkScaleClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromOptPtr false) getLayout_ self
     fun getLayoutOffsets self =
       let
         val x
@@ -159,6 +162,7 @@ structure GtkScale :>
     fun getValuePos self = (GtkScaleClass.FFI.withPtr ---> GtkPositionType.FFI.fromVal) getValuePos_ self
     fun setDigits self digits = (GtkScaleClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setDigits_ (self & digits)
     fun setDrawValue self drawValue = (GtkScaleClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDrawValue_ (self & drawValue)
+    fun setHasOrigin self hasOrigin = (GtkScaleClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasOrigin_ (self & hasOrigin)
     fun setValuePos self pos = (GtkScaleClass.FFI.withPtr &&&> GtkPositionType.FFI.withVal ---> I) setValuePos_ (self & pos)
     local
       open ClosureMarshal Signal
@@ -177,6 +181,11 @@ structure GtkScale :>
         {
           get = fn x => get "draw-value" boolean x,
           set = fn x => set "draw-value" boolean x
+        }
+      val hasOriginProp =
+        {
+          get = fn x => get "has-origin" boolean x,
+          set = fn x => set "has-origin" boolean x
         }
       val valuePosProp =
         {

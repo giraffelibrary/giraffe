@@ -6,4 +6,5 @@ signature GIO_SOCKET_CONNECTABLE =
     val getType : unit -> GObject.Type.t
     val enumerate : 'a class -> base socket_address_enumerator_class
     val proxyEnumerate : 'a class -> base socket_address_enumerator_class
+    val toString : 'a class -> string
   end

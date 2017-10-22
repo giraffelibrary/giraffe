@@ -11,9 +11,24 @@ structure GtkSettings :>
     where type policy_type_t = GtkPolicyType.t =
   struct
     val getType_ = _import "gtk_settings_get_type" : unit -> GObjectType.FFI.val_;
-    val getDefault_ = _import "gtk_settings_get_default" : unit -> GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p;
+    val getDefault_ = _import "gtk_settings_get_default" : unit -> unit GtkSettingsClass.FFI.p;
     val getForScreen_ = _import "gtk_settings_get_for_screen" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p;
     val installProperty_ = _import "gtk_settings_install_property" : GObjectParamSpecClass.FFI.notnull GObjectParamSpecClass.FFI.p -> unit;
+    val resetProperty_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_gtk_settings_reset_property" :
+              GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val setDoubleProperty_ =
       fn
         x1
@@ -119,9 +134,10 @@ structure GtkSettings :>
     type t = base class
     fun asStyleProvider self = (GObjectObjectClass.FFI.withPtr ---> GtkStyleProviderClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getDefault () = (I ---> GtkSettingsClass.FFI.fromPtr false) getDefault_ ()
+    fun getDefault () = (I ---> GtkSettingsClass.FFI.fromOptPtr false) getDefault_ ()
     fun getForScreen screen = (GdkScreenClass.FFI.withPtr ---> GtkSettingsClass.FFI.fromPtr false) getForScreen_ screen
     fun installProperty pspec = (GObjectParamSpecClass.FFI.withPtr ---> I) installProperty_ pspec
+    fun resetProperty self name = (GtkSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) resetProperty_ (self & name)
     fun setDoubleProperty
       self
       (
@@ -266,6 +282,16 @@ structure GtkSettings :>
           get = fn x => get "gtk-cursor-theme-size" int x,
           set = fn x => set "gtk-cursor-theme-size" int x
         }
+      val gtkDecorationLayoutProp =
+        {
+          get = fn x => get "gtk-decoration-layout" stringOpt x,
+          set = fn x => set "gtk-decoration-layout" stringOpt x
+        }
+      val gtkDialogsUseHeaderProp =
+        {
+          get = fn x => get "gtk-dialogs-use-header" boolean x,
+          set = fn x => set "gtk-dialogs-use-header" boolean x
+        }
       val gtkDndDragThresholdProp =
         {
           get = fn x => get "gtk-dnd-drag-threshold" int x,
@@ -305,6 +331,11 @@ structure GtkSettings :>
         {
           get = fn x => get "gtk-enable-mnemonics" boolean x,
           set = fn x => set "gtk-enable-mnemonics" boolean x
+        }
+      val gtkEnablePrimaryPasteProp =
+        {
+          get = fn x => get "gtk-enable-primary-paste" boolean x,
+          set = fn x => set "gtk-enable-primary-paste" boolean x
         }
       val gtkEnableTooltipsProp =
         {
@@ -381,6 +412,11 @@ structure GtkSettings :>
           get = fn x => get "gtk-keynav-cursor-only" boolean x,
           set = fn x => set "gtk-keynav-cursor-only" boolean x
         }
+      val gtkKeynavUseCaretProp =
+        {
+          get = fn x => get "gtk-keynav-use-caret" boolean x,
+          set = fn x => set "gtk-keynav-use-caret" boolean x
+        }
       val gtkKeynavWrapAroundProp =
         {
           get = fn x => get "gtk-keynav-wrap-around" boolean x,
@@ -390,6 +426,11 @@ structure GtkSettings :>
         {
           get = fn x => get "gtk-label-select-on-focus" boolean x,
           set = fn x => set "gtk-label-select-on-focus" boolean x
+        }
+      val gtkLongPressTimeProp =
+        {
+          get = fn x => get "gtk-long-press-time" uint x,
+          set = fn x => set "gtk-long-press-time" uint x
         }
       val gtkMenuBarAccelProp =
         {
@@ -421,6 +462,11 @@ structure GtkSettings :>
           get = fn x => get "gtk-modules" stringOpt x,
           set = fn x => set "gtk-modules" stringOpt x
         }
+      val gtkPrimaryButtonWarpsSliderProp =
+        {
+          get = fn x => get "gtk-primary-button-warps-slider" boolean x,
+          set = fn x => set "gtk-primary-button-warps-slider" boolean x
+        }
       val gtkPrintBackendsProp =
         {
           get = fn x => get "gtk-print-backends" stringOpt x,
@@ -430,6 +476,11 @@ structure GtkSettings :>
         {
           get = fn x => get "gtk-print-preview-command" stringOpt x,
           set = fn x => set "gtk-print-preview-command" stringOpt x
+        }
+      val gtkRecentFilesEnabledProp =
+        {
+          get = fn x => get "gtk-recent-files-enabled" boolean x,
+          set = fn x => set "gtk-recent-files-enabled" boolean x
         }
       val gtkRecentFilesLimitProp =
         {
@@ -445,6 +496,21 @@ structure GtkSettings :>
         {
           get = fn x => get "gtk-scrolled-window-placement" GtkCornerType.t x,
           set = fn x => set "gtk-scrolled-window-placement" GtkCornerType.t x
+        }
+      val gtkShellShowsAppMenuProp =
+        {
+          get = fn x => get "gtk-shell-shows-app-menu" boolean x,
+          set = fn x => set "gtk-shell-shows-app-menu" boolean x
+        }
+      val gtkShellShowsDesktopProp =
+        {
+          get = fn x => get "gtk-shell-shows-desktop" boolean x,
+          set = fn x => set "gtk-shell-shows-desktop" boolean x
+        }
+      val gtkShellShowsMenubarProp =
+        {
+          get = fn x => get "gtk-shell-shows-menubar" boolean x,
+          set = fn x => set "gtk-shell-shows-menubar" boolean x
         }
       val gtkShowInputMethodMenuProp =
         {
@@ -485,6 +551,21 @@ structure GtkSettings :>
         {
           get = fn x => get "gtk-timeout-repeat" int x,
           set = fn x => set "gtk-timeout-repeat" int x
+        }
+      val gtkTitlebarDoubleClickProp =
+        {
+          get = fn x => get "gtk-titlebar-double-click" stringOpt x,
+          set = fn x => set "gtk-titlebar-double-click" stringOpt x
+        }
+      val gtkTitlebarMiddleClickProp =
+        {
+          get = fn x => get "gtk-titlebar-middle-click" stringOpt x,
+          set = fn x => set "gtk-titlebar-middle-click" stringOpt x
+        }
+      val gtkTitlebarRightClickProp =
+        {
+          get = fn x => get "gtk-titlebar-right-click" stringOpt x,
+          set = fn x => set "gtk-titlebar-right-click" stringOpt x
         }
       val gtkToolbarIconSizeProp =
         {

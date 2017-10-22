@@ -27,10 +27,10 @@ structure PangoFontDescription :>
               x2,
               x3
             )
-    val copy_ = _import "pango_font_description_copy" : PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;
-    val copyStatic_ = _import "pango_font_description_copy_static" : PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;
+    val copy_ = _import "pango_font_description_copy" : PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> unit PangoFontDescriptionRecord.FFI.p;
+    val copyStatic_ = _import "pango_font_description_copy_static" : PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> unit PangoFontDescriptionRecord.FFI.p;
     val equal_ = fn x1 & x2 => (_import "pango_font_description_equal" : PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p * PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getFamily_ = _import "pango_font_description_get_family" : PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getFamily_ = _import "pango_font_description_get_family" : PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> unit Utf8.FFI.out_p;
     val getGravity_ = _import "pango_font_description_get_gravity" : PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> PangoGravity.FFI.val_;
     val getSetFields_ = _import "pango_font_description_get_set_fields" : PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> PangoFontMask.FFI.val_;
     val getSize_ = _import "pango_font_description_get_size" : PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> GInt32.FFI.val_;
@@ -137,10 +137,10 @@ structure PangoFontDescription :>
            & oldMatch
            & newMatch
         )
-    fun copy self = (PangoFontDescriptionRecord.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr true) copy_ self
-    fun copyStatic self = (PangoFontDescriptionRecord.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr true) copyStatic_ self
+    fun copy self = (PangoFontDescriptionRecord.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromOptPtr true) copy_ self
+    fun copyStatic self = (PangoFontDescriptionRecord.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromOptPtr true) copyStatic_ self
     fun equal self desc2 = (PangoFontDescriptionRecord.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & desc2)
-    fun getFamily self = (PangoFontDescriptionRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getFamily_ self
+    fun getFamily self = (PangoFontDescriptionRecord.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getFamily_ self
     fun getGravity self = (PangoFontDescriptionRecord.FFI.withPtr ---> PangoGravity.FFI.fromVal) getGravity_ self
     fun getSetFields self = (PangoFontDescriptionRecord.FFI.withPtr ---> PangoFontMask.FFI.fromVal) getSetFields_ self
     fun getSize self = (PangoFontDescriptionRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getSize_ self

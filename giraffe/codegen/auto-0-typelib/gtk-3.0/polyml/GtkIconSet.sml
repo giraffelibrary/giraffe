@@ -50,6 +50,16 @@ structure GtkIconSet :>
              &&> GInt32.PolyML.cVal
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
+      val renderIconSurface_ =
+        call (getSymbol "gtk_icon_set_render_icon_surface")
+          (
+            GtkIconSetRecord.PolyML.cPtr
+             &&> GtkStyleContextClass.PolyML.cPtr
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GdkWindowClass.PolyML.cOptPtr
+             --> CairoSurfaceRecord.PolyML.cPtr
+          )
     end
     type t = GtkIconSetRecord.t
     type icon_source_t = GtkIconSourceRecord.t
@@ -127,5 +137,29 @@ structure GtkIconSet :>
           self
            & context
            & size
+        )
+    fun renderIconSurface
+      self
+      (
+        context,
+        size,
+        scale,
+        forWindow
+      ) =
+      (
+        GtkIconSetRecord.FFI.withPtr
+         &&&> GtkStyleContextClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         &&&> GdkWindowClass.FFI.withOptPtr
+         ---> CairoSurfaceRecord.FFI.fromPtr true
+      )
+        renderIconSurface_
+        (
+          self
+           & context
+           & size
+           & scale
+           & forWindow
         )
   end

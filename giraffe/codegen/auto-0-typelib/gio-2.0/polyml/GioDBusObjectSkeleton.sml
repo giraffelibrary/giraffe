@@ -37,10 +37,10 @@ structure GioDBusObjectSkeleton :>
     local
       open Property
     in
-      val objectPathProp =
+      val gObjectPathProp =
         {
-          get = fn x => get "object-path" stringOpt x,
-          set = fn x => set "object-path" stringOpt x
+          get = fn x => get "g-object-path" stringOpt x,
+          set = fn x => set "g-object-path" stringOpt x
         }
     end
   end

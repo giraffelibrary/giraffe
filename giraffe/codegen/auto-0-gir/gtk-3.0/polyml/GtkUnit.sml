@@ -1,24 +1,24 @@
 structure GtkUnit :> GTK_UNIT =
   struct
     datatype enum =
-      PIXEL
+      NONE
     | POINTS
     | INCH
     | MM
     structure Enum =
       Enum(
         type enum = enum
-        val null = PIXEL
+        val null = NONE
         val toInt =
           fn
-            PIXEL => 0
+            NONE => 0
           | POINTS => 1
           | INCH => 2
           | MM => 3
         exception Value of GInt.t
         val fromInt =
           fn
-            0 => PIXEL
+            0 => NONE
           | 1 => POINTS
           | 2 => INCH
           | 3 => MM

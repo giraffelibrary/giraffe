@@ -32,6 +32,10 @@ in
   G_LIB_SPAWN_CHILD_SETUP_FUNC.sml
   G_LIB_I_O_FUNC.sml
   G_LIB_BOOKMARK_FILE_ERROR.sml
+  G_LIB_BYTES_RECORD.sml
+  G_LIB_BYTES.sml
+  G_LIB_CHECKSUM_RECORD.sml
+  G_LIB_CHECKSUM.sml
   G_LIB_CHECKSUM_TYPE.sml
   G_LIB_CONVERT_ERROR.sml
   G_LIB_DATE_RECORD.sml
@@ -62,10 +66,13 @@ in
   G_LIB_KEY_FILE_ERROR.sml
   G_LIB_KEY_FILE_FLAGS.sml
   G_LIB_LOG_LEVEL_FLAGS.sml
+  G_LIB_LOG_WRITER_OUTPUT.sml
   G_LIB_MAIN_CONTEXT_RECORD.sml
   G_LIB_MAIN_CONTEXT.sml
   G_LIB_MARKUP_COLLECT_TYPE.sml
   G_LIB_MARKUP_ERROR.sml
+  G_LIB_MARKUP_PARSE_CONTEXT_RECORD.sml
+  G_LIB_MARKUP_PARSE_CONTEXT.sml
   G_LIB_MARKUP_PARSE_FLAGS.sml
   G_LIB_MATCH_INFO_RECORD.sml
   G_LIB_MATCH_INFO.sml
@@ -76,6 +83,8 @@ in
   G_LIB_OPTION_ENTRY.sml
   G_LIB_OPTION_ERROR.sml
   G_LIB_OPTION_FLAGS.sml
+  G_LIB_OPTION_GROUP_RECORD.sml
+  G_LIB_OPTION_GROUP.sml
   G_LIB_PATTERN_SPEC_RECORD.sml
   G_LIB_PATTERN_SPEC.sml
   G_LIB_REGEX_RECORD.sml
@@ -94,12 +103,13 @@ in
   G_LIB_STRING.sml
   G_LIB_TEST_CASE_RECORD.sml
   G_LIB_TEST_CASE.sml
+  G_LIB_TEST_FILE_TYPE.sml
   G_LIB_TEST_LOG_TYPE.sml
+  G_LIB_TEST_SUBPROCESS_FLAGS.sml
   G_LIB_TEST_SUITE_RECORD.sml
   G_LIB_TEST_SUITE.sml
   G_LIB_TEST_TRAP_FLAGS.sml
   G_LIB_THREAD_ERROR.sml
-  G_LIB_THREAD_PRIORITY.sml
   G_LIB_TIME_TYPE.sml
   G_LIB_TIME_VAL_RECORD.sml
   G_LIB_TIME_VAL.sml
@@ -112,7 +122,11 @@ in
   G_LIB_USER_DIRECTORY.sml
   G_LIB_VARIANT_RECORD.sml
   G_LIB_VARIANT.sml
+  G_LIB_VARIANT_BUILDER_RECORD.sml
+  G_LIB_VARIANT_BUILDER.sml
   G_LIB_VARIANT_CLASS.sml
+  G_LIB_VARIANT_DICT_RECORD.sml
+  G_LIB_VARIANT_DICT.sml
   G_LIB_VARIANT_PARSE_ERROR.sml
   G_LIB_VARIANT_TYPE_RECORD.sml
   G_LIB_VARIANT_TYPE.sml
@@ -125,6 +139,8 @@ in
     mlton/GLibPidType.sml
     mlton/GLibSourceFunc.sml
     mlton/GLibSpawnChildSetupFunc.sml
+    mlton/GLibBytesRecord.sml
+    mlton/GLibChecksumRecord.sml
     mlton/GLibChecksumType.sml
     mlton/GLibDateRecord.sml
     mlton/GLibDateDMY.sml
@@ -144,8 +160,10 @@ in
     mlton/GLibKeyFileRecord.sml
     mlton/GLibKeyFileFlags.sml
     mlton/GLibLogLevelFlags.sml
+    mlton/GLibLogWriterOutput.sml
     mlton/GLibMainContextRecord.sml
     mlton/GLibMarkupCollectType.sml
+    mlton/GLibMarkupParseContextRecord.sml
     mlton/GLibMarkupParseFlags.sml
     mlton/GLibMatchInfoRecord.sml
     mlton/GLibNormalizeMode.sml
@@ -153,6 +171,7 @@ in
     mlton/GLibOptionArg.sml
     mlton/GLibOptionEntryRecord.sml
     mlton/GLibOptionFlags.sml
+    mlton/GLibOptionGroupRecord.sml
     mlton/GLibPatternSpecRecord.sml
     mlton/GLibRegexRecord.sml
     mlton/GLibRegexCompileFlags.sml
@@ -163,10 +182,11 @@ in
     mlton/GLibSpawnFlags.sml
     mlton/GLibStringRecord.sml
     mlton/GLibTestCaseRecord.sml
+    mlton/GLibTestFileType.sml
     mlton/GLibTestLogType.sml
+    mlton/GLibTestSubprocessFlags.sml
     mlton/GLibTestSuiteRecord.sml
     mlton/GLibTestTrapFlags.sml
-    mlton/GLibThreadPriority.sml
     mlton/GLibTimeType.sml
     mlton/GLibTimeValRecord.sml
     mlton/GLibTimeZoneRecord.sml
@@ -176,19 +196,24 @@ in
     mlton/GLibUnicodeType.sml
     mlton/GLibUserDirectory.sml
     mlton/GLibVariantRecord.sml
+    mlton/GLibVariantBuilderRecord.sml
     mlton/GLibVariantClass.sml
-    mlton/GLibVariantParseError.sml
+    mlton/GLibVariantDictRecord.sml
     mlton/GLibVariantTypeRecord.sml
     mlton/GLibPid.sml
     mlton/GLibIOFunc.sml
     mlton/GLibErrorRecord.sml
+    mlton/GLibBytes.sml
+    mlton/GLibChecksum.sml
     mlton/GLibDate.sml
     mlton/GLibDateTime.sml
     mlton/GLibDebugKey.sml
     mlton/GLibKeyFile.sml
     mlton/GLibMainContext.sml
+    mlton/GLibMarkupParseContext.sml
     mlton/GLibMatchInfo.sml
     mlton/GLibOptionEntry.sml
+    mlton/GLibOptionGroup.sml
     mlton/GLibPatternSpec.sml
     mlton/GLibRegex.sml
     mlton/GLibSource.sml
@@ -198,6 +223,8 @@ in
     mlton/GLibTimeVal.sml
     mlton/GLibTimeZone.sml
     mlton/GLibVariant.sml
+    mlton/GLibVariantBuilder.sml
+    mlton/GLibVariantDict.sml
     mlton/GLibVariantType.sml
     mlton/GLibChildWatchFunc.sml
     mlton/GLibBookmarkFileError.sml
@@ -212,6 +239,7 @@ in
     mlton/GLibShellError.sml
     mlton/GLibSpawnError.sml
     mlton/GLibThreadError.sml
+    mlton/GLibVariantParseError.sml
     mlton/GLibIOChannel.sml
     mlton/GLib.sml
   end

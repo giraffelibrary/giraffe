@@ -2,7 +2,9 @@ structure GioSettings :>
   GIO_SETTINGS
     where type 'a class = 'a GioSettingsClass.class
     where type settings_backend_t = GioSettingsBackendRecord.t
-    where type settings_bind_flags_t = GioSettingsBindFlags.t =
+    where type settings_bind_flags_t = GioSettingsBindFlags.t
+    where type 'a action_class = 'a GioActionClass.class
+    where type settings_schema_t = GioSettingsSchemaRecord.t =
   struct
     structure GLibQuarkCVectorNType =
       CValueCVectorNType(
@@ -21,6 +23,14 @@ structure GioSettings :>
     in
       val getType_ = call (getSymbol "g_settings_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_settings_new") (Utf8.PolyML.cInPtr --> GioSettingsClass.PolyML.cPtr)
+      val newFull_ =
+        call (getSymbol "g_settings_new_full")
+          (
+            GioSettingsSchemaRecord.PolyML.cPtr
+             &&> GioSettingsBackendRecord.PolyML.cOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             --> GioSettingsClass.PolyML.cPtr
+          )
       val newWithBackend_ = call (getSymbol "g_settings_new_with_backend") (Utf8.PolyML.cInPtr &&> GioSettingsBackendRecord.PolyML.cPtr --> GioSettingsClass.PolyML.cPtr)
       val newWithBackendAndPath_ =
         call (getSymbol "g_settings_new_with_backend_and_path")
@@ -34,6 +44,7 @@ structure GioSettings :>
       val listRelocatableSchemas_ = call (getSymbol "g_settings_list_relocatable_schemas") (cVoid --> Utf8CVector.PolyML.cOutPtr)
       val listSchemas_ = call (getSymbol "g_settings_list_schemas") (cVoid --> Utf8CVector.PolyML.cOutPtr)
       val sync_ = call (getSymbol "g_settings_sync") (cVoid --> cVoid)
+      val unbind_ = call (getSymbol "g_settings_unbind") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val apply_ = call (getSymbol "g_settings_apply") (GioSettingsClass.PolyML.cPtr --> cVoid)
       val bind_ =
         call (getSymbol "g_settings_bind")
@@ -55,18 +66,23 @@ structure GioSettings :>
              &&> GBool.PolyML.cVal
              --> cVoid
           )
+      val createAction_ = call (getSymbol "g_settings_create_action") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioActionClass.PolyML.cPtr)
       val delay_ = call (getSymbol "g_settings_delay") (GioSettingsClass.PolyML.cPtr --> cVoid)
       val getBoolean_ = call (getSymbol "g_settings_get_boolean") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val getChild_ = call (getSymbol "g_settings_get_child") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioSettingsClass.PolyML.cPtr)
+      val getDefaultValue_ = call (getSymbol "g_settings_get_default_value") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
       val getDouble_ = call (getSymbol "g_settings_get_double") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GDouble.PolyML.cVal)
       val getEnum_ = call (getSymbol "g_settings_get_enum") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GInt.PolyML.cVal)
       val getFlags_ = call (getSymbol "g_settings_get_flags") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt.PolyML.cVal)
       val getHasUnapplied_ = call (getSymbol "g_settings_get_has_unapplied") (GioSettingsClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getInt_ = call (getSymbol "g_settings_get_int") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GInt.PolyML.cVal)
+      val getInt64_ = call (getSymbol "g_settings_get_int64") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GInt64.PolyML.cVal)
       val getRange_ = call (getSymbol "g_settings_get_range") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
       val getString_ = call (getSymbol "g_settings_get_string") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val getStrv_ = call (getSymbol "g_settings_get_strv") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
       val getUint_ = call (getSymbol "g_settings_get_uint") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt.PolyML.cVal)
+      val getUint64_ = call (getSymbol "g_settings_get_uint64") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt64.PolyML.cVal)
+      val getUserValue_ = call (getSymbol "g_settings_get_user_value") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
       val getValue_ = call (getSymbol "g_settings_get_value") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
       val isWritable_ = call (getSymbol "g_settings_is_writable") (GioSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val listChildren_ = call (getSymbol "g_settings_list_children") (GioSettingsClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
@@ -121,6 +137,14 @@ structure GioSettings :>
              &&> GInt.PolyML.cVal
              --> GBool.PolyML.cVal
           )
+      val setInt64_ =
+        call (getSymbol "g_settings_set_int64")
+          (
+            GioSettingsClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GInt64.PolyML.cVal
+             --> GBool.PolyML.cVal
+          )
       val setString_ =
         call (getSymbol "g_settings_set_string")
           (
@@ -145,6 +169,14 @@ structure GioSettings :>
              &&> GUInt.PolyML.cVal
              --> GBool.PolyML.cVal
           )
+      val setUint64_ =
+        call (getSymbol "g_settings_set_uint64")
+          (
+            GioSettingsClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GUInt64.PolyML.cVal
+             --> GBool.PolyML.cVal
+          )
       val setValue_ =
         call (getSymbol "g_settings_set_value")
           (
@@ -157,13 +189,33 @@ structure GioSettings :>
     type 'a class = 'a GioSettingsClass.class
     type settings_backend_t = GioSettingsBackendRecord.t
     type settings_bind_flags_t = GioSettingsBindFlags.t
+    type 'a action_class = 'a GioActionClass.class
+    type settings_schema_t = GioSettingsSchemaRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new schema = (Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) new_ schema
-    fun newWithBackend (schema, backend) = (Utf8.FFI.withPtr &&&> GioSettingsBackendRecord.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithBackend_ (schema & backend)
-    fun newWithBackendAndPath
+    fun new schemaId = (Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) new_ schemaId
+    fun newFull
       (
         schema,
+        backend,
+        path
+      ) =
+      (
+        GioSettingsSchemaRecord.FFI.withPtr
+         &&&> GioSettingsBackendRecord.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         ---> GioSettingsClass.FFI.fromPtr true
+      )
+        newFull_
+        (
+          schema
+           & backend
+           & path
+        )
+    fun newWithBackend (schemaId, backend) = (Utf8.FFI.withPtr &&&> GioSettingsBackendRecord.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithBackend_ (schemaId & backend)
+    fun newWithBackendAndPath
+      (
+        schemaId,
         backend,
         path
       ) =
@@ -175,14 +227,15 @@ structure GioSettings :>
       )
         newWithBackendAndPath_
         (
-          schema
+          schemaId
            & backend
            & path
         )
-    fun newWithPath (schema, path) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithPath_ (schema & path)
+    fun newWithPath (schemaId, path) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithPath_ (schemaId & path)
     fun listRelocatableSchemas () = (I ---> Utf8CVector.FFI.fromPtr 0) listRelocatableSchemas_ ()
     fun listSchemas () = (I ---> Utf8CVector.FFI.fromPtr 0) listSchemas_ ()
     fun sync () = (I ---> I) sync_ ()
+    fun unbind (object, property) = (GObjectObjectClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) unbind_ (object & property)
     fun apply self = (GioSettingsClass.FFI.withPtr ---> I) apply_ self
     fun bind
       self
@@ -232,18 +285,23 @@ structure GioSettings :>
            & property
            & inverted
         )
+    fun createAction self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioActionClass.FFI.fromPtr true) createAction_ (self & key)
     fun delay self = (GioSettingsClass.FFI.withPtr ---> I) delay_ self
     fun getBoolean self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) getBoolean_ (self & key)
     fun getChild self name = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) getChild_ (self & name)
+    fun getDefaultValue self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getDefaultValue_ (self & key)
     fun getDouble self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GDouble.FFI.fromVal) getDouble_ (self & key)
     fun getEnum self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) getEnum_ (self & key)
     fun getFlags self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt.FFI.fromVal) getFlags_ (self & key)
     fun getHasUnapplied self = (GioSettingsClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasUnapplied_ self
     fun getInt self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) getInt_ (self & key)
+    fun getInt64 self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt64.FFI.fromVal) getInt64_ (self & key)
     fun getRange self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getRange_ (self & key)
     fun getString self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getString_ (self & key)
     fun getStrv self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getStrv_ (self & key)
     fun getUint self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt.FFI.fromVal) getUint_ (self & key)
+    fun getUint64 self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt64.FFI.fromVal) getUint64_ (self & key)
+    fun getUserValue self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getUserValue_ (self & key)
     fun getValue self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getValue_ (self & key)
     fun isWritable self name = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) isWritable_ (self & name)
     fun listChildren self = (GioSettingsClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listChildren_ self
@@ -328,6 +386,19 @@ structure GioSettings :>
            & key
            & value
         )
+    fun setInt64 self (key, value) =
+      (
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt64.FFI.withVal
+         ---> GBool.FFI.fromVal
+      )
+        setInt64_
+        (
+          self
+           & key
+           & value
+        )
     fun setString self (key, value) =
       (
         GioSettingsClass.FFI.withPtr
@@ -362,6 +433,19 @@ structure GioSettings :>
          ---> GBool.FFI.fromVal
       )
         setUint_
+        (
+          self
+           & key
+           & value
+        )
+    fun setUint64 self (key, value) =
+      (
+        GioSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GUInt64.FFI.withVal
+         ---> GBool.FFI.fromVal
+      )
+        setUint64_
         (
           self
            & key
@@ -402,6 +486,16 @@ structure GioSettings :>
         {
           get = fn x => get "schema" stringOpt x,
           set = fn x => set "schema" stringOpt x
+        }
+      val schemaIdProp =
+        {
+          get = fn x => get "schema-id" stringOpt x,
+          set = fn x => set "schema-id" stringOpt x
+        }
+      val settingsSchemaProp =
+        {
+          get = fn x => get "settings-schema" GioSettingsSchemaRecord.tOpt x,
+          set = fn x => set "settings-schema" GioSettingsSchemaRecord.tOpt x
         }
     end
   end

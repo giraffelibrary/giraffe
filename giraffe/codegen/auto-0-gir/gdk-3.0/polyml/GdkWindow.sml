@@ -1,10 +1,14 @@
 structure GdkWindow :>
   GDK_WINDOW
     where type 'a class = 'a GdkWindowClass.class
+    where type window_attributes_type_t = GdkWindowAttributesType.t
     where type window_attr_t = GdkWindowAttrRecord.t
     where type window_edge_t = GdkWindowEdge.t
+    where type 'a g_l_context_class = 'a GdkGLContextClass.class
+    where type 'a drawing_context_class = 'a GdkDrawingContextClass.class
     where type 'a display_class = 'a GdkDisplayClass.class
     where type drag_protocol_t = GdkDragProtocol.t
+    where type 'a frame_clock_class = 'a GdkFrameClockClass.class
     where type modifier_type_t = GdkModifierType.t
     where type 'a screen_class = 'a GdkScreenClass.class
     where type window_state_t = GdkWindowState.t
@@ -15,12 +19,14 @@ structure GdkWindow :>
     where type rgba_t = GdkRgbaRecord.t
     where type w_m_decoration_t = GdkWMDecoration.t
     where type 'a device_class = 'a GdkDeviceClass.class
+    where type fullscreen_mode_t = GdkFullscreenMode.t
     where type w_m_function_t = GdkWMFunction.t
     where type window_hints_t = GdkWindowHints.t
     where type geometry_t = GdkGeometryRecord.t
     where type event_mask_t = GdkEventMask.t
     where type input_source_t = GdkInputSource.t
     where type window_type_hint_t = GdkWindowTypeHint.t
+    where type 'a event_union = 'a GdkEvent.union
     where type 'a cursor_class = 'a GdkCursorClass.class =
   struct
     local
@@ -32,7 +38,7 @@ structure GdkWindow :>
           (
             GdkWindowClass.PolyML.cOptPtr
              &&> GdkWindowAttrRecord.PolyML.cPtr
-             &&> GInt.PolyML.cVal
+             &&> GdkWindowAttributesType.PolyML.cVal
              --> GdkWindowClass.PolyML.cPtr
           )
       val atPointer_ = call (getSymbol "gdk_window_at_pointer") (GInt.PolyML.cRef &&> GInt.PolyML.cRef --> GdkWindowClass.PolyML.cPtr)
@@ -40,7 +46,7 @@ structure GdkWindow :>
         call (getSymbol "gdk_window_constrain_size")
           (
             GdkGeometryRecord.PolyML.cPtr
-             &&> GUInt.PolyML.cVal
+             &&> GdkWindowHints.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cRef
@@ -50,10 +56,22 @@ structure GdkWindow :>
       val processAllUpdates_ = call (getSymbol "gdk_window_process_all_updates") (cVoid --> cVoid)
       val setDebugUpdates_ = call (getSymbol "gdk_window_set_debug_updates") (GBool.PolyML.cVal --> cVoid)
       val beep_ = call (getSymbol "gdk_window_beep") (GdkWindowClass.PolyML.cPtr --> cVoid)
+      val beginDrawFrame_ = call (getSymbol "gdk_window_begin_draw_frame") (GdkWindowClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cPtr --> GdkDrawingContextClass.PolyML.cPtr)
       val beginMoveDrag_ =
         call (getSymbol "gdk_window_begin_move_drag")
           (
             GdkWindowClass.PolyML.cPtr
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             --> cVoid
+          )
+      val beginMoveDragForDevice_ =
+        call (getSymbol "gdk_window_begin_move_drag_for_device")
+          (
+            GdkWindowClass.PolyML.cPtr
+             &&> GdkDeviceClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
@@ -67,6 +85,18 @@ structure GdkWindow :>
           (
             GdkWindowClass.PolyML.cPtr
              &&> GdkWindowEdge.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             --> cVoid
+          )
+      val beginResizeDragForDevice_ =
+        call (getSymbol "gdk_window_begin_resize_drag_for_device")
+          (
+            GdkWindowClass.PolyML.cPtr
+             &&> GdkWindowEdge.PolyML.cVal
+             &&> GdkDeviceClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
@@ -94,6 +124,17 @@ structure GdkWindow :>
              &&> GDouble.PolyML.cRef
              --> cVoid
           )
+      val createGlContext_ = call (getSymbol "gdk_window_create_gl_context") (GdkWindowClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GdkGLContextClass.PolyML.cPtr)
+      val createSimilarImageSurface_ =
+        call (getSymbol "gdk_window_create_similar_image_surface")
+          (
+            GdkWindowClass.PolyML.cPtr
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> CairoSurfaceRecord.PolyML.cPtr
+          )
       val createSimilarSurface_ =
         call (getSymbol "gdk_window_create_similar_surface")
           (
@@ -107,6 +148,7 @@ structure GdkWindow :>
       val destroy_ = call (getSymbol "gdk_window_destroy") (GdkWindowClass.PolyML.cPtr --> cVoid)
       val destroyNotify_ = call (getSymbol "gdk_window_destroy_notify") (GdkWindowClass.PolyML.cPtr --> cVoid)
       val enableSynchronizedConfigure_ = call (getSymbol "gdk_window_enable_synchronized_configure") (GdkWindowClass.PolyML.cPtr --> cVoid)
+      val endDrawFrame_ = call (getSymbol "gdk_window_end_draw_frame") (GdkWindowClass.PolyML.cPtr &&> GdkDrawingContextClass.PolyML.cPtr --> cVoid)
       val endPaint_ = call (getSymbol "gdk_window_end_paint") (GdkWindowClass.PolyML.cPtr --> cVoid)
       val ensureNative_ = call (getSymbol "gdk_window_ensure_native") (GdkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val flush_ = call (getSymbol "gdk_window_flush") (GdkWindowClass.PolyML.cPtr --> cVoid)
@@ -114,6 +156,7 @@ structure GdkWindow :>
       val freezeToplevelUpdatesLibgtkOnly_ = call (getSymbol "gdk_window_freeze_toplevel_updates_libgtk_only") (GdkWindowClass.PolyML.cPtr --> cVoid)
       val freezeUpdates_ = call (getSymbol "gdk_window_freeze_updates") (GdkWindowClass.PolyML.cPtr --> cVoid)
       val fullscreen_ = call (getSymbol "gdk_window_fullscreen") (GdkWindowClass.PolyML.cPtr --> cVoid)
+      val fullscreenOnMonitor_ = call (getSymbol "gdk_window_fullscreen_on_monitor") (GdkWindowClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val geometryChanged_ = call (getSymbol "gdk_window_geometry_changed") (GdkWindowClass.PolyML.cPtr --> cVoid)
       val getAcceptFocus_ = call (getSymbol "gdk_window_get_accept_focus") (GdkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getBackgroundPattern_ = call (getSymbol "gdk_window_get_background_pattern") (GdkWindowClass.PolyML.cPtr --> CairoPatternRecord.PolyML.cPtr)
@@ -133,13 +176,26 @@ structure GdkWindow :>
              &&> GdkModifierType.PolyML.cRef
              --> GdkWindowClass.PolyML.cPtr
           )
+      val getDevicePositionDouble_ =
+        call (getSymbol "gdk_window_get_device_position_double")
+          (
+            GdkWindowClass.PolyML.cPtr
+             &&> GdkDeviceClass.PolyML.cPtr
+             &&> GDouble.PolyML.cRef
+             &&> GDouble.PolyML.cRef
+             &&> GdkModifierType.PolyML.cRef
+             --> GdkWindowClass.PolyML.cPtr
+          )
       val getDisplay_ = call (getSymbol "gdk_window_get_display") (GdkWindowClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
       val getDragProtocol_ = call (getSymbol "gdk_window_get_drag_protocol") (GdkWindowClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cOutRef --> GdkDragProtocol.PolyML.cVal)
       val getEffectiveParent_ = call (getSymbol "gdk_window_get_effective_parent") (GdkWindowClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getEffectiveToplevel_ = call (getSymbol "gdk_window_get_effective_toplevel") (GdkWindowClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getEventCompression_ = call (getSymbol "gdk_window_get_event_compression") (GdkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getEvents_ = call (getSymbol "gdk_window_get_events") (GdkWindowClass.PolyML.cPtr --> GdkEventMask.PolyML.cVal)
       val getFocusOnMap_ = call (getSymbol "gdk_window_get_focus_on_map") (GdkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getFrameClock_ = call (getSymbol "gdk_window_get_frame_clock") (GdkWindowClass.PolyML.cPtr --> GdkFrameClockClass.PolyML.cPtr)
       val getFrameExtents_ = call (getSymbol "gdk_window_get_frame_extents") (GdkWindowClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> cVoid)
+      val getFullscreenMode_ = call (getSymbol "gdk_window_get_fullscreen_mode") (GdkWindowClass.PolyML.cPtr --> GdkFullscreenMode.PolyML.cVal)
       val getGeometry_ =
         call (getSymbol "gdk_window_get_geometry")
           (
@@ -162,6 +218,7 @@ structure GdkWindow :>
              --> GInt.PolyML.cVal
           )
       val getParent_ = call (getSymbol "gdk_window_get_parent") (GdkWindowClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getPassThrough_ = call (getSymbol "gdk_window_get_pass_through") (GdkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getPointer_ =
         call (getSymbol "gdk_window_get_pointer")
           (
@@ -197,6 +254,7 @@ structure GdkWindow :>
              &&> GInt.PolyML.cRef
              --> cVoid
           )
+      val getScaleFactor_ = call (getSymbol "gdk_window_get_scale_factor") (GdkWindowClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getScreen_ = call (getSymbol "gdk_window_get_screen") (GdkWindowClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
       val getSourceEvents_ = call (getSymbol "gdk_window_get_source_events") (GdkWindowClass.PolyML.cPtr &&> GdkInputSource.PolyML.cVal --> GdkEventMask.PolyML.cVal)
       val getState_ = call (getSymbol "gdk_window_get_state") (GdkWindowClass.PolyML.cPtr --> GdkWindowState.PolyML.cVal)
@@ -242,6 +300,7 @@ structure GdkWindow :>
       val isViewable_ = call (getSymbol "gdk_window_is_viewable") (GdkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val isVisible_ = call (getSymbol "gdk_window_is_visible") (GdkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val lower_ = call (getSymbol "gdk_window_lower") (GdkWindowClass.PolyML.cPtr --> cVoid)
+      val markPaintFromClip_ = call (getSymbol "gdk_window_mark_paint_from_clip") (GdkWindowClass.PolyML.cPtr &&> CairoContextRecord.PolyML.cPtr --> cVoid)
       val maximize_ = call (getSymbol "gdk_window_maximize") (GdkWindowClass.PolyML.cPtr --> cVoid)
       val mergeChildInputShapes_ = call (getSymbol "gdk_window_merge_child_input_shapes") (GdkWindowClass.PolyML.cPtr --> cVoid)
       val mergeChildShapes_ = call (getSymbol "gdk_window_merge_child_shapes") (GdkWindowClass.PolyML.cPtr --> cVoid)
@@ -333,8 +392,10 @@ structure GdkWindow :>
              &&> GdkEventMask.PolyML.cVal
              --> cVoid
           )
+      val setEventCompression_ = call (getSymbol "gdk_window_set_event_compression") (GdkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setEvents_ = call (getSymbol "gdk_window_set_events") (GdkWindowClass.PolyML.cPtr &&> GdkEventMask.PolyML.cVal --> cVoid)
       val setFocusOnMap_ = call (getSymbol "gdk_window_set_focus_on_map") (GdkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setFullscreenMode_ = call (getSymbol "gdk_window_set_fullscreen_mode") (GdkWindowClass.PolyML.cPtr &&> GdkFullscreenMode.PolyML.cVal --> cVoid)
       val setFunctions_ = call (getSymbol "gdk_window_set_functions") (GdkWindowClass.PolyML.cPtr &&> GdkWMFunction.PolyML.cVal --> cVoid)
       val setGeometryHints_ =
         call (getSymbol "gdk_window_set_geometry_hints")
@@ -350,8 +411,20 @@ structure GdkWindow :>
       val setKeepBelow_ = call (getSymbol "gdk_window_set_keep_below") (GdkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setModalHint_ = call (getSymbol "gdk_window_set_modal_hint") (GdkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setOpacity_ = call (getSymbol "gdk_window_set_opacity") (GdkWindowClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val setOpaqueRegion_ = call (getSymbol "gdk_window_set_opaque_region") (GdkWindowClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cOptPtr --> cVoid)
       val setOverrideRedirect_ = call (getSymbol "gdk_window_set_override_redirect") (GdkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setPassThrough_ = call (getSymbol "gdk_window_set_pass_through") (GdkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setRole_ = call (getSymbol "gdk_window_set_role") (GdkWindowClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setShadowWidth_ =
+        call (getSymbol "gdk_window_set_shadow_width")
+          (
+            GdkWindowClass.PolyML.cPtr
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> cVoid
+          )
       val setSkipPagerHint_ = call (getSymbol "gdk_window_set_skip_pager_hint") (GdkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setSkipTaskbarHint_ = call (getSymbol "gdk_window_set_skip_taskbar_hint") (GdkWindowClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setSourceEvents_ =
@@ -381,6 +454,7 @@ structure GdkWindow :>
           )
       val show_ = call (getSymbol "gdk_window_show") (GdkWindowClass.PolyML.cPtr --> cVoid)
       val showUnraised_ = call (getSymbol "gdk_window_show_unraised") (GdkWindowClass.PolyML.cPtr --> cVoid)
+      val showWindowMenu_ = call (getSymbol "gdk_window_show_window_menu") (GdkWindowClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> GBool.PolyML.cVal)
       val stick_ = call (getSymbol "gdk_window_stick") (GdkWindowClass.PolyML.cPtr --> cVoid)
       val thawToplevelUpdatesLibgtkOnly_ = call (getSymbol "gdk_window_thaw_toplevel_updates_libgtk_only") (GdkWindowClass.PolyML.cPtr --> cVoid)
       val thawUpdates_ = call (getSymbol "gdk_window_thaw_updates") (GdkWindowClass.PolyML.cPtr --> cVoid)
@@ -390,10 +464,14 @@ structure GdkWindow :>
       val withdraw_ = call (getSymbol "gdk_window_withdraw") (GdkWindowClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GdkWindowClass.class
+    type window_attributes_type_t = GdkWindowAttributesType.t
     type window_attr_t = GdkWindowAttrRecord.t
     type window_edge_t = GdkWindowEdge.t
+    type 'a g_l_context_class = 'a GdkGLContextClass.class
+    type 'a drawing_context_class = 'a GdkDrawingContextClass.class
     type 'a display_class = 'a GdkDisplayClass.class
     type drag_protocol_t = GdkDragProtocol.t
+    type 'a frame_clock_class = 'a GdkFrameClockClass.class
     type modifier_type_t = GdkModifierType.t
     type 'a screen_class = 'a GdkScreenClass.class
     type window_state_t = GdkWindowState.t
@@ -404,12 +482,14 @@ structure GdkWindow :>
     type rgba_t = GdkRgbaRecord.t
     type w_m_decoration_t = GdkWMDecoration.t
     type 'a device_class = 'a GdkDeviceClass.class
+    type fullscreen_mode_t = GdkFullscreenMode.t
     type w_m_function_t = GdkWMFunction.t
     type window_hints_t = GdkWindowHints.t
     type geometry_t = GdkGeometryRecord.t
     type event_mask_t = GdkEventMask.t
     type input_source_t = GdkInputSource.t
     type window_type_hint_t = GdkWindowTypeHint.t
+    type 'a event_union = 'a GdkEvent.union
     type 'a cursor_class = 'a GdkCursorClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -422,7 +502,7 @@ structure GdkWindow :>
       (
         GdkWindowClass.FFI.withOptPtr
          &&&> GdkWindowAttrRecord.FFI.withPtr
-         &&&> GInt.FFI.withVal
+         &&&> GdkWindowAttributesType.FFI.withVal
          ---> GdkWindowClass.FFI.fromPtr true
       )
         new_
@@ -464,7 +544,7 @@ structure GdkWindow :>
          & () =
           (
             GdkGeometryRecord.FFI.withPtr
-             &&&> GUInt.FFI.withVal
+             &&&> GdkWindowHints.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withRefVal
@@ -488,6 +568,7 @@ structure GdkWindow :>
     fun processAllUpdates () = (I ---> I) processAllUpdates_ ()
     fun setDebugUpdates setting = (GBool.FFI.withVal ---> I) setDebugUpdates_ setting
     fun beep self = (GdkWindowClass.FFI.withPtr ---> I) beep_ self
+    fun beginDrawFrame self region = (GdkWindowClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withPtr ---> GdkDrawingContextClass.FFI.fromPtr false) beginDrawFrame_ (self & region)
     fun beginMoveDrag
       self
       (
@@ -507,6 +588,33 @@ structure GdkWindow :>
         beginMoveDrag_
         (
           self
+           & button
+           & rootX
+           & rootY
+           & timestamp
+        )
+    fun beginMoveDragForDevice
+      self
+      (
+        device,
+        button,
+        rootX,
+        rootY,
+        timestamp
+      ) =
+      (
+        GdkWindowClass.FFI.withPtr
+         &&&> GdkDeviceClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GUInt32.FFI.withVal
+         ---> I
+      )
+        beginMoveDragForDevice_
+        (
+          self
+           & device
            & button
            & rootX
            & rootY
@@ -536,6 +644,36 @@ structure GdkWindow :>
         (
           self
            & edge
+           & button
+           & rootX
+           & rootY
+           & timestamp
+        )
+    fun beginResizeDragForDevice
+      self
+      (
+        edge,
+        device,
+        button,
+        rootX,
+        rootY,
+        timestamp
+      ) =
+      (
+        GdkWindowClass.FFI.withPtr
+         &&&> GdkWindowEdge.FFI.withVal
+         &&&> GdkDeviceClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GUInt32.FFI.withVal
+         ---> I
+      )
+        beginResizeDragForDevice_
+        (
+          self
+           & edge
+           & device
            & button
            & rootX
            & rootY
@@ -594,6 +732,31 @@ structure GdkWindow :>
       in
         (parentX, parentY)
       end
+    fun createGlContext self = (GdkWindowClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkGLContextClass.FFI.fromPtr true) createGlContext_ (self & [])
+    fun createSimilarImageSurface
+      self
+      (
+        format,
+        width,
+        height,
+        scale
+      ) =
+      (
+        GdkWindowClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> CairoSurfaceRecord.FFI.fromPtr true
+      )
+        createSimilarImageSurface_
+        (
+          self
+           & format
+           & width
+           & height
+           & scale
+        )
     fun createSimilarSurface
       self
       (
@@ -619,6 +782,7 @@ structure GdkWindow :>
     fun destroy self = (GdkWindowClass.FFI.withPtr ---> I) destroy_ self
     fun destroyNotify self = (GdkWindowClass.FFI.withPtr ---> I) destroyNotify_ self
     fun enableSynchronizedConfigure self = (GdkWindowClass.FFI.withPtr ---> I) enableSynchronizedConfigure_ self
+    fun endDrawFrame self context = (GdkWindowClass.FFI.withPtr &&&> GdkDrawingContextClass.FFI.withPtr ---> I) endDrawFrame_ (self & context)
     fun endPaint self = (GdkWindowClass.FFI.withPtr ---> I) endPaint_ self
     fun ensureNative self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) ensureNative_ self
     fun flush self = (GdkWindowClass.FFI.withPtr ---> I) flush_ self
@@ -626,6 +790,7 @@ structure GdkWindow :>
     fun freezeToplevelUpdatesLibgtkOnly self = (GdkWindowClass.FFI.withPtr ---> I) freezeToplevelUpdatesLibgtkOnly_ self
     fun freezeUpdates self = (GdkWindowClass.FFI.withPtr ---> I) freezeUpdates_ self
     fun fullscreen self = (GdkWindowClass.FFI.withPtr ---> I) fullscreen_ self
+    fun fullscreenOnMonitor self monitor = (GdkWindowClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) fullscreenOnMonitor_ (self & monitor)
     fun geometryChanged self = (GdkWindowClass.FFI.withPtr ---> I) geometryChanged_ self
     fun getAcceptFocus self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getAcceptFocus_ self
     fun getBackgroundPattern self = (GdkWindowClass.FFI.withPtr ---> CairoPatternRecord.FFI.fromPtr false) getBackgroundPattern_ self
@@ -673,6 +838,39 @@ structure GdkWindow :>
           mask
         )
       end
+    fun getDevicePositionDouble self device =
+      let
+        val x
+         & y
+         & mask
+         & retVal =
+          (
+            GdkWindowClass.FFI.withPtr
+             &&&> GdkDeviceClass.FFI.withPtr
+             &&&> GDouble.FFI.withRefVal
+             &&&> GDouble.FFI.withRefVal
+             &&&> GdkModifierType.FFI.withRefVal
+             ---> GDouble.FFI.fromVal
+                   && GDouble.FFI.fromVal
+                   && GdkModifierType.FFI.fromVal
+                   && GdkWindowClass.FFI.fromPtr false
+          )
+            getDevicePositionDouble_
+            (
+              self
+               & device
+               & GDouble.null
+               & GDouble.null
+               & GdkModifierType.flags []
+            )
+      in
+        (
+          retVal,
+          x,
+          y,
+          mask
+        )
+      end
     fun getDisplay self = (GdkWindowClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
     fun getDragProtocol self =
       let
@@ -682,9 +880,17 @@ structure GdkWindow :>
       end
     fun getEffectiveParent self = (GdkWindowClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getEffectiveParent_ self
     fun getEffectiveToplevel self = (GdkWindowClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getEffectiveToplevel_ self
+    fun getEventCompression self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getEventCompression_ self
     fun getEvents self = (GdkWindowClass.FFI.withPtr ---> GdkEventMask.FFI.fromVal) getEvents_ self
     fun getFocusOnMap self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getFocusOnMap_ self
-    fun getFrameExtents self rect = (GdkWindowClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) getFrameExtents_ (self & rect)
+    fun getFrameClock self = (GdkWindowClass.FFI.withPtr ---> GdkFrameClockClass.FFI.fromPtr false) getFrameClock_ self
+    fun getFrameExtents self =
+      let
+        val rect & () = (GdkWindowClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getFrameExtents_ (self & ())
+      in
+        rect
+      end
+    fun getFullscreenMode self = (GdkWindowClass.FFI.withPtr ---> GdkFullscreenMode.FFI.fromVal) getFullscreenMode_ self
     fun getGeometry self =
       let
         val x
@@ -750,6 +956,7 @@ structure GdkWindow :>
         )
       end
     fun getParent self = (GdkWindowClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getParent_ self
+    fun getPassThrough self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getPassThrough_ self
     fun getPointer self =
       let
         val x
@@ -851,6 +1058,7 @@ structure GdkWindow :>
       in
         (x, y)
       end
+    fun getScaleFactor self = (GdkWindowClass.FFI.withPtr ---> GInt.FFI.fromVal) getScaleFactor_ self
     fun getScreen self = (GdkWindowClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
     fun getSourceEvents self source = (GdkWindowClass.FFI.withPtr &&&> GdkInputSource.FFI.withVal ---> GdkEventMask.FFI.fromVal) getSourceEvents_ (self & source)
     fun getState self = (GdkWindowClass.FFI.withPtr ---> GdkWindowState.FFI.fromVal) getState_ self
@@ -918,6 +1126,7 @@ structure GdkWindow :>
     fun isViewable self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) isViewable_ self
     fun isVisible self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) isVisible_ self
     fun lower self = (GdkWindowClass.FFI.withPtr ---> I) lower_ self
+    fun markPaintFromClip self cr = (GdkWindowClass.FFI.withPtr &&&> CairoContextRecord.FFI.withPtr ---> I) markPaintFromClip_ (self & cr)
     fun maximize self = (GdkWindowClass.FFI.withPtr ---> I) maximize_ self
     fun mergeChildInputShapes self = (GdkWindowClass.FFI.withPtr ---> I) mergeChildInputShapes_ self
     fun mergeChildShapes self = (GdkWindowClass.FFI.withPtr ---> I) mergeChildShapes_ self
@@ -1077,8 +1286,10 @@ structure GdkWindow :>
            & device
            & eventMask
         )
+    fun setEventCompression self eventCompression = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setEventCompression_ (self & eventCompression)
     fun setEvents self eventMask = (GdkWindowClass.FFI.withPtr &&&> GdkEventMask.FFI.withVal ---> I) setEvents_ (self & eventMask)
     fun setFocusOnMap self focusOnMap = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setFocusOnMap_ (self & focusOnMap)
+    fun setFullscreenMode self mode = (GdkWindowClass.FFI.withPtr &&&> GdkFullscreenMode.FFI.withVal ---> I) setFullscreenMode_ (self & mode)
     fun setFunctions self functions = (GdkWindowClass.FFI.withPtr &&&> GdkWMFunction.FFI.withVal ---> I) setFunctions_ (self & functions)
     fun setGeometryHints self (geometry, geomMask) =
       (
@@ -1099,8 +1310,34 @@ structure GdkWindow :>
     fun setKeepBelow self setting = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setKeepBelow_ (self & setting)
     fun setModalHint self modal = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setModalHint_ (self & modal)
     fun setOpacity self opacity = (GdkWindowClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setOpacity_ (self & opacity)
+    fun setOpaqueRegion self region = (GdkWindowClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withOptPtr ---> I) setOpaqueRegion_ (self & region)
     fun setOverrideRedirect self overrideRedirect = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setOverrideRedirect_ (self & overrideRedirect)
+    fun setPassThrough self passThrough = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setPassThrough_ (self & passThrough)
     fun setRole self role = (GdkWindowClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setRole_ (self & role)
+    fun setShadowWidth
+      self
+      (
+        left,
+        right,
+        top,
+        bottom
+      ) =
+      (
+        GdkWindowClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> I
+      )
+        setShadowWidth_
+        (
+          self
+           & left
+           & right
+           & top
+           & bottom
+        )
     fun setSkipPagerHint self skipsPager = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSkipPagerHint_ (self & skipsPager)
     fun setSkipTaskbarHint self skipsTaskbar = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSkipTaskbarHint_ (self & skipsTaskbar)
     fun setSourceEvents self (source, eventMask) =
@@ -1147,6 +1384,7 @@ structure GdkWindow :>
         )
     fun show self = (GdkWindowClass.FFI.withPtr ---> I) show_ self
     fun showUnraised self = (GdkWindowClass.FFI.withPtr ---> I) showUnraised_ self
+    fun showWindowMenu self event = (GdkWindowClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> GBool.FFI.fromVal) showWindowMenu_ (self & event)
     fun stick self = (GdkWindowClass.FFI.withPtr ---> I) stick_ self
     fun thawToplevelUpdatesLibgtkOnly self = (GdkWindowClass.FFI.withPtr ---> I) thawToplevelUpdatesLibgtkOnly_ self
     fun thawUpdates self = (GdkWindowClass.FFI.withPtr ---> I) thawUpdates_ self

@@ -6,11 +6,11 @@ structure GtkNumerableIcon :>
     val getType_ = _import "gtk_numerable_icon_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_numerable_icon_new" : GioIconClass.FFI.notnull GioIconClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
     val newWithStyleContext_ = fn x1 & x2 => (_import "gtk_numerable_icon_new_with_style_context" : GioIconClass.FFI.notnull GioIconClass.FFI.p * GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;) (x1, x2)
-    val getBackgroundGicon_ = _import "gtk_numerable_icon_get_background_gicon" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val getBackgroundIconName_ = _import "gtk_numerable_icon_get_background_icon_name" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getBackgroundGicon_ = _import "gtk_numerable_icon_get_background_gicon" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p -> unit GioIconClass.FFI.p;
+    val getBackgroundIconName_ = _import "gtk_numerable_icon_get_background_icon_name" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p -> unit Utf8.FFI.out_p;
     val getCount_ = _import "gtk_numerable_icon_get_count" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p -> GInt32.FFI.val_;
-    val getLabel_ = _import "gtk_numerable_icon_get_label" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getStyleContext_ = _import "gtk_numerable_icon_get_style_context" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p -> GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p;
+    val getLabel_ = _import "gtk_numerable_icon_get_label" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p -> unit Utf8.FFI.out_p;
+    val getStyleContext_ = _import "gtk_numerable_icon_get_style_context" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p -> unit GtkStyleContextClass.FFI.p;
     val setBackgroundGicon_ = fn x1 & x2 => (_import "gtk_numerable_icon_set_background_gicon" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p * unit GioIconClass.FFI.p -> unit;) (x1, x2)
     val setBackgroundIconName_ =
       fn
@@ -51,11 +51,11 @@ structure GtkNumerableIcon :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new baseIcon = (GioIconClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) new_ baseIcon
     fun newWithStyleContext (baseIcon, context) = (GioIconClass.FFI.withPtr &&&> GtkStyleContextClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) newWithStyleContext_ (baseIcon & context)
-    fun getBackgroundGicon self = (GtkNumerableIconClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getBackgroundGicon_ self
-    fun getBackgroundIconName self = (GtkNumerableIconClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getBackgroundIconName_ self
+    fun getBackgroundGicon self = (GtkNumerableIconClass.FFI.withPtr ---> GioIconClass.FFI.fromOptPtr false) getBackgroundGicon_ self
+    fun getBackgroundIconName self = (GtkNumerableIconClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getBackgroundIconName_ self
     fun getCount self = (GtkNumerableIconClass.FFI.withPtr ---> GInt32.FFI.fromVal) getCount_ self
-    fun getLabel self = (GtkNumerableIconClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLabel_ self
-    fun getStyleContext self = (GtkNumerableIconClass.FFI.withPtr ---> GtkStyleContextClass.FFI.fromPtr false) getStyleContext_ self
+    fun getLabel self = (GtkNumerableIconClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getLabel_ self
+    fun getStyleContext self = (GtkNumerableIconClass.FFI.withPtr ---> GtkStyleContextClass.FFI.fromOptPtr false) getStyleContext_ self
     fun setBackgroundGicon self icon = (GtkNumerableIconClass.FFI.withPtr &&&> GioIconClass.FFI.withOptPtr ---> I) setBackgroundGicon_ (self & icon)
     fun setBackgroundIconName self iconName = (GtkNumerableIconClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setBackgroundIconName_ (self & iconName)
     fun setCount self count = (GtkNumerableIconClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setCount_ (self & count)

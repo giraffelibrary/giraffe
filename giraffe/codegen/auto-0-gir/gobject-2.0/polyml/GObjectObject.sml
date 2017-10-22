@@ -2,6 +2,8 @@ structure GObjectObject :>
   G_OBJECT_OBJECT
     where type 'a class = 'a GObjectObjectClass.class
     where type type_t = GObjectType.t
+    where type 'a binding_class = 'a GObjectBindingClass.class
+    where type binding_flags_t = GObjectBindingFlags.t
     where type value_t = GObjectValueRecord.t
     where type closure_t = GObjectClosureRecord.t
     where type 'a param_spec_class = 'a GObjectParamSpecClass.class
@@ -11,6 +13,28 @@ structure GObjectObject :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "g_object_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val bindProperty_ =
+        call (getSymbol "g_object_bind_property")
+          (
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectBindingFlags.PolyML.cVal
+             --> GObjectBindingClass.PolyML.cPtr
+          )
+      val bindPropertyWithClosures_ =
+        call (getSymbol "g_object_bind_property_with_closures")
+          (
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectBindingFlags.PolyML.cVal
+             &&> GObjectClosureRecord.PolyML.cPtr
+             &&> GObjectClosureRecord.PolyML.cPtr
+             --> GObjectBindingClass.PolyML.cPtr
+          )
       val freezeNotify_ = call (getSymbol "g_object_freeze_notify") (GObjectObjectClass.PolyML.cPtr --> cVoid)
       val getProperty_ =
         call (getSymbol "g_object_get_property")
@@ -36,12 +60,68 @@ structure GObjectObject :>
     end
     type 'a class = 'a GObjectObjectClass.class
     type type_t = GObjectType.t
+    type 'a binding_class = 'a GObjectBindingClass.class
+    type binding_flags_t = GObjectBindingFlags.t
     type value_t = GObjectValueRecord.t
     type closure_t = GObjectClosureRecord.t
     type 'a param_spec_class = 'a GObjectParamSpecClass.class
     type 'a signal_t = 'a Signal.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun bindProperty
+      self
+      (
+        sourceProperty,
+        target,
+        targetProperty,
+        flags
+      ) =
+      (
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectBindingFlags.FFI.withVal
+         ---> GObjectBindingClass.FFI.fromPtr false
+      )
+        bindProperty_
+        (
+          self
+           & sourceProperty
+           & target
+           & targetProperty
+           & flags
+        )
+    fun bindPropertyWithClosures
+      self
+      (
+        sourceProperty,
+        target,
+        targetProperty,
+        flags,
+        transformTo,
+        transformFrom
+      ) =
+      (
+        GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectObjectClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectBindingFlags.FFI.withVal
+         &&&> GObjectClosureRecord.FFI.withPtr
+         &&&> GObjectClosureRecord.FFI.withPtr
+         ---> GObjectBindingClass.FFI.fromPtr false
+      )
+        bindPropertyWithClosures_
+        (
+          self
+           & sourceProperty
+           & target
+           & targetProperty
+           & flags
+           & transformTo
+           & transformFrom
+        )
     fun freezeNotify self = (GObjectObjectClass.FFI.withPtr ---> I) freezeNotify_ self
     fun getProperty self (propertyName, value) =
       (

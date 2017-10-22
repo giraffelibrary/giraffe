@@ -59,6 +59,16 @@ structure GtkIconView :>
              &&> GdkDragAction.PolyML.cVal
              --> cVoid
           )
+      val getActivateOnSingleClick_ = call (getSymbol "gtk_icon_view_get_activate_on_single_click") (GtkIconViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getCellRect_ =
+        call (getSymbol "gtk_icon_view_get_cell_rect")
+          (
+            GtkIconViewClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             &&> GtkCellRendererClass.PolyML.cOptPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             --> GBool.PolyML.cVal
+          )
       val getColumnSpacing_ = call (getSymbol "gtk_icon_view_get_column_spacing") (GtkIconViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getColumns_ = call (getSymbol "gtk_icon_view_get_columns") (GtkIconViewClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getCursor_ =
@@ -154,6 +164,7 @@ structure GtkIconView :>
           )
       val selectAll_ = call (getSymbol "gtk_icon_view_select_all") (GtkIconViewClass.PolyML.cPtr --> cVoid)
       val selectPath_ = call (getSymbol "gtk_icon_view_select_path") (GtkIconViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> cVoid)
+      val setActivateOnSingleClick_ = call (getSymbol "gtk_icon_view_set_activate_on_single_click") (GtkIconViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setColumnSpacing_ = call (getSymbol "gtk_icon_view_set_column_spacing") (GtkIconViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setColumns_ = call (getSymbol "gtk_icon_view_set_columns") (GtkIconViewClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val setCursor_ =
@@ -309,6 +320,27 @@ structure GtkIconView :>
       in
         ()
       end
+    fun getActivateOnSingleClick self = (GtkIconViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getActivateOnSingleClick_ self
+    fun getCellRect self (path, cell) =
+      let
+        val rect & retVal =
+          (
+            GtkIconViewClass.FFI.withPtr
+             &&&> GtkTreePathRecord.FFI.withPtr
+             &&&> GtkCellRendererClass.FFI.withOptPtr
+             &&&> GdkRectangleRecord.FFI.withNewPtr
+             ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal
+          )
+            getCellRect_
+            (
+              self
+               & path
+               & cell
+               & ()
+            )
+      in
+        if retVal then SOME rect else NONE
+      end
     fun getColumnSpacing self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getColumnSpacing_ self
     fun getColumns self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getColumns_ self
     fun getCursor self =
@@ -321,7 +353,7 @@ structure GtkIconView :>
              &&&> GtkTreePathRecord.FFI.withRefOptPtr
              &&&> GtkCellRendererClass.FFI.withRefOptPtr
              ---> GtkTreePathRecord.FFI.fromPtr true
-                   && GtkCellRendererClass.FFI.fromPtr true
+                   && GtkCellRendererClass.FFI.fromPtr false
                    && GBool.FFI.fromVal
           )
             getCursor_
@@ -459,7 +491,7 @@ structure GtkIconView :>
              &&&> GtkTreeIterRecord.FFI.withNewPtr
              ---> GInt.FFI.fromVal
                    && GInt.FFI.fromVal
-                   && GtkTreeModelClass.FFI.fromPtr true
+                   && GtkTreeModelClass.FFI.fromPtr false
                    && GtkTreePathRecord.FFI.fromPtr true
                    && GtkTreeIterRecord.FFI.fromPtr true
                    && GBool.FFI.fromVal
@@ -539,6 +571,7 @@ structure GtkIconView :>
         )
     fun selectAll self = (GtkIconViewClass.FFI.withPtr ---> I) selectAll_ self
     fun selectPath self path = (GtkIconViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) selectPath_ (self & path)
+    fun setActivateOnSingleClick self single = (GtkIconViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setActivateOnSingleClick_ (self & single)
     fun setColumnSpacing self columnSpacing = (GtkIconViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setColumnSpacing_ (self & columnSpacing)
     fun setColumns self columns = (GtkIconViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setColumns_ (self & columns)
     fun setCursor
@@ -641,6 +674,11 @@ structure GtkIconView :>
     local
       open Property
     in
+      val activateOnSingleClickProp =
+        {
+          get = fn x => get "activate-on-single-click" boolean x,
+          set = fn x => set "activate-on-single-click" boolean x
+        }
       val cellAreaProp =
         {
           get = fn x => get "cell-area" GtkCellAreaClass.tOpt x,

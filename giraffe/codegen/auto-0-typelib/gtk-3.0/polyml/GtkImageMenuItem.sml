@@ -1,6 +1,7 @@
 structure GtkImageMenuItem :>
   GTK_IMAGE_MENU_ITEM
     where type 'a class = 'a GtkImageMenuItemClass.class
+    where type 'a actionable_class = 'a GtkActionableClass.class
     where type 'a activatable_class = 'a GtkActivatableClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a accel_group_class = 'a GtkAccelGroupClass.class
@@ -23,12 +24,14 @@ structure GtkImageMenuItem :>
       val setUseStock_ = call (getSymbol "gtk_image_menu_item_set_use_stock") (GtkImageMenuItemClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkImageMenuItemClass.class
+    type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a accel_group_class = 'a GtkAccelGroupClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

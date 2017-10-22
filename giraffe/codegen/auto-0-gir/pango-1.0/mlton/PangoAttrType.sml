@@ -24,6 +24,9 @@ structure PangoAttrType :> PANGO_ATTR_TYPE =
     | ABSOLUTE_SIZE
     | GRAVITY
     | GRAVITY_HINT
+    | FONT_FEATURES
+    | FOREGROUND_ALPHA
+    | BACKGROUND_ALPHA
     structure Enum =
       Enum(
         type enum = enum
@@ -53,6 +56,9 @@ structure PangoAttrType :> PANGO_ATTR_TYPE =
           | ABSOLUTE_SIZE => 20
           | GRAVITY => 21
           | GRAVITY_HINT => 22
+          | FONT_FEATURES => 23
+          | FOREGROUND_ALPHA => 24
+          | BACKGROUND_ALPHA => 25
         exception Value of GInt.t
         val fromInt =
           fn
@@ -79,6 +85,9 @@ structure PangoAttrType :> PANGO_ATTR_TYPE =
           | 20 => ABSOLUTE_SIZE
           | 21 => GRAVITY
           | 22 => GRAVITY_HINT
+          | 23 => FONT_FEATURES
+          | 24 => FOREGROUND_ALPHA
+          | 25 => BACKGROUND_ALPHA
           | n => raise Value n
       )
     open Enum

@@ -4,6 +4,7 @@ signature GIO_D_BUS_METHOD_INVOCATION =
     type 'a d_bus_connection_class
     type 'a d_bus_message_class
     type d_bus_method_info_t
+    type d_bus_property_info_t
     type 'a unix_f_d_list_class
     type t = base class
     val getType : unit -> GObject.Type.t
@@ -14,6 +15,7 @@ signature GIO_D_BUS_METHOD_INVOCATION =
     val getMethodName : 'a class -> string
     val getObjectPath : 'a class -> string
     val getParameters : 'a class -> GLib.VariantRecord.t
+    val getPropertyInfo : 'a class -> d_bus_property_info_t
     val getSender : 'a class -> string
     val returnDbusError :
       'a class

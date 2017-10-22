@@ -7,6 +7,7 @@ structure GioApplicationFlags :> GIO_APPLICATION_FLAGS =
     val HANDLES_COMMAND_LINE = 0w8
     val SEND_ENVIRONMENT = 0w16
     val NON_UNIQUE = 0w32
+    val CAN_OVERRIDE_APP_ID = 0w64
     val allFlags =
       [
         FLAGS_NONE,
@@ -15,7 +16,8 @@ structure GioApplicationFlags :> GIO_APPLICATION_FLAGS =
         HANDLES_OPEN,
         HANDLES_COMMAND_LINE,
         SEND_ENVIRONMENT,
-        NON_UNIQUE
+        NON_UNIQUE,
+        CAN_OVERRIDE_APP_ID
       ]
     structure Flags =
       Flags(

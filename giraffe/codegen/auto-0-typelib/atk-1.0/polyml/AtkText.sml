@@ -4,7 +4,9 @@ structure AtkText :>
     where type text_range_t = AtkTextRangeRecord.t
     where type text_clip_type_t = AtkTextClipType.t
     where type text_rectangle_t = AtkTextRectangleRecord.t
-    where type coord_type_t = AtkCoordType.t =
+    where type coord_type_t = AtkCoordType.t
+    where type text_granularity_t = AtkTextGranularity.t
+    where type text_boundary_t = AtkTextBoundary.t =
   struct
     structure AtkTextRangeRecordCVectorType =
       CPointerCVectorType(
@@ -16,7 +18,6 @@ structure AtkText :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "atk_text_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val freeRanges_ = call (getSymbol "atk_text_free_ranges") (AtkTextRangeRecord.PolyML.cPtr --> cVoid)
       val addSelection_ =
         call (getSymbol "atk_text_add_selection")
           (
@@ -38,6 +39,18 @@ structure AtkText :>
       val getCaretOffset_ = call (getSymbol "atk_text_get_caret_offset") (AtkTextClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getCharacterAtOffset_ = call (getSymbol "atk_text_get_character_at_offset") (AtkTextClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GChar.PolyML.cVal)
       val getCharacterCount_ = call (getSymbol "atk_text_get_character_count") (AtkTextClass.PolyML.cPtr --> GInt32.PolyML.cVal)
+      val getCharacterExtents_ =
+        call (getSymbol "atk_text_get_character_extents")
+          (
+            AtkTextClass.PolyML.cPtr
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             &&> AtkCoordType.PolyML.cVal
+             --> cVoid
+          )
       val getNSelections_ = call (getSymbol "atk_text_get_n_selections") (AtkTextClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getOffsetAtPoint_ =
         call (getSymbol "atk_text_get_offset_at_point")
@@ -58,12 +71,61 @@ structure AtkText :>
              &&> AtkTextRectangleRecord.PolyML.cPtr
              --> cVoid
           )
+      val getSelection_ =
+        call (getSymbol "atk_text_get_selection")
+          (
+            AtkTextClass.PolyML.cPtr
+             &&> GInt32.PolyML.cVal
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             --> Utf8.PolyML.cOutPtr
+          )
+      val getStringAtOffset_ =
+        call (getSymbol "atk_text_get_string_at_offset")
+          (
+            AtkTextClass.PolyML.cPtr
+             &&> GInt32.PolyML.cVal
+             &&> AtkTextGranularity.PolyML.cVal
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             --> Utf8.PolyML.cOutOptPtr
+          )
       val getText_ =
         call (getSymbol "atk_text_get_text")
           (
             AtkTextClass.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
+             --> Utf8.PolyML.cOutPtr
+          )
+      val getTextAfterOffset_ =
+        call (getSymbol "atk_text_get_text_after_offset")
+          (
+            AtkTextClass.PolyML.cPtr
+             &&> GInt32.PolyML.cVal
+             &&> AtkTextBoundary.PolyML.cVal
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             --> Utf8.PolyML.cOutPtr
+          )
+      val getTextAtOffset_ =
+        call (getSymbol "atk_text_get_text_at_offset")
+          (
+            AtkTextClass.PolyML.cPtr
+             &&> GInt32.PolyML.cVal
+             &&> AtkTextBoundary.PolyML.cVal
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             --> Utf8.PolyML.cOutPtr
+          )
+      val getTextBeforeOffset_ =
+        call (getSymbol "atk_text_get_text_before_offset")
+          (
+            AtkTextClass.PolyML.cPtr
+             &&> GInt32.PolyML.cVal
+             &&> AtkTextBoundary.PolyML.cVal
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
              --> Utf8.PolyML.cOutPtr
           )
       val removeSelection_ = call (getSymbol "atk_text_remove_selection") (AtkTextClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GBool.PolyML.cVal)
@@ -83,9 +145,10 @@ structure AtkText :>
     type text_clip_type_t = AtkTextClipType.t
     type text_rectangle_t = AtkTextRectangleRecord.t
     type coord_type_t = AtkCoordType.t
+    type text_granularity_t = AtkTextGranularity.t
+    type text_boundary_t = AtkTextBoundary.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun freeRanges ranges = (AtkTextRangeRecord.FFI.withPtr ---> I) freeRanges_ ranges
     fun addSelection self (startOffset, endOffset) =
       (
         AtkTextClass.FFI.withPtr
@@ -126,6 +189,45 @@ structure AtkText :>
     fun getCaretOffset self = (AtkTextClass.FFI.withPtr ---> GInt32.FFI.fromVal) getCaretOffset_ self
     fun getCharacterAtOffset self offset = (AtkTextClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GChar.FFI.fromVal) getCharacterAtOffset_ (self & offset)
     fun getCharacterCount self = (AtkTextClass.FFI.withPtr ---> GInt32.FFI.fromVal) getCharacterCount_ self
+    fun getCharacterExtents self (offset, coords) =
+      let
+        val x
+         & y
+         & width
+         & height
+         & () =
+          (
+            AtkTextClass.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> AtkCoordType.FFI.withVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && I
+          )
+            getCharacterExtents_
+            (
+              self
+               & offset
+               & GInt32.null
+               & GInt32.null
+               & GInt32.null
+               & GInt32.null
+               & coords
+            )
+      in
+        (
+          x,
+          y,
+          width,
+          height
+        )
+      end
     fun getNSelections self = (AtkTextClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNSelections_ self
     fun getOffsetAtPoint
       self
@@ -153,25 +255,87 @@ structure AtkText :>
       (
         startOffset,
         endOffset,
-        coordType,
-        rect
+        coordType
       ) =
-      (
-        AtkTextClass.FFI.withPtr
-         &&&> GInt32.FFI.withVal
-         &&&> GInt32.FFI.withVal
-         &&&> AtkCoordType.FFI.withVal
-         &&&> AtkTextRectangleRecord.FFI.withPtr
-         ---> I
-      )
-        getRangeExtents_
+      let
+        val rect & () =
+          (
+            AtkTextClass.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GInt32.FFI.withVal
+             &&&> AtkCoordType.FFI.withVal
+             &&&> AtkTextRectangleRecord.FFI.withNewPtr
+             ---> AtkTextRectangleRecord.FFI.fromPtr true && I
+          )
+            getRangeExtents_
+            (
+              self
+               & startOffset
+               & endOffset
+               & coordType
+               & ()
+            )
+      in
+        rect
+      end
+    fun getSelection self selectionNum =
+      let
+        val startOffset
+         & endOffset
+         & retVal =
+          (
+            AtkTextClass.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && Utf8.FFI.fromPtr 1
+          )
+            getSelection_
+            (
+              self
+               & selectionNum
+               & GInt32.null
+               & GInt32.null
+            )
+      in
         (
-          self
-           & startOffset
-           & endOffset
-           & coordType
-           & rect
+          retVal,
+          startOffset,
+          endOffset
         )
+      end
+    fun getStringAtOffset self (offset, granularity) =
+      let
+        val startOffset
+         & endOffset
+         & retVal =
+          (
+            AtkTextClass.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> AtkTextGranularity.FFI.withVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && Utf8.FFI.fromOptPtr 1
+          )
+            getStringAtOffset_
+            (
+              self
+               & offset
+               & granularity
+               & GInt32.null
+               & GInt32.null
+            )
+      in
+        (
+          retVal,
+          startOffset,
+          endOffset
+        )
+      end
     fun getText self (startOffset, endOffset) =
       (
         AtkTextClass.FFI.withPtr
@@ -185,6 +349,96 @@ structure AtkText :>
            & startOffset
            & endOffset
         )
+    fun getTextAfterOffset self (offset, boundaryType) =
+      let
+        val startOffset
+         & endOffset
+         & retVal =
+          (
+            AtkTextClass.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> AtkTextBoundary.FFI.withVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && Utf8.FFI.fromPtr 1
+          )
+            getTextAfterOffset_
+            (
+              self
+               & offset
+               & boundaryType
+               & GInt32.null
+               & GInt32.null
+            )
+      in
+        (
+          retVal,
+          startOffset,
+          endOffset
+        )
+      end
+    fun getTextAtOffset self (offset, boundaryType) =
+      let
+        val startOffset
+         & endOffset
+         & retVal =
+          (
+            AtkTextClass.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> AtkTextBoundary.FFI.withVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && Utf8.FFI.fromPtr 1
+          )
+            getTextAtOffset_
+            (
+              self
+               & offset
+               & boundaryType
+               & GInt32.null
+               & GInt32.null
+            )
+      in
+        (
+          retVal,
+          startOffset,
+          endOffset
+        )
+      end
+    fun getTextBeforeOffset self (offset, boundaryType) =
+      let
+        val startOffset
+         & endOffset
+         & retVal =
+          (
+            AtkTextClass.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> AtkTextBoundary.FFI.withVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && Utf8.FFI.fromPtr 1
+          )
+            getTextBeforeOffset_
+            (
+              self
+               & offset
+               & boundaryType
+               & GInt32.null
+               & GInt32.null
+            )
+      in
+        (
+          retVal,
+          startOffset,
+          endOffset
+        )
+      end
     fun removeSelection self selectionNum = (AtkTextClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) removeSelection_ (self & selectionNum)
     fun setCaretOffset self offset = (AtkTextClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) setCaretOffset_ (self & offset)
     fun setSelection
@@ -213,7 +467,7 @@ structure AtkText :>
     in
       fun textAttributesChangedSig f = signal "text-attributes-changed" (void ---> ret_void) f
       fun textCaretMovedSig f = signal "text-caret-moved" (get 0w1 int ---> ret_void) f
-      fun textChangedSig f = signal "text-changed" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn object & p0 => f (object, p0))
+      fun textChangedSig f = signal "text-changed" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn arg1 & arg2 => f (arg1, arg2))
       fun textInsertSig f =
         signal "text-insert"
           (
@@ -224,14 +478,14 @@ structure AtkText :>
           )
           (
             fn
-              object
-               & p0
-               & p1 =>
+              arg1
+               & arg2
+               & arg3 =>
                 f
                   (
-                    object,
-                    p0,
-                    p1
+                    arg1,
+                    arg2,
+                    arg3
                   )
           )
       fun textRemoveSig f =
@@ -244,39 +498,16 @@ structure AtkText :>
           )
           (
             fn
-              object
-               & p0
-               & p1 =>
+              arg1
+               & arg2
+               & arg3 =>
                 f
                   (
-                    object,
-                    p0,
-                    p1
+                    arg1,
+                    arg2,
+                    arg3
                   )
           )
       fun textSelectionChangedSig f = signal "text-selection-changed" (void ---> ret_void) f
-      fun textUpdateSig f =
-        signal "text-update"
-          (
-            get 0w1 int
-             &&&> get 0w2 int
-             &&&> get 0w3 int
-             &&&> get 0w4 string
-             ---> ret_void
-          )
-          (
-            fn
-              object
-               & p0
-               & p1
-               & p2 =>
-                f
-                  (
-                    object,
-                    p0,
-                    p1,
-                    p2
-                  )
-          )
     end
   end

@@ -5,8 +5,8 @@ structure GtkOffscreenWindow :>
   struct
     val getType_ = _import "gtk_offscreen_window_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_offscreen_window_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getPixbuf_ = _import "gtk_offscreen_window_get_pixbuf" : GtkOffscreenWindowClass.FFI.notnull GtkOffscreenWindowClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
-    val getSurface_ = _import "gtk_offscreen_window_get_surface" : GtkOffscreenWindowClass.FFI.notnull GtkOffscreenWindowClass.FFI.p -> CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p;
+    val getPixbuf_ = _import "gtk_offscreen_window_get_pixbuf" : GtkOffscreenWindowClass.FFI.notnull GtkOffscreenWindowClass.FFI.p -> unit GdkPixbufPixbufClass.FFI.p;
+    val getSurface_ = _import "gtk_offscreen_window_get_surface" : GtkOffscreenWindowClass.FFI.notnull GtkOffscreenWindowClass.FFI.p -> unit CairoSurfaceRecord.FFI.p;
     type 'a class = 'a GtkOffscreenWindowClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
@@ -14,6 +14,6 @@ structure GtkOffscreenWindow :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkOffscreenWindowClass.FFI.fromPtr false) new_ ()
-    fun getPixbuf self = (GtkOffscreenWindowClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) getPixbuf_ self
-    fun getSurface self = (GtkOffscreenWindowClass.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromPtr false) getSurface_ self
+    fun getPixbuf self = (GtkOffscreenWindowClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) getPixbuf_ self
+    fun getSurface self = (GtkOffscreenWindowClass.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromOptPtr false) getSurface_ self
   end

@@ -4,6 +4,7 @@ signature G_LIB_I_O_FLAGS =
     val APPEND : t
     val NONBLOCK : t
     val IS_READABLE : t
+    val IS_WRITABLE : t
     val IS_WRITEABLE : t
     val IS_SEEKABLE : t
     val MASK : t

@@ -161,6 +161,7 @@ structure GtkTextIter :>
     val setVisibleLineOffset_ = fn x1 & x2 => (_import "gtk_text_iter_set_visible_line_offset" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val startsLine_ = _import "gtk_text_iter_starts_line" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
     val startsSentence_ = _import "gtk_text_iter_starts_sentence" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val startsTag_ = fn x1 & x2 => (_import "gtk_text_iter_starts_tag" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * unit GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val startsWord_ = _import "gtk_text_iter_starts_word" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
     val togglesTag_ = fn x1 & x2 => (_import "gtk_text_iter_toggles_tag" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * unit GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     type t = GtkTextIterRecord.t
@@ -331,6 +332,7 @@ structure GtkTextIter :>
     fun setVisibleLineOffset self charOnLine = (GtkTextIterRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setVisibleLineOffset_ (self & charOnLine)
     fun startsLine self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) startsLine_ self
     fun startsSentence self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) startsSentence_ self
+    fun startsTag self tag = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextTagClass.FFI.withOptPtr ---> GBool.FFI.fromVal) startsTag_ (self & tag)
     fun startsWord self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) startsWord_ self
     fun togglesTag self tag = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextTagClass.FFI.withOptPtr ---> GBool.FFI.fromVal) togglesTag_ (self & tag)
   end

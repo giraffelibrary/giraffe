@@ -22,7 +22,7 @@ signature GTK_COMBO_BOX =
     val newWithModel : 'a tree_model_class -> base class
     val newWithModelAndEntry : 'a tree_model_class -> base class
     val getActive : 'a class -> LargeInt.int
-    val getActiveId : 'a class -> string
+    val getActiveId : 'a class -> string option
     val getActiveIter : 'a class -> tree_iter_t option
     val getAddTearoffs : 'a class -> bool
     val getButtonSensitivity : 'a class -> sensitivity_type_t
@@ -100,6 +100,7 @@ signature GTK_COMBO_BOX =
        -> LargeInt.int
        -> unit
     val changedSig : (unit -> unit) -> 'a class Signal.t
+    val formatEntryTextSig : (string -> string) -> 'a class Signal.t
     val moveActiveSig : (scroll_type_t -> unit) -> 'a class Signal.t
     val popdownSig : (unit -> bool) -> 'a class Signal.t
     val popupSig : (unit -> unit) -> 'a class Signal.t
@@ -110,7 +111,6 @@ signature GTK_COMBO_BOX =
     val cellAreaProp : ('a class, base cell_area_class option, 'b cell_area_class option) Property.readwrite
     val columnSpanColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val entryTextColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val focusOnClickProp : ('a class, bool, bool) Property.readwrite
     val hasEntryProp : ('a class, bool, bool) Property.readwrite
     val hasFrameProp : ('a class, bool, bool) Property.readwrite
     val idColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

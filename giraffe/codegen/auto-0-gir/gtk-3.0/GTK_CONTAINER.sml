@@ -25,6 +25,10 @@ signature GTK_CONTAINER =
       'a class
        -> 'b widget_class * string
        -> unit
+    val childNotifyByPspec :
+      'a class
+       -> 'b widget_class * 'c GObject.ParamSpecClass.class
+       -> unit
     val childSetProperty :
       'a class
        -> 'b widget_class

@@ -4,6 +4,7 @@ structure GioDBusMethodInvocation :>
     where type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
     where type 'a d_bus_message_class = 'a GioDBusMessageClass.class
     where type d_bus_method_info_t = GioDBusMethodInfoRecord.t
+    where type d_bus_property_info_t = GioDBusPropertyInfoRecord.t
     where type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class =
   struct
     local
@@ -17,6 +18,7 @@ structure GioDBusMethodInvocation :>
       val getMethodName_ = call (getSymbol "g_dbus_method_invocation_get_method_name") (GioDBusMethodInvocationClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getObjectPath_ = call (getSymbol "g_dbus_method_invocation_get_object_path") (GioDBusMethodInvocationClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getParameters_ = call (getSymbol "g_dbus_method_invocation_get_parameters") (GioDBusMethodInvocationClass.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
+      val getPropertyInfo_ = call (getSymbol "g_dbus_method_invocation_get_property_info") (GioDBusMethodInvocationClass.PolyML.cPtr --> GioDBusPropertyInfoRecord.PolyML.cPtr)
       val getSender_ = call (getSymbol "g_dbus_method_invocation_get_sender") (GioDBusMethodInvocationClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val returnDbusError_ =
         call (getSymbol "g_dbus_method_invocation_return_dbus_error")
@@ -49,6 +51,7 @@ structure GioDBusMethodInvocation :>
     type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
     type 'a d_bus_message_class = 'a GioDBusMessageClass.class
     type d_bus_method_info_t = GioDBusMethodInfoRecord.t
+    type d_bus_property_info_t = GioDBusPropertyInfoRecord.t
     type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -59,6 +62,7 @@ structure GioDBusMethodInvocation :>
     fun getMethodName self = (GioDBusMethodInvocationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getMethodName_ self
     fun getObjectPath self = (GioDBusMethodInvocationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
     fun getParameters self = (GioDBusMethodInvocationClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) getParameters_ self
+    fun getPropertyInfo self = (GioDBusMethodInvocationClass.FFI.withPtr ---> GioDBusPropertyInfoRecord.FFI.fromPtr false) getPropertyInfo_ self
     fun getSender self = (GioDBusMethodInvocationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSender_ self
     fun returnDbusError self (errorName, errorMessage) =
       (

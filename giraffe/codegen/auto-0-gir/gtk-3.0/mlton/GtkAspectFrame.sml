@@ -14,7 +14,7 @@ structure GtkAspectFrame :>
           (
             _import "mlton_gtk_aspect_frame_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit Utf8.MLton.p2
                * GFloat.FFI.val_
                * GFloat.FFI.val_
                * GFloat.FFI.val_
@@ -67,7 +67,7 @@ structure GtkAspectFrame :>
         obeyChild
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withOptPtr
          &&&> GFloat.FFI.withVal
          &&&> GFloat.FFI.withVal
          &&&> GFloat.FFI.withVal

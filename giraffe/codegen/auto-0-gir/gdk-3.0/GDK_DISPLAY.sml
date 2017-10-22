@@ -9,6 +9,8 @@ signature GDK_DISPLAY =
     type atom_t
     type 'a window_class
     type 'a screen_class
+    type 'a monitor_class
+    type 'a seat_class
     type t = base class
     val getType : unit -> GObject.Type.t
     val getDefault : unit -> base class
@@ -25,9 +27,23 @@ signature GDK_DISPLAY =
     val getDefaultCursorSize : 'a class -> LargeInt.int
     val getDefaultGroup : 'a class -> base window_class
     val getDefaultScreen : 'a class -> base screen_class
+    val getDefaultSeat : 'a class -> base seat_class
     val getDeviceManager : 'a class -> base device_manager_class
     val getEvent : 'a class -> base event_union
     val getMaximalCursorSize : 'a class -> LargeInt.int * LargeInt.int
+    val getMonitor :
+      'a class
+       -> LargeInt.int
+       -> base monitor_class
+    val getMonitorAtPoint :
+      'a class
+       -> LargeInt.int * LargeInt.int
+       -> base monitor_class
+    val getMonitorAtWindow :
+      'a class
+       -> 'b window_class
+       -> base monitor_class
+    val getNMonitors : 'a class -> LargeInt.int
     val getNScreens : 'a class -> LargeInt.int
     val getName : 'a class -> string
     val getPointer :
@@ -36,6 +52,7 @@ signature GDK_DISPLAY =
            * LargeInt.int
            * LargeInt.int
            * modifier_type_t
+    val getPrimaryMonitor : 'a class -> base monitor_class
     val getScreen :
       'a class
        -> LargeInt.int
@@ -81,7 +98,7 @@ signature GDK_DISPLAY =
       'a class
        -> 'b window_class
            * LargeInt.int
-           * atom_t vector
+           * atom_t vector option
        -> unit
     val supportsClipboardPersistence : 'a class -> bool
     val supportsComposite : 'a class -> bool
@@ -98,5 +115,9 @@ signature GDK_DISPLAY =
            * LargeInt.int
        -> unit
     val closedSig : (bool -> unit) -> 'a class Signal.t
+    val monitorAddedSig : (base monitor_class -> unit) -> 'a class Signal.t
+    val monitorRemovedSig : (base monitor_class -> unit) -> 'a class Signal.t
     val openedSig : (unit -> unit) -> 'a class Signal.t
+    val seatAddedSig : (base seat_class -> unit) -> 'a class Signal.t
+    val seatRemovedSig : (base seat_class -> unit) -> 'a class Signal.t
   end

@@ -15,7 +15,7 @@ structure GioTlsServerConnection :>
             GioIOStreamClass.PolyML.cPtr
              &&> GioTlsCertificateClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GioIOStreamClass.PolyML.cPtr
+             --> GioTlsServerConnectionClass.PolyML.cPtr
           )
     end
     type 'a class = 'a GioTlsServerConnectionClass.class
@@ -29,7 +29,7 @@ structure GioTlsServerConnection :>
         GioIOStreamClass.FFI.withPtr
          &&&> GioTlsCertificateClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioIOStreamClass.FFI.fromPtr true
+         ---> GioTlsServerConnectionClass.FFI.fromPtr true
       )
         new_
         (

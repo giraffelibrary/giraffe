@@ -15,7 +15,6 @@ signature G_I_REPOSITORY =
     structure TypeTag : G_I_REPOSITORY_TYPE_TAG
     structure VFuncInfoFlags : G_I_REPOSITORY_V_FUNC_INFO_FLAGS
     structure NvokeError : G_I_REPOSITORY_NVOKE_ERROR
-    exception NvokeError of NvokeError.t
     structure Repository :
       G_I_REPOSITORY_REPOSITORY
         where type 'a class = 'a RepositoryClass.class
@@ -34,13 +33,14 @@ signature G_I_REPOSITORY =
     val argInfoIsSkip : BaseInfoRecord.t -> bool
     val argInfoLoadType : BaseInfoRecord.t -> BaseInfoRecord.t
     val argInfoMayBeNull : BaseInfoRecord.t -> bool
-    val baseInfoGetType : BaseInfoRecord.t -> InfoType.t
+    val callableInfoCanThrowGerror : BaseInfoRecord.t -> bool
     val callableInfoGetArg : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val callableInfoGetCallerOwns : BaseInfoRecord.t -> Transfer.t
+    val callableInfoGetInstanceOwnershipTransfer : BaseInfoRecord.t -> Transfer.t
     val callableInfoGetNArgs : BaseInfoRecord.t -> LargeInt.int
     val callableInfoGetReturnAttribute : BaseInfoRecord.t * string -> string
     val callableInfoGetReturnType : BaseInfoRecord.t -> BaseInfoRecord.t
-    val callableInfoIterateReturnAttributes : BaseInfoRecord.t * AttributeIterRecord.t -> (string * string) option
+    val callableInfoIsMethod : BaseInfoRecord.t -> bool
     val callableInfoLoadArg : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val callableInfoLoadReturnType : BaseInfoRecord.t -> BaseInfoRecord.t
     val callableInfoMayReturnNull : BaseInfoRecord.t -> bool
@@ -68,6 +68,7 @@ signature G_I_REPOSITORY =
        -> BaseInfoRecord.t
     val infoTypeToString : InfoType.t -> string
     val interfaceInfoFindMethod : BaseInfoRecord.t * string -> BaseInfoRecord.t
+    val interfaceInfoFindSignal : BaseInfoRecord.t * string -> BaseInfoRecord.t
     val interfaceInfoFindVfunc : BaseInfoRecord.t * string -> BaseInfoRecord.t
     val interfaceInfoGetConstant : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
     val interfaceInfoGetIfaceStruct : BaseInfoRecord.t -> BaseInfoRecord.t
@@ -85,7 +86,9 @@ signature G_I_REPOSITORY =
     val invokeErrorQuark : unit -> LargeInt.int
     val objectInfoFindMethod : BaseInfoRecord.t * string -> BaseInfoRecord.t
     val objectInfoFindMethodUsingInterfaces : BaseInfoRecord.t * string -> BaseInfoRecord.t * BaseInfoRecord.t
+    val objectInfoFindSignal : BaseInfoRecord.t * string -> BaseInfoRecord.t
     val objectInfoFindVfunc : BaseInfoRecord.t * string -> BaseInfoRecord.t
+    val objectInfoFindVfuncUsingInterfaces : BaseInfoRecord.t * string -> BaseInfoRecord.t * BaseInfoRecord.t
     val objectInfoGetAbstract : BaseInfoRecord.t -> bool
     val objectInfoGetClassStruct : BaseInfoRecord.t -> BaseInfoRecord.t
     val objectInfoGetConstant : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t
@@ -118,6 +121,7 @@ signature G_I_REPOSITORY =
     val signalInfoGetClassClosure : BaseInfoRecord.t -> BaseInfoRecord.t
     val signalInfoGetFlags : BaseInfoRecord.t -> GObject.SignalFlags.t
     val signalInfoTrueStopsEmit : BaseInfoRecord.t -> bool
+    val structInfoFindField : BaseInfoRecord.t * string -> BaseInfoRecord.t
     val structInfoFindMethod : BaseInfoRecord.t * string -> BaseInfoRecord.t
     val structInfoGetAlignment : BaseInfoRecord.t -> LargeInt.int
     val structInfoGetField : BaseInfoRecord.t * LargeInt.int -> BaseInfoRecord.t

@@ -22,4 +22,5 @@ signature G_LIB_MAIN_CONTEXT =
     val wakeup : t -> unit
     val default : unit -> t
     val getThreadDefault : unit -> t
+    val refThreadDefault : unit -> t
   end

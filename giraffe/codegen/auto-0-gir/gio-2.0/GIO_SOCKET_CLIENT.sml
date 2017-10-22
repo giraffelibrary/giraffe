@@ -1,13 +1,16 @@
 signature GIO_SOCKET_CLIENT =
   sig
     type 'a class
-    type 'a socket_connectable_class
     type 'a cancellable_class
     type 'a socket_connection_class
     type 'a async_result_class
+    type 'a i_o_stream_class
+    type 'a socket_connectable_class
+    type socket_client_event_t
     type socket_family_t
     type 'a socket_address_class
     type socket_protocol_t
+    type 'a proxy_resolver_class
     type tls_certificate_flags_t
     type socket_type_t
     type t = base class
@@ -59,6 +62,7 @@ signature GIO_SOCKET_CLIENT =
     val getFamily : 'a class -> socket_family_t
     val getLocalAddress : 'a class -> base socket_address_class
     val getProtocol : 'a class -> socket_protocol_t
+    val getProxyResolver : 'a class -> base proxy_resolver_class
     val getSocketType : 'a class -> socket_type_t
     val getTimeout : 'a class -> LargeInt.int
     val getTls : 'a class -> bool
@@ -73,11 +77,15 @@ signature GIO_SOCKET_CLIENT =
        -> unit
     val setLocalAddress :
       'a class
-       -> 'b socket_address_class
+       -> 'b socket_address_class option
        -> unit
     val setProtocol :
       'a class
        -> socket_protocol_t
+       -> unit
+    val setProxyResolver :
+      'a class
+       -> 'b proxy_resolver_class option
        -> unit
     val setSocketType :
       'a class
@@ -95,10 +103,17 @@ signature GIO_SOCKET_CLIENT =
       'a class
        -> tls_certificate_flags_t
        -> unit
+    val eventSig :
+      (socket_client_event_t
+        * base socket_connectable_class
+        * base i_o_stream_class option
+        -> unit)
+       -> 'a class Signal.t
     val enableProxyProp : ('a class, bool, bool) Property.readwrite
     val familyProp : ('a class, socket_family_t, socket_family_t) Property.readwrite
     val localAddressProp : ('a class, base socket_address_class option, 'b socket_address_class option) Property.readwrite
     val protocolProp : ('a class, socket_protocol_t, socket_protocol_t) Property.readwrite
+    val proxyResolverProp : ('a class, base proxy_resolver_class option, 'b proxy_resolver_class option) Property.readwrite
     val timeoutProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val tlsProp : ('a class, bool, bool) Property.readwrite
     val tlsValidationFlagsProp : ('a class, tls_certificate_flags_t, tls_certificate_flags_t) Property.readwrite

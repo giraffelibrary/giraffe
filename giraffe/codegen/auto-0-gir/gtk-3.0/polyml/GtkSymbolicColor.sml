@@ -19,6 +19,7 @@ structure GtkSymbolicColor :>
           )
       val newName_ = call (getSymbol "gtk_symbolic_color_new_name") (Utf8.PolyML.cInPtr --> GtkSymbolicColorRecord.PolyML.cPtr)
       val newShade_ = call (getSymbol "gtk_symbolic_color_new_shade") (GtkSymbolicColorRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> GtkSymbolicColorRecord.PolyML.cPtr)
+      val newWin32_ = call (getSymbol "gtk_symbolic_color_new_win32") (Utf8.PolyML.cInPtr &&> GInt.PolyML.cVal --> GtkSymbolicColorRecord.PolyML.cPtr)
       val resolve_ =
         call (getSymbol "gtk_symbolic_color_resolve")
           (
@@ -54,6 +55,7 @@ structure GtkSymbolicColor :>
         )
     fun newName name = (Utf8.FFI.withPtr ---> GtkSymbolicColorRecord.FFI.fromPtr true) newName_ name
     fun newShade (color, factor) = (GtkSymbolicColorRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newShade_ (color & factor)
+    fun newWin32 (themeClass, id) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newWin32_ (themeClass & id)
     fun resolve self props =
       let
         val resolvedColor & retVal =

@@ -28,7 +28,7 @@ structure GtkSelectionData :>
     val getDisplay_ = _import "gtk_selection_data_get_display" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
     val getFormat_ = _import "gtk_selection_data_get_format" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GInt32.FFI.val_;
     val getLength_ = _import "gtk_selection_data_get_length" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GInt32.FFI.val_;
-    val getPixbuf_ = _import "gtk_selection_data_get_pixbuf" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+    val getPixbuf_ = _import "gtk_selection_data_get_pixbuf" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> unit GdkPixbufPixbufClass.FFI.p;
     val getSelection_ = _import "gtk_selection_data_get_selection" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p;
     val getTarget_ = _import "gtk_selection_data_get_target" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p;
     val getTargets_ =
@@ -50,7 +50,7 @@ structure GtkSelectionData :>
               x3,
               x4
             )
-    val getText_ = _import "gtk_selection_data_get_text" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getText_ = _import "gtk_selection_data_get_text" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> unit Utf8.FFI.out_p;
     val getUris_ = _import "gtk_selection_data_get_uris" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
     val set_ =
       fn
@@ -130,7 +130,7 @@ structure GtkSelectionData :>
     fun getDisplay self = (GtkSelectionDataRecord.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
     fun getFormat self = (GtkSelectionDataRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getFormat_ self
     fun getLength self = (GtkSelectionDataRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getLength_ self
-    fun getPixbuf self = (GtkSelectionDataRecord.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) getPixbuf_ self
+    fun getPixbuf self = (GtkSelectionDataRecord.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) getPixbuf_ self
     fun getSelection self = (GtkSelectionDataRecord.FFI.withPtr ---> GdkAtomRecord.FFI.fromPtr false) getSelection_ self
     fun getTarget self = (GtkSelectionDataRecord.FFI.withPtr ---> GdkAtomRecord.FFI.fromPtr false) getTarget_ self
     fun getTargets self =
@@ -155,7 +155,7 @@ structure GtkSelectionData :>
       in
         if retVal then SOME (targets (LargeInt.toInt nAtoms)) else NONE
       end
-    fun getText self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getText_ self
+    fun getText self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getText_ self
     fun getUris self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getUris_ self
     fun set
       self

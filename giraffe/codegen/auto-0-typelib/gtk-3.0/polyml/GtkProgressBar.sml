@@ -14,7 +14,7 @@ structure GtkProgressBar :>
       val getInverted_ = call (getSymbol "gtk_progress_bar_get_inverted") (GtkProgressBarClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getPulseStep_ = call (getSymbol "gtk_progress_bar_get_pulse_step") (GtkProgressBarClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val getShowText_ = call (getSymbol "gtk_progress_bar_get_show_text") (GtkProgressBarClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getText_ = call (getSymbol "gtk_progress_bar_get_text") (GtkProgressBarClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getText_ = call (getSymbol "gtk_progress_bar_get_text") (GtkProgressBarClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val pulse_ = call (getSymbol "gtk_progress_bar_pulse") (GtkProgressBarClass.PolyML.cPtr --> cVoid)
       val setEllipsize_ = call (getSymbol "gtk_progress_bar_set_ellipsize") (GtkProgressBarClass.PolyML.cPtr &&> PangoEllipsizeMode.PolyML.cVal --> cVoid)
       val setFraction_ = call (getSymbol "gtk_progress_bar_set_fraction") (GtkProgressBarClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
@@ -37,7 +37,7 @@ structure GtkProgressBar :>
     fun getInverted self = (GtkProgressBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getInverted_ self
     fun getPulseStep self = (GtkProgressBarClass.FFI.withPtr ---> GDouble.FFI.fromVal) getPulseStep_ self
     fun getShowText self = (GtkProgressBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowText_ self
-    fun getText self = (GtkProgressBarClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getText_ self
+    fun getText self = (GtkProgressBarClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getText_ self
     fun pulse self = (GtkProgressBarClass.FFI.withPtr ---> I) pulse_ self
     fun setEllipsize self mode = (GtkProgressBarClass.FFI.withPtr &&&> PangoEllipsizeMode.FFI.withVal ---> I) setEllipsize_ (self & mode)
     fun setFraction self fraction = (GtkProgressBarClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setFraction_ (self & fraction)

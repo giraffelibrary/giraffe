@@ -20,4 +20,8 @@ signature GIO_VFS =
       'a class
        -> string
        -> base file_class
+    val unregisterUriScheme :
+      'a class
+       -> string
+       -> bool
   end

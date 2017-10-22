@@ -24,7 +24,6 @@ signature G_LIB_TOKEN_TYPE =
     | IDENTIFIER_NULL
     | COMMENT_SINGLE
     | COMMENT_MULTI
-    | LAST
     include
       ENUM
         where type t = enum

@@ -15,16 +15,16 @@ signature GTK_CELL_RENDERER =
        -> 'b Gdk.Event.union
            * 'c widget_class
            * string
-           * Cairo.RectangleIntRecord.t
-           * Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
+           * Gdk.RectangleRecord.t
            * cell_renderer_state_t
        -> bool
     val getAlignedArea :
       'a class
        -> 'b widget_class
            * cell_renderer_state_t
-           * Cairo.RectangleIntRecord.t
-       -> Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
+       -> Gdk.RectangleRecord.t
     val getAlignment : 'a class -> real * real
     val getFixedSize : 'a class -> LargeInt.int * LargeInt.int
     val getPadding : 'a class -> LargeInt.int * LargeInt.int
@@ -52,14 +52,14 @@ signature GTK_CELL_RENDERER =
     val getSensitive : 'a class -> bool
     val getSize :
       'a class
-       -> 'b widget_class * Cairo.RectangleIntRecord.t option
+       -> 'b widget_class * Gdk.RectangleRecord.t option
        -> LargeInt.int
            * LargeInt.int
            * LargeInt.int
            * LargeInt.int
     val getState :
       'a class
-       -> 'b widget_class * cell_renderer_state_t
+       -> 'b widget_class option * cell_renderer_state_t
        -> state_flags_t
     val getVisible : 'a class -> bool
     val isActivatable : 'a class -> bool
@@ -67,8 +67,8 @@ signature GTK_CELL_RENDERER =
       'a class
        -> Cairo.ContextRecord.t
            * 'b widget_class
-           * Cairo.RectangleIntRecord.t
-           * Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
+           * Gdk.RectangleRecord.t
            * cell_renderer_state_t
        -> unit
     val setAlignment :
@@ -93,13 +93,13 @@ signature GTK_CELL_RENDERER =
        -> unit
     val startEditing :
       'a class
-       -> 'b Gdk.Event.union
+       -> 'b Gdk.Event.union option
            * 'c widget_class
            * string
-           * Cairo.RectangleIntRecord.t
-           * Cairo.RectangleIntRecord.t
+           * Gdk.RectangleRecord.t
+           * Gdk.RectangleRecord.t
            * cell_renderer_state_t
-       -> base cell_editable_class
+       -> base cell_editable_class option
     val stopEditing :
       'a class
        -> bool

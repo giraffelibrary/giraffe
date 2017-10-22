@@ -7,6 +7,7 @@ signature GDK_PIXBUF_PIXBUF_ERROR =
     | UNKNOWN_TYPE
     | UNSUPPORTED_OPERATION
     | FAILED
+    | INCOMPLETE_ANIMATION
     include
       ENUM
         where type t = enum

@@ -8,7 +8,7 @@ signature GTK_FRAME =
     val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : string -> base class
+    val new : string option -> base class
     val getLabel : 'a class -> string
     val getLabelAlign : 'a class -> real * real
     val getLabelWidget : 'a class -> base widget_class
@@ -23,7 +23,7 @@ signature GTK_FRAME =
        -> unit
     val setLabelWidget :
       'a class
-       -> 'b widget_class
+       -> 'b widget_class option
        -> unit
     val setShadowType :
       'a class

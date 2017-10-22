@@ -16,4 +16,9 @@ signature GIO_FILE_ATTRIBUTE_MATCHER =
       t
        -> string
        -> bool
+    val subtract :
+      t
+       -> t
+       -> t
+    val toString : t -> string
   end

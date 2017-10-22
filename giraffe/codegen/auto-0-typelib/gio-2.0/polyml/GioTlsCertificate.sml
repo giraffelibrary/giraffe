@@ -26,6 +26,7 @@ structure GioTlsCertificate :>
              --> GioTlsCertificateClass.PolyML.cPtr
           )
       val getIssuer_ = call (getSymbol "g_tls_certificate_get_issuer") (GioTlsCertificateClass.PolyML.cPtr --> GioTlsCertificateClass.PolyML.cPtr)
+      val isSame_ = call (getSymbol "g_tls_certificate_is_same") (GioTlsCertificateClass.PolyML.cPtr &&> GioTlsCertificateClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val verify_ =
         call (getSymbol "g_tls_certificate_verify")
           (
@@ -68,6 +69,7 @@ structure GioTlsCertificate :>
            & []
         )
     fun getIssuer self = (GioTlsCertificateClass.FFI.withPtr ---> GioTlsCertificateClass.FFI.fromPtr false) getIssuer_ self
+    fun isSame self certTwo = (GioTlsCertificateClass.FFI.withPtr &&&> GioTlsCertificateClass.FFI.withPtr ---> GBool.FFI.fromVal) isSame_ (self & certTwo)
     fun verify self (identity, trustedCa) =
       (
         GioTlsCertificateClass.FFI.withPtr

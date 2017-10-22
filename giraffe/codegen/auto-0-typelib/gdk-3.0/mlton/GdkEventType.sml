@@ -38,6 +38,17 @@ structure GdkEventType :> GDK_EVENT_TYPE =
     | OWNER_CHANGE
     | GRAB_BROKEN
     | DAMAGE
+    | TOUCH_BEGIN
+    | TOUCH_UPDATE
+    | TOUCH_END
+    | TOUCH_CANCEL
+    | TOUCHPAD_SWIPE
+    | TOUCHPAD_PINCH
+    | PAD_BUTTON_PRESS
+    | PAD_BUTTON_RELEASE
+    | PAD_RING
+    | PAD_STRIP
+    | PAD_GROUP_MODE
     | EVENT_LAST
     structure Enum =
       Enum(
@@ -82,7 +93,18 @@ structure GdkEventType :> GDK_EVENT_TYPE =
           | OWNER_CHANGE => 34
           | GRAB_BROKEN => 35
           | DAMAGE => 36
-          | EVENT_LAST => 37
+          | TOUCH_BEGIN => 37
+          | TOUCH_UPDATE => 38
+          | TOUCH_END => 39
+          | TOUCH_CANCEL => 40
+          | TOUCHPAD_SWIPE => 41
+          | TOUCHPAD_PINCH => 42
+          | PAD_BUTTON_PRESS => 43
+          | PAD_BUTTON_RELEASE => 44
+          | PAD_RING => 45
+          | PAD_STRIP => 46
+          | PAD_GROUP_MODE => 47
+          | EVENT_LAST => 48
         exception Value of GInt32.t
         val fromInt =
           fn
@@ -123,7 +145,18 @@ structure GdkEventType :> GDK_EVENT_TYPE =
           | 34 => OWNER_CHANGE
           | 35 => GRAB_BROKEN
           | 36 => DAMAGE
-          | 37 => EVENT_LAST
+          | 37 => TOUCH_BEGIN
+          | 38 => TOUCH_UPDATE
+          | 39 => TOUCH_END
+          | 40 => TOUCH_CANCEL
+          | 41 => TOUCHPAD_SWIPE
+          | 42 => TOUCHPAD_PINCH
+          | 43 => PAD_BUTTON_PRESS
+          | 44 => PAD_BUTTON_RELEASE
+          | 45 => PAD_RING
+          | 46 => PAD_STRIP
+          | 47 => PAD_GROUP_MODE
+          | 48 => EVENT_LAST
           | n => raise Value n
       )
     open Enum

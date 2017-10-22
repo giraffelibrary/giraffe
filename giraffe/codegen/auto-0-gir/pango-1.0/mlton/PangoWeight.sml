@@ -4,6 +4,7 @@ structure PangoWeight :> PANGO_WEIGHT =
       THIN
     | ULTRALIGHT
     | LIGHT
+    | SEMILIGHT
     | BOOK
     | NORMAL
     | MEDIUM
@@ -21,6 +22,7 @@ structure PangoWeight :> PANGO_WEIGHT =
             THIN => 100
           | ULTRALIGHT => 200
           | LIGHT => 300
+          | SEMILIGHT => 350
           | BOOK => 380
           | NORMAL => 400
           | MEDIUM => 500
@@ -35,6 +37,7 @@ structure PangoWeight :> PANGO_WEIGHT =
             100 => THIN
           | 200 => ULTRALIGHT
           | 300 => LIGHT
+          | 350 => SEMILIGHT
           | 380 => BOOK
           | 400 => NORMAL
           | 500 => MEDIUM

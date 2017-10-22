@@ -23,6 +23,7 @@ structure GtkPrintSettings :>
       val getType_ = call (getSymbol "gtk_print_settings_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_print_settings_new") (cVoid --> GtkPrintSettingsClass.PolyML.cPtr)
       val newFromFile_ = call (getSymbol "gtk_print_settings_new_from_file") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GtkPrintSettingsClass.PolyML.cPtr)
+      val newFromGvariant_ = call (getSymbol "gtk_print_settings_new_from_gvariant") (GLibVariantRecord.PolyML.cPtr --> GtkPrintSettingsClass.PolyML.cPtr)
       val newFromKeyFile_ =
         call (getSymbol "gtk_print_settings_new_from_key_file")
           (
@@ -206,6 +207,7 @@ structure GtkPrintSettings :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
+      val toGvariant_ = call (getSymbol "gtk_print_settings_to_gvariant") (GtkPrintSettingsClass.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
       val toKeyFile_ =
         call (getSymbol "gtk_print_settings_to_key_file")
           (
@@ -230,6 +232,7 @@ structure GtkPrintSettings :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkPrintSettingsClass.FFI.fromPtr true) new_ ()
     fun newFromFile fileName = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GtkPrintSettingsClass.FFI.fromPtr true) newFromFile_ (fileName & [])
+    fun newFromGvariant variant = (GLibVariantRecord.FFI.withPtr ---> GtkPrintSettingsClass.FFI.fromPtr true) newFromGvariant_ variant
     fun newFromKeyFile (keyFile, groupName) =
       (
         GLibKeyFileRecord.FFI.withPtr
@@ -512,6 +515,7 @@ structure GtkPrintSettings :>
            & fileName
            & []
         )
+    fun toGvariant self = (GtkPrintSettingsClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self
     fun toKeyFile self (keyFile, groupName) =
       (
         GtkPrintSettingsClass.FFI.withPtr

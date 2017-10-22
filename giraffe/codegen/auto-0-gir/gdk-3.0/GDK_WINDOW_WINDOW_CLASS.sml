@@ -1,8 +1,8 @@
 signature GDK_WINDOW_WINDOW_CLASS =
   sig
     datatype enum =
-      OUTPUT
-    | ONLY
+      INPUT_OUTPUT
+    | INPUT_ONLY
     include
       ENUM
         where type t = enum

@@ -1,6 +1,7 @@
 structure GtkToolButton :>
   GTK_TOOL_BUTTON
     where type 'a class = 'a GtkToolButtonClass.class
+    where type 'a actionable_class = 'a GtkActionableClass.class
     where type 'a activatable_class = 'a GtkActivatableClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class =
@@ -11,10 +12,10 @@ structure GtkToolButton :>
       val getType_ = call (getSymbol "gtk_tool_button_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_tool_button_new") (GtkWidgetClass.PolyML.cOptPtr &&> Utf8.PolyML.cInOptPtr --> GtkToolItemClass.PolyML.cPtr)
       val newFromStock_ = call (getSymbol "gtk_tool_button_new_from_stock") (Utf8.PolyML.cInPtr --> GtkToolItemClass.PolyML.cPtr)
-      val getIconName_ = call (getSymbol "gtk_tool_button_get_icon_name") (GtkToolButtonClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getIconWidget_ = call (getSymbol "gtk_tool_button_get_icon_widget") (GtkToolButtonClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getLabel_ = call (getSymbol "gtk_tool_button_get_label") (GtkToolButtonClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getLabelWidget_ = call (getSymbol "gtk_tool_button_get_label_widget") (GtkToolButtonClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getIconName_ = call (getSymbol "gtk_tool_button_get_icon_name") (GtkToolButtonClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getIconWidget_ = call (getSymbol "gtk_tool_button_get_icon_widget") (GtkToolButtonClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
+      val getLabel_ = call (getSymbol "gtk_tool_button_get_label") (GtkToolButtonClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getLabelWidget_ = call (getSymbol "gtk_tool_button_get_label_widget") (GtkToolButtonClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getStockId_ = call (getSymbol "gtk_tool_button_get_stock_id") (GtkToolButtonClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getUseUnderline_ = call (getSymbol "gtk_tool_button_get_use_underline") (GtkToolButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setIconName_ = call (getSymbol "gtk_tool_button_set_icon_name") (GtkToolButtonClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
@@ -25,20 +26,22 @@ structure GtkToolButton :>
       val setUseUnderline_ = call (getSymbol "gtk_tool_button_set_use_underline") (GtkToolButtonClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkToolButtonClass.class
+    type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (iconWidget, label) = (GtkWidgetClass.FFI.withOptPtr &&&> Utf8.FFI.withOptPtr ---> GtkToolButtonClass.FFI.fromPtr false) new_ (iconWidget & label)
     fun newFromStock stockId = (Utf8.FFI.withPtr ---> GtkToolButtonClass.FFI.fromPtr false) newFromStock_ stockId
-    fun getIconName self = (GtkToolButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getIconName_ self
-    fun getIconWidget self = (GtkToolButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getIconWidget_ self
-    fun getLabel self = (GtkToolButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLabel_ self
-    fun getLabelWidget self = (GtkToolButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getLabelWidget_ self
+    fun getIconName self = (GtkToolButtonClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getIconName_ self
+    fun getIconWidget self = (GtkToolButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getIconWidget_ self
+    fun getLabel self = (GtkToolButtonClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getLabel_ self
+    fun getLabelWidget self = (GtkToolButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getLabelWidget_ self
     fun getStockId self = (GtkToolButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStockId_ self
     fun getUseUnderline self = (GtkToolButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseUnderline_ self
     fun setIconName self iconName = (GtkToolButtonClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setIconName_ (self & iconName)

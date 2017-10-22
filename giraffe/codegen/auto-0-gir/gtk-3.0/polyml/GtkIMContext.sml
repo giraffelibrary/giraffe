@@ -1,6 +1,8 @@
 structure GtkIMContext :>
   GTK_I_M_CONTEXT
-    where type 'a class = 'a GtkIMContextClass.class =
+    where type 'a class = 'a GtkIMContextClass.class
+    where type input_hints_t = GtkInputHints.t
+    where type input_purpose_t = GtkInputPurpose.t =
   struct
     local
       open PolyMLFFI
@@ -26,6 +28,14 @@ structure GtkIMContext :>
              &&> GInt.PolyML.cRef
              --> cVoid
           )
+      val getSurrounding_ =
+        call (getSymbol "gtk_im_context_get_surrounding")
+          (
+            GtkIMContextClass.PolyML.cPtr
+             &&> Utf8.PolyML.cOutRef
+             &&> GInt.PolyML.cRef
+             --> GBool.PolyML.cVal
+          )
       val reset_ = call (getSymbol "gtk_im_context_reset") (GtkIMContextClass.PolyML.cPtr --> cVoid)
       val setClientWindow_ = call (getSymbol "gtk_im_context_set_client_window") (GtkIMContextClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cOptPtr --> cVoid)
       val setCursorLocation_ = call (getSymbol "gtk_im_context_set_cursor_location") (GtkIMContextClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> cVoid)
@@ -41,6 +51,8 @@ structure GtkIMContext :>
       val setUsePreedit_ = call (getSymbol "gtk_im_context_set_use_preedit") (GtkIMContextClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkIMContextClass.class
+    type input_hints_t = GtkInputHints.t
+    type input_purpose_t = GtkInputPurpose.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun deleteSurrounding self (offset, nChars) =
@@ -89,6 +101,28 @@ structure GtkIMContext :>
           cursorPos
         )
       end
+    fun getSurrounding self =
+      let
+        val text
+         & cursorIndex
+         & retVal =
+          (
+            GtkIMContextClass.FFI.withPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GInt.FFI.withRefVal
+             ---> Utf8.FFI.fromPtr 1
+                   && GInt.FFI.fromVal
+                   && GBool.FFI.fromVal
+          )
+            getSurrounding_
+            (
+              self
+               & NONE
+               & GInt.null
+            )
+      in
+        if retVal then SOME (text, cursorIndex) else NONE
+      end
     fun reset self = (GtkIMContextClass.FFI.withPtr ---> I) reset_ self
     fun setClientWindow self window = (GtkIMContextClass.FFI.withPtr &&&> GdkWindowClass.FFI.withOptPtr ---> I) setClientWindow_ (self & window)
     fun setCursorLocation self area = (GtkIMContextClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) setCursorLocation_ (self & area)
@@ -123,5 +157,19 @@ structure GtkIMContext :>
       fun preeditEndSig f = signal "preedit-end" (void ---> ret_void) f
       fun preeditStartSig f = signal "preedit-start" (void ---> ret_void) f
       fun retrieveSurroundingSig f = signal "retrieve-surrounding" (void ---> ret boolean) f
+    end
+    local
+      open Property
+    in
+      val inputHintsProp =
+        {
+          get = fn x => get "input-hints" GtkInputHints.t x,
+          set = fn x => set "input-hints" GtkInputHints.t x
+        }
+      val inputPurposeProp =
+        {
+          get = fn x => get "input-purpose" GtkInputPurpose.t x,
+          set = fn x => set "input-purpose" GtkInputPurpose.t x
+        }
     end
   end

@@ -1,7 +1,8 @@
 structure GtkSourceCompletionWords :>
   GTK_SOURCE_COMPLETION_WORDS
     where type 'a class = 'a GtkSourceCompletionWordsClass.class
-    where type 'a completion_provider_class = 'a GtkSourceCompletionProviderClass.class =
+    where type 'a completion_provider_class = 'a GtkSourceCompletionProviderClass.class
+    where type completion_activation_t = GtkSourceCompletionActivation.t =
   struct
     val getType_ = _import "gtk_source_completion_words_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
@@ -23,6 +24,7 @@ structure GtkSourceCompletionWords :>
     val unregister_ = fn x1 & x2 => (_import "gtk_source_completion_words_unregister" : GtkSourceCompletionWordsClass.FFI.notnull GtkSourceCompletionWordsClass.FFI.p * GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkSourceCompletionWordsClass.class
     type 'a completion_provider_class = 'a GtkSourceCompletionProviderClass.class
+    type completion_activation_t = GtkSourceCompletionActivation.t
     type t = base class
     fun asCompletionProvider self = (GObjectObjectClass.FFI.withPtr ---> GtkSourceCompletionProviderClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -32,6 +34,11 @@ structure GtkSourceCompletionWords :>
     local
       open Property
     in
+      val activationProp =
+        {
+          get = fn x => get "activation" GtkSourceCompletionActivation.t x,
+          set = fn x => set "activation" GtkSourceCompletionActivation.t x
+        }
       val iconProp =
         {
           get = fn x => get "icon" GdkPixbufPixbufClass.tOpt x,

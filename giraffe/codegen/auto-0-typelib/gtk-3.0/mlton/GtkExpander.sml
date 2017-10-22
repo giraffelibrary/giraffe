@@ -10,7 +10,7 @@ structure GtkExpander :>
     val getExpanded_ = _import "gtk_expander_get_expanded" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> GBool.FFI.val_;
     val getLabel_ = _import "gtk_expander_get_label" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getLabelFill_ = _import "gtk_expander_get_label_fill" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> GBool.FFI.val_;
-    val getLabelWidget_ = _import "gtk_expander_get_label_widget" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getLabelWidget_ = _import "gtk_expander_get_label_widget" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> unit GtkWidgetClass.FFI.p;
     val getResizeToplevel_ = _import "gtk_expander_get_resize_toplevel" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> GBool.FFI.val_;
     val getSpacing_ = _import "gtk_expander_get_spacing" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> GInt32.FFI.val_;
     val getUseMarkup_ = _import "gtk_expander_get_use_markup" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> GBool.FFI.val_;
@@ -49,7 +49,7 @@ structure GtkExpander :>
     fun getExpanded self = (GtkExpanderClass.FFI.withPtr ---> GBool.FFI.fromVal) getExpanded_ self
     fun getLabel self = (GtkExpanderClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLabel_ self
     fun getLabelFill self = (GtkExpanderClass.FFI.withPtr ---> GBool.FFI.fromVal) getLabelFill_ self
-    fun getLabelWidget self = (GtkExpanderClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getLabelWidget_ self
+    fun getLabelWidget self = (GtkExpanderClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getLabelWidget_ self
     fun getResizeToplevel self = (GtkExpanderClass.FFI.withPtr ---> GBool.FFI.fromVal) getResizeToplevel_ self
     fun getSpacing self = (GtkExpanderClass.FFI.withPtr ---> GInt32.FFI.fromVal) getSpacing_ self
     fun getUseMarkup self = (GtkExpanderClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseMarkup_ self

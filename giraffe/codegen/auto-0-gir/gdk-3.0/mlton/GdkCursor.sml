@@ -42,9 +42,46 @@ structure GdkCursor :>
               x3,
               x4
             )
+    val newFromSurface_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4 =>
+          (
+            _import "gdk_cursor_new_from_surface" :
+              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
+               * CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p
+               * GDouble.FFI.val_
+               * GDouble.FFI.val_
+               -> GdkCursorClass.FFI.notnull GdkCursorClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val getCursorType_ = _import "gdk_cursor_get_cursor_type" : GdkCursorClass.FFI.notnull GdkCursorClass.FFI.p -> GdkCursorType.FFI.val_;
     val getDisplay_ = _import "gdk_cursor_get_display" : GdkCursorClass.FFI.notnull GdkCursorClass.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
     val getImage_ = _import "gdk_cursor_get_image" : GdkCursorClass.FFI.notnull GdkCursorClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+    val getSurface_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "gdk_cursor_get_surface" :
+              GdkCursorClass.FFI.notnull GdkCursorClass.FFI.p
+               * GDouble.FFI.ref_
+               * GDouble.FFI.ref_
+               -> CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     type 'a class = 'a GdkCursorClass.class
     type cursor_type_t = GdkCursorType.t
     type 'a display_class = 'a GdkDisplayClass.class
@@ -74,9 +111,56 @@ structure GdkCursor :>
            & x
            & y
         )
+    fun newFromSurface
+      (
+        display,
+        surface,
+        x,
+        y
+      ) =
+      (
+        GdkDisplayClass.FFI.withPtr
+         &&&> CairoSurfaceRecord.FFI.withPtr
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> GdkCursorClass.FFI.fromPtr true
+      )
+        newFromSurface_
+        (
+          display
+           & surface
+           & x
+           & y
+        )
     fun getCursorType self = (GdkCursorClass.FFI.withPtr ---> GdkCursorType.FFI.fromVal) getCursorType_ self
     fun getDisplay self = (GdkCursorClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
     fun getImage self = (GdkCursorClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) getImage_ self
+    fun getSurface self =
+      let
+        val xHot
+         & yHot
+         & retVal =
+          (
+            GdkCursorClass.FFI.withPtr
+             &&&> GDouble.FFI.withRefVal
+             &&&> GDouble.FFI.withRefVal
+             ---> GDouble.FFI.fromVal
+                   && GDouble.FFI.fromVal
+                   && CairoSurfaceRecord.FFI.fromPtr true
+          )
+            getSurface_
+            (
+              self
+               & GDouble.null
+               & GDouble.null
+            )
+      in
+        (
+          retVal,
+          xHot,
+          yHot
+        )
+      end
     local
       open Property
     in

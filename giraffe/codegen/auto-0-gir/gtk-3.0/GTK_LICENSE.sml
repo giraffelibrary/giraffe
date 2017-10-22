@@ -10,6 +10,11 @@ signature GTK_LICENSE =
     | BSD
     | MIT_X_11
     | ARTISTIC
+    | GPL_2_0_ONLY
+    | GPL_3_0_ONLY
+    | LGPL_2_1_ONLY
+    | LGPL_3_0_ONLY
+    | AGPL_3_0
     include
       ENUM
         where type t = enum

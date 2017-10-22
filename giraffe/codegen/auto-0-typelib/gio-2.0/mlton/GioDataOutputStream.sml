@@ -1,6 +1,7 @@
 structure GioDataOutputStream :>
   GIO_DATA_OUTPUT_STREAM
     where type 'a class = 'a GioDataOutputStreamClass.class
+    where type 'a seekable_class = 'a GioSeekableClass.class
     where type 'a output_stream_class = 'a GioOutputStreamClass.class
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type data_stream_byte_order_t = GioDataStreamByteOrder.t =
@@ -172,10 +173,12 @@ structure GioDataOutputStream :>
             )
     val setByteOrder_ = fn x1 & x2 => (_import "g_data_output_stream_set_byte_order" : GioDataOutputStreamClass.FFI.notnull GioDataOutputStreamClass.FFI.p * GioDataStreamByteOrder.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioDataOutputStreamClass.class
+    type 'a seekable_class = 'a GioSeekableClass.class
     type 'a output_stream_class = 'a GioOutputStreamClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type data_stream_byte_order_t = GioDataStreamByteOrder.t
     type t = base class
+    fun asSeekable self = (GObjectObjectClass.FFI.withPtr ---> GioSeekableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new baseStream = (GioOutputStreamClass.FFI.withPtr ---> GioDataOutputStreamClass.FFI.fromPtr true) new_ baseStream
     fun getByteOrder self = (GioDataOutputStreamClass.FFI.withPtr ---> GioDataStreamByteOrder.FFI.fromVal) getByteOrder_ self

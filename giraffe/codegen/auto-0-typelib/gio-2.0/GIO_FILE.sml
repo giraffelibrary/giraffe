@@ -4,7 +4,6 @@ signature GIO_FILE =
     type file_copy_flags_t
     type 'a file_enumerator_class
     type 'a mount_class
-    type 'a icon_class
     type 'a file_monitor_class
     type file_monitor_flags_t
     type 'a app_info_class
@@ -21,8 +20,10 @@ signature GIO_FILE =
     type t = base class
     val getType : unit -> GObject.Type.t
     val newForCommandlineArg : string -> base class
+    val newForCommandlineArgAndCwd : string * string -> base class
     val newForPath : string -> base class
     val newForUri : string -> base class
+    val newTmp : string option -> base class * base file_i_o_stream_class
     val parseName : string -> base class
     val appendTo :
       'a class
@@ -62,6 +63,10 @@ signature GIO_FILE =
       'a class
        -> 'b cancellable_class option
        -> unit
+    val deleteFinish :
+      'a class
+       -> 'b async_result_class
+       -> unit
     val dup : 'a class -> base class
     val ejectMountableFinish :
       'a class
@@ -93,7 +98,7 @@ signature GIO_FILE =
       'a class
        -> 'b async_result_class
        -> base mount_class
-    val getBasename : 'a class -> string
+    val getBasename : 'a class -> string option
     val getChild :
       'a class
        -> string
@@ -102,18 +107,18 @@ signature GIO_FILE =
       'a class
        -> string
        -> base class
-    val getParent : 'a class -> base class
+    val getParent : 'a class -> base class option
     val getParseName : 'a class -> string
-    val getPath : 'a class -> string
+    val getPath : 'a class -> string option
     val getRelativePath :
       'a class
        -> 'b class
-       -> string
+       -> string option
     val getUri : 'a class -> string
     val getUriScheme : 'a class -> string
     val hasParent :
       'a class
-       -> 'b class
+       -> 'b class option
        -> bool
     val hasPrefix :
       'a class
@@ -123,7 +128,7 @@ signature GIO_FILE =
       'a class
        -> string
        -> bool
-    val iconNew : 'a class -> base icon_class
+    val hash : 'a class -> LargeInt.int
     val isNative : 'a class -> bool
     val loadContents :
       'a class
@@ -141,6 +146,10 @@ signature GIO_FILE =
       'a class
        -> 'b cancellable_class option
        -> unit
+    val makeDirectoryFinish :
+      'a class
+       -> 'b async_result_class
+       -> unit
     val makeDirectoryWithParents :
       'a class
        -> 'b cancellable_class option
@@ -149,6 +158,12 @@ signature GIO_FILE =
       'a class
        -> string * 'b cancellable_class option
        -> unit
+    val measureDiskUsageFinish :
+      'a class
+       -> 'b async_result_class
+       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
     val monitor :
       'a class
        -> file_monitor_flags_t * 'b cancellable_class option
@@ -337,6 +352,10 @@ signature GIO_FILE =
     val trash :
       'a class
        -> 'b cancellable_class option
+       -> unit
+    val trashFinish :
+      'a class
+       -> 'b async_result_class
        -> unit
     val unmountMountableFinish :
       'a class

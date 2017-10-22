@@ -14,6 +14,7 @@ structure GtkAssistant :>
     val getNPages_ = _import "gtk_assistant_get_n_pages" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> GInt.FFI.val_;
     val getNthPage_ = fn x1 & x2 => (_import "gtk_assistant_get_nth_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GInt.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
     val getPageComplete_ = fn x1 & x2 => (_import "gtk_assistant_get_page_complete" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getPageHasPadding_ = fn x1 & x2 => (_import "gtk_assistant_get_page_has_padding" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val getPageHeaderImage_ = fn x1 & x2 => (_import "gtk_assistant_get_page_header_image" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;) (x1, x2)
     val getPageSideImage_ = fn x1 & x2 => (_import "gtk_assistant_get_page_side_image" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;) (x1, x2)
     val getPageTitle_ = fn x1 & x2 => (_import "gtk_assistant_get_page_title" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
@@ -48,6 +49,23 @@ structure GtkAssistant :>
          & x3 =>
           (
             _import "gtk_assistant_set_page_complete" :
+              GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p
+               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * GBool.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
+    val setPageHasPadding_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "gtk_assistant_set_page_has_padding" :
               GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p
                * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
                * GBool.FFI.val_
@@ -145,6 +163,7 @@ structure GtkAssistant :>
     fun getNPages self = (GtkAssistantClass.FFI.withPtr ---> GInt.FFI.fromVal) getNPages_ self
     fun getNthPage self pageNum = (GtkAssistantClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getNthPage_ (self & pageNum)
     fun getPageComplete self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getPageComplete_ (self & page)
+    fun getPageHasPadding self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getPageHasPadding_ (self & page)
     fun getPageHeaderImage self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPageHeaderImage_ (self & page)
     fun getPageSideImage self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPageSideImage_ (self & page)
     fun getPageTitle self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPageTitle_ (self & page)
@@ -180,6 +199,19 @@ structure GtkAssistant :>
           self
            & page
            & complete
+        )
+    fun setPageHasPadding self (page, hasPadding) =
+      (
+        GtkAssistantClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         ---> I
+      )
+        setPageHasPadding_
+        (
+          self
+           & page
+           & hasPadding
         )
     fun setPageHeaderImage self (page, pixbuf) =
       (
@@ -240,6 +272,16 @@ structure GtkAssistant :>
       fun applySig f = signal "apply" (void ---> ret_void) f
       fun cancelSig f = signal "cancel" (void ---> ret_void) f
       fun closeSig f = signal "close" (void ---> ret_void) f
+      fun escapeSig f = signal "escape" (void ---> ret_void) f
       fun prepareSig f = signal "prepare" (get 0w1 GtkWidgetClass.t ---> ret_void) f
+    end
+    local
+      open Property
+    in
+      val useHeaderBarProp =
+        {
+          get = fn x => get "use-header-bar" int x,
+          set = fn x => set "use-header-bar" int x
+        }
     end
   end

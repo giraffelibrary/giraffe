@@ -29,6 +29,7 @@ in
   GIRepository.Override.argInfoDirection := [
     (* bug 783392 *)
     (("Gio", SOME "DBusInterfaceInfo", "generate_xml", "string_builder"), IN),
+    (("Gio", SOME "DBusNodeInfo", "generate_xml", "string_builder"), IN),
 
     (* bug 770421 *)
     (("Gtk", SOME "TextIter", "get_attributes", "values"), IN)
@@ -59,7 +60,8 @@ excludedInterfaceTypes := [
   ("GLib", "ScannerConfig"),
   ("GLib", "UnicodeScript"),
   ("GLib", "UnicodeBreakType"),
-  ("Gio",  "OutputVector")
+  ("Gio",  "OutputVector"),
+  ("Pango", "IncludedModule")
 ];
 
 
@@ -70,6 +72,8 @@ excludedInterfaceTypes := [
  *)
 
 structTypes := [
+  (("GLib", "Bytes"),                 Record {dup = "g_bytes_ref", free = "g_bytes_unref"}),
+  (("GLib", "Checksum"),              Record {dup = "g_checksum_copy", free = "g_checksum_free"}),
   (("GLib", "Date"),                  Record {dup = "gdate_copy", free = "g_date_free"}),
   (("GLib", "DateTime"),              Record {dup = "g_date_time_ref", free = "g_date_time_unref"}),
   (("GLib", "DebugKey"),              ValueRecord),
@@ -77,9 +81,11 @@ structTypes := [
   (("GLib", "IOChannel"),             Record {dup = "g_io_channel_ref", free = "g_io_channel_unref"}),
   (("GLib", "KeyFile"),               Record {dup = "g_key_file_ref", free = "g_key_file_unref"}),
   (("GLib", "MainContext"),           Record {dup = "g_main_context_ref", free = "g_main_context_unref"}),
+  (("GLib", "MarkupParseContext"),    Record {dup = "g_markup_parse_context_ref", free = "g_markup_parse_context_unref"}),
   (("GLib", "MatchInfo"),             Record {dup = "g_match_info_ref", free = "g_match_info_unref"}),
   (("GLib", "OptionEntry"),           ValueRecord),
-  (("GLib", "PatternSpec"),           Record {dup = "", free = "g_pattern_spec_free"}),
+  (("GLib", "OptionGroup"),           Record {dup = "g_option_group_ref", free = "g_option_group_unref"}),
+  (("GLib", "PatternSpec"),           DisguisedRecord),
   (("GLib", "PollFD"),                ValueRecord),
   (("GLib", "Regex"),                 Record {dup = "g_regex_ref", free = "g_regex_unref"}),
 
@@ -87,16 +93,24 @@ structTypes := [
   (("GLib", "String"),                Record {dup = "gstring_copy", free = "gstring_free"}),
   (("GLib", "TestCase"),              DisguisedRecord),
   (("GLib", "TestSuite"),             DisguisedRecord),
-  (("GLib", "TimeZone"),              Record {dup = "g_time_zone_ref", free = "g_time_zone_unref"}),
   (("GLib", "TimeVal"),               ValueRecord),
+  (("GLib", "TimeZone"),              Record {dup = "g_time_zone_ref", free = "g_time_zone_unref"}),
   (("GLib", "Variant"),               Record {dup = "g_variant_ref_sink", free = "g_variant_unref"}),
+  (("GLib", "VariantBuilder"),        Record {dup = "g_variant_builder_ref", free = "g_variant_builder_unref"}),
+  (("GLib", "VariantDict"),           Record {dup = "g_variant_dict_ref", free = "g_variant_dict_unref"}),
   (("GLib", "VariantType"),           Record {dup = "g_variant_type_copy", free = "g_variant_type_free"}),
   (("GObject", "Closure"),            Record {dup = "g_closure_ref_sink", free = "g_closure_unref"}),
                                       (* g_closure_ref_sink doesn't exist but file replaced by fixed version *)
+  (("GObject", "EnumClass"),          ValueRecord),
+  (("GObject", "EnumValue"),          ValueRecord),
+  (("GObject", "FlagsClass"),         ValueRecord),
+  (("GObject", "FlagsValue"),         ValueRecord),
   (("GObject", "ValueArray"),         Record {dup = "g_value_array_copy", free = "g_value_array_free"}),
   (("Gio", "DBusAnnotationInfo"),     Record {dup = "g_dbus_annotation_info_ref", free = "g_dbus_annotation_info_unref"}),
+  (("Gio", "DBusArgInfo"),            Record {dup = "g_dbus_arg_info_ref", free = "g_dbus_arg_info_unref"}),
   (("Gio", "DBusInterfaceInfo"),      Record {dup = "g_dbus_interface_info_ref", free = "g_dbus_interface_info_unref"}),
   (("Gio", "DBusMethodInfo"),         Record {dup = "g_dbus_method_info_ref", free = "g_dbus_method_info_unref"}),
+  (("Gio", "DBusNodeInfo"),           Record {dup = "g_dbus_node_info_ref", free = "g_dbus_node_info_unref"}),
   (("Gio", "DBusPropertyInfo"),       Record {dup = "g_dbus_property_info_ref", free = "g_dbus_property_info_unref"}),
   (("Gio", "DBusSignalInfo"),         Record {dup = "g_dbus_signal_info_ref", free = "g_dbus_signal_info_unref"}),
   (("Gio", "FileAttributeInfo"),      ValueRecord),
@@ -105,22 +119,34 @@ structTypes := [
   (("Gio", "IOExtension"),            DisguisedRecord),
   (("Gio", "IOExtensionPoint"),       DisguisedRecord),
   (("Gio", "IOModuleScope"),          DisguisedRecord),
+  (("Gio", "Resource"),               Record {dup = "g_resource_ref", free = "g_resource_unref"}),
   (("Gio", "SettingsBackend"),        DisguisedRecord),
-  (("Gio", "UnixMountEntry"),         DisguisedRecord),
+  (("Gio", "SettingsSchema"),         Record {dup = "g_settings_schema_ref", free = "g_settings_schema_unref"}),
+  (("Gio", "SettingsSchemaKey"),      Record {dup = "g_settings_schema_key_ref", free = "g_settings_schema_key_unref"}),
+  (("Gio", "SettingsSchemaSource"),   Record {dup = "g_settings_schema_source_ref", free = "g_settings_schema_source_unref"}),
+  (("Gio", "SrvTarget"),              Record {dup = "g_srv_target_copy", free = "g_srv_target_free"}),
+  (("Gio", "UnixMountEntry"),         Record {dup = "g_unix_mount_copy", free = "g_unix_mount_free"}),
+  (("Gio", "UnixMountPoint"),         Record {dup = "g_unix_mount_point_copy", free = "g_unix_mount_point_free"}),
+  (("Atk", "Range"),                  Record {dup = "atk_range_copy", free = "atk_range_free"}),
   (("Atk", "Rectangle"),              ValueRecord),
   (("Atk", "TextRange"),              Record {dup = "atk_text_range_copy", free = "atk_text_range_free"}),
   (("Atk", "TextRectangle"),          ValueRecord),
   (("Gdk", "Atom"),                   DisguisedRecord),
+  (("Gdk", "EventSequence"),          Record {dup = "gdk_event_sequence_copy", free = "gdk_event_sequence_free"}),
   (("Gdk", "Geometry"),               ValueRecord),
   (("Gdk", "Color"),                  ValueRecord),
+  (("Gdk", "FrameTimings"),           Record {dup = "gdk_frame_timings_ref", free = "gdk_frame_timings_unref"}),
   (("Gdk", "KeymapKey"),              ValueRecord),
   (("Gdk", "Point"),                  ValueRecord),
+  (("Gdk", "Rectangle"),              ValueRecord),
   (("Gdk", "RGBA"),                   ValueRecord),
   (("Gdk", "WindowAttr"),             Record {dup = "giraffe_gdk_window_attr_dup", free = "giraffe_gdk_window_attr_free"}),
+  (("GdkPixbuf", "Pixdata"),          ValueRecord),
   (("GdkPixbuf", "PixbufFormat"),     Record {dup = "gdk_pixbuf_format_copy", free = "gdk_pixbuf_format_free"}),
   (("Gtk", "AccelGroupEntry"),        ValueRecord),
   (("Gtk", "AccelKey"),               ValueRecord),
   (("Gtk", "Border"),                 ValueRecord),
+  (("Gtk", "CssSection"),             Record {dup = "gtk_css_section_ref", free = "gtk_css_section_unref"}),
   (("Gtk", "FileFilterInfo"),         ValueRecord),
   (("Gtk", "IconInfo"),               Record {dup = "gtk_icon_info_copy", free = "gtk_icon_info_free"}),
   (("Gtk", "IconSet"),                Record {dup = "gtk_icon_set_ref", free = "gtk_icon_set_unref"}),
@@ -142,6 +168,8 @@ structTypes := [
   (("Gtk", "TreeIter"),               ValueRecord),
   (("Gtk", "TreePath"),               Record {dup = "gtk_tree_path_copy", free = "gtk_tree_path_free"}),
   (("Gtk", "WidgetPath"),             Record {dup = "gtk_widget_path_ref", free = "gtk_widget_path_unref"}),
+  (("GtkSource", "Encoding"),         Record {dup = "gtk_source_encoding_copy", free = "gtk_source_encoding_free"}),
+  (("GtkSource", "RegionIter"),       ValueRecord),
   (("cairo", "Context"),              Record {dup = "cairo_reference", free = "cairo_destroy"}),
   (("cairo", "FontOptions"),          Record {dup = "cairo_font_options_copy", free = "cairo_font_options_destroy"}),
   (("cairo", "Pattern"),              Record {dup = "cairo_pattern_reference", free = "cairo_pattern_destroy"}),
@@ -149,6 +177,7 @@ structTypes := [
   (("cairo", "Region"),               Record {dup = "cairo_region_reference", free = "cairo_region_destroy"}),
   (("cairo", "ScaledFont"),           Record {dup = "cairo_scaled_font_reference", free = "cairo_scaled_font_destroy"}),
   (("cairo", "Surface"),              Record {dup = "cairo_surface_reference", free = "cairo_surface_destroy"}),
+  (("Pango", "Analysis"),             ValueRecord),
   (("Pango", "Attribute"),            Record {dup = "pango_attribute_copy", free = "pango_attribute_destroy"}),
   (("Pango", "AttrList"),             Record {dup = "pango_attr_list_ref", free = "pango_attr_list_unref"}),
   (("Pango", "Color"),                Record {dup = "pango_color_copy", free = "pango_color_free"}),
@@ -156,13 +185,15 @@ structTypes := [
   (("Pango", "FontMetrics"),          Record {dup = "pango_font_metrics_ref", free = "pango_font_metrics_unref"}),
   (("Pango", "GlyphItem"),            Record {dup = "pango_glyph_item_copy", free = "pango_glyph_item_free"}),
   (("Pango", "GlyphString"),          Record {dup = "pango_glyph_string_copy", free = "pango_glyph_string_free"}),
+  (("Pango", "Item"),                 Record {dup = "pango_item_copy", free = "pango_item_free"}),
   (("Pango", "Language"),             Record {dup = "pango_language_copy", free = "pango_language_free"}),
   (("Pango", "LayoutIter"),           Record {dup = "pango_layout_iter_copy", free = "pango_layout_iter_free"}),
   (("Pango", "LayoutLine"),           Record {dup = "pango_layout_line_ref", free = "pango_layout_line_unref"}),
   (("Pango", "LogAttr"),              ValueRecord),
   (("Pango", "Matrix"),               Record {dup = "pango_matrix_copy", free = "pango_matrix_free"}),
   (("Pango", "Rectangle"),            ValueRecord),
-  (("Pango", "TabArray"),             Record {dup = "pango_tab_array_copy", free = "pango_tab_array_free"})
+  (("Pango", "TabArray"),             Record {dup = "pango_tab_array_copy", free = "pango_tab_array_free"}),
+  (("Vte", "Regex"),                  Record {dup = "vte_regex_ref", free = "vte_regex_unref"})
 ];
 
 
@@ -198,6 +229,7 @@ excludedConstantNames := [
       "LN10",
       "LN2",
       "LOG_2_BASE_10",
+      "LOG_DOMAIN",
       "LOG_FATAL_MASK",
       "MODULE_SUFFIX",
       "MUTEX_DEBUG_MAGIC",
@@ -306,6 +338,9 @@ excludedFunctionSymbols := [
     [
       "g_closure_new_simple",
       "g_closure_new_object",
+      "g_object_interface_find_property",
+      "g_object_interface_install_property",
+      "g_object_interface_list_properties",
       "g_object_is_floating",
       "g_object_force_floating",
       "g_param_spec_pool_new",
@@ -340,7 +375,9 @@ excludedFunctionSymbols := [
     [("Gio", "2.0")],
     [
       "g_dbus_error_register_error",
-      "g_dbus_error_unregister_error"
+      "g_dbus_error_unregister_error",
+      "g_settings_backend_changed_tree",
+      "g_settings_backend_flatten_tree"
     ]
   ),
   (
@@ -348,6 +385,7 @@ excludedFunctionSymbols := [
     [
       "pango_break",
       "pango_default_break",
+      "pango_font_find_shaper",
       "pango_get_log_attrs",
       "pango_glyph_item_letter_space",
       "pango_shape",

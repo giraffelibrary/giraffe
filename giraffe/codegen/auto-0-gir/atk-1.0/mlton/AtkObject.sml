@@ -1,6 +1,7 @@
 structure AtkObject :>
   ATK_OBJECT
     where type 'a class = 'a AtkObjectClass.class
+    where type layer_t = AtkLayer.t
     where type state_t = AtkState.t
     where type 'a relation_set_class = 'a AtkRelationSetClass.class
     where type 'a state_set_class = 'a AtkStateSetClass.class
@@ -27,8 +28,11 @@ structure AtkObject :>
             )
     val getDescription_ = _import "atk_object_get_description" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getIndexInParent_ = _import "atk_object_get_index_in_parent" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> GInt.FFI.val_;
+    val getLayer_ = _import "atk_object_get_layer" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkLayer.FFI.val_;
+    val getMdiZorder_ = _import "atk_object_get_mdi_zorder" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> GInt.FFI.val_;
     val getNAccessibleChildren_ = _import "atk_object_get_n_accessible_children" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> GInt.FFI.val_;
     val getName_ = _import "atk_object_get_name" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getObjectLocale_ = _import "atk_object_get_object_locale" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getParent_ = _import "atk_object_get_parent" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
     val getRole_ = _import "atk_object_get_role" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkRole.FFI.val_;
     val notifyStateChange_ =
@@ -48,6 +52,7 @@ structure AtkObject :>
               x2,
               x3
             )
+    val peekParent_ = _import "atk_object_peek_parent" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
     val refAccessibleChild_ = fn x1 & x2 => (_import "atk_object_ref_accessible_child" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p * GInt.FFI.val_ -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;) (x1, x2)
     val refRelationSet_ = _import "atk_object_ref_relation_set" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p;
     val refStateSet_ = _import "atk_object_ref_state_set" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p;
@@ -102,6 +107,7 @@ structure AtkObject :>
     val setParent_ = fn x1 & x2 => (_import "atk_object_set_parent" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> unit;) (x1, x2)
     val setRole_ = fn x1 & x2 => (_import "atk_object_set_role" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p * AtkRole.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a AtkObjectClass.class
+    type layer_t = AtkLayer.t
     type state_t = AtkState.t
     type 'a relation_set_class = 'a AtkRelationSetClass.class
     type 'a state_set_class = 'a AtkStateSetClass.class
@@ -124,8 +130,11 @@ structure AtkObject :>
         )
     fun getDescription self = (AtkObjectClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDescription_ self
     fun getIndexInParent self = (AtkObjectClass.FFI.withPtr ---> GInt.FFI.fromVal) getIndexInParent_ self
+    fun getLayer self = (AtkObjectClass.FFI.withPtr ---> AtkLayer.FFI.fromVal) getLayer_ self
+    fun getMdiZorder self = (AtkObjectClass.FFI.withPtr ---> GInt.FFI.fromVal) getMdiZorder_ self
     fun getNAccessibleChildren self = (AtkObjectClass.FFI.withPtr ---> GInt.FFI.fromVal) getNAccessibleChildren_ self
     fun getName self = (AtkObjectClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getObjectLocale self = (AtkObjectClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getObjectLocale_ self
     fun getParent self = (AtkObjectClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr false) getParent_ self
     fun getRole self = (AtkObjectClass.FFI.withPtr ---> AtkRole.FFI.fromVal) getRole_ self
     fun notifyStateChange self (state, value) =
@@ -141,6 +150,7 @@ structure AtkObject :>
            & state
            & value
         )
+    fun peekParent self = (AtkObjectClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr false) peekParent_ self
     fun refAccessibleChild self i = (AtkObjectClass.FFI.withPtr &&&> GInt.FFI.withVal ---> AtkObjectClass.FFI.fromPtr true) refAccessibleChild_ (self & i)
     fun refRelationSet self = (AtkObjectClass.FFI.withPtr ---> AtkRelationSetClass.FFI.fromPtr true) refRelationSet_ self
     fun refStateSet self = (AtkObjectClass.FFI.withPtr ---> AtkStateSetClass.FFI.fromPtr true) refStateSet_ self
@@ -166,7 +176,7 @@ structure AtkObject :>
       open ClosureMarshal Signal
     in
       fun focusEventSig f = signal "focus-event" (get 0w1 boolean ---> ret_void) f
-      fun stateChangeSig f = signal "state-change" (get 0w1 string &&&> get 0w2 boolean ---> ret_void) (fn object & p0 => f (object, p0))
+      fun stateChangeSig f = signal "state-change" (get 0w1 string &&&> get 0w2 boolean ---> ret_void) (fn arg1 & arg2 => f (arg1, arg2))
       fun visibleDataChangedSig f = signal "visible-data-changed" (void ---> ret_void) f
     end
     local

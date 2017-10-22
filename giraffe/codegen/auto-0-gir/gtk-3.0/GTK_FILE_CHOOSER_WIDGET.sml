@@ -12,4 +12,18 @@ signature GTK_FILE_CHOOSER_WIDGET =
     val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
     val new : file_chooser_action_t -> base class
+    val desktopFolderSig : (unit -> unit) -> 'a class Signal.t
+    val downFolderSig : (unit -> unit) -> 'a class Signal.t
+    val homeFolderSig : (unit -> unit) -> 'a class Signal.t
+    val locationPopupSig : (string -> unit) -> 'a class Signal.t
+    val locationPopupOnPasteSig : (unit -> unit) -> 'a class Signal.t
+    val locationTogglePopupSig : (unit -> unit) -> 'a class Signal.t
+    val placesShortcutSig : (unit -> unit) -> 'a class Signal.t
+    val quickBookmarkSig : (LargeInt.int -> unit) -> 'a class Signal.t
+    val recentShortcutSig : (unit -> unit) -> 'a class Signal.t
+    val searchShortcutSig : (unit -> unit) -> 'a class Signal.t
+    val showHiddenSig : (unit -> unit) -> 'a class Signal.t
+    val upFolderSig : (unit -> unit) -> 'a class Signal.t
+    val searchModeProp : ('a class, bool, bool) Property.readwrite
+    val subtitleProp : ('a class, string option) Property.readonly
   end

@@ -3,6 +3,9 @@ signature GIO_ACTION =
     type 'a class
     type t = base class
     val getType : unit -> GObject.Type.t
+    val nameIsValid : string -> bool
+    val parseDetailedName : string -> string * GLib.VariantRecord.t
+    val printDetailedName : string * GLib.VariantRecord.t option -> string
     val activate :
       'a class
        -> GLib.VariantRecord.t option
@@ -13,10 +16,10 @@ signature GIO_ACTION =
        -> unit
     val getEnabled : 'a class -> bool
     val getName : 'a class -> string
-    val getParameterType : 'a class -> GLib.VariantTypeRecord.t
+    val getParameterType : 'a class -> GLib.VariantTypeRecord.t option
     val getState : 'a class -> GLib.VariantRecord.t
-    val getStateHint : 'a class -> GLib.VariantRecord.t
-    val getStateType : 'a class -> GLib.VariantTypeRecord.t
+    val getStateHint : 'a class -> GLib.VariantRecord.t option
+    val getStateType : 'a class -> GLib.VariantTypeRecord.t option
     val enabledProp : ('a class, bool) Property.readonly
     val nameProp : ('a class, string option) Property.readonly
     val parameterTypeProp : ('a class, GLib.VariantTypeRecord.t option) Property.readonly

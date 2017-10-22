@@ -7,9 +7,12 @@ signature GTK_FILE_CHOOSER =
     type 'a widget_class
     type t = base class
     val getType : unit -> GObject.Type.t
-    val addFilter :
+    val addChoice :
       'a class
-       -> 'b file_filter_class
+       -> string
+           * string
+           * string
+           * string
        -> unit
     val addShortcutFolder :
       'a class
@@ -20,10 +23,15 @@ signature GTK_FILE_CHOOSER =
        -> string
        -> unit
     val getAction : 'a class -> file_chooser_action_t
+    val getChoice :
+      'a class
+       -> string
+       -> string
     val getCreateFolders : 'a class -> bool
     val getCurrentFolder : 'a class -> string option
     val getCurrentFolderFile : 'a class -> base Gio.FileClass.class
     val getCurrentFolderUri : 'a class -> string option
+    val getCurrentName : 'a class -> string
     val getDoOverwriteConfirmation : 'a class -> bool
     val getExtraWidget : 'a class -> base widget_class option
     val getFile : 'a class -> base Gio.FileClass.class
@@ -39,6 +47,10 @@ signature GTK_FILE_CHOOSER =
     val getShowHidden : 'a class -> bool
     val getUri : 'a class -> string option
     val getUsePreviewLabel : 'a class -> bool
+    val removeChoice :
+      'a class
+       -> string
+       -> unit
     val removeFilter :
       'a class
        -> 'b file_filter_class
@@ -67,6 +79,10 @@ signature GTK_FILE_CHOOSER =
     val setAction :
       'a class
        -> file_chooser_action_t
+       -> unit
+    val setChoice :
+      'a class
+       -> string * string
        -> unit
     val setCreateFolders :
       'a class

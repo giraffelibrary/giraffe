@@ -4,14 +4,14 @@ local
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
   ../glib-2.0/mlton.mlb
-  ../gobject-2.0/mlton.mlb
-  ../atk-1.0/mlton.mlb
-  ../gio-2.0/mlton.mlb
   ../gmodule-2.0/mlton.mlb
+  ../gobject-2.0/mlton.mlb
+  ../gio-2.0/mlton.mlb
   ../gdkpixbuf-2.0/mlton.mlb
   ../cairo-1.0/mlton.mlb
   ../pango-1.0/mlton.mlb
   ../gdk-3.0/mlton.mlb
+  ../atk-1.0/mlton.mlb
   ../xlib-2.0/mlton.mlb
   ../gtk-3.0/mlton.mlb
 in
@@ -22,6 +22,9 @@ in
   VTE_PTY.sml
   VTE_PTY_ERROR.sml
   VTE_PTY_FLAGS.sml
+  VTE_REGEX_RECORD.sml
+  VTE_REGEX.sml
+  VTE_REGEX_ERROR.sml
   VTE_TERMINAL_CLASS.sml
   VTE_TERMINAL.sml
   VTE_WRITE_FLAGS.sml
@@ -36,9 +39,12 @@ in
     mlton/VtePtyClass.sml
     mlton/VtePtyError.sml
     mlton/VtePtyFlags.sml
+    mlton/VteRegexRecord.sml
+    mlton/VteRegexError.sml
     mlton/VteTerminalClass.sml
     mlton/VteWriteFlags.sml
     mlton/VtePty.sml
+    mlton/VteRegex.sml
     mlton/VteTerminal.sml
     mlton/Vte.sml
   end

@@ -1,6 +1,7 @@
 structure GtkMenuItem :>
   GTK_MENU_ITEM
     where type 'a class = 'a GtkMenuItemClass.class
+    where type 'a actionable_class = 'a GtkActionableClass.class
     where type 'a activatable_class = 'a GtkActivatableClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class
@@ -51,16 +52,19 @@ structure GtkMenuItem :>
             )
     val setReserveIndicator_ = fn x1 & x2 => (_import "gtk_menu_item_set_reserve_indicator" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setRightJustified_ = fn x1 & x2 => (_import "gtk_menu_item_set_right_justified" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setSubmenu_ = fn x1 & x2 => (_import "gtk_menu_item_set_submenu" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setSubmenu_ = fn x1 & x2 => (_import "gtk_menu_item_set_submenu" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * unit GtkMenuClass.FFI.p -> unit;) (x1, x2)
     val setUseUnderline_ = fn x1 & x2 => (_import "gtk_menu_item_set_use_underline" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val toggleSizeAllocate_ = fn x1 & x2 => (_import "gtk_menu_item_toggle_size_allocate" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val toggleSizeRequest_ = fn x1 & x2 => (_import "gtk_menu_item_toggle_size_request" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * GInt.FFI.ref_ -> unit;) (x1, x2)
     type 'a class = 'a GtkMenuItemClass.class
+    type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type 'a menu_class = 'a GtkMenuClass.class
     type t = base class
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
     fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -80,9 +84,15 @@ structure GtkMenuItem :>
     fun setLabel self label = (GtkMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setLabel_ (self & label)
     fun setReserveIndicator self reserve = (GtkMenuItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setReserveIndicator_ (self & reserve)
     fun setRightJustified self rightJustified = (GtkMenuItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRightJustified_ (self & rightJustified)
-    fun setSubmenu self submenu = (GtkMenuItemClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setSubmenu_ (self & submenu)
+    fun setSubmenu self submenu = (GtkMenuItemClass.FFI.withPtr &&&> GtkMenuClass.FFI.withOptPtr ---> I) setSubmenu_ (self & submenu)
     fun setUseUnderline self setting = (GtkMenuItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseUnderline_ (self & setting)
     fun toggleSizeAllocate self allocation = (GtkMenuItemClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) toggleSizeAllocate_ (self & allocation)
+    fun toggleSizeRequest self requisition =
+      let
+        val requisition & () = (GtkMenuItemClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && I) toggleSizeRequest_ (self & requisition)
+      in
+        requisition
+      end
     local
       open ClosureMarshal Signal
     in

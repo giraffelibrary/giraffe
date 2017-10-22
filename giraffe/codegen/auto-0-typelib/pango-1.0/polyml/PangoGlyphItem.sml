@@ -6,7 +6,7 @@ structure PangoGlyphItem :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "pango_glyph_item_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val copy_ = call (getSymbol "pango_glyph_item_copy") (PangoGlyphItemRecord.PolyML.cPtr --> PangoGlyphItemRecord.PolyML.cPtr)
+      val copy_ = call (getSymbol "pango_glyph_item_copy") (PangoGlyphItemRecord.PolyML.cPtr --> PangoGlyphItemRecord.PolyML.cOptPtr)
       val split_ =
         call (getSymbol "pango_glyph_item_split")
           (
@@ -18,7 +18,7 @@ structure PangoGlyphItem :>
     end
     type t = PangoGlyphItemRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun copy self = (PangoGlyphItemRecord.FFI.withPtr ---> PangoGlyphItemRecord.FFI.fromPtr true) copy_ self
+    fun copy self = (PangoGlyphItemRecord.FFI.withPtr ---> PangoGlyphItemRecord.FFI.fromOptPtr true) copy_ self
     fun split self (text, splitIndex) =
       (
         PangoGlyphItemRecord.FFI.withPtr

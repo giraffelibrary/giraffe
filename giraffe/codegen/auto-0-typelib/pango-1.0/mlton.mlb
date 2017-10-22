@@ -8,6 +8,8 @@ local
   ../cairo-1.0/mlton.mlb
 in
   PANGO_ALIGNMENT.sml
+  PANGO_ANALYSIS_RECORD.sml
+  PANGO_ANALYSIS.sml
   PANGO_ATTR_LIST_RECORD.sml
   PANGO_ATTR_LIST.sml
   PANGO_ATTR_TYPE.sml
@@ -21,6 +23,12 @@ in
   PANGO_COVERAGE_LEVEL.sml
   PANGO_DIRECTION.sml
   PANGO_ELLIPSIZE_MODE.sml
+  PANGO_ENGINE_CLASS.sml
+  PANGO_ENGINE.sml
+  PANGO_ENGINE_LANG_CLASS.sml
+  PANGO_ENGINE_LANG.sml
+  PANGO_ENGINE_SHAPE_CLASS.sml
+  PANGO_ENGINE_SHAPE.sml
   PANGO_FONT_CLASS.sml
   PANGO_FONT.sml
   PANGO_FONT_DESCRIPTION_RECORD.sml
@@ -36,12 +44,16 @@ in
   PANGO_FONT_METRICS.sml
   PANGO_FONTSET_CLASS.sml
   PANGO_FONTSET.sml
+  PANGO_FONTSET_SIMPLE_CLASS.sml
+  PANGO_FONTSET_SIMPLE.sml
   PANGO_GLYPH_ITEM_RECORD.sml
   PANGO_GLYPH_ITEM.sml
   PANGO_GLYPH_STRING_RECORD.sml
   PANGO_GLYPH_STRING.sml
   PANGO_GRAVITY.sml
   PANGO_GRAVITY_HINT.sml
+  PANGO_ITEM_RECORD.sml
+  PANGO_ITEM.sml
   PANGO_LANGUAGE_RECORD.sml
   PANGO_LANGUAGE.sml
   PANGO_LAYOUT_CLASS.sml
@@ -75,6 +87,7 @@ in
     "resolveScope topdec"
   in
     mlton/PangoAlignment.sml
+    mlton/PangoAnalysisRecord.sml
     mlton/PangoAttrListRecord.sml
     mlton/PangoAttrType.sml
     mlton/PangoAttributeRecord.sml
@@ -84,6 +97,7 @@ in
     mlton/PangoCoverageLevel.sml
     mlton/PangoDirection.sml
     mlton/PangoEllipsizeMode.sml
+    mlton/PangoEngineClass.sml
     mlton/PangoFontClass.sml
     mlton/PangoFontDescriptionRecord.sml
     mlton/PangoFontFaceClass.sml
@@ -95,6 +109,7 @@ in
     mlton/PangoGlyphItemRecord.sml
     mlton/PangoGlyphStringRecord.sml
     mlton/PangoGravityHint.sml
+    mlton/PangoItemRecord.sml
     mlton/PangoLanguageRecord.sml
     mlton/PangoLayoutClass.sml
     mlton/PangoLayoutIterRecord.sml
@@ -112,17 +127,23 @@ in
     mlton/PangoVariant.sml
     mlton/PangoWeight.sml
     mlton/PangoWrapMode.sml
+    mlton/PangoAnalysis.sml
     mlton/PangoAttrList.sml
     mlton/PangoAttribute.sml
     mlton/PangoColor.sml
+    mlton/PangoEngine.sml
+    mlton/PangoEngineLangClass.sml
+    mlton/PangoEngineShapeClass.sml
     mlton/PangoFont.sml
     mlton/PangoFontFace.sml
     mlton/PangoFontFamily.sml
     mlton/PangoFontMap.sml
     mlton/PangoFontMetrics.sml
     mlton/PangoFontset.sml
+    mlton/PangoFontsetSimpleClass.sml
     mlton/PangoGlyphItem.sml
     mlton/PangoGlyphString.sml
+    mlton/PangoItem.sml
     mlton/PangoLayout.sml
     mlton/PangoLayoutIter.sml
     mlton/PangoLayoutLine.sml
@@ -132,6 +153,9 @@ in
     mlton/PangoRenderer.sml
     mlton/PangoScript.sml
     mlton/PangoTabArray.sml
+    mlton/PangoEngineLang.sml
+    mlton/PangoEngineShape.sml
+    mlton/PangoFontsetSimple.sml
     mlton/PangoGravity.sml
     mlton/PangoLanguage.sml
     mlton/PangoContext.sml

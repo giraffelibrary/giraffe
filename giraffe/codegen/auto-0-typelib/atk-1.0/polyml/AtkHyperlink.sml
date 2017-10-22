@@ -14,6 +14,7 @@ structure AtkHyperlink :>
       val getStartIndex_ = call (getSymbol "atk_hyperlink_get_start_index") (AtkHyperlinkClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getUri_ = call (getSymbol "atk_hyperlink_get_uri") (AtkHyperlinkClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val isInline_ = call (getSymbol "atk_hyperlink_is_inline") (AtkHyperlinkClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isSelectedLink_ = call (getSymbol "atk_hyperlink_is_selected_link") (AtkHyperlinkClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val isValid_ = call (getSymbol "atk_hyperlink_is_valid") (AtkHyperlinkClass.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a AtkHyperlinkClass.class
@@ -28,6 +29,7 @@ structure AtkHyperlink :>
     fun getStartIndex self = (AtkHyperlinkClass.FFI.withPtr ---> GInt32.FFI.fromVal) getStartIndex_ self
     fun getUri self i = (AtkHyperlinkClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 1) getUri_ (self & i)
     fun isInline self = (AtkHyperlinkClass.FFI.withPtr ---> GBool.FFI.fromVal) isInline_ self
+    fun isSelectedLink self = (AtkHyperlinkClass.FFI.withPtr ---> GBool.FFI.fromVal) isSelectedLink_ self
     fun isValid self = (AtkHyperlinkClass.FFI.withPtr ---> GBool.FFI.fromVal) isValid_ self
     local
       open ClosureMarshal Signal

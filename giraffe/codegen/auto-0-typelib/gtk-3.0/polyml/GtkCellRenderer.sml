@@ -20,8 +20,8 @@ structure GtkCellRenderer :>
              &&> GdkEvent.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              &&> GtkCellRendererState.PolyML.cVal
              --> GBool.PolyML.cVal
           )
@@ -31,8 +31,8 @@ structure GtkCellRenderer :>
             GtkCellRendererClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GtkCellRendererState.PolyML.cVal
-             &&> CairoRectangleIntRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              --> cVoid
           )
       val getAlignment_ =
@@ -113,7 +113,7 @@ structure GtkCellRenderer :>
           (
             GtkCellRendererClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cOptPtr
+             &&> GdkRectangleRecord.PolyML.cOptPtr
              &&> GInt32.PolyML.cRef
              &&> GInt32.PolyML.cRef
              &&> GInt32.PolyML.cRef
@@ -124,7 +124,7 @@ structure GtkCellRenderer :>
         call (getSymbol "gtk_cell_renderer_get_state")
           (
             GtkCellRendererClass.PolyML.cPtr
-             &&> GtkWidgetClass.PolyML.cPtr
+             &&> GtkWidgetClass.PolyML.cOptPtr
              &&> GtkCellRendererState.PolyML.cVal
              --> GtkStateFlags.PolyML.cVal
           )
@@ -136,8 +136,8 @@ structure GtkCellRenderer :>
             GtkCellRendererClass.PolyML.cPtr
              &&> CairoContextRecord.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              &&> GtkCellRendererState.PolyML.cVal
              --> cVoid
           )
@@ -171,13 +171,13 @@ structure GtkCellRenderer :>
         call (getSymbol "gtk_cell_renderer_start_editing")
           (
             GtkCellRendererClass.PolyML.cPtr
-             &&> GdkEvent.PolyML.cPtr
+             &&> GdkEvent.PolyML.cOptPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
-             &&> CairoRectangleIntRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
+             &&> GdkRectangleRecord.PolyML.cPtr
              &&> GtkCellRendererState.PolyML.cVal
-             --> GtkCellEditableClass.PolyML.cPtr
+             --> GtkCellEditableClass.PolyML.cOptPtr
           )
       val stopEditing_ = call (getSymbol "gtk_cell_renderer_stop_editing") (GtkCellRendererClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
@@ -206,8 +206,8 @@ structure GtkCellRenderer :>
          &&&> GdkEvent.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkCellRendererState.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -234,9 +234,9 @@ structure GtkCellRenderer :>
             GtkCellRendererClass.FFI.withPtr
              &&&> GtkWidgetClass.FFI.withPtr
              &&&> GtkCellRendererState.FFI.withVal
-             &&&> CairoRectangleIntRecord.FFI.withPtr
-             &&&> CairoRectangleIntRecord.FFI.withNewPtr
-             ---> CairoRectangleIntRecord.FFI.fromPtr true && I
+             &&&> GdkRectangleRecord.FFI.withPtr
+             &&&> GdkRectangleRecord.FFI.withNewPtr
+             ---> GdkRectangleRecord.FFI.fromPtr true && I
           )
             getAlignedArea_
             (
@@ -451,7 +451,7 @@ structure GtkCellRenderer :>
           (
             GtkCellRendererClass.FFI.withPtr
              &&&> GtkWidgetClass.FFI.withPtr
-             &&&> CairoRectangleIntRecord.FFI.withOptPtr
+             &&&> GdkRectangleRecord.FFI.withOptPtr
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
@@ -483,7 +483,7 @@ structure GtkCellRenderer :>
     fun getState self (widget, cellState) =
       (
         GtkCellRendererClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr
          &&&> GtkCellRendererState.FFI.withVal
          ---> GtkStateFlags.FFI.fromVal
       )
@@ -508,8 +508,8 @@ structure GtkCellRenderer :>
         GtkCellRendererClass.FFI.withPtr
          &&&> CairoContextRecord.FFI.withPtr
          &&&> GtkWidgetClass.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkCellRendererState.FFI.withVal
          ---> I
       )
@@ -575,13 +575,13 @@ structure GtkCellRenderer :>
       ) =
       (
         GtkCellRendererClass.FFI.withPtr
-         &&&> GdkEvent.FFI.withPtr
+         &&&> GdkEvent.FFI.withOptPtr
          &&&> GtkWidgetClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
-         &&&> CairoRectangleIntRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
+         &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkCellRendererState.FFI.withVal
-         ---> GtkCellEditableClass.FFI.fromPtr false
+         ---> GtkCellEditableClass.FFI.fromOptPtr false
       )
         startEditing_
         (

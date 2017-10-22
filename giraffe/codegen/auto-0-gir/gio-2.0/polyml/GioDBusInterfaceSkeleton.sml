@@ -2,8 +2,8 @@ structure GioDBusInterfaceSkeleton :>
   GIO_D_BUS_INTERFACE_SKELETON
     where type 'a class = 'a GioDBusInterfaceSkeletonClass.class
     where type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class
-    where type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
     where type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t
+    where type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
     where type 'a d_bus_method_invocation_class = 'a GioDBusMethodInvocationClass.class
     where type d_bus_interface_skeleton_flags_t = GioDBusInterfaceSkeletonFlags.t =
   struct
@@ -26,13 +26,15 @@ structure GioDBusInterfaceSkeleton :>
       val getInfo_ = call (getSymbol "g_dbus_interface_skeleton_get_info") (GioDBusInterfaceSkeletonClass.PolyML.cPtr --> GioDBusInterfaceInfoRecord.PolyML.cPtr)
       val getObjectPath_ = call (getSymbol "g_dbus_interface_skeleton_get_object_path") (GioDBusInterfaceSkeletonClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getProperties_ = call (getSymbol "g_dbus_interface_skeleton_get_properties") (GioDBusInterfaceSkeletonClass.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
+      val hasConnection_ = call (getSymbol "g_dbus_interface_skeleton_has_connection") (GioDBusInterfaceSkeletonClass.PolyML.cPtr &&> GioDBusConnectionClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setFlags_ = call (getSymbol "g_dbus_interface_skeleton_set_flags") (GioDBusInterfaceSkeletonClass.PolyML.cPtr &&> GioDBusInterfaceSkeletonFlags.PolyML.cVal --> cVoid)
       val unexport_ = call (getSymbol "g_dbus_interface_skeleton_unexport") (GioDBusInterfaceSkeletonClass.PolyML.cPtr --> cVoid)
+      val unexportFromConnection_ = call (getSymbol "g_dbus_interface_skeleton_unexport_from_connection") (GioDBusInterfaceSkeletonClass.PolyML.cPtr &&> GioDBusConnectionClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GioDBusInterfaceSkeletonClass.class
     type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class
-    type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
     type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t
+    type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
     type 'a d_bus_method_invocation_class = 'a GioDBusMethodInvocationClass.class
     type d_bus_interface_skeleton_flags_t = GioDBusInterfaceSkeletonFlags.t
     type t = base class
@@ -59,8 +61,10 @@ structure GioDBusInterfaceSkeleton :>
     fun getInfo self = (GioDBusInterfaceSkeletonClass.FFI.withPtr ---> GioDBusInterfaceInfoRecord.FFI.fromPtr false) getInfo_ self
     fun getObjectPath self = (GioDBusInterfaceSkeletonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
     fun getProperties self = (GioDBusInterfaceSkeletonClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getProperties_ self
+    fun hasConnection self connection = (GioDBusInterfaceSkeletonClass.FFI.withPtr &&&> GioDBusConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) hasConnection_ (self & connection)
     fun setFlags self flags = (GioDBusInterfaceSkeletonClass.FFI.withPtr &&&> GioDBusInterfaceSkeletonFlags.FFI.withVal ---> I) setFlags_ (self & flags)
     fun unexport self = (GioDBusInterfaceSkeletonClass.FFI.withPtr ---> I) unexport_ self
+    fun unexportFromConnection self connection = (GioDBusInterfaceSkeletonClass.FFI.withPtr &&&> GioDBusConnectionClass.FFI.withPtr ---> I) unexportFromConnection_ (self & connection)
     local
       open ClosureMarshal Signal
     in

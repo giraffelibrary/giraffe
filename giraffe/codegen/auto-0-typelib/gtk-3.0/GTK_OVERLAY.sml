@@ -12,5 +12,17 @@ signature GTK_OVERLAY =
       'a class
        -> 'b widget_class
        -> unit
-    val getChildPositionSig : (base widget_class -> bool * Cairo.RectangleIntRecord.t) -> 'a class Signal.t
+    val getOverlayPassThrough :
+      'a class
+       -> 'b widget_class
+       -> bool
+    val reorderOverlay :
+      'a class
+       -> 'b widget_class * LargeInt.int
+       -> unit
+    val setOverlayPassThrough :
+      'a class
+       -> 'b widget_class * bool
+       -> unit
+    val getChildPositionSig : (base widget_class -> bool * Gdk.RectangleRecord.t) -> 'a class Signal.t
   end

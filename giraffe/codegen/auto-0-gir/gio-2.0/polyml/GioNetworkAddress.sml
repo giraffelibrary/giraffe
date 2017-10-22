@@ -7,14 +7,15 @@ structure GioNetworkAddress :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "g_network_address_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "g_network_address_new") (Utf8.PolyML.cInPtr &&> GUInt16.PolyML.cVal --> GioSocketConnectableClass.PolyML.cPtr)
+      val new_ = call (getSymbol "g_network_address_new") (Utf8.PolyML.cInPtr &&> GUInt16.PolyML.cVal --> GioNetworkAddressClass.PolyML.cPtr)
+      val newLoopback_ = call (getSymbol "g_network_address_new_loopback") (GUInt16.PolyML.cVal --> GioNetworkAddressClass.PolyML.cPtr)
       val parse_ =
         call (getSymbol "g_network_address_parse")
           (
             Utf8.PolyML.cInPtr
              &&> GUInt16.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GioSocketConnectableClass.PolyML.cPtr
+             --> GioNetworkAddressClass.PolyML.cPtr
           )
       val parseUri_ =
         call (getSymbol "g_network_address_parse_uri")
@@ -22,7 +23,7 @@ structure GioNetworkAddress :>
             Utf8.PolyML.cInPtr
              &&> GUInt16.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GioSocketConnectableClass.PolyML.cPtr
+             --> GioNetworkAddressClass.PolyML.cPtr
           )
       val getHostname_ = call (getSymbol "g_network_address_get_hostname") (GioNetworkAddressClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getPort_ = call (getSymbol "g_network_address_get_port") (GioNetworkAddressClass.PolyML.cPtr --> GUInt16.PolyML.cVal)
@@ -33,13 +34,14 @@ structure GioNetworkAddress :>
     type t = base class
     fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (hostname, port) = (Utf8.FFI.withPtr &&&> GUInt16.FFI.withVal ---> GioSocketConnectableClass.FFI.fromPtr true) new_ (hostname & port)
+    fun new (hostname, port) = (Utf8.FFI.withPtr &&&> GUInt16.FFI.withVal ---> GioNetworkAddressClass.FFI.fromPtr true) new_ (hostname & port)
+    fun newLoopback port = (GUInt16.FFI.withVal ---> GioNetworkAddressClass.FFI.fromPtr true) newLoopback_ port
     fun parse (hostAndPort, defaultPort) =
       (
         Utf8.FFI.withPtr
          &&&> GUInt16.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GioSocketConnectableClass.FFI.fromPtr true
+         ---> GioNetworkAddressClass.FFI.fromPtr true
       )
         parse_
         (
@@ -52,7 +54,7 @@ structure GioNetworkAddress :>
         Utf8.FFI.withPtr
          &&&> GUInt16.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GioSocketConnectableClass.FFI.fromPtr true
+         ---> GioNetworkAddressClass.FFI.fromPtr true
       )
         parseUri_
         (

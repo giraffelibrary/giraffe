@@ -1,7 +1,9 @@
 signature GTK_SOURCE_BUFFER =
   sig
     type 'a class
+    type change_case_type_t
     type 'a mark_class
+    type sort_flags_t
     type bracket_match_type_t
     type 'a language_class
     type 'a style_scheme_class
@@ -17,6 +19,12 @@ signature GTK_SOURCE_BUFFER =
     val beginNotUndoableAction : 'a class -> unit
     val canRedo : 'a class -> bool
     val canUndo : 'a class -> bool
+    val changeCase :
+      'a class
+       -> change_case_type_t
+           * Gtk.TextIterRecord.t
+           * Gtk.TextIterRecord.t
+       -> unit
     val createSourceMark :
       'a class
        -> string option
@@ -38,6 +46,7 @@ signature GTK_SOURCE_BUFFER =
        -> string list
     val getHighlightMatchingBrackets : 'a class -> bool
     val getHighlightSyntax : 'a class -> bool
+    val getImplicitTrailingNewline : 'a class -> bool
     val getLanguage : 'a class -> base language_class
     val getMaxUndoLevels : 'a class -> LargeInt.int
     val getStyleScheme : 'a class -> base style_scheme_class
@@ -54,6 +63,10 @@ signature GTK_SOURCE_BUFFER =
       'a class
        -> Gtk.TextIterRecord.t * string
        -> bool
+    val joinLines :
+      'a class
+       -> Gtk.TextIterRecord.t * Gtk.TextIterRecord.t
+       -> unit
     val redo : 'a class -> unit
     val removeSourceMarks :
       'a class
@@ -66,6 +79,10 @@ signature GTK_SOURCE_BUFFER =
        -> bool
        -> unit
     val setHighlightSyntax :
+      'a class
+       -> bool
+       -> unit
+    val setImplicitTrailingNewline :
       'a class
        -> bool
        -> unit
@@ -85,6 +102,13 @@ signature GTK_SOURCE_BUFFER =
       'a class
        -> 'b undo_manager_class option
        -> unit
+    val sortLines :
+      'a class
+       -> Gtk.TextIterRecord.t
+           * Gtk.TextIterRecord.t
+           * sort_flags_t
+           * LargeInt.int
+       -> unit
     val undo : 'a class -> unit
     val bracketMatchedSig : (Gtk.TextIterRecord.t * bracket_match_type_t -> unit) -> 'a class Signal.t
     val highlightUpdatedSig : (Gtk.TextIterRecord.t * Gtk.TextIterRecord.t -> unit) -> 'a class Signal.t
@@ -95,6 +119,7 @@ signature GTK_SOURCE_BUFFER =
     val canUndoProp : ('a class, bool) Property.readonly
     val highlightMatchingBracketsProp : ('a class, bool, bool) Property.readwrite
     val highlightSyntaxProp : ('a class, bool, bool) Property.readwrite
+    val implicitTrailingNewlineProp : ('a class, bool, bool) Property.readwrite
     val languageProp : ('a class, base language_class option, 'b language_class option) Property.readwrite
     val maxUndoLevelsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val styleSchemeProp : ('a class, base style_scheme_class option, 'b style_scheme_class option) Property.readwrite

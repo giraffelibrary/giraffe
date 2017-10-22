@@ -8,7 +8,7 @@ signature GTK_SOURCE_GUTTER =
     val getRendererAtPos :
       'a class
        -> LargeInt.int * LargeInt.int
-       -> base gutter_renderer_class
+       -> base gutter_renderer_class option
     val getWindow : 'a class -> base Gdk.WindowClass.class
     val insert :
       'a class

@@ -333,19 +333,24 @@ structure GtkThemingEngine :>
     fun getPath self = (GtkThemingEngineClass.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self
     fun getScreen self = (GtkThemingEngineClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
     fun getState self = (GtkThemingEngineClass.FFI.withPtr ---> GtkStateFlags.FFI.fromVal) getState_ self
-    fun getStyleProperty self (propertyName, value) =
-      (
-        GtkThemingEngineClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectValueRecord.FFI.withPtr
-         ---> I
-      )
-        getStyleProperty_
-        (
-          self
-           & propertyName
-           & value
-        )
+    fun getStyleProperty self propertyName =
+      let
+        val value & () =
+          (
+            GtkThemingEngineClass.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GObjectValueRecord.FFI.withNewPtr
+             ---> GObjectValueRecord.FFI.fromPtr true && I
+          )
+            getStyleProperty_
+            (
+              self
+               & propertyName
+               & ()
+            )
+      in
+        value
+      end
     fun hasClass self styleClass = (GtkThemingEngineClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasClass_ (self & styleClass)
     fun hasRegion self styleRegion =
       let

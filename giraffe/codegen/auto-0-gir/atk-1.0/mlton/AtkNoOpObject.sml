@@ -9,6 +9,7 @@ structure AtkNoOpObject :>
     where type 'a image_class = 'a AtkImageClass.class
     where type 'a selection_class = 'a AtkSelectionClass.class
     where type 'a table_class = 'a AtkTableClass.class
+    where type 'a table_cell_class = 'a AtkTableCellClass.class
     where type 'a text_class = 'a AtkTextClass.class
     where type 'a value_class = 'a AtkValueClass.class
     where type 'a window_class = 'a AtkWindowClass.class =
@@ -24,6 +25,7 @@ structure AtkNoOpObject :>
     type 'a image_class = 'a AtkImageClass.class
     type 'a selection_class = 'a AtkSelectionClass.class
     type 'a table_class = 'a AtkTableClass.class
+    type 'a table_cell_class = 'a AtkTableCellClass.class
     type 'a text_class = 'a AtkTextClass.class
     type 'a value_class = 'a AtkValueClass.class
     type 'a window_class = 'a AtkWindowClass.class
@@ -36,6 +38,7 @@ structure AtkNoOpObject :>
     fun asImage self = (GObjectObjectClass.FFI.withPtr ---> AtkImageClass.FFI.fromPtr false) I self
     fun asSelection self = (GObjectObjectClass.FFI.withPtr ---> AtkSelectionClass.FFI.fromPtr false) I self
     fun asTable self = (GObjectObjectClass.FFI.withPtr ---> AtkTableClass.FFI.fromPtr false) I self
+    fun asTableCell self = (GObjectObjectClass.FFI.withPtr ---> AtkTableCellClass.FFI.fromPtr false) I self
     fun asText self = (GObjectObjectClass.FFI.withPtr ---> AtkTextClass.FFI.fromPtr false) I self
     fun asValue self = (GObjectObjectClass.FFI.withPtr ---> AtkValueClass.FFI.fromPtr false) I self
     fun asWindow self = (GObjectObjectClass.FFI.withPtr ---> AtkWindowClass.FFI.fromPtr false) I self

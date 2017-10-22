@@ -2,7 +2,13 @@ structure GtkDialogFlags :> GTK_DIALOG_FLAGS =
   struct
     val MODAL = 0w1
     val DESTROY_WITH_PARENT = 0w2
-    val allFlags = [MODAL, DESTROY_WITH_PARENT]
+    val USE_HEADER_BAR = 0w4
+    val allFlags =
+      [
+        MODAL,
+        DESTROY_WITH_PARENT,
+        USE_HEADER_BAR
+      ]
     structure Flags =
       Flags(
         val allFlags = allFlags

@@ -22,6 +22,10 @@ signature GDK_EVENT_MASK =
     val PROXIMITY_OUT_MASK : t
     val SUBSTRUCTURE_MASK : t
     val SCROLL_MASK : t
+    val TOUCH_MASK : t
+    val SMOOTH_SCROLL_MASK : t
+    val TOUCHPAD_GESTURE_MASK : t
+    val TABLET_PAD_MASK : t
     val ALL_EVENTS_MASK : t
     val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t

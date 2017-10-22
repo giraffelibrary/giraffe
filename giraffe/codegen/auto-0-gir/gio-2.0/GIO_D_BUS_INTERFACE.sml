@@ -5,10 +5,10 @@ signature GIO_D_BUS_INTERFACE =
     type 'a d_bus_object_class
     type t = base class
     val getType : unit -> GObject.Type.t
+    val dupObject : 'a class -> base d_bus_object_class
     val getInfo : 'a class -> d_bus_interface_info_t
-    val getObject : 'a class -> base d_bus_object_class
     val setObject :
       'a class
-       -> 'b d_bus_object_class
+       -> 'b d_bus_object_class option
        -> unit
   end

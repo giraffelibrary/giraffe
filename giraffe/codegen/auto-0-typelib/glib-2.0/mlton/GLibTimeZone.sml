@@ -3,6 +3,10 @@ structure GLibTimeZone :>
     where type t = GLibTimeZoneRecord.t
     where type time_type_t = GLibTimeType.t =
   struct
+    val getType_ = _import "g_time_zone_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "mlton_g_time_zone_new" : Utf8.MLton.p1 * unit Utf8.MLton.p2 -> GLibTimeZoneRecord.FFI.notnull GLibTimeZoneRecord.FFI.p;
+    val newLocal_ = _import "g_time_zone_new_local" : unit -> GLibTimeZoneRecord.FFI.notnull GLibTimeZoneRecord.FFI.p;
+    val newUtc_ = _import "g_time_zone_new_utc" : unit -> GLibTimeZoneRecord.FFI.notnull GLibTimeZoneRecord.FFI.p;
     val findInterval_ =
       fn
         x1
@@ -25,6 +29,10 @@ structure GLibTimeZone :>
     val isDst_ = fn x1 & x2 => (_import "g_time_zone_is_dst" : GLibTimeZoneRecord.FFI.notnull GLibTimeZoneRecord.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     type t = GLibTimeZoneRecord.t
     type time_type_t = GLibTimeType.t
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new identifier = (Utf8.FFI.withOptPtr ---> GLibTimeZoneRecord.FFI.fromPtr true) new_ identifier
+    fun newLocal () = (I ---> GLibTimeZoneRecord.FFI.fromPtr true) newLocal_ ()
+    fun newUtc () = (I ---> GLibTimeZoneRecord.FFI.fromPtr true) newUtc_ ()
     fun findInterval self (type', time) =
       (
         GLibTimeZoneRecord.FFI.withPtr

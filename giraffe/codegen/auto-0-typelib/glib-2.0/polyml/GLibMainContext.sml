@@ -20,6 +20,7 @@ structure GLibMainContext :>
       val wakeup_ = call (getSymbol "g_main_context_wakeup") (GLibMainContextRecord.PolyML.cPtr --> cVoid)
       val default_ = call (getSymbol "g_main_context_default") (cVoid --> GLibMainContextRecord.PolyML.cPtr)
       val getThreadDefault_ = call (getSymbol "g_main_context_get_thread_default") (cVoid --> GLibMainContextRecord.PolyML.cPtr)
+      val refThreadDefault_ = call (getSymbol "g_main_context_ref_thread_default") (cVoid --> GLibMainContextRecord.PolyML.cPtr)
     end
     type t = GLibMainContextRecord.t
     type source_t = GLibSourceRecord.t
@@ -37,4 +38,5 @@ structure GLibMainContext :>
     fun wakeup self = (GLibMainContextRecord.FFI.withPtr ---> I) wakeup_ self
     fun default () = (I ---> GLibMainContextRecord.FFI.fromPtr false) default_ ()
     fun getThreadDefault () = (I ---> GLibMainContextRecord.FFI.fromPtr false) getThreadDefault_ ()
+    fun refThreadDefault () = (I ---> GLibMainContextRecord.FFI.fromPtr true) refThreadDefault_ ()
   end

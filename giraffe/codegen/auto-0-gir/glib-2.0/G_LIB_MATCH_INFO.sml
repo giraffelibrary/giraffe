@@ -11,6 +11,7 @@ signature G_LIB_MATCH_INFO =
       t
        -> LargeInt.int
        -> string
+    val fetchAll : t -> string list
     val fetchNamed :
       t
        -> string

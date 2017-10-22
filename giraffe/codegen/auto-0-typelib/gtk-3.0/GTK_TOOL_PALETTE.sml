@@ -37,11 +37,11 @@ signature GTK_TOOL_PALETTE =
     val getDropGroup :
       'a class
        -> LargeInt.int * LargeInt.int
-       -> base tool_item_group_class
+       -> base tool_item_group_class option
     val getDropItem :
       'a class
        -> LargeInt.int * LargeInt.int
-       -> base tool_item_class
+       -> base tool_item_class option
     val getExclusive :
       'a class
        -> 'b tool_item_group_class

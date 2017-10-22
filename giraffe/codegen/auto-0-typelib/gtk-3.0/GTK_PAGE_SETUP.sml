@@ -8,6 +8,7 @@ signature GTK_PAGE_SETUP =
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
     val newFromFile : string -> base class
+    val newFromGvariant : GLib.VariantRecord.t -> base class
     val newFromKeyFile : GLib.KeyFileRecord.t * string option -> base class
     val copy : 'a class -> base class
     val getBottomMargin :
@@ -84,6 +85,7 @@ signature GTK_PAGE_SETUP =
       'a class
        -> string
        -> unit
+    val toGvariant : 'a class -> GLib.VariantRecord.t
     val toKeyFile :
       'a class
        -> GLib.KeyFileRecord.t * string

@@ -19,6 +19,7 @@ structure GtkSourceLanguage :>
       val getMimeTypes_ = call (getSymbol "gtk_source_language_get_mime_types") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val getName_ = call (getSymbol "gtk_source_language_get_name") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getSection_ = call (getSymbol "gtk_source_language_get_section") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getStyleFallback_ = call (getSymbol "gtk_source_language_get_style_fallback") (GtkSourceLanguageClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val getStyleIds_ = call (getSymbol "gtk_source_language_get_style_ids") (GtkSourceLanguageClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val getStyleName_ = call (getSymbol "gtk_source_language_get_style_name") (GtkSourceLanguageClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
     end
@@ -32,6 +33,7 @@ structure GtkSourceLanguage :>
     fun getMimeTypes self = (GtkSourceLanguageClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getMimeTypes_ self
     fun getName self = (GtkSourceLanguageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
     fun getSection self = (GtkSourceLanguageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSection_ self
+    fun getStyleFallback self styleId = (GtkSourceLanguageClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStyleFallback_ (self & styleId)
     fun getStyleIds self = (GtkSourceLanguageClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getStyleIds_ self
     fun getStyleName self styleId = (GtkSourceLanguageClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStyleName_ (self & styleId)
     local

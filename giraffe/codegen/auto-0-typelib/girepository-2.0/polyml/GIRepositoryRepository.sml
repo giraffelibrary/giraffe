@@ -17,6 +17,7 @@ structure GIRepositoryRepository :>
       val getType_ = call (getSymbol "g_irepository_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val dump_ = call (getSymbol "g_irepository_dump") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val getDefault_ = call (getSymbol "g_irepository_get_default") (cVoid --> GIRepositoryRepositoryClass.PolyML.cPtr)
+      val prependLibraryPath_ = call (getSymbol "g_irepository_prepend_library_path") (Utf8.PolyML.cInPtr --> cVoid)
       val prependSearchPath_ = call (getSymbol "g_irepository_prepend_search_path") (Utf8.PolyML.cInPtr --> cVoid)
       val findByErrorDomain_ = call (getSymbol "g_irepository_find_by_error_domain") (GIRepositoryRepositoryClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> GIRepositoryBaseInfoRecord.PolyML.cPtr)
       val findByName_ =
@@ -29,6 +30,7 @@ structure GIRepositoryRepository :>
           )
       val getCPrefix_ = call (getSymbol "g_irepository_get_c_prefix") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val getDependencies_ = call (getSymbol "g_irepository_get_dependencies") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getImmediateDependencies_ = call (getSymbol "g_irepository_get_immediate_dependencies") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
       val getInfo_ =
         call (getSymbol "g_irepository_get_info")
           (
@@ -89,6 +91,7 @@ structure GIRepositoryRepository :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun dump arg = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) dump_ (arg & [])
     fun getDefault () = (I ---> GIRepositoryRepositoryClass.FFI.fromPtr false) getDefault_ ()
+    fun prependLibraryPath directory = (Utf8.FFI.withPtr ---> I) prependLibraryPath_ directory
     fun prependSearchPath directory = (Utf8.FFI.withPtr ---> I) prependSearchPath_ directory
     fun findByErrorDomain self domain = (GIRepositoryRepositoryClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> GIRepositoryBaseInfoRecord.FFI.fromPtr true) findByErrorDomain_ (self & domain)
     fun findByName self (namespace, name) =
@@ -106,6 +109,7 @@ structure GIRepositoryRepository :>
         )
     fun getCPrefix self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCPrefix_ (self & namespace)
     fun getDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getDependencies_ (self & namespace)
+    fun getImmediateDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getImmediateDependencies_ (self & namespace)
     fun getInfo self (namespace, index) =
       (
         GIRepositoryRepositoryClass.FFI.withPtr

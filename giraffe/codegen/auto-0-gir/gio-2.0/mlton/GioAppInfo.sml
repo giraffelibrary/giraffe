@@ -3,8 +3,15 @@ structure GioAppInfo :>
     where type 'a class = 'a GioAppInfoClass.class
     where type app_info_create_flags_t = GioAppInfoCreateFlags.t
     where type 'a app_launch_context_class = 'a GioAppLaunchContextClass.class
+    where type 'a async_result_class = 'a GioAsyncResultClass.class
     where type 'a icon_class = 'a GioIconClass.class =
   struct
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_app_info_get_type" : unit -> GObjectType.FFI.val_;
     val createFromCommandline_ =
       fn
@@ -65,6 +72,7 @@ structure GioAppInfo :>
               x3,
               x4
             )
+    val launchDefaultForUriFinish_ = fn x1 & x2 => (_import "g_app_info_launch_default_for_uri_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
     val resetTypeAssociations_ = _import "mlton_g_app_info_reset_type_associations" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
     val addSupportsType_ =
       fn
@@ -97,6 +105,7 @@ structure GioAppInfo :>
     val getIcon_ = _import "g_app_info_get_icon" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
     val getId_ = _import "g_app_info_get_id" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getName_ = _import "g_app_info_get_name" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getSupportedTypes_ = _import "g_app_info_get_supported_types" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
     val removeSupportsType_ =
       fn
         x1
@@ -179,6 +188,7 @@ structure GioAppInfo :>
     type 'a class = 'a GioAppInfoClass.class
     type app_info_create_flags_t = GioAppInfoCreateFlags.t
     type 'a app_launch_context_class = 'a GioAppLaunchContextClass.class
+    type 'a async_result_class = 'a GioAsyncResultClass.class
     type 'a icon_class = 'a GioIconClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -217,6 +227,7 @@ structure GioAppInfo :>
            & launchContext
            & []
         )
+    fun launchDefaultForUriFinish result = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) launchDefaultForUriFinish_ (result & [])
     fun resetTypeAssociations contentType = (Utf8.FFI.withPtr ---> I) resetTypeAssociations_ contentType
     fun addSupportsType self contentType =
       (
@@ -243,6 +254,7 @@ structure GioAppInfo :>
     fun getIcon self = (GioAppInfoClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getIcon_ self
     fun getId self = (GioAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getId_ self
     fun getName self = (GioAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getSupportedTypes self = (GioAppInfoClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getSupportedTypes_ self
     fun removeSupportsType self contentType =
       (
         GioAppInfoClass.FFI.withPtr

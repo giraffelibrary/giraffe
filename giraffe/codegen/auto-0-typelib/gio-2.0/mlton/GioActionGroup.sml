@@ -138,7 +138,7 @@ structure GioActionGroup :>
               GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
+               -> unit GLibVariantTypeRecord.FFI.p;
           )
             (
               x1,
@@ -153,7 +153,7 @@ structure GioActionGroup :>
               GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               -> unit GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -168,7 +168,7 @@ structure GioActionGroup :>
               GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               -> unit GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -183,7 +183,7 @@ structure GioActionGroup :>
               GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
+               -> unit GLibVariantTypeRecord.FFI.p;
           )
             (
               x1,
@@ -206,6 +206,37 @@ structure GioActionGroup :>
               x3
             )
     val listActions_ = _import "g_action_group_list_actions" : GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+    val queryAction_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5
+         & x6
+         & x7
+         & x8 =>
+          (
+            _import "mlton_g_action_group_query_action" :
+              GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GBool.FFI.ref_
+               * (unit, GLibVariantTypeRecord.FFI.notnull) GLibVariantTypeRecord.FFI.r
+               * (unit, GLibVariantTypeRecord.FFI.notnull) GLibVariantTypeRecord.FFI.r
+               * (unit, GLibVariantRecord.FFI.notnull) GLibVariantRecord.FFI.r
+               * (unit, GLibVariantRecord.FFI.notnull) GLibVariantRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7,
+              x8
+            )
     type 'a class = 'a GioActionGroupClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -264,12 +295,58 @@ structure GioActionGroup :>
            & value
         )
     fun getActionEnabled self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) getActionEnabled_ (self & actionName)
-    fun getActionParameterType self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) getActionParameterType_ (self & actionName)
-    fun getActionState self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getActionState_ (self & actionName)
-    fun getActionStateHint self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getActionStateHint_ (self & actionName)
-    fun getActionStateType self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) getActionStateType_ (self & actionName)
+    fun getActionParameterType self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getActionParameterType_ (self & actionName)
+    fun getActionState self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromOptPtr true) getActionState_ (self & actionName)
+    fun getActionStateHint self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromOptPtr true) getActionStateHint_ (self & actionName)
+    fun getActionStateType self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getActionStateType_ (self & actionName)
     fun hasAction self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasAction_ (self & actionName)
     fun listActions self = (GioActionGroupClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listActions_ self
+    fun queryAction self actionName =
+      let
+        val enabled
+         & parameterType
+         & stateType
+         & stateHint
+         & state
+         & retVal =
+          (
+            GioActionGroupClass.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GBool.FFI.withRefVal
+             &&&> GLibVariantTypeRecord.FFI.withRefOptPtr
+             &&&> GLibVariantTypeRecord.FFI.withRefOptPtr
+             &&&> GLibVariantRecord.FFI.withRefOptPtr
+             &&&> GLibVariantRecord.FFI.withRefOptPtr
+             ---> GBool.FFI.fromVal
+                   && GLibVariantTypeRecord.FFI.fromPtr true
+                   && GLibVariantTypeRecord.FFI.fromPtr true
+                   && GLibVariantRecord.FFI.fromPtr true
+                   && GLibVariantRecord.FFI.fromPtr true
+                   && GBool.FFI.fromVal
+          )
+            queryAction_
+            (
+              self
+               & actionName
+               & GBool.null
+               & NONE
+               & NONE
+               & NONE
+               & NONE
+            )
+      in
+        if retVal
+        then
+          SOME
+            (
+              enabled,
+              parameterType,
+              stateType,
+              stateHint,
+              state
+            )
+        else NONE
+      end
     local
       open ClosureMarshal Signal
     in

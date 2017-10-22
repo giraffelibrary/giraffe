@@ -12,7 +12,9 @@ signature GTK_SOURCE_COMPLETION_PROVIDER =
        -> 'b completion_proposal_class * Gtk.TextIterRecord.t
        -> bool
     val getActivation : 'a class -> completion_activation_t
+    val getGicon : 'a class -> base Gio.IconClass.class
     val getIcon : 'a class -> base GdkPixbuf.PixbufClass.class
+    val getIconName : 'a class -> string
     val getInfoWidget :
       'a class
        -> 'b completion_proposal_class
@@ -22,10 +24,8 @@ signature GTK_SOURCE_COMPLETION_PROVIDER =
     val getPriority : 'a class -> LargeInt.int
     val getStartIter :
       'a class
-       -> 'b completion_context_class
-           * 'c completion_proposal_class
-           * Gtk.TextIterRecord.t
-       -> bool
+       -> 'b completion_context_class * 'c completion_proposal_class
+       -> Gtk.TextIterRecord.t option
     val match :
       'a class
        -> 'b completion_context_class

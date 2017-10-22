@@ -24,6 +24,7 @@ signature GTK_PANED =
     val getChild2 : 'a class -> base widget_class option
     val getHandleWindow : 'a class -> base Gdk.WindowClass.class
     val getPosition : 'a class -> LargeInt.int
+    val getWideHandle : 'a class -> bool
     val pack1 :
       'a class
        -> 'b widget_class
@@ -40,6 +41,10 @@ signature GTK_PANED =
       'a class
        -> LargeInt.int
        -> unit
+    val setWideHandle :
+      'a class
+       -> bool
+       -> unit
     val acceptPositionSig : (unit -> bool) -> 'a class Signal.t
     val cancelPositionSig : (unit -> bool) -> 'a class Signal.t
     val cycleChildFocusSig : (bool -> bool) -> 'a class Signal.t
@@ -50,4 +55,5 @@ signature GTK_PANED =
     val minPositionProp : ('a class, LargeInt.int) Property.readonly
     val positionProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val positionSetProp : ('a class, bool, bool) Property.readwrite
+    val wideHandleProp : ('a class, bool, bool) Property.readwrite
   end

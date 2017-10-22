@@ -10,8 +10,8 @@ signature GTK_LABEL =
     val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
-    val new : string -> base class
-    val newWithMnemonic : string -> base class
+    val new : string option -> base class
+    val newWithMnemonic : string option -> base class
     val getAngle : 'a class -> real
     val getAttributes : 'a class -> Pango.AttrListRecord.t
     val getCurrentUri : 'a class -> string
@@ -22,6 +22,7 @@ signature GTK_LABEL =
     val getLayoutOffsets : 'a class -> LargeInt.int * LargeInt.int
     val getLineWrap : 'a class -> bool
     val getLineWrapMode : 'a class -> Pango.WrapMode.t
+    val getLines : 'a class -> LargeInt.int
     val getMaxWidthChars : 'a class -> LargeInt.int
     val getMnemonicKeyval : 'a class -> LargeInt.int
     val getMnemonicWidget : 'a class -> base widget_class
@@ -33,6 +34,8 @@ signature GTK_LABEL =
     val getUseMarkup : 'a class -> bool
     val getUseUnderline : 'a class -> bool
     val getWidthChars : 'a class -> LargeInt.int
+    val getXalign : 'a class -> real
+    val getYalign : 'a class -> real
     val selectRegion :
       'a class
        -> LargeInt.int * LargeInt.int
@@ -43,7 +46,7 @@ signature GTK_LABEL =
        -> unit
     val setAttributes :
       'a class
-       -> Pango.AttrListRecord.t
+       -> Pango.AttrListRecord.t option
        -> unit
     val setEllipsize :
       'a class
@@ -64,6 +67,10 @@ signature GTK_LABEL =
     val setLineWrapMode :
       'a class
        -> Pango.WrapMode.t
+       -> unit
+    val setLines :
+      'a class
+       -> LargeInt.int
        -> unit
     val setMarkup :
       'a class
@@ -117,6 +124,14 @@ signature GTK_LABEL =
       'a class
        -> LargeInt.int
        -> unit
+    val setXalign :
+      'a class
+       -> real
+       -> unit
+    val setYalign :
+      'a class
+       -> real
+       -> unit
     val activateCurrentLinkSig : (unit -> unit) -> 'a class Signal.t
     val activateLinkSig : (string -> bool) -> 'a class Signal.t
     val copyClipboardSig : (unit -> unit) -> 'a class Signal.t
@@ -133,6 +148,7 @@ signature GTK_LABEL =
     val ellipsizeProp : ('a class, Pango.EllipsizeMode.t, Pango.EllipsizeMode.t) Property.readwrite
     val justifyProp : ('a class, justification_t, justification_t) Property.readwrite
     val labelProp : ('a class, string option, string option) Property.readwrite
+    val linesProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val maxWidthCharsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val mnemonicKeyvalProp : ('a class, LargeInt.int) Property.readonly
     val mnemonicWidgetProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
@@ -146,4 +162,6 @@ signature GTK_LABEL =
     val widthCharsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val wrapProp : ('a class, bool, bool) Property.readwrite
     val wrapModeProp : ('a class, Pango.WrapMode.t, Pango.WrapMode.t) Property.readwrite
+    val xalignProp : ('a class, real, real) Property.readwrite
+    val yalignProp : ('a class, real, real) Property.readwrite
   end

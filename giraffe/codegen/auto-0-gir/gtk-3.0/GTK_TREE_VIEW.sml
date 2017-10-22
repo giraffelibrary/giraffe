@@ -80,6 +80,7 @@ signature GTK_TREE_VIEW =
       'a class
        -> tree_path_t
        -> unit
+    val getActivateOnSingleClick : 'a class -> bool
     val getBackgroundArea :
       'a class
        -> tree_path_t option * 'b tree_view_column_class option
@@ -111,6 +112,7 @@ signature GTK_TREE_VIEW =
     val getHoverSelection : 'a class -> bool
     val getLevelIndentation : 'a class -> LargeInt.int
     val getModel : 'a class -> base tree_model_class
+    val getNColumns : 'a class -> LargeInt.int
     val getPathAtPos :
       'a class
        -> LargeInt.int * LargeInt.int
@@ -181,6 +183,10 @@ signature GTK_TREE_VIEW =
     val scrollToPoint :
       'a class
        -> LargeInt.int * LargeInt.int
+       -> unit
+    val setActivateOnSingleClick :
+      'a class
+       -> bool
        -> unit
     val setCursor :
       'a class
@@ -312,6 +318,7 @@ signature GTK_TREE_VIEW =
     val testExpandRowSig : (tree_iter_t * tree_path_t -> bool) -> 'a class Signal.t
     val toggleCursorRowSig : (unit -> bool) -> 'a class Signal.t
     val unselectAllSig : (unit -> bool) -> 'a class Signal.t
+    val activateOnSingleClickProp : ('a class, bool, bool) Property.readwrite
     val enableGridLinesProp : ('a class, tree_view_grid_lines_t, tree_view_grid_lines_t) Property.readwrite
     val enableSearchProp : ('a class, bool, bool) Property.readwrite
     val enableTreeLinesProp : ('a class, bool, bool) Property.readwrite

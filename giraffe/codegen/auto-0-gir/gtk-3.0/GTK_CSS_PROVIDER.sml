@@ -20,5 +20,9 @@ signature GTK_CSS_PROVIDER =
       'a class
        -> string
        -> unit
+    val loadFromResource :
+      'a class
+       -> string
+       -> unit
     val toString : 'a class -> string
   end

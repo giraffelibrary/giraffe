@@ -35,7 +35,22 @@ structure Gdk : GDK =
     in
       val beep_ = call (getSymbol "gdk_beep") (cVoid --> cVoid)
       val cairoCreate_ = call (getSymbol "gdk_cairo_create") (GdkWindowClass.PolyML.cPtr --> CairoContextRecord.PolyML.cPtr)
+      val cairoDrawFromGl_ =
+        call (getSymbol "gdk_cairo_draw_from_gl")
+          (
+            CairoContextRecord.PolyML.cPtr
+             &&> GdkWindowClass.PolyML.cPtr
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> cVoid
+          )
       val cairoGetClipRectangle_ = call (getSymbol "gdk_cairo_get_clip_rectangle") (CairoContextRecord.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val cairoGetDrawingContext_ = call (getSymbol "gdk_cairo_get_drawing_context") (CairoContextRecord.PolyML.cPtr --> GdkDrawingContextClass.PolyML.cPtr)
       val cairoRectangle_ = call (getSymbol "gdk_cairo_rectangle") (CairoContextRecord.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> cVoid)
       val cairoRegion_ = call (getSymbol "gdk_cairo_region") (CairoContextRecord.PolyML.cPtr &&> CairoRegionRecord.PolyML.cPtr --> cVoid)
       val cairoRegionCreateFromSurface_ = call (getSymbol "gdk_cairo_region_create_from_surface") (CairoSurfaceRecord.PolyML.cPtr --> CairoRegionRecord.PolyML.cPtr)
@@ -59,9 +74,18 @@ structure Gdk : GDK =
              &&> GDouble.PolyML.cVal
              --> cVoid
           )
+      val cairoSurfaceCreateFromPixbuf_ =
+        call (getSymbol "gdk_cairo_surface_create_from_pixbuf")
+          (
+            GdkPixbufPixbufClass.PolyML.cPtr
+             &&> GInt.PolyML.cVal
+             &&> GdkWindowClass.PolyML.cOptPtr
+             --> CairoSurfaceRecord.PolyML.cPtr
+          )
       val disableMultidevice_ = call (getSymbol "gdk_disable_multidevice") (cVoid --> cVoid)
       val dragAbort_ = call (getSymbol "gdk_drag_abort") (GdkDragContextClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
       val dragDrop_ = call (getSymbol "gdk_drag_drop") (GdkDragContextClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
+      val dragDropDone_ = call (getSymbol "gdk_drag_drop_done") (GdkDragContextClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val dragDropSucceeded_ = call (getSymbol "gdk_drag_drop_succeeded") (GdkDragContextClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val dragFindWindowForScreen_ =
         call (getSymbol "gdk_drag_find_window_for_screen")
@@ -116,6 +140,31 @@ structure Gdk : GDK =
       val errorTrapPop_ = call (getSymbol "gdk_error_trap_pop") (cVoid --> GInt.PolyML.cVal)
       val errorTrapPopIgnored_ = call (getSymbol "gdk_error_trap_pop_ignored") (cVoid --> cVoid)
       val errorTrapPush_ = call (getSymbol "gdk_error_trap_push") (cVoid --> cVoid)
+      val eventsGetAngle_ =
+        call (getSymbol "gdk_events_get_angle")
+          (
+            GdkEvent.PolyML.cPtr
+             &&> GdkEvent.PolyML.cPtr
+             &&> GDouble.PolyML.cRef
+             --> GBool.PolyML.cVal
+          )
+      val eventsGetCenter_ =
+        call (getSymbol "gdk_events_get_center")
+          (
+            GdkEvent.PolyML.cPtr
+             &&> GdkEvent.PolyML.cPtr
+             &&> GDouble.PolyML.cRef
+             &&> GDouble.PolyML.cRef
+             --> GBool.PolyML.cVal
+          )
+      val eventsGetDistance_ =
+        call (getSymbol "gdk_events_get_distance")
+          (
+            GdkEvent.PolyML.cPtr
+             &&> GdkEvent.PolyML.cPtr
+             &&> GDouble.PolyML.cRef
+             --> GBool.PolyML.cVal
+          )
       val eventsPending_ = call (getSymbol "gdk_events_pending") (cVoid --> GBool.PolyML.cVal)
       val flush_ = call (getSymbol "gdk_flush") (cVoid --> cVoid)
       val getDefaultRootWindow_ = call (getSymbol "gdk_get_default_root_window") (cVoid --> GdkWindowClass.PolyML.cPtr)
@@ -155,6 +204,7 @@ structure Gdk : GDK =
       val offscreenWindowGetSurface_ = call (getSymbol "gdk_offscreen_window_get_surface") (GdkWindowClass.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
       val offscreenWindowSetEmbedder_ = call (getSymbol "gdk_offscreen_window_set_embedder") (GdkWindowClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
       val pangoContextGet_ = call (getSymbol "gdk_pango_context_get") (cVoid --> PangoContextClass.PolyML.cPtr)
+      val pangoContextGetForDisplay_ = call (getSymbol "gdk_pango_context_get_for_display") (GdkDisplayClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
       val pangoContextGetForScreen_ = call (getSymbol "gdk_pango_context_get_for_screen") (GdkScreenClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
       val parseArgs_ = call (getSymbol "gdk_parse_args") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> cVoid)
       val pixbufGetFromSurface_ =
@@ -209,22 +259,6 @@ structure Gdk : GDK =
           )
       val queryDepths_ = call (getSymbol "gdk_query_depths") (GIntCVectorN.PolyML.cOutRef &&> GInt.PolyML.cRef --> cVoid)
       val queryVisualTypes_ = call (getSymbol "gdk_query_visual_types") (GdkVisualTypeCVectorN.PolyML.cOutRef &&> GInt.PolyML.cRef --> cVoid)
-      val rectangleIntersect_ =
-        call (getSymbol "gdk_rectangle_intersect")
-          (
-            GdkRectangleRecord.PolyML.cPtr
-             &&> GdkRectangleRecord.PolyML.cPtr
-             &&> GdkRectangleRecord.PolyML.cPtr
-             --> GBool.PolyML.cVal
-          )
-      val rectangleUnion_ =
-        call (getSymbol "gdk_rectangle_union")
-          (
-            GdkRectangleRecord.PolyML.cPtr
-             &&> GdkRectangleRecord.PolyML.cPtr
-             &&> GdkRectangleRecord.PolyML.cPtr
-             --> cVoid
-          )
       val selectionConvert_ =
         call (getSymbol "gdk_selection_convert")
           (
@@ -239,7 +273,7 @@ structure Gdk : GDK =
       val selectionOwnerSet_ =
         call (getSymbol "gdk_selection_owner_set")
           (
-            GdkWindowClass.PolyML.cPtr
+            GdkWindowClass.PolyML.cOptPtr
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
              &&> GBool.PolyML.cVal
@@ -249,7 +283,7 @@ structure Gdk : GDK =
         call (getSymbol "gdk_selection_owner_set_for_display")
           (
             GdkDisplayClass.PolyML.cPtr
-             &&> GdkWindowClass.PolyML.cPtr
+             &&> GdkWindowClass.PolyML.cOptPtr
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
              &&> GBool.PolyML.cVal
@@ -276,6 +310,7 @@ structure Gdk : GDK =
              &&> GUInt32.PolyML.cVal
              --> cVoid
           )
+      val setAllowedBackends_ = call (getSymbol "gdk_set_allowed_backends") (Utf8.PolyML.cInPtr --> cVoid)
       val setDoubleClickTime_ = call (getSymbol "gdk_set_double_click_time") (GUInt.PolyML.cVal --> cVoid)
       val setProgramClass_ = call (getSymbol "gdk_set_program_class") (Utf8.PolyML.cInPtr --> cVoid)
       val setShowEvents_ = call (getSymbol "gdk_set_show_events") (GBool.PolyML.cVal --> cVoid)
@@ -328,9 +363,10 @@ structure Gdk : GDK =
       val unicodeToKeyval_ = call (getSymbol "gdk_unicode_to_keyval") (GUInt32.PolyML.cVal --> GUInt.PolyML.cVal)
       val utf8ToStringTarget_ = call (getSymbol "gdk_utf8_to_string_target") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
     end
-    structure RectangleRecord = GdkRectangleRecord
+    structure AnchorHints = GdkAnchorHints
     structure AppLaunchContextClass = GdkAppLaunchContextClass
     structure AtomRecord = GdkAtomRecord
+    structure AxisFlags = GdkAxisFlags
     structure AxisUse = GdkAxisUse
     structure ByteOrder = GdkByteOrder
     structure ColorRecord = GdkColorRecord
@@ -339,17 +375,30 @@ structure Gdk : GDK =
     structure CursorType = GdkCursorType
     structure DeviceClass = GdkDeviceClass
     structure DeviceManagerClass = GdkDeviceManagerClass
+    structure DevicePadClass = GdkDevicePadClass
+    structure DevicePadFeature = GdkDevicePadFeature
+    structure DeviceToolClass = GdkDeviceToolClass
+    structure DeviceToolType = GdkDeviceToolType
     structure DeviceType = GdkDeviceType
     structure DisplayClass = GdkDisplayClass
     structure DisplayManagerClass = GdkDisplayManagerClass
     structure DragAction = GdkDragAction
+    structure DragCancelReason = GdkDragCancelReason
     structure DragContextClass = GdkDragContextClass
     structure DragProtocol = GdkDragProtocol
+    structure DrawingContextClass = GdkDrawingContextClass
     structure Event = GdkEvent
     structure EventMask = GdkEventMask
+    structure EventSequenceRecord = GdkEventSequenceRecord
     structure EventType = GdkEventType
-    structure ExtensionMode = GdkExtensionMode
     structure FilterReturn = GdkFilterReturn
+    structure FrameClockClass = GdkFrameClockClass
+    structure FrameClockPhase = GdkFrameClockPhase
+    structure FrameTimingsRecord = GdkFrameTimingsRecord
+    structure FullscreenMode = GdkFullscreenMode
+    structure GLContextClass = GdkGLContextClass
+    structure GLError = GdkGLError
+    exception GLError = GdkGLError
     structure GeometryRecord = GdkGeometryRecord
     structure GrabOwnership = GdkGrabOwnership
     structure GrabStatus = GdkGrabStatus
@@ -358,17 +407,24 @@ structure Gdk : GDK =
     structure InputSource = GdkInputSource
     structure KeymapClass = GdkKeymapClass
     structure KeymapKeyRecord = GdkKeymapKeyRecord
+    structure ModifierIntent = GdkModifierIntent
     structure ModifierType = GdkModifierType
+    structure MonitorClass = GdkMonitorClass
     structure NotifyType = GdkNotifyType
     structure OwnerChange = GdkOwnerChange
     structure PointRecord = GdkPointRecord
     structure PropMode = GdkPropMode
     structure PropertyState = GdkPropertyState
     structure RgbaRecord = GdkRgbaRecord
+    structure RectangleRecord = GdkRectangleRecord
     structure ScreenClass = GdkScreenClass
     structure ScrollDirection = GdkScrollDirection
+    structure SeatClass = GdkSeatClass
+    structure SeatCapabilities = GdkSeatCapabilities
     structure SettingAction = GdkSettingAction
     structure Status = GdkStatus
+    structure SubpixelLayout = GdkSubpixelLayout
+    structure TouchpadGesturePhase = GdkTouchpadGesturePhase
     structure VisibilityState = GdkVisibilityState
     structure VisualClass = GdkVisualClass
     structure VisualType = GdkVisualType
@@ -394,11 +450,17 @@ structure Gdk : GDK =
     structure EventKeyRecord = GdkEventKeyRecord
     structure EventMotionRecord = GdkEventMotionRecord
     structure EventOwnerChangeRecord = GdkEventOwnerChangeRecord
+    structure EventPadAxisRecord = GdkEventPadAxisRecord
+    structure EventPadButtonRecord = GdkEventPadButtonRecord
+    structure EventPadGroupModeRecord = GdkEventPadGroupModeRecord
     structure EventPropertyRecord = GdkEventPropertyRecord
     structure EventProximityRecord = GdkEventProximityRecord
     structure EventScrollRecord = GdkEventScrollRecord
     structure EventSelectionRecord = GdkEventSelectionRecord
     structure EventSettingRecord = GdkEventSettingRecord
+    structure EventTouchpadPinchRecord = GdkEventTouchpadPinchRecord
+    structure EventTouchpadSwipeRecord = GdkEventTouchpadSwipeRecord
+    structure EventTouchRecord = GdkEventTouchRecord
     structure EventVisibilityRecord = GdkEventVisibilityRecord
     structure EventWindowStateRecord = GdkEventWindowStateRecord
     structure AppLaunchContext = GdkAppLaunchContext
@@ -407,19 +469,34 @@ structure Gdk : GDK =
     structure Cursor = GdkCursor
     structure Device = GdkDevice
     structure DeviceManager = GdkDeviceManager
+    structure DevicePad = GdkDevicePad
+    structure DeviceTool = GdkDeviceTool
     structure Display = GdkDisplay
     structure DisplayManager = GdkDisplayManager
     structure DragContext = GdkDragContext
+    structure DrawingContext = GdkDrawingContext
+    structure EventSequence = GdkEventSequence
+    structure FrameClock = GdkFrameClock
+    structure FrameTimings = GdkFrameTimings
+    structure GLContext = GdkGLContext
     structure Geometry = GdkGeometry
     structure Keymap = GdkKeymap
     structure KeymapKey = GdkKeymapKey
+    structure Monitor = GdkMonitor
     structure Point = GdkPoint
     structure Rgba = GdkRgba
+    structure Rectangle = GdkRectangle
     structure Screen = GdkScreen
+    structure Seat = GdkSeat
     structure Visual = GdkVisual
     structure Window = GdkWindow
     structure WindowAttr = GdkWindowAttr
+    val BUTTON_MIDDLE = 2
+    val BUTTON_PRIMARY = 1
+    val BUTTON_SECONDARY = 3
     val CURRENT_TIME = 0
+    val EVENT_PROPAGATE = false
+    val EVENT_STOP = true
     val KEY_0 = 48
     val KEY_1 = 49
     val KEY_2 = 50
@@ -665,6 +742,7 @@ structure Gdk : GDK =
     val KEY_AudioForward = 269025175
     val KEY_AudioLowerVolume = 269025041
     val KEY_AudioMedia = 269025074
+    val KEY_AudioMicMute = 269025202
     val KEY_AudioMute = 269025042
     val KEY_AudioNext = 269025047
     val KEY_AudioPause = 269025073
@@ -694,6 +772,9 @@ structure Gdk : GDK =
     val KEY_Byelorussian_shortu = 1710
     val KEY_C = 67
     val KEY_CD = 269025107
+    val KEY_CH = 65186
+    val KEY_C_H = 65189
+    val KEY_C_h = 65188
     val KEY_Cabovedot = 709
     val KEY_Cacute = 454
     val KEY_Calculator = 269025053
@@ -703,6 +784,7 @@ structure Gdk : GDK =
     val KEY_Ccaron = 456
     val KEY_Ccedilla = 199
     val KEY_Ccircumflex = 710
+    val KEY_Ch = 65185
     val KEY_Clear = 65291
     val KEY_ClearGrab = 269024801
     val KEY_Close = 269025110
@@ -833,6 +915,7 @@ structure Gdk : GDK =
     val KEY_E = 69
     val KEY_ENG = 957
     val KEY_ETH = 208
+    val KEY_EZH = 16777655
     val KEY_Eabovedot = 972
     val KEY_Eacute = 201
     val KEY_Ebelowdot = 16785080
@@ -1301,7 +1384,9 @@ structure Gdk : GDK =
     val KEY_LightBulb = 269025077
     val KEY_Linefeed = 65290
     val KEY_LiraSign = 16785572
+    val KEY_LogGrabInfo = 269024805
     val KEY_LogOff = 269025121
+    val KEY_LogWindowTree = 269024804
     val KEY_Lstroke = 419
     val KEY_M = 77
     val KEY_Mabovedot = 16784960
@@ -2110,6 +2195,7 @@ structure Gdk : GDK =
     val KEY_breve = 418
     val KEY_brokenbar = 166
     val KEY_c = 99
+    val KEY_c_h = 65187
     val KEY_cabovedot = 741
     val KEY_cacute = 486
     val KEY_careof = 2744
@@ -2120,6 +2206,7 @@ structure Gdk : GDK =
     val KEY_ccircumflex = 742
     val KEY_cedilla = 184
     val KEY_cent = 162
+    val KEY_ch = 65184
     val KEY_checkerboard = 2529
     val KEY_checkmark = 2803
     val KEY_circle = 3023
@@ -2168,6 +2255,7 @@ structure Gdk : GDK =
     val KEY_dead_doublegrave = 65126
     val KEY_dead_e = 65154
     val KEY_dead_grave = 65104
+    val KEY_dead_greek = 65164
     val KEY_dead_hook = 65121
     val KEY_dead_horn = 65122
     val KEY_dead_i = 65156
@@ -2243,6 +2331,7 @@ structure Gdk : GDK =
     val KEY_etilde = 16785085
     val KEY_exclam = 33
     val KEY_exclamdown = 161
+    val KEY_ezh = 16777874
     val KEY_f = 102
     val KEY_fabovedot = 16784927
     val KEY_femalesymbol = 2808
@@ -2528,6 +2617,7 @@ structure Gdk : GDK =
     val KEY_percent = 37
     val KEY_period = 46
     val KEY_periodcentered = 183
+    val KEY_permille = 2773
     val KEY_phonographcopyright = 2811
     val KEY_plus = 43
     val KEY_plusminus = 177
@@ -2682,12 +2772,49 @@ structure Gdk : GDK =
     val PRIORITY_REDRAW = 20
     fun beep () = (I ---> I) beep_ ()
     fun cairoCreate window = (GdkWindowClass.FFI.withPtr ---> CairoContextRecord.FFI.fromPtr true) cairoCreate_ window
+    fun cairoDrawFromGl
+      (
+        cr,
+        window,
+        source,
+        sourceType,
+        bufferScale,
+        x,
+        y,
+        width,
+        height
+      ) =
+      (
+        CairoContextRecord.FFI.withPtr
+         &&&> GdkWindowClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> I
+      )
+        cairoDrawFromGl_
+        (
+          cr
+           & window
+           & source
+           & sourceType
+           & bufferScale
+           & x
+           & y
+           & width
+           & height
+        )
     fun cairoGetClipRectangle cr =
       let
         val rect & retVal = (CairoContextRecord.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal) cairoGetClipRectangle_ (cr & ())
       in
         if retVal then SOME rect else NONE
       end
+    fun cairoGetDrawingContext cr = (CairoContextRecord.FFI.withPtr ---> GdkDrawingContextClass.FFI.fromPtr false) cairoGetDrawingContext_ cr
     fun cairoRectangle (cr, rectangle) = (CairoContextRecord.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) cairoRectangle_ (cr & rectangle)
     fun cairoRegion (cr, region) = (CairoContextRecord.FFI.withPtr &&&> CairoRegionRecord.FFI.withPtr ---> I) cairoRegion_ (cr & region)
     fun cairoRegionCreateFromSurface surface = (CairoSurfaceRecord.FFI.withPtr ---> CairoRegionRecord.FFI.fromPtr true) cairoRegionCreateFromSurface_ surface
@@ -2735,9 +2862,28 @@ structure Gdk : GDK =
            & x
            & y
         )
+    fun cairoSurfaceCreateFromPixbuf
+      (
+        pixbuf,
+        scale,
+        forWindow
+      ) =
+      (
+        GdkPixbufPixbufClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GdkWindowClass.FFI.withOptPtr
+         ---> CairoSurfaceRecord.FFI.fromPtr true
+      )
+        cairoSurfaceCreateFromPixbuf_
+        (
+          pixbuf
+           & scale
+           & forWindow
+        )
     fun disableMultidevice () = (I ---> I) disableMultidevice_ ()
     fun dragAbort (context, time) = (GdkDragContextClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) dragAbort_ (context & time)
     fun dragDrop (context, time) = (GdkDragContextClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) dragDrop_ (context & time)
+    fun dragDropDone (context, success) = (GdkDragContextClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) dragDropDone_ (context & success)
     fun dragDropSucceeded context = (GdkDragContextClass.FFI.withPtr ---> GBool.FFI.fromVal) dragDropSucceeded_ context
     fun dragFindWindowForScreen
       (
@@ -2867,6 +3013,66 @@ structure Gdk : GDK =
     fun errorTrapPop () = (I ---> GInt.FFI.fromVal) errorTrapPop_ ()
     fun errorTrapPopIgnored () = (I ---> I) errorTrapPopIgnored_ ()
     fun errorTrapPush () = (I ---> I) errorTrapPush_ ()
+    fun eventsGetAngle (event1, event2) =
+      let
+        val angle & retVal =
+          (
+            GdkEvent.FFI.withPtr
+             &&&> GdkEvent.FFI.withPtr
+             &&&> GDouble.FFI.withRefVal
+             ---> GDouble.FFI.fromVal && GBool.FFI.fromVal
+          )
+            eventsGetAngle_
+            (
+              event1
+               & event2
+               & GDouble.null
+            )
+      in
+        if retVal then SOME angle else NONE
+      end
+    fun eventsGetCenter (event1, event2) =
+      let
+        val x
+         & y
+         & retVal =
+          (
+            GdkEvent.FFI.withPtr
+             &&&> GdkEvent.FFI.withPtr
+             &&&> GDouble.FFI.withRefVal
+             &&&> GDouble.FFI.withRefVal
+             ---> GDouble.FFI.fromVal
+                   && GDouble.FFI.fromVal
+                   && GBool.FFI.fromVal
+          )
+            eventsGetCenter_
+            (
+              event1
+               & event2
+               & GDouble.null
+               & GDouble.null
+            )
+      in
+        if retVal then SOME (x, y) else NONE
+      end
+    fun eventsGetDistance (event1, event2) =
+      let
+        val distance & retVal =
+          (
+            GdkEvent.FFI.withPtr
+             &&&> GdkEvent.FFI.withPtr
+             &&&> GDouble.FFI.withRefVal
+             ---> GDouble.FFI.fromVal && GBool.FFI.fromVal
+          )
+            eventsGetDistance_
+            (
+              event1
+               & event2
+               & GDouble.null
+            )
+      in
+        if retVal then SOME distance else NONE
+      end
     fun eventsPending () = (I ---> GBool.FFI.fromVal) eventsPending_ ()
     fun flush () = (I ---> I) flush_ ()
     fun getDefaultRootWindow () = (I ---> GdkWindowClass.FFI.fromPtr false) getDefaultRootWindow_ ()
@@ -2962,6 +3168,7 @@ structure Gdk : GDK =
     fun offscreenWindowGetSurface window = (GdkWindowClass.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromPtr false) offscreenWindowGetSurface_ window
     fun offscreenWindowSetEmbedder (window, embedder) = (GdkWindowClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> I) offscreenWindowSetEmbedder_ (window & embedder)
     fun pangoContextGet () = (I ---> PangoContextClass.FFI.fromPtr true) pangoContextGet_ ()
+    fun pangoContextGetForDisplay display = (GdkDisplayClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr true) pangoContextGetForDisplay_ display
     fun pangoContextGetForScreen screen = (GdkScreenClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr true) pangoContextGetForScreen_ screen
     fun parseArgs argv =
       let
@@ -3147,42 +3354,6 @@ structure Gdk : GDK =
       in
         visualTypes (LargeInt.toInt count)
       end
-    fun rectangleIntersect (src1, src2) =
-      let
-        val dest & retVal =
-          (
-            GdkRectangleRecord.FFI.withPtr
-             &&&> GdkRectangleRecord.FFI.withPtr
-             &&&> GdkRectangleRecord.FFI.withNewPtr
-             ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal
-          )
-            rectangleIntersect_
-            (
-              src1
-               & src2
-               & ()
-            )
-      in
-        if retVal then SOME dest else NONE
-      end
-    fun rectangleUnion (src1, src2) =
-      let
-        val dest & () =
-          (
-            GdkRectangleRecord.FFI.withPtr
-             &&&> GdkRectangleRecord.FFI.withPtr
-             &&&> GdkRectangleRecord.FFI.withNewPtr
-             ---> GdkRectangleRecord.FFI.fromPtr true && I
-          )
-            rectangleUnion_
-            (
-              src1
-               & src2
-               & ()
-            )
-      in
-        dest
-      end
     fun selectionConvert
       (
         requestor,
@@ -3214,7 +3385,7 @@ structure Gdk : GDK =
         sendEvent
       ) =
       (
-        GdkWindowClass.FFI.withPtr
+        GdkWindowClass.FFI.withOptPtr
          &&&> GdkAtomRecord.FFI.withPtr
          &&&> GUInt32.FFI.withVal
          &&&> GBool.FFI.withVal
@@ -3237,7 +3408,7 @@ structure Gdk : GDK =
       ) =
       (
         GdkDisplayClass.FFI.withPtr
-         &&&> GdkWindowClass.FFI.withPtr
+         &&&> GdkWindowClass.FFI.withOptPtr
          &&&> GdkAtomRecord.FFI.withPtr
          &&&> GUInt32.FFI.withVal
          &&&> GBool.FFI.withVal
@@ -3302,6 +3473,7 @@ structure Gdk : GDK =
            & property
            & time
         )
+    fun setAllowedBackends backends = (Utf8.FFI.withPtr ---> I) setAllowedBackends_ backends
     fun setDoubleClickTime msec = (GUInt.FFI.withVal ---> I) setDoubleClickTime_ msec
     fun setProgramClass programClass = (Utf8.FFI.withPtr ---> I) setProgramClass_ programClass
     fun setShowEvents showEvents = (GBool.FFI.withVal ---> I) setShowEvents_ showEvents

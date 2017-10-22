@@ -360,7 +360,7 @@ structure GtkSourceGutterRenderer :>
         signal "activate"
           (
             get 0w1 GtkTextIterRecord.t
-             &&&> get 0w2 CairoRectangleIntRecord.t
+             &&&> get 0w2 GdkRectangleRecord.t
              &&&> get 0w3 GdkEvent.t
              ---> ret_void
           )
@@ -380,7 +380,7 @@ structure GtkSourceGutterRenderer :>
         signal "query-activatable"
           (
             get 0w1 GtkTextIterRecord.t
-             &&&> get 0w2 CairoRectangleIntRecord.t
+             &&&> get 0w2 GdkRectangleRecord.t
              &&&> get 0w3 GdkEvent.t
              ---> ret boolean
           )
@@ -420,7 +420,7 @@ structure GtkSourceGutterRenderer :>
         signal "query-tooltip"
           (
             get 0w1 GtkTextIterRecord.t
-             &&&> get 0w2 CairoRectangleIntRecord.t
+             &&&> get 0w2 GdkRectangleRecord.t
              &&&> get 0w3 int
              &&&> get 0w4 int
              &&&> get 0w5 GtkTooltipClass.t

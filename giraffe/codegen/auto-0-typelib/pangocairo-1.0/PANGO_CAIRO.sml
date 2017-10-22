@@ -13,9 +13,9 @@ signature PANGO_CAIRO =
     structure FontMap :
       PANGO_CAIRO_FONT_MAP
         where type 'a class = 'a FontMapClass.class
-    val contextGetFontOptions : 'a Pango.ContextClass.class -> Cairo.FontOptionsRecord.t
+    val contextGetFontOptions : 'a Pango.ContextClass.class -> Cairo.FontOptionsRecord.t option
     val contextGetResolution : 'a Pango.ContextClass.class -> real
-    val contextSetFontOptions : 'a Pango.ContextClass.class * Cairo.FontOptionsRecord.t -> unit
+    val contextSetFontOptions : 'a Pango.ContextClass.class * Cairo.FontOptionsRecord.t option -> unit
     val contextSetResolution : 'a Pango.ContextClass.class * real -> unit
     val createContext : Cairo.ContextRecord.t -> base Pango.ContextClass.class
     val createLayout : Cairo.ContextRecord.t -> base Pango.LayoutClass.class

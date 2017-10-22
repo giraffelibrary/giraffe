@@ -4,7 +4,6 @@ structure GioFile :>
     where type file_copy_flags_t = GioFileCopyFlags.t
     where type 'a file_enumerator_class = 'a GioFileEnumeratorClass.class
     where type 'a mount_class = 'a GioMountClass.class
-    where type 'a icon_class = 'a GioIconClass.class
     where type 'a file_monitor_class = 'a GioFileMonitorClass.class
     where type file_monitor_flags_t = GioFileMonitorFlags.t
     where type 'a app_info_class = 'a GioAppInfoClass.class
@@ -30,8 +29,17 @@ structure GioFile :>
     in
       val getType_ = call (getSymbol "g_file_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val newForCommandlineArg_ = call (getSymbol "g_file_new_for_commandline_arg") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
+      val newForCommandlineArgAndCwd_ = call (getSymbol "g_file_new_for_commandline_arg_and_cwd") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
       val newForPath_ = call (getSymbol "g_file_new_for_path") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
       val newForUri_ = call (getSymbol "g_file_new_for_uri") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
+      val newTmp_ =
+        call (getSymbol "g_file_new_tmp")
+          (
+            Utf8.PolyML.cInOptPtr
+             &&> GioFileIOStreamClass.PolyML.cOutRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GioFileClass.PolyML.cPtr
+          )
       val parseName_ = call (getSymbol "g_file_parse_name") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
       val appendTo_ =
         call (getSymbol "g_file_append_to")
@@ -110,6 +118,14 @@ structure GioFile :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
+      val deleteFinish_ =
+        call (getSymbol "g_file_delete_finish")
+          (
+            GioFileClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val dup_ = call (getSymbol "g_file_dup") (GioFileClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
       val ejectMountableFinish_ =
         call (getSymbol "g_file_eject_mountable_finish")
@@ -162,7 +178,7 @@ structure GioFile :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioMountClass.PolyML.cPtr
           )
-      val getBasename_ = call (getSymbol "g_file_get_basename") (GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getBasename_ = call (getSymbol "g_file_get_basename") (GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getChild_ = call (getSymbol "g_file_get_child") (GioFileClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
       val getChildForDisplayName_ =
         call (getSymbol "g_file_get_child_for_display_name")
@@ -172,16 +188,16 @@ structure GioFile :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioFileClass.PolyML.cPtr
           )
-      val getParent_ = call (getSymbol "g_file_get_parent") (GioFileClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
+      val getParent_ = call (getSymbol "g_file_get_parent") (GioFileClass.PolyML.cPtr --> GioFileClass.PolyML.cOptPtr)
       val getParseName_ = call (getSymbol "g_file_get_parse_name") (GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getPath_ = call (getSymbol "g_file_get_path") (GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getRelativePath_ = call (getSymbol "g_file_get_relative_path") (GioFileClass.PolyML.cPtr &&> GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getPath_ = call (getSymbol "g_file_get_path") (GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getRelativePath_ = call (getSymbol "g_file_get_relative_path") (GioFileClass.PolyML.cPtr &&> GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getUri_ = call (getSymbol "g_file_get_uri") (GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getUriScheme_ = call (getSymbol "g_file_get_uri_scheme") (GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val hasParent_ = call (getSymbol "g_file_has_parent") (GioFileClass.PolyML.cPtr &&> GioFileClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val hasParent_ = call (getSymbol "g_file_has_parent") (GioFileClass.PolyML.cPtr &&> GioFileClass.PolyML.cOptPtr --> GBool.PolyML.cVal)
       val hasPrefix_ = call (getSymbol "g_file_has_prefix") (GioFileClass.PolyML.cPtr &&> GioFileClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val hasUriScheme_ = call (getSymbol "g_file_has_uri_scheme") (GioFileClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val iconNew_ = call (getSymbol "g_file_icon_new") (GioFileClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
+      val hash_ = call (getSymbol "g_file_hash") (GioFileClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
       val isNative_ = call (getSymbol "g_file_is_native") (GioFileClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val loadContents_ =
         call (getSymbol "g_file_load_contents")
@@ -224,6 +240,14 @@ structure GioFile :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
+      val makeDirectoryFinish_ =
+        call (getSymbol "g_file_make_directory_finish")
+          (
+            GioFileClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val makeDirectoryWithParents_ =
         call (getSymbol "g_file_make_directory_with_parents")
           (
@@ -238,6 +262,17 @@ structure GioFile :>
             GioFileClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GioCancellableClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
+      val measureDiskUsageFinish_ =
+        call (getSymbol "g_file_measure_disk_usage_finish")
+          (
+            GioFileClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
+             &&> GUInt64.PolyML.cRef
+             &&> GUInt64.PolyML.cRef
+             &&> GUInt64.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
@@ -581,6 +616,14 @@ structure GioFile :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
+      val trashFinish_ =
+        call (getSymbol "g_file_trash_finish")
+          (
+            GioFileClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val unmountMountableFinish_ =
         call (getSymbol "g_file_unmount_mountable_finish")
           (
@@ -602,7 +645,6 @@ structure GioFile :>
     type file_copy_flags_t = GioFileCopyFlags.t
     type 'a file_enumerator_class = 'a GioFileEnumeratorClass.class
     type 'a mount_class = 'a GioMountClass.class
-    type 'a icon_class = 'a GioIconClass.class
     type 'a file_monitor_class = 'a GioFileMonitorClass.class
     type file_monitor_flags_t = GioFileMonitorFlags.t
     type 'a app_info_class = 'a GioAppInfoClass.class
@@ -619,8 +661,27 @@ structure GioFile :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newForCommandlineArg arg = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) newForCommandlineArg_ arg
+    fun newForCommandlineArgAndCwd (arg, cwd) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) newForCommandlineArgAndCwd_ (arg & cwd)
     fun newForPath path = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) newForPath_ path
     fun newForUri uri = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) newForUri_ uri
+    fun newTmp tmpl =
+      let
+        val iostream & retVal =
+          (
+            Utf8.FFI.withOptPtr
+             &&&> GioFileIOStreamClass.FFI.withRefOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GioFileIOStreamClass.FFI.fromPtr true && GioFileClass.FFI.fromPtr true
+          )
+            newTmp_
+            (
+              tmpl
+               & NONE
+               & []
+            )
+      in
+        (retVal, iostream)
+      end
     fun parseName parseName = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) parseName_ parseName
     fun appendTo self (flags, cancellable) =
       (
@@ -755,6 +816,19 @@ structure GioFile :>
            & cancellable
            & []
         )
+    fun deleteFinish self result =
+      (
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        deleteFinish_
+        (
+          self
+           & result
+           & []
+        )
     fun dup self = (GioFileClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) dup_ self
     fun ejectMountableFinish self result =
       (
@@ -845,7 +919,7 @@ structure GioFile :>
            & res
            & []
         )
-    fun getBasename self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getBasename_ self
+    fun getBasename self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getBasename_ self
     fun getChild self name = (GioFileClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getChild_ (self & name)
     fun getChildForDisplayName self displayName =
       (
@@ -860,16 +934,16 @@ structure GioFile :>
            & displayName
            & []
         )
-    fun getParent self = (GioFileClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getParent_ self
+    fun getParent self = (GioFileClass.FFI.withPtr ---> GioFileClass.FFI.fromOptPtr true) getParent_ self
     fun getParseName self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getParseName_ self
-    fun getPath self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getPath_ self
-    fun getRelativePath self descendant = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getRelativePath_ (self & descendant)
+    fun getPath self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getPath_ self
+    fun getRelativePath self descendant = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getRelativePath_ (self & descendant)
     fun getUri self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUri_ self
     fun getUriScheme self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUriScheme_ self
-    fun hasParent self parent = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> GBool.FFI.fromVal) hasParent_ (self & parent)
+    fun hasParent self parent = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withOptPtr ---> GBool.FFI.fromVal) hasParent_ (self & parent)
     fun hasPrefix self prefix = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> GBool.FFI.fromVal) hasPrefix_ (self & prefix)
     fun hasUriScheme self uriScheme = (GioFileClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasUriScheme_ (self & uriScheme)
-    fun iconNew self = (GioFileClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) iconNew_ self
+    fun hash self = (GioFileClass.FFI.withPtr ---> GUInt32.FFI.fromVal) hash_ self
     fun isNative self = (GioFileClass.FFI.withPtr ---> GBool.FFI.fromVal) isNative_ self
     fun loadContents self cancellable =
       let
@@ -974,6 +1048,19 @@ structure GioFile :>
            & cancellable
            & []
         )
+    fun makeDirectoryFinish self result =
+      (
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        makeDirectoryFinish_
+        (
+          self
+           & result
+           & []
+        )
     fun makeDirectoryWithParents self cancellable =
       (
         GioFileClass.FFI.withPtr
@@ -1002,6 +1089,40 @@ structure GioFile :>
            & cancellable
            & []
         )
+    fun measureDiskUsageFinish self result =
+      let
+        val diskUsage
+         & numDirs
+         & numFiles
+         & () =
+          (
+            GioFileClass.FFI.withPtr
+             &&&> GioAsyncResultClass.FFI.withPtr
+             &&&> GUInt64.FFI.withRefVal
+             &&&> GUInt64.FFI.withRefVal
+             &&&> GUInt64.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> GUInt64.FFI.fromVal
+                   && GUInt64.FFI.fromVal
+                   && GUInt64.FFI.fromVal
+                   && ignore
+          )
+            measureDiskUsageFinish_
+            (
+              self
+               & result
+               & GUInt64.null
+               & GUInt64.null
+               & GUInt64.null
+               & []
+            )
+      in
+        (
+          diskUsage,
+          numDirs,
+          numFiles
+        )
+      end
     fun monitor self (flags, cancellable) =
       (
         GioFileClass.FFI.withPtr
@@ -1658,6 +1779,19 @@ structure GioFile :>
         (
           self
            & cancellable
+           & []
+        )
+    fun trashFinish self result =
+      (
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        trashFinish_
+        (
+          self
+           & result
            & []
         )
     fun unmountMountableFinish self result =

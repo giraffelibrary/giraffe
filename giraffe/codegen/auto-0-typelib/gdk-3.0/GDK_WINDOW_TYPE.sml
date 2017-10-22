@@ -7,6 +7,7 @@ signature GDK_WINDOW_TYPE =
     | TEMP
     | FOREIGN
     | OFFSCREEN
+    | SUBSURFACE
     include
       ENUM
         where type t = enum

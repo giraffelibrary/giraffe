@@ -1,6 +1,7 @@
 structure GioConverterInputStream :>
   GIO_CONVERTER_INPUT_STREAM
     where type 'a class = 'a GioConverterInputStreamClass.class
+    where type 'a pollable_input_stream_class = 'a GioPollableInputStreamClass.class
     where type 'a input_stream_class = 'a GioInputStreamClass.class
     where type 'a converter_class = 'a GioConverterClass.class =
   struct
@@ -8,9 +9,11 @@ structure GioConverterInputStream :>
     val new_ = fn x1 & x2 => (_import "g_converter_input_stream_new" : GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p * GioConverterClass.FFI.notnull GioConverterClass.FFI.p -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;) (x1, x2)
     val getConverter_ = _import "g_converter_input_stream_get_converter" : GioConverterInputStreamClass.FFI.notnull GioConverterInputStreamClass.FFI.p -> GioConverterClass.FFI.notnull GioConverterClass.FFI.p;
     type 'a class = 'a GioConverterInputStreamClass.class
+    type 'a pollable_input_stream_class = 'a GioPollableInputStreamClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class
     type 'a converter_class = 'a GioConverterClass.class
     type t = base class
+    fun asPollableInputStream self = (GObjectObjectClass.FFI.withPtr ---> GioPollableInputStreamClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (baseStream, converter) = (GioInputStreamClass.FFI.withPtr &&&> GioConverterClass.FFI.withPtr ---> GioConverterInputStreamClass.FFI.fromPtr true) new_ (baseStream & converter)
     fun getConverter self = (GioConverterInputStreamClass.FFI.withPtr ---> GioConverterClass.FFI.fromPtr false) getConverter_ self

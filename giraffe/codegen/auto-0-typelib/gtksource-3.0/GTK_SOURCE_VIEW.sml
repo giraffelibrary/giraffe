@@ -4,6 +4,8 @@ signature GTK_SOURCE_VIEW =
     type 'a buffer_class
     type 'a gutter_class
     type 'a mark_attributes_class
+    type change_case_type_t
+    type background_pattern_type_t
     type 'a completion_class
     type draw_spaces_flags_t
     type smart_home_end_type_t
@@ -15,6 +17,7 @@ signature GTK_SOURCE_VIEW =
     val new : unit -> base class
     val newWithBuffer : 'a buffer_class -> base class
     val getAutoIndent : 'a class -> bool
+    val getBackgroundPattern : 'a class -> background_pattern_type_t
     val getCompletion : 'a class -> base completion_class
     val getDrawSpaces : 'a class -> draw_spaces_flags_t
     val getGutter :
@@ -29,15 +32,24 @@ signature GTK_SOURCE_VIEW =
     val getShowLineMarks : 'a class -> bool
     val getShowLineNumbers : 'a class -> bool
     val getShowRightMargin : 'a class -> bool
+    val getSmartBackspace : 'a class -> bool
     val getSmartHomeEnd : 'a class -> smart_home_end_type_t
     val getTabWidth : 'a class -> LargeInt.int
     val getVisualColumn :
       'a class
        -> Gtk.TextIterRecord.t
        -> LargeInt.int
+    val indentLines :
+      'a class
+       -> Gtk.TextIterRecord.t * Gtk.TextIterRecord.t
+       -> unit
     val setAutoIndent :
       'a class
        -> bool
+       -> unit
+    val setBackgroundPattern :
+      'a class
+       -> background_pattern_type_t
        -> unit
     val setDrawSpaces :
       'a class
@@ -81,6 +93,10 @@ signature GTK_SOURCE_VIEW =
       'a class
        -> bool
        -> unit
+    val setSmartBackspace :
+      'a class
+       -> bool
+       -> unit
     val setSmartHomeEnd :
       'a class
        -> smart_home_end_type_t
@@ -89,14 +105,23 @@ signature GTK_SOURCE_VIEW =
       'a class
        -> LargeInt.int
        -> unit
+    val unindentLines :
+      'a class
+       -> Gtk.TextIterRecord.t * Gtk.TextIterRecord.t
+       -> unit
+    val changeCaseSig : (change_case_type_t -> unit) -> 'a class Signal.t
+    val changeNumberSig : (LargeInt.int -> unit) -> 'a class Signal.t
+    val joinLinesSig : (unit -> unit) -> 'a class Signal.t
     val lineMarkActivatedSig : (Gtk.TextIterRecord.t * base Gdk.Event.union -> unit) -> 'a class Signal.t
     val moveLinesSig : (bool * LargeInt.int -> unit) -> 'a class Signal.t
+    val moveToMatchingBracketSig : (bool -> unit) -> 'a class Signal.t
     val moveWordsSig : (LargeInt.int -> unit) -> 'a class Signal.t
     val redoSig : (unit -> unit) -> 'a class Signal.t
     val showCompletionSig : (unit -> unit) -> 'a class Signal.t
     val smartHomeEndSig : (Gtk.TextIterRecord.t * LargeInt.int -> unit) -> 'a class Signal.t
     val undoSig : (unit -> unit) -> 'a class Signal.t
     val autoIndentProp : ('a class, bool, bool) Property.readwrite
+    val backgroundPatternProp : ('a class, background_pattern_type_t, background_pattern_type_t) Property.readwrite
     val completionProp : ('a class, base completion_class option) Property.readonly
     val drawSpacesProp : ('a class, draw_spaces_flags_t, draw_spaces_flags_t) Property.readwrite
     val highlightCurrentLineProp : ('a class, bool, bool) Property.readwrite
@@ -107,6 +132,7 @@ signature GTK_SOURCE_VIEW =
     val showLineMarksProp : ('a class, bool, bool) Property.readwrite
     val showLineNumbersProp : ('a class, bool, bool) Property.readwrite
     val showRightMarginProp : ('a class, bool, bool) Property.readwrite
+    val smartBackspaceProp : ('a class, bool, bool) Property.readwrite
     val smartHomeEndProp : ('a class, smart_home_end_type_t, smart_home_end_type_t) Property.readwrite
     val tabWidthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
   end

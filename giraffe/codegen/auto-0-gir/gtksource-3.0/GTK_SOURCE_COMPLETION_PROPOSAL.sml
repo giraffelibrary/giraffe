@@ -8,7 +8,9 @@ signature GTK_SOURCE_COMPLETION_PROPOSAL =
       'a class
        -> 'b class
        -> bool
+    val getGicon : 'a class -> base Gio.IconClass.class
     val getIcon : 'a class -> base GdkPixbuf.PixbufClass.class
+    val getIconName : 'a class -> string
     val getInfo : 'a class -> string
     val getLabel : 'a class -> string
     val getMarkup : 'a class -> string

@@ -87,6 +87,21 @@ structure GtkCssProvider :>
               x3,
               x4
             )
+    val loadFromResource_ =
+      fn
+        x1 & (x2, x3) =>
+          (
+            _import "mlton_gtk_css_provider_load_from_resource" :
+              GtkCssProviderClass.FFI.notnull GtkCssProviderClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val toString_ = _import "gtk_css_provider_to_string" : GtkCssProviderClass.FFI.notnull GtkCssProviderClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     type 'a class = 'a GtkCssProviderClass.class
     type 'a style_provider_class = 'a GtkStyleProviderClass.class
@@ -143,5 +158,6 @@ structure GtkCssProvider :>
            & path
            & []
         )
+    fun loadFromResource self resourcePath = (GtkCssProviderClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) loadFromResource_ (self & resourcePath)
     fun toString self = (GtkCssProviderClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
   end

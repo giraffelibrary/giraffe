@@ -9,6 +9,9 @@ signature GIO_FILE_MONITOR_EVENT =
     | PRE_UNMOUNT
     | UNMOUNTED
     | MOVED
+    | RENAMED
+    | MOVED_IN
+    | MOVED_OUT
     include
       ENUM
         where type t = enum

@@ -8,6 +8,12 @@ structure GtkListStore :>
     where type 'a tree_sortable_class = 'a GtkTreeSortableClass.class
     where type tree_iter_t = GtkTreeIterRecord.t =
   struct
+    structure GIntCVectorType =
+      CValueCVectorType(
+        structure CElemType = GIntType
+        structure ElemSequence = CValueVectorSequence(GIntType)
+      )
+    structure GIntCVector = CVector(GIntCVectorType)
     local
       open PolyMLFFI
     in
@@ -57,6 +63,7 @@ structure GtkListStore :>
           )
       val prepend_ = call (getSymbol "gtk_list_store_prepend") (GtkListStoreClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> cVoid)
       val remove_ = call (getSymbol "gtk_list_store_remove") (GtkListStoreClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val reorder_ = call (getSymbol "gtk_list_store_reorder") (GtkListStoreClass.PolyML.cPtr &&> GIntCVector.PolyML.cInPtr --> cVoid)
       val setValue_ =
         call (getSymbol "gtk_list_store_set_value")
           (
@@ -184,6 +191,7 @@ structure GtkListStore :>
         iter
       end
     fun remove self iter = (GtkListStoreClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) remove_ (self & iter)
+    fun reorder self newOrder = (GtkListStoreClass.FFI.withPtr &&&> GIntCVector.FFI.withPtr ---> I) reorder_ (self & newOrder)
     fun setValue
       self
       (

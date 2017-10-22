@@ -10,7 +10,16 @@ structure GtkFileChooser :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_file_chooser_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val addFilter_ = call (getSymbol "gtk_file_chooser_add_filter") (GtkFileChooserClass.PolyML.cPtr &&> GtkFileFilterClass.PolyML.cPtr --> cVoid)
+      val addChoice_ =
+        call (getSymbol "gtk_file_chooser_add_choice")
+          (
+            GtkFileChooserClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             --> cVoid
+          )
       val addShortcutFolder_ =
         call (getSymbol "gtk_file_chooser_add_shortcut_folder")
           (
@@ -28,10 +37,12 @@ structure GtkFileChooser :>
              --> GBool.PolyML.cVal
           )
       val getAction_ = call (getSymbol "gtk_file_chooser_get_action") (GtkFileChooserClass.PolyML.cPtr --> GtkFileChooserAction.PolyML.cVal)
+      val getChoice_ = call (getSymbol "gtk_file_chooser_get_choice") (GtkFileChooserClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val getCreateFolders_ = call (getSymbol "gtk_file_chooser_get_create_folders") (GtkFileChooserClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getCurrentFolder_ = call (getSymbol "gtk_file_chooser_get_current_folder") (GtkFileChooserClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getCurrentFolderFile_ = call (getSymbol "gtk_file_chooser_get_current_folder_file") (GtkFileChooserClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
       val getCurrentFolderUri_ = call (getSymbol "gtk_file_chooser_get_current_folder_uri") (GtkFileChooserClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getCurrentName_ = call (getSymbol "gtk_file_chooser_get_current_name") (GtkFileChooserClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getDoOverwriteConfirmation_ = call (getSymbol "gtk_file_chooser_get_do_overwrite_confirmation") (GtkFileChooserClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getExtraWidget_ = call (getSymbol "gtk_file_chooser_get_extra_widget") (GtkFileChooserClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getFile_ = call (getSymbol "gtk_file_chooser_get_file") (GtkFileChooserClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
@@ -47,6 +58,7 @@ structure GtkFileChooser :>
       val getShowHidden_ = call (getSymbol "gtk_file_chooser_get_show_hidden") (GtkFileChooserClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getUri_ = call (getSymbol "gtk_file_chooser_get_uri") (GtkFileChooserClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getUsePreviewLabel_ = call (getSymbol "gtk_file_chooser_get_use_preview_label") (GtkFileChooserClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val removeChoice_ = call (getSymbol "gtk_file_chooser_remove_choice") (GtkFileChooserClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val removeFilter_ = call (getSymbol "gtk_file_chooser_remove_filter") (GtkFileChooserClass.PolyML.cPtr &&> GtkFileFilterClass.PolyML.cPtr --> cVoid)
       val removeShortcutFolder_ =
         call (getSymbol "gtk_file_chooser_remove_shortcut_folder")
@@ -76,6 +88,14 @@ structure GtkFileChooser :>
       val selectFilename_ = call (getSymbol "gtk_file_chooser_select_filename") (GtkFileChooserClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val selectUri_ = call (getSymbol "gtk_file_chooser_select_uri") (GtkFileChooserClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val setAction_ = call (getSymbol "gtk_file_chooser_set_action") (GtkFileChooserClass.PolyML.cPtr &&> GtkFileChooserAction.PolyML.cVal --> cVoid)
+      val setChoice_ =
+        call (getSymbol "gtk_file_chooser_set_choice")
+          (
+            GtkFileChooserClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             --> cVoid
+          )
       val setCreateFolders_ = call (getSymbol "gtk_file_chooser_set_create_folders") (GtkFileChooserClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setCurrentFolder_ = call (getSymbol "gtk_file_chooser_set_current_folder") (GtkFileChooserClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val setCurrentFolderFile_ =
@@ -119,7 +139,30 @@ structure GtkFileChooser :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun addFilter self filter = (GtkFileChooserClass.FFI.withPtr &&&> GtkFileFilterClass.FFI.withPtr ---> I) addFilter_ (self & filter)
+    fun addChoice
+      self
+      (
+        id,
+        label,
+        options,
+        optionLabels
+      ) =
+      (
+        GtkFileChooserClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> I
+      )
+        addChoice_
+        (
+          self
+           & id
+           & label
+           & options
+           & optionLabels
+        )
     fun addShortcutFolder self folder =
       (
         GtkFileChooserClass.FFI.withPtr
@@ -147,10 +190,12 @@ structure GtkFileChooser :>
            & []
         )
     fun getAction self = (GtkFileChooserClass.FFI.withPtr ---> GtkFileChooserAction.FFI.fromVal) getAction_ self
+    fun getChoice self id = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getChoice_ (self & id)
     fun getCreateFolders self = (GtkFileChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getCreateFolders_ self
     fun getCurrentFolder self = (GtkFileChooserClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getCurrentFolder_ self
     fun getCurrentFolderFile self = (GtkFileChooserClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getCurrentFolderFile_ self
     fun getCurrentFolderUri self = (GtkFileChooserClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getCurrentFolderUri_ self
+    fun getCurrentName self = (GtkFileChooserClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getCurrentName_ self
     fun getDoOverwriteConfirmation self = (GtkFileChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getDoOverwriteConfirmation_ self
     fun getExtraWidget self = (GtkFileChooserClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getExtraWidget_ self
     fun getFile self = (GtkFileChooserClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getFile_ self
@@ -166,6 +211,7 @@ structure GtkFileChooser :>
     fun getShowHidden self = (GtkFileChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowHidden_ self
     fun getUri self = (GtkFileChooserClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getUri_ self
     fun getUsePreviewLabel self = (GtkFileChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getUsePreviewLabel_ self
+    fun removeChoice self id = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) removeChoice_ (self & id)
     fun removeFilter self filter = (GtkFileChooserClass.FFI.withPtr &&&> GtkFileFilterClass.FFI.withPtr ---> I) removeFilter_ (self & filter)
     fun removeShortcutFolder self folder =
       (
@@ -210,6 +256,19 @@ structure GtkFileChooser :>
     fun selectFilename self filename = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) selectFilename_ (self & filename)
     fun selectUri self uri = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) selectUri_ (self & uri)
     fun setAction self action = (GtkFileChooserClass.FFI.withPtr &&&> GtkFileChooserAction.FFI.withVal ---> I) setAction_ (self & action)
+    fun setChoice self (id, option) =
+      (
+        GtkFileChooserClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         ---> I
+      )
+        setChoice_
+        (
+          self
+           & id
+           & option
+        )
     fun setCreateFolders self createFolders = (GtkFileChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCreateFolders_ (self & createFolders)
     fun setCurrentFolder self filename = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) setCurrentFolder_ (self & filename)
     fun setCurrentFolderFile self file =

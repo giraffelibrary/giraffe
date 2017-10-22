@@ -4,6 +4,12 @@ structure AtkRelation :>
     where type 'a object_class = 'a AtkObjectClass.class
     where type relation_type_t = AtkRelationType.t =
   struct
+    structure AtkObjectClassCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = AtkObjectClass.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure AtkObjectClassCVectorN = CVectorN(AtkObjectClassCVectorNType)
     local
       open PolyMLFFI
     in
@@ -11,7 +17,7 @@ structure AtkRelation :>
       val new_ =
         call (getSymbol "atk_relation_new")
           (
-            AtkObjectClass.PolyML.cPtr
+            AtkObjectClassCVectorN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> AtkRelationType.PolyML.cVal
              --> AtkRelationClass.PolyML.cPtr
@@ -25,24 +31,25 @@ structure AtkRelation :>
     type relation_type_t = AtkRelationType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new
-      (
-        targets,
-        nTargets,
-        relationship
-      ) =
-      (
-        AtkObjectClass.FFI.withPtr
-         &&&> GInt.FFI.withVal
-         &&&> AtkRelationType.FFI.withVal
-         ---> AtkRelationClass.FFI.fromPtr true
-      )
-        new_
-        (
-          targets
-           & nTargets
-           & relationship
-        )
+    fun new (targets, relationship) =
+      let
+        val nTargets = LargeInt.fromInt (AtkObjectClassCVectorN.length targets)
+        val retVal =
+          (
+            AtkObjectClassCVectorN.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             &&&> AtkRelationType.FFI.withVal
+             ---> AtkRelationClass.FFI.fromPtr true
+          )
+            new_
+            (
+              targets
+               & nTargets
+               & relationship
+            )
+      in
+        retVal
+      end
     fun addTarget self target = (AtkRelationClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> I) addTarget_ (self & target)
     fun getRelationType self = (AtkRelationClass.FFI.withPtr ---> AtkRelationType.FFI.fromVal) getRelationType_ self
     fun removeTarget self target = (AtkRelationClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> GBool.FFI.fromVal) removeTarget_ (self & target)

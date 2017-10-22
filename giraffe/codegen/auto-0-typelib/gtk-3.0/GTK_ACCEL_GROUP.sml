@@ -6,7 +6,7 @@ signature GTK_ACCEL_GROUP =
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val fromAccelClosure : GObject.ClosureRecord.t -> base class
+    val fromAccelClosure : GObject.ClosureRecord.t -> base class option
     val activate :
       'a class
        -> LargeInt.int
@@ -39,7 +39,7 @@ signature GTK_ACCEL_GROUP =
     val query :
       'a class
        -> LargeInt.int * Gdk.ModifierType.t
-       -> accel_group_entry_t vector
+       -> accel_group_entry_t vector option
     val unlock : 'a class -> unit
     val accelActivateSig :
       (base GObject.ObjectClass.class

@@ -17,6 +17,7 @@ structure GObjectBinding :>
       val getSourceProperty_ = call (getSymbol "g_binding_get_source_property") (GObjectBindingClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getTarget_ = call (getSymbol "g_binding_get_target") (GObjectBindingClass.PolyML.cPtr --> GObjectObjectClass.PolyML.cPtr)
       val getTargetProperty_ = call (getSymbol "g_binding_get_target_property") (GObjectBindingClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val unbind_ = call (getSymbol "g_binding_unbind") (GObjectBindingClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GObjectBindingClass.class
     type type_t = GObjectType.t
@@ -32,6 +33,7 @@ structure GObjectBinding :>
     fun getSourceProperty self = (GObjectBindingClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSourceProperty_ self
     fun getTarget self = (GObjectBindingClass.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getTarget_ self
     fun getTargetProperty self = (GObjectBindingClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTargetProperty_ self
+    fun unbind self = (GObjectBindingClass.FFI.withPtr ---> I) unbind_ self
     local
       open Property
     in

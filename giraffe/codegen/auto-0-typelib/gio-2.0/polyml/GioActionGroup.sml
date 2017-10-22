@@ -47,12 +47,24 @@ structure GioActionGroup :>
              --> cVoid
           )
       val getActionEnabled_ = call (getSymbol "g_action_group_get_action_enabled") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val getActionParameterType_ = call (getSymbol "g_action_group_get_action_parameter_type") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cPtr)
-      val getActionState_ = call (getSymbol "g_action_group_get_action_state") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
-      val getActionStateHint_ = call (getSymbol "g_action_group_get_action_state_hint") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
-      val getActionStateType_ = call (getSymbol "g_action_group_get_action_state_type") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cPtr)
+      val getActionParameterType_ = call (getSymbol "g_action_group_get_action_parameter_type") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cOptPtr)
+      val getActionState_ = call (getSymbol "g_action_group_get_action_state") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cOptPtr)
+      val getActionStateHint_ = call (getSymbol "g_action_group_get_action_state_hint") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cOptPtr)
+      val getActionStateType_ = call (getSymbol "g_action_group_get_action_state_type") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cOptPtr)
       val hasAction_ = call (getSymbol "g_action_group_has_action") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val listActions_ = call (getSymbol "g_action_group_list_actions") (GioActionGroupClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val queryAction_ =
+        call (getSymbol "g_action_group_query_action")
+          (
+            GioActionGroupClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GBool.PolyML.cRef
+             &&> GLibVariantTypeRecord.PolyML.cOutRef
+             &&> GLibVariantTypeRecord.PolyML.cOutRef
+             &&> GLibVariantRecord.PolyML.cOutRef
+             &&> GLibVariantRecord.PolyML.cOutRef
+             --> GBool.PolyML.cVal
+          )
     end
     type 'a class = 'a GioActionGroupClass.class
     type t = base class
@@ -112,12 +124,58 @@ structure GioActionGroup :>
            & value
         )
     fun getActionEnabled self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) getActionEnabled_ (self & actionName)
-    fun getActionParameterType self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) getActionParameterType_ (self & actionName)
-    fun getActionState self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getActionState_ (self & actionName)
-    fun getActionStateHint self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getActionStateHint_ (self & actionName)
-    fun getActionStateType self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) getActionStateType_ (self & actionName)
+    fun getActionParameterType self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getActionParameterType_ (self & actionName)
+    fun getActionState self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromOptPtr true) getActionState_ (self & actionName)
+    fun getActionStateHint self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromOptPtr true) getActionStateHint_ (self & actionName)
+    fun getActionStateType self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getActionStateType_ (self & actionName)
     fun hasAction self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasAction_ (self & actionName)
     fun listActions self = (GioActionGroupClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listActions_ self
+    fun queryAction self actionName =
+      let
+        val enabled
+         & parameterType
+         & stateType
+         & stateHint
+         & state
+         & retVal =
+          (
+            GioActionGroupClass.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GBool.FFI.withRefVal
+             &&&> GLibVariantTypeRecord.FFI.withRefOptPtr
+             &&&> GLibVariantTypeRecord.FFI.withRefOptPtr
+             &&&> GLibVariantRecord.FFI.withRefOptPtr
+             &&&> GLibVariantRecord.FFI.withRefOptPtr
+             ---> GBool.FFI.fromVal
+                   && GLibVariantTypeRecord.FFI.fromPtr true
+                   && GLibVariantTypeRecord.FFI.fromPtr true
+                   && GLibVariantRecord.FFI.fromPtr true
+                   && GLibVariantRecord.FFI.fromPtr true
+                   && GBool.FFI.fromVal
+          )
+            queryAction_
+            (
+              self
+               & actionName
+               & GBool.null
+               & NONE
+               & NONE
+               & NONE
+               & NONE
+            )
+      in
+        if retVal
+        then
+          SOME
+            (
+              enabled,
+              parameterType,
+              stateType,
+              stateHint,
+              state
+            )
+        else NONE
+      end
     local
       open ClosureMarshal Signal
     in

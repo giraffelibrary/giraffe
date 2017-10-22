@@ -2,7 +2,7 @@ signature ATK_ROLE =
   sig
     datatype enum =
       INVALID
-    | ACCEL_LABEL
+    | ACCELERATOR_LABEL
     | ALERT
     | ANIMATION
     | ARROW
@@ -76,7 +76,7 @@ signature ATK_ROLE =
     | RULER
     | APPLICATION
     | AUTOCOMPLETE
-    | EDITBAR
+    | EDIT_BAR
     | EMBEDDED
     | ENTRY
     | CHART
@@ -102,6 +102,27 @@ signature ATK_ROLE =
     | IMAGE_MAP
     | NOTIFICATION
     | INFO_BAR
+    | LEVEL_BAR
+    | TITLE_BAR
+    | BLOCK_QUOTE
+    | AUDIO
+    | VIDEO
+    | DEFINITION
+    | ARTICLE
+    | LANDMARK
+    | LOG
+    | MARQUEE
+    | MATH
+    | RATING
+    | TIMER
+    | DESCRIPTION_LIST
+    | DESCRIPTION_TERM
+    | DESCRIPTION_VALUE
+    | STATIC
+    | MATH_FRACTION
+    | MATH_ROOT
+    | SUBSCRIPT
+    | SUPERSCRIPT
     | LAST_DEFINED
     include
       ENUM

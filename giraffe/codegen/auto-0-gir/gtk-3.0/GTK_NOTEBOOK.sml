@@ -22,6 +22,10 @@ signature GTK_NOTEBOOK =
            * 'c widget_class option
            * 'd widget_class option
        -> LargeInt.int
+    val detachTab :
+      'a class
+       -> 'b widget_class
+       -> unit
     val getActionWidget :
       'a class
        -> pack_type_t

@@ -89,7 +89,7 @@ signature GIO_D_BUS_PROXY =
        -> unit
     val gPropertiesChangedSig : (GLib.VariantRecord.t * string list -> unit) -> 'a class Signal.t
     val gSignalSig :
-      (string
+      (string option
         * string
         * GLib.VariantRecord.t
         -> unit)

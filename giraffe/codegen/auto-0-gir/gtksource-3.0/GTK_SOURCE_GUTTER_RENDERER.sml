@@ -84,13 +84,13 @@ signature GTK_SOURCE_GUTTER_RENDERER =
        -> unit
     val activateSig :
       (Gtk.TextIterRecord.t
-        * Cairo.RectangleIntRecord.t
+        * Gdk.RectangleRecord.t
         * base Gdk.Event.union
         -> unit)
        -> 'a class Signal.t
     val queryActivatableSig :
       (Gtk.TextIterRecord.t
-        * Cairo.RectangleIntRecord.t
+        * Gdk.RectangleRecord.t
         * base Gdk.Event.union
         -> bool)
        -> 'a class Signal.t
@@ -102,7 +102,7 @@ signature GTK_SOURCE_GUTTER_RENDERER =
        -> 'a class Signal.t
     val queryTooltipSig :
       (Gtk.TextIterRecord.t
-        * Cairo.RectangleIntRecord.t
+        * Gdk.RectangleRecord.t
         * LargeInt.int
         * LargeInt.int
         * base Gtk.TooltipClass.class

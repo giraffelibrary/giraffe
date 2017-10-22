@@ -8,7 +8,7 @@ structure GtkResponseType :> GTK_RESPONSE_TYPE =
     end
     val REJECT : t = ~2
     val ACCEPT : t = ~3
-    val DELETEEVENT : t = ~4
+    val DELETE_EVENT : t = ~4
     val OK : t = ~5
     val CANCEL : t = ~6
     val CLOSE : t = ~7

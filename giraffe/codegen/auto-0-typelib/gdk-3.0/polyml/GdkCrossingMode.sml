@@ -7,6 +7,9 @@ structure GdkCrossingMode :> GDK_CROSSING_MODE =
     | GTK_GRAB
     | GTK_UNGRAB
     | STATE_CHANGED
+    | TOUCH_BEGIN
+    | TOUCH_END
+    | DEVICE_SWITCH
     structure Enum =
       Enum(
         type enum = enum
@@ -19,6 +22,9 @@ structure GdkCrossingMode :> GDK_CROSSING_MODE =
           | GTK_GRAB => 3
           | GTK_UNGRAB => 4
           | STATE_CHANGED => 5
+          | TOUCH_BEGIN => 6
+          | TOUCH_END => 7
+          | DEVICE_SWITCH => 8
         exception Value of GInt32.t
         val fromInt =
           fn
@@ -28,6 +34,9 @@ structure GdkCrossingMode :> GDK_CROSSING_MODE =
           | 3 => GTK_GRAB
           | 4 => GTK_UNGRAB
           | 5 => STATE_CHANGED
+          | 6 => TOUCH_BEGIN
+          | 7 => TOUCH_END
+          | 8 => DEVICE_SWITCH
           | n => raise Value n
       )
     open Enum

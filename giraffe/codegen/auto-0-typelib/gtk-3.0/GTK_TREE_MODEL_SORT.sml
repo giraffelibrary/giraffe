@@ -19,7 +19,7 @@ signature GTK_TREE_MODEL_SORT =
     val convertChildPathToPath :
       'a class
        -> tree_path_t
-       -> tree_path_t
+       -> tree_path_t option
     val convertIterToChildIter :
       'a class
        -> tree_iter_t
@@ -27,7 +27,7 @@ signature GTK_TREE_MODEL_SORT =
     val convertPathToChildPath :
       'a class
        -> tree_path_t
-       -> tree_path_t
+       -> tree_path_t option
     val getModel : 'a class -> base tree_model_class
     val iterIsValid :
       'a class

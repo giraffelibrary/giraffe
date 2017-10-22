@@ -92,6 +92,32 @@ structure GioOutputStream :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
+      val writeAllFinish_ =
+        call (getSymbol "g_output_stream_write_all_finish")
+          (
+            GioOutputStreamClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
+             &&> GSize.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
+      val writeBytes_ =
+        call (getSymbol "g_output_stream_write_bytes")
+          (
+            GioOutputStreamClass.PolyML.cPtr
+             &&> GLibBytesRecord.PolyML.cPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GSSize.PolyML.cVal
+          )
+      val writeBytesFinish_ =
+        call (getSymbol "g_output_stream_write_bytes_finish")
+          (
+            GioOutputStreamClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GSSize.PolyML.cVal
+          )
       val writeFinish_ =
         call (getSymbol "g_output_stream_write_finish")
           (
@@ -249,6 +275,54 @@ structure GioOutputStream :>
       in
         bytesWritten
       end
+    fun writeAllFinish self result =
+      let
+        val bytesWritten & () =
+          (
+            GioOutputStreamClass.FFI.withPtr
+             &&&> GioAsyncResultClass.FFI.withPtr
+             &&&> GSize.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> GSize.FFI.fromVal && ignore
+          )
+            writeAllFinish_
+            (
+              self
+               & result
+               & GSize.null
+               & []
+            )
+      in
+        bytesWritten
+      end
+    fun writeBytes self (bytes, cancellable) =
+      (
+        GioOutputStreamClass.FFI.withPtr
+         &&&> GLibBytesRecord.FFI.withPtr
+         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GLibErrorRecord.handleError
+         ---> GSSize.FFI.fromVal
+      )
+        writeBytes_
+        (
+          self
+           & bytes
+           & cancellable
+           & []
+        )
+    fun writeBytesFinish self result =
+      (
+        GioOutputStreamClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> GSSize.FFI.fromVal
+      )
+        writeBytesFinish_
+        (
+          self
+           & result
+           & []
+        )
     fun writeFinish self result =
       (
         GioOutputStreamClass.FFI.withPtr

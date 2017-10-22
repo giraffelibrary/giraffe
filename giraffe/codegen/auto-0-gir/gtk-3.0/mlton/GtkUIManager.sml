@@ -64,6 +64,25 @@ structure GtkUIManager :>
               x3,
               x4
             )
+    val addUiFromResource_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4 =>
+          (
+            _import "mlton_gtk_ui_manager_add_ui_from_resource" :
+              GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GUInt.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val addUiFromString_ =
       fn
         x1
@@ -193,6 +212,19 @@ structure GtkUIManager :>
         (
           self
            & filename
+           & []
+        )
+    fun addUiFromResource self resourcePath =
+      (
+        GtkUIManagerClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> GUInt.FFI.fromVal
+      )
+        addUiFromResource_
+        (
+          self
+           & resourcePath
            & []
         )
     fun addUiFromString self (buffer, length) =

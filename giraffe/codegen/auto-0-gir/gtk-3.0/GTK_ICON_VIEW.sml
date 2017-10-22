@@ -42,6 +42,11 @@ signature GTK_ICON_VIEW =
            * target_entry_t vector
            * Gdk.DragAction.t
        -> unit
+    val getActivateOnSingleClick : 'a class -> bool
+    val getCellRect :
+      'a class
+       -> tree_path_t * 'b cell_renderer_class option
+       -> Gdk.RectangleRecord.t option
     val getColumnSpacing : 'a class -> LargeInt.int
     val getColumns : 'a class -> LargeInt.int
     val getCursor : 'a class -> (tree_path_t * base cell_renderer_class) option
@@ -110,6 +115,10 @@ signature GTK_ICON_VIEW =
     val selectPath :
       'a class
        -> tree_path_t
+       -> unit
+    val setActivateOnSingleClick :
+      'a class
+       -> bool
        -> unit
     val setColumnSpacing :
       'a class
@@ -206,6 +215,7 @@ signature GTK_ICON_VIEW =
     val selectionChangedSig : (unit -> unit) -> 'a class Signal.t
     val toggleCursorItemSig : (unit -> unit) -> 'a class Signal.t
     val unselectAllSig : (unit -> unit) -> 'a class Signal.t
+    val activateOnSingleClickProp : ('a class, bool, bool) Property.readwrite
     val cellAreaProp : ('a class, base cell_area_class option, 'b cell_area_class option) Property.readwrite
     val columnSpacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
     val columnsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite

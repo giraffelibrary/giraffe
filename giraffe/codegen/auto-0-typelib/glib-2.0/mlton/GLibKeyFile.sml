@@ -1,6 +1,7 @@
 structure GLibKeyFile :>
   G_LIB_KEY_FILE
     where type t = GLibKeyFileRecord.t
+    where type bytes_t = GLibBytesRecord.t
     where type key_file_flags_t = GLibKeyFileFlags.t =
   struct
     structure Utf8CVectorNType =
@@ -15,6 +16,12 @@ structure GLibKeyFile :>
         structure ElemSequence = CValueVectorSequence(GInt32Type)
       )
     structure GInt32CVectorN = CVectorN(GInt32CVectorNType)
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
     structure GDoubleCVectorNType =
       CValueCVectorNType(
         structure CElemType = GDoubleType
@@ -27,6 +34,8 @@ structure GLibKeyFile :>
         structure ElemSequence = CValueVectorSequence(GBoolType)
       )
     structure GBoolCVectorN = CVectorN(GBoolCVectorNType)
+    val getType_ = _import "g_key_file_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "g_key_file_new" : unit -> GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p;
     val getBoolean_ =
       fn
         x1
@@ -88,7 +97,7 @@ structure GLibKeyFile :>
             _import "mlton_g_key_file_get_comment" :
               GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
@@ -153,6 +162,7 @@ structure GLibKeyFile :>
               x6,
               x7
             )
+    val getGroups_ = fn x1 & x2 => (_import "g_key_file_get_groups" : GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;) (x1, x2)
     val getInt64_ =
       fn
         x1
@@ -227,6 +237,28 @@ structure GLibKeyFile :>
               x5,
               x6,
               x7
+            )
+    val getKeys_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5 =>
+          (
+            _import "mlton_g_key_file_get_keys" :
+              GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GUInt64.FFI.ref_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
             )
     val getLocaleString_ =
       fn
@@ -404,6 +436,26 @@ structure GLibKeyFile :>
               x2,
               x3
             )
+    val loadFromBytes_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4 =>
+          (
+            _import "g_key_file_load_from_bytes" :
+              GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
+               * GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p
+               * GLibKeyFileFlags.FFI.val_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val loadFromData_ =
       fn
         x1
@@ -441,8 +493,8 @@ structure GLibKeyFile :>
               GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.MLton.r1
+               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
                * GLibKeyFileFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
@@ -469,10 +521,10 @@ structure GLibKeyFile :>
               GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8CVector.MLton.p1
+               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               * Utf8.MLton.r1
+               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
                * GLibKeyFileFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
@@ -520,9 +572,9 @@ structure GLibKeyFile :>
             _import "mlton_g_key_file_remove_comment" :
               GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
@@ -577,6 +629,25 @@ structure GLibKeyFile :>
               x5,
               x6
             )
+    val saveToFile_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4 =>
+          (
+            _import "mlton_g_key_file_save_to_file" :
+              GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val setBoolean_ =
       fn
         x1
@@ -606,8 +677,8 @@ structure GLibKeyFile :>
         x1
          & (x2, x3)
          & (x4, x5)
-         & x6
-         & x7 =>
+         & (x6, x7)
+         & x8 =>
           (
             _import "mlton_g_key_file_set_boolean_list" :
               GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
@@ -615,7 +686,8 @@ structure GLibKeyFile :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * GBool.FFI.val_
+               * GBoolCVectorN.MLton.p1
+               * GBoolCVectorN.FFI.notnull GBoolCVectorN.MLton.p2
                * GUInt64.FFI.val_
                -> unit;
           )
@@ -626,7 +698,8 @@ structure GLibKeyFile :>
               x4,
               x5,
               x6,
-              x7
+              x7,
+              x8
             )
     val setComment_ =
       fn
@@ -639,9 +712,9 @@ structure GLibKeyFile :>
             _import "mlton_g_key_file_set_comment" :
               GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
@@ -686,8 +759,8 @@ structure GLibKeyFile :>
         x1
          & (x2, x3)
          & (x4, x5)
-         & x6
-         & x7 =>
+         & (x6, x7)
+         & x8 =>
           (
             _import "mlton_g_key_file_set_double_list" :
               GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
@@ -695,7 +768,8 @@ structure GLibKeyFile :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * GDouble.FFI.val_
+               * GDoubleCVectorN.MLton.p1
+               * GDoubleCVectorN.FFI.notnull GDoubleCVectorN.MLton.p2
                * GUInt64.FFI.val_
                -> unit;
           )
@@ -706,7 +780,8 @@ structure GLibKeyFile :>
               x4,
               x5,
               x6,
-              x7
+              x7,
+              x8
             )
     val setInt64_ =
       fn
@@ -761,8 +836,8 @@ structure GLibKeyFile :>
         x1
          & (x2, x3)
          & (x4, x5)
-         & x6
-         & x7 =>
+         & (x6, x7)
+         & x8 =>
           (
             _import "mlton_g_key_file_set_integer_list" :
               GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
@@ -770,7 +845,8 @@ structure GLibKeyFile :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * GInt32.FFI.val_
+               * GInt32CVectorN.MLton.p1
+               * GInt32CVectorN.FFI.notnull GInt32CVectorN.MLton.p2
                * GUInt64.FFI.val_
                -> unit;
           )
@@ -781,9 +857,10 @@ structure GLibKeyFile :>
               x4,
               x5,
               x6,
-              x7
+              x7,
+              x8
             )
-    val setListSeparator_ = fn x1 & x2 => (_import "g_key_file_set_list_separator" : GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p * GUInt8.FFI.val_ -> unit;) (x1, x2)
+    val setListSeparator_ = fn x1 & x2 => (_import "g_key_file_set_list_separator" : GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p * GInt8.FFI.val_ -> unit;) (x1, x2)
     val setLocaleString_ =
       fn
         x1
@@ -832,8 +909,8 @@ structure GLibKeyFile :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8CVectorN.MLton.p1
+               * Utf8CVectorN.FFI.notnull Utf8CVectorN.MLton.p2
                * GUInt64.FFI.val_
                -> unit;
           )
@@ -954,8 +1031,28 @@ structure GLibKeyFile :>
               x6,
               x7
             )
+    val toData_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "g_key_file_to_data" :
+              GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
+               * GUInt64.FFI.ref_
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     type t = GLibKeyFileRecord.t
+    type bytes_t = GLibBytesRecord.t
     type key_file_flags_t = GLibKeyFileFlags.t
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GLibKeyFileRecord.FFI.fromPtr true) new_ ()
     fun getBoolean self (groupName, key) =
       (
         GLibKeyFileRecord.FFI.withPtr
@@ -996,7 +1093,7 @@ structure GLibKeyFile :>
     fun getComment self (groupName, key) =
       (
         GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> Utf8.FFI.fromPtr 1
@@ -1044,6 +1141,12 @@ structure GLibKeyFile :>
             )
       in
         retVal (LargeInt.toInt length)
+      end
+    fun getGroups self =
+      let
+        val length & retVal = (GLibKeyFileRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CVector.FFI.fromPtr 2) getGroups_ (self & GUInt64.null)
+      in
+        (retVal, length)
       end
     fun getInt64 self (groupName, key) =
       (
@@ -1096,6 +1199,26 @@ structure GLibKeyFile :>
             )
       in
         retVal (LargeInt.toInt length)
+      end
+    fun getKeys self groupName =
+      let
+        val length & retVal =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GUInt64.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> GUInt64.FFI.fromVal && Utf8CVector.FFI.fromPtr 2
+          )
+            getKeys_
+            (
+              self
+               & groupName
+               & GUInt64.null
+               & []
+            )
+      in
+        (retVal, length)
       end
     fun getLocaleString
       self
@@ -1219,6 +1342,21 @@ structure GLibKeyFile :>
            & []
         )
     fun hasGroup self groupName = (GLibKeyFileRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasGroup_ (self & groupName)
+    fun loadFromBytes self (bytes, flags) =
+      (
+        GLibKeyFileRecord.FFI.withPtr
+         &&&> GLibBytesRecord.FFI.withPtr
+         &&&> GLibKeyFileFlags.FFI.withVal
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        loadFromBytes_
+        (
+          self
+           & bytes
+           & flags
+           & []
+        )
     fun loadFromData
       self
       (
@@ -1242,55 +1380,58 @@ structure GLibKeyFile :>
            & flags
            & []
         )
-    fun loadFromDataDirs
-      self
-      (
-        file,
-        fullPath,
-        flags
-      ) =
-      (
-        GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibKeyFileFlags.FFI.withVal
-         &&&> GLibErrorRecord.handleError
-         ---> ignore
-      )
-        loadFromDataDirs_
-        (
-          self
-           & file
-           & fullPath
-           & flags
-           & []
-        )
+    fun loadFromDataDirs self (file, flags) =
+      let
+        val fullPath & () =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GLibKeyFileFlags.FFI.withVal
+             &&&> GLibErrorRecord.handleError
+             ---> Utf8.FFI.fromPtr 1 && ignore
+          )
+            loadFromDataDirs_
+            (
+              self
+               & file
+               & NONE
+               & flags
+               & []
+            )
+      in
+        fullPath
+      end
     fun loadFromDirs
       self
       (
         file,
         searchDirs,
-        fullPath,
         flags
       ) =
-      (
-        GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibKeyFileFlags.FFI.withVal
-         &&&> GLibErrorRecord.handleError
-         ---> ignore
-      )
-        loadFromDirs_
-        (
-          self
-           & file
-           & searchDirs
-           & fullPath
-           & flags
-           & []
-        )
+      let
+        val fullPath & () =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8CVector.FFI.withPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> GLibKeyFileFlags.FFI.withVal
+             &&&> GLibErrorRecord.handleError
+             ---> Utf8.FFI.fromPtr 1 && ignore
+          )
+            loadFromDirs_
+            (
+              self
+               & file
+               & searchDirs
+               & NONE
+               & flags
+               & []
+            )
+      in
+        fullPath
+      end
     fun loadFromFile self (file, flags) =
       (
         GLibKeyFileRecord.FFI.withPtr
@@ -1309,8 +1450,8 @@ structure GLibKeyFile :>
     fun removeComment self (groupName, key) =
       (
         GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -1349,6 +1490,19 @@ structure GLibKeyFile :>
            & key
            & []
         )
+    fun saveToFile self filename =
+      (
+        GLibKeyFileRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        saveToFile_
+        (
+          self
+           & filename
+           & []
+        )
     fun setBoolean
       self
       (
@@ -1375,25 +1529,30 @@ structure GLibKeyFile :>
       (
         groupName,
         key,
-        list,
-        length
+        list
       ) =
-      (
-        GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GBool.FFI.withVal
-         &&&> GUInt64.FFI.withVal
-         ---> I
-      )
-        setBooleanList_
-        (
-          self
-           & groupName
-           & key
-           & list
-           & length
-        )
+      let
+        val length = LargeInt.fromInt (GBoolCVectorN.length list)
+        val () =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GBoolCVectorN.FFI.withPtr
+             &&&> GUInt64.FFI.withVal
+             ---> I
+          )
+            setBooleanList_
+            (
+              self
+               & groupName
+               & key
+               & list
+               & length
+            )
+      in
+        ()
+      end
     fun setComment
       self
       (
@@ -1403,8 +1562,8 @@ structure GLibKeyFile :>
       ) =
       (
         GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> ignore
@@ -1443,25 +1602,30 @@ structure GLibKeyFile :>
       (
         groupName,
         key,
-        list,
-        length
+        list
       ) =
-      (
-        GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GDouble.FFI.withVal
-         &&&> GUInt64.FFI.withVal
-         ---> I
-      )
-        setDoubleList_
-        (
-          self
-           & groupName
-           & key
-           & list
-           & length
-        )
+      let
+        val length = LargeInt.fromInt (GDoubleCVectorN.length list)
+        val () =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GDoubleCVectorN.FFI.withPtr
+             &&&> GUInt64.FFI.withVal
+             ---> I
+          )
+            setDoubleList_
+            (
+              self
+               & groupName
+               & key
+               & list
+               & length
+            )
+      in
+        ()
+      end
     fun setInt64
       self
       (
@@ -1509,26 +1673,31 @@ structure GLibKeyFile :>
       (
         groupName,
         key,
-        list,
-        length
+        list
       ) =
-      (
-        GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GInt32.FFI.withVal
-         &&&> GUInt64.FFI.withVal
-         ---> I
-      )
-        setIntegerList_
-        (
-          self
-           & groupName
-           & key
-           & list
-           & length
-        )
-    fun setListSeparator self separator = (GLibKeyFileRecord.FFI.withPtr &&&> GUInt8.FFI.withVal ---> I) setListSeparator_ (self & separator)
+      let
+        val length = LargeInt.fromInt (GInt32CVectorN.length list)
+        val () =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> GInt32CVectorN.FFI.withPtr
+             &&&> GUInt64.FFI.withVal
+             ---> I
+          )
+            setIntegerList_
+            (
+              self
+               & groupName
+               & key
+               & list
+               & length
+            )
+      in
+        ()
+      end
+    fun setListSeparator self separator = (GLibKeyFileRecord.FFI.withPtr &&&> GInt8.FFI.withVal ---> I) setListSeparator_ (self & separator)
     fun setLocaleString
       self
       (
@@ -1559,27 +1728,32 @@ structure GLibKeyFile :>
         groupName,
         key,
         locale,
-        list,
-        length
+        list
       ) =
-      (
-        GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GUInt64.FFI.withVal
-         ---> I
-      )
-        setLocaleStringList_
-        (
-          self
-           & groupName
-           & key
-           & locale
-           & list
-           & length
-        )
+      let
+        val length = LargeInt.fromInt (Utf8CVectorN.length list)
+        val () =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr
+             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> GUInt64.FFI.withVal
+             ---> I
+          )
+            setLocaleStringList_
+            (
+              self
+               & groupName
+               & key
+               & locale
+               & list
+               & length
+            )
+      in
+        ()
+      end
     fun setString
       self
       (
@@ -1672,4 +1846,22 @@ structure GLibKeyFile :>
            & key
            & value
         )
+    fun toData self =
+      let
+        val length & retVal =
+          (
+            GLibKeyFileRecord.FFI.withPtr
+             &&&> GUInt64.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> GUInt64.FFI.fromVal && Utf8.FFI.fromPtr 1
+          )
+            toData_
+            (
+              self
+               & GUInt64.null
+               & []
+            )
+      in
+        (retVal, length)
+      end
   end

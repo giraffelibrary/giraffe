@@ -12,6 +12,27 @@ structure GtkAboutDialog :>
     structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "gtk_about_dialog_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_about_dialog_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val addCreditSection_ =
+      fn
+        x1
+         & (x2, x3)
+         & (x4, x5) =>
+          (
+            _import "mlton_gtk_about_dialog_add_credit_section" :
+              GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8CVector.MLton.p1
+               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
     val getArtists_ = _import "gtk_about_dialog_get_artists" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
     val getAuthors_ = _import "gtk_about_dialog_get_authors" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
     val getComments_ = _import "gtk_about_dialog_get_comments" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
@@ -79,7 +100,7 @@ structure GtkAboutDialog :>
             _import "mlton_gtk_about_dialog_set_copyright" :
               GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * unit Utf8.MLton.p2
                -> unit;
           )
             (
@@ -218,6 +239,19 @@ structure GtkAboutDialog :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkAboutDialogClass.FFI.fromPtr false) new_ ()
+    fun addCreditSection self (sectionName, people) =
+      (
+        GtkAboutDialogClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8CVector.FFI.withPtr
+         ---> I
+      )
+        addCreditSection_
+        (
+          self
+           & sectionName
+           & people
+        )
     fun getArtists self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getArtists_ self
     fun getAuthors self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getAuthors_ self
     fun getComments self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getComments_ self
@@ -236,7 +270,7 @@ structure GtkAboutDialog :>
     fun setArtists self artists = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> I) setArtists_ (self & artists)
     fun setAuthors self authors = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> I) setAuthors_ (self & authors)
     fun setComments self comments = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setComments_ (self & comments)
-    fun setCopyright self copyright = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setCopyright_ (self & copyright)
+    fun setCopyright self copyright = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setCopyright_ (self & copyright)
     fun setDocumenters self documenters = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> I) setDocumenters_ (self & documenters)
     fun setLicense self license = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setLicense_ (self & license)
     fun setLicenseType self licenseType = (GtkAboutDialogClass.FFI.withPtr &&&> GtkLicense.FFI.withVal ---> I) setLicenseType_ (self & licenseType)

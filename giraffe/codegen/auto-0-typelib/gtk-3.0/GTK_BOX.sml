@@ -6,12 +6,15 @@ signature GTK_BOX =
     type orientation_t
     type pack_type_t
     type 'a widget_class
+    type baseline_position_t
     type t = base class
     val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
     val asBuildable : 'a class -> base buildable_class
     val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
     val new : orientation_t * LargeInt.int -> base class
+    val getBaselinePosition : 'a class -> baseline_position_t
+    val getCenterWidget : 'a class -> base widget_class option
     val getHomogeneous : 'a class -> bool
     val getSpacing : 'a class -> LargeInt.int
     val packEnd :
@@ -39,6 +42,14 @@ signature GTK_BOX =
       'a class
        -> 'b widget_class * LargeInt.int
        -> unit
+    val setBaselinePosition :
+      'a class
+       -> baseline_position_t
+       -> unit
+    val setCenterWidget :
+      'a class
+       -> 'b widget_class option
+       -> unit
     val setChildPacking :
       'a class
        -> 'b widget_class
@@ -55,6 +66,7 @@ signature GTK_BOX =
       'a class
        -> LargeInt.int
        -> unit
+    val baselinePositionProp : ('a class, baseline_position_t, baseline_position_t) Property.readwrite
     val homogeneousProp : ('a class, bool, bool) Property.readwrite
     val spacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
   end

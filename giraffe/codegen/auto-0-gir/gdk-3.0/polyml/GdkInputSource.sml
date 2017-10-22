@@ -6,6 +6,10 @@ structure GdkInputSource :> GDK_INPUT_SOURCE =
     | ERASER
     | CURSOR
     | KEYBOARD
+    | TOUCHSCREEN
+    | TOUCHPAD
+    | TRACKPOINT
+    | TABLET_PAD
     structure Enum =
       Enum(
         type enum = enum
@@ -17,6 +21,10 @@ structure GdkInputSource :> GDK_INPUT_SOURCE =
           | ERASER => 2
           | CURSOR => 3
           | KEYBOARD => 4
+          | TOUCHSCREEN => 5
+          | TOUCHPAD => 6
+          | TRACKPOINT => 7
+          | TABLET_PAD => 8
         exception Value of GInt.t
         val fromInt =
           fn
@@ -25,6 +33,10 @@ structure GdkInputSource :> GDK_INPUT_SOURCE =
           | 2 => ERASER
           | 3 => CURSOR
           | 4 => KEYBOARD
+          | 5 => TOUCHSCREEN
+          | 6 => TOUCHPAD
+          | 7 => TRACKPOINT
+          | 8 => TABLET_PAD
           | n => raise Value n
       )
     open Enum

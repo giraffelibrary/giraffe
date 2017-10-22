@@ -80,19 +80,20 @@ signature GTK_TREE_VIEW =
       'a class
        -> tree_path_t
        -> unit
+    val getActivateOnSingleClick : 'a class -> bool
     val getBackgroundArea :
       'a class
        -> tree_path_t option * 'b tree_view_column_class option
-       -> Cairo.RectangleIntRecord.t
-    val getBinWindow : 'a class -> base Gdk.WindowClass.class
+       -> Gdk.RectangleRecord.t
+    val getBinWindow : 'a class -> base Gdk.WindowClass.class option
     val getCellArea :
       'a class
        -> tree_path_t option * 'b tree_view_column_class option
-       -> Cairo.RectangleIntRecord.t
+       -> Gdk.RectangleRecord.t
     val getColumn :
       'a class
        -> LargeInt.int
-       -> base tree_view_column_class
+       -> base tree_view_column_class option
     val getCursor : 'a class -> tree_path_t * base tree_view_column_class
     val getDestRowAtPos :
       'a class
@@ -110,7 +111,8 @@ signature GTK_TREE_VIEW =
     val getHoverExpand : 'a class -> bool
     val getHoverSelection : 'a class -> bool
     val getLevelIndentation : 'a class -> LargeInt.int
-    val getModel : 'a class -> base tree_model_class
+    val getModel : 'a class -> base tree_model_class option
+    val getNColumns : 'a class -> LargeInt.int
     val getPathAtPos :
       'a class
        -> LargeInt.int * LargeInt.int
@@ -140,7 +142,7 @@ signature GTK_TREE_VIEW =
            * LargeInt.int
     val getVadjustment : 'a class -> base adjustment_class
     val getVisibleRange : 'a class -> (tree_path_t * tree_path_t) option
-    val getVisibleRect : 'a class -> Cairo.RectangleIntRecord.t
+    val getVisibleRect : 'a class -> Gdk.RectangleRecord.t
     val insertColumn :
       'a class
        -> 'b tree_view_column_class * LargeInt.int
@@ -181,6 +183,10 @@ signature GTK_TREE_VIEW =
     val scrollToPoint :
       'a class
        -> LargeInt.int * LargeInt.int
+       -> unit
+    val setActivateOnSingleClick :
+      'a class
+       -> bool
        -> unit
     val setCursor :
       'a class
@@ -312,6 +318,7 @@ signature GTK_TREE_VIEW =
     val testExpandRowSig : (tree_iter_t * tree_path_t -> bool) -> 'a class Signal.t
     val toggleCursorRowSig : (unit -> bool) -> 'a class Signal.t
     val unselectAllSig : (unit -> bool) -> 'a class Signal.t
+    val activateOnSingleClickProp : ('a class, bool, bool) Property.readwrite
     val enableGridLinesProp : ('a class, tree_view_grid_lines_t, tree_view_grid_lines_t) Property.readwrite
     val enableSearchProp : ('a class, bool, bool) Property.readwrite
     val enableTreeLinesProp : ('a class, bool, bool) Property.readwrite
