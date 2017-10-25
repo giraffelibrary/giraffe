@@ -2009,7 +2009,10 @@ in
       makeMaplet typelib "gpointer"      VOID         (SOME 1),
       makeMaplet typelib "gconstpointer" VOID         (SOME 1),
       makeMaplet typelib "GType"         GTYPE        (SOME 0),
-      makeMaplet typelib "gunichar"      UNICHAR      (SOME 0)
+      makeMaplet typelib "gunichar"      UNICHAR      (SOME 0),
+
+      (* for freetype2-2.0.gir *)
+      makeMaplet typelib "int32"         INT32        (SOME 0)
     ]
 end
 
