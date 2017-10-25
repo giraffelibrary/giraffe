@@ -126,9 +126,11 @@ fun lookupElem elemDicts s =
 
 val makeValueBool : string -> bool =
   fn
-    "0" => false
-  | "1" => true
-  | s   =>
+    "0"     => false
+  | "false" => false
+  | "1"     => true
+  | "true"  => true
+  | s       =>
       raise GIRFail (
         [
           HText.concat [
