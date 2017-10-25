@@ -139,7 +139,7 @@ val makeValueBool : string -> bool =
 
 local
   fun fail s =
-    raise Fail (String.concat ["\"", s, "\" is not a valid signed integer"])
+    raise Fail (String.concat ["\"", s, "\" is not a valid integer literal"])
   val ord0 = Char.ord #"0"
   fun nextDigit (c, n) = 10 * n + LargeInt.fromInt (Char.ord c - ord0)
 in
@@ -159,6 +159,13 @@ in
         fail s
     end
 end
+
+fun makeValueChar (s : string) : char =
+  let
+    open LargeInt
+  in
+    Char.chr (toInt (min (max (0, makeValueInt s), fromInt Char.maxOrd)))
+  end
 
 fun makeValueUtf8 (s : string) : string = s  (* should validate UTF8 *)
 
@@ -220,15 +227,41 @@ in
   fun makeValue (tag : t) (value : string)
     : GIRepositoryArgument.t =
     case tag of
-      BOOLEAN => GIRepositoryArgument.BOOLEAN (makeValueBool value)
-    | INT     => GIRepositoryArgument.INT (makeValueInt value)
-    | FLOAT   => GIRepositoryArgument.FLOAT (makeValueReal value)
-    | DOUBLE  => GIRepositoryArgument.DOUBLE (makeValueReal value)
-    | UTF8    => GIRepositoryArgument.UTF8 (makeValueUtf8 value)
-    | _                    =>
-        raise GIRFail (
-          [HText.concat ["literal of type ", toString tag, " not supported"]]
-        )
+      BOOLEAN   => GIRepositoryArgument.BOOLEAN (makeValueBool value)
+    | CHAR      => GIRepositoryArgument.CHAR (makeValueChar value)
+    | UCHAR     => GIRepositoryArgument.UCHAR (makeValueChar value)
+    | INT       => GIRepositoryArgument.INT (makeValueInt value)
+    | UINT      => GIRepositoryArgument.UINT (makeValueInt value)
+    | SHORT     => GIRepositoryArgument.SHORT (makeValueInt value)
+    | USHORT    => GIRepositoryArgument.USHORT (makeValueInt value)
+    | LONG      => GIRepositoryArgument.LONG (makeValueInt value)
+    | ULONG     => GIRepositoryArgument.ULONG (makeValueInt value)
+    | INT8      => GIRepositoryArgument.INT8 (makeValueInt value)
+    | UINT8     => GIRepositoryArgument.UINT8 (makeValueInt value)
+    | INT16     => GIRepositoryArgument.INT16 (makeValueInt value)
+    | UINT16    => GIRepositoryArgument.UINT16 (makeValueInt value)
+    | INT32     => GIRepositoryArgument.INT32 (makeValueInt value)
+    | UINT32    => GIRepositoryArgument.UINT32 (makeValueInt value)
+    | INT64     => GIRepositoryArgument.INT64 (makeValueInt value)
+    | UINT64    => GIRepositoryArgument.UINT64 (makeValueInt value)
+    | FLOAT     => GIRepositoryArgument.FLOAT (makeValueReal value)
+    | DOUBLE    => GIRepositoryArgument.DOUBLE (makeValueReal value)
+    | SSIZE     => GIRepositoryArgument.SSIZE (makeValueInt value)
+    | SIZE      => GIRepositoryArgument.SIZE (makeValueInt value)
+    | OFFSET    => GIRepositoryArgument.OFFSET
+    | INTPTR    => GIRepositoryArgument.INTPTR
+    | UINTPTR   => GIRepositoryArgument.UINTPTR
+    | UTF8      => GIRepositoryArgument.UTF8 (makeValueUtf8 value)
+    | FILENAME  => GIRepositoryArgument.UTF8 value
+    | VOID      => GIRepositoryArgument.VOID
+    | GTYPE     => GIRepositoryArgument.GTYPE
+    | ARRAY     => GIRepositoryArgument.ARRAY
+    | INTERFACE => GIRepositoryArgument.INTERFACE
+    | GLIST     => GIRepositoryArgument.GLIST
+    | GSLIST    => GIRepositoryArgument.GSLIST
+    | GHASH     => GIRepositoryArgument.GHASH
+    | ERROR     => GIRepositoryArgument.ERROR
+    | UNICHAR   => GIRepositoryArgument.UNICHAR
 end
 
 fun makeTransferOwnership (s : string) : GIRepositoryTransfer.t =
