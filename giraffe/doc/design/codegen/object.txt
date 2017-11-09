@@ -50,13 +50,13 @@ signature <OBJECT_NAMESPACE>_<OBJECT_NAME>_CLASS =
       where type 'a class = 'a <object_name> <ParentObjectNamespace>.<ParentObjectName>Class.class
                                                                -'
                                                                     -.
-    type ('a, 'b) value_accessor                                     |
-    val t : (base class, 'a class) value_accessor                    | isGObject
-    val tOpt : (base class option, 'a class option) value_accessor   |
+    type ('a, 'b) value_accessor_t                                   |
+    val t : (base class, 'a class) value_accessor_t                  | isGObject
+    val tOpt : (base class option, 'a class option) value_accessor_t |
                                                                     -'
                                                                     -.
-    val t : (base class, 'a class) GObject.Value.accessor            | not isGObject
-    val tOpt : (base class option, 'a class option) GObject.Value.accessor
+    val t : (base class, 'a class) ValueAccessor.t                   | not isGObject
+    val tOpt : (base class option, 'a class option) ValueAccessor.t  |
                                                                     -'
   end
 
@@ -71,7 +71,7 @@ structure <ObjectNamespace><ObjectName>Class :>
         'a <ParentObjectNamespace><ParentObjectName>Class.class |
                                                                -'
                                                                           -.
-    where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor    | isGObject
+    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t        | isGObject
                                                                           -'
     where type C.notnull = <ParentObjectNamespace><ParentObjectName>Class.C.notnull
     where type 'a C.p = 'a <ParentObjectNamespace><ParentObjectName>Class.C.p =

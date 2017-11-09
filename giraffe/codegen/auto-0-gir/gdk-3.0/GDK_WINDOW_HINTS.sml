@@ -10,6 +10,6 @@ signature GDK_WINDOW_HINTS =
     val WIN_GRAVITY : t
     val USER_POS : t
     val USER_SIZE : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

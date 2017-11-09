@@ -7,6 +7,6 @@ signature GDK_DRAG_ACTION =
     val LINK : t
     val PRIVATE : t
     val ASK : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

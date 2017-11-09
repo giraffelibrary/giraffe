@@ -8,8 +8,8 @@
 functor CVector(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :
   sig
     include C_ARRAY
-    val t : (t FFI.from_p, unit) GObjectValue.accessor
-    val tOpt : (t option FFI.from_p, unit) GObjectValue.accessor
+    val t : (t FFI.from_p, unit) ValueAccessor.t
+    val tOpt : (t option FFI.from_p, unit) ValueAccessor.t
   end =
   struct
     structure Array = CVector(CArrayType)
@@ -28,14 +28,14 @@ functor CVector(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :
         GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit FFI.out_p;
 
     val t =
-      GObjectValue.C.createAccessor {
+      ValueAccessor.C.createAccessor {
         getType  = GObjectType.pointer,
         getValue = (I ---> FFI.fromPtr 0) getValue_,
         setValue = fn _ => GiraffeLog.critical "cannot set GValue from C array"
       }
 
     val tOpt =
-      GObjectValue.C.createAccessor {
+      ValueAccessor.C.createAccessor {
         getType  = GObjectType.pointer,
         getValue = (I ---> FFI.fromOptPtr 0) getOptValue_,
         setValue = fn _ => GiraffeLog.critical "cannot set GValue from C array"
@@ -44,14 +44,14 @@ functor CVector(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :
  **)
 
     val t =
-      GObjectValue.C.createAccessor {
+      ValueAccessor.C.createAccessor {
         getType  = GObjectType.pointer,
         getValue = fn _ => raise Fail "cannot get C array from GValue with MLton",
         setValue = fn _ => GiraffeLog.critical "cannot set GValue from C array"
       }
 
     val tOpt =
-      GObjectValue.C.createAccessor {
+      ValueAccessor.C.createAccessor {
         getType  = GObjectType.pointer,
         getValue = fn _ => raise Fail "cannot get C array from GValue with MLton",
         setValue = fn _ => GiraffeLog.critical "cannot set GValue from C array"

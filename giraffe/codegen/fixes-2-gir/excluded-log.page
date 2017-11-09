@@ -8198,6 +8198,7 @@
     <item>struct VolumeButtonClass: class struct</item>
     <item>
       object Widget
+      <item>function destroyed: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function get_ancestor
         <item>
@@ -8232,6 +8233,7 @@
       <item>function size_request: deprecated</item>
       <item>function style_attach: deprecated</item>
       <item>signals state-changed: deprecated</item>
+      <item>function destroyed: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function get_ancestor
         <item>

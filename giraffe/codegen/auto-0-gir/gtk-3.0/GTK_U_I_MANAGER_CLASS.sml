@@ -4,6 +4,6 @@ signature GTK_U_I_MANAGER_CLASS =
     include
       CLASS
         where type 'a class = 'a u_i_manager GObject.ObjectClass.class
-    val t : (base class, 'a class) GObject.Value.accessor
-    val tOpt : (base class option, 'a class option) GObject.Value.accessor
+    val t : (base class, 'a class) ValueAccessor.t
+    val tOpt : (base class option, 'a class option) ValueAccessor.t
   end

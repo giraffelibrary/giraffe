@@ -6,6 +6,6 @@ signature GTK_CELL_RENDERER_STATE =
     val INSENSITIVE : t
     val SORTED : t
     val FOCUSED : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

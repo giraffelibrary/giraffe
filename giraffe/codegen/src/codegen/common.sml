@@ -101,7 +101,9 @@ fun mkLocalStrSpecLId name (tyName as (strNamespace, strName, strType, id)) =
   | _  => toList1 [toUCC strName ^ toUCC strType, id]
 
 fun mkGlobalLId (strNamespace, strName, strType, id) =
-  toList1 [toUCC strNamespace, toUCC strName ^ toUCC strType, id]
+  case strNamespace of
+    "" => toList1 [toUCC strName ^ toUCC strType, id] (* not in a namespace *)
+  | _  => toList1 [toUCC strNamespace, toUCC strName ^ toUCC strType, id]
 
 fun toSpec name (tyVars, tyName) = mkTypeSpec ((tyVars, mkLocalId name tyName), NONE)
 fun toLocalType name (tyVars, tyName) =
@@ -226,7 +228,7 @@ end
 
 
 local
-  val accessorName = ("GObject", "Value", "", "accessor")
+  val accessorName = ("", "ValueAccessor", "", "t")
   val accessorTemplate = ([aTyVar, bTyVar], accessorName)
 
   val accessorGlobalLId : lid = mkGlobalLId accessorName
@@ -239,19 +241,19 @@ in
    * `addAccessorSpecs namespace info (readTy, writeTy) isPtr specs` adds
    *
    *                                                          -.
-   *     type ('a, 'b) value_accessor                          |
-   *     val t : (<readTy>, <writeTy>) value_accessor          |
+   *     type ('a, 'b) value_accessor_t                        |
+   *     val t : (<readTy>, <writeTy>) value_accessor_t        |
    *                                           -.              | isGObject
    *     val tOpt :                             |              |
    *       (<readTy> option, <writeTy> option)  | isPtr        |
-   *         value_accessor                     |              |
+   *         value_accessor_t                   |              |
    *                                           -'             -'
    *                                                          -.
-   *     val t : (<readTy>, <writeTy>) GObject.Value.accessor  |
+   *     val t : (<readTy>, <writeTy>) ValueAccessor.t         |
    *                                           -.              |
    *     val tOpt :                             |              | not isGObject
    *       (<readTy> option, <writeTy> option)  | isPtr        |
-   *         GObject.Value.accessor             |              |
+   *         ValueAccessor.t                    |              |
    *                                           -'             -'
    *
    * to `specs`.
@@ -286,8 +288,8 @@ in
    * as follows:
    *
    *                                                 -.
-   *     type ('a, 'b) value_accessor =               | isGObject
-   *       ('a, 'b) GObjectValue.accessor             |
+   *     type ('a, 'b) value_accessor_t =             | isGObject
+   *       ('a, 'b) ValueAccessor.t                   |
    *                                                 -'
    *
    * and `revMap makeLocalTypeStrModuleQual revLocalTypes` produces qual
@@ -295,8 +297,8 @@ in
    *
    *                                                 -.
    *     where                                        |
-   *       type ('a, 'b) value_accessor =             | isGObject
-   *         ('a, 'b) GObjectValue.accessor           |
+   *       type ('a, 'b) value_accessor_t =           | isGObject
+   *         ('a, 'b) ValueAccessor.t                 |
    *                                                 -'
    *)
   fun makeAccessorLocalTypes isGObject =
@@ -305,22 +307,10 @@ in
     else []
 
   (*
-   * `addAccessorIRefs` ...
+   * `addAccessorIRefs` does not add a reference because ValueAccessor is
+   * outside the GObject namespace.
    *)
-  fun addAccessorIRefs isGObject iRefs =
-    let
-      val iRef =
-        {
-          namespace = "GObject",
-          name      = "Value",
-          scope     = LOCALINTERFACEOTHER,
-          ty        = SIMPLE
-        }
-    in
-      if isGObject
-      then iRef :: iRefs
-      else iRefs
-    end
+  fun addAccessorIRefs _ iRefs = iRefs
 end
 
 (*
@@ -400,11 +390,11 @@ end
  *         (x1, x2)                           |               |
  *                                           -'              -'
  *                                                           -.
- *     type ('a, 'b) value_accessor =                         | isGObject
- *       ('a, 'b) GObjectValue.accessor                       |
+ *     type ('a, 'b) value_accessor_t =                       | isGObject
+ *       ('a, 'b) ValueAccessor.t                             |
  *                                                           -'
  *     val t =
- *       GObjectValue.C.createAccessor {
+ *       ValueAccessor.C.createAccessor {
  *         getType  = (I ---> GObjectType.FFI.fromVal) getType_,
  *         getValue = (I ---> <fromFun>) getValue_,
  *         setValue = (I &&&> <withFun> ---> I) setValue_
@@ -412,7 +402,7 @@ end
  *
  *                                           -.
  *     val tOpt =                             | isPtr
- *       GObjectValue.C.createAccessor {      |
+ *       ValueAccessor.C.createAccessor {     |
  *         getType  = (I ---> GObjectType.FFI.fromVal) getType_,
  *         getValue = (I ---> <fromOptFun>) getOptValue_,
  *         setValue = (I &&&> <withOptFun> ---> I) setOptValue_
@@ -475,7 +465,7 @@ end
 local
   (*
    *     val t<Opt> =
-   *       GObjectValue.C.createAccessor {
+   *       ValueAccessor.C.createAccessor {
    *         getType  = (I ---> GObjectType.FFI.fromVal) getType_,
    *         getValue = (I ---> <from<Opt>Fun>) get<Opt>Value_,
    *         setValue = (I &&&> <with<Opt>Fun> ---> I) set<Opt>Value_
@@ -530,7 +520,7 @@ local
       mkIdValDec (
         case ptrOpt of SOME true => tOptId | _ => tId,
         ExpApp (
-          mkLIdLNameExp ["GObjectValue", cStrId, "createAccessor"],
+          mkLIdLNameExp ["ValueAccessor", cStrId, "createAccessor"],
           ExpRec [
             (getTypeId, getTypeExp),
             (getValueId, getValueExp ptrOpt),

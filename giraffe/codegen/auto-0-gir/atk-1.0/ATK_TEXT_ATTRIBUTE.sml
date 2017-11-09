@@ -33,7 +33,7 @@ signature ATK_TEXT_ATTRIBUTE =
     include
       ENUM
         where type t = enum
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
     val forName : string -> t
     val getName : t -> string

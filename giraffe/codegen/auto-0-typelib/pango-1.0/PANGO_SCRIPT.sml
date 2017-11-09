@@ -83,7 +83,7 @@ signature PANGO_SCRIPT =
     include
       ENUM
         where type t = enum
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     type language_t
     val getType : unit -> GObject.Type.t
     val forUnichar : char -> t

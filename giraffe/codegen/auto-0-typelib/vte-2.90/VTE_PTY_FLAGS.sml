@@ -7,6 +7,6 @@ signature VTE_PTY_FLAGS =
     val NO_HELPER : t
     val NO_FALLBACK : t
     val DEFAULT : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

@@ -4,6 +4,6 @@ signature GTK_SOURCE_GUTTER_RENDERER_CLASS =
     include
       CLASS
         where type 'a class = 'a gutter_renderer GObject.InitiallyUnownedClass.class
-    val t : (base class, 'a class) GObject.Value.accessor
-    val tOpt : (base class option, 'a class option) GObject.Value.accessor
+    val t : (base class, 'a class) ValueAccessor.t
+    val tOpt : (base class option, 'a class option) ValueAccessor.t
   end

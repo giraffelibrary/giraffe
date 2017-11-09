@@ -9,7 +9,7 @@ signature PANGO_GRAVITY =
     include
       ENUM
         where type t = enum
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     type script_t
     type gravity_hint_t
     type matrix_t

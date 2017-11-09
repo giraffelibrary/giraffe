@@ -9,6 +9,6 @@ signature GTK_SOURCE_DRAW_SPACES_FLAGS =
     val TEXT : t
     val TRAILING : t
     val ALL : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

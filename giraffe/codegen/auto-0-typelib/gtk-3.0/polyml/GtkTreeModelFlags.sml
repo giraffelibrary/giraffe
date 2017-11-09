@@ -16,7 +16,7 @@ structure GtkTreeModelFlags :> GTK_TREE_MODEL_FLAGS =
       val setValue_ = call (getSymbol "g_value_set_flags") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cVal --> cVoid)
     end
     val t =
-      GObjectValue.C.createAccessor
+      ValueAccessor.C.createAccessor
         {
           getType = (I ---> GObjectType.FFI.fromVal) getType_,
           getValue = (I ---> FFI.fromVal) getValue_,

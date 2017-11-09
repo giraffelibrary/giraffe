@@ -4,6 +4,6 @@ signature GTK_ACCEL_FLAGS =
     val VISIBLE : t
     val LOCKED : t
     val MASK : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

@@ -5,8 +5,8 @@ signature GDK_EVENT_CONFIGURE_RECORD =
     include RECORD where type t = configure event_union
     datatype event =
       CONFIGURE
-    val t : (t, t) GObjectValue.accessor
-    val tOpt : (t option, t option) GObjectValue.accessor
+    val t : (t, t) ValueAccessor.t
+    val tOpt : (t option, t option) ValueAccessor.t
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

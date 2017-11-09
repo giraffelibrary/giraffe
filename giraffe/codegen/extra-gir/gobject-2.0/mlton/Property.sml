@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2017 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -7,7 +7,7 @@
 
 structure Property :>
   PROPERTY
-    where type ('a, 'b) accessor = ('a, 'b) GObjectValue.accessor
+    where type ('a, 'b) accessor = ('a, 'b) ValueAccessor.t
     where type 'a object_class = 'a GObjectObjectClass.class =
   struct
     val getProperty_ =
@@ -50,7 +50,7 @@ structure Property :>
               x4
             )
 
-    type ('a, 'b) accessor = ('a, 'b) GObjectValue.accessor
+    type ('a, 'b) accessor = ('a, 'b) ValueAccessor.t
     type 'a object_class = 'a GObjectObjectClass.class
 
     fun getProperty self propertyName value =
@@ -91,17 +91,17 @@ structure Property :>
 
     fun get name t object =
       let
-        val value = GObjectValue.init (GObjectValue.baseType t)
+        val value = GObjectValue.init (ValueAccessor.baseType t)
       in
         getProperty object name value;
-        GObjectValue.get t value
+        ValueAccessor.get t value
       end
 
     fun set name t x object =
       let
-        val value = GObjectValue.init (GObjectValue.baseType t)
+        val value = GObjectValue.init (ValueAccessor.baseType t)
       in
-        GObjectValue.set t value x;
+        ValueAccessor.set t value x;
         setProperty object name value
       end
   end

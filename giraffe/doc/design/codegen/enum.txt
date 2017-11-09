@@ -36,6 +36,8 @@ Placeholders
 
 Conditions
 
+  isGLib    = "GLib"    = EnumNamespace
+
   isGObject = "GObject" = EnumNamespace
 
 
@@ -63,11 +65,11 @@ signature <ENUM_NAMESPACE>_<ENUM_NAME> =
                                                     -'               -'
 
                                                     -.               -.
-    type ('a, 'b) value_accessor                     | isGObject      |
-    val t : (t, t) value_accessor                    |                |
+    type ('a, 'b) value_accessor_t                   | isGObject      |
+    val t : (t, t) value_accessor_t                  |                |
                                                     -'                | optGetTypeSymbol is SOME _
                                                     -.                |
-    val t : (t, t) GObject.Value.accessor            | not isGObject  |
+    val t : (t, t) ValueAccessor.t                   | not isGObject  |
                                                     -'               -'
 
     type <varlist[1]> <local_name[1]>
@@ -128,7 +130,7 @@ where
 structure <EnumNamespace><EnumName> :>
   <ENUM_NAMESPACE>_<ENUM_NAME>
                                                                             -.
-    where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor      | isGObject andalso optGetTypeSymbol is SOME _
+    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t          | isGObject andalso optGetTypeSymbol is SOME _
                                                                             -'
     where type <varlist[1]> <local_name[1]> = <varlist[1]> <EnumNamespace><TypeName[1]>.<t[1]>
 
@@ -198,10 +200,10 @@ structure <EnumNamespace><EnumName> :>
       _import "g_value_set_enum" : GObjectValueRecord.C.p * C.v -> unit;   |               |
                                                                           -'               |
                                                                           -.               |
-    type ('a, 'b) value_accessor = ('a, 'b) GObject.Value.accessor         | isGObject     |
+    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t              | isGObject     |
                                                                           -'               |
     val t =                                                                                |
-      GObjectValue.C.createAccessor {                                                      |
+      ValueAccessor.C.createAccessor {                                                     |
         getType  = (I ---> GObjectType.C.fromVal) getType_,                                |
         getValue = (I ---> C.fromPtr false) getValue_,                                     |
         setValue = (I &&&> C.withPtr ---> I) setValue_                                     |

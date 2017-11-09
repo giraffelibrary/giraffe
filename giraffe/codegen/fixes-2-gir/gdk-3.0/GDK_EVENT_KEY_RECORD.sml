@@ -6,8 +6,8 @@ signature GDK_EVENT_KEY_RECORD =
     datatype event =
       KEY_PRESS
     | KEY_RELEASE
-    val t : (t, t) GObjectValue.accessor
-    val tOpt : (t option, t option) GObjectValue.accessor
+    val t : (t, t) ValueAccessor.t
+    val tOpt : (t option, t option) ValueAccessor.t
     type 'a window_class
     type modifier_type_t
     val getWindow : t -> base window_class

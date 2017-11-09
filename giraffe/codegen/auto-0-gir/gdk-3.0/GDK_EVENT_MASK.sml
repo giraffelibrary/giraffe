@@ -23,6 +23,6 @@ signature GDK_EVENT_MASK =
     val SUBSTRUCTURE_MASK : t
     val SCROLL_MASK : t
     val ALL_EVENTS_MASK : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

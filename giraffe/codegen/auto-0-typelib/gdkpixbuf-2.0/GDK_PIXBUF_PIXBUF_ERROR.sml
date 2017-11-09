@@ -12,6 +12,6 @@ signature GDK_PIXBUF_PIXBUF_ERROR =
         where type t = enum
     exception Error of t
     val handler : GLib.ErrorRecord.handler
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

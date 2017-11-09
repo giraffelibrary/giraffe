@@ -5,6 +5,6 @@ signature GIO_TLS_PASSWORD_FLAGS =
     val RETRY : t
     val MANY_TRIES : t
     val FINAL_TRY : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

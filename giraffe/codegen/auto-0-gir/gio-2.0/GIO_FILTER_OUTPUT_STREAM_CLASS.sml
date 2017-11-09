@@ -5,6 +5,6 @@ signature GIO_FILTER_OUTPUT_STREAM_CLASS =
     include
       CLASS
         where type 'a class = 'a filter_output_stream output_stream_class
-    val t : (base class, 'a class) GObject.Value.accessor
-    val tOpt : (base class option, 'a class option) GObject.Value.accessor
+    val t : (base class, 'a class) ValueAccessor.t
+    val tOpt : (base class option, 'a class option) ValueAccessor.t
   end

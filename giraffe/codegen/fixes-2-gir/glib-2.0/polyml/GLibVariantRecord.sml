@@ -29,14 +29,14 @@ structure GLibVariantRecord :> G_LIB_VARIANT_RECORD =
       val setOptValue_ = call (getSymbol "g_value_set_variant") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid)
     end
     val t =
-      GObjectValue.C.createAccessor
+      ValueAccessor.C.createAccessor
         {
           getType = GObject.Type.variant,
           getValue = (I ---> FFI.fromPtr false) getValue_,
           setValue = (I &&&> FFI.withPtr ---> I) setValue_
         }
     val tOpt =
-      GObjectValue.C.createAccessor
+      ValueAccessor.C.createAccessor
         {
           getType = GObject.Type.variant,
           getValue = (I ---> FFI.fromOptPtr false) getOptValue_,

@@ -115,39 +115,39 @@ structure GdkEvent :> GDK_EVENT =
       val getType_ =
         call
           (getSymbol "gdk_event_get_type")
-          (cVoid --> GObjectType.PolyML.cVal);
+          (cVoid --> GObject.Type.PolyML.cVal);
 
       val getValue_ =
         call
           (getSymbol "g_value_get_boxed")
-          (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr);
+          (GObject.ValueRecord.PolyML.cPtr --> PolyML.cPtr);
 
       val getOptValue_ =
         call
           (getSymbol "g_value_get_boxed")
-          (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);
+          (GObject.ValueRecord.PolyML.cPtr --> PolyML.cOptPtr);
 
       val setValue_ =
         call
           (getSymbol "g_value_set_boxed")
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid);
+          (GObject.ValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid);
 
       val setOptValue_ =
         call
           (getSymbol "g_value_set_boxed")
-          (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid);
+          (GObject.ValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid);
     end
 
     val t =
-      GObjectValue.C.createAccessor {
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+      ValueAccessor.C.createAccessor {
+        getType  = (I ---> GObject.Type.FFI.fromVal) getType_,
         getValue = (I ---> FFI.fromPtr false) getValue_,
         setValue = (I &&&> FFI.withPtr ---> I) setValue_
       }
 
     val tOpt =
-      GObjectValue.C.createAccessor {
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+      ValueAccessor.C.createAccessor {
+        getType  = (I ---> GObject.Type.FFI.fromVal) getType_,
         getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
         setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_
       }

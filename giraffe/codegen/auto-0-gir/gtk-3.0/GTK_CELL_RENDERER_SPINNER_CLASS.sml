@@ -5,6 +5,6 @@ signature GTK_CELL_RENDERER_SPINNER_CLASS =
     include
       CLASS
         where type 'a class = 'a cell_renderer_spinner cell_renderer_class
-    val t : (base class, 'a class) GObject.Value.accessor
-    val tOpt : (base class option, 'a class option) GObject.Value.accessor
+    val t : (base class, 'a class) ValueAccessor.t
+    val tOpt : (base class option, 'a class option) ValueAccessor.t
   end

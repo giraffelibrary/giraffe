@@ -1,6 +1,6 @@
 structure GObjectObjectClass :>
   G_OBJECT_OBJECT_CLASS
-    where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor =
+    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
   struct
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.p
@@ -145,17 +145,17 @@ structure GObjectObjectClass :>
            GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * unit FFI.p -> unit;)
         (x1, x2)
 
-    type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
+    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
 
     val t =
-      GObjectValue.C.createAccessor {
+      ValueAccessor.C.createAccessor {
         getType  = (I ---> GObjectType.FFI.fromVal) getType_,
         getValue = (I ---> FFI.fromPtr false) getValue_,
         setValue = (I &&&> FFI.withPtr ---> I) setValue_
       }
 
     val tOpt =
-      GObjectValue.C.createAccessor {
+      ValueAccessor.C.createAccessor {
         getType  = (I ---> GObjectType.FFI.fromVal) getType_,
         getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
         setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_

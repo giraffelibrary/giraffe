@@ -21,14 +21,14 @@ structure PangoAttrListRecord :> PANGO_ATTR_LIST_RECORD =
     val setValue_ = fn x1 & x2 => (_import "g_value_set_boxed" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.notnull FFI.p -> unit;) (x1, x2)
     val setOptValue_ = fn x1 & x2 => (_import "g_value_set_boxed" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * unit FFI.p -> unit;) (x1, x2)
     val t =
-      GObjectValue.C.createAccessor
+      ValueAccessor.C.createAccessor
         {
           getType = (I ---> GObjectType.FFI.fromVal) getType_,
           getValue = (I ---> FFI.fromPtr false) getValue_,
           setValue = (I &&&> FFI.withPtr ---> I) setValue_
         }
     val tOpt =
-      GObjectValue.C.createAccessor
+      ValueAccessor.C.createAccessor
         {
           getType = (I ---> GObjectType.FFI.fromVal) getType_,
           getValue = (I ---> FFI.fromOptPtr false) getOptValue_,

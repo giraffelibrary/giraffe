@@ -8,6 +8,6 @@ signature GIO_FILE_COPY_FLAGS =
     val ALL_METADATA : t
     val NO_FALLBACK_FOR_MOVE : t
     val TARGET_DEFAULT_PERMS : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

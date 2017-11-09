@@ -178,8 +178,8 @@ in
        *         'a GObjectObjectClass.class              |
        *                                                 -'
        *                                                 -.
-       *     where type ('a, 'b) value_accessor =         | isGObject
-       *       ('a, 'b) GObjectValue.accessor             |
+       *     where type ('a, 'b) value_accessor_t =       | isGObject
+       *       ('a, 'b) ValueAccessor.t                   |
        *                                                 -'
        *     where type C.notnull =
        *       <ParentObjectNamespace><ParentObjectName>Class.C.notnull

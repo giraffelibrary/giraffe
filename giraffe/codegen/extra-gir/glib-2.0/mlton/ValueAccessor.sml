@@ -1,0 +1,231 @@
+(* Copyright (C) 2012-2013, 2015-2017 Phil Clayton <phil.clayton@veonix.com>
+ *
+ * This file is part of the Giraffe Library runtime.  For your rights to use
+ * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+ * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+ *)
+
+structure ValueAccessor :>
+  VALUE_ACCESSOR
+    where type type_t = GObjectType.t
+    where type value_t = GObjectValueRecord.t
+    where type C.value_v = GObjectValueRecord.C.ValueType.v =
+  struct
+    val isValue_ =
+      _import "giraffe_g_is_value" :
+        GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GBool.FFI.val_;
+
+    type type_t = GObjectType.t
+    type value_t = GObjectValueRecord.t
+    type value_v = GObjectValueRecord.C.ValueType.v
+
+    type ('a, 'b) t = {
+      getType  : unit -> type_t,
+      getValue : value_v -> 'a,
+      setValue : (value_v, 'b) pair -> unit
+    }
+
+    structure C =
+      struct
+        type value_v = value_v
+
+        fun createAccessor x = x
+
+        fun get ({getValue, ...} : ('a, 'b) t) ptr = getValue ptr
+        fun set ({setValue, ...} : ('a, 'b) t) ptr x = setValue (ptr & x)
+
+        val isValue = (I ---> GBool.FFI.fromVal) isValue_
+      end
+
+    fun get ({getValue, ...} : ('a, 'b) t) value =
+      (GObjectValueRecord.FFI.withPtr ---> I) getValue value
+
+    fun set ({setValue, ...} : ('a, 'b) t) value x =
+      (GObjectValueRecord.FFI.withPtr &&&> I ---> I) setValue (value & x)
+
+    fun baseType ({getType, ...} : ('a, 'b) t) = getType ()
+
+    structure Types =
+      struct
+        type 'a get = GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> 'a
+
+        val get_boolean_ = _import "g_value_get_boolean" : GBool.FFI.val_ get;
+
+        val get_int_ = _import "g_value_get_int" : GInt.FFI.val_ get;
+
+        val get_uint_ = _import "g_value_get_uint" : GUInt.FFI.val_ get;
+
+        val get_long_ = _import "g_value_get_long" : GLong.FFI.val_ get;
+
+        val get_ulong_ = _import "g_value_get_ulong" : GULong.FFI.val_ get;
+
+        val get_int64_ = _import "g_value_get_int64" : GInt64.FFI.val_ get;
+
+        val get_uint64_ = _import "g_value_get_uint64" : GUInt64.FFI.val_ get;
+
+        val get_float_ = _import "g_value_get_float" : GFloat.FFI.val_ get;
+
+        val get_double_ = _import "g_value_get_double" : GDouble.FFI.val_ get;
+
+        val get_char_ = _import "g_value_get_char" : GChar.FFI.val_ get;
+
+        val get_string_ = _import "g_value_get_string" : Utf8.FFI.notnull Utf8.FFI.out_p get;
+
+        val get_string_opt_ = _import "g_value_get_string" : unit Utf8.FFI.out_p get;
+
+
+        type 'a set = GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * 'a -> unit
+
+        val set_boolean_ =
+          fn x1 & x2 =>
+            (_import "g_value_set_boolean" : GBool.FFI.val_ set;)
+            (x1, x2)
+
+        val set_int_ =
+          fn x1 & x2 =>
+            (_import "g_value_set_int" : GInt.FFI.val_ set;)
+            (x1, x2)
+
+        val set_uint_ =
+          fn x1 & x2 =>
+            (_import "g_value_set_uint" : GUInt.FFI.val_ set;)
+            (x1, x2)
+
+        val set_long_ =
+          fn x1 & x2 =>
+            (_import "g_value_set_long" : GLong.FFI.val_ set;)
+            (x1, x2)
+
+        val set_ulong_ =
+          fn x1 & x2 =>
+            (_import "g_value_set_ulong" : GULong.FFI.val_ set;)
+            (x1, x2)
+
+        val set_int64_ =
+          fn x1 & x2 =>
+            (_import "g_value_set_int64" : GInt64.FFI.val_ set;)
+            (x1, x2)
+
+        val set_uint64_ =
+          fn x1 & x2 =>
+            (_import "g_value_set_uint64" : GUInt64.FFI.val_ set;)
+            (x1, x2)
+
+        val set_float_ =
+          fn x1 & x2 =>
+            (_import "g_value_set_float" : GFloat.FFI.val_ set;)
+            (x1, x2)
+
+        val set_double_ =
+          fn x1 & x2 =>
+            (_import "g_value_set_double" : GDouble.FFI.val_ set;)
+            (x1, x2)
+
+        val set_char_ =
+          fn x1 & x2 =>
+            (_import "g_value_set_char" : GChar.FFI.val_ set;)
+            (x1, x2)
+
+        val set_string_ =
+          fn x1 & (x2, x3) =>
+            (_import "mlton_g_value_set_string" :
+               GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;)
+            (x1, x2, x3)
+
+        val set_string_opt_ =
+          fn x1 & (x2, x3) =>
+            (_import "mlton_g_value_set_string" :
+               GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * Utf8.MLton.p1 * unit Utf8.MLton.p2 -> unit;)
+            (x1, x2, x3)
+
+
+        val boolean : (bool, bool) t =
+          C.createAccessor {
+            getType  = GObjectType.boolean,
+            getValue = (I ---> GBool.FFI.fromVal) get_boolean_,
+            setValue = (I &&&> GBool.FFI.withVal ---> I) set_boolean_
+          }
+
+        val int : (LargeInt.int, LargeInt.int) t =
+          C.createAccessor {
+            getType  = GObjectType.int,
+            getValue = (I ---> GInt.FFI.fromVal) get_int_,
+            setValue = (I &&&> GInt.FFI.withVal ---> I) set_int_
+          }
+
+        val uint : (LargeInt.int, LargeInt.int) t =
+          C.createAccessor {
+            getType  = GObjectType.uint,
+            getValue = (I ---> GUInt.FFI.fromVal) get_uint_,
+            setValue = (I &&&> GUInt.FFI.withVal ---> I) set_uint_
+          }
+
+        val long : (LargeInt.int, LargeInt.int) t =
+          C.createAccessor {
+            getType  = GObjectType.long,
+            getValue = (I ---> GLong.FFI.fromVal) get_long_,
+            setValue = (I &&&> GLong.FFI.withVal ---> I) set_long_
+          }
+
+        val ulong : (LargeInt.int, LargeInt.int) t =
+          C.createAccessor {
+            getType  = GObjectType.ulong,
+            getValue = (I ---> GULong.FFI.fromVal) get_ulong_,
+            setValue = (I &&&> GULong.FFI.withVal ---> I) set_ulong_
+          }
+
+        val int64 : (LargeInt.int, LargeInt.int) t =
+          C.createAccessor {
+            getType  = GObjectType.int64,
+            getValue = (I ---> GInt64.FFI.fromVal) get_int64_,
+            setValue = (I &&&> GInt64.FFI.withVal ---> I) set_int64_
+          }
+
+        val uint64 : (LargeInt.int, LargeInt.int) t =
+          C.createAccessor {
+            getType  = GObjectType.uint64,
+            getValue = (I ---> GUInt64.FFI.fromVal) get_uint64_,
+            setValue = (I &&&> GUInt64.FFI.withVal ---> I) set_uint64_
+          }
+
+        val float : (real, real) t =
+          C.createAccessor {
+            getType  = GObjectType.float,
+            getValue = (I ---> GFloat.FFI.fromVal) get_float_,
+            setValue = (I &&&> GFloat.FFI.withVal ---> I) set_float_
+          }
+
+        val double : (real, real) t =
+          C.createAccessor {
+            getType  = GObjectType.double,
+            getValue = (I ---> GDouble.FFI.fromVal) get_double_,
+            setValue = (I &&&> GDouble.FFI.withVal ---> I) set_double_
+          }
+
+        val char : (char, char) t =
+          C.createAccessor {
+            getType  = GObjectType.char,
+            getValue = (I ---> GChar.FFI.fromVal) get_char_,
+            setValue = (I &&&> GChar.FFI.withVal ---> I) set_char_
+          }
+
+        val string : (string, string) t =
+          C.createAccessor {
+            getType  = GObjectType.string,
+            getValue = (I ---> Utf8.FFI.fromPtr 0) get_string_,
+            setValue = (I &&&> Utf8.FFI.withPtr ---> I) set_string_
+          }
+
+        val stringOpt : (string option, string option) t =
+          C.createAccessor {
+            getType  = GObjectType.string,
+            getValue = (I ---> Utf8.FFI.fromOptPtr 0) get_string_opt_,
+            setValue = (I &&&> Utf8.FFI.withOptPtr ---> I) set_string_opt_
+          }
+
+        (* temporary *)
+        val int32 = int
+        val uint32 = uint
+      end
+  end
+open ValueAccessor.Types

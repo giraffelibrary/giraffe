@@ -6,6 +6,6 @@ signature GTK_CALENDAR_DISPLAY_OPTIONS =
     val NO_MONTH_CHANGE : t
     val SHOW_WEEK_NUMBERS : t
     val SHOW_DETAILS : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

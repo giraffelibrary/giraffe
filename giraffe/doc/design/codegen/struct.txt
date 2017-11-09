@@ -50,13 +50,13 @@ signature <STRUCT_NAMESPACE>_<STRUCT_NAME>_RECORD =
     include RECORD                                              | structType <> ValueRecord
                                                                -'
                                                                -.                -.
-    type ('a, 'b) value_accessor                                |                 |
-    val t : (t, t) value_accessor                               | isGObject       |
-    val tOpt : (t option, t option) value_accessor              |                 |
+    type ('a, 'b) value_accessor_t                              |                 |
+    val t : (t, t) value_accessor_t                             | isGObject       |
+    val tOpt : (t option, t option) value_accessor_t            |                 |
                                                                -'                 | optGetTypeSymbol is SOME _
                                                                -.                 |
-    val t : (t, t) GObject.Value.accessor                       | not isGObject   |
-    val tOpt : (t option, t option) GObject.Value.accessor      |                 |
+    val t : (t, t) ValueAccessor.t                              | not isGObject   |
+    val tOpt : (t option, t option) ValueAccessor.t             |                 |
                                                                -'                -'
   end
 
@@ -66,7 +66,7 @@ signature <STRUCT_NAMESPACE>_<STRUCT_NAME>_RECORD =
 structure <StructNamespace><StructName>Record :>
   <STRUCT_NAMESPACE>_<STRUCT_NAME>_RECORD
                                                                           -.
-    where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor    | isGObject
+    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t        | isGObject
                                                                           -'
 =
   struct
@@ -213,16 +213,16 @@ structure <StructNamespace><StructName>Record :>
       _import "g_value_set_boxed" : GObjectValueRecord.FFI.p * unit FFI.p -> unit;           |
                                                                             -'               |
                                                                             -.               |
-    type ('a, 'b) value_accessor = ('a, 'b) GObject.Value.accessor           | isGObject     |
+    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t                | isGObject     |
                                                                             -'               |
     val t =                                                                                  |
-      GObjectValue.C.createAccessor {                                                        |
+      ValueAccessor.C.createAccessor {                                                       |
         getType  = (I ---> GObjectType.FFI.fromVal) getType_,                                |
         getValue = (I ---> FFI.fromPtr false) getValue_,                                     |
         setValue = (I &&&> FFI.withPtr ---> I) setValue_                                     |
       }                                                                                      |
     val tOpt =                                                                               |
-      GObjectValue.C.createAccessor {                                                        |
+      ValueAccessor.C.createAccessor {                                                       |
         getType  = (I ---> GObjectType.FFI.fromVal) getType_,                                |
         getValue = (I ---> FFI.fromOptPtr false) getOptValue_,                               |
         setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_                               |

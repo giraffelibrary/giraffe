@@ -6,8 +6,8 @@ signature GDK_EVENT_EXPOSE_RECORD =
     datatype event =
       EXPOSE
     | DAMAGE
-    val t : (t, t) GObjectValue.accessor
-    val tOpt : (t option, t option) GObjectValue.accessor
+    val t : (t, t) ValueAccessor.t
+    val tOpt : (t option, t option) ValueAccessor.t
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

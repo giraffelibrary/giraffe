@@ -1,5 +1,6 @@
 structure GObject :
   G_OBJECT
+    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
     where type 'a signal_t = 'a Signal.t
     where type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
     where type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
@@ -11,11 +12,11 @@ structure GObject :
       val typeInit_ = call (getSymbol "g_type_init") (cVoid --> cVoid)
       val typeInitWithDebugFlags_ = call (getSymbol "g_type_init_with_debug_flags") (GObjectTypeDebugFlags.PolyML.cVal --> cVoid)
     end
+    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
     type 'a signal_t = 'a Signal.t
     type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
     type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
     type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite
-    structure ValueRecord = GObjectValueRecord
     structure Type = GObjectType
     structure ConnectFlags = GObjectConnectFlags
     structure ParamFlags = GObjectParamFlags
@@ -24,12 +25,14 @@ structure GObject :
     structure TypeDebugFlags = GObjectTypeDebugFlags
     structure TypeFlags = GObjectTypeFlags
     structure TypeFundamentalFlags = GObjectTypeFundamentalFlags
+    structure ValueArrayRecord = GObjectValueArrayRecord
+    structure ValueRecord = GObjectValueRecord
+    structure BindingFlags = GObjectBindingFlags
     structure Value = GObjectValue
+    structure ValueArray = GObjectValueArray
     structure ClosureRecord = GObjectClosureRecord
     structure ObjectClass = GObjectObjectClass
     structure ParamSpecClass = GObjectParamSpecClass
-    structure BindingFlags = GObjectBindingFlags
-    structure ValueArrayRecord = GObjectValueArrayRecord
     structure Closure = GObjectClosure
     structure BindingClass = GObjectBindingClass
     structure InitiallyUnownedClass = GObjectInitiallyUnownedClass
@@ -59,7 +62,6 @@ structure GObject :
     structure ParamSpecVariantClass = GObjectParamSpecVariantClass
     structure TypeModuleClass = GObjectTypeModuleClass
     structure TypePluginClass = GObjectTypePluginClass
-    structure ValueArray = GObjectValueArray
     structure Binding = GObjectBinding
     structure InitiallyUnowned = GObjectInitiallyUnowned
     structure ParamSpecBoolean = GObjectParamSpecBoolean

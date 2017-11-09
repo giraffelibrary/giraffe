@@ -7,6 +7,6 @@ signature GIO_D_BUS_CONNECTION_FLAGS =
     val AUTHENTICATION_ALLOW_ANONYMOUS : t
     val MESSAGE_BUS_CONNECTION : t
     val DELAY_MESSAGE_PROCESSING : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

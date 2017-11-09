@@ -9,6 +9,6 @@ signature GDK_WINDOW_ATTRIBUTES_TYPE =
     val WMCLASS : t
     val NOREDIR : t
     val TYPE_HINT : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

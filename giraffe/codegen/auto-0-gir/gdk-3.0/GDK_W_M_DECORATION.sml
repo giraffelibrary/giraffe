@@ -8,6 +8,6 @@ signature GDK_W_M_DECORATION =
     val MENU : t
     val MINIMIZE : t
     val MAXIMIZE : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

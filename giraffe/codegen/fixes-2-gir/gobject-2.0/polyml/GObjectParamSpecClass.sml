@@ -1,6 +1,6 @@
 structure GObjectParamSpecClass :>
   G_OBJECT_PARAM_SPEC_CLASS
-    where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor =
+    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
   struct
     type notnull = CPointer.notnull
     type 'a p = 'a CPointer.p
@@ -142,17 +142,17 @@ structure GObjectParamSpecClass :>
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid);
     end
 
-    type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
+    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
 
     val t =
-      GObjectValue.C.createAccessor {
+      ValueAccessor.C.createAccessor {
         getType  = (I ---> GObjectType.FFI.fromVal) getType_,
         getValue = (I ---> FFI.fromPtr false) getValue_,
         setValue = (I &&&> FFI.withPtr ---> I) setValue_
       }
 
     val tOpt =
-      GObjectValue.C.createAccessor {
+      ValueAccessor.C.createAccessor {
         getType  = (I ---> GObjectType.FFI.fromVal) getType_,
         getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
         setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_

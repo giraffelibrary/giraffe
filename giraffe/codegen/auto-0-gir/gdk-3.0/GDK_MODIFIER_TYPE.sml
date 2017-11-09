@@ -33,6 +33,6 @@ signature GDK_MODIFIER_TYPE =
     val MODIFIER_RESERVED_29_MASK : t
     val RELEASE_MASK : t
     val MODIFIER_MASK : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

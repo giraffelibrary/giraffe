@@ -126,7 +126,7 @@ local
       (fn _ => raise Fail (errMsgAlreadyGen (name, ver))) 
       ((ver, x), verDict)
 in
-  fun insert (((name : string, ver : string), x), dict : 'a namespace_dict) =
+  fun insert (((name : string, ver : string), x : 'a), dict : 'a namespace_dict) =
     ListDict.insert
       (create ver)
       (update (name, ver))
@@ -138,6 +138,9 @@ end
 (* Local types for extra structures *)
 
 val aTyVar : tyvar = (false, "a")
+val bTyVar : tyvar = (false, "b")
+
+val valueAccessorLocalType = mkLocalType ([aTyVar, bTyVar], ("", "ValueAccessor", "", "t"))
 
 val quarkLocalType = mkLocalType ([], ("GLib", "Quark", "", "t"))
 val pidLocalType = mkLocalType ([], ("GLib", "Pid", "", "t"))
@@ -260,16 +263,44 @@ val () =
 
 fun gen outDir repo (namespace_version as (namespace, version)) extras = (
   List.app print ["  ", namespace, "-", version, "\n"];
-  (namespace_version, generate outDir repo namespace_version extras)
+  (namespace_version, generateFull outDir repo namespace_version extras)
 )
+
+fun init outDir namespace_version initNamespace extras =
+  generateInit outDir namespace_version initNamespace extras
 
 val errorLog'0 = ListDict.empty
 
 val () = print "Generating code for namespaces\n"
+val () = ignore [
+  (* The initial directory for GLib contains a minimal GObject namespace that
+   * provides support for using GType and GValue and a structure ValueAccessor
+   * through which GValues are accessed.
+   *
+   * Note that the version of GObjectValueRecord in the GLib namespace does
+   * not include value accessors which breaks a cyclic dependency that would
+   * otherwise occur between ValueAccessor and GObjectValueRecord.  The value
+   * accessors are added to the version of GObjectValueRecord in the GObject
+   * namespace. *)
+  init outDir ("GLib", "2.0") "GObject"
+    (
+      [],
+      [
+        newSig "G_OBJECT_TYPE" [],
+        newSig "G_OBJECT_VALUE_RECORD" [],
+        newSig "VALUE_ACCESSOR" []
+      ],
+      [
+        newStr ("GObject", "Type", "G_OBJECT_TYPE") [],
+        newStr ("GObject", "ValueRecord", "G_OBJECT_VALUE_RECORD") [],
+        extendStrDeps "ValueAccessor" ["GObjectValueRecord", "GObjectType"]
+      ]
+    )
+]
 val errorLog'1 = List.foldl insert errorLog'0 [
   gen outDir repo ("GLib", "2.0")
     (
-      [("GObject", "2.0")],
+      [],
       [
         newSig "G_LIB_PID_TYPE" [],
         newSig "G_LIB_SOURCE_FUNC" [],
@@ -297,7 +328,8 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         newSig "SIGNAL" [],
         newSig "PROPERTY" [],
         newSig "G_OBJECT_VALUE_RECORD" [],
-        newSig "G_OBJECT_VALUE" []
+        newSig "G_OBJECT_VALUE" [],
+        newSig "VALUE_ACCESSOR" []
       ],
       [
         (* CVector and CVectorN are manually generated modules that extend
@@ -307,11 +339,12 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         extendStrDeps "CVector" ["GObjectValueRecord", "GObjectValue"],
         extendStrDeps "CVectorN" ["GObjectValueRecord", "GObjectValue"],
 
-        (* ClosureMarshal, Signal and Property are special supporting
-         * structures outside the Gtk structure.  Therefore their spec and
-         * strdec lists are empty but dependencies are included to ensure
-         * that they are loaded after structures that they depend on. *)
+        (* ClosureMarshal, ValueAccessor, Signal and Property are special
+         * supporting structures outside the Gtk structure.  Therefore their
+         * spec and strdec lists are empty but dependencies are included to
+         * ensure that they are loaded after structures that they depend on. *)
         extendStrDeps "ClosureMarshal" ["GObjectValueRecord", "GObjectValue"],
+        extendStrDeps "ValueAccessor" [],
         extendStrDeps "Signal"
           ["GObjectObjectClass", "GObjectClosureRecord", "GObjectClosure"],
         extendStrDeps "Property"
@@ -325,7 +358,8 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         (* GObjectValueRecord and GObjectValue are manually
          * generated modules so we must provide spec and strdec values
          * to be inserted into the namespace module. *)
-        newStr ("GObject", "ValueRecord", "G_OBJECT_VALUE_RECORD") [],
+        newStr ("GObject", "ValueRecord", "G_OBJECT_VALUE_RECORD")
+          [valueAccessorLocalType],
         newStr ("GObject", "Value", "G_OBJECT_VALUE")
           [valueRecordLocalType, typeLocalType],
 

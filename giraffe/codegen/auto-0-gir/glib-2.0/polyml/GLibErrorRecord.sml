@@ -30,14 +30,14 @@ structure GLibErrorRecord :> G_LIB_ERROR_RECORD =
       val setOptValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid)
     end
     val t =
-      GObjectValue.C.createAccessor
+      ValueAccessor.C.createAccessor
         {
           getType = (I ---> GObjectType.FFI.fromVal) getType_,
           getValue = (I ---> FFI.fromPtr false) getValue_,
           setValue = (I &&&> FFI.withPtr ---> I) setValue_
         }
     val tOpt =
-      GObjectValue.C.createAccessor
+      ValueAccessor.C.createAccessor
         {
           getType = (I ---> GObjectType.FFI.fromVal) getType_,
           getValue = (I ---> FFI.fromOptPtr false) getOptValue_,

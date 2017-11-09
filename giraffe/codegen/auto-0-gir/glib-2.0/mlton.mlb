@@ -4,6 +4,26 @@ local
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
 in
+  G_OBJECT_TYPE.sml
+  G_OBJECT_VALUE_RECORD.sml
+  VALUE_ACCESSOR.sml
+  G_OBJECT.sml
+  ann
+    "allowFFI true"
+    "resolveScope topdec"
+  in
+    mlton/GObjectType.sml
+    mlton/GObjectValueRecord.sml
+    mlton/ValueAccessor.sml
+    mlton/GObject.sml
+  end
+end
+local
+  $(SML_LIB)/basis/basis.mlb
+  $(SML_LIB)/basis/mlton.mlb
+  $(GIRAFFE_SML_LIB)/general/mlton.mlb
+  $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
+in
   G_LIB_PID_TYPE.sml
   G_LIB_SOURCE_FUNC.sml
   G_LIB_CHILD_WATCH_FUNC.sml

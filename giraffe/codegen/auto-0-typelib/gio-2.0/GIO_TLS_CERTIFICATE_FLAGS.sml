@@ -9,6 +9,6 @@ signature GIO_TLS_CERTIFICATE_FLAGS =
     val INSECURE : t
     val GENERIC_ERROR : t
     val VALIDATE_ALL : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

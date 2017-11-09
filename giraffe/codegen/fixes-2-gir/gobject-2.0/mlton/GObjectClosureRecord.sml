@@ -7,7 +7,7 @@
 
 structure GObjectClosureRecord :>
   G_OBJECT_CLOSURE_RECORD
-    where type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor =
+    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
   struct
     structure Pointer = CPointerInternal
     type notnull = Pointer.notnull
@@ -32,8 +32,6 @@ structure GObjectClosureRecord :>
       then _import "giraffe_debug_g_closure_unref" : notnull p -> unit;
       else _import "g_closure_unref" : notnull p -> unit;
 
-    type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
-
     structure Record =
       BoxedRecord(
         structure Pointer = Pointer
@@ -49,16 +47,16 @@ structure GObjectClosureRecord :>
     val getOptValue_ = _import "g_value_get_boxed" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit FFI.p;
     val setValue_ = fn x1 & x2 => (_import "g_value_set_boxed" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.notnull FFI.p -> unit;) (x1, x2)
     val setOptValue_ = fn x1 & x2 => (_import "g_value_set_boxed" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * unit FFI.p -> unit;) (x1, x2)
-    type ('a, 'b) value_accessor = ('a, 'b) GObjectValue.accessor
+    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
     val t =
-      GObjectValue.C.createAccessor
+      ValueAccessor.C.createAccessor
         {
           getType = (I ---> GObjectType.FFI.fromVal) getType_,
           getValue = (I ---> FFI.fromPtr false) getValue_,
           setValue = (I &&&> FFI.withPtr ---> I) setValue_
         }
     val tOpt =
-      GObjectValue.C.createAccessor
+      ValueAccessor.C.createAccessor
         {
           getType = (I ---> GObjectType.FFI.fromVal) getType_,
           getValue = (I ---> FFI.fromOptPtr false) getOptValue_,

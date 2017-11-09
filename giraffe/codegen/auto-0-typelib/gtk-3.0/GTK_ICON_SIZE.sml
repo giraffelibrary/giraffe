@@ -11,7 +11,7 @@ signature GTK_ICON_SIZE =
     include
       ENUM
         where type t = enum
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     type 'a settings_class
     val getType : unit -> GObject.Type.t
     val fromName : string -> LargeInt.int

@@ -1,3 +1,11 @@
+use "G_OBJECT_TYPE.sml";
+use "G_OBJECT_VALUE_RECORD.sml";
+use "VALUE_ACCESSOR.sml";
+use "G_OBJECT.sml";
+use "polyml/GObjectType.sml";
+use "polyml/GObjectValueRecord.sml";
+use "polyml/ValueAccessor.sml";
+use "polyml/GObject.sml";
 use "G_LIB_PID_TYPE.sml";
 use "G_LIB_SOURCE_FUNC.sml";
 use "G_LIB_CHILD_WATCH_FUNC.sml";

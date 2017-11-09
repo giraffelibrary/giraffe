@@ -12,6 +12,6 @@ signature GTK_U_I_MANAGER_ITEM_TYPE =
     val SEPARATOR : t
     val ACCELERATOR : t
     val POPUP_WITH_ACCELS : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

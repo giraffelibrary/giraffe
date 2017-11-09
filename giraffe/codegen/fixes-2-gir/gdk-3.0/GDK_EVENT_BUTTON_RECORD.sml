@@ -8,8 +8,8 @@ signature GDK_EVENT_BUTTON_RECORD =
     | DOUBLE_BUTTON_PRESS
     | TRIPLE_BUTTON_PRESS
     | BUTTON_RELEASE
-    val t : (t, t) GObjectValue.accessor
-    val tOpt : (t option, t option) GObjectValue.accessor
+    val t : (t, t) ValueAccessor.t
+    val tOpt : (t option, t option) ValueAccessor.t
 (*
     val window : t -> base Window.t
     val sendEvent : t -> bool

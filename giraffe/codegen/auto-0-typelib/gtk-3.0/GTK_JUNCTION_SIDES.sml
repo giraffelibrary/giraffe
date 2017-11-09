@@ -10,6 +10,6 @@ signature GTK_JUNCTION_SIDES =
     val BOTTOM : t
     val LEFT : t
     val RIGHT : t
-    val t : (t, t) GObject.Value.accessor
+    val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
   end

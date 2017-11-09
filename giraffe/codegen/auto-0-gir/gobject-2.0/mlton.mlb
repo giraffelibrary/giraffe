@@ -10,6 +10,7 @@ in
   PROPERTY.sml
   G_OBJECT_VALUE_RECORD.sml
   G_OBJECT_VALUE.sml
+  VALUE_ACCESSOR.sml
   G_OBJECT_TYPE.sml
   G_OBJECT_BINDING_CLASS.sml
   G_OBJECT_BINDING.sml
@@ -86,7 +87,7 @@ in
     "allowFFI true"
     "resolveScope topdec"
   in
-    mlton/GObjectValueRecord.sml
+    mlton/ValueAccessor.sml
     mlton/GObjectType.sml
     mlton/GObjectConnectFlags.sml
     mlton/GObjectParamFlags.sml
@@ -95,15 +96,17 @@ in
     mlton/GObjectTypeDebugFlags.sml
     mlton/GObjectTypeFlags.sml
     mlton/GObjectTypeFundamentalFlags.sml
+    mlton/GObjectValueArrayRecord.sml
+    mlton/GObjectValueRecord.sml
+    mlton/GObjectBindingFlags.sml
     mlton/GObjectValue.sml
+    mlton/GObjectValueArray.sml
     mlton/CVector.sml
     mlton/CVectorN.sml
     mlton/ClosureMarshal.sml
     mlton/GObjectClosureRecord.sml
     mlton/GObjectObjectClass.sml
     mlton/GObjectParamSpecClass.sml
-    mlton/GObjectBindingFlags.sml
-    mlton/GObjectValueArrayRecord.sml
     mlton/Property.sml
     mlton/GObjectClosure.sml
     mlton/GObjectBindingClass.sml
@@ -134,7 +137,6 @@ in
     mlton/GObjectParamSpecVariantClass.sml
     mlton/GObjectTypeModuleClass.sml
     mlton/GObjectTypePluginClass.sml
-    mlton/GObjectValueArray.sml
     mlton/Signal.sml
     mlton/GObjectBinding.sml
     mlton/GObjectInitiallyUnowned.sml

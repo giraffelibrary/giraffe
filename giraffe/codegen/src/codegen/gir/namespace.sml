@@ -19,7 +19,10 @@ fun translateInfo
         modules'0 as (
           files'0 : program ListDict.t,
           sigs'0 : (bool * id list) ListDict.t,
-          strs'0 : ((bool * (spec list * strdec list)) * id list) ListDict.t
+          strs'0 : ((bool * (spec list * strdec list)) * id list) ListDict.t,
+          numProps'0 : LargeInt.int,
+          numSigs'0 : LargeInt.int,
+          useAccessors'0 : bool
         ),
         constants'0,
         functions'0,
@@ -82,7 +85,11 @@ fun translateInfo
             ],
             files'0
           )
-        val modules'1 = (files'1, sigs'1, strs'1)
+        val numProps'1 = numProps'0 + ObjectInfo.getNProperties objectInfo
+        val numSigs'1  = numSigs'0  + ObjectInfo.getNSignals    objectInfo
+        val useAccessors'1 = true
+        val modules'1 =
+          (files'1, sigs'1, strs'1, numProps'1, numSigs'1, useAccessors'1)
       in
         ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
       end
@@ -139,7 +146,11 @@ fun translateInfo
             ],
             files'0
           )
-        val modules'1 = (files'1, sigs'1, strs'1)
+        val numProps'1 = numProps'0 + InterfaceInfo.getNProperties interfaceInfo
+        val numSigs'1  = numSigs'0  + InterfaceInfo.getNSignals    interfaceInfo
+        val useAccessors'1 = true
+        val modules'1 =
+          (files'1, sigs'1, strs'1, numProps'1, numSigs'1, useAccessors'1)
       in
         ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
       end
@@ -196,7 +207,8 @@ fun translateInfo
             ],
             files'0
           )
-        val modules'1 = (files'1, sigs'1, strs'1)
+        val modules'1 =
+          (files'1, sigs'1, strs'1, numProps'0, numSigs'0, useAccessors'0)
       in
         ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
       end
@@ -239,7 +251,8 @@ fun translateInfo
               ],
               files'0
             )
-          val modules'1 = (files'1, sigs'1, strs'1)
+          val modules'1 =
+            (files'1, sigs'1, strs'1, numProps'0, numSigs'0, useAccessors'0)
         in
           ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
         end
@@ -275,7 +288,10 @@ fun translateInfo
             ],
             files'0
           )
-        val modules'1 = (files'1, sigs'1, strs'1)
+        val useAccessors'1 =
+          useAccessors'0 orelse isSome (RegisteredTypeInfo.getTypeInit enumInfo)
+        val modules'1 =
+          (files'1, sigs'1, strs'1, numProps'0, numSigs'0, useAccessors'1)
       in
         ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
       end
@@ -309,7 +325,10 @@ fun translateInfo
             ],
             files'0
           )
-        val modules'1 = (files'1, sigs'1, strs'1)
+        val useAccessors'1 =
+          useAccessors'0 orelse isSome (RegisteredTypeInfo.getTypeInit enumInfo)
+        val modules'1 =
+          (files'1, sigs'1, strs'1, numProps'0, numSigs'0, useAccessors'1)
       in
         ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
       end
@@ -343,7 +362,8 @@ fun translateInfo
             ],
             files'0
           )
-        val modules'1 = (files'1, sigs'1, strs'1)
+        val modules'1 =
+          (files'1, sigs'1, strs'1, numProps'0, numSigs'0, useAccessors'0)
       in
         ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
       end
@@ -398,7 +418,7 @@ fun translateInfo
 
 fun translateLoadedNamespace repo vers namespace =
   let
-    val modules'0 = (ListDict.empty, ListDict.empty, ListDict.empty)
+    val modules'0 = (ListDict.empty, ListDict.empty, ListDict.empty, 0, 0, false)
     val constants'0 = ([], [])
     val functions'0 = ([], [], [], [])
     val structDeps'0 = ListDict.empty

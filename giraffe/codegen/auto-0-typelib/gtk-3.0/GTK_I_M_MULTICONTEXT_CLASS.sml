@@ -5,6 +5,6 @@ signature GTK_I_M_MULTICONTEXT_CLASS =
     include
       CLASS
         where type 'a class = 'a i_m_multicontext i_m_context_class
-    val t : (base class, 'a class) GObject.Value.accessor
-    val tOpt : (base class option, 'a class option) GObject.Value.accessor
+    val t : (base class, 'a class) ValueAccessor.t
+    val tOpt : (base class option, 'a class option) ValueAccessor.t
   end

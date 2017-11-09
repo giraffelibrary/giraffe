@@ -33,7 +33,7 @@ Placeholders
 
 Conditions
 
-  isGObject = "GObject" = ObjectNamespace
+  isGObject = "GObject" = InterfaceNamespace
 
 
 ==Class signature==
