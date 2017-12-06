@@ -405,8 +405,14 @@ in
       (* module *)
       val strDecs'0 = []
       val iRefs'0 = []
+
+      val getValueType =
+        fn
+          ("GLib", "Variant") => "variant"
+        | _                   => "boxed"
+
       val (addAccessorStrDecs, addAccessorIRefs, revAccessorLocalTypes) =
-        addAccessorRootStrDecs structNamespace structInfo
+        addAccessorRootStrDecs (structNamespace, structName) getValueType structInfo
 
       val iRefs'1 = addAccessorIRefs iRefs'0
 
@@ -416,7 +422,7 @@ in
 
       fun mkModule isPolyML =
         let
-          val strDecs'1 = addAccessorStrDecs ("boxed", true) isPolyML strDecs'0
+          val strDecs'1 = addAccessorStrDecs true isPolyML strDecs'0
           val strDecs'2 = (
             case structType of
               ValueRecord     => structValueRecordStrDec
@@ -519,16 +525,18 @@ fun makeStructSig
 
     val typeIRef = makeTypeIRef structNamespace (SOME structName)
 
+    val addStructGetTypeFunctionSpec =
+      case optGetTypeSymbol of
+        SOME getTypeSymbol => addGetTypeFunctionSpec getTypeSymbol
+      | NONE               => K I
+
     val acc'0
       : spec list
          * interfaceref list
          * info_excl_hier list =
       ([], [], excls'0)
     val acc'1 = addStructMethodSpecs repo vers structIRef (structInfo, acc'0)
-    val acc'2 =
-      case optGetTypeSymbol of
-        SOME _ => addGetTypeFunctionSpec typeIRef acc'1
-      | NONE   => acc'1
+    val acc'2 = addStructGetTypeFunctionSpec typeIRef acc'1
     val (specs'2, iRefs'2, excls'2) = acc'2
 
     val sigIRefs =
@@ -609,6 +617,11 @@ fun makeStructStr
         SOME getTypeSymbol => addGetTypeFunctionStrDecLowLevel getTypeSymbol
       | NONE               => K I
 
+    val addStructGetTypeFunctionStrDecHighLevel =
+      case optGetTypeSymbol of
+        SOME getTypeSymbol => addGetTypeFunctionStrDecHighLevel getTypeSymbol
+      | NONE               => K I
+
     (* module *)
     val acc'0
       : strdec list
@@ -617,10 +630,7 @@ fun makeStructStr
       ([], ([], ListDict.empty), excls'0)
     val acc'1 =
       addStructMethodStrDecsHighLevel repo vers structIRef (structInfo, acc'0)
-    val acc'2 =
-      case optGetTypeSymbol of
-        SOME _ => addGetTypeFunctionStrDecHighLevel typeIRef acc'1
-      | NONE   => acc'1
+    val acc'2 = addStructGetTypeFunctionStrDecHighLevel typeIRef acc'1
     val (strDecs'2, (iRefs'2, structDeps'2), excls'2) = acc'2
 
     val strIRefs =

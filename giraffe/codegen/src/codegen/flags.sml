@@ -80,6 +80,8 @@ in
     let
       val () = checkDeprecated enumInfo
 
+      val optGetTypeSymbol = RegisteredTypeInfo.getTypeInit enumInfo
+
       val enumName = getName enumInfo
       val enumIRef = {
         namespace = enumNamespace,
@@ -92,14 +94,10 @@ in
       val enumSigId = toUCU enumStrId
 
       val typeIRef = makeTypeIRef enumNamespace (SOME enumName)
-      val optGetTypeSymbol = RegisteredTypeInfo.getTypeInit enumInfo
 
       val acc'0 = (specs'0, [], excls'0)
       val acc'1 = addFlagsEnumMethodSpecs repo vers enumIRef (enumInfo, acc'0)
-      val acc'2 =
-        case optGetTypeSymbol of
-          SOME _ => addGetTypeFunctionSpec typeIRef acc'1
-        | NONE   => acc'1
+      val acc'2 = addOptGetTypeFunctionSpec optGetTypeSymbol typeIRef acc'1
 
       val (specs'2, iRefs'2, excls'2) = acc'2
       val specs'3 = revMapAppend makeIRefLocalTypeSpec (iRefs'2, specs'2)
@@ -177,17 +175,14 @@ in
         ([], ([], ListDict.empty), excls'0)
       val acc'1 =
         addFlagsEnumMethodStrDecsHighLevel repo vers enumIRef (enumInfo, acc'0)
-      val acc'2 =
-        case optGetTypeSymbol of
-          SOME _ => addGetTypeFunctionStrDecHighLevel typeIRef acc'1
-        | NONE   => acc'1
+      val acc'2 = addOptGetTypeFunctionStrDecHighLevel optGetTypeSymbol typeIRef acc'1
       val (strDecs'2, (iRefs'2, structDeps'2), excls'2) = acc'2
 
       val revLocalTypes = revMap makeIRefLocalType iRefs'2
       val strDecs'3 = revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'2)
 
       val (addAccessorStrDecs, addAccessorIRefs, revAccessorLocalTypes) =
-        addAccessorRootStrDecs enumNamespace enumInfo
+        addAccessorRootStrDecs (enumNamespace, enumName) (K "flags") enumInfo
 
       val iRefs'3 = addAccessorIRefs iRefs'2
 
@@ -202,7 +197,7 @@ in
               enumIRef
               (enumInfo, (strDecs'3, excls'2))
 
-          val strDecs'5 = addAccessorStrDecs ("flags", false) isPolyML strDecs'4
+          val strDecs'5 = addAccessorStrDecs false isPolyML strDecs'4
           val strDecs'6 = strDecs'5
           val strDecs'7 = strDecs'6
           val strDecs'8 = [structFlagsStrDec, openFlagsStrDec] @ strDecs'7

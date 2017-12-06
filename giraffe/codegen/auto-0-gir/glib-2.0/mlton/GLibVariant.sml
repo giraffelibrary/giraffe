@@ -28,7 +28,6 @@ structure GLibVariant :>
         structure Sequence = VectorSequence
       )
     structure GLibVariantRecordCVectorN = CVectorN(GLibVariantRecordCVectorNType)
-    val getType_ = _import "intern" : unit -> GObjectType.FFI.val_;
     val newArray_ =
       fn
         x1
@@ -216,7 +215,6 @@ structure GLibVariant :>
     type t = GLibVariantRecord.t
     type variant_class_t = GLibVariantClass.t
     type variant_type_t = GLibVariantTypeRecord.t
-    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newArray (childType, children) =
       let
         val nChildren =

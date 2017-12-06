@@ -132,9 +132,9 @@ signature <OBJECT_NAMESPACE>_<OBJECT_NAME> =
 
 
     (* Functions *)
-
-    val getType : unit -> <type>
-
+                                                          -.
+    val getType : unit -> <type>                           | getTypeSymbol <> "intern"
+                                                          -'
     <FunctionSpec[1]>
 
     ...
@@ -282,9 +282,9 @@ structure <ObjectNamespace><ObjectName> :>
 
 
     (* High-Level Functions *)
-
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-
+                                                          -.
+    val getType = (I ---> GObjectType.C.fromVal) getType_  | getTypeSymbol <> "intern"
+                                                          -'
     <HighLevelFunction[1]>
 
     ...

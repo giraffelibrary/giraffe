@@ -83,9 +83,9 @@ signature <INTERFACE_NAMESPACE>_<INTERFACE_NAME> =
 
 
     (* Functions *)
-
-    val getType : unit -> <type>
-
+                                                          -.
+    val getType : unit -> <type>                           | getTypeSymbol <> "intern"
+                                                          -'
     <FunctionSpec[1]>
 
     ...
@@ -224,9 +224,9 @@ structure <InterfaceNamespace><InterfaceName> :>
 
 
     (* High-Level Functions *)
-
-    val getType = (I ---> GObjectType.C.fromVal) getType_
-
+                                                          -.
+    val getType = (I ---> GObjectType.C.fromVal) getType_  | getTypeSymbol <> "intern"
+                                                          -'
     <HighLevelFunction[1]>
 
     ...

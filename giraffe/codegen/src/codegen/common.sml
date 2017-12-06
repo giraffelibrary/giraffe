@@ -2,50 +2,80 @@
  * Common functions
  * -------------------------------------------------------------------------- *)
 
-fun addGetTypeFunctionSpec (typeIRef : interfaceref) (specs, iRefs, excls) =
-  let
-    val specs' = getTypeSpec typeIRef :: specs
+val internTypeSymbol = "intern"
 
-    val iRef as {scope, ...} = typeIRef
-    val iRefs' =
-      case scope of
-        GLOBAL             => iRefs
-      | LOCALINTERFACESELF => iRefs
-      | _                  => insert (iRef, iRefs)
-  in
-    (specs', iRefs', excls)
-  end
+fun addGetTypeFunctionSpec
+  getTypeSymbol
+  (typeIRef : interfaceref)
+  (init as (specs, iRefs, excls)) =
+  if getTypeSymbol <> internTypeSymbol
+  then
+    let
+      val specs' = getTypeSpec typeIRef :: specs
+
+      val iRef as {scope, ...} = typeIRef
+      val iRefs' =
+        case scope of
+          GLOBAL             => iRefs
+        | LOCALINTERFACESELF => iRefs
+        | _                  => insert (iRef, iRefs)
+    in
+      (specs', iRefs', excls)
+    end
+  else init
+
+val addOptGetTypeFunctionSpec =
+  fn
+    SOME getTypeSymbol => addGetTypeFunctionSpec getTypeSymbol
+  | NONE               => K I
 
 fun addGetTypeFunctionStrDecHighLevel
+  getTypeSymbol
   (typeIRef : interfaceref)
-  (strDecs, (iRefs, structDeps), excls) =
-  let
-    val strDecs' = getTypeStrDecHighLevel :: strDecs
+  (init as (strDecs, (iRefs, structDeps), excls)) =
+  if getTypeSymbol <> internTypeSymbol
+  then
+    let
+      val strDecs' = getTypeStrDecHighLevel :: strDecs
 
-    val iRef as {scope, ...} = typeIRef
-    val iRefs' =
-      case scope of
-        GLOBAL             => iRefs
-      | LOCALINTERFACESELF => iRefs
-      | _                  => insert (iRef, iRefs)
-  in
-    (strDecs', (iRefs', structDeps), excls)
-  end
+      val iRef as {scope, ...} = typeIRef
+      val iRefs' =
+        case scope of
+          GLOBAL             => iRefs
+        | LOCALINTERFACESELF => iRefs
+        | _                  => insert (iRef, iRefs)
+    in
+      (strDecs', (iRefs', structDeps), excls)
+    end
+  else init
+
+val addOptGetTypeFunctionStrDecHighLevel =
+  fn
+    SOME getTypeSymbol => addGetTypeFunctionStrDecHighLevel getTypeSymbol
+  | NONE               => K I
 
 fun addGetTypeFunctionStrDecLowLevel
   getTypeSymbol
   isPolyML
-  (strDecs, excls) =
-  let
-    val strDecs' =
-      (
-        if isPolyML
-        then getTypeStrDecLowLevelPolyML getTypeSymbol
-        else getTypeStrDecLowLevelMLton getTypeSymbol
-      ) :: strDecs
-  in
-    (strDecs', excls)
-  end
+  (init as (strDecs, excls)) =
+  if getTypeSymbol <> internTypeSymbol
+  then
+    let
+      val strDecs' =
+        (
+          if isPolyML
+          then getTypeStrDecLowLevelPolyML getTypeSymbol
+          else getTypeStrDecLowLevelMLton getTypeSymbol
+        ) :: strDecs
+    in
+      (strDecs', excls)
+    end
+  else init
+
+val addOptGetTypeFunctionStrDecLowLevel =
+  fn
+    SOME getTypeSymbol => addGetTypeFunctionStrDecLowLevel getTypeSymbol
+  | NONE               => K I
 
 
 type localtype = {
@@ -314,23 +344,25 @@ in
 end
 
 (*
- * `addAccessorRootStrDecs namespace info` returns
- * `(add, revLocalTypes)` where `add (valueType, isPtr) isPolyML strDecs`
- * prepends the following to `strDecs` when `info` is a registered GType,
- * i.e.
+ * `addAccessorRootStrDecs (containerNamespace, containerName) info` returns
+ *   `(addStrDecs, addIRefs, revLocalTypes)`
+ * where
+ *   `addStrDecs (valueType, isPtr) isPolyML strDecs`
+ * prepends the following to `strDecs` when `info` is a registered GType
+ * whose get-type function is <getTypeSymbol>, i.e.
  *
- *   RegisteredTypeInfo.getTypeInit info
- *
- * returns is `SOME _`.
+ *   RegisteredTypeInfo.getTypeInit info = SOME getTypeSymbol
  *
  *                                                           -.
  *     local                                                  |
  *       open PolyMLFFI                                       |
  *     in                                                     |
  *       val getType_ =                                       |
- *         call                                               |
- *           (getSymbol "<getTypeSymbol>")                    |
+ *                                           -.               |
+ *         call                               | getTypeSymbol |
+ *           (getSymbol "<getTypeSymbol>")    |  <> "intern"  |
  *           (cVoid --> GObjectType.PolyML.cVal);             |
+ *                                           -'               |
  *                                                            |
  *       val getValue_ =                                      |
  *         call                                               |
@@ -357,9 +389,11 @@ end
  *                                             -'             |
  *     end                                                    |
  *                                                           -'
- *                                                           -.
- *     val getType_ =                                         |
- *       _import "<getTypeSymbol>" : unit -> GObjectType.FFI.val_;
+ *                                           -.              -.
+ *     val getType_ =                         | getTypeSymbol |
+ *       _import "<getTypeSymbol>" :          |  <> "intern"  |
+ *         unit -> GObjectType.FFI.val_;      |               |
+ *                                           -'               |
  *                                                            |
  *     val getValue_ =                                        |
  *       _import "g_value_get_<valueType>" :                  |
@@ -395,7 +429,7 @@ end
  *                                                           -'
  *     val t =
  *       ValueAccessor.C.createAccessor {
- *         getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+ *         getType  = <getType>,
  *         getValue = (I ---> <fromFun>) getValue_,
  *         setValue = (I &&&> <withFun> ---> I) setValue_
  *       }
@@ -403,23 +437,13 @@ end
  *                                           -.
  *     val tOpt =                             | isPtr
  *       ValueAccessor.C.createAccessor {     |
- *         getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+ *         getType  = <getType>,
  *         getValue = (I ---> <fromOptFun>) getOptValue_,
  *         setValue = (I &&&> <withOptFun> ---> I) setOptValue_
  *       }                                    |
  *                                           -'
  *
  * where
- *
- *
- *   ObjectNamespace
- *     is defined as
- *
- *         GObject
- *           if namespace = "GLib"
- *
- *         EnumNamespace
- *           otherwise
  *
  *
  *   parType and retType
@@ -452,6 +476,16 @@ end
  *           otherwise
  *
  *
+ *   fromOptFun
+ *     is defined as
+ *
+ *         C.fromOptPtr false
+ *           if isPtr
+ *
+ *         C.fromVal
+ *           otherwise
+ *
+ *
  *   withFun
  *     is defined as
  *
@@ -461,23 +495,60 @@ end
  *         C.withVal
  *           otherwise
  *
+ *
+ *   withOptFun
+ *     is defined as
+ *
+ *         C.withOptPtr
+ *           if isPtr
+ *
+ *         C.withVal
+ *           otherwise
+ *
+ *
+ *   getType
+ *     is defined as
+ *
+ *         (I ---> GObjectType.FFI.fromVal) getType_
+ *           if getTypeSymbol <> "intern"
+ *
+ *         GObject.Type.<containerName>
+ *           otherwise
+ *
  *)
 local
   (*
    *     val t<Opt> =
    *       ValueAccessor.C.createAccessor {
-   *         getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+   *         getType  = <getType>,
    *         getValue = (I ---> <from<Opt>Fun>) get<Opt>Value_,
    *         setValue = (I &&&> <with<Opt>Fun> ---> I) set<Opt>Value_
    *       }
+   *
+   *
+   * where
+   *
+   *
+   *   getType
+   *     is defined as
+   *
+   *         (I ---> GObjectType.FFI.fromVal) getType_
+   *           if getTypeSymbol <> "intern"
+   *
+   *         GObjectType.<containerName>
+   *           otherwise
    *)
-  val getTypeExp =
-    ExpApp (
-      mkParenExp (
-        mkDDDRExp (iExp, mkLIdLNameExp ["GObjectType", ffiStrId, fromValId])
-      ),
-      mkIdLNameExp getTypeUId
-    )
+  fun getTypeExp containerName getTypeSymbol =
+    if getTypeSymbol <> internTypeSymbol
+    then
+      ExpApp (
+        mkParenExp (
+          mkDDDRExp (iExp, mkLIdLNameExp ["GObjectType", ffiStrId, fromValId])
+        ),
+        mkIdLNameExp getTypeUId
+      )
+    else
+      mkLIdLNameExp ["GObjectType", toLCC containerName]
   fun getValueExp ptrOpt =
     let
       val fromFunExp =
@@ -515,14 +586,14 @@ local
         )
       )
     end
-  fun tStrDec ptrOpt =
+  fun tStrDec containerName getTypeSymbol ptrOpt =
     StrDecDec (
       mkIdValDec (
         case ptrOpt of SOME true => tOptId | _ => tId,
         ExpApp (
           mkLIdLNameExp ["ValueAccessor", cStrId, "createAccessor"],
           ExpRec [
-            (getTypeId, getTypeExp),
+            (getTypeId, getTypeExp containerName getTypeSymbol),
             (getValueId, getValueExp ptrOpt),
             (setValueId, setValueExp ptrOpt)
           ]
@@ -600,20 +671,22 @@ local
     isPtr
     strDecs =
     let
+      val strDecs'1 =
+        if isPtr
+        then
+          getValueStrDecLowLevelMLton valueArgs (SOME false)
+           :: getValueStrDecLowLevelMLton valueArgs (SOME true)
+           :: setValueStrDecLowLevelMLton valueArgs (SOME false)
+           :: setValueStrDecLowLevelMLton valueArgs (SOME true)
+           :: strDecs
+        else
+          getValueStrDecLowLevelMLton valueArgs NONE
+           :: setValueStrDecLowLevelMLton valueArgs NONE
+           :: strDecs
     in
-      if isPtr
-      then
-        getTypeStrDecLowLevelMLton getTypeSymbol
-         :: getValueStrDecLowLevelMLton valueArgs (SOME false)
-         :: getValueStrDecLowLevelMLton valueArgs (SOME true)
-         :: setValueStrDecLowLevelMLton valueArgs (SOME false)
-         :: setValueStrDecLowLevelMLton valueArgs (SOME true)
-         :: strDecs
-      else
-        getTypeStrDecLowLevelMLton getTypeSymbol
-         :: getValueStrDecLowLevelMLton valueArgs NONE
-         :: setValueStrDecLowLevelMLton valueArgs NONE
-         :: strDecs
+      if getTypeSymbol <> internTypeSymbol
+      then getTypeStrDecLowLevelMLton getTypeSymbol :: strDecs'1
+      else strDecs'1
     end
 
 
@@ -685,11 +758,10 @@ local
     isPtr
     strDecs =
     let
-      val localStrDecs =
+      val localStrDecs'1 =
         if isPtr
         then
           [
-            getTypeStrDecLowLevelPolyML getTypeSymbol,
             getValueStrDecLowLevelPolyML valueArgs (SOME false),
             getValueStrDecLowLevelPolyML valueArgs (SOME true),
             setValueStrDecLowLevelPolyML valueArgs (SOME false),
@@ -697,32 +769,41 @@ local
           ]
         else
           [
-            getTypeStrDecLowLevelPolyML getTypeSymbol,
             getValueStrDecLowLevelPolyML valueArgs NONE,
             setValueStrDecLowLevelPolyML valueArgs NONE
           ]
+
+      val localStrDecs =
+        if getTypeSymbol <> internTypeSymbol
+        then getTypeStrDecLowLevelPolyML getTypeSymbol :: localStrDecs'1
+        else localStrDecs'1
     in
       mkPolyMLFFILocalStrDec localStrDecs :: strDecs
     end
 in
   fun addAccessorRootStrDecs
-    namespace
+    (containerNamespace, containerName)
+    getValueType
     info =
     case RegisteredTypeInfo.getTypeInit info of
       SOME getTypeSymbol =>
         let
-          val isGObject = namespace = "GObject"
+          val isGObject = containerNamespace = "GObject"
           val revLocalTypes = makeAccessorLocalTypes isGObject
 
           fun addIRefs iRefs = addAccessorIRefs isGObject iRefs
 
-          val valueIRef = makeValueIRef namespace (SOME "")
-          fun addStrDecsLowLevel (valueType, isPtr) isPolyML strDecs =
+          val valueIRef = makeValueIRef containerNamespace (SOME "")
+
+          val valueType = getValueType (containerNamespace, containerName)
+
+          fun addStrDecsLowLevel isPtr isPolyML strDecs =
             let
+              val tStrDec1 = tStrDec containerName getTypeSymbol
               val strDecs'1 =
                 if isPtr
-                then tStrDec (SOME false) :: tStrDec (SOME true) :: strDecs
-                else tStrDec NONE :: strDecs
+                then tStrDec1 (SOME false) :: tStrDec1 (SOME true) :: strDecs
+                else tStrDec1 NONE :: strDecs
               val strDecs'2 =
                 revMapAppend makeLocalTypeStrDec (revLocalTypes, strDecs'1)
 

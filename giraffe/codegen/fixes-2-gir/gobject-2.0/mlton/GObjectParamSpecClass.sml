@@ -97,9 +97,6 @@ structure GObjectParamSpecClass :>
           Option.map (fromPtr transfer) (Pointer.fromOptVal optptr)
       end
 
-    val getType_ =
-      _import "giraffe_g_param_get_type" : unit -> GObjectType.FFI.val_;
-
     val getValue_ =
       _import "g_value_get_param" :
         GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.notnull FFI.p;
@@ -124,14 +121,14 @@ structure GObjectParamSpecClass :>
 
     val t =
       ValueAccessor.C.createAccessor {
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+        getType  = GObjectType.param,
         getValue = (I ---> FFI.fromPtr false) getValue_,
         setValue = (I &&&> FFI.withPtr ---> I) setValue_
       }
 
     val tOpt =
       ValueAccessor.C.createAccessor {
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+        getType  = GObjectType.param,
         getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
         setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_
       }

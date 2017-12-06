@@ -21,6 +21,16 @@ structure GObjectType :> G_OBJECT_TYPE =
 
     val fromName_ = _import "g_type_from_name" : Utf8.FFI.notnull Utf8.FFI.in_p -> FFI.val_;
 
+    val invalid_ = _import "giraffe_g_invalid_get_type" : unit -> FFI.val_;
+
+    val none_ = _import "giraffe_g_none_get_type" : unit -> FFI.val_;
+
+    val interface_ = _import "giraffe_g_interface_get_type" : unit -> FFI.val_;
+
+    val char_ = _import "giraffe_g_char_get_type" : unit -> FFI.val_;
+
+    val uchar_ = _import "giraffe_g_uchar_get_type" : unit -> FFI.val_;
+
     val boolean_ = _import "giraffe_g_boolean_get_type" : unit -> FFI.val_;
 
     val int_ = _import "giraffe_g_int_get_type" : unit -> FFI.val_;
@@ -35,15 +45,25 @@ structure GObjectType :> G_OBJECT_TYPE =
 
     val uint64_ = _import "giraffe_g_uint64_get_type" : unit -> FFI.val_;
 
+    val enum_ = _import "giraffe_g_enum_get_type" : unit -> FFI.val_;
+
+    val flags_ = _import "giraffe_g_flags_get_type" : unit -> FFI.val_;
+
     val float_ = _import "giraffe_g_float_get_type" : unit -> FFI.val_;
 
     val double_ = _import "giraffe_g_double_get_type" : unit -> FFI.val_;
 
-    val char_ = _import "giraffe_g_char_get_type" : unit -> FFI.val_;
-
     val string_ = _import "giraffe_g_string_get_type" : unit -> FFI.val_;
 
     val pointer_ = _import "giraffe_g_pointer_get_type" : unit -> FFI.val_;
+
+    val boxed_ = _import "giraffe_g_boxed_get_type" : unit -> FFI.val_;
+
+    val param_ = _import "giraffe_g_param_get_type" : unit -> FFI.val_;
+
+    val object_ = _import "giraffe_g_object_get_type" : unit -> FFI.val_;
+
+    val gtype_ = _import "g_gtype_get_type" : unit -> FFI.val_;
 
     val variant_ = _import "giraffe_g_variant_get_type" : unit -> FFI.val_;
 
@@ -62,6 +82,16 @@ structure GObjectType :> G_OBJECT_TYPE =
           fromName_
           name
 
+    val invalid = fn () => (I ---> FFI.fromVal) invalid_ ()
+
+    val none = fn () => (I ---> FFI.fromVal) none_ ()
+
+    val interface = fn () => (I ---> FFI.fromVal) interface_ ()
+
+    val char = fn () => (I ---> FFI.fromVal) char_ ()
+
+    val uchar = fn () => (I ---> FFI.fromVal) uchar_ ()
+
     val boolean = fn () => (I ---> FFI.fromVal) boolean_ ()
 
     val int = fn () => (I ---> FFI.fromVal) int_ ()
@@ -76,15 +106,25 @@ structure GObjectType :> G_OBJECT_TYPE =
 
     val uint64 = fn () => (I ---> FFI.fromVal) uint64_ ()
 
+    val enum = fn () => (I ---> FFI.fromVal) enum_ ()
+
+    val flags = fn () => (I ---> FFI.fromVal) flags_ ()
+
     val float = fn () => (I ---> FFI.fromVal) float_ ()
 
     val double = fn () => (I ---> FFI.fromVal) double_ ()
 
-    val char = fn () => (I ---> FFI.fromVal) char_ ()
-
     val string = fn () => (I ---> FFI.fromVal) string_ ()
 
     val pointer = fn () => (I ---> FFI.fromVal) pointer_ ()
+
+    val boxed = fn () => (I ---> FFI.fromVal) boxed_ ()
+
+    val param = fn () => (I ---> FFI.fromVal) param_ ()
+
+    val object = fn () => (I ---> FFI.fromVal) object_ ()
+
+    val gtype = fn () => (I ---> FFI.fromVal) gtype_ ()
 
     val variant = fn () => (I ---> FFI.fromVal) variant_ ()
   end

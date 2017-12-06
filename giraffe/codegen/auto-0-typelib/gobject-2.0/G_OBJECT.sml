@@ -56,7 +56,6 @@ signature G_OBJECT =
     structure ParamSpec :
       G_OBJECT_PARAM_SPEC
         where type 'a class = 'a ParamSpecClass.class
-        where type type_t = Type.t
     structure ParamSpecBooleanClass :
       G_OBJECT_PARAM_SPEC_BOOLEAN_CLASS
         where type 'a param_spec_class = 'a ParamSpecClass.class
@@ -173,95 +172,72 @@ signature G_OBJECT =
     structure ParamSpecBoolean :
       G_OBJECT_PARAM_SPEC_BOOLEAN
         where type 'a class = 'a ParamSpecBooleanClass.class
-        where type type_t = Type.t
     structure ParamSpecBoxed :
       G_OBJECT_PARAM_SPEC_BOXED
         where type 'a class = 'a ParamSpecBoxedClass.class
-        where type type_t = Type.t
     structure ParamSpecChar :
       G_OBJECT_PARAM_SPEC_CHAR
         where type 'a class = 'a ParamSpecCharClass.class
-        where type type_t = Type.t
     structure ParamSpecDouble :
       G_OBJECT_PARAM_SPEC_DOUBLE
         where type 'a class = 'a ParamSpecDoubleClass.class
-        where type type_t = Type.t
     structure ParamSpecEnum :
       G_OBJECT_PARAM_SPEC_ENUM
         where type 'a class = 'a ParamSpecEnumClass.class
-        where type type_t = Type.t
     structure ParamSpecFlags :
       G_OBJECT_PARAM_SPEC_FLAGS
         where type 'a class = 'a ParamSpecFlagsClass.class
-        where type type_t = Type.t
     structure ParamSpecFloat :
       G_OBJECT_PARAM_SPEC_FLOAT
         where type 'a class = 'a ParamSpecFloatClass.class
-        where type type_t = Type.t
     structure ParamSpecGType :
       G_OBJECT_PARAM_SPEC_G_TYPE
         where type 'a class = 'a ParamSpecGTypeClass.class
-        where type type_t = Type.t
     structure ParamSpecInt :
       G_OBJECT_PARAM_SPEC_INT
         where type 'a class = 'a ParamSpecIntClass.class
-        where type type_t = Type.t
     structure ParamSpecInt64 :
       G_OBJECT_PARAM_SPEC_INT_64
         where type 'a class = 'a ParamSpecInt64Class.class
-        where type type_t = Type.t
     structure ParamSpecLong :
       G_OBJECT_PARAM_SPEC_LONG
         where type 'a class = 'a ParamSpecLongClass.class
-        where type type_t = Type.t
     structure ParamSpecObject :
       G_OBJECT_PARAM_SPEC_OBJECT
         where type 'a class = 'a ParamSpecObjectClass.class
-        where type type_t = Type.t
     structure ParamSpecOverride :
       G_OBJECT_PARAM_SPEC_OVERRIDE
         where type 'a class = 'a ParamSpecOverrideClass.class
-        where type type_t = Type.t
     structure ParamSpecParam :
       G_OBJECT_PARAM_SPEC_PARAM
         where type 'a class = 'a ParamSpecParamClass.class
-        where type type_t = Type.t
     structure ParamSpecPointer :
       G_OBJECT_PARAM_SPEC_POINTER
         where type 'a class = 'a ParamSpecPointerClass.class
-        where type type_t = Type.t
     structure ParamSpecString :
       G_OBJECT_PARAM_SPEC_STRING
         where type 'a class = 'a ParamSpecStringClass.class
-        where type type_t = Type.t
     structure ParamSpecUChar :
       G_OBJECT_PARAM_SPEC_U_CHAR
         where type 'a class = 'a ParamSpecUCharClass.class
-        where type type_t = Type.t
     structure ParamSpecUInt :
       G_OBJECT_PARAM_SPEC_U_INT
         where type 'a class = 'a ParamSpecUIntClass.class
-        where type type_t = Type.t
     structure ParamSpecUInt64 :
       G_OBJECT_PARAM_SPEC_U_INT_64
         where type 'a class = 'a ParamSpecUInt64Class.class
-        where type type_t = Type.t
     structure ParamSpecULong :
       G_OBJECT_PARAM_SPEC_U_LONG
         where type 'a class = 'a ParamSpecULongClass.class
-        where type type_t = Type.t
     structure ParamSpecUnichar :
       G_OBJECT_PARAM_SPEC_UNICHAR
         where type 'a class = 'a ParamSpecUnicharClass.class
-        where type type_t = Type.t
     structure ParamSpecValueArray :
       G_OBJECT_PARAM_SPEC_VALUE_ARRAY
         where type 'a class = 'a ParamSpecValueArrayClass.class
-        where type type_t = Type.t
     structure ParamSpecVariant :
       G_OBJECT_PARAM_SPEC_VARIANT
         where type 'a class = 'a ParamSpecVariantClass.class
-        where type type_t = Type.t
     structure TypeModule :
       G_OBJECT_TYPE_MODULE
         where type 'a class = 'a TypeModuleClass.class

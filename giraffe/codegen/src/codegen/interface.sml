@@ -289,6 +289,12 @@ fun makeInterfaceSig
   let
     val () = checkDeprecated interfaceInfo
 
+    val getTypeSymbol =
+      case RegisteredTypeInfo.getTypeInit interfaceInfo of
+        SOME getTypeSymbol => getTypeSymbol
+      | NONE               => raise Fail "no GType for interface"
+
+
     val interfaceName = getName interfaceInfo
     val interfaceIRef = {
       namespace = interfaceNamespace,
@@ -313,7 +319,7 @@ fun makeInterfaceSig
       addInterfaceSignalSpecs repo interfaceIRef (interfaceInfo, acc'1)
     val acc'3 =
       addInterfaceMethodSpecs repo vers interfaceIRef (interfaceInfo, acc'2)
-    val acc'4 = addGetTypeFunctionSpec typeIRef acc'3
+    val acc'4 = addGetTypeFunctionSpec getTypeSymbol typeIRef acc'3
     val acc'5 = addInterfaceConstantSpecs repo vers (interfaceInfo, acc'4)
     val acc'6 = acc'5
     val (specs'6, iRefs'6, excls'6) = acc'6
@@ -513,7 +519,7 @@ fun makeInterfaceStr
         interfaceRootIRef
         interfaceIRef
         (interfaceInfo, acc'2)
-    val acc'4 = addGetTypeFunctionStrDecHighLevel typeIRef acc'3
+    val acc'4 = addGetTypeFunctionStrDecHighLevel getTypeSymbol typeIRef acc'3
     val acc'5 = addInterfaceConstantStrDecs repo vers (interfaceInfo, acc'4)
     val acc'6 = acc'5
     val (strDecs'6, (iRefs'6, structDeps'6), excls'6) = acc'6

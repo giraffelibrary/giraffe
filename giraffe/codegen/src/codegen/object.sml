@@ -426,6 +426,8 @@ fun makeObjectSig
   let
     val () = checkDeprecated objectInfo
 
+    val getTypeSymbol = ObjectInfo.getTypeInit objectInfo
+
     val objectName = getName objectInfo
     val objectIRef = {
       namespace = objectNamespace,
@@ -447,7 +449,7 @@ fun makeObjectSig
     val acc'1 = addObjectPropertySpecs repo objectIRef (objectInfo, acc'0)
     val acc'2 = addObjectSignalSpecs repo objectIRef (objectInfo, acc'1)
     val acc'3 = addObjectMethodSpecs repo vers objectIRef (objectInfo, acc'2)
-    val acc'4 = addGetTypeFunctionSpec typeIRef acc'3
+    val acc'4 = addGetTypeFunctionSpec getTypeSymbol typeIRef acc'3
     val acc'5 = addObjectConstantSpecs repo vers (objectInfo, acc'4)
     val acc'6 = addObjectInterfaceConvSpecs repo objectIRef (objectInfo, acc'5)
     val (specs'6, iRefs'6, excls'6) = acc'6
@@ -648,7 +650,7 @@ fun makeObjectStr
         rootObjectIRef
         objectIRef
         (objectInfo, acc'2)
-    val acc'4 = addGetTypeFunctionStrDecHighLevel typeIRef acc'3
+    val acc'4 = addGetTypeFunctionStrDecHighLevel getTypeSymbol typeIRef acc'3
     val acc'5 = addObjectConstantStrDecs repo vers (objectInfo, acc'4)
     val acc'6 =
       addObjectInterfaceConvStrDecs

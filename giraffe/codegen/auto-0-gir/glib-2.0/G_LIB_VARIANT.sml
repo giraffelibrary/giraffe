@@ -3,7 +3,6 @@ signature G_LIB_VARIANT =
     type t
     type variant_class_t
     type variant_type_t
-    val getType : unit -> GObject.Type.t
     val newArray : variant_type_t option * t vector option -> t
     val newBoolean : bool -> t
     val newByte : Word8.word -> t

@@ -31,7 +31,6 @@ structure GLibVariant :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "intern") (cVoid --> GObjectType.PolyML.cVal)
       val newArray_ =
         call (getSymbol "g_variant_new_array")
           (
@@ -123,7 +122,6 @@ structure GLibVariant :>
     type t = GLibVariantRecord.t
     type variant_class_t = GLibVariantClass.t
     type variant_type_t = GLibVariantTypeRecord.t
-    val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newArray (childType, children) =
       let
         val nChildren =

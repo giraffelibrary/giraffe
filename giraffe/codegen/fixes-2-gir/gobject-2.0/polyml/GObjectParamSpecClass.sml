@@ -116,11 +116,6 @@ structure GObjectParamSpecClass :>
     local
       open PolyMLFFI
     in
-      val getType_ =
-        call
-          (getSymbol "giraffe_g_param_get_type")
-          (cVoid --> GObjectType.PolyML.cVal);
-
       val getValue_ =
         call
           (getSymbol "g_value_get_param")
@@ -146,14 +141,14 @@ structure GObjectParamSpecClass :>
 
     val t =
       ValueAccessor.C.createAccessor {
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+        getType  = GObjectType.param,
         getValue = (I ---> FFI.fromPtr false) getValue_,
         setValue = (I &&&> FFI.withPtr ---> I) setValue_
       }
 
     val tOpt =
       ValueAccessor.C.createAccessor {
-        getType  = (I ---> GObjectType.FFI.fromVal) getType_,
+        getType  = GObjectType.param,
         getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
         setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_
       }

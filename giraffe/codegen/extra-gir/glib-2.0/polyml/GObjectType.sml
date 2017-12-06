@@ -33,6 +33,31 @@ structure GObjectType :> G_OBJECT_TYPE =
           (getSymbol "g_type_from_name")
           (Utf8.PolyML.cInPtr --> PolyML.cVal);
 
+      val invalid_ =
+        call
+          (getSymbol "giraffe_g_invalid_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val none_ =
+        call
+          (getSymbol "giraffe_g_none_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val interface_ =
+        call
+          (getSymbol "giraffe_g_interface_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val char_ =
+        call
+          (getSymbol "giraffe_g_char_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val uchar_ =
+        call
+          (getSymbol "giraffe_g_uchar_get_type")
+          (cVoid --> PolyML.cVal);
+
       val boolean_ =
         call
           (getSymbol "giraffe_g_boolean_get_type")
@@ -68,6 +93,16 @@ structure GObjectType :> G_OBJECT_TYPE =
           (getSymbol "giraffe_g_uint64_get_type")
           (cVoid --> PolyML.cVal);
 
+      val enum_ =
+        call
+          (getSymbol "giraffe_g_enum_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val flags_ =
+        call
+          (getSymbol "giraffe_g_flags_get_type")
+          (cVoid --> PolyML.cVal);
+
       val float_ =
         call
           (getSymbol "giraffe_g_float_get_type")
@@ -78,11 +113,6 @@ structure GObjectType :> G_OBJECT_TYPE =
           (getSymbol "giraffe_g_double_get_type")
           (cVoid --> PolyML.cVal);
 
-      val char_ =
-        call
-          (getSymbol "giraffe_g_char_get_type")
-          (cVoid --> PolyML.cVal);
-
       val string_ =
         call
           (getSymbol "giraffe_g_string_get_type")
@@ -91,6 +121,26 @@ structure GObjectType :> G_OBJECT_TYPE =
       val pointer_ =
         call
           (getSymbol "giraffe_g_pointer_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val boxed_ =
+        call
+          (getSymbol "giraffe_g_boxed_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val param_ =
+        call
+          (getSymbol "giraffe_g_param_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val object_ =
+        call
+          (getSymbol "giraffe_g_object_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val gtype_ =
+        call
+          (getSymbol "g_gtype_get_type")
           (cVoid --> PolyML.cVal);
 
       val variant_ =
@@ -114,6 +164,16 @@ structure GObjectType :> G_OBJECT_TYPE =
           fromName_
           name
 
+    val invalid = fn () => (I ---> FFI.fromVal) invalid_ ()
+
+    val none = fn () => (I ---> FFI.fromVal) none_ ()
+
+    val interface = fn () => (I ---> FFI.fromVal) interface_ ()
+
+    val char = fn () => (I ---> FFI.fromVal) char_ ()
+
+    val uchar = fn () => (I ---> FFI.fromVal) uchar_ ()
+
     val boolean = fn () => (I ---> FFI.fromVal) boolean_ ()
 
     val int = fn () => (I ---> FFI.fromVal) int_ ()
@@ -128,15 +188,25 @@ structure GObjectType :> G_OBJECT_TYPE =
 
     val uint64 = fn () => (I ---> FFI.fromVal) uint64_ ()
 
+    val enum = fn () => (I ---> FFI.fromVal) enum_ ()
+
+    val flags = fn () => (I ---> FFI.fromVal) flags_ ()
+
     val float = fn () => (I ---> FFI.fromVal) float_ ()
 
     val double = fn () => (I ---> FFI.fromVal) double_ ()
 
-    val char = fn () => (I ---> FFI.fromVal) char_ ()
-
     val string = fn () => (I ---> FFI.fromVal) string_ ()
 
     val pointer = fn () => (I ---> FFI.fromVal) pointer_ ()
+
+    val boxed = fn () => (I ---> FFI.fromVal) boxed_ ()
+
+    val param = fn () => (I ---> FFI.fromVal) param_ ()
+
+    val object = fn () => (I ---> FFI.fromVal) object_ ()
+
+    val gtype = fn () => (I ---> FFI.fromVal) gtype_ ()
 
     val variant = fn () => (I ---> FFI.fromVal) variant_ ()
   end

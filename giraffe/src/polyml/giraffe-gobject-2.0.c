@@ -34,6 +34,36 @@ giraffe_g_type_name (GType typ)
 }
 
 GType
+giraffe_g_invalid_get_type (void)
+{
+  return G_TYPE_INVALID;
+}
+
+GType
+giraffe_g_none_get_type (void)
+{
+  return G_TYPE_NONE;
+}
+
+GType
+giraffe_g_interface_get_type (void)
+{
+  return G_TYPE_INTERFACE;
+}
+
+GType
+giraffe_g_char_get_type (void)
+{
+  return G_TYPE_CHAR;
+}
+
+GType
+giraffe_g_uchar_get_type (void)
+{
+  return G_TYPE_UCHAR;
+}
+
+GType
 giraffe_g_boolean_get_type (void)
 {
   return G_TYPE_BOOLEAN;
@@ -76,6 +106,18 @@ giraffe_g_uint64_get_type (void)
 }
 
 GType
+giraffe_g_enum_get_type (void)
+{
+  return G_TYPE_ENUM;
+}
+
+GType
+giraffe_g_flags_get_type (void)
+{
+  return G_TYPE_FLAGS;
+}
+
+GType
 giraffe_g_float_get_type (void)
 {
   return G_TYPE_FLOAT;
@@ -85,12 +127,6 @@ GType
 giraffe_g_double_get_type (void)
 {
   return G_TYPE_DOUBLE;
-}
-
-GType
-giraffe_g_char_get_type (void)
-{
-  return G_TYPE_CHAR;
 }
 
 GType
@@ -106,15 +142,27 @@ giraffe_g_pointer_get_type (void)
 }
 
 GType
-giraffe_g_variant_get_type (void)
+giraffe_g_boxed_get_type (void)
 {
-  return G_TYPE_VARIANT;
+  return G_TYPE_BOXED;
 }
 
 GType
 giraffe_g_param_get_type (void)
 {
   return G_TYPE_PARAM;
+}
+
+GType
+giraffe_g_object_get_type (void)
+{
+  return G_TYPE_OBJECT;
+}
+
+GType
+giraffe_g_variant_get_type (void)
+{
+  return G_TYPE_VARIANT;
 }
 
 

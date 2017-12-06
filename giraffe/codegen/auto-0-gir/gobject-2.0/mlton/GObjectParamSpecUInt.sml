@@ -1,11 +1,7 @@
 structure GObjectParamSpecUInt :>
   G_OBJECT_PARAM_SPEC_U_INT
-    where type 'a class = 'a GObjectParamSpecUIntClass.class
-    where type type_t = GObjectType.t =
+    where type 'a class = 'a GObjectParamSpecUIntClass.class =
   struct
-    val getType_ = _import "intern" : unit -> GObjectType.FFI.val_;
     type 'a class = 'a GObjectParamSpecUIntClass.class
-    type type_t = GObjectType.t
     type t = base class
-    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

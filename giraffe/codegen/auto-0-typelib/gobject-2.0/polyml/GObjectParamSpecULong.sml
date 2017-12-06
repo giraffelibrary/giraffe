@@ -1,15 +1,7 @@
 structure GObjectParamSpecULong :>
   G_OBJECT_PARAM_SPEC_U_LONG
-    where type 'a class = 'a GObjectParamSpecULongClass.class
-    where type type_t = GObjectType.t =
+    where type 'a class = 'a GObjectParamSpecULongClass.class =
   struct
-    local
-      open PolyMLFFI
-    in
-      val getType_ = call (getSymbol "intern") (cVoid --> GObjectType.PolyML.cVal)
-    end
     type 'a class = 'a GObjectParamSpecULongClass.class
-    type type_t = GObjectType.t
     type t = base class
-    val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end
