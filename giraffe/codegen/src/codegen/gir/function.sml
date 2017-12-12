@@ -1001,34 +1001,81 @@ fun getParInfo
     handle Void => PIVOID
 
 
+(* For each array length parameter, check that its direction is compatible
+ * and update its array info.
+ *)
+
+fun arrayLenIncompatibleDir (arrayParDir, arrayInfo, lenDir, lenName) =
+  let
+    open HTextTree
+
+    val dirToString =
+      fn
+        IN    => "IN"
+      | OUT _ => "OUT"
+      | INOUT => "INOUT"
+  in
+    (String.concat o toStrings) (
+      seq [
+        case arrayParDir of
+          SOME arrayDir => concat [
+            "array parameter ", #name arrayInfo,
+            " with direction ", dirToString arrayDir
+          ]
+        | NONE          => str "array return value",
+        concat [
+          " has corresponding length parameter ", lenName,
+          " with incompatible direction ", dirToString lenDir
+        ]
+      ]
+    )
+  end
+
 fun updateParInfos retInfo parInfos =
   let
-    fun addLenArray name (info, lenArrayInfos) =
+    fun addLenArray name (arrayParDir, info, lenArrayInfos) =
       case info of
         IARRAY (
           arrayInfo as {
             length = ArrayLengthParam lenName,
             ...
           }
-        ) => (lenName, {name = name, info = arrayInfo}) :: lenArrayInfos
+        ) => (lenName, arrayParDir, {name = name, info = arrayInfo}) :: lenArrayInfos
       | _ => lenArrayInfos
 
     fun addParLenArray (parInfo, lenArrayInfos) =
       case parInfo of
-        PIVOID                   => lenArrayInfos
-      | PISOME {name, info, ...} => addLenArray name (info, lenArrayInfos)
+        PIVOID                        => lenArrayInfos
+      | PISOME {name, dir, info, ...} => addLenArray name (SOME dir, info, lenArrayInfos)
 
     val initlenArrayInfos =
       case retInfo of
         RIVOID        => []
-      | RISOME {info} => addLenArray "" (info, [])
+      | RISOME {info} => addLenArray "" (NONE, info, [])
 
     val lenArrayInfos = foldl addParLenArray initlenArrayInfos parInfos
 
-    fun getArrayInfo lenName =
-      case List.find (fn (x, _) => x = lenName) lenArrayInfos of
-        SOME (_, y) => SOME y
-      | NONE        => NONE
+    (* Currently it is required that an array parameter and its length parameter
+     * have the same direction and that an array return value has an OUT length
+     * parameter.  This is not always the case, e.g. g_io_channel_read_chars,
+     * but such functions are currently unsupported.  
+     *)
+    fun isCompatibleDir (arrayParDir, lenDir) =
+      case (arrayParDir, lenDir) of
+        (SOME IN,      IN)    => true
+      | (SOME (OUT _), OUT _) => true
+      | (SOME INOUT,   INOUT) => true
+      | (NONE,         OUT _) => true  (* return value must have OUT length parameter *)
+      | _                     => false
+
+    fun getArrayInfo (lenDir, lenName) =
+      case List.find (fn (x, _, _) => x = lenName) lenArrayInfos of
+        SOME (_, arrayParDir, arrayInfo) =>
+          if isCompatibleDir (arrayParDir, lenDir)
+          then SOME arrayInfo
+          else
+            infoExcl (arrayLenIncompatibleDir (arrayParDir, arrayInfo, lenDir, lenName))
+      | NONE                          => NONE
 
     fun update parInfo =
       case parInfo of
@@ -1037,7 +1084,7 @@ fun updateParInfos retInfo parInfos =
           PISOME {
             name  = name,
             dir   = dir,
-            array = getArrayInfo name,
+            array = getArrayInfo (dir, name),
             info  = info
           }
   in
@@ -2986,6 +3033,8 @@ fun makeFunctionStrDecLowLevelPolyML
       getRetInfo false repo functionNamespace optContainerName
         functionInfo
 
+    val parInfos = updateParInfos retInfo parInfos
+
     val functionSymbolStr = FunctionInfo.getSymbol functionInfo
 
     (* For a method function, add an initial argument for the interface
@@ -3658,6 +3707,8 @@ fun makeFunctionStrDecLowLevelMLton
     val retInfo =
       getRetInfo false repo functionNamespace optContainerName
         functionInfo
+
+    val parInfos = updateParInfos retInfo parInfos
 
     val functionSymbolStr = FunctionInfo.getSymbol functionInfo
 

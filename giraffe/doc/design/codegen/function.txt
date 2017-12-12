@@ -489,6 +489,9 @@ For
 where a length parameter is one that provides the length of an array in another parameter
 or the return value, HighLevelFunction has a form as described below.
 
+The length parameter for an array parameter must have the same direction as the array
+parameter.  The length parameter for an array return value must have direction OUT.
+
 Note that the condition 'N + M > 0' determines whether a let-expression is introduced.
 
 We also treat J, K, L, M and N as arrays whose elements are the parameter index in the
