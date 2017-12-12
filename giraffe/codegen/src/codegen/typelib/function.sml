@@ -1729,12 +1729,13 @@ local
           | (STRUCT _, INOUT) => true
           | _                 => false,
         isNew =
-          case dir of
-            OUT isCallerAllocates => isCallerAllocates andalso ptrOwnXfer = NONE
-            (* Note that `isCallerAllocates` can be true when `ptrOwnXfer <> NONE`
-             * for disguised structs, such as GdkAtom.  For information on disguised
-             * structs, see https://bugzilla.gnome.org/show_bug.cgi?id=560248 . *)
-          | _                     => false,
+          case (dir, infoType) of
+            (OUT isCallerAllocates, STRUCT _) =>
+              isCallerAllocates andalso ptrOwnXfer = NONE
+              (* Note that `isCallerAllocates` can be true when `ptrOwnXfer <> NONE`
+               * for disguised structs, such as GdkAtom.  For information on disguised
+               * structs, see https://bugzilla.gnome.org/show_bug.cgi?id=560248 . *)
+          | _                                 => false,
         isOpt =
           case dir of
             IN    => isOpt
