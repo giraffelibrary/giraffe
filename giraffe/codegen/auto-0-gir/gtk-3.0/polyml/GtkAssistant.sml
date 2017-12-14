@@ -17,6 +17,8 @@ structure GtkAssistant :>
       val getNPages_ = call (getSymbol "gtk_assistant_get_n_pages") (GtkAssistantClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getNthPage_ = call (getSymbol "gtk_assistant_get_nth_page") (GtkAssistantClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
       val getPageComplete_ = call (getSymbol "gtk_assistant_get_page_complete") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getPageHeaderImage_ = call (getSymbol "gtk_assistant_get_page_header_image") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val getPageSideImage_ = call (getSymbol "gtk_assistant_get_page_side_image") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
       val getPageTitle_ = call (getSymbol "gtk_assistant_get_page_title") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getPageType_ = call (getSymbol "gtk_assistant_get_page_type") (GtkAssistantClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GtkAssistantPageType.PolyML.cVal)
       val insertPage_ =
@@ -39,6 +41,22 @@ structure GtkAssistant :>
             GtkAssistantClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
+             --> cVoid
+          )
+      val setPageHeaderImage_ =
+        call (getSymbol "gtk_assistant_set_page_header_image")
+          (
+            GtkAssistantClass.PolyML.cPtr
+             &&> GtkWidgetClass.PolyML.cPtr
+             &&> GdkPixbufPixbufClass.PolyML.cOptPtr
+             --> cVoid
+          )
+      val setPageSideImage_ =
+        call (getSymbol "gtk_assistant_set_page_side_image")
+          (
+            GtkAssistantClass.PolyML.cPtr
+             &&> GtkWidgetClass.PolyML.cPtr
+             &&> GdkPixbufPixbufClass.PolyML.cOptPtr
              --> cVoid
           )
       val setPageTitle_ =
@@ -75,6 +93,8 @@ structure GtkAssistant :>
     fun getNPages self = (GtkAssistantClass.FFI.withPtr ---> GInt.FFI.fromVal) getNPages_ self
     fun getNthPage self pageNum = (GtkAssistantClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getNthPage_ (self & pageNum)
     fun getPageComplete self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getPageComplete_ (self & page)
+    fun getPageHeaderImage self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPageHeaderImage_ (self & page)
+    fun getPageSideImage self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPageSideImage_ (self & page)
     fun getPageTitle self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPageTitle_ (self & page)
     fun getPageType self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GtkAssistantPageType.FFI.fromVal) getPageType_ (self & page)
     fun insertPage self (page, position) =
@@ -108,6 +128,32 @@ structure GtkAssistant :>
           self
            & page
            & complete
+        )
+    fun setPageHeaderImage self (page, pixbuf) =
+      (
+        GtkAssistantClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GdkPixbufPixbufClass.FFI.withOptPtr
+         ---> I
+      )
+        setPageHeaderImage_
+        (
+          self
+           & page
+           & pixbuf
+        )
+    fun setPageSideImage self (page, pixbuf) =
+      (
+        GtkAssistantClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GdkPixbufPixbufClass.FFI.withOptPtr
+         ---> I
+      )
+        setPageSideImage_
+        (
+          self
+           & page
+           & pixbuf
         )
     fun setPageTitle self (page, title) =
       (

@@ -9,6 +9,7 @@ signature GTK_TREE_VIEW =
     type 'a entry_class
     type 'a cell_renderer_class
     type 'a tooltip_class
+    type 'a adjustment_class
     type movement_step_t
     type tree_path_t
     type tree_iter_t
@@ -103,6 +104,7 @@ signature GTK_TREE_VIEW =
     val getExpanderColumn : 'a class -> base tree_view_column_class
     val getFixedHeightMode : 'a class -> bool
     val getGridLines : 'a class -> tree_view_grid_lines_t
+    val getHadjustment : 'a class -> base adjustment_class
     val getHeadersClickable : 'a class -> bool
     val getHeadersVisible : 'a class -> bool
     val getHoverExpand : 'a class -> bool
@@ -136,6 +138,7 @@ signature GTK_TREE_VIEW =
             option
            * LargeInt.int
            * LargeInt.int
+    val getVadjustment : 'a class -> base adjustment_class
     val getVisibleRange : 'a class -> (tree_path_t * tree_path_t) option
     val getVisibleRect : 'a class -> Gdk.RectangleRecord.t
     val insertColumn :
@@ -216,6 +219,10 @@ signature GTK_TREE_VIEW =
       'a class
        -> tree_view_grid_lines_t
        -> unit
+    val setHadjustment :
+      'a class
+       -> 'b adjustment_class option
+       -> unit
     val setHeadersClickable :
       'a class
        -> bool
@@ -278,6 +285,10 @@ signature GTK_TREE_VIEW =
     val setTooltipRow :
       'a class
        -> 'b tooltip_class * tree_path_t
+       -> unit
+    val setVadjustment :
+      'a class
+       -> 'b adjustment_class option
        -> unit
     val unsetRowsDragDest : 'a class -> unit
     val unsetRowsDragSource : 'a class -> unit

@@ -111,6 +111,14 @@ structure GioFile :>
              --> GBool.PolyML.cVal
           )
       val dup_ = call (getSymbol "g_file_dup") (GioFileClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
+      val ejectMountableFinish_ =
+        call (getSymbol "g_file_eject_mountable_finish")
+          (
+            GioFileClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val ejectMountableWithOperationFinish_ =
         call (getSymbol "g_file_eject_mountable_with_operation_finish")
           (
@@ -573,6 +581,14 @@ structure GioFile :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
+      val unmountMountableFinish_ =
+        call (getSymbol "g_file_unmount_mountable_finish")
+          (
+            GioFileClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val unmountMountableWithOperationFinish_ =
         call (getSymbol "g_file_unmount_mountable_with_operation_finish")
           (
@@ -740,6 +756,19 @@ structure GioFile :>
            & []
         )
     fun dup self = (GioFileClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) dup_ self
+    fun ejectMountableFinish self result =
+      (
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        ejectMountableFinish_
+        (
+          self
+           & result
+           & []
+        )
     fun ejectMountableWithOperationFinish self result =
       (
         GioFileClass.FFI.withPtr
@@ -1629,6 +1658,19 @@ structure GioFile :>
         (
           self
            & cancellable
+           & []
+        )
+    fun unmountMountableFinish self result =
+      (
+        GioFileClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        unmountMountableFinish_
+        (
+          self
+           & result
            & []
         )
     fun unmountMountableWithOperationFinish self result =

@@ -106,6 +106,7 @@ signature G_LIB =
       G_LIB_SOURCE
         where type t = SourceRecord.t
         where type main_context_t = MainContextRecord.t
+        where type time_val_t = TimeValRecord.t
     structure String :
       G_LIB_STRING
         where type t = StringRecord.t
@@ -449,6 +450,7 @@ signature G_LIB =
     val shellUnquote : string -> string
     val sliceGetConfig : SliceConfig.t -> LargeInt.int
     val sliceSetConfig : SliceConfig.t * LargeInt.int -> unit
+    val slistPopAllocator : unit -> unit
     val sourceRemove : LargeInt.int -> bool
     val sourceSetNameById : LargeInt.int * string -> unit
     val spawnClosePid : LargeInt.int -> unit

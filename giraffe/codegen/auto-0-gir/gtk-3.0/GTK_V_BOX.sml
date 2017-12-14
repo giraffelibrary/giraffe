@@ -8,4 +8,5 @@ signature GTK_V_BOX =
     val asBuildable : 'a class -> base buildable_class
     val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
+    val new : bool * LargeInt.int -> base class
   end

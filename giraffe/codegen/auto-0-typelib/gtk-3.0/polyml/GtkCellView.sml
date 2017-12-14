@@ -4,6 +4,7 @@ structure GtkCellView :>
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a cell_layout_class = 'a GtkCellLayoutClass.class
     where type 'a orientable_class = 'a GtkOrientableClass.class
+    where type requisition_t = GtkRequisitionRecord.t
     where type tree_path_t = GtkTreePathRecord.t
     where type 'a cell_area_class = 'a GtkCellAreaClass.class
     where type 'a cell_area_context_class = 'a GtkCellAreaContextClass.class
@@ -22,6 +23,14 @@ structure GtkCellView :>
       val getDrawSensitive_ = call (getSymbol "gtk_cell_view_get_draw_sensitive") (GtkCellViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getFitModel_ = call (getSymbol "gtk_cell_view_get_fit_model") (GtkCellViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getModel_ = call (getSymbol "gtk_cell_view_get_model") (GtkCellViewClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
+      val getSizeOfRow_ =
+        call (getSymbol "gtk_cell_view_get_size_of_row")
+          (
+            GtkCellViewClass.PolyML.cPtr
+             &&> GtkTreePathRecord.PolyML.cPtr
+             &&> GtkRequisitionRecord.PolyML.cPtr
+             --> GBool.PolyML.cVal
+          )
       val setBackgroundColor_ = call (getSymbol "gtk_cell_view_set_background_color") (GtkCellViewClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> cVoid)
       val setBackgroundRgba_ = call (getSymbol "gtk_cell_view_set_background_rgba") (GtkCellViewClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> cVoid)
       val setDisplayedRow_ = call (getSymbol "gtk_cell_view_set_displayed_row") (GtkCellViewClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cOptPtr --> cVoid)
@@ -33,6 +42,7 @@ structure GtkCellView :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_layout_class = 'a GtkCellLayoutClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
+    type requisition_t = GtkRequisitionRecord.t
     type tree_path_t = GtkTreePathRecord.t
     type 'a cell_area_class = 'a GtkCellAreaClass.class
     type 'a cell_area_context_class = 'a GtkCellAreaContextClass.class
@@ -52,6 +62,24 @@ structure GtkCellView :>
     fun getDrawSensitive self = (GtkCellViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getDrawSensitive_ self
     fun getFitModel self = (GtkCellViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getFitModel_ self
     fun getModel self = (GtkCellViewClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
+    fun getSizeOfRow self path =
+      let
+        val requisition & retVal =
+          (
+            GtkCellViewClass.FFI.withPtr
+             &&&> GtkTreePathRecord.FFI.withPtr
+             &&&> GtkRequisitionRecord.FFI.withNewPtr
+             ---> GtkRequisitionRecord.FFI.fromPtr true && GBool.FFI.fromVal
+          )
+            getSizeOfRow_
+            (
+              self
+               & path
+               & ()
+            )
+      in
+        if retVal then SOME requisition else NONE
+      end
     fun setBackgroundColor self color = (GtkCellViewClass.FFI.withPtr &&&> GdkColorRecord.FFI.withPtr ---> I) setBackgroundColor_ (self & color)
     fun setBackgroundRgba self rgba = (GtkCellViewClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setBackgroundRgba_ (self & rgba)
     fun setDisplayedRow self path = (GtkCellViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withOptPtr ---> I) setDisplayedRow_ (self & path)

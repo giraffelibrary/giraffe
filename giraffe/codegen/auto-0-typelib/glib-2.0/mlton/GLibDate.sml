@@ -98,6 +98,7 @@ structure GLibDate :>
               x2,
               x3
             )
+    val setTime_ = fn x1 & x2 => (_import "g_date_set_time" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val setTimeT_ = fn x1 & x2 => (_import "g_date_set_time_t" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GInt64.FFI.val_ -> unit;) (x1, x2)
     val setTimeVal_ = fn x1 & x2 => (_import "g_date_set_time_val" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GLibTimeValRecord.FFI.notnull GLibTimeValRecord.FFI.p -> unit;) (x1, x2)
     val setYear_ = fn x1 & x2 => (_import "g_date_set_year" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GUInt16.FFI.val_ -> unit;) (x1, x2)
@@ -236,6 +237,7 @@ structure GLibDate :>
     fun setJulian self julianDate = (GLibDateRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setJulian_ (self & julianDate)
     fun setMonth self month = (GLibDateRecord.FFI.withPtr &&&> GLibDateMonth.FFI.withVal ---> I) setMonth_ (self & month)
     fun setParse self str = (GLibDateRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setParse_ (self & str)
+    fun setTime self time = (GLibDateRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setTime_ (self & time)
     fun setTimeT self timet = (GLibDateRecord.FFI.withPtr &&&> GInt64.FFI.withVal ---> I) setTimeT_ (self & timet)
     fun setTimeVal self timeval = (GLibDateRecord.FFI.withPtr &&&> GLibTimeValRecord.FFI.withPtr ---> I) setTimeVal_ (self & timeval)
     fun setYear self year = (GLibDateRecord.FFI.withPtr &&&> GUInt16.FFI.withVal ---> I) setYear_ (self & year)

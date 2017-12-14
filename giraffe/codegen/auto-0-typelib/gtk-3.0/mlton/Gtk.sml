@@ -1292,8 +1292,18 @@ structure Gtk : GTK =
             )
     val propagateEvent_ = fn x1 & x2 => (_import "gtk_propagate_event" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GdkEvent.FFI.notnull GdkEvent.FFI.p -> unit;) (x1, x2)
     val rcAddDefaultFile_ = _import "mlton_gtk_rc_add_default_file" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
+    val rcFindModuleInPath_ = _import "mlton_gtk_rc_find_module_in_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val rcGetDefaultFiles_ = _import "gtk_rc_get_default_files" : unit -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+    val rcGetImModuleFile_ = _import "gtk_rc_get_im_module_file" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val rcGetImModulePath_ = _import "gtk_rc_get_im_module_path" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val rcGetModuleDir_ = _import "gtk_rc_get_module_dir" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val rcGetStyle_ = _import "gtk_rc_get_style" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p;
+    val rcGetThemeDir_ = _import "gtk_rc_get_theme_dir" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val rcParse_ = _import "mlton_gtk_rc_parse" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
+    val rcParseString_ = _import "mlton_gtk_rc_parse_string" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
+    val rcReparseAll_ = _import "gtk_rc_reparse_all" : unit -> GBool.FFI.val_;
+    val rcReparseAllForSettings_ = fn x1 & x2 => (_import "gtk_rc_reparse_all_for_settings" : GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val rcResetStyles_ = _import "gtk_rc_reset_styles" : GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p -> unit;
     val rcSetDefaultFiles_ = _import "mlton_gtk_rc_set_default_files" : Utf8CVector.MLton.p1 * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2 -> unit;
     val recentChooserErrorQuark_ = _import "gtk_recent_chooser_error_quark" : unit -> GUInt32.FFI.val_;
     val recentManagerErrorQuark_ = _import "gtk_recent_manager_error_quark" : unit -> GUInt32.FFI.val_;
@@ -2242,6 +2252,7 @@ structure Gtk : GTK =
     structure PrintStatus = GtkPrintStatus
     structure RcFlags = GtkRcFlags
     structure RcStyleClass = GtkRcStyleClass
+    structure RcTokenType = GtkRcTokenType
     structure RecentChooserClass = GtkRecentChooserClass
     structure RecentChooserError = GtkRecentChooserError
     exception RecentChooserError = GtkRecentChooserError
@@ -4138,8 +4149,18 @@ structure Gtk : GTK =
         )
     fun propagateEvent (widget, event) = (GtkWidgetClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> I) propagateEvent_ (widget & event)
     fun rcAddDefaultFile filename = (Utf8.FFI.withPtr ---> I) rcAddDefaultFile_ filename
+    fun rcFindModuleInPath moduleFile = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) rcFindModuleInPath_ moduleFile
     fun rcGetDefaultFiles () = (I ---> Utf8CVector.FFI.fromPtr 0) rcGetDefaultFiles_ ()
+    fun rcGetImModuleFile () = (I ---> Utf8.FFI.fromPtr 1) rcGetImModuleFile_ ()
+    fun rcGetImModulePath () = (I ---> Utf8.FFI.fromPtr 1) rcGetImModulePath_ ()
+    fun rcGetModuleDir () = (I ---> Utf8.FFI.fromPtr 1) rcGetModuleDir_ ()
     fun rcGetStyle widget = (GtkWidgetClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr false) rcGetStyle_ widget
+    fun rcGetThemeDir () = (I ---> Utf8.FFI.fromPtr 1) rcGetThemeDir_ ()
+    fun rcParse filename = (Utf8.FFI.withPtr ---> I) rcParse_ filename
+    fun rcParseString rcString = (Utf8.FFI.withPtr ---> I) rcParseString_ rcString
+    fun rcReparseAll () = (I ---> GBool.FFI.fromVal) rcReparseAll_ ()
+    fun rcReparseAllForSettings (settings, forceLoad) = (GtkSettingsClass.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) rcReparseAllForSettings_ (settings & forceLoad)
+    fun rcResetStyles settings = (GtkSettingsClass.FFI.withPtr ---> I) rcResetStyles_ settings
     fun rcSetDefaultFiles filenames = (Utf8CVector.FFI.withPtr ---> I) rcSetDefaultFiles_ filenames
     fun recentChooserErrorQuark () = (I ---> GUInt32.FFI.fromVal) recentChooserErrorQuark_ ()
     fun recentManagerErrorQuark () = (I ---> GUInt32.FFI.fromVal) recentManagerErrorQuark_ ()

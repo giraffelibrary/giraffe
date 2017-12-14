@@ -17,6 +17,23 @@ structure GioMount :>
     val getType_ = _import "g_mount_get_type" : unit -> GObjectType.FFI.val_;
     val canEject_ = _import "g_mount_can_eject" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GBool.FFI.val_;
     val canUnmount_ = _import "g_mount_can_unmount" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GBool.FFI.val_;
+    val ejectFinish_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "g_mount_eject_finish" :
+              GioMountClass.FFI.notnull GioMountClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val ejectWithOperationFinish_ =
       fn
         x1
@@ -97,6 +114,23 @@ structure GioMount :>
               x3
             )
     val shadow_ = _import "g_mount_shadow" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> unit;
+    val unmountFinish_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "g_mount_unmount_finish" :
+              GioMountClass.FFI.notnull GioMountClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val unmountWithOperationFinish_ =
       fn
         x1
@@ -126,6 +160,19 @@ structure GioMount :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun canEject self = (GioMountClass.FFI.withPtr ---> GBool.FFI.fromVal) canEject_ self
     fun canUnmount self = (GioMountClass.FFI.withPtr ---> GBool.FFI.fromVal) canUnmount_ self
+    fun ejectFinish self result =
+      (
+        GioMountClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        ejectFinish_
+        (
+          self
+           & result
+           & []
+        )
     fun ejectWithOperationFinish self result =
       (
         GioMountClass.FFI.withPtr
@@ -189,6 +236,19 @@ structure GioMount :>
            & []
         )
     fun shadow self = (GioMountClass.FFI.withPtr ---> I) shadow_ self
+    fun unmountFinish self result =
+      (
+        GioMountClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        unmountFinish_
+        (
+          self
+           & result
+           & []
+        )
     fun unmountWithOperationFinish self result =
       (
         GioMountClass.FFI.withPtr

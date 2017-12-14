@@ -3,12 +3,13 @@ structure GtkLayout :>
     where type 'a class = 'a GtkLayoutClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a scrollable_class = 'a GtkScrollableClass.class
-    where type 'a adjustment_class = 'a GtkAdjustmentClass.class
-    where type 'a widget_class = 'a GtkWidgetClass.class =
+    where type 'a widget_class = 'a GtkWidgetClass.class
+    where type 'a adjustment_class = 'a GtkAdjustmentClass.class =
   struct
     val getType_ = _import "gtk_layout_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = fn x1 & x2 => (_import "gtk_layout_new" : unit GtkAdjustmentClass.FFI.p * unit GtkAdjustmentClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
     val getBinWindow_ = _import "gtk_layout_get_bin_window" : GtkLayoutClass.FFI.notnull GtkLayoutClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
+    val getHadjustment_ = _import "gtk_layout_get_hadjustment" : GtkLayoutClass.FFI.notnull GtkLayoutClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
     val getSize_ =
       fn
         x1
@@ -26,6 +27,7 @@ structure GtkLayout :>
               x2,
               x3
             )
+    val getVadjustment_ = _import "gtk_layout_get_vadjustment" : GtkLayoutClass.FFI.notnull GtkLayoutClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
     val move_ =
       fn
         x1
@@ -66,6 +68,7 @@ structure GtkLayout :>
               x3,
               x4
             )
+    val setHadjustment_ = fn x1 & x2 => (_import "gtk_layout_set_hadjustment" : GtkLayoutClass.FFI.notnull GtkLayoutClass.FFI.p * unit GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
     val setSize_ =
       fn
         x1
@@ -83,11 +86,12 @@ structure GtkLayout :>
               x2,
               x3
             )
+    val setVadjustment_ = fn x1 & x2 => (_import "gtk_layout_set_vadjustment" : GtkLayoutClass.FFI.notnull GtkLayoutClass.FFI.p * unit GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkLayoutClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a scrollable_class = 'a GtkScrollableClass.class
-    type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
+    type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type t = base class
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
@@ -95,6 +99,7 @@ structure GtkLayout :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withOptPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> GtkLayoutClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
     fun getBinWindow self = (GtkLayoutClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self
+    fun getHadjustment self = (GtkLayoutClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
     fun getSize self =
       let
         val width
@@ -117,6 +122,7 @@ structure GtkLayout :>
       in
         (width, height)
       end
+    fun getVadjustment self = (GtkLayoutClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
     fun move
       self
       (
@@ -159,6 +165,7 @@ structure GtkLayout :>
            & x
            & y
         )
+    fun setHadjustment self adjustment = (GtkLayoutClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setHadjustment_ (self & adjustment)
     fun setSize self (width, height) =
       (
         GtkLayoutClass.FFI.withPtr
@@ -172,6 +179,7 @@ structure GtkLayout :>
            & width
            & height
         )
+    fun setVadjustment self adjustment = (GtkLayoutClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setVadjustment_ (self & adjustment)
     local
       open Property
     in

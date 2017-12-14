@@ -28,6 +28,14 @@ signature GTK_ASSISTANT =
       'a class
        -> 'b widget_class
        -> bool
+    val getPageHeaderImage :
+      'a class
+       -> 'b widget_class
+       -> base GdkPixbuf.PixbufClass.class
+    val getPageSideImage :
+      'a class
+       -> 'b widget_class
+       -> base GdkPixbuf.PixbufClass.class
     val getPageTitle :
       'a class
        -> 'b widget_class
@@ -61,6 +69,14 @@ signature GTK_ASSISTANT =
     val setPageComplete :
       'a class
        -> 'b widget_class * bool
+       -> unit
+    val setPageHeaderImage :
+      'a class
+       -> 'b widget_class * 'c GdkPixbuf.PixbufClass.class option
+       -> unit
+    val setPageSideImage :
+      'a class
+       -> 'b widget_class * 'c GdkPixbuf.PixbufClass.class option
        -> unit
     val setPageTitle :
       'a class

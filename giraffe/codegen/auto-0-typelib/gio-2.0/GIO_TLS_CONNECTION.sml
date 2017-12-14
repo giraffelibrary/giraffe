@@ -22,6 +22,7 @@ signature GIO_TLS_CONNECTION =
     val getPeerCertificateErrors : 'a class -> tls_certificate_flags_t
     val getRehandshakeMode : 'a class -> tls_rehandshake_mode_t
     val getRequireCloseNotify : 'a class -> bool
+    val getUseSystemCertdb : 'a class -> bool
     val handshake :
       'a class
        -> 'b cancellable_class option
@@ -47,6 +48,10 @@ signature GIO_TLS_CONNECTION =
        -> tls_rehandshake_mode_t
        -> unit
     val setRequireCloseNotify :
+      'a class
+       -> bool
+       -> unit
+    val setUseSystemCertdb :
       'a class
        -> bool
        -> unit

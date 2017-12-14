@@ -5,6 +5,7 @@ structure GtkTextView :>
     where type 'a scrollable_class = 'a GtkScrollableClass.class
     where type 'a text_child_anchor_class = 'a GtkTextChildAnchorClass.class
     where type text_attributes_t = GtkTextAttributesRecord.t
+    where type 'a adjustment_class = 'a GtkAdjustmentClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class
     where type 'a text_mark_class = 'a GtkTextMarkClass.class
     where type text_iter_t = GtkTextIterRecord.t
@@ -71,6 +72,7 @@ structure GtkTextView :>
       val getCursorVisible_ = call (getSymbol "gtk_text_view_get_cursor_visible") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getDefaultAttributes_ = call (getSymbol "gtk_text_view_get_default_attributes") (GtkTextViewClass.PolyML.cPtr --> GtkTextAttributesRecord.PolyML.cPtr)
       val getEditable_ = call (getSymbol "gtk_text_view_get_editable") (GtkTextViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getHadjustment_ = call (getSymbol "gtk_text_view_get_hadjustment") (GtkTextViewClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getIndent_ = call (getSymbol "gtk_text_view_get_indent") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getIterAtLocation_ =
         call (getSymbol "gtk_text_view_get_iter_at_location")
@@ -125,6 +127,7 @@ structure GtkTextView :>
       val getPixelsInsideWrap_ = call (getSymbol "gtk_text_view_get_pixels_inside_wrap") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getRightMargin_ = call (getSymbol "gtk_text_view_get_right_margin") (GtkTextViewClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getTabs_ = call (getSymbol "gtk_text_view_get_tabs") (GtkTextViewClass.PolyML.cPtr --> PangoTabArrayRecord.PolyML.cPtr)
+      val getVadjustment_ = call (getSymbol "gtk_text_view_get_vadjustment") (GtkTextViewClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getVisibleRect_ = call (getSymbol "gtk_text_view_get_visible_rect") (GtkTextViewClass.PolyML.cPtr &&> CairoRectangleIntRecord.PolyML.cPtr --> cVoid)
       val getWindow_ = call (getSymbol "gtk_text_view_get_window") (GtkTextViewClass.PolyML.cPtr &&> GtkTextWindowType.PolyML.cVal --> GdkWindowClass.PolyML.cPtr)
       val getWindowType_ = call (getSymbol "gtk_text_view_get_window_type") (GtkTextViewClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> GtkTextWindowType.PolyML.cVal)
@@ -213,6 +216,7 @@ structure GtkTextView :>
     type 'a scrollable_class = 'a GtkScrollableClass.class
     type 'a text_child_anchor_class = 'a GtkTextChildAnchorClass.class
     type text_attributes_t = GtkTextAttributesRecord.t
+    type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type 'a text_mark_class = 'a GtkTextMarkClass.class
     type text_iter_t = GtkTextIterRecord.t
@@ -336,6 +340,7 @@ structure GtkTextView :>
     fun getCursorVisible self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getCursorVisible_ self
     fun getDefaultAttributes self = (GtkTextViewClass.FFI.withPtr ---> GtkTextAttributesRecord.FFI.fromPtr true) getDefaultAttributes_ self
     fun getEditable self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getEditable_ self
+    fun getHadjustment self = (GtkTextViewClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
     fun getIndent self = (GtkTextViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getIndent_ self
     fun getIterAtLocation self (x, y) =
       let
@@ -457,6 +462,7 @@ structure GtkTextView :>
     fun getPixelsInsideWrap self = (GtkTextViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getPixelsInsideWrap_ self
     fun getRightMargin self = (GtkTextViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getRightMargin_ self
     fun getTabs self = (GtkTextViewClass.FFI.withPtr ---> PangoTabArrayRecord.FFI.fromPtr true) getTabs_ self
+    fun getVadjustment self = (GtkTextViewClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
     fun getVisibleRect self =
       let
         val visibleRect & () = (GtkTextViewClass.FFI.withPtr &&&> CairoRectangleIntRecord.FFI.withNewPtr ---> CairoRectangleIntRecord.FFI.fromPtr true && I) getVisibleRect_ (self & ())

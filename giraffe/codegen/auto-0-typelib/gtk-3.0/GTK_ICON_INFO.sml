@@ -3,6 +3,8 @@ signature GTK_ICON_INFO =
     type t
     type 'a icon_theme_class
     type 'a style_context_class
+    type state_type_t
+    type 'a style_class
     val getType : unit -> GObject.Type.t
     val newForPixbuf : 'a icon_theme_class * 'b GdkPixbuf.PixbufClass.class -> t
     val copy : t -> t
@@ -23,6 +25,10 @@ signature GTK_ICON_INFO =
     val loadSymbolicForContext :
       t
        -> 'a style_context_class
+       -> base GdkPixbuf.PixbufClass.class * bool
+    val loadSymbolicForStyle :
+      t
+       -> 'a style_class * state_type_t
        -> base GdkPixbuf.PixbufClass.class * bool
     val setRawCoordinates :
       t

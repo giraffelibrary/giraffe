@@ -4,6 +4,7 @@ signature GTK_CELL_VIEW =
     type 'a buildable_class
     type 'a cell_layout_class
     type 'a orientable_class
+    type requisition_t
     type tree_path_t
     type 'a cell_area_class
     type 'a cell_area_context_class
@@ -23,6 +24,10 @@ signature GTK_CELL_VIEW =
     val getDrawSensitive : 'a class -> bool
     val getFitModel : 'a class -> bool
     val getModel : 'a class -> base tree_model_class
+    val getSizeOfRow :
+      'a class
+       -> tree_path_t
+       -> requisition_t option
     val setBackgroundColor :
       'a class
        -> Gdk.ColorRecord.t

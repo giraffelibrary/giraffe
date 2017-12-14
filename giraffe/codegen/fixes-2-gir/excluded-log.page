@@ -36,13 +36,11 @@
     <item>
       struct Date
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>function set_time: deprecated</item>
       <item>
         function to_struct_tm
         <item>arg tm: pointer C type for VOID not supported</item>
       </item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>function set_time: deprecated</item>
       <item>
         function to_struct_tm
         <item>arg tm: pointer C type for VOID not supported</item>
@@ -522,15 +520,14 @@
     <item>constant SYSDEF_MSG_DONTROUTE: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>constant SYSDEF_MSG_OOB: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>constant SYSDEF_MSG_PEEK: constant excluded by configuration (excludedConstantNamePrefixes)</item>
-    <item>struct Scanner: struct not included by configuration (structTypes)</item>
-    <item>struct ScannerConfig: struct not included by configuration (structTypes)</item>
+    <item>struct Scanner: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct ScannerConfig: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct Sequence: struct not included by configuration (structTypes)</item>
     <item>struct SequenceIter: struct not included by configuration (structTypes)</item>
     <item>
       struct Source
       <item>function new: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function add_poll: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>function get_current_time: deprecated</item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function remove_poll: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
@@ -550,7 +547,6 @@
       <item>function remove_by_user_data: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function new: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function add_poll: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>function get_current_time: deprecated</item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function remove_poll: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
@@ -787,7 +783,13 @@
         <item>type gint: pointer C type for scalar (INT) not supported</item>
       </item>
     </item>
-    <item>function atomic_int_exchange_and_add: deprecated</item>
+    <item>
+      function atomic_int_exchange_and_add
+      <item>
+        arg atomic
+        <item>type gint: pointer C type for scalar (INT) not supported</item>
+      </item>
+    </item>
     <item>
       function atomic_int_get
       <item>
@@ -1215,8 +1217,8 @@
         <item>type guint: pointer C type for scalar (UINT) not supported</item>
       </item>
     </item>
-    <item>function slist_pop_allocator: deprecated</item>
-    <item>function slist_push_allocator: deprecated</item>
+    <item>function slist_pop_allocator: moved to SList.pop_allocator</item>
+    <item>function slist_push_allocator: moved to SList.push_allocator</item>
     <item>function source_remove: moved to Source.remove</item>
     <item>function source_remove_by_funcs_user_data: moved to Source.remove_by_funcs_user_data</item>
     <item>function source_remove_by_user_data: moved to Source.remove_by_user_data</item>
@@ -1335,7 +1337,13 @@
     <item>function unichar_type: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
     <item>function unichar_validate: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
     <item>function unichar_xdigit_value: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
-    <item>function unicode_canonical_decomposition: deprecated</item>
+    <item>
+      function unicode_canonical_decomposition
+      <item>
+        arg result_len
+        <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
+      </item>
+    </item>
     <item>
       function unicode_canonical_ordering
       <item>
@@ -2828,16 +2836,13 @@
       </item>
     </item>
     <item>struct DesktopAppInfoClass: class struct</item>
-    <item>
-      interface DesktopAppInfoLookup
-      <item>function get_default_for_uri_scheme: deprecated</item>
-      <item>function get_default_for_uri_scheme: deprecated</item>
-    </item>
     <item>struct DesktopAppInfoLookupIface: class struct</item>
     <item>
       interface Drive
-      <item>function eject: deprecated</item>
-      <item>function eject_finish: deprecated</item>
+      <item>
+        function eject
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
       <item>
         function eject_with_operation
         <item>arg user_data: pointer C type for VOID not supported</item>
@@ -2858,8 +2863,10 @@
         function stop
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function eject: deprecated</item>
-      <item>function eject_finish: deprecated</item>
+      <item>
+        function eject
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
       <item>
         function eject_with_operation
         <item>arg user_data: pointer C type for VOID not supported</item>
@@ -2918,8 +2925,10 @@
         function create_readwrite_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function eject_mountable: deprecated</item>
-      <item>function eject_mountable_finish: deprecated</item>
+      <item>
+        function eject_mountable
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
       <item>
         function eject_mountable_with_operation
         <item>arg user_data: pointer C type for VOID not supported</item>
@@ -3000,8 +3009,10 @@
         function stop_mountable
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function unmount_mountable: deprecated</item>
-      <item>function unmount_mountable_finish: deprecated</item>
+      <item>
+        function unmount_mountable
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
       <item>
         function unmount_mountable_with_operation
         <item>arg user_data: pointer C type for VOID not supported</item>
@@ -3026,8 +3037,10 @@
         function create_readwrite_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function eject_mountable: deprecated</item>
-      <item>function eject_mountable_finish: deprecated</item>
+      <item>
+        function eject_mountable
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
       <item>
         function eject_mountable_with_operation
         <item>arg user_data: pointer C type for VOID not supported</item>
@@ -3108,8 +3121,10 @@
         function stop_mountable
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function unmount_mountable: deprecated</item>
-      <item>function unmount_mountable_finish: deprecated</item>
+      <item>
+        function unmount_mountable
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
       <item>
         function unmount_mountable_with_operation
         <item>arg user_data: pointer C type for VOID not supported</item>
@@ -3470,8 +3485,10 @@
     <item>struct MemoryOutputStreamPrivate: struct not included by configuration (structTypes)</item>
     <item>
       interface Mount
-      <item>function eject: deprecated</item>
-      <item>function eject_finish: deprecated</item>
+      <item>
+        function eject
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
       <item>
         function eject_with_operation
         <item>arg user_data: pointer C type for VOID not supported</item>
@@ -3484,14 +3501,18 @@
         function remount
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function unmount: deprecated</item>
-      <item>function unmount_finish: deprecated</item>
+      <item>
+        function unmount
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
       <item>
         function unmount_with_operation
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function eject: deprecated</item>
-      <item>function eject_finish: deprecated</item>
+      <item>
+        function eject
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
       <item>
         function eject_with_operation
         <item>arg user_data: pointer C type for VOID not supported</item>
@@ -3504,8 +3525,10 @@
         function remount
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function unmount: deprecated</item>
-      <item>function unmount_finish: deprecated</item>
+      <item>
+        function unmount
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
       <item>
         function unmount_with_operation
         <item>arg user_data: pointer C type for VOID not supported</item>
@@ -4045,20 +4068,14 @@
     <item>struct TlsClientConnectionInterface: class struct</item>
     <item>
       object TlsConnection
-      <item>function get_use_system_certdb: deprecated</item>
       <item>
         function handshake_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function set_use_system_certdb: deprecated</item>
-      <item>property use-system-certdb: deprecated</item>
-      <item>function get_use_system_certdb: deprecated</item>
       <item>
         function handshake_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function set_use_system_certdb: deprecated</item>
-      <item>property use-system-certdb: deprecated</item>
     </item>
     <item>struct TlsConnectionClass: class struct</item>
     <item>struct TlsConnectionPrivate: struct not included by configuration (structTypes)</item>
@@ -4188,13 +4205,7 @@
     <item>struct UnixOutputStreamPrivate: struct not included by configuration (structTypes)</item>
     <item>
       object UnixSocketAddress
-      <item>function new_abstract: deprecated</item>
-      <item>function get_is_abstract: deprecated</item>
-      <item>property abstract: deprecated</item>
       <item>property path-as-array: type ARRAY not supported</item>
-      <item>function new_abstract: deprecated</item>
-      <item>function get_is_abstract: deprecated</item>
-      <item>property abstract: deprecated</item>
       <item>property path-as-array: type ARRAY not supported</item>
     </item>
     <item>struct UnixSocketAddressClass: class struct</item>
@@ -4202,8 +4213,10 @@
     <item>struct VfsClass: class struct</item>
     <item>
       interface Volume
-      <item>function eject: deprecated</item>
-      <item>function eject_finish: deprecated</item>
+      <item>
+        function eject
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
       <item>
         function eject_with_operation
         <item>arg user_data: pointer C type for VOID not supported</item>
@@ -4212,8 +4225,10 @@
         function mount
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>function eject: deprecated</item>
-      <item>function eject_finish: deprecated</item>
+      <item>
+        function eject
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
       <item>
         function eject_with_operation
         <item>arg user_data: pointer C type for VOID not supported</item>
@@ -4226,7 +4241,6 @@
     <item>struct VolumeIface: class struct</item>
     <item>
       object VolumeMonitor
-      <item>function adopt_orphan_mount: deprecated</item>
       <item>
         function get_connected_drives
         <item>type glist: type GLIST not supported</item>
@@ -4239,7 +4253,6 @@
         function get_volumes
         <item>type glist: type GLIST not supported</item>
       </item>
-      <item>function adopt_orphan_mount: deprecated</item>
       <item>
         function get_connected_drives
         <item>type glist: type GLIST not supported</item>
@@ -5500,23 +5513,16 @@
     Gdk-3.0
     <item>alias XEvent: type VOID not expected</item>
     <item>
-      object AppLaunchContext
-      <item>function new: deprecated</item>
-      <item>function set_display: deprecated</item>
-      <item>function new: deprecated</item>
-      <item>function set_display: deprecated</item>
-    </item>
-    <item>
       struct Color
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       object Cursor
-      <item>function ref: deprecated</item>
-      <item>function unref: deprecated</item>
-      <item>function ref: deprecated</item>
-      <item>function unref: deprecated</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
       object Device
@@ -5550,20 +5556,14 @@
     </item>
     <item>
       object Display
-      <item>function get_pointer: deprecated</item>
-      <item>function get_window_at_pointer: deprecated</item>
-      <item>function keyboard_ungrab: deprecated</item>
-      <item>function list_devices: deprecated</item>
-      <item>function pointer_is_grabbed: deprecated</item>
-      <item>function pointer_ungrab: deprecated</item>
-      <item>function warp_pointer: deprecated</item>
-      <item>function get_pointer: deprecated</item>
-      <item>function get_window_at_pointer: deprecated</item>
-      <item>function keyboard_ungrab: deprecated</item>
-      <item>function list_devices: deprecated</item>
-      <item>function pointer_is_grabbed: deprecated</item>
-      <item>function pointer_ungrab: deprecated</item>
-      <item>function warp_pointer: deprecated</item>
+      <item>
+        function list_devices
+        <item>type glist: type GLIST not supported</item>
+      </item>
+      <item>
+        function list_devices
+        <item>type glist: type GLIST not supported</item>
+      </item>
     </item>
     <item>
       object DisplayManager
@@ -5642,12 +5642,10 @@
     <item>struct TimeCoord: struct not included by configuration (structTypes)</item>
     <item>
       object Window
-      <item>function at_pointer: deprecated</item>
       <item>
         function get_children
         <item>type glist: type GLIST not supported</item>
       </item>
-      <item>function get_pointer: deprecated</item>
       <item>
         function get_user_data
         <item>arg data: pointer C type for VOID not supported</item>
@@ -5667,12 +5665,10 @@
           <item>type glist: type GLIST not supported</item>
         </item>
       </item>
-      <item>function at_pointer: deprecated</item>
       <item>
         function get_children
         <item>type glist: type GLIST not supported</item>
       </item>
-      <item>function get_pointer: deprecated</item>
       <item>
         function get_user_data
         <item>arg data: pointer C type for VOID not supported</item>
@@ -5717,15 +5713,10 @@
     <item>function event_handler_set: moved to Event.handler_set</item>
     <item>function event_peek: moved to Event.peek</item>
     <item>function event_request_motions: moved to Event.request_motions</item>
-    <item>function keyboard_grab: deprecated</item>
-    <item>function keyboard_ungrab: deprecated</item>
     <item>
       function list_visuals
       <item>type glist: type GLIST not supported</item>
     </item>
-    <item>function pointer_grab: deprecated</item>
-    <item>function pointer_is_grabbed: deprecated</item>
-    <item>function pointer_ungrab: deprecated</item>
     <item>
       function rectangle_get_type
       <item>type GType: type GTYPE not supported</item>
@@ -5927,8 +5918,6 @@
     <item>struct AspectFramePrivate: struct not included by configuration (structTypes)</item>
     <item>
       object Assistant
-      <item>function get_page_header_image: deprecated</item>
-      <item>function get_page_side_image: deprecated</item>
       <item>
         function set_forward_page_func
         <item>
@@ -5939,10 +5928,6 @@
           </item>
         </item>
       </item>
-      <item>function set_page_header_image: deprecated</item>
-      <item>function set_page_side_image: deprecated</item>
-      <item>function get_page_header_image: deprecated</item>
-      <item>function get_page_side_image: deprecated</item>
       <item>
         function set_forward_page_func
         <item>
@@ -5953,8 +5938,6 @@
           </item>
         </item>
       </item>
-      <item>function set_page_header_image: deprecated</item>
-      <item>function set_page_side_image: deprecated</item>
     </item>
     <item>struct AssistantClass: class struct</item>
     <item>struct AssistantPrivate: struct not included by configuration (structTypes)</item>
@@ -6049,25 +6032,6 @@
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct BuilderPrivate: struct not included by configuration (structTypes)</item>
-    <item>
-      object Button
-      <item>function enter: deprecated</item>
-      <item>function leave: deprecated</item>
-      <item>function pressed: deprecated</item>
-      <item>function released: deprecated</item>
-      <item>signals enter: deprecated</item>
-      <item>signals leave: deprecated</item>
-      <item>signals pressed: deprecated</item>
-      <item>signals released: deprecated</item>
-      <item>function enter: deprecated</item>
-      <item>function leave: deprecated</item>
-      <item>function pressed: deprecated</item>
-      <item>function released: deprecated</item>
-      <item>signals enter: deprecated</item>
-      <item>signals leave: deprecated</item>
-      <item>signals pressed: deprecated</item>
-      <item>signals released: deprecated</item>
-    </item>
     <item>struct ButtonBoxClass: class struct</item>
     <item>struct ButtonBoxPrivate: struct not included by configuration (structTypes)</item>
     <item>struct ButtonClass: class struct</item>
@@ -6163,11 +6127,6 @@
       </item>
     </item>
     <item>struct CellLayoutIface: class struct</item>
-    <item>
-      object CellRenderer
-      <item>function get_size: deprecated</item>
-      <item>function get_size: deprecated</item>
-    </item>
     <item>struct CellRendererAccelClass: class struct</item>
     <item>struct CellRendererAccelPrivate: struct not included by configuration (structTypes)</item>
     <item>struct CellRendererClass: class struct</item>
@@ -6186,11 +6145,6 @@
     <item>struct CellRendererTextPrivate: struct not included by configuration (structTypes)</item>
     <item>struct CellRendererToggleClass: class struct</item>
     <item>struct CellRendererTogglePrivate: struct not included by configuration (structTypes)</item>
-    <item>
-      object CellView
-      <item>function get_size_of_row: deprecated</item>
-      <item>function get_size_of_row: deprecated</item>
-    </item>
     <item>struct CellViewClass: class struct</item>
     <item>struct CellViewPrivate: struct not included by configuration (structTypes)</item>
     <item>struct CheckButtonClass: class struct</item>
@@ -6525,53 +6479,7 @@
     <item>struct FontChooserIface: class struct</item>
     <item>struct FontChooserWidgetClass: class struct</item>
     <item>struct FontChooserWidgetPrivate: struct not included by configuration (structTypes)</item>
-    <item>
-      object FontSelection
-      <item>function get_face: deprecated</item>
-      <item>function get_face_list: deprecated</item>
-      <item>function get_family: deprecated</item>
-      <item>function get_family_list: deprecated</item>
-      <item>function get_font_name: deprecated</item>
-      <item>function get_preview_entry: deprecated</item>
-      <item>function get_preview_text: deprecated</item>
-      <item>function get_size: deprecated</item>
-      <item>function get_size_entry: deprecated</item>
-      <item>function get_size_list: deprecated</item>
-      <item>function set_font_name: deprecated</item>
-      <item>function set_preview_text: deprecated</item>
-      <item>function get_face: deprecated</item>
-      <item>function get_face_list: deprecated</item>
-      <item>function get_family: deprecated</item>
-      <item>function get_family_list: deprecated</item>
-      <item>function get_font_name: deprecated</item>
-      <item>function get_preview_entry: deprecated</item>
-      <item>function get_preview_text: deprecated</item>
-      <item>function get_size: deprecated</item>
-      <item>function get_size_entry: deprecated</item>
-      <item>function get_size_list: deprecated</item>
-      <item>function set_font_name: deprecated</item>
-      <item>function set_preview_text: deprecated</item>
-    </item>
     <item>struct FontSelectionClass: class struct</item>
-    <item>
-      object FontSelectionDialog
-      <item>function new: deprecated</item>
-      <item>function get_cancel_button: deprecated</item>
-      <item>function get_font_name: deprecated</item>
-      <item>function get_font_selection: deprecated</item>
-      <item>function get_ok_button: deprecated</item>
-      <item>function get_preview_text: deprecated</item>
-      <item>function set_font_name: deprecated</item>
-      <item>function set_preview_text: deprecated</item>
-      <item>function new: deprecated</item>
-      <item>function get_cancel_button: deprecated</item>
-      <item>function get_font_name: deprecated</item>
-      <item>function get_font_selection: deprecated</item>
-      <item>function get_ok_button: deprecated</item>
-      <item>function get_preview_text: deprecated</item>
-      <item>function set_font_name: deprecated</item>
-      <item>function set_preview_text: deprecated</item>
-    </item>
     <item>struct FontSelectionDialogClass: class struct</item>
     <item>struct FontSelectionDialogPrivate: struct not included by configuration (structTypes)</item>
     <item>struct FontSelectionPrivate: struct not included by configuration (structTypes)</item>
@@ -6580,45 +6488,13 @@
     <item>struct Gradient: struct not included by configuration (structTypes)</item>
     <item>struct GridClass: class struct</item>
     <item>struct GridPrivate: struct not included by configuration (structTypes)</item>
-    <item>
-      object HBox
-      <item>function new: deprecated</item>
-      <item>function new: deprecated</item>
-    </item>
     <item>struct HBoxClass: class struct</item>
-    <item>
-      object HButtonBox
-      <item>function new: deprecated</item>
-      <item>function new: deprecated</item>
-    </item>
     <item>struct HButtonBoxClass: class struct</item>
-    <item>
-      object HPaned
-      <item>function new: deprecated</item>
-      <item>function new: deprecated</item>
-    </item>
     <item>struct HPanedClass: class struct</item>
     <item>struct HSVClass: class struct</item>
     <item>struct HSVPrivate: struct not included by configuration (structTypes)</item>
-    <item>
-      object HScale
-      <item>function new: deprecated</item>
-      <item>function new_with_range: deprecated</item>
-      <item>function new: deprecated</item>
-      <item>function new_with_range: deprecated</item>
-    </item>
     <item>struct HScaleClass: class struct</item>
-    <item>
-      object HScrollbar
-      <item>function new: deprecated</item>
-      <item>function new: deprecated</item>
-    </item>
     <item>struct HScrollbarClass: class struct</item>
-    <item>
-      object HSeparator
-      <item>function new: deprecated</item>
-      <item>function new: deprecated</item>
-    </item>
     <item>struct HSeparatorClass: class struct</item>
     <item>struct HandleBoxClass: class struct</item>
     <item>struct HandleBoxPrivate: struct not included by configuration (structTypes)</item>
@@ -6650,17 +6526,13 @@
     <item>
       struct IconInfo
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>function load_symbolic_for_style: deprecated</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>function load_symbolic_for_style: deprecated</item>
     </item>
     <item>
       struct IconSet
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>function render_icon: deprecated</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>function render_icon: deprecated</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>
@@ -6726,17 +6598,6 @@
     <item>struct LabelClass: class struct</item>
     <item>struct LabelPrivate: struct not included by configuration (structTypes)</item>
     <item>struct LabelSelectionInfo: struct not included by configuration (structTypes)</item>
-    <item>
-      object Layout
-      <item>function get_hadjustment: deprecated</item>
-      <item>function get_vadjustment: deprecated</item>
-      <item>function set_hadjustment: deprecated</item>
-      <item>function set_vadjustment: deprecated</item>
-      <item>function get_hadjustment: deprecated</item>
-      <item>function get_vadjustment: deprecated</item>
-      <item>function set_hadjustment: deprecated</item>
-      <item>function set_vadjustment: deprecated</item>
-    </item>
     <item>struct LayoutClass: class struct</item>
     <item>struct LayoutPrivate: struct not included by configuration (structTypes)</item>
     <item>struct LinkButtonClass: class struct</item>
@@ -6896,8 +6757,6 @@
     <item>struct MenuClass: class struct</item>
     <item>
       object MenuItem
-      <item>function get_right_justified: deprecated</item>
-      <item>function set_right_justified: deprecated</item>
       <item>
         function toggle_size_request
         <item>
@@ -6909,8 +6768,6 @@
         signals toggle-size-request
         <item>arg object: pointer C type for VOID not supported</item>
       </item>
-      <item>function get_right_justified: deprecated</item>
-      <item>function set_right_justified: deprecated</item>
       <item>
         function toggle_size_request
         <item>
@@ -7150,15 +7007,7 @@
     <item>struct RangePrivate: struct not included by configuration (structTypes)</item>
     <item>struct RcContext: struct not included by configuration (structTypes)</item>
     <item>struct RcProperty: struct not included by configuration (structTypes)</item>
-    <item>
-      object RcStyle
-      <item>function new: deprecated</item>
-      <item>function copy: deprecated</item>
-      <item>function new: deprecated</item>
-      <item>function copy: deprecated</item>
-    </item>
     <item>struct RcStyleClass: class struct</item>
-    <item>enum RcTokenType: deprecated</item>
     <item>struct RecentActionClass: class struct</item>
     <item>struct RecentActionPrivate: struct not included by configuration (structTypes)</item>
     <item>
@@ -7346,7 +7195,6 @@
     </item>
     <item>
       object Style
-      <item>function new: deprecated</item>
       <item>
         function get_style_property
         <item>
@@ -7354,7 +7202,6 @@
           <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
-      <item>function new: deprecated</item>
       <item>
         function get_style_property
         <item>
@@ -7622,13 +7469,6 @@
     </item>
     <item>struct TextTagTableClass: class struct</item>
     <item>struct TextTagTablePrivate: struct not included by configuration (structTypes)</item>
-    <item>
-      object TextView
-      <item>function get_hadjustment: deprecated</item>
-      <item>function get_vadjustment: deprecated</item>
-      <item>function get_hadjustment: deprecated</item>
-      <item>function get_vadjustment: deprecated</item>
-    </item>
     <item>struct TextViewClass: class struct</item>
     <item>struct TextViewPrivate: struct not included by configuration (structTypes)</item>
     <item>struct ThemeEngine: struct not included by configuration (structTypes)</item>
@@ -7670,13 +7510,6 @@
     <item>struct ToolItemGroupClass: class struct</item>
     <item>struct ToolItemGroupPrivate: struct not included by configuration (structTypes)</item>
     <item>struct ToolItemPrivate: struct not included by configuration (structTypes)</item>
-    <item>
-      object ToolPalette
-      <item>function get_hadjustment: deprecated</item>
-      <item>function get_vadjustment: deprecated</item>
-      <item>function get_hadjustment: deprecated</item>
-      <item>function get_vadjustment: deprecated</item>
-    </item>
     <item>struct ToolPaletteClass: class struct</item>
     <item>struct ToolPalettePrivate: struct not included by configuration (structTypes)</item>
     <item>struct ToolShellIface: class struct</item>
@@ -7955,8 +7788,6 @@
         function get_columns
         <item>type glist: type GLIST not supported</item>
       </item>
-      <item>function get_hadjustment: deprecated</item>
-      <item>function get_vadjustment: deprecated</item>
       <item>
         function insert_column_with_data_func
         <item>
@@ -7991,7 +7822,6 @@
           </item>
         </item>
       </item>
-      <item>function set_hadjustment: deprecated</item>
       <item>
         function set_row_separator_func
         <item>
@@ -8022,13 +7852,10 @@
           </item>
         </item>
       </item>
-      <item>function set_vadjustment: deprecated</item>
       <item>
         function get_columns
         <item>type glist: type GLIST not supported</item>
       </item>
-      <item>function get_hadjustment: deprecated</item>
-      <item>function get_vadjustment: deprecated</item>
       <item>
         function insert_column_with_data_func
         <item>
@@ -8063,7 +7890,6 @@
           </item>
         </item>
       </item>
-      <item>function set_hadjustment: deprecated</item>
       <item>
         function set_row_separator_func
         <item>
@@ -8094,7 +7920,6 @@
           </item>
         </item>
       </item>
-      <item>function set_vadjustment: deprecated</item>
     </item>
     <item>struct TreeViewClass: class struct</item>
     <item>
@@ -8144,55 +7969,12 @@
     </item>
     <item>struct UIManagerClass: class struct</item>
     <item>struct UIManagerPrivate: struct not included by configuration (structTypes)</item>
-    <item>
-      object VBox
-      <item>function new: deprecated</item>
-      <item>function new: deprecated</item>
-    </item>
     <item>struct VBoxClass: class struct</item>
-    <item>
-      object VButtonBox
-      <item>function new: deprecated</item>
-      <item>function new: deprecated</item>
-    </item>
     <item>struct VButtonBoxClass: class struct</item>
-    <item>
-      object VPaned
-      <item>function new: deprecated</item>
-      <item>function new: deprecated</item>
-    </item>
     <item>struct VPanedClass: class struct</item>
-    <item>
-      object VScale
-      <item>function new: deprecated</item>
-      <item>function new_with_range: deprecated</item>
-      <item>function new: deprecated</item>
-      <item>function new_with_range: deprecated</item>
-    </item>
     <item>struct VScaleClass: class struct</item>
-    <item>
-      object VScrollbar
-      <item>function new: deprecated</item>
-      <item>function new: deprecated</item>
-    </item>
     <item>struct VScrollbarClass: class struct</item>
-    <item>
-      object VSeparator
-      <item>function new: deprecated</item>
-      <item>function new: deprecated</item>
-    </item>
     <item>struct VSeparatorClass: class struct</item>
-    <item>
-      object Viewport
-      <item>function get_hadjustment: deprecated</item>
-      <item>function get_vadjustment: deprecated</item>
-      <item>function set_hadjustment: deprecated</item>
-      <item>function set_vadjustment: deprecated</item>
-      <item>function get_hadjustment: deprecated</item>
-      <item>function get_vadjustment: deprecated</item>
-      <item>function set_hadjustment: deprecated</item>
-      <item>function set_vadjustment: deprecated</item>
-    </item>
     <item>struct ViewportClass: class struct</item>
     <item>struct ViewportPrivate: struct not included by configuration (structTypes)</item>
     <item>struct VolumeButtonClass: class struct</item>
@@ -8206,9 +7988,6 @@
           <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
-      <item>function get_child_requisition: deprecated</item>
-      <item>function get_requisition: deprecated</item>
-      <item>function get_state: deprecated</item>
       <item>
         function list_accel_closures
         <item>type glist: type GLIST not supported</item>
@@ -8217,9 +7996,6 @@
         function list_mnemonic_labels
         <item>type glist: type GLIST not supported</item>
       </item>
-      <item>function modify_cursor: deprecated</item>
-      <item>function render_icon: deprecated</item>
-      <item>function set_state: deprecated</item>
       <item>
         function set_window
         <item>
@@ -8230,9 +8006,6 @@
           </item>
         </item>
       </item>
-      <item>function size_request: deprecated</item>
-      <item>function style_attach: deprecated</item>
-      <item>signals state-changed: deprecated</item>
       <item>function destroyed: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function get_ancestor
@@ -8241,9 +8014,6 @@
           <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
-      <item>function get_child_requisition: deprecated</item>
-      <item>function get_requisition: deprecated</item>
-      <item>function get_state: deprecated</item>
       <item>
         function list_accel_closures
         <item>type glist: type GLIST not supported</item>
@@ -8252,9 +8022,6 @@
         function list_mnemonic_labels
         <item>type glist: type GLIST not supported</item>
       </item>
-      <item>function modify_cursor: deprecated</item>
-      <item>function render_icon: deprecated</item>
-      <item>function set_state: deprecated</item>
       <item>
         function set_window
         <item>
@@ -8265,9 +8032,6 @@
           </item>
         </item>
       </item>
-      <item>function size_request: deprecated</item>
-      <item>function style_attach: deprecated</item>
-      <item>signals state-changed: deprecated</item>
     </item>
     <item>struct WidgetAuxInfo: struct not included by configuration (structTypes)</item>
     <item>struct WidgetClass: class struct</item>
@@ -8485,11 +8249,16 @@
       function print_run_page_setup_dialog_async
       <item>arg data: pointer C type for VOID not supported</item>
     </item>
-    <item>function rc_find_module_in_path: deprecated</item>
-    <item>function rc_find_pixmap_in_path: deprecated</item>
-    <item>function rc_get_im_module_file: deprecated</item>
-    <item>function rc_get_im_module_path: deprecated</item>
-    <item>function rc_get_module_dir: deprecated</item>
+    <item>
+      function rc_find_pixmap_in_path
+      <item>
+        arg scanner
+        <item>
+          type interface
+          <item>struct Scanner: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
+      </item>
+    </item>
     <item>
       function rc_get_style_by_paths
       <item>
@@ -8497,8 +8266,6 @@
         <item>type GType: type GTYPE not supported</item>
       </item>
     </item>
-    <item>function rc_get_theme_dir: deprecated</item>
-    <item>function rc_parse: deprecated</item>
     <item>function rc_parse_color: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function rc_parse_color_full: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>
@@ -8511,16 +8278,21 @@
         </item>
       </item>
     </item>
-    <item>function rc_parse_state: deprecated</item>
-    <item>function rc_parse_string: deprecated</item>
+    <item>
+      function rc_parse_state
+      <item>
+        arg scanner
+        <item>
+          type interface
+          <item>struct Scanner: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
+      </item>
+    </item>
     <item>function rc_property_parse_border: moved to RcProperty.parse_border</item>
     <item>function rc_property_parse_color: moved to RcProperty.parse_color</item>
     <item>function rc_property_parse_enum: moved to RcProperty.parse_enum</item>
     <item>function rc_property_parse_flags: moved to RcProperty.parse_flags</item>
     <item>function rc_property_parse_requisition: moved to RcProperty.parse_requisition</item>
-    <item>function rc_reparse_all: deprecated</item>
-    <item>function rc_reparse_all_for_settings: deprecated</item>
-    <item>function rc_reset_styles: deprecated</item>
     <item>function recent_chooser_error_quark: moved to RecentChooserError.quark</item>
     <item>function recent_manager_error_quark: moved to RecentManagerError.quark</item>
     <item>
@@ -8773,7 +8545,6 @@
           <item>type glong: pointer C type for scalar (LONG) not supported</item>
         </item>
       </item>
-      <item>property pty: deprecated</item>
       <item>
         function get_cursor_position
         <item>
@@ -8781,7 +8552,6 @@
           <item>type glong: pointer C type for scalar (LONG) not supported</item>
         </item>
       </item>
-      <item>property pty: deprecated</item>
     </item>
     <item>struct TerminalClass: class struct</item>
     <item>struct TerminalClassPrivate: struct not included by configuration (structTypes)</item>
@@ -8828,7 +8598,6 @@
           <item>type array: array type GArray not supported</item>
         </item>
       </item>
-      <item>function match_set_cursor: deprecated</item>
       <item>
         function feed_child_binary
         <item>
@@ -8857,7 +8626,6 @@
           <item>type array: array type GArray not supported</item>
         </item>
       </item>
-      <item>function match_set_cursor: deprecated</item>
     </item>
     <item>struct TerminalClass: class struct</item>
     <item>struct TerminalClassPrivate: struct not included by configuration (structTypes)</item>

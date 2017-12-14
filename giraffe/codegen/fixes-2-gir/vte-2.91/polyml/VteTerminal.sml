@@ -114,6 +114,14 @@ structure VteTerminal :>
           )
       val matchRemove_ = call (getSymbol "vte_terminal_match_remove") (VteTerminalClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val matchRemoveAll_ = call (getSymbol "vte_terminal_match_remove_all") (VteTerminalClass.PolyML.cPtr --> cVoid)
+      val matchSetCursor_ =
+        call (getSymbol "vte_terminal_match_set_cursor")
+          (
+            VteTerminalClass.PolyML.cPtr
+             &&> GInt.PolyML.cVal
+             &&> GdkCursorClass.PolyML.cOptPtr
+             --> cVoid
+          )
       val matchSetCursorName_ =
         call (getSymbol "vte_terminal_match_set_cursor_name")
           (
@@ -405,6 +413,19 @@ structure VteTerminal :>
       end
     fun matchRemove self tag = (VteTerminalClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) matchRemove_ (self & tag)
     fun matchRemoveAll self = (VteTerminalClass.FFI.withPtr ---> I) matchRemoveAll_ self
+    fun matchSetCursor self (tag, cursor) =
+      (
+        VteTerminalClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GdkCursorClass.FFI.withOptPtr
+         ---> I
+      )
+        matchSetCursor_
+        (
+          self
+           & tag
+           & cursor
+        )
     fun matchSetCursorName self (tag, cursorName) =
       (
         VteTerminalClass.FFI.withPtr

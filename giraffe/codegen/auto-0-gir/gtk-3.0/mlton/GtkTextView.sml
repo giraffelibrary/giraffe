@@ -5,6 +5,7 @@ structure GtkTextView :>
     where type 'a scrollable_class = 'a GtkScrollableClass.class
     where type 'a text_child_anchor_class = 'a GtkTextChildAnchorClass.class
     where type text_attributes_t = GtkTextAttributesRecord.t
+    where type 'a adjustment_class = 'a GtkAdjustmentClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class
     where type 'a text_mark_class = 'a GtkTextMarkClass.class
     where type text_iter_t = GtkTextIterRecord.t
@@ -116,6 +117,7 @@ structure GtkTextView :>
     val getCursorVisible_ = _import "gtk_text_view_get_cursor_visible" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> GBool.FFI.val_;
     val getDefaultAttributes_ = _import "gtk_text_view_get_default_attributes" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> GtkTextAttributesRecord.FFI.notnull GtkTextAttributesRecord.FFI.p;
     val getEditable_ = _import "gtk_text_view_get_editable" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> GBool.FFI.val_;
+    val getHadjustment_ = _import "gtk_text_view_get_hadjustment" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
     val getIndent_ = _import "gtk_text_view_get_indent" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> GInt.FFI.val_;
     val getIterAtLocation_ =
       fn
@@ -225,6 +227,7 @@ structure GtkTextView :>
     val getPixelsInsideWrap_ = _import "gtk_text_view_get_pixels_inside_wrap" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> GInt.FFI.val_;
     val getRightMargin_ = _import "gtk_text_view_get_right_margin" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> GInt.FFI.val_;
     val getTabs_ = _import "gtk_text_view_get_tabs" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> PangoTabArrayRecord.FFI.notnull PangoTabArrayRecord.FFI.p;
+    val getVadjustment_ = _import "gtk_text_view_get_vadjustment" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
     val getVisibleRect_ = fn x1 & x2 => (_import "gtk_text_view_get_visible_rect" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
     val getWindow_ = fn x1 & x2 => (_import "gtk_text_view_get_window" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p * GtkTextWindowType.FFI.val_ -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;) (x1, x2)
     val getWindowType_ = fn x1 & x2 => (_import "gtk_text_view_get_window_type" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GtkTextWindowType.FFI.val_;) (x1, x2)
@@ -386,6 +389,7 @@ structure GtkTextView :>
     type 'a scrollable_class = 'a GtkScrollableClass.class
     type 'a text_child_anchor_class = 'a GtkTextChildAnchorClass.class
     type text_attributes_t = GtkTextAttributesRecord.t
+    type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type 'a text_mark_class = 'a GtkTextMarkClass.class
     type text_iter_t = GtkTextIterRecord.t
@@ -509,6 +513,7 @@ structure GtkTextView :>
     fun getCursorVisible self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getCursorVisible_ self
     fun getDefaultAttributes self = (GtkTextViewClass.FFI.withPtr ---> GtkTextAttributesRecord.FFI.fromPtr true) getDefaultAttributes_ self
     fun getEditable self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getEditable_ self
+    fun getHadjustment self = (GtkTextViewClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
     fun getIndent self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getIndent_ self
     fun getIterAtLocation self (x, y) =
       let
@@ -630,6 +635,7 @@ structure GtkTextView :>
     fun getPixelsInsideWrap self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getPixelsInsideWrap_ self
     fun getRightMargin self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getRightMargin_ self
     fun getTabs self = (GtkTextViewClass.FFI.withPtr ---> PangoTabArrayRecord.FFI.fromPtr true) getTabs_ self
+    fun getVadjustment self = (GtkTextViewClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
     fun getVisibleRect self =
       let
         val visibleRect & () = (GtkTextViewClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getVisibleRect_ (self & ())

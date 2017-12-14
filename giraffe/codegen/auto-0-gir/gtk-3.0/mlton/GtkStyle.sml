@@ -9,6 +9,7 @@ structure GtkStyle :>
     where type 'a style_context_class = 'a GtkStyleContextClass.class =
   struct
     val getType_ = _import "gtk_style_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gtk_style_new" : unit -> GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p;
     val applyDefaultBackground_ =
       fn
         x1
@@ -135,6 +136,7 @@ structure GtkStyle :>
     type 'a style_context_class = 'a GtkStyleContextClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkStyleClass.FFI.fromPtr true) new_ ()
     fun applyDefaultBackground
       self
       (

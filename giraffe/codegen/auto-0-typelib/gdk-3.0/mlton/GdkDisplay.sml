@@ -4,10 +4,11 @@ structure GdkDisplay :>
     where type 'a device_class = 'a GdkDeviceClass.class
     where type 'a app_launch_context_class = 'a GdkAppLaunchContextClass.class
     where type 'a device_manager_class = 'a GdkDeviceManagerClass.class
-    where type 'a screen_class = 'a GdkScreenClass.class
+    where type modifier_type_t = GdkModifierType.t
     where type 'a event_union = 'a GdkEvent.union
     where type atom_t = GdkAtomRecord.t
-    where type 'a window_class = 'a GdkWindowClass.class =
+    where type 'a window_class = 'a GdkWindowClass.class
+    where type 'a screen_class = 'a GdkScreenClass.class =
   struct
     structure GdkAtomRecordCVectorNType =
       CPointerCVectorNType(
@@ -48,9 +49,50 @@ structure GdkDisplay :>
             )
     val getNScreens_ = _import "gdk_display_get_n_screens" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GInt32.FFI.val_;
     val getName_ = _import "gdk_display_get_name" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getPointer_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5 =>
+          (
+            _import "gdk_display_get_pointer" :
+              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
+               * (unit, GdkScreenClass.FFI.notnull) GdkScreenClass.FFI.r
+               * GInt32.FFI.ref_
+               * GInt32.FFI.ref_
+               * GdkModifierType.FFI.ref_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
     val getScreen_ = fn x1 & x2 => (_import "gdk_display_get_screen" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GInt32.FFI.val_ -> GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p;) (x1, x2)
+    val getWindowAtPointer_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "gdk_display_get_window_at_pointer" :
+              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
+               * GInt32.FFI.ref_
+               * GInt32.FFI.ref_
+               -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val hasPending_ = _import "gdk_display_has_pending" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
     val isClosed_ = _import "gdk_display_is_closed" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
+    val keyboardUngrab_ = fn x1 & x2 => (_import "gdk_display_keyboard_ungrab" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
     val notifyStartupComplete_ =
       fn
         x1 & (x2, x3) =>
@@ -67,6 +109,8 @@ structure GdkDisplay :>
               x3
             )
     val peekEvent_ = _import "gdk_display_peek_event" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GdkEvent.FFI.notnull GdkEvent.FFI.p;
+    val pointerIsGrabbed_ = _import "gdk_display_pointer_is_grabbed" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
+    val pointerUngrab_ = fn x1 & x2 => (_import "gdk_display_pointer_ungrab" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
     val putEvent_ = fn x1 & x2 => (_import "gdk_display_put_event" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GdkEvent.FFI.notnull GdkEvent.FFI.p -> unit;) (x1, x2)
     val requestSelectionNotification_ = fn x1 & x2 => (_import "gdk_display_request_selection_notification" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val setDoubleClickDistance_ = fn x1 & x2 => (_import "gdk_display_set_double_click_distance" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
@@ -104,14 +148,35 @@ structure GdkDisplay :>
     val supportsSelectionNotification_ = _import "gdk_display_supports_selection_notification" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
     val supportsShapes_ = _import "gdk_display_supports_shapes" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
     val sync_ = _import "gdk_display_sync" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> unit;
+    val warpPointer_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4 =>
+          (
+            _import "gdk_display_warp_pointer" :
+              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
+               * GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p
+               * GInt32.FFI.val_
+               * GInt32.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     type 'a class = 'a GdkDisplayClass.class
     type 'a device_class = 'a GdkDeviceClass.class
     type 'a app_launch_context_class = 'a GdkAppLaunchContextClass.class
     type 'a device_manager_class = 'a GdkDeviceManagerClass.class
-    type 'a screen_class = 'a GdkScreenClass.class
+    type modifier_type_t = GdkModifierType.t
     type 'a event_union = 'a GdkEvent.union
     type atom_t = GdkAtomRecord.t
     type 'a window_class = 'a GdkWindowClass.class
+    type 'a screen_class = 'a GdkScreenClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefault () = (I ---> GdkDisplayClass.FFI.fromPtr false) getDefault_ ()
@@ -151,11 +216,75 @@ structure GdkDisplay :>
       end
     fun getNScreens self = (GdkDisplayClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNScreens_ self
     fun getName self = (GdkDisplayClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getPointer self =
+      let
+        val screen
+         & x
+         & y
+         & mask
+         & () =
+          (
+            GdkDisplayClass.FFI.withPtr
+             &&&> GdkScreenClass.FFI.withRefOptPtr
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GdkModifierType.FFI.withRefVal
+             ---> GdkScreenClass.FFI.fromPtr false
+                   && GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && GdkModifierType.FFI.fromVal
+                   && I
+          )
+            getPointer_
+            (
+              self
+               & NONE
+               & GInt32.null
+               & GInt32.null
+               & GdkModifierType.flags []
+            )
+      in
+        (
+          screen,
+          x,
+          y,
+          mask
+        )
+      end
     fun getScreen self screenNum = (GdkDisplayClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GdkScreenClass.FFI.fromPtr false) getScreen_ (self & screenNum)
+    fun getWindowAtPointer self =
+      let
+        val winX
+         & winY
+         & retVal =
+          (
+            GdkDisplayClass.FFI.withPtr
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && GdkWindowClass.FFI.fromPtr false
+          )
+            getWindowAtPointer_
+            (
+              self
+               & GInt32.null
+               & GInt32.null
+            )
+      in
+        (
+          retVal,
+          winX,
+          winY
+        )
+      end
     fun hasPending self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) hasPending_ self
     fun isClosed self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
+    fun keyboardUngrab self time = (GdkDisplayClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) keyboardUngrab_ (self & time)
     fun notifyStartupComplete self startupId = (GdkDisplayClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) notifyStartupComplete_ (self & startupId)
     fun peekEvent self = (GdkDisplayClass.FFI.withPtr ---> GdkEvent.FFI.fromPtr true) peekEvent_ self
+    fun pointerIsGrabbed self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) pointerIsGrabbed_ self
+    fun pointerUngrab self time = (GdkDisplayClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) pointerUngrab_ (self & time)
     fun putEvent self event = (GdkDisplayClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> I) putEvent_ (self & event)
     fun requestSelectionNotification self selection = (GdkDisplayClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GBool.FFI.fromVal) requestSelectionNotification_ (self & selection)
     fun setDoubleClickDistance self distance = (GdkDisplayClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setDoubleClickDistance_ (self & distance)
@@ -197,6 +326,27 @@ structure GdkDisplay :>
     fun supportsSelectionNotification self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsSelectionNotification_ self
     fun supportsShapes self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsShapes_ self
     fun sync self = (GdkDisplayClass.FFI.withPtr ---> I) sync_ self
+    fun warpPointer
+      self
+      (
+        screen,
+        x,
+        y
+      ) =
+      (
+        GdkDisplayClass.FFI.withPtr
+         &&&> GdkScreenClass.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         ---> I
+      )
+        warpPointer_
+        (
+          self
+           & screen
+           & x
+           & y
+        )
     local
       open ClosureMarshal Signal
     in

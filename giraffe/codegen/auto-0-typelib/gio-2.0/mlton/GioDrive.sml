@@ -17,6 +17,23 @@ structure GioDrive :>
     val canStart_ = _import "g_drive_can_start" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GBool.FFI.val_;
     val canStartDegraded_ = _import "g_drive_can_start_degraded" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GBool.FFI.val_;
     val canStop_ = _import "g_drive_can_stop" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GBool.FFI.val_;
+    val ejectFinish_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "g_drive_eject_finish" :
+              GioDriveClass.FFI.notnull GioDriveClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val ejectWithOperationFinish_ =
       fn
         x1
@@ -119,6 +136,19 @@ structure GioDrive :>
     fun canStart self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) canStart_ self
     fun canStartDegraded self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) canStartDegraded_ self
     fun canStop self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) canStop_ self
+    fun ejectFinish self result =
+      (
+        GioDriveClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        ejectFinish_
+        (
+          self
+           & result
+           & []
+        )
     fun ejectWithOperationFinish self result =
       (
         GioDriveClass.FFI.withPtr

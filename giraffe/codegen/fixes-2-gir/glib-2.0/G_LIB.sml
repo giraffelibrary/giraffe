@@ -71,6 +71,7 @@ signature G_LIB =
     structure Date :
       G_LIB_DATE
         where type t = DateRecord.t
+        where type time_t = Time.t
         where type time_val_t = TimeValRecord.t
         where type date_day_t = DateDay.t
         where type date_month_t = DateMonth.t
@@ -113,6 +114,7 @@ signature G_LIB =
       G_LIB_SOURCE
         where type t = SourceRecord.t
         where type main_context_t = MainContextRecord.t
+        where type time_val_t = TimeValRecord.t
     structure String :
       G_LIB_STRING
         where type t = StringRecord.t

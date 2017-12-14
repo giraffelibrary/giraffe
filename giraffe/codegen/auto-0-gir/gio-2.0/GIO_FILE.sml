@@ -63,6 +63,10 @@ signature GIO_FILE =
        -> 'b cancellable_class option
        -> unit
     val dup : 'a class -> base class
+    val ejectMountableFinish :
+      'a class
+       -> 'b async_result_class
+       -> unit
     val ejectMountableWithOperationFinish :
       'a class
        -> 'b async_result_class
@@ -333,6 +337,10 @@ signature GIO_FILE =
     val trash :
       'a class
        -> 'b cancellable_class option
+       -> unit
+    val unmountMountableFinish :
+      'a class
+       -> 'b async_result_class
        -> unit
     val unmountMountableWithOperationFinish :
       'a class

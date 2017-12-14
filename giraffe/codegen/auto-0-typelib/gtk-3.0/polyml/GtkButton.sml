@@ -16,6 +16,7 @@ structure GtkButton :>
       val newWithLabel_ = call (getSymbol "gtk_button_new_with_label") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithMnemonic_ = call (getSymbol "gtk_button_new_with_mnemonic") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val clicked_ = call (getSymbol "gtk_button_clicked") (GtkButtonClass.PolyML.cPtr --> cVoid)
+      val enter_ = call (getSymbol "gtk_button_enter") (GtkButtonClass.PolyML.cPtr --> cVoid)
       val getAlignment_ =
         call (getSymbol "gtk_button_get_alignment")
           (
@@ -32,6 +33,9 @@ structure GtkButton :>
       val getRelief_ = call (getSymbol "gtk_button_get_relief") (GtkButtonClass.PolyML.cPtr --> GtkReliefStyle.PolyML.cVal)
       val getUseStock_ = call (getSymbol "gtk_button_get_use_stock") (GtkButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getUseUnderline_ = call (getSymbol "gtk_button_get_use_underline") (GtkButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val leave_ = call (getSymbol "gtk_button_leave") (GtkButtonClass.PolyML.cPtr --> cVoid)
+      val pressed_ = call (getSymbol "gtk_button_pressed") (GtkButtonClass.PolyML.cPtr --> cVoid)
+      val released_ = call (getSymbol "gtk_button_released") (GtkButtonClass.PolyML.cPtr --> cVoid)
       val setAlignment_ =
         call (getSymbol "gtk_button_set_alignment")
           (
@@ -64,6 +68,7 @@ structure GtkButton :>
     fun newWithLabel label = (Utf8.FFI.withPtr ---> GtkButtonClass.FFI.fromPtr false) newWithLabel_ label
     fun newWithMnemonic label = (Utf8.FFI.withPtr ---> GtkButtonClass.FFI.fromPtr false) newWithMnemonic_ label
     fun clicked self = (GtkButtonClass.FFI.withPtr ---> I) clicked_ self
+    fun enter self = (GtkButtonClass.FFI.withPtr ---> I) enter_ self
     fun getAlignment self =
       let
         val xalign
@@ -94,6 +99,9 @@ structure GtkButton :>
     fun getRelief self = (GtkButtonClass.FFI.withPtr ---> GtkReliefStyle.FFI.fromVal) getRelief_ self
     fun getUseStock self = (GtkButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseStock_ self
     fun getUseUnderline self = (GtkButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseUnderline_ self
+    fun leave self = (GtkButtonClass.FFI.withPtr ---> I) leave_ self
+    fun pressed self = (GtkButtonClass.FFI.withPtr ---> I) pressed_ self
+    fun released self = (GtkButtonClass.FFI.withPtr ---> I) released_ self
     fun setAlignment self (xalign, yalign) =
       (
         GtkButtonClass.FFI.withPtr

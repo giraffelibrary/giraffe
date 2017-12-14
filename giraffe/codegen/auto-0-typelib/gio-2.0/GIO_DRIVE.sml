@@ -11,6 +11,10 @@ signature GIO_DRIVE =
     val canStart : 'a class -> bool
     val canStartDegraded : 'a class -> bool
     val canStop : 'a class -> bool
+    val ejectFinish :
+      'a class
+       -> 'b async_result_class
+       -> unit
     val ejectWithOperationFinish :
       'a class
        -> 'b async_result_class

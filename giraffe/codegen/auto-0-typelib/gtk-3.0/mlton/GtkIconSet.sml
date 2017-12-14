@@ -2,6 +2,10 @@ structure GtkIconSet :>
   GTK_ICON_SET
     where type t = GtkIconSetRecord.t
     where type icon_source_t = GtkIconSourceRecord.t
+    where type 'a widget_class = 'a GtkWidgetClass.class
+    where type state_type_t = GtkStateType.t
+    where type text_direction_t = GtkTextDirection.t
+    where type 'a style_class = 'a GtkStyleClass.class
     where type 'a style_context_class = 'a GtkStyleContextClass.class =
   struct
     structure GInt32CVectorNType =
@@ -34,6 +38,37 @@ structure GtkIconSet :>
               x3,
               x4
             )
+    val renderIcon_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6
+         & (x7, x8) =>
+          (
+            _import "mlton_gtk_icon_set_render_icon" :
+              GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p
+               * unit GtkStyleClass.FFI.p
+               * GtkTextDirection.FFI.val_
+               * GtkStateType.FFI.val_
+               * GInt32.FFI.val_
+               * unit GtkWidgetClass.FFI.p
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7,
+              x8
+            )
     val renderIconPixbuf_ =
       fn
         x1
@@ -53,6 +88,10 @@ structure GtkIconSet :>
             )
     type t = GtkIconSetRecord.t
     type icon_source_t = GtkIconSourceRecord.t
+    type 'a widget_class = 'a GtkWidgetClass.class
+    type state_type_t = GtkStateType.t
+    type text_direction_t = GtkTextDirection.t
+    type 'a style_class = 'a GtkStyleClass.class
     type 'a style_context_class = 'a GtkStyleContextClass.class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkIconSetRecord.FFI.fromPtr true) new_ ()
@@ -81,6 +120,36 @@ structure GtkIconSet :>
       in
         sizes (LargeInt.toInt nSizes)
       end
+    fun renderIcon
+      self
+      (
+        style,
+        direction,
+        state,
+        size,
+        widget,
+        detail
+      ) =
+      (
+        GtkIconSetRecord.FFI.withPtr
+         &&&> GtkStyleClass.FFI.withOptPtr
+         &&&> GtkTextDirection.FFI.withVal
+         &&&> GtkStateType.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         &&&> GtkWidgetClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         ---> GdkPixbufPixbufClass.FFI.fromPtr true
+      )
+        renderIcon_
+        (
+          self
+           & style
+           & direction
+           & state
+           & size
+           & widget
+           & detail
+        )
     fun renderIconPixbuf self (context, size) =
       (
         GtkIconSetRecord.FFI.withPtr

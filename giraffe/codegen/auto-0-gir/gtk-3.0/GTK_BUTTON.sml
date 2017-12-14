@@ -16,6 +16,7 @@ signature GTK_BUTTON =
     val newWithLabel : string -> base class
     val newWithMnemonic : string -> base class
     val clicked : 'a class -> unit
+    val enter : 'a class -> unit
     val getAlignment : 'a class -> real * real
     val getEventWindow : 'a class -> base Gdk.WindowClass.class
     val getFocusOnClick : 'a class -> bool
@@ -25,6 +26,9 @@ signature GTK_BUTTON =
     val getRelief : 'a class -> relief_style_t
     val getUseStock : 'a class -> bool
     val getUseUnderline : 'a class -> bool
+    val leave : 'a class -> unit
+    val pressed : 'a class -> unit
+    val released : 'a class -> unit
     val setAlignment :
       'a class
        -> real * real
@@ -59,6 +63,10 @@ signature GTK_BUTTON =
        -> unit
     val activateSig : (unit -> unit) -> 'a class Signal.t
     val clickedSig : (unit -> unit) -> 'a class Signal.t
+    val enterSig : (unit -> unit) -> 'a class Signal.t
+    val leaveSig : (unit -> unit) -> 'a class Signal.t
+    val pressedSig : (unit -> unit) -> 'a class Signal.t
+    val releasedSig : (unit -> unit) -> 'a class Signal.t
     val focusOnClickProp : ('a class, bool, bool) Property.readwrite
     val imageProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
     val imagePositionProp : ('a class, position_type_t, position_type_t) Property.readwrite

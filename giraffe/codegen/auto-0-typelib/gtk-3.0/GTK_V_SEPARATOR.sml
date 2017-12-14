@@ -8,4 +8,5 @@ signature GTK_V_SEPARATOR =
     val asBuildable : 'a class -> base buildable_class
     val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
+    val new : unit -> base class
   end

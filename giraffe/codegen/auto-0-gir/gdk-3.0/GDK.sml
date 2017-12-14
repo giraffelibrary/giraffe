@@ -154,10 +154,11 @@ signature GDK =
         where type 'a device_class = 'a DeviceClass.class
         where type 'a app_launch_context_class = 'a AppLaunchContextClass.class
         where type 'a device_manager_class = 'a DeviceManagerClass.class
-        where type 'a screen_class = 'a ScreenClass.class
+        where type modifier_type_t = ModifierType.t
         where type 'a event_union = 'a Event.union
         where type atom_t = AtomRecord.t
         where type 'a window_class = 'a WindowClass.class
+        where type 'a screen_class = 'a ScreenClass.class
     structure DisplayManager :
       GDK_DISPLAY_MANAGER
         where type 'a class = 'a DisplayManagerClass.class
@@ -205,9 +206,9 @@ signature GDK =
         where type 'a class = 'a WindowClass.class
         where type window_attr_t = WindowAttrRecord.t
         where type window_edge_t = WindowEdge.t
-        where type modifier_type_t = ModifierType.t
         where type 'a display_class = 'a DisplayClass.class
         where type drag_protocol_t = DragProtocol.t
+        where type modifier_type_t = ModifierType.t
         where type 'a screen_class = 'a ScreenClass.class
         where type window_state_t = WindowState.t
         where type 'a visual_class = 'a VisualClass.class
@@ -2557,6 +2558,12 @@ signature GDK =
     val getShowEvents : unit -> bool
     val init : string list -> string list
     val initCheck : string list -> bool * string list
+    val keyboardGrab :
+      'a WindowClass.class
+       * bool
+       * LargeInt.int
+       -> GrabStatus.t
+    val keyboardUngrab : LargeInt.int -> unit
     val keyvalConvertCase : LargeInt.int -> LargeInt.int * LargeInt.int
     val keyvalFromName : string -> LargeInt.int
     val keyvalIsLower : LargeInt.int -> bool
@@ -2587,6 +2594,16 @@ signature GDK =
        * LargeInt.int
        * LargeInt.int
        -> base GdkPixbuf.PixbufClass.class
+    val pointerGrab :
+      'a WindowClass.class
+       * bool
+       * EventMask.t
+       * 'b WindowClass.class option
+       * 'c CursorClass.class option
+       * LargeInt.int
+       -> GrabStatus.t
+    val pointerIsGrabbed : unit -> bool
+    val pointerUngrab : LargeInt.int -> unit
     val preParseLibgtkOnly : unit -> unit
     val propertyDelete : 'a WindowClass.class * AtomRecord.t -> unit
     val propertyGet :

@@ -504,8 +504,18 @@ structure Gtk : GTK =
           )
       val propagateEvent_ = call (getSymbol "gtk_propagate_event") (GtkWidgetClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> cVoid)
       val rcAddDefaultFile_ = call (getSymbol "gtk_rc_add_default_file") (Utf8.PolyML.cInPtr --> cVoid)
+      val rcFindModuleInPath_ = call (getSymbol "gtk_rc_find_module_in_path") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val rcGetDefaultFiles_ = call (getSymbol "gtk_rc_get_default_files") (cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val rcGetImModuleFile_ = call (getSymbol "gtk_rc_get_im_module_file") (cVoid --> Utf8.PolyML.cOutPtr)
+      val rcGetImModulePath_ = call (getSymbol "gtk_rc_get_im_module_path") (cVoid --> Utf8.PolyML.cOutPtr)
+      val rcGetModuleDir_ = call (getSymbol "gtk_rc_get_module_dir") (cVoid --> Utf8.PolyML.cOutPtr)
       val rcGetStyle_ = call (getSymbol "gtk_rc_get_style") (GtkWidgetClass.PolyML.cPtr --> GtkStyleClass.PolyML.cPtr)
+      val rcGetThemeDir_ = call (getSymbol "gtk_rc_get_theme_dir") (cVoid --> Utf8.PolyML.cOutPtr)
+      val rcParse_ = call (getSymbol "gtk_rc_parse") (Utf8.PolyML.cInPtr --> cVoid)
+      val rcParseString_ = call (getSymbol "gtk_rc_parse_string") (Utf8.PolyML.cInPtr --> cVoid)
+      val rcReparseAll_ = call (getSymbol "gtk_rc_reparse_all") (cVoid --> GBool.PolyML.cVal)
+      val rcReparseAllForSettings_ = call (getSymbol "gtk_rc_reparse_all_for_settings") (GtkSettingsClass.PolyML.cPtr &&> GBool.PolyML.cVal --> GBool.PolyML.cVal)
+      val rcResetStyles_ = call (getSymbol "gtk_rc_reset_styles") (GtkSettingsClass.PolyML.cPtr --> cVoid)
       val rcSetDefaultFiles_ = call (getSymbol "gtk_rc_set_default_files") (Utf8CVector.PolyML.cInPtr --> cVoid)
       val renderActivity_ =
         call (getSymbol "gtk_render_activity")
@@ -934,6 +944,7 @@ structure Gtk : GTK =
     structure PrintStatus = GtkPrintStatus
     structure RcFlags = GtkRcFlags
     structure RcStyleClass = GtkRcStyleClass
+    structure RcTokenType = GtkRcTokenType
     structure RecentChooserClass = GtkRecentChooserClass
     structure RecentChooserError = GtkRecentChooserError
     exception RecentChooserError = GtkRecentChooserError
@@ -2757,8 +2768,18 @@ structure Gtk : GTK =
         )
     fun propagateEvent (widget, event) = (GtkWidgetClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> I) propagateEvent_ (widget & event)
     fun rcAddDefaultFile filename = (Utf8.FFI.withPtr ---> I) rcAddDefaultFile_ filename
+    fun rcFindModuleInPath moduleFile = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) rcFindModuleInPath_ moduleFile
     fun rcGetDefaultFiles () = (I ---> Utf8CVector.FFI.fromPtr 0) rcGetDefaultFiles_ ()
+    fun rcGetImModuleFile () = (I ---> Utf8.FFI.fromPtr 1) rcGetImModuleFile_ ()
+    fun rcGetImModulePath () = (I ---> Utf8.FFI.fromPtr 1) rcGetImModulePath_ ()
+    fun rcGetModuleDir () = (I ---> Utf8.FFI.fromPtr 1) rcGetModuleDir_ ()
     fun rcGetStyle widget = (GtkWidgetClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr false) rcGetStyle_ widget
+    fun rcGetThemeDir () = (I ---> Utf8.FFI.fromPtr 1) rcGetThemeDir_ ()
+    fun rcParse filename = (Utf8.FFI.withPtr ---> I) rcParse_ filename
+    fun rcParseString rcString = (Utf8.FFI.withPtr ---> I) rcParseString_ rcString
+    fun rcReparseAll () = (I ---> GBool.FFI.fromVal) rcReparseAll_ ()
+    fun rcReparseAllForSettings (settings, forceLoad) = (GtkSettingsClass.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) rcReparseAllForSettings_ (settings & forceLoad)
+    fun rcResetStyles settings = (GtkSettingsClass.FFI.withPtr ---> I) rcResetStyles_ settings
     fun rcSetDefaultFiles filenames = (Utf8CVector.FFI.withPtr ---> I) rcSetDefaultFiles_ filenames
     fun renderActivity
       (

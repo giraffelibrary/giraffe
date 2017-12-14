@@ -22,6 +22,7 @@ signature GIO_TLS_CONNECTION =
     val getPeerCertificateErrors : 'a class -> tls_certificate_flags_t
     val getRehandshakeMode : 'a class -> tls_rehandshake_mode_t
     val getRequireCloseNotify : 'a class -> bool
+    val getUseSystemCertdb : 'a class -> bool
     val handshake :
       'a class
        -> 'b cancellable_class option
@@ -50,6 +51,10 @@ signature GIO_TLS_CONNECTION =
       'a class
        -> bool
        -> unit
+    val setUseSystemCertdb :
+      'a class
+       -> bool
+       -> unit
     val acceptCertificateSig : (base tls_certificate_class * tls_certificate_flags_t -> bool) -> 'a class Signal.t
     val baseIoStreamProp : ('a class, base i_o_stream_class option, 'b i_o_stream_class option) Property.readwrite
     val certificateProp : ('a class, base tls_certificate_class option, 'b tls_certificate_class option) Property.readwrite
@@ -59,4 +64,5 @@ signature GIO_TLS_CONNECTION =
     val peerCertificateErrorsProp : ('a class, tls_certificate_flags_t) Property.readonly
     val rehandshakeModeProp : ('a class, tls_rehandshake_mode_t, tls_rehandshake_mode_t) Property.readwrite
     val requireCloseNotifyProp : ('a class, bool, bool) Property.readwrite
+    val useSystemCertdbProp : ('a class, bool, bool) Property.readwrite
   end

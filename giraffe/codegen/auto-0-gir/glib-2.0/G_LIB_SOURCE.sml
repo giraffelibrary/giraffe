@@ -2,6 +2,7 @@ signature G_LIB_SOURCE =
   sig
     type t
     type main_context_t
+    type time_val_t
     val getType : unit -> GObject.Type.t
     val addChildSource :
       t
@@ -14,6 +15,10 @@ signature G_LIB_SOURCE =
     val destroy : t -> unit
     val getCanRecurse : t -> bool
     val getContext : t -> main_context_t
+    val getCurrentTime :
+      t
+       -> time_val_t
+       -> unit
     val getId : t -> LargeInt.int
     val getName : t -> string
     val getPriority : t -> LargeInt.int

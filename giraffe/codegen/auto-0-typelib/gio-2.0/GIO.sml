@@ -345,6 +345,7 @@ signature GIO =
     structure DesktopAppInfoLookup :
       GIO_DESKTOP_APP_INFO_LOOKUP
         where type 'a class = 'a DesktopAppInfoLookupClass.class
+        where type 'a app_info_class = 'a AppInfoClass.class
     structure Drive :
       GIO_DRIVE
         where type 'a class = 'a DriveClass.class

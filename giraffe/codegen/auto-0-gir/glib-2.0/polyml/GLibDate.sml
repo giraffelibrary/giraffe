@@ -1,6 +1,7 @@
 structure GLibDate :>
   G_LIB_DATE
     where type t = GLibDateRecord.t
+    where type time_t = GLibTime.t
     where type time_val_t = GLibTimeValRecord.t
     where type date_day_t = GLibDateDay.t
     where type date_month_t = GLibDateMonth.t
@@ -60,6 +61,7 @@ structure GLibDate :>
       val setJulian_ = call (getSymbol "g_date_set_julian") (GLibDateRecord.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
       val setMonth_ = call (getSymbol "g_date_set_month") (GLibDateRecord.PolyML.cPtr &&> GLibDateMonth.PolyML.cVal --> cVoid)
       val setParse_ = call (getSymbol "g_date_set_parse") (GLibDateRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setTime_ = call (getSymbol "g_date_set_time") (GLibDateRecord.PolyML.cPtr &&> GLibTime.PolyML.cVal --> cVoid)
       val setTimeT_ = call (getSymbol "g_date_set_time_t") (GLibDateRecord.PolyML.cPtr &&> GLong.PolyML.cVal --> cVoid)
       val setTimeVal_ = call (getSymbol "g_date_set_time_val") (GLibDateRecord.PolyML.cPtr &&> GLibTimeValRecord.PolyML.cPtr --> cVoid)
       val setYear_ = call (getSymbol "g_date_set_year") (GLibDateRecord.PolyML.cPtr &&> GLibDateYear.PolyML.cVal --> cVoid)
@@ -95,6 +97,7 @@ structure GLibDate :>
       val validYear_ = call (getSymbol "g_date_valid_year") (GLibDateYear.PolyML.cVal --> GBool.PolyML.cVal)
     end
     type t = GLibDateRecord.t
+    type time_t = GLibTime.t
     type time_val_t = GLibTimeValRecord.t
     type date_day_t = GLibDateDay.t
     type date_month_t = GLibDateMonth.t
@@ -177,6 +180,7 @@ structure GLibDate :>
     fun setJulian self julianDate = (GLibDateRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setJulian_ (self & julianDate)
     fun setMonth self month = (GLibDateRecord.FFI.withPtr &&&> GLibDateMonth.FFI.withVal ---> I) setMonth_ (self & month)
     fun setParse self str = (GLibDateRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setParse_ (self & str)
+    fun setTime self time = (GLibDateRecord.FFI.withPtr &&&> GLibTime.FFI.withVal ---> I) setTime_ (self & time)
     fun setTimeT self timet = (GLibDateRecord.FFI.withPtr &&&> GLong.FFI.withVal ---> I) setTimeT_ (self & timet)
     fun setTimeVal self timeval = (GLibDateRecord.FFI.withPtr &&&> GLibTimeValRecord.FFI.withPtr ---> I) setTimeVal_ (self & timeval)
     fun setYear self year = (GLibDateRecord.FFI.withPtr &&&> GLibDateYear.FFI.withVal ---> I) setYear_ (self & year)

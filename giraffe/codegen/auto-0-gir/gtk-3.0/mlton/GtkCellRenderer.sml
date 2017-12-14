@@ -223,6 +223,35 @@ structure GtkCellRenderer :>
             )
     val getRequestMode_ = _import "gtk_cell_renderer_get_request_mode" : GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p -> GtkSizeRequestMode.FFI.val_;
     val getSensitive_ = _import "gtk_cell_renderer_get_sensitive" : GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p -> GBool.FFI.val_;
+    val getSize_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6
+         & x7 =>
+          (
+            _import "gtk_cell_renderer_get_size" :
+              GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * unit GdkRectangleRecord.FFI.p
+               * GInt.FFI.ref_
+               * GInt.FFI.ref_
+               * GInt.FFI.ref_
+               * GInt.FFI.ref_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7
+            )
     val getState_ =
       fn
         x1
@@ -613,6 +642,45 @@ structure GtkCellRenderer :>
       end
     fun getRequestMode self = (GtkCellRendererClass.FFI.withPtr ---> GtkSizeRequestMode.FFI.fromVal) getRequestMode_ self
     fun getSensitive self = (GtkCellRendererClass.FFI.withPtr ---> GBool.FFI.fromVal) getSensitive_ self
+    fun getSize self (widget, cellArea) =
+      let
+        val xOffset
+         & yOffset
+         & width
+         & height
+         & () =
+          (
+            GtkCellRendererClass.FFI.withPtr
+             &&&> GtkWidgetClass.FFI.withPtr
+             &&&> GdkRectangleRecord.FFI.withOptPtr
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && I
+          )
+            getSize_
+            (
+              self
+               & widget
+               & cellArea
+               & GInt.null
+               & GInt.null
+               & GInt.null
+               & GInt.null
+            )
+      in
+        (
+          xOffset,
+          yOffset,
+          width,
+          height
+        )
+      end
     fun getState self (widget, cellState) =
       (
         GtkCellRendererClass.FFI.withPtr

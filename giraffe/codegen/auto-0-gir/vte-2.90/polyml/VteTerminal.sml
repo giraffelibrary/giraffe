@@ -655,6 +655,11 @@ structure VteTerminal :>
           get = fn x => get "pointer-autohide" boolean x,
           set = fn x => set "pointer-autohide" boolean x
         }
+      val ptyProp =
+        {
+          get = fn x => get "pty" int x,
+          set = fn x => set "pty" int x
+        }
       val ptyObjectProp =
         {
           get = fn x => get "pty-object" VtePtyClass.tOpt x,

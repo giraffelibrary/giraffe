@@ -176,6 +176,23 @@ structure VteTerminal :>
             )
     val matchRemove_ = fn x1 & x2 => (_import "vte_terminal_match_remove" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val matchRemoveAll_ = _import "vte_terminal_match_remove_all" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> unit;
+    val matchSetCursor_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "vte_terminal_match_set_cursor" :
+              VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
+               * GInt.FFI.val_
+               * unit GdkCursorClass.FFI.p
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val matchSetCursorName_ =
       fn
         x1
@@ -547,6 +564,19 @@ structure VteTerminal :>
       end
     fun matchRemove self tag = (VteTerminalClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) matchRemove_ (self & tag)
     fun matchRemoveAll self = (VteTerminalClass.FFI.withPtr ---> I) matchRemoveAll_ self
+    fun matchSetCursor self (tag, cursor) =
+      (
+        VteTerminalClass.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GdkCursorClass.FFI.withOptPtr
+         ---> I
+      )
+        matchSetCursor_
+        (
+          self
+           & tag
+           & cursor
+        )
     fun matchSetCursorName self (tag, cursorName) =
       (
         VteTerminalClass.FFI.withPtr

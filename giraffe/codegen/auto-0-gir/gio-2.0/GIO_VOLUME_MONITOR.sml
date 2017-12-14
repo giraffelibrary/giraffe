@@ -6,6 +6,7 @@ signature GIO_VOLUME_MONITOR =
     type 'a volume_class
     type t = base class
     val getType : unit -> GObject.Type.t
+    val adoptOrphanMount : 'a mount_class -> base volume_class
     val get : unit -> base class
     val getMountForUuid :
       'a class

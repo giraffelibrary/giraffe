@@ -3,9 +3,9 @@ signature GDK_WINDOW =
     type 'a class
     type window_attr_t
     type window_edge_t
-    type modifier_type_t
     type 'a display_class
     type drag_protocol_t
+    type modifier_type_t
     type 'a screen_class
     type window_state_t
     type 'a visual_class
@@ -29,6 +29,11 @@ signature GDK_WINDOW =
        * window_attr_t
        * LargeInt.int
        -> base class
+    val atPointer :
+      unit
+       -> base class
+           * LargeInt.int
+           * LargeInt.int
     val constrainSize :
       geometry_t
        * LargeInt.int
@@ -137,6 +142,12 @@ signature GDK_WINDOW =
            * LargeInt.int
            * LargeInt.int
     val getParent : 'a class -> base class
+    val getPointer :
+      'a class
+       -> base class
+           * LargeInt.int
+           * LargeInt.int
+           * modifier_type_t
     val getPosition : 'a class -> LargeInt.int * LargeInt.int
     val getRootCoords :
       'a class

@@ -12,6 +12,21 @@ structure GioUnixSocketAddress :>
     structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "g_unix_socket_address_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "mlton_g_unix_socket_address_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
+    val newAbstract_ =
+      fn
+        (x1, x2) & x3 =>
+          (
+            _import "mlton_g_unix_socket_address_new_abstract" :
+              GUInt8CVectorN.MLton.p1
+               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GInt32.FFI.val_
+               -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val newWithType_ =
       fn
         (x1, x2)
@@ -33,6 +48,7 @@ structure GioUnixSocketAddress :>
             )
     val abstractNamesSupported_ = _import "g_unix_socket_address_abstract_names_supported" : unit -> GBool.FFI.val_;
     val getAddressType_ = _import "g_unix_socket_address_get_address_type" : GioUnixSocketAddressClass.FFI.notnull GioUnixSocketAddressClass.FFI.p -> GioUnixSocketAddressType.FFI.val_;
+    val getIsAbstract_ = _import "g_unix_socket_address_get_is_abstract" : GioUnixSocketAddressClass.FFI.notnull GioUnixSocketAddressClass.FFI.p -> GBool.FFI.val_;
     val getPath_ = _import "g_unix_socket_address_get_path" : GioUnixSocketAddressClass.FFI.notnull GioUnixSocketAddressClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getPathLen_ = _import "g_unix_socket_address_get_path_len" : GioUnixSocketAddressClass.FFI.notnull GioUnixSocketAddressClass.FFI.p -> GUInt64.FFI.val_;
     type 'a class = 'a GioUnixSocketAddressClass.class
@@ -42,6 +58,13 @@ structure GioUnixSocketAddress :>
     fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new path = (Utf8.FFI.withPtr ---> GioUnixSocketAddressClass.FFI.fromPtr true) new_ path
+    fun newAbstract path =
+      let
+        val pathLen = LargeInt.fromInt (GUInt8CVectorN.length path)
+        val retVal = (GUInt8CVectorN.FFI.withPtr &&&> GInt32.FFI.withVal ---> GioUnixSocketAddressClass.FFI.fromPtr true) newAbstract_ (path & pathLen)
+      in
+        retVal
+      end
     fun newWithType (path, type') =
       let
         val pathLen = LargeInt.fromInt (GUInt8CVectorN.length path)
@@ -63,6 +86,7 @@ structure GioUnixSocketAddress :>
       end
     fun abstractNamesSupported () = (I ---> GBool.FFI.fromVal) abstractNamesSupported_ ()
     fun getAddressType self = (GioUnixSocketAddressClass.FFI.withPtr ---> GioUnixSocketAddressType.FFI.fromVal) getAddressType_ self
+    fun getIsAbstract self = (GioUnixSocketAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsAbstract_ self
     fun getPath self = (GioUnixSocketAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPath_ self
     fun getPathLen self = (GioUnixSocketAddressClass.FFI.withPtr ---> GUInt64.FFI.fromVal) getPathLen_ self
     local

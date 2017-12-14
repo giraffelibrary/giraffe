@@ -9,6 +9,7 @@ structure GioVolumeMonitor :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "g_volume_monitor_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val adoptOrphanMount_ = call (getSymbol "g_volume_monitor_adopt_orphan_mount") (GioMountClass.PolyML.cPtr --> GioVolumeClass.PolyML.cPtr)
       val get_ = call (getSymbol "g_volume_monitor_get") (cVoid --> GioVolumeMonitorClass.PolyML.cPtr)
       val getMountForUuid_ = call (getSymbol "g_volume_monitor_get_mount_for_uuid") (GioVolumeMonitorClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioMountClass.PolyML.cPtr)
       val getVolumeForUuid_ = call (getSymbol "g_volume_monitor_get_volume_for_uuid") (GioVolumeMonitorClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioVolumeClass.PolyML.cPtr)
@@ -19,6 +20,7 @@ structure GioVolumeMonitor :>
     type 'a volume_class = 'a GioVolumeClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun adoptOrphanMount mount = (GioMountClass.FFI.withPtr ---> GioVolumeClass.FFI.fromPtr true) adoptOrphanMount_ mount
     fun get () = (I ---> GioVolumeMonitorClass.FFI.fromPtr true) get_ ()
     fun getMountForUuid self uuid = (GioVolumeMonitorClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioMountClass.FFI.fromPtr true) getMountForUuid_ (self & uuid)
     fun getVolumeForUuid self uuid = (GioVolumeMonitorClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioVolumeClass.FFI.fromPtr true) getVolumeForUuid_ (self & uuid)

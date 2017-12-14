@@ -5,9 +5,14 @@ signature GDK_APP_LAUNCH_CONTEXT =
     type 'a display_class
     type t = base class
     val getType : unit -> GObject.Type.t
+    val new : unit -> base class
     val setDesktop :
       'a class
        -> LargeInt.int
+       -> unit
+    val setDisplay :
+      'a class
+       -> 'b display_class
        -> unit
     val setIcon :
       'a class

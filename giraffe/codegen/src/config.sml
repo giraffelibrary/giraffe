@@ -55,6 +55,8 @@ excludedInterfaceTypes := [
   ("GLib", "MemVTable"),
   ("GLib", "Mutex"),
   ("GLib", "PollFD"),
+  ("GLib", "Scanner"),
+  ("GLib", "ScannerConfig"),
   ("GLib", "UnicodeScript"),
   ("GLib", "UnicodeBreakType"),
   ("Gio",  "OutputVector")
@@ -80,6 +82,7 @@ structTypes := [
   (("GLib", "PatternSpec"),           Record {dup = "", free = "g_pattern_spec_free"}),
   (("GLib", "PollFD"),                ValueRecord),
   (("GLib", "Regex"),                 Record {dup = "g_regex_ref", free = "g_regex_unref"}),
+
   (("GLib", "Source"),                Record {dup = "g_source_ref", free = "g_source_unref"}),
   (("GLib", "String"),                Record {dup = "gstring_copy", free = "gstring_free"}),
   (("GLib", "TestCase"),              DisguisedRecord),

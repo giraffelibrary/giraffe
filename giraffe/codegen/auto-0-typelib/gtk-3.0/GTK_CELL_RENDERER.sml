@@ -50,6 +50,13 @@ signature GTK_CELL_RENDERER =
        -> LargeInt.int * LargeInt.int
     val getRequestMode : 'a class -> size_request_mode_t
     val getSensitive : 'a class -> bool
+    val getSize :
+      'a class
+       -> 'b widget_class * Cairo.RectangleIntRecord.t option
+       -> LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
+           * LargeInt.int
     val getState :
       'a class
        -> 'b widget_class * cell_renderer_state_t

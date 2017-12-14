@@ -19,6 +19,14 @@ structure GioVolume :>
       val getType_ = call (getSymbol "g_volume_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val canEject_ = call (getSymbol "g_volume_can_eject") (GioVolumeClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val canMount_ = call (getSymbol "g_volume_can_mount") (GioVolumeClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val ejectFinish_ =
+        call (getSymbol "g_volume_eject_finish")
+          (
+            GioVolumeClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val ejectWithOperationFinish_ =
         call (getSymbol "g_volume_eject_with_operation_finish")
           (
@@ -55,6 +63,19 @@ structure GioVolume :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun canEject self = (GioVolumeClass.FFI.withPtr ---> GBool.FFI.fromVal) canEject_ self
     fun canMount self = (GioVolumeClass.FFI.withPtr ---> GBool.FFI.fromVal) canMount_ self
+    fun ejectFinish self result =
+      (
+        GioVolumeClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        ejectFinish_
+        (
+          self
+           & result
+           & []
+        )
     fun ejectWithOperationFinish self result =
       (
         GioVolumeClass.FFI.withPtr

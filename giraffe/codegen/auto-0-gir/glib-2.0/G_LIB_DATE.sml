@@ -1,6 +1,7 @@
 signature G_LIB_DATE =
   sig
     type t
+    type time_t
     type time_val_t
     type date_day_t
     type date_month_t
@@ -78,6 +79,10 @@ signature G_LIB_DATE =
     val setParse :
       t
        -> string
+       -> unit
+    val setTime :
+      t
+       -> time_t
        -> unit
     val setTimeT :
       t

@@ -9,9 +9,13 @@ structure GtkViewport :>
     val getType_ = _import "gtk_viewport_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = fn x1 & x2 => (_import "gtk_viewport_new" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p * GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
     val getBinWindow_ = _import "gtk_viewport_get_bin_window" : GtkViewportClass.FFI.notnull GtkViewportClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
+    val getHadjustment_ = _import "gtk_viewport_get_hadjustment" : GtkViewportClass.FFI.notnull GtkViewportClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
     val getShadowType_ = _import "gtk_viewport_get_shadow_type" : GtkViewportClass.FFI.notnull GtkViewportClass.FFI.p -> GtkShadowType.FFI.val_;
+    val getVadjustment_ = _import "gtk_viewport_get_vadjustment" : GtkViewportClass.FFI.notnull GtkViewportClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
     val getViewWindow_ = _import "gtk_viewport_get_view_window" : GtkViewportClass.FFI.notnull GtkViewportClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
+    val setHadjustment_ = fn x1 & x2 => (_import "gtk_viewport_set_hadjustment" : GtkViewportClass.FFI.notnull GtkViewportClass.FFI.p * unit GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
     val setShadowType_ = fn x1 & x2 => (_import "gtk_viewport_set_shadow_type" : GtkViewportClass.FFI.notnull GtkViewportClass.FFI.p * GtkShadowType.FFI.val_ -> unit;) (x1, x2)
+    val setVadjustment_ = fn x1 & x2 => (_import "gtk_viewport_set_vadjustment" : GtkViewportClass.FFI.notnull GtkViewportClass.FFI.p * unit GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkViewportClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a scrollable_class = 'a GtkScrollableClass.class
@@ -24,9 +28,13 @@ structure GtkViewport :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> GtkViewportClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
     fun getBinWindow self = (GtkViewportClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self
+    fun getHadjustment self = (GtkViewportClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
     fun getShadowType self = (GtkViewportClass.FFI.withPtr ---> GtkShadowType.FFI.fromVal) getShadowType_ self
+    fun getVadjustment self = (GtkViewportClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
     fun getViewWindow self = (GtkViewportClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getViewWindow_ self
+    fun setHadjustment self adjustment = (GtkViewportClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setHadjustment_ (self & adjustment)
     fun setShadowType self type' = (GtkViewportClass.FFI.withPtr &&&> GtkShadowType.FFI.withVal ---> I) setShadowType_ (self & type')
+    fun setVadjustment self adjustment = (GtkViewportClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setVadjustment_ (self & adjustment)
     local
       open Property
     in

@@ -12,9 +12,13 @@ structure GtkViewport :>
       val getType_ = call (getSymbol "gtk_viewport_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_viewport_new") (GtkAdjustmentClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getBinWindow_ = call (getSymbol "gtk_viewport_get_bin_window") (GtkViewportClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getHadjustment_ = call (getSymbol "gtk_viewport_get_hadjustment") (GtkViewportClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getShadowType_ = call (getSymbol "gtk_viewport_get_shadow_type") (GtkViewportClass.PolyML.cPtr --> GtkShadowType.PolyML.cVal)
+      val getVadjustment_ = call (getSymbol "gtk_viewport_get_vadjustment") (GtkViewportClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getViewWindow_ = call (getSymbol "gtk_viewport_get_view_window") (GtkViewportClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val setHadjustment_ = call (getSymbol "gtk_viewport_set_hadjustment") (GtkViewportClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cOptPtr --> cVoid)
       val setShadowType_ = call (getSymbol "gtk_viewport_set_shadow_type") (GtkViewportClass.PolyML.cPtr &&> GtkShadowType.PolyML.cVal --> cVoid)
+      val setVadjustment_ = call (getSymbol "gtk_viewport_set_vadjustment") (GtkViewportClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cOptPtr --> cVoid)
     end
     type 'a class = 'a GtkViewportClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -28,9 +32,13 @@ structure GtkViewport :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> GtkViewportClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
     fun getBinWindow self = (GtkViewportClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self
+    fun getHadjustment self = (GtkViewportClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
     fun getShadowType self = (GtkViewportClass.FFI.withPtr ---> GtkShadowType.FFI.fromVal) getShadowType_ self
+    fun getVadjustment self = (GtkViewportClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
     fun getViewWindow self = (GtkViewportClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getViewWindow_ self
+    fun setHadjustment self adjustment = (GtkViewportClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setHadjustment_ (self & adjustment)
     fun setShadowType self type' = (GtkViewportClass.FFI.withPtr &&&> GtkShadowType.FFI.withVal ---> I) setShadowType_ (self & type')
+    fun setVadjustment self adjustment = (GtkViewportClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setVadjustment_ (self & adjustment)
     local
       open Property
     in

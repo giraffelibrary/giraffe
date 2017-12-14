@@ -9,6 +9,7 @@ structure GtkTreeView :>
     where type 'a entry_class = 'a GtkEntryClass.class
     where type 'a cell_renderer_class = 'a GtkCellRendererClass.class
     where type 'a tooltip_class = 'a GtkTooltipClass.class
+    where type 'a adjustment_class = 'a GtkAdjustmentClass.class
     where type movement_step_t = GtkMovementStep.t
     where type tree_path_t = GtkTreePathRecord.t
     where type tree_iter_t = GtkTreeIterRecord.t
@@ -173,6 +174,7 @@ structure GtkTreeView :>
       val getExpanderColumn_ = call (getSymbol "gtk_tree_view_get_expander_column") (GtkTreeViewClass.PolyML.cPtr --> GtkTreeViewColumnClass.PolyML.cPtr)
       val getFixedHeightMode_ = call (getSymbol "gtk_tree_view_get_fixed_height_mode") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getGridLines_ = call (getSymbol "gtk_tree_view_get_grid_lines") (GtkTreeViewClass.PolyML.cPtr --> GtkTreeViewGridLines.PolyML.cVal)
+      val getHadjustment_ = call (getSymbol "gtk_tree_view_get_hadjustment") (GtkTreeViewClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getHeadersClickable_ = call (getSymbol "gtk_tree_view_get_headers_clickable") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getHeadersVisible_ = call (getSymbol "gtk_tree_view_get_headers_visible") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getHoverExpand_ = call (getSymbol "gtk_tree_view_get_hover_expand") (GtkTreeViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -211,6 +213,7 @@ structure GtkTreeView :>
              &&> GtkTreeIterRecord.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
+      val getVadjustment_ = call (getSymbol "gtk_tree_view_get_vadjustment") (GtkTreeViewClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
       val getVisibleRange_ =
         call (getSymbol "gtk_tree_view_get_visible_range")
           (
@@ -310,6 +313,7 @@ structure GtkTreeView :>
       val setExpanderColumn_ = call (getSymbol "gtk_tree_view_set_expander_column") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreeViewColumnClass.PolyML.cPtr --> cVoid)
       val setFixedHeightMode_ = call (getSymbol "gtk_tree_view_set_fixed_height_mode") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setGridLines_ = call (getSymbol "gtk_tree_view_set_grid_lines") (GtkTreeViewClass.PolyML.cPtr &&> GtkTreeViewGridLines.PolyML.cVal --> cVoid)
+      val setHadjustment_ = call (getSymbol "gtk_tree_view_set_hadjustment") (GtkTreeViewClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cOptPtr --> cVoid)
       val setHeadersClickable_ = call (getSymbol "gtk_tree_view_set_headers_clickable") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setHeadersVisible_ = call (getSymbol "gtk_tree_view_set_headers_visible") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setHoverExpand_ = call (getSymbol "gtk_tree_view_set_hover_expand") (GtkTreeViewClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
@@ -341,6 +345,7 @@ structure GtkTreeView :>
              &&> GtkTreePathRecord.PolyML.cPtr
              --> cVoid
           )
+      val setVadjustment_ = call (getSymbol "gtk_tree_view_set_vadjustment") (GtkTreeViewClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cOptPtr --> cVoid)
       val unsetRowsDragDest_ = call (getSymbol "gtk_tree_view_unset_rows_drag_dest") (GtkTreeViewClass.PolyML.cPtr --> cVoid)
       val unsetRowsDragSource_ = call (getSymbol "gtk_tree_view_unset_rows_drag_source") (GtkTreeViewClass.PolyML.cPtr --> cVoid)
     end
@@ -353,6 +358,7 @@ structure GtkTreeView :>
     type 'a entry_class = 'a GtkEntryClass.class
     type 'a cell_renderer_class = 'a GtkCellRendererClass.class
     type 'a tooltip_class = 'a GtkTooltipClass.class
+    type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type movement_step_t = GtkMovementStep.t
     type tree_path_t = GtkTreePathRecord.t
     type tree_iter_t = GtkTreeIterRecord.t
@@ -709,6 +715,7 @@ structure GtkTreeView :>
     fun getExpanderColumn self = (GtkTreeViewClass.FFI.withPtr ---> GtkTreeViewColumnClass.FFI.fromPtr false) getExpanderColumn_ self
     fun getFixedHeightMode self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getFixedHeightMode_ self
     fun getGridLines self = (GtkTreeViewClass.FFI.withPtr ---> GtkTreeViewGridLines.FFI.fromVal) getGridLines_ self
+    fun getHadjustment self = (GtkTreeViewClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
     fun getHeadersClickable self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getHeadersClickable_ self
     fun getHeadersVisible self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getHeadersVisible_ self
     fun getHoverExpand self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getHoverExpand_ self
@@ -820,6 +827,7 @@ structure GtkTreeView :>
           y
         )
       end
+    fun getVadjustment self = (GtkTreeViewClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
     fun getVisibleRange self =
       let
         val startPath
@@ -1036,6 +1044,7 @@ structure GtkTreeView :>
     fun setExpanderColumn self column = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreeViewColumnClass.FFI.withPtr ---> I) setExpanderColumn_ (self & column)
     fun setFixedHeightMode self enable = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setFixedHeightMode_ (self & enable)
     fun setGridLines self gridLines = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreeViewGridLines.FFI.withVal ---> I) setGridLines_ (self & gridLines)
+    fun setHadjustment self adjustment = (GtkTreeViewClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setHadjustment_ (self & adjustment)
     fun setHeadersClickable self setting = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHeadersClickable_ (self & setting)
     fun setHeadersVisible self headersVisible = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHeadersVisible_ (self & headersVisible)
     fun setHoverExpand self expand = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHoverExpand_ (self & expand)
@@ -1086,6 +1095,7 @@ structure GtkTreeView :>
            & tooltip
            & path
         )
+    fun setVadjustment self adjustment = (GtkTreeViewClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setVadjustment_ (self & adjustment)
     fun unsetRowsDragDest self = (GtkTreeViewClass.FFI.withPtr ---> I) unsetRowsDragDest_ self
     fun unsetRowsDragSource self = (GtkTreeViewClass.FFI.withPtr ---> I) unsetRowsDragSource_ self
     local

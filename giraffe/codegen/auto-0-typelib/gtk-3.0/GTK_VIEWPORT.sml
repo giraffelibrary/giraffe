@@ -12,11 +12,21 @@ signature GTK_VIEWPORT =
     val getType : unit -> GObject.Type.t
     val new : 'a adjustment_class * 'b adjustment_class -> base class
     val getBinWindow : 'a class -> base Gdk.WindowClass.class
+    val getHadjustment : 'a class -> base adjustment_class
     val getShadowType : 'a class -> shadow_type_t
+    val getVadjustment : 'a class -> base adjustment_class
     val getViewWindow : 'a class -> base Gdk.WindowClass.class
+    val setHadjustment :
+      'a class
+       -> 'b adjustment_class option
+       -> unit
     val setShadowType :
       'a class
        -> shadow_type_t
+       -> unit
+    val setVadjustment :
+      'a class
+       -> 'b adjustment_class option
        -> unit
     val shadowTypeProp : ('a class, shadow_type_t, shadow_type_t) Property.readwrite
   end

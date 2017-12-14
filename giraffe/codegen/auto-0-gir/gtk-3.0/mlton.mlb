@@ -340,6 +340,7 @@ in
   GTK_RC_FLAGS.sml
   GTK_RC_STYLE_CLASS.sml
   GTK_RC_STYLE.sml
+  GTK_RC_TOKEN_TYPE.sml
   GTK_RECENT_ACTION_CLASS.sml
   GTK_RECENT_ACTION.sml
   GTK_RECENT_CHOOSER_CLASS.sml
@@ -658,6 +659,7 @@ in
     mlton/GtkPrintStatus.sml
     mlton/GtkRcFlags.sml
     mlton/GtkRcStyleClass.sml
+    mlton/GtkRcTokenType.sml
     mlton/GtkRecentChooserClass.sml
     mlton/GtkRecentChooserError.sml
     mlton/GtkRecentDataRecord.sml

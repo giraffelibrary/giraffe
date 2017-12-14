@@ -9,21 +9,21 @@ signature GTK_WIDGET =
     type target_list_t
     type 'a clipboard_class
     type widget_path_t
-    type requisition_t
     type size_request_mode_t
     type 'a settings_class
     type 'a style_context_class
     type 'a rc_style_class
-    type state_type_t
     type 'a accel_group_class
     type 'a window_class
     type allocation_t
+    type requisition_t
     type text_direction_t
     type drag_result_t
     type direction_type_t
     type 'a tooltip_class
     type selection_data_t
     type widget_help_type_t
+    type state_type_t
     type state_flags_t
     type 'a container_class
     type 'a style_class
@@ -190,6 +190,7 @@ signature GTK_WIDGET =
     val getAppPaintable : 'a class -> bool
     val getCanDefault : 'a class -> bool
     val getCanFocus : 'a class -> bool
+    val getChildRequisition : 'a class -> requisition_t
     val getChildVisible : 'a class -> bool
     val getClipboard :
       'a class
@@ -240,11 +241,13 @@ signature GTK_WIDGET =
     val getRealized : 'a class -> bool
     val getReceivesDefault : 'a class -> bool
     val getRequestMode : 'a class -> size_request_mode_t
+    val getRequisition : 'a class -> requisition_t
     val getRootWindow : 'a class -> base Gdk.WindowClass.class
     val getScreen : 'a class -> base Gdk.ScreenClass.class
     val getSensitive : 'a class -> bool
     val getSettings : 'a class -> base settings_class
     val getSizeRequest : 'a class -> LargeInt.int * LargeInt.int
+    val getState : 'a class -> state_type_t
     val getStateFlags : 'a class -> state_flags_t
     val getStyle : 'a class -> base style_class
     val getStyleContext : 'a class -> base style_context_class
@@ -305,6 +308,10 @@ signature GTK_WIDGET =
     val modifyBg :
       'a class
        -> state_type_t * Gdk.ColorRecord.t option
+       -> unit
+    val modifyCursor :
+      'a class
+       -> Gdk.ColorRecord.t * Gdk.ColorRecord.t
        -> unit
     val modifyFg :
       'a class
@@ -377,6 +384,12 @@ signature GTK_WIDGET =
       'a class
        -> 'b class
        -> unit
+    val renderIcon :
+      'a class
+       -> string
+           * LargeInt.int
+           * string option
+       -> base GdkPixbuf.PixbufClass.class
     val renderIconPixbuf :
       'a class
        -> string * LargeInt.int
@@ -519,6 +532,10 @@ signature GTK_WIDGET =
       'a class
        -> LargeInt.int * LargeInt.int
        -> unit
+    val setState :
+      'a class
+       -> state_type_t
+       -> unit
     val setStateFlags :
       'a class
        -> state_flags_t * bool
@@ -574,6 +591,8 @@ signature GTK_WIDGET =
       'a class
        -> allocation_t
        -> unit
+    val sizeRequest : 'a class -> requisition_t
+    val styleAttach : 'a class -> unit
     val styleGetProperty :
       'a class
        -> string * GObject.ValueRecord.t
@@ -689,6 +708,7 @@ signature GTK_WIDGET =
     val showSig : (unit -> unit) -> 'a class Signal.t
     val showHelpSig : (widget_help_type_t -> bool) -> 'a class Signal.t
     val sizeAllocateSig : (Cairo.RectangleIntRecord.t -> unit) -> 'a class Signal.t
+    val stateChangedSig : (state_type_t -> unit) -> 'a class Signal.t
     val stateFlagsChangedSig : (state_flags_t -> unit) -> 'a class Signal.t
     val styleSetSig : (base style_class option -> unit) -> 'a class Signal.t
     val styleUpdatedSig : (unit -> unit) -> 'a class Signal.t

@@ -930,6 +930,7 @@ structure GLib : G_LIB =
             )
     val sliceGetConfig_ = _import "g_slice_get_config" : GLibSliceConfig.FFI.val_ -> GInt64.FFI.val_;
     val sliceSetConfig_ = fn x1 & x2 => (_import "g_slice_set_config" : GLibSliceConfig.FFI.val_ * GInt64.FFI.val_ -> unit;) (x1, x2)
+    val slistPopAllocator_ = _import "g_slist_pop_allocator" : unit -> unit;
     val sourceRemove_ = _import "g_source_remove" : GUInt32.FFI.val_ -> GBool.FFI.val_;
     val sourceSetNameById_ =
       fn
@@ -1995,6 +1996,7 @@ structure GLib : G_LIB =
     fun shellUnquote quotedString = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) shellUnquote_ (quotedString & [])
     fun sliceGetConfig ckey = (GLibSliceConfig.FFI.withVal ---> GInt64.FFI.fromVal) sliceGetConfig_ ckey
     fun sliceSetConfig (ckey, value) = (GLibSliceConfig.FFI.withVal &&&> GInt64.FFI.withVal ---> I) sliceSetConfig_ (ckey & value)
+    fun slistPopAllocator () = (I ---> I) slistPopAllocator_ ()
     fun sourceRemove tag = (GUInt32.FFI.withVal ---> GBool.FFI.fromVal) sourceRemove_ tag
     fun sourceSetNameById (tag, name) = (GUInt32.FFI.withVal &&&> Utf8.FFI.withPtr ---> I) sourceSetNameById_ (tag & name)
     fun spawnClosePid pid = (GInt32.FFI.withVal ---> I) spawnClosePid_ pid

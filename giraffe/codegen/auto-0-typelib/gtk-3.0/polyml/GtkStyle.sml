@@ -12,6 +12,7 @@ structure GtkStyle :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_style_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_style_new") (cVoid --> GtkStyleClass.PolyML.cPtr)
       val applyDefaultBackground_ =
         call (getSymbol "gtk_style_apply_default_background")
           (
@@ -67,6 +68,7 @@ structure GtkStyle :>
     type 'a style_context_class = 'a GtkStyleContextClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkStyleClass.FFI.fromPtr true) new_ ()
     fun applyDefaultBackground
       self
       (

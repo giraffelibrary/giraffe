@@ -16,6 +16,23 @@ structure GioVolume :>
     val getType_ = _import "g_volume_get_type" : unit -> GObjectType.FFI.val_;
     val canEject_ = _import "g_volume_can_eject" : GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p -> GBool.FFI.val_;
     val canMount_ = _import "g_volume_can_mount" : GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p -> GBool.FFI.val_;
+    val ejectFinish_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "g_volume_eject_finish" :
+              GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p
+               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+               * (unit, unit) GLibErrorRecord.FFI.r
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val ejectWithOperationFinish_ =
       fn
         x1
@@ -83,6 +100,19 @@ structure GioVolume :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun canEject self = (GioVolumeClass.FFI.withPtr ---> GBool.FFI.fromVal) canEject_ self
     fun canMount self = (GioVolumeClass.FFI.withPtr ---> GBool.FFI.fromVal) canMount_ self
+    fun ejectFinish self result =
+      (
+        GioVolumeClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        ejectFinish_
+        (
+          self
+           & result
+           & []
+        )
     fun ejectWithOperationFinish self result =
       (
         GioVolumeClass.FFI.withPtr

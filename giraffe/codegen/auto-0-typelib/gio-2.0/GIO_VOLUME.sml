@@ -10,6 +10,10 @@ signature GIO_VOLUME =
     val getType : unit -> GObject.Type.t
     val canEject : 'a class -> bool
     val canMount : 'a class -> bool
+    val ejectFinish :
+      'a class
+       -> 'b async_result_class
+       -> unit
     val ejectWithOperationFinish :
       'a class
        -> 'b async_result_class

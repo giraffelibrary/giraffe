@@ -5,6 +5,7 @@ signature GTK_TEXT_VIEW =
     type 'a scrollable_class
     type 'a text_child_anchor_class
     type text_attributes_t
+    type 'a adjustment_class
     type 'a widget_class
     type 'a text_mark_class
     type text_iter_t
@@ -69,6 +70,7 @@ signature GTK_TEXT_VIEW =
     val getCursorVisible : 'a class -> bool
     val getDefaultAttributes : 'a class -> text_attributes_t
     val getEditable : 'a class -> bool
+    val getHadjustment : 'a class -> base adjustment_class
     val getIndent : 'a class -> LargeInt.int
     val getIterAtLocation :
       'a class
@@ -98,6 +100,7 @@ signature GTK_TEXT_VIEW =
     val getPixelsInsideWrap : 'a class -> LargeInt.int
     val getRightMargin : 'a class -> LargeInt.int
     val getTabs : 'a class -> Pango.TabArrayRecord.t
+    val getVadjustment : 'a class -> base adjustment_class
     val getVisibleRect : 'a class -> Cairo.RectangleIntRecord.t
     val getWindow :
       'a class

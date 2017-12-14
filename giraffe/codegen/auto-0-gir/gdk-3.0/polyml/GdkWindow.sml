@@ -3,9 +3,9 @@ structure GdkWindow :>
     where type 'a class = 'a GdkWindowClass.class
     where type window_attr_t = GdkWindowAttrRecord.t
     where type window_edge_t = GdkWindowEdge.t
-    where type modifier_type_t = GdkModifierType.t
     where type 'a display_class = 'a GdkDisplayClass.class
     where type drag_protocol_t = GdkDragProtocol.t
+    where type modifier_type_t = GdkModifierType.t
     where type 'a screen_class = 'a GdkScreenClass.class
     where type window_state_t = GdkWindowState.t
     where type 'a visual_class = 'a GdkVisualClass.class
@@ -35,6 +35,7 @@ structure GdkWindow :>
              &&> GInt.PolyML.cVal
              --> GdkWindowClass.PolyML.cPtr
           )
+      val atPointer_ = call (getSymbol "gdk_window_at_pointer") (GInt.PolyML.cRef &&> GInt.PolyML.cRef --> GdkWindowClass.PolyML.cPtr)
       val constrainSize_ =
         call (getSymbol "gdk_window_constrain_size")
           (
@@ -161,6 +162,15 @@ structure GdkWindow :>
              --> GInt.PolyML.cVal
           )
       val getParent_ = call (getSymbol "gdk_window_get_parent") (GdkWindowClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getPointer_ =
+        call (getSymbol "gdk_window_get_pointer")
+          (
+            GdkWindowClass.PolyML.cPtr
+             &&> GInt.PolyML.cRef
+             &&> GInt.PolyML.cRef
+             &&> GdkModifierType.PolyML.cRef
+             --> GdkWindowClass.PolyML.cPtr
+          )
       val getPosition_ =
         call (getSymbol "gdk_window_get_position")
           (
@@ -382,9 +392,9 @@ structure GdkWindow :>
     type 'a class = 'a GdkWindowClass.class
     type window_attr_t = GdkWindowAttrRecord.t
     type window_edge_t = GdkWindowEdge.t
-    type modifier_type_t = GdkModifierType.t
     type 'a display_class = 'a GdkDisplayClass.class
     type drag_protocol_t = GdkDragProtocol.t
+    type modifier_type_t = GdkModifierType.t
     type 'a screen_class = 'a GdkScreenClass.class
     type window_state_t = GdkWindowState.t
     type 'a visual_class = 'a GdkVisualClass.class
@@ -421,6 +431,26 @@ structure GdkWindow :>
            & attributes
            & attributesMask
         )
+    fun atPointer () =
+      let
+        val winX
+         & winY
+         & retVal =
+          (
+            GInt.FFI.withRefVal &&&> GInt.FFI.withRefVal
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && GdkWindowClass.FFI.fromPtr false
+          )
+            atPointer_
+            (GInt.null & GInt.null)
+      in
+        (
+          retVal,
+          winX,
+          winY
+        )
+      end
     fun constrainSize
       (
         geometry,
@@ -720,6 +750,37 @@ structure GdkWindow :>
         )
       end
     fun getParent self = (GdkWindowClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getParent_ self
+    fun getPointer self =
+      let
+        val x
+         & y
+         & mask
+         & retVal =
+          (
+            GdkWindowClass.FFI.withPtr
+             &&&> GInt.FFI.withRefVal
+             &&&> GInt.FFI.withRefVal
+             &&&> GdkModifierType.FFI.withRefVal
+             ---> GInt.FFI.fromVal
+                   && GInt.FFI.fromVal
+                   && GdkModifierType.FFI.fromVal
+                   && GdkWindowClass.FFI.fromPtr false
+          )
+            getPointer_
+            (
+              self
+               & GInt.null
+               & GInt.null
+               & GdkModifierType.flags []
+            )
+      in
+        (
+          retVal,
+          x,
+          y,
+          mask
+        )
+      end
     fun getPosition self =
       let
         val x

@@ -66,6 +66,10 @@ signature VTE_TERMINAL =
        -> LargeInt.int
        -> unit
     val matchRemoveAll : 'a class -> unit
+    val matchSetCursor :
+      'a class
+       -> LargeInt.int * 'b Gdk.CursorClass.class option
+       -> unit
     val matchSetCursorName :
       'a class
        -> LargeInt.int * string

@@ -125,6 +125,15 @@ structure Gdk : GDK =
       val getShowEvents_ = call (getSymbol "gdk_get_show_events") (cVoid --> GBool.PolyML.cVal)
       val init_ = call (getSymbol "gdk_init") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> cVoid)
       val initCheck_ = call (getSymbol "gdk_init_check") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> GBool.PolyML.cVal)
+      val keyboardGrab_ =
+        call (getSymbol "gdk_keyboard_grab")
+          (
+            GdkWindowClass.PolyML.cPtr
+             &&> GBool.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             --> GdkGrabStatus.PolyML.cVal
+          )
+      val keyboardUngrab_ = call (getSymbol "gdk_keyboard_ungrab") (GUInt32.PolyML.cVal --> cVoid)
       val keyvalConvertCase_ =
         call (getSymbol "gdk_keyval_convert_case")
           (
@@ -168,6 +177,19 @@ structure Gdk : GDK =
              &&> GInt.PolyML.cVal
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
+      val pointerGrab_ =
+        call (getSymbol "gdk_pointer_grab")
+          (
+            GdkWindowClass.PolyML.cPtr
+             &&> GBool.PolyML.cVal
+             &&> GdkEventMask.PolyML.cVal
+             &&> GdkWindowClass.PolyML.cOptPtr
+             &&> GdkCursorClass.PolyML.cOptPtr
+             &&> GUInt32.PolyML.cVal
+             --> GdkGrabStatus.PolyML.cVal
+          )
+      val pointerIsGrabbed_ = call (getSymbol "gdk_pointer_is_grabbed") (cVoid --> GBool.PolyML.cVal)
+      val pointerUngrab_ = call (getSymbol "gdk_pointer_ungrab") (GUInt32.PolyML.cVal --> cVoid)
       val preParseLibgtkOnly_ = call (getSymbol "gdk_pre_parse_libgtk_only") (cVoid --> cVoid)
       val propertyDelete_ = call (getSymbol "gdk_property_delete") (GdkWindowClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> cVoid)
       val propertyGet_ =
@@ -2886,6 +2908,25 @@ structure Gdk : GDK =
       in
         (retVal, argv (LargeInt.toInt argc))
       end
+    fun keyboardGrab
+      (
+        window,
+        ownerEvents,
+        time
+      ) =
+      (
+        GdkWindowClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> GUInt32.FFI.withVal
+         ---> GdkGrabStatus.FFI.fromVal
+      )
+        keyboardGrab_
+        (
+          window
+           & ownerEvents
+           & time
+        )
+    fun keyboardUngrab time = (GUInt32.FFI.withVal ---> I) keyboardUngrab_ time
     fun keyvalConvertCase symbol =
       let
         val lower
@@ -2987,6 +3028,35 @@ structure Gdk : GDK =
            & width
            & height
         )
+    fun pointerGrab
+      (
+        window,
+        ownerEvents,
+        eventMask,
+        confineTo,
+        cursor,
+        time
+      ) =
+      (
+        GdkWindowClass.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         &&&> GdkEventMask.FFI.withVal
+         &&&> GdkWindowClass.FFI.withOptPtr
+         &&&> GdkCursorClass.FFI.withOptPtr
+         &&&> GUInt32.FFI.withVal
+         ---> GdkGrabStatus.FFI.fromVal
+      )
+        pointerGrab_
+        (
+          window
+           & ownerEvents
+           & eventMask
+           & confineTo
+           & cursor
+           & time
+        )
+    fun pointerIsGrabbed () = (I ---> GBool.FFI.fromVal) pointerIsGrabbed_ ()
+    fun pointerUngrab time = (GUInt32.FFI.withVal ---> I) pointerUngrab_ time
     fun preParseLibgtkOnly () = (I ---> I) preParseLibgtkOnly_ ()
     fun propertyDelete (window, property) = (GdkWindowClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) propertyDelete_ (window & property)
     fun propertyGet

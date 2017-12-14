@@ -11,6 +11,10 @@ signature GIO_MOUNT =
     val getType : unit -> GObject.Type.t
     val canEject : 'a class -> bool
     val canUnmount : 'a class -> bool
+    val ejectFinish :
+      'a class
+       -> 'b async_result_class
+       -> unit
     val ejectWithOperationFinish :
       'a class
        -> 'b async_result_class
@@ -36,6 +40,10 @@ signature GIO_MOUNT =
        -> 'b async_result_class
        -> unit
     val shadow : 'a class -> unit
+    val unmountFinish :
+      'a class
+       -> 'b async_result_class
+       -> unit
     val unmountWithOperationFinish :
       'a class
        -> 'b async_result_class

@@ -77,6 +77,10 @@ signature G_LIB_DATE =
       t
        -> string
        -> unit
+    val setTime :
+      t
+       -> LargeInt.int
+       -> unit
     val setTimeT :
       t
        -> LargeInt.int

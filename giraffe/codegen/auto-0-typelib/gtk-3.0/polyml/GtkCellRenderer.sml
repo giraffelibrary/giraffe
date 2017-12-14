@@ -108,6 +108,18 @@ structure GtkCellRenderer :>
           )
       val getRequestMode_ = call (getSymbol "gtk_cell_renderer_get_request_mode") (GtkCellRendererClass.PolyML.cPtr --> GtkSizeRequestMode.PolyML.cVal)
       val getSensitive_ = call (getSymbol "gtk_cell_renderer_get_sensitive") (GtkCellRendererClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getSize_ =
+        call (getSymbol "gtk_cell_renderer_get_size")
+          (
+            GtkCellRendererClass.PolyML.cPtr
+             &&> GtkWidgetClass.PolyML.cPtr
+             &&> CairoRectangleIntRecord.PolyML.cOptPtr
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             &&> GInt32.PolyML.cRef
+             --> cVoid
+          )
       val getState_ =
         call (getSymbol "gtk_cell_renderer_get_state")
           (
@@ -429,6 +441,45 @@ structure GtkCellRenderer :>
       end
     fun getRequestMode self = (GtkCellRendererClass.FFI.withPtr ---> GtkSizeRequestMode.FFI.fromVal) getRequestMode_ self
     fun getSensitive self = (GtkCellRendererClass.FFI.withPtr ---> GBool.FFI.fromVal) getSensitive_ self
+    fun getSize self (widget, cellArea) =
+      let
+        val xOffset
+         & yOffset
+         & width
+         & height
+         & () =
+          (
+            GtkCellRendererClass.FFI.withPtr
+             &&&> GtkWidgetClass.FFI.withPtr
+             &&&> CairoRectangleIntRecord.FFI.withOptPtr
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             &&&> GInt32.FFI.withRefVal
+             ---> GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && GInt32.FFI.fromVal
+                   && I
+          )
+            getSize_
+            (
+              self
+               & widget
+               & cellArea
+               & GInt32.null
+               & GInt32.null
+               & GInt32.null
+               & GInt32.null
+            )
+      in
+        (
+          xOffset,
+          yOffset,
+          width,
+          height
+        )
+      end
     fun getState self (widget, cellState) =
       (
         GtkCellRendererClass.FFI.withPtr

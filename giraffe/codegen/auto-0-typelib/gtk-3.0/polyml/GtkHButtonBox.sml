@@ -8,6 +8,7 @@ structure GtkHButtonBox :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_hbutton_box_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_hbutton_box_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
     end
     type 'a class = 'a GtkHButtonBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
@@ -17,4 +18,5 @@ structure GtkHButtonBox :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GtkHButtonBoxClass.FFI.fromPtr false) new_ ()
   end

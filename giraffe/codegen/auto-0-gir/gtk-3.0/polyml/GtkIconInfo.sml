@@ -2,7 +2,9 @@ structure GtkIconInfo :>
   GTK_ICON_INFO
     where type t = GtkIconInfoRecord.t
     where type 'a icon_theme_class = 'a GtkIconThemeClass.class
-    where type 'a style_context_class = 'a GtkStyleContextClass.class =
+    where type 'a style_context_class = 'a GtkStyleContextClass.class
+    where type state_type_t = GtkStateType.t
+    where type 'a style_class = 'a GtkStyleClass.class =
   struct
     structure GdkPointRecordCVectorNType =
       CPointerCVectorNType(
@@ -51,11 +53,23 @@ structure GtkIconInfo :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
+      val loadSymbolicForStyle_ =
+        call (getSymbol "gtk_icon_info_load_symbolic_for_style")
+          (
+            GtkIconInfoRecord.PolyML.cPtr
+             &&> GtkStyleClass.PolyML.cPtr
+             &&> GtkStateType.PolyML.cVal
+             &&> GBool.PolyML.cRef
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GdkPixbufPixbufClass.PolyML.cPtr
+          )
       val setRawCoordinates_ = call (getSymbol "gtk_icon_info_set_raw_coordinates") (GtkIconInfoRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type t = GtkIconInfoRecord.t
     type 'a icon_theme_class = 'a GtkIconThemeClass.class
     type 'a style_context_class = 'a GtkStyleContextClass.class
+    type state_type_t = GtkStateType.t
+    type 'a style_class = 'a GtkStyleClass.class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newForPixbuf (iconTheme, pixbuf) = (GtkIconThemeClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> GtkIconInfoRecord.FFI.fromPtr true) newForPixbuf_ (iconTheme & pixbuf)
     fun copy self = (GtkIconInfoRecord.FFI.withPtr ---> GtkIconInfoRecord.FFI.fromPtr true) copy_ self
@@ -139,6 +153,28 @@ structure GtkIconInfo :>
             (
               self
                & context
+               & GBool.null
+               & []
+            )
+      in
+        (retVal, wasSymbolic)
+      end
+    fun loadSymbolicForStyle self (style, state) =
+      let
+        val wasSymbolic & retVal =
+          (
+            GtkIconInfoRecord.FFI.withPtr
+             &&&> GtkStyleClass.FFI.withPtr
+             &&&> GtkStateType.FFI.withVal
+             &&&> GBool.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> GBool.FFI.fromVal && GdkPixbufPixbufClass.FFI.fromPtr true
+          )
+            loadSymbolicForStyle_
+            (
+              self
+               & style
+               & state
                & GBool.null
                & []
             )

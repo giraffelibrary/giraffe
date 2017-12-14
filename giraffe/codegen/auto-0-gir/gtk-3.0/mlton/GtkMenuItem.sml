@@ -15,6 +15,7 @@ structure GtkMenuItem :>
     val getAccelPath_ = _import "gtk_menu_item_get_accel_path" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getLabel_ = _import "gtk_menu_item_get_label" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getReserveIndicator_ = _import "gtk_menu_item_get_reserve_indicator" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> GBool.FFI.val_;
+    val getRightJustified_ = _import "gtk_menu_item_get_right_justified" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> GBool.FFI.val_;
     val getSubmenu_ = _import "gtk_menu_item_get_submenu" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val getUseUnderline_ = _import "gtk_menu_item_get_use_underline" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> GBool.FFI.val_;
     val select_ = _import "gtk_menu_item_select" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> unit;
@@ -49,6 +50,7 @@ structure GtkMenuItem :>
               x3
             )
     val setReserveIndicator_ = fn x1 & x2 => (_import "gtk_menu_item_set_reserve_indicator" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setRightJustified_ = fn x1 & x2 => (_import "gtk_menu_item_set_right_justified" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setSubmenu_ = fn x1 & x2 => (_import "gtk_menu_item_set_submenu" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     val setUseUnderline_ = fn x1 & x2 => (_import "gtk_menu_item_set_use_underline" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val toggleSizeAllocate_ = fn x1 & x2 => (_import "gtk_menu_item_toggle_size_allocate" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
@@ -70,12 +72,14 @@ structure GtkMenuItem :>
     fun getAccelPath self = (GtkMenuItemClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAccelPath_ self
     fun getLabel self = (GtkMenuItemClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLabel_ self
     fun getReserveIndicator self = (GtkMenuItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getReserveIndicator_ self
+    fun getRightJustified self = (GtkMenuItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getRightJustified_ self
     fun getSubmenu self = (GtkMenuItemClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getSubmenu_ self
     fun getUseUnderline self = (GtkMenuItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseUnderline_ self
     fun select self = (GtkMenuItemClass.FFI.withPtr ---> I) select_ self
     fun setAccelPath self accelPath = (GtkMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setAccelPath_ (self & accelPath)
     fun setLabel self label = (GtkMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setLabel_ (self & label)
     fun setReserveIndicator self reserve = (GtkMenuItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setReserveIndicator_ (self & reserve)
+    fun setRightJustified self rightJustified = (GtkMenuItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRightJustified_ (self & rightJustified)
     fun setSubmenu self submenu = (GtkMenuItemClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setSubmenu_ (self & submenu)
     fun setUseUnderline self setting = (GtkMenuItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseUnderline_ (self & setting)
     fun toggleSizeAllocate self allocation = (GtkMenuItemClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) toggleSizeAllocate_ (self & allocation)

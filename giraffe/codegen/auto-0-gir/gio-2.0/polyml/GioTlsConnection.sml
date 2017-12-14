@@ -29,6 +29,7 @@ structure GioTlsConnection :>
       val getPeerCertificateErrors_ = call (getSymbol "g_tls_connection_get_peer_certificate_errors") (GioTlsConnectionClass.PolyML.cPtr --> GioTlsCertificateFlags.PolyML.cVal)
       val getRehandshakeMode_ = call (getSymbol "g_tls_connection_get_rehandshake_mode") (GioTlsConnectionClass.PolyML.cPtr --> GioTlsRehandshakeMode.PolyML.cVal)
       val getRequireCloseNotify_ = call (getSymbol "g_tls_connection_get_require_close_notify") (GioTlsConnectionClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getUseSystemCertdb_ = call (getSymbol "g_tls_connection_get_use_system_certdb") (GioTlsConnectionClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val handshake_ =
         call (getSymbol "g_tls_connection_handshake")
           (
@@ -50,6 +51,7 @@ structure GioTlsConnection :>
       val setInteraction_ = call (getSymbol "g_tls_connection_set_interaction") (GioTlsConnectionClass.PolyML.cPtr &&> GioTlsInteractionClass.PolyML.cOptPtr --> cVoid)
       val setRehandshakeMode_ = call (getSymbol "g_tls_connection_set_rehandshake_mode") (GioTlsConnectionClass.PolyML.cPtr &&> GioTlsRehandshakeMode.PolyML.cVal --> cVoid)
       val setRequireCloseNotify_ = call (getSymbol "g_tls_connection_set_require_close_notify") (GioTlsConnectionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setUseSystemCertdb_ = call (getSymbol "g_tls_connection_set_use_system_certdb") (GioTlsConnectionClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GioTlsConnectionClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
@@ -82,6 +84,7 @@ structure GioTlsConnection :>
     fun getPeerCertificateErrors self = (GioTlsConnectionClass.FFI.withPtr ---> GioTlsCertificateFlags.FFI.fromVal) getPeerCertificateErrors_ self
     fun getRehandshakeMode self = (GioTlsConnectionClass.FFI.withPtr ---> GioTlsRehandshakeMode.FFI.fromVal) getRehandshakeMode_ self
     fun getRequireCloseNotify self = (GioTlsConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) getRequireCloseNotify_ self
+    fun getUseSystemCertdb self = (GioTlsConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseSystemCertdb_ self
     fun handshake self cancellable =
       (
         GioTlsConnectionClass.FFI.withPtr
@@ -113,6 +116,7 @@ structure GioTlsConnection :>
     fun setInteraction self interaction = (GioTlsConnectionClass.FFI.withPtr &&&> GioTlsInteractionClass.FFI.withOptPtr ---> I) setInteraction_ (self & interaction)
     fun setRehandshakeMode self mode = (GioTlsConnectionClass.FFI.withPtr &&&> GioTlsRehandshakeMode.FFI.withVal ---> I) setRehandshakeMode_ (self & mode)
     fun setRequireCloseNotify self requireCloseNotify = (GioTlsConnectionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRequireCloseNotify_ (self & requireCloseNotify)
+    fun setUseSystemCertdb self useSystemCertdb = (GioTlsConnectionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseSystemCertdb_ (self & useSystemCertdb)
     local
       open ClosureMarshal Signal
     in
@@ -152,6 +156,11 @@ structure GioTlsConnection :>
         {
           get = fn x => get "require-close-notify" boolean x,
           set = fn x => set "require-close-notify" boolean x
+        }
+      val useSystemCertdbProp =
+        {
+          get = fn x => get "use-system-certdb" boolean x,
+          set = fn x => set "use-system-certdb" boolean x
         }
     end
   end

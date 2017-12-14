@@ -18,6 +18,7 @@ signature GTK_MENU_ITEM =
     val getAccelPath : 'a class -> string
     val getLabel : 'a class -> string
     val getReserveIndicator : 'a class -> bool
+    val getRightJustified : 'a class -> bool
     val getSubmenu : 'a class -> base widget_class
     val getUseUnderline : 'a class -> bool
     val select : 'a class -> unit
@@ -30,6 +31,10 @@ signature GTK_MENU_ITEM =
        -> string
        -> unit
     val setReserveIndicator :
+      'a class
+       -> bool
+       -> unit
+    val setRightJustified :
       'a class
        -> bool
        -> unit

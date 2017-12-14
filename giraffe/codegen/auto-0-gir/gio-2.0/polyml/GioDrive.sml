@@ -20,6 +20,14 @@ structure GioDrive :>
       val canStart_ = call (getSymbol "g_drive_can_start") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val canStartDegraded_ = call (getSymbol "g_drive_can_start_degraded") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val canStop_ = call (getSymbol "g_drive_can_stop") (GioDriveClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val ejectFinish_ =
+        call (getSymbol "g_drive_eject_finish")
+          (
+            GioDriveClass.PolyML.cPtr
+             &&> GioAsyncResultClass.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
       val ejectWithOperationFinish_ =
         call (getSymbol "g_drive_eject_with_operation_finish")
           (
@@ -73,6 +81,19 @@ structure GioDrive :>
     fun canStart self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) canStart_ self
     fun canStartDegraded self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) canStartDegraded_ self
     fun canStop self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) canStop_ self
+    fun ejectFinish self result =
+      (
+        GioDriveClass.FFI.withPtr
+         &&&> GioAsyncResultClass.FFI.withPtr
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+      )
+        ejectFinish_
+        (
+          self
+           & result
+           & []
+        )
     fun ejectWithOperationFinish self result =
       (
         GioDriveClass.FFI.withPtr

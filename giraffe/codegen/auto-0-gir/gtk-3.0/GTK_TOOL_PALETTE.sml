@@ -9,6 +9,7 @@ signature GTK_TOOL_PALETTE =
     type 'a widget_class
     type selection_data_t
     type 'a tool_item_class
+    type 'a adjustment_class
     type tool_palette_drag_targets_t
     type 'a tool_item_group_class
     type icon_size_t
@@ -53,8 +54,10 @@ signature GTK_TOOL_PALETTE =
       'a class
        -> 'b tool_item_group_class
        -> LargeInt.int
+    val getHadjustment : 'a class -> base adjustment_class
     val getIconSize : 'a class -> LargeInt.int
     val getStyle : 'a class -> toolbar_style_t
+    val getVadjustment : 'a class -> base adjustment_class
     val setDragSource :
       'a class
        -> tool_palette_drag_targets_t

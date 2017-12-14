@@ -277,10 +277,7 @@ fun getInterface typeInfo =
     SOME interfaceInfo => interfaceInfo
   | NONE               => infoExcl "no interface info"
 
-fun checkDeprecated info =
-  if BaseInfo.isDeprecated info
-  then infoExcl "deprecated"
-  else ()
+fun checkDeprecated _ = ()
 
 fun checkNonClassStruct structInfo =
   if StructInfo.isGtypeStruct structInfo

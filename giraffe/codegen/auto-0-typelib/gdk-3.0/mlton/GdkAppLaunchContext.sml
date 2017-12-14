@@ -5,7 +5,9 @@ structure GdkAppLaunchContext :>
     where type 'a display_class = 'a GdkDisplayClass.class =
   struct
     val getType_ = _import "gdk_app_launch_context_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "gdk_app_launch_context_new" : unit -> GdkAppLaunchContextClass.FFI.notnull GdkAppLaunchContextClass.FFI.p;
     val setDesktop_ = fn x1 & x2 => (_import "gdk_app_launch_context_set_desktop" : GdkAppLaunchContextClass.FFI.notnull GdkAppLaunchContextClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setDisplay_ = fn x1 & x2 => (_import "gdk_app_launch_context_set_display" : GdkAppLaunchContextClass.FFI.notnull GdkAppLaunchContextClass.FFI.p * GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> unit;) (x1, x2)
     val setIcon_ = fn x1 & x2 => (_import "gdk_app_launch_context_set_icon" : GdkAppLaunchContextClass.FFI.notnull GdkAppLaunchContextClass.FFI.p * unit GioIconClass.FFI.p -> unit;) (x1, x2)
     val setIconName_ =
       fn
@@ -29,7 +31,9 @@ structure GdkAppLaunchContext :>
     type 'a display_class = 'a GdkDisplayClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () = (I ---> GdkAppLaunchContextClass.FFI.fromPtr true) new_ ()
     fun setDesktop self desktop = (GdkAppLaunchContextClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setDesktop_ (self & desktop)
+    fun setDisplay self display = (GdkAppLaunchContextClass.FFI.withPtr &&&> GdkDisplayClass.FFI.withPtr ---> I) setDisplay_ (self & display)
     fun setIcon self icon = (GdkAppLaunchContextClass.FFI.withPtr &&&> GioIconClass.FFI.withOptPtr ---> I) setIcon_ (self & icon)
     fun setIconName self iconName = (GdkAppLaunchContextClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setIconName_ (self & iconName)
     fun setScreen self screen = (GdkAppLaunchContextClass.FFI.withPtr &&&> GdkScreenClass.FFI.withPtr ---> I) setScreen_ (self & screen)

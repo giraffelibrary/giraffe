@@ -113,6 +113,7 @@ signature GTK =
     structure PrintStatus : GTK_PRINT_STATUS
     structure RcFlags : GTK_RC_FLAGS
     structure RcStyleClass : GTK_RC_STYLE_CLASS
+    structure RcTokenType : GTK_RC_TOKEN_TYPE
     structure RecentChooserClass : GTK_RECENT_CHOOSER_CLASS
     structure RecentChooserError : GTK_RECENT_CHOOSER_ERROR
     exception RecentChooserError of RecentChooserError.t
@@ -382,10 +383,16 @@ signature GTK =
         where type t = IconInfoRecord.t
         where type 'a icon_theme_class = 'a IconThemeClass.class
         where type 'a style_context_class = 'a StyleContextClass.class
+        where type state_type_t = StateType.t
+        where type 'a style_class = 'a StyleClass.class
     structure IconSet :
       GTK_ICON_SET
         where type t = IconSetRecord.t
         where type icon_source_t = IconSourceRecord.t
+        where type 'a widget_class = 'a WidgetClass.class
+        where type state_type_t = StateType.t
+        where type text_direction_t = TextDirection.t
+        where type 'a style_class = 'a StyleClass.class
         where type 'a style_context_class = 'a StyleContextClass.class
     structure IconSize :
       GTK_ICON_SIZE
@@ -773,6 +780,7 @@ signature GTK =
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a cell_layout_class = 'a CellLayoutClass.class
         where type 'a orientable_class = 'a OrientableClass.class
+        where type requisition_t = RequisitionRecord.t
         where type tree_path_t = TreePathRecord.t
         where type 'a cell_area_class = 'a CellAreaClass.class
         where type 'a cell_area_context_class = 'a CellAreaContextClass.class
@@ -1061,8 +1069,8 @@ signature GTK =
         where type 'a class = 'a LayoutClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a scrollable_class = 'a ScrollableClass.class
-        where type 'a adjustment_class = 'a AdjustmentClass.class
         where type 'a widget_class = 'a WidgetClass.class
+        where type 'a adjustment_class = 'a AdjustmentClass.class
     structure MenuClass :
       GTK_MENU_CLASS
         where type 'a menu_shell_class = 'a MenuShellClass.class
@@ -1169,6 +1177,7 @@ signature GTK =
         where type 'a entry_class = 'a EntryClass.class
         where type 'a cell_renderer_class = 'a CellRendererClass.class
         where type 'a tooltip_class = 'a TooltipClass.class
+        where type 'a adjustment_class = 'a AdjustmentClass.class
         where type movement_step_t = MovementStep.t
         where type tree_path_t = TreePathRecord.t
         where type tree_iter_t = TreeIterRecord.t
@@ -1326,6 +1335,7 @@ signature GTK =
         where type 'a class = 'a FontSelectionClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a orientable_class = 'a OrientableClass.class
+        where type 'a widget_class = 'a WidgetClass.class
     structure Frame :
       GTK_FRAME
         where type 'a class = 'a FrameClass.class
@@ -1350,11 +1360,13 @@ signature GTK =
         where type 'a class = 'a HScaleClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a orientable_class = 'a OrientableClass.class
+        where type 'a adjustment_class = 'a AdjustmentClass.class
     structure HScrollbar :
       GTK_H_SCROLLBAR
         where type 'a class = 'a HScrollbarClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a orientable_class = 'a OrientableClass.class
+        where type 'a adjustment_class = 'a AdjustmentClass.class
     structure HandleBox :
       GTK_HANDLE_BOX
         where type 'a class = 'a HandleBoxClass.class
@@ -1486,6 +1498,7 @@ signature GTK =
         where type 'a scrollable_class = 'a ScrollableClass.class
         where type 'a text_child_anchor_class = 'a TextChildAnchorClass.class
         where type text_attributes_t = TextAttributesRecord.t
+        where type 'a adjustment_class = 'a AdjustmentClass.class
         where type 'a widget_class = 'a WidgetClass.class
         where type 'a text_mark_class = 'a TextMarkClass.class
         where type text_iter_t = TextIterRecord.t
@@ -1532,6 +1545,7 @@ signature GTK =
         where type 'a widget_class = 'a WidgetClass.class
         where type selection_data_t = SelectionDataRecord.t
         where type 'a tool_item_class = 'a ToolItemClass.class
+        where type 'a adjustment_class = 'a AdjustmentClass.class
         where type tool_palette_drag_targets_t = ToolPaletteDragTargets.t
         where type 'a tool_item_group_class = 'a ToolItemGroupClass.class
         where type icon_size_t = IconSize.t
@@ -1564,11 +1578,13 @@ signature GTK =
         where type 'a class = 'a VScaleClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a orientable_class = 'a OrientableClass.class
+        where type 'a adjustment_class = 'a AdjustmentClass.class
     structure VScrollbar :
       GTK_V_SCROLLBAR
         where type 'a class = 'a VScrollbarClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a orientable_class = 'a OrientableClass.class
+        where type 'a adjustment_class = 'a AdjustmentClass.class
     structure Viewport :
       GTK_VIEWPORT
         where type 'a class = 'a ViewportClass.class
@@ -1587,21 +1603,21 @@ signature GTK =
         where type target_list_t = TargetListRecord.t
         where type 'a clipboard_class = 'a ClipboardClass.class
         where type widget_path_t = WidgetPathRecord.t
-        where type requisition_t = RequisitionRecord.t
         where type size_request_mode_t = SizeRequestMode.t
         where type 'a settings_class = 'a SettingsClass.class
         where type 'a style_context_class = 'a StyleContextClass.class
         where type 'a rc_style_class = 'a RcStyleClass.class
-        where type state_type_t = StateType.t
         where type 'a accel_group_class = 'a AccelGroupClass.class
         where type 'a window_class = 'a WindowClass.class
         where type allocation_t = AllocationRecord.t
+        where type requisition_t = RequisitionRecord.t
         where type text_direction_t = TextDirection.t
         where type drag_result_t = DragResult.t
         where type direction_type_t = DirectionType.t
         where type 'a tooltip_class = 'a TooltipClass.class
         where type selection_data_t = SelectionDataRecord.t
         where type widget_help_type_t = WidgetHelpType.t
+        where type state_type_t = StateType.t
         where type state_flags_t = StateFlags.t
         where type 'a container_class = 'a ContainerClass.class
         where type 'a style_class = 'a StyleClass.class
@@ -1819,6 +1835,7 @@ signature GTK =
       GTK_FONT_SELECTION_DIALOG
         where type 'a class = 'a FontSelectionDialogClass.class
         where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a widget_class = 'a WidgetClass.class
     structure MenuToolButton :
       GTK_MENU_TOOL_BUTTON
         where type 'a class = 'a MenuToolButtonClass.class
@@ -2446,8 +2463,18 @@ signature GTK =
        -> base PageSetupClass.class
     val propagateEvent : 'a WidgetClass.class * 'b Gdk.Event.union -> unit
     val rcAddDefaultFile : string -> unit
+    val rcFindModuleInPath : string -> string
     val rcGetDefaultFiles : unit -> string list
+    val rcGetImModuleFile : unit -> string
+    val rcGetImModulePath : unit -> string
+    val rcGetModuleDir : unit -> string
     val rcGetStyle : 'a WidgetClass.class -> base StyleClass.class
+    val rcGetThemeDir : unit -> string
+    val rcParse : string -> unit
+    val rcParseString : string -> unit
+    val rcReparseAll : unit -> bool
+    val rcReparseAllForSettings : 'a SettingsClass.class * bool -> bool
+    val rcResetStyles : 'a SettingsClass.class -> unit
     val rcSetDefaultFiles : string list -> unit
     val renderActivity :
       'a StyleContextClass.class
