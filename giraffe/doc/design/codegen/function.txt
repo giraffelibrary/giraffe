@@ -1829,20 +1829,20 @@ where
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
-        INT8      --->    0
-        UINT8     --->    0
-        INT16     --->    0
-        UINT16    --->    0
-        INT32     --->    0
-        UINT32    --->    0
-        INT64     --->    0
-        UINT64    --->    0
+        INT8      --->    GInt8.null
+        UINT8     --->    GUInt8.null
+        INT16     --->    GInt16.null
+        UINT16    --->    GUInt16.null
+        INT32     --->    GInt32.null
+        UINT32    --->    GUInt32.null
+        INT64     --->    GInt64.null
+        UINT64    --->    GUInt64.null
         VOID      --->    <raise Fail "VOID">
-        BOOLEAN   --->    false
-        FLOAT     --->    0.0
-        DOUBLE    --->    0.0
+        BOOLEAN   --->    GBool.null
+        FLOAT     --->    GFloat.null
+        DOUBLE    --->    GDouble.null
         UTF8      --->    NONE
-        UNICHAR   --->    #"\000"
+        UNICHAR   --->    GChar.null
         INTERFACE --->    <argInterfaceVal>
 
 

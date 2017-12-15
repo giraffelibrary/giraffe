@@ -2070,9 +2070,13 @@ local
       }
     end
 
-  fun argValScalar (name, dir, {ty, ...} : scalar_info) =
+  fun argValScalar (name, dir, {ty, optIRef, ...} : scalar_info) =
     case dir of
-      OUT _ => mkLIdLNameExp [gStrId ^ scalarStrId ty, nullId]
+      OUT _ => mkLIdLNameExp (
+        case optIRef of
+          NONE      => [gStrId ^ scalarStrId ty, nullId]
+        | SOME iRef => prefixInterfaceStrId iRef [nullId]
+      )
     | _     => mkIdLNameExp name
 
   fun argValUtf8 (name, dir, {...} : utf8_info) =
