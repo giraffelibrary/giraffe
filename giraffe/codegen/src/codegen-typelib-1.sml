@@ -567,13 +567,10 @@ val errorLog'1 = List.foldl insert errorLog'0 [
     (
       [],
       [
-        newSig "CHILD_SIGNAL" [],
-        newSig "GTK_ACTION_ENTRY" []
+        newSig "CHILD_SIGNAL" []
       ],
       [
-        extendStrDeps "ChildSignal" ["GtkWidgetClass", "GtkWidget"],
-        newStr ("Gtk", "ActionEntry", "GTK_ACTION_ENTRY") [],
-        extendStrDeps "GtkActionGroup" ["GtkActionEntry", "GtkAction"]
+        extendStrDeps "ChildSignal" ["GtkWidgetClass", "GtkWidget"]
       ]
     ),
   gen outDir repo ("GtkSource", "3.0") ([], [], []),

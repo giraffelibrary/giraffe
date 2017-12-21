@@ -1,6 +1,5 @@
 signature GTK =
   sig
-    structure ActionEntry : GTK_ACTION_ENTRY
     structure AllocationRecord : GTK_ALLOCATION_RECORD
     structure AccelFlags : GTK_ACCEL_FLAGS
     structure AccelGroupClass : GTK_ACCEL_GROUP_CLASS
@@ -9,6 +8,7 @@ signature GTK =
     structure AccelMapClass : GTK_ACCEL_MAP_CLASS
     structure AccessibleClass : GTK_ACCESSIBLE_CLASS
     structure ActionClass : GTK_ACTION_CLASS
+    structure ActionEntryRecord : GTK_ACTION_ENTRY_RECORD
     structure ActionGroupClass : GTK_ACTION_GROUP_CLASS
     structure ActionableClass : GTK_ACTIONABLE_CLASS
     structure ActivatableClass : GTK_ACTIVATABLE_CLASS
@@ -254,6 +254,16 @@ signature GTK =
         where type 'a widget_class = 'a WidgetClass.class
         where type 'a accel_group_class = 'a AccelGroupClass.class
         where type 'a action_group_class = 'a ActionGroupClass.class
+    structure ActionEntry :
+      GTK_ACTION_ENTRY
+        where type t = ActionEntryRecord.t
+    structure ActionGroup :
+      GTK_ACTION_GROUP
+        where type 'a class = 'a ActionGroupClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+        where type 'a action_class = 'a ActionClass.class
+        where type 'a accel_group_class = 'a AccelGroupClass.class
     structure Actionable :
       GTK_ACTIONABLE
         where type 'a class = 'a ActionableClass.class
@@ -798,13 +808,6 @@ signature GTK =
         where type 'a widget_class = 'a WidgetClass.class
         where type region_flags_t = RegionFlags.t
         where type state_flags_t = StateFlags.t
-    structure ActionGroup :
-      GTK_ACTION_GROUP
-        where type 'a class = 'a ActionGroupClass.class
-        where type 'a buildable_class = 'a BuildableClass.class
-        where type 'a widget_class = 'a WidgetClass.class
-        where type 'a action_class = 'a ActionClass.class
-        where type 'a accel_group_class = 'a AccelGroupClass.class
     structure ArrowClass :
       GTK_ARROW_CLASS
         where type 'a misc_class = 'a MiscClass.class

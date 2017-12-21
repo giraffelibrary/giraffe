@@ -6853,7 +6853,6 @@
     <item>struct ActionBarClass: class struct</item>
     <item>struct ActionBarPrivate: struct not included by configuration (structTypes)</item>
     <item>struct ActionClass: class struct</item>
-    <item>struct ActionEntry: struct not included by configuration (structTypes)</item>
     <item>
       object ActionGroup
       <item>

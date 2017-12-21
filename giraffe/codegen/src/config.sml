@@ -145,6 +145,7 @@ structTypes := [
   (("GdkPixbuf", "PixbufFormat"),     Record {dup = "gdk_pixbuf_format_copy", free = "gdk_pixbuf_format_free"}),
   (("Gtk", "AccelGroupEntry"),        ValueRecord),
   (("Gtk", "AccelKey"),               ValueRecord),
+  (("Gtk", "ActionEntry"),            ValueRecord),
   (("Gtk", "Border"),                 ValueRecord),
   (("Gtk", "CssSection"),             Record {dup = "gtk_css_section_ref", free = "gtk_css_section_unref"}),
   (("Gtk", "FileFilterInfo"),         ValueRecord),

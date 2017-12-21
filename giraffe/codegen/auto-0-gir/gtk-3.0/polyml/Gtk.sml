@@ -910,7 +910,6 @@ structure Gtk : GTK =
              --> GBool.PolyML.cVal
           )
     end
-    structure ActionEntry = GtkActionEntry
     structure AllocationRecord = GtkAllocationRecord
     structure AccelFlags = GtkAccelFlags
     structure AccelGroupClass = GtkAccelGroupClass
@@ -919,6 +918,7 @@ structure Gtk : GTK =
     structure AccelMapClass = GtkAccelMapClass
     structure AccessibleClass = GtkAccessibleClass
     structure ActionClass = GtkActionClass
+    structure ActionEntryRecord = GtkActionEntryRecord
     structure ActionGroupClass = GtkActionGroupClass
     structure ActionableClass = GtkActionableClass
     structure ActivatableClass = GtkActivatableClass
@@ -1144,6 +1144,8 @@ structure Gtk : GTK =
     structure AccelMap = GtkAccelMap
     structure Accessible = GtkAccessible
     structure Action = GtkAction
+    structure ActionEntry = GtkActionEntry
+    structure ActionGroup = GtkActionGroup
     structure Actionable = GtkActionable
     structure Activatable = GtkActivatable
     structure Adjustment = GtkAdjustment
@@ -1258,7 +1260,6 @@ structure Gtk : GTK =
     structure UIManager = GtkUIManager
     structure WidgetAccessibleClass = GtkWidgetAccessibleClass
     structure WidgetPath = GtkWidgetPath
-    structure ActionGroup = GtkActionGroup
     structure ArrowClass = GtkArrowClass
     structure ArrowAccessibleClass = GtkArrowAccessibleClass
     structure BinClass = GtkBinClass

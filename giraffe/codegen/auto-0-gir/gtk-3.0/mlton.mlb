@@ -15,7 +15,6 @@ local
   ../xlib-2.0/mlton.mlb
 in
   CHILD_SIGNAL.sml
-  GTK_ACTION_ENTRY.sml
   GTK_ALLOCATION_RECORD.sml
   GTK_ABOUT_DIALOG_CLASS.sml
   GTK_ABOUT_DIALOG.sml
@@ -36,6 +35,8 @@ in
   GTK_ACTION.sml
   GTK_ACTION_BAR_CLASS.sml
   GTK_ACTION_BAR.sml
+  GTK_ACTION_ENTRY_RECORD.sml
+  GTK_ACTION_ENTRY.sml
   GTK_ACTION_GROUP_CLASS.sml
   GTK_ACTION_GROUP.sml
   GTK_ACTIONABLE_CLASS.sml
@@ -759,7 +760,6 @@ in
     "allowFFI true"
     "resolveScope topdec"
   in
-    mlton/GtkActionEntry.sml
     mlton/GtkAllocationRecord.sml
     mlton/GtkAccelFlags.sml
     mlton/GtkAccelGroupClass.sml
@@ -768,6 +768,7 @@ in
     mlton/GtkAccelMapClass.sml
     mlton/GtkAccessibleClass.sml
     mlton/GtkActionClass.sml
+    mlton/GtkActionEntryRecord.sml
     mlton/GtkActionGroupClass.sml
     mlton/GtkActionableClass.sml
     mlton/GtkActivatableClass.sml
@@ -986,6 +987,8 @@ in
     mlton/GtkAccelMap.sml
     mlton/GtkAccessible.sml
     mlton/GtkAction.sml
+    mlton/GtkActionEntry.sml
+    mlton/GtkActionGroup.sml
     mlton/GtkActionable.sml
     mlton/GtkActivatable.sml
     mlton/GtkAdjustment.sml
@@ -1100,7 +1103,6 @@ in
     mlton/GtkUIManager.sml
     mlton/GtkWidgetAccessibleClass.sml
     mlton/GtkWidgetPath.sml
-    mlton/GtkActionGroup.sml
     mlton/GtkArrowClass.sml
     mlton/GtkArrowAccessibleClass.sml
     mlton/GtkBinClass.sml
