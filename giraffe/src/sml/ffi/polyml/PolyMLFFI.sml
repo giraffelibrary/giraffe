@@ -140,7 +140,7 @@ structure PolyMLFFI :> POLYML_F_F_I =
                 in
                   ret
                 end
-                  handle e => (freeAll (); raise e)
+                  handle e => (freeAll (); PolyML.Exception.reraise e)
               end
           end
 
@@ -235,32 +235,7 @@ structure PolyMLFFI :> POLYML_F_F_I =
       end
 
 
-    fun makeLargeIntConv conv =
-      let
-        val {load, store, ctype} = breakConversion conv
-      in
-        makeConversion {
-          load  = LargeInt.fromInt o load,
-          store = store o LargeInt.toInt,
-          ctype = ctype
-        }
-      end
-
-    val cBool = Foreign.cInt
-    val cInt8 = makeLargeIntConv Foreign.cInt8
-    val cUint8 = makeLargeIntConv Foreign.cUint8
-    val cInt16 = makeLargeIntConv Foreign.cInt16
-    val cUint16 = makeLargeIntConv Foreign.cUint16
-    val cInt32 = makeLargeIntConv Foreign.cInt32
-    val cUint32 = makeLargeIntConv Foreign.cUint32
-    val cInt64 = makeLargeIntConv Foreign.cInt64
-    val cUint64 = makeLargeIntConv Foreign.cUint64
-    val cShort = makeLargeIntConv Foreign.cShort
-    val cUshort = makeLargeIntConv Foreign.cUshort
-    val cInt = makeLargeIntConv Foreign.cInt
-    val cUint = makeLargeIntConv Foreign.cUint
-    val cLong = makeLargeIntConv Foreign.cLong
-    val cUlong = makeLargeIntConv Foreign.cUlong
+    open PolyMLFFIIntConvs
 
 
     fun cStruct func =

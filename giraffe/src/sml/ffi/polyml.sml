@@ -6,6 +6,11 @@
  *)
 
 use "polyml/POLYML_F_F_I.sml";
+use (
+  case Int.maxInt of
+    NONE => "polyml/PolyMLFFIIntConvs-IntInfAsInt.sml"
+  | _    => "polyml/PolyMLFFIIntConvs.sml"
+);
 use "polyml/PolyMLFFI.sml";
 use "HighLevelFFI.sml";
 use "FINALIZABLE.sml";
