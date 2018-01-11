@@ -14,6 +14,18 @@ structure GtkListStore :>
         structure ElemSequence = CValueVectorSequence(GInt32Type)
       )
     structure GInt32CVector = CVector(GInt32CVectorType)
+    structure GInt32CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GInt32Type
+        structure ElemSequence = CValueVectorSequence(GInt32Type)
+      )
+    structure GInt32CVectorN = CVectorN(GInt32CVectorNType)
+    structure GObjectValueRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GObjectValueRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GObjectValueRecordCVectorN = CVectorN(GObjectValueRecordCVectorNType)
     val getType_ = _import "gtk_list_store_get_type" : unit -> GObjectType.FFI.val_;
     val append_ = fn x1 & x2 => (_import "gtk_list_store_append" : GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
     val clear_ = _import "gtk_list_store_clear" : GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p -> unit;
@@ -67,6 +79,36 @@ structure GtkListStore :>
               x1,
               x2,
               x3
+            )
+    val insertWithValuesv_ =
+      fn
+        x1
+         & x2
+         & x3
+         & (x4, x5)
+         & (x6, x7)
+         & x8 =>
+          (
+            _import "mlton_gtk_list_store_insert_with_valuesv" :
+              GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
+               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+               * GInt32.FFI.val_
+               * GInt32CVectorN.MLton.p1
+               * GInt32CVectorN.FFI.notnull GInt32CVectorN.MLton.p2
+               * GObjectValueRecordCVectorN.MLton.p1
+               * GObjectValueRecordCVectorN.FFI.notnull GObjectValueRecordCVectorN.MLton.p2
+               * GInt32.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7,
+              x8
             )
     val iterIsValid_ = fn x1 & x2 => (_import "gtk_list_store_iter_is_valid" : GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val moveAfter_ =
@@ -139,6 +181,33 @@ structure GtkListStore :>
               x2,
               x3,
               x4
+            )
+    val set_ =
+      fn
+        x1
+         & x2
+         & (x3, x4)
+         & (x5, x6)
+         & x7 =>
+          (
+            _import "mlton_gtk_list_store_set_valuesv" :
+              GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
+               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+               * GInt32CVectorN.MLton.p1
+               * GInt32CVectorN.FFI.notnull GInt32CVectorN.MLton.p2
+               * GObjectValueRecordCVectorN.MLton.p1
+               * GObjectValueRecordCVectorN.FFI.notnull GObjectValueRecordCVectorN.MLton.p2
+               * GInt32.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7
             )
     val swap_ =
       fn
@@ -232,6 +301,37 @@ structure GtkListStore :>
       in
         iter
       end
+    fun insertWithValuesv
+      self
+      (
+        position,
+        columns,
+        values
+      ) =
+      let
+        val nValues = LargeInt.fromInt (GObjectValueRecordCVectorN.length values)
+        val iter & () =
+          (
+            GtkListStoreClass.FFI.withPtr
+             &&&> GtkTreeIterRecord.FFI.withNewPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GInt32CVectorN.FFI.withPtr
+             &&&> GObjectValueRecordCVectorN.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             ---> GtkTreeIterRecord.FFI.fromPtr true && I
+          )
+            insertWithValuesv_
+            (
+              self
+               & ()
+               & position
+               & columns
+               & values
+               & nValues
+            )
+      in
+        iter
+      end
     fun iterIsValid self iter = (GtkListStoreClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) iterIsValid_ (self & iter)
     fun moveAfter self (iter, position) =
       (
@@ -288,6 +388,35 @@ structure GtkListStore :>
            & column
            & value
         )
+    fun set
+      self
+      (
+        iter,
+        columns,
+        values
+      ) =
+      let
+        val nValues = LargeInt.fromInt (GObjectValueRecordCVectorN.length values)
+        val () =
+          (
+            GtkListStoreClass.FFI.withPtr
+             &&&> GtkTreeIterRecord.FFI.withPtr
+             &&&> GInt32CVectorN.FFI.withPtr
+             &&&> GObjectValueRecordCVectorN.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             ---> I
+          )
+            set_
+            (
+              self
+               & iter
+               & columns
+               & values
+               & nValues
+            )
+      in
+        ()
+      end
     fun swap self (a, b) =
       (
         GtkListStoreClass.FFI.withPtr

@@ -28,6 +28,12 @@ signature GTK_LIST_STORE =
       'a class
        -> tree_iter_t option
        -> tree_iter_t
+    val insertWithValuesv :
+      'a class
+       -> LargeInt.int
+           * LargeInt.int vector
+           * GObject.ValueRecord.t vector
+       -> tree_iter_t
     val iterIsValid :
       'a class
        -> tree_iter_t
@@ -54,6 +60,12 @@ signature GTK_LIST_STORE =
        -> tree_iter_t
            * LargeInt.int
            * GObject.ValueRecord.t
+       -> unit
+    val set :
+      'a class
+       -> tree_iter_t
+           * LargeInt.int vector
+           * GObject.ValueRecord.t vector
        -> unit
     val swap :
       'a class

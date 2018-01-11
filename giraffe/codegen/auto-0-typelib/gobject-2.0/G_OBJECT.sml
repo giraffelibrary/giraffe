@@ -12,11 +12,15 @@ signature G_OBJECT =
     structure FlagsClassRecord : G_OBJECT_FLAGS_CLASS_RECORD
     structure FlagsValueRecord : G_OBJECT_FLAGS_VALUE_RECORD
     structure ParamFlags : G_OBJECT_PARAM_FLAGS
+    structure ParameterRecord : G_OBJECT_PARAMETER_RECORD
     structure SignalFlags : G_OBJECT_SIGNAL_FLAGS
+    structure SignalInvocationHintRecord : G_OBJECT_SIGNAL_INVOCATION_HINT_RECORD
     structure SignalMatchType : G_OBJECT_SIGNAL_MATCH_TYPE
+    structure SignalQueryRecord : G_OBJECT_SIGNAL_QUERY_RECORD
     structure TypeDebugFlags : G_OBJECT_TYPE_DEBUG_FLAGS
     structure TypeFlags : G_OBJECT_TYPE_FLAGS
     structure TypeFundamentalFlags : G_OBJECT_TYPE_FUNDAMENTAL_FLAGS
+    structure TypeQueryRecord : G_OBJECT_TYPE_QUERY_RECORD
     structure ValueArrayRecord :
       G_OBJECT_VALUE_ARRAY_RECORD
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
@@ -39,6 +43,18 @@ signature G_OBJECT =
     structure FlagsValue :
       G_OBJECT_FLAGS_VALUE
         where type t = FlagsValueRecord.t
+    structure Parameter :
+      G_OBJECT_PARAMETER
+        where type t = ParameterRecord.t
+    structure SignalInvocationHint :
+      G_OBJECT_SIGNAL_INVOCATION_HINT
+        where type t = SignalInvocationHintRecord.t
+    structure SignalQuery :
+      G_OBJECT_SIGNAL_QUERY
+        where type t = SignalQueryRecord.t
+    structure TypeQuery :
+      G_OBJECT_TYPE_QUERY
+        where type t = TypeQueryRecord.t
     structure Value :
       G_OBJECT_VALUE
         where type t = ValueRecord.t

@@ -8,6 +8,18 @@ structure GtkTreeStore :>
     where type 'a tree_sortable_class = 'a GtkTreeSortableClass.class
     where type tree_iter_t = GtkTreeIterRecord.t =
   struct
+    structure GIntCVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GIntType
+        structure ElemSequence = CValueVectorSequence(GIntType)
+      )
+    structure GIntCVectorN = CVectorN(GIntCVectorNType)
+    structure GObjectValueRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GObjectValueRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GObjectValueRecordCVectorN = CVectorN(GObjectValueRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -46,6 +58,18 @@ structure GtkTreeStore :>
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cOptPtr
              &&> GtkTreeIterRecord.PolyML.cOptPtr
+             --> cVoid
+          )
+      val insertWithValuesv_ =
+        call (getSymbol "gtk_tree_store_insert_with_valuesv")
+          (
+            GtkTreeStoreClass.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cOptPtr
+             &&> GInt.PolyML.cVal
+             &&> GIntCVectorN.PolyML.cInPtr
+             &&> GObjectValueRecordCVectorN.PolyML.cInPtr
+             &&> GInt.PolyML.cVal
              --> cVoid
           )
       val isAncestor_ =
@@ -90,6 +114,16 @@ structure GtkTreeStore :>
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GObjectValueRecord.PolyML.cPtr
+             --> cVoid
+          )
+      val setValuesv_ =
+        call (getSymbol "gtk_tree_store_set_valuesv")
+          (
+            GtkTreeStoreClass.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             &&> GIntCVectorN.PolyML.cInPtr
+             &&> GObjectValueRecordCVectorN.PolyML.cInPtr
+             &&> GInt.PolyML.cVal
              --> cVoid
           )
       val swap_ =
@@ -194,6 +228,40 @@ structure GtkTreeStore :>
       in
         iter
       end
+    fun insertWithValuesv
+      self
+      (
+        parent,
+        position,
+        columns,
+        values
+      ) =
+      let
+        val nValues = LargeInt.fromInt (GObjectValueRecordCVectorN.length values)
+        val iter & () =
+          (
+            GtkTreeStoreClass.FFI.withPtr
+             &&&> GtkTreeIterRecord.FFI.withNewPtr
+             &&&> GtkTreeIterRecord.FFI.withOptPtr
+             &&&> GInt.FFI.withVal
+             &&&> GIntCVectorN.FFI.withPtr
+             &&&> GObjectValueRecordCVectorN.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             ---> GtkTreeIterRecord.FFI.fromPtr true && I
+          )
+            insertWithValuesv_
+            (
+              self
+               & ()
+               & parent
+               & position
+               & columns
+               & values
+               & nValues
+            )
+      in
+        iter
+      end
     fun isAncestor self (iter, descendant) =
       (
         GtkTreeStoreClass.FFI.withPtr
@@ -275,6 +343,35 @@ structure GtkTreeStore :>
            & column
            & value
         )
+    fun setValuesv
+      self
+      (
+        iter,
+        columns,
+        values
+      ) =
+      let
+        val nValues = LargeInt.fromInt (GObjectValueRecordCVectorN.length values)
+        val () =
+          (
+            GtkTreeStoreClass.FFI.withPtr
+             &&&> GtkTreeIterRecord.FFI.withPtr
+             &&&> GIntCVectorN.FFI.withPtr
+             &&&> GObjectValueRecordCVectorN.FFI.withPtr
+             &&&> GInt.FFI.withVal
+             ---> I
+          )
+            setValuesv_
+            (
+              self
+               & iter
+               & columns
+               & values
+               & nValues
+            )
+      in
+        ()
+      end
     fun swap self (a, b) =
       (
         GtkTreeStoreClass.FFI.withPtr

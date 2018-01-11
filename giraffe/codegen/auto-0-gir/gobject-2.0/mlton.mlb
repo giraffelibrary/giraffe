@@ -79,8 +79,14 @@ in
   G_OBJECT_PARAM_SPEC_VALUE_ARRAY.sml
   G_OBJECT_PARAM_SPEC_VARIANT_CLASS.sml
   G_OBJECT_PARAM_SPEC_VARIANT.sml
+  G_OBJECT_PARAMETER_RECORD.sml
+  G_OBJECT_PARAMETER.sml
   G_OBJECT_SIGNAL_FLAGS.sml
+  G_OBJECT_SIGNAL_INVOCATION_HINT_RECORD.sml
+  G_OBJECT_SIGNAL_INVOCATION_HINT.sml
   G_OBJECT_SIGNAL_MATCH_TYPE.sml
+  G_OBJECT_SIGNAL_QUERY_RECORD.sml
+  G_OBJECT_SIGNAL_QUERY.sml
   G_OBJECT_TYPE_DEBUG_FLAGS.sml
   G_OBJECT_TYPE_FLAGS.sml
   G_OBJECT_TYPE_FUNDAMENTAL_FLAGS.sml
@@ -88,6 +94,8 @@ in
   G_OBJECT_TYPE_MODULE.sml
   G_OBJECT_TYPE_PLUGIN_CLASS.sml
   G_OBJECT_TYPE_PLUGIN.sml
+  G_OBJECT_TYPE_QUERY_RECORD.sml
+  G_OBJECT_TYPE_QUERY.sml
   G_OBJECT_VALUE_ARRAY_RECORD.sml
   G_OBJECT_VALUE_ARRAY.sml
   G_OBJECT.sml
@@ -103,11 +111,15 @@ in
     mlton/GObjectFlagsClassRecord.sml
     mlton/GObjectFlagsValueRecord.sml
     mlton/GObjectParamFlags.sml
+    mlton/GObjectParameterRecord.sml
     mlton/GObjectSignalFlags.sml
+    mlton/GObjectSignalInvocationHintRecord.sml
     mlton/GObjectSignalMatchType.sml
+    mlton/GObjectSignalQueryRecord.sml
     mlton/GObjectTypeDebugFlags.sml
     mlton/GObjectTypeFlags.sml
     mlton/GObjectTypeFundamentalFlags.sml
+    mlton/GObjectTypeQueryRecord.sml
     mlton/GObjectValueArrayRecord.sml
     mlton/GObjectValueRecord.sml
     mlton/GObjectBindingFlags.sml
@@ -115,6 +127,10 @@ in
     mlton/GObjectEnumValue.sml
     mlton/GObjectFlagsClass.sml
     mlton/GObjectFlagsValue.sml
+    mlton/GObjectParameter.sml
+    mlton/GObjectSignalInvocationHint.sml
+    mlton/GObjectSignalQuery.sml
+    mlton/GObjectTypeQuery.sml
     mlton/GObjectValue.sml
     mlton/GObjectValueArray.sml
     mlton/CVector.sml

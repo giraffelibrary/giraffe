@@ -1707,7 +1707,7 @@
   <item>
     GObject-2.0
     <item>alias SignalCMarshaller: alias excluded by configuration (excludedAliasNames)</item>
-    <item>struct CClosure: struct not included by configuration (structTypes)</item>
+    <item>struct CClosure: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       struct Closure
       <item>function new_object: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -1729,22 +1729,16 @@
       <item>function sink: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct ClosureNotifyData: struct not included by configuration (structTypes)</item>
+    <item>struct ClosureNotifyData: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct InitiallyUnownedClass: class struct</item>
-    <item>struct InterfaceInfo: struct not included by configuration (structTypes)</item>
+    <item>struct InterfaceInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       object Object
       <item>
         function newv
         <item>
-          arg parameters
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Parameter: struct not included by configuration (structTypes)</item>
-            </item>
-          </item>
+          arg object_type
+          <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
       <item>
@@ -1800,14 +1794,8 @@
       <item>
         function newv
         <item>
-          arg parameters
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Parameter: struct not included by configuration (structTypes)</item>
-            </item>
-          </item>
+          arg object_type
+          <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
       <item>
@@ -1881,24 +1869,24 @@
       <item>function steal_qdata: pointer C type for VOID not supported</item>
     </item>
     <item>struct ParamSpecClass: class struct</item>
-    <item>struct ParamSpecPool: struct not included by configuration (structTypes)</item>
-    <item>struct ParamSpecTypeInfo: struct not included by configuration (structTypes)</item>
-    <item>struct Parameter: struct not included by configuration (structTypes)</item>
-    <item>struct SignalInvocationHint: struct not included by configuration (structTypes)</item>
-    <item>struct SignalQuery: struct not included by configuration (structTypes)</item>
+    <item>struct ParamSpecPool: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct ParamSpecTypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>constant TYPE_FLAG_RESERVED_ID_BIT: type INTERFACE not expected</item>
-    <item>struct TypeClass: struct not included by configuration (structTypes)</item>
-    <item>struct TypeFundamentalInfo: struct not included by configuration (structTypes)</item>
-    <item>struct TypeInfo: struct not included by configuration (structTypes)</item>
-    <item>struct TypeInstance: struct not included by configuration (structTypes)</item>
-    <item>struct TypeInterface: struct not included by configuration (structTypes)</item>
+    <item>struct TypeClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct TypeFundamentalInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct TypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct TypeInstance: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct TypeInterface: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       object TypeModule
       <item>
         function add_interface
         <item>
-          arg interface_type
-          <item>type GType: type GTYPE not supported</item>
+          arg interface_info
+          <item>
+            type interface
+            <item>struct InterfaceInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
         </item>
       </item>
       <item>
@@ -1912,15 +1900,21 @@
       <item>
         function register_type
         <item>
-          arg parent_type
-          <item>type GType: type GTYPE not supported</item>
+          arg type_info
+          <item>
+            type interface
+            <item>struct TypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
         </item>
       </item>
       <item>
         function add_interface
         <item>
-          arg interface_type
-          <item>type GType: type GTYPE not supported</item>
+          arg interface_info
+          <item>
+            type interface
+            <item>struct InterfaceInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
         </item>
       </item>
       <item>
@@ -1934,8 +1928,11 @@
       <item>
         function register_type
         <item>
-          arg parent_type
-          <item>type GType: type GTYPE not supported</item>
+          arg type_info
+          <item>
+            type interface
+            <item>struct TypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
         </item>
       </item>
     </item>
@@ -1945,36 +1942,207 @@
       <item>
         function complete_interface_info
         <item>
-          arg interface_type
-          <item>type GType: type GTYPE not supported</item>
+          arg info
+          <item>
+            type interface
+            <item>struct InterfaceInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
         </item>
       </item>
       <item>
         function complete_type_info
         <item>
-          arg g_type
-          <item>type GType: type GTYPE not supported</item>
+          arg value_table
+          <item>
+            type interface
+            <item>struct TypeValueTable: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
         </item>
       </item>
       <item>
         function complete_interface_info
         <item>
-          arg interface_type
-          <item>type GType: type GTYPE not supported</item>
+          arg info
+          <item>
+            type interface
+            <item>struct InterfaceInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
         </item>
       </item>
       <item>
         function complete_type_info
         <item>
+          arg value_table
+          <item>
+            type interface
+            <item>struct TypeValueTable: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
+        </item>
+      </item>
+    </item>
+    <item>struct TypePluginClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct TypeValueTable: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>
+      struct Value
+      <item>function get_boxed: pointer C type for VOID not supported</item>
+      <item>
+        function get_gtype
+        <item>type GType: type GTYPE not supported</item>
+      </item>
+      <item>function get_pointer: pointer C type for VOID not supported</item>
+      <item>
+        function init
+        <item>
           arg g_type
           <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
+      <item>
+        function init_from_instance
+        <item>
+          arg instance
+          <item>
+            type interface
+            <item>struct TypeInstance: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
+        </item>
+      </item>
+      <item>function peek_pointer: pointer C type for VOID not supported</item>
+      <item>
+        function set_boxed
+        <item>arg v_boxed: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function set_boxed_take_ownership
+        <item>arg v_boxed: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function set_gtype
+        <item>
+          arg v_gtype
+          <item>type GType: type GTYPE not supported</item>
+        </item>
+      </item>
+      <item>
+        function set_instance
+        <item>arg instance: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function set_pointer
+        <item>arg v_pointer: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function set_static_boxed
+        <item>arg v_boxed: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function take_boxed
+        <item>arg v_boxed: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function take_variant
+        <item>
+          arg variant
+          <item>
+            type interface
+            <item>struct Variant: ownership transfer EVERYTHING for IN parameter not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function type_compatible
+        <item>
+          arg dest_type
+          <item>type GType: type GTYPE not supported</item>
+        </item>
+      </item>
+      <item>
+        function type_transformable
+        <item>
+          arg dest_type
+          <item>type GType: type GTYPE not supported</item>
+        </item>
+      </item>
+      <item>function get_boxed: pointer C type for VOID not supported</item>
+      <item>
+        function get_gtype
+        <item>type GType: type GTYPE not supported</item>
+      </item>
+      <item>function get_pointer: pointer C type for VOID not supported</item>
+      <item>
+        function init
+        <item>
+          arg g_type
+          <item>type GType: type GTYPE not supported</item>
+        </item>
+      </item>
+      <item>
+        function init_from_instance
+        <item>
+          arg instance
+          <item>
+            type interface
+            <item>struct TypeInstance: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
+        </item>
+      </item>
+      <item>function peek_pointer: pointer C type for VOID not supported</item>
+      <item>
+        function set_boxed
+        <item>arg v_boxed: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function set_boxed_take_ownership
+        <item>arg v_boxed: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function set_gtype
+        <item>
+          arg v_gtype
+          <item>type GType: type GTYPE not supported</item>
+        </item>
+      </item>
+      <item>
+        function set_instance
+        <item>arg instance: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function set_pointer
+        <item>arg v_pointer: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function set_static_boxed
+        <item>arg v_boxed: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function take_boxed
+        <item>arg v_boxed: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function take_variant
+        <item>
+          arg variant
+          <item>
+            type interface
+            <item>struct Variant: ownership transfer EVERYTHING for IN parameter not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function type_compatible
+        <item>
+          arg dest_type
+          <item>type GType: type GTYPE not supported</item>
+        </item>
+      </item>
+      <item>
+        function type_transformable
+        <item>
+          arg dest_type
+          <item>type GType: type GTYPE not supported</item>
+        </item>
+      </item>
     </item>
-    <item>struct TypePluginClass: struct not included by configuration (structTypes)</item>
-    <item>struct TypeQuery: struct not included by configuration (structTypes)</item>
-    <item>struct TypeValueTable: struct not included by configuration (structTypes)</item>
-    <item>struct Value: struct not included by configuration (structTypes)</item>
     <item>
       struct ValueArray
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -2008,7 +2176,7 @@
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
-    <item>struct WeakRef: struct not included by configuration (structTypes)</item>
+    <item>struct WeakRef: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       function boxed_copy
       <item>arg src_boxed: pointer C type for VOID not supported</item>
@@ -2046,7 +2214,7 @@
         arg info
         <item>
           type interface
-          <item>struct TypeInfo: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
+          <item>struct TypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
         </item>
       </item>
     </item>
@@ -2060,7 +2228,7 @@
         arg info
         <item>
           type interface
-          <item>struct TypeInfo: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
+          <item>struct TypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
         </item>
       </item>
     </item>
@@ -2127,7 +2295,13 @@
     </item>
     <item>
       function param_type_register_static
-      <item>type GType: type GTYPE not supported</item>
+      <item>
+        arg pspec_info
+        <item>
+          type interface
+          <item>struct ParamSpecTypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
+      </item>
     </item>
     <item>function param_value_convert: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function param_value_defaults: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -2241,8 +2415,11 @@
     <item>
       function type_add_interface_static
       <item>
-        arg interface_type
-        <item>type GType: type GTYPE not supported</item>
+        arg info
+        <item>
+          type interface
+          <item>struct InterfaceInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
       </item>
     </item>
     <item>
@@ -2424,15 +2601,21 @@
     <item>
       function type_register_fundamental
       <item>
-        arg type_id
-        <item>type GType: type GTYPE not supported</item>
+        arg finfo
+        <item>
+          type interface
+          <item>struct TypeFundamentalInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
       </item>
     </item>
     <item>
       function type_register_static
       <item>
-        arg parent_type
-        <item>type GType: type GTYPE not supported</item>
+        arg info
+        <item>
+          type interface
+          <item>struct TypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
       </item>
     </item>
     <item>
@@ -3895,27 +4078,15 @@
       <item>
         function newv
         <item>
-          arg parameters
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Parameter: struct not included by configuration (structTypes)</item>
-            </item>
-          </item>
+          arg object_type
+          <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
       <item>
         function newv
         <item>
-          arg parameters
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Parameter: struct not included by configuration (structTypes)</item>
-            </item>
-          </item>
+          arg object_type
+          <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
     </item>
@@ -7946,38 +8117,12 @@
         </item>
       </item>
       <item>
-        function insert_with_valuesv
-        <item>
-          arg values
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Value: struct not included by configuration (structTypes)</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
         function set_column_types
         <item>
           arg types
           <item>
             type array
             <item>type GType: type GTYPE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function set_valuesv
-        <item>
-          arg values
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Value: struct not included by configuration (structTypes)</item>
-            </item>
           </item>
         </item>
       </item>
@@ -7992,38 +8137,12 @@
         </item>
       </item>
       <item>
-        function insert_with_valuesv
-        <item>
-          arg values
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Value: struct not included by configuration (structTypes)</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
         function set_column_types
         <item>
           arg types
           <item>
             type array
             <item>type GType: type GTYPE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function set_valuesv
-        <item>
-          arg values
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Value: struct not included by configuration (structTypes)</item>
-            </item>
           </item>
         </item>
       </item>
@@ -9225,38 +9344,12 @@
         </item>
       </item>
       <item>
-        function insert_with_valuesv
-        <item>
-          arg values
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Value: struct not included by configuration (structTypes)</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
         function set_column_types
         <item>
           arg types
           <item>
             type array
             <item>type GType: type GTYPE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function set_valuesv
-        <item>
-          arg values
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Value: struct not included by configuration (structTypes)</item>
-            </item>
           </item>
         </item>
       </item>
@@ -9271,38 +9364,12 @@
         </item>
       </item>
       <item>
-        function insert_with_valuesv
-        <item>
-          arg values
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Value: struct not included by configuration (structTypes)</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
         function set_column_types
         <item>
           arg types
           <item>
             type array
             <item>type GType: type GTYPE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function set_valuesv
-        <item>
-          arg values
-          <item>
-            type array
-            <item>
-              type interface
-              <item>struct Value: struct not included by configuration (structTypes)</item>
-            </item>
           </item>
         </item>
       </item>

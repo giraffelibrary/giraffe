@@ -14,6 +14,18 @@ structure GtkListStore :>
         structure ElemSequence = CValueVectorSequence(GInt32Type)
       )
     structure GInt32CVector = CVector(GInt32CVectorType)
+    structure GInt32CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GInt32Type
+        structure ElemSequence = CValueVectorSequence(GInt32Type)
+      )
+    structure GInt32CVectorN = CVectorN(GInt32CVectorNType)
+    structure GObjectValueRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GObjectValueRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GObjectValueRecordCVectorN = CVectorN(GObjectValueRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -44,6 +56,17 @@ structure GtkListStore :>
              &&> GtkTreeIterRecord.PolyML.cOptPtr
              --> cVoid
           )
+      val insertWithValuesv_ =
+        call (getSymbol "gtk_list_store_insert_with_valuesv")
+          (
+            GtkListStoreClass.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             &&> GInt32.PolyML.cVal
+             &&> GInt32CVectorN.PolyML.cInPtr
+             &&> GObjectValueRecordCVectorN.PolyML.cInPtr
+             &&> GInt32.PolyML.cVal
+             --> cVoid
+          )
       val iterIsValid_ = call (getSymbol "gtk_list_store_iter_is_valid") (GtkListStoreClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val moveAfter_ =
         call (getSymbol "gtk_list_store_move_after")
@@ -71,6 +94,16 @@ structure GtkListStore :>
              &&> GtkTreeIterRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
              &&> GObjectValueRecord.PolyML.cPtr
+             --> cVoid
+          )
+      val set_ =
+        call (getSymbol "gtk_list_store_set_valuesv")
+          (
+            GtkListStoreClass.PolyML.cPtr
+             &&> GtkTreeIterRecord.PolyML.cPtr
+             &&> GInt32CVectorN.PolyML.cInPtr
+             &&> GObjectValueRecordCVectorN.PolyML.cInPtr
+             &&> GInt32.PolyML.cVal
              --> cVoid
           )
       val swap_ =
@@ -157,6 +190,37 @@ structure GtkListStore :>
       in
         iter
       end
+    fun insertWithValuesv
+      self
+      (
+        position,
+        columns,
+        values
+      ) =
+      let
+        val nValues = LargeInt.fromInt (GObjectValueRecordCVectorN.length values)
+        val iter & () =
+          (
+            GtkListStoreClass.FFI.withPtr
+             &&&> GtkTreeIterRecord.FFI.withNewPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GInt32CVectorN.FFI.withPtr
+             &&&> GObjectValueRecordCVectorN.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             ---> GtkTreeIterRecord.FFI.fromPtr true && I
+          )
+            insertWithValuesv_
+            (
+              self
+               & ()
+               & position
+               & columns
+               & values
+               & nValues
+            )
+      in
+        iter
+      end
     fun iterIsValid self iter = (GtkListStoreClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) iterIsValid_ (self & iter)
     fun moveAfter self (iter, position) =
       (
@@ -213,6 +277,35 @@ structure GtkListStore :>
            & column
            & value
         )
+    fun set
+      self
+      (
+        iter,
+        columns,
+        values
+      ) =
+      let
+        val nValues = LargeInt.fromInt (GObjectValueRecordCVectorN.length values)
+        val () =
+          (
+            GtkListStoreClass.FFI.withPtr
+             &&&> GtkTreeIterRecord.FFI.withPtr
+             &&&> GInt32CVectorN.FFI.withPtr
+             &&&> GObjectValueRecordCVectorN.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             ---> I
+          )
+            set_
+            (
+              self
+               & iter
+               & columns
+               & values
+               & nValues
+            )
+      in
+        ()
+      end
     fun swap self (a, b) =
       (
         GtkListStoreClass.FFI.withPtr

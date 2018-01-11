@@ -31,6 +31,13 @@ signature GTK_TREE_STORE =
       'a class
        -> tree_iter_t option * tree_iter_t option
        -> tree_iter_t
+    val insertWithValues :
+      'a class
+       -> tree_iter_t option
+           * LargeInt.int
+           * LargeInt.int vector
+           * GObject.ValueRecord.t vector
+       -> tree_iter_t
     val isAncestor :
       'a class
        -> tree_iter_t * tree_iter_t
@@ -64,6 +71,12 @@ signature GTK_TREE_STORE =
        -> tree_iter_t
            * LargeInt.int
            * GObject.ValueRecord.t
+       -> unit
+    val set :
+      'a class
+       -> tree_iter_t
+           * LargeInt.int vector
+           * GObject.ValueRecord.t vector
        -> unit
     val swap :
       'a class

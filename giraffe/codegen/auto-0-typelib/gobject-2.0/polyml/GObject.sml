@@ -190,11 +190,15 @@ structure GObject :
     structure FlagsClassRecord = GObjectFlagsClassRecord
     structure FlagsValueRecord = GObjectFlagsValueRecord
     structure ParamFlags = GObjectParamFlags
+    structure ParameterRecord = GObjectParameterRecord
     structure SignalFlags = GObjectSignalFlags
+    structure SignalInvocationHintRecord = GObjectSignalInvocationHintRecord
     structure SignalMatchType = GObjectSignalMatchType
+    structure SignalQueryRecord = GObjectSignalQueryRecord
     structure TypeDebugFlags = GObjectTypeDebugFlags
     structure TypeFlags = GObjectTypeFlags
     structure TypeFundamentalFlags = GObjectTypeFundamentalFlags
+    structure TypeQueryRecord = GObjectTypeQueryRecord
     structure ValueArrayRecord = GObjectValueArrayRecord
     structure ValueRecord = GObjectValueRecord
     structure BindingFlags = GObjectBindingFlags
@@ -202,6 +206,10 @@ structure GObject :
     structure EnumValue = GObjectEnumValue
     structure FlagsClass = GObjectFlagsClass
     structure FlagsValue = GObjectFlagsValue
+    structure Parameter = GObjectParameter
+    structure SignalInvocationHint = GObjectSignalInvocationHint
+    structure SignalQuery = GObjectSignalQuery
+    structure TypeQuery = GObjectTypeQuery
     structure Value = GObjectValue
     structure ValueArray = GObjectValueArray
     structure ClosureRecord = GObjectClosureRecord
