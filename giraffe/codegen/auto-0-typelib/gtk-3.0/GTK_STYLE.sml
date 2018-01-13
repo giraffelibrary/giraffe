@@ -22,6 +22,10 @@ signature GTK_STYLE =
        -> unit
     val copy : 'a class -> base class
     val detach : 'a class -> unit
+    val getStyleProperty :
+      'a class
+       -> GObject.Type.t * string
+       -> GObject.ValueRecord.t
     val hasContext : 'a class -> bool
     val lookupColor :
       'a class

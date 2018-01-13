@@ -1,5 +1,11 @@
 structure Gtk : GTK =
   struct
+    structure GObjectTypeCVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GObjectType.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GObjectType.C.ValueType)
+      )
+    structure GObjectTypeCVectorN = CVectorN(GObjectTypeCVectorNType)
     structure GdkAtomRecordCVectorNType =
       CPointerCVectorNType(
         structure CElemType = GdkAtomRecord.C.PointerType
@@ -580,6 +586,15 @@ structure Gtk : GTK =
       val rcGetImModulePath_ = call (getSymbol "gtk_rc_get_im_module_path") (cVoid --> Utf8.PolyML.cOutPtr)
       val rcGetModuleDir_ = call (getSymbol "gtk_rc_get_module_dir") (cVoid --> Utf8.PolyML.cOutPtr)
       val rcGetStyle_ = call (getSymbol "gtk_rc_get_style") (GtkWidgetClass.PolyML.cPtr --> GtkStyleClass.PolyML.cPtr)
+      val rcGetStyleByPaths_ =
+        call (getSymbol "gtk_rc_get_style_by_paths")
+          (
+            GtkSettingsClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GObjectType.PolyML.cVal
+             --> GtkStyleClass.PolyML.cOptPtr
+          )
       val rcGetThemeDir_ = call (getSymbol "gtk_rc_get_theme_dir") (cVoid --> Utf8.PolyML.cOutPtr)
       val rcParse_ = call (getSymbol "gtk_rc_parse") (Utf8.PolyML.cInPtr --> cVoid)
       val rcParseString_ = call (getSymbol "gtk_rc_parse_string") (Utf8.PolyML.cInPtr --> cVoid)
@@ -899,6 +914,16 @@ structure Gtk : GTK =
       val targetsIncludeUri_ = call (getSymbol "gtk_targets_include_uri") (GdkAtomRecordCVectorN.PolyML.cInPtr &&> GInt32.PolyML.cVal --> GBool.PolyML.cVal)
       val testCreateSimpleWindow_ = call (getSymbol "gtk_test_create_simple_window") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val testFindLabel_ = call (getSymbol "gtk_test_find_label") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
+      val testFindSibling_ = call (getSymbol "gtk_test_find_sibling") (GtkWidgetClass.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val testFindWidget_ =
+        call (getSymbol "gtk_test_find_widget")
+          (
+            GtkWidgetClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectType.PolyML.cVal
+             --> GtkWidgetClass.PolyML.cOptPtr
+          )
+      val testListAllTypes_ = call (getSymbol "gtk_test_list_all_types") (GUInt32.PolyML.cRef --> GObjectTypeCVectorN.PolyML.cOutPtr)
       val testRegisterAllTypes_ = call (getSymbol "gtk_test_register_all_types") (cVoid --> cVoid)
       val testSliderGetValue_ = call (getSymbol "gtk_test_slider_get_value") (GtkWidgetClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val testSliderSetPerc_ = call (getSymbol "gtk_test_slider_set_perc") (GtkWidgetClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
@@ -3290,6 +3315,27 @@ structure Gtk : GTK =
     fun rcGetImModulePath () = (I ---> Utf8.FFI.fromPtr 1) rcGetImModulePath_ ()
     fun rcGetModuleDir () = (I ---> Utf8.FFI.fromPtr 1) rcGetModuleDir_ ()
     fun rcGetStyle widget = (GtkWidgetClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr false) rcGetStyle_ widget
+    fun rcGetStyleByPaths
+      (
+        settings,
+        widgetPath,
+        classPath,
+        type'
+      ) =
+      (
+        GtkSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GObjectType.FFI.withVal
+         ---> GtkStyleClass.FFI.fromOptPtr false
+      )
+        rcGetStyleByPaths_
+        (
+          settings
+           & widgetPath
+           & classPath
+           & type'
+        )
     fun rcGetThemeDir () = (I ---> Utf8.FFI.fromPtr 1) rcGetThemeDir_ ()
     fun rcParse filename = (Utf8.FFI.withPtr ---> I) rcParse_ filename
     fun rcParseString rcString = (Utf8.FFI.withPtr ---> I) rcParseString_ rcString
@@ -4092,6 +4138,31 @@ structure Gtk : GTK =
       end
     fun testCreateSimpleWindow (windowTitle, dialogText) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
     fun testFindLabel (widget, labelPattern) = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) testFindLabel_ (widget & labelPattern)
+    fun testFindSibling (baseWidget, widgetType) = (GtkWidgetClass.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) testFindSibling_ (baseWidget & widgetType)
+    fun testFindWidget
+      (
+        widget,
+        labelPattern,
+        widgetType
+      ) =
+      (
+        GtkWidgetClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectType.FFI.withVal
+         ---> GtkWidgetClass.FFI.fromOptPtr false
+      )
+        testFindWidget_
+        (
+          widget
+           & labelPattern
+           & widgetType
+        )
+    fun testListAllTypes () =
+      let
+        val nTypes & retVal = (GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GObjectTypeCVectorN.FFI.fromPtr 0) testListAllTypes_ GUInt32.null
+      in
+        retVal (LargeInt.toInt nTypes)
+      end
     fun testRegisterAllTypes () = (I ---> I) testRegisterAllTypes_ ()
     fun testSliderGetValue widget = (GtkWidgetClass.FFI.withPtr ---> GDouble.FFI.fromVal) testSliderGetValue_ widget
     fun testSliderSetPerc (widget, percentage) = (GtkWidgetClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) testSliderSetPerc_ (widget & percentage)

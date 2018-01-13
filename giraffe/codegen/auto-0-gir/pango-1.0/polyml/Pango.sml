@@ -50,6 +50,16 @@ structure Pango : PANGO =
              --> GBool.PolyML.cVal
           )
       val markupParserNew_ = call (getSymbol "pango_markup_parser_new") (GChar.PolyML.cVal --> GLibMarkupParseContextRecord.PolyML.cPtr)
+      val parseEnum_ =
+        call (getSymbol "pango_parse_enum")
+          (
+            GObjectType.PolyML.cVal
+             &&> Utf8.PolyML.cInOptPtr
+             &&> GInt.PolyML.cRef
+             &&> GBool.PolyML.cVal
+             &&> Utf8.PolyML.cOutRef
+             --> GBool.PolyML.cVal
+          )
       val parseMarkup_ =
         call (getSymbol "pango_parse_markup")
           (
@@ -295,6 +305,37 @@ structure Pango : PANGO =
         )
       end
     fun markupParserNew accelMarker = (GChar.FFI.withVal ---> GLibMarkupParseContextRecord.FFI.fromPtr false) markupParserNew_ accelMarker
+    fun parseEnum
+      (
+        type',
+        str,
+        warn
+      ) =
+      let
+        val value
+         & possibleValues
+         & retVal =
+          (
+            GObjectType.FFI.withVal
+             &&&> Utf8.FFI.withOptPtr
+             &&&> GInt.FFI.withRefVal
+             &&&> GBool.FFI.withVal
+             &&&> Utf8.FFI.withRefOptPtr
+             ---> GInt.FFI.fromVal
+                   && Utf8.FFI.fromPtr 1
+                   && GBool.FFI.fromVal
+          )
+            parseEnum_
+            (
+              type'
+               & str
+               & GInt.null
+               & warn
+               & NONE
+            )
+      in
+        if retVal then SOME (value, possibleValues) else NONE
+      end
     fun parseMarkup
       (
         markupText,

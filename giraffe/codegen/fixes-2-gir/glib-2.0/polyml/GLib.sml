@@ -516,6 +516,7 @@ structure GLib : G_LIB =
           )
       val uriUnescapeString_ = call (getSymbol "g_uri_unescape_string") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInOptPtr --> Utf8.PolyML.cOutPtr)
       val usleep_ = call (getSymbol "g_usleep") (GULong.PolyML.cVal --> cVoid)
+      val variantGetGtype_ = call (getSymbol "g_variant_get_gtype") (cVoid --> GObjectType.PolyML.cVal)
     end
     structure PidType = GLibPidType
     structure SourceFunc = GLibSourceFunc
@@ -1691,4 +1692,5 @@ structure GLib : G_LIB =
         )
     fun uriUnescapeString (escapedString, illegalCharacters) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> Utf8.FFI.fromPtr 1) uriUnescapeString_ (escapedString & illegalCharacters)
     fun usleep microseconds = (GULong.FFI.withVal ---> I) usleep_ microseconds
+    fun variantGetGtype () = (I ---> GObjectType.FFI.fromVal) variantGetGtype_ ()
   end

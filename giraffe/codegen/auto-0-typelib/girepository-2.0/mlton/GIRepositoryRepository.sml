@@ -31,6 +31,7 @@ structure GIRepositoryRepository :>
     val prependLibraryPath_ = _import "mlton_g_irepository_prepend_library_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
     val prependSearchPath_ = _import "mlton_g_irepository_prepend_search_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
     val findByErrorDomain_ = fn x1 & x2 => (_import "g_irepository_find_by_error_domain" : GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p * GUInt32.FFI.val_ -> GIRepositoryBaseInfoRecord.FFI.notnull GIRepositoryBaseInfoRecord.FFI.p;) (x1, x2)
+    val findByGtype_ = fn x1 & x2 => (_import "g_irepository_find_by_gtype" : GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p * GObjectType.FFI.val_ -> GIRepositoryBaseInfoRecord.FFI.notnull GIRepositoryBaseInfoRecord.FFI.p;) (x1, x2)
     val findByName_ =
       fn
         x1
@@ -288,6 +289,7 @@ structure GIRepositoryRepository :>
     fun prependLibraryPath directory = (Utf8.FFI.withPtr ---> I) prependLibraryPath_ directory
     fun prependSearchPath directory = (Utf8.FFI.withPtr ---> I) prependSearchPath_ directory
     fun findByErrorDomain self domain = (GIRepositoryRepositoryClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> GIRepositoryBaseInfoRecord.FFI.fromPtr true) findByErrorDomain_ (self & domain)
+    fun findByGtype self gtype = (GIRepositoryRepositoryClass.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GIRepositoryBaseInfoRecord.FFI.fromPtr true) findByGtype_ (self & gtype)
     fun findByName self (namespace, name) =
       (
         GIRepositoryRepositoryClass.FFI.withPtr

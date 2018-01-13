@@ -280,6 +280,11 @@ val stringTyRef : int * lid = (0, toList1 ["string"])
 val word8VectorTyRef : int * lid = (0, toList1 ["Word8Vector", vectorId])
 
 
+type gtype_info =
+  {
+    iRef : interfaceref
+  }
+
 type scalar_info =
   {
     ty      : scalartype,
@@ -324,7 +329,8 @@ datatype array_length =
 | ArrayLengthParam of string        (* the parameter name *)
 
 datatype info =
-  ISCALAR    of scalar_info
+  IGTYPE     of gtype_info
+| ISCALAR    of scalar_info
 | IUTF8      of utf8_info
 | IARRAY     of array_info
 | IINTERFACE of interface_info
@@ -345,7 +351,13 @@ fun getBaseInfo info =
 
 fun addIRef (info, iRefs) =
   case info of
-    ISCALAR scalarParInfo                  => (
+    IGTYPE {iRef as {scope, ...}, ...}     => (
+      case scope of
+        GLOBAL             => iRefs
+      | LOCALINTERFACESELF => iRefs
+      | _                  => insert (iRef, iRefs)
+    )
+  | ISCALAR scalarParInfo                  => (
       case scalarParInfo of
         {optIRef = SOME iRef, ...} =>
           let
@@ -418,7 +430,9 @@ fun cArrayStrId length elem =
 
     val elemStrId =
       case elem of
-        ISCALAR {ty, optIRef, ...}                 => (
+        IGTYPE {iRef, ...}                         =>
+          makeIRefInterfaceOtherStrId iRef
+      | ISCALAR {ty, optIRef, ...}                 => (
           case optIRef of
             NONE      => gStrId ^ scalarStrId ty
           | SOME iRef => makeIRefInterfaceOtherStrId iRef
@@ -466,7 +480,8 @@ fun cArrayStrId length elem =
 
 val needsStructDeps =
   fn
-    ISCALAR _                  => SOME false
+    IGTYPE _                   => SOME false
+  | ISCALAR _                  => SOME false
   | IUTF8 _                    => SOME true
   | IARRAY _                   => SOME true
   | IINTERFACE {infoType, ...} =>
@@ -488,7 +503,9 @@ fun cArrayStrIdStructDeps length elem structDeps =
 
     val (elemStrId, structDeps'1) =
       case elem of
-        ISCALAR {ty, optIRef, ...}                 => (
+        IGTYPE {iRef, ...}                         =>
+          (makeIRefInterfaceOtherStrId iRef, structDeps)
+      | ISCALAR {ty, optIRef, ...}                 => (
           case optIRef of
             NONE      => gStrId ^ scalarStrId ty
           | SOME iRef => makeIRefInterfaceOtherStrId iRef,
@@ -594,7 +611,8 @@ fun boolToInt b = if b then 1 else 0
 
 fun getArrayOwnXferDepth ownXferDepth elem =
   case elem of
-    ISCALAR _                    => ownXferDepth
+    IGTYPE _                     => ownXferDepth
+  | ISCALAR _                    => ownXferDepth
   | IUTF8 {ownXfer, ...}         => ownXferDepth + (boolToInt ownXfer)
   | IARRAY {ownXfer, elem, ...}  =>
       if ownXfer
@@ -757,7 +775,17 @@ fun getParInfo
       in
         case TypeInfo.getTag typeInfo of
           ERROR        => notExpected "ERROR"
-        | GTYPE        => notSupported "GTYPE"
+        | GTYPE        =>
+            let
+              val iRef =
+                case optIRef of
+                  SOME iRef => updateIRefTy SIMPLE iRef
+                | NONE      => makeTypeIRef functionNamespace optContainerName
+
+              val gtypeInfo = {iRef = iRef}
+            in
+              IGTYPE gtypeInfo
+            end
         | ARRAY        =>
             let
               open Transfer
@@ -1183,7 +1211,17 @@ fun getRetInfo
       in
         case TypeInfo.getTag typeInfo of
           ERROR        => notExpected "ERROR"
-        | GTYPE        => notSupported "GTYPE"
+        | GTYPE        =>
+            let
+              val iRef =
+                case optIRef of
+                  SOME iRef => updateIRefTy SIMPLE iRef
+                | NONE      => makeTypeIRef functionNamespace optContainerName
+
+              val gtypeInfo = {iRef = iRef}
+            in
+              IGTYPE gtypeInfo
+            end
         | ARRAY        =>
             let
               open Transfer
@@ -1475,7 +1513,9 @@ fun addSpecParInfo
 
           fun addInfo isElem tyMap info =
             case info of
-              ISCALAR {ty, optIRef, ...}         => (
+              IGTYPE {iRef, ...}                 =>
+                addIRefTy dir isElem tyMap iRef iRefs
+            | ISCALAR {ty, optIRef, ...}         => (
                 if true
                 then
                   case optIRef of
@@ -1556,7 +1596,8 @@ fun addSpecRetInfo
 
           fun addInfo isElem tyMap info =
             case info of
-              ISCALAR {ty, optIRef, ...}         => (
+              IGTYPE {iRef, ...}                 => mkIRefTy isElem tyMap iRef iRefs
+            | ISCALAR {ty, optIRef, ...}         => (
                 case optIRef of
                   NONE      => (mkTy isElem tyMap (scalarTyRef ty), iRefs)
                 | SOME iRef => mkIRefTy isElem tyMap iRef iRefs
@@ -1872,6 +1913,20 @@ local
       | XferNone    => funExp
     end
 
+  fun withFunGType (dir, {iRef, ...} : gtype_info) =
+    let
+      val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
+    in
+      withFunExp prefixIds {
+        isRef = dir <> IN,
+        isDup = false,
+        isNew = false,
+        isOpt = false,
+        isPtr = false,
+        xfer  = XferNone
+      }
+    end
+
   fun withFunScalar (dir, {ty, optIRef, ...} : scalar_info) =
     let
       val prefixIds =
@@ -1991,6 +2046,16 @@ local
       }
     end
 
+  fun fromFunGType ({iRef, ...} : gtype_info) =
+    let
+      val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
+    in
+      fromFunExp prefixIds {
+        isOpt = false,
+        xfer  = XferNone
+      }
+    end
+
   fun fromFunScalar ({ty, optIRef, ...} : scalar_info) =
     let
       val prefixIds =
@@ -2069,6 +2134,11 @@ local
               | NONE         => XferNone
       }
     end
+
+  fun argValGType (name, dir, {iRef, ...} : gtype_info) =
+    case dir of
+      OUT _ => mkLIdLNameExp (prefixInterfaceStrId iRef [nullId])
+    | _     => mkIdLNameExp name
 
   fun argValScalar (name, dir, {ty, optIRef, ...} : scalar_info) =
     case dir of
@@ -2155,7 +2225,16 @@ in
         let
           val (withFunExp, argValExp, fromFunExp, outParamExp, structDeps'1) =
             case info of
-              ISCALAR scalarParInfo       =>
+              IGTYPE gtypeParInfo         =>
+                let
+                  val withFunExp = withFunGType (dir, gtypeParInfo)
+                  val argValExp = argValGType (name, dir, gtypeParInfo)
+                  fun fromFunExp () = fromFunGType gtypeParInfo
+                  fun outParamExp () = mkIdLNameExp name
+                in
+                  (withFunExp, argValExp, fromFunExp, outParamExp, structDeps)
+                end
+            | ISCALAR scalarParInfo       =>
                 let
                   val withFunExp = withFunScalar (dir, scalarParInfo)
                   val argValExp = argValScalar (name, dir, scalarParInfo)
@@ -2241,7 +2320,8 @@ in
           (* override type in `info` for interface constructor *)
           val info' =
             case info of
-              ISCALAR _ => info
+              IGTYPE _  => info
+            | ISCALAR _ => info
             | IUTF8 _   => info
             | IARRAY _  => info
             | IINTERFACE {
@@ -2265,7 +2345,13 @@ in
 
           val (fromFunExp, structDeps') =
             case info' of
-              ISCALAR (scalarParInfo as {ty, ...}) =>
+              IGTYPE gtypeParInfo                  =>
+                let
+                  val fromFunExp = fromFunGType gtypeParInfo
+                in
+                  (fromFunExp, structDeps)
+                end
+            | ISCALAR (scalarParInfo as {ty, ...}) =>
                 let
                   val fromFunExp =
                     case (ty, throws) of
@@ -2736,6 +2822,26 @@ local
 
   val retVoidConv = cVoidConv
 
+  fun parGTypeConv (dir, {iRef, ...} : gtype_info) =
+    let
+      val prefixIds = prefixInterfaceStrId iRef [polyMLStrId]
+    in
+      convExp prefixIds (
+        if dir <> IN
+        then
+          REF NONE
+        else
+          VAL
+      )
+    end
+
+  fun retGTypeConv ({iRef, ...} : gtype_info) =
+    let
+      val prefixIds = prefixInterfaceStrId iRef [polyMLStrId]
+    in
+      convExp prefixIds VAL
+    end
+
   fun parScalarConv (dir, {ty, optIRef, ...} : scalar_info) =
     let
       val prefixIds =
@@ -2941,7 +3047,13 @@ in
       PIVOID                  => acc
     | PISOME {dir, info, ...} =>
         case info of
-          ISCALAR scalarParInfo =>
+          IGTYPE gtypeParInfo   =>
+            let
+              val convExp = parGTypeConv (dir, gtypeParInfo)
+            in
+              convExp :: acc
+            end
+        | ISCALAR scalarParInfo =>
             let
               val convExp = parScalarConv (dir, scalarParInfo)
             in
@@ -2971,7 +3083,8 @@ in
       RIVOID        => retVoidConv
     | RISOME {info} =>
         case info of
-          ISCALAR scalarRetInfo       => retScalarConv scalarRetInfo
+          IGTYPE gtypeRetInfo         => retGTypeConv gtypeRetInfo
+        | ISCALAR scalarRetInfo       => retScalarConv scalarRetInfo
         | IUTF8 utf8RetInfo           => retUtf8Conv utf8RetInfo
         | IARRAY arrayInfo            => retArrayConv arrayInfo
         | IINTERFACE interfaceRetInfo => retInterfaceConv interfaceRetInfo
@@ -3411,6 +3524,26 @@ local
 
   val retVoidType = unitTy
 
+  fun parGTypeType (dir, {iRef, ...} : gtype_info) =
+    let
+      val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
+    in
+      typeTy false prefixIds (
+        if dir <> IN
+        then
+          REF NONE
+        else
+          VAL
+      )
+    end
+
+  fun retGTypeType ({iRef, ...} : gtype_info) =
+    let
+      val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
+    in
+      typeTy false prefixIds VAL
+    end
+
   fun parScalarType (dir, {ty, optIRef, ...} : scalar_info) =
     let
       val prefixIds =
@@ -3614,7 +3747,13 @@ in
       PIVOID                  => acc
     | PISOME {dir, info, ...} =>
         case info of
-          ISCALAR scalarParInfo       =>
+          IGTYPE gtypeParInfo         =>
+            let
+              val typeTy = parGTypeType (dir, gtypeParInfo)
+            in
+              typeTy :: acc
+            end
+        | ISCALAR scalarParInfo       =>
             let
               val typeTy = parScalarType (dir, scalarParInfo)
             in
@@ -3644,7 +3783,8 @@ in
       RIVOID        => retVoidType
     | RISOME {info} =>
         case info of
-          ISCALAR scalarRetInfo       => retScalarType scalarRetInfo
+          IGTYPE gtypeRetInfo         => retGTypeType gtypeRetInfo
+        | ISCALAR scalarRetInfo       => retScalarType scalarRetInfo
         | IUTF8 utf8RetInfo           => retUtf8Type utf8RetInfo
         | IARRAY arrayRetInfo         => retArrayType arrayRetInfo
         | IINTERFACE interfaceRetInfo => retInterfaceType interfaceRetInfo

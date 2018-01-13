@@ -158,6 +158,14 @@ fun makeSignalSpec
  *)
 
 local
+  fun mkFunGType funExp ({iRef, ...} : gtype_info) =
+    let
+      val accId = tId
+      val accExp = mkLIdLNameExp (prefixInterfaceStrId iRef [accId])
+    in
+      ExpApp (funExp, accExp)
+    end
+
   fun mkFunScalar funExp ({ty, ...} : scalar_info) =
     ExpApp (funExp , mkIdLNameExp (scalarAccessorId ty))
 
@@ -187,6 +195,8 @@ local
   fun indexAppExp e n = ExpApp (e, ExpConst (ConstWord (n, NONE)))
 
 
+  fun getFunGType n = mkFunGType (indexAppExp getExp n)
+
   fun getFunScalar n = mkFunScalar (indexAppExp getExp n)
 
   fun getFunUtf8 n = mkFunUtf8 (indexAppExp getExp n)
@@ -195,6 +205,8 @@ local
 
   fun getFunInterface n = mkFunInterface (indexAppExp getExp n)
 
+
+  fun setFunGType n = mkFunGType (indexAppExp setExp n)
 
   fun setFunScalar n = mkFunScalar (indexAppExp setExp n)
 
@@ -206,6 +218,8 @@ local
 
 
   val retFunVoid = retVoidExp
+
+  val retFunGType = mkFunGType retExp
 
   val retFunScalar = mkFunScalar retExp
 
@@ -222,7 +236,15 @@ in
         let
           val (inParamExp, getFun, setFun, structDeps'1) =
             case info of
-              ISCALAR scalarParInfo       =>
+              IGTYPE gtypeParInfo         =>
+                let
+                  fun inParamExp () = mkIdLNameExp name
+                  fun getFun n = getFunGType n gtypeParInfo
+                  fun setFun n = setFunGType n gtypeParInfo
+                in
+                  (inParamExp, getFun, setFun, structDeps)
+                end
+            | ISCALAR scalarParInfo       =>
                 let
                   fun inParamExp () = mkIdLNameExp name
                   fun getFun n = getFunScalar n scalarParInfo
@@ -287,7 +309,8 @@ in
         let
           val (retFun, structDeps') =
             case info of
-              ISCALAR scalarRetInfo    => (retFunScalar scalarRetInfo, structDeps)
+              IGTYPE gtypeRetInfo      => (retFunGType gtypeRetInfo, structDeps)
+            | ISCALAR scalarRetInfo    => (retFunScalar scalarRetInfo, structDeps)
             | IUTF8 utf8RetInfo        => (retFunUtf8 utf8RetInfo, structDeps)
             | IARRAY arrayRetInfo      =>
                 let

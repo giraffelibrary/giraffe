@@ -1,6 +1,7 @@
 signature GTK_BUILDER =
   sig
     type 'a class
+    type 'a widget_class
     type 'a application_class
     type t = base class
     val getType : unit -> GObject.Type.t
@@ -38,12 +39,23 @@ signature GTK_BUILDER =
       'a class
        -> string * 'b GObject.ObjectClass.class
        -> unit
+    val extendWithTemplate :
+      'a class
+       -> 'b widget_class
+           * GObject.Type.t
+           * string
+           * LargeInt.int
+       -> LargeInt.int
     val getApplication : 'a class -> base application_class
     val getObject :
       'a class
        -> string
        -> base GObject.ObjectClass.class
     val getTranslationDomain : 'a class -> string
+    val getTypeFromName :
+      'a class
+       -> string
+       -> GObject.Type.t
     val setApplication :
       'a class
        -> 'b application_class
@@ -55,6 +67,10 @@ signature GTK_BUILDER =
     val valueFromString :
       'a class
        -> 'b GObject.ParamSpecClass.class * string
+       -> GObject.ValueRecord.t
+    val valueFromStringType :
+      'a class
+       -> GObject.Type.t * string
        -> GObject.ValueRecord.t
     val translationDomainProp : ('a class, string option, string option) Property.readwrite
   end

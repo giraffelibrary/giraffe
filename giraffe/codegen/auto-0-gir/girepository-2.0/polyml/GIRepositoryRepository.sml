@@ -21,6 +21,7 @@ structure GIRepositoryRepository :>
       val prependLibraryPath_ = call (getSymbol "g_irepository_prepend_library_path") (Utf8.PolyML.cInPtr --> cVoid)
       val prependSearchPath_ = call (getSymbol "g_irepository_prepend_search_path") (Utf8.PolyML.cInPtr --> cVoid)
       val findByErrorDomain_ = call (getSymbol "g_irepository_find_by_error_domain") (GIRepositoryRepositoryClass.PolyML.cPtr &&> GLibQuark.PolyML.cVal --> GIRepositoryEnumInfoRecord.PolyML.cPtr)
+      val findByGtype_ = call (getSymbol "g_irepository_find_by_gtype") (GIRepositoryRepositoryClass.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GIRepositoryBaseInfoRecord.PolyML.cPtr)
       val findByName_ =
         call (getSymbol "g_irepository_find_by_name")
           (
@@ -96,6 +97,7 @@ structure GIRepositoryRepository :>
     fun prependLibraryPath directory = (Utf8.FFI.withPtr ---> I) prependLibraryPath_ directory
     fun prependSearchPath directory = (Utf8.FFI.withPtr ---> I) prependSearchPath_ directory
     fun findByErrorDomain self domain = (GIRepositoryRepositoryClass.FFI.withPtr &&&> GLibQuark.FFI.withVal ---> GIRepositoryEnumInfoRecord.FFI.fromPtr true) findByErrorDomain_ (self & domain)
+    fun findByGtype self gtype = (GIRepositoryRepositoryClass.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GIRepositoryBaseInfoRecord.FFI.fromPtr true) findByGtype_ (self & gtype)
     fun findByName self (namespace, name) =
       (
         GIRepositoryRepositoryClass.FFI.withPtr

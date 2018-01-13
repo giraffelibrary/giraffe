@@ -90,6 +90,7 @@ structure GtkContainer :>
               x4,
               x5
             )
+    val childType_ = _import "gtk_container_child_type" : GtkContainerClass.FFI.notnull GtkContainerClass.FFI.p -> GObjectType.FFI.val_;
     val getBorderWidth_ = _import "gtk_container_get_border_width" : GtkContainerClass.FFI.notnull GtkContainerClass.FFI.p -> GUInt32.FFI.val_;
     val getFocusChild_ = _import "gtk_container_get_focus_child" : GtkContainerClass.FFI.notnull GtkContainerClass.FFI.p -> unit GtkWidgetClass.FFI.p;
     val getFocusHadjustment_ = _import "gtk_container_get_focus_hadjustment" : GtkContainerClass.FFI.notnull GtkContainerClass.FFI.p -> unit GtkAdjustmentClass.FFI.p;
@@ -202,6 +203,7 @@ structure GtkContainer :>
            & propertyName
            & value
         )
+    fun childType self = (GtkContainerClass.FFI.withPtr ---> GObjectType.FFI.fromVal) childType_ self
     fun getBorderWidth self = (GtkContainerClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getBorderWidth_ self
     fun getFocusChild self = (GtkContainerClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getFocusChild_ self
     fun getFocusHadjustment self = (GtkContainerClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromOptPtr false) getFocusHadjustment_ self

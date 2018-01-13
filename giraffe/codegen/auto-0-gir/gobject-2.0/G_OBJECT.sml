@@ -275,7 +275,9 @@ signature G_OBJECT =
       G_OBJECT_TYPE_MODULE
         where type 'a class = 'a TypeModuleClass.class
         where type 'a type_plugin_class = 'a TypePluginClass.class
+        where type enum_value_t = EnumValueRecord.t
         where type type_t = Type.t
+        where type flags_value_t = FlagsValueRecord.t
     structure TypePlugin :
       G_OBJECT_TYPE_PLUGIN
         where type 'a class = 'a TypePluginClass.class
@@ -283,6 +285,7 @@ signature G_OBJECT =
     structure Object :
       G_OBJECT_OBJECT
         where type 'a class = 'a ObjectClass.class
+        where type parameter_t = ParameterRecord.t
         where type type_t = Type.t
         where type 'a binding_class = 'a BindingClass.class
         where type binding_flags_t = BindingFlags.t
@@ -307,14 +310,24 @@ signature G_OBJECT =
     val enumGetValue : EnumClassRecord.t * LargeInt.int -> EnumValueRecord.t
     val enumGetValueByName : EnumClassRecord.t * string -> EnumValueRecord.t
     val enumGetValueByNick : EnumClassRecord.t * string -> EnumValueRecord.t
+    val enumRegisterStatic : string * EnumValueRecord.t -> Type.t
     val flagsGetFirstValue : FlagsClassRecord.t * LargeInt.int -> FlagsValueRecord.t
     val flagsGetValueByName : FlagsClassRecord.t * string -> FlagsValueRecord.t
     val flagsGetValueByNick : FlagsClassRecord.t * string -> FlagsValueRecord.t
+    val flagsRegisterStatic : string * FlagsValueRecord.t -> Type.t
+    val gtypeGetType : unit -> Type.t
     val paramSpecBoolean :
       string
        * string
        * string
        * bool
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecBoxed :
+      string
+       * string
+       * string
+       * Type.t
        * ParamFlags.t
        -> base ParamSpecClass.class
     val paramSpecChar :
@@ -335,6 +348,22 @@ signature G_OBJECT =
        * real
        * ParamFlags.t
        -> base ParamSpecClass.class
+    val paramSpecEnum :
+      string
+       * string
+       * string
+       * Type.t
+       * LargeInt.int
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecFlags :
+      string
+       * string
+       * string
+       * Type.t
+       * LargeInt.int
+       * ParamFlags.t
+       -> base ParamSpecClass.class
     val paramSpecFloat :
       string
        * string
@@ -342,6 +371,13 @@ signature G_OBJECT =
        * real
        * real
        * real
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecGtype :
+      string
+       * string
+       * string
+       * Type.t
        * ParamFlags.t
        -> base ParamSpecClass.class
     val paramSpecInt :
@@ -369,6 +405,20 @@ signature G_OBJECT =
        * LargeInt.int
        * LargeInt.int
        * LargeInt.int
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecObject :
+      string
+       * string
+       * string
+       * Type.t
+       * ParamFlags.t
+       -> base ParamSpecClass.class
+    val paramSpecParam :
+      string
+       * string
+       * string
+       * Type.t
        * ParamFlags.t
        -> base ParamSpecClass.class
     val paramSpecPointer :
@@ -427,7 +477,52 @@ signature G_OBJECT =
        * char
        * ParamFlags.t
        -> base ParamSpecClass.class
+    val pointerTypeRegisterStatic : string -> Type.t
+    val signalListIds : Type.t -> LargeInt.int vector
+    val signalLookup : string * Type.t -> LargeInt.int
+    val signalOverrideClassClosure :
+      LargeInt.int
+       * Type.t
+       * ClosureRecord.t
+       -> unit
+    val signalParseName :
+      string
+       * Type.t
+       * bool
+       -> (LargeInt.int * GLib.Quark.t) option
+    val signalTypeCclosureNew : Type.t * LargeInt.int -> ClosureRecord.t
+    val typeAddClassPrivate : Type.t * LargeInt.int -> unit
+    val typeAddInstancePrivate : Type.t * LargeInt.int -> LargeInt.int
+    val typeAddInterfaceDynamic :
+      Type.t
+       * Type.t
+       * 'a TypePluginClass.class
+       -> unit
+    val typeCheckIsValueType : Type.t -> bool
+    val typeCheckValueHolds : ValueRecord.t * Type.t -> bool
+    val typeChildren : Type.t -> Type.t vector
+    val typeDepth : Type.t -> LargeInt.int
+    val typeEnsure : Type.t -> unit
+    val typeFromName : string -> Type.t
+    val typeFundamental : Type.t -> Type.t
+    val typeFundamentalNext : unit -> Type.t
+    val typeGetInstanceCount : Type.t -> LargeInt.int
+    val typeGetPlugin : Type.t -> base TypePluginClass.class
     val typeGetTypeRegistrationSerial : unit -> LargeInt.int
     val typeInit : unit -> unit
     val typeInitWithDebugFlags : TypeDebugFlags.t -> unit
+    val typeInterfaces : Type.t -> Type.t vector
+    val typeIsA : Type.t * Type.t -> bool
+    val typeName : Type.t -> string
+    val typeNextBase : Type.t * Type.t -> Type.t
+    val typeParent : Type.t -> Type.t
+    val typeQname : Type.t -> GLib.Quark.t
+    val typeQuery : Type.t -> TypeQueryRecord.t
+    val typeRegisterDynamic :
+      Type.t
+       * string
+       * 'a TypePluginClass.class
+       * TypeFlags.t
+       -> Type.t
+    val typeTestFlags : Type.t * LargeInt.int -> bool
   end

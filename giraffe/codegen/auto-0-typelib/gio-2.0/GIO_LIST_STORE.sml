@@ -5,6 +5,7 @@ signature GIO_LIST_STORE =
     type t = base class
     val asListModel : 'a class -> base list_model_class
     val getType : unit -> GObject.Type.t
+    val new : GObject.Type.t -> base class
     val append :
       'a class
        -> 'b GObject.ObjectClass.class
@@ -24,4 +25,5 @@ signature GIO_LIST_STORE =
            * LargeInt.int
            * base GObject.ObjectClass.class vector
        -> unit
+    val itemTypeProp : ('a class, GObject.Type.t, GObject.Type.t) Property.readwrite
   end

@@ -8,5 +8,6 @@ signature ATK_OBJECT_FACTORY =
       'a class
        -> 'b GObject.ObjectClass.class
        -> base object_class
+    val getAccessibleType : 'a class -> GObject.Type.t
     val invalidate : 'a class -> unit
   end

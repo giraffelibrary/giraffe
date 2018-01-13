@@ -1186,6 +1186,7 @@ structure GLib : G_LIB =
               x4
             )
     val usleep_ = _import "g_usleep" : GULong.FFI.val_ -> unit;
+    val variantGetGtype_ = _import "g_variant_get_gtype" : unit -> GObjectType.FFI.val_;
     structure PidType = GLibPidType
     structure SourceFunc = GLibSourceFunc
     structure SpawnChildSetupFunc = GLibSpawnChildSetupFunc
@@ -2250,4 +2251,5 @@ structure GLib : G_LIB =
         )
     fun uriUnescapeString (escapedString, illegalCharacters) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> Utf8.FFI.fromPtr 1) uriUnescapeString_ (escapedString & illegalCharacters)
     fun usleep microseconds = (GULong.FFI.withVal ---> I) usleep_ microseconds
+    fun variantGetGtype () = (I ---> GObjectType.FFI.fromVal) variantGetGtype_ ()
   end

@@ -634,6 +634,7 @@ signature G_LIB =
        -> string
     val uriUnescapeString : string * string option -> string
     val usleep : LargeInt.int -> unit
+    val variantGetGtype : unit -> GObject.Type.t
     val variantIsObjectPath : string -> bool
     val variantIsSignature : string -> bool
     val variantParse :

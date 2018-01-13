@@ -205,6 +205,7 @@ structure GtkWidget :>
           )
       val getAllocatedWidth_ = call (getSymbol "gtk_widget_get_allocated_width") (GtkWidgetClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getAllocation_ = call (getSymbol "gtk_widget_get_allocation") (GtkWidgetClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> cVoid)
+      val getAncestor_ = call (getSymbol "gtk_widget_get_ancestor") (GtkWidgetClass.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GtkWidgetClass.PolyML.cOptPtr)
       val getAppPaintable_ = call (getSymbol "gtk_widget_get_app_paintable") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getCanDefault_ = call (getSymbol "gtk_widget_get_can_default") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getCanFocus_ = call (getSymbol "gtk_widget_get_can_focus") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -327,6 +328,14 @@ structure GtkWidget :>
       val getStyle_ = call (getSymbol "gtk_widget_get_style") (GtkWidgetClass.PolyML.cPtr --> GtkStyleClass.PolyML.cPtr)
       val getStyleContext_ = call (getSymbol "gtk_widget_get_style_context") (GtkWidgetClass.PolyML.cPtr --> GtkStyleContextClass.PolyML.cPtr)
       val getSupportMultidevice_ = call (getSymbol "gtk_widget_get_support_multidevice") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getTemplateChild_ =
+        call (getSymbol "gtk_widget_get_template_child")
+          (
+            GtkWidgetClass.PolyML.cPtr
+             &&> GObjectType.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             --> GObjectObjectClass.PolyML.cPtr
+          )
       val getTooltipMarkup_ = call (getSymbol "gtk_widget_get_tooltip_markup") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getTooltipText_ = call (getSymbol "gtk_widget_get_tooltip_text") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getTooltipWindow_ = call (getSymbol "gtk_widget_get_tooltip_window") (GtkWidgetClass.PolyML.cPtr --> GtkWindowClass.PolyML.cPtr)
@@ -1015,6 +1024,7 @@ structure GtkWidget :>
       in
         allocation
       end
+    fun getAncestor self widgetType = (GtkWidgetClass.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getAncestor_ (self & widgetType)
     fun getAppPaintable self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getAppPaintable_ self
     fun getCanDefault self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getCanDefault_ self
     fun getCanFocus self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getCanFocus_ self
@@ -1278,6 +1288,19 @@ structure GtkWidget :>
     fun getStyle self = (GtkWidgetClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr false) getStyle_ self
     fun getStyleContext self = (GtkWidgetClass.FFI.withPtr ---> GtkStyleContextClass.FFI.fromPtr false) getStyleContext_ self
     fun getSupportMultidevice self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getSupportMultidevice_ self
+    fun getTemplateChild self (widgetType, name) =
+      (
+        GtkWidgetClass.FFI.withPtr
+         &&&> GObjectType.FFI.withVal
+         &&&> Utf8.FFI.withPtr
+         ---> GObjectObjectClass.FFI.fromPtr false
+      )
+        getTemplateChild_
+        (
+          self
+           & widgetType
+           & name
+        )
     fun getTooltipMarkup self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getTooltipMarkup_ self
     fun getTooltipText self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getTooltipText_ self
     fun getTooltipWindow self = (GtkWidgetClass.FFI.withPtr ---> GtkWindowClass.FFI.fromPtr false) getTooltipWindow_ self

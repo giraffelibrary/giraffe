@@ -10,6 +10,7 @@ structure GioListStore :>
       )
     structure GObjectObjectClassCVectorN = CVectorN(GObjectObjectClassCVectorNType)
     val getType_ = _import "g_list_store_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ = _import "g_list_store_new" : GObjectType.FFI.val_ -> GioListStoreClass.FFI.notnull GioListStoreClass.FFI.p;
     val append_ = fn x1 & x2 => (_import "g_list_store_append" : GioListStoreClass.FFI.notnull GioListStoreClass.FFI.p * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p -> unit;) (x1, x2)
     val insert_ =
       fn
@@ -60,6 +61,7 @@ structure GioListStore :>
     type t = base class
     fun asListModel self = (GObjectObjectClass.FFI.withPtr ---> GioListModelClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new itemType = (GObjectType.FFI.withVal ---> GioListStoreClass.FFI.fromPtr true) new_ itemType
     fun append self item = (GioListStoreClass.FFI.withPtr &&&> GObjectObjectClass.FFI.withPtr ---> I) append_ (self & item)
     fun insert self (position, item) =
       (
@@ -105,4 +107,13 @@ structure GioListStore :>
       in
         ()
       end
+    local
+      open Property
+    in
+      val itemTypeProp =
+        {
+          get = fn x => get "item-type" GObjectType.t x,
+          set = fn x => set "item-type" GObjectType.t x
+        }
+    end
   end

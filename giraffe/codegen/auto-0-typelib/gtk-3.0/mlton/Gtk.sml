@@ -1,5 +1,11 @@
 structure Gtk : GTK =
   struct
+    structure GObjectTypeCVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GObjectType.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GObjectType.C.ValueType)
+      )
+    structure GObjectTypeCVectorN = CVectorN(GObjectTypeCVectorNType)
     structure GdkAtomRecordCVectorNType =
       CPointerCVectorNType(
         structure CElemType = GdkAtomRecord.C.PointerType
@@ -1371,6 +1377,30 @@ structure Gtk : GTK =
     val rcGetImModulePath_ = _import "gtk_rc_get_im_module_path" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val rcGetModuleDir_ = _import "gtk_rc_get_module_dir" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val rcGetStyle_ = _import "gtk_rc_get_style" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p;
+    val rcGetStyleByPaths_ =
+      fn
+        x1
+         & (x2, x3)
+         & (x4, x5)
+         & x6 =>
+          (
+            _import "mlton_gtk_rc_get_style_by_paths" :
+              GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * GObjectType.FFI.val_
+               -> unit GtkStyleClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
     val rcGetThemeDir_ = _import "gtk_rc_get_theme_dir" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val rcParse_ = _import "mlton_gtk_rc_parse" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
     val rcParseString_ = _import "mlton_gtk_rc_parse_string" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
@@ -2207,6 +2237,27 @@ structure Gtk : GTK =
               x2,
               x3
             )
+    val testFindSibling_ = fn x1 & x2 => (_import "gtk_test_find_sibling" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GObjectType.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
+    val testFindWidget_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4 =>
+          (
+            _import "mlton_gtk_test_find_widget" :
+              GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GObjectType.FFI.val_
+               -> unit GtkWidgetClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
+    val testListAllTypes_ = _import "gtk_test_list_all_types" : GUInt32.FFI.ref_ -> GObjectTypeCVectorN.FFI.notnull GObjectTypeCVectorN.FFI.out_p;
     val testRegisterAllTypes_ = _import "gtk_test_register_all_types" : unit -> unit;
     val testSliderGetValue_ = _import "gtk_test_slider_get_value" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GDouble.FFI.val_;
     val testSliderSetPerc_ = fn x1 & x2 => (_import "gtk_test_slider_set_perc" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
@@ -4656,6 +4707,27 @@ structure Gtk : GTK =
     fun rcGetImModulePath () = (I ---> Utf8.FFI.fromPtr 1) rcGetImModulePath_ ()
     fun rcGetModuleDir () = (I ---> Utf8.FFI.fromPtr 1) rcGetModuleDir_ ()
     fun rcGetStyle widget = (GtkWidgetClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr false) rcGetStyle_ widget
+    fun rcGetStyleByPaths
+      (
+        settings,
+        widgetPath,
+        classPath,
+        type'
+      ) =
+      (
+        GtkSettingsClass.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr
+         &&&> GObjectType.FFI.withVal
+         ---> GtkStyleClass.FFI.fromOptPtr false
+      )
+        rcGetStyleByPaths_
+        (
+          settings
+           & widgetPath
+           & classPath
+           & type'
+        )
     fun rcGetThemeDir () = (I ---> Utf8.FFI.fromPtr 1) rcGetThemeDir_ ()
     fun rcParse filename = (Utf8.FFI.withPtr ---> I) rcParse_ filename
     fun rcParseString rcString = (Utf8.FFI.withPtr ---> I) rcParseString_ rcString
@@ -5458,6 +5530,31 @@ structure Gtk : GTK =
       end
     fun testCreateSimpleWindow (windowTitle, dialogText) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
     fun testFindLabel (widget, labelPattern) = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) testFindLabel_ (widget & labelPattern)
+    fun testFindSibling (baseWidget, widgetType) = (GtkWidgetClass.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) testFindSibling_ (baseWidget & widgetType)
+    fun testFindWidget
+      (
+        widget,
+        labelPattern,
+        widgetType
+      ) =
+      (
+        GtkWidgetClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectType.FFI.withVal
+         ---> GtkWidgetClass.FFI.fromOptPtr false
+      )
+        testFindWidget_
+        (
+          widget
+           & labelPattern
+           & widgetType
+        )
+    fun testListAllTypes () =
+      let
+        val nTypes & retVal = (GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GObjectTypeCVectorN.FFI.fromPtr 0) testListAllTypes_ GUInt32.null
+      in
+        retVal (LargeInt.toInt nTypes)
+      end
     fun testRegisterAllTypes () = (I ---> I) testRegisterAllTypes_ ()
     fun testSliderGetValue widget = (GtkWidgetClass.FFI.withPtr ---> GDouble.FFI.fromVal) testSliderGetValue_ widget
     fun testSliderSetPerc (widget, percentage) = (GtkWidgetClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) testSliderSetPerc_ (widget & percentage)

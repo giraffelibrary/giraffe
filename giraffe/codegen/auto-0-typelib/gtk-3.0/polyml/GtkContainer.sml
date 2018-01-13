@@ -47,6 +47,7 @@ structure GtkContainer :>
              &&> GObjectValueRecord.PolyML.cPtr
              --> cVoid
           )
+      val childType_ = call (getSymbol "gtk_container_child_type") (GtkContainerClass.PolyML.cPtr --> GObjectType.PolyML.cVal)
       val getBorderWidth_ = call (getSymbol "gtk_container_get_border_width") (GtkContainerClass.PolyML.cPtr --> GUInt32.PolyML.cVal)
       val getFocusChild_ = call (getSymbol "gtk_container_get_focus_child") (GtkContainerClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getFocusHadjustment_ = call (getSymbol "gtk_container_get_focus_hadjustment") (GtkContainerClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cOptPtr)
@@ -151,6 +152,7 @@ structure GtkContainer :>
            & propertyName
            & value
         )
+    fun childType self = (GtkContainerClass.FFI.withPtr ---> GObjectType.FFI.fromVal) childType_ self
     fun getBorderWidth self = (GtkContainerClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getBorderWidth_ self
     fun getFocusChild self = (GtkContainerClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getFocusChild_ self
     fun getFocusHadjustment self = (GtkContainerClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromOptPtr false) getFocusHadjustment_ self

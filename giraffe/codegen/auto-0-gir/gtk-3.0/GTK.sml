@@ -287,6 +287,7 @@ signature GTK =
     structure Builder :
       GTK_BUILDER
         where type 'a class = 'a BuilderClass.class
+        where type 'a widget_class = 'a WidgetClass.class
         where type 'a application_class = 'a ApplicationClass.class
     structure CalendarClass :
       GTK_CALENDAR_CLASS
@@ -3257,6 +3258,12 @@ signature GTK =
     val rcGetImModulePath : unit -> string
     val rcGetModuleDir : unit -> string
     val rcGetStyle : 'a WidgetClass.class -> base StyleClass.class
+    val rcGetStyleByPaths :
+      'a SettingsClass.class
+       * string option
+       * string option
+       * GObject.Type.t
+       -> base StyleClass.class
     val rcGetThemeDir : unit -> string
     val rcParse : string -> unit
     val rcParseString : string -> unit
@@ -3474,6 +3481,13 @@ signature GTK =
     val targetsIncludeUri : Gdk.AtomRecord.t vector -> bool
     val testCreateSimpleWindow : string * string -> base WidgetClass.class
     val testFindLabel : 'a WidgetClass.class * string -> base WidgetClass.class
+    val testFindSibling : 'a WidgetClass.class * GObject.Type.t -> base WidgetClass.class
+    val testFindWidget :
+      'a WidgetClass.class
+       * string
+       * GObject.Type.t
+       -> base WidgetClass.class
+    val testListAllTypes : unit -> GObject.Type.t vector
     val testRegisterAllTypes : unit -> unit
     val testSliderGetValue : 'a WidgetClass.class -> real
     val testSliderSetPerc : 'a WidgetClass.class * real -> unit

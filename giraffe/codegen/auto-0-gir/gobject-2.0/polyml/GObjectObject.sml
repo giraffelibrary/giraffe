@@ -1,6 +1,7 @@
 structure GObjectObject :>
   G_OBJECT_OBJECT
     where type 'a class = 'a GObjectObjectClass.class
+    where type parameter_t = GObjectParameterRecord.t
     where type type_t = GObjectType.t
     where type 'a binding_class = 'a GObjectBindingClass.class
     where type binding_flags_t = GObjectBindingFlags.t
@@ -9,10 +10,24 @@ structure GObjectObject :>
     where type 'a param_spec_class = 'a GObjectParamSpecClass.class
     where type 'a signal_t = 'a Signal.t =
   struct
+    structure GObjectParameterRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GObjectParameterRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GObjectParameterRecordCVectorN = CVectorN(GObjectParameterRecordCVectorNType)
     local
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "g_object_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val newv_ =
+        call (getSymbol "g_object_newv")
+          (
+            GObjectType.PolyML.cVal
+             &&> GUInt.PolyML.cVal
+             &&> GObjectParameterRecordCVectorN.PolyML.cInPtr
+             --> GObjectObjectClass.PolyML.cPtr
+          )
       val bindProperty_ =
         call (getSymbol "g_object_bind_property")
           (
@@ -59,6 +74,7 @@ structure GObjectObject :>
       val watchClosure_ = call (getSymbol "g_object_watch_closure") (GObjectObjectClass.PolyML.cPtr &&> GObjectClosureRecord.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GObjectObjectClass.class
+    type parameter_t = GObjectParameterRecord.t
     type type_t = GObjectType.t
     type 'a binding_class = 'a GObjectBindingClass.class
     type binding_flags_t = GObjectBindingFlags.t
@@ -68,6 +84,25 @@ structure GObjectObject :>
     type 'a signal_t = 'a Signal.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun newv (objectType, parameters) =
+      let
+        val nParameters = LargeInt.fromInt (GObjectParameterRecordCVectorN.length parameters)
+        val retVal =
+          (
+            GObjectType.FFI.withVal
+             &&&> GUInt.FFI.withVal
+             &&&> GObjectParameterRecordCVectorN.FFI.withPtr
+             ---> GObjectObjectClass.FFI.fromPtr true
+          )
+            newv_
+            (
+              objectType
+               & nParameters
+               & parameters
+            )
+      in
+        retVal
+      end
     fun bindProperty
       self
       (

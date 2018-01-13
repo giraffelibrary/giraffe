@@ -112,6 +112,7 @@ signature ATK =
     structure Registry :
       ATK_REGISTRY
         where type 'a class = 'a RegistryClass.class
+        where type 'a object_factory_class = 'a ObjectFactoryClass.class
     structure Relation :
       ATK_RELATION
         where type 'a class = 'a RelationClass.class

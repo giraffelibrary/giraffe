@@ -6,6 +6,11 @@ val containerOrEverythingForProp =
   "ownership transfer CONTAINER or EVERYTHING for property not supported"
 
 
+type gtype_info =
+  {
+    iRef : interfaceref
+  }
+
 type scalar_info =
   {
     ty    : scalartype
@@ -29,7 +34,8 @@ datatype mode =
 | READWRITE
 
 datatype paraminfo =
-  PISCALAR of mode * scalar_info
+  PIGTYPE of mode * gtype_info
+| PISCALAR of mode * scalar_info
 | PIUTF8 of mode * utf8_info
 | PIINTERFACE of mode * interface_info
 
@@ -74,7 +80,22 @@ fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
       in
         case TypeInfo.getTag typeInfo of
           ERROR        => notExpected "ERROR"
-        | GTYPE        => notSupported "GTYPE"
+        | GTYPE        =>
+            let
+              val iRef =
+                let
+                  val {
+                    name      = containerName,
+                    namespace = containerNamespace,
+                    ...
+                  } = containerIRef
+                in
+                  makeTypeIRef containerNamespace (SOME containerName)
+                end
+              val gtypeInfo = {iRef = iRef}
+            in
+              PIGTYPE (mode, gtypeInfo)
+            end
         | ARRAY        => notSupported "ARRAY"
         | GLIST        => notSupported "GLIST"
         | GSLIST       => notSupported "GSLIST"
@@ -253,7 +274,23 @@ fun makePropertySpec
 
     val ((propertyTy, _), iRefs'1) =
       case paramInfo of
-        PISCALAR (mode, {ty})                  =>
+        PIGTYPE (mode, {iRef})                 =>
+          let
+            val {scope, ...} = iRef
+            val iRefs' =
+              case scope of
+                GLOBAL             => iRefs
+              | LOCALINTERFACESELF => iRefs
+              | _                  => insert (iRef, iRefs)
+
+            val gtypeTyRef = (
+              numInterfaceRefTyVars iRef,
+              makeInterfaceRefTyLongId iRef
+            )
+          in
+            (mkTy mode false (gtypeTyRef, tyVarIdx'1), iRefs')
+          end
+      | PISCALAR (mode, {ty})                  =>
           (mkTy mode false (scalarTyRef ty, tyVarIdx'1), iRefs)
       | PIUTF8 (mode, {isOpt})                 =>
           (mkTy mode isOpt (utf8TyRef, tyVarIdx'1), iRefs)
@@ -295,7 +332,21 @@ fun makePropertyStrDec
 
     val (mode, accExp, iRefs'1) =
       case paramInfo of
-        PISCALAR (mode, {ty})                  =>
+        PIGTYPE (mode, {iRef})                 =>
+          let
+            val {scope, ...} = iRef
+            val iRefs' =
+              case scope of
+                GLOBAL             => iRefs
+              | LOCALINTERFACESELF => iRefs
+              | _                  => insert (iRef, iRefs)
+
+            val accId = tId
+            val accExp = mkLIdLNameExp (prefixInterfaceStrId iRef [accId])
+          in
+            (mode, accExp, iRefs')
+          end
+      | PISCALAR (mode, {ty})                  =>
           (mode, mkIdLNameExp (scalarAccessorId ty), iRefs)
       | PIUTF8 (mode, {isOpt})                 =>
           let

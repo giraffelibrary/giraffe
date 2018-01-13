@@ -11,6 +11,7 @@ structure GtkWidgetPath :>
       val getType_ = call (getSymbol "gtk_widget_path_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_widget_path_new") (cVoid --> GtkWidgetPathRecord.PolyML.cPtr)
       val appendForWidget_ = call (getSymbol "gtk_widget_path_append_for_widget") (GtkWidgetPathRecord.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val appendType_ = call (getSymbol "gtk_widget_path_append_type") (GtkWidgetPathRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GInt.PolyML.cVal)
       val appendWithSiblings_ =
         call (getSymbol "gtk_widget_path_append_with_siblings")
           (
@@ -20,6 +21,9 @@ structure GtkWidgetPath :>
              --> GInt.PolyML.cVal
           )
       val copy_ = call (getSymbol "gtk_widget_path_copy") (GtkWidgetPathRecord.PolyML.cPtr --> GtkWidgetPathRecord.PolyML.cPtr)
+      val getObjectType_ = call (getSymbol "gtk_widget_path_get_object_type") (GtkWidgetPathRecord.PolyML.cPtr --> GObjectType.PolyML.cVal)
+      val hasParent_ = call (getSymbol "gtk_widget_path_has_parent") (GtkWidgetPathRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
+      val isType_ = call (getSymbol "gtk_widget_path_is_type") (GtkWidgetPathRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
       val iterAddClass_ =
         call (getSymbol "gtk_widget_path_iter_add_class")
           (
@@ -41,6 +45,7 @@ structure GtkWidgetPath :>
       val iterClearRegions_ = call (getSymbol "gtk_widget_path_iter_clear_regions") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val iterGetName_ = call (getSymbol "gtk_widget_path_iter_get_name") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val iterGetObjectName_ = call (getSymbol "gtk_widget_path_iter_get_object_name") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val iterGetObjectType_ = call (getSymbol "gtk_widget_path_iter_get_object_type") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> GObjectType.PolyML.cVal)
       val iterGetSiblingIndex_ = call (getSymbol "gtk_widget_path_iter_get_sibling_index") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> GUInt.PolyML.cVal)
       val iterGetSiblings_ = call (getSymbol "gtk_widget_path_iter_get_siblings") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkWidgetPathRecord.PolyML.cPtr)
       val iterGetState_ = call (getSymbol "gtk_widget_path_iter_get_state") (GtkWidgetPathRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkStateFlags.PolyML.cVal)
@@ -126,6 +131,14 @@ structure GtkWidgetPath :>
              &&> Utf8.PolyML.cInOptPtr
              --> cVoid
           )
+      val iterSetObjectType_ =
+        call (getSymbol "gtk_widget_path_iter_set_object_type")
+          (
+            GtkWidgetPathRecord.PolyML.cPtr
+             &&> GInt.PolyML.cVal
+             &&> GObjectType.PolyML.cVal
+             --> cVoid
+          )
       val iterSetState_ =
         call (getSymbol "gtk_widget_path_iter_set_state")
           (
@@ -135,6 +148,7 @@ structure GtkWidgetPath :>
              --> cVoid
           )
       val length_ = call (getSymbol "gtk_widget_path_length") (GtkWidgetPathRecord.PolyML.cPtr --> GInt.PolyML.cVal)
+      val prependType_ = call (getSymbol "gtk_widget_path_prepend_type") (GtkWidgetPathRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> cVoid)
       val toString_ = call (getSymbol "gtk_widget_path_to_string") (GtkWidgetPathRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
     end
     type t = GtkWidgetPathRecord.t
@@ -144,6 +158,7 @@ structure GtkWidgetPath :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkWidgetPathRecord.FFI.fromPtr true) new_ ()
     fun appendForWidget self widget = (GtkWidgetPathRecord.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) appendForWidget_ (self & widget)
+    fun appendType self type' = (GtkWidgetPathRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GInt.FFI.fromVal) appendType_ (self & type')
     fun appendWithSiblings self (siblings, siblingIndex) =
       (
         GtkWidgetPathRecord.FFI.withPtr
@@ -158,6 +173,9 @@ structure GtkWidgetPath :>
            & siblingIndex
         )
     fun copy self = (GtkWidgetPathRecord.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr true) copy_ self
+    fun getObjectType self = (GtkWidgetPathRecord.FFI.withPtr ---> GObjectType.FFI.fromVal) getObjectType_ self
+    fun hasParent self type' = (GtkWidgetPathRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) hasParent_ (self & type')
+    fun isType self type' = (GtkWidgetPathRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) isType_ (self & type')
     fun iterAddClass self (pos, name) =
       (
         GtkWidgetPathRecord.FFI.withPtr
@@ -196,6 +214,7 @@ structure GtkWidgetPath :>
     fun iterClearRegions self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> I) iterClearRegions_ (self & pos)
     fun iterGetName self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) iterGetName_ (self & pos)
     fun iterGetObjectName self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) iterGetObjectName_ (self & pos)
+    fun iterGetObjectType self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GObjectType.FFI.fromVal) iterGetObjectType_ (self & pos)
     fun iterGetSiblingIndex self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GUInt.FFI.fromVal) iterGetSiblingIndex_ (self & pos)
     fun iterGetSiblings self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetPathRecord.FFI.fromPtr false) iterGetSiblings_ (self & pos)
     fun iterGetState self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkStateFlags.FFI.fromVal) iterGetState_ (self & pos)
@@ -343,6 +362,19 @@ structure GtkWidgetPath :>
            & pos
            & name
         )
+    fun iterSetObjectType self (pos, type') =
+      (
+        GtkWidgetPathRecord.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GObjectType.FFI.withVal
+         ---> I
+      )
+        iterSetObjectType_
+        (
+          self
+           & pos
+           & type'
+        )
     fun iterSetState self (pos, state) =
       (
         GtkWidgetPathRecord.FFI.withPtr
@@ -357,5 +389,6 @@ structure GtkWidgetPath :>
            & state
         )
     fun length self = (GtkWidgetPathRecord.FFI.withPtr ---> GInt.FFI.fromVal) length_ self
+    fun prependType self type' = (GtkWidgetPathRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> I) prependType_ (self & type')
     fun toString self = (GtkWidgetPathRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
   end

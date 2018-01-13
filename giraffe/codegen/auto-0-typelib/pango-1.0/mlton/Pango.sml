@@ -147,6 +147,33 @@ structure Pango : PANGO =
               x6
             )
     val markupParserNew_ = _import "pango_markup_parser_new" : GChar.FFI.val_ -> GLibMarkupParseContextRecord.FFI.notnull GLibMarkupParseContextRecord.FFI.p;
+    val parseEnum_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5
+         & (x6, x7) =>
+          (
+            _import "mlton_pango_parse_enum" :
+              GObjectType.FFI.val_
+               * Utf8.MLton.p1
+               * unit Utf8.MLton.p2
+               * GInt32.FFI.ref_
+               * GBool.FFI.val_
+               * Utf8.MLton.r1
+               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7
+            )
     val parseMarkup_ =
       fn
         (x1, x2)
@@ -533,6 +560,37 @@ structure Pango : PANGO =
         )
       end
     fun markupParserNew accelMarker = (GChar.FFI.withVal ---> GLibMarkupParseContextRecord.FFI.fromPtr false) markupParserNew_ accelMarker
+    fun parseEnum
+      (
+        type',
+        str,
+        warn
+      ) =
+      let
+        val value
+         & possibleValues
+         & retVal =
+          (
+            GObjectType.FFI.withVal
+             &&&> Utf8.FFI.withOptPtr
+             &&&> GInt32.FFI.withRefVal
+             &&&> GBool.FFI.withVal
+             &&&> Utf8.FFI.withRefOptPtr
+             ---> GInt32.FFI.fromVal
+                   && Utf8.FFI.fromPtr 1
+                   && GBool.FFI.fromVal
+          )
+            parseEnum_
+            (
+              type'
+               & str
+               & GInt32.null
+               & warn
+               & NONE
+            )
+      in
+        if retVal then SOME (value, possibleValues) else NONE
+      end
     fun parseMarkup
       (
         markupText,

@@ -14,6 +14,10 @@ signature G_I_REPOSITORY_REPOSITORY =
       'a class
        -> LargeInt.int
        -> base_info_t
+    val findByGtype :
+      'a class
+       -> GObject.Type.t
+       -> base_info_t
     val findByName :
       'a class
        -> string * string

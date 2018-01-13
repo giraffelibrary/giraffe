@@ -13,6 +13,7 @@ structure GtkTreeModel :>
     structure GIntCVectorN = CVectorN(GIntCVectorNType)
     val getType_ = _import "gtk_tree_model_get_type" : unit -> GObjectType.FFI.val_;
     val filterNew_ = fn x1 & x2 => (_import "gtk_tree_model_filter_new" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * unit GtkTreePathRecord.FFI.p -> GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p;) (x1, x2)
+    val getColumnType_ = fn x1 & x2 => (_import "gtk_tree_model_get_column_type" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * GInt.FFI.val_ -> GObjectType.FFI.val_;) (x1, x2)
     val getFlags_ = _import "gtk_tree_model_get_flags" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p -> GtkTreeModelFlags.FFI.val_;
     val getIter_ =
       fn
@@ -219,6 +220,7 @@ structure GtkTreeModel :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun filterNew self root = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withOptPtr ---> GtkTreeModelClass.FFI.fromPtr true) filterNew_ (self & root)
+    fun getColumnType self index = (GtkTreeModelClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GObjectType.FFI.fromVal) getColumnType_ (self & index)
     fun getFlags self = (GtkTreeModelClass.FFI.withPtr ---> GtkTreeModelFlags.FFI.fromVal) getFlags_ self
     fun getIter self path =
       let

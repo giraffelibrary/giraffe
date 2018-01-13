@@ -8,6 +8,7 @@ structure AtkObjectFactory :>
     in
       val getType_ = call (getSymbol "atk_object_factory_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val createAccessible_ = call (getSymbol "atk_object_factory_create_accessible") (AtkObjectFactoryClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
+      val getAccessibleType_ = call (getSymbol "atk_object_factory_get_accessible_type") (AtkObjectFactoryClass.PolyML.cPtr --> GObjectType.PolyML.cVal)
       val invalidate_ = call (getSymbol "atk_object_factory_invalidate") (AtkObjectFactoryClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a AtkObjectFactoryClass.class
@@ -15,5 +16,6 @@ structure AtkObjectFactory :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun createAccessible self obj = (AtkObjectFactoryClass.FFI.withPtr &&&> GObjectObjectClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr true) createAccessible_ (self & obj)
+    fun getAccessibleType self = (AtkObjectFactoryClass.FFI.withPtr ---> GObjectType.FFI.fromVal) getAccessibleType_ self
     fun invalidate self = (AtkObjectFactoryClass.FFI.withPtr ---> I) invalidate_ self
   end

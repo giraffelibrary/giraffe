@@ -3,6 +3,7 @@ signature GIO_LIST_MODEL =
     type 'a class
     type t = base class
     val getType : unit -> GObject.Type.t
+    val getItemType : 'a class -> GObject.Type.t
     val getNItems : 'a class -> LargeInt.int
     val getObject :
       'a class

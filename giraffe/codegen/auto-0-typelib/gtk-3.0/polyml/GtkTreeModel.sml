@@ -16,6 +16,7 @@ structure GtkTreeModel :>
     in
       val getType_ = call (getSymbol "gtk_tree_model_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val filterNew_ = call (getSymbol "gtk_tree_model_filter_new") (GtkTreeModelClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cOptPtr --> GtkTreeModelClass.PolyML.cPtr)
+      val getColumnType_ = call (getSymbol "gtk_tree_model_get_column_type") (GtkTreeModelClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GObjectType.PolyML.cVal)
       val getFlags_ = call (getSymbol "gtk_tree_model_get_flags") (GtkTreeModelClass.PolyML.cPtr --> GtkTreeModelFlags.PolyML.cVal)
       val getIter_ =
         call (getSymbol "gtk_tree_model_get_iter")
@@ -121,6 +122,7 @@ structure GtkTreeModel :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun filterNew self root = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withOptPtr ---> GtkTreeModelClass.FFI.fromPtr true) filterNew_ (self & root)
+    fun getColumnType self index = (GtkTreeModelClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GObjectType.FFI.fromVal) getColumnType_ (self & index)
     fun getFlags self = (GtkTreeModelClass.FFI.withPtr ---> GtkTreeModelFlags.FFI.fromVal) getFlags_ self
     fun getIter self path =
       let

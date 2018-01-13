@@ -551,6 +551,7 @@ structure GLib : G_LIB =
           )
       val uriUnescapeString_ = call (getSymbol "g_uri_unescape_string") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInOptPtr --> Utf8.PolyML.cOutPtr)
       val usleep_ = call (getSymbol "g_usleep") (GUInt64.PolyML.cVal --> cVoid)
+      val variantGetGtype_ = call (getSymbol "g_variant_get_gtype") (cVoid --> GObjectType.PolyML.cVal)
       val variantIsObjectPath_ = call (getSymbol "g_variant_is_object_path") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val variantIsSignature_ = call (getSymbol "g_variant_is_signature") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val variantParse_ =
@@ -1811,6 +1812,7 @@ structure GLib : G_LIB =
         )
     fun uriUnescapeString (escapedString, illegalCharacters) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> Utf8.FFI.fromPtr 1) uriUnescapeString_ (escapedString & illegalCharacters)
     fun usleep microseconds = (GUInt64.FFI.withVal ---> I) usleep_ microseconds
+    fun variantGetGtype () = (I ---> GObjectType.FFI.fromVal) variantGetGtype_ ()
     fun variantIsObjectPath string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) variantIsObjectPath_ string
     fun variantIsSignature string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) variantIsSignature_ string
     fun variantParse

@@ -13,6 +13,7 @@ structure GioListStore :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "g_list_store_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "g_list_store_new") (GObjectType.PolyML.cVal --> GioListStoreClass.PolyML.cPtr)
       val append_ = call (getSymbol "g_list_store_append") (GioListStoreClass.PolyML.cPtr &&> GObjectObjectClass.PolyML.cPtr --> cVoid)
       val insert_ =
         call (getSymbol "g_list_store_insert")
@@ -40,6 +41,7 @@ structure GioListStore :>
     type t = base class
     fun asListModel self = (GObjectObjectClass.FFI.withPtr ---> GioListModelClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new itemType = (GObjectType.FFI.withVal ---> GioListStoreClass.FFI.fromPtr true) new_ itemType
     fun append self item = (GioListStoreClass.FFI.withPtr &&&> GObjectObjectClass.FFI.withPtr ---> I) append_ (self & item)
     fun insert self (position, item) =
       (
@@ -85,4 +87,13 @@ structure GioListStore :>
       in
         ()
       end
+    local
+      open Property
+    in
+      val itemTypeProp =
+        {
+          get = fn x => get "item-type" GObjectType.t x,
+          set = fn x => set "item-type" GObjectType.t x
+        }
+    end
   end

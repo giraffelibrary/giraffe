@@ -1,6 +1,8 @@
 structure GioSocketConnection :>
   GIO_SOCKET_CONNECTION
     where type 'a class = 'a GioSocketConnectionClass.class
+    where type socket_type_t = GioSocketType.t
+    where type socket_family_t = GioSocketFamily.t
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class
     where type 'a socket_address_class = 'a GioSocketAddressClass.class
@@ -10,6 +12,23 @@ structure GioSocketConnection :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "g_socket_connection_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val factoryLookupType_ =
+        call (getSymbol "g_socket_connection_factory_lookup_type")
+          (
+            GioSocketFamily.PolyML.cVal
+             &&> GioSocketType.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> GObjectType.PolyML.cVal
+          )
+      val factoryRegisterType_ =
+        call (getSymbol "g_socket_connection_factory_register_type")
+          (
+            GObjectType.PolyML.cVal
+             &&> GioSocketFamily.PolyML.cVal
+             &&> GioSocketType.PolyML.cVal
+             &&> GInt.PolyML.cVal
+             --> cVoid
+          )
       val connect_ =
         call (getSymbol "g_socket_connection_connect")
           (
@@ -33,12 +52,53 @@ structure GioSocketConnection :>
       val isConnected_ = call (getSymbol "g_socket_connection_is_connected") (GioSocketConnectionClass.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type 'a class = 'a GioSocketConnectionClass.class
+    type socket_type_t = GioSocketType.t
+    type socket_family_t = GioSocketFamily.t
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type 'a socket_address_class = 'a GioSocketAddressClass.class
     type 'a socket_class = 'a GioSocketClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun factoryLookupType
+      (
+        family,
+        type',
+        protocolId
+      ) =
+      (
+        GioSocketFamily.FFI.withVal
+         &&&> GioSocketType.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> GObjectType.FFI.fromVal
+      )
+        factoryLookupType_
+        (
+          family
+           & type'
+           & protocolId
+        )
+    fun factoryRegisterType
+      (
+        gType,
+        family,
+        type',
+        protocol
+      ) =
+      (
+        GObjectType.FFI.withVal
+         &&&> GioSocketFamily.FFI.withVal
+         &&&> GioSocketType.FFI.withVal
+         &&&> GInt.FFI.withVal
+         ---> I
+      )
+        factoryRegisterType_
+        (
+          gType
+           & family
+           & type'
+           & protocol
+        )
     fun connect self (address, cancellable) =
       (
         GioSocketConnectionClass.FFI.withPtr

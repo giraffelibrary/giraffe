@@ -44,6 +44,28 @@ structure GtkStyle :>
             )
     val copy_ = _import "gtk_style_copy" : GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p -> GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p;
     val detach_ = _import "gtk_style_detach" : GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p -> unit;
+    val getStyleProperty_ =
+      fn
+        x1
+         & x2
+         & (x3, x4)
+         & x5 =>
+          (
+            _import "mlton_gtk_style_get_style_property" :
+              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
+               * GObjectType.FFI.val_
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5
+            )
     val hasContext_ = _import "gtk_style_has_context" : GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p -> GBool.FFI.val_;
     val lookupColor_ =
       fn
@@ -172,6 +194,26 @@ structure GtkStyle :>
         )
     fun copy self = (GtkStyleClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr true) copy_ self
     fun detach self = (GtkStyleClass.FFI.withPtr ---> I) detach_ self
+    fun getStyleProperty self (widgetType, propertyName) =
+      let
+        val value & () =
+          (
+            GtkStyleClass.FFI.withPtr
+             &&&> GObjectType.FFI.withVal
+             &&&> Utf8.FFI.withPtr
+             &&&> GObjectValueRecord.FFI.withNewPtr
+             ---> GObjectValueRecord.FFI.fromPtr true && I
+          )
+            getStyleProperty_
+            (
+              self
+               & widgetType
+               & propertyName
+               & ()
+            )
+      in
+        value
+      end
     fun hasContext self = (GtkStyleClass.FFI.withPtr ---> GBool.FFI.fromVal) hasContext_ self
     fun lookupColor self colorName =
       let

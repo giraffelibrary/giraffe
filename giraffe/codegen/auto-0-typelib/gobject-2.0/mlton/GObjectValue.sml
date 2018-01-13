@@ -1,9 +1,9 @@
 structure GObjectValue :>
   G_OBJECT_VALUE
     where type t = GObjectValueRecord.t
-    where type type_t = GObjectType.t
     where type 'a object_class = 'a GObjectObjectClass.class
-    where type 'a param_spec_class = 'a GObjectParamSpecClass.class =
+    where type 'a param_spec_class = 'a GObjectParamSpecClass.class
+    where type type_t = GObjectType.t =
   struct
     val getType_ = _import "g_value_get_type" : unit -> GObjectType.FFI.val_;
     val copy_ = fn x1 & x2 => (_import "g_value_copy" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit;) (x1, x2)
@@ -17,6 +17,7 @@ structure GObjectValue :>
     val getEnum_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GInt32.FFI.val_;
     val getFlags_ = _import "g_value_get_flags" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GUInt32.FFI.val_;
     val getFloat_ = _import "g_value_get_float" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GFloat.FFI.val_;
+    val getGtype_ = _import "g_value_get_gtype" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GObjectType.FFI.val_;
     val getInt_ = _import "g_value_get_int" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GInt32.FFI.val_;
     val getInt64_ = _import "g_value_get_int64" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GInt64.FFI.val_;
     val getLong_ = _import "g_value_get_long" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GInt64.FFI.val_;
@@ -29,6 +30,7 @@ structure GObjectValue :>
     val getUint64_ = _import "g_value_get_uint64" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GUInt64.FFI.val_;
     val getUlong_ = _import "g_value_get_ulong" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GUInt64.FFI.val_;
     val getVariant_ = _import "g_value_get_variant" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+    val init_ = fn x1 & x2 => (_import "g_value_init" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GObjectType.FFI.val_ -> GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p;) (x1, x2)
     val reset_ = _import "g_value_reset" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p;
     val setBoolean_ = fn x1 & x2 => (_import "g_value_set_boolean" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setChar_ = fn x1 & x2 => (_import "g_value_set_char" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GInt8.FFI.val_ -> unit;) (x1, x2)
@@ -36,6 +38,7 @@ structure GObjectValue :>
     val setEnum_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val setFlags_ = fn x1 & x2 => (_import "g_value_set_flags" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
     val setFloat_ = fn x1 & x2 => (_import "g_value_set_float" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GFloat.FFI.val_ -> unit;) (x1, x2)
+    val setGtype_ = fn x1 & x2 => (_import "g_value_set_gtype" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GObjectType.FFI.val_ -> unit;) (x1, x2)
     val setInt_ = fn x1 & x2 => (_import "g_value_set_int" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val setInt64_ = fn x1 & x2 => (_import "g_value_set_int64" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GInt64.FFI.val_ -> unit;) (x1, x2)
     val setLong_ = fn x1 & x2 => (_import "g_value_set_long" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GInt64.FFI.val_ -> unit;) (x1, x2)
@@ -109,10 +112,12 @@ structure GObjectValue :>
             )
     val transform_ = fn x1 & x2 => (_import "g_value_transform" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val unset_ = _import "g_value_unset" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit;
+    val typeCompatible_ = fn x1 & x2 => (_import "g_value_type_compatible" : GObjectType.FFI.val_ * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val typeTransformable_ = fn x1 & x2 => (_import "g_value_type_transformable" : GObjectType.FFI.val_ * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     type t = GObjectValueRecord.t
-    type type_t = GObjectType.t
     type 'a object_class = 'a GObjectObjectClass.class
     type 'a param_spec_class = 'a GObjectParamSpecClass.class
+    type type_t = GObjectType.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun copy self destValue = (GObjectValueRecord.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> I) copy_ (self & destValue)
     fun dupObject self = (GObjectValueRecord.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr true) dupObject_ self
@@ -125,6 +130,7 @@ structure GObjectValue :>
     fun getEnum self = (GObjectValueRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getEnum_ self
     fun getFlags self = (GObjectValueRecord.FFI.withPtr ---> GUInt32.FFI.fromVal) getFlags_ self
     fun getFloat self = (GObjectValueRecord.FFI.withPtr ---> GFloat.FFI.fromVal) getFloat_ self
+    fun getGtype self = (GObjectValueRecord.FFI.withPtr ---> GObjectType.FFI.fromVal) getGtype_ self
     fun getInt self = (GObjectValueRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getInt_ self
     fun getInt64 self = (GObjectValueRecord.FFI.withPtr ---> GInt64.FFI.fromVal) getInt64_ self
     fun getLong self = (GObjectValueRecord.FFI.withPtr ---> GInt64.FFI.fromVal) getLong_ self
@@ -137,6 +143,7 @@ structure GObjectValue :>
     fun getUint64 self = (GObjectValueRecord.FFI.withPtr ---> GUInt64.FFI.fromVal) getUint64_ self
     fun getUlong self = (GObjectValueRecord.FFI.withPtr ---> GUInt64.FFI.fromVal) getUlong_ self
     fun getVariant self = (GObjectValueRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getVariant_ self
+    fun init self gType = (GObjectValueRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GObjectValueRecord.FFI.fromPtr false) init_ (self & gType)
     fun reset self = (GObjectValueRecord.FFI.withPtr ---> GObjectValueRecord.FFI.fromPtr true) reset_ self
     fun setBoolean self vBoolean = (GObjectValueRecord.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setBoolean_ (self & vBoolean)
     fun setChar self vChar = (GObjectValueRecord.FFI.withPtr &&&> GInt8.FFI.withVal ---> I) setChar_ (self & vChar)
@@ -144,6 +151,7 @@ structure GObjectValue :>
     fun setEnum self vEnum = (GObjectValueRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setEnum_ (self & vEnum)
     fun setFlags self vFlags = (GObjectValueRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setFlags_ (self & vFlags)
     fun setFloat self vFloat = (GObjectValueRecord.FFI.withPtr &&&> GFloat.FFI.withVal ---> I) setFloat_ (self & vFloat)
+    fun setGtype self vGtype = (GObjectValueRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> I) setGtype_ (self & vGtype)
     fun setInt self vInt = (GObjectValueRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setInt_ (self & vInt)
     fun setInt64 self vInt64 = (GObjectValueRecord.FFI.withPtr &&&> GInt64.FFI.withVal ---> I) setInt64_ (self & vInt64)
     fun setLong self vLong = (GObjectValueRecord.FFI.withPtr &&&> GInt64.FFI.withVal ---> I) setLong_ (self & vLong)
@@ -161,4 +169,6 @@ structure GObjectValue :>
     fun takeString self vString = (GObjectValueRecord.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) takeString_ (self & vString)
     fun transform self destValue = (GObjectValueRecord.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> GBool.FFI.fromVal) transform_ (self & destValue)
     fun unset self = (GObjectValueRecord.FFI.withPtr ---> I) unset_ self
+    fun typeCompatible (srcType, destType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCompatible_ (srcType & destType)
+    fun typeTransformable (srcType, destType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeTransformable_ (srcType & destType)
   end

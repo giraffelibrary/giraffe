@@ -1,9 +1,9 @@
 signature G_OBJECT_VALUE =
   sig
     type t
-    type type_t
     type 'a object_class
     type 'a param_spec_class
+    type type_t
     val getType : unit -> type_t
     val copy :
       t
@@ -19,6 +19,7 @@ signature G_OBJECT_VALUE =
     val getEnum : t -> LargeInt.int
     val getFlags : t -> LargeInt.int
     val getFloat : t -> real
+    val getGtype : t -> type_t
     val getInt : t -> LargeInt.int
     val getInt64 : t -> LargeInt.int
     val getLong : t -> LargeInt.int
@@ -31,6 +32,10 @@ signature G_OBJECT_VALUE =
     val getUint64 : t -> LargeInt.int
     val getUlong : t -> LargeInt.int
     val getVariant : t -> GLib.VariantRecord.t
+    val init :
+      t
+       -> type_t
+       -> t
     val reset : t -> t
     val setBoolean :
       t
@@ -55,6 +60,10 @@ signature G_OBJECT_VALUE =
     val setFloat :
       t
        -> real
+       -> unit
+    val setGtype :
+      t
+       -> type_t
        -> unit
     val setInt :
       t
@@ -121,4 +130,6 @@ signature G_OBJECT_VALUE =
        -> t
        -> bool
     val unset : t -> unit
+    val typeCompatible : type_t * type_t -> bool
+    val typeTransformable : type_t * type_t -> bool
   end

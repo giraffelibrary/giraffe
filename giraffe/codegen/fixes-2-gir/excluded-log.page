@@ -1690,10 +1690,6 @@
     <item>function utf8_to_ucs4_fast: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
     <item>function utf8_to_utf16: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
     <item>function utf8_validate: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
-    <item>
-      function variant_get_gtype
-      <item>type GType: type GTYPE not supported</item>
-    </item>
     <item>function variant_is_object_path: moved to Variant.is_object_path</item>
     <item>function variant_is_signature: moved to Variant.is_signature</item>
     <item>function variant_parse: moved to Variant.parse</item>
@@ -1734,13 +1730,6 @@
     <item>struct InterfaceInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       object Object
-      <item>
-        function newv
-        <item>
-          arg object_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
       <item>
         function compat_control
         <item>arg data: pointer C type for VOID not supported</item>
@@ -1791,13 +1780,6 @@
       <item>function steal_data: pointer C type for VOID not supported</item>
       <item>function steal_qdata: pointer C type for VOID not supported</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>
-        function newv
-        <item>
-          arg object_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
       <item>
         function compat_control
         <item>arg data: pointer C type for VOID not supported</item>
@@ -1890,14 +1872,6 @@
         </item>
       </item>
       <item>
-        function register_enum
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function register_flags
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
         function register_type
         <item>
           arg type_info
@@ -1916,14 +1890,6 @@
             <item>struct InterfaceInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
           </item>
         </item>
-      </item>
-      <item>
-        function register_enum
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function register_flags
-        <item>type GType: type GTYPE not supported</item>
       </item>
       <item>
         function register_type
@@ -1985,18 +1951,7 @@
     <item>
       struct Value
       <item>function get_boxed: pointer C type for VOID not supported</item>
-      <item>
-        function get_gtype
-        <item>type GType: type GTYPE not supported</item>
-      </item>
       <item>function get_pointer: pointer C type for VOID not supported</item>
-      <item>
-        function init
-        <item>
-          arg g_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
       <item>
         function init_from_instance
         <item>
@@ -2015,13 +1970,6 @@
       <item>
         function set_boxed_take_ownership
         <item>arg v_boxed: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function set_gtype
-        <item>
-          arg v_gtype
-          <item>type GType: type GTYPE not supported</item>
-        </item>
       </item>
       <item>
         function set_instance
@@ -2047,35 +1995,10 @@
             type interface
             <item>struct Variant: ownership transfer EVERYTHING for IN parameter not supported</item>
           </item>
-        </item>
-      </item>
-      <item>
-        function type_compatible
-        <item>
-          arg dest_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function type_transformable
-        <item>
-          arg dest_type
-          <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
       <item>function get_boxed: pointer C type for VOID not supported</item>
-      <item>
-        function get_gtype
-        <item>type GType: type GTYPE not supported</item>
-      </item>
       <item>function get_pointer: pointer C type for VOID not supported</item>
-      <item>
-        function init
-        <item>
-          arg g_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
       <item>
         function init_from_instance
         <item>
@@ -2094,13 +2017,6 @@
       <item>
         function set_boxed_take_ownership
         <item>arg v_boxed: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function set_gtype
-        <item>
-          arg v_gtype
-          <item>type GType: type GTYPE not supported</item>
-        </item>
       </item>
       <item>
         function set_instance
@@ -2126,20 +2042,6 @@
             type interface
             <item>struct Variant: ownership transfer EVERYTHING for IN parameter not supported</item>
           </item>
-        </item>
-      </item>
-      <item>
-        function type_compatible
-        <item>
-          arg dest_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function type_transformable
-        <item>
-          arg dest_type
-          <item>type GType: type GTYPE not supported</item>
         </item>
       </item>
     </item>
@@ -2219,10 +2121,6 @@
       </item>
     </item>
     <item>
-      function enum_register_static
-      <item>type GType: type GTYPE not supported</item>
-    </item>
-    <item>
       function flags_complete_type_info
       <item>
         arg info
@@ -2230,56 +2128,6 @@
           type interface
           <item>struct TypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
         </item>
-      </item>
-    </item>
-    <item>
-      function flags_register_static
-      <item>type GType: type GTYPE not supported</item>
-    </item>
-    <item>
-      function gtype_get_type
-      <item>type GType: type GTYPE not supported</item>
-    </item>
-    <item>
-      function param_spec_boxed
-      <item>
-        arg boxed_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function param_spec_enum
-      <item>
-        arg enum_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function param_spec_flags
-      <item>
-        arg flags_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function param_spec_gtype
-      <item>
-        arg is_a_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function param_spec_object
-      <item>
-        arg object_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function param_spec_param
-      <item>
-        arg param_type
-        <item>type GType: type GTYPE not supported</item>
       </item>
     </item>
     <item>function param_spec_pool_new: moved to ParamSpecPool.new</item>
@@ -2308,10 +2156,6 @@
     <item>function param_value_set_default: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function param_value_validate: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function param_values_cmp: function excluded by configuration (excludedFunctionSymbols)</item>
-    <item>
-      function pointer_type_register_static
-      <item>type GType: type GTYPE not supported</item>
-    </item>
     <item>function signal_accumulator_first_wins: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function signal_accumulator_true_handled: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>
@@ -2348,70 +2192,14 @@
     <item>function signal_handlers_disconnect_matched: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
     <item>function signal_handlers_unblock_matched: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
     <item>function signal_has_handler_pending: function excluded by configuration (excludedFunctionSymbols)</item>
-    <item>
-      function signal_list_ids
-      <item>
-        arg itype
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function signal_lookup
-      <item>
-        arg itype
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
     <item>function signal_name: function excluded by configuration (excludedFunctionSymbols)</item>
-    <item>
-      function signal_override_class_closure
-      <item>
-        arg instance_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function signal_parse_name
-      <item>
-        arg itype
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
     <item>function signal_query: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function signal_remove_emission_hook: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function signal_stop_emission: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function signal_stop_emission_by_name: function excluded by configuration (excludedFunctionSymbols)</item>
-    <item>
-      function signal_type_cclosure_new
-      <item>
-        arg itype
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
     <item>function source_set_closure: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function source_set_dummy_callback: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function strdup_value_contents: function excluded by configuration (excludedFunctionSymbols)</item>
-    <item>
-      function type_add_class_private
-      <item>
-        arg class_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function type_add_instance_private
-      <item>
-        arg class_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function type_add_interface_dynamic
-      <item>
-        arg interface_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
     <item>
       function type_add_interface_static
       <item>
@@ -2425,47 +2213,35 @@
     <item>
       function type_check_class_is_a
       <item>
-        arg is_a_type
-        <item>type GType: type GTYPE not supported</item>
+        arg g_class
+        <item>
+          type interface
+          <item>struct TypeClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
       </item>
     </item>
     <item>function type_check_instance: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>
       function type_check_instance_is_a
       <item>
-        arg iface_type
-        <item>type GType: type GTYPE not supported</item>
+        arg instance
+        <item>
+          type interface
+          <item>struct TypeInstance: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
       </item>
     </item>
     <item>
       function type_check_instance_is_fundamentally_a
       <item>
-        arg fundamental_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function type_check_is_value_type
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
+        arg instance
+        <item>
+          type interface
+          <item>struct TypeInstance: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
       </item>
     </item>
     <item>function type_check_value: function excluded by configuration (excludedFunctionSymbols)</item>
-    <item>
-      function type_check_value_holds
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function type_children
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
     <item>function type_class_adjust_private_offset: moved to TypeClass.adjust_private_offset</item>
     <item>function type_class_peek: moved to TypeClass.peek</item>
     <item>function type_class_peek_static: moved to TypeClass.peek_static</item>
@@ -2473,131 +2249,26 @@
     <item>
       function type_default_interface_peek
       <item>
-        arg g_type
-        <item>type GType: type GTYPE not supported</item>
+        type interface
+        <item>struct TypeInterface: interface type excluded by configuration (excludedInterfaceTypes)</item>
       </item>
     </item>
     <item>
       function type_default_interface_ref
       <item>
-        arg g_type
-        <item>type GType: type GTYPE not supported</item>
+        type interface
+        <item>struct TypeInterface: interface type excluded by configuration (excludedInterfaceTypes)</item>
       </item>
     </item>
     <item>function type_default_interface_unref: function excluded by configuration (excludedFunctionSymbols)</item>
-    <item>
-      function type_depth
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function type_ensure
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
     <item>function type_free_instance: function excluded by configuration (excludedFunctionSymbols)</item>
-    <item>
-      function type_from_name
-      <item>type GType: type GTYPE not supported</item>
-    </item>
-    <item>
-      function type_fundamental
-      <item>
-        arg type_id
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function type_fundamental_next
-      <item>type GType: type GTYPE not supported</item>
-    </item>
-    <item>
-      function type_get_instance_count
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function type_get_plugin
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function type_get_qdata
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
+    <item>function type_get_qdata: pointer C type for VOID not supported</item>
     <item>function type_interface_add_prerequisite: moved to TypeInterface.add_prerequisite</item>
     <item>function type_interface_get_plugin: moved to TypeInterface.get_plugin</item>
     <item>function type_interface_peek: moved to TypeInterface.peek</item>
     <item>function type_interface_prerequisites: moved to TypeInterface.prerequisites</item>
-    <item>
-      function type_interfaces
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function type_is_a
-      <item>
-        arg is_a_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function type_name
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
     <item>function type_name_from_class: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function type_name_from_instance: function excluded by configuration (excludedFunctionSymbols)</item>
-    <item>
-      function type_next_base
-      <item>
-        arg root_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function type_parent
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function type_qname
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function type_query
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function type_register_dynamic
-      <item>
-        arg parent_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
     <item>
       function type_register_fundamental
       <item>
@@ -2621,13 +2292,6 @@
     <item>
       function type_set_qdata
       <item>arg data: pointer C type for VOID not supported</item>
-    </item>
-    <item>
-      function type_test_flags
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
     </item>
     <item>function value_type_compatible: moved to Value.type_compatible</item>
     <item>function value_type_transformable: moved to Value.type_transformable</item>
@@ -3950,61 +3614,14 @@
     <item>struct FilterInputStreamClass: class struct</item>
     <item>struct FilterOutputStreamClass: class struct</item>
     <item>
-      struct IOExtension
-      <item>
-        function get_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function get_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
       struct IOExtensionPoint
       <item>
         function get_extensions
         <item>type glist: type GLIST not supported</item>
       </item>
       <item>
-        function get_required_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function set_required_type
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function implement
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
         function get_extensions
         <item>type glist: type GLIST not supported</item>
-      </item>
-      <item>
-        function get_required_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function set_required_type
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function implement
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
       </item>
     </item>
     <item>struct IOModuleClass: class struct</item>
@@ -4073,23 +3690,6 @@
     <item>struct InetAddressPrivate: struct not included by configuration (structTypes)</item>
     <item>struct InetSocketAddressClass: class struct</item>
     <item>struct InetSocketAddressPrivate: struct not included by configuration (structTypes)</item>
-    <item>
-      interface Initable
-      <item>
-        function newv
-        <item>
-          arg object_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function newv
-        <item>
-          arg object_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-    </item>
     <item>struct InitableIface: class struct</item>
     <item>struct InputMessage: struct not included by configuration (structTypes)</item>
     <item>
@@ -4138,26 +3738,16 @@
     <item>struct InputStreamClass: class struct</item>
     <item>struct InputStreamPrivate: struct not included by configuration (structTypes)</item>
     <item>struct InputVector: struct not included by configuration (structTypes)</item>
-    <item>
-      interface ListModel
-      <item>
-        function get_item_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function get_item_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
     <item>struct ListModelInterface: class struct</item>
     <item>
       object ListStore
       <item>
-        function new
-        <item>
-          arg item_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
+        function insert_sorted
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function sort
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function insert_sorted
@@ -4167,23 +3757,6 @@
         function sort
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
-      <item>property item-type: type GTYPE not supported</item>
-      <item>
-        function new
-        <item>
-          arg item_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function insert_sorted
-        <item>arg user_data: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function sort
-        <item>arg user_data: pointer C type for VOID not supported</item>
-      </item>
-      <item>property item-type: type GTYPE not supported</item>
     </item>
     <item>struct ListStoreClass: class struct</item>
     <item>
@@ -4846,30 +4419,8 @@
     <item>
       object SocketConnection
       <item>
-        function factory_lookup_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function factory_register_type
-        <item>
-          arg g_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
         function connect_async
         <item>arg user_data: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function factory_lookup_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function factory_register_type
-        <item>
-          arg g_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
       </item>
       <item>
         function connect_async
@@ -5087,57 +4638,6 @@
     <item>struct ThemedIconClass: class struct</item>
     <item>struct ThreadedSocketServiceClass: class struct</item>
     <item>struct ThreadedSocketServicePrivate: struct not included by configuration (structTypes)</item>
-    <item>
-      interface TlsBackend
-      <item>
-        function get_certificate_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function get_client_connection_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function get_dtls_client_connection_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function get_dtls_server_connection_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function get_file_database_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function get_server_connection_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function get_certificate_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function get_client_connection_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function get_dtls_client_connection_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function get_dtls_server_connection_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function get_file_database_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function get_server_connection_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
     <item>struct TlsBackendInterface: class struct</item>
     <item>
       object TlsCertificate
@@ -5554,13 +5054,6 @@
         function enumerate_versions
         <item>type glist: type GLIST not supported</item>
       </item>
-      <item>
-        function find_by_gtype
-        <item>
-          arg gtype
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
       <item>function error_quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_search_path
@@ -5569,13 +5062,6 @@
       <item>
         function enumerate_versions
         <item>type glist: type GLIST not supported</item>
-      </item>
-      <item>
-        function find_by_gtype
-        <item>
-          arg gtype
-          <item>type GType: type GTYPE not supported</item>
-        </item>
       </item>
     </item>
     <item>struct RepositoryClass: class struct</item>
@@ -5596,17 +5082,7 @@
         </item>
       </item>
     </item>
-    <item>
-      function registered_type_info_get_g_type
-      <item>type GType: type GTYPE not supported</item>
-    </item>
-    <item>
-      function vfunc_info_get_address
-      <item>
-        arg implementor_gtype
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
+    <item>function vfunc_info_get_address: pointer C type for VOID not supported</item>
   </item>
   <item>
     Atk-1.0
@@ -5750,17 +5226,6 @@
       </item>
     </item>
     <item>struct ObjectClass: class struct</item>
-    <item>
-      object ObjectFactory
-      <item>
-        function get_accessible_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function get_accessible_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
     <item>struct ObjectFactoryClass: class struct</item>
     <item>struct PlugClass: class struct</item>
     <item>struct PropertyValues: struct not included by configuration (structTypes)</item>
@@ -5768,51 +5233,6 @@
       struct Range
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-    </item>
-    <item>
-      object Registry
-      <item>
-        function get_factory
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function get_factory_type
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function set_factory_type
-        <item>
-          arg factory_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function get_factory
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function get_factory_type
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function set_factory_type
-        <item>
-          arg factory_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
     </item>
     <item>struct RegistryClass: class struct</item>
     <item>
@@ -6451,13 +5871,6 @@
           type interface
           <item>struct IncludedModule: interface type excluded by configuration (excludedInterfaceTypes)</item>
         </item>
-      </item>
-    </item>
-    <item>
-      function parse_enum
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
       </item>
     </item>
     <item>function read_line: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -7120,26 +6533,8 @@
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
-        function extend_with_template
-        <item>
-          arg template_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
         function get_objects
         <item>type gslist: type GSLIST not supported</item>
-      </item>
-      <item>
-        function get_type_from_name
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function value_from_string_type
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
       </item>
       <item>
         function add_callback_symbol
@@ -7160,26 +6555,8 @@
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
-        function extend_with_template
-        <item>
-          arg template_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
         function get_objects
         <item>type gslist: type GSLIST not supported</item>
-      </item>
-      <item>
-        function get_type_from_name
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function value_from_string_type
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
       </item>
     </item>
     <item>struct BuilderClass: class struct</item>
@@ -7426,10 +6803,6 @@
     <item>
       object Container
       <item>
-        function child_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
         function forall
         <item>arg callback_data: pointer C type for VOID not supported</item>
       </item>
@@ -7454,10 +6827,6 @@
           arg focusable_widgets
           <item>type glist: type GLIST not supported</item>
         </item>
-      </item>
-      <item>
-        function child_type
-        <item>type GType: type GTYPE not supported</item>
       </item>
       <item>
         function forall
@@ -8104,49 +7473,6 @@
     <item>struct ListBoxClass: class struct</item>
     <item>struct ListBoxRowAccessibleClass: class struct</item>
     <item>struct ListBoxRowClass: class struct</item>
-    <item>
-      object ListStore
-      <item>
-        function newv
-        <item>
-          arg types
-          <item>
-            type array
-            <item>type GType: type GTYPE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function set_column_types
-        <item>
-          arg types
-          <item>
-            type array
-            <item>type GType: type GTYPE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function newv
-        <item>
-          arg types
-          <item>
-            type array
-            <item>type GType: type GTYPE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function set_column_types
-        <item>
-          arg types
-          <item>
-            type array
-            <item>type GType: type GTYPE not supported</item>
-          </item>
-        </item>
-      </item>
-    </item>
     <item>struct ListStoreClass: class struct</item>
     <item>struct ListStorePrivate: struct not included by configuration (structTypes)</item>
     <item>struct LockButtonAccessibleClass: class struct</item>
@@ -8830,23 +8156,6 @@
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>
-      object Style
-      <item>
-        function get_style_property
-        <item>
-          arg widget_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function get_style_property
-        <item>
-          arg widget_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-    </item>
     <item>struct StyleClass: class struct</item>
     <item>
       object StyleContext
@@ -9180,16 +8489,8 @@
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
-        function get_column_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
         function foreach
         <item>arg user_data: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function get_column_type
-        <item>type GType: type GTYPE not supported</item>
       </item>
     </item>
     <item>
@@ -9331,49 +8632,6 @@
       </item>
     </item>
     <item>struct TreeSortableIface: class struct</item>
-    <item>
-      object TreeStore
-      <item>
-        function newv
-        <item>
-          arg types
-          <item>
-            type array
-            <item>type GType: type GTYPE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function set_column_types
-        <item>
-          arg types
-          <item>
-            type array
-            <item>type GType: type GTYPE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function newv
-        <item>
-          arg types
-          <item>
-            type array
-            <item>type GType: type GTYPE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function set_column_types
-        <item>
-          arg types
-          <item>
-            type array
-            <item>type GType: type GTYPE not supported</item>
-          </item>
-        </item>
-      </item>
-    </item>
     <item>struct TreeStoreClass: class struct</item>
     <item>struct TreeStorePrivate: struct not included by configuration (structTypes)</item>
     <item>
@@ -9588,20 +8846,6 @@
       </item>
       <item>function destroyed: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
-        function get_ancestor
-        <item>
-          arg widget_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function get_template_child
-        <item>
-          arg widget_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
         function list_accel_closures
         <item>type glist: type GLIST not supported</item>
       </item>
@@ -9631,20 +8875,6 @@
       </item>
       <item>function destroyed: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
-        function get_ancestor
-        <item>
-          arg widget_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function get_template_child
-        <item>
-          arg widget_type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
         function list_accel_closures
         <item>type glist: type GLIST not supported</item>
       </item>
@@ -9669,36 +8899,7 @@
     <item>struct WidgetClassPrivate: struct not included by configuration (structTypes)</item>
     <item>
       struct WidgetPath
-      <item>
-        function append_type
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>
-        function get_object_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function has_parent
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function is_type
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function iter_get_object_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
       <item>
         function iter_list_classes
         <item>type gslist: type GSLIST not supported</item>
@@ -9706,53 +8907,10 @@
       <item>
         function iter_list_regions
         <item>type gslist: type GSLIST not supported</item>
-      </item>
-      <item>
-        function iter_set_object_type
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function prepend_type
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
       </item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>
-        function append_type
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>
-        function get_object_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-      <item>
-        function has_parent
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function is_type
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function iter_get_object_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
       <item>
         function iter_list_classes
         <item>type gslist: type GSLIST not supported</item>
@@ -9760,20 +8918,6 @@
       <item>
         function iter_list_regions
         <item>type gslist: type GSLIST not supported</item>
-      </item>
-      <item>
-        function iter_set_object_type
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
-      </item>
-      <item>
-        function prepend_type
-        <item>
-          arg type
-          <item>type GType: type GTYPE not supported</item>
-        </item>
       </item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -9892,13 +9036,6 @@
         </item>
       </item>
     </item>
-    <item>
-      function rc_get_style_by_paths
-      <item>
-        arg type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
     <item>function rc_parse_color: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function rc_parse_color_full: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>
@@ -9940,27 +9077,6 @@
           type interface
           <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
         </item>
-      </item>
-    </item>
-    <item>
-      function test_find_sibling
-      <item>
-        arg widget_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function test_find_widget
-      <item>
-        arg widget_type
-        <item>type GType: type GTYPE not supported</item>
-      </item>
-    </item>
-    <item>
-      function test_list_all_types
-      <item>
-        type array
-        <item>type GType: type GTYPE not supported</item>
       </item>
     </item>
     <item>function tree_row_reference_deleted: moved to TreeRowReference.deleted</item>

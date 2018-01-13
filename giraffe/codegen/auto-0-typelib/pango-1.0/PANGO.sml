@@ -252,6 +252,11 @@ signature PANGO =
            * string
            * char
     val markupParserNew : char -> GLib.MarkupParseContextRecord.t
+    val parseEnum :
+      GObject.Type.t
+       * string option
+       * bool
+       -> (LargeInt.int * string) option
     val parseMarkup :
       string
        * LargeInt.int

@@ -8,6 +8,7 @@ structure GtkWidgetPath :>
     val getType_ = _import "gtk_widget_path_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_widget_path_new" : unit -> GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p;
     val appendForWidget_ = fn x1 & x2 => (_import "gtk_widget_path_append_for_widget" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val appendType_ = fn x1 & x2 => (_import "gtk_widget_path_append_type" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GObjectType.FFI.val_ -> GInt.FFI.val_;) (x1, x2)
     val appendWithSiblings_ =
       fn
         x1
@@ -26,6 +27,9 @@ structure GtkWidgetPath :>
               x3
             )
     val copy_ = _import "gtk_widget_path_copy" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p;
+    val getObjectType_ = _import "gtk_widget_path_get_object_type" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> GObjectType.FFI.val_;
+    val hasParent_ = fn x1 & x2 => (_import "gtk_widget_path_has_parent" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val isType_ = fn x1 & x2 => (_import "gtk_widget_path_is_type" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val iterAddClass_ =
       fn
         x1
@@ -71,6 +75,7 @@ structure GtkWidgetPath :>
     val iterClearRegions_ = fn x1 & x2 => (_import "gtk_widget_path_iter_clear_regions" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val iterGetName_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_name" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
     val iterGetObjectName_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_object_name" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val iterGetObjectType_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_object_type" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> GObjectType.FFI.val_;) (x1, x2)
     val iterGetSiblingIndex_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_sibling_index" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> GUInt.FFI.val_;) (x1, x2)
     val iterGetSiblings_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_siblings" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p;) (x1, x2)
     val iterGetState_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_state" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> GtkStateFlags.FFI.val_;) (x1, x2)
@@ -264,6 +269,23 @@ structure GtkWidgetPath :>
               x3,
               x4
             )
+    val iterSetObjectType_ =
+      fn
+        x1
+         & x2
+         & x3 =>
+          (
+            _import "gtk_widget_path_iter_set_object_type" :
+              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+               * GInt.FFI.val_
+               * GObjectType.FFI.val_
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val iterSetState_ =
       fn
         x1
@@ -282,6 +304,7 @@ structure GtkWidgetPath :>
               x3
             )
     val length_ = _import "gtk_widget_path_length" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> GInt.FFI.val_;
+    val prependType_ = fn x1 & x2 => (_import "gtk_widget_path_prepend_type" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GObjectType.FFI.val_ -> unit;) (x1, x2)
     val toString_ = _import "gtk_widget_path_to_string" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     type t = GtkWidgetPathRecord.t
     type 'a widget_class = 'a GtkWidgetClass.class
@@ -290,6 +313,7 @@ structure GtkWidgetPath :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkWidgetPathRecord.FFI.fromPtr true) new_ ()
     fun appendForWidget self widget = (GtkWidgetPathRecord.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) appendForWidget_ (self & widget)
+    fun appendType self type' = (GtkWidgetPathRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GInt.FFI.fromVal) appendType_ (self & type')
     fun appendWithSiblings self (siblings, siblingIndex) =
       (
         GtkWidgetPathRecord.FFI.withPtr
@@ -304,6 +328,9 @@ structure GtkWidgetPath :>
            & siblingIndex
         )
     fun copy self = (GtkWidgetPathRecord.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr true) copy_ self
+    fun getObjectType self = (GtkWidgetPathRecord.FFI.withPtr ---> GObjectType.FFI.fromVal) getObjectType_ self
+    fun hasParent self type' = (GtkWidgetPathRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) hasParent_ (self & type')
+    fun isType self type' = (GtkWidgetPathRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) isType_ (self & type')
     fun iterAddClass self (pos, name) =
       (
         GtkWidgetPathRecord.FFI.withPtr
@@ -342,6 +369,7 @@ structure GtkWidgetPath :>
     fun iterClearRegions self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> I) iterClearRegions_ (self & pos)
     fun iterGetName self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) iterGetName_ (self & pos)
     fun iterGetObjectName self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) iterGetObjectName_ (self & pos)
+    fun iterGetObjectType self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GObjectType.FFI.fromVal) iterGetObjectType_ (self & pos)
     fun iterGetSiblingIndex self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GUInt.FFI.fromVal) iterGetSiblingIndex_ (self & pos)
     fun iterGetSiblings self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetPathRecord.FFI.fromPtr false) iterGetSiblings_ (self & pos)
     fun iterGetState self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkStateFlags.FFI.fromVal) iterGetState_ (self & pos)
@@ -489,6 +517,19 @@ structure GtkWidgetPath :>
            & pos
            & name
         )
+    fun iterSetObjectType self (pos, type') =
+      (
+        GtkWidgetPathRecord.FFI.withPtr
+         &&&> GInt.FFI.withVal
+         &&&> GObjectType.FFI.withVal
+         ---> I
+      )
+        iterSetObjectType_
+        (
+          self
+           & pos
+           & type'
+        )
     fun iterSetState self (pos, state) =
       (
         GtkWidgetPathRecord.FFI.withPtr
@@ -503,5 +544,6 @@ structure GtkWidgetPath :>
            & state
         )
     fun length self = (GtkWidgetPathRecord.FFI.withPtr ---> GInt.FFI.fromVal) length_ self
+    fun prependType self type' = (GtkWidgetPathRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> I) prependType_ (self & type')
     fun toString self = (GtkWidgetPathRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
   end

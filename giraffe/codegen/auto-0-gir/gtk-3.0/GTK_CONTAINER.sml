@@ -35,6 +35,7 @@ signature GTK_CONTAINER =
            * string
            * GObject.ValueRecord.t
        -> unit
+    val childType : 'a class -> GObject.Type.t
     val getBorderWidth : 'a class -> LargeInt.int
     val getFocusChild : 'a class -> base widget_class option
     val getFocusHadjustment : 'a class -> base adjustment_class

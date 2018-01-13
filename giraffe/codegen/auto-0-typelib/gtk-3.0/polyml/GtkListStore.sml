@@ -26,10 +26,17 @@ structure GtkListStore :>
         structure Sequence = VectorSequence
       )
     structure GObjectValueRecordCVectorN = CVectorN(GObjectValueRecordCVectorNType)
+    structure GObjectTypeCVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GObjectType.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GObjectType.C.ValueType)
+      )
+    structure GObjectTypeCVectorN = CVectorN(GObjectTypeCVectorNType)
     local
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_list_store_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (getSymbol "gtk_list_store_newv") (GInt32.PolyML.cVal &&> GObjectTypeCVectorN.PolyML.cInPtr --> GtkListStoreClass.PolyML.cPtr)
       val append_ = call (getSymbol "gtk_list_store_append") (GtkListStoreClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> cVoid)
       val clear_ = call (getSymbol "gtk_list_store_clear") (GtkListStoreClass.PolyML.cPtr --> cVoid)
       val insert_ =
@@ -87,6 +94,14 @@ structure GtkListStore :>
       val prepend_ = call (getSymbol "gtk_list_store_prepend") (GtkListStoreClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> cVoid)
       val remove_ = call (getSymbol "gtk_list_store_remove") (GtkListStoreClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val reorder_ = call (getSymbol "gtk_list_store_reorder") (GtkListStoreClass.PolyML.cPtr &&> GInt32CVector.PolyML.cInPtr --> cVoid)
+      val setColumnTypes_ =
+        call (getSymbol "gtk_list_store_set_column_types")
+          (
+            GtkListStoreClass.PolyML.cPtr
+             &&> GInt32.PolyML.cVal
+             &&> GObjectTypeCVectorN.PolyML.cInPtr
+             --> cVoid
+          )
       val setValue_ =
         call (getSymbol "gtk_list_store_set_value")
           (
@@ -129,6 +144,13 @@ structure GtkListStore :>
     fun asTreeModel self = (GObjectObjectClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) I self
     fun asTreeSortable self = (GObjectObjectClass.FFI.withPtr ---> GtkTreeSortableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new types =
+      let
+        val nColumns = LargeInt.fromInt (GObjectTypeCVectorN.length types)
+        val retVal = (GInt32.FFI.withVal &&&> GObjectTypeCVectorN.FFI.withPtr ---> GtkListStoreClass.FFI.fromPtr true) new_ (nColumns & types)
+      in
+        retVal
+      end
     fun append self =
       let
         val iter & () = (GtkListStoreClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withNewPtr ---> GtkTreeIterRecord.FFI.fromPtr true && I) append_ (self & ())
@@ -256,6 +278,25 @@ structure GtkListStore :>
       end
     fun remove self iter = (GtkListStoreClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) remove_ (self & iter)
     fun reorder self newOrder = (GtkListStoreClass.FFI.withPtr &&&> GInt32CVector.FFI.withPtr ---> I) reorder_ (self & newOrder)
+    fun setColumnTypes self types =
+      let
+        val nColumns = LargeInt.fromInt (GObjectTypeCVectorN.length types)
+        val () =
+          (
+            GtkListStoreClass.FFI.withPtr
+             &&&> GInt32.FFI.withVal
+             &&&> GObjectTypeCVectorN.FFI.withPtr
+             ---> I
+          )
+            setColumnTypes_
+            (
+              self
+               & nColumns
+               & types
+            )
+      in
+        ()
+      end
     fun setValue
       self
       (

@@ -14,6 +14,7 @@ signature GTK_TREE_STORE =
     val asTreeModel : 'a class -> base tree_model_class
     val asTreeSortable : 'a class -> base tree_sortable_class
     val getType : unit -> GObject.Type.t
+    val new : GObject.Type.t vector -> base class
     val append :
       'a class
        -> tree_iter_t option
@@ -66,6 +67,10 @@ signature GTK_TREE_STORE =
       'a class
        -> tree_iter_t
        -> bool
+    val setColumnTypes :
+      'a class
+       -> GObject.Type.t vector
+       -> unit
     val setValue :
       'a class
        -> tree_iter_t

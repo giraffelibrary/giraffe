@@ -1,5 +1,11 @@
 structure Gio : GIO =
   struct
+    structure GObjectParameterRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GObjectParameterRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GObjectParameterRecordCVectorN = CVectorN(GObjectParameterRecordCVectorNType)
     structure GioDBusAnnotationInfoRecordCVectorType =
       CPointerCVectorType(
         structure CElemType = GioDBusAnnotationInfoRecord.C.PointerType
@@ -194,8 +200,27 @@ structure Gio : GIO =
       val fileParseName_ = call (getSymbol "g_file_parse_name") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
       val iconDeserialize_ = call (getSymbol "g_icon_deserialize") (GLibVariantRecord.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
       val iconNewForString_ = call (getSymbol "g_icon_new_for_string") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioIconClass.PolyML.cPtr)
+      val initableNewv_ =
+        call (getSymbol "g_initable_newv")
+          (
+            GObjectType.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             &&> GObjectParameterRecordCVectorN.PolyML.cInPtr
+             &&> GioCancellableClass.PolyML.cOptPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GObjectObjectClass.PolyML.cPtr
+          )
       val ioErrorFromErrno_ = call (getSymbol "g_io_error_from_errno") (GInt32.PolyML.cVal --> GioIOErrorEnum.PolyML.cVal)
       val ioErrorQuark_ = call (getSymbol "g_io_error_quark") (cVoid --> GUInt32.PolyML.cVal)
+      val ioExtensionPointImplement_ =
+        call (getSymbol "g_io_extension_point_implement")
+          (
+            Utf8.PolyML.cInPtr
+             &&> GObjectType.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             &&> GInt32.PolyML.cVal
+             --> GioIOExtensionRecord.PolyML.cPtr
+          )
       val ioExtensionPointLookup_ = call (getSymbol "g_io_extension_point_lookup") (Utf8.PolyML.cInPtr --> GioIOExtensionPointRecord.PolyML.cPtr)
       val ioExtensionPointRegister_ = call (getSymbol "g_io_extension_point_register") (Utf8.PolyML.cInPtr --> GioIOExtensionPointRecord.PolyML.cPtr)
       val ioModulesScanAllInDirectory_ = call (getSymbol "g_io_modules_scan_all_in_directory") (Utf8.PolyML.cInPtr --> cVoid)
@@ -1164,8 +1189,57 @@ structure Gio : GIO =
     fun fileParseName parseName = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) fileParseName_ parseName
     fun iconDeserialize value = (GLibVariantRecord.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) iconDeserialize_ value
     fun iconNewForString str = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioIconClass.FFI.fromPtr true) iconNewForString_ (str & [])
+    fun initableNewv
+      (
+        objectType,
+        parameters,
+        cancellable
+      ) =
+      let
+        val nParameters = LargeInt.fromInt (GObjectParameterRecordCVectorN.length parameters)
+        val retVal =
+          (
+            GObjectType.FFI.withVal
+             &&&> GUInt32.FFI.withVal
+             &&&> GObjectParameterRecordCVectorN.FFI.withPtr
+             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GObjectObjectClass.FFI.fromPtr true
+          )
+            initableNewv_
+            (
+              objectType
+               & nParameters
+               & parameters
+               & cancellable
+               & []
+            )
+      in
+        retVal
+      end
     fun ioErrorFromErrno errNo = (GInt32.FFI.withVal ---> GioIOErrorEnum.FFI.fromVal) ioErrorFromErrno_ errNo
     fun ioErrorQuark () = (I ---> GUInt32.FFI.fromVal) ioErrorQuark_ ()
+    fun ioExtensionPointImplement
+      (
+        extensionPointName,
+        type',
+        extensionName,
+        priority
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> GObjectType.FFI.withVal
+         &&&> Utf8.FFI.withPtr
+         &&&> GInt32.FFI.withVal
+         ---> GioIOExtensionRecord.FFI.fromPtr false
+      )
+        ioExtensionPointImplement_
+        (
+          extensionPointName
+           & type'
+           & extensionName
+           & priority
+        )
     fun ioExtensionPointLookup name = (Utf8.FFI.withPtr ---> GioIOExtensionPointRecord.FFI.fromPtr false) ioExtensionPointLookup_ name
     fun ioExtensionPointRegister name = (Utf8.FFI.withPtr ---> GioIOExtensionPointRecord.FFI.fromPtr false) ioExtensionPointRegister_ name
     fun ioModulesScanAllInDirectory dirname = (Utf8.FFI.withPtr ---> I) ioModulesScanAllInDirectory_ dirname

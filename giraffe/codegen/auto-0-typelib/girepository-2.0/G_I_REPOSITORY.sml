@@ -116,6 +116,7 @@ signature G_I_REPOSITORY =
     val propertyInfoGetFlags : BaseInfoRecord.t -> GObject.ParamFlags.t
     val propertyInfoGetOwnershipTransfer : BaseInfoRecord.t -> Transfer.t
     val propertyInfoGetType : BaseInfoRecord.t -> BaseInfoRecord.t
+    val registeredTypeInfoGetGType : BaseInfoRecord.t -> GObject.Type.t
     val registeredTypeInfoGetTypeInit : BaseInfoRecord.t -> string
     val registeredTypeInfoGetTypeName : BaseInfoRecord.t -> string
     val signalInfoGetClassClosure : BaseInfoRecord.t -> BaseInfoRecord.t

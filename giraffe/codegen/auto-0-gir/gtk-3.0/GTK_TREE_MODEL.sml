@@ -10,6 +10,10 @@ signature GTK_TREE_MODEL =
       'a class
        -> tree_path_t option
        -> base class
+    val getColumnType :
+      'a class
+       -> LargeInt.int
+       -> GObject.Type.t
     val getFlags : 'a class -> tree_model_flags_t
     val getIter :
       'a class

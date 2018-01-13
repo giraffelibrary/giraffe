@@ -6,15 +6,30 @@ structure GObject :
     where type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
     where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite =
   struct
+    structure GObjectTypeCVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GObjectType.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GObjectType.C.ValueType)
+      )
+    structure GObjectTypeCVectorN = CVectorN(GObjectTypeCVectorNType)
+    structure GUInt32CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GUInt32Type
+        structure ElemSequence = CValueVectorSequence(GUInt32Type)
+      )
+    structure GUInt32CVectorN = CVectorN(GUInt32CVectorNType)
     local
       open PolyMLFFI
     in
       val enumGetValue_ = call (getSymbol "g_enum_get_value") (GObjectEnumClassRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> GObjectEnumValueRecord.PolyML.cPtr)
       val enumGetValueByName_ = call (getSymbol "g_enum_get_value_by_name") (GObjectEnumClassRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectEnumValueRecord.PolyML.cPtr)
       val enumGetValueByNick_ = call (getSymbol "g_enum_get_value_by_nick") (GObjectEnumClassRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectEnumValueRecord.PolyML.cPtr)
+      val enumRegisterStatic_ = call (getSymbol "g_enum_register_static") (Utf8.PolyML.cInPtr &&> GObjectEnumValueRecord.PolyML.cPtr --> GObjectType.PolyML.cVal)
       val flagsGetFirstValue_ = call (getSymbol "g_flags_get_first_value") (GObjectFlagsClassRecord.PolyML.cPtr &&> GUInt32.PolyML.cVal --> GObjectFlagsValueRecord.PolyML.cPtr)
       val flagsGetValueByName_ = call (getSymbol "g_flags_get_value_by_name") (GObjectFlagsClassRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectFlagsValueRecord.PolyML.cPtr)
       val flagsGetValueByNick_ = call (getSymbol "g_flags_get_value_by_nick") (GObjectFlagsClassRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectFlagsValueRecord.PolyML.cPtr)
+      val flagsRegisterStatic_ = call (getSymbol "g_flags_register_static") (Utf8.PolyML.cInPtr &&> GObjectFlagsValueRecord.PolyML.cPtr --> GObjectType.PolyML.cVal)
+      val gtypeGetType_ = call (getSymbol "g_gtype_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val paramSpecBoolean_ =
         call (getSymbol "g_param_spec_boolean")
           (
@@ -22,6 +37,16 @@ structure GObject :
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GBool.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecBoxed_ =
+        call (getSymbol "g_param_spec_boxed")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectType.PolyML.cVal
              &&> GObjectParamFlags.PolyML.cVal
              --> GObjectParamSpecClass.PolyML.cPtr
           )
@@ -49,6 +74,28 @@ structure GObject :
              &&> GObjectParamFlags.PolyML.cVal
              --> GObjectParamSpecClass.PolyML.cPtr
           )
+      val paramSpecEnum_ =
+        call (getSymbol "g_param_spec_enum")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectType.PolyML.cVal
+             &&> GInt32.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecFlags_ =
+        call (getSymbol "g_param_spec_flags")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectType.PolyML.cVal
+             &&> GUInt32.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
       val paramSpecFloat_ =
         call (getSymbol "g_param_spec_float")
           (
@@ -58,6 +105,16 @@ structure GObject :
              &&> GFloat.PolyML.cVal
              &&> GFloat.PolyML.cVal
              &&> GFloat.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecGtype_ =
+        call (getSymbol "g_param_spec_gtype")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectType.PolyML.cVal
              &&> GObjectParamFlags.PolyML.cVal
              --> GObjectParamSpecClass.PolyML.cPtr
           )
@@ -94,6 +151,26 @@ structure GObject :
              &&> GInt64.PolyML.cVal
              &&> GInt64.PolyML.cVal
              &&> GInt64.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecObject_ =
+        call (getSymbol "g_param_spec_object")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectType.PolyML.cVal
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
+      val paramSpecParam_ =
+        call (getSymbol "g_param_spec_param")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectType.PolyML.cVal
              &&> GObjectParamFlags.PolyML.cVal
              --> GObjectParamSpecClass.PolyML.cPtr
           )
@@ -174,9 +251,73 @@ structure GObject :
              &&> GObjectParamFlags.PolyML.cVal
              --> GObjectParamSpecClass.PolyML.cPtr
           )
+      val pointerTypeRegisterStatic_ = call (getSymbol "g_pointer_type_register_static") (Utf8.PolyML.cInPtr --> GObjectType.PolyML.cVal)
+      val signalListIds_ = call (getSymbol "g_signal_list_ids") (GObjectType.PolyML.cVal &&> GUInt32.PolyML.cRef --> GUInt32CVectorN.PolyML.cOutPtr)
+      val signalLookup_ = call (getSymbol "g_signal_lookup") (Utf8.PolyML.cInPtr &&> GObjectType.PolyML.cVal --> GUInt32.PolyML.cVal)
+      val signalOverrideClassClosure_ =
+        call (getSymbol "g_signal_override_class_closure")
+          (
+            GUInt32.PolyML.cVal
+             &&> GObjectType.PolyML.cVal
+             &&> GObjectClosureRecord.PolyML.cPtr
+             --> cVoid
+          )
+      val signalParseName_ =
+        call (getSymbol "g_signal_parse_name")
+          (
+            Utf8.PolyML.cInPtr
+             &&> GObjectType.PolyML.cVal
+             &&> GUInt32.PolyML.cRef
+             &&> GUInt32.PolyML.cRef
+             &&> GBool.PolyML.cVal
+             --> GBool.PolyML.cVal
+          )
+      val signalTypeCclosureNew_ = call (getSymbol "g_signal_type_cclosure_new") (GObjectType.PolyML.cVal &&> GUInt32.PolyML.cVal --> GObjectClosureRecord.PolyML.cPtr)
+      val typeAddClassPrivate_ = call (getSymbol "g_type_add_class_private") (GObjectType.PolyML.cVal &&> GUInt64.PolyML.cVal --> cVoid)
+      val typeAddInstancePrivate_ = call (getSymbol "g_type_add_instance_private") (GObjectType.PolyML.cVal &&> GUInt64.PolyML.cVal --> GInt32.PolyML.cVal)
+      val typeAddInterfaceDynamic_ =
+        call (getSymbol "g_type_add_interface_dynamic")
+          (
+            GObjectType.PolyML.cVal
+             &&> GObjectType.PolyML.cVal
+             &&> GObjectTypePluginClass.PolyML.cPtr
+             --> cVoid
+          )
+      val typeCheckIsValueType_ = call (getSymbol "g_type_check_is_value_type") (GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
+      val typeCheckValueHolds_ = call (getSymbol "g_type_check_value_holds") (GObjectValueRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
+      val typeChildren_ = call (getSymbol "g_type_children") (GObjectType.PolyML.cVal &&> GUInt32.PolyML.cRef --> GObjectTypeCVectorN.PolyML.cOutPtr)
+      val typeDepth_ = call (getSymbol "g_type_depth") (GObjectType.PolyML.cVal --> GUInt32.PolyML.cVal)
+      val typeEnsure_ = call (getSymbol "g_type_ensure") (GObjectType.PolyML.cVal --> cVoid)
+      val typeFromName_ = call (getSymbol "g_type_from_name") (Utf8.PolyML.cInPtr --> GObjectType.PolyML.cVal)
+      val typeFundamental_ = call (getSymbol "g_type_fundamental") (GObjectType.PolyML.cVal --> GObjectType.PolyML.cVal)
+      val typeFundamentalNext_ = call (getSymbol "g_type_fundamental_next") (cVoid --> GObjectType.PolyML.cVal)
+      val typeGetInstanceCount_ = call (getSymbol "g_type_get_instance_count") (GObjectType.PolyML.cVal --> GInt32.PolyML.cVal)
+      val typeGetPlugin_ = call (getSymbol "g_type_get_plugin") (GObjectType.PolyML.cVal --> GObjectTypePluginClass.PolyML.cPtr)
       val typeGetTypeRegistrationSerial_ = call (getSymbol "g_type_get_type_registration_serial") (cVoid --> GUInt32.PolyML.cVal)
       val typeInit_ = call (getSymbol "g_type_init") (cVoid --> cVoid)
       val typeInitWithDebugFlags_ = call (getSymbol "g_type_init_with_debug_flags") (GObjectTypeDebugFlags.PolyML.cVal --> cVoid)
+      val typeInterfaceAddPrerequisite_ = call (getSymbol "g_type_interface_add_prerequisite") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> cVoid)
+      val typeInterfaceGetPlugin_ = call (getSymbol "g_type_interface_get_plugin") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> GObjectTypePluginClass.PolyML.cPtr)
+      val typeInterfacePrerequisites_ = call (getSymbol "g_type_interface_prerequisites") (GObjectType.PolyML.cVal &&> GUInt32.PolyML.cRef --> GObjectTypeCVectorN.PolyML.cOutPtr)
+      val typeInterfaces_ = call (getSymbol "g_type_interfaces") (GObjectType.PolyML.cVal &&> GUInt32.PolyML.cRef --> GObjectTypeCVectorN.PolyML.cOutPtr)
+      val typeIsA_ = call (getSymbol "g_type_is_a") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
+      val typeName_ = call (getSymbol "g_type_name") (GObjectType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val typeNextBase_ = call (getSymbol "g_type_next_base") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> GObjectType.PolyML.cVal)
+      val typeParent_ = call (getSymbol "g_type_parent") (GObjectType.PolyML.cVal --> GObjectType.PolyML.cVal)
+      val typeQname_ = call (getSymbol "g_type_qname") (GObjectType.PolyML.cVal --> GUInt32.PolyML.cVal)
+      val typeQuery_ = call (getSymbol "g_type_query") (GObjectType.PolyML.cVal &&> GObjectTypeQueryRecord.PolyML.cPtr --> cVoid)
+      val typeRegisterDynamic_ =
+        call (getSymbol "g_type_register_dynamic")
+          (
+            GObjectType.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectTypePluginClass.PolyML.cPtr
+             &&> GObjectTypeFlags.PolyML.cVal
+             --> GObjectType.PolyML.cVal
+          )
+      val typeTestFlags_ = call (getSymbol "g_type_test_flags") (GObjectType.PolyML.cVal &&> GUInt32.PolyML.cVal --> GBool.PolyML.cVal)
+      val valueTypeCompatible_ = call (getSymbol "g_value_type_compatible") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
+      val valueTypeTransformable_ = call (getSymbol "g_value_type_transformable") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
     end
     type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
     type 'a signal_t = 'a Signal.t
@@ -290,9 +431,12 @@ structure GObject :
     fun enumGetValue (enumClass, value) = (GObjectEnumClassRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValue_ (enumClass & value)
     fun enumGetValueByName (enumClass, name) = (GObjectEnumClassRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValueByName_ (enumClass & name)
     fun enumGetValueByNick (enumClass, nick) = (GObjectEnumClassRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValueByNick_ (enumClass & nick)
+    fun enumRegisterStatic (name, constStaticValues) = (Utf8.FFI.withPtr &&&> GObjectEnumValueRecord.FFI.withPtr ---> GObjectType.FFI.fromVal) enumRegisterStatic_ (name & constStaticValues)
     fun flagsGetFirstValue (flagsClass, value) = (GObjectFlagsClassRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetFirstValue_ (flagsClass & value)
     fun flagsGetValueByName (flagsClass, name) = (GObjectFlagsClassRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetValueByName_ (flagsClass & name)
     fun flagsGetValueByNick (flagsClass, nick) = (GObjectFlagsClassRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetValueByNick_ (flagsClass & nick)
+    fun flagsRegisterStatic (name, constStaticValues) = (Utf8.FFI.withPtr &&&> GObjectFlagsValueRecord.FFI.withPtr ---> GObjectType.FFI.fromVal) flagsRegisterStatic_ (name & constStaticValues)
+    fun gtypeGetType () = (I ---> GObjectType.FFI.fromVal) gtypeGetType_ ()
     fun paramSpecBoolean
       (
         name,
@@ -315,6 +459,30 @@ structure GObject :
            & nick
            & blurb
            & defaultValue
+           & flags
+        )
+    fun paramSpecBoxed
+      (
+        name,
+        nick,
+        blurb,
+        boxedType,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectType.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecBoxed_
+        (
+          name
+           & nick
+           & blurb
+           & boxedType
            & flags
         )
     fun paramSpecChar
@@ -377,6 +545,60 @@ structure GObject :
            & defaultValue
            & flags
         )
+    fun paramSpecEnum
+      (
+        name,
+        nick,
+        blurb,
+        enumType,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectType.FFI.withVal
+         &&&> GInt32.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecEnum_
+        (
+          name
+           & nick
+           & blurb
+           & enumType
+           & defaultValue
+           & flags
+        )
+    fun paramSpecFlags
+      (
+        name,
+        nick,
+        blurb,
+        flagsType,
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectType.FFI.withVal
+         &&&> GUInt32.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecFlags_
+        (
+          name
+           & nick
+           & blurb
+           & flagsType
+           & defaultValue
+           & flags
+        )
     fun paramSpecFloat
       (
         name,
@@ -405,6 +627,30 @@ structure GObject :
            & minimum
            & maximum
            & defaultValue
+           & flags
+        )
+    fun paramSpecGtype
+      (
+        name,
+        nick,
+        blurb,
+        isAType,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectType.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecGtype_
+        (
+          name
+           & nick
+           & blurb
+           & isAType
            & flags
         )
     fun paramSpecInt
@@ -495,6 +741,54 @@ structure GObject :
            & minimum
            & maximum
            & defaultValue
+           & flags
+        )
+    fun paramSpecObject
+      (
+        name,
+        nick,
+        blurb,
+        objectType,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectType.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecObject_
+        (
+          name
+           & nick
+           & blurb
+           & objectType
+           & flags
+        )
+    fun paramSpecParam
+      (
+        name,
+        nick,
+        blurb,
+        paramType,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectType.FFI.withVal
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecParam_
+        (
+          name
+           & nick
+           & blurb
+           & paramType
            & flags
         )
     fun paramSpecPointer
@@ -686,7 +980,149 @@ structure GObject :
            & defaultValue
            & flags
         )
+    fun pointerTypeRegisterStatic name = (Utf8.FFI.withPtr ---> GObjectType.FFI.fromVal) pointerTypeRegisterStatic_ name
+    fun signalListIds itype =
+      let
+        val nIds & retVal = (GObjectType.FFI.withVal &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GUInt32CVectorN.FFI.fromPtr 1) signalListIds_ (itype & GUInt32.null)
+      in
+        retVal (LargeInt.toInt nIds)
+      end
+    fun signalLookup (name, itype) = (Utf8.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GUInt32.FFI.fromVal) signalLookup_ (name & itype)
+    fun signalOverrideClassClosure
+      (
+        signalId,
+        instanceType,
+        classClosure
+      ) =
+      (
+        GUInt32.FFI.withVal
+         &&&> GObjectType.FFI.withVal
+         &&&> GObjectClosureRecord.FFI.withPtr
+         ---> I
+      )
+        signalOverrideClassClosure_
+        (
+          signalId
+           & instanceType
+           & classClosure
+        )
+    fun signalParseName
+      (
+        detailedSignal,
+        itype,
+        forceDetailQuark
+      ) =
+      let
+        val signalIdP
+         & detailP
+         & retVal =
+          (
+            Utf8.FFI.withPtr
+             &&&> GObjectType.FFI.withVal
+             &&&> GUInt32.FFI.withRefVal
+             &&&> GUInt32.FFI.withRefVal
+             &&&> GBool.FFI.withVal
+             ---> GUInt32.FFI.fromVal
+                   && GUInt32.FFI.fromVal
+                   && GBool.FFI.fromVal
+          )
+            signalParseName_
+            (
+              detailedSignal
+               & itype
+               & GUInt32.null
+               & GUInt32.null
+               & forceDetailQuark
+            )
+      in
+        if retVal then SOME (signalIdP, detailP) else NONE
+      end
+    fun signalTypeCclosureNew (itype, structOffset) = (GObjectType.FFI.withVal &&&> GUInt32.FFI.withVal ---> GObjectClosureRecord.FFI.fromPtr true) signalTypeCclosureNew_ (itype & structOffset)
+    fun typeAddClassPrivate (classType, privateSize) = (GObjectType.FFI.withVal &&&> GUInt64.FFI.withVal ---> I) typeAddClassPrivate_ (classType & privateSize)
+    fun typeAddInstancePrivate (classType, privateSize) = (GObjectType.FFI.withVal &&&> GUInt64.FFI.withVal ---> GInt32.FFI.fromVal) typeAddInstancePrivate_ (classType & privateSize)
+    fun typeAddInterfaceDynamic
+      (
+        instanceType,
+        interfaceType,
+        plugin
+      ) =
+      (
+        GObjectType.FFI.withVal
+         &&&> GObjectType.FFI.withVal
+         &&&> GObjectTypePluginClass.FFI.withPtr
+         ---> I
+      )
+        typeAddInterfaceDynamic_
+        (
+          instanceType
+           & interfaceType
+           & plugin
+        )
+    fun typeCheckIsValueType type' = (GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCheckIsValueType_ type'
+    fun typeCheckValueHolds (value, type') = (GObjectValueRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCheckValueHolds_ (value & type')
+    fun typeChildren type' =
+      let
+        val nChildren & retVal = (GObjectType.FFI.withVal &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GObjectTypeCVectorN.FFI.fromPtr 1) typeChildren_ (type' & GUInt32.null)
+      in
+        retVal (LargeInt.toInt nChildren)
+      end
+    fun typeDepth type' = (GObjectType.FFI.withVal ---> GUInt32.FFI.fromVal) typeDepth_ type'
+    fun typeEnsure type' = (GObjectType.FFI.withVal ---> I) typeEnsure_ type'
+    fun typeFromName name = (Utf8.FFI.withPtr ---> GObjectType.FFI.fromVal) typeFromName_ name
+    fun typeFundamental typeId = (GObjectType.FFI.withVal ---> GObjectType.FFI.fromVal) typeFundamental_ typeId
+    fun typeFundamentalNext () = (I ---> GObjectType.FFI.fromVal) typeFundamentalNext_ ()
+    fun typeGetInstanceCount type' = (GObjectType.FFI.withVal ---> GInt32.FFI.fromVal) typeGetInstanceCount_ type'
+    fun typeGetPlugin type' = (GObjectType.FFI.withVal ---> GObjectTypePluginClass.FFI.fromPtr false) typeGetPlugin_ type'
     fun typeGetTypeRegistrationSerial () = (I ---> GUInt32.FFI.fromVal) typeGetTypeRegistrationSerial_ ()
     fun typeInit () = (I ---> I) typeInit_ ()
     fun typeInitWithDebugFlags debugFlags = (GObjectTypeDebugFlags.FFI.withVal ---> I) typeInitWithDebugFlags_ debugFlags
+    fun typeInterfaceAddPrerequisite (interfaceType, prerequisiteType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> I) typeInterfaceAddPrerequisite_ (interfaceType & prerequisiteType)
+    fun typeInterfaceGetPlugin (instanceType, interfaceType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GObjectTypePluginClass.FFI.fromPtr false) typeInterfaceGetPlugin_ (instanceType & interfaceType)
+    fun typeInterfacePrerequisites interfaceType =
+      let
+        val nPrerequisites & retVal = (GObjectType.FFI.withVal &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GObjectTypeCVectorN.FFI.fromPtr 1) typeInterfacePrerequisites_ (interfaceType & GUInt32.null)
+      in
+        retVal (LargeInt.toInt nPrerequisites)
+      end
+    fun typeInterfaces type' =
+      let
+        val nInterfaces & retVal = (GObjectType.FFI.withVal &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GObjectTypeCVectorN.FFI.fromPtr 1) typeInterfaces_ (type' & GUInt32.null)
+      in
+        retVal (LargeInt.toInt nInterfaces)
+      end
+    fun typeIsA (type', isAType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeIsA_ (type' & isAType)
+    fun typeName type' = (GObjectType.FFI.withVal ---> Utf8.FFI.fromPtr 0) typeName_ type'
+    fun typeNextBase (leafType, rootType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GObjectType.FFI.fromVal) typeNextBase_ (leafType & rootType)
+    fun typeParent type' = (GObjectType.FFI.withVal ---> GObjectType.FFI.fromVal) typeParent_ type'
+    fun typeQname type' = (GObjectType.FFI.withVal ---> GUInt32.FFI.fromVal) typeQname_ type'
+    fun typeQuery type' =
+      let
+        val query & () = (GObjectType.FFI.withVal &&&> GObjectTypeQueryRecord.FFI.withNewPtr ---> GObjectTypeQueryRecord.FFI.fromPtr true && I) typeQuery_ (type' & ())
+      in
+        query
+      end
+    fun typeRegisterDynamic
+      (
+        parentType,
+        typeName,
+        plugin,
+        flags
+      ) =
+      (
+        GObjectType.FFI.withVal
+         &&&> Utf8.FFI.withPtr
+         &&&> GObjectTypePluginClass.FFI.withPtr
+         &&&> GObjectTypeFlags.FFI.withVal
+         ---> GObjectType.FFI.fromVal
+      )
+        typeRegisterDynamic_
+        (
+          parentType
+           & typeName
+           & plugin
+           & flags
+        )
+    fun typeTestFlags (type', flags) = (GObjectType.FFI.withVal &&&> GUInt32.FFI.withVal ---> GBool.FFI.fromVal) typeTestFlags_ (type' & flags)
+    fun valueTypeCompatible (srcType, destType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) valueTypeCompatible_ (srcType & destType)
+    fun valueTypeTransformable (srcType, destType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) valueTypeTransformable_ (srcType & destType)
   end

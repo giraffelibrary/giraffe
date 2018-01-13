@@ -1,6 +1,7 @@
 structure GtkBuilder :>
   GTK_BUILDER
     where type 'a class = 'a GtkBuilderClass.class
+    where type 'a widget_class = 'a GtkWidgetClass.class
     where type 'a application_class = 'a GtkApplicationClass.class =
   struct
     structure Utf8CVectorType =
@@ -78,9 +79,21 @@ structure GtkBuilder :>
              &&> GObjectObjectClass.PolyML.cPtr
              --> cVoid
           )
+      val extendWithTemplate_ =
+        call (getSymbol "gtk_builder_extend_with_template")
+          (
+            GtkBuilderClass.PolyML.cPtr
+             &&> GtkWidgetClass.PolyML.cPtr
+             &&> GObjectType.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             &&> GSize.PolyML.cVal
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GUInt.PolyML.cVal
+          )
       val getApplication_ = call (getSymbol "gtk_builder_get_application") (GtkBuilderClass.PolyML.cPtr --> GtkApplicationClass.PolyML.cPtr)
       val getObject_ = call (getSymbol "gtk_builder_get_object") (GtkBuilderClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
       val getTranslationDomain_ = call (getSymbol "gtk_builder_get_translation_domain") (GtkBuilderClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getTypeFromName_ = call (getSymbol "gtk_builder_get_type_from_name") (GtkBuilderClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectType.PolyML.cVal)
       val setApplication_ = call (getSymbol "gtk_builder_set_application") (GtkBuilderClass.PolyML.cPtr &&> GtkApplicationClass.PolyML.cPtr --> cVoid)
       val setTranslationDomain_ = call (getSymbol "gtk_builder_set_translation_domain") (GtkBuilderClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
       val valueFromString_ =
@@ -93,8 +106,19 @@ structure GtkBuilder :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
+      val valueFromStringType_ =
+        call (getSymbol "gtk_builder_value_from_string_type")
+          (
+            GtkBuilderClass.PolyML.cPtr
+             &&> GObjectType.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectValueRecord.PolyML.cPtr
+             &&> GLibErrorRecord.PolyML.cOutOptRef
+             --> GBool.PolyML.cVal
+          )
     end
     type 'a class = 'a GtkBuilderClass.class
+    type 'a widget_class = 'a GtkWidgetClass.class
     type 'a application_class = 'a GtkApplicationClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -209,9 +233,36 @@ structure GtkBuilder :>
            & name
            & object
         )
+    fun extendWithTemplate
+      self
+      (
+        widget,
+        templateType,
+        buffer,
+        length
+      ) =
+      (
+        GtkBuilderClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GObjectType.FFI.withVal
+         &&&> Utf8.FFI.withPtr
+         &&&> GSize.FFI.withVal
+         &&&> GLibErrorRecord.handleError
+         ---> GUInt.FFI.fromVal
+      )
+        extendWithTemplate_
+        (
+          self
+           & widget
+           & templateType
+           & buffer
+           & length
+           & []
+        )
     fun getApplication self = (GtkBuilderClass.FFI.withPtr ---> GtkApplicationClass.FFI.fromPtr false) getApplication_ self
     fun getObject self name = (GtkBuilderClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getObject_ (self & name)
     fun getTranslationDomain self = (GtkBuilderClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTranslationDomain_ self
+    fun getTypeFromName self typeName = (GtkBuilderClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectType.FFI.fromVal) getTypeFromName_ (self & typeName)
     fun setApplication self application = (GtkBuilderClass.FFI.withPtr &&&> GtkApplicationClass.FFI.withPtr ---> I) setApplication_ (self & application)
     fun setTranslationDomain self domain = (GtkBuilderClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTranslationDomain_ (self & domain)
     fun valueFromString self (pspec, string) =
@@ -229,6 +280,28 @@ structure GtkBuilder :>
             (
               self
                & pspec
+               & string
+               & ()
+               & []
+            )
+      in
+        value
+      end
+    fun valueFromStringType self (type', string) =
+      let
+        val value & () =
+          (
+            GtkBuilderClass.FFI.withPtr
+             &&&> GObjectType.FFI.withVal
+             &&&> Utf8.FFI.withPtr
+             &&&> GObjectValueRecord.FFI.withNewPtr
+             &&&> GLibErrorRecord.handleError
+             ---> GObjectValueRecord.FFI.fromPtr true && ignore
+          )
+            valueFromStringType_
+            (
+              self
+               & type'
                & string
                & ()
                & []

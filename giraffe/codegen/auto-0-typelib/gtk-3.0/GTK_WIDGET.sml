@@ -201,6 +201,10 @@ signature GTK_WIDGET =
     val getAllocatedSize : 'a class -> Gdk.RectangleRecord.t * LargeInt.int
     val getAllocatedWidth : 'a class -> LargeInt.int
     val getAllocation : 'a class -> Gdk.RectangleRecord.t
+    val getAncestor :
+      'a class
+       -> GObject.Type.t
+       -> base class option
     val getAppPaintable : 'a class -> bool
     val getCanDefault : 'a class -> bool
     val getCanFocus : 'a class -> bool
@@ -286,6 +290,10 @@ signature GTK_WIDGET =
     val getStyle : 'a class -> base style_class
     val getStyleContext : 'a class -> base style_context_class
     val getSupportMultidevice : 'a class -> bool
+    val getTemplateChild :
+      'a class
+       -> GObject.Type.t * string
+       -> base GObject.ObjectClass.class
     val getTooltipMarkup : 'a class -> string option
     val getTooltipText : 'a class -> string option
     val getTooltipWindow : 'a class -> base window_class

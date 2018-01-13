@@ -1046,6 +1046,8 @@ signature GIO =
     structure SocketConnection :
       GIO_SOCKET_CONNECTION
         where type 'a class = 'a SocketConnectionClass.class
+        where type socket_type_t = SocketType.t
+        where type socket_family_t = SocketFamily.t
         where type 'a cancellable_class = 'a CancellableClass.class
         where type 'a async_result_class = 'a AsyncResultClass.class
         where type 'a socket_address_class = 'a SocketAddressClass.class
@@ -1380,8 +1382,19 @@ signature GIO =
     val fileParseName : string -> base FileClass.class
     val iconDeserialize : GLib.VariantRecord.t -> base IconClass.class
     val iconNewForString : string -> base IconClass.class
+    val initableNewv :
+      GObject.Type.t
+       * GObject.ParameterRecord.t vector
+       * 'a CancellableClass.class option
+       -> base GObject.ObjectClass.class
     val ioErrorFromErrno : LargeInt.int -> IOErrorEnum.t
     val ioErrorQuark : unit -> LargeInt.int
+    val ioExtensionPointImplement :
+      string
+       * GObject.Type.t
+       * string
+       * LargeInt.int
+       -> IOExtensionRecord.t
     val ioExtensionPointLookup : string -> IOExtensionPointRecord.t
     val ioExtensionPointRegister : string -> IOExtensionPointRecord.t
     val ioModulesScanAllInDirectory : string -> unit

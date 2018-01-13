@@ -427,6 +427,7 @@ structure GtkWidget :>
             )
     val getAllocatedWidth_ = _import "gtk_widget_get_allocated_width" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GInt.FFI.val_;
     val getAllocation_ = fn x1 & x2 => (_import "gtk_widget_get_allocation" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GtkAllocationRecord.FFI.notnull GtkAllocationRecord.FFI.p -> unit;) (x1, x2)
+    val getAncestor_ = fn x1 & x2 => (_import "gtk_widget_get_ancestor" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GObjectType.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
     val getAppPaintable_ = _import "gtk_widget_get_app_paintable" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
     val getCanDefault_ = _import "gtk_widget_get_can_default" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
     val getCanFocus_ = _import "gtk_widget_get_can_focus" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
@@ -631,6 +632,25 @@ structure GtkWidget :>
     val getStyle_ = _import "gtk_widget_get_style" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p;
     val getStyleContext_ = _import "gtk_widget_get_style_context" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p;
     val getSupportMultidevice_ = _import "gtk_widget_get_support_multidevice" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
+    val getTemplateChild_ =
+      fn
+        x1
+         & x2
+         & (x3, x4) =>
+          (
+            _import "mlton_gtk_widget_get_template_child" :
+              GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * GObjectType.FFI.val_
+               * Utf8.MLton.p1
+               * Utf8.FFI.notnull Utf8.MLton.p2
+               -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val getTooltipMarkup_ = _import "gtk_widget_get_tooltip_markup" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getTooltipText_ = _import "gtk_widget_get_tooltip_text" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getTooltipWindow_ = _import "gtk_widget_get_tooltip_window" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkWindowClass.FFI.notnull GtkWindowClass.FFI.p;
@@ -1625,6 +1645,7 @@ structure GtkWidget :>
       in
         allocation
       end
+    fun getAncestor self widgetType = (GtkWidgetClass.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getAncestor_ (self & widgetType)
     fun getAppPaintable self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getAppPaintable_ self
     fun getCanDefault self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getCanDefault_ self
     fun getCanFocus self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getCanFocus_ self
@@ -1888,6 +1909,19 @@ structure GtkWidget :>
     fun getStyle self = (GtkWidgetClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr false) getStyle_ self
     fun getStyleContext self = (GtkWidgetClass.FFI.withPtr ---> GtkStyleContextClass.FFI.fromPtr false) getStyleContext_ self
     fun getSupportMultidevice self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getSupportMultidevice_ self
+    fun getTemplateChild self (widgetType, name) =
+      (
+        GtkWidgetClass.FFI.withPtr
+         &&&> GObjectType.FFI.withVal
+         &&&> Utf8.FFI.withPtr
+         ---> GObjectObjectClass.FFI.fromPtr false
+      )
+        getTemplateChild_
+        (
+          self
+           & widgetType
+           & name
+        )
     fun getTooltipMarkup self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getTooltipMarkup_ self
     fun getTooltipText self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getTooltipText_ self
     fun getTooltipWindow self = (GtkWidgetClass.FFI.withPtr ---> GtkWindowClass.FFI.fromPtr false) getTooltipWindow_ self

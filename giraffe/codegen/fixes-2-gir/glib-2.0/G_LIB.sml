@@ -609,4 +609,5 @@ signature G_LIB =
        -> string
     val uriUnescapeString : string * string option -> string
     val usleep : LargeInt.int -> unit
+    val variantGetGtype : unit -> GObject.Type.t
   end

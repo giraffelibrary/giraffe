@@ -28,6 +28,15 @@ structure GtkStyle :>
           )
       val copy_ = call (getSymbol "gtk_style_copy") (GtkStyleClass.PolyML.cPtr --> GtkStyleClass.PolyML.cPtr)
       val detach_ = call (getSymbol "gtk_style_detach") (GtkStyleClass.PolyML.cPtr --> cVoid)
+      val getStyleProperty_ =
+        call (getSymbol "gtk_style_get_style_property")
+          (
+            GtkStyleClass.PolyML.cPtr
+             &&> GObjectType.PolyML.cVal
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectValueRecord.PolyML.cPtr
+             --> cVoid
+          )
       val hasContext_ = call (getSymbol "gtk_style_has_context") (GtkStyleClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val lookupColor_ =
         call (getSymbol "gtk_style_lookup_color")
@@ -104,6 +113,26 @@ structure GtkStyle :>
         )
     fun copy self = (GtkStyleClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr true) copy_ self
     fun detach self = (GtkStyleClass.FFI.withPtr ---> I) detach_ self
+    fun getStyleProperty self (widgetType, propertyName) =
+      let
+        val value & () =
+          (
+            GtkStyleClass.FFI.withPtr
+             &&&> GObjectType.FFI.withVal
+             &&&> Utf8.FFI.withPtr
+             &&&> GObjectValueRecord.FFI.withNewPtr
+             ---> GObjectValueRecord.FFI.fromPtr true && I
+          )
+            getStyleProperty_
+            (
+              self
+               & widgetType
+               & propertyName
+               & ()
+            )
+      in
+        value
+      end
     fun hasContext self = (GtkStyleClass.FFI.withPtr ---> GBool.FFI.fromVal) hasContext_ self
     fun lookupColor self colorName =
       let

@@ -1421,6 +1421,7 @@ structure GLib : G_LIB =
               x4
             )
     val usleep_ = _import "g_usleep" : GUInt64.FFI.val_ -> unit;
+    val variantGetGtype_ = _import "g_variant_get_gtype" : unit -> GObjectType.FFI.val_;
     val variantIsObjectPath_ = _import "mlton_g_variant_is_object_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
     val variantIsSignature_ = _import "mlton_g_variant_is_signature" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
     val variantParse_ =
@@ -2714,6 +2715,7 @@ structure GLib : G_LIB =
         )
     fun uriUnescapeString (escapedString, illegalCharacters) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> Utf8.FFI.fromPtr 1) uriUnescapeString_ (escapedString & illegalCharacters)
     fun usleep microseconds = (GUInt64.FFI.withVal ---> I) usleep_ microseconds
+    fun variantGetGtype () = (I ---> GObjectType.FFI.fromVal) variantGetGtype_ ()
     fun variantIsObjectPath string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) variantIsObjectPath_ string
     fun variantIsSignature string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) variantIsSignature_ string
     fun variantParse

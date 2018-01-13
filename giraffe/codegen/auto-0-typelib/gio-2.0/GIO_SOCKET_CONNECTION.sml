@@ -1,12 +1,25 @@
 signature GIO_SOCKET_CONNECTION =
   sig
     type 'a class
+    type socket_type_t
+    type socket_family_t
     type 'a cancellable_class
     type 'a async_result_class
     type 'a socket_address_class
     type 'a socket_class
     type t = base class
     val getType : unit -> GObject.Type.t
+    val factoryLookupType :
+      socket_family_t
+       * socket_type_t
+       * LargeInt.int
+       -> GObject.Type.t
+    val factoryRegisterType :
+      GObject.Type.t
+       * socket_family_t
+       * socket_type_t
+       * LargeInt.int
+       -> unit
     val connect :
       'a class
        -> 'b socket_address_class * 'c cancellable_class option

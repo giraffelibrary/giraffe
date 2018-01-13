@@ -1,6 +1,7 @@
 structure GObjectObject :>
   G_OBJECT_OBJECT
     where type 'a class = 'a GObjectObjectClass.class
+    where type parameter_t = GObjectParameterRecord.t
     where type type_t = GObjectType.t
     where type 'a binding_class = 'a GObjectBindingClass.class
     where type binding_flags_t = GObjectBindingFlags.t
@@ -9,7 +10,32 @@ structure GObjectObject :>
     where type 'a param_spec_class = 'a GObjectParamSpecClass.class
     where type 'a signal_t = 'a Signal.t =
   struct
+    structure GObjectParameterRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GObjectParameterRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GObjectParameterRecordCVectorN = CVectorN(GObjectParameterRecordCVectorNType)
     val getType_ = _import "g_object_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ =
+      fn
+        x1
+         & x2
+         & (x3, x4) =>
+          (
+            _import "mlton_g_object_newv" :
+              GObjectType.FFI.val_
+               * GUInt32.FFI.val_
+               * GObjectParameterRecordCVectorN.MLton.p1
+               * GObjectParameterRecordCVectorN.FFI.notnull GObjectParameterRecordCVectorN.MLton.p2
+               -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val bindProperty_ =
       fn
         x1
@@ -129,6 +155,7 @@ structure GObjectObject :>
     val thawNotify_ = _import "g_object_thaw_notify" : GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p -> unit;
     val watchClosure_ = fn x1 & x2 => (_import "g_object_watch_closure" : GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p * GObjectClosureRecord.FFI.notnull GObjectClosureRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GObjectObjectClass.class
+    type parameter_t = GObjectParameterRecord.t
     type type_t = GObjectType.t
     type 'a binding_class = 'a GObjectBindingClass.class
     type binding_flags_t = GObjectBindingFlags.t
@@ -138,6 +165,25 @@ structure GObjectObject :>
     type 'a signal_t = 'a Signal.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new (objectType, parameters) =
+      let
+        val nParameters = LargeInt.fromInt (GObjectParameterRecordCVectorN.length parameters)
+        val retVal =
+          (
+            GObjectType.FFI.withVal
+             &&&> GUInt32.FFI.withVal
+             &&&> GObjectParameterRecordCVectorN.FFI.withPtr
+             ---> GObjectObjectClass.FFI.fromPtr true
+          )
+            new_
+            (
+              objectType
+               & nParameters
+               & parameters
+            )
+      in
+        retVal
+      end
     fun bindProperty
       self
       (

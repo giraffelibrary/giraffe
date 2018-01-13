@@ -10,11 +10,24 @@ signature GTK_WIDGET_PATH =
       t
        -> 'a widget_class
        -> LargeInt.int
+    val appendType :
+      t
+       -> GObject.Type.t
+       -> LargeInt.int
     val appendWithSiblings :
       t
        -> t * LargeInt.int
        -> LargeInt.int
     val copy : t -> t
+    val getObjectType : t -> GObject.Type.t
+    val hasParent :
+      t
+       -> GObject.Type.t
+       -> bool
+    val isType :
+      t
+       -> GObject.Type.t
+       -> bool
     val iterAddClass :
       t
        -> LargeInt.int * string
@@ -41,6 +54,10 @@ signature GTK_WIDGET_PATH =
       t
        -> LargeInt.int
        -> string option
+    val iterGetObjectType :
+      t
+       -> LargeInt.int
+       -> GObject.Type.t
     val iterGetSiblingIndex :
       t
        -> LargeInt.int
@@ -93,10 +110,18 @@ signature GTK_WIDGET_PATH =
       t
        -> LargeInt.int * string option
        -> unit
+    val iterSetObjectType :
+      t
+       -> LargeInt.int * GObject.Type.t
+       -> unit
     val iterSetState :
       t
        -> LargeInt.int * state_flags_t
        -> unit
     val length : t -> LargeInt.int
+    val prependType :
+      t
+       -> GObject.Type.t
+       -> unit
     val toString : t -> string
   end
