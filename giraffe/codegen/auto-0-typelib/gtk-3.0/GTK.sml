@@ -2999,12 +2999,6 @@ signature GTK =
     val iconThemeErrorQuark : unit -> LargeInt.int
     val init : string list -> string list
     val initCheck : string list -> bool * string list
-    val initWithArgs :
-      string list
-       * string option
-       * GLib.OptionEntryRecord.t vector
-       * string option
-       -> string list
     val keySnooperRemove : LargeInt.int -> unit
     val main : unit -> unit
     val mainDoEvent : 'a Gdk.Event.union -> unit

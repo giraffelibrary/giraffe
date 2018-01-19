@@ -5,9 +5,9 @@ structure GtkAccelGroup :>
     where type accel_group_entry_t = GtkAccelGroupEntryRecord.t =
   struct
     structure GtkAccelGroupEntryRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GtkAccelGroupEntryRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GtkAccelGroupEntryRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GtkAccelGroupEntryRecord.C.ValueType)
       )
     structure GtkAccelGroupEntryRecordCVectorN = CVectorN(GtkAccelGroupEntryRecordCVectorNType)
     local

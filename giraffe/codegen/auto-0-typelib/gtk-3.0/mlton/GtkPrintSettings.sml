@@ -12,9 +12,9 @@ structure GtkPrintSettings :>
     where type print_quality_t = GtkPrintQuality.t =
   struct
     structure GtkPageRangeRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GtkPageRangeRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GtkPageRangeRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GtkPageRangeRecord.C.ValueType)
       )
     structure GtkPageRangeRecordCVectorN = CVectorN(GtkPageRangeRecordCVectorNType)
     val getType_ = _import "gtk_print_settings_get_type" : unit -> GObjectType.FFI.val_;

@@ -22,12 +22,6 @@ structure GioApplication :>
         structure Sequence = VectorSequence
       )
     structure GioFileClassCVectorN = CVectorN(GioFileClassCVectorNType)
-    structure GLibOptionEntryRecordCVectorType =
-      CPointerCVectorType(
-        structure CElemType = GLibOptionEntryRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GLibOptionEntryRecordCVector = CVector(GLibOptionEntryRecordCVectorType)
     local
       open PolyMLFFI
     in
@@ -48,7 +42,6 @@ structure GioApplication :>
              &&> Utf8.PolyML.cInOptPtr
              --> cVoid
           )
-      val addMainOptionEntries_ = call (getSymbol "g_application_add_main_option_entries") (GioApplicationClass.PolyML.cPtr &&> GLibOptionEntryRecordCVector.PolyML.cInPtr --> cVoid)
       val bindBusyProperty_ =
         call (getSymbol "g_application_bind_busy_property")
           (
@@ -167,7 +160,6 @@ structure GioApplication :>
            & description
            & argDescription
         )
-    fun addMainOptionEntries self entries = (GioApplicationClass.FFI.withPtr &&&> GLibOptionEntryRecordCVector.FFI.withPtr ---> I) addMainOptionEntries_ (self & entries)
     fun bindBusyProperty self (object, property) =
       (
         GioApplicationClass.FFI.withPtr

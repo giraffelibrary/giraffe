@@ -14,9 +14,9 @@ structure PangoLayout :>
     where type wrap_mode_t = PangoWrapMode.t =
   struct
     structure PangoLogAttrRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = PangoLogAttrRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = PangoLogAttrRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(PangoLogAttrRecord.C.ValueType)
       )
     structure PangoLogAttrRecordCVectorN = CVectorN(PangoLogAttrRecordCVectorNType)
     local

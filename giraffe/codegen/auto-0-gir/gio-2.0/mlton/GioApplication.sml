@@ -22,12 +22,6 @@ structure GioApplication :>
         structure Sequence = VectorSequence
       )
     structure GioFileClassCVectorN = CVectorN(GioFileClassCVectorNType)
-    structure GLibOptionEntryRecordCVectorType =
-      CPointerCVectorType(
-        structure CElemType = GLibOptionEntryRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GLibOptionEntryRecordCVector = CVector(GLibOptionEntryRecordCVectorType)
     val getType_ = _import "g_application_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
@@ -81,21 +75,6 @@ structure GioApplication :>
               x8,
               x9,
               x10
-            )
-    val addMainOptionEntries_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_g_application_add_main_option_entries" :
-              GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p
-               * GLibOptionEntryRecordCVector.MLton.p1
-               * GLibOptionEntryRecordCVector.FFI.notnull GLibOptionEntryRecordCVector.MLton.p2
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3
             )
     val bindBusyProperty_ =
       fn
@@ -324,7 +303,6 @@ structure GioApplication :>
            & description
            & argDescription
         )
-    fun addMainOptionEntries self entries = (GioApplicationClass.FFI.withPtr &&&> GLibOptionEntryRecordCVector.FFI.withPtr ---> I) addMainOptionEntries_ (self & entries)
     fun bindBusyProperty self (object, property) =
       (
         GioApplicationClass.FFI.withPtr

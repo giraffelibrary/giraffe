@@ -9,15 +9,15 @@ structure VteTerminal :>
     where type 'a pty_class = 'a VtePtyClass.class =
   struct
     structure GdkRgbaRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GdkRgbaRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GdkRgbaRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GdkRgbaRecord.C.ValueType)
       )
     structure GdkRgbaRecordCVectorN = CVectorN(GdkRgbaRecordCVectorNType)
     structure GdkColorRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GdkColorRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GdkColorRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GdkColorRecord.C.ValueType)
       )
     structure GdkColorRecordCVectorN = CVectorN(GdkColorRecordCVectorNType)
     structure GUInt8CVectorNType =

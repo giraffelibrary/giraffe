@@ -13,9 +13,9 @@ structure GLib : G_LIB =
       )
     structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     structure GLibDebugKeyRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GLibDebugKeyRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GLibDebugKeyRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GLibDebugKeyRecord.C.ValueType)
       )
     structure GLibDebugKeyRecordCVectorN = CVectorN(GLibDebugKeyRecordCVectorNType)
     structure Utf8CVectorType =

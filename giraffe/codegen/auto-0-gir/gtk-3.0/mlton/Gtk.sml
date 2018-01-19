@@ -13,15 +13,15 @@ structure Gtk : GTK =
       )
     structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
     structure GtkStockItemRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GtkStockItemRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GtkStockItemRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GtkStockItemRecord.C.ValueType)
       )
     structure GtkStockItemRecordCVectorN = CVectorN(GtkStockItemRecordCVectorNType)
     structure GtkTargetEntryRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GtkTargetEntryRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GtkTargetEntryRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GtkTargetEntryRecord.C.ValueType)
       )
     structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     structure Utf8CVectorType =
@@ -30,12 +30,6 @@ structure Gtk : GTK =
         structure Sequence = ListSequence
       )
     structure Utf8CVector = CVector(Utf8CVectorType)
-    structure GLibOptionEntryRecordCVectorType =
-      CPointerCVectorType(
-        structure CElemType = GLibOptionEntryRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GLibOptionEntryRecordCVector = CVector(GLibOptionEntryRecordCVectorType)
     structure Utf8CVectorNType =
       CPointerCVectorNType(
         structure CElemType = Utf8.C.ArrayType
@@ -407,40 +401,6 @@ structure Gtk : GTK =
               x1,
               x2,
               x3
-            )
-    val initWithArgs_ =
-      fn
-        x1
-         & (x2, x3)
-         & (x4, x5)
-         & (x6, x7)
-         & (x8, x9)
-         & x10 =>
-          (
-            _import "mlton_gtk_init_with_args" :
-              GInt.FFI.ref_
-               * Utf8CVectorN.MLton.r1
-               * (Utf8CVectorN.FFI.notnull, Utf8CVectorN.FFI.notnull) Utf8CVectorN.MLton.r2
-               * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * GLibOptionEntryRecordCVector.MLton.p1
-               * GLibOptionEntryRecordCVector.FFI.notnull GLibOptionEntryRecordCVector.MLton.p2
-               * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GBool.FFI.val_;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8,
-              x9,
-              x10
             )
     val keySnooperRemove_ = _import "gtk_key_snooper_remove" : GUInt.FFI.val_ -> unit;
     val main_ = _import "gtk_main" : unit -> unit;
@@ -3677,41 +3637,6 @@ structure Gtk : GTK =
             (argc & argv)
       in
         (retVal, argv (LargeInt.toInt argc))
-      end
-    fun initWithArgs
-      (
-        argv,
-        parameterString,
-        entries,
-        translationDomain
-      ) =
-      let
-        val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
-        val argc
-         & argv
-         & () =
-          (
-            GInt.FFI.withRefVal
-             &&&> Utf8CVectorN.FFI.withRefDupPtr 2
-             &&&> Utf8.FFI.withOptPtr
-             &&&> GLibOptionEntryRecordCVector.FFI.withPtr
-             &&&> Utf8.FFI.withOptPtr
-             &&&> GLibErrorRecord.handleError
-             ---> GInt.FFI.fromVal
-                   && Utf8CVectorN.FFI.fromPtr 2
-                   && ignore
-          )
-            initWithArgs_
-            (
-              argc
-               & argv
-               & parameterString
-               & entries
-               & translationDomain
-               & []
-            )
-      in
-        argv (LargeInt.toInt argc)
       end
     fun keySnooperRemove snooperHandlerId = (GUInt.FFI.withVal ---> I) keySnooperRemove_ snooperHandlerId
     fun main () = (I ---> I) main_ ()

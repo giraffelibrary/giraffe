@@ -7,9 +7,9 @@ structure GdkKeymap :>
     where type modifier_type_t = GdkModifierType.t =
   struct
     structure GdkKeymapKeyRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GdkKeymapKeyRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GdkKeymapKeyRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GdkKeymapKeyRecord.C.ValueType)
       )
     structure GdkKeymapKeyRecordCVectorN = CVectorN(GdkKeymapKeyRecordCVectorNType)
     structure GUInt32CVectorNType =

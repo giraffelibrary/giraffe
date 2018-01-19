@@ -17,9 +17,9 @@ structure GtkIconView :>
     where type selection_mode_t = GtkSelectionMode.t =
   struct
     structure GtkTargetEntryRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GtkTargetEntryRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GtkTargetEntryRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GtkTargetEntryRecord.C.ValueType)
       )
     structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     local

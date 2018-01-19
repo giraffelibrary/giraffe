@@ -13,15 +13,15 @@ structure Gtk : GTK =
       )
     structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
     structure GtkStockItemRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GtkStockItemRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GtkStockItemRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GtkStockItemRecord.C.ValueType)
       )
     structure GtkStockItemRecordCVectorN = CVectorN(GtkStockItemRecordCVectorNType)
     structure GtkTargetEntryRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GtkTargetEntryRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GtkTargetEntryRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GtkTargetEntryRecord.C.ValueType)
       )
     structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     structure Utf8CVectorType =
@@ -30,12 +30,6 @@ structure Gtk : GTK =
         structure Sequence = ListSequence
       )
     structure Utf8CVector = CVector(Utf8CVectorType)
-    structure GLibOptionEntryRecordCVectorType =
-      CPointerCVectorType(
-        structure CElemType = GLibOptionEntryRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GLibOptionEntryRecordCVector = CVector(GLibOptionEntryRecordCVectorType)
     structure Utf8CVectorNType =
       CPointerCVectorNType(
         structure CElemType = Utf8.C.ArrayType
@@ -214,17 +208,6 @@ structure Gtk : GTK =
       val grabGetCurrent_ = call (getSymbol "gtk_grab_get_current") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val init_ = call (getSymbol "gtk_init") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> cVoid)
       val initCheck_ = call (getSymbol "gtk_init_check") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> GBool.PolyML.cVal)
-      val initWithArgs_ =
-        call (getSymbol "gtk_init_with_args")
-          (
-            GInt.PolyML.cRef
-             &&> Utf8CVectorN.PolyML.cInOutRef
-             &&> Utf8.PolyML.cInOptPtr
-             &&> GLibOptionEntryRecordCVector.PolyML.cInPtr
-             &&> Utf8.PolyML.cInOptPtr
-             &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GBool.PolyML.cVal
-          )
       val keySnooperRemove_ = call (getSymbol "gtk_key_snooper_remove") (GUInt.PolyML.cVal --> cVoid)
       val main_ = call (getSymbol "gtk_main") (cVoid --> cVoid)
       val mainDoEvent_ = call (getSymbol "gtk_main_do_event") (GdkEvent.PolyML.cPtr --> cVoid)
@@ -2330,41 +2313,6 @@ structure Gtk : GTK =
             (argc & argv)
       in
         (retVal, argv (LargeInt.toInt argc))
-      end
-    fun initWithArgs
-      (
-        argv,
-        parameterString,
-        entries,
-        translationDomain
-      ) =
-      let
-        val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
-        val argc
-         & argv
-         & () =
-          (
-            GInt.FFI.withRefVal
-             &&&> Utf8CVectorN.FFI.withRefDupPtr 2
-             &&&> Utf8.FFI.withOptPtr
-             &&&> GLibOptionEntryRecordCVector.FFI.withPtr
-             &&&> Utf8.FFI.withOptPtr
-             &&&> GLibErrorRecord.handleError
-             ---> GInt.FFI.fromVal
-                   && Utf8CVectorN.FFI.fromPtr 2
-                   && ignore
-          )
-            initWithArgs_
-            (
-              argc
-               & argv
-               & parameterString
-               & entries
-               & translationDomain
-               & []
-            )
-      in
-        argv (LargeInt.toInt argc)
       end
     fun keySnooperRemove snooperHandlerId = (GUInt.FFI.withVal ---> I) keySnooperRemove_ snooperHandlerId
     fun main () = (I ---> I) main_ ()

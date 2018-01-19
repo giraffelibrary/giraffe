@@ -1,9 +1,9 @@
 structure Gio : GIO =
   struct
     structure GObjectParameterRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GObjectParameterRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GObjectParameterRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GObjectParameterRecord.C.ValueType)
       )
     structure GObjectParameterRecordCVectorN = CVectorN(GObjectParameterRecordCVectorNType)
     structure GioDBusAnnotationInfoRecordCVectorType =

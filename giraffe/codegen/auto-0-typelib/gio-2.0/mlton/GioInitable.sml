@@ -4,9 +4,9 @@ structure GioInitable :>
     where type 'a cancellable_class = 'a GioCancellableClass.class =
   struct
     structure GObjectParameterRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GObjectParameterRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GObjectParameterRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GObjectParameterRecord.C.ValueType)
       )
     structure GObjectParameterRecordCVectorN = CVectorN(GObjectParameterRecordCVectorNType)
     val getType_ = _import "g_initable_get_type" : unit -> GObjectType.FFI.val_;

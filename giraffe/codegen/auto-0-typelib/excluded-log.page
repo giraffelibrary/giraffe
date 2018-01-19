@@ -2532,6 +2532,7 @@
     <item>struct AppLaunchContextPrivate: struct not included by configuration (structTypes)</item>
     <item>
       object Application
+      <item>function add_main_option_entries: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function add_option_group
         <item>
@@ -2542,6 +2543,7 @@
           </item>
         </item>
       </item>
+      <item>function add_main_option_entries: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function add_option_group
         <item>
@@ -9079,6 +9081,7 @@
     <item>function bindings_activate_event: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function distribute_natural_allocation: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function false: non-user function excluded by configuration (nonUserFunctionNames)</item>
+    <item>function init_with_args: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>
       function paper_size_get_paper_sizes
       <item>type glist: type GLIST not supported</item>

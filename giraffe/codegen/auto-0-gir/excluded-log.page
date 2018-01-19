@@ -2481,6 +2481,7 @@
     <item>struct AppLaunchContextPrivate: struct not included by configuration (structTypes)</item>
     <item>
       object Application
+      <item>function add_main_option_entries: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function add_option_group
         <item>
@@ -2491,6 +2492,7 @@
           </item>
         </item>
       </item>
+      <item>function add_main_option_entries: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function add_option_group
         <item>
@@ -9073,6 +9075,7 @@
     <item>function icon_size_register: moved to IconSize.register</item>
     <item>function icon_size_register_alias: moved to IconSize.register_alias</item>
     <item>function icon_theme_error_quark: moved to IconThemeError.quark</item>
+    <item>function init_with_args: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function paper_size_get_default: moved to PaperSize.get_default</item>
     <item>function paper_size_get_paper_sizes: moved to PaperSize.get_paper_sizes</item>
     <item>function print_error_quark: moved to PrintError.quark</item>

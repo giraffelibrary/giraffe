@@ -5,9 +5,9 @@ structure GtkColorSelection :>
     where type 'a orientable_class = 'a GtkOrientableClass.class =
   struct
     structure GdkColorRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GdkColorRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GdkColorRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GdkColorRecord.C.ValueType)
       )
     structure GdkColorRecordCVectorN = CVectorN(GdkColorRecordCVectorNType)
     local

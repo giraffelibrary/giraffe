@@ -394,6 +394,14 @@ excludedFunctionSymbols := [
   (
     [("Gio", "2.0")],
     [
+      (* g_application_add_main_option_entries requires a null value for
+       * struct GOptionEntry to terminate an array of GOptionEntry structs.
+       * GLibOptionEntryRecord.C.ValueType implements C_VALUE_TYPE, not
+       * C_VALUE_NULL_TYPE, so there is no null value for the struct.
+       * The C function checks for a null GOptionEntry value by checking for
+       * entries[i].long_name == NULL because long_name is the first field in
+       * the struct.  g_application_add_main_option should be used instead. *)
+      "g_application_add_main_option_entries",
       "g_dbus_error_register_error",
       "g_dbus_error_unregister_error",
       "g_settings_backend_changed_tree",
@@ -442,6 +450,12 @@ excludedFunctionSymbols := [
       "gtk_binding_entry_skip",
       "gtk_buildable_custom_tag_start",
       "gtk_distribute_natural_allocation",
+      (* gtk_init_with_args requires a null value for struct GOptionEntry to
+       * terminate an array of GOptionEntry structs.
+       * GLibOptionEntryRecord.C.ValueType implements C_VALUE_TYPE, not
+       * C_VALUE_NULL_TYPE, so there is no null value for the struct.
+       * See also g_application_add_main_option_entries. *)
+      "gtk_init_with_args",
       "gtk_rc_parse_color",  (* deprecated anyway? *)
       "gtk_rc_parse_color_full",  (* deprecated anyway? *)
       "gtk_rc_property_parse_color",

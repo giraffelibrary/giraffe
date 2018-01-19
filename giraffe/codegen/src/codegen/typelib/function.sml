@@ -362,10 +362,23 @@ val needsStructDeps =
   | IUTF8 _                    => SOME true
   | IARRAY _                   => SOME true
   | IINTERFACE {infoType, ...} =>
-      case infoType of
-        InfoType.FLAGS _ => SOME false
-      | InfoType.ENUM _  => SOME false
-      | _                => SOME true
+      let
+        open InfoType
+      in
+        case infoType of
+          FLAGS _           => SOME false
+        | ENUM _            => SOME false
+        | STRUCT structInfo =>
+            let
+              val structName = getName structInfo
+              val structNamespace = BaseInfo.getNamespace structInfo
+            in
+              case getStructType (structNamespace, structName) of
+                ValueRecord => SOME false
+              | _           => SOME true
+            end 
+        | _                 => SOME true
+      end
 
 
 fun cArrayStrIdStructDeps length elem structDeps =

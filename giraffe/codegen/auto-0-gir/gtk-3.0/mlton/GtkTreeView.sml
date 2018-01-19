@@ -18,9 +18,9 @@ structure GtkTreeView :>
     where type 'a tree_model_class = 'a GtkTreeModelClass.class =
   struct
     structure GtkTargetEntryRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GtkTargetEntryRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GtkTargetEntryRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GtkTargetEntryRecord.C.ValueType)
       )
     structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     val getType_ = _import "gtk_tree_view_get_type" : unit -> GObjectType.FFI.val_;

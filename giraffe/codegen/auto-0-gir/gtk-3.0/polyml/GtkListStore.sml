@@ -21,9 +21,9 @@ structure GtkListStore :>
       )
     structure GIntCVectorN = CVectorN(GIntCVectorNType)
     structure GObjectValueRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GObjectValueRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GObjectValueRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GObjectValueRecord.C.ValueType)
       )
     structure GObjectValueRecordCVectorN = CVectorN(GObjectValueRecordCVectorNType)
     structure GObjectTypeCVectorNType =

@@ -4,9 +4,9 @@ structure GtkColorChooser :>
     where type orientation_t = GtkOrientation.t =
   struct
     structure GdkRgbaRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GdkRgbaRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GdkRgbaRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GdkRgbaRecord.C.ValueType)
       )
     structure GdkRgbaRecordCVectorN = CVectorN(GdkRgbaRecordCVectorNType)
     val getType_ = _import "gtk_color_chooser_get_type" : unit -> GObjectType.FFI.val_;

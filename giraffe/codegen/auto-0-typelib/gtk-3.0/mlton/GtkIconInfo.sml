@@ -7,9 +7,9 @@ structure GtkIconInfo :>
     where type 'a style_class = 'a GtkStyleClass.class =
   struct
     structure GdkPointRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GdkPointRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GdkPointRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GdkPointRecord.C.ValueType)
       )
     structure GdkPointRecordCVectorN = CVectorN(GdkPointRecordCVectorNType)
     val getType_ = _import "gtk_icon_info_get_type" : unit -> GObjectType.FFI.val_;

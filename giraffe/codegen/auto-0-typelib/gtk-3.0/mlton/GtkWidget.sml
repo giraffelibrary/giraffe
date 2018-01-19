@@ -35,9 +35,9 @@ structure GtkWidget :>
       )
     structure Utf8CVector = CVector(Utf8CVectorType)
     structure GtkTargetEntryRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GtkTargetEntryRecord.C.PointerType
-        structure Sequence = VectorSequence
+      CValueCVectorNType(
+        structure CElemType = GtkTargetEntryRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GtkTargetEntryRecord.C.ValueType)
       )
     structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     val getType_ = _import "gtk_widget_get_type" : unit -> GObjectType.FFI.val_;
