@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2016-2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016-2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -17,10 +17,10 @@ structure GObjectValueRecord :> G_OBJECT_VALUE_RECORD =
 
     val copy_ =
       fn x1 & x2 =>
-        (_import "g_value_copy" : notnull p * notnull p -> unit;)
+        (_import "giraffe_g_value_copy" : notnull p * notnull p -> unit;)
         (x1, x2)
 
-    val clear_ = _import "g_value_unset" : notnull p -> unit;
+    val clear_ = _import "giraffe_g_value_clear" : notnull p -> unit;
 
     val size_ = _import "giraffe_g_value_size" : unit -> GUInt.FFI.val_;
 

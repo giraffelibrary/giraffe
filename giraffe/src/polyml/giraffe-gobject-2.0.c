@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2017 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -178,6 +178,19 @@ void
 giraffe_g_value_free (GValue *value)
 {
   g_slice_free (GValue, value);
+}
+
+void
+giraffe_g_value_copy (const GValue *src, GValue *dest)
+{
+  g_value_init (dest, G_VALUE_TYPE (src));
+  g_value_copy (src, dest);
+}
+
+void
+giraffe_g_value_clear (GValue *value)
+{
+  g_value_unset (value);
 }
 
 gboolean
