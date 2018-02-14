@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2015-2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2015-2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,6 +11,13 @@ structure ValueAccessor :>
     where type value_t = GObjectValueRecord.t
     where type C.value_v = GObjectValueRecord.C.ValueType.v =
   struct
+    val init_ =
+      fn x1 & x2 =>
+        (_import "g_value_init" :
+           GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GObjectType.FFI.val_
+            -> GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p;)
+        (x1, x2)
+
     val isValue_ =
       _import "giraffe_g_is_value" :
         GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GBool.FFI.val_;
@@ -44,6 +51,26 @@ structure ValueAccessor :>
       (GObjectValueRecord.FFI.withPtr &&&> I ---> I) setValue (value & x)
 
     fun baseType ({getType, ...} : ('a, 'b) t) = getType ()
+
+    fun init gtype =
+      let
+        val value & () =
+          (GObjectValueRecord.FFI.withNewPtr
+            &&&> GObjectType.FFI.withVal
+            ---> GObjectValueRecord.FFI.fromPtr true && I)
+            (ignore o init_)
+            (() & gtype)
+      in
+        value
+      end
+
+    fun new (t : ('a, 'b) t) x =
+      let
+        val value = init (baseType t)
+        val () = set t value x
+      in
+        value
+      end
 
     structure Types =
       struct

@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2015, 2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2015, 2017-2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -12,6 +12,7 @@ signature VALUE_ACCESSOR =
     type type_t
     type value_t
 
+    val new : ('a, 'b) t -> 'b -> value_t
     val get : ('a, 'b) t -> value_t -> 'a
     val set : ('a, 'b) t -> value_t -> 'b -> unit
     val baseType : ('a, 'b) t -> type_t
