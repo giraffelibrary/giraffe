@@ -129,7 +129,7 @@ signature GTK_TEXT_BUFFER =
     val getMark :
       'a class
        -> string
-       -> base text_mark_class
+       -> base text_mark_class option
     val getModified : 'a class -> bool
     val getPasteTargetList : 'a class -> target_list_t
     val getSelectionBound : 'a class -> base text_mark_class

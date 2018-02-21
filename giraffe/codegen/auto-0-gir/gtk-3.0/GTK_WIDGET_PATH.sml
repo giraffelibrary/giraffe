@@ -49,11 +49,11 @@ signature GTK_WIDGET_PATH =
     val iterGetName :
       t
        -> LargeInt.int
-       -> string
+       -> string option
     val iterGetObjectName :
       t
        -> LargeInt.int
-       -> string
+       -> string option
     val iterGetObjectType :
       t
        -> LargeInt.int

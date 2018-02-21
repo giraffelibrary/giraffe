@@ -21,7 +21,7 @@ structure GtkComboBox :>
       val newWithModel_ = call (getSymbol "gtk_combo_box_new_with_model") (GtkTreeModelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithModelAndEntry_ = call (getSymbol "gtk_combo_box_new_with_model_and_entry") (GtkTreeModelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getActive_ = call (getSymbol "gtk_combo_box_get_active") (GtkComboBoxClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getActiveId_ = call (getSymbol "gtk_combo_box_get_active_id") (GtkComboBoxClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getActiveId_ = call (getSymbol "gtk_combo_box_get_active_id") (GtkComboBoxClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getActiveIter_ = call (getSymbol "gtk_combo_box_get_active_iter") (GtkComboBoxClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getAddTearoffs_ = call (getSymbol "gtk_combo_box_get_add_tearoffs") (GtkComboBoxClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getButtonSensitivity_ = call (getSymbol "gtk_combo_box_get_button_sensitivity") (GtkComboBoxClass.PolyML.cPtr --> GtkSensitivityType.PolyML.cVal)
@@ -76,7 +76,7 @@ structure GtkComboBox :>
     fun newWithModel model = (GtkTreeModelClass.FFI.withPtr ---> GtkComboBoxClass.FFI.fromPtr false) newWithModel_ model
     fun newWithModelAndEntry model = (GtkTreeModelClass.FFI.withPtr ---> GtkComboBoxClass.FFI.fromPtr false) newWithModelAndEntry_ model
     fun getActive self = (GtkComboBoxClass.FFI.withPtr ---> GInt.FFI.fromVal) getActive_ self
-    fun getActiveId self = (GtkComboBoxClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getActiveId_ self
+    fun getActiveId self = (GtkComboBoxClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getActiveId_ self
     fun getActiveIter self =
       let
         val iter & retVal = (GtkComboBoxClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withNewPtr ---> GtkTreeIterRecord.FFI.fromPtr true && GBool.FFI.fromVal) getActiveIter_ (self & ())

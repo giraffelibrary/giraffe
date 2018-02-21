@@ -5,7 +5,7 @@ structure AtkImage :>
   struct
     val getType_ = _import "atk_image_get_type" : unit -> GObjectType.FFI.val_;
     val getImageDescription_ = _import "atk_image_get_image_description" : AtkImageClass.FFI.notnull AtkImageClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getImageLocale_ = _import "atk_image_get_image_locale" : AtkImageClass.FFI.notnull AtkImageClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getImageLocale_ = _import "atk_image_get_image_locale" : AtkImageClass.FFI.notnull AtkImageClass.FFI.p -> unit Utf8.FFI.out_p;
     val getImagePosition_ =
       fn
         x1
@@ -63,7 +63,7 @@ structure AtkImage :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getImageDescription self = (AtkImageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getImageDescription_ self
-    fun getImageLocale self = (AtkImageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getImageLocale_ self
+    fun getImageLocale self = (AtkImageClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getImageLocale_ self
     fun getImagePosition self coordType =
       let
         val x

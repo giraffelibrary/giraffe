@@ -18,7 +18,7 @@ structure GtkComboBox :>
     val newWithModel_ = _import "gtk_combo_box_new_with_model" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val newWithModelAndEntry_ = _import "gtk_combo_box_new_with_model_and_entry" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val getActive_ = _import "gtk_combo_box_get_active" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GInt.FFI.val_;
-    val getActiveId_ = _import "gtk_combo_box_get_active_id" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getActiveId_ = _import "gtk_combo_box_get_active_id" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> unit Utf8.FFI.out_p;
     val getActiveIter_ = fn x1 & x2 => (_import "gtk_combo_box_get_active_iter" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val getAddTearoffs_ = _import "gtk_combo_box_get_add_tearoffs" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GBool.FFI.val_;
     val getButtonSensitivity_ = _import "gtk_combo_box_get_button_sensitivity" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GtkSensitivityType.FFI.val_;
@@ -100,7 +100,7 @@ structure GtkComboBox :>
     fun newWithModel model = (GtkTreeModelClass.FFI.withPtr ---> GtkComboBoxClass.FFI.fromPtr false) newWithModel_ model
     fun newWithModelAndEntry model = (GtkTreeModelClass.FFI.withPtr ---> GtkComboBoxClass.FFI.fromPtr false) newWithModelAndEntry_ model
     fun getActive self = (GtkComboBoxClass.FFI.withPtr ---> GInt.FFI.fromVal) getActive_ self
-    fun getActiveId self = (GtkComboBoxClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getActiveId_ self
+    fun getActiveId self = (GtkComboBoxClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getActiveId_ self
     fun getActiveIter self =
       let
         val iter & retVal = (GtkComboBoxClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withNewPtr ---> GtkTreeIterRecord.FFI.fromPtr true && GBool.FFI.fromVal) getActiveIter_ (self & ())

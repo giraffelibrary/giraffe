@@ -11,7 +11,7 @@ structure GtkSettings :>
     where type policy_type_t = GtkPolicyType.t =
   struct
     val getType_ = _import "gtk_settings_get_type" : unit -> GObjectType.FFI.val_;
-    val getDefault_ = _import "gtk_settings_get_default" : unit -> GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p;
+    val getDefault_ = _import "gtk_settings_get_default" : unit -> unit GtkSettingsClass.FFI.p;
     val getForScreen_ = _import "gtk_settings_get_for_screen" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p;
     val installProperty_ = _import "gtk_settings_install_property" : GObjectParamSpecClass.FFI.notnull GObjectParamSpecClass.FFI.p -> unit;
     val resetProperty_ =
@@ -134,7 +134,7 @@ structure GtkSettings :>
     type t = base class
     fun asStyleProvider self = (GObjectObjectClass.FFI.withPtr ---> GtkStyleProviderClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getDefault () = (I ---> GtkSettingsClass.FFI.fromPtr false) getDefault_ ()
+    fun getDefault () = (I ---> GtkSettingsClass.FFI.fromOptPtr false) getDefault_ ()
     fun getForScreen screen = (GdkScreenClass.FFI.withPtr ---> GtkSettingsClass.FFI.fromPtr false) getForScreen_ screen
     fun installProperty pspec = (GObjectParamSpecClass.FFI.withPtr ---> I) installProperty_ pspec
     fun resetProperty self name = (GtkSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) resetProperty_ (self & name)

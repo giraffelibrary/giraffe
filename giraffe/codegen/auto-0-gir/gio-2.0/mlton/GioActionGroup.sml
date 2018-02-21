@@ -138,7 +138,7 @@ structure GioActionGroup :>
               GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
+               -> unit GLibVariantTypeRecord.FFI.p;
           )
             (
               x1,
@@ -153,7 +153,7 @@ structure GioActionGroup :>
               GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               -> unit GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -168,7 +168,7 @@ structure GioActionGroup :>
               GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               -> unit GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -183,7 +183,7 @@ structure GioActionGroup :>
               GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
+               -> unit GLibVariantTypeRecord.FFI.p;
           )
             (
               x1,
@@ -295,10 +295,10 @@ structure GioActionGroup :>
            & value
         )
     fun getActionEnabled self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) getActionEnabled_ (self & actionName)
-    fun getActionParameterType self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) getActionParameterType_ (self & actionName)
-    fun getActionState self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getActionState_ (self & actionName)
-    fun getActionStateHint self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getActionStateHint_ (self & actionName)
-    fun getActionStateType self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) getActionStateType_ (self & actionName)
+    fun getActionParameterType self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getActionParameterType_ (self & actionName)
+    fun getActionState self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromOptPtr true) getActionState_ (self & actionName)
+    fun getActionStateHint self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromOptPtr true) getActionStateHint_ (self & actionName)
+    fun getActionStateType self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getActionStateType_ (self & actionName)
     fun hasAction self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasAction_ (self & actionName)
     fun listActions self = (GioActionGroupClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listActions_ self
     fun queryAction self actionName =

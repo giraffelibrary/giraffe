@@ -23,7 +23,7 @@ signature GTK_ASSISTANT =
     val getNthPage :
       'a class
        -> LargeInt.int
-       -> base widget_class
+       -> base widget_class option
     val getPageComplete :
       'a class
        -> 'b widget_class

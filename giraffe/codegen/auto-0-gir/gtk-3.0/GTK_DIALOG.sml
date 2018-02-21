@@ -27,7 +27,7 @@ signature GTK_DIALOG =
     val getWidgetForResponse :
       'a class
        -> LargeInt.int
-       -> base widget_class
+       -> base widget_class option
     val response :
       'a class
        -> LargeInt.int

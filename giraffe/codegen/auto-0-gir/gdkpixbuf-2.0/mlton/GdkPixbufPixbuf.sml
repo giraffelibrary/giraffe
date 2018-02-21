@@ -292,7 +292,7 @@ structure GdkPixbufPixbuf :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GInt.FFI.ref_
                * GInt.FFI.ref_
-               -> GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p;
+               -> unit GdkPixbufPixbufFormatRecord.FFI.p;
           )
             (
               x1,
@@ -515,7 +515,7 @@ structure GdkPixbufPixbuf :>
             )
     val copyOptions_ = fn x1 & x2 => (_import "gdk_pixbuf_copy_options" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val fill_ = fn x1 & x2 => (_import "gdk_pixbuf_fill" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
-    val flip_ = fn x1 & x2 => (_import "gdk_pixbuf_flip" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p * GBool.FFI.val_ -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;) (x1, x2)
+    val flip_ = fn x1 & x2 => (_import "gdk_pixbuf_flip" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p * GBool.FFI.val_ -> unit GdkPixbufPixbufClass.FFI.p;) (x1, x2)
     val getBitsPerSample_ = _import "gdk_pixbuf_get_bits_per_sample" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GInt.FFI.val_;
     val getByteLength_ = _import "gdk_pixbuf_get_byte_length" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GSize.FFI.val_;
     val getColorspace_ = _import "gdk_pixbuf_get_colorspace" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GdkPixbufColorspace.FFI.val_;
@@ -579,7 +579,7 @@ structure GdkPixbufPixbuf :>
               x2,
               x3
             )
-    val rotateSimple_ = fn x1 & x2 => (_import "gdk_pixbuf_rotate_simple" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p * GdkPixbufPixbufRotation.FFI.val_ -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;) (x1, x2)
+    val rotateSimple_ = fn x1 & x2 => (_import "gdk_pixbuf_rotate_simple" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p * GdkPixbufPixbufRotation.FFI.val_ -> unit GdkPixbufPixbufClass.FFI.p;) (x1, x2)
     val saturateAndPixelate_ =
       fn
         x1
@@ -1030,7 +1030,7 @@ structure GdkPixbufPixbuf :>
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
                    && GInt.FFI.fromVal
-                   && GdkPixbufPixbufFormatRecord.FFI.fromPtr false
+                   && GdkPixbufPixbufFormatRecord.FFI.fromOptPtr false
           )
             getFileInfo_
             (
@@ -1273,7 +1273,7 @@ structure GdkPixbufPixbuf :>
         )
     fun copyOptions self destPixbuf = (GdkPixbufPixbufClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> GBool.FFI.fromVal) copyOptions_ (self & destPixbuf)
     fun fill self pixel = (GdkPixbufPixbufClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) fill_ (self & pixel)
-    fun flip self horizontal = (GdkPixbufPixbufClass.FFI.withPtr &&&> GBool.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromPtr true) flip_ (self & horizontal)
+    fun flip self horizontal = (GdkPixbufPixbufClass.FFI.withPtr &&&> GBool.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) flip_ (self & horizontal)
     fun getBitsPerSample self = (GdkPixbufPixbufClass.FFI.withPtr ---> GInt.FFI.fromVal) getBitsPerSample_ self
     fun getByteLength self = (GdkPixbufPixbufClass.FFI.withPtr ---> GSize.FFI.fromVal) getByteLength_ self
     fun getColorspace self = (GdkPixbufPixbufClass.FFI.withPtr ---> GdkPixbufColorspace.FFI.fromVal) getColorspace_ self
@@ -1315,7 +1315,7 @@ structure GdkPixbufPixbuf :>
         )
     fun readPixelBytes self = (GdkPixbufPixbufClass.FFI.withPtr ---> GLibBytesRecord.FFI.fromPtr true) readPixelBytes_ self
     fun removeOption self key = (GdkPixbufPixbufClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) removeOption_ (self & key)
-    fun rotateSimple self angle = (GdkPixbufPixbufClass.FFI.withPtr &&&> GdkPixbufPixbufRotation.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromPtr true) rotateSimple_ (self & angle)
+    fun rotateSimple self angle = (GdkPixbufPixbufClass.FFI.withPtr &&&> GdkPixbufPixbufRotation.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) rotateSimple_ (self & angle)
     fun saturateAndPixelate
       self
       (

@@ -22,7 +22,7 @@ signature GTK_RECENT_MANAGER =
     val lookupItem :
       'a class
        -> string
-       -> recent_info_t
+       -> recent_info_t option
     val moveItem :
       'a class
        -> string * string option

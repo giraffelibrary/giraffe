@@ -8,10 +8,10 @@ signature GTK_SOURCE_MARK =
     val next :
       'a class
        -> string option
-       -> base class
+       -> base class option
     val prev :
       'a class
        -> string
-       -> base class
+       -> base class option
     val categoryProp : ('a class, string option, string option) Property.readwrite
   end

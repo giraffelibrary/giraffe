@@ -5,7 +5,7 @@ signature GTK_RECENT_INFO =
     val createAppInfo :
       t
        -> string option
-       -> base Gio.AppInfoClass.class
+       -> base Gio.AppInfoClass.class option
     val exists : t -> bool
     val getAdded : t -> LargeInt.int
     val getAge : t -> LargeInt.int
@@ -19,18 +19,18 @@ signature GTK_RECENT_INFO =
     val getApplications : t -> string list
     val getDescription : t -> string
     val getDisplayName : t -> string
-    val getGicon : t -> base Gio.IconClass.class
+    val getGicon : t -> base Gio.IconClass.class option
     val getGroups : t -> string list
     val getIcon :
       t
        -> LargeInt.int
-       -> base GdkPixbuf.PixbufClass.class
+       -> base GdkPixbuf.PixbufClass.class option
     val getMimeType : t -> string
     val getModified : t -> LargeInt.int
     val getPrivateHint : t -> bool
     val getShortName : t -> string
     val getUri : t -> string
-    val getUriDisplay : t -> string
+    val getUriDisplay : t -> string option
     val getVisited : t -> LargeInt.int
     val hasApplication :
       t

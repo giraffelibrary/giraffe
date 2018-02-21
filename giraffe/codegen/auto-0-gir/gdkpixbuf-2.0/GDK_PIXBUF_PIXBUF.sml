@@ -66,7 +66,7 @@ signature GDK_PIXBUF_PIXBUF =
     val fromPixdata : pixdata_t * bool -> base class
     val getFileInfo :
       string
-       -> pixbuf_format_t
+       -> pixbuf_format_t option
            * LargeInt.int
            * LargeInt.int
     val getFileInfoFinish :
@@ -148,7 +148,7 @@ signature GDK_PIXBUF_PIXBUF =
     val flip :
       'a class
        -> bool
-       -> base class
+       -> base class option
     val getBitsPerSample : 'a class -> LargeInt.int
     val getByteLength : 'a class -> LargeInt.int
     val getColorspace : 'a class -> colorspace_t
@@ -177,7 +177,7 @@ signature GDK_PIXBUF_PIXBUF =
     val rotateSimple :
       'a class
        -> pixbuf_rotation_t
-       -> base class
+       -> base class option
     val saturateAndPixelate :
       'a class
        -> 'b class

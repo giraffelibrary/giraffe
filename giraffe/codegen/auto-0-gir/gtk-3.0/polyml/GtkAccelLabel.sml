@@ -17,7 +17,7 @@ structure GtkAccelLabel :>
              &&> GdkModifierType.PolyML.cRef
              --> cVoid
           )
-      val getAccelWidget_ = call (getSymbol "gtk_accel_label_get_accel_widget") (GtkAccelLabelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getAccelWidget_ = call (getSymbol "gtk_accel_label_get_accel_widget") (GtkAccelLabelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getAccelWidth_ = call (getSymbol "gtk_accel_label_get_accel_width") (GtkAccelLabelClass.PolyML.cPtr --> GUInt.PolyML.cVal)
       val refetch_ = call (getSymbol "gtk_accel_label_refetch") (GtkAccelLabelClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setAccel_ =
@@ -61,7 +61,7 @@ structure GtkAccelLabel :>
       in
         (acceleratorKey, acceleratorMods)
       end
-    fun getAccelWidget self = (GtkAccelLabelClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getAccelWidget_ self
+    fun getAccelWidget self = (GtkAccelLabelClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getAccelWidget_ self
     fun getAccelWidth self = (GtkAccelLabelClass.FFI.withPtr ---> GUInt.FFI.fromVal) getAccelWidth_ self
     fun refetch self = (GtkAccelLabelClass.FFI.withPtr ---> GBool.FFI.fromVal) refetch_ self
     fun setAccel self (acceleratorKey, acceleratorMods) =

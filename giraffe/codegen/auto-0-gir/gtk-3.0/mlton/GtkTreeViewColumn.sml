@@ -125,9 +125,9 @@ structure GtkTreeViewColumn :>
     val getSortOrder_ = _import "gtk_tree_view_column_get_sort_order" : GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p -> GtkSortType.FFI.val_;
     val getSpacing_ = _import "gtk_tree_view_column_get_spacing" : GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p -> GInt.FFI.val_;
     val getTitle_ = _import "gtk_tree_view_column_get_title" : GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getTreeView_ = _import "gtk_tree_view_column_get_tree_view" : GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getTreeView_ = _import "gtk_tree_view_column_get_tree_view" : GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p -> unit GtkWidgetClass.FFI.p;
     val getVisible_ = _import "gtk_tree_view_column_get_visible" : GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p -> GBool.FFI.val_;
-    val getWidget_ = _import "gtk_tree_view_column_get_widget" : GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getWidget_ = _import "gtk_tree_view_column_get_widget" : GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p -> unit GtkWidgetClass.FFI.p;
     val getWidth_ = _import "gtk_tree_view_column_get_width" : GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p -> GInt.FFI.val_;
     val getXOffset_ = _import "gtk_tree_view_column_get_x_offset" : GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p -> GInt.FFI.val_;
     val packEnd_ =
@@ -337,9 +337,9 @@ structure GtkTreeViewColumn :>
     fun getSortOrder self = (GtkTreeViewColumnClass.FFI.withPtr ---> GtkSortType.FFI.fromVal) getSortOrder_ self
     fun getSpacing self = (GtkTreeViewColumnClass.FFI.withPtr ---> GInt.FFI.fromVal) getSpacing_ self
     fun getTitle self = (GtkTreeViewColumnClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTitle_ self
-    fun getTreeView self = (GtkTreeViewColumnClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getTreeView_ self
+    fun getTreeView self = (GtkTreeViewColumnClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getTreeView_ self
     fun getVisible self = (GtkTreeViewColumnClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
-    fun getWidget self = (GtkTreeViewColumnClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self
+    fun getWidget self = (GtkTreeViewColumnClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getWidget_ self
     fun getWidth self = (GtkTreeViewColumnClass.FFI.withPtr ---> GInt.FFI.fromVal) getWidth_ self
     fun getXOffset self = (GtkTreeViewColumnClass.FFI.withPtr ---> GInt.FFI.fromVal) getXOffset_ self
     fun packEnd self (cell, expand) =

@@ -32,7 +32,7 @@ structure PangoContext :>
       val getGravity_ = call (getSymbol "pango_context_get_gravity") (PangoContextClass.PolyML.cPtr --> PangoGravity.PolyML.cVal)
       val getGravityHint_ = call (getSymbol "pango_context_get_gravity_hint") (PangoContextClass.PolyML.cPtr --> PangoGravityHint.PolyML.cVal)
       val getLanguage_ = call (getSymbol "pango_context_get_language") (PangoContextClass.PolyML.cPtr --> PangoLanguageRecord.PolyML.cPtr)
-      val getMatrix_ = call (getSymbol "pango_context_get_matrix") (PangoContextClass.PolyML.cPtr --> PangoMatrixRecord.PolyML.cPtr)
+      val getMatrix_ = call (getSymbol "pango_context_get_matrix") (PangoContextClass.PolyML.cPtr --> PangoMatrixRecord.PolyML.cOptPtr)
       val getMetrics_ =
         call (getSymbol "pango_context_get_metrics")
           (
@@ -50,14 +50,14 @@ structure PangoContext :>
              &&> GInt.PolyML.cRef
              --> cVoid
           )
-      val loadFont_ = call (getSymbol "pango_context_load_font") (PangoContextClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cPtr --> PangoFontClass.PolyML.cPtr)
+      val loadFont_ = call (getSymbol "pango_context_load_font") (PangoContextClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cPtr --> PangoFontClass.PolyML.cOptPtr)
       val loadFontset_ =
         call (getSymbol "pango_context_load_fontset")
           (
             PangoContextClass.PolyML.cPtr
              &&> PangoFontDescriptionRecord.PolyML.cPtr
              &&> PangoLanguageRecord.PolyML.cPtr
-             --> PangoFontsetClass.PolyML.cPtr
+             --> PangoFontsetClass.PolyML.cOptPtr
           )
       val setBaseDir_ = call (getSymbol "pango_context_set_base_dir") (PangoContextClass.PolyML.cPtr &&> PangoDirection.PolyML.cVal --> cVoid)
       val setBaseGravity_ = call (getSymbol "pango_context_set_base_gravity") (PangoContextClass.PolyML.cPtr &&> PangoGravity.PolyML.cVal --> cVoid)
@@ -90,7 +90,7 @@ structure PangoContext :>
     fun getGravity self = (PangoContextClass.FFI.withPtr ---> PangoGravity.FFI.fromVal) getGravity_ self
     fun getGravityHint self = (PangoContextClass.FFI.withPtr ---> PangoGravityHint.FFI.fromVal) getGravityHint_ self
     fun getLanguage self = (PangoContextClass.FFI.withPtr ---> PangoLanguageRecord.FFI.fromPtr true) getLanguage_ self
-    fun getMatrix self = (PangoContextClass.FFI.withPtr ---> PangoMatrixRecord.FFI.fromPtr false) getMatrix_ self
+    fun getMatrix self = (PangoContextClass.FFI.withPtr ---> PangoMatrixRecord.FFI.fromOptPtr false) getMatrix_ self
     fun getMetrics self (desc, language) =
       (
         PangoContextClass.FFI.withPtr
@@ -127,13 +127,13 @@ structure PangoContext :>
       in
         families (LargeInt.toInt nFamilies)
       end
-    fun loadFont self desc = (PangoContextClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withPtr ---> PangoFontClass.FFI.fromPtr true) loadFont_ (self & desc)
+    fun loadFont self desc = (PangoContextClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withPtr ---> PangoFontClass.FFI.fromOptPtr true) loadFont_ (self & desc)
     fun loadFontset self (desc, language) =
       (
         PangoContextClass.FFI.withPtr
          &&&> PangoFontDescriptionRecord.FFI.withPtr
          &&&> PangoLanguageRecord.FFI.withPtr
-         ---> PangoFontsetClass.FFI.fromPtr true
+         ---> PangoFontsetClass.FFI.fromOptPtr true
       )
         loadFontset_
         (

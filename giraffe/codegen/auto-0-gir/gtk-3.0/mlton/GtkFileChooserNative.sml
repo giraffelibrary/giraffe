@@ -35,8 +35,8 @@ structure GtkFileChooserNative :>
               x7,
               x8
             )
-    val getAcceptLabel_ = _import "gtk_file_chooser_native_get_accept_label" : GtkFileChooserNativeClass.FFI.notnull GtkFileChooserNativeClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getCancelLabel_ = _import "gtk_file_chooser_native_get_cancel_label" : GtkFileChooserNativeClass.FFI.notnull GtkFileChooserNativeClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getAcceptLabel_ = _import "gtk_file_chooser_native_get_accept_label" : GtkFileChooserNativeClass.FFI.notnull GtkFileChooserNativeClass.FFI.p -> unit Utf8.FFI.out_p;
+    val getCancelLabel_ = _import "gtk_file_chooser_native_get_cancel_label" : GtkFileChooserNativeClass.FFI.notnull GtkFileChooserNativeClass.FFI.p -> unit Utf8.FFI.out_p;
     val setAcceptLabel_ =
       fn
         x1 & (x2, x3) =>
@@ -98,8 +98,8 @@ structure GtkFileChooserNative :>
            & acceptLabel
            & cancelLabel
         )
-    fun getAcceptLabel self = (GtkFileChooserNativeClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAcceptLabel_ self
-    fun getCancelLabel self = (GtkFileChooserNativeClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCancelLabel_ self
+    fun getAcceptLabel self = (GtkFileChooserNativeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getAcceptLabel_ self
+    fun getCancelLabel self = (GtkFileChooserNativeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getCancelLabel_ self
     fun setAcceptLabel self acceptLabel = (GtkFileChooserNativeClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setAcceptLabel_ (self & acceptLabel)
     fun setCancelLabel self cancelLabel = (GtkFileChooserNativeClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setCancelLabel_ (self & cancelLabel)
     local

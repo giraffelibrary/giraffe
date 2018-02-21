@@ -46,7 +46,7 @@ structure GtkIconTheme :>
              &&> Utf8CVector.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GtkIconLookupFlags.PolyML.cVal
-             --> GtkIconInfoClass.PolyML.cPtr
+             --> GtkIconInfoClass.PolyML.cOptPtr
           )
       val chooseIconForScale_ =
         call (getSymbol "gtk_icon_theme_choose_icon_for_scale")
@@ -56,9 +56,9 @@ structure GtkIconTheme :>
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GtkIconLookupFlags.PolyML.cVal
-             --> GtkIconInfoClass.PolyML.cPtr
+             --> GtkIconInfoClass.PolyML.cOptPtr
           )
-      val getExampleIconName_ = call (getSymbol "gtk_icon_theme_get_example_icon_name") (GtkIconThemeClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getExampleIconName_ = call (getSymbol "gtk_icon_theme_get_example_icon_name") (GtkIconThemeClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getIconSizes_ = call (getSymbol "gtk_icon_theme_get_icon_sizes") (GtkIconThemeClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GIntCVector.PolyML.cOutPtr)
       val getSearchPath_ =
         call (getSymbol "gtk_icon_theme_get_search_path")
@@ -77,7 +77,7 @@ structure GtkIconTheme :>
              &&> GInt.PolyML.cVal
              &&> GtkIconLookupFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GdkPixbufPixbufClass.PolyML.cPtr
+             --> GdkPixbufPixbufClass.PolyML.cOptPtr
           )
       val loadIconForScale_ =
         call (getSymbol "gtk_icon_theme_load_icon_for_scale")
@@ -88,7 +88,7 @@ structure GtkIconTheme :>
              &&> GInt.PolyML.cVal
              &&> GtkIconLookupFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GdkPixbufPixbufClass.PolyML.cPtr
+             --> GdkPixbufPixbufClass.PolyML.cOptPtr
           )
       val loadSurface_ =
         call (getSymbol "gtk_icon_theme_load_surface")
@@ -100,7 +100,7 @@ structure GtkIconTheme :>
              &&> GdkWindowClass.PolyML.cOptPtr
              &&> GtkIconLookupFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> CairoSurfaceRecord.PolyML.cPtr
+             --> CairoSurfaceRecord.PolyML.cOptPtr
           )
       val lookupByGicon_ =
         call (getSymbol "gtk_icon_theme_lookup_by_gicon")
@@ -109,7 +109,7 @@ structure GtkIconTheme :>
              &&> GioIconClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GtkIconLookupFlags.PolyML.cVal
-             --> GtkIconInfoClass.PolyML.cPtr
+             --> GtkIconInfoClass.PolyML.cOptPtr
           )
       val lookupByGiconForScale_ =
         call (getSymbol "gtk_icon_theme_lookup_by_gicon_for_scale")
@@ -119,7 +119,7 @@ structure GtkIconTheme :>
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GtkIconLookupFlags.PolyML.cVal
-             --> GtkIconInfoClass.PolyML.cPtr
+             --> GtkIconInfoClass.PolyML.cOptPtr
           )
       val lookupIcon_ =
         call (getSymbol "gtk_icon_theme_lookup_icon")
@@ -128,7 +128,7 @@ structure GtkIconTheme :>
              &&> Utf8.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GtkIconLookupFlags.PolyML.cVal
-             --> GtkIconInfoClass.PolyML.cPtr
+             --> GtkIconInfoClass.PolyML.cOptPtr
           )
       val lookupIconForScale_ =
         call (getSymbol "gtk_icon_theme_lookup_icon_for_scale")
@@ -138,7 +138,7 @@ structure GtkIconTheme :>
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GtkIconLookupFlags.PolyML.cVal
-             --> GtkIconInfoClass.PolyML.cPtr
+             --> GtkIconInfoClass.PolyML.cOptPtr
           )
       val prependSearchPath_ = call (getSymbol "gtk_icon_theme_prepend_search_path") (GtkIconThemeClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val rescanIfNeeded_ = call (getSymbol "gtk_icon_theme_rescan_if_needed") (GtkIconThemeClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -193,7 +193,7 @@ structure GtkIconTheme :>
          &&&> Utf8CVector.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoClass.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         chooseIcon_
         (
@@ -216,7 +216,7 @@ structure GtkIconTheme :>
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoClass.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         chooseIconForScale_
         (
@@ -226,7 +226,7 @@ structure GtkIconTheme :>
            & scale
            & flags
         )
-    fun getExampleIconName self = (GtkIconThemeClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getExampleIconName_ self
+    fun getExampleIconName self = (GtkIconThemeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getExampleIconName_ self
     fun getIconSizes self iconName = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GIntCVector.FFI.fromPtr 1) getIconSizes_ (self & iconName)
     fun getSearchPath self =
       let
@@ -264,7 +264,7 @@ structure GtkIconTheme :>
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GdkPixbufPixbufClass.FFI.fromPtr true
+         ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
       )
         loadIcon_
         (
@@ -289,7 +289,7 @@ structure GtkIconTheme :>
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GdkPixbufPixbufClass.FFI.fromPtr true
+         ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
       )
         loadIconForScale_
         (
@@ -317,7 +317,7 @@ structure GtkIconTheme :>
          &&&> GdkWindowClass.FFI.withOptPtr
          &&&> GtkIconLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> CairoSurfaceRecord.FFI.fromPtr true
+         ---> CairoSurfaceRecord.FFI.fromOptPtr true
       )
         loadSurface_
         (
@@ -341,7 +341,7 @@ structure GtkIconTheme :>
          &&&> GioIconClass.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoClass.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         lookupByGicon_
         (
@@ -364,7 +364,7 @@ structure GtkIconTheme :>
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoClass.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         lookupByGiconForScale_
         (
@@ -386,7 +386,7 @@ structure GtkIconTheme :>
          &&&> Utf8.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoClass.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         lookupIcon_
         (
@@ -409,7 +409,7 @@ structure GtkIconTheme :>
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoClass.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         lookupIconForScale_
         (

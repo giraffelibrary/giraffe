@@ -1333,11 +1333,11 @@ signature GIO =
        -> LargeInt.int
     val contentTypeCanBeExecutable : string -> bool
     val contentTypeEquals : string * string -> bool
-    val contentTypeFromMimeType : string -> string
+    val contentTypeFromMimeType : string -> string option
     val contentTypeGetDescription : string -> string
-    val contentTypeGetGenericIconName : string -> string
+    val contentTypeGetGenericIconName : string -> string option
     val contentTypeGetIcon : string -> base IconClass.class
-    val contentTypeGetMimeType : string -> string
+    val contentTypeGetMimeType : string -> string option
     val contentTypeGetSymbolicIcon : string -> base IconClass.class
     val contentTypeGuess : string option * Word8Vector.vector option -> string * bool
     val contentTypeGuessForTree : 'a FileClass.class -> string list

@@ -106,7 +106,7 @@ structure AtkComponent :>
                * GInt.FFI.val_
                * GInt.FFI.val_
                * AtkCoordType.FFI.val_
-               -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
+               -> unit AtkObjectClass.FFI.p;
           )
             (
               x1,
@@ -305,7 +305,7 @@ structure AtkComponent :>
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> AtkCoordType.FFI.withVal
-         ---> AtkObjectClass.FFI.fromPtr true
+         ---> AtkObjectClass.FFI.fromOptPtr true
       )
         refAccessibleAtPoint_
         (

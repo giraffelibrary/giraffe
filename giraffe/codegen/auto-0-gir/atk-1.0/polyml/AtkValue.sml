@@ -12,7 +12,7 @@ structure AtkValue :>
       val getMaximumValue_ = call (getSymbol "atk_value_get_maximum_value") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> cVoid)
       val getMinimumIncrement_ = call (getSymbol "atk_value_get_minimum_increment") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> cVoid)
       val getMinimumValue_ = call (getSymbol "atk_value_get_minimum_value") (AtkValueClass.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> cVoid)
-      val getRange_ = call (getSymbol "atk_value_get_range") (AtkValueClass.PolyML.cPtr --> AtkRangeRecord.PolyML.cPtr)
+      val getRange_ = call (getSymbol "atk_value_get_range") (AtkValueClass.PolyML.cPtr --> AtkRangeRecord.PolyML.cOptPtr)
       val getValueAndText_ =
         call (getSymbol "atk_value_get_value_and_text")
           (
@@ -53,7 +53,7 @@ structure AtkValue :>
       in
         value
       end
-    fun getRange self = (AtkValueClass.FFI.withPtr ---> AtkRangeRecord.FFI.fromPtr true) getRange_ self
+    fun getRange self = (AtkValueClass.FFI.withPtr ---> AtkRangeRecord.FFI.fromOptPtr true) getRange_ self
     fun getValueAndText self =
       let
         val value

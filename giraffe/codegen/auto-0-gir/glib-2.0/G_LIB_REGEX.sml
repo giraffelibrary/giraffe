@@ -9,7 +9,7 @@ signature G_LIB_REGEX =
       string
        * regex_compile_flags_t
        * regex_match_flags_t
-       -> t
+       -> t option
     val getCaptureCount : t -> LargeInt.int
     val getCompileFlags : t -> regex_compile_flags_t
     val getHasCrOrLf : t -> bool

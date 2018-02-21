@@ -14,8 +14,8 @@ signature GTK_FILE_CHOOSER_NATIVE =
        * string option
        * string option
        -> base class
-    val getAcceptLabel : 'a class -> string
-    val getCancelLabel : 'a class -> string
+    val getAcceptLabel : 'a class -> string option
+    val getCancelLabel : 'a class -> string option
     val setAcceptLabel :
       'a class
        -> string option

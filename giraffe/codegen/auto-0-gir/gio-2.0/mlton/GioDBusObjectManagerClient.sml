@@ -23,7 +23,7 @@ structure GioDBusObjectManagerClient :>
     val getConnection_ = _import "g_dbus_object_manager_client_get_connection" : GioDBusObjectManagerClientClass.FFI.notnull GioDBusObjectManagerClientClass.FFI.p -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;
     val getFlags_ = _import "g_dbus_object_manager_client_get_flags" : GioDBusObjectManagerClientClass.FFI.notnull GioDBusObjectManagerClientClass.FFI.p -> GioDBusObjectManagerClientFlags.FFI.val_;
     val getName_ = _import "g_dbus_object_manager_client_get_name" : GioDBusObjectManagerClientClass.FFI.notnull GioDBusObjectManagerClientClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getNameOwner_ = _import "g_dbus_object_manager_client_get_name_owner" : GioDBusObjectManagerClientClass.FFI.notnull GioDBusObjectManagerClientClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getNameOwner_ = _import "g_dbus_object_manager_client_get_name_owner" : GioDBusObjectManagerClientClass.FFI.notnull GioDBusObjectManagerClientClass.FFI.p -> unit Utf8.FFI.out_p;
     type 'a class = 'a GioDBusObjectManagerClientClass.class
     type 'a async_initable_class = 'a GioAsyncInitableClass.class
     type 'a d_bus_object_manager_class = 'a GioDBusObjectManagerClass.class
@@ -44,7 +44,7 @@ structure GioDBusObjectManagerClient :>
     fun getConnection self = (GioDBusObjectManagerClientClass.FFI.withPtr ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
     fun getFlags self = (GioDBusObjectManagerClientClass.FFI.withPtr ---> GioDBusObjectManagerClientFlags.FFI.fromVal) getFlags_ self
     fun getName self = (GioDBusObjectManagerClientClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getNameOwner self = (GioDBusObjectManagerClientClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getNameOwner_ self
+    fun getNameOwner self = (GioDBusObjectManagerClientClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getNameOwner_ self
     local
       open ClosureMarshal Signal
     in

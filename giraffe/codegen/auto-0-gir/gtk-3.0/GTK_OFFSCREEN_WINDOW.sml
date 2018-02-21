@@ -7,6 +7,6 @@ signature GTK_OFFSCREEN_WINDOW =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val getPixbuf : 'a class -> base GdkPixbuf.PixbufClass.class
-    val getSurface : 'a class -> Cairo.SurfaceRecord.t
+    val getPixbuf : 'a class -> base GdkPixbuf.PixbufClass.class option
+    val getSurface : 'a class -> Cairo.SurfaceRecord.t option
   end

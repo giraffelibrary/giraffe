@@ -16,7 +16,7 @@ signature GTK_POPOVER =
        -> 'b Gio.MenuModelClass.class option * string option
        -> unit
     val getConstrainTo : 'a class -> popover_constraint_t
-    val getDefaultWidget : 'a class -> base widget_class
+    val getDefaultWidget : 'a class -> base widget_class option
     val getModal : 'a class -> bool
     val getPointingTo : 'a class -> Gdk.RectangleRecord.t option
     val getPosition : 'a class -> position_type_t

@@ -22,9 +22,9 @@ structure GdkDisplay :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gdk_display_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (getSymbol "gdk_display_get_default") (cVoid --> GdkDisplayClass.PolyML.cPtr)
-      val open_ = call (getSymbol "gdk_display_open") (Utf8.PolyML.cInPtr --> GdkDisplayClass.PolyML.cPtr)
-      val openDefaultLibgtkOnly_ = call (getSymbol "gdk_display_open_default_libgtk_only") (cVoid --> GdkDisplayClass.PolyML.cPtr)
+      val getDefault_ = call (getSymbol "gdk_display_get_default") (cVoid --> GdkDisplayClass.PolyML.cOptPtr)
+      val open_ = call (getSymbol "gdk_display_open") (Utf8.PolyML.cInPtr --> GdkDisplayClass.PolyML.cOptPtr)
+      val openDefaultLibgtkOnly_ = call (getSymbol "gdk_display_open_default_libgtk_only") (cVoid --> GdkDisplayClass.PolyML.cOptPtr)
       val beep_ = call (getSymbol "gdk_display_beep") (GdkDisplayClass.PolyML.cPtr --> cVoid)
       val close_ = call (getSymbol "gdk_display_close") (GdkDisplayClass.PolyML.cPtr --> cVoid)
       val deviceIsGrabbed_ = call (getSymbol "gdk_display_device_is_grabbed") (GdkDisplayClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -34,8 +34,8 @@ structure GdkDisplay :>
       val getDefaultGroup_ = call (getSymbol "gdk_display_get_default_group") (GdkDisplayClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getDefaultScreen_ = call (getSymbol "gdk_display_get_default_screen") (GdkDisplayClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
       val getDefaultSeat_ = call (getSymbol "gdk_display_get_default_seat") (GdkDisplayClass.PolyML.cPtr --> GdkSeatClass.PolyML.cPtr)
-      val getDeviceManager_ = call (getSymbol "gdk_display_get_device_manager") (GdkDisplayClass.PolyML.cPtr --> GdkDeviceManagerClass.PolyML.cPtr)
-      val getEvent_ = call (getSymbol "gdk_display_get_event") (GdkDisplayClass.PolyML.cPtr --> GdkEvent.PolyML.cPtr)
+      val getDeviceManager_ = call (getSymbol "gdk_display_get_device_manager") (GdkDisplayClass.PolyML.cPtr --> GdkDeviceManagerClass.PolyML.cOptPtr)
+      val getEvent_ = call (getSymbol "gdk_display_get_event") (GdkDisplayClass.PolyML.cPtr --> GdkEvent.PolyML.cOptPtr)
       val getMaximalCursorSize_ =
         call (getSymbol "gdk_display_get_maximal_cursor_size")
           (
@@ -44,7 +44,7 @@ structure GdkDisplay :>
              &&> GUInt.PolyML.cRef
              --> cVoid
           )
-      val getMonitor_ = call (getSymbol "gdk_display_get_monitor") (GdkDisplayClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GdkMonitorClass.PolyML.cPtr)
+      val getMonitor_ = call (getSymbol "gdk_display_get_monitor") (GdkDisplayClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GdkMonitorClass.PolyML.cOptPtr)
       val getMonitorAtPoint_ =
         call (getSymbol "gdk_display_get_monitor_at_point")
           (
@@ -67,7 +67,7 @@ structure GdkDisplay :>
              &&> GdkModifierType.PolyML.cRef
              --> cVoid
           )
-      val getPrimaryMonitor_ = call (getSymbol "gdk_display_get_primary_monitor") (GdkDisplayClass.PolyML.cPtr --> GdkMonitorClass.PolyML.cPtr)
+      val getPrimaryMonitor_ = call (getSymbol "gdk_display_get_primary_monitor") (GdkDisplayClass.PolyML.cPtr --> GdkMonitorClass.PolyML.cOptPtr)
       val getScreen_ = call (getSymbol "gdk_display_get_screen") (GdkDisplayClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GdkScreenClass.PolyML.cPtr)
       val getWindowAtPointer_ =
         call (getSymbol "gdk_display_get_window_at_pointer")
@@ -75,13 +75,13 @@ structure GdkDisplay :>
             GdkDisplayClass.PolyML.cPtr
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cRef
-             --> GdkWindowClass.PolyML.cPtr
+             --> GdkWindowClass.PolyML.cOptPtr
           )
       val hasPending_ = call (getSymbol "gdk_display_has_pending") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val isClosed_ = call (getSymbol "gdk_display_is_closed") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val keyboardUngrab_ = call (getSymbol "gdk_display_keyboard_ungrab") (GdkDisplayClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
       val notifyStartupComplete_ = call (getSymbol "gdk_display_notify_startup_complete") (GdkDisplayClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
-      val peekEvent_ = call (getSymbol "gdk_display_peek_event") (GdkDisplayClass.PolyML.cPtr --> GdkEvent.PolyML.cPtr)
+      val peekEvent_ = call (getSymbol "gdk_display_peek_event") (GdkDisplayClass.PolyML.cPtr --> GdkEvent.PolyML.cOptPtr)
       val pointerIsGrabbed_ = call (getSymbol "gdk_display_pointer_is_grabbed") (GdkDisplayClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val pointerUngrab_ = call (getSymbol "gdk_display_pointer_ungrab") (GdkDisplayClass.PolyML.cPtr &&> GUInt32.PolyML.cVal --> cVoid)
       val putEvent_ = call (getSymbol "gdk_display_put_event") (GdkDisplayClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> cVoid)
@@ -129,9 +129,9 @@ structure GdkDisplay :>
     type 'a seat_class = 'a GdkSeatClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getDefault () = (I ---> GdkDisplayClass.FFI.fromPtr false) getDefault_ ()
-    fun open' displayName = (Utf8.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) open_ displayName
-    fun openDefaultLibgtkOnly () = (I ---> GdkDisplayClass.FFI.fromPtr false) openDefaultLibgtkOnly_ ()
+    fun getDefault () = (I ---> GdkDisplayClass.FFI.fromOptPtr false) getDefault_ ()
+    fun open' displayName = (Utf8.FFI.withPtr ---> GdkDisplayClass.FFI.fromOptPtr false) open_ displayName
+    fun openDefaultLibgtkOnly () = (I ---> GdkDisplayClass.FFI.fromOptPtr false) openDefaultLibgtkOnly_ ()
     fun beep self = (GdkDisplayClass.FFI.withPtr ---> I) beep_ self
     fun close self = (GdkDisplayClass.FFI.withPtr ---> I) close_ self
     fun deviceIsGrabbed self device = (GdkDisplayClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> GBool.FFI.fromVal) deviceIsGrabbed_ (self & device)
@@ -141,8 +141,8 @@ structure GdkDisplay :>
     fun getDefaultGroup self = (GdkDisplayClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getDefaultGroup_ self
     fun getDefaultScreen self = (GdkDisplayClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getDefaultScreen_ self
     fun getDefaultSeat self = (GdkDisplayClass.FFI.withPtr ---> GdkSeatClass.FFI.fromPtr false) getDefaultSeat_ self
-    fun getDeviceManager self = (GdkDisplayClass.FFI.withPtr ---> GdkDeviceManagerClass.FFI.fromPtr false) getDeviceManager_ self
-    fun getEvent self = (GdkDisplayClass.FFI.withPtr ---> GdkEvent.FFI.fromPtr true) getEvent_ self
+    fun getDeviceManager self = (GdkDisplayClass.FFI.withPtr ---> GdkDeviceManagerClass.FFI.fromOptPtr false) getDeviceManager_ self
+    fun getEvent self = (GdkDisplayClass.FFI.withPtr ---> GdkEvent.FFI.fromOptPtr true) getEvent_ self
     fun getMaximalCursorSize self =
       let
         val width
@@ -165,7 +165,7 @@ structure GdkDisplay :>
       in
         (width, height)
       end
-    fun getMonitor self monitorNum = (GdkDisplayClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GdkMonitorClass.FFI.fromPtr false) getMonitor_ (self & monitorNum)
+    fun getMonitor self monitorNum = (GdkDisplayClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GdkMonitorClass.FFI.fromOptPtr false) getMonitor_ (self & monitorNum)
     fun getMonitorAtPoint self (x, y) =
       (
         GdkDisplayClass.FFI.withPtr
@@ -218,7 +218,7 @@ structure GdkDisplay :>
           mask
         )
       end
-    fun getPrimaryMonitor self = (GdkDisplayClass.FFI.withPtr ---> GdkMonitorClass.FFI.fromPtr false) getPrimaryMonitor_ self
+    fun getPrimaryMonitor self = (GdkDisplayClass.FFI.withPtr ---> GdkMonitorClass.FFI.fromOptPtr false) getPrimaryMonitor_ self
     fun getScreen self screenNum = (GdkDisplayClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GdkScreenClass.FFI.fromPtr false) getScreen_ (self & screenNum)
     fun getWindowAtPointer self =
       let
@@ -231,7 +231,7 @@ structure GdkDisplay :>
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
                    && GInt.FFI.fromVal
-                   && GdkWindowClass.FFI.fromPtr false
+                   && GdkWindowClass.FFI.fromOptPtr false
           )
             getWindowAtPointer_
             (
@@ -250,7 +250,7 @@ structure GdkDisplay :>
     fun isClosed self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
     fun keyboardUngrab self time = (GdkDisplayClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) keyboardUngrab_ (self & time)
     fun notifyStartupComplete self startupId = (GdkDisplayClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) notifyStartupComplete_ (self & startupId)
-    fun peekEvent self = (GdkDisplayClass.FFI.withPtr ---> GdkEvent.FFI.fromPtr true) peekEvent_ self
+    fun peekEvent self = (GdkDisplayClass.FFI.withPtr ---> GdkEvent.FFI.fromOptPtr true) peekEvent_ self
     fun pointerIsGrabbed self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) pointerIsGrabbed_ self
     fun pointerUngrab self time = (GdkDisplayClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) pointerUngrab_ (self & time)
     fun putEvent self event = (GdkDisplayClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> I) putEvent_ (self & event)

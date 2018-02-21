@@ -113,7 +113,7 @@ signature GTK_CELL_AREA =
     val getFocusFromSibling :
       'a class
        -> 'b cell_renderer_class
-       -> base cell_renderer_class
+       -> base cell_renderer_class option
     val getPreferredHeight :
       'a class
        -> 'b cell_area_context_class * 'c widget_class

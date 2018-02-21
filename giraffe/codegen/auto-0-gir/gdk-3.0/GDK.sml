@@ -2618,7 +2618,7 @@ signature GDK =
        * LargeInt.int
        -> unit
     val cairoGetClipRectangle : Cairo.ContextRecord.t -> RectangleRecord.t option
-    val cairoGetDrawingContext : Cairo.ContextRecord.t -> base DrawingContextClass.class
+    val cairoGetDrawingContext : Cairo.ContextRecord.t -> base DrawingContextClass.class option
     val cairoRectangle : Cairo.ContextRecord.t * RectangleRecord.t -> unit
     val cairoRegion : Cairo.ContextRecord.t * Cairo.RegionRecord.t -> unit
     val cairoRegionCreateFromSurface : Cairo.SurfaceRecord.t -> Cairo.RegionRecord.t
@@ -2689,7 +2689,7 @@ signature GDK =
     val flush : unit -> unit
     val getDefaultRootWindow : unit -> base WindowClass.class
     val getDisplay : unit -> string
-    val getDisplayArgName : unit -> string
+    val getDisplayArgName : unit -> string option
     val getProgramClass : unit -> string
     val getShowEvents : unit -> bool
     val init : string list -> string list
@@ -2704,14 +2704,14 @@ signature GDK =
     val keyvalFromName : string -> LargeInt.int
     val keyvalIsLower : LargeInt.int -> bool
     val keyvalIsUpper : LargeInt.int -> bool
-    val keyvalName : LargeInt.int -> string
+    val keyvalName : LargeInt.int -> string option
     val keyvalToLower : LargeInt.int -> LargeInt.int
     val keyvalToUnicode : LargeInt.int -> LargeInt.int
     val keyvalToUpper : LargeInt.int -> LargeInt.int
     val notifyStartupComplete : unit -> unit
     val notifyStartupCompleteWithId : string -> unit
-    val offscreenWindowGetEmbedder : 'a WindowClass.class -> base WindowClass.class
-    val offscreenWindowGetSurface : 'a WindowClass.class -> Cairo.SurfaceRecord.t
+    val offscreenWindowGetEmbedder : 'a WindowClass.class -> base WindowClass.class option
+    val offscreenWindowGetSurface : 'a WindowClass.class -> Cairo.SurfaceRecord.t option
     val offscreenWindowSetEmbedder : 'a WindowClass.class * 'b WindowClass.class -> unit
     val pangoContextGet : unit -> base Pango.ContextClass.class
     val pangoContextGetForDisplay : 'a DisplayClass.class -> base Pango.ContextClass.class
@@ -2723,14 +2723,14 @@ signature GDK =
        * LargeInt.int
        * LargeInt.int
        * LargeInt.int
-       -> base GdkPixbuf.PixbufClass.class
+       -> base GdkPixbuf.PixbufClass.class option
     val pixbufGetFromWindow :
       'a WindowClass.class
        * LargeInt.int
        * LargeInt.int
        * LargeInt.int
        * LargeInt.int
-       -> base GdkPixbuf.PixbufClass.class
+       -> base GdkPixbuf.PixbufClass.class option
     val pointerGrab :
       'a WindowClass.class
        * bool
@@ -2762,8 +2762,8 @@ signature GDK =
        * AtomRecord.t
        * LargeInt.int
        -> unit
-    val selectionOwnerGet : AtomRecord.t -> base WindowClass.class
-    val selectionOwnerGetForDisplay : 'a DisplayClass.class * AtomRecord.t -> base WindowClass.class
+    val selectionOwnerGet : AtomRecord.t -> base WindowClass.class option
+    val selectionOwnerGetForDisplay : 'a DisplayClass.class * AtomRecord.t -> base WindowClass.class option
     val selectionOwnerSet :
       'a WindowClass.class option
        * AtomRecord.t
@@ -2829,5 +2829,5 @@ signature GDK =
     val threadsInit : unit -> unit
     val threadsLeave : unit -> unit
     val unicodeToKeyval : LargeInt.int -> LargeInt.int
-    val utf8ToStringTarget : string -> string
+    val utf8ToStringTarget : string -> string option
   end

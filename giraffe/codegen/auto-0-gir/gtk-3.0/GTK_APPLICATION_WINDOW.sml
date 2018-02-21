@@ -11,7 +11,7 @@ signature GTK_APPLICATION_WINDOW =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : 'a application_class -> base class
-    val getHelpOverlay : 'a class -> base shortcuts_window_class
+    val getHelpOverlay : 'a class -> base shortcuts_window_class option
     val getId : 'a class -> LargeInt.int
     val getShowMenubar : 'a class -> bool
     val setHelpOverlay :

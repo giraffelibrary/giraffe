@@ -55,7 +55,7 @@ signature GTK_STYLE_CONTEXT =
       'a class
        -> state_flags_t
        -> Pango.FontDescriptionRecord.t
-    val getFrameClock : 'a class -> base Gdk.FrameClockClass.class
+    val getFrameClock : 'a class -> base Gdk.FrameClockClass.class option
     val getJunctionSides : 'a class -> junction_sides_t
     val getMargin :
       'a class
@@ -65,14 +65,14 @@ signature GTK_STYLE_CONTEXT =
       'a class
        -> state_flags_t
        -> border_t
-    val getParent : 'a class -> base class
+    val getParent : 'a class -> base class option
     val getPath : 'a class -> widget_path_t
     val getScale : 'a class -> LargeInt.int
     val getScreen : 'a class -> base Gdk.ScreenClass.class
     val getSection :
       'a class
        -> string
-       -> css_section_t
+       -> css_section_t option
     val getState : 'a class -> state_flags_t
     val getStyleProperty :
       'a class
@@ -94,7 +94,7 @@ signature GTK_STYLE_CONTEXT =
     val lookupIconSet :
       'a class
        -> string
-       -> icon_set_t
+       -> icon_set_t option
     val popAnimatableRegion : 'a class -> unit
     val removeClass :
       'a class

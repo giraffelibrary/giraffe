@@ -11,7 +11,7 @@ structure AtkDocument :>
               AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> unit Utf8.FFI.out_p;
           )
             (
               x1,
@@ -46,7 +46,7 @@ structure AtkDocument :>
     type 'a class = 'a AtkDocumentClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getAttributeValue self attributeName = (AtkDocumentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAttributeValue_ (self & attributeName)
+    fun getAttributeValue self attributeName = (AtkDocumentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getAttributeValue_ (self & attributeName)
     fun getCurrentPageNumber self = (AtkDocumentClass.FFI.withPtr ---> GInt.FFI.fromVal) getCurrentPageNumber_ self
     fun getDocumentType self = (AtkDocumentClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDocumentType_ self
     fun getLocale self = (AtkDocumentClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLocale_ self

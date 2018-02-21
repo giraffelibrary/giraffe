@@ -19,8 +19,8 @@ structure GtkFileChooserNative :>
              &&> Utf8.PolyML.cInOptPtr
              --> GtkFileChooserNativeClass.PolyML.cPtr
           )
-      val getAcceptLabel_ = call (getSymbol "gtk_file_chooser_native_get_accept_label") (GtkFileChooserNativeClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getCancelLabel_ = call (getSymbol "gtk_file_chooser_native_get_cancel_label") (GtkFileChooserNativeClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getAcceptLabel_ = call (getSymbol "gtk_file_chooser_native_get_accept_label") (GtkFileChooserNativeClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getCancelLabel_ = call (getSymbol "gtk_file_chooser_native_get_cancel_label") (GtkFileChooserNativeClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val setAcceptLabel_ = call (getSymbol "gtk_file_chooser_native_set_accept_label") (GtkFileChooserNativeClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
       val setCancelLabel_ = call (getSymbol "gtk_file_chooser_native_set_cancel_label") (GtkFileChooserNativeClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
     end
@@ -55,8 +55,8 @@ structure GtkFileChooserNative :>
            & acceptLabel
            & cancelLabel
         )
-    fun getAcceptLabel self = (GtkFileChooserNativeClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAcceptLabel_ self
-    fun getCancelLabel self = (GtkFileChooserNativeClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCancelLabel_ self
+    fun getAcceptLabel self = (GtkFileChooserNativeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getAcceptLabel_ self
+    fun getCancelLabel self = (GtkFileChooserNativeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getCancelLabel_ self
     fun setAcceptLabel self acceptLabel = (GtkFileChooserNativeClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setAcceptLabel_ (self & acceptLabel)
     fun setCancelLabel self cancelLabel = (GtkFileChooserNativeClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setCancelLabel_ (self & cancelLabel)
     local

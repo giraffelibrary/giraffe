@@ -54,7 +54,7 @@ structure AtkStateSet :>
               x4
             )
     val isEmpty_ = _import "atk_state_set_is_empty" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p -> GBool.FFI.val_;
-    val orSets_ = fn x1 & x2 => (_import "atk_state_set_or_sets" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p * AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p -> AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p;) (x1, x2)
+    val orSets_ = fn x1 & x2 => (_import "atk_state_set_or_sets" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p * AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p -> unit AtkStateSetClass.FFI.p;) (x1, x2)
     val removeState_ = fn x1 & x2 => (_import "atk_state_set_remove_state" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p * AtkStateType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val xorSets_ = fn x1 & x2 => (_import "atk_state_set_xor_sets" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p * AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p -> AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p;) (x1, x2)
     type 'a class = 'a AtkStateSetClass.class
@@ -105,7 +105,7 @@ structure AtkStateSet :>
         retVal
       end
     fun isEmpty self = (AtkStateSetClass.FFI.withPtr ---> GBool.FFI.fromVal) isEmpty_ self
-    fun orSets self compareSet = (AtkStateSetClass.FFI.withPtr &&&> AtkStateSetClass.FFI.withPtr ---> AtkStateSetClass.FFI.fromPtr true) orSets_ (self & compareSet)
+    fun orSets self compareSet = (AtkStateSetClass.FFI.withPtr &&&> AtkStateSetClass.FFI.withPtr ---> AtkStateSetClass.FFI.fromOptPtr true) orSets_ (self & compareSet)
     fun removeState self type' = (AtkStateSetClass.FFI.withPtr &&&> AtkStateType.FFI.withVal ---> GBool.FFI.fromVal) removeState_ (self & type')
     fun xorSets self compareSet = (AtkStateSetClass.FFI.withPtr &&&> AtkStateSetClass.FFI.withPtr ---> AtkStateSetClass.FFI.fromPtr true) xorSets_ (self & compareSet)
   end

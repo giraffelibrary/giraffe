@@ -11,7 +11,7 @@ signature GDK_PIXBUF_PIXBUF_LOADER =
     val newWithType : string -> base class
     val close : 'a class -> unit
     val getAnimation : 'a class -> base pixbuf_animation_class
-    val getFormat : 'a class -> pixbuf_format_t
+    val getFormat : 'a class -> pixbuf_format_t option
     val getPixbuf : 'a class -> base pixbuf_class
     val setSize :
       'a class

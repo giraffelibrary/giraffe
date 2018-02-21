@@ -29,7 +29,7 @@ signature GIO_FILE_ENUMERATOR =
     val nextFile :
       'a class
        -> 'b cancellable_class option
-       -> base file_info_class
+       -> base file_info_class option
     val setPending :
       'a class
        -> bool

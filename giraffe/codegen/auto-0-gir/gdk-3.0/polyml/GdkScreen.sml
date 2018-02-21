@@ -10,14 +10,14 @@ structure GdkScreen :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gdk_screen_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (getSymbol "gdk_screen_get_default") (cVoid --> GdkScreenClass.PolyML.cPtr)
+      val getDefault_ = call (getSymbol "gdk_screen_get_default") (cVoid --> GdkScreenClass.PolyML.cOptPtr)
       val height_ = call (getSymbol "gdk_screen_height") (cVoid --> GInt.PolyML.cVal)
       val heightMm_ = call (getSymbol "gdk_screen_height_mm") (cVoid --> GInt.PolyML.cVal)
       val width_ = call (getSymbol "gdk_screen_width") (cVoid --> GInt.PolyML.cVal)
       val widthMm_ = call (getSymbol "gdk_screen_width_mm") (cVoid --> GInt.PolyML.cVal)
-      val getActiveWindow_ = call (getSymbol "gdk_screen_get_active_window") (GdkScreenClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getActiveWindow_ = call (getSymbol "gdk_screen_get_active_window") (GdkScreenClass.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
       val getDisplay_ = call (getSymbol "gdk_screen_get_display") (GdkScreenClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
-      val getFontOptions_ = call (getSymbol "gdk_screen_get_font_options") (GdkScreenClass.PolyML.cPtr --> CairoFontOptionsRecord.PolyML.cPtr)
+      val getFontOptions_ = call (getSymbol "gdk_screen_get_font_options") (GdkScreenClass.PolyML.cPtr --> CairoFontOptionsRecord.PolyML.cOptPtr)
       val getHeight_ = call (getSymbol "gdk_screen_get_height") (GdkScreenClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getHeightMm_ = call (getSymbol "gdk_screen_get_height_mm") (GdkScreenClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getMonitorAtPoint_ =
@@ -38,7 +38,7 @@ structure GdkScreen :>
              --> cVoid
           )
       val getMonitorHeightMm_ = call (getSymbol "gdk_screen_get_monitor_height_mm") (GdkScreenClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GInt.PolyML.cVal)
-      val getMonitorPlugName_ = call (getSymbol "gdk_screen_get_monitor_plug_name") (GdkScreenClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val getMonitorPlugName_ = call (getSymbol "gdk_screen_get_monitor_plug_name") (GdkScreenClass.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutOptPtr)
       val getMonitorScaleFactor_ = call (getSymbol "gdk_screen_get_monitor_scale_factor") (GdkScreenClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GInt.PolyML.cVal)
       val getMonitorWidthMm_ = call (getSymbol "gdk_screen_get_monitor_width_mm") (GdkScreenClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GInt.PolyML.cVal)
       val getMonitorWorkarea_ =
@@ -53,7 +53,7 @@ structure GdkScreen :>
       val getNumber_ = call (getSymbol "gdk_screen_get_number") (GdkScreenClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getPrimaryMonitor_ = call (getSymbol "gdk_screen_get_primary_monitor") (GdkScreenClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getResolution_ = call (getSymbol "gdk_screen_get_resolution") (GdkScreenClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val getRgbaVisual_ = call (getSymbol "gdk_screen_get_rgba_visual") (GdkScreenClass.PolyML.cPtr --> GdkVisualClass.PolyML.cPtr)
+      val getRgbaVisual_ = call (getSymbol "gdk_screen_get_rgba_visual") (GdkScreenClass.PolyML.cPtr --> GdkVisualClass.PolyML.cOptPtr)
       val getRootWindow_ = call (getSymbol "gdk_screen_get_root_window") (GdkScreenClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getSetting_ =
         call (getSymbol "gdk_screen_get_setting")
@@ -78,14 +78,14 @@ structure GdkScreen :>
     type 'a visual_class = 'a GdkVisualClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getDefault () = (I ---> GdkScreenClass.FFI.fromPtr false) getDefault_ ()
+    fun getDefault () = (I ---> GdkScreenClass.FFI.fromOptPtr false) getDefault_ ()
     fun height () = (I ---> GInt.FFI.fromVal) height_ ()
     fun heightMm () = (I ---> GInt.FFI.fromVal) heightMm_ ()
     fun width () = (I ---> GInt.FFI.fromVal) width_ ()
     fun widthMm () = (I ---> GInt.FFI.fromVal) widthMm_ ()
-    fun getActiveWindow self = (GdkScreenClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr true) getActiveWindow_ self
+    fun getActiveWindow self = (GdkScreenClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr true) getActiveWindow_ self
     fun getDisplay self = (GdkScreenClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
-    fun getFontOptions self = (GdkScreenClass.FFI.withPtr ---> CairoFontOptionsRecord.FFI.fromPtr false) getFontOptions_ self
+    fun getFontOptions self = (GdkScreenClass.FFI.withPtr ---> CairoFontOptionsRecord.FFI.fromOptPtr false) getFontOptions_ self
     fun getHeight self = (GdkScreenClass.FFI.withPtr ---> GInt.FFI.fromVal) getHeight_ self
     fun getHeightMm self = (GdkScreenClass.FFI.withPtr ---> GInt.FFI.fromVal) getHeightMm_ self
     fun getMonitorAtPoint self (x, y) =
@@ -121,7 +121,7 @@ structure GdkScreen :>
         dest
       end
     fun getMonitorHeightMm self monitorNum = (GdkScreenClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) getMonitorHeightMm_ (self & monitorNum)
-    fun getMonitorPlugName self monitorNum = (GdkScreenClass.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) getMonitorPlugName_ (self & monitorNum)
+    fun getMonitorPlugName self monitorNum = (GdkScreenClass.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 1) getMonitorPlugName_ (self & monitorNum)
     fun getMonitorScaleFactor self monitorNum = (GdkScreenClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) getMonitorScaleFactor_ (self & monitorNum)
     fun getMonitorWidthMm self monitorNum = (GdkScreenClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) getMonitorWidthMm_ (self & monitorNum)
     fun getMonitorWorkarea self monitorNum =
@@ -146,7 +146,7 @@ structure GdkScreen :>
     fun getNumber self = (GdkScreenClass.FFI.withPtr ---> GInt.FFI.fromVal) getNumber_ self
     fun getPrimaryMonitor self = (GdkScreenClass.FFI.withPtr ---> GInt.FFI.fromVal) getPrimaryMonitor_ self
     fun getResolution self = (GdkScreenClass.FFI.withPtr ---> GDouble.FFI.fromVal) getResolution_ self
-    fun getRgbaVisual self = (GdkScreenClass.FFI.withPtr ---> GdkVisualClass.FFI.fromPtr false) getRgbaVisual_ self
+    fun getRgbaVisual self = (GdkScreenClass.FFI.withPtr ---> GdkVisualClass.FFI.fromOptPtr false) getRgbaVisual_ self
     fun getRootWindow self = (GdkScreenClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getRootWindow_ self
     fun getSetting self (name, value) =
       (

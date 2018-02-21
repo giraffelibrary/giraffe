@@ -32,7 +32,7 @@ signature GTK_GRID =
     val getChildAt :
       'a class
        -> LargeInt.int * LargeInt.int
-       -> base widget_class
+       -> base widget_class option
     val getColumnHomogeneous : 'a class -> bool
     val getColumnSpacing : 'a class -> LargeInt.int
     val getRowBaselinePosition :

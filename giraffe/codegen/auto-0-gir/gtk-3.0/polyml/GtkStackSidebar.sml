@@ -9,7 +9,7 @@ structure GtkStackSidebar :>
     in
       val getType_ = call (getSymbol "gtk_stack_sidebar_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_stack_sidebar_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val getStack_ = call (getSymbol "gtk_stack_sidebar_get_stack") (GtkStackSidebarClass.PolyML.cPtr --> GtkStackClass.PolyML.cPtr)
+      val getStack_ = call (getSymbol "gtk_stack_sidebar_get_stack") (GtkStackSidebarClass.PolyML.cPtr --> GtkStackClass.PolyML.cOptPtr)
       val setStack_ = call (getSymbol "gtk_stack_sidebar_set_stack") (GtkStackSidebarClass.PolyML.cPtr &&> GtkStackClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkStackSidebarClass.class
@@ -20,7 +20,7 @@ structure GtkStackSidebar :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkStackSidebarClass.FFI.fromPtr false) new_ ()
-    fun getStack self = (GtkStackSidebarClass.FFI.withPtr ---> GtkStackClass.FFI.fromPtr false) getStack_ self
+    fun getStack self = (GtkStackSidebarClass.FFI.withPtr ---> GtkStackClass.FFI.fromOptPtr false) getStack_ self
     fun setStack self stack = (GtkStackSidebarClass.FFI.withPtr &&&> GtkStackClass.FFI.withPtr ---> I) setStack_ (self & stack)
     local
       open Property

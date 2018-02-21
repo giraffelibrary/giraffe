@@ -9,8 +9,8 @@ signature GDK_MONITOR =
     val getDisplay : 'a class -> base display_class
     val getGeometry : 'a class -> rectangle_t
     val getHeightMm : 'a class -> LargeInt.int
-    val getManufacturer : 'a class -> string
-    val getModel : 'a class -> string
+    val getManufacturer : 'a class -> string option
+    val getModel : 'a class -> string option
     val getRefreshRate : 'a class -> LargeInt.int
     val getScaleFactor : 'a class -> LargeInt.int
     val getSubpixelLayout : 'a class -> subpixel_layout_t

@@ -8,7 +8,7 @@ structure AtkImage :>
     in
       val getType_ = call (getSymbol "atk_image_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getImageDescription_ = call (getSymbol "atk_image_get_image_description") (AtkImageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getImageLocale_ = call (getSymbol "atk_image_get_image_locale") (AtkImageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getImageLocale_ = call (getSymbol "atk_image_get_image_locale") (AtkImageClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getImagePosition_ =
         call (getSymbol "atk_image_get_image_position")
           (
@@ -33,7 +33,7 @@ structure AtkImage :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getImageDescription self = (AtkImageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getImageDescription_ self
-    fun getImageLocale self = (AtkImageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getImageLocale_ self
+    fun getImageLocale self = (AtkImageClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getImageLocale_ self
     fun getImagePosition self coordType =
       let
         val x

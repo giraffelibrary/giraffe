@@ -27,11 +27,11 @@ structure GtkApplication :>
       val addWindow_ = call (getSymbol "gtk_application_add_window") (GtkApplicationClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cPtr --> cVoid)
       val getAccelsForAction_ = call (getSymbol "gtk_application_get_accels_for_action") (GtkApplicationClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
       val getActionsForAccel_ = call (getSymbol "gtk_application_get_actions_for_accel") (GtkApplicationClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
-      val getActiveWindow_ = call (getSymbol "gtk_application_get_active_window") (GtkApplicationClass.PolyML.cPtr --> GtkWindowClass.PolyML.cPtr)
-      val getAppMenu_ = call (getSymbol "gtk_application_get_app_menu") (GtkApplicationClass.PolyML.cPtr --> GioMenuModelClass.PolyML.cPtr)
+      val getActiveWindow_ = call (getSymbol "gtk_application_get_active_window") (GtkApplicationClass.PolyML.cPtr --> GtkWindowClass.PolyML.cOptPtr)
+      val getAppMenu_ = call (getSymbol "gtk_application_get_app_menu") (GtkApplicationClass.PolyML.cPtr --> GioMenuModelClass.PolyML.cOptPtr)
       val getMenuById_ = call (getSymbol "gtk_application_get_menu_by_id") (GtkApplicationClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioMenuClass.PolyML.cPtr)
       val getMenubar_ = call (getSymbol "gtk_application_get_menubar") (GtkApplicationClass.PolyML.cPtr --> GioMenuModelClass.PolyML.cPtr)
-      val getWindowById_ = call (getSymbol "gtk_application_get_window_by_id") (GtkApplicationClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> GtkWindowClass.PolyML.cPtr)
+      val getWindowById_ = call (getSymbol "gtk_application_get_window_by_id") (GtkApplicationClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> GtkWindowClass.PolyML.cOptPtr)
       val inhibit_ =
         call (getSymbol "gtk_application_inhibit")
           (
@@ -97,11 +97,11 @@ structure GtkApplication :>
     fun addWindow self window = (GtkApplicationClass.FFI.withPtr &&&> GtkWindowClass.FFI.withPtr ---> I) addWindow_ (self & window)
     fun getAccelsForAction self detailedActionName = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getAccelsForAction_ (self & detailedActionName)
     fun getActionsForAccel self accel = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getActionsForAccel_ (self & accel)
-    fun getActiveWindow self = (GtkApplicationClass.FFI.withPtr ---> GtkWindowClass.FFI.fromPtr false) getActiveWindow_ self
-    fun getAppMenu self = (GtkApplicationClass.FFI.withPtr ---> GioMenuModelClass.FFI.fromPtr false) getAppMenu_ self
+    fun getActiveWindow self = (GtkApplicationClass.FFI.withPtr ---> GtkWindowClass.FFI.fromOptPtr false) getActiveWindow_ self
+    fun getAppMenu self = (GtkApplicationClass.FFI.withPtr ---> GioMenuModelClass.FFI.fromOptPtr false) getAppMenu_ self
     fun getMenuById self id = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioMenuClass.FFI.fromPtr false) getMenuById_ (self & id)
     fun getMenubar self = (GtkApplicationClass.FFI.withPtr ---> GioMenuModelClass.FFI.fromPtr false) getMenubar_ self
-    fun getWindowById self id = (GtkApplicationClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GtkWindowClass.FFI.fromPtr false) getWindowById_ (self & id)
+    fun getWindowById self id = (GtkApplicationClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GtkWindowClass.FFI.fromOptPtr false) getWindowById_ (self & id)
     fun inhibit
       self
       (

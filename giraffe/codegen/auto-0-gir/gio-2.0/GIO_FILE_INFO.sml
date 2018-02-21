@@ -90,7 +90,7 @@ signature GIO_FILE_INFO =
     val listAttributes :
       'a class
        -> string option
-       -> string list
+       -> string list option
     val removeAttribute :
       'a class
        -> string

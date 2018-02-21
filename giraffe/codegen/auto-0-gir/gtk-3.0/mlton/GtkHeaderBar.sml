@@ -6,12 +6,12 @@ structure GtkHeaderBar :>
   struct
     val getType_ = _import "gtk_header_bar_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_header_bar_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getCustomTitle_ = _import "gtk_header_bar_get_custom_title" : GtkHeaderBarClass.FFI.notnull GtkHeaderBarClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getCustomTitle_ = _import "gtk_header_bar_get_custom_title" : GtkHeaderBarClass.FFI.notnull GtkHeaderBarClass.FFI.p -> unit GtkWidgetClass.FFI.p;
     val getDecorationLayout_ = _import "gtk_header_bar_get_decoration_layout" : GtkHeaderBarClass.FFI.notnull GtkHeaderBarClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getHasSubtitle_ = _import "gtk_header_bar_get_has_subtitle" : GtkHeaderBarClass.FFI.notnull GtkHeaderBarClass.FFI.p -> GBool.FFI.val_;
     val getShowCloseButton_ = _import "gtk_header_bar_get_show_close_button" : GtkHeaderBarClass.FFI.notnull GtkHeaderBarClass.FFI.p -> GBool.FFI.val_;
-    val getSubtitle_ = _import "gtk_header_bar_get_subtitle" : GtkHeaderBarClass.FFI.notnull GtkHeaderBarClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getTitle_ = _import "gtk_header_bar_get_title" : GtkHeaderBarClass.FFI.notnull GtkHeaderBarClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getSubtitle_ = _import "gtk_header_bar_get_subtitle" : GtkHeaderBarClass.FFI.notnull GtkHeaderBarClass.FFI.p -> unit Utf8.FFI.out_p;
+    val getTitle_ = _import "gtk_header_bar_get_title" : GtkHeaderBarClass.FFI.notnull GtkHeaderBarClass.FFI.p -> unit Utf8.FFI.out_p;
     val packEnd_ = fn x1 & x2 => (_import "gtk_header_bar_pack_end" : GtkHeaderBarClass.FFI.notnull GtkHeaderBarClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     val packStart_ = fn x1 & x2 => (_import "gtk_header_bar_pack_start" : GtkHeaderBarClass.FFI.notnull GtkHeaderBarClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     val setCustomTitle_ = fn x1 & x2 => (_import "gtk_header_bar_set_custom_title" : GtkHeaderBarClass.FFI.notnull GtkHeaderBarClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
@@ -70,12 +70,12 @@ structure GtkHeaderBar :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkHeaderBarClass.FFI.fromPtr false) new_ ()
-    fun getCustomTitle self = (GtkHeaderBarClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getCustomTitle_ self
+    fun getCustomTitle self = (GtkHeaderBarClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getCustomTitle_ self
     fun getDecorationLayout self = (GtkHeaderBarClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDecorationLayout_ self
     fun getHasSubtitle self = (GtkHeaderBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasSubtitle_ self
     fun getShowCloseButton self = (GtkHeaderBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowCloseButton_ self
-    fun getSubtitle self = (GtkHeaderBarClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSubtitle_ self
-    fun getTitle self = (GtkHeaderBarClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTitle_ self
+    fun getSubtitle self = (GtkHeaderBarClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getSubtitle_ self
+    fun getTitle self = (GtkHeaderBarClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getTitle_ self
     fun packEnd self child = (GtkHeaderBarClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) packEnd_ (self & child)
     fun packStart self child = (GtkHeaderBarClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) packStart_ (self & child)
     fun setCustomTitle self titleWidget = (GtkHeaderBarClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setCustomTitle_ (self & titleWidget)

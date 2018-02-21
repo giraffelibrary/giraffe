@@ -3,7 +3,7 @@ signature PANGO_ITEM =
     type t
     val getType : unit -> GObject.Type.t
     val new : unit -> t
-    val copy : t -> t
+    val copy : t -> t option
     val split :
       t
        -> LargeInt.int * LargeInt.int

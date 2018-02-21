@@ -20,7 +20,7 @@ structure GtkEntryCompletion :>
               GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> unit Utf8.FFI.out_p;
           )
             (
               x1,
@@ -33,7 +33,7 @@ structure GtkEntryCompletion :>
     val getInlineCompletion_ = _import "gtk_entry_completion_get_inline_completion" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
     val getInlineSelection_ = _import "gtk_entry_completion_get_inline_selection" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
     val getMinimumKeyLength_ = _import "gtk_entry_completion_get_minimum_key_length" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GInt.FFI.val_;
-    val getModel_ = _import "gtk_entry_completion_get_model" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p;
+    val getModel_ = _import "gtk_entry_completion_get_model" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> unit GtkTreeModelClass.FFI.p;
     val getPopupCompletion_ = _import "gtk_entry_completion_get_popup_completion" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
     val getPopupSetWidth_ = _import "gtk_entry_completion_get_popup_set_width" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
     val getPopupSingleMatch_ = _import "gtk_entry_completion_get_popup_single_match" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
@@ -99,14 +99,14 @@ structure GtkEntryCompletion :>
     fun new () = (I ---> GtkEntryCompletionClass.FFI.fromPtr true) new_ ()
     fun newWithArea area = (GtkCellAreaClass.FFI.withPtr ---> GtkEntryCompletionClass.FFI.fromPtr true) newWithArea_ area
     fun complete self = (GtkEntryCompletionClass.FFI.withPtr ---> I) complete_ self
-    fun computePrefix self key = (GtkEntryCompletionClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) computePrefix_ (self & key)
+    fun computePrefix self key = (GtkEntryCompletionClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) computePrefix_ (self & key)
     fun deleteAction self index = (GtkEntryCompletionClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) deleteAction_ (self & index)
     fun getCompletionPrefix self = (GtkEntryCompletionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCompletionPrefix_ self
     fun getEntry self = (GtkEntryCompletionClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getEntry_ self
     fun getInlineCompletion self = (GtkEntryCompletionClass.FFI.withPtr ---> GBool.FFI.fromVal) getInlineCompletion_ self
     fun getInlineSelection self = (GtkEntryCompletionClass.FFI.withPtr ---> GBool.FFI.fromVal) getInlineSelection_ self
     fun getMinimumKeyLength self = (GtkEntryCompletionClass.FFI.withPtr ---> GInt.FFI.fromVal) getMinimumKeyLength_ self
-    fun getModel self = (GtkEntryCompletionClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
+    fun getModel self = (GtkEntryCompletionClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromOptPtr false) getModel_ self
     fun getPopupCompletion self = (GtkEntryCompletionClass.FFI.withPtr ---> GBool.FFI.fromVal) getPopupCompletion_ self
     fun getPopupSetWidth self = (GtkEntryCompletionClass.FFI.withPtr ---> GBool.FFI.fromVal) getPopupSetWidth_ self
     fun getPopupSingleMatch self = (GtkEntryCompletionClass.FFI.withPtr ---> GBool.FFI.fromVal) getPopupSingleMatch_ self

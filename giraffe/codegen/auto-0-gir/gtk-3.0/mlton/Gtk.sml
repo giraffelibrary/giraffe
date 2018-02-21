@@ -176,7 +176,7 @@ structure Gtk : GTK =
               GUInt.FFI.val_
                * GUInt.FFI.val_
                * GUInt.FFI.val_
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> unit Utf8.FFI.out_p;
           )
             (
               x1,
@@ -223,7 +223,7 @@ structure Gtk : GTK =
               x3,
               x4
             )
-    val dragGetSourceWidget_ = _import "gtk_drag_get_source_widget" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val dragGetSourceWidget_ = _import "gtk_drag_get_source_widget" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> unit GtkWidgetClass.FFI.p;
     val dragSetIconDefault_ = _import "gtk_drag_set_icon_default" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> unit;
     val dragSetIconGicon_ =
       fn
@@ -358,20 +358,20 @@ structure Gtk : GTK =
             )
     val eventsPending_ = _import "gtk_events_pending" : unit -> GBool.FFI.val_;
     val getBinaryAge_ = _import "gtk_get_binary_age" : unit -> GUInt.FFI.val_;
-    val getCurrentEvent_ = _import "gtk_get_current_event" : unit -> GdkEvent.FFI.notnull GdkEvent.FFI.p;
-    val getCurrentEventDevice_ = _import "gtk_get_current_event_device" : unit -> GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p;
+    val getCurrentEvent_ = _import "gtk_get_current_event" : unit -> unit GdkEvent.FFI.p;
+    val getCurrentEventDevice_ = _import "gtk_get_current_event_device" : unit -> unit GdkDeviceClass.FFI.p;
     val getCurrentEventState_ = _import "gtk_get_current_event_state" : GdkModifierType.FFI.ref_ -> GBool.FFI.val_;
     val getCurrentEventTime_ = _import "gtk_get_current_event_time" : unit -> GUInt32.FFI.val_;
     val getDebugFlags_ = _import "gtk_get_debug_flags" : unit -> GUInt.FFI.val_;
     val getDefaultLanguage_ = _import "gtk_get_default_language" : unit -> PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p;
-    val getEventWidget_ = _import "gtk_get_event_widget" : GdkEvent.FFI.notnull GdkEvent.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getEventWidget_ = _import "gtk_get_event_widget" : GdkEvent.FFI.notnull GdkEvent.FFI.p -> unit GtkWidgetClass.FFI.p;
     val getInterfaceAge_ = _import "gtk_get_interface_age" : unit -> GUInt.FFI.val_;
     val getLocaleDirection_ = _import "gtk_get_locale_direction" : unit -> GtkTextDirection.FFI.val_;
     val getMajorVersion_ = _import "gtk_get_major_version" : unit -> GUInt.FFI.val_;
     val getMicroVersion_ = _import "gtk_get_micro_version" : unit -> GUInt.FFI.val_;
     val getMinorVersion_ = _import "gtk_get_minor_version" : unit -> GUInt.FFI.val_;
     val getOptionGroup_ = _import "gtk_get_option_group" : GBool.FFI.val_ -> GLibOptionGroupRecord.FFI.notnull GLibOptionGroupRecord.FFI.p;
-    val grabGetCurrent_ = _import "gtk_grab_get_current" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val grabGetCurrent_ = _import "gtk_grab_get_current" : unit -> unit GtkWidgetClass.FFI.p;
     val init_ =
       fn
         x1 & (x2, x3) =>
@@ -1272,7 +1272,7 @@ structure Gtk : GTK =
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
                * GObjectType.FFI.val_
-               -> GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p;
+               -> unit GtkStyleClass.FFI.p;
           )
             (
               x1,
@@ -2128,7 +2128,7 @@ structure Gtk : GTK =
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GObjectType.FFI.val_
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               -> unit GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -3398,7 +3398,7 @@ structure Gtk : GTK =
         GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal
-         ---> Utf8.FFI.fromPtr 0
+         ---> Utf8.FFI.fromOptPtr 0
       )
         checkVersion_
         (
@@ -3448,7 +3448,7 @@ structure Gtk : GTK =
            & del
            & time
         )
-    fun dragGetSourceWidget context = (GdkDragContextClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) dragGetSourceWidget_ context
+    fun dragGetSourceWidget context = (GdkDragContextClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) dragGetSourceWidget_ context
     fun dragSetIconDefault context = (GdkDragContextClass.FFI.withPtr ---> I) dragSetIconDefault_ context
     fun dragSetIconGicon
       (
@@ -3585,8 +3585,8 @@ structure Gtk : GTK =
         )
     fun eventsPending () = (I ---> GBool.FFI.fromVal) eventsPending_ ()
     fun getBinaryAge () = (I ---> GUInt.FFI.fromVal) getBinaryAge_ ()
-    fun getCurrentEvent () = (I ---> GdkEvent.FFI.fromPtr true) getCurrentEvent_ ()
-    fun getCurrentEventDevice () = (I ---> GdkDeviceClass.FFI.fromPtr false) getCurrentEventDevice_ ()
+    fun getCurrentEvent () = (I ---> GdkEvent.FFI.fromOptPtr true) getCurrentEvent_ ()
+    fun getCurrentEventDevice () = (I ---> GdkDeviceClass.FFI.fromOptPtr false) getCurrentEventDevice_ ()
     fun getCurrentEventState () =
       let
         val state & retVal = (GdkModifierType.FFI.withRefVal ---> GdkModifierType.FFI.fromVal && GBool.FFI.fromVal) getCurrentEventState_ (GdkModifierType.flags [])
@@ -3596,14 +3596,14 @@ structure Gtk : GTK =
     fun getCurrentEventTime () = (I ---> GUInt32.FFI.fromVal) getCurrentEventTime_ ()
     fun getDebugFlags () = (I ---> GUInt.FFI.fromVal) getDebugFlags_ ()
     fun getDefaultLanguage () = (I ---> PangoLanguageRecord.FFI.fromPtr false) getDefaultLanguage_ ()
-    fun getEventWidget event = (GdkEvent.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getEventWidget_ event
+    fun getEventWidget event = (GdkEvent.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getEventWidget_ event
     fun getInterfaceAge () = (I ---> GUInt.FFI.fromVal) getInterfaceAge_ ()
     fun getLocaleDirection () = (I ---> GtkTextDirection.FFI.fromVal) getLocaleDirection_ ()
     fun getMajorVersion () = (I ---> GUInt.FFI.fromVal) getMajorVersion_ ()
     fun getMicroVersion () = (I ---> GUInt.FFI.fromVal) getMicroVersion_ ()
     fun getMinorVersion () = (I ---> GUInt.FFI.fromVal) getMinorVersion_ ()
     fun getOptionGroup openDefaultDisplay = (GBool.FFI.withVal ---> GLibOptionGroupRecord.FFI.fromPtr true) getOptionGroup_ openDefaultDisplay
-    fun grabGetCurrent () = (I ---> GtkWidgetClass.FFI.fromPtr false) grabGetCurrent_ ()
+    fun grabGetCurrent () = (I ---> GtkWidgetClass.FFI.fromOptPtr false) grabGetCurrent_ ()
     fun init argv =
       let
         val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
@@ -4489,7 +4489,7 @@ structure Gtk : GTK =
          &&&> Utf8.FFI.withOptPtr
          &&&> Utf8.FFI.withOptPtr
          &&&> GObjectType.FFI.withVal
-         ---> GtkStyleClass.FFI.fromPtr false
+         ---> GtkStyleClass.FFI.fromOptPtr false
       )
         rcGetStyleByPaths_
         (
@@ -5309,7 +5309,7 @@ structure Gtk : GTK =
         GtkWidgetClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GObjectType.FFI.withVal
-         ---> GtkWidgetClass.FFI.fromPtr false
+         ---> GtkWidgetClass.FFI.fromOptPtr false
       )
         testFindWidget_
         (

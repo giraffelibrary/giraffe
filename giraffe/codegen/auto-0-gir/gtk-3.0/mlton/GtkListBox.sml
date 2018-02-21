@@ -14,8 +14,8 @@ structure GtkListBox :>
     val dragUnhighlightRow_ = _import "gtk_list_box_drag_unhighlight_row" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> unit;
     val getActivateOnSingleClick_ = _import "gtk_list_box_get_activate_on_single_click" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> GBool.FFI.val_;
     val getAdjustment_ = _import "gtk_list_box_get_adjustment" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
-    val getRowAtIndex_ = fn x1 & x2 => (_import "gtk_list_box_get_row_at_index" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p * GInt.FFI.val_ -> GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p;) (x1, x2)
-    val getRowAtY_ = fn x1 & x2 => (_import "gtk_list_box_get_row_at_y" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p * GInt.FFI.val_ -> GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p;) (x1, x2)
+    val getRowAtIndex_ = fn x1 & x2 => (_import "gtk_list_box_get_row_at_index" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p * GInt.FFI.val_ -> unit GtkListBoxRowClass.FFI.p;) (x1, x2)
+    val getRowAtY_ = fn x1 & x2 => (_import "gtk_list_box_get_row_at_y" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p * GInt.FFI.val_ -> unit GtkListBoxRowClass.FFI.p;) (x1, x2)
     val getSelectedRow_ = _import "gtk_list_box_get_selected_row" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p;
     val getSelectionMode_ = _import "gtk_list_box_get_selection_mode" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> GtkSelectionMode.FFI.val_;
     val insert_ =
@@ -63,8 +63,8 @@ structure GtkListBox :>
     fun dragUnhighlightRow self = (GtkListBoxClass.FFI.withPtr ---> I) dragUnhighlightRow_ self
     fun getActivateOnSingleClick self = (GtkListBoxClass.FFI.withPtr ---> GBool.FFI.fromVal) getActivateOnSingleClick_ self
     fun getAdjustment self = (GtkListBoxClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self
-    fun getRowAtIndex self index = (GtkListBoxClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkListBoxRowClass.FFI.fromPtr false) getRowAtIndex_ (self & index)
-    fun getRowAtY self y = (GtkListBoxClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkListBoxRowClass.FFI.fromPtr false) getRowAtY_ (self & y)
+    fun getRowAtIndex self index = (GtkListBoxClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkListBoxRowClass.FFI.fromOptPtr false) getRowAtIndex_ (self & index)
+    fun getRowAtY self y = (GtkListBoxClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkListBoxRowClass.FFI.fromOptPtr false) getRowAtY_ (self & y)
     fun getSelectedRow self = (GtkListBoxClass.FFI.withPtr ---> GtkListBoxRowClass.FFI.fromPtr false) getSelectedRow_ self
     fun getSelectionMode self = (GtkListBoxClass.FFI.withPtr ---> GtkSelectionMode.FFI.fromVal) getSelectionMode_ self
     fun insert self (child, position) =

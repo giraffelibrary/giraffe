@@ -88,7 +88,7 @@ structure AtkText :>
              &&> AtkTextGranularity.PolyML.cVal
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cRef
-             --> Utf8.PolyML.cOutPtr
+             --> Utf8.PolyML.cOutOptPtr
           )
       val getText_ =
         call (getSymbol "atk_text_get_text")
@@ -319,7 +319,7 @@ structure AtkText :>
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
                    && GInt.FFI.fromVal
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromOptPtr 1
           )
             getStringAtOffset_
             (

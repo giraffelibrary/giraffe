@@ -12,8 +12,8 @@ structure GtkPlacesSidebar :>
       val new_ = call (getSymbol "gtk_places_sidebar_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val addShortcut_ = call (getSymbol "gtk_places_sidebar_add_shortcut") (GtkPlacesSidebarClass.PolyML.cPtr &&> GioFileClass.PolyML.cPtr --> cVoid)
       val getLocalOnly_ = call (getSymbol "gtk_places_sidebar_get_local_only") (GtkPlacesSidebarClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getLocation_ = call (getSymbol "gtk_places_sidebar_get_location") (GtkPlacesSidebarClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
-      val getNthBookmark_ = call (getSymbol "gtk_places_sidebar_get_nth_bookmark") (GtkPlacesSidebarClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GioFileClass.PolyML.cPtr)
+      val getLocation_ = call (getSymbol "gtk_places_sidebar_get_location") (GtkPlacesSidebarClass.PolyML.cPtr --> GioFileClass.PolyML.cOptPtr)
+      val getNthBookmark_ = call (getSymbol "gtk_places_sidebar_get_nth_bookmark") (GtkPlacesSidebarClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GioFileClass.PolyML.cOptPtr)
       val getOpenFlags_ = call (getSymbol "gtk_places_sidebar_get_open_flags") (GtkPlacesSidebarClass.PolyML.cPtr --> GtkPlacesOpenFlags.PolyML.cVal)
       val getShowConnectToServer_ = call (getSymbol "gtk_places_sidebar_get_show_connect_to_server") (GtkPlacesSidebarClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getShowDesktop_ = call (getSymbol "gtk_places_sidebar_get_show_desktop") (GtkPlacesSidebarClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -51,8 +51,8 @@ structure GtkPlacesSidebar :>
     fun new () = (I ---> GtkPlacesSidebarClass.FFI.fromPtr false) new_ ()
     fun addShortcut self location = (GtkPlacesSidebarClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> I) addShortcut_ (self & location)
     fun getLocalOnly self = (GtkPlacesSidebarClass.FFI.withPtr ---> GBool.FFI.fromVal) getLocalOnly_ self
-    fun getLocation self = (GtkPlacesSidebarClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getLocation_ self
-    fun getNthBookmark self n = (GtkPlacesSidebarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GioFileClass.FFI.fromPtr true) getNthBookmark_ (self & n)
+    fun getLocation self = (GtkPlacesSidebarClass.FFI.withPtr ---> GioFileClass.FFI.fromOptPtr true) getLocation_ self
+    fun getNthBookmark self n = (GtkPlacesSidebarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GioFileClass.FFI.fromOptPtr true) getNthBookmark_ (self & n)
     fun getOpenFlags self = (GtkPlacesSidebarClass.FFI.withPtr ---> GtkPlacesOpenFlags.FFI.fromVal) getOpenFlags_ self
     fun getShowConnectToServer self = (GtkPlacesSidebarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowConnectToServer_ self
     fun getShowDesktop self = (GtkPlacesSidebarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowDesktop_ self

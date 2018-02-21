@@ -2914,7 +2914,7 @@ signature GTK =
       LargeInt.int
        * LargeInt.int
        * LargeInt.int
-       -> string
+       -> string option
     val deviceGrabAdd :
       'a WidgetClass.class
        * 'b Gdk.DeviceClass.class
@@ -2929,7 +2929,7 @@ signature GTK =
        * bool
        * LargeInt.int
        -> unit
-    val dragGetSourceWidget : 'a Gdk.DragContextClass.class -> base WidgetClass.class
+    val dragGetSourceWidget : 'a Gdk.DragContextClass.class -> base WidgetClass.class option
     val dragSetIconDefault : 'a Gdk.DragContextClass.class -> unit
     val dragSetIconGicon :
       'a Gdk.DragContextClass.class
@@ -2972,20 +2972,20 @@ signature GTK =
        -> unit
     val eventsPending : unit -> bool
     val getBinaryAge : unit -> LargeInt.int
-    val getCurrentEvent : unit -> base Gdk.Event.union
-    val getCurrentEventDevice : unit -> base Gdk.DeviceClass.class
+    val getCurrentEvent : unit -> base Gdk.Event.union option
+    val getCurrentEventDevice : unit -> base Gdk.DeviceClass.class option
     val getCurrentEventState : unit -> Gdk.ModifierType.t option
     val getCurrentEventTime : unit -> LargeInt.int
     val getDebugFlags : unit -> LargeInt.int
     val getDefaultLanguage : unit -> Pango.LanguageRecord.t
-    val getEventWidget : 'a Gdk.Event.union -> base WidgetClass.class
+    val getEventWidget : 'a Gdk.Event.union -> base WidgetClass.class option
     val getInterfaceAge : unit -> LargeInt.int
     val getLocaleDirection : unit -> TextDirection.t
     val getMajorVersion : unit -> LargeInt.int
     val getMicroVersion : unit -> LargeInt.int
     val getMinorVersion : unit -> LargeInt.int
     val getOptionGroup : bool -> GLib.OptionGroupRecord.t
-    val grabGetCurrent : unit -> base WidgetClass.class
+    val grabGetCurrent : unit -> base WidgetClass.class option
     val init : string list -> string list
     val initCheck : string list -> bool * string list
     val keySnooperRemove : LargeInt.int -> unit
@@ -3257,7 +3257,7 @@ signature GTK =
        * string option
        * string option
        * GObject.Type.t
-       -> base StyleClass.class
+       -> base StyleClass.class option
     val rcGetThemeDir : unit -> string
     val rcParse : string -> unit
     val rcParseString : string -> unit
@@ -3480,7 +3480,7 @@ signature GTK =
       'a WidgetClass.class
        * string
        * GObject.Type.t
-       -> base WidgetClass.class
+       -> base WidgetClass.class option
     val testListAllTypes : unit -> GObject.Type.t vector
     val testRegisterAllTypes : unit -> unit
     val testSliderGetValue : 'a WidgetClass.class -> real

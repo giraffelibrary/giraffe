@@ -18,7 +18,7 @@ signature GTK_SOURCE_COMPLETION =
        -> Gtk.TextIterRecord.t option
        -> base completion_context_class
     val getInfoWindow : 'a class -> base completion_info_class
-    val getView : 'a class -> base view_class
+    val getView : 'a class -> base view_class option
     val hide : 'a class -> unit
     val moveWindow :
       'a class

@@ -11,7 +11,7 @@ structure GtkSourceEncoding :>
       val getName_ = call (getSymbol "gtk_source_encoding_get_name") (GtkSourceEncodingRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val toString_ = call (getSymbol "gtk_source_encoding_to_string") (GtkSourceEncodingRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getCurrent_ = call (getSymbol "gtk_source_encoding_get_current") (cVoid --> GtkSourceEncodingRecord.PolyML.cPtr)
-      val getFromCharset_ = call (getSymbol "gtk_source_encoding_get_from_charset") (Utf8.PolyML.cInPtr --> GtkSourceEncodingRecord.PolyML.cPtr)
+      val getFromCharset_ = call (getSymbol "gtk_source_encoding_get_from_charset") (Utf8.PolyML.cInPtr --> GtkSourceEncodingRecord.PolyML.cOptPtr)
       val getUtf8_ = call (getSymbol "gtk_source_encoding_get_utf8") (cVoid --> GtkSourceEncodingRecord.PolyML.cPtr)
     end
     type t = GtkSourceEncodingRecord.t
@@ -21,6 +21,6 @@ structure GtkSourceEncoding :>
     fun getName self = (GtkSourceEncodingRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
     fun toString self = (GtkSourceEncodingRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
     fun getCurrent () = (I ---> GtkSourceEncodingRecord.FFI.fromPtr false) getCurrent_ ()
-    fun getFromCharset charset = (Utf8.FFI.withPtr ---> GtkSourceEncodingRecord.FFI.fromPtr false) getFromCharset_ charset
+    fun getFromCharset charset = (Utf8.FFI.withPtr ---> GtkSourceEncodingRecord.FFI.fromOptPtr false) getFromCharset_ charset
     fun getUtf8 () = (I ---> GtkSourceEncodingRecord.FFI.fromPtr false) getUtf8_ ()
   end

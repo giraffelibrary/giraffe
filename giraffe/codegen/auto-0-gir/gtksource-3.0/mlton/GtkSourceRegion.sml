@@ -40,9 +40,9 @@ structure GtkSourceRegion :>
               x2,
               x3
             )
-    val getBuffer_ = _import "gtk_source_region_get_buffer" : GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p -> GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p;
+    val getBuffer_ = _import "gtk_source_region_get_buffer" : GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p -> unit GtkTextBufferClass.FFI.p;
     val getStartRegionIter_ = fn x1 & x2 => (_import "gtk_source_region_get_start_region_iter" : GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p * GtkSourceRegionIterRecord.FFI.notnull GtkSourceRegionIterRecord.FFI.p -> unit;) (x1, x2)
-    val intersectRegion_ = fn x1 & x2 => (_import "gtk_source_region_intersect_region" : GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p * unit GtkSourceRegionClass.FFI.p -> GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p;) (x1, x2)
+    val intersectRegion_ = fn x1 & x2 => (_import "gtk_source_region_intersect_region" : GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p * unit GtkSourceRegionClass.FFI.p -> unit GtkSourceRegionClass.FFI.p;) (x1, x2)
     val intersectSubregion_ =
       fn
         x1
@@ -53,7 +53,7 @@ structure GtkSourceRegion :>
               GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p
                * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               -> GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p;
+               -> unit GtkSourceRegionClass.FFI.p;
           )
             (
               x1,
@@ -79,7 +79,7 @@ structure GtkSourceRegion :>
               x2,
               x3
             )
-    val toString_ = _import "gtk_source_region_to_string" : GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val toString_ = _import "gtk_source_region_to_string" : GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p -> unit Utf8.FFI.out_p;
     type 'a class = 'a GtkSourceRegionClass.class
     type region_iter_t = GtkSourceRegionIterRecord.t
     type t = base class
@@ -121,20 +121,20 @@ structure GtkSourceRegion :>
       in
         if retVal then SOME (start, end') else NONE
       end
-    fun getBuffer self = (GtkSourceRegionClass.FFI.withPtr ---> GtkTextBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun getBuffer self = (GtkSourceRegionClass.FFI.withPtr ---> GtkTextBufferClass.FFI.fromOptPtr false) getBuffer_ self
     fun getStartRegionIter self =
       let
         val iter & () = (GtkSourceRegionClass.FFI.withPtr &&&> GtkSourceRegionIterRecord.FFI.withNewPtr ---> GtkSourceRegionIterRecord.FFI.fromPtr true && I) getStartRegionIter_ (self & ())
       in
         iter
       end
-    fun intersectRegion self region2 = (GtkSourceRegionClass.FFI.withPtr &&&> GtkSourceRegionClass.FFI.withOptPtr ---> GtkSourceRegionClass.FFI.fromPtr true) intersectRegion_ (self & region2)
+    fun intersectRegion self region2 = (GtkSourceRegionClass.FFI.withPtr &&&> GtkSourceRegionClass.FFI.withOptPtr ---> GtkSourceRegionClass.FFI.fromOptPtr true) intersectRegion_ (self & region2)
     fun intersectSubregion self (start, end') =
       (
         GtkSourceRegionClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
-         ---> GtkSourceRegionClass.FFI.fromPtr true
+         ---> GtkSourceRegionClass.FFI.fromOptPtr true
       )
         intersectSubregion_
         (
@@ -157,7 +157,7 @@ structure GtkSourceRegion :>
            & start
            & end'
         )
-    fun toString self = (GtkSourceRegionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
+    fun toString self = (GtkSourceRegionClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) toString_ self
     local
       open Property
     in

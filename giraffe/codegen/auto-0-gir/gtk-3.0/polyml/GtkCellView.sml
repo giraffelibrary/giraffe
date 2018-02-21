@@ -19,10 +19,10 @@ structure GtkCellView :>
       val newWithMarkup_ = call (getSymbol "gtk_cell_view_new_with_markup") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithPixbuf_ = call (getSymbol "gtk_cell_view_new_with_pixbuf") (GdkPixbufPixbufClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithText_ = call (getSymbol "gtk_cell_view_new_with_text") (Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getDisplayedRow_ = call (getSymbol "gtk_cell_view_get_displayed_row") (GtkCellViewClass.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
+      val getDisplayedRow_ = call (getSymbol "gtk_cell_view_get_displayed_row") (GtkCellViewClass.PolyML.cPtr --> GtkTreePathRecord.PolyML.cOptPtr)
       val getDrawSensitive_ = call (getSymbol "gtk_cell_view_get_draw_sensitive") (GtkCellViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getFitModel_ = call (getSymbol "gtk_cell_view_get_fit_model") (GtkCellViewClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getModel_ = call (getSymbol "gtk_cell_view_get_model") (GtkCellViewClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
+      val getModel_ = call (getSymbol "gtk_cell_view_get_model") (GtkCellViewClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cOptPtr)
       val getSizeOfRow_ =
         call (getSymbol "gtk_cell_view_get_size_of_row")
           (
@@ -58,10 +58,10 @@ structure GtkCellView :>
     fun newWithMarkup markup = (Utf8.FFI.withPtr ---> GtkCellViewClass.FFI.fromPtr false) newWithMarkup_ markup
     fun newWithPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withPtr ---> GtkCellViewClass.FFI.fromPtr false) newWithPixbuf_ pixbuf
     fun newWithText text = (Utf8.FFI.withPtr ---> GtkCellViewClass.FFI.fromPtr false) newWithText_ text
-    fun getDisplayedRow self = (GtkCellViewClass.FFI.withPtr ---> GtkTreePathRecord.FFI.fromPtr true) getDisplayedRow_ self
+    fun getDisplayedRow self = (GtkCellViewClass.FFI.withPtr ---> GtkTreePathRecord.FFI.fromOptPtr true) getDisplayedRow_ self
     fun getDrawSensitive self = (GtkCellViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getDrawSensitive_ self
     fun getFitModel self = (GtkCellViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getFitModel_ self
-    fun getModel self = (GtkCellViewClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
+    fun getModel self = (GtkCellViewClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromOptPtr false) getModel_ self
     fun getSizeOfRow self path =
       let
         val requisition & retVal =

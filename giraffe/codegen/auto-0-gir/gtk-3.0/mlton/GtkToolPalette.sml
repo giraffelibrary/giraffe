@@ -53,7 +53,7 @@ structure GtkToolPalette :>
               GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p;
+               -> unit GtkToolItemGroupClass.FFI.p;
           )
             (
               x1,
@@ -70,7 +70,7 @@ structure GtkToolPalette :>
               GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;
+               -> unit GtkToolItemClass.FFI.p;
           )
             (
               x1,
@@ -193,7 +193,7 @@ structure GtkToolPalette :>
         GtkToolPaletteClass.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         ---> GtkToolItemGroupClass.FFI.fromPtr false
+         ---> GtkToolItemGroupClass.FFI.fromOptPtr false
       )
         getDropGroup_
         (
@@ -206,7 +206,7 @@ structure GtkToolPalette :>
         GtkToolPaletteClass.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         ---> GtkToolItemClass.FFI.fromPtr false
+         ---> GtkToolItemClass.FFI.fromOptPtr false
       )
         getDropItem_
         (

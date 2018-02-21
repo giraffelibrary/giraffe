@@ -55,7 +55,7 @@ structure GtkScale :>
     val getDigits_ = _import "gtk_scale_get_digits" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> GInt.FFI.val_;
     val getDrawValue_ = _import "gtk_scale_get_draw_value" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> GBool.FFI.val_;
     val getHasOrigin_ = _import "gtk_scale_get_has_origin" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> GBool.FFI.val_;
-    val getLayout_ = _import "gtk_scale_get_layout" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p;
+    val getLayout_ = _import "gtk_scale_get_layout" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> unit PangoLayoutClass.FFI.p;
     val getLayoutOffsets_ =
       fn
         x1
@@ -136,7 +136,7 @@ structure GtkScale :>
     fun getDigits self = (GtkScaleClass.FFI.withPtr ---> GInt.FFI.fromVal) getDigits_ self
     fun getDrawValue self = (GtkScaleClass.FFI.withPtr ---> GBool.FFI.fromVal) getDrawValue_ self
     fun getHasOrigin self = (GtkScaleClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasOrigin_ self
-    fun getLayout self = (GtkScaleClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self
+    fun getLayout self = (GtkScaleClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromOptPtr false) getLayout_ self
     fun getLayoutOffsets self =
       let
         val x

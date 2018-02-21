@@ -21,7 +21,7 @@ structure GtkPopover :>
              --> cVoid
           )
       val getConstrainTo_ = call (getSymbol "gtk_popover_get_constrain_to") (GtkPopoverClass.PolyML.cPtr --> GtkPopoverConstraint.PolyML.cVal)
-      val getDefaultWidget_ = call (getSymbol "gtk_popover_get_default_widget") (GtkPopoverClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getDefaultWidget_ = call (getSymbol "gtk_popover_get_default_widget") (GtkPopoverClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getModal_ = call (getSymbol "gtk_popover_get_modal") (GtkPopoverClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getPointingTo_ = call (getSymbol "gtk_popover_get_pointing_to") (GtkPopoverClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getPosition_ = call (getSymbol "gtk_popover_get_position") (GtkPopoverClass.PolyML.cPtr --> GtkPositionType.PolyML.cVal)
@@ -62,7 +62,7 @@ structure GtkPopover :>
            & actionNamespace
         )
     fun getConstrainTo self = (GtkPopoverClass.FFI.withPtr ---> GtkPopoverConstraint.FFI.fromVal) getConstrainTo_ self
-    fun getDefaultWidget self = (GtkPopoverClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getDefaultWidget_ self
+    fun getDefaultWidget self = (GtkPopoverClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getDefaultWidget_ self
     fun getModal self = (GtkPopoverClass.FFI.withPtr ---> GBool.FFI.fromVal) getModal_ self
     fun getPointingTo self =
       let

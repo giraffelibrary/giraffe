@@ -72,7 +72,7 @@ structure GtkGrid :>
               GtkGridClass.FFI.notnull GtkGridClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               -> unit GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -199,7 +199,7 @@ structure GtkGrid :>
         GtkGridClass.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         ---> GtkWidgetClass.FFI.fromPtr false
+         ---> GtkWidgetClass.FFI.fromOptPtr false
       )
         getChildAt_
         (

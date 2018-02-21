@@ -14,7 +14,7 @@ structure GtkBox :>
       val getType_ = call (getSymbol "gtk_box_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_box_new") (GtkOrientation.PolyML.cVal &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
       val getBaselinePosition_ = call (getSymbol "gtk_box_get_baseline_position") (GtkBoxClass.PolyML.cPtr --> GtkBaselinePosition.PolyML.cVal)
-      val getCenterWidget_ = call (getSymbol "gtk_box_get_center_widget") (GtkBoxClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getCenterWidget_ = call (getSymbol "gtk_box_get_center_widget") (GtkBoxClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getHomogeneous_ = call (getSymbol "gtk_box_get_homogeneous") (GtkBoxClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSpacing_ = call (getSymbol "gtk_box_get_spacing") (GtkBoxClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val packEnd_ =
@@ -86,7 +86,7 @@ structure GtkBox :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (orientation, spacing) = (GtkOrientation.FFI.withVal &&&> GInt.FFI.withVal ---> GtkBoxClass.FFI.fromPtr false) new_ (orientation & spacing)
     fun getBaselinePosition self = (GtkBoxClass.FFI.withPtr ---> GtkBaselinePosition.FFI.fromVal) getBaselinePosition_ self
-    fun getCenterWidget self = (GtkBoxClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getCenterWidget_ self
+    fun getCenterWidget self = (GtkBoxClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getCenterWidget_ self
     fun getHomogeneous self = (GtkBoxClass.FFI.withPtr ---> GBool.FFI.fromVal) getHomogeneous_ self
     fun getSpacing self = (GtkBoxClass.FFI.withPtr ---> GInt.FFI.fromVal) getSpacing_ self
     fun packEnd

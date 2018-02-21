@@ -368,7 +368,7 @@ structure GioDBusConnection :>
     val getExitOnClose_ = _import "g_dbus_connection_get_exit_on_close" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GBool.FFI.val_;
     val getGuid_ = _import "g_dbus_connection_get_guid" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getLastSerial_ = _import "g_dbus_connection_get_last_serial" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GUInt32.FFI.val_;
-    val getPeerCredentials_ = _import "g_dbus_connection_get_peer_credentials" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GioCredentialsClass.FFI.notnull GioCredentialsClass.FFI.p;
+    val getPeerCredentials_ = _import "g_dbus_connection_get_peer_credentials" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> unit GioCredentialsClass.FFI.p;
     val getStream_ = _import "g_dbus_connection_get_stream" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p;
     val getUniqueName_ = _import "g_dbus_connection_get_unique_name" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val isClosed_ = _import "g_dbus_connection_is_closed" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GBool.FFI.val_;
@@ -792,7 +792,7 @@ structure GioDBusConnection :>
     fun getExitOnClose self = (GioDBusConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) getExitOnClose_ self
     fun getGuid self = (GioDBusConnectionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getGuid_ self
     fun getLastSerial self = (GioDBusConnectionClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getLastSerial_ self
-    fun getPeerCredentials self = (GioDBusConnectionClass.FFI.withPtr ---> GioCredentialsClass.FFI.fromPtr false) getPeerCredentials_ self
+    fun getPeerCredentials self = (GioDBusConnectionClass.FFI.withPtr ---> GioCredentialsClass.FFI.fromOptPtr false) getPeerCredentials_ self
     fun getStream self = (GioDBusConnectionClass.FFI.withPtr ---> GioIOStreamClass.FFI.fromPtr false) getStream_ self
     fun getUniqueName self = (GioDBusConnectionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUniqueName_ self
     fun isClosed self = (GioDBusConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self

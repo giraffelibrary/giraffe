@@ -30,7 +30,7 @@ structure GtkButton :>
       val getAlwaysShowImage_ = call (getSymbol "gtk_button_get_always_show_image") (GtkButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getEventWindow_ = call (getSymbol "gtk_button_get_event_window") (GtkButtonClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getFocusOnClick_ = call (getSymbol "gtk_button_get_focus_on_click") (GtkButtonClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getImage_ = call (getSymbol "gtk_button_get_image") (GtkButtonClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getImage_ = call (getSymbol "gtk_button_get_image") (GtkButtonClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getImagePosition_ = call (getSymbol "gtk_button_get_image_position") (GtkButtonClass.PolyML.cPtr --> GtkPositionType.PolyML.cVal)
       val getLabel_ = call (getSymbol "gtk_button_get_label") (GtkButtonClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getRelief_ = call (getSymbol "gtk_button_get_relief") (GtkButtonClass.PolyML.cPtr --> GtkReliefStyle.PolyML.cVal)
@@ -101,7 +101,7 @@ structure GtkButton :>
     fun getAlwaysShowImage self = (GtkButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getAlwaysShowImage_ self
     fun getEventWindow self = (GtkButtonClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getEventWindow_ self
     fun getFocusOnClick self = (GtkButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getFocusOnClick_ self
-    fun getImage self = (GtkButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getImage_ self
+    fun getImage self = (GtkButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getImage_ self
     fun getImagePosition self = (GtkButtonClass.FFI.withPtr ---> GtkPositionType.FFI.fromVal) getImagePosition_ self
     fun getLabel self = (GtkButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLabel_ self
     fun getRelief self = (GtkButtonClass.FFI.withPtr ---> GtkReliefStyle.FFI.fromVal) getRelief_ self

@@ -13,11 +13,11 @@ structure GtkMenuItem :>
     val newWithMnemonic_ = _import "mlton_gtk_menu_item_new_with_mnemonic" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val activate_ = _import "gtk_menu_item_activate" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> unit;
     val deselect_ = _import "gtk_menu_item_deselect" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> unit;
-    val getAccelPath_ = _import "gtk_menu_item_get_accel_path" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getAccelPath_ = _import "gtk_menu_item_get_accel_path" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> unit Utf8.FFI.out_p;
     val getLabel_ = _import "gtk_menu_item_get_label" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getReserveIndicator_ = _import "gtk_menu_item_get_reserve_indicator" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> GBool.FFI.val_;
     val getRightJustified_ = _import "gtk_menu_item_get_right_justified" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> GBool.FFI.val_;
-    val getSubmenu_ = _import "gtk_menu_item_get_submenu" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getSubmenu_ = _import "gtk_menu_item_get_submenu" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> unit GtkWidgetClass.FFI.p;
     val getUseUnderline_ = _import "gtk_menu_item_get_use_underline" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> GBool.FFI.val_;
     val select_ = _import "gtk_menu_item_select" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> unit;
     val setAccelPath_ =
@@ -73,11 +73,11 @@ structure GtkMenuItem :>
     fun newWithMnemonic label = (Utf8.FFI.withPtr ---> GtkMenuItemClass.FFI.fromPtr false) newWithMnemonic_ label
     fun activate self = (GtkMenuItemClass.FFI.withPtr ---> I) activate_ self
     fun deselect self = (GtkMenuItemClass.FFI.withPtr ---> I) deselect_ self
-    fun getAccelPath self = (GtkMenuItemClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAccelPath_ self
+    fun getAccelPath self = (GtkMenuItemClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getAccelPath_ self
     fun getLabel self = (GtkMenuItemClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLabel_ self
     fun getReserveIndicator self = (GtkMenuItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getReserveIndicator_ self
     fun getRightJustified self = (GtkMenuItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getRightJustified_ self
-    fun getSubmenu self = (GtkMenuItemClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getSubmenu_ self
+    fun getSubmenu self = (GtkMenuItemClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getSubmenu_ self
     fun getUseUnderline self = (GtkMenuItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseUnderline_ self
     fun select self = (GtkMenuItemClass.FFI.withPtr ---> I) select_ self
     fun setAccelPath self accelPath = (GtkMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setAccelPath_ (self & accelPath)

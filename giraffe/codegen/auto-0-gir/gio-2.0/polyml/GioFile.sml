@@ -178,7 +178,7 @@ structure GioFile :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioMountClass.PolyML.cPtr
           )
-      val getBasename_ = call (getSymbol "g_file_get_basename") (GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getBasename_ = call (getSymbol "g_file_get_basename") (GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getChild_ = call (getSymbol "g_file_get_child") (GioFileClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
       val getChildForDisplayName_ =
         call (getSymbol "g_file_get_child_for_display_name")
@@ -188,10 +188,10 @@ structure GioFile :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioFileClass.PolyML.cPtr
           )
-      val getParent_ = call (getSymbol "g_file_get_parent") (GioFileClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
+      val getParent_ = call (getSymbol "g_file_get_parent") (GioFileClass.PolyML.cPtr --> GioFileClass.PolyML.cOptPtr)
       val getParseName_ = call (getSymbol "g_file_get_parse_name") (GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getPath_ = call (getSymbol "g_file_get_path") (GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getRelativePath_ = call (getSymbol "g_file_get_relative_path") (GioFileClass.PolyML.cPtr &&> GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getPath_ = call (getSymbol "g_file_get_path") (GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getRelativePath_ = call (getSymbol "g_file_get_relative_path") (GioFileClass.PolyML.cPtr &&> GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getUri_ = call (getSymbol "g_file_get_uri") (GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getUriScheme_ = call (getSymbol "g_file_get_uri_scheme") (GioFileClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val hasParent_ = call (getSymbol "g_file_has_parent") (GioFileClass.PolyML.cPtr &&> GioFileClass.PolyML.cOptPtr --> GBool.PolyML.cVal)
@@ -919,7 +919,7 @@ structure GioFile :>
            & res
            & []
         )
-    fun getBasename self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getBasename_ self
+    fun getBasename self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getBasename_ self
     fun getChild self name = (GioFileClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getChild_ (self & name)
     fun getChildForDisplayName self displayName =
       (
@@ -934,10 +934,10 @@ structure GioFile :>
            & displayName
            & []
         )
-    fun getParent self = (GioFileClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getParent_ self
+    fun getParent self = (GioFileClass.FFI.withPtr ---> GioFileClass.FFI.fromOptPtr true) getParent_ self
     fun getParseName self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getParseName_ self
-    fun getPath self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getPath_ self
-    fun getRelativePath self descendant = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getRelativePath_ (self & descendant)
+    fun getPath self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getPath_ self
+    fun getRelativePath self descendant = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getRelativePath_ (self & descendant)
     fun getUri self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUri_ self
     fun getUriScheme self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUriScheme_ self
     fun hasParent self parent = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withOptPtr ---> GBool.FFI.fromVal) hasParent_ (self & parent)

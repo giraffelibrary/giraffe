@@ -36,13 +36,18 @@ structure GIRepositoryArgInfo :>
 
     fun isReturnValue _ = raise Fail "isReturnValue not implemented"
 
-    fun isOptional _ = raise Fail "isOptional not implemented"
+    fun isOptional info =
+      let
+        val _ & {optional, ...} & _ = (fromBase o fromArg) I info
+      in
+        optional
+      end
 
     fun mayBeNull info =
       let
-        val _ & {allowNone, ...} & _ = (fromBase o fromArg) I info
+        val _ & {nullable, ...} & _ = (fromBase o fromArg) I info
       in
-        allowNone
+        nullable
       end
 
     fun getOwnershipTransfer info =

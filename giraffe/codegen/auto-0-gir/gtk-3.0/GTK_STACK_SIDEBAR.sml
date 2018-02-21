@@ -8,7 +8,7 @@ signature GTK_STACK_SIDEBAR =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val getStack : 'a class -> base stack_class
+    val getStack : 'a class -> base stack_class option
     val setStack :
       'a class
        -> 'b stack_class

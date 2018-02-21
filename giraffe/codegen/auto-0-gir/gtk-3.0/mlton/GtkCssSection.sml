@@ -7,7 +7,7 @@ structure GtkCssSection :>
     val getEndLine_ = _import "gtk_css_section_get_end_line" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> GUInt.FFI.val_;
     val getEndPosition_ = _import "gtk_css_section_get_end_position" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> GUInt.FFI.val_;
     val getFile_ = _import "gtk_css_section_get_file" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
-    val getParent_ = _import "gtk_css_section_get_parent" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p;
+    val getParent_ = _import "gtk_css_section_get_parent" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> unit GtkCssSectionRecord.FFI.p;
     val getSectionType_ = _import "gtk_css_section_get_section_type" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> GtkCssSectionType.FFI.val_;
     val getStartLine_ = _import "gtk_css_section_get_start_line" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> GUInt.FFI.val_;
     val getStartPosition_ = _import "gtk_css_section_get_start_position" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> GUInt.FFI.val_;
@@ -17,7 +17,7 @@ structure GtkCssSection :>
     fun getEndLine self = (GtkCssSectionRecord.FFI.withPtr ---> GUInt.FFI.fromVal) getEndLine_ self
     fun getEndPosition self = (GtkCssSectionRecord.FFI.withPtr ---> GUInt.FFI.fromVal) getEndPosition_ self
     fun getFile self = (GtkCssSectionRecord.FFI.withPtr ---> GioFileClass.FFI.fromPtr false) getFile_ self
-    fun getParent self = (GtkCssSectionRecord.FFI.withPtr ---> GtkCssSectionRecord.FFI.fromPtr false) getParent_ self
+    fun getParent self = (GtkCssSectionRecord.FFI.withPtr ---> GtkCssSectionRecord.FFI.fromOptPtr false) getParent_ self
     fun getSectionType self = (GtkCssSectionRecord.FFI.withPtr ---> GtkCssSectionType.FFI.fromVal) getSectionType_ self
     fun getStartLine self = (GtkCssSectionRecord.FFI.withPtr ---> GUInt.FFI.fromVal) getStartLine_ self
     fun getStartPosition self = (GtkCssSectionRecord.FFI.withPtr ---> GUInt.FFI.fromVal) getStartPosition_ self

@@ -17,11 +17,11 @@ signature GTK_MENU_ITEM =
     val newWithMnemonic : string -> base class
     val activate : 'a class -> unit
     val deselect : 'a class -> unit
-    val getAccelPath : 'a class -> string
+    val getAccelPath : 'a class -> string option
     val getLabel : 'a class -> string
     val getReserveIndicator : 'a class -> bool
     val getRightJustified : 'a class -> bool
-    val getSubmenu : 'a class -> base widget_class
+    val getSubmenu : 'a class -> base widget_class option
     val getUseUnderline : 'a class -> bool
     val select : 'a class -> unit
     val setAccelPath :

@@ -12,7 +12,7 @@ structure GtkFlowBox :>
     val getType_ = _import "gtk_flow_box_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_flow_box_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val getActivateOnSingleClick_ = _import "gtk_flow_box_get_activate_on_single_click" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p -> GBool.FFI.val_;
-    val getChildAtIndex_ = fn x1 & x2 => (_import "gtk_flow_box_get_child_at_index" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p * GInt.FFI.val_ -> GtkFlowBoxChildClass.FFI.notnull GtkFlowBoxChildClass.FFI.p;) (x1, x2)
+    val getChildAtIndex_ = fn x1 & x2 => (_import "gtk_flow_box_get_child_at_index" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p * GInt.FFI.val_ -> unit GtkFlowBoxChildClass.FFI.p;) (x1, x2)
     val getChildAtPos_ =
       fn
         x1
@@ -23,7 +23,7 @@ structure GtkFlowBox :>
               GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> GtkFlowBoxChildClass.FFI.notnull GtkFlowBoxChildClass.FFI.p;
+               -> unit GtkFlowBoxChildClass.FFI.p;
           )
             (
               x1,
@@ -83,13 +83,13 @@ structure GtkFlowBox :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkFlowBoxClass.FFI.fromPtr false) new_ ()
     fun getActivateOnSingleClick self = (GtkFlowBoxClass.FFI.withPtr ---> GBool.FFI.fromVal) getActivateOnSingleClick_ self
-    fun getChildAtIndex self idx = (GtkFlowBoxClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkFlowBoxChildClass.FFI.fromPtr false) getChildAtIndex_ (self & idx)
+    fun getChildAtIndex self idx = (GtkFlowBoxClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkFlowBoxChildClass.FFI.fromOptPtr false) getChildAtIndex_ (self & idx)
     fun getChildAtPos self (x, y) =
       (
         GtkFlowBoxClass.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         ---> GtkFlowBoxChildClass.FFI.fromPtr false
+         ---> GtkFlowBoxChildClass.FFI.fromOptPtr false
       )
         getChildAtPos_
         (

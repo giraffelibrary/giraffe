@@ -3,5 +3,5 @@ signature PANGO_CAIRO_FONT =
     type 'a class
     type t = base class
     val getType : unit -> GObject.Type.t
-    val getScaledFont : 'a class -> Cairo.ScaledFontRecord.t
+    val getScaledFont : 'a class -> Cairo.ScaledFontRecord.t option
   end

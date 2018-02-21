@@ -7,14 +7,14 @@ signature GDK_FRAME_CLOCK =
     val getType : unit -> GObject.Type.t
     val beginUpdating : 'a class -> unit
     val endUpdating : 'a class -> unit
-    val getCurrentTimings : 'a class -> frame_timings_t
+    val getCurrentTimings : 'a class -> frame_timings_t option
     val getFrameCounter : 'a class -> LargeInt.int
     val getFrameTime : 'a class -> LargeInt.int
     val getHistoryStart : 'a class -> LargeInt.int
     val getTimings :
       'a class
        -> LargeInt.int
-       -> frame_timings_t
+       -> frame_timings_t option
     val requestPhase :
       'a class
        -> frame_clock_phase_t

@@ -6,7 +6,7 @@ signature ATK_DOCUMENT =
     val getAttributeValue :
       'a class
        -> string
-       -> string
+       -> string option
     val getCurrentPageNumber : 'a class -> LargeInt.int
     val getDocumentType : 'a class -> string
     val getLocale : 'a class -> string

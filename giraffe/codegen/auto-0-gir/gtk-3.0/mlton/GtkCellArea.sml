@@ -300,7 +300,7 @@ structure GtkCellArea :>
     val getEditWidget_ = _import "gtk_cell_area_get_edit_widget" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkCellEditableClass.FFI.notnull GtkCellEditableClass.FFI.p;
     val getEditedCell_ = _import "gtk_cell_area_get_edited_cell" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p;
     val getFocusCell_ = _import "gtk_cell_area_get_focus_cell" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p;
-    val getFocusFromSibling_ = fn x1 & x2 => (_import "gtk_cell_area_get_focus_from_sibling" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p -> GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p;) (x1, x2)
+    val getFocusFromSibling_ = fn x1 & x2 => (_import "gtk_cell_area_get_focus_from_sibling" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p -> unit GtkCellRendererClass.FFI.p;) (x1, x2)
     val getPreferredHeight_ =
       fn
         x1
@@ -817,7 +817,7 @@ structure GtkCellArea :>
     fun getEditWidget self = (GtkCellAreaClass.FFI.withPtr ---> GtkCellEditableClass.FFI.fromPtr false) getEditWidget_ self
     fun getEditedCell self = (GtkCellAreaClass.FFI.withPtr ---> GtkCellRendererClass.FFI.fromPtr false) getEditedCell_ self
     fun getFocusCell self = (GtkCellAreaClass.FFI.withPtr ---> GtkCellRendererClass.FFI.fromPtr false) getFocusCell_ self
-    fun getFocusFromSibling self renderer = (GtkCellAreaClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> GtkCellRendererClass.FFI.fromPtr false) getFocusFromSibling_ (self & renderer)
+    fun getFocusFromSibling self renderer = (GtkCellAreaClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> GtkCellRendererClass.FFI.fromOptPtr false) getFocusFromSibling_ (self & renderer)
     fun getPreferredHeight self (context, widget) =
       let
         val minimumHeight

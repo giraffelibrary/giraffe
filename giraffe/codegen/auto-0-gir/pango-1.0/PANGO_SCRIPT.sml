@@ -126,5 +126,5 @@ signature PANGO_SCRIPT =
     type language_t
     val getType : unit -> GObject.Type.t
     val forUnichar : char -> t
-    val getSampleLanguage : t -> language_t
+    val getSampleLanguage : t -> language_t option
   end

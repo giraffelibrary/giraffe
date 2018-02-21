@@ -177,7 +177,7 @@ structure GtkCellRenderer :>
              &&> GdkRectangleRecord.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
              &&> GtkCellRendererState.PolyML.cVal
-             --> GtkCellEditableClass.PolyML.cPtr
+             --> GtkCellEditableClass.PolyML.cOptPtr
           )
       val stopEditing_ = call (getSymbol "gtk_cell_renderer_stop_editing") (GtkCellRendererClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
@@ -581,7 +581,7 @@ structure GtkCellRenderer :>
          &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkCellRendererState.FFI.withVal
-         ---> GtkCellEditableClass.FFI.fromPtr false
+         ---> GtkCellEditableClass.FFI.fromOptPtr false
       )
         startEditing_
         (

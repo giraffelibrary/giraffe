@@ -13,7 +13,7 @@ signature GTK_LABEL =
     val new : string option -> base class
     val newWithMnemonic : string option -> base class
     val getAngle : 'a class -> real
-    val getAttributes : 'a class -> Pango.AttrListRecord.t
+    val getAttributes : 'a class -> Pango.AttrListRecord.t option
     val getCurrentUri : 'a class -> string
     val getEllipsize : 'a class -> Pango.EllipsizeMode.t
     val getJustify : 'a class -> justification_t
@@ -25,7 +25,7 @@ signature GTK_LABEL =
     val getLines : 'a class -> LargeInt.int
     val getMaxWidthChars : 'a class -> LargeInt.int
     val getMnemonicKeyval : 'a class -> LargeInt.int
-    val getMnemonicWidget : 'a class -> base widget_class
+    val getMnemonicWidget : 'a class -> base widget_class option
     val getSelectable : 'a class -> bool
     val getSelectionBounds : 'a class -> (LargeInt.int * LargeInt.int) option
     val getSingleLineMode : 'a class -> bool

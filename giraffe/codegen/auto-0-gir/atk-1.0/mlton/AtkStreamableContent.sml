@@ -28,7 +28,7 @@ structure AtkStreamableContent :>
               AtkStreamableContentClass.FFI.notnull AtkStreamableContentClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> unit Utf8.FFI.out_p;
           )
             (
               x1,
@@ -41,5 +41,5 @@ structure AtkStreamableContent :>
     fun getMimeType self i = (AtkStreamableContentClass.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) getMimeType_ (self & i)
     fun getNMimeTypes self = (AtkStreamableContentClass.FFI.withPtr ---> GInt.FFI.fromVal) getNMimeTypes_ self
     fun getStream self mimeType = (AtkStreamableContentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibIOChannelRecord.FFI.fromPtr true) getStream_ (self & mimeType)
-    fun getUri self mimeType = (AtkStreamableContentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUri_ (self & mimeType)
+    fun getUri self mimeType = (AtkStreamableContentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getUri_ (self & mimeType)
   end

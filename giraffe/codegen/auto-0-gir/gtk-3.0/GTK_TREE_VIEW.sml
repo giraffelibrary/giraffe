@@ -85,7 +85,7 @@ signature GTK_TREE_VIEW =
       'a class
        -> tree_path_t option * 'b tree_view_column_class option
        -> Gdk.RectangleRecord.t
-    val getBinWindow : 'a class -> base Gdk.WindowClass.class
+    val getBinWindow : 'a class -> base Gdk.WindowClass.class option
     val getCellArea :
       'a class
        -> tree_path_t option * 'b tree_view_column_class option
@@ -93,7 +93,7 @@ signature GTK_TREE_VIEW =
     val getColumn :
       'a class
        -> LargeInt.int
-       -> base tree_view_column_class
+       -> base tree_view_column_class option
     val getCursor : 'a class -> tree_path_t * base tree_view_column_class
     val getDestRowAtPos :
       'a class
@@ -111,7 +111,7 @@ signature GTK_TREE_VIEW =
     val getHoverExpand : 'a class -> bool
     val getHoverSelection : 'a class -> bool
     val getLevelIndentation : 'a class -> LargeInt.int
-    val getModel : 'a class -> base tree_model_class
+    val getModel : 'a class -> base tree_model_class option
     val getNColumns : 'a class -> LargeInt.int
     val getPathAtPos :
       'a class

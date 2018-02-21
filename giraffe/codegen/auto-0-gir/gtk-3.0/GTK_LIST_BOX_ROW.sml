@@ -10,7 +10,7 @@ signature GTK_LIST_BOX_ROW =
     val new : unit -> base class
     val changed : 'a class -> unit
     val getActivatable : 'a class -> bool
-    val getHeader : 'a class -> base widget_class
+    val getHeader : 'a class -> base widget_class option
     val getIndex : 'a class -> LargeInt.int
     val getSelectable : 'a class -> bool
     val isSelected : 'a class -> bool

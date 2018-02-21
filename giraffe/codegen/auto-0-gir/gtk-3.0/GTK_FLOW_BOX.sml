@@ -18,11 +18,11 @@ signature GTK_FLOW_BOX =
     val getChildAtIndex :
       'a class
        -> LargeInt.int
-       -> base flow_box_child_class
+       -> base flow_box_child_class option
     val getChildAtPos :
       'a class
        -> LargeInt.int * LargeInt.int
-       -> base flow_box_child_class
+       -> base flow_box_child_class option
     val getColumnSpacing : 'a class -> LargeInt.int
     val getHomogeneous : 'a class -> bool
     val getMaxChildrenPerLine : 'a class -> LargeInt.int

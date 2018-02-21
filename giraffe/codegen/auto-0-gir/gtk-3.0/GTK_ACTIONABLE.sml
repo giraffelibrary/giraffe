@@ -3,7 +3,7 @@ signature GTK_ACTIONABLE =
     type 'a class
     type t = base class
     val getType : unit -> GObject.Type.t
-    val getActionName : 'a class -> string
+    val getActionName : 'a class -> string option
     val getActionTargetValue : 'a class -> GLib.VariantRecord.t
     val setActionName :
       'a class

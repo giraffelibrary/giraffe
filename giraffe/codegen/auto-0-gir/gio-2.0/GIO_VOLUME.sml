@@ -19,7 +19,7 @@ signature GIO_VOLUME =
        -> 'b async_result_class
        -> unit
     val enumerateIdentifiers : 'a class -> string list
-    val getActivationRoot : 'a class -> base file_class
+    val getActivationRoot : 'a class -> base file_class option
     val getDrive : 'a class -> base drive_class
     val getIcon : 'a class -> base icon_class
     val getIdentifier :

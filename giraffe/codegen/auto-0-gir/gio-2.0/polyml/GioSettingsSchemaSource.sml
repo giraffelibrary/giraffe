@@ -37,7 +37,7 @@ structure GioSettingsSchemaSource :>
             GioSettingsSchemaSourceRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GBool.PolyML.cVal
-             --> GioSettingsSchemaRecord.PolyML.cPtr
+             --> GioSettingsSchemaRecord.PolyML.cOptPtr
           )
       val getDefault_ = call (getSymbol "g_settings_schema_source_get_default") (cVoid --> GioSettingsSchemaSourceRecord.PolyML.cPtr)
     end
@@ -93,7 +93,7 @@ structure GioSettingsSchemaSource :>
         GioSettingsSchemaSourceRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GBool.FFI.withVal
-         ---> GioSettingsSchemaRecord.FFI.fromPtr true
+         ---> GioSettingsSchemaRecord.FFI.fromOptPtr true
       )
         lookup_
         (

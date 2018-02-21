@@ -10,5 +10,5 @@ signature GIO_ICON =
        -> 'b class option
        -> bool
     val serialize : 'a class -> GLib.VariantRecord.t
-    val toString : 'a class -> string
+    val toString : 'a class -> string option
   end

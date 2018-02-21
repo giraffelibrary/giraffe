@@ -27,7 +27,7 @@ structure GtkStack :>
              &&> Utf8.PolyML.cInPtr
              --> cVoid
           )
-      val getChildByName_ = call (getSymbol "gtk_stack_get_child_by_name") (GtkStackClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getChildByName_ = call (getSymbol "gtk_stack_get_child_by_name") (GtkStackClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getHhomogeneous_ = call (getSymbol "gtk_stack_get_hhomogeneous") (GtkStackClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getHomogeneous_ = call (getSymbol "gtk_stack_get_homogeneous") (GtkStackClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getInterpolateSize_ = call (getSymbol "gtk_stack_get_interpolate_size") (GtkStackClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -35,8 +35,8 @@ structure GtkStack :>
       val getTransitionRunning_ = call (getSymbol "gtk_stack_get_transition_running") (GtkStackClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getTransitionType_ = call (getSymbol "gtk_stack_get_transition_type") (GtkStackClass.PolyML.cPtr --> GtkStackTransitionType.PolyML.cVal)
       val getVhomogeneous_ = call (getSymbol "gtk_stack_get_vhomogeneous") (GtkStackClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getVisibleChild_ = call (getSymbol "gtk_stack_get_visible_child") (GtkStackClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getVisibleChildName_ = call (getSymbol "gtk_stack_get_visible_child_name") (GtkStackClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getVisibleChild_ = call (getSymbol "gtk_stack_get_visible_child") (GtkStackClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
+      val getVisibleChildName_ = call (getSymbol "gtk_stack_get_visible_child_name") (GtkStackClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val setHhomogeneous_ = call (getSymbol "gtk_stack_set_hhomogeneous") (GtkStackClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setHomogeneous_ = call (getSymbol "gtk_stack_set_homogeneous") (GtkStackClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setInterpolateSize_ = call (getSymbol "gtk_stack_set_interpolate_size") (GtkStackClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
@@ -97,7 +97,7 @@ structure GtkStack :>
            & name
            & title
         )
-    fun getChildByName self name = (GtkStackClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getChildByName_ (self & name)
+    fun getChildByName self name = (GtkStackClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getChildByName_ (self & name)
     fun getHhomogeneous self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getHhomogeneous_ self
     fun getHomogeneous self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getHomogeneous_ self
     fun getInterpolateSize self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getInterpolateSize_ self
@@ -105,8 +105,8 @@ structure GtkStack :>
     fun getTransitionRunning self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getTransitionRunning_ self
     fun getTransitionType self = (GtkStackClass.FFI.withPtr ---> GtkStackTransitionType.FFI.fromVal) getTransitionType_ self
     fun getVhomogeneous self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getVhomogeneous_ self
-    fun getVisibleChild self = (GtkStackClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getVisibleChild_ self
-    fun getVisibleChildName self = (GtkStackClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getVisibleChildName_ self
+    fun getVisibleChild self = (GtkStackClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getVisibleChild_ self
+    fun getVisibleChildName self = (GtkStackClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getVisibleChildName_ self
     fun setHhomogeneous self hhomogeneous = (GtkStackClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHhomogeneous_ (self & hhomogeneous)
     fun setHomogeneous self homogeneous = (GtkStackClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
     fun setInterpolateSize self interpolateSize = (GtkStackClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setInterpolateSize_ (self & interpolateSize)

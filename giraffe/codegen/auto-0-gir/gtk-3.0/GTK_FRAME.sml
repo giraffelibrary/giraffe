@@ -9,9 +9,9 @@ signature GTK_FRAME =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : string option -> base class
-    val getLabel : 'a class -> string
+    val getLabel : 'a class -> string option
     val getLabelAlign : 'a class -> real * real
-    val getLabelWidget : 'a class -> base widget_class
+    val getLabelWidget : 'a class -> base widget_class option
     val getShadowType : 'a class -> shadow_type_t
     val setLabel :
       'a class

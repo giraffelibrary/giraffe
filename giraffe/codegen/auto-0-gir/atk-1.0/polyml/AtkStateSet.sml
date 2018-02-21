@@ -35,7 +35,7 @@ structure AtkStateSet :>
              --> GBool.PolyML.cVal
           )
       val isEmpty_ = call (getSymbol "atk_state_set_is_empty") (AtkStateSetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val orSets_ = call (getSymbol "atk_state_set_or_sets") (AtkStateSetClass.PolyML.cPtr &&> AtkStateSetClass.PolyML.cPtr --> AtkStateSetClass.PolyML.cPtr)
+      val orSets_ = call (getSymbol "atk_state_set_or_sets") (AtkStateSetClass.PolyML.cPtr &&> AtkStateSetClass.PolyML.cPtr --> AtkStateSetClass.PolyML.cOptPtr)
       val removeState_ = call (getSymbol "atk_state_set_remove_state") (AtkStateSetClass.PolyML.cPtr &&> AtkStateType.PolyML.cVal --> GBool.PolyML.cVal)
       val xorSets_ = call (getSymbol "atk_state_set_xor_sets") (AtkStateSetClass.PolyML.cPtr &&> AtkStateSetClass.PolyML.cPtr --> AtkStateSetClass.PolyML.cPtr)
     end
@@ -87,7 +87,7 @@ structure AtkStateSet :>
         retVal
       end
     fun isEmpty self = (AtkStateSetClass.FFI.withPtr ---> GBool.FFI.fromVal) isEmpty_ self
-    fun orSets self compareSet = (AtkStateSetClass.FFI.withPtr &&&> AtkStateSetClass.FFI.withPtr ---> AtkStateSetClass.FFI.fromPtr true) orSets_ (self & compareSet)
+    fun orSets self compareSet = (AtkStateSetClass.FFI.withPtr &&&> AtkStateSetClass.FFI.withPtr ---> AtkStateSetClass.FFI.fromOptPtr true) orSets_ (self & compareSet)
     fun removeState self type' = (AtkStateSetClass.FFI.withPtr &&&> AtkStateType.FFI.withVal ---> GBool.FFI.fromVal) removeState_ (self & type')
     fun xorSets self compareSet = (AtkStateSetClass.FFI.withPtr &&&> AtkStateSetClass.FFI.withPtr ---> AtkStateSetClass.FFI.fromPtr true) xorSets_ (self & compareSet)
   end

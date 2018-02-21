@@ -5,7 +5,7 @@ structure GtkGestureSingle :>
     val getType_ = _import "gtk_gesture_single_get_type" : unit -> GObjectType.FFI.val_;
     val getButton_ = _import "gtk_gesture_single_get_button" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p -> GUInt.FFI.val_;
     val getCurrentButton_ = _import "gtk_gesture_single_get_current_button" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p -> GUInt.FFI.val_;
-    val getCurrentSequence_ = _import "gtk_gesture_single_get_current_sequence" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p -> GdkEventSequenceRecord.FFI.notnull GdkEventSequenceRecord.FFI.p;
+    val getCurrentSequence_ = _import "gtk_gesture_single_get_current_sequence" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p -> unit GdkEventSequenceRecord.FFI.p;
     val getExclusive_ = _import "gtk_gesture_single_get_exclusive" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p -> GBool.FFI.val_;
     val getTouchOnly_ = _import "gtk_gesture_single_get_touch_only" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p -> GBool.FFI.val_;
     val setButton_ = fn x1 & x2 => (_import "gtk_gesture_single_set_button" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
@@ -16,7 +16,7 @@ structure GtkGestureSingle :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getButton self = (GtkGestureSingleClass.FFI.withPtr ---> GUInt.FFI.fromVal) getButton_ self
     fun getCurrentButton self = (GtkGestureSingleClass.FFI.withPtr ---> GUInt.FFI.fromVal) getCurrentButton_ self
-    fun getCurrentSequence self = (GtkGestureSingleClass.FFI.withPtr ---> GdkEventSequenceRecord.FFI.fromPtr true) getCurrentSequence_ self
+    fun getCurrentSequence self = (GtkGestureSingleClass.FFI.withPtr ---> GdkEventSequenceRecord.FFI.fromOptPtr true) getCurrentSequence_ self
     fun getExclusive self = (GtkGestureSingleClass.FFI.withPtr ---> GBool.FFI.fromVal) getExclusive_ self
     fun getTouchOnly self = (GtkGestureSingleClass.FFI.withPtr ---> GBool.FFI.fromVal) getTouchOnly_ self
     fun setButton self button = (GtkGestureSingleClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setButton_ (self & button)

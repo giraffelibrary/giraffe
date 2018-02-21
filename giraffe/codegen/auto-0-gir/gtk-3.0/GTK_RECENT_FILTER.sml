@@ -33,7 +33,7 @@ signature GTK_RECENT_FILTER =
       'a class
        -> recent_filter_info_t
        -> bool
-    val getName : 'a class -> string
+    val getName : 'a class -> string option
     val getNeeded : 'a class -> recent_filter_flags_t
     val setName :
       'a class

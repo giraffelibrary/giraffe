@@ -65,8 +65,8 @@ structure GtkWindow :>
              --> cVoid
           )
       val getAcceptFocus_ = call (getSymbol "gtk_window_get_accept_focus") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getApplication_ = call (getSymbol "gtk_window_get_application") (GtkWindowClass.PolyML.cPtr --> GtkApplicationClass.PolyML.cPtr)
-      val getAttachedTo_ = call (getSymbol "gtk_window_get_attached_to") (GtkWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getApplication_ = call (getSymbol "gtk_window_get_application") (GtkWindowClass.PolyML.cPtr --> GtkApplicationClass.PolyML.cOptPtr)
+      val getAttachedTo_ = call (getSymbol "gtk_window_get_attached_to") (GtkWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getDecorated_ = call (getSymbol "gtk_window_get_decorated") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getDefaultSize_ =
         call (getSymbol "gtk_window_get_default_size")
@@ -76,10 +76,10 @@ structure GtkWindow :>
              &&> GInt.PolyML.cRef
              --> cVoid
           )
-      val getDefaultWidget_ = call (getSymbol "gtk_window_get_default_widget") (GtkWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getDefaultWidget_ = call (getSymbol "gtk_window_get_default_widget") (GtkWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getDeletable_ = call (getSymbol "gtk_window_get_deletable") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getDestroyWithParent_ = call (getSymbol "gtk_window_get_destroy_with_parent") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getFocus_ = call (getSymbol "gtk_window_get_focus") (GtkWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getFocus_ = call (getSymbol "gtk_window_get_focus") (GtkWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getFocusOnMap_ = call (getSymbol "gtk_window_get_focus_on_map") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getFocusVisible_ = call (getSymbol "gtk_window_get_focus_visible") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getGravity_ = call (getSymbol "gtk_window_get_gravity") (GtkWindowClass.PolyML.cPtr --> GdkGravity.PolyML.cVal)
@@ -87,7 +87,7 @@ structure GtkWindow :>
       val getHasResizeGrip_ = call (getSymbol "gtk_window_get_has_resize_grip") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getHideTitlebarWhenMaximized_ = call (getSymbol "gtk_window_get_hide_titlebar_when_maximized") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getIcon_ = call (getSymbol "gtk_window_get_icon") (GtkWindowClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
-      val getIconName_ = call (getSymbol "gtk_window_get_icon_name") (GtkWindowClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getIconName_ = call (getSymbol "gtk_window_get_icon_name") (GtkWindowClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getMnemonicModifier_ = call (getSymbol "gtk_window_get_mnemonic_modifier") (GtkWindowClass.PolyML.cPtr --> GdkModifierType.PolyML.cVal)
       val getMnemonicsVisible_ = call (getSymbol "gtk_window_get_mnemonics_visible") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getModal_ = call (getSymbol "gtk_window_get_modal") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -102,7 +102,7 @@ structure GtkWindow :>
           )
       val getResizable_ = call (getSymbol "gtk_window_get_resizable") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getResizeGripArea_ = call (getSymbol "gtk_window_get_resize_grip_area") (GtkWindowClass.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getRole_ = call (getSymbol "gtk_window_get_role") (GtkWindowClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getRole_ = call (getSymbol "gtk_window_get_role") (GtkWindowClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getScreen_ = call (getSymbol "gtk_window_get_screen") (GtkWindowClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
       val getSize_ =
         call (getSymbol "gtk_window_get_size")
@@ -114,9 +114,9 @@ structure GtkWindow :>
           )
       val getSkipPagerHint_ = call (getSymbol "gtk_window_get_skip_pager_hint") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSkipTaskbarHint_ = call (getSymbol "gtk_window_get_skip_taskbar_hint") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getTitle_ = call (getSymbol "gtk_window_get_title") (GtkWindowClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getTitlebar_ = call (getSymbol "gtk_window_get_titlebar") (GtkWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getTransientFor_ = call (getSymbol "gtk_window_get_transient_for") (GtkWindowClass.PolyML.cPtr --> GtkWindowClass.PolyML.cPtr)
+      val getTitle_ = call (getSymbol "gtk_window_get_title") (GtkWindowClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getTitlebar_ = call (getSymbol "gtk_window_get_titlebar") (GtkWindowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
+      val getTransientFor_ = call (getSymbol "gtk_window_get_transient_for") (GtkWindowClass.PolyML.cPtr --> GtkWindowClass.PolyML.cOptPtr)
       val getTypeHint_ = call (getSymbol "gtk_window_get_type_hint") (GtkWindowClass.PolyML.cPtr --> GdkWindowTypeHint.PolyML.cVal)
       val getUrgencyHint_ = call (getSymbol "gtk_window_get_urgency_hint") (GtkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getWindowType_ = call (getSymbol "gtk_window_get_window_type") (GtkWindowClass.PolyML.cPtr --> GtkWindowType.PolyML.cVal)
@@ -357,8 +357,8 @@ structure GtkWindow :>
            & monitor
         )
     fun getAcceptFocus self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getAcceptFocus_ self
-    fun getApplication self = (GtkWindowClass.FFI.withPtr ---> GtkApplicationClass.FFI.fromPtr false) getApplication_ self
-    fun getAttachedTo self = (GtkWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getAttachedTo_ self
+    fun getApplication self = (GtkWindowClass.FFI.withPtr ---> GtkApplicationClass.FFI.fromOptPtr false) getApplication_ self
+    fun getAttachedTo self = (GtkWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getAttachedTo_ self
     fun getDecorated self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getDecorated_ self
     fun getDefaultSize self =
       let
@@ -382,10 +382,10 @@ structure GtkWindow :>
       in
         (width, height)
       end
-    fun getDefaultWidget self = (GtkWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getDefaultWidget_ self
+    fun getDefaultWidget self = (GtkWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getDefaultWidget_ self
     fun getDeletable self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getDeletable_ self
     fun getDestroyWithParent self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getDestroyWithParent_ self
-    fun getFocus self = (GtkWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getFocus_ self
+    fun getFocus self = (GtkWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getFocus_ self
     fun getFocusOnMap self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getFocusOnMap_ self
     fun getFocusVisible self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getFocusVisible_ self
     fun getGravity self = (GtkWindowClass.FFI.withPtr ---> GdkGravity.FFI.fromVal) getGravity_ self
@@ -393,7 +393,7 @@ structure GtkWindow :>
     fun getHasResizeGrip self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasResizeGrip_ self
     fun getHideTitlebarWhenMaximized self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getHideTitlebarWhenMaximized_ self
     fun getIcon self = (GtkWindowClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getIcon_ self
-    fun getIconName self = (GtkWindowClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getIconName_ self
+    fun getIconName self = (GtkWindowClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getIconName_ self
     fun getMnemonicModifier self = (GtkWindowClass.FFI.withPtr ---> GdkModifierType.FFI.fromVal) getMnemonicModifier_ self
     fun getMnemonicsVisible self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getMnemonicsVisible_ self
     fun getModal self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getModal_ self
@@ -427,7 +427,7 @@ structure GtkWindow :>
       in
         if retVal then SOME rect else NONE
       end
-    fun getRole self = (GtkWindowClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getRole_ self
+    fun getRole self = (GtkWindowClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getRole_ self
     fun getScreen self = (GtkWindowClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
     fun getSize self =
       let
@@ -453,9 +453,9 @@ structure GtkWindow :>
       end
     fun getSkipPagerHint self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getSkipPagerHint_ self
     fun getSkipTaskbarHint self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getSkipTaskbarHint_ self
-    fun getTitle self = (GtkWindowClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTitle_ self
-    fun getTitlebar self = (GtkWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getTitlebar_ self
-    fun getTransientFor self = (GtkWindowClass.FFI.withPtr ---> GtkWindowClass.FFI.fromPtr false) getTransientFor_ self
+    fun getTitle self = (GtkWindowClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getTitle_ self
+    fun getTitlebar self = (GtkWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getTitlebar_ self
+    fun getTransientFor self = (GtkWindowClass.FFI.withPtr ---> GtkWindowClass.FFI.fromOptPtr false) getTransientFor_ self
     fun getTypeHint self = (GtkWindowClass.FFI.withPtr ---> GdkWindowTypeHint.FFI.fromVal) getTypeHint_ self
     fun getUrgencyHint self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getUrgencyHint_ self
     fun getWindowType self = (GtkWindowClass.FFI.withPtr ---> GtkWindowType.FFI.fromVal) getWindowType_ self

@@ -12,7 +12,7 @@ structure GtkAssistant :>
     val commit_ = _import "gtk_assistant_commit" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> unit;
     val getCurrentPage_ = _import "gtk_assistant_get_current_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> GInt.FFI.val_;
     val getNPages_ = _import "gtk_assistant_get_n_pages" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> GInt.FFI.val_;
-    val getNthPage_ = fn x1 & x2 => (_import "gtk_assistant_get_nth_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GInt.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
+    val getNthPage_ = fn x1 & x2 => (_import "gtk_assistant_get_nth_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GInt.FFI.val_ -> unit GtkWidgetClass.FFI.p;) (x1, x2)
     val getPageComplete_ = fn x1 & x2 => (_import "gtk_assistant_get_page_complete" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val getPageHasPadding_ = fn x1 & x2 => (_import "gtk_assistant_get_page_has_padding" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val getPageHeaderImage_ = fn x1 & x2 => (_import "gtk_assistant_get_page_header_image" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;) (x1, x2)
@@ -161,7 +161,7 @@ structure GtkAssistant :>
     fun commit self = (GtkAssistantClass.FFI.withPtr ---> I) commit_ self
     fun getCurrentPage self = (GtkAssistantClass.FFI.withPtr ---> GInt.FFI.fromVal) getCurrentPage_ self
     fun getNPages self = (GtkAssistantClass.FFI.withPtr ---> GInt.FFI.fromVal) getNPages_ self
-    fun getNthPage self pageNum = (GtkAssistantClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getNthPage_ (self & pageNum)
+    fun getNthPage self pageNum = (GtkAssistantClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getNthPage_ (self & pageNum)
     fun getPageComplete self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getPageComplete_ (self & page)
     fun getPageHasPadding self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getPageHasPadding_ (self & page)
     fun getPageHeaderImage self page = (GtkAssistantClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPageHeaderImage_ (self & page)

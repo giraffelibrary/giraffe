@@ -22,11 +22,11 @@ signature GTK_LIST_BOX =
     val getRowAtIndex :
       'a class
        -> LargeInt.int
-       -> base list_box_row_class
+       -> base list_box_row_class option
     val getRowAtY :
       'a class
        -> LargeInt.int
-       -> base list_box_row_class
+       -> base list_box_row_class option
     val getSelectedRow : 'a class -> base list_box_row_class
     val getSelectionMode : 'a class -> selection_mode_t
     val insert :

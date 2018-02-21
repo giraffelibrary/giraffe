@@ -20,7 +20,7 @@ signature GDK_DEVICE =
     type t = base class
     val getType : unit -> GObject.Type.t
     val grabInfoLibgtkOnly : 'a display_class * 'b class -> (base window_class * bool) option
-    val getAssociatedDevice : 'a class -> base class
+    val getAssociatedDevice : 'a class -> base class option
     val getAxes : 'a class -> axis_flags_t
     val getAxisUse :
       'a class
@@ -33,7 +33,7 @@ signature GDK_DEVICE =
       'a class
        -> LargeInt.int
        -> (LargeInt.int * modifier_type_t) option
-    val getLastEventWindow : 'a class -> base window_class
+    val getLastEventWindow : 'a class -> base window_class option
     val getMode : 'a class -> input_mode_t
     val getNAxes : 'a class -> LargeInt.int
     val getNKeys : 'a class -> LargeInt.int
@@ -48,18 +48,18 @@ signature GDK_DEVICE =
        -> base screen_class
            * real
            * real
-    val getProductId : 'a class -> string
+    val getProductId : 'a class -> string option
     val getSeat : 'a class -> base seat_class
     val getSource : 'a class -> input_source_t
-    val getVendorId : 'a class -> string
+    val getVendorId : 'a class -> string option
     val getWindowAtPosition :
       'a class
-       -> base window_class
+       -> base window_class option
            * LargeInt.int
            * LargeInt.int
     val getWindowAtPositionDouble :
       'a class
-       -> base window_class
+       -> base window_class option
            * real
            * real
     val grab :

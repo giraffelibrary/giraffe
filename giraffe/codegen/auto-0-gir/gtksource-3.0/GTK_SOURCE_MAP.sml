@@ -8,7 +8,7 @@ signature GTK_SOURCE_MAP =
     val asScrollable : 'a class -> base Gtk.ScrollableClass.class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val getView : 'a class -> base view_class
+    val getView : 'a class -> base view_class option
     val setView :
       'a class
        -> 'b view_class

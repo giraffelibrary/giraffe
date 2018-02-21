@@ -88,7 +88,7 @@ structure GtkIconTheme :>
                * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
                * GInt.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p;
+               -> unit GtkIconInfoClass.FFI.p;
           )
             (
               x1,
@@ -112,7 +112,7 @@ structure GtkIconTheme :>
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p;
+               -> unit GtkIconInfoClass.FFI.p;
           )
             (
               x1,
@@ -122,7 +122,7 @@ structure GtkIconTheme :>
               x5,
               x6
             )
-    val getExampleIconName_ = _import "gtk_icon_theme_get_example_icon_name" : GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getExampleIconName_ = _import "gtk_icon_theme_get_example_icon_name" : GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p -> unit Utf8.FFI.out_p;
     val getIconSizes_ =
       fn
         x1 & (x2, x3) =>
@@ -187,7 +187,7 @@ structure GtkIconTheme :>
                * GInt.FFI.val_
                * GtkIconLookupFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               -> unit GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -214,7 +214,7 @@ structure GtkIconTheme :>
                * GInt.FFI.val_
                * GtkIconLookupFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               -> unit GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -244,7 +244,7 @@ structure GtkIconTheme :>
                * unit GdkWindowClass.FFI.p
                * GtkIconLookupFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p;
+               -> unit CairoSurfaceRecord.FFI.p;
           )
             (
               x1,
@@ -268,7 +268,7 @@ structure GtkIconTheme :>
                * GioIconClass.FFI.notnull GioIconClass.FFI.p
                * GInt.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p;
+               -> unit GtkIconInfoClass.FFI.p;
           )
             (
               x1,
@@ -290,7 +290,7 @@ structure GtkIconTheme :>
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p;
+               -> unit GtkIconInfoClass.FFI.p;
           )
             (
               x1,
@@ -312,7 +312,7 @@ structure GtkIconTheme :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GInt.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p;
+               -> unit GtkIconInfoClass.FFI.p;
           )
             (
               x1,
@@ -336,7 +336,7 @@ structure GtkIconTheme :>
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p;
+               -> unit GtkIconInfoClass.FFI.p;
           )
             (
               x1,
@@ -437,7 +437,7 @@ structure GtkIconTheme :>
          &&&> Utf8CVector.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoClass.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         chooseIcon_
         (
@@ -460,7 +460,7 @@ structure GtkIconTheme :>
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoClass.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         chooseIconForScale_
         (
@@ -470,7 +470,7 @@ structure GtkIconTheme :>
            & scale
            & flags
         )
-    fun getExampleIconName self = (GtkIconThemeClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getExampleIconName_ self
+    fun getExampleIconName self = (GtkIconThemeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getExampleIconName_ self
     fun getIconSizes self iconName = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GIntCVector.FFI.fromPtr 1) getIconSizes_ (self & iconName)
     fun getSearchPath self =
       let
@@ -508,7 +508,7 @@ structure GtkIconTheme :>
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GdkPixbufPixbufClass.FFI.fromPtr true
+         ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
       )
         loadIcon_
         (
@@ -533,7 +533,7 @@ structure GtkIconTheme :>
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GdkPixbufPixbufClass.FFI.fromPtr true
+         ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
       )
         loadIconForScale_
         (
@@ -561,7 +561,7 @@ structure GtkIconTheme :>
          &&&> GdkWindowClass.FFI.withOptPtr
          &&&> GtkIconLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> CairoSurfaceRecord.FFI.fromPtr true
+         ---> CairoSurfaceRecord.FFI.fromOptPtr true
       )
         loadSurface_
         (
@@ -585,7 +585,7 @@ structure GtkIconTheme :>
          &&&> GioIconClass.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoClass.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         lookupByGicon_
         (
@@ -608,7 +608,7 @@ structure GtkIconTheme :>
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoClass.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         lookupByGiconForScale_
         (
@@ -630,7 +630,7 @@ structure GtkIconTheme :>
          &&&> Utf8.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoClass.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         lookupIcon_
         (
@@ -653,7 +653,7 @@ structure GtkIconTheme :>
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
-         ---> GtkIconInfoClass.FFI.fromPtr true
+         ---> GtkIconInfoClass.FFI.fromOptPtr true
       )
         lookupIconForScale_
         (

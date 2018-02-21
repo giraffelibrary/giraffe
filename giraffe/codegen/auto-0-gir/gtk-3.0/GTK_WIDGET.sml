@@ -119,7 +119,7 @@ signature GTK_WIDGET =
       'a class
        -> 'b Gdk.DragContextClass.class * target_list_t option
        -> Gdk.AtomRecord.t
-    val dragDestGetTargetList : 'a class -> target_list_t
+    val dragDestGetTargetList : 'a class -> target_list_t option
     val dragDestGetTrackMotion : 'a class -> bool
     val dragDestSet :
       'a class
@@ -152,7 +152,7 @@ signature GTK_WIDGET =
     val dragSourceAddImageTargets : 'a class -> unit
     val dragSourceAddTextTargets : 'a class -> unit
     val dragSourceAddUriTargets : 'a class -> unit
-    val dragSourceGetTargetList : 'a class -> target_list_t
+    val dragSourceGetTargetList : 'a class -> target_list_t option
     val dragSourceSet :
       'a class
        -> Gdk.ModifierType.t
@@ -196,7 +196,7 @@ signature GTK_WIDGET =
     val getActionGroup :
       'a class
        -> string
-       -> base Gio.ActionGroupClass.class
+       -> base Gio.ActionGroupClass.class option
     val getAllocatedBaseline : 'a class -> LargeInt.int
     val getAllocatedHeight : 'a class -> LargeInt.int
     val getAllocatedSize : 'a class -> allocation_t * LargeInt.int
@@ -205,7 +205,7 @@ signature GTK_WIDGET =
     val getAncestor :
       'a class
        -> GObject.Type.t
-       -> base class
+       -> base class option
     val getAppPaintable : 'a class -> bool
     val getCanDefault : 'a class -> bool
     val getCanFocus : 'a class -> bool
@@ -230,9 +230,9 @@ signature GTK_WIDGET =
     val getDoubleBuffered : 'a class -> bool
     val getEvents : 'a class -> LargeInt.int
     val getFocusOnClick : 'a class -> bool
-    val getFontMap : 'a class -> base Pango.FontMapClass.class
-    val getFontOptions : 'a class -> Cairo.FontOptionsRecord.t
-    val getFrameClock : 'a class -> base Gdk.FrameClockClass.class
+    val getFontMap : 'a class -> base Pango.FontMapClass.class option
+    val getFontOptions : 'a class -> Cairo.FontOptionsRecord.t option
+    val getFrameClock : 'a class -> base Gdk.FrameClockClass.class option
     val getHalign : 'a class -> align_t
     val getHasTooltip : 'a class -> bool
     val getHasWindow : 'a class -> bool
@@ -254,7 +254,7 @@ signature GTK_WIDGET =
     val getNoShowAll : 'a class -> bool
     val getOpacity : 'a class -> real
     val getPangoContext : 'a class -> base Pango.ContextClass.class
-    val getParent : 'a class -> base class
+    val getParent : 'a class -> base class option
     val getParentWindow : 'a class -> base Gdk.WindowClass.class
     val getPath : 'a class -> widget_path_t
     val getPointer : 'a class -> LargeInt.int * LargeInt.int
@@ -295,8 +295,8 @@ signature GTK_WIDGET =
       'a class
        -> GObject.Type.t * string
        -> base GObject.ObjectClass.class
-    val getTooltipMarkup : 'a class -> string
-    val getTooltipText : 'a class -> string
+    val getTooltipMarkup : 'a class -> string option
+    val getTooltipText : 'a class -> string option
     val getTooltipWindow : 'a class -> base window_class
     val getToplevel : 'a class -> base class
     val getValign : 'a class -> align_t
@@ -305,7 +305,7 @@ signature GTK_WIDGET =
     val getVexpandSet : 'a class -> bool
     val getVisible : 'a class -> bool
     val getVisual : 'a class -> base Gdk.VisualClass.class
-    val getWindow : 'a class -> base Gdk.WindowClass.class
+    val getWindow : 'a class -> base Gdk.WindowClass.class option
     val grabAdd : 'a class -> unit
     val grabDefault : 'a class -> unit
     val grabFocus : 'a class -> unit
@@ -449,11 +449,11 @@ signature GTK_WIDGET =
        -> string
            * LargeInt.int
            * string option
-       -> base GdkPixbuf.PixbufClass.class
+       -> base GdkPixbuf.PixbufClass.class option
     val renderIconPixbuf :
       'a class
        -> string * LargeInt.int
-       -> base GdkPixbuf.PixbufClass.class
+       -> base GdkPixbuf.PixbufClass.class option
     val reparent :
       'a class
        -> 'b class

@@ -11,7 +11,7 @@ signature GIO_TEST_D_BUS =
        -> string
        -> unit
     val down : 'a class -> unit
-    val getBusAddress : 'a class -> string
+    val getBusAddress : 'a class -> string option
     val getFlags : 'a class -> test_d_bus_flags_t
     val stop : 'a class -> unit
     val up : 'a class -> unit

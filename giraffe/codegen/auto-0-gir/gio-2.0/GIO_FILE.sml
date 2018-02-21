@@ -98,7 +98,7 @@ signature GIO_FILE =
       'a class
        -> 'b async_result_class
        -> base mount_class
-    val getBasename : 'a class -> string
+    val getBasename : 'a class -> string option
     val getChild :
       'a class
        -> string
@@ -107,13 +107,13 @@ signature GIO_FILE =
       'a class
        -> string
        -> base class
-    val getParent : 'a class -> base class
+    val getParent : 'a class -> base class option
     val getParseName : 'a class -> string
-    val getPath : 'a class -> string
+    val getPath : 'a class -> string option
     val getRelativePath :
       'a class
        -> 'b class
-       -> string
+       -> string option
     val getUri : 'a class -> string
     val getUriScheme : 'a class -> string
     val hasParent :

@@ -14,11 +14,11 @@ signature GTK_PLACES_SIDEBAR =
        -> 'b Gio.FileClass.class
        -> unit
     val getLocalOnly : 'a class -> bool
-    val getLocation : 'a class -> base Gio.FileClass.class
+    val getLocation : 'a class -> base Gio.FileClass.class option
     val getNthBookmark :
       'a class
        -> LargeInt.int
-       -> base Gio.FileClass.class
+       -> base Gio.FileClass.class option
     val getOpenFlags : 'a class -> places_open_flags_t
     val getShowConnectToServer : 'a class -> bool
     val getShowDesktop : 'a class -> bool

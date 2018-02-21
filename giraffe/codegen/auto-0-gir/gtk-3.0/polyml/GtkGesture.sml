@@ -16,9 +16,9 @@ structure GtkGesture :>
              &&> GDouble.PolyML.cRef
              --> GBool.PolyML.cVal
           )
-      val getDevice_ = call (getSymbol "gtk_gesture_get_device") (GtkGestureClass.PolyML.cPtr --> GdkDeviceClass.PolyML.cPtr)
-      val getLastEvent_ = call (getSymbol "gtk_gesture_get_last_event") (GtkGestureClass.PolyML.cPtr &&> GdkEventSequenceRecord.PolyML.cPtr --> GdkEvent.PolyML.cPtr)
-      val getLastUpdatedSequence_ = call (getSymbol "gtk_gesture_get_last_updated_sequence") (GtkGestureClass.PolyML.cPtr --> GdkEventSequenceRecord.PolyML.cPtr)
+      val getDevice_ = call (getSymbol "gtk_gesture_get_device") (GtkGestureClass.PolyML.cPtr --> GdkDeviceClass.PolyML.cOptPtr)
+      val getLastEvent_ = call (getSymbol "gtk_gesture_get_last_event") (GtkGestureClass.PolyML.cPtr &&> GdkEventSequenceRecord.PolyML.cPtr --> GdkEvent.PolyML.cOptPtr)
+      val getLastUpdatedSequence_ = call (getSymbol "gtk_gesture_get_last_updated_sequence") (GtkGestureClass.PolyML.cPtr --> GdkEventSequenceRecord.PolyML.cOptPtr)
       val getPoint_ =
         call (getSymbol "gtk_gesture_get_point")
           (
@@ -29,7 +29,7 @@ structure GtkGesture :>
              --> GBool.PolyML.cVal
           )
       val getSequenceState_ = call (getSymbol "gtk_gesture_get_sequence_state") (GtkGestureClass.PolyML.cPtr &&> GdkEventSequenceRecord.PolyML.cPtr --> GtkEventSequenceState.PolyML.cVal)
-      val getWindow_ = call (getSymbol "gtk_gesture_get_window") (GtkGestureClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getWindow_ = call (getSymbol "gtk_gesture_get_window") (GtkGestureClass.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
       val group_ = call (getSymbol "gtk_gesture_group") (GtkGestureClass.PolyML.cPtr &&> GtkGestureClass.PolyML.cPtr --> cVoid)
       val handlesSequence_ = call (getSymbol "gtk_gesture_handles_sequence") (GtkGestureClass.PolyML.cPtr &&> GdkEventSequenceRecord.PolyML.cOptPtr --> GBool.PolyML.cVal)
       val isActive_ = call (getSymbol "gtk_gesture_is_active") (GtkGestureClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -79,9 +79,9 @@ structure GtkGesture :>
       in
         if retVal then SOME (x, y) else NONE
       end
-    fun getDevice self = (GtkGestureClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromPtr false) getDevice_ self
-    fun getLastEvent self sequence = (GtkGestureClass.FFI.withPtr &&&> GdkEventSequenceRecord.FFI.withPtr ---> GdkEvent.FFI.fromPtr false) getLastEvent_ (self & sequence)
-    fun getLastUpdatedSequence self = (GtkGestureClass.FFI.withPtr ---> GdkEventSequenceRecord.FFI.fromPtr false) getLastUpdatedSequence_ self
+    fun getDevice self = (GtkGestureClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromOptPtr false) getDevice_ self
+    fun getLastEvent self sequence = (GtkGestureClass.FFI.withPtr &&&> GdkEventSequenceRecord.FFI.withPtr ---> GdkEvent.FFI.fromOptPtr false) getLastEvent_ (self & sequence)
+    fun getLastUpdatedSequence self = (GtkGestureClass.FFI.withPtr ---> GdkEventSequenceRecord.FFI.fromOptPtr false) getLastUpdatedSequence_ self
     fun getPoint self sequence =
       let
         val x
@@ -107,7 +107,7 @@ structure GtkGesture :>
         if retVal then SOME (x, y) else NONE
       end
     fun getSequenceState self sequence = (GtkGestureClass.FFI.withPtr &&&> GdkEventSequenceRecord.FFI.withPtr ---> GtkEventSequenceState.FFI.fromVal) getSequenceState_ (self & sequence)
-    fun getWindow self = (GtkGestureClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getWindow_ self
+    fun getWindow self = (GtkGestureClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self
     fun group self gesture = (GtkGestureClass.FFI.withPtr &&&> GtkGestureClass.FFI.withPtr ---> I) group_ (self & gesture)
     fun handlesSequence self sequence = (GtkGestureClass.FFI.withPtr &&&> GdkEventSequenceRecord.FFI.withOptPtr ---> GBool.FFI.fromVal) handlesSequence_ (self & sequence)
     fun isActive self = (GtkGestureClass.FFI.withPtr ---> GBool.FFI.fromVal) isActive_ self

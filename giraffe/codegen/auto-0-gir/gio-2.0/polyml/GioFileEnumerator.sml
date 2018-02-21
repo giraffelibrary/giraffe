@@ -46,7 +46,7 @@ structure GioFileEnumerator :>
             GioFileEnumeratorClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GioFileInfoClass.PolyML.cPtr
+             --> GioFileInfoClass.PolyML.cOptPtr
           )
       val setPending_ = call (getSymbol "g_file_enumerator_set_pending") (GioFileEnumeratorClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
@@ -118,7 +118,7 @@ structure GioFileEnumerator :>
         GioFileEnumeratorClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileInfoClass.FFI.fromPtr true
+         ---> GioFileInfoClass.FFI.fromOptPtr true
       )
         nextFile_
         (

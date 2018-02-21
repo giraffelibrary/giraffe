@@ -7,7 +7,7 @@ structure GtkSourceSearchSettings :>
     val getAtWordBoundaries_ = _import "gtk_source_search_settings_get_at_word_boundaries" : GtkSourceSearchSettingsClass.FFI.notnull GtkSourceSearchSettingsClass.FFI.p -> GBool.FFI.val_;
     val getCaseSensitive_ = _import "gtk_source_search_settings_get_case_sensitive" : GtkSourceSearchSettingsClass.FFI.notnull GtkSourceSearchSettingsClass.FFI.p -> GBool.FFI.val_;
     val getRegexEnabled_ = _import "gtk_source_search_settings_get_regex_enabled" : GtkSourceSearchSettingsClass.FFI.notnull GtkSourceSearchSettingsClass.FFI.p -> GBool.FFI.val_;
-    val getSearchText_ = _import "gtk_source_search_settings_get_search_text" : GtkSourceSearchSettingsClass.FFI.notnull GtkSourceSearchSettingsClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getSearchText_ = _import "gtk_source_search_settings_get_search_text" : GtkSourceSearchSettingsClass.FFI.notnull GtkSourceSearchSettingsClass.FFI.p -> unit Utf8.FFI.out_p;
     val getWrapAround_ = _import "gtk_source_search_settings_get_wrap_around" : GtkSourceSearchSettingsClass.FFI.notnull GtkSourceSearchSettingsClass.FFI.p -> GBool.FFI.val_;
     val setAtWordBoundaries_ = fn x1 & x2 => (_import "gtk_source_search_settings_set_at_word_boundaries" : GtkSourceSearchSettingsClass.FFI.notnull GtkSourceSearchSettingsClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setCaseSensitive_ = fn x1 & x2 => (_import "gtk_source_search_settings_set_case_sensitive" : GtkSourceSearchSettingsClass.FFI.notnull GtkSourceSearchSettingsClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
@@ -35,7 +35,7 @@ structure GtkSourceSearchSettings :>
     fun getAtWordBoundaries self = (GtkSourceSearchSettingsClass.FFI.withPtr ---> GBool.FFI.fromVal) getAtWordBoundaries_ self
     fun getCaseSensitive self = (GtkSourceSearchSettingsClass.FFI.withPtr ---> GBool.FFI.fromVal) getCaseSensitive_ self
     fun getRegexEnabled self = (GtkSourceSearchSettingsClass.FFI.withPtr ---> GBool.FFI.fromVal) getRegexEnabled_ self
-    fun getSearchText self = (GtkSourceSearchSettingsClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSearchText_ self
+    fun getSearchText self = (GtkSourceSearchSettingsClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getSearchText_ self
     fun getWrapAround self = (GtkSourceSearchSettingsClass.FFI.withPtr ---> GBool.FFI.fromVal) getWrapAround_ self
     fun setAtWordBoundaries self atWordBoundaries = (GtkSourceSearchSettingsClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAtWordBoundaries_ (self & atWordBoundaries)
     fun setCaseSensitive self caseSensitive = (GtkSourceSearchSettingsClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCaseSensitive_ (self & caseSensitive)

@@ -5,7 +5,7 @@ signature ATK_IMAGE =
     type t = base class
     val getType : unit -> GObject.Type.t
     val getImageDescription : 'a class -> string
-    val getImageLocale : 'a class -> string
+    val getImageLocale : 'a class -> string option
     val getImagePosition :
       'a class
        -> coord_type_t

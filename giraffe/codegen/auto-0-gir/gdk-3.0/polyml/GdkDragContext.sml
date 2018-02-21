@@ -14,7 +14,7 @@ structure GdkDragContext :>
       val getActions_ = call (getSymbol "gdk_drag_context_get_actions") (GdkDragContextClass.PolyML.cPtr --> GdkDragAction.PolyML.cVal)
       val getDestWindow_ = call (getSymbol "gdk_drag_context_get_dest_window") (GdkDragContextClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
       val getDevice_ = call (getSymbol "gdk_drag_context_get_device") (GdkDragContextClass.PolyML.cPtr --> GdkDeviceClass.PolyML.cPtr)
-      val getDragWindow_ = call (getSymbol "gdk_drag_context_get_drag_window") (GdkDragContextClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getDragWindow_ = call (getSymbol "gdk_drag_context_get_drag_window") (GdkDragContextClass.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
       val getProtocol_ = call (getSymbol "gdk_drag_context_get_protocol") (GdkDragContextClass.PolyML.cPtr --> GdkDragProtocol.PolyML.cVal)
       val getSelectedAction_ = call (getSymbol "gdk_drag_context_get_selected_action") (GdkDragContextClass.PolyML.cPtr --> GdkDragAction.PolyML.cVal)
       val getSourceWindow_ = call (getSymbol "gdk_drag_context_get_source_window") (GdkDragContextClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
@@ -48,7 +48,7 @@ structure GdkDragContext :>
     fun getActions self = (GdkDragContextClass.FFI.withPtr ---> GdkDragAction.FFI.fromVal) getActions_ self
     fun getDestWindow self = (GdkDragContextClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getDestWindow_ self
     fun getDevice self = (GdkDragContextClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromPtr false) getDevice_ self
-    fun getDragWindow self = (GdkDragContextClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getDragWindow_ self
+    fun getDragWindow self = (GdkDragContextClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getDragWindow_ self
     fun getProtocol self = (GdkDragContextClass.FFI.withPtr ---> GdkDragProtocol.FFI.fromVal) getProtocol_ self
     fun getSelectedAction self = (GdkDragContextClass.FFI.withPtr ---> GdkDragAction.FFI.fromVal) getSelectedAction_ self
     fun getSourceWindow self = (GdkDragContextClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getSourceWindow_ self

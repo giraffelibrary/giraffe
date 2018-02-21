@@ -19,7 +19,7 @@ structure GtkTreeModelFilter :>
              &&> GtkTreeIterRecord.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
-      val convertChildPathToPath_ = call (getSymbol "gtk_tree_model_filter_convert_child_path_to_path") (GtkTreeModelFilterClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
+      val convertChildPathToPath_ = call (getSymbol "gtk_tree_model_filter_convert_child_path_to_path") (GtkTreeModelFilterClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cOptPtr)
       val convertIterToChildIter_ =
         call (getSymbol "gtk_tree_model_filter_convert_iter_to_child_iter")
           (
@@ -28,7 +28,7 @@ structure GtkTreeModelFilter :>
              &&> GtkTreeIterRecord.PolyML.cPtr
              --> cVoid
           )
-      val convertPathToChildPath_ = call (getSymbol "gtk_tree_model_filter_convert_path_to_child_path") (GtkTreeModelFilterClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
+      val convertPathToChildPath_ = call (getSymbol "gtk_tree_model_filter_convert_path_to_child_path") (GtkTreeModelFilterClass.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cOptPtr)
       val getModel_ = call (getSymbol "gtk_tree_model_filter_get_model") (GtkTreeModelFilterClass.PolyML.cPtr --> GtkTreeModelClass.PolyML.cPtr)
       val refilter_ = call (getSymbol "gtk_tree_model_filter_refilter") (GtkTreeModelFilterClass.PolyML.cPtr --> cVoid)
       val setVisibleColumn_ = call (getSymbol "gtk_tree_model_filter_set_visible_column") (GtkTreeModelFilterClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
@@ -61,7 +61,7 @@ structure GtkTreeModelFilter :>
       in
         if retVal then SOME filterIter else NONE
       end
-    fun convertChildPathToPath self childPath = (GtkTreeModelFilterClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GtkTreePathRecord.FFI.fromPtr true) convertChildPathToPath_ (self & childPath)
+    fun convertChildPathToPath self childPath = (GtkTreeModelFilterClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GtkTreePathRecord.FFI.fromOptPtr true) convertChildPathToPath_ (self & childPath)
     fun convertIterToChildIter self filterIter =
       let
         val childIter & () =
@@ -80,7 +80,7 @@ structure GtkTreeModelFilter :>
       in
         childIter
       end
-    fun convertPathToChildPath self filterPath = (GtkTreeModelFilterClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GtkTreePathRecord.FFI.fromPtr true) convertPathToChildPath_ (self & filterPath)
+    fun convertPathToChildPath self filterPath = (GtkTreeModelFilterClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GtkTreePathRecord.FFI.fromOptPtr true) convertPathToChildPath_ (self & filterPath)
     fun getModel self = (GtkTreeModelFilterClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
     fun refilter self = (GtkTreeModelFilterClass.FFI.withPtr ---> I) refilter_ self
     fun setVisibleColumn self column = (GtkTreeModelFilterClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setVisibleColumn_ (self & column)

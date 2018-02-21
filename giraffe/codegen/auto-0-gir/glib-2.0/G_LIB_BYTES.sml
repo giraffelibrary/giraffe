@@ -11,7 +11,7 @@ signature G_LIB_BYTES =
       t
        -> t
        -> bool
-    val getData : t -> Word8Vector.vector
+    val getData : t -> Word8Vector.vector option
     val getSize : t -> LargeInt.int
     val hash : t -> LargeInt.int
     val newFromBytes :

@@ -18,8 +18,8 @@ signature GTK_SOURCE_FILE_LOADER =
     val getCompressionType : 'a class -> compression_type_t
     val getEncoding : 'a class -> encoding_t
     val getFile : 'a class -> base file_class
-    val getInputStream : 'a class -> base Gio.InputStreamClass.class
-    val getLocation : 'a class -> base Gio.FileClass.class
+    val getInputStream : 'a class -> base Gio.InputStreamClass.class option
+    val getLocation : 'a class -> base Gio.FileClass.class option
     val getNewlineType : 'a class -> newline_type_t
     val loadFinish :
       'a class

@@ -8,7 +8,7 @@ structure GtkGestureSingle :>
       val getType_ = call (getSymbol "gtk_gesture_single_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getButton_ = call (getSymbol "gtk_gesture_single_get_button") (GtkGestureSingleClass.PolyML.cPtr --> GUInt.PolyML.cVal)
       val getCurrentButton_ = call (getSymbol "gtk_gesture_single_get_current_button") (GtkGestureSingleClass.PolyML.cPtr --> GUInt.PolyML.cVal)
-      val getCurrentSequence_ = call (getSymbol "gtk_gesture_single_get_current_sequence") (GtkGestureSingleClass.PolyML.cPtr --> GdkEventSequenceRecord.PolyML.cPtr)
+      val getCurrentSequence_ = call (getSymbol "gtk_gesture_single_get_current_sequence") (GtkGestureSingleClass.PolyML.cPtr --> GdkEventSequenceRecord.PolyML.cOptPtr)
       val getExclusive_ = call (getSymbol "gtk_gesture_single_get_exclusive") (GtkGestureSingleClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getTouchOnly_ = call (getSymbol "gtk_gesture_single_get_touch_only") (GtkGestureSingleClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val setButton_ = call (getSymbol "gtk_gesture_single_set_button") (GtkGestureSingleClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
@@ -20,7 +20,7 @@ structure GtkGestureSingle :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getButton self = (GtkGestureSingleClass.FFI.withPtr ---> GUInt.FFI.fromVal) getButton_ self
     fun getCurrentButton self = (GtkGestureSingleClass.FFI.withPtr ---> GUInt.FFI.fromVal) getCurrentButton_ self
-    fun getCurrentSequence self = (GtkGestureSingleClass.FFI.withPtr ---> GdkEventSequenceRecord.FFI.fromPtr true) getCurrentSequence_ self
+    fun getCurrentSequence self = (GtkGestureSingleClass.FFI.withPtr ---> GdkEventSequenceRecord.FFI.fromOptPtr true) getCurrentSequence_ self
     fun getExclusive self = (GtkGestureSingleClass.FFI.withPtr ---> GBool.FFI.fromVal) getExclusive_ self
     fun getTouchOnly self = (GtkGestureSingleClass.FFI.withPtr ---> GBool.FFI.fromVal) getTouchOnly_ self
     fun setButton self button = (GtkGestureSingleClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setButton_ (self & button)

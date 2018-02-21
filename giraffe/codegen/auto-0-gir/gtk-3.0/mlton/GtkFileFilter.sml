@@ -40,7 +40,7 @@ structure GtkFileFilter :>
             )
     val addPixbufFormats_ = _import "gtk_file_filter_add_pixbuf_formats" : GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p -> unit;
     val filter_ = fn x1 & x2 => (_import "gtk_file_filter_filter" : GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p * GtkFileFilterInfoRecord.FFI.notnull GtkFileFilterInfoRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getName_ = _import "gtk_file_filter_get_name" : GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getName_ = _import "gtk_file_filter_get_name" : GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p -> unit Utf8.FFI.out_p;
     val getNeeded_ = _import "gtk_file_filter_get_needed" : GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p -> GtkFileFilterFlags.FFI.val_;
     val setName_ =
       fn
@@ -71,7 +71,7 @@ structure GtkFileFilter :>
     fun addPattern self pattern = (GtkFileFilterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addPattern_ (self & pattern)
     fun addPixbufFormats self = (GtkFileFilterClass.FFI.withPtr ---> I) addPixbufFormats_ self
     fun filter self filterInfo = (GtkFileFilterClass.FFI.withPtr &&&> GtkFileFilterInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) filter_ (self & filterInfo)
-    fun getName self = (GtkFileFilterClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getName self = (GtkFileFilterClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getName_ self
     fun getNeeded self = (GtkFileFilterClass.FFI.withPtr ---> GtkFileFilterFlags.FFI.fromVal) getNeeded_ self
     fun setName self name = (GtkFileFilterClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setName_ (self & name)
     fun toGvariant self = (GtkFileFilterClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self

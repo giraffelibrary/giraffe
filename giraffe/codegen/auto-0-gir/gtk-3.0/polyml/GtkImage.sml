@@ -20,7 +20,7 @@ structure GtkImage :>
       val newFromStock_ = call (getSymbol "gtk_image_new_from_stock") (Utf8.PolyML.cInPtr &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
       val newFromSurface_ = call (getSymbol "gtk_image_new_from_surface") (CairoSurfaceRecord.PolyML.cOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val clear_ = call (getSymbol "gtk_image_clear") (GtkImageClass.PolyML.cPtr --> cVoid)
-      val getAnimation_ = call (getSymbol "gtk_image_get_animation") (GtkImageClass.PolyML.cPtr --> GdkPixbufPixbufAnimationClass.PolyML.cPtr)
+      val getAnimation_ = call (getSymbol "gtk_image_get_animation") (GtkImageClass.PolyML.cPtr --> GdkPixbufPixbufAnimationClass.PolyML.cOptPtr)
       val getGicon_ =
         call (getSymbol "gtk_image_get_gicon")
           (
@@ -45,7 +45,7 @@ structure GtkImage :>
              &&> GInt.PolyML.cRef
              --> cVoid
           )
-      val getPixbuf_ = call (getSymbol "gtk_image_get_pixbuf") (GtkImageClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val getPixbuf_ = call (getSymbol "gtk_image_get_pixbuf") (GtkImageClass.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cOptPtr)
       val getPixelSize_ = call (getSymbol "gtk_image_get_pixel_size") (GtkImageClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getStock_ =
         call (getSymbol "gtk_image_get_stock")
@@ -114,7 +114,7 @@ structure GtkImage :>
     fun newFromStock (stockId, size) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromStock_ (stockId & size)
     fun newFromSurface surface = (CairoSurfaceRecord.FFI.withOptPtr ---> GtkImageClass.FFI.fromPtr false) newFromSurface_ surface
     fun clear self = (GtkImageClass.FFI.withPtr ---> I) clear_ self
-    fun getAnimation self = (GtkImageClass.FFI.withPtr ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr false) getAnimation_ self
+    fun getAnimation self = (GtkImageClass.FFI.withPtr ---> GdkPixbufPixbufAnimationClass.FFI.fromOptPtr false) getAnimation_ self
     fun getGicon self =
       let
         val gicon
@@ -181,7 +181,7 @@ structure GtkImage :>
       in
         (iconSet, size)
       end
-    fun getPixbuf self = (GtkImageClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
+    fun getPixbuf self = (GtkImageClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getPixbuf_ self
     fun getPixelSize self = (GtkImageClass.FFI.withPtr ---> GInt.FFI.fromVal) getPixelSize_ self
     fun getStock self =
       let

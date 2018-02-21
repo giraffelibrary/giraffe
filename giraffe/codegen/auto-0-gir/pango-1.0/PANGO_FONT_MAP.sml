@@ -17,11 +17,11 @@ signature PANGO_FONT_MAP =
     val loadFont :
       'a class
        -> 'b context_class * font_description_t
-       -> base font_class
+       -> base font_class option
     val loadFontset :
       'a class
        -> 'b context_class
            * font_description_t
            * language_t
-       -> base fontset_class
+       -> base fontset_class option
   end

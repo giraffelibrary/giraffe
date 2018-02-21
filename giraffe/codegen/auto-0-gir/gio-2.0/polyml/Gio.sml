@@ -69,11 +69,11 @@ structure Gio : GIO =
           )
       val contentTypeCanBeExecutable_ = call (getSymbol "g_content_type_can_be_executable") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val contentTypeEquals_ = call (getSymbol "g_content_type_equals") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val contentTypeFromMimeType_ = call (getSymbol "g_content_type_from_mime_type") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val contentTypeFromMimeType_ = call (getSymbol "g_content_type_from_mime_type") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutOptPtr)
       val contentTypeGetDescription_ = call (getSymbol "g_content_type_get_description") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val contentTypeGetGenericIconName_ = call (getSymbol "g_content_type_get_generic_icon_name") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val contentTypeGetGenericIconName_ = call (getSymbol "g_content_type_get_generic_icon_name") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutOptPtr)
       val contentTypeGetIcon_ = call (getSymbol "g_content_type_get_icon") (Utf8.PolyML.cInPtr --> GioIconClass.PolyML.cPtr)
-      val contentTypeGetMimeType_ = call (getSymbol "g_content_type_get_mime_type") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val contentTypeGetMimeType_ = call (getSymbol "g_content_type_get_mime_type") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutOptPtr)
       val contentTypeGetSymbolicIcon_ = call (getSymbol "g_content_type_get_symbolic_icon") (Utf8.PolyML.cInPtr --> GioIconClass.PolyML.cPtr)
       val contentTypeGuess_ =
         call (getSymbol "g_content_type_guess")
@@ -849,11 +849,11 @@ structure Gio : GIO =
         )
     fun contentTypeCanBeExecutable type' = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeCanBeExecutable_ type'
     fun contentTypeEquals (type1, type2) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeEquals_ (type1 & type2)
-    fun contentTypeFromMimeType mimeType = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) contentTypeFromMimeType_ mimeType
+    fun contentTypeFromMimeType mimeType = (Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) contentTypeFromMimeType_ mimeType
     fun contentTypeGetDescription type' = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) contentTypeGetDescription_ type'
-    fun contentTypeGetGenericIconName type' = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) contentTypeGetGenericIconName_ type'
+    fun contentTypeGetGenericIconName type' = (Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) contentTypeGetGenericIconName_ type'
     fun contentTypeGetIcon type' = (Utf8.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) contentTypeGetIcon_ type'
-    fun contentTypeGetMimeType type' = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) contentTypeGetMimeType_ type'
+    fun contentTypeGetMimeType type' = (Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) contentTypeGetMimeType_ type'
     fun contentTypeGetSymbolicIcon type' = (Utf8.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) contentTypeGetSymbolicIcon_ type'
     fun contentTypeGuess (filename, data) =
       let

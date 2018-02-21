@@ -12,11 +12,11 @@ structure GtkMenuButton :>
   struct
     val getType_ = _import "gtk_menu_button_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_menu_button_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getAlignWidget_ = _import "gtk_menu_button_get_align_widget" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getAlignWidget_ = _import "gtk_menu_button_get_align_widget" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> unit GtkWidgetClass.FFI.p;
     val getDirection_ = _import "gtk_menu_button_get_direction" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> GtkArrowType.FFI.val_;
-    val getMenuModel_ = _import "gtk_menu_button_get_menu_model" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p;
-    val getPopover_ = _import "gtk_menu_button_get_popover" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p;
-    val getPopup_ = _import "gtk_menu_button_get_popup" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p;
+    val getMenuModel_ = _import "gtk_menu_button_get_menu_model" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> unit GioMenuModelClass.FFI.p;
+    val getPopover_ = _import "gtk_menu_button_get_popover" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> unit GtkPopoverClass.FFI.p;
+    val getPopup_ = _import "gtk_menu_button_get_popup" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> unit GtkMenuClass.FFI.p;
     val getUsePopover_ = _import "gtk_menu_button_get_use_popover" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> GBool.FFI.val_;
     val setAlignWidget_ = fn x1 & x2 => (_import "gtk_menu_button_set_align_widget" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     val setDirection_ = fn x1 & x2 => (_import "gtk_menu_button_set_direction" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p * GtkArrowType.FFI.val_ -> unit;) (x1, x2)
@@ -40,11 +40,11 @@ structure GtkMenuButton :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkMenuButtonClass.FFI.fromPtr false) new_ ()
-    fun getAlignWidget self = (GtkMenuButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getAlignWidget_ self
+    fun getAlignWidget self = (GtkMenuButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getAlignWidget_ self
     fun getDirection self = (GtkMenuButtonClass.FFI.withPtr ---> GtkArrowType.FFI.fromVal) getDirection_ self
-    fun getMenuModel self = (GtkMenuButtonClass.FFI.withPtr ---> GioMenuModelClass.FFI.fromPtr false) getMenuModel_ self
-    fun getPopover self = (GtkMenuButtonClass.FFI.withPtr ---> GtkPopoverClass.FFI.fromPtr false) getPopover_ self
-    fun getPopup self = (GtkMenuButtonClass.FFI.withPtr ---> GtkMenuClass.FFI.fromPtr false) getPopup_ self
+    fun getMenuModel self = (GtkMenuButtonClass.FFI.withPtr ---> GioMenuModelClass.FFI.fromOptPtr false) getMenuModel_ self
+    fun getPopover self = (GtkMenuButtonClass.FFI.withPtr ---> GtkPopoverClass.FFI.fromOptPtr false) getPopover_ self
+    fun getPopup self = (GtkMenuButtonClass.FFI.withPtr ---> GtkMenuClass.FFI.fromOptPtr false) getPopup_ self
     fun getUsePopover self = (GtkMenuButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getUsePopover_ self
     fun setAlignWidget self alignWidget = (GtkMenuButtonClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setAlignWidget_ (self & alignWidget)
     fun setDirection self direction = (GtkMenuButtonClass.FFI.withPtr &&&> GtkArrowType.FFI.withVal ---> I) setDirection_ (self & direction)

@@ -23,7 +23,7 @@ signature PANGO_CONTEXT =
     val getGravity : 'a class -> gravity_t
     val getGravityHint : 'a class -> gravity_hint_t
     val getLanguage : 'a class -> language_t
-    val getMatrix : 'a class -> matrix_t
+    val getMatrix : 'a class -> matrix_t option
     val getMetrics :
       'a class
        -> font_description_t option * language_t option
@@ -33,11 +33,11 @@ signature PANGO_CONTEXT =
     val loadFont :
       'a class
        -> font_description_t
-       -> base font_class
+       -> base font_class option
     val loadFontset :
       'a class
        -> font_description_t * language_t
-       -> base fontset_class
+       -> base fontset_class option
     val setBaseDir :
       'a class
        -> direction_t

@@ -28,7 +28,7 @@ structure GLibRegex :>
              &&> GLibRegexCompileFlags.PolyML.cVal
              &&> GLibRegexMatchFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GLibRegexRecord.PolyML.cPtr
+             --> GLibRegexRecord.PolyML.cOptPtr
           )
       val getCaptureCount_ = call (getSymbol "g_regex_get_capture_count") (GLibRegexRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val getCompileFlags_ = call (getSymbol "g_regex_get_compile_flags") (GLibRegexRecord.PolyML.cPtr --> GLibRegexCompileFlags.PolyML.cVal)
@@ -168,7 +168,7 @@ structure GLibRegex :>
          &&&> GLibRegexCompileFlags.FFI.withVal
          &&&> GLibRegexMatchFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GLibRegexRecord.FFI.fromPtr true
+         ---> GLibRegexRecord.FFI.fromOptPtr true
       )
         new_
         (

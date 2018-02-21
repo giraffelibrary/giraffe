@@ -11,7 +11,7 @@ structure GtkListBoxRow :>
       val new_ = call (getSymbol "gtk_list_box_row_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
       val changed_ = call (getSymbol "gtk_list_box_row_changed") (GtkListBoxRowClass.PolyML.cPtr --> cVoid)
       val getActivatable_ = call (getSymbol "gtk_list_box_row_get_activatable") (GtkListBoxRowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getHeader_ = call (getSymbol "gtk_list_box_row_get_header") (GtkListBoxRowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getHeader_ = call (getSymbol "gtk_list_box_row_get_header") (GtkListBoxRowClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getIndex_ = call (getSymbol "gtk_list_box_row_get_index") (GtkListBoxRowClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getSelectable_ = call (getSymbol "gtk_list_box_row_get_selectable") (GtkListBoxRowClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val isSelected_ = call (getSymbol "gtk_list_box_row_is_selected") (GtkListBoxRowClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -29,7 +29,7 @@ structure GtkListBoxRow :>
     fun new () = (I ---> GtkListBoxRowClass.FFI.fromPtr false) new_ ()
     fun changed self = (GtkListBoxRowClass.FFI.withPtr ---> I) changed_ self
     fun getActivatable self = (GtkListBoxRowClass.FFI.withPtr ---> GBool.FFI.fromVal) getActivatable_ self
-    fun getHeader self = (GtkListBoxRowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getHeader_ self
+    fun getHeader self = (GtkListBoxRowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getHeader_ self
     fun getIndex self = (GtkListBoxRowClass.FFI.withPtr ---> GInt.FFI.fromVal) getIndex_ self
     fun getSelectable self = (GtkListBoxRowClass.FFI.withPtr ---> GBool.FFI.fromVal) getSelectable_ self
     fun isSelected self = (GtkListBoxRowClass.FFI.withPtr ---> GBool.FFI.fromVal) isSelected_ self

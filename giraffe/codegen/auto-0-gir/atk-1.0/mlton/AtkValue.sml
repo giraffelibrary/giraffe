@@ -9,7 +9,7 @@ structure AtkValue :>
     val getMaximumValue_ = fn x1 & x2 => (_import "atk_value_get_maximum_value" : AtkValueClass.FFI.notnull AtkValueClass.FFI.p * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit;) (x1, x2)
     val getMinimumIncrement_ = fn x1 & x2 => (_import "atk_value_get_minimum_increment" : AtkValueClass.FFI.notnull AtkValueClass.FFI.p * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit;) (x1, x2)
     val getMinimumValue_ = fn x1 & x2 => (_import "atk_value_get_minimum_value" : AtkValueClass.FFI.notnull AtkValueClass.FFI.p * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit;) (x1, x2)
-    val getRange_ = _import "atk_value_get_range" : AtkValueClass.FFI.notnull AtkValueClass.FFI.p -> AtkRangeRecord.FFI.notnull AtkRangeRecord.FFI.p;
+    val getRange_ = _import "atk_value_get_range" : AtkValueClass.FFI.notnull AtkValueClass.FFI.p -> unit AtkRangeRecord.FFI.p;
     val getValueAndText_ =
       fn
         x1
@@ -60,7 +60,7 @@ structure AtkValue :>
       in
         value
       end
-    fun getRange self = (AtkValueClass.FFI.withPtr ---> AtkRangeRecord.FFI.fromPtr true) getRange_ self
+    fun getRange self = (AtkValueClass.FFI.withPtr ---> AtkRangeRecord.FFI.fromOptPtr true) getRange_ self
     fun getValueAndText self =
       let
         val value

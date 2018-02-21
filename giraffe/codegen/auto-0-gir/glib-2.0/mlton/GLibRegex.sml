@@ -31,7 +31,7 @@ structure GLibRegex :>
                * GLibRegexCompileFlags.FFI.val_
                * GLibRegexMatchFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p;
+               -> unit GLibRegexRecord.FFI.p;
           )
             (
               x1,
@@ -382,7 +382,7 @@ structure GLibRegex :>
          &&&> GLibRegexCompileFlags.FFI.withVal
          &&&> GLibRegexMatchFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> GLibRegexRecord.FFI.fromPtr true
+         ---> GLibRegexRecord.FFI.fromOptPtr true
       )
         new_
         (

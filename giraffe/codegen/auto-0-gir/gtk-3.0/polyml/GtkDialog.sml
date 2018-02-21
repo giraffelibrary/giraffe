@@ -36,7 +36,7 @@ structure GtkDialog :>
       val getContentArea_ = call (getSymbol "gtk_dialog_get_content_area") (GtkDialogClass.PolyML.cPtr --> GtkBoxClass.PolyML.cPtr)
       val getHeaderBar_ = call (getSymbol "gtk_dialog_get_header_bar") (GtkDialogClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getResponseForWidget_ = call (getSymbol "gtk_dialog_get_response_for_widget") (GtkDialogClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getWidgetForResponse_ = call (getSymbol "gtk_dialog_get_widget_for_response") (GtkDialogClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
+      val getWidgetForResponse_ = call (getSymbol "gtk_dialog_get_widget_for_response") (GtkDialogClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GtkWidgetClass.PolyML.cOptPtr)
       val response_ = call (getSymbol "gtk_dialog_response") (GtkDialogClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val run_ = call (getSymbol "gtk_dialog_run") (GtkDialogClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val setAlternativeButtonOrderFromArray_ =
@@ -96,7 +96,7 @@ structure GtkDialog :>
     fun getContentArea self = (GtkDialogClass.FFI.withPtr ---> GtkBoxClass.FFI.fromPtr false) getContentArea_ self
     fun getHeaderBar self = (GtkDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getHeaderBar_ self
     fun getResponseForWidget self widget = (GtkDialogClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getResponseForWidget_ (self & widget)
-    fun getWidgetForResponse self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getWidgetForResponse_ (self & responseId)
+    fun getWidgetForResponse self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getWidgetForResponse_ (self & responseId)
     fun response self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) response_ (self & responseId)
     fun run self = (GtkDialogClass.FFI.withPtr ---> GInt.FFI.fromVal) run_ self
     fun setAlternativeButtonOrderFromArray self newOrder =

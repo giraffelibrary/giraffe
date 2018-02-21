@@ -6,12 +6,12 @@ signature GTK_GESTURE =
     val getType : unit -> GObject.Type.t
     val getBoundingBox : 'a class -> Gdk.RectangleRecord.t option
     val getBoundingBoxCenter : 'a class -> (real * real) option
-    val getDevice : 'a class -> base Gdk.DeviceClass.class
+    val getDevice : 'a class -> base Gdk.DeviceClass.class option
     val getLastEvent :
       'a class
        -> Gdk.EventSequenceRecord.t
-       -> base Gdk.Event.union
-    val getLastUpdatedSequence : 'a class -> Gdk.EventSequenceRecord.t
+       -> base Gdk.Event.union option
+    val getLastUpdatedSequence : 'a class -> Gdk.EventSequenceRecord.t option
     val getPoint :
       'a class
        -> Gdk.EventSequenceRecord.t option
@@ -20,7 +20,7 @@ signature GTK_GESTURE =
       'a class
        -> Gdk.EventSequenceRecord.t
        -> event_sequence_state_t
-    val getWindow : 'a class -> base Gdk.WindowClass.class
+    val getWindow : 'a class -> base Gdk.WindowClass.class option
     val group :
       'a class
        -> 'b class

@@ -5,7 +5,7 @@ signature GTK_GESTURE_SINGLE =
     val getType : unit -> GObject.Type.t
     val getButton : 'a class -> LargeInt.int
     val getCurrentButton : 'a class -> LargeInt.int
-    val getCurrentSequence : 'a class -> Gdk.EventSequenceRecord.t
+    val getCurrentSequence : 'a class -> Gdk.EventSequenceRecord.t option
     val getExclusive : 'a class -> bool
     val getTouchOnly : 'a class -> bool
     val setButton :

@@ -10,11 +10,11 @@ structure GdkFrameClock :>
       val getType_ = call (getSymbol "gdk_frame_clock_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val beginUpdating_ = call (getSymbol "gdk_frame_clock_begin_updating") (GdkFrameClockClass.PolyML.cPtr --> cVoid)
       val endUpdating_ = call (getSymbol "gdk_frame_clock_end_updating") (GdkFrameClockClass.PolyML.cPtr --> cVoid)
-      val getCurrentTimings_ = call (getSymbol "gdk_frame_clock_get_current_timings") (GdkFrameClockClass.PolyML.cPtr --> GdkFrameTimingsRecord.PolyML.cPtr)
+      val getCurrentTimings_ = call (getSymbol "gdk_frame_clock_get_current_timings") (GdkFrameClockClass.PolyML.cPtr --> GdkFrameTimingsRecord.PolyML.cOptPtr)
       val getFrameCounter_ = call (getSymbol "gdk_frame_clock_get_frame_counter") (GdkFrameClockClass.PolyML.cPtr --> GInt64.PolyML.cVal)
       val getFrameTime_ = call (getSymbol "gdk_frame_clock_get_frame_time") (GdkFrameClockClass.PolyML.cPtr --> GInt64.PolyML.cVal)
       val getHistoryStart_ = call (getSymbol "gdk_frame_clock_get_history_start") (GdkFrameClockClass.PolyML.cPtr --> GInt64.PolyML.cVal)
-      val getTimings_ = call (getSymbol "gdk_frame_clock_get_timings") (GdkFrameClockClass.PolyML.cPtr &&> GInt64.PolyML.cVal --> GdkFrameTimingsRecord.PolyML.cPtr)
+      val getTimings_ = call (getSymbol "gdk_frame_clock_get_timings") (GdkFrameClockClass.PolyML.cPtr &&> GInt64.PolyML.cVal --> GdkFrameTimingsRecord.PolyML.cOptPtr)
       val requestPhase_ = call (getSymbol "gdk_frame_clock_request_phase") (GdkFrameClockClass.PolyML.cPtr &&> GdkFrameClockPhase.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GdkFrameClockClass.class
@@ -24,11 +24,11 @@ structure GdkFrameClock :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun beginUpdating self = (GdkFrameClockClass.FFI.withPtr ---> I) beginUpdating_ self
     fun endUpdating self = (GdkFrameClockClass.FFI.withPtr ---> I) endUpdating_ self
-    fun getCurrentTimings self = (GdkFrameClockClass.FFI.withPtr ---> GdkFrameTimingsRecord.FFI.fromPtr true) getCurrentTimings_ self
+    fun getCurrentTimings self = (GdkFrameClockClass.FFI.withPtr ---> GdkFrameTimingsRecord.FFI.fromOptPtr true) getCurrentTimings_ self
     fun getFrameCounter self = (GdkFrameClockClass.FFI.withPtr ---> GInt64.FFI.fromVal) getFrameCounter_ self
     fun getFrameTime self = (GdkFrameClockClass.FFI.withPtr ---> GInt64.FFI.fromVal) getFrameTime_ self
     fun getHistoryStart self = (GdkFrameClockClass.FFI.withPtr ---> GInt64.FFI.fromVal) getHistoryStart_ self
-    fun getTimings self frameCounter = (GdkFrameClockClass.FFI.withPtr &&&> GInt64.FFI.withVal ---> GdkFrameTimingsRecord.FFI.fromPtr true) getTimings_ (self & frameCounter)
+    fun getTimings self frameCounter = (GdkFrameClockClass.FFI.withPtr &&&> GInt64.FFI.withVal ---> GdkFrameTimingsRecord.FFI.fromOptPtr true) getTimings_ (self & frameCounter)
     fun requestPhase self phase = (GdkFrameClockClass.FFI.withPtr &&&> GdkFrameClockPhase.FFI.withVal ---> I) requestPhase_ (self & phase)
     local
       open ClosureMarshal Signal

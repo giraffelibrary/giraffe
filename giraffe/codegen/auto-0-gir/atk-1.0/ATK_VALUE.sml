@@ -9,7 +9,7 @@ signature ATK_VALUE =
     val getMaximumValue : 'a class -> GObject.ValueRecord.t
     val getMinimumIncrement : 'a class -> GObject.ValueRecord.t
     val getMinimumValue : 'a class -> GObject.ValueRecord.t
-    val getRange : 'a class -> range_t
+    val getRange : 'a class -> range_t option
     val getValueAndText : 'a class -> real * string
     val setCurrentValue :
       'a class

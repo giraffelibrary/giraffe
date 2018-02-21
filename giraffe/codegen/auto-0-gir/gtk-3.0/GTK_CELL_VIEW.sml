@@ -20,10 +20,10 @@ signature GTK_CELL_VIEW =
     val newWithMarkup : string -> base class
     val newWithPixbuf : 'a GdkPixbuf.PixbufClass.class -> base class
     val newWithText : string -> base class
-    val getDisplayedRow : 'a class -> tree_path_t
+    val getDisplayedRow : 'a class -> tree_path_t option
     val getDrawSensitive : 'a class -> bool
     val getFitModel : 'a class -> bool
-    val getModel : 'a class -> base tree_model_class
+    val getModel : 'a class -> base tree_model_class option
     val getSizeOfRow :
       'a class
        -> tree_path_t

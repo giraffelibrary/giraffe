@@ -196,7 +196,7 @@ structure GtkTextBuffer :>
              --> cVoid
           )
       val getLineCount_ = call (getSymbol "gtk_text_buffer_get_line_count") (GtkTextBufferClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getMark_ = call (getSymbol "gtk_text_buffer_get_mark") (GtkTextBufferClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkTextMarkClass.PolyML.cPtr)
+      val getMark_ = call (getSymbol "gtk_text_buffer_get_mark") (GtkTextBufferClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkTextMarkClass.PolyML.cOptPtr)
       val getModified_ = call (getSymbol "gtk_text_buffer_get_modified") (GtkTextBufferClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getPasteTargetList_ = call (getSymbol "gtk_text_buffer_get_paste_target_list") (GtkTextBufferClass.PolyML.cPtr --> GtkTargetListRecord.PolyML.cPtr)
       val getSelectionBound_ = call (getSymbol "gtk_text_buffer_get_selection_bound") (GtkTextBufferClass.PolyML.cPtr --> GtkTextMarkClass.PolyML.cPtr)
@@ -769,7 +769,7 @@ structure GtkTextBuffer :>
         iter
       end
     fun getLineCount self = (GtkTextBufferClass.FFI.withPtr ---> GInt.FFI.fromVal) getLineCount_ self
-    fun getMark self name = (GtkTextBufferClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkTextMarkClass.FFI.fromPtr false) getMark_ (self & name)
+    fun getMark self name = (GtkTextBufferClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkTextMarkClass.FFI.fromOptPtr false) getMark_ (self & name)
     fun getModified self = (GtkTextBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getModified_ self
     fun getPasteTargetList self = (GtkTextBufferClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) getPasteTargetList_ self
     fun getSelectionBound self = (GtkTextBufferClass.FFI.withPtr ---> GtkTextMarkClass.FFI.fromPtr false) getSelectionBound_ self

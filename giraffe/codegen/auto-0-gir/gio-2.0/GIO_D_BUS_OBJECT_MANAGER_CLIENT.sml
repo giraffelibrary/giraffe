@@ -20,7 +20,7 @@ signature GIO_D_BUS_OBJECT_MANAGER_CLIENT =
     val getConnection : 'a class -> base d_bus_connection_class
     val getFlags : 'a class -> d_bus_object_manager_client_flags_t
     val getName : 'a class -> string
-    val getNameOwner : 'a class -> string
+    val getNameOwner : 'a class -> string option
     val interfaceProxyPropertiesChangedSig :
       (base d_bus_object_proxy_class
         * base d_bus_proxy_class

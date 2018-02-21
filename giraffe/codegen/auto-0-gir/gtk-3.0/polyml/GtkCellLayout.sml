@@ -19,7 +19,7 @@ structure GtkCellLayout :>
           )
       val clear_ = call (getSymbol "gtk_cell_layout_clear") (GtkCellLayoutClass.PolyML.cPtr --> cVoid)
       val clearAttributes_ = call (getSymbol "gtk_cell_layout_clear_attributes") (GtkCellLayoutClass.PolyML.cPtr &&> GtkCellRendererClass.PolyML.cPtr --> cVoid)
-      val getArea_ = call (getSymbol "gtk_cell_layout_get_area") (GtkCellLayoutClass.PolyML.cPtr --> GtkCellAreaClass.PolyML.cPtr)
+      val getArea_ = call (getSymbol "gtk_cell_layout_get_area") (GtkCellLayoutClass.PolyML.cPtr --> GtkCellAreaClass.PolyML.cOptPtr)
       val packEnd_ =
         call (getSymbol "gtk_cell_layout_pack_end")
           (
@@ -73,7 +73,7 @@ structure GtkCellLayout :>
         )
     fun clear self = (GtkCellLayoutClass.FFI.withPtr ---> I) clear_ self
     fun clearAttributes self cell = (GtkCellLayoutClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> I) clearAttributes_ (self & cell)
-    fun getArea self = (GtkCellLayoutClass.FFI.withPtr ---> GtkCellAreaClass.FFI.fromPtr false) getArea_ self
+    fun getArea self = (GtkCellLayoutClass.FFI.withPtr ---> GtkCellAreaClass.FFI.fromOptPtr false) getArea_ self
     fun packEnd self (cell, expand) =
       (
         GtkCellLayoutClass.FFI.withPtr

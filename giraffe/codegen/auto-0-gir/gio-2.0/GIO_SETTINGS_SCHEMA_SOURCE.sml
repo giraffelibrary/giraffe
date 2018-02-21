@@ -15,6 +15,6 @@ signature GIO_SETTINGS_SCHEMA_SOURCE =
     val lookup :
       t
        -> string * bool
-       -> settings_schema_t
+       -> settings_schema_t option
     val getDefault : unit -> t
   end

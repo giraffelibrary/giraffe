@@ -159,12 +159,12 @@ structure GdkWindow :>
       val fullscreenOnMonitor_ = call (getSymbol "gdk_window_fullscreen_on_monitor") (GdkWindowClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val geometryChanged_ = call (getSymbol "gdk_window_geometry_changed") (GdkWindowClass.PolyML.cPtr --> cVoid)
       val getAcceptFocus_ = call (getSymbol "gdk_window_get_accept_focus") (GdkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getBackgroundPattern_ = call (getSymbol "gdk_window_get_background_pattern") (GdkWindowClass.PolyML.cPtr --> CairoPatternRecord.PolyML.cPtr)
+      val getBackgroundPattern_ = call (getSymbol "gdk_window_get_background_pattern") (GdkWindowClass.PolyML.cPtr --> CairoPatternRecord.PolyML.cOptPtr)
       val getClipRegion_ = call (getSymbol "gdk_window_get_clip_region") (GdkWindowClass.PolyML.cPtr --> CairoRegionRecord.PolyML.cPtr)
       val getComposited_ = call (getSymbol "gdk_window_get_composited") (GdkWindowClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getCursor_ = call (getSymbol "gdk_window_get_cursor") (GdkWindowClass.PolyML.cPtr --> GdkCursorClass.PolyML.cPtr)
+      val getCursor_ = call (getSymbol "gdk_window_get_cursor") (GdkWindowClass.PolyML.cPtr --> GdkCursorClass.PolyML.cOptPtr)
       val getDecorations_ = call (getSymbol "gdk_window_get_decorations") (GdkWindowClass.PolyML.cPtr &&> GdkWMDecoration.PolyML.cRef --> GBool.PolyML.cVal)
-      val getDeviceCursor_ = call (getSymbol "gdk_window_get_device_cursor") (GdkWindowClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GdkCursorClass.PolyML.cPtr)
+      val getDeviceCursor_ = call (getSymbol "gdk_window_get_device_cursor") (GdkWindowClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GdkCursorClass.PolyML.cOptPtr)
       val getDeviceEvents_ = call (getSymbol "gdk_window_get_device_events") (GdkWindowClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GdkEventMask.PolyML.cVal)
       val getDevicePosition_ =
         call (getSymbol "gdk_window_get_device_position")
@@ -174,7 +174,7 @@ structure GdkWindow :>
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cRef
              &&> GdkModifierType.PolyML.cRef
-             --> GdkWindowClass.PolyML.cPtr
+             --> GdkWindowClass.PolyML.cOptPtr
           )
       val getDevicePositionDouble_ =
         call (getSymbol "gdk_window_get_device_position_double")
@@ -184,7 +184,7 @@ structure GdkWindow :>
              &&> GDouble.PolyML.cRef
              &&> GDouble.PolyML.cRef
              &&> GdkModifierType.PolyML.cRef
-             --> GdkWindowClass.PolyML.cPtr
+             --> GdkWindowClass.PolyML.cOptPtr
           )
       val getDisplay_ = call (getSymbol "gdk_window_get_display") (GdkWindowClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
       val getDragProtocol_ = call (getSymbol "gdk_window_get_drag_protocol") (GdkWindowClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cOutRef --> GdkDragProtocol.PolyML.cVal)
@@ -226,7 +226,7 @@ structure GdkWindow :>
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cRef
              &&> GdkModifierType.PolyML.cRef
-             --> GdkWindowClass.PolyML.cPtr
+             --> GdkWindowClass.PolyML.cOptPtr
           )
       val getPosition_ =
         call (getSymbol "gdk_window_get_position")
@@ -793,17 +793,17 @@ structure GdkWindow :>
     fun fullscreenOnMonitor self monitor = (GdkWindowClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) fullscreenOnMonitor_ (self & monitor)
     fun geometryChanged self = (GdkWindowClass.FFI.withPtr ---> I) geometryChanged_ self
     fun getAcceptFocus self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getAcceptFocus_ self
-    fun getBackgroundPattern self = (GdkWindowClass.FFI.withPtr ---> CairoPatternRecord.FFI.fromPtr false) getBackgroundPattern_ self
+    fun getBackgroundPattern self = (GdkWindowClass.FFI.withPtr ---> CairoPatternRecord.FFI.fromOptPtr false) getBackgroundPattern_ self
     fun getClipRegion self = (GdkWindowClass.FFI.withPtr ---> CairoRegionRecord.FFI.fromPtr true) getClipRegion_ self
     fun getComposited self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getComposited_ self
-    fun getCursor self = (GdkWindowClass.FFI.withPtr ---> GdkCursorClass.FFI.fromPtr false) getCursor_ self
+    fun getCursor self = (GdkWindowClass.FFI.withPtr ---> GdkCursorClass.FFI.fromOptPtr false) getCursor_ self
     fun getDecorations self =
       let
         val decorations & retVal = (GdkWindowClass.FFI.withPtr &&&> GdkWMDecoration.FFI.withRefVal ---> GdkWMDecoration.FFI.fromVal && GBool.FFI.fromVal) getDecorations_ (self & GdkWMDecoration.flags [])
       in
         if retVal then SOME decorations else NONE
       end
-    fun getDeviceCursor self device = (GdkWindowClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> GdkCursorClass.FFI.fromPtr false) getDeviceCursor_ (self & device)
+    fun getDeviceCursor self device = (GdkWindowClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> GdkCursorClass.FFI.fromOptPtr false) getDeviceCursor_ (self & device)
     fun getDeviceEvents self device = (GdkWindowClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> GdkEventMask.FFI.fromVal) getDeviceEvents_ (self & device)
     fun getDevicePosition self device =
       let
@@ -820,7 +820,7 @@ structure GdkWindow :>
              ---> GInt.FFI.fromVal
                    && GInt.FFI.fromVal
                    && GdkModifierType.FFI.fromVal
-                   && GdkWindowClass.FFI.fromPtr false
+                   && GdkWindowClass.FFI.fromOptPtr false
           )
             getDevicePosition_
             (
@@ -853,7 +853,7 @@ structure GdkWindow :>
              ---> GDouble.FFI.fromVal
                    && GDouble.FFI.fromVal
                    && GdkModifierType.FFI.fromVal
-                   && GdkWindowClass.FFI.fromPtr false
+                   && GdkWindowClass.FFI.fromOptPtr false
           )
             getDevicePositionDouble_
             (
@@ -971,7 +971,7 @@ structure GdkWindow :>
              ---> GInt.FFI.fromVal
                    && GInt.FFI.fromVal
                    && GdkModifierType.FFI.fromVal
-                   && GdkWindowClass.FFI.fromPtr false
+                   && GdkWindowClass.FFI.fromOptPtr false
           )
             getPointer_
             (
@@ -1415,7 +1415,7 @@ structure GdkWindow :>
                    & ()
                 end
           )
-      fun pickEmbeddedChildSig f = signal "pick-embedded-child" (get 0w1 double &&&> get 0w2 double ---> ret GdkWindowClass.t) (fn x & y => f (x, y))
+      fun pickEmbeddedChildSig f = signal "pick-embedded-child" (get 0w1 double &&&> get 0w2 double ---> ret GdkWindowClass.tOpt) (fn x & y => f (x, y))
       fun toEmbedderSig f =
         signal "to-embedder"
           (

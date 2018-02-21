@@ -12,7 +12,7 @@ structure GLibSource :>
       val attach_ = call (getSymbol "g_source_attach") (GLibSourceRecord.PolyML.cPtr &&> GLibMainContextRecord.PolyML.cOptPtr --> GUInt.PolyML.cVal)
       val destroy_ = call (getSymbol "g_source_destroy") (GLibSourceRecord.PolyML.cPtr --> cVoid)
       val getCanRecurse_ = call (getSymbol "g_source_get_can_recurse") (GLibSourceRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getContext_ = call (getSymbol "g_source_get_context") (GLibSourceRecord.PolyML.cPtr --> GLibMainContextRecord.PolyML.cPtr)
+      val getContext_ = call (getSymbol "g_source_get_context") (GLibSourceRecord.PolyML.cPtr --> GLibMainContextRecord.PolyML.cOptPtr)
       val getCurrentTime_ = call (getSymbol "g_source_get_current_time") (GLibSourceRecord.PolyML.cPtr &&> GLibTimeValRecord.PolyML.cPtr --> cVoid)
       val getId_ = call (getSymbol "g_source_get_id") (GLibSourceRecord.PolyML.cPtr --> GUInt.PolyML.cVal)
       val getName_ = call (getSymbol "g_source_get_name") (GLibSourceRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
@@ -36,7 +36,7 @@ structure GLibSource :>
     fun attach self context = (GLibSourceRecord.FFI.withPtr &&&> GLibMainContextRecord.FFI.withOptPtr ---> GUInt.FFI.fromVal) attach_ (self & context)
     fun destroy self = (GLibSourceRecord.FFI.withPtr ---> I) destroy_ self
     fun getCanRecurse self = (GLibSourceRecord.FFI.withPtr ---> GBool.FFI.fromVal) getCanRecurse_ self
-    fun getContext self = (GLibSourceRecord.FFI.withPtr ---> GLibMainContextRecord.FFI.fromPtr false) getContext_ self
+    fun getContext self = (GLibSourceRecord.FFI.withPtr ---> GLibMainContextRecord.FFI.fromOptPtr false) getContext_ self
     fun getCurrentTime self timeval = (GLibSourceRecord.FFI.withPtr &&&> GLibTimeValRecord.FFI.withPtr ---> I) getCurrentTime_ (self & timeval)
     fun getId self = (GLibSourceRecord.FFI.withPtr ---> GUInt.FFI.fromVal) getId_ self
     fun getName self = (GLibSourceRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self

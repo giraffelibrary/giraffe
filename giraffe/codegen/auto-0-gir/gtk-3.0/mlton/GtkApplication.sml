@@ -81,8 +81,8 @@ structure GtkApplication :>
               x2,
               x3
             )
-    val getActiveWindow_ = _import "gtk_application_get_active_window" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> GtkWindowClass.FFI.notnull GtkWindowClass.FFI.p;
-    val getAppMenu_ = _import "gtk_application_get_app_menu" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p;
+    val getActiveWindow_ = _import "gtk_application_get_active_window" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> unit GtkWindowClass.FFI.p;
+    val getAppMenu_ = _import "gtk_application_get_app_menu" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> unit GioMenuModelClass.FFI.p;
     val getMenuById_ =
       fn
         x1 & (x2, x3) =>
@@ -99,7 +99,7 @@ structure GtkApplication :>
               x3
             )
     val getMenubar_ = _import "gtk_application_get_menubar" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p;
-    val getWindowById_ = fn x1 & x2 => (_import "gtk_application_get_window_by_id" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p * GUInt.FFI.val_ -> GtkWindowClass.FFI.notnull GtkWindowClass.FFI.p;) (x1, x2)
+    val getWindowById_ = fn x1 & x2 => (_import "gtk_application_get_window_by_id" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p * GUInt.FFI.val_ -> unit GtkWindowClass.FFI.p;) (x1, x2)
     val inhibit_ =
       fn
         x1
@@ -201,11 +201,11 @@ structure GtkApplication :>
     fun addWindow self window = (GtkApplicationClass.FFI.withPtr &&&> GtkWindowClass.FFI.withPtr ---> I) addWindow_ (self & window)
     fun getAccelsForAction self detailedActionName = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getAccelsForAction_ (self & detailedActionName)
     fun getActionsForAccel self accel = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getActionsForAccel_ (self & accel)
-    fun getActiveWindow self = (GtkApplicationClass.FFI.withPtr ---> GtkWindowClass.FFI.fromPtr false) getActiveWindow_ self
-    fun getAppMenu self = (GtkApplicationClass.FFI.withPtr ---> GioMenuModelClass.FFI.fromPtr false) getAppMenu_ self
+    fun getActiveWindow self = (GtkApplicationClass.FFI.withPtr ---> GtkWindowClass.FFI.fromOptPtr false) getActiveWindow_ self
+    fun getAppMenu self = (GtkApplicationClass.FFI.withPtr ---> GioMenuModelClass.FFI.fromOptPtr false) getAppMenu_ self
     fun getMenuById self id = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioMenuClass.FFI.fromPtr false) getMenuById_ (self & id)
     fun getMenubar self = (GtkApplicationClass.FFI.withPtr ---> GioMenuModelClass.FFI.fromPtr false) getMenubar_ self
-    fun getWindowById self id = (GtkApplicationClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GtkWindowClass.FFI.fromPtr false) getWindowById_ (self & id)
+    fun getWindowById self id = (GtkApplicationClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GtkWindowClass.FFI.fromOptPtr false) getWindowById_ (self & id)
     fun inhibit
       self
       (

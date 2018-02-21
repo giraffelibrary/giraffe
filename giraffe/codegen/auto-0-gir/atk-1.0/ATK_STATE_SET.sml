@@ -30,7 +30,7 @@ signature ATK_STATE_SET =
     val orSets :
       'a class
        -> 'b class
-       -> base class
+       -> base class option
     val removeState :
       'a class
        -> state_type_t

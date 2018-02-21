@@ -15,7 +15,7 @@ signature GTK_TEXT_TAG_TABLE =
     val lookup :
       'a class
        -> string
-       -> base text_tag_class
+       -> base text_tag_class option
     val remove :
       'a class
        -> 'b text_tag_class

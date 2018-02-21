@@ -3,7 +3,7 @@ structure PangoCairo : PANGO_CAIRO =
     local
       open PolyMLFFI
     in
-      val contextGetFontOptions_ = call (getSymbol "pango_cairo_context_get_font_options") (PangoContextClass.PolyML.cPtr --> CairoFontOptionsRecord.PolyML.cPtr)
+      val contextGetFontOptions_ = call (getSymbol "pango_cairo_context_get_font_options") (PangoContextClass.PolyML.cPtr --> CairoFontOptionsRecord.PolyML.cOptPtr)
       val contextGetResolution_ = call (getSymbol "pango_cairo_context_get_resolution") (PangoContextClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val contextSetFontOptions_ = call (getSymbol "pango_cairo_context_set_font_options") (PangoContextClass.PolyML.cPtr &&> CairoFontOptionsRecord.PolyML.cOptPtr --> cVoid)
       val contextSetResolution_ = call (getSymbol "pango_cairo_context_set_resolution") (PangoContextClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
@@ -66,7 +66,7 @@ structure PangoCairo : PANGO_CAIRO =
     structure FcFontMap = PangoCairoFcFontMap
     structure Font = PangoCairoFont
     structure FontMap = PangoCairoFontMap
-    fun contextGetFontOptions context = (PangoContextClass.FFI.withPtr ---> CairoFontOptionsRecord.FFI.fromPtr false) contextGetFontOptions_ context
+    fun contextGetFontOptions context = (PangoContextClass.FFI.withPtr ---> CairoFontOptionsRecord.FFI.fromOptPtr false) contextGetFontOptions_ context
     fun contextGetResolution context = (PangoContextClass.FFI.withPtr ---> GDouble.FFI.fromVal) contextGetResolution_ context
     fun contextSetFontOptions (context, options) = (PangoContextClass.FFI.withPtr &&&> CairoFontOptionsRecord.FFI.withOptPtr ---> I) contextSetFontOptions_ (context & options)
     fun contextSetResolution (context, dpi) = (PangoContextClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) contextSetResolution_ (context & dpi)

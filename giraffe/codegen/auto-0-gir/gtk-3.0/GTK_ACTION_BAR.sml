@@ -8,7 +8,7 @@ signature GTK_ACTION_BAR =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val getCenterWidget : 'a class -> base widget_class
+    val getCenterWidget : 'a class -> base widget_class option
     val packEnd :
       'a class
        -> 'b widget_class

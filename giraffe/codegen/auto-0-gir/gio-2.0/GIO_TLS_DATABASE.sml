@@ -14,14 +14,14 @@ signature GIO_TLS_DATABASE =
     val createCertificateHandle :
       'a class
        -> 'b tls_certificate_class
-       -> string
+       -> string option
     val lookupCertificateForHandle :
       'a class
        -> string
            * 'b tls_interaction_class option
            * tls_database_lookup_flags_t
            * 'c cancellable_class option
-       -> base tls_certificate_class
+       -> base tls_certificate_class option
     val lookupCertificateForHandleFinish :
       'a class
        -> 'b async_result_class

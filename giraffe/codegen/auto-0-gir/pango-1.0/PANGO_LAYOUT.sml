@@ -29,7 +29,7 @@ signature PANGO_LAYOUT =
        -> rectangle_t * rectangle_t
     val getEllipsize : 'a class -> ellipsize_mode_t
     val getExtents : 'a class -> rectangle_t * rectangle_t
-    val getFontDescription : 'a class -> font_description_t
+    val getFontDescription : 'a class -> font_description_t option
     val getHeight : 'a class -> LargeInt.int
     val getIndent : 'a class -> LargeInt.int
     val getIter : 'a class -> layout_iter_t
@@ -37,12 +37,12 @@ signature PANGO_LAYOUT =
     val getLine :
       'a class
        -> LargeInt.int
-       -> layout_line_t
+       -> layout_line_t option
     val getLineCount : 'a class -> LargeInt.int
     val getLineReadonly :
       'a class
        -> LargeInt.int
-       -> layout_line_t
+       -> layout_line_t option
     val getLogAttrs : 'a class -> log_attr_t vector
     val getLogAttrsReadonly : 'a class -> log_attr_t vector
     val getPixelExtents : 'a class -> rectangle_t * rectangle_t
@@ -51,7 +51,7 @@ signature PANGO_LAYOUT =
     val getSingleParagraphMode : 'a class -> bool
     val getSize : 'a class -> LargeInt.int * LargeInt.int
     val getSpacing : 'a class -> LargeInt.int
-    val getTabs : 'a class -> tab_array_t
+    val getTabs : 'a class -> tab_array_t option
     val getText : 'a class -> string
     val getUnknownGlyphsCount : 'a class -> LargeInt.int
     val getWidth : 'a class -> LargeInt.int

@@ -7,7 +7,7 @@ structure GioCancellable :>
     in
       val getType_ = call (getSymbol "g_cancellable_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_cancellable_new") (cVoid --> GioCancellableClass.PolyML.cPtr)
-      val getCurrent_ = call (getSymbol "g_cancellable_get_current") (cVoid --> GioCancellableClass.PolyML.cPtr)
+      val getCurrent_ = call (getSymbol "g_cancellable_get_current") (cVoid --> GioCancellableClass.PolyML.cOptPtr)
       val cancel_ = call (getSymbol "g_cancellable_cancel") (GioCancellableClass.PolyML.cPtr --> cVoid)
       val disconnect_ = call (getSymbol "g_cancellable_disconnect") (GioCancellableClass.PolyML.cPtr &&> GULong.PolyML.cVal --> cVoid)
       val getFd_ = call (getSymbol "g_cancellable_get_fd") (GioCancellableClass.PolyML.cPtr --> GInt.PolyML.cVal)
@@ -22,7 +22,7 @@ structure GioCancellable :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioCancellableClass.FFI.fromPtr true) new_ ()
-    fun getCurrent () = (I ---> GioCancellableClass.FFI.fromPtr false) getCurrent_ ()
+    fun getCurrent () = (I ---> GioCancellableClass.FFI.fromOptPtr false) getCurrent_ ()
     fun cancel self = (GioCancellableClass.FFI.withPtr ---> I) cancel_ self
     fun disconnect self handlerId = (GioCancellableClass.FFI.withPtr &&&> GULong.FFI.withVal ---> I) disconnect_ (self & handlerId)
     fun getFd self = (GioCancellableClass.FFI.withPtr ---> GInt.FFI.fromVal) getFd_ self

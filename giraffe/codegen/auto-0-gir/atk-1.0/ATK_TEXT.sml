@@ -55,7 +55,7 @@ signature ATK_TEXT =
     val getStringAtOffset :
       'a class
        -> LargeInt.int * text_granularity_t
-       -> string
+       -> string option
            * LargeInt.int
            * LargeInt.int
     val getText :

@@ -29,7 +29,7 @@ structure GtkSourceMark :>
               GtkSourceMarkClass.FFI.notnull GtkSourceMarkClass.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GtkSourceMarkClass.FFI.notnull GtkSourceMarkClass.FFI.p;
+               -> unit GtkSourceMarkClass.FFI.p;
           )
             (
               x1,
@@ -44,7 +44,7 @@ structure GtkSourceMark :>
               GtkSourceMarkClass.FFI.notnull GtkSourceMarkClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkSourceMarkClass.FFI.notnull GtkSourceMarkClass.FFI.p;
+               -> unit GtkSourceMarkClass.FFI.p;
           )
             (
               x1,
@@ -56,8 +56,8 @@ structure GtkSourceMark :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (name, category) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceMarkClass.FFI.fromPtr true) new_ (name & category)
     fun getCategory self = (GtkSourceMarkClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCategory_ self
-    fun next self category = (GtkSourceMarkClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GtkSourceMarkClass.FFI.fromPtr false) next_ (self & category)
-    fun prev self category = (GtkSourceMarkClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceMarkClass.FFI.fromPtr false) prev_ (self & category)
+    fun next self category = (GtkSourceMarkClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GtkSourceMarkClass.FFI.fromOptPtr false) next_ (self & category)
+    fun prev self category = (GtkSourceMarkClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceMarkClass.FFI.fromOptPtr false) prev_ (self & category)
     local
       open Property
     in

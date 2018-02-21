@@ -11,7 +11,7 @@ structure GtkBox :>
     val getType_ = _import "gtk_box_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = fn x1 & x2 => (_import "gtk_box_new" : GtkOrientation.FFI.val_ * GInt.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
     val getBaselinePosition_ = _import "gtk_box_get_baseline_position" : GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p -> GtkBaselinePosition.FFI.val_;
-    val getCenterWidget_ = _import "gtk_box_get_center_widget" : GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getCenterWidget_ = _import "gtk_box_get_center_widget" : GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p -> unit GtkWidgetClass.FFI.p;
     val getHomogeneous_ = _import "gtk_box_get_homogeneous" : GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p -> GBool.FFI.val_;
     val getSpacing_ = _import "gtk_box_get_spacing" : GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p -> GInt.FFI.val_;
     val packEnd_ =
@@ -147,7 +147,7 @@ structure GtkBox :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (orientation, spacing) = (GtkOrientation.FFI.withVal &&&> GInt.FFI.withVal ---> GtkBoxClass.FFI.fromPtr false) new_ (orientation & spacing)
     fun getBaselinePosition self = (GtkBoxClass.FFI.withPtr ---> GtkBaselinePosition.FFI.fromVal) getBaselinePosition_ self
-    fun getCenterWidget self = (GtkBoxClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getCenterWidget_ self
+    fun getCenterWidget self = (GtkBoxClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getCenterWidget_ self
     fun getHomogeneous self = (GtkBoxClass.FFI.withPtr ---> GBool.FFI.fromVal) getHomogeneous_ self
     fun getSpacing self = (GtkBoxClass.FFI.withPtr ---> GInt.FFI.fromVal) getSpacing_ self
     fun packEnd

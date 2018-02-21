@@ -10,11 +10,11 @@ signature GTK_STYLE_PROVIDER =
     val getIconFactory :
       'a class
        -> widget_path_t
-       -> base icon_factory_class
+       -> base icon_factory_class option
     val getStyle :
       'a class
        -> widget_path_t
-       -> base style_properties_class
+       -> base style_properties_class option
     val getStyleProperty :
       'a class
        -> widget_path_t

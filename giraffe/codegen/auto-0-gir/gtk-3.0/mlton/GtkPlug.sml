@@ -26,7 +26,7 @@ structure GtkPlug :>
             )
     val getEmbedded_ = _import "gtk_plug_get_embedded" : GtkPlugClass.FFI.notnull GtkPlugClass.FFI.p -> GBool.FFI.val_;
     val getId_ = _import "gtk_plug_get_id" : GtkPlugClass.FFI.notnull GtkPlugClass.FFI.p -> XlibWindow.FFI.val_;
-    val getSocketWindow_ = _import "gtk_plug_get_socket_window" : GtkPlugClass.FFI.notnull GtkPlugClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
+    val getSocketWindow_ = _import "gtk_plug_get_socket_window" : GtkPlugClass.FFI.notnull GtkPlugClass.FFI.p -> unit GdkWindowClass.FFI.p;
     type 'a class = 'a GtkPlugClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
@@ -51,7 +51,7 @@ structure GtkPlug :>
         )
     fun getEmbedded self = (GtkPlugClass.FFI.withPtr ---> GBool.FFI.fromVal) getEmbedded_ self
     fun getId self = (GtkPlugClass.FFI.withPtr ---> XlibWindow.FFI.fromVal) getId_ self
-    fun getSocketWindow self = (GtkPlugClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getSocketWindow_ self
+    fun getSocketWindow self = (GtkPlugClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getSocketWindow_ self
     local
       open ClosureMarshal Signal
     in

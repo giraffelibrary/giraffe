@@ -22,7 +22,7 @@ structure GioTestDBus :>
               x3
             )
     val down_ = _import "g_test_dbus_down" : GioTestDBusClass.FFI.notnull GioTestDBusClass.FFI.p -> unit;
-    val getBusAddress_ = _import "g_test_dbus_get_bus_address" : GioTestDBusClass.FFI.notnull GioTestDBusClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getBusAddress_ = _import "g_test_dbus_get_bus_address" : GioTestDBusClass.FFI.notnull GioTestDBusClass.FFI.p -> unit Utf8.FFI.out_p;
     val getFlags_ = _import "g_test_dbus_get_flags" : GioTestDBusClass.FFI.notnull GioTestDBusClass.FFI.p -> GioTestDBusFlags.FFI.val_;
     val stop_ = _import "g_test_dbus_stop" : GioTestDBusClass.FFI.notnull GioTestDBusClass.FFI.p -> unit;
     val up_ = _import "g_test_dbus_up" : GioTestDBusClass.FFI.notnull GioTestDBusClass.FFI.p -> unit;
@@ -34,7 +34,7 @@ structure GioTestDBus :>
     fun unset () = (I ---> I) unset_ ()
     fun addServiceDir self path = (GioTestDBusClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addServiceDir_ (self & path)
     fun down self = (GioTestDBusClass.FFI.withPtr ---> I) down_ self
-    fun getBusAddress self = (GioTestDBusClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getBusAddress_ self
+    fun getBusAddress self = (GioTestDBusClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getBusAddress_ self
     fun getFlags self = (GioTestDBusClass.FFI.withPtr ---> GioTestDBusFlags.FFI.fromVal) getFlags_ self
     fun stop self = (GioTestDBusClass.FFI.withPtr ---> I) stop_ self
     fun up self = (GioTestDBusClass.FFI.withPtr ---> I) up_ self

@@ -207,7 +207,7 @@ structure GtkIconView :>
     val getItemWidth_ = _import "gtk_icon_view_get_item_width" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt.FFI.val_;
     val getMargin_ = _import "gtk_icon_view_get_margin" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt.FFI.val_;
     val getMarkupColumn_ = _import "gtk_icon_view_get_markup_column" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GInt.FFI.val_;
-    val getModel_ = _import "gtk_icon_view_get_model" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p;
+    val getModel_ = _import "gtk_icon_view_get_model" : GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p -> unit GtkTreeModelClass.FFI.p;
     val getPathAtPos_ =
       fn
         x1
@@ -218,7 +218,7 @@ structure GtkIconView :>
               GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p;
+               -> unit GtkTreePathRecord.FFI.p;
           )
             (
               x1,
@@ -626,13 +626,13 @@ structure GtkIconView :>
     fun getItemWidth self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getItemWidth_ self
     fun getMargin self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getMargin_ self
     fun getMarkupColumn self = (GtkIconViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getMarkupColumn_ self
-    fun getModel self = (GtkIconViewClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
+    fun getModel self = (GtkIconViewClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromOptPtr false) getModel_ self
     fun getPathAtPos self (x, y) =
       (
         GtkIconViewClass.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         ---> GtkTreePathRecord.FFI.fromPtr true
+         ---> GtkTreePathRecord.FFI.fromOptPtr true
       )
         getPathAtPos_
         (

@@ -34,7 +34,7 @@ signature ATK_COMPONENT =
        -> LargeInt.int
            * LargeInt.int
            * coord_type_t
-       -> base object_class
+       -> base object_class option
     val removeFocusHandler :
       'a class
        -> LargeInt.int

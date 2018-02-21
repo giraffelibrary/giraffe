@@ -99,7 +99,7 @@ signature GTK_CELL_RENDERER =
            * Gdk.RectangleRecord.t
            * Gdk.RectangleRecord.t
            * cell_renderer_state_t
-       -> base cell_editable_class
+       -> base cell_editable_class option
     val stopEditing :
       'a class
        -> bool

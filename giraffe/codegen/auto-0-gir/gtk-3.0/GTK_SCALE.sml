@@ -28,7 +28,7 @@ signature GTK_SCALE =
     val getDigits : 'a class -> LargeInt.int
     val getDrawValue : 'a class -> bool
     val getHasOrigin : 'a class -> bool
-    val getLayout : 'a class -> base Pango.LayoutClass.class
+    val getLayout : 'a class -> base Pango.LayoutClass.class option
     val getLayoutOffsets : 'a class -> LargeInt.int * LargeInt.int
     val getValuePos : 'a class -> position_type_t
     val setDigits :

@@ -100,8 +100,9 @@ structure Info =
       {
         returnValue :
           {
-            type_             : basedata,
-            transferOwnership : GIRepositoryTransfer.t
+            transferOwnership : GIRepositoryTransfer.t,
+            nullable          : bool,
+            type_             : basedata
           },
         parameter   : basedata list
       }
@@ -114,7 +115,8 @@ structure Info =
     and argdata =
       {
         transferOwnership : GIRepositoryTransfer.t,
-        allowNone         : bool,
+        nullable          : bool,
+        optional          : bool,
         direction         : GIRepositoryDirection.t,
         callerAllocates   : bool,
         scope             : GIRepositoryScopeType.t,

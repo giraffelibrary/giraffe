@@ -56,14 +56,14 @@ signature GTK_WINDOW =
        -> 'b Gdk.ScreenClass.class * LargeInt.int
        -> unit
     val getAcceptFocus : 'a class -> bool
-    val getApplication : 'a class -> base application_class
-    val getAttachedTo : 'a class -> base widget_class
+    val getApplication : 'a class -> base application_class option
+    val getAttachedTo : 'a class -> base widget_class option
     val getDecorated : 'a class -> bool
     val getDefaultSize : 'a class -> LargeInt.int * LargeInt.int
-    val getDefaultWidget : 'a class -> base widget_class
+    val getDefaultWidget : 'a class -> base widget_class option
     val getDeletable : 'a class -> bool
     val getDestroyWithParent : 'a class -> bool
-    val getFocus : 'a class -> base widget_class
+    val getFocus : 'a class -> base widget_class option
     val getFocusOnMap : 'a class -> bool
     val getFocusVisible : 'a class -> bool
     val getGravity : 'a class -> Gdk.Gravity.t
@@ -71,7 +71,7 @@ signature GTK_WINDOW =
     val getHasResizeGrip : 'a class -> bool
     val getHideTitlebarWhenMaximized : 'a class -> bool
     val getIcon : 'a class -> base GdkPixbuf.PixbufClass.class
-    val getIconName : 'a class -> string
+    val getIconName : 'a class -> string option
     val getMnemonicModifier : 'a class -> Gdk.ModifierType.t
     val getMnemonicsVisible : 'a class -> bool
     val getModal : 'a class -> bool
@@ -79,14 +79,14 @@ signature GTK_WINDOW =
     val getPosition : 'a class -> LargeInt.int * LargeInt.int
     val getResizable : 'a class -> bool
     val getResizeGripArea : 'a class -> Gdk.RectangleRecord.t option
-    val getRole : 'a class -> string
+    val getRole : 'a class -> string option
     val getScreen : 'a class -> base Gdk.ScreenClass.class
     val getSize : 'a class -> LargeInt.int * LargeInt.int
     val getSkipPagerHint : 'a class -> bool
     val getSkipTaskbarHint : 'a class -> bool
-    val getTitle : 'a class -> string
-    val getTitlebar : 'a class -> base widget_class
-    val getTransientFor : 'a class -> base class
+    val getTitle : 'a class -> string option
+    val getTitlebar : 'a class -> base widget_class option
+    val getTransientFor : 'a class -> base class option
     val getTypeHint : 'a class -> Gdk.WindowTypeHint.t
     val getUrgencyHint : 'a class -> bool
     val getWindowType : 'a class -> window_type_t

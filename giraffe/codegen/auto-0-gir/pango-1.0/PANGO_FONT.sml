@@ -11,7 +11,7 @@ signature PANGO_FONT =
     val getType : unit -> GObject.Type.t
     val describe : 'a class -> font_description_t
     val describeWithAbsoluteSize : 'a class -> font_description_t
-    val getFontMap : 'a class -> base font_map_class
+    val getFontMap : 'a class -> base font_map_class option
     val getGlyphExtents :
       'a class
        -> glyph_t

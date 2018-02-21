@@ -26,15 +26,15 @@ signature GTK_ICON_THEME =
        -> string list
            * LargeInt.int
            * icon_lookup_flags_t
-       -> base icon_info_class
+       -> base icon_info_class option
     val chooseIconForScale :
       'a class
        -> string list
            * LargeInt.int
            * LargeInt.int
            * icon_lookup_flags_t
-       -> base icon_info_class
-    val getExampleIconName : 'a class -> string
+       -> base icon_info_class option
+    val getExampleIconName : 'a class -> string option
     val getIconSizes :
       'a class
        -> string
@@ -49,14 +49,14 @@ signature GTK_ICON_THEME =
        -> string
            * LargeInt.int
            * icon_lookup_flags_t
-       -> base GdkPixbuf.PixbufClass.class
+       -> base GdkPixbuf.PixbufClass.class option
     val loadIconForScale :
       'a class
        -> string
            * LargeInt.int
            * LargeInt.int
            * icon_lookup_flags_t
-       -> base GdkPixbuf.PixbufClass.class
+       -> base GdkPixbuf.PixbufClass.class option
     val loadSurface :
       'a class
        -> string
@@ -64,33 +64,33 @@ signature GTK_ICON_THEME =
            * LargeInt.int
            * 'b Gdk.WindowClass.class option
            * icon_lookup_flags_t
-       -> Cairo.SurfaceRecord.t
+       -> Cairo.SurfaceRecord.t option
     val lookupByGicon :
       'a class
        -> 'b Gio.IconClass.class
            * LargeInt.int
            * icon_lookup_flags_t
-       -> base icon_info_class
+       -> base icon_info_class option
     val lookupByGiconForScale :
       'a class
        -> 'b Gio.IconClass.class
            * LargeInt.int
            * LargeInt.int
            * icon_lookup_flags_t
-       -> base icon_info_class
+       -> base icon_info_class option
     val lookupIcon :
       'a class
        -> string
            * LargeInt.int
            * icon_lookup_flags_t
-       -> base icon_info_class
+       -> base icon_info_class option
     val lookupIconForScale :
       'a class
        -> string
            * LargeInt.int
            * LargeInt.int
            * icon_lookup_flags_t
-       -> base icon_info_class
+       -> base icon_info_class option
     val prependSearchPath :
       'a class
        -> string

@@ -14,7 +14,7 @@ structure GtkSettings :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_settings_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val getDefault_ = call (getSymbol "gtk_settings_get_default") (cVoid --> GtkSettingsClass.PolyML.cPtr)
+      val getDefault_ = call (getSymbol "gtk_settings_get_default") (cVoid --> GtkSettingsClass.PolyML.cOptPtr)
       val getForScreen_ = call (getSymbol "gtk_settings_get_for_screen") (GdkScreenClass.PolyML.cPtr --> GtkSettingsClass.PolyML.cPtr)
       val installProperty_ = call (getSymbol "gtk_settings_install_property") (GObjectParamSpecClass.PolyML.cPtr --> cVoid)
       val resetProperty_ = call (getSymbol "gtk_settings_reset_property") (GtkSettingsClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
@@ -66,7 +66,7 @@ structure GtkSettings :>
     type t = base class
     fun asStyleProvider self = (GObjectObjectClass.FFI.withPtr ---> GtkStyleProviderClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getDefault () = (I ---> GtkSettingsClass.FFI.fromPtr false) getDefault_ ()
+    fun getDefault () = (I ---> GtkSettingsClass.FFI.fromOptPtr false) getDefault_ ()
     fun getForScreen screen = (GdkScreenClass.FFI.withPtr ---> GtkSettingsClass.FFI.fromPtr false) getForScreen_ screen
     fun installProperty pspec = (GObjectParamSpecClass.FFI.withPtr ---> I) installProperty_ pspec
     fun resetProperty self name = (GtkSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) resetProperty_ (self & name)

@@ -211,7 +211,7 @@ structure GtkBuilder :>
               x6,
               x7
             )
-    val getApplication_ = _import "gtk_builder_get_application" : GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p -> GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p;
+    val getApplication_ = _import "gtk_builder_get_application" : GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p -> unit GtkApplicationClass.FFI.p;
     val getObject_ =
       fn
         x1 & (x2, x3) =>
@@ -220,7 +220,7 @@ structure GtkBuilder :>
               GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
+               -> unit GObjectObjectClass.FFI.p;
           )
             (
               x1,
@@ -451,8 +451,8 @@ structure GtkBuilder :>
            & length
            & []
         )
-    fun getApplication self = (GtkBuilderClass.FFI.withPtr ---> GtkApplicationClass.FFI.fromPtr false) getApplication_ self
-    fun getObject self name = (GtkBuilderClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getObject_ (self & name)
+    fun getApplication self = (GtkBuilderClass.FFI.withPtr ---> GtkApplicationClass.FFI.fromOptPtr false) getApplication_ self
+    fun getObject self name = (GtkBuilderClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectObjectClass.FFI.fromOptPtr false) getObject_ (self & name)
     fun getTranslationDomain self = (GtkBuilderClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTranslationDomain_ self
     fun getTypeFromName self typeName = (GtkBuilderClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectType.FFI.fromVal) getTypeFromName_ (self & typeName)
     fun setApplication self application = (GtkBuilderClass.FFI.withPtr &&&> GtkApplicationClass.FFI.withPtr ---> I) setApplication_ (self & application)

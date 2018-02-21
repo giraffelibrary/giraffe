@@ -36,7 +36,7 @@ structure PangoFontMap :>
             PangoFontMapClass.PolyML.cPtr
              &&> PangoContextClass.PolyML.cPtr
              &&> PangoFontDescriptionRecord.PolyML.cPtr
-             --> PangoFontClass.PolyML.cPtr
+             --> PangoFontClass.PolyML.cOptPtr
           )
       val loadFontset_ =
         call (getSymbol "pango_font_map_load_fontset")
@@ -45,7 +45,7 @@ structure PangoFontMap :>
              &&> PangoContextClass.PolyML.cPtr
              &&> PangoFontDescriptionRecord.PolyML.cPtr
              &&> PangoLanguageRecord.PolyML.cPtr
-             --> PangoFontsetClass.PolyML.cPtr
+             --> PangoFontsetClass.PolyML.cOptPtr
           )
     end
     type 'a class = 'a PangoFontMapClass.class
@@ -88,7 +88,7 @@ structure PangoFontMap :>
         PangoFontMapClass.FFI.withPtr
          &&&> PangoContextClass.FFI.withPtr
          &&&> PangoFontDescriptionRecord.FFI.withPtr
-         ---> PangoFontClass.FFI.fromPtr true
+         ---> PangoFontClass.FFI.fromOptPtr true
       )
         loadFont_
         (
@@ -108,7 +108,7 @@ structure PangoFontMap :>
          &&&> PangoContextClass.FFI.withPtr
          &&&> PangoFontDescriptionRecord.FFI.withPtr
          &&&> PangoLanguageRecord.FFI.withPtr
-         ---> PangoFontsetClass.FFI.fromPtr true
+         ---> PangoFontsetClass.FFI.fromOptPtr true
       )
         loadFontset_
         (

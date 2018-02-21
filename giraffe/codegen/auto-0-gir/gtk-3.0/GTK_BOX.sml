@@ -14,7 +14,7 @@ signature GTK_BOX =
     val getType : unit -> GObject.Type.t
     val new : orientation_t * LargeInt.int -> base class
     val getBaselinePosition : 'a class -> baseline_position_t
-    val getCenterWidget : 'a class -> base widget_class
+    val getCenterWidget : 'a class -> base widget_class option
     val getHomogeneous : 'a class -> bool
     val getSpacing : 'a class -> LargeInt.int
     val packEnd :

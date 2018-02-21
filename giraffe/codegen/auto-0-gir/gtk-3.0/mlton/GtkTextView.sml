@@ -232,11 +232,11 @@ structure GtkTextView :>
     val getPixelsBelowLines_ = _import "gtk_text_view_get_pixels_below_lines" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> GInt.FFI.val_;
     val getPixelsInsideWrap_ = _import "gtk_text_view_get_pixels_inside_wrap" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> GInt.FFI.val_;
     val getRightMargin_ = _import "gtk_text_view_get_right_margin" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> GInt.FFI.val_;
-    val getTabs_ = _import "gtk_text_view_get_tabs" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> PangoTabArrayRecord.FFI.notnull PangoTabArrayRecord.FFI.p;
+    val getTabs_ = _import "gtk_text_view_get_tabs" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> unit PangoTabArrayRecord.FFI.p;
     val getTopMargin_ = _import "gtk_text_view_get_top_margin" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> GInt.FFI.val_;
     val getVadjustment_ = _import "gtk_text_view_get_vadjustment" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
     val getVisibleRect_ = fn x1 & x2 => (_import "gtk_text_view_get_visible_rect" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
-    val getWindow_ = fn x1 & x2 => (_import "gtk_text_view_get_window" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p * GtkTextWindowType.FFI.val_ -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;) (x1, x2)
+    val getWindow_ = fn x1 & x2 => (_import "gtk_text_view_get_window" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p * GtkTextWindowType.FFI.val_ -> unit GdkWindowClass.FFI.p;) (x1, x2)
     val getWindowType_ = fn x1 & x2 => (_import "gtk_text_view_get_window_type" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GtkTextWindowType.FFI.val_;) (x1, x2)
     val getWrapMode_ = _import "gtk_text_view_get_wrap_mode" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p -> GtkWrapMode.FFI.val_;
     val imContextFilterKeypress_ = fn x1 & x2 => (_import "gtk_text_view_im_context_filter_keypress" : GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p * GdkEventKeyRecord.FFI.notnull GdkEventKeyRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
@@ -653,7 +653,7 @@ structure GtkTextView :>
     fun getPixelsBelowLines self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getPixelsBelowLines_ self
     fun getPixelsInsideWrap self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getPixelsInsideWrap_ self
     fun getRightMargin self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getRightMargin_ self
-    fun getTabs self = (GtkTextViewClass.FFI.withPtr ---> PangoTabArrayRecord.FFI.fromPtr true) getTabs_ self
+    fun getTabs self = (GtkTextViewClass.FFI.withPtr ---> PangoTabArrayRecord.FFI.fromOptPtr true) getTabs_ self
     fun getTopMargin self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getTopMargin_ self
     fun getVadjustment self = (GtkTextViewClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
     fun getVisibleRect self =
@@ -662,7 +662,7 @@ structure GtkTextView :>
       in
         visibleRect
       end
-    fun getWindow self win = (GtkTextViewClass.FFI.withPtr &&&> GtkTextWindowType.FFI.withVal ---> GdkWindowClass.FFI.fromPtr false) getWindow_ (self & win)
+    fun getWindow self win = (GtkTextViewClass.FFI.withPtr &&&> GtkTextWindowType.FFI.withVal ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ (self & win)
     fun getWindowType self window = (GtkTextViewClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> GtkTextWindowType.FFI.fromVal) getWindowType_ (self & window)
     fun getWrapMode self = (GtkTextViewClass.FFI.withPtr ---> GtkWrapMode.FFI.fromVal) getWrapMode_ self
     fun imContextFilterKeypress self event = (GtkTextViewClass.FFI.withPtr &&&> GdkEventKeyRecord.FFI.withPtr ---> GBool.FFI.fromVal) imContextFilterKeypress_ (self & event)

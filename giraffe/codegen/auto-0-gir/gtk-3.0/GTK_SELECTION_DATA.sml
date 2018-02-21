@@ -9,11 +9,11 @@ signature GTK_SELECTION_DATA =
     val getDisplay : t -> base Gdk.DisplayClass.class
     val getFormat : t -> LargeInt.int
     val getLength : t -> LargeInt.int
-    val getPixbuf : t -> base GdkPixbuf.PixbufClass.class
+    val getPixbuf : t -> base GdkPixbuf.PixbufClass.class option
     val getSelection : t -> Gdk.AtomRecord.t
     val getTarget : t -> Gdk.AtomRecord.t
     val getTargets : t -> Gdk.AtomRecord.t vector option
-    val getText : t -> string
+    val getText : t -> string option
     val getUris : t -> string list
     val set :
       t

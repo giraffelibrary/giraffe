@@ -72,11 +72,11 @@ signature GTK_ICON_VIEW =
     val getItemWidth : 'a class -> LargeInt.int
     val getMargin : 'a class -> LargeInt.int
     val getMarkupColumn : 'a class -> LargeInt.int
-    val getModel : 'a class -> base tree_model_class
+    val getModel : 'a class -> base tree_model_class option
     val getPathAtPos :
       'a class
        -> LargeInt.int * LargeInt.int
-       -> tree_path_t
+       -> tree_path_t option
     val getPixbufColumn : 'a class -> LargeInt.int
     val getReorderable : 'a class -> bool
     val getRowSpacing : 'a class -> LargeInt.int

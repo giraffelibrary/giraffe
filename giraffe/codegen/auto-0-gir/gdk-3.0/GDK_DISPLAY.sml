@@ -13,9 +13,9 @@ signature GDK_DISPLAY =
     type 'a seat_class
     type t = base class
     val getType : unit -> GObject.Type.t
-    val getDefault : unit -> base class
-    val open' : string -> base class
-    val openDefaultLibgtkOnly : unit -> base class
+    val getDefault : unit -> base class option
+    val open' : string -> base class option
+    val openDefaultLibgtkOnly : unit -> base class option
     val beep : 'a class -> unit
     val close : 'a class -> unit
     val deviceIsGrabbed :
@@ -28,13 +28,13 @@ signature GDK_DISPLAY =
     val getDefaultGroup : 'a class -> base window_class
     val getDefaultScreen : 'a class -> base screen_class
     val getDefaultSeat : 'a class -> base seat_class
-    val getDeviceManager : 'a class -> base device_manager_class
-    val getEvent : 'a class -> base event_union
+    val getDeviceManager : 'a class -> base device_manager_class option
+    val getEvent : 'a class -> base event_union option
     val getMaximalCursorSize : 'a class -> LargeInt.int * LargeInt.int
     val getMonitor :
       'a class
        -> LargeInt.int
-       -> base monitor_class
+       -> base monitor_class option
     val getMonitorAtPoint :
       'a class
        -> LargeInt.int * LargeInt.int
@@ -52,14 +52,14 @@ signature GDK_DISPLAY =
            * LargeInt.int
            * LargeInt.int
            * modifier_type_t
-    val getPrimaryMonitor : 'a class -> base monitor_class
+    val getPrimaryMonitor : 'a class -> base monitor_class option
     val getScreen :
       'a class
        -> LargeInt.int
        -> base screen_class
     val getWindowAtPointer :
       'a class
-       -> base window_class
+       -> base window_class option
            * LargeInt.int
            * LargeInt.int
     val hasPending : 'a class -> bool
@@ -72,7 +72,7 @@ signature GDK_DISPLAY =
       'a class
        -> string
        -> unit
-    val peekEvent : 'a class -> base event_union
+    val peekEvent : 'a class -> base event_union option
     val pointerIsGrabbed : 'a class -> bool
     val pointerUngrab :
       'a class

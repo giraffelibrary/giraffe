@@ -125,10 +125,10 @@ structure GtkSourceBuffer :>
     val getHighlightMatchingBrackets_ = _import "gtk_source_buffer_get_highlight_matching_brackets" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
     val getHighlightSyntax_ = _import "gtk_source_buffer_get_highlight_syntax" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
     val getImplicitTrailingNewline_ = _import "gtk_source_buffer_get_implicit_trailing_newline" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
-    val getLanguage_ = _import "gtk_source_buffer_get_language" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GtkSourceLanguageClass.FFI.notnull GtkSourceLanguageClass.FFI.p;
+    val getLanguage_ = _import "gtk_source_buffer_get_language" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> unit GtkSourceLanguageClass.FFI.p;
     val getMaxUndoLevels_ = _import "gtk_source_buffer_get_max_undo_levels" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GInt.FFI.val_;
-    val getStyleScheme_ = _import "gtk_source_buffer_get_style_scheme" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p;
-    val getUndoManager_ = _import "gtk_source_buffer_get_undo_manager" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GtkSourceUndoManagerClass.FFI.notnull GtkSourceUndoManagerClass.FFI.p;
+    val getStyleScheme_ = _import "gtk_source_buffer_get_style_scheme" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> unit GtkSourceStyleSchemeClass.FFI.p;
+    val getUndoManager_ = _import "gtk_source_buffer_get_undo_manager" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> unit GtkSourceUndoManagerClass.FFI.p;
     val iterBackwardToContextClassToggle_ =
       fn
         x1
@@ -358,10 +358,10 @@ structure GtkSourceBuffer :>
     fun getHighlightMatchingBrackets self = (GtkSourceBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getHighlightMatchingBrackets_ self
     fun getHighlightSyntax self = (GtkSourceBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getHighlightSyntax_ self
     fun getImplicitTrailingNewline self = (GtkSourceBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getImplicitTrailingNewline_ self
-    fun getLanguage self = (GtkSourceBufferClass.FFI.withPtr ---> GtkSourceLanguageClass.FFI.fromPtr false) getLanguage_ self
+    fun getLanguage self = (GtkSourceBufferClass.FFI.withPtr ---> GtkSourceLanguageClass.FFI.fromOptPtr false) getLanguage_ self
     fun getMaxUndoLevels self = (GtkSourceBufferClass.FFI.withPtr ---> GInt.FFI.fromVal) getMaxUndoLevels_ self
-    fun getStyleScheme self = (GtkSourceBufferClass.FFI.withPtr ---> GtkSourceStyleSchemeClass.FFI.fromPtr false) getStyleScheme_ self
-    fun getUndoManager self = (GtkSourceBufferClass.FFI.withPtr ---> GtkSourceUndoManagerClass.FFI.fromPtr false) getUndoManager_ self
+    fun getStyleScheme self = (GtkSourceBufferClass.FFI.withPtr ---> GtkSourceStyleSchemeClass.FFI.fromOptPtr false) getStyleScheme_ self
+    fun getUndoManager self = (GtkSourceBufferClass.FFI.withPtr ---> GtkSourceUndoManagerClass.FFI.fromOptPtr false) getUndoManager_ self
     fun iterBackwardToContextClassToggle self (iter, contextClass) =
       (
         GtkSourceBufferClass.FFI.withPtr

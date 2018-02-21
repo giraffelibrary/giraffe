@@ -38,8 +38,8 @@ signature GTK_CONTAINER =
     val childType : 'a class -> GObject.Type.t
     val getBorderWidth : 'a class -> LargeInt.int
     val getFocusChild : 'a class -> base widget_class option
-    val getFocusHadjustment : 'a class -> base adjustment_class
-    val getFocusVadjustment : 'a class -> base adjustment_class
+    val getFocusHadjustment : 'a class -> base adjustment_class option
+    val getFocusVadjustment : 'a class -> base adjustment_class option
     val getPathForChild :
       'a class
        -> 'b widget_class

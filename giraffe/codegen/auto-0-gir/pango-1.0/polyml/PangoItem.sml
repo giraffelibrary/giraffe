@@ -7,7 +7,7 @@ structure PangoItem :>
     in
       val getType_ = call (getSymbol "pango_item_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "pango_item_new") (cVoid --> PangoItemRecord.PolyML.cPtr)
-      val copy_ = call (getSymbol "pango_item_copy") (PangoItemRecord.PolyML.cPtr --> PangoItemRecord.PolyML.cPtr)
+      val copy_ = call (getSymbol "pango_item_copy") (PangoItemRecord.PolyML.cPtr --> PangoItemRecord.PolyML.cOptPtr)
       val split_ =
         call (getSymbol "pango_item_split")
           (
@@ -20,7 +20,7 @@ structure PangoItem :>
     type t = PangoItemRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> PangoItemRecord.FFI.fromPtr true) new_ ()
-    fun copy self = (PangoItemRecord.FFI.withPtr ---> PangoItemRecord.FFI.fromPtr true) copy_ self
+    fun copy self = (PangoItemRecord.FFI.withPtr ---> PangoItemRecord.FFI.fromOptPtr true) copy_ self
     fun split self (splitIndex, splitOffset) =
       (
         PangoItemRecord.FFI.withPtr

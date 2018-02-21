@@ -25,16 +25,16 @@ structure GtkSourceRegion :>
              &&> GtkTextIterRecord.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
-      val getBuffer_ = call (getSymbol "gtk_source_region_get_buffer") (GtkSourceRegionClass.PolyML.cPtr --> GtkTextBufferClass.PolyML.cPtr)
+      val getBuffer_ = call (getSymbol "gtk_source_region_get_buffer") (GtkSourceRegionClass.PolyML.cPtr --> GtkTextBufferClass.PolyML.cOptPtr)
       val getStartRegionIter_ = call (getSymbol "gtk_source_region_get_start_region_iter") (GtkSourceRegionClass.PolyML.cPtr &&> GtkSourceRegionIterRecord.PolyML.cPtr --> cVoid)
-      val intersectRegion_ = call (getSymbol "gtk_source_region_intersect_region") (GtkSourceRegionClass.PolyML.cPtr &&> GtkSourceRegionClass.PolyML.cOptPtr --> GtkSourceRegionClass.PolyML.cPtr)
+      val intersectRegion_ = call (getSymbol "gtk_source_region_intersect_region") (GtkSourceRegionClass.PolyML.cPtr &&> GtkSourceRegionClass.PolyML.cOptPtr --> GtkSourceRegionClass.PolyML.cOptPtr)
       val intersectSubregion_ =
         call (getSymbol "gtk_source_region_intersect_subregion")
           (
             GtkSourceRegionClass.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             --> GtkSourceRegionClass.PolyML.cPtr
+             --> GtkSourceRegionClass.PolyML.cOptPtr
           )
       val isEmpty_ = call (getSymbol "gtk_source_region_is_empty") (GtkSourceRegionClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val subtractRegion_ = call (getSymbol "gtk_source_region_subtract_region") (GtkSourceRegionClass.PolyML.cPtr &&> GtkSourceRegionClass.PolyML.cOptPtr --> cVoid)
@@ -46,7 +46,7 @@ structure GtkSourceRegion :>
              &&> GtkTextIterRecord.PolyML.cPtr
              --> cVoid
           )
-      val toString_ = call (getSymbol "gtk_source_region_to_string") (GtkSourceRegionClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val toString_ = call (getSymbol "gtk_source_region_to_string") (GtkSourceRegionClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
     end
     type 'a class = 'a GtkSourceRegionClass.class
     type region_iter_t = GtkSourceRegionIterRecord.t
@@ -89,20 +89,20 @@ structure GtkSourceRegion :>
       in
         if retVal then SOME (start, end') else NONE
       end
-    fun getBuffer self = (GtkSourceRegionClass.FFI.withPtr ---> GtkTextBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun getBuffer self = (GtkSourceRegionClass.FFI.withPtr ---> GtkTextBufferClass.FFI.fromOptPtr false) getBuffer_ self
     fun getStartRegionIter self =
       let
         val iter & () = (GtkSourceRegionClass.FFI.withPtr &&&> GtkSourceRegionIterRecord.FFI.withNewPtr ---> GtkSourceRegionIterRecord.FFI.fromPtr true && I) getStartRegionIter_ (self & ())
       in
         iter
       end
-    fun intersectRegion self region2 = (GtkSourceRegionClass.FFI.withPtr &&&> GtkSourceRegionClass.FFI.withOptPtr ---> GtkSourceRegionClass.FFI.fromPtr true) intersectRegion_ (self & region2)
+    fun intersectRegion self region2 = (GtkSourceRegionClass.FFI.withPtr &&&> GtkSourceRegionClass.FFI.withOptPtr ---> GtkSourceRegionClass.FFI.fromOptPtr true) intersectRegion_ (self & region2)
     fun intersectSubregion self (start, end') =
       (
         GtkSourceRegionClass.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
          &&&> GtkTextIterRecord.FFI.withPtr
-         ---> GtkSourceRegionClass.FFI.fromPtr true
+         ---> GtkSourceRegionClass.FFI.fromOptPtr true
       )
         intersectSubregion_
         (
@@ -125,7 +125,7 @@ structure GtkSourceRegion :>
            & start
            & end'
         )
-    fun toString self = (GtkSourceRegionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
+    fun toString self = (GtkSourceRegionClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) toString_ self
     local
       open Property
     in

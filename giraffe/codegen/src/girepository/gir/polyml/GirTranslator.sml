@@ -685,16 +685,26 @@ and lookupTypeBaseData containerData elemDicts typelib =
  * element "return-value"
  * -------------------------------------------------------------------------- *)
 
-and makeReturnValue container elemDicts typelib {type_, transferOwnership} =
+and makeReturnValue
+  container
+  elemDicts
+  typelib
+  {
+    transferOwnership,
+    nullable,
+    type_
+  } =
   let
     val (_, type_) = lookupTypeBaseData container elemDicts typelib type_
     val transferOwnership =
       withDefault GIRepositoryTransfer.EVERYTHING makeTransferOwnership
         transferOwnership
+    val nullable = withDefault false makeValueBool nullable
   in
     {
-      type_             = type_,
-      transferOwnership = transferOwnership
+      transferOwnership = transferOwnership,
+      nullable          = nullable,
+      type_             = type_
     }
   end
     handle
@@ -715,7 +725,8 @@ and makeParameter
     {
       name,
       transferOwnership,
-      allowNone,
+      nullable,
+      optional,
       direction,
       callerAllocates,
       scope,
@@ -726,7 +737,8 @@ and makeParameter
   ) =
   let
     val transferOwnership = makeTransferOwnership transferOwnership
-    val allowNone = withDefault false makeValueBool allowNone
+    val nullable = withDefault false makeValueBool nullable
+    val optional = withDefault false makeValueBool optional
     val direction = withDefault GIRepositoryDirection.IN makeDirection direction
     val callerAllocates = withDefault false makeValueBool callerAllocates
     val scope = withDefault GIRepositoryScopeType.INVALID makeScopeType scope
@@ -736,7 +748,8 @@ and makeParameter
     val argData =
       {
         transferOwnership = transferOwnership,
-        allowNone         = allowNone,
+        nullable          = nullable,
+        optional          = optional,
         direction         = direction,
         callerAllocates   = callerAllocates,
         scope             = scope,

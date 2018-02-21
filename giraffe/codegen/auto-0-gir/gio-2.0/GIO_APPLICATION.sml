@@ -38,7 +38,7 @@ signature GIO_APPLICATION =
     val getIsBusy : 'a class -> bool
     val getIsRegistered : 'a class -> bool
     val getIsRemote : 'a class -> bool
-    val getResourceBasePath : 'a class -> string
+    val getResourceBasePath : 'a class -> string option
     val hold : 'a class -> unit
     val markBusy : 'a class -> unit
     val open' :

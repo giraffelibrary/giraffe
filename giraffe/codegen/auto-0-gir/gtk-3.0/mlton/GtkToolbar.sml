@@ -32,7 +32,7 @@ structure GtkToolbar :>
     val getIconSize_ = _import "gtk_toolbar_get_icon_size" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> GtkIconSize.FFI.val_;
     val getItemIndex_ = fn x1 & x2 => (_import "gtk_toolbar_get_item_index" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p * GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
     val getNItems_ = _import "gtk_toolbar_get_n_items" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> GInt.FFI.val_;
-    val getNthItem_ = fn x1 & x2 => (_import "gtk_toolbar_get_nth_item" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p * GInt.FFI.val_ -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;) (x1, x2)
+    val getNthItem_ = fn x1 & x2 => (_import "gtk_toolbar_get_nth_item" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p * GInt.FFI.val_ -> unit GtkToolItemClass.FFI.p;) (x1, x2)
     val getReliefStyle_ = _import "gtk_toolbar_get_relief_style" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> GtkReliefStyle.FFI.val_;
     val getShowArrow_ = _import "gtk_toolbar_get_show_arrow" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> GBool.FFI.val_;
     val getStyle_ = _import "gtk_toolbar_get_style" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> GtkToolbarStyle.FFI.val_;
@@ -107,7 +107,7 @@ structure GtkToolbar :>
     fun getIconSize self = (GtkToolbarClass.FFI.withPtr ---> GtkIconSize.FFI.fromVal) getIconSize_ self
     fun getItemIndex self item = (GtkToolbarClass.FFI.withPtr &&&> GtkToolItemClass.FFI.withPtr ---> GInt.FFI.fromVal) getItemIndex_ (self & item)
     fun getNItems self = (GtkToolbarClass.FFI.withPtr ---> GInt.FFI.fromVal) getNItems_ self
-    fun getNthItem self n = (GtkToolbarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkToolItemClass.FFI.fromPtr false) getNthItem_ (self & n)
+    fun getNthItem self n = (GtkToolbarClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkToolItemClass.FFI.fromOptPtr false) getNthItem_ (self & n)
     fun getReliefStyle self = (GtkToolbarClass.FFI.withPtr ---> GtkReliefStyle.FFI.fromVal) getReliefStyle_ self
     fun getShowArrow self = (GtkToolbarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowArrow_ self
     fun getStyle self = (GtkToolbarClass.FFI.withPtr ---> GtkToolbarStyle.FFI.fromVal) getStyle_ self

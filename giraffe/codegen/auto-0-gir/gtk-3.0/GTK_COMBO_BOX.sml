@@ -22,7 +22,7 @@ signature GTK_COMBO_BOX =
     val newWithModel : 'a tree_model_class -> base class
     val newWithModelAndEntry : 'a tree_model_class -> base class
     val getActive : 'a class -> LargeInt.int
-    val getActiveId : 'a class -> string
+    val getActiveId : 'a class -> string option
     val getActiveIter : 'a class -> tree_iter_t option
     val getAddTearoffs : 'a class -> bool
     val getButtonSensitivity : 'a class -> sensitivity_type_t

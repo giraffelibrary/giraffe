@@ -369,7 +369,7 @@ structure GtkCellRenderer :>
                * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
                * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
                * GtkCellRendererState.FFI.val_
-               -> GtkCellEditableClass.FFI.notnull GtkCellEditableClass.FFI.p;
+               -> unit GtkCellEditableClass.FFI.p;
           )
             (
               x1,
@@ -782,7 +782,7 @@ structure GtkCellRenderer :>
          &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GdkRectangleRecord.FFI.withPtr
          &&&> GtkCellRendererState.FFI.withVal
-         ---> GtkCellEditableClass.FFI.fromPtr false
+         ---> GtkCellEditableClass.FFI.fromOptPtr false
       )
         startEditing_
         (

@@ -16,7 +16,7 @@ structure GtkTextTagTable :>
               GtkTextTagTableClass.FFI.notnull GtkTextTagTableClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p;
+               -> unit GtkTextTagClass.FFI.p;
           )
             (
               x1,
@@ -33,7 +33,7 @@ structure GtkTextTagTable :>
     fun new () = (I ---> GtkTextTagTableClass.FFI.fromPtr true) new_ ()
     fun add self tag = (GtkTextTagTableClass.FFI.withPtr &&&> GtkTextTagClass.FFI.withPtr ---> GBool.FFI.fromVal) add_ (self & tag)
     fun getSize self = (GtkTextTagTableClass.FFI.withPtr ---> GInt.FFI.fromVal) getSize_ self
-    fun lookup self name = (GtkTextTagTableClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkTextTagClass.FFI.fromPtr false) lookup_ (self & name)
+    fun lookup self name = (GtkTextTagTableClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkTextTagClass.FFI.fromOptPtr false) lookup_ (self & name)
     fun remove self tag = (GtkTextTagTableClass.FFI.withPtr &&&> GtkTextTagClass.FFI.withPtr ---> I) remove_ (self & tag)
     local
       open ClosureMarshal Signal

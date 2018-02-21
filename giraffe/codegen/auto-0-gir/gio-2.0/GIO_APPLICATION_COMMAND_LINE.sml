@@ -10,12 +10,12 @@ signature GIO_APPLICATION_COMMAND_LINE =
        -> string
        -> base file_class
     val getArguments : 'a class -> string list
-    val getCwd : 'a class -> string
+    val getCwd : 'a class -> string option
     val getEnviron : 'a class -> string list
     val getExitStatus : 'a class -> LargeInt.int
     val getIsRemote : 'a class -> bool
     val getOptionsDict : 'a class -> GLib.VariantDictRecord.t
-    val getPlatformData : 'a class -> GLib.VariantRecord.t
+    val getPlatformData : 'a class -> GLib.VariantRecord.t option
     val getStdin : 'a class -> base input_stream_class
     val getenv :
       'a class

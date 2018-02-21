@@ -22,7 +22,7 @@ signature GTK_STACK =
     val getChildByName :
       'a class
        -> string
-       -> base widget_class
+       -> base widget_class option
     val getHhomogeneous : 'a class -> bool
     val getHomogeneous : 'a class -> bool
     val getInterpolateSize : 'a class -> bool
@@ -30,8 +30,8 @@ signature GTK_STACK =
     val getTransitionRunning : 'a class -> bool
     val getTransitionType : 'a class -> stack_transition_type_t
     val getVhomogeneous : 'a class -> bool
-    val getVisibleChild : 'a class -> base widget_class
-    val getVisibleChildName : 'a class -> string
+    val getVisibleChild : 'a class -> base widget_class option
+    val getVisibleChildName : 'a class -> string option
     val setHhomogeneous :
       'a class
        -> bool

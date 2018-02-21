@@ -50,7 +50,7 @@ structure GtkButton :>
     val getAlwaysShowImage_ = _import "gtk_button_get_always_show_image" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> GBool.FFI.val_;
     val getEventWindow_ = _import "gtk_button_get_event_window" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
     val getFocusOnClick_ = _import "gtk_button_get_focus_on_click" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> GBool.FFI.val_;
-    val getImage_ = _import "gtk_button_get_image" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getImage_ = _import "gtk_button_get_image" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> unit GtkWidgetClass.FFI.p;
     val getImagePosition_ = _import "gtk_button_get_image_position" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> GtkPositionType.FFI.val_;
     val getLabel_ = _import "gtk_button_get_label" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getRelief_ = _import "gtk_button_get_relief" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> GtkReliefStyle.FFI.val_;
@@ -143,7 +143,7 @@ structure GtkButton :>
     fun getAlwaysShowImage self = (GtkButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getAlwaysShowImage_ self
     fun getEventWindow self = (GtkButtonClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getEventWindow_ self
     fun getFocusOnClick self = (GtkButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getFocusOnClick_ self
-    fun getImage self = (GtkButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getImage_ self
+    fun getImage self = (GtkButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getImage_ self
     fun getImagePosition self = (GtkButtonClass.FFI.withPtr ---> GtkPositionType.FFI.fromVal) getImagePosition_ self
     fun getLabel self = (GtkButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLabel_ self
     fun getRelief self = (GtkButtonClass.FFI.withPtr ---> GtkReliefStyle.FFI.fromVal) getRelief_ self

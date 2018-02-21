@@ -47,10 +47,10 @@ signature GTK_SOURCE_BUFFER =
     val getHighlightMatchingBrackets : 'a class -> bool
     val getHighlightSyntax : 'a class -> bool
     val getImplicitTrailingNewline : 'a class -> bool
-    val getLanguage : 'a class -> base language_class
+    val getLanguage : 'a class -> base language_class option
     val getMaxUndoLevels : 'a class -> LargeInt.int
-    val getStyleScheme : 'a class -> base style_scheme_class
-    val getUndoManager : 'a class -> base undo_manager_class
+    val getStyleScheme : 'a class -> base style_scheme_class option
+    val getUndoManager : 'a class -> base undo_manager_class option
     val iterBackwardToContextClassToggle :
       'a class
        -> Gtk.TextIterRecord.t * string

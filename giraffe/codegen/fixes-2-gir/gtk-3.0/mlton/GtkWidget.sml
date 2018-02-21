@@ -250,7 +250,7 @@ structure GtkWidget :>
               x2,
               x3
             )
-    val dragDestGetTargetList_ = _import "gtk_drag_dest_get_target_list" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p;
+    val dragDestGetTargetList_ = _import "gtk_drag_dest_get_target_list" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit GtkTargetListRecord.FFI.p;
     val dragDestGetTrackMotion_ = _import "gtk_drag_dest_get_track_motion" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
     val dragDestSet_ =
       fn
@@ -324,7 +324,7 @@ structure GtkWidget :>
     val dragSourceAddImageTargets_ = _import "gtk_drag_source_add_image_targets" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;
     val dragSourceAddTextTargets_ = _import "gtk_drag_source_add_text_targets" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;
     val dragSourceAddUriTargets_ = _import "gtk_drag_source_add_uri_targets" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;
-    val dragSourceGetTargetList_ = _import "gtk_drag_source_get_target_list" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p;
+    val dragSourceGetTargetList_ = _import "gtk_drag_source_get_target_list" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit GtkTargetListRecord.FFI.p;
     val dragSourceSet_ =
       fn
         x1
@@ -399,7 +399,7 @@ structure GtkWidget :>
               GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p;
+               -> unit GioActionGroupClass.FFI.p;
           )
             (
               x1,
@@ -427,7 +427,7 @@ structure GtkWidget :>
             )
     val getAllocatedWidth_ = _import "gtk_widget_get_allocated_width" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GInt.FFI.val_;
     val getAllocation_ = fn x1 & x2 => (_import "gtk_widget_get_allocation" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GtkAllocationRecord.FFI.notnull GtkAllocationRecord.FFI.p -> unit;) (x1, x2)
-    val getAncestor_ = fn x1 & x2 => (_import "gtk_widget_get_ancestor" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GObjectType.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
+    val getAncestor_ = fn x1 & x2 => (_import "gtk_widget_get_ancestor" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GObjectType.FFI.val_ -> unit GtkWidgetClass.FFI.p;) (x1, x2)
     val getAppPaintable_ = _import "gtk_widget_get_app_paintable" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
     val getCanDefault_ = _import "gtk_widget_get_can_default" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
     val getCanFocus_ = _import "gtk_widget_get_can_focus" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
@@ -443,9 +443,9 @@ structure GtkWidget :>
     val getDoubleBuffered_ = _import "gtk_widget_get_double_buffered" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
     val getEvents_ = _import "gtk_widget_get_events" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GdkEventMask.FFI.val_;
     val getFocusOnClick_ = _import "gtk_widget_get_focus_on_click" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
-    val getFontMap_ = _import "gtk_widget_get_font_map" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p;
-    val getFontOptions_ = _import "gtk_widget_get_font_options" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> CairoFontOptionsRecord.FFI.notnull CairoFontOptionsRecord.FFI.p;
-    val getFrameClock_ = _import "gtk_widget_get_frame_clock" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GdkFrameClockClass.FFI.notnull GdkFrameClockClass.FFI.p;
+    val getFontMap_ = _import "gtk_widget_get_font_map" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit PangoFontMapClass.FFI.p;
+    val getFontOptions_ = _import "gtk_widget_get_font_options" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit CairoFontOptionsRecord.FFI.p;
+    val getFrameClock_ = _import "gtk_widget_get_frame_clock" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit GdkFrameClockClass.FFI.p;
     val getHalign_ = _import "gtk_widget_get_halign" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkAlign.FFI.val_;
     val getHasTooltip_ = _import "gtk_widget_get_has_tooltip" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
     val getHasWindow_ = _import "gtk_widget_get_has_window" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
@@ -464,7 +464,7 @@ structure GtkWidget :>
     val getNoShowAll_ = _import "gtk_widget_get_no_show_all" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
     val getOpacity_ = _import "gtk_widget_get_opacity" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GDouble.FFI.val_;
     val getPangoContext_ = _import "gtk_widget_get_pango_context" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> PangoContextClass.FFI.notnull PangoContextClass.FFI.p;
-    val getParent_ = _import "gtk_widget_get_parent" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getParent_ = _import "gtk_widget_get_parent" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit GtkWidgetClass.FFI.p;
     val getParentWindow_ = _import "gtk_widget_get_parent_window" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
     val getPath_ = _import "gtk_widget_get_path" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p;
     val getPointer_ =
@@ -651,8 +651,8 @@ structure GtkWidget :>
               x3,
               x4
             )
-    val getTooltipMarkup_ = _import "gtk_widget_get_tooltip_markup" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getTooltipText_ = _import "gtk_widget_get_tooltip_text" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getTooltipMarkup_ = _import "gtk_widget_get_tooltip_markup" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit Utf8.FFI.out_p;
+    val getTooltipText_ = _import "gtk_widget_get_tooltip_text" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit Utf8.FFI.out_p;
     val getTooltipWindow_ = _import "gtk_widget_get_tooltip_window" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkWindowClass.FFI.notnull GtkWindowClass.FFI.p;
     val getToplevel_ = _import "gtk_widget_get_toplevel" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val getValign_ = _import "gtk_widget_get_valign" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkAlign.FFI.val_;
@@ -661,7 +661,7 @@ structure GtkWidget :>
     val getVexpandSet_ = _import "gtk_widget_get_vexpand_set" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
     val getVisible_ = _import "gtk_widget_get_visible" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
     val getVisual_ = _import "gtk_widget_get_visual" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p;
-    val getWindow_ = _import "gtk_widget_get_window" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
+    val getWindow_ = _import "gtk_widget_get_window" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit GdkWindowClass.FFI.p;
     val grabAdd_ = _import "gtk_grab_add" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;
     val grabDefault_ = _import "gtk_widget_grab_default" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;
     val grabFocus_ = _import "gtk_widget_grab_focus" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;
@@ -974,7 +974,7 @@ structure GtkWidget :>
                * GInt.FFI.val_
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               -> unit GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -995,7 +995,7 @@ structure GtkWidget :>
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GInt.FFI.val_
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               -> unit GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -1484,7 +1484,7 @@ structure GtkWidget :>
            & context
            & targetList
         )
-    fun dragDestGetTargetList self = (GtkWidgetClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) dragDestGetTargetList_ self
+    fun dragDestGetTargetList self = (GtkWidgetClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromOptPtr false) dragDestGetTargetList_ self
     fun dragDestGetTrackMotion self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) dragDestGetTrackMotion_ self
     fun dragDestSet
       self
@@ -1567,7 +1567,7 @@ structure GtkWidget :>
     fun dragSourceAddImageTargets self = (GtkWidgetClass.FFI.withPtr ---> I) dragSourceAddImageTargets_ self
     fun dragSourceAddTextTargets self = (GtkWidgetClass.FFI.withPtr ---> I) dragSourceAddTextTargets_ self
     fun dragSourceAddUriTargets self = (GtkWidgetClass.FFI.withPtr ---> I) dragSourceAddUriTargets_ self
-    fun dragSourceGetTargetList self = (GtkWidgetClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) dragSourceGetTargetList_ self
+    fun dragSourceGetTargetList self = (GtkWidgetClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromOptPtr false) dragSourceGetTargetList_ self
     fun dragSourceSet
       self
       (
@@ -1613,7 +1613,7 @@ structure GtkWidget :>
     fun event self event = (GtkWidgetClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> GBool.FFI.fromVal) event_ (self & event)
     fun freezeChildNotify self = (GtkWidgetClass.FFI.withPtr ---> I) freezeChildNotify_ self
     fun getAccessible self = (GtkWidgetClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr false) getAccessible_ self
-    fun getActionGroup self prefix = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioActionGroupClass.FFI.fromPtr false) getActionGroup_ (self & prefix)
+    fun getActionGroup self prefix = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioActionGroupClass.FFI.fromOptPtr false) getActionGroup_ (self & prefix)
     fun getAllocatedBaseline self = (GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getAllocatedBaseline_ self
     fun getAllocatedHeight self = (GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getAllocatedHeight_ self
     fun getAllocatedSize self =
@@ -1645,7 +1645,7 @@ structure GtkWidget :>
       in
         allocation
       end
-    fun getAncestor self widgetType = (GtkWidgetClass.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getAncestor_ (self & widgetType)
+    fun getAncestor self widgetType = (GtkWidgetClass.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getAncestor_ (self & widgetType)
     fun getAppPaintable self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getAppPaintable_ self
     fun getCanDefault self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getCanDefault_ self
     fun getCanFocus self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getCanFocus_ self
@@ -1671,9 +1671,9 @@ structure GtkWidget :>
     fun getDoubleBuffered self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getDoubleBuffered_ self
     fun getEvents self = (GtkWidgetClass.FFI.withPtr ---> GdkEventMask.FFI.fromVal) getEvents_ self
     fun getFocusOnClick self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getFocusOnClick_ self
-    fun getFontMap self = (GtkWidgetClass.FFI.withPtr ---> PangoFontMapClass.FFI.fromPtr false) getFontMap_ self
-    fun getFontOptions self = (GtkWidgetClass.FFI.withPtr ---> CairoFontOptionsRecord.FFI.fromPtr false) getFontOptions_ self
-    fun getFrameClock self = (GtkWidgetClass.FFI.withPtr ---> GdkFrameClockClass.FFI.fromPtr false) getFrameClock_ self
+    fun getFontMap self = (GtkWidgetClass.FFI.withPtr ---> PangoFontMapClass.FFI.fromOptPtr false) getFontMap_ self
+    fun getFontOptions self = (GtkWidgetClass.FFI.withPtr ---> CairoFontOptionsRecord.FFI.fromOptPtr false) getFontOptions_ self
+    fun getFrameClock self = (GtkWidgetClass.FFI.withPtr ---> GdkFrameClockClass.FFI.fromOptPtr false) getFrameClock_ self
     fun getHalign self = (GtkWidgetClass.FFI.withPtr ---> GtkAlign.FFI.fromVal) getHalign_ self
     fun getHasTooltip self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasTooltip_ self
     fun getHasWindow self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasWindow_ self
@@ -1692,7 +1692,7 @@ structure GtkWidget :>
     fun getNoShowAll self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getNoShowAll_ self
     fun getOpacity self = (GtkWidgetClass.FFI.withPtr ---> GDouble.FFI.fromVal) getOpacity_ self
     fun getPangoContext self = (GtkWidgetClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr false) getPangoContext_ self
-    fun getParent self = (GtkWidgetClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getParent_ self
+    fun getParent self = (GtkWidgetClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getParent_ self
     fun getParentWindow self = (GtkWidgetClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getParentWindow_ self
     fun getPath self = (GtkWidgetClass.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self
     fun getPointer self =
@@ -1922,8 +1922,8 @@ structure GtkWidget :>
            & widgetType
            & name
         )
-    fun getTooltipMarkup self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getTooltipMarkup_ self
-    fun getTooltipText self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getTooltipText_ self
+    fun getTooltipMarkup self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getTooltipMarkup_ self
+    fun getTooltipText self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getTooltipText_ self
     fun getTooltipWindow self = (GtkWidgetClass.FFI.withPtr ---> GtkWindowClass.FFI.fromPtr false) getTooltipWindow_ self
     fun getToplevel self = (GtkWidgetClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getToplevel_ self
     fun getValign self = (GtkWidgetClass.FFI.withPtr ---> GtkAlign.FFI.fromVal) getValign_ self
@@ -1932,7 +1932,7 @@ structure GtkWidget :>
     fun getVexpandSet self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getVexpandSet_ self
     fun getVisible self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
     fun getVisual self = (GtkWidgetClass.FFI.withPtr ---> GdkVisualClass.FFI.fromPtr false) getVisual_ self
-    fun getWindow self = (GtkWidgetClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getWindow_ self
+    fun getWindow self = (GtkWidgetClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self
     fun grabAdd self = (GtkWidgetClass.FFI.withPtr ---> I) grabAdd_ self
     fun grabDefault self = (GtkWidgetClass.FFI.withPtr ---> I) grabDefault_ self
     fun grabFocus self = (GtkWidgetClass.FFI.withPtr ---> I) grabFocus_ self
@@ -2208,7 +2208,7 @@ structure GtkWidget :>
          &&&> Utf8.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> Utf8.FFI.withOptPtr
-         ---> GdkPixbufPixbufClass.FFI.fromPtr true
+         ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
       )
         renderIcon_
         (
@@ -2222,7 +2222,7 @@ structure GtkWidget :>
         GtkWidgetClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GInt.FFI.withVal
-         ---> GdkPixbufPixbufClass.FFI.fromPtr true
+         ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
       )
         renderIconPixbuf_
         (

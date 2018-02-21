@@ -19,11 +19,11 @@ signature GTK_IMAGE =
     val newFromStock : string * LargeInt.int -> base class
     val newFromSurface : Cairo.SurfaceRecord.t option -> base class
     val clear : 'a class -> unit
-    val getAnimation : 'a class -> base GdkPixbuf.PixbufAnimationClass.class
+    val getAnimation : 'a class -> base GdkPixbuf.PixbufAnimationClass.class option
     val getGicon : 'a class -> base Gio.IconClass.class * LargeInt.int
     val getIconName : 'a class -> string * LargeInt.int
     val getIconSet : 'a class -> icon_set_t * LargeInt.int
-    val getPixbuf : 'a class -> base GdkPixbuf.PixbufClass.class
+    val getPixbuf : 'a class -> base GdkPixbuf.PixbufClass.class option
     val getPixelSize : 'a class -> LargeInt.int
     val getStock : 'a class -> string * LargeInt.int
     val getStorageType : 'a class -> image_type_t

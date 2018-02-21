@@ -13,7 +13,7 @@ structure GtkExpander :>
       val getExpanded_ = call (getSymbol "gtk_expander_get_expanded") (GtkExpanderClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getLabel_ = call (getSymbol "gtk_expander_get_label") (GtkExpanderClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getLabelFill_ = call (getSymbol "gtk_expander_get_label_fill") (GtkExpanderClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getLabelWidget_ = call (getSymbol "gtk_expander_get_label_widget") (GtkExpanderClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getLabelWidget_ = call (getSymbol "gtk_expander_get_label_widget") (GtkExpanderClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getResizeToplevel_ = call (getSymbol "gtk_expander_get_resize_toplevel") (GtkExpanderClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSpacing_ = call (getSymbol "gtk_expander_get_spacing") (GtkExpanderClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getUseMarkup_ = call (getSymbol "gtk_expander_get_use_markup") (GtkExpanderClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -39,7 +39,7 @@ structure GtkExpander :>
     fun getExpanded self = (GtkExpanderClass.FFI.withPtr ---> GBool.FFI.fromVal) getExpanded_ self
     fun getLabel self = (GtkExpanderClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLabel_ self
     fun getLabelFill self = (GtkExpanderClass.FFI.withPtr ---> GBool.FFI.fromVal) getLabelFill_ self
-    fun getLabelWidget self = (GtkExpanderClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getLabelWidget_ self
+    fun getLabelWidget self = (GtkExpanderClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getLabelWidget_ self
     fun getResizeToplevel self = (GtkExpanderClass.FFI.withPtr ---> GBool.FFI.fromVal) getResizeToplevel_ self
     fun getSpacing self = (GtkExpanderClass.FFI.withPtr ---> GInt.FFI.fromVal) getSpacing_ self
     fun getUseMarkup self = (GtkExpanderClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseMarkup_ self

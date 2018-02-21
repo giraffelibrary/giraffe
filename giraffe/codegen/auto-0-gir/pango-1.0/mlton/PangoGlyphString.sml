@@ -7,7 +7,7 @@ structure PangoGlyphString :>
   struct
     val getType_ = _import "pango_glyph_string_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "pango_glyph_string_new" : unit -> PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p;
-    val copy_ = _import "pango_glyph_string_copy" : PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p -> PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p;
+    val copy_ = _import "pango_glyph_string_copy" : PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p -> unit PangoGlyphStringRecord.FFI.p;
     val extents_ =
       fn
         x1
@@ -124,7 +124,7 @@ structure PangoGlyphString :>
     type analysis_t = PangoAnalysisRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> PangoGlyphStringRecord.FFI.fromPtr true) new_ ()
-    fun copy self = (PangoGlyphStringRecord.FFI.withPtr ---> PangoGlyphStringRecord.FFI.fromPtr true) copy_ self
+    fun copy self = (PangoGlyphStringRecord.FFI.withPtr ---> PangoGlyphStringRecord.FFI.fromOptPtr true) copy_ self
     fun extents self font =
       let
         val inkRect

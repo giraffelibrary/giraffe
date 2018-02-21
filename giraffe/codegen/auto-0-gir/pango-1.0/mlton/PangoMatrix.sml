@@ -4,7 +4,7 @@ structure PangoMatrix :>
   struct
     val getType_ = _import "pango_matrix_get_type" : unit -> GObjectType.FFI.val_;
     val concat_ = fn x1 & x2 => (_import "pango_matrix_concat" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p * PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p -> unit;) (x1, x2)
-    val copy_ = _import "pango_matrix_copy" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p -> PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p;
+    val copy_ = _import "pango_matrix_copy" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p -> unit PangoMatrixRecord.FFI.p;
     val getFontScaleFactor_ = _import "pango_matrix_get_font_scale_factor" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p -> GDouble.FFI.val_;
     val getFontScaleFactors_ =
       fn
@@ -95,7 +95,7 @@ structure PangoMatrix :>
     type t = PangoMatrixRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun concat self newMatrix = (PangoMatrixRecord.FFI.withPtr &&&> PangoMatrixRecord.FFI.withPtr ---> I) concat_ (self & newMatrix)
-    fun copy self = (PangoMatrixRecord.FFI.withPtr ---> PangoMatrixRecord.FFI.fromPtr true) copy_ self
+    fun copy self = (PangoMatrixRecord.FFI.withPtr ---> PangoMatrixRecord.FFI.fromOptPtr true) copy_ self
     fun getFontScaleFactor self = (PangoMatrixRecord.FFI.withPtr ---> GDouble.FFI.fromVal) getFontScaleFactor_ self
     fun getFontScaleFactors self =
       let

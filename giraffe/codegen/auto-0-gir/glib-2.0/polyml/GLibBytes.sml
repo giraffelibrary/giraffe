@@ -15,7 +15,7 @@ structure GLibBytes :>
       val new_ = call (getSymbol "g_bytes_new") (GUInt8CVectorN.PolyML.cInOptPtr &&> GSize.PolyML.cVal --> GLibBytesRecord.PolyML.cPtr)
       val compare_ = call (getSymbol "g_bytes_compare") (GLibBytesRecord.PolyML.cPtr &&> GLibBytesRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val equal_ = call (getSymbol "g_bytes_equal") (GLibBytesRecord.PolyML.cPtr &&> GLibBytesRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getData_ = call (getSymbol "g_bytes_get_data") (GLibBytesRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> GUInt8CVectorN.PolyML.cOutPtr)
+      val getData_ = call (getSymbol "g_bytes_get_data") (GLibBytesRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> GUInt8CVectorN.PolyML.cOutOptPtr)
       val getSize_ = call (getSymbol "g_bytes_get_size") (GLibBytesRecord.PolyML.cPtr --> GSize.PolyML.cVal)
       val hash_ = call (getSymbol "g_bytes_hash") (GLibBytesRecord.PolyML.cPtr --> GUInt.PolyML.cVal)
       val newFromBytes_ =
@@ -44,7 +44,7 @@ structure GLibBytes :>
     fun equal self bytes2 = (GLibBytesRecord.FFI.withPtr &&&> GLibBytesRecord.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & bytes2)
     fun getData self =
       let
-        val size & retVal = (GLibBytesRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 0) getData_ (self & GSize.null)
+        val size & retVal = (GLibBytesRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CVectorN.FFI.fromOptPtr 0) getData_ (self & GSize.null)
       in
         retVal (LargeInt.toInt size)
       end

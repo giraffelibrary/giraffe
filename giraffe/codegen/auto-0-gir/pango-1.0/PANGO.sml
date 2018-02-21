@@ -270,6 +270,6 @@ signature PANGO =
       LargeInt.int
        * LargeInt.int
        * LargeInt.int
-       -> string
+       -> string option
     val versionString : unit -> string
   end

@@ -6,7 +6,7 @@ structure AtkDocument :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "atk_document_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val getAttributeValue_ = call (getSymbol "atk_document_get_attribute_value") (AtkDocumentClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val getAttributeValue_ = call (getSymbol "atk_document_get_attribute_value") (AtkDocumentClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutOptPtr)
       val getCurrentPageNumber_ = call (getSymbol "atk_document_get_current_page_number") (AtkDocumentClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getDocumentType_ = call (getSymbol "atk_document_get_document_type") (AtkDocumentClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getLocale_ = call (getSymbol "atk_document_get_locale") (AtkDocumentClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
@@ -23,7 +23,7 @@ structure AtkDocument :>
     type 'a class = 'a AtkDocumentClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getAttributeValue self attributeName = (AtkDocumentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAttributeValue_ (self & attributeName)
+    fun getAttributeValue self attributeName = (AtkDocumentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getAttributeValue_ (self & attributeName)
     fun getCurrentPageNumber self = (AtkDocumentClass.FFI.withPtr ---> GInt.FFI.fromVal) getCurrentPageNumber_ self
     fun getDocumentType self = (AtkDocumentClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDocumentType_ self
     fun getLocale self = (AtkDocumentClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLocale_ self

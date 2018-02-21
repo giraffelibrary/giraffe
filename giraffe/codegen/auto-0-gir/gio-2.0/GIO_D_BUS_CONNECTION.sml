@@ -105,7 +105,7 @@ signature GIO_D_BUS_CONNECTION =
     val getExitOnClose : 'a class -> bool
     val getGuid : 'a class -> string
     val getLastSerial : 'a class -> LargeInt.int
-    val getPeerCredentials : 'a class -> base credentials_class
+    val getPeerCredentials : 'a class -> base credentials_class option
     val getStream : 'a class -> base i_o_stream_class
     val getUniqueName : 'a class -> string
     val isClosed : 'a class -> bool

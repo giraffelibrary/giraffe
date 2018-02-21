@@ -7,7 +7,7 @@ signature PANGO_LAYOUT_ITER =
     type layout_run_t
     val getType : unit -> GObject.Type.t
     val atLastLine : t -> bool
-    val copy : t -> t
+    val copy : t -> t option
     val getBaseline : t -> LargeInt.int
     val getCharExtents : t -> rectangle_t
     val getClusterExtents : t -> rectangle_t * rectangle_t
@@ -18,9 +18,9 @@ signature PANGO_LAYOUT_ITER =
     val getLineExtents : t -> rectangle_t * rectangle_t
     val getLineReadonly : t -> layout_line_t
     val getLineYrange : t -> LargeInt.int * LargeInt.int
-    val getRun : t -> layout_run_t
+    val getRun : t -> layout_run_t option
     val getRunExtents : t -> rectangle_t * rectangle_t
-    val getRunReadonly : t -> layout_run_t
+    val getRunReadonly : t -> layout_run_t option
     val nextChar : t -> bool
     val nextCluster : t -> bool
     val nextLine : t -> bool

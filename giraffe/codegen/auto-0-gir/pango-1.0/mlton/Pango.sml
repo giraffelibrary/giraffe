@@ -285,7 +285,7 @@ structure Pango : PANGO =
               GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> unit Utf8.FFI.out_p;
           )
             (
               x1,
@@ -669,7 +669,7 @@ structure Pango : PANGO =
         GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         ---> Utf8.FFI.fromPtr 0
+         ---> Utf8.FFI.fromOptPtr 0
       )
         versionCheck_
         (

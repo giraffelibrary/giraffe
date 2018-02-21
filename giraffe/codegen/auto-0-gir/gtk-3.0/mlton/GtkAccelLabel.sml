@@ -23,7 +23,7 @@ structure GtkAccelLabel :>
               x2,
               x3
             )
-    val getAccelWidget_ = _import "gtk_accel_label_get_accel_widget" : GtkAccelLabelClass.FFI.notnull GtkAccelLabelClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getAccelWidget_ = _import "gtk_accel_label_get_accel_widget" : GtkAccelLabelClass.FFI.notnull GtkAccelLabelClass.FFI.p -> unit GtkWidgetClass.FFI.p;
     val getAccelWidth_ = _import "gtk_accel_label_get_accel_width" : GtkAccelLabelClass.FFI.notnull GtkAccelLabelClass.FFI.p -> GUInt.FFI.val_;
     val refetch_ = _import "gtk_accel_label_refetch" : GtkAccelLabelClass.FFI.notnull GtkAccelLabelClass.FFI.p -> GBool.FFI.val_;
     val setAccel_ =
@@ -75,7 +75,7 @@ structure GtkAccelLabel :>
       in
         (acceleratorKey, acceleratorMods)
       end
-    fun getAccelWidget self = (GtkAccelLabelClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getAccelWidget_ self
+    fun getAccelWidget self = (GtkAccelLabelClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getAccelWidget_ self
     fun getAccelWidth self = (GtkAccelLabelClass.FFI.withPtr ---> GUInt.FFI.fromVal) getAccelWidth_ self
     fun refetch self = (GtkAccelLabelClass.FFI.withPtr ---> GBool.FFI.fromVal) refetch_ self
     fun setAccel self (acceleratorKey, acceleratorMods) =

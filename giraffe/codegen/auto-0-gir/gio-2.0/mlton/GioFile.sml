@@ -362,7 +362,7 @@ structure GioFile :>
               x2,
               x3
             )
-    val getBasename_ = _import "g_file_get_basename" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getBasename_ = _import "g_file_get_basename" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> unit Utf8.FFI.out_p;
     val getChild_ =
       fn
         x1 & (x2, x3) =>
@@ -397,10 +397,10 @@ structure GioFile :>
               x3,
               x4
             )
-    val getParent_ = _import "g_file_get_parent" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+    val getParent_ = _import "g_file_get_parent" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> unit GioFileClass.FFI.p;
     val getParseName_ = _import "g_file_get_parse_name" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPath_ = _import "g_file_get_path" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getRelativePath_ = fn x1 & x2 => (_import "g_file_get_relative_path" : GioFileClass.FFI.notnull GioFileClass.FFI.p * GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val getPath_ = _import "g_file_get_path" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> unit Utf8.FFI.out_p;
+    val getRelativePath_ = fn x1 & x2 => (_import "g_file_get_relative_path" : GioFileClass.FFI.notnull GioFileClass.FFI.p * GioFileClass.FFI.notnull GioFileClass.FFI.p -> unit Utf8.FFI.out_p;) (x1, x2)
     val getUri_ = _import "g_file_get_uri" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getUriScheme_ = _import "g_file_get_uri_scheme" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val hasParent_ = fn x1 & x2 => (_import "g_file_has_parent" : GioFileClass.FFI.notnull GioFileClass.FFI.p * unit GioFileClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
@@ -1743,7 +1743,7 @@ structure GioFile :>
            & res
            & []
         )
-    fun getBasename self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getBasename_ self
+    fun getBasename self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getBasename_ self
     fun getChild self name = (GioFileClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getChild_ (self & name)
     fun getChildForDisplayName self displayName =
       (
@@ -1758,10 +1758,10 @@ structure GioFile :>
            & displayName
            & []
         )
-    fun getParent self = (GioFileClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getParent_ self
+    fun getParent self = (GioFileClass.FFI.withPtr ---> GioFileClass.FFI.fromOptPtr true) getParent_ self
     fun getParseName self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getParseName_ self
-    fun getPath self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getPath_ self
-    fun getRelativePath self descendant = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getRelativePath_ (self & descendant)
+    fun getPath self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getPath_ self
+    fun getRelativePath self descendant = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getRelativePath_ (self & descendant)
     fun getUri self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUri_ self
     fun getUriScheme self = (GioFileClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUriScheme_ self
     fun hasParent self parent = (GioFileClass.FFI.withPtr &&&> GioFileClass.FFI.withOptPtr ---> GBool.FFI.fromVal) hasParent_ (self & parent)

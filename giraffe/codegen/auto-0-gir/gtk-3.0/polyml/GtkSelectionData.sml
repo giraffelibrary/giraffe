@@ -31,7 +31,7 @@ structure GtkSelectionData :>
       val getDisplay_ = call (getSymbol "gtk_selection_data_get_display") (GtkSelectionDataRecord.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
       val getFormat_ = call (getSymbol "gtk_selection_data_get_format") (GtkSelectionDataRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val getLength_ = call (getSymbol "gtk_selection_data_get_length") (GtkSelectionDataRecord.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getPixbuf_ = call (getSymbol "gtk_selection_data_get_pixbuf") (GtkSelectionDataRecord.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val getPixbuf_ = call (getSymbol "gtk_selection_data_get_pixbuf") (GtkSelectionDataRecord.PolyML.cPtr --> GdkPixbufPixbufClass.PolyML.cOptPtr)
       val getSelection_ = call (getSymbol "gtk_selection_data_get_selection") (GtkSelectionDataRecord.PolyML.cPtr --> GdkAtomRecord.PolyML.cPtr)
       val getTarget_ = call (getSymbol "gtk_selection_data_get_target") (GtkSelectionDataRecord.PolyML.cPtr --> GdkAtomRecord.PolyML.cPtr)
       val getTargets_ =
@@ -42,7 +42,7 @@ structure GtkSelectionData :>
              &&> GInt.PolyML.cRef
              --> GBool.PolyML.cVal
           )
-      val getText_ = call (getSymbol "gtk_selection_data_get_text") (GtkSelectionDataRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getText_ = call (getSymbol "gtk_selection_data_get_text") (GtkSelectionDataRecord.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getUris_ = call (getSymbol "gtk_selection_data_get_uris") (GtkSelectionDataRecord.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val set_ =
         call (getSymbol "gtk_selection_data_set")
@@ -83,7 +83,7 @@ structure GtkSelectionData :>
     fun getDisplay self = (GtkSelectionDataRecord.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
     fun getFormat self = (GtkSelectionDataRecord.FFI.withPtr ---> GInt.FFI.fromVal) getFormat_ self
     fun getLength self = (GtkSelectionDataRecord.FFI.withPtr ---> GInt.FFI.fromVal) getLength_ self
-    fun getPixbuf self = (GtkSelectionDataRecord.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) getPixbuf_ self
+    fun getPixbuf self = (GtkSelectionDataRecord.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) getPixbuf_ self
     fun getSelection self = (GtkSelectionDataRecord.FFI.withPtr ---> GdkAtomRecord.FFI.fromPtr false) getSelection_ self
     fun getTarget self = (GtkSelectionDataRecord.FFI.withPtr ---> GdkAtomRecord.FFI.fromPtr false) getTarget_ self
     fun getTargets self =
@@ -108,7 +108,7 @@ structure GtkSelectionData :>
       in
         if retVal then SOME (targets (LargeInt.toInt nAtoms)) else NONE
       end
-    fun getText self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getText_ self
+    fun getText self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getText_ self
     fun getUris self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getUris_ self
     fun set
       self

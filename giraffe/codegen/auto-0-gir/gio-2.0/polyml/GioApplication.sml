@@ -58,7 +58,7 @@ structure GioApplication :>
       val getIsBusy_ = call (getSymbol "g_application_get_is_busy") (GioApplicationClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getIsRegistered_ = call (getSymbol "g_application_get_is_registered") (GioApplicationClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getIsRemote_ = call (getSymbol "g_application_get_is_remote") (GioApplicationClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getResourceBasePath_ = call (getSymbol "g_application_get_resource_base_path") (GioApplicationClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getResourceBasePath_ = call (getSymbol "g_application_get_resource_base_path") (GioApplicationClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val hold_ = call (getSymbol "g_application_hold") (GioApplicationClass.PolyML.cPtr --> cVoid)
       val markBusy_ = call (getSymbol "g_application_mark_busy") (GioApplicationClass.PolyML.cPtr --> cVoid)
       val open_ =
@@ -181,7 +181,7 @@ structure GioApplication :>
     fun getIsBusy self = (GioApplicationClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsBusy_ self
     fun getIsRegistered self = (GioApplicationClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsRegistered_ self
     fun getIsRemote self = (GioApplicationClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsRemote_ self
-    fun getResourceBasePath self = (GioApplicationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getResourceBasePath_ self
+    fun getResourceBasePath self = (GioApplicationClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getResourceBasePath_ self
     fun hold self = (GioApplicationClass.FFI.withPtr ---> I) hold_ self
     fun markBusy self = (GioApplicationClass.FFI.withPtr ---> I) markBusy_ self
     fun open' self (files, hint) =

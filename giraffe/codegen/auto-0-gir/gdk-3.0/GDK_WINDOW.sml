@@ -140,15 +140,15 @@ signature GDK_WINDOW =
        -> unit
     val geometryChanged : 'a class -> unit
     val getAcceptFocus : 'a class -> bool
-    val getBackgroundPattern : 'a class -> Cairo.PatternRecord.t
+    val getBackgroundPattern : 'a class -> Cairo.PatternRecord.t option
     val getClipRegion : 'a class -> Cairo.RegionRecord.t
     val getComposited : 'a class -> bool
-    val getCursor : 'a class -> base cursor_class
+    val getCursor : 'a class -> base cursor_class option
     val getDecorations : 'a class -> w_m_decoration_t option
     val getDeviceCursor :
       'a class
        -> 'b device_class
-       -> base cursor_class
+       -> base cursor_class option
     val getDeviceEvents :
       'a class
        -> 'b device_class
@@ -156,14 +156,14 @@ signature GDK_WINDOW =
     val getDevicePosition :
       'a class
        -> 'b device_class
-       -> base class
+       -> base class option
            * LargeInt.int
            * LargeInt.int
            * modifier_type_t
     val getDevicePositionDouble :
       'a class
        -> 'b device_class
-       -> base class
+       -> base class option
            * real
            * real
            * modifier_type_t
@@ -195,7 +195,7 @@ signature GDK_WINDOW =
     val getPassThrough : 'a class -> bool
     val getPointer :
       'a class
-       -> base class
+       -> base class option
            * LargeInt.int
            * LargeInt.int
            * modifier_type_t
@@ -465,7 +465,7 @@ signature GDK_WINDOW =
     val withdraw : 'a class -> unit
     val createSurfaceSig : (LargeInt.int * LargeInt.int -> Cairo.SurfaceRecord.t) -> 'a class Signal.t
     val fromEmbedderSig : (real * real -> real * real) -> 'a class Signal.t
-    val pickEmbeddedChildSig : (real * real -> 'a class) -> 'b class Signal.t
+    val pickEmbeddedChildSig : (real * real -> 'a class option) -> 'b class Signal.t
     val toEmbedderSig : (real * real -> real * real) -> 'a class Signal.t
     val cursorProp : ('a class, base cursor_class option, 'b cursor_class option) Property.readwrite
   end

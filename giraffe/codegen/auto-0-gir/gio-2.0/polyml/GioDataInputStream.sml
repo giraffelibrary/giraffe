@@ -60,7 +60,7 @@ structure GioDataInputStream :>
              &&> GSize.PolyML.cRef
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GUInt8CVector.PolyML.cOutPtr
+             --> GUInt8CVector.PolyML.cOutOptPtr
           )
       val readLineFinish_ =
         call (getSymbol "g_data_input_stream_read_line_finish")
@@ -69,7 +69,7 @@ structure GioDataInputStream :>
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GSize.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GUInt8CVector.PolyML.cOutPtr
+             --> GUInt8CVector.PolyML.cOutOptPtr
           )
       val readLineFinishUtf8_ =
         call (getSymbol "g_data_input_stream_read_line_finish_utf8")
@@ -78,7 +78,7 @@ structure GioDataInputStream :>
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GSize.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8.PolyML.cOutPtr
+             --> Utf8.PolyML.cOutOptPtr
           )
       val readLineUtf8_ =
         call (getSymbol "g_data_input_stream_read_line_utf8")
@@ -87,7 +87,7 @@ structure GioDataInputStream :>
              &&> GSize.PolyML.cRef
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8.PolyML.cOutPtr
+             --> Utf8.PolyML.cOutOptPtr
           )
       val readUint16_ =
         call (getSymbol "g_data_input_stream_read_uint16")
@@ -228,7 +228,7 @@ structure GioDataInputStream :>
              &&&> GSize.FFI.withRefVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && GUInt8CVector.FFI.fromPtr 1
+             ---> GSize.FFI.fromVal && GUInt8CVector.FFI.fromOptPtr 1
           )
             readLine_
             (
@@ -248,7 +248,7 @@ structure GioDataInputStream :>
              &&&> GioAsyncResultClass.FFI.withPtr
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && GUInt8CVector.FFI.fromPtr 1
+             ---> GSize.FFI.fromVal && GUInt8CVector.FFI.fromOptPtr 1
           )
             readLineFinish_
             (
@@ -268,7 +268,7 @@ structure GioDataInputStream :>
              &&&> GioAsyncResultClass.FFI.withPtr
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && Utf8.FFI.fromPtr 1
+             ---> GSize.FFI.fromVal && Utf8.FFI.fromOptPtr 1
           )
             readLineFinishUtf8_
             (
@@ -288,7 +288,7 @@ structure GioDataInputStream :>
              &&&> GSize.FFI.withRefVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && Utf8.FFI.fromPtr 1
+             ---> GSize.FFI.fromVal && Utf8.FFI.fromOptPtr 1
           )
             readLineUtf8_
             (

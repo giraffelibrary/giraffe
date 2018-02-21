@@ -128,7 +128,7 @@ structure Pango : PANGO =
             GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> Utf8.PolyML.cOutPtr
+             --> Utf8.PolyML.cOutOptPtr
           )
       val versionString_ = call (getSymbol "pango_version_string") (cVoid --> Utf8.PolyML.cOutPtr)
     end
@@ -508,7 +508,7 @@ structure Pango : PANGO =
         GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         ---> Utf8.FFI.fromPtr 0
+         ---> Utf8.FFI.fromOptPtr 0
       )
         versionCheck_
         (

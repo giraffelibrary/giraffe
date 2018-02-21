@@ -17,7 +17,7 @@ signature ATK_SELECTION =
     val refSelection :
       'a class
        -> LargeInt.int
-       -> base object_class
+       -> base object_class option
     val removeSelection :
       'a class
        -> LargeInt.int

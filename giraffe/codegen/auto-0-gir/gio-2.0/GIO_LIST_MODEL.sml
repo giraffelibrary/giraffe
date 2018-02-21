@@ -8,7 +8,7 @@ signature GIO_LIST_MODEL =
     val getObject :
       'a class
        -> LargeInt.int
-       -> base GObject.ObjectClass.class
+       -> base GObject.ObjectClass.class option
     val itemsChanged :
       'a class
        -> LargeInt.int

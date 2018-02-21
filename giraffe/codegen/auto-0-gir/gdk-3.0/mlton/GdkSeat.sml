@@ -9,8 +9,8 @@ structure GdkSeat :>
     val getType_ = _import "gdk_seat_get_type" : unit -> GObjectType.FFI.val_;
     val getCapabilities_ = _import "gdk_seat_get_capabilities" : GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p -> GdkSeatCapabilities.FFI.val_;
     val getDisplay_ = _import "gdk_seat_get_display" : GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
-    val getKeyboard_ = _import "gdk_seat_get_keyboard" : GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p -> GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p;
-    val getPointer_ = _import "gdk_seat_get_pointer" : GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p -> GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p;
+    val getKeyboard_ = _import "gdk_seat_get_keyboard" : GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p -> unit GdkDeviceClass.FFI.p;
+    val getPointer_ = _import "gdk_seat_get_pointer" : GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p -> unit GdkDeviceClass.FFI.p;
     val ungrab_ = _import "gdk_seat_ungrab" : GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p -> unit;
     type 'a class = 'a GdkSeatClass.class
     type seat_capabilities_t = GdkSeatCapabilities.t
@@ -21,8 +21,8 @@ structure GdkSeat :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getCapabilities self = (GdkSeatClass.FFI.withPtr ---> GdkSeatCapabilities.FFI.fromVal) getCapabilities_ self
     fun getDisplay self = (GdkSeatClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
-    fun getKeyboard self = (GdkSeatClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromPtr false) getKeyboard_ self
-    fun getPointer self = (GdkSeatClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromPtr false) getPointer_ self
+    fun getKeyboard self = (GdkSeatClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromOptPtr false) getKeyboard_ self
+    fun getPointer self = (GdkSeatClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromOptPtr false) getPointer_ self
     fun ungrab self = (GdkSeatClass.FFI.withPtr ---> I) ungrab_ self
     local
       open ClosureMarshal Signal

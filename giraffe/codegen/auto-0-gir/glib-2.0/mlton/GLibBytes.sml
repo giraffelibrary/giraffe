@@ -26,7 +26,7 @@ structure GLibBytes :>
             )
     val compare_ = fn x1 & x2 => (_import "g_bytes_compare" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p * GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
     val equal_ = fn x1 & x2 => (_import "g_bytes_equal" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p * GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getData_ = fn x1 & x2 => (_import "g_bytes_get_data" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p * GSize.FFI.ref_ -> GUInt8CVectorN.FFI.notnull GUInt8CVectorN.FFI.out_p;) (x1, x2)
+    val getData_ = fn x1 & x2 => (_import "g_bytes_get_data" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p * GSize.FFI.ref_ -> unit GUInt8CVectorN.FFI.out_p;) (x1, x2)
     val getSize_ = _import "g_bytes_get_size" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p -> GSize.FFI.val_;
     val hash_ = _import "g_bytes_hash" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p -> GUInt.FFI.val_;
     val newFromBytes_ =
@@ -63,7 +63,7 @@ structure GLibBytes :>
     fun equal self bytes2 = (GLibBytesRecord.FFI.withPtr &&&> GLibBytesRecord.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & bytes2)
     fun getData self =
       let
-        val size & retVal = (GLibBytesRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 0) getData_ (self & GSize.null)
+        val size & retVal = (GLibBytesRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CVectorN.FFI.fromOptPtr 0) getData_ (self & GSize.null)
       in
         retVal (LargeInt.toInt size)
       end

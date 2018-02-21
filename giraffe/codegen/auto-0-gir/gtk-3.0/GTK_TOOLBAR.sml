@@ -29,7 +29,7 @@ signature GTK_TOOLBAR =
     val getNthItem :
       'a class
        -> LargeInt.int
-       -> base tool_item_class
+       -> base tool_item_class option
     val getReliefStyle : 'a class -> relief_style_t
     val getShowArrow : 'a class -> bool
     val getStyle : 'a class -> toolbar_style_t

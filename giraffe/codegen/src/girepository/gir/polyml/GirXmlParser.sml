@@ -265,12 +265,14 @@ and parseReturnValue (attrs, ts) : return_value =
   in
     let
       val transferOwnership = getOptAttr attrs "transfer-ownership"
+      val nullable = getOptAttr attrs "nullable"
 
       val elemDict = splitElems ts
       val type_ = parseType elemDict
     in
       {
         transferOwnership = transferOwnership,
+        nullable          = nullable,
         type_             = type_
       }
     end
@@ -290,7 +292,8 @@ and parseParameter (attrs, ts) : parameter =
   in
     let
       val transferOwnership = getAttr attrs "transfer-ownership"
-      val allowNone = getOptAttr attrs "allow-none"
+      val nullable = getOptAttr attrs "nullable"
+      val optional = getOptAttr attrs "optional"
       val direction = getOptAttr attrs "direction"
       val callerAllocates = getOptAttr attrs "caller-allocates"
       val scope = getOptAttr attrs "scope"
@@ -303,7 +306,8 @@ and parseParameter (attrs, ts) : parameter =
       {
         name              = name,
         transferOwnership = transferOwnership,
-        allowNone         = allowNone,
+        nullable          = nullable,
+        optional          = optional,
         direction         = direction,
         scope             = scope,
         callerAllocates   = callerAllocates,

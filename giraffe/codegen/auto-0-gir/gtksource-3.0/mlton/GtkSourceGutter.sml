@@ -15,7 +15,7 @@ structure GtkSourceGutter :>
               GtkSourceGutterClass.FFI.notnull GtkSourceGutterClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p;
+               -> unit GtkSourceGutterRendererClass.FFI.p;
           )
             (
               x1,
@@ -86,7 +86,7 @@ structure GtkSourceGutter :>
         GtkSourceGutterClass.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         ---> GtkSourceGutterRendererClass.FFI.fromPtr false
+         ---> GtkSourceGutterRendererClass.FFI.fromOptPtr false
       )
         getRendererAtPos_
         (

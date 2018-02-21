@@ -14,7 +14,7 @@ structure GtkLabel :>
       val new_ = call (getSymbol "gtk_label_new") (Utf8.PolyML.cInOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val newWithMnemonic_ = call (getSymbol "gtk_label_new_with_mnemonic") (Utf8.PolyML.cInOptPtr --> GtkWidgetClass.PolyML.cPtr)
       val getAngle_ = call (getSymbol "gtk_label_get_angle") (GtkLabelClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val getAttributes_ = call (getSymbol "gtk_label_get_attributes") (GtkLabelClass.PolyML.cPtr --> PangoAttrListRecord.PolyML.cPtr)
+      val getAttributes_ = call (getSymbol "gtk_label_get_attributes") (GtkLabelClass.PolyML.cPtr --> PangoAttrListRecord.PolyML.cOptPtr)
       val getCurrentUri_ = call (getSymbol "gtk_label_get_current_uri") (GtkLabelClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getEllipsize_ = call (getSymbol "gtk_label_get_ellipsize") (GtkLabelClass.PolyML.cPtr --> PangoEllipsizeMode.PolyML.cVal)
       val getJustify_ = call (getSymbol "gtk_label_get_justify") (GtkLabelClass.PolyML.cPtr --> GtkJustification.PolyML.cVal)
@@ -33,7 +33,7 @@ structure GtkLabel :>
       val getLines_ = call (getSymbol "gtk_label_get_lines") (GtkLabelClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getMaxWidthChars_ = call (getSymbol "gtk_label_get_max_width_chars") (GtkLabelClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getMnemonicKeyval_ = call (getSymbol "gtk_label_get_mnemonic_keyval") (GtkLabelClass.PolyML.cPtr --> GUInt.PolyML.cVal)
-      val getMnemonicWidget_ = call (getSymbol "gtk_label_get_mnemonic_widget") (GtkLabelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getMnemonicWidget_ = call (getSymbol "gtk_label_get_mnemonic_widget") (GtkLabelClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
       val getSelectable_ = call (getSymbol "gtk_label_get_selectable") (GtkLabelClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSelectionBounds_ =
         call (getSymbol "gtk_label_get_selection_bounds")
@@ -96,7 +96,7 @@ structure GtkLabel :>
     fun new str = (Utf8.FFI.withOptPtr ---> GtkLabelClass.FFI.fromPtr false) new_ str
     fun newWithMnemonic str = (Utf8.FFI.withOptPtr ---> GtkLabelClass.FFI.fromPtr false) newWithMnemonic_ str
     fun getAngle self = (GtkLabelClass.FFI.withPtr ---> GDouble.FFI.fromVal) getAngle_ self
-    fun getAttributes self = (GtkLabelClass.FFI.withPtr ---> PangoAttrListRecord.FFI.fromPtr false) getAttributes_ self
+    fun getAttributes self = (GtkLabelClass.FFI.withPtr ---> PangoAttrListRecord.FFI.fromOptPtr false) getAttributes_ self
     fun getCurrentUri self = (GtkLabelClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCurrentUri_ self
     fun getEllipsize self = (GtkLabelClass.FFI.withPtr ---> PangoEllipsizeMode.FFI.fromVal) getEllipsize_ self
     fun getJustify self = (GtkLabelClass.FFI.withPtr ---> GtkJustification.FFI.fromVal) getJustify_ self
@@ -129,7 +129,7 @@ structure GtkLabel :>
     fun getLines self = (GtkLabelClass.FFI.withPtr ---> GInt.FFI.fromVal) getLines_ self
     fun getMaxWidthChars self = (GtkLabelClass.FFI.withPtr ---> GInt.FFI.fromVal) getMaxWidthChars_ self
     fun getMnemonicKeyval self = (GtkLabelClass.FFI.withPtr ---> GUInt.FFI.fromVal) getMnemonicKeyval_ self
-    fun getMnemonicWidget self = (GtkLabelClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getMnemonicWidget_ self
+    fun getMnemonicWidget self = (GtkLabelClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getMnemonicWidget_ self
     fun getSelectable self = (GtkLabelClass.FFI.withPtr ---> GBool.FFI.fromVal) getSelectable_ self
     fun getSelectionBounds self =
       let

@@ -10,7 +10,7 @@ structure PangoGlyphString :>
     in
       val getType_ = call (getSymbol "pango_glyph_string_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "pango_glyph_string_new") (cVoid --> PangoGlyphStringRecord.PolyML.cPtr)
-      val copy_ = call (getSymbol "pango_glyph_string_copy") (PangoGlyphStringRecord.PolyML.cPtr --> PangoGlyphStringRecord.PolyML.cPtr)
+      val copy_ = call (getSymbol "pango_glyph_string_copy") (PangoGlyphStringRecord.PolyML.cPtr --> PangoGlyphStringRecord.PolyML.cOptPtr)
       val extents_ =
         call (getSymbol "pango_glyph_string_extents")
           (
@@ -64,7 +64,7 @@ structure PangoGlyphString :>
     type analysis_t = PangoAnalysisRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> PangoGlyphStringRecord.FFI.fromPtr true) new_ ()
-    fun copy self = (PangoGlyphStringRecord.FFI.withPtr ---> PangoGlyphStringRecord.FFI.fromPtr true) copy_ self
+    fun copy self = (PangoGlyphStringRecord.FFI.withPtr ---> PangoGlyphStringRecord.FFI.fromOptPtr true) copy_ self
     fun extents self font =
       let
         val inkRect

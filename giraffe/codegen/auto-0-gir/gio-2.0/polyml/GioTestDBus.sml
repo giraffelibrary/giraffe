@@ -11,7 +11,7 @@ structure GioTestDBus :>
       val unset_ = call (getSymbol "g_test_dbus_unset") (cVoid --> cVoid)
       val addServiceDir_ = call (getSymbol "g_test_dbus_add_service_dir") (GioTestDBusClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val down_ = call (getSymbol "g_test_dbus_down") (GioTestDBusClass.PolyML.cPtr --> cVoid)
-      val getBusAddress_ = call (getSymbol "g_test_dbus_get_bus_address") (GioTestDBusClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getBusAddress_ = call (getSymbol "g_test_dbus_get_bus_address") (GioTestDBusClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getFlags_ = call (getSymbol "g_test_dbus_get_flags") (GioTestDBusClass.PolyML.cPtr --> GioTestDBusFlags.PolyML.cVal)
       val stop_ = call (getSymbol "g_test_dbus_stop") (GioTestDBusClass.PolyML.cPtr --> cVoid)
       val up_ = call (getSymbol "g_test_dbus_up") (GioTestDBusClass.PolyML.cPtr --> cVoid)
@@ -24,7 +24,7 @@ structure GioTestDBus :>
     fun unset () = (I ---> I) unset_ ()
     fun addServiceDir self path = (GioTestDBusClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addServiceDir_ (self & path)
     fun down self = (GioTestDBusClass.FFI.withPtr ---> I) down_ self
-    fun getBusAddress self = (GioTestDBusClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getBusAddress_ self
+    fun getBusAddress self = (GioTestDBusClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getBusAddress_ self
     fun getFlags self = (GioTestDBusClass.FFI.withPtr ---> GioTestDBusFlags.FFI.fromVal) getFlags_ self
     fun stop self = (GioTestDBusClass.FFI.withPtr ---> I) stop_ self
     fun up self = (GioTestDBusClass.FFI.withPtr ---> I) up_ self

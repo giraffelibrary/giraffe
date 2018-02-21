@@ -12,7 +12,7 @@ signature GTK_SETTINGS =
     type t = base class
     val asStyleProvider : 'a class -> base style_provider_class
     val getType : unit -> GObject.Type.t
-    val getDefault : unit -> base class
+    val getDefault : unit -> base class option
     val getForScreen : 'a Gdk.ScreenClass.class -> base class
     val installProperty : 'a GObject.ParamSpecClass.class -> unit
     val resetProperty :

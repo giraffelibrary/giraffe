@@ -98,7 +98,7 @@ structure GioDataInputStream :>
                * GSize.FFI.ref_
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> GUInt8CVector.FFI.notnull GUInt8CVector.FFI.out_p;
+               -> unit GUInt8CVector.FFI.out_p;
           )
             (
               x1,
@@ -118,7 +118,7 @@ structure GioDataInputStream :>
                * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
                * GSize.FFI.ref_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> GUInt8CVector.FFI.notnull GUInt8CVector.FFI.out_p;
+               -> unit GUInt8CVector.FFI.out_p;
           )
             (
               x1,
@@ -138,7 +138,7 @@ structure GioDataInputStream :>
                * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
                * GSize.FFI.ref_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> unit Utf8.FFI.out_p;
           )
             (
               x1,
@@ -158,7 +158,7 @@ structure GioDataInputStream :>
                * GSize.FFI.ref_
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> unit Utf8.FFI.out_p;
           )
             (
               x1,
@@ -385,7 +385,7 @@ structure GioDataInputStream :>
              &&&> GSize.FFI.withRefVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && GUInt8CVector.FFI.fromPtr 1
+             ---> GSize.FFI.fromVal && GUInt8CVector.FFI.fromOptPtr 1
           )
             readLine_
             (
@@ -405,7 +405,7 @@ structure GioDataInputStream :>
              &&&> GioAsyncResultClass.FFI.withPtr
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && GUInt8CVector.FFI.fromPtr 1
+             ---> GSize.FFI.fromVal && GUInt8CVector.FFI.fromOptPtr 1
           )
             readLineFinish_
             (
@@ -425,7 +425,7 @@ structure GioDataInputStream :>
              &&&> GioAsyncResultClass.FFI.withPtr
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && Utf8.FFI.fromPtr 1
+             ---> GSize.FFI.fromVal && Utf8.FFI.fromOptPtr 1
           )
             readLineFinishUtf8_
             (
@@ -445,7 +445,7 @@ structure GioDataInputStream :>
              &&&> GSize.FFI.withRefVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && Utf8.FFI.fromPtr 1
+             ---> GSize.FFI.fromVal && Utf8.FFI.fromOptPtr 1
           )
             readLineUtf8_
             (

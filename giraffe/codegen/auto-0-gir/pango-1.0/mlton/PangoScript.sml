@@ -380,9 +380,9 @@ structure PangoScript :>
           setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
     val forUnichar_ = _import "pango_script_for_unichar" : GChar.FFI.val_ -> FFI.val_;
-    val getSampleLanguage_ = _import "pango_script_get_sample_language" : FFI.val_ -> PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p;
+    val getSampleLanguage_ = _import "pango_script_get_sample_language" : FFI.val_ -> unit PangoLanguageRecord.FFI.p;
     type language_t = PangoLanguageRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun forUnichar ch = (GChar.FFI.withVal ---> FFI.fromVal) forUnichar_ ch
-    fun getSampleLanguage script = (FFI.withVal ---> PangoLanguageRecord.FFI.fromPtr true) getSampleLanguage_ script
+    fun getSampleLanguage script = (FFI.withVal ---> PangoLanguageRecord.FFI.fromOptPtr true) getSampleLanguage_ script
   end

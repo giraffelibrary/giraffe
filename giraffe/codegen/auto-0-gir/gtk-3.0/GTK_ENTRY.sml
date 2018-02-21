@@ -27,11 +27,11 @@ signature GTK_ENTRY =
     val newWithBuffer : 'a entry_buffer_class -> base class
     val getActivatesDefault : 'a class -> bool
     val getAlignment : 'a class -> real
-    val getAttributes : 'a class -> Pango.AttrListRecord.t
+    val getAttributes : 'a class -> Pango.AttrListRecord.t option
     val getBuffer : 'a class -> base entry_buffer_class
     val getCompletion : 'a class -> base entry_completion_class
     val getCurrentIconDragSource : 'a class -> LargeInt.int
-    val getCursorHadjustment : 'a class -> base adjustment_class
+    val getCursorHadjustment : 'a class -> base adjustment_class option
     val getHasFrame : 'a class -> bool
     val getIconActivatable :
       'a class
@@ -48,15 +48,15 @@ signature GTK_ENTRY =
     val getIconGicon :
       'a class
        -> entry_icon_position_t
-       -> base Gio.IconClass.class
+       -> base Gio.IconClass.class option
     val getIconName :
       'a class
        -> entry_icon_position_t
-       -> string
+       -> string option
     val getIconPixbuf :
       'a class
        -> entry_icon_position_t
-       -> base GdkPixbuf.PixbufClass.class
+       -> base GdkPixbuf.PixbufClass.class option
     val getIconSensitive :
       'a class
        -> entry_icon_position_t
@@ -72,12 +72,12 @@ signature GTK_ENTRY =
     val getIconTooltipMarkup :
       'a class
        -> entry_icon_position_t
-       -> string
+       -> string option
     val getIconTooltipText :
       'a class
        -> entry_icon_position_t
-       -> string
-    val getInnerBorder : 'a class -> border_t
+       -> string option
+    val getInnerBorder : 'a class -> border_t option
     val getInputHints : 'a class -> input_hints_t
     val getInputPurpose : 'a class -> input_purpose_t
     val getInvisibleChar : 'a class -> char
@@ -89,7 +89,7 @@ signature GTK_ENTRY =
     val getPlaceholderText : 'a class -> string
     val getProgressFraction : 'a class -> real
     val getProgressPulseStep : 'a class -> real
-    val getTabs : 'a class -> Pango.TabArrayRecord.t
+    val getTabs : 'a class -> Pango.TabArrayRecord.t option
     val getText : 'a class -> string
     val getTextArea : 'a class -> Gdk.RectangleRecord.t
     val getTextLength : 'a class -> LargeInt.int

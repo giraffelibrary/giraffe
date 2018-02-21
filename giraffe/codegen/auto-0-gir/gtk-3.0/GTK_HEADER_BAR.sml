@@ -8,12 +8,12 @@ signature GTK_HEADER_BAR =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val getCustomTitle : 'a class -> base widget_class
+    val getCustomTitle : 'a class -> base widget_class option
     val getDecorationLayout : 'a class -> string
     val getHasSubtitle : 'a class -> bool
     val getShowCloseButton : 'a class -> bool
-    val getSubtitle : 'a class -> string
-    val getTitle : 'a class -> string
+    val getSubtitle : 'a class -> string option
+    val getTitle : 'a class -> string option
     val packEnd :
       'a class
        -> 'b widget_class

@@ -405,7 +405,7 @@ structure GtkTextBuffer :>
               GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p;
+               -> unit GtkTextMarkClass.FFI.p;
           )
             (
               x1,
@@ -1248,7 +1248,7 @@ structure GtkTextBuffer :>
         iter
       end
     fun getLineCount self = (GtkTextBufferClass.FFI.withPtr ---> GInt.FFI.fromVal) getLineCount_ self
-    fun getMark self name = (GtkTextBufferClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkTextMarkClass.FFI.fromPtr false) getMark_ (self & name)
+    fun getMark self name = (GtkTextBufferClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkTextMarkClass.FFI.fromOptPtr false) getMark_ (self & name)
     fun getModified self = (GtkTextBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getModified_ self
     fun getPasteTargetList self = (GtkTextBufferClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) getPasteTargetList_ self
     fun getSelectionBound self = (GtkTextBufferClass.FFI.withPtr ---> GtkTextMarkClass.FFI.fromPtr false) getSelectionBound_ self

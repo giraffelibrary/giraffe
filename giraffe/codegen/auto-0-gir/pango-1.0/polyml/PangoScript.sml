@@ -387,10 +387,10 @@ structure PangoScript :>
       open PolyMLFFI
     in
       val forUnichar_ = call (getSymbol "pango_script_for_unichar") (GChar.PolyML.cVal --> PolyML.cVal)
-      val getSampleLanguage_ = call (getSymbol "pango_script_get_sample_language") (PolyML.cVal --> PangoLanguageRecord.PolyML.cPtr)
+      val getSampleLanguage_ = call (getSymbol "pango_script_get_sample_language") (PolyML.cVal --> PangoLanguageRecord.PolyML.cOptPtr)
     end
     type language_t = PangoLanguageRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun forUnichar ch = (GChar.FFI.withVal ---> FFI.fromVal) forUnichar_ ch
-    fun getSampleLanguage script = (FFI.withVal ---> PangoLanguageRecord.FFI.fromPtr true) getSampleLanguage_ script
+    fun getSampleLanguage script = (FFI.withVal ---> PangoLanguageRecord.FFI.fromOptPtr true) getSampleLanguage_ script
   end

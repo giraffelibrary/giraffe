@@ -58,7 +58,7 @@ structure GtkStack :>
               GtkStackClass.FFI.notnull GtkStackClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               -> unit GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -72,8 +72,8 @@ structure GtkStack :>
     val getTransitionRunning_ = _import "gtk_stack_get_transition_running" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> GBool.FFI.val_;
     val getTransitionType_ = _import "gtk_stack_get_transition_type" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> GtkStackTransitionType.FFI.val_;
     val getVhomogeneous_ = _import "gtk_stack_get_vhomogeneous" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> GBool.FFI.val_;
-    val getVisibleChild_ = _import "gtk_stack_get_visible_child" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getVisibleChildName_ = _import "gtk_stack_get_visible_child_name" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getVisibleChild_ = _import "gtk_stack_get_visible_child" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> unit GtkWidgetClass.FFI.p;
+    val getVisibleChildName_ = _import "gtk_stack_get_visible_child_name" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> unit Utf8.FFI.out_p;
     val setHhomogeneous_ = fn x1 & x2 => (_import "gtk_stack_set_hhomogeneous" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setHomogeneous_ = fn x1 & x2 => (_import "gtk_stack_set_homogeneous" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setInterpolateSize_ = fn x1 & x2 => (_import "gtk_stack_set_interpolate_size" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
@@ -158,7 +158,7 @@ structure GtkStack :>
            & name
            & title
         )
-    fun getChildByName self name = (GtkStackClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getChildByName_ (self & name)
+    fun getChildByName self name = (GtkStackClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getChildByName_ (self & name)
     fun getHhomogeneous self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getHhomogeneous_ self
     fun getHomogeneous self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getHomogeneous_ self
     fun getInterpolateSize self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getInterpolateSize_ self
@@ -166,8 +166,8 @@ structure GtkStack :>
     fun getTransitionRunning self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getTransitionRunning_ self
     fun getTransitionType self = (GtkStackClass.FFI.withPtr ---> GtkStackTransitionType.FFI.fromVal) getTransitionType_ self
     fun getVhomogeneous self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getVhomogeneous_ self
-    fun getVisibleChild self = (GtkStackClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getVisibleChild_ self
-    fun getVisibleChildName self = (GtkStackClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getVisibleChildName_ self
+    fun getVisibleChild self = (GtkStackClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getVisibleChild_ self
+    fun getVisibleChildName self = (GtkStackClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getVisibleChildName_ self
     fun setHhomogeneous self hhomogeneous = (GtkStackClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHhomogeneous_ (self & hhomogeneous)
     fun setHomogeneous self homogeneous = (GtkStackClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
     fun setInterpolateSize self interpolateSize = (GtkStackClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setInterpolateSize_ (self & interpolateSize)

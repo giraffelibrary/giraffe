@@ -55,7 +55,7 @@ signature GIO_SETTINGS =
     val getDefaultValue :
       'a class
        -> string
-       -> GLib.VariantRecord.t
+       -> GLib.VariantRecord.t option
     val getDouble :
       'a class
        -> string
@@ -100,7 +100,7 @@ signature GIO_SETTINGS =
     val getUserValue :
       'a class
        -> string
-       -> GLib.VariantRecord.t
+       -> GLib.VariantRecord.t option
     val getValue :
       'a class
        -> string

@@ -38,7 +38,13 @@ structure GIRepositoryCallableInfo :>
         transferOwnership
       end
 
-    fun mayReturnNull _ = false
+    fun mayReturnNull info =
+      let
+        val _ & {returnValue, ...} & _ = (fromBase o fromCallable) I info
+        val {nullable, ...} = returnValue
+      in
+        nullable
+      end
 
     fun getReturnAttribute info name =
       let

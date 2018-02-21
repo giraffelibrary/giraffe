@@ -5,7 +5,7 @@ signature GDK_DRAWING_CONTEXT =
     type t = base class
     val getType : unit -> GObject.Type.t
     val getCairoContext : 'a class -> Cairo.ContextRecord.t
-    val getClip : 'a class -> Cairo.RegionRecord.t
+    val getClip : 'a class -> Cairo.RegionRecord.t option
     val getWindow : 'a class -> base window_class
     val isValid : 'a class -> bool
     val clipProp : ('a class, Cairo.RegionRecord.t option, Cairo.RegionRecord.t option) Property.readwrite

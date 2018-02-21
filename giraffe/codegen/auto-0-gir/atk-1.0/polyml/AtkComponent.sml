@@ -58,7 +58,7 @@ structure AtkComponent :>
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> AtkCoordType.PolyML.cVal
-             --> AtkObjectClass.PolyML.cPtr
+             --> AtkObjectClass.PolyML.cOptPtr
           )
       val removeFocusHandler_ = call (getSymbol "atk_component_remove_focus_handler") (AtkComponentClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
       val setExtents_ =
@@ -217,7 +217,7 @@ structure AtkComponent :>
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> AtkCoordType.FFI.withVal
-         ---> AtkObjectClass.FFI.fromPtr true
+         ---> AtkObjectClass.FFI.fromOptPtr true
       )
         refAccessibleAtPoint_
         (

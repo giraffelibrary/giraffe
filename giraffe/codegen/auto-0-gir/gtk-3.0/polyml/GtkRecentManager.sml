@@ -26,7 +26,7 @@ structure GtkRecentManager :>
             GtkRecentManagerClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GtkRecentInfoRecord.PolyML.cPtr
+             --> GtkRecentInfoRecord.PolyML.cOptPtr
           )
       val moveItem_ =
         call (getSymbol "gtk_recent_manager_move_item")
@@ -74,7 +74,7 @@ structure GtkRecentManager :>
         GtkRecentManagerClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> GtkRecentInfoRecord.FFI.fromPtr true
+         ---> GtkRecentInfoRecord.FFI.fromOptPtr true
       )
         lookupItem_
         (

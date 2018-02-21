@@ -6,7 +6,7 @@ signature GTK_CSS_SECTION =
     val getEndLine : t -> LargeInt.int
     val getEndPosition : t -> LargeInt.int
     val getFile : t -> base Gio.FileClass.class
-    val getParent : t -> t
+    val getParent : t -> t option
     val getSectionType : t -> css_section_type_t
     val getStartLine : t -> LargeInt.int
     val getStartPosition : t -> LargeInt.int

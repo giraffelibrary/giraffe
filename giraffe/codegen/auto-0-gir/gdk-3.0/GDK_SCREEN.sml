@@ -7,14 +7,14 @@ signature GDK_SCREEN =
     type 'a visual_class
     type t = base class
     val getType : unit -> GObject.Type.t
-    val getDefault : unit -> base class
+    val getDefault : unit -> base class option
     val height : unit -> LargeInt.int
     val heightMm : unit -> LargeInt.int
     val width : unit -> LargeInt.int
     val widthMm : unit -> LargeInt.int
-    val getActiveWindow : 'a class -> base window_class
+    val getActiveWindow : 'a class -> base window_class option
     val getDisplay : 'a class -> base display_class
-    val getFontOptions : 'a class -> Cairo.FontOptionsRecord.t
+    val getFontOptions : 'a class -> Cairo.FontOptionsRecord.t option
     val getHeight : 'a class -> LargeInt.int
     val getHeightMm : 'a class -> LargeInt.int
     val getMonitorAtPoint :
@@ -36,7 +36,7 @@ signature GDK_SCREEN =
     val getMonitorPlugName :
       'a class
        -> LargeInt.int
-       -> string
+       -> string option
     val getMonitorScaleFactor :
       'a class
        -> LargeInt.int
@@ -53,7 +53,7 @@ signature GDK_SCREEN =
     val getNumber : 'a class -> LargeInt.int
     val getPrimaryMonitor : 'a class -> LargeInt.int
     val getResolution : 'a class -> real
-    val getRgbaVisual : 'a class -> base visual_class
+    val getRgbaVisual : 'a class -> base visual_class option
     val getRootWindow : 'a class -> base window_class
     val getSetting :
       'a class

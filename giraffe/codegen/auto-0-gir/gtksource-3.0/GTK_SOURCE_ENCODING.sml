@@ -7,6 +7,6 @@ signature GTK_SOURCE_ENCODING =
     val getName : t -> string
     val toString : t -> string
     val getCurrent : unit -> t
-    val getFromCharset : string -> t
+    val getFromCharset : string -> t option
     val getUtf8 : unit -> t
   end

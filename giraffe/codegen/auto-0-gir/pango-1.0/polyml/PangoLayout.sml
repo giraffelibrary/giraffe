@@ -50,14 +50,14 @@ structure PangoLayout :>
              &&> PangoRectangleRecord.PolyML.cPtr
              --> cVoid
           )
-      val getFontDescription_ = call (getSymbol "pango_layout_get_font_description") (PangoLayoutClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
+      val getFontDescription_ = call (getSymbol "pango_layout_get_font_description") (PangoLayoutClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cOptPtr)
       val getHeight_ = call (getSymbol "pango_layout_get_height") (PangoLayoutClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getIndent_ = call (getSymbol "pango_layout_get_indent") (PangoLayoutClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getIter_ = call (getSymbol "pango_layout_get_iter") (PangoLayoutClass.PolyML.cPtr --> PangoLayoutIterRecord.PolyML.cPtr)
       val getJustify_ = call (getSymbol "pango_layout_get_justify") (PangoLayoutClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getLine_ = call (getSymbol "pango_layout_get_line") (PangoLayoutClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PangoLayoutLineRecord.PolyML.cPtr)
+      val getLine_ = call (getSymbol "pango_layout_get_line") (PangoLayoutClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PangoLayoutLineRecord.PolyML.cOptPtr)
       val getLineCount_ = call (getSymbol "pango_layout_get_line_count") (PangoLayoutClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getLineReadonly_ = call (getSymbol "pango_layout_get_line_readonly") (PangoLayoutClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PangoLayoutLineRecord.PolyML.cPtr)
+      val getLineReadonly_ = call (getSymbol "pango_layout_get_line_readonly") (PangoLayoutClass.PolyML.cPtr &&> GInt.PolyML.cVal --> PangoLayoutLineRecord.PolyML.cOptPtr)
       val getLogAttrs_ =
         call (getSymbol "pango_layout_get_log_attrs")
           (
@@ -94,7 +94,7 @@ structure PangoLayout :>
              --> cVoid
           )
       val getSpacing_ = call (getSymbol "pango_layout_get_spacing") (PangoLayoutClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getTabs_ = call (getSymbol "pango_layout_get_tabs") (PangoLayoutClass.PolyML.cPtr --> PangoTabArrayRecord.PolyML.cPtr)
+      val getTabs_ = call (getSymbol "pango_layout_get_tabs") (PangoLayoutClass.PolyML.cPtr --> PangoTabArrayRecord.PolyML.cOptPtr)
       val getText_ = call (getSymbol "pango_layout_get_text") (PangoLayoutClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getUnknownGlyphsCount_ = call (getSymbol "pango_layout_get_unknown_glyphs_count") (PangoLayoutClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getWidth_ = call (getSymbol "pango_layout_get_width") (PangoLayoutClass.PolyML.cPtr --> GInt.PolyML.cVal)
@@ -251,14 +251,14 @@ structure PangoLayout :>
       in
         (inkRect, logicalRect)
       end
-    fun getFontDescription self = (PangoLayoutClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFontDescription_ self
+    fun getFontDescription self = (PangoLayoutClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromOptPtr false) getFontDescription_ self
     fun getHeight self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getHeight_ self
     fun getIndent self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getIndent_ self
     fun getIter self = (PangoLayoutClass.FFI.withPtr ---> PangoLayoutIterRecord.FFI.fromPtr true) getIter_ self
     fun getJustify self = (PangoLayoutClass.FFI.withPtr ---> GBool.FFI.fromVal) getJustify_ self
-    fun getLine self line = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromPtr false) getLine_ (self & line)
+    fun getLine self line = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLine_ (self & line)
     fun getLineCount self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getLineCount_ self
-    fun getLineReadonly self line = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromPtr false) getLineReadonly_ (self & line)
+    fun getLineReadonly self line = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLineReadonly_ (self & line)
     fun getLogAttrs self =
       let
         val attrs
@@ -356,7 +356,7 @@ structure PangoLayout :>
         (width, height)
       end
     fun getSpacing self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getSpacing_ self
-    fun getTabs self = (PangoLayoutClass.FFI.withPtr ---> PangoTabArrayRecord.FFI.fromPtr true) getTabs_ self
+    fun getTabs self = (PangoLayoutClass.FFI.withPtr ---> PangoTabArrayRecord.FFI.fromOptPtr true) getTabs_ self
     fun getText self = (PangoLayoutClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getText_ self
     fun getUnknownGlyphsCount self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getUnknownGlyphsCount_ self
     fun getWidth self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getWidth_ self

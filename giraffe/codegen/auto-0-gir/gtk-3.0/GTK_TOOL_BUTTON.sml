@@ -13,10 +13,10 @@ signature GTK_TOOL_BUTTON =
     val getType : unit -> GObject.Type.t
     val new : 'a widget_class option * string option -> base class
     val newFromStock : string -> base class
-    val getIconName : 'a class -> string
-    val getIconWidget : 'a class -> base widget_class
-    val getLabel : 'a class -> string
-    val getLabelWidget : 'a class -> base widget_class
+    val getIconName : 'a class -> string option
+    val getIconWidget : 'a class -> base widget_class option
+    val getLabel : 'a class -> string option
+    val getLabelWidget : 'a class -> base widget_class option
     val getStockId : 'a class -> string
     val getUseUnderline : 'a class -> bool
     val setIconName :

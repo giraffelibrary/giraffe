@@ -4,7 +4,7 @@ structure PangoItem :>
   struct
     val getType_ = _import "pango_item_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "pango_item_new" : unit -> PangoItemRecord.FFI.notnull PangoItemRecord.FFI.p;
-    val copy_ = _import "pango_item_copy" : PangoItemRecord.FFI.notnull PangoItemRecord.FFI.p -> PangoItemRecord.FFI.notnull PangoItemRecord.FFI.p;
+    val copy_ = _import "pango_item_copy" : PangoItemRecord.FFI.notnull PangoItemRecord.FFI.p -> unit PangoItemRecord.FFI.p;
     val split_ =
       fn
         x1
@@ -25,7 +25,7 @@ structure PangoItem :>
     type t = PangoItemRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> PangoItemRecord.FFI.fromPtr true) new_ ()
-    fun copy self = (PangoItemRecord.FFI.withPtr ---> PangoItemRecord.FFI.fromPtr true) copy_ self
+    fun copy self = (PangoItemRecord.FFI.withPtr ---> PangoItemRecord.FFI.fromOptPtr true) copy_ self
     fun split self (splitIndex, splitOffset) =
       (
         PangoItemRecord.FFI.withPtr

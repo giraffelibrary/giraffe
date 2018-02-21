@@ -9,8 +9,8 @@ structure GdkMonitor :>
     val getDisplay_ = _import "gdk_monitor_get_display" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
     val getGeometry_ = fn x1 & x2 => (_import "gdk_monitor_get_geometry" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
     val getHeightMm_ = _import "gdk_monitor_get_height_mm" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> GInt.FFI.val_;
-    val getManufacturer_ = _import "gdk_monitor_get_manufacturer" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getModel_ = _import "gdk_monitor_get_model" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getManufacturer_ = _import "gdk_monitor_get_manufacturer" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> unit Utf8.FFI.out_p;
+    val getModel_ = _import "gdk_monitor_get_model" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> unit Utf8.FFI.out_p;
     val getRefreshRate_ = _import "gdk_monitor_get_refresh_rate" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> GInt.FFI.val_;
     val getScaleFactor_ = _import "gdk_monitor_get_scale_factor" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> GInt.FFI.val_;
     val getSubpixelLayout_ = _import "gdk_monitor_get_subpixel_layout" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> GdkSubpixelLayout.FFI.val_;
@@ -31,8 +31,8 @@ structure GdkMonitor :>
         geometry
       end
     fun getHeightMm self = (GdkMonitorClass.FFI.withPtr ---> GInt.FFI.fromVal) getHeightMm_ self
-    fun getManufacturer self = (GdkMonitorClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getManufacturer_ self
-    fun getModel self = (GdkMonitorClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getModel_ self
+    fun getManufacturer self = (GdkMonitorClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getManufacturer_ self
+    fun getModel self = (GdkMonitorClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getModel_ self
     fun getRefreshRate self = (GdkMonitorClass.FFI.withPtr ---> GInt.FFI.fromVal) getRefreshRate_ self
     fun getScaleFactor self = (GdkMonitorClass.FFI.withPtr ---> GInt.FFI.fromVal) getScaleFactor_ self
     fun getSubpixelLayout self = (GdkMonitorClass.FFI.withPtr ---> GdkSubpixelLayout.FFI.fromVal) getSubpixelLayout_ self

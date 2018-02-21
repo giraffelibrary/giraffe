@@ -103,7 +103,7 @@ structure GioApplication :>
     val getIsBusy_ = _import "g_application_get_is_busy" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> GBool.FFI.val_;
     val getIsRegistered_ = _import "g_application_get_is_registered" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> GBool.FFI.val_;
     val getIsRemote_ = _import "g_application_get_is_remote" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> GBool.FFI.val_;
-    val getResourceBasePath_ = _import "g_application_get_resource_base_path" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getResourceBasePath_ = _import "g_application_get_resource_base_path" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> unit Utf8.FFI.out_p;
     val hold_ = _import "g_application_hold" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> unit;
     val markBusy_ = _import "g_application_mark_busy" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> unit;
     val open_ =
@@ -324,7 +324,7 @@ structure GioApplication :>
     fun getIsBusy self = (GioApplicationClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsBusy_ self
     fun getIsRegistered self = (GioApplicationClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsRegistered_ self
     fun getIsRemote self = (GioApplicationClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsRemote_ self
-    fun getResourceBasePath self = (GioApplicationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getResourceBasePath_ self
+    fun getResourceBasePath self = (GioApplicationClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getResourceBasePath_ self
     fun hold self = (GioApplicationClass.FFI.withPtr ---> I) hold_ self
     fun markBusy self = (GioApplicationClass.FFI.withPtr ---> I) markBusy_ self
     fun open' self (files, hint) =

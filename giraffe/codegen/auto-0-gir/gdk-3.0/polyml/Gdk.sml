@@ -50,7 +50,7 @@ structure Gdk : GDK =
              --> cVoid
           )
       val cairoGetClipRectangle_ = call (getSymbol "gdk_cairo_get_clip_rectangle") (CairoContextRecord.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val cairoGetDrawingContext_ = call (getSymbol "gdk_cairo_get_drawing_context") (CairoContextRecord.PolyML.cPtr --> GdkDrawingContextClass.PolyML.cPtr)
+      val cairoGetDrawingContext_ = call (getSymbol "gdk_cairo_get_drawing_context") (CairoContextRecord.PolyML.cPtr --> GdkDrawingContextClass.PolyML.cOptPtr)
       val cairoRectangle_ = call (getSymbol "gdk_cairo_rectangle") (CairoContextRecord.PolyML.cPtr &&> GdkRectangleRecord.PolyML.cPtr --> cVoid)
       val cairoRegion_ = call (getSymbol "gdk_cairo_region") (CairoContextRecord.PolyML.cPtr &&> CairoRegionRecord.PolyML.cPtr --> cVoid)
       val cairoRegionCreateFromSurface_ = call (getSymbol "gdk_cairo_region_create_from_surface") (CairoSurfaceRecord.PolyML.cPtr --> CairoRegionRecord.PolyML.cPtr)
@@ -169,7 +169,7 @@ structure Gdk : GDK =
       val flush_ = call (getSymbol "gdk_flush") (cVoid --> cVoid)
       val getDefaultRootWindow_ = call (getSymbol "gdk_get_default_root_window") (cVoid --> GdkWindowClass.PolyML.cPtr)
       val getDisplay_ = call (getSymbol "gdk_get_display") (cVoid --> Utf8.PolyML.cOutPtr)
-      val getDisplayArgName_ = call (getSymbol "gdk_get_display_arg_name") (cVoid --> Utf8.PolyML.cOutPtr)
+      val getDisplayArgName_ = call (getSymbol "gdk_get_display_arg_name") (cVoid --> Utf8.PolyML.cOutOptPtr)
       val getProgramClass_ = call (getSymbol "gdk_get_program_class") (cVoid --> Utf8.PolyML.cOutPtr)
       val getShowEvents_ = call (getSymbol "gdk_get_show_events") (cVoid --> GBool.PolyML.cVal)
       val init_ = call (getSymbol "gdk_init") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> cVoid)
@@ -194,14 +194,14 @@ structure Gdk : GDK =
       val keyvalFromName_ = call (getSymbol "gdk_keyval_from_name") (Utf8.PolyML.cInPtr --> GUInt.PolyML.cVal)
       val keyvalIsLower_ = call (getSymbol "gdk_keyval_is_lower") (GUInt.PolyML.cVal --> GBool.PolyML.cVal)
       val keyvalIsUpper_ = call (getSymbol "gdk_keyval_is_upper") (GUInt.PolyML.cVal --> GBool.PolyML.cVal)
-      val keyvalName_ = call (getSymbol "gdk_keyval_name") (GUInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val keyvalName_ = call (getSymbol "gdk_keyval_name") (GUInt.PolyML.cVal --> Utf8.PolyML.cOutOptPtr)
       val keyvalToLower_ = call (getSymbol "gdk_keyval_to_lower") (GUInt.PolyML.cVal --> GUInt.PolyML.cVal)
       val keyvalToUnicode_ = call (getSymbol "gdk_keyval_to_unicode") (GUInt.PolyML.cVal --> GUInt32.PolyML.cVal)
       val keyvalToUpper_ = call (getSymbol "gdk_keyval_to_upper") (GUInt.PolyML.cVal --> GUInt.PolyML.cVal)
       val notifyStartupComplete_ = call (getSymbol "gdk_notify_startup_complete") (cVoid --> cVoid)
       val notifyStartupCompleteWithId_ = call (getSymbol "gdk_notify_startup_complete_with_id") (Utf8.PolyML.cInPtr --> cVoid)
-      val offscreenWindowGetEmbedder_ = call (getSymbol "gdk_offscreen_window_get_embedder") (GdkWindowClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
-      val offscreenWindowGetSurface_ = call (getSymbol "gdk_offscreen_window_get_surface") (GdkWindowClass.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
+      val offscreenWindowGetEmbedder_ = call (getSymbol "gdk_offscreen_window_get_embedder") (GdkWindowClass.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
+      val offscreenWindowGetSurface_ = call (getSymbol "gdk_offscreen_window_get_surface") (GdkWindowClass.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cOptPtr)
       val offscreenWindowSetEmbedder_ = call (getSymbol "gdk_offscreen_window_set_embedder") (GdkWindowClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
       val pangoContextGet_ = call (getSymbol "gdk_pango_context_get") (cVoid --> PangoContextClass.PolyML.cPtr)
       val pangoContextGetForDisplay_ = call (getSymbol "gdk_pango_context_get_for_display") (GdkDisplayClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
@@ -215,7 +215,7 @@ structure Gdk : GDK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> GdkPixbufPixbufClass.PolyML.cPtr
+             --> GdkPixbufPixbufClass.PolyML.cOptPtr
           )
       val pixbufGetFromWindow_ =
         call (getSymbol "gdk_pixbuf_get_from_window")
@@ -225,7 +225,7 @@ structure Gdk : GDK =
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> GdkPixbufPixbufClass.PolyML.cPtr
+             --> GdkPixbufPixbufClass.PolyML.cOptPtr
           )
       val pointerGrab_ =
         call (getSymbol "gdk_pointer_grab")
@@ -268,8 +268,8 @@ structure Gdk : GDK =
              &&> GUInt32.PolyML.cVal
              --> cVoid
           )
-      val selectionOwnerGet_ = call (getSymbol "gdk_selection_owner_get") (GdkAtomRecord.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
-      val selectionOwnerGetForDisplay_ = call (getSymbol "gdk_selection_owner_get_for_display") (GdkDisplayClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val selectionOwnerGet_ = call (getSymbol "gdk_selection_owner_get") (GdkAtomRecord.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
+      val selectionOwnerGetForDisplay_ = call (getSymbol "gdk_selection_owner_get_for_display") (GdkDisplayClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
       val selectionOwnerSet_ =
         call (getSymbol "gdk_selection_owner_set")
           (
@@ -361,7 +361,7 @@ structure Gdk : GDK =
       val threadsInit_ = call (getSymbol "gdk_threads_init") (cVoid --> cVoid)
       val threadsLeave_ = call (getSymbol "gdk_threads_leave") (cVoid --> cVoid)
       val unicodeToKeyval_ = call (getSymbol "gdk_unicode_to_keyval") (GUInt32.PolyML.cVal --> GUInt.PolyML.cVal)
-      val utf8ToStringTarget_ = call (getSymbol "gdk_utf8_to_string_target") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val utf8ToStringTarget_ = call (getSymbol "gdk_utf8_to_string_target") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutOptPtr)
     end
     structure AnchorHints = GdkAnchorHints
     structure AppLaunchContextClass = GdkAppLaunchContextClass
@@ -2814,7 +2814,7 @@ structure Gdk : GDK =
       in
         if retVal then SOME rect else NONE
       end
-    fun cairoGetDrawingContext cr = (CairoContextRecord.FFI.withPtr ---> GdkDrawingContextClass.FFI.fromPtr false) cairoGetDrawingContext_ cr
+    fun cairoGetDrawingContext cr = (CairoContextRecord.FFI.withPtr ---> GdkDrawingContextClass.FFI.fromOptPtr false) cairoGetDrawingContext_ cr
     fun cairoRectangle (cr, rectangle) = (CairoContextRecord.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) cairoRectangle_ (cr & rectangle)
     fun cairoRegion (cr, region) = (CairoContextRecord.FFI.withPtr &&&> CairoRegionRecord.FFI.withPtr ---> I) cairoRegion_ (cr & region)
     fun cairoRegionCreateFromSurface surface = (CairoSurfaceRecord.FFI.withPtr ---> CairoRegionRecord.FFI.fromPtr true) cairoRegionCreateFromSurface_ surface
@@ -3077,7 +3077,7 @@ structure Gdk : GDK =
     fun flush () = (I ---> I) flush_ ()
     fun getDefaultRootWindow () = (I ---> GdkWindowClass.FFI.fromPtr false) getDefaultRootWindow_ ()
     fun getDisplay () = (I ---> Utf8.FFI.fromPtr 1) getDisplay_ ()
-    fun getDisplayArgName () = (I ---> Utf8.FFI.fromPtr 0) getDisplayArgName_ ()
+    fun getDisplayArgName () = (I ---> Utf8.FFI.fromOptPtr 0) getDisplayArgName_ ()
     fun getProgramClass () = (I ---> Utf8.FFI.fromPtr 0) getProgramClass_ ()
     fun getShowEvents () = (I ---> GBool.FFI.fromVal) getShowEvents_ ()
     fun init argv =
@@ -3158,14 +3158,14 @@ structure Gdk : GDK =
     fun keyvalFromName keyvalName = (Utf8.FFI.withPtr ---> GUInt.FFI.fromVal) keyvalFromName_ keyvalName
     fun keyvalIsLower keyval = (GUInt.FFI.withVal ---> GBool.FFI.fromVal) keyvalIsLower_ keyval
     fun keyvalIsUpper keyval = (GUInt.FFI.withVal ---> GBool.FFI.fromVal) keyvalIsUpper_ keyval
-    fun keyvalName keyval = (GUInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) keyvalName_ keyval
+    fun keyvalName keyval = (GUInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) keyvalName_ keyval
     fun keyvalToLower keyval = (GUInt.FFI.withVal ---> GUInt.FFI.fromVal) keyvalToLower_ keyval
     fun keyvalToUnicode keyval = (GUInt.FFI.withVal ---> GUInt32.FFI.fromVal) keyvalToUnicode_ keyval
     fun keyvalToUpper keyval = (GUInt.FFI.withVal ---> GUInt.FFI.fromVal) keyvalToUpper_ keyval
     fun notifyStartupComplete () = (I ---> I) notifyStartupComplete_ ()
     fun notifyStartupCompleteWithId startupId = (Utf8.FFI.withPtr ---> I) notifyStartupCompleteWithId_ startupId
-    fun offscreenWindowGetEmbedder window = (GdkWindowClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) offscreenWindowGetEmbedder_ window
-    fun offscreenWindowGetSurface window = (GdkWindowClass.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromPtr false) offscreenWindowGetSurface_ window
+    fun offscreenWindowGetEmbedder window = (GdkWindowClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) offscreenWindowGetEmbedder_ window
+    fun offscreenWindowGetSurface window = (GdkWindowClass.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromOptPtr false) offscreenWindowGetSurface_ window
     fun offscreenWindowSetEmbedder (window, embedder) = (GdkWindowClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> I) offscreenWindowSetEmbedder_ (window & embedder)
     fun pangoContextGet () = (I ---> PangoContextClass.FFI.fromPtr true) pangoContextGet_ ()
     fun pangoContextGetForDisplay display = (GdkDisplayClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr true) pangoContextGetForDisplay_ display
@@ -3201,7 +3201,7 @@ structure Gdk : GDK =
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         ---> GdkPixbufPixbufClass.FFI.fromPtr true
+         ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
       )
         pixbufGetFromSurface_
         (
@@ -3225,7 +3225,7 @@ structure Gdk : GDK =
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         ---> GdkPixbufPixbufClass.FFI.fromPtr true
+         ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
       )
         pixbufGetFromWindow_
         (
@@ -3375,8 +3375,8 @@ structure Gdk : GDK =
            & target
            & time
         )
-    fun selectionOwnerGet selection = (GdkAtomRecord.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) selectionOwnerGet_ selection
-    fun selectionOwnerGetForDisplay (display, selection) = (GdkDisplayClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) selectionOwnerGetForDisplay_ (display & selection)
+    fun selectionOwnerGet selection = (GdkAtomRecord.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) selectionOwnerGet_ selection
+    fun selectionOwnerGetForDisplay (display, selection) = (GdkDisplayClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) selectionOwnerGetForDisplay_ (display & selection)
     fun selectionOwnerSet
       (
         owner,
@@ -3586,5 +3586,5 @@ structure Gdk : GDK =
     fun threadsInit () = (I ---> I) threadsInit_ ()
     fun threadsLeave () = (I ---> I) threadsLeave_ ()
     fun unicodeToKeyval wc = (GUInt32.FFI.withVal ---> GUInt.FFI.fromVal) unicodeToKeyval_ wc
-    fun utf8ToStringTarget str = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) utf8ToStringTarget_ str
+    fun utf8ToStringTarget str = (Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) utf8ToStringTarget_ str
   end

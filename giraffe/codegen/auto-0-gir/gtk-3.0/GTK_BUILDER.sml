@@ -46,11 +46,11 @@ signature GTK_BUILDER =
            * string
            * LargeInt.int
        -> LargeInt.int
-    val getApplication : 'a class -> base application_class
+    val getApplication : 'a class -> base application_class option
     val getObject :
       'a class
        -> string
-       -> base GObject.ObjectClass.class
+       -> base GObject.ObjectClass.class option
     val getTranslationDomain : 'a class -> string
     val getTypeFromName :
       'a class

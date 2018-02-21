@@ -8,7 +8,7 @@ structure GioListModel :>
       val getType_ = call (getSymbol "g_list_model_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getItemType_ = call (getSymbol "g_list_model_get_item_type") (GioListModelClass.PolyML.cPtr --> GObjectType.PolyML.cVal)
       val getNItems_ = call (getSymbol "g_list_model_get_n_items") (GioListModelClass.PolyML.cPtr --> GUInt.PolyML.cVal)
-      val getObject_ = call (getSymbol "g_list_model_get_object") (GioListModelClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> GObjectObjectClass.PolyML.cPtr)
+      val getObject_ = call (getSymbol "g_list_model_get_object") (GioListModelClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> GObjectObjectClass.PolyML.cOptPtr)
       val itemsChanged_ =
         call (getSymbol "g_list_model_items_changed")
           (
@@ -24,7 +24,7 @@ structure GioListModel :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getItemType self = (GioListModelClass.FFI.withPtr ---> GObjectType.FFI.fromVal) getItemType_ self
     fun getNItems self = (GioListModelClass.FFI.withPtr ---> GUInt.FFI.fromVal) getNItems_ self
-    fun getObject self position = (GioListModelClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GObjectObjectClass.FFI.fromPtr true) getObject_ (self & position)
+    fun getObject self position = (GioListModelClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GObjectObjectClass.FFI.fromOptPtr true) getObject_ (self & position)
     fun itemsChanged
       self
       (

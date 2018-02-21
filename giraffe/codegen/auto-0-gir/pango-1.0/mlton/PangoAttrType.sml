@@ -101,9 +101,9 @@ structure PangoAttrType :> PANGO_ATTR_TYPE =
           getValue = (I ---> FFI.fromVal) getValue_,
           setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val getName_ = _import "pango_attr_type_get_name" : FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getName_ = _import "pango_attr_type_get_name" : FFI.val_ -> unit Utf8.FFI.out_p;
     val register_ = _import "mlton_pango_attr_type_register" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> FFI.val_;
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getName type' = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ type'
+    fun getName type' = (FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getName_ type'
     fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
   end

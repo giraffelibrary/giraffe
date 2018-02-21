@@ -15,7 +15,7 @@ structure GtkFileFilter :>
       val addPattern_ = call (getSymbol "gtk_file_filter_add_pattern") (GtkFileFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val addPixbufFormats_ = call (getSymbol "gtk_file_filter_add_pixbuf_formats") (GtkFileFilterClass.PolyML.cPtr --> cVoid)
       val filter_ = call (getSymbol "gtk_file_filter_filter") (GtkFileFilterClass.PolyML.cPtr &&> GtkFileFilterInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getName_ = call (getSymbol "gtk_file_filter_get_name") (GtkFileFilterClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getName_ = call (getSymbol "gtk_file_filter_get_name") (GtkFileFilterClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getNeeded_ = call (getSymbol "gtk_file_filter_get_needed") (GtkFileFilterClass.PolyML.cPtr --> GtkFileFilterFlags.PolyML.cVal)
       val setName_ = call (getSymbol "gtk_file_filter_set_name") (GtkFileFilterClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
       val toGvariant_ = call (getSymbol "gtk_file_filter_to_gvariant") (GtkFileFilterClass.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
@@ -33,7 +33,7 @@ structure GtkFileFilter :>
     fun addPattern self pattern = (GtkFileFilterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addPattern_ (self & pattern)
     fun addPixbufFormats self = (GtkFileFilterClass.FFI.withPtr ---> I) addPixbufFormats_ self
     fun filter self filterInfo = (GtkFileFilterClass.FFI.withPtr &&&> GtkFileFilterInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) filter_ (self & filterInfo)
-    fun getName self = (GtkFileFilterClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getName self = (GtkFileFilterClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getName_ self
     fun getNeeded self = (GtkFileFilterClass.FFI.withPtr ---> GtkFileFilterFlags.FFI.fromVal) getNeeded_ self
     fun setName self name = (GtkFileFilterClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setName_ (self & name)
     fun toGvariant self = (GtkFileFilterClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self

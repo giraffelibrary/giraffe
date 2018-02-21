@@ -6,15 +6,15 @@ signature GDK_G_L_CONTEXT =
     type t = base class
     val getType : unit -> GObject.Type.t
     val clearCurrent : unit -> unit
-    val getCurrent : unit -> base class
+    val getCurrent : unit -> base class option
     val getDebugEnabled : 'a class -> bool
-    val getDisplay : 'a class -> base display_class
+    val getDisplay : 'a class -> base display_class option
     val getForwardCompatible : 'a class -> bool
     val getRequiredVersion : 'a class -> LargeInt.int * LargeInt.int
-    val getSharedContext : 'a class -> base class
+    val getSharedContext : 'a class -> base class option
     val getUseEs : 'a class -> bool
     val getVersion : 'a class -> LargeInt.int * LargeInt.int
-    val getWindow : 'a class -> base window_class
+    val getWindow : 'a class -> base window_class option
     val isLegacy : 'a class -> bool
     val makeCurrent : 'a class -> unit
     val realize : 'a class -> unit

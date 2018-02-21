@@ -10,20 +10,20 @@ signature ATK_ACTION =
     val getDescription :
       'a class
        -> LargeInt.int
-       -> string
+       -> string option
     val getKeybinding :
       'a class
        -> LargeInt.int
-       -> string
+       -> string option
     val getLocalizedName :
       'a class
        -> LargeInt.int
-       -> string
+       -> string option
     val getNActions : 'a class -> LargeInt.int
     val getName :
       'a class
        -> LargeInt.int
-       -> string
+       -> string option
     val setDescription :
       'a class
        -> LargeInt.int * string

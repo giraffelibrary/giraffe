@@ -67,7 +67,7 @@ structure GioSettingsSchemaSource :>
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GBool.FFI.val_
-               -> GioSettingsSchemaRecord.FFI.notnull GioSettingsSchemaRecord.FFI.p;
+               -> unit GioSettingsSchemaRecord.FFI.p;
           )
             (
               x1,
@@ -128,7 +128,7 @@ structure GioSettingsSchemaSource :>
         GioSettingsSchemaSourceRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GBool.FFI.withVal
-         ---> GioSettingsSchemaRecord.FFI.fromPtr true
+         ---> GioSettingsSchemaRecord.FFI.fromOptPtr true
       )
         lookup_
         (

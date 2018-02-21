@@ -9,8 +9,8 @@ signature GDK_SEAT =
     val getType : unit -> GObject.Type.t
     val getCapabilities : 'a class -> seat_capabilities_t
     val getDisplay : 'a class -> base display_class
-    val getKeyboard : 'a class -> base device_class
-    val getPointer : 'a class -> base device_class
+    val getKeyboard : 'a class -> base device_class option
+    val getPointer : 'a class -> base device_class option
     val ungrab : 'a class -> unit
     val deviceAddedSig : (base device_class -> unit) -> 'a class Signal.t
     val deviceRemovedSig : (base device_class -> unit) -> 'a class Signal.t

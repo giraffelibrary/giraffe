@@ -79,10 +79,10 @@ signature PANGO_RENDERER =
     val getColor :
       'a class
        -> render_part_t
-       -> color_t
-    val getLayout : 'a class -> base layout_class
-    val getLayoutLine : 'a class -> layout_line_t
-    val getMatrix : 'a class -> matrix_t
+       -> color_t option
+    val getLayout : 'a class -> base layout_class option
+    val getLayoutLine : 'a class -> layout_line_t option
+    val getMatrix : 'a class -> matrix_t option
     val partChanged :
       'a class
        -> render_part_t

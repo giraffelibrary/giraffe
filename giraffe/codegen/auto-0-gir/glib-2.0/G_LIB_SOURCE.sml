@@ -14,7 +14,7 @@ signature G_LIB_SOURCE =
        -> LargeInt.int
     val destroy : t -> unit
     val getCanRecurse : t -> bool
-    val getContext : t -> main_context_t
+    val getContext : t -> main_context_t option
     val getCurrentTime :
       t
        -> time_val_t

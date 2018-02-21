@@ -32,6 +32,6 @@ signature PANGO_ATTR_TYPE =
         where type t = enum
     val t : (t, t) ValueAccessor.t
     val getType : unit -> GObject.Type.t
-    val getName : t -> string
+    val getName : t -> string option
     val register : string -> t
   end

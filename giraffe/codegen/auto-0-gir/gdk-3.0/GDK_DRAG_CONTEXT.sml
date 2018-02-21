@@ -11,7 +11,7 @@ signature GDK_DRAG_CONTEXT =
     val getActions : 'a class -> drag_action_t
     val getDestWindow : 'a class -> base window_class
     val getDevice : 'a class -> base device_class
-    val getDragWindow : 'a class -> base window_class
+    val getDragWindow : 'a class -> base window_class option
     val getProtocol : 'a class -> drag_protocol_t
     val getSelectedAction : 'a class -> drag_action_t
     val getSourceWindow : 'a class -> base window_class

@@ -21,7 +21,7 @@ structure GLibMatchInfo :>
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> unit Utf8.FFI.out_p;
           )
             (
               x1,
@@ -29,7 +29,7 @@ structure GLibMatchInfo :>
               x3,
               x4
             )
-    val fetch_ = fn x1 & x2 => (_import "g_match_info_fetch" : GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p * GInt.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val fetch_ = fn x1 & x2 => (_import "g_match_info_fetch" : GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p * GInt.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
     val fetchAll_ = _import "g_match_info_fetch_all" : GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
     val fetchNamed_ =
       fn
@@ -39,7 +39,7 @@ structure GLibMatchInfo :>
               GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> unit Utf8.FFI.out_p;
           )
             (
               x1,
@@ -102,7 +102,7 @@ structure GLibMatchInfo :>
         GLibMatchInfoRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8.FFI.fromPtr 1
+         ---> Utf8.FFI.fromOptPtr 1
       )
         expandReferences_
         (
@@ -110,9 +110,9 @@ structure GLibMatchInfo :>
            & stringToExpand
            & []
         )
-    fun fetch self matchNum = (GLibMatchInfoRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) fetch_ (self & matchNum)
+    fun fetch self matchNum = (GLibMatchInfoRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 1) fetch_ (self & matchNum)
     fun fetchAll self = (GLibMatchInfoRecord.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) fetchAll_ self
-    fun fetchNamed self name = (GLibMatchInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) fetchNamed_ (self & name)
+    fun fetchNamed self name = (GLibMatchInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) fetchNamed_ (self & name)
     fun fetchNamedPos self name =
       let
         val startPos

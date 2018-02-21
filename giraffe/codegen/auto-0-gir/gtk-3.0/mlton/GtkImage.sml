@@ -45,7 +45,7 @@ structure GtkImage :>
             )
     val newFromSurface_ = _import "gtk_image_new_from_surface" : unit CairoSurfaceRecord.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val clear_ = _import "gtk_image_clear" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p -> unit;
-    val getAnimation_ = _import "gtk_image_get_animation" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p -> GdkPixbufPixbufAnimationClass.FFI.notnull GdkPixbufPixbufAnimationClass.FFI.p;
+    val getAnimation_ = _import "gtk_image_get_animation" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p -> unit GdkPixbufPixbufAnimationClass.FFI.p;
     val getGicon_ =
       fn
         x1
@@ -99,7 +99,7 @@ structure GtkImage :>
               x2,
               x3
             )
-    val getPixbuf_ = _import "gtk_image_get_pixbuf" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+    val getPixbuf_ = _import "gtk_image_get_pixbuf" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p -> unit GdkPixbufPixbufClass.FFI.p;
     val getPixelSize_ = _import "gtk_image_get_pixel_size" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p -> GInt.FFI.val_;
     val getStock_ =
       fn
@@ -246,7 +246,7 @@ structure GtkImage :>
     fun newFromStock (stockId, size) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromStock_ (stockId & size)
     fun newFromSurface surface = (CairoSurfaceRecord.FFI.withOptPtr ---> GtkImageClass.FFI.fromPtr false) newFromSurface_ surface
     fun clear self = (GtkImageClass.FFI.withPtr ---> I) clear_ self
-    fun getAnimation self = (GtkImageClass.FFI.withPtr ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr false) getAnimation_ self
+    fun getAnimation self = (GtkImageClass.FFI.withPtr ---> GdkPixbufPixbufAnimationClass.FFI.fromOptPtr false) getAnimation_ self
     fun getGicon self =
       let
         val gicon
@@ -313,7 +313,7 @@ structure GtkImage :>
       in
         (iconSet, size)
       end
-    fun getPixbuf self = (GtkImageClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
+    fun getPixbuf self = (GtkImageClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getPixbuf_ self
     fun getPixelSize self = (GtkImageClass.FFI.withPtr ---> GInt.FFI.fromVal) getPixelSize_ self
     fun getStock self =
       let

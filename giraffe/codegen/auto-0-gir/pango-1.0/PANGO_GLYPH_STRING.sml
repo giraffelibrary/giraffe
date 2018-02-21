@@ -6,7 +6,7 @@ signature PANGO_GLYPH_STRING =
     type analysis_t
     val getType : unit -> GObject.Type.t
     val new : unit -> t
-    val copy : t -> t
+    val copy : t -> t option
     val extents :
       t
        -> 'a font_class

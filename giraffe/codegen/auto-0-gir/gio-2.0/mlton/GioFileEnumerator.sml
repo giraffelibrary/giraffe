@@ -78,7 +78,7 @@ structure GioFileEnumerator :>
               GioFileEnumeratorClass.FFI.notnull GioFileEnumeratorClass.FFI.p
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
+               -> unit GioFileInfoClass.FFI.p;
           )
             (
               x1,
@@ -154,7 +154,7 @@ structure GioFileEnumerator :>
         GioFileEnumeratorClass.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioFileInfoClass.FFI.fromPtr true
+         ---> GioFileInfoClass.FFI.fromOptPtr true
       )
         nextFile_
         (

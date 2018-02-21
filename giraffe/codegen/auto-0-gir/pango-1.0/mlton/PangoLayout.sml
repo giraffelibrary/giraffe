@@ -67,14 +67,14 @@ structure PangoLayout :>
               x2,
               x3
             )
-    val getFontDescription_ = _import "pango_layout_get_font_description" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;
+    val getFontDescription_ = _import "pango_layout_get_font_description" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> unit PangoFontDescriptionRecord.FFI.p;
     val getHeight_ = _import "pango_layout_get_height" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GInt.FFI.val_;
     val getIndent_ = _import "pango_layout_get_indent" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GInt.FFI.val_;
     val getIter_ = _import "pango_layout_get_iter" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p;
     val getJustify_ = _import "pango_layout_get_justify" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GBool.FFI.val_;
-    val getLine_ = fn x1 & x2 => (_import "pango_layout_get_line" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GInt.FFI.val_ -> PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p;) (x1, x2)
+    val getLine_ = fn x1 & x2 => (_import "pango_layout_get_line" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GInt.FFI.val_ -> unit PangoLayoutLineRecord.FFI.p;) (x1, x2)
     val getLineCount_ = _import "pango_layout_get_line_count" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GInt.FFI.val_;
-    val getLineReadonly_ = fn x1 & x2 => (_import "pango_layout_get_line_readonly" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GInt.FFI.val_ -> PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p;) (x1, x2)
+    val getLineReadonly_ = fn x1 & x2 => (_import "pango_layout_get_line_readonly" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GInt.FFI.val_ -> unit PangoLayoutLineRecord.FFI.p;) (x1, x2)
     val getLogAttrs_ =
       fn
         x1
@@ -149,7 +149,7 @@ structure PangoLayout :>
               x3
             )
     val getSpacing_ = _import "pango_layout_get_spacing" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GInt.FFI.val_;
-    val getTabs_ = _import "pango_layout_get_tabs" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> PangoTabArrayRecord.FFI.notnull PangoTabArrayRecord.FFI.p;
+    val getTabs_ = _import "pango_layout_get_tabs" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> unit PangoTabArrayRecord.FFI.p;
     val getText_ = _import "pango_layout_get_text" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getUnknownGlyphsCount_ = _import "pango_layout_get_unknown_glyphs_count" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GInt.FFI.val_;
     val getWidth_ = _import "pango_layout_get_width" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GInt.FFI.val_;
@@ -394,14 +394,14 @@ structure PangoLayout :>
       in
         (inkRect, logicalRect)
       end
-    fun getFontDescription self = (PangoLayoutClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFontDescription_ self
+    fun getFontDescription self = (PangoLayoutClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromOptPtr false) getFontDescription_ self
     fun getHeight self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getHeight_ self
     fun getIndent self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getIndent_ self
     fun getIter self = (PangoLayoutClass.FFI.withPtr ---> PangoLayoutIterRecord.FFI.fromPtr true) getIter_ self
     fun getJustify self = (PangoLayoutClass.FFI.withPtr ---> GBool.FFI.fromVal) getJustify_ self
-    fun getLine self line = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromPtr false) getLine_ (self & line)
+    fun getLine self line = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLine_ (self & line)
     fun getLineCount self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getLineCount_ self
-    fun getLineReadonly self line = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromPtr false) getLineReadonly_ (self & line)
+    fun getLineReadonly self line = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLineReadonly_ (self & line)
     fun getLogAttrs self =
       let
         val attrs
@@ -499,7 +499,7 @@ structure PangoLayout :>
         (width, height)
       end
     fun getSpacing self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getSpacing_ self
-    fun getTabs self = (PangoLayoutClass.FFI.withPtr ---> PangoTabArrayRecord.FFI.fromPtr true) getTabs_ self
+    fun getTabs self = (PangoLayoutClass.FFI.withPtr ---> PangoTabArrayRecord.FFI.fromOptPtr true) getTabs_ self
     fun getText self = (PangoLayoutClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getText_ self
     fun getUnknownGlyphsCount self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getUnknownGlyphsCount_ self
     fun getWidth self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getWidth_ self

@@ -155,7 +155,7 @@ structure GtkStyleContext :>
             )
     val getDirection_ = _import "gtk_style_context_get_direction" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GtkTextDirection.FFI.val_;
     val getFont_ = fn x1 & x2 => (_import "gtk_style_context_get_font" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p * GtkStateFlags.FFI.val_ -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;) (x1, x2)
-    val getFrameClock_ = _import "gtk_style_context_get_frame_clock" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GdkFrameClockClass.FFI.notnull GdkFrameClockClass.FFI.p;
+    val getFrameClock_ = _import "gtk_style_context_get_frame_clock" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> unit GdkFrameClockClass.FFI.p;
     val getJunctionSides_ = _import "gtk_style_context_get_junction_sides" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GtkJunctionSides.FFI.val_;
     val getMargin_ =
       fn
@@ -191,7 +191,7 @@ structure GtkStyleContext :>
               x2,
               x3
             )
-    val getParent_ = _import "gtk_style_context_get_parent" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p;
+    val getParent_ = _import "gtk_style_context_get_parent" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> unit GtkStyleContextClass.FFI.p;
     val getPath_ = _import "gtk_style_context_get_path" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p;
     val getScale_ = _import "gtk_style_context_get_scale" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GInt.FFI.val_;
     val getScreen_ = _import "gtk_style_context_get_screen" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p;
@@ -203,7 +203,7 @@ structure GtkStyleContext :>
               GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p;
+               -> unit GtkCssSectionRecord.FFI.p;
           )
             (
               x1,
@@ -292,7 +292,7 @@ structure GtkStyleContext :>
               GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p;
+               -> unit GtkIconSetRecord.FFI.p;
           )
             (
               x1,
@@ -516,7 +516,7 @@ structure GtkStyleContext :>
       end
     fun getDirection self = (GtkStyleContextClass.FFI.withPtr ---> GtkTextDirection.FFI.fromVal) getDirection_ self
     fun getFont self state = (GtkStyleContextClass.FFI.withPtr &&&> GtkStateFlags.FFI.withVal ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFont_ (self & state)
-    fun getFrameClock self = (GtkStyleContextClass.FFI.withPtr ---> GdkFrameClockClass.FFI.fromPtr false) getFrameClock_ self
+    fun getFrameClock self = (GtkStyleContextClass.FFI.withPtr ---> GdkFrameClockClass.FFI.fromOptPtr false) getFrameClock_ self
     fun getJunctionSides self = (GtkStyleContextClass.FFI.withPtr ---> GtkJunctionSides.FFI.fromVal) getJunctionSides_ self
     fun getMargin self state =
       let
@@ -554,11 +554,11 @@ structure GtkStyleContext :>
       in
         padding
       end
-    fun getParent self = (GtkStyleContextClass.FFI.withPtr ---> GtkStyleContextClass.FFI.fromPtr false) getParent_ self
+    fun getParent self = (GtkStyleContextClass.FFI.withPtr ---> GtkStyleContextClass.FFI.fromOptPtr false) getParent_ self
     fun getPath self = (GtkStyleContextClass.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self
     fun getScale self = (GtkStyleContextClass.FFI.withPtr ---> GInt.FFI.fromVal) getScale_ self
     fun getScreen self = (GtkStyleContextClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
-    fun getSection self property = (GtkStyleContextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkCssSectionRecord.FFI.fromPtr false) getSection_ (self & property)
+    fun getSection self property = (GtkStyleContextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkCssSectionRecord.FFI.fromOptPtr false) getSection_ (self & property)
     fun getState self = (GtkStyleContextClass.FFI.withPtr ---> GtkStateFlags.FFI.fromVal) getState_ self
     fun getStyleProperty self (propertyName, value) =
       (
@@ -611,7 +611,7 @@ structure GtkStyleContext :>
       in
         if retVal then SOME color else NONE
       end
-    fun lookupIconSet self stockId = (GtkStyleContextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkIconSetRecord.FFI.fromPtr false) lookupIconSet_ (self & stockId)
+    fun lookupIconSet self stockId = (GtkStyleContextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkIconSetRecord.FFI.fromOptPtr false) lookupIconSet_ (self & stockId)
     fun popAnimatableRegion self = (GtkStyleContextClass.FFI.withPtr ---> I) popAnimatableRegion_ self
     fun removeClass self className = (GtkStyleContextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) removeClass_ (self & className)
     fun removeProvider self provider = (GtkStyleContextClass.FFI.withPtr &&&> GtkStyleProviderClass.FFI.withPtr ---> I) removeProvider_ (self & provider)

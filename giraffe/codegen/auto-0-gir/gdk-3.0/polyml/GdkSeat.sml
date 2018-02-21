@@ -12,8 +12,8 @@ structure GdkSeat :>
       val getType_ = call (getSymbol "gdk_seat_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getCapabilities_ = call (getSymbol "gdk_seat_get_capabilities") (GdkSeatClass.PolyML.cPtr --> GdkSeatCapabilities.PolyML.cVal)
       val getDisplay_ = call (getSymbol "gdk_seat_get_display") (GdkSeatClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
-      val getKeyboard_ = call (getSymbol "gdk_seat_get_keyboard") (GdkSeatClass.PolyML.cPtr --> GdkDeviceClass.PolyML.cPtr)
-      val getPointer_ = call (getSymbol "gdk_seat_get_pointer") (GdkSeatClass.PolyML.cPtr --> GdkDeviceClass.PolyML.cPtr)
+      val getKeyboard_ = call (getSymbol "gdk_seat_get_keyboard") (GdkSeatClass.PolyML.cPtr --> GdkDeviceClass.PolyML.cOptPtr)
+      val getPointer_ = call (getSymbol "gdk_seat_get_pointer") (GdkSeatClass.PolyML.cPtr --> GdkDeviceClass.PolyML.cOptPtr)
       val ungrab_ = call (getSymbol "gdk_seat_ungrab") (GdkSeatClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GdkSeatClass.class
@@ -25,8 +25,8 @@ structure GdkSeat :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getCapabilities self = (GdkSeatClass.FFI.withPtr ---> GdkSeatCapabilities.FFI.fromVal) getCapabilities_ self
     fun getDisplay self = (GdkSeatClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
-    fun getKeyboard self = (GdkSeatClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromPtr false) getKeyboard_ self
-    fun getPointer self = (GdkSeatClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromPtr false) getPointer_ self
+    fun getKeyboard self = (GdkSeatClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromOptPtr false) getKeyboard_ self
+    fun getPointer self = (GdkSeatClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromOptPtr false) getPointer_ self
     fun ungrab self = (GdkSeatClass.FFI.withPtr ---> I) ungrab_ self
     local
       open ClosureMarshal Signal

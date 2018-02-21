@@ -24,8 +24,8 @@ structure GtkSourceFileLoader :>
       val getCompressionType_ = call (getSymbol "gtk_source_file_loader_get_compression_type") (GtkSourceFileLoaderClass.PolyML.cPtr --> GtkSourceCompressionType.PolyML.cVal)
       val getEncoding_ = call (getSymbol "gtk_source_file_loader_get_encoding") (GtkSourceFileLoaderClass.PolyML.cPtr --> GtkSourceEncodingRecord.PolyML.cPtr)
       val getFile_ = call (getSymbol "gtk_source_file_loader_get_file") (GtkSourceFileLoaderClass.PolyML.cPtr --> GtkSourceFileClass.PolyML.cPtr)
-      val getInputStream_ = call (getSymbol "gtk_source_file_loader_get_input_stream") (GtkSourceFileLoaderClass.PolyML.cPtr --> GioInputStreamClass.PolyML.cPtr)
-      val getLocation_ = call (getSymbol "gtk_source_file_loader_get_location") (GtkSourceFileLoaderClass.PolyML.cPtr --> GioFileClass.PolyML.cPtr)
+      val getInputStream_ = call (getSymbol "gtk_source_file_loader_get_input_stream") (GtkSourceFileLoaderClass.PolyML.cPtr --> GioInputStreamClass.PolyML.cOptPtr)
+      val getLocation_ = call (getSymbol "gtk_source_file_loader_get_location") (GtkSourceFileLoaderClass.PolyML.cPtr --> GioFileClass.PolyML.cOptPtr)
       val getNewlineType_ = call (getSymbol "gtk_source_file_loader_get_newline_type") (GtkSourceFileLoaderClass.PolyML.cPtr --> GtkSourceNewlineType.PolyML.cVal)
       val loadFinish_ =
         call (getSymbol "gtk_source_file_loader_load_finish")
@@ -67,8 +67,8 @@ structure GtkSourceFileLoader :>
     fun getCompressionType self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GtkSourceCompressionType.FFI.fromVal) getCompressionType_ self
     fun getEncoding self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GtkSourceEncodingRecord.FFI.fromPtr false) getEncoding_ self
     fun getFile self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GtkSourceFileClass.FFI.fromPtr false) getFile_ self
-    fun getInputStream self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GioInputStreamClass.FFI.fromPtr false) getInputStream_ self
-    fun getLocation self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr false) getLocation_ self
+    fun getInputStream self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GioInputStreamClass.FFI.fromOptPtr false) getInputStream_ self
+    fun getLocation self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GioFileClass.FFI.fromOptPtr false) getLocation_ self
     fun getNewlineType self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GtkSourceNewlineType.FFI.fromVal) getNewlineType_ self
     fun loadFinish self result =
       (

@@ -9,9 +9,9 @@ structure GdkGLContext :>
     in
       val getType_ = call (getSymbol "gdk_gl_context_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val clearCurrent_ = call (getSymbol "gdk_gl_context_clear_current") (cVoid --> cVoid)
-      val getCurrent_ = call (getSymbol "gdk_gl_context_get_current") (cVoid --> GdkGLContextClass.PolyML.cPtr)
+      val getCurrent_ = call (getSymbol "gdk_gl_context_get_current") (cVoid --> GdkGLContextClass.PolyML.cOptPtr)
       val getDebugEnabled_ = call (getSymbol "gdk_gl_context_get_debug_enabled") (GdkGLContextClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getDisplay_ = call (getSymbol "gdk_gl_context_get_display") (GdkGLContextClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
+      val getDisplay_ = call (getSymbol "gdk_gl_context_get_display") (GdkGLContextClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cOptPtr)
       val getForwardCompatible_ = call (getSymbol "gdk_gl_context_get_forward_compatible") (GdkGLContextClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getRequiredVersion_ =
         call (getSymbol "gdk_gl_context_get_required_version")
@@ -21,7 +21,7 @@ structure GdkGLContext :>
              &&> GInt.PolyML.cRef
              --> cVoid
           )
-      val getSharedContext_ = call (getSymbol "gdk_gl_context_get_shared_context") (GdkGLContextClass.PolyML.cPtr --> GdkGLContextClass.PolyML.cPtr)
+      val getSharedContext_ = call (getSymbol "gdk_gl_context_get_shared_context") (GdkGLContextClass.PolyML.cPtr --> GdkGLContextClass.PolyML.cOptPtr)
       val getUseEs_ = call (getSymbol "gdk_gl_context_get_use_es") (GdkGLContextClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getVersion_ =
         call (getSymbol "gdk_gl_context_get_version")
@@ -31,7 +31,7 @@ structure GdkGLContext :>
              &&> GInt.PolyML.cRef
              --> cVoid
           )
-      val getWindow_ = call (getSymbol "gdk_gl_context_get_window") (GdkGLContextClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getWindow_ = call (getSymbol "gdk_gl_context_get_window") (GdkGLContextClass.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
       val isLegacy_ = call (getSymbol "gdk_gl_context_is_legacy") (GdkGLContextClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val makeCurrent_ = call (getSymbol "gdk_gl_context_make_current") (GdkGLContextClass.PolyML.cPtr --> cVoid)
       val realize_ = call (getSymbol "gdk_gl_context_realize") (GdkGLContextClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
@@ -53,9 +53,9 @@ structure GdkGLContext :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun clearCurrent () = (I ---> I) clearCurrent_ ()
-    fun getCurrent () = (I ---> GdkGLContextClass.FFI.fromPtr false) getCurrent_ ()
+    fun getCurrent () = (I ---> GdkGLContextClass.FFI.fromOptPtr false) getCurrent_ ()
     fun getDebugEnabled self = (GdkGLContextClass.FFI.withPtr ---> GBool.FFI.fromVal) getDebugEnabled_ self
-    fun getDisplay self = (GdkGLContextClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getDisplay self = (GdkGLContextClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromOptPtr false) getDisplay_ self
     fun getForwardCompatible self = (GdkGLContextClass.FFI.withPtr ---> GBool.FFI.fromVal) getForwardCompatible_ self
     fun getRequiredVersion self =
       let
@@ -79,7 +79,7 @@ structure GdkGLContext :>
       in
         (major, minor)
       end
-    fun getSharedContext self = (GdkGLContextClass.FFI.withPtr ---> GdkGLContextClass.FFI.fromPtr false) getSharedContext_ self
+    fun getSharedContext self = (GdkGLContextClass.FFI.withPtr ---> GdkGLContextClass.FFI.fromOptPtr false) getSharedContext_ self
     fun getUseEs self = (GdkGLContextClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseEs_ self
     fun getVersion self =
       let
@@ -103,7 +103,7 @@ structure GdkGLContext :>
       in
         (major, minor)
       end
-    fun getWindow self = (GdkGLContextClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getWindow_ self
+    fun getWindow self = (GdkGLContextClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self
     fun isLegacy self = (GdkGLContextClass.FFI.withPtr ---> GBool.FFI.fromVal) isLegacy_ self
     fun makeCurrent self = (GdkGLContextClass.FFI.withPtr ---> I) makeCurrent_ self
     fun realize self = (GdkGLContextClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) realize_ (self & [])

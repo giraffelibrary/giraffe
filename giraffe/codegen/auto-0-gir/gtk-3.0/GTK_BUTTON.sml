@@ -24,7 +24,7 @@ signature GTK_BUTTON =
     val getAlwaysShowImage : 'a class -> bool
     val getEventWindow : 'a class -> base Gdk.WindowClass.class
     val getFocusOnClick : 'a class -> bool
-    val getImage : 'a class -> base widget_class
+    val getImage : 'a class -> base widget_class option
     val getImagePosition : 'a class -> position_type_t
     val getLabel : 'a class -> string
     val getRelief : 'a class -> relief_style_t

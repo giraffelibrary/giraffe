@@ -19,11 +19,11 @@ structure GLibMatchInfo :>
             GLibMatchInfoRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8.PolyML.cOutPtr
+             --> Utf8.PolyML.cOutOptPtr
           )
-      val fetch_ = call (getSymbol "g_match_info_fetch") (GLibMatchInfoRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val fetch_ = call (getSymbol "g_match_info_fetch") (GLibMatchInfoRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutOptPtr)
       val fetchAll_ = call (getSymbol "g_match_info_fetch_all") (GLibMatchInfoRecord.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
-      val fetchNamed_ = call (getSymbol "g_match_info_fetch_named") (GLibMatchInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val fetchNamed_ = call (getSymbol "g_match_info_fetch_named") (GLibMatchInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutOptPtr)
       val fetchNamedPos_ =
         call (getSymbol "g_match_info_fetch_named_pos")
           (
@@ -57,7 +57,7 @@ structure GLibMatchInfo :>
         GLibMatchInfoRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8.FFI.fromPtr 1
+         ---> Utf8.FFI.fromOptPtr 1
       )
         expandReferences_
         (
@@ -65,9 +65,9 @@ structure GLibMatchInfo :>
            & stringToExpand
            & []
         )
-    fun fetch self matchNum = (GLibMatchInfoRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) fetch_ (self & matchNum)
+    fun fetch self matchNum = (GLibMatchInfoRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 1) fetch_ (self & matchNum)
     fun fetchAll self = (GLibMatchInfoRecord.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) fetchAll_ self
-    fun fetchNamed self name = (GLibMatchInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) fetchNamed_ (self & name)
+    fun fetchNamed self name = (GLibMatchInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) fetchNamed_ (self & name)
     fun fetchNamedPos self name =
       let
         val startPos

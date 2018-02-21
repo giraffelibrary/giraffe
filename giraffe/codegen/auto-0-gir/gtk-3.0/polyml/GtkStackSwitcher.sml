@@ -10,7 +10,7 @@ structure GtkStackSwitcher :>
     in
       val getType_ = call (getSymbol "gtk_stack_switcher_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_stack_switcher_new") (cVoid --> GtkWidgetClass.PolyML.cPtr)
-      val getStack_ = call (getSymbol "gtk_stack_switcher_get_stack") (GtkStackSwitcherClass.PolyML.cPtr --> GtkStackClass.PolyML.cPtr)
+      val getStack_ = call (getSymbol "gtk_stack_switcher_get_stack") (GtkStackSwitcherClass.PolyML.cPtr --> GtkStackClass.PolyML.cOptPtr)
       val setStack_ = call (getSymbol "gtk_stack_switcher_set_stack") (GtkStackSwitcherClass.PolyML.cPtr &&> GtkStackClass.PolyML.cOptPtr --> cVoid)
     end
     type 'a class = 'a GtkStackSwitcherClass.class
@@ -23,7 +23,7 @@ structure GtkStackSwitcher :>
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkStackSwitcherClass.FFI.fromPtr false) new_ ()
-    fun getStack self = (GtkStackSwitcherClass.FFI.withPtr ---> GtkStackClass.FFI.fromPtr false) getStack_ self
+    fun getStack self = (GtkStackSwitcherClass.FFI.withPtr ---> GtkStackClass.FFI.fromOptPtr false) getStack_ self
     fun setStack self stack = (GtkStackSwitcherClass.FFI.withPtr &&&> GtkStackClass.FFI.withOptPtr ---> I) setStack_ (self & stack)
     local
       open Property

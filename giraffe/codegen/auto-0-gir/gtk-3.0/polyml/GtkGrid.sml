@@ -41,7 +41,7 @@ structure GtkGrid :>
             GtkGridClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             --> GtkWidgetClass.PolyML.cPtr
+             --> GtkWidgetClass.PolyML.cOptPtr
           )
       val getColumnHomogeneous_ = call (getSymbol "gtk_grid_get_column_homogeneous") (GtkGridClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getColumnSpacing_ = call (getSymbol "gtk_grid_get_column_spacing") (GtkGridClass.PolyML.cPtr --> GUInt.PolyML.cVal)
@@ -146,7 +146,7 @@ structure GtkGrid :>
         GtkGridClass.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         ---> GtkWidgetClass.FFI.fromPtr false
+         ---> GtkWidgetClass.FFI.fromOptPtr false
       )
         getChildAt_
         (

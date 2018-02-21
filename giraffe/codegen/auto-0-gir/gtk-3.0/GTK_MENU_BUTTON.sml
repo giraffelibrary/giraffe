@@ -16,11 +16,11 @@ signature GTK_MENU_BUTTON =
     val asBuildable : 'a class -> base buildable_class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val getAlignWidget : 'a class -> base widget_class
+    val getAlignWidget : 'a class -> base widget_class option
     val getDirection : 'a class -> arrow_type_t
-    val getMenuModel : 'a class -> base Gio.MenuModelClass.class
-    val getPopover : 'a class -> base popover_class
-    val getPopup : 'a class -> base menu_class
+    val getMenuModel : 'a class -> base Gio.MenuModelClass.class option
+    val getPopover : 'a class -> base popover_class option
+    val getPopup : 'a class -> base menu_class option
     val getUsePopover : 'a class -> bool
     val setAlignWidget :
       'a class

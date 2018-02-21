@@ -14,16 +14,16 @@ signature GTK_SOURCE_REGION =
        -> Gtk.TextIterRecord.t * Gtk.TextIterRecord.t
        -> unit
     val getBounds : 'a class -> (Gtk.TextIterRecord.t * Gtk.TextIterRecord.t) option
-    val getBuffer : 'a class -> base Gtk.TextBufferClass.class
+    val getBuffer : 'a class -> base Gtk.TextBufferClass.class option
     val getStartRegionIter : 'a class -> region_iter_t
     val intersectRegion :
       'a class
        -> 'b class option
-       -> base class
+       -> base class option
     val intersectSubregion :
       'a class
        -> Gtk.TextIterRecord.t * Gtk.TextIterRecord.t
-       -> base class
+       -> base class option
     val isEmpty : 'a class -> bool
     val subtractRegion :
       'a class
@@ -33,6 +33,6 @@ signature GTK_SOURCE_REGION =
       'a class
        -> Gtk.TextIterRecord.t * Gtk.TextIterRecord.t
        -> unit
-    val toString : 'a class -> string
+    val toString : 'a class -> string option
     val bufferProp : ('a class, base Gtk.TextBufferClass.class option, 'b Gtk.TextBufferClass.class option) Property.readwrite
   end

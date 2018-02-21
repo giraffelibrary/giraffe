@@ -39,7 +39,7 @@ structure GdkDevice :>
               x3,
               x4
             )
-    val getAssociatedDevice_ = _import "gdk_device_get_associated_device" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p;
+    val getAssociatedDevice_ = _import "gdk_device_get_associated_device" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit GdkDeviceClass.FFI.p;
     val getAxes_ = _import "gdk_device_get_axes" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkAxisFlags.FFI.val_;
     val getAxisUse_ = fn x1 & x2 => (_import "gdk_device_get_axis_use" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p * GUInt.FFI.val_ -> GdkAxisUse.FFI.val_;) (x1, x2)
     val getDeviceType_ = _import "gdk_device_get_device_type" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkDeviceType.FFI.val_;
@@ -65,7 +65,7 @@ structure GdkDevice :>
               x3,
               x4
             )
-    val getLastEventWindow_ = _import "gdk_device_get_last_event_window" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
+    val getLastEventWindow_ = _import "gdk_device_get_last_event_window" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit GdkWindowClass.FFI.p;
     val getMode_ = _import "gdk_device_get_mode" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkInputMode.FFI.val_;
     val getNAxes_ = _import "gdk_device_get_n_axes" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GInt.FFI.val_;
     val getNKeys_ = _import "gdk_device_get_n_keys" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GInt.FFI.val_;
@@ -110,10 +110,10 @@ structure GdkDevice :>
               x3,
               x4
             )
-    val getProductId_ = _import "gdk_device_get_product_id" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getProductId_ = _import "gdk_device_get_product_id" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit Utf8.FFI.out_p;
     val getSeat_ = _import "gdk_device_get_seat" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p;
     val getSource_ = _import "gdk_device_get_source" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkInputSource.FFI.val_;
-    val getVendorId_ = _import "gdk_device_get_vendor_id" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getVendorId_ = _import "gdk_device_get_vendor_id" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit Utf8.FFI.out_p;
     val getWindowAtPosition_ =
       fn
         x1
@@ -124,7 +124,7 @@ structure GdkDevice :>
               GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
-               -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
+               -> unit GdkWindowClass.FFI.p;
           )
             (
               x1,
@@ -141,7 +141,7 @@ structure GdkDevice :>
               GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
-               -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
+               -> unit GdkWindowClass.FFI.p;
           )
             (
               x1,
@@ -279,7 +279,7 @@ structure GdkDevice :>
       in
         if retVal then SOME (grabWindow, ownerEvents) else NONE
       end
-    fun getAssociatedDevice self = (GdkDeviceClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromPtr false) getAssociatedDevice_ self
+    fun getAssociatedDevice self = (GdkDeviceClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromOptPtr false) getAssociatedDevice_ self
     fun getAxes self = (GdkDeviceClass.FFI.withPtr ---> GdkAxisFlags.FFI.fromVal) getAxes_ self
     fun getAxisUse self index = (GdkDeviceClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GdkAxisUse.FFI.fromVal) getAxisUse_ (self & index)
     fun getDeviceType self = (GdkDeviceClass.FFI.withPtr ---> GdkDeviceType.FFI.fromVal) getDeviceType_ self
@@ -309,7 +309,7 @@ structure GdkDevice :>
       in
         if retVal then SOME (keyval, modifiers) else NONE
       end
-    fun getLastEventWindow self = (GdkDeviceClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getLastEventWindow_ self
+    fun getLastEventWindow self = (GdkDeviceClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getLastEventWindow_ self
     fun getMode self = (GdkDeviceClass.FFI.withPtr ---> GdkInputMode.FFI.fromVal) getMode_ self
     fun getNAxes self = (GdkDeviceClass.FFI.withPtr ---> GInt.FFI.fromVal) getNAxes_ self
     fun getNKeys self = (GdkDeviceClass.FFI.withPtr ---> GInt.FFI.fromVal) getNKeys_ self
@@ -374,10 +374,10 @@ structure GdkDevice :>
           y
         )
       end
-    fun getProductId self = (GdkDeviceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getProductId_ self
+    fun getProductId self = (GdkDeviceClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getProductId_ self
     fun getSeat self = (GdkDeviceClass.FFI.withPtr ---> GdkSeatClass.FFI.fromPtr false) getSeat_ self
     fun getSource self = (GdkDeviceClass.FFI.withPtr ---> GdkInputSource.FFI.fromVal) getSource_ self
-    fun getVendorId self = (GdkDeviceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getVendorId_ self
+    fun getVendorId self = (GdkDeviceClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getVendorId_ self
     fun getWindowAtPosition self =
       let
         val winX
@@ -389,7 +389,7 @@ structure GdkDevice :>
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
                    && GInt.FFI.fromVal
-                   && GdkWindowClass.FFI.fromPtr false
+                   && GdkWindowClass.FFI.fromOptPtr false
           )
             getWindowAtPosition_
             (
@@ -415,7 +415,7 @@ structure GdkDevice :>
              &&&> GDouble.FFI.withRefVal
              ---> GDouble.FFI.fromVal
                    && GDouble.FFI.fromVal
-                   && GdkWindowClass.FFI.fromPtr false
+                   && GdkWindowClass.FFI.fromOptPtr false
           )
             getWindowAtPositionDouble_
             (

@@ -21,7 +21,7 @@ signature GTK_APP_CHOOSER_DIALOG =
        * dialog_flags_t
        * string
        -> base class
-    val getHeading : 'a class -> string
+    val getHeading : 'a class -> string option
     val getWidget : 'a class -> base widget_class
     val setHeading :
       'a class

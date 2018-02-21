@@ -97,7 +97,7 @@ structure GLibVariant :>
       val getInt16_ = call (getSymbol "g_variant_get_int16") (GLibVariantRecord.PolyML.cPtr --> GInt16.PolyML.cVal)
       val getInt32_ = call (getSymbol "g_variant_get_int32") (GLibVariantRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getInt64_ = call (getSymbol "g_variant_get_int64") (GLibVariantRecord.PolyML.cPtr --> GInt64.PolyML.cVal)
-      val getMaybe_ = call (getSymbol "g_variant_get_maybe") (GLibVariantRecord.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
+      val getMaybe_ = call (getSymbol "g_variant_get_maybe") (GLibVariantRecord.PolyML.cPtr --> GLibVariantRecord.PolyML.cOptPtr)
       val getNormalForm_ = call (getSymbol "g_variant_get_normal_form") (GLibVariantRecord.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
       val getObjv_ = call (getSymbol "g_variant_get_objv") (GLibVariantRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CVectorN.PolyML.cOutPtr)
       val getSize_ = call (getSymbol "g_variant_get_size") (GLibVariantRecord.PolyML.cPtr --> GSize.PolyML.cVal)
@@ -290,7 +290,7 @@ structure GLibVariant :>
     fun getInt16 self = (GLibVariantRecord.FFI.withPtr ---> GInt16.FFI.fromVal) getInt16_ self
     fun getInt32 self = (GLibVariantRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getInt32_ self
     fun getInt64 self = (GLibVariantRecord.FFI.withPtr ---> GInt64.FFI.fromVal) getInt64_ self
-    fun getMaybe self = (GLibVariantRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getMaybe_ self
+    fun getMaybe self = (GLibVariantRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromOptPtr true) getMaybe_ self
     fun getNormalForm self = (GLibVariantRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getNormalForm_ self
     fun getObjv self =
       let

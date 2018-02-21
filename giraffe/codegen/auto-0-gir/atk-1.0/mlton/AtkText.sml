@@ -165,7 +165,7 @@ structure AtkText :>
                * AtkTextGranularity.FFI.val_
                * GInt.FFI.ref_
                * GInt.FFI.ref_
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> unit Utf8.FFI.out_p;
           )
             (
               x1,
@@ -461,7 +461,7 @@ structure AtkText :>
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
                    && GInt.FFI.fromVal
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromOptPtr 1
           )
             getStringAtOffset_
             (

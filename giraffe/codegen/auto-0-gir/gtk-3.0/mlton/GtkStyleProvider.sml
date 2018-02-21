@@ -7,8 +7,8 @@ structure GtkStyleProvider :>
     where type widget_path_t = GtkWidgetPathRecord.t =
   struct
     val getType_ = _import "gtk_style_provider_get_type" : unit -> GObjectType.FFI.val_;
-    val getIconFactory_ = fn x1 & x2 => (_import "gtk_style_provider_get_icon_factory" : GtkStyleProviderClass.FFI.notnull GtkStyleProviderClass.FFI.p * GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> GtkIconFactoryClass.FFI.notnull GtkIconFactoryClass.FFI.p;) (x1, x2)
-    val getStyle_ = fn x1 & x2 => (_import "gtk_style_provider_get_style" : GtkStyleProviderClass.FFI.notnull GtkStyleProviderClass.FFI.p * GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> GtkStylePropertiesClass.FFI.notnull GtkStylePropertiesClass.FFI.p;) (x1, x2)
+    val getIconFactory_ = fn x1 & x2 => (_import "gtk_style_provider_get_icon_factory" : GtkStyleProviderClass.FFI.notnull GtkStyleProviderClass.FFI.p * GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> unit GtkIconFactoryClass.FFI.p;) (x1, x2)
+    val getStyle_ = fn x1 & x2 => (_import "gtk_style_provider_get_style" : GtkStyleProviderClass.FFI.notnull GtkStyleProviderClass.FFI.p * GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> unit GtkStylePropertiesClass.FFI.p;) (x1, x2)
     val getStyleProperty_ =
       fn
         x1
@@ -39,8 +39,8 @@ structure GtkStyleProvider :>
     type widget_path_t = GtkWidgetPathRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getIconFactory self path = (GtkStyleProviderClass.FFI.withPtr &&&> GtkWidgetPathRecord.FFI.withPtr ---> GtkIconFactoryClass.FFI.fromPtr false) getIconFactory_ (self & path)
-    fun getStyle self path = (GtkStyleProviderClass.FFI.withPtr &&&> GtkWidgetPathRecord.FFI.withPtr ---> GtkStylePropertiesClass.FFI.fromPtr true) getStyle_ (self & path)
+    fun getIconFactory self path = (GtkStyleProviderClass.FFI.withPtr &&&> GtkWidgetPathRecord.FFI.withPtr ---> GtkIconFactoryClass.FFI.fromOptPtr false) getIconFactory_ (self & path)
+    fun getStyle self path = (GtkStyleProviderClass.FFI.withPtr &&&> GtkWidgetPathRecord.FFI.withPtr ---> GtkStylePropertiesClass.FFI.fromOptPtr true) getStyle_ (self & path)
     fun getStyleProperty
       self
       (

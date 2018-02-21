@@ -105,14 +105,14 @@ signature GTK_TEXT_VIEW =
     val getPixelsBelowLines : 'a class -> LargeInt.int
     val getPixelsInsideWrap : 'a class -> LargeInt.int
     val getRightMargin : 'a class -> LargeInt.int
-    val getTabs : 'a class -> Pango.TabArrayRecord.t
+    val getTabs : 'a class -> Pango.TabArrayRecord.t option
     val getTopMargin : 'a class -> LargeInt.int
     val getVadjustment : 'a class -> base adjustment_class
     val getVisibleRect : 'a class -> Gdk.RectangleRecord.t
     val getWindow :
       'a class
        -> text_window_type_t
-       -> base Gdk.WindowClass.class
+       -> base Gdk.WindowClass.class option
     val getWindowType :
       'a class
        -> 'b Gdk.WindowClass.class

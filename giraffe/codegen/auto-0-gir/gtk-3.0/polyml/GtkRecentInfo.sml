@@ -18,7 +18,7 @@ structure GtkRecentInfo :>
             GtkRecentInfoRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GioAppInfoClass.PolyML.cPtr
+             --> GioAppInfoClass.PolyML.cOptPtr
           )
       val exists_ = call (getSymbol "gtk_recent_info_exists") (GtkRecentInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getAdded_ = call (getSymbol "gtk_recent_info_get_added") (GtkRecentInfoRecord.PolyML.cPtr --> GLong.PolyML.cVal)
@@ -36,15 +36,15 @@ structure GtkRecentInfo :>
       val getApplications_ = call (getSymbol "gtk_recent_info_get_applications") (GtkRecentInfoRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CVectorN.PolyML.cOutPtr)
       val getDescription_ = call (getSymbol "gtk_recent_info_get_description") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getDisplayName_ = call (getSymbol "gtk_recent_info_get_display_name") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getGicon_ = call (getSymbol "gtk_recent_info_get_gicon") (GtkRecentInfoRecord.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
+      val getGicon_ = call (getSymbol "gtk_recent_info_get_gicon") (GtkRecentInfoRecord.PolyML.cPtr --> GioIconClass.PolyML.cOptPtr)
       val getGroups_ = call (getSymbol "gtk_recent_info_get_groups") (GtkRecentInfoRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CVectorN.PolyML.cOutPtr)
-      val getIcon_ = call (getSymbol "gtk_recent_info_get_icon") (GtkRecentInfoRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val getIcon_ = call (getSymbol "gtk_recent_info_get_icon") (GtkRecentInfoRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> GdkPixbufPixbufClass.PolyML.cOptPtr)
       val getMimeType_ = call (getSymbol "gtk_recent_info_get_mime_type") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getModified_ = call (getSymbol "gtk_recent_info_get_modified") (GtkRecentInfoRecord.PolyML.cPtr --> GLong.PolyML.cVal)
       val getPrivateHint_ = call (getSymbol "gtk_recent_info_get_private_hint") (GtkRecentInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getShortName_ = call (getSymbol "gtk_recent_info_get_short_name") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getUri_ = call (getSymbol "gtk_recent_info_get_uri") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getUriDisplay_ = call (getSymbol "gtk_recent_info_get_uri_display") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getUriDisplay_ = call (getSymbol "gtk_recent_info_get_uri_display") (GtkRecentInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val getVisited_ = call (getSymbol "gtk_recent_info_get_visited") (GtkRecentInfoRecord.PolyML.cPtr --> GLong.PolyML.cVal)
       val hasApplication_ = call (getSymbol "gtk_recent_info_has_application") (GtkRecentInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val hasGroup_ = call (getSymbol "gtk_recent_info_has_group") (GtkRecentInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
@@ -59,7 +59,7 @@ structure GtkRecentInfo :>
         GtkRecentInfoRecord.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> GioAppInfoClass.FFI.fromPtr true
+         ---> GioAppInfoClass.FFI.fromOptPtr true
       )
         createAppInfo_
         (
@@ -114,20 +114,20 @@ structure GtkRecentInfo :>
       end
     fun getDescription self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDescription_ self
     fun getDisplayName self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
-    fun getGicon self = (GtkRecentInfoRecord.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getGicon_ self
+    fun getGicon self = (GtkRecentInfoRecord.FFI.withPtr ---> GioIconClass.FFI.fromOptPtr true) getGicon_ self
     fun getGroups self =
       let
         val length & retVal = (GtkRecentInfoRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CVectorN.FFI.fromPtr 2) getGroups_ (self & GSize.null)
       in
         retVal (LargeInt.toInt length)
       end
-    fun getIcon self size = (GtkRecentInfoRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromPtr true) getIcon_ (self & size)
+    fun getIcon self size = (GtkRecentInfoRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) getIcon_ (self & size)
     fun getMimeType self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getMimeType_ self
     fun getModified self = (GtkRecentInfoRecord.FFI.withPtr ---> GLong.FFI.fromVal) getModified_ self
     fun getPrivateHint self = (GtkRecentInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) getPrivateHint_ self
     fun getShortName self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getShortName_ self
     fun getUri self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUri_ self
-    fun getUriDisplay self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUriDisplay_ self
+    fun getUriDisplay self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getUriDisplay_ self
     fun getVisited self = (GtkRecentInfoRecord.FFI.withPtr ---> GLong.FFI.fromVal) getVisited_ self
     fun hasApplication self appName = (GtkRecentInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasApplication_ (self & appName)
     fun hasGroup self groupName = (GtkRecentInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasGroup_ (self & groupName)

@@ -29,7 +29,7 @@ structure GtkCellLayout :>
             )
     val clear_ = _import "gtk_cell_layout_clear" : GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p -> unit;
     val clearAttributes_ = fn x1 & x2 => (_import "gtk_cell_layout_clear_attributes" : GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p -> unit;) (x1, x2)
-    val getArea_ = _import "gtk_cell_layout_get_area" : GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p -> GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p;
+    val getArea_ = _import "gtk_cell_layout_get_area" : GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p -> unit GtkCellAreaClass.FFI.p;
     val packEnd_ =
       fn
         x1
@@ -109,7 +109,7 @@ structure GtkCellLayout :>
         )
     fun clear self = (GtkCellLayoutClass.FFI.withPtr ---> I) clear_ self
     fun clearAttributes self cell = (GtkCellLayoutClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> I) clearAttributes_ (self & cell)
-    fun getArea self = (GtkCellLayoutClass.FFI.withPtr ---> GtkCellAreaClass.FFI.fromPtr false) getArea_ self
+    fun getArea self = (GtkCellLayoutClass.FFI.withPtr ---> GtkCellAreaClass.FFI.fromOptPtr false) getArea_ self
     fun packEnd self (cell, expand) =
       (
         GtkCellLayoutClass.FFI.withPtr

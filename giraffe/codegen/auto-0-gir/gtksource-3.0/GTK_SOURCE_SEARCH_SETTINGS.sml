@@ -7,7 +7,7 @@ signature GTK_SOURCE_SEARCH_SETTINGS =
     val getAtWordBoundaries : 'a class -> bool
     val getCaseSensitive : 'a class -> bool
     val getRegexEnabled : 'a class -> bool
-    val getSearchText : 'a class -> string
+    val getSearchText : 'a class -> string option
     val getWrapAround : 'a class -> bool
     val setAtWordBoundaries :
       'a class

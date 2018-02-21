@@ -9,8 +9,8 @@ structure GtkNativeDialog :>
       val getType_ = call (getSymbol "gtk_native_dialog_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val destroy_ = call (getSymbol "gtk_native_dialog_destroy") (GtkNativeDialogClass.PolyML.cPtr --> cVoid)
       val getModal_ = call (getSymbol "gtk_native_dialog_get_modal") (GtkNativeDialogClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getTitle_ = call (getSymbol "gtk_native_dialog_get_title") (GtkNativeDialogClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getTransientFor_ = call (getSymbol "gtk_native_dialog_get_transient_for") (GtkNativeDialogClass.PolyML.cPtr --> GtkWindowClass.PolyML.cPtr)
+      val getTitle_ = call (getSymbol "gtk_native_dialog_get_title") (GtkNativeDialogClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getTransientFor_ = call (getSymbol "gtk_native_dialog_get_transient_for") (GtkNativeDialogClass.PolyML.cPtr --> GtkWindowClass.PolyML.cOptPtr)
       val getVisible_ = call (getSymbol "gtk_native_dialog_get_visible") (GtkNativeDialogClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val hide_ = call (getSymbol "gtk_native_dialog_hide") (GtkNativeDialogClass.PolyML.cPtr --> cVoid)
       val run_ = call (getSymbol "gtk_native_dialog_run") (GtkNativeDialogClass.PolyML.cPtr --> GInt.PolyML.cVal)
@@ -25,8 +25,8 @@ structure GtkNativeDialog :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun destroy self = (GtkNativeDialogClass.FFI.withPtr ---> I) destroy_ self
     fun getModal self = (GtkNativeDialogClass.FFI.withPtr ---> GBool.FFI.fromVal) getModal_ self
-    fun getTitle self = (GtkNativeDialogClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTitle_ self
-    fun getTransientFor self = (GtkNativeDialogClass.FFI.withPtr ---> GtkWindowClass.FFI.fromPtr false) getTransientFor_ self
+    fun getTitle self = (GtkNativeDialogClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getTitle_ self
+    fun getTransientFor self = (GtkNativeDialogClass.FFI.withPtr ---> GtkWindowClass.FFI.fromOptPtr false) getTransientFor_ self
     fun getVisible self = (GtkNativeDialogClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
     fun hide self = (GtkNativeDialogClass.FFI.withPtr ---> I) hide_ self
     fun run self = (GtkNativeDialogClass.FFI.withPtr ---> GInt.FFI.fromVal) run_ self

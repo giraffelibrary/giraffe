@@ -17,7 +17,7 @@ signature GTK_ENTRY_COMPLETION =
     val computePrefix :
       'a class
        -> string
-       -> string
+       -> string option
     val deleteAction :
       'a class
        -> LargeInt.int
@@ -27,7 +27,7 @@ signature GTK_ENTRY_COMPLETION =
     val getInlineCompletion : 'a class -> bool
     val getInlineSelection : 'a class -> bool
     val getMinimumKeyLength : 'a class -> LargeInt.int
-    val getModel : 'a class -> base tree_model_class
+    val getModel : 'a class -> base tree_model_class option
     val getPopupCompletion : 'a class -> bool
     val getPopupSetWidth : 'a class -> bool
     val getPopupSingleMatch : 'a class -> bool

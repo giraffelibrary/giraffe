@@ -9,8 +9,8 @@ signature GTK_SHORTCUT_LABEL =
     val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
     val new : string -> base class
-    val getAccelerator : 'a class -> string
-    val getDisabledText : 'a class -> string
+    val getAccelerator : 'a class -> string option
+    val getDisabledText : 'a class -> string option
     val setAccelerator :
       'a class
        -> string

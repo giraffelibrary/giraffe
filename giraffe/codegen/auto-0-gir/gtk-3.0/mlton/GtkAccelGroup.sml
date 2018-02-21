@@ -12,7 +12,7 @@ structure GtkAccelGroup :>
     structure GtkAccelGroupEntryRecordCVectorN = CVectorN(GtkAccelGroupEntryRecordCVectorNType)
     val getType_ = _import "gtk_accel_group_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_accel_group_new" : unit -> GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p;
-    val fromAccelClosure_ = _import "gtk_accel_group_from_accel_closure" : GObjectClosureRecord.FFI.notnull GObjectClosureRecord.FFI.p -> GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p;
+    val fromAccelClosure_ = _import "gtk_accel_group_from_accel_closure" : GObjectClosureRecord.FFI.notnull GObjectClosureRecord.FFI.p -> unit GtkAccelGroupClass.FFI.p;
     val activate_ =
       fn
         x1
@@ -111,7 +111,7 @@ structure GtkAccelGroup :>
                * GUInt.FFI.val_
                * GdkModifierType.FFI.val_
                * GUInt.FFI.ref_
-               -> GtkAccelGroupEntryRecordCVectorN.FFI.notnull GtkAccelGroupEntryRecordCVectorN.FFI.out_p;
+               -> unit GtkAccelGroupEntryRecordCVectorN.FFI.out_p;
           )
             (
               x1,
@@ -126,7 +126,7 @@ structure GtkAccelGroup :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkAccelGroupClass.FFI.fromPtr true) new_ ()
-    fun fromAccelClosure closure = (GObjectClosureRecord.FFI.withPtr ---> GtkAccelGroupClass.FFI.fromPtr false) fromAccelClosure_ closure
+    fun fromAccelClosure closure = (GObjectClosureRecord.FFI.withPtr ---> GtkAccelGroupClass.FFI.fromOptPtr false) fromAccelClosure_ closure
     fun activate
       self
       (
@@ -213,7 +213,7 @@ structure GtkAccelGroup :>
              &&&> GUInt.FFI.withVal
              &&&> GdkModifierType.FFI.withVal
              &&&> GUInt.FFI.withRefVal
-             ---> GUInt.FFI.fromVal && GtkAccelGroupEntryRecordCVectorN.FFI.fromPtr 0
+             ---> GUInt.FFI.fromVal && GtkAccelGroupEntryRecordCVectorN.FFI.fromOptPtr 0
           )
             query_
             (

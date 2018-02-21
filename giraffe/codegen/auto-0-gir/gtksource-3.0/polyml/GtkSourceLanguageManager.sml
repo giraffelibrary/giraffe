@@ -15,8 +15,8 @@ structure GtkSourceLanguageManager :>
       val getType_ = call (getSymbol "gtk_source_language_manager_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_source_language_manager_new") (cVoid --> GtkSourceLanguageManagerClass.PolyML.cPtr)
       val getDefault_ = call (getSymbol "gtk_source_language_manager_get_default") (cVoid --> GtkSourceLanguageManagerClass.PolyML.cPtr)
-      val getLanguage_ = call (getSymbol "gtk_source_language_manager_get_language") (GtkSourceLanguageManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkSourceLanguageClass.PolyML.cPtr)
-      val getLanguageIds_ = call (getSymbol "gtk_source_language_manager_get_language_ids") (GtkSourceLanguageManagerClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getLanguage_ = call (getSymbol "gtk_source_language_manager_get_language") (GtkSourceLanguageManagerClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkSourceLanguageClass.PolyML.cOptPtr)
+      val getLanguageIds_ = call (getSymbol "gtk_source_language_manager_get_language_ids") (GtkSourceLanguageManagerClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutOptPtr)
       val getSearchPath_ = call (getSymbol "gtk_source_language_manager_get_search_path") (GtkSourceLanguageManagerClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
       val guessLanguage_ =
         call (getSymbol "gtk_source_language_manager_guess_language")
@@ -24,7 +24,7 @@ structure GtkSourceLanguageManager :>
             GtkSourceLanguageManagerClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> Utf8.PolyML.cInOptPtr
-             --> GtkSourceLanguageClass.PolyML.cPtr
+             --> GtkSourceLanguageClass.PolyML.cOptPtr
           )
       val setSearchPath_ = call (getSymbol "gtk_source_language_manager_set_search_path") (GtkSourceLanguageManagerClass.PolyML.cPtr &&> Utf8CVector.PolyML.cInOptPtr --> cVoid)
     end
@@ -34,15 +34,15 @@ structure GtkSourceLanguageManager :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSourceLanguageManagerClass.FFI.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkSourceLanguageManagerClass.FFI.fromPtr false) getDefault_ ()
-    fun getLanguage self id = (GtkSourceLanguageManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceLanguageClass.FFI.fromPtr false) getLanguage_ (self & id)
-    fun getLanguageIds self = (GtkSourceLanguageManagerClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getLanguageIds_ self
+    fun getLanguage self id = (GtkSourceLanguageManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceLanguageClass.FFI.fromOptPtr false) getLanguage_ (self & id)
+    fun getLanguageIds self = (GtkSourceLanguageManagerClass.FFI.withPtr ---> Utf8CVector.FFI.fromOptPtr 0) getLanguageIds_ self
     fun getSearchPath self = (GtkSourceLanguageManagerClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getSearchPath_ self
     fun guessLanguage self (filename, contentType) =
       (
         GtkSourceLanguageManagerClass.FFI.withPtr
          &&&> Utf8.FFI.withOptPtr
          &&&> Utf8.FFI.withOptPtr
-         ---> GtkSourceLanguageClass.FFI.fromPtr false
+         ---> GtkSourceLanguageClass.FFI.fromOptPtr false
       )
         guessLanguage_
         (

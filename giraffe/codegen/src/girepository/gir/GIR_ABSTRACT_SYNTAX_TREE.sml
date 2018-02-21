@@ -43,13 +43,15 @@ signature GIR_ABSTRACT_SYNTAX_TREE =
             returnValue : (* ** return_value ** *)
               {
                 transferOwnership : string option,
+                nullable          : string option,
                 type_             : type_
               },
             parameter   : (* ** parameter list ** *)
               {
                 name              : string option,
                 transferOwnership : string,
-                allowNone         : string option,
+                nullable          : string option,
+                optional          : string option,
                 direction         : string option,
                 callerAllocates   : string option,
                 scope             : string option,
@@ -66,13 +68,15 @@ signature GIR_ABSTRACT_SYNTAX_TREE =
         returnValue : (* ** return_value ** *)
           {
             transferOwnership : string option,
+            nullable          : string option,
             type_             : type_
           },
         parameter   : (* ** parameter list ** *)
           {
             name              : string option,
             transferOwnership : string,
-            allowNone         : string option,
+            nullable          : string option,
+            optional          : string option,
             direction         : string option,
             callerAllocates   : string option,
             scope             : string option,
@@ -86,6 +90,7 @@ signature GIR_ABSTRACT_SYNTAX_TREE =
     and return_value =
       {
         transferOwnership : string option,
+        nullable          : string option,
         type_             : type_
       }
 
@@ -93,7 +98,8 @@ signature GIR_ABSTRACT_SYNTAX_TREE =
       {
         name              : string option,
         transferOwnership : string,
-        allowNone         : string option,
+        nullable          : string option,
+        optional          : string option,
         direction         : string option,
         callerAllocates   : string option,
         scope             : string option,

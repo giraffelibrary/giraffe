@@ -64,7 +64,7 @@ signature G_LIB_VARIANT =
     val getInt16 : t -> LargeInt.int
     val getInt32 : t -> LargeInt.int
     val getInt64 : t -> LargeInt.int
-    val getMaybe : t -> t
+    val getMaybe : t -> t option
     val getNormalForm : t -> t
     val getObjv : t -> string list
     val getSize : t -> LargeInt.int

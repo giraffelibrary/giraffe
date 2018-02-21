@@ -3,7 +3,7 @@ signature PANGO_ATTR_LIST =
     type t
     val getType : unit -> GObject.Type.t
     val new : unit -> t
-    val copy : t -> t
+    val copy : t -> t option
     val splice :
       t
        -> t

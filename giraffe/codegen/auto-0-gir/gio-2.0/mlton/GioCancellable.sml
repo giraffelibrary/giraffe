@@ -4,7 +4,7 @@ structure GioCancellable :>
   struct
     val getType_ = _import "g_cancellable_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "g_cancellable_new" : unit -> GioCancellableClass.FFI.notnull GioCancellableClass.FFI.p;
-    val getCurrent_ = _import "g_cancellable_get_current" : unit -> GioCancellableClass.FFI.notnull GioCancellableClass.FFI.p;
+    val getCurrent_ = _import "g_cancellable_get_current" : unit -> unit GioCancellableClass.FFI.p;
     val cancel_ = _import "g_cancellable_cancel" : GioCancellableClass.FFI.notnull GioCancellableClass.FFI.p -> unit;
     val disconnect_ = fn x1 & x2 => (_import "g_cancellable_disconnect" : GioCancellableClass.FFI.notnull GioCancellableClass.FFI.p * GULong.FFI.val_ -> unit;) (x1, x2)
     val getFd_ = _import "g_cancellable_get_fd" : GioCancellableClass.FFI.notnull GioCancellableClass.FFI.p -> GInt.FFI.val_;
@@ -18,7 +18,7 @@ structure GioCancellable :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioCancellableClass.FFI.fromPtr true) new_ ()
-    fun getCurrent () = (I ---> GioCancellableClass.FFI.fromPtr false) getCurrent_ ()
+    fun getCurrent () = (I ---> GioCancellableClass.FFI.fromOptPtr false) getCurrent_ ()
     fun cancel self = (GioCancellableClass.FFI.withPtr ---> I) cancel_ self
     fun disconnect self handlerId = (GioCancellableClass.FFI.withPtr &&&> GULong.FFI.withVal ---> I) disconnect_ (self & handlerId)
     fun getFd self = (GioCancellableClass.FFI.withPtr ---> GInt.FFI.fromVal) getFd_ self

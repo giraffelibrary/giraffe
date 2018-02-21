@@ -53,7 +53,7 @@ structure GtkDialog :>
     val getContentArea_ = _import "gtk_dialog_get_content_area" : GtkDialogClass.FFI.notnull GtkDialogClass.FFI.p -> GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p;
     val getHeaderBar_ = _import "gtk_dialog_get_header_bar" : GtkDialogClass.FFI.notnull GtkDialogClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val getResponseForWidget_ = fn x1 & x2 => (_import "gtk_dialog_get_response_for_widget" : GtkDialogClass.FFI.notnull GtkDialogClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
-    val getWidgetForResponse_ = fn x1 & x2 => (_import "gtk_dialog_get_widget_for_response" : GtkDialogClass.FFI.notnull GtkDialogClass.FFI.p * GInt.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
+    val getWidgetForResponse_ = fn x1 & x2 => (_import "gtk_dialog_get_widget_for_response" : GtkDialogClass.FFI.notnull GtkDialogClass.FFI.p * GInt.FFI.val_ -> unit GtkWidgetClass.FFI.p;) (x1, x2)
     val response_ = fn x1 & x2 => (_import "gtk_dialog_response" : GtkDialogClass.FFI.notnull GtkDialogClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val run_ = _import "gtk_dialog_run" : GtkDialogClass.FFI.notnull GtkDialogClass.FFI.p -> GInt.FFI.val_;
     val setAlternativeButtonOrderFromArray_ =
@@ -132,7 +132,7 @@ structure GtkDialog :>
     fun getContentArea self = (GtkDialogClass.FFI.withPtr ---> GtkBoxClass.FFI.fromPtr false) getContentArea_ self
     fun getHeaderBar self = (GtkDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getHeaderBar_ self
     fun getResponseForWidget self widget = (GtkDialogClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getResponseForWidget_ (self & widget)
-    fun getWidgetForResponse self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) getWidgetForResponse_ (self & responseId)
+    fun getWidgetForResponse self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getWidgetForResponse_ (self & responseId)
     fun response self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) response_ (self & responseId)
     fun run self = (GtkDialogClass.FFI.withPtr ---> GInt.FFI.fromVal) run_ self
     fun setAlternativeButtonOrderFromArray self newOrder =

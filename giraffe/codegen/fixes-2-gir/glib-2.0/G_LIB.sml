@@ -472,8 +472,8 @@ signature G_LIB =
     val mainDepth : unit -> LargeInt.int
     val markupEscapeText : string * LargeInt.int -> string
     val mkdirWithParents : string * LargeInt.int -> LargeInt.int
-    val mkdtemp : string -> string
-    val mkdtempFull : string * LargeInt.int -> string
+    val mkdtemp : string -> string option
+    val mkdtempFull : string * LargeInt.int -> string option
     val mkstemp : string -> LargeInt.int
     val mkstempFull :
       string
@@ -486,7 +486,7 @@ signature G_LIB =
     val pathGetBasename : string -> string
     val pathGetDirname : string -> string
     val pathIsAbsolute : string -> bool
-    val pathSkipRoot : string -> string
+    val pathSkipRoot : string -> string option
     val patternMatch :
       PatternSpecRecord.t
        * LargeInt.int

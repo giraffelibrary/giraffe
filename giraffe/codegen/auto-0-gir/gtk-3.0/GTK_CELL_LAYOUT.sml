@@ -16,7 +16,7 @@ signature GTK_CELL_LAYOUT =
       'a class
        -> 'b cell_renderer_class
        -> unit
-    val getArea : 'a class -> base cell_area_class
+    val getArea : 'a class -> base cell_area_class option
     val packEnd :
       'a class
        -> 'b cell_renderer_class * bool

@@ -26,8 +26,8 @@ signature GTK_APPLICATION =
       'a class
        -> string
        -> string list
-    val getActiveWindow : 'a class -> base window_class
-    val getAppMenu : 'a class -> base Gio.MenuModelClass.class
+    val getActiveWindow : 'a class -> base window_class option
+    val getAppMenu : 'a class -> base Gio.MenuModelClass.class option
     val getMenuById :
       'a class
        -> string
@@ -36,7 +36,7 @@ signature GTK_APPLICATION =
     val getWindowById :
       'a class
        -> LargeInt.int
-       -> base window_class
+       -> base window_class option
     val inhibit :
       'a class
        -> 'b window_class option

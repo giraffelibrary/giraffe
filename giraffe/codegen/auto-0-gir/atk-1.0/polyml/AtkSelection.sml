@@ -11,7 +11,7 @@ structure AtkSelection :>
       val clearSelection_ = call (getSymbol "atk_selection_clear_selection") (AtkSelectionClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSelectionCount_ = call (getSymbol "atk_selection_get_selection_count") (AtkSelectionClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val isChildSelected_ = call (getSymbol "atk_selection_is_child_selected") (AtkSelectionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
-      val refSelection_ = call (getSymbol "atk_selection_ref_selection") (AtkSelectionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> AtkObjectClass.PolyML.cPtr)
+      val refSelection_ = call (getSymbol "atk_selection_ref_selection") (AtkSelectionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> AtkObjectClass.PolyML.cOptPtr)
       val removeSelection_ = call (getSymbol "atk_selection_remove_selection") (AtkSelectionClass.PolyML.cPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
       val selectAllSelection_ = call (getSymbol "atk_selection_select_all_selection") (AtkSelectionClass.PolyML.cPtr --> GBool.PolyML.cVal)
     end
@@ -23,7 +23,7 @@ structure AtkSelection :>
     fun clearSelection self = (AtkSelectionClass.FFI.withPtr ---> GBool.FFI.fromVal) clearSelection_ self
     fun getSelectionCount self = (AtkSelectionClass.FFI.withPtr ---> GInt.FFI.fromVal) getSelectionCount_ self
     fun isChildSelected self i = (AtkSelectionClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) isChildSelected_ (self & i)
-    fun refSelection self i = (AtkSelectionClass.FFI.withPtr &&&> GInt.FFI.withVal ---> AtkObjectClass.FFI.fromPtr true) refSelection_ (self & i)
+    fun refSelection self i = (AtkSelectionClass.FFI.withPtr &&&> GInt.FFI.withVal ---> AtkObjectClass.FFI.fromOptPtr true) refSelection_ (self & i)
     fun removeSelection self i = (AtkSelectionClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) removeSelection_ (self & i)
     fun selectAllSelection self = (AtkSelectionClass.FFI.withPtr ---> GBool.FFI.fromVal) selectAllSelection_ self
     local
