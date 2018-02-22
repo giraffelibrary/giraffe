@@ -186,7 +186,7 @@ structure GtkTreeModel :>
               x2,
               x3
             )
-    val rowsReorderedWithLength_ =
+    val rowsReordered_ =
       fn
         x1
          & x2
@@ -388,7 +388,7 @@ structure GtkTreeModel :>
            & path
            & iter
         )
-    fun rowsReorderedWithLength
+    fun rowsReordered
       self
       (
         path,
@@ -406,7 +406,7 @@ structure GtkTreeModel :>
              &&&> GInt.FFI.withVal
              ---> I
           )
-            rowsReorderedWithLength_
+            rowsReordered_
             (
               self
                & path

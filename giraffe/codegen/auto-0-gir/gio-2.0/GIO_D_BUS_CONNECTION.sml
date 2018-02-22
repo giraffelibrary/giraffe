@@ -109,7 +109,7 @@ signature GIO_D_BUS_CONNECTION =
     val getStream : 'a class -> base i_o_stream_class
     val getUniqueName : 'a class -> string
     val isClosed : 'a class -> bool
-    val registerObjectWithClosures :
+    val registerObject :
       'a class
        -> string
            * d_bus_interface_info_t

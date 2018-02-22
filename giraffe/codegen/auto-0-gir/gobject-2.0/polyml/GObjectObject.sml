@@ -20,7 +20,7 @@ structure GObjectObject :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "g_object_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val newv_ =
+      val new_ =
         call (getSymbol "g_object_newv")
           (
             GObjectType.PolyML.cVal
@@ -38,7 +38,7 @@ structure GObjectObject :>
              &&> GObjectBindingFlags.PolyML.cVal
              --> GObjectBindingClass.PolyML.cPtr
           )
-      val bindPropertyWithClosures_ =
+      val bindPropertyFull_ =
         call (getSymbol "g_object_bind_property_with_closures")
           (
             GObjectObjectClass.PolyML.cPtr
@@ -84,7 +84,7 @@ structure GObjectObject :>
     type 'a signal_t = 'a Signal.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newv (objectType, parameters) =
+    fun new (objectType, parameters) =
       let
         val nParameters = LargeInt.fromInt (GObjectParameterRecordCVectorN.length parameters)
         val retVal =
@@ -94,7 +94,7 @@ structure GObjectObject :>
              &&&> GObjectParameterRecordCVectorN.FFI.withPtr
              ---> GObjectObjectClass.FFI.fromPtr true
           )
-            newv_
+            new_
             (
               objectType
                & nParameters
@@ -127,7 +127,7 @@ structure GObjectObject :>
            & targetProperty
            & flags
         )
-    fun bindPropertyWithClosures
+    fun bindPropertyFull
       self
       (
         sourceProperty,
@@ -147,7 +147,7 @@ structure GObjectObject :>
          &&&> GObjectClosureRecord.FFI.withPtr
          ---> GObjectBindingClass.FFI.fromPtr false
       )
-        bindPropertyWithClosures_
+        bindPropertyFull_
         (
           self
            & sourceProperty

@@ -27,7 +27,7 @@ structure GioNotification :>
               x4,
               x5
             )
-    val addButtonWithTargetValue_ =
+    val addButtonWithTarget_ =
       fn
         x1
          & (x2, x3)
@@ -81,7 +81,7 @@ structure GioNotification :>
               x2,
               x3
             )
-    val setDefaultActionAndTargetValue_ =
+    val setDefaultActionAndTarget_ =
       fn
         x1
          & (x2, x3)
@@ -137,7 +137,7 @@ structure GioNotification :>
            & label
            & detailedAction
         )
-    fun addButtonWithTargetValue
+    fun addButtonWithTarget
       self
       (
         label,
@@ -151,7 +151,7 @@ structure GioNotification :>
          &&&> GLibVariantRecord.FFI.withOptPtr
          ---> I
       )
-        addButtonWithTargetValue_
+        addButtonWithTarget_
         (
           self
            & label
@@ -160,14 +160,14 @@ structure GioNotification :>
         )
     fun setBody self body = (GioNotificationClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setBody_ (self & body)
     fun setDefaultAction self detailedAction = (GioNotificationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDefaultAction_ (self & detailedAction)
-    fun setDefaultActionAndTargetValue self (action, target) =
+    fun setDefaultActionAndTarget self (action, target) =
       (
         GioNotificationClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibVariantRecord.FFI.withOptPtr
          ---> I
       )
-        setDefaultActionAndTargetValue_
+        setDefaultActionAndTarget_
         (
           self
            & action

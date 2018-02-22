@@ -85,7 +85,7 @@ signature GTK_TREE_MODEL =
       'a class
        -> tree_path_t * tree_iter_t
        -> unit
-    val rowsReorderedWithLength :
+    val rowsReordered :
       'a class
        -> tree_path_t
            * tree_iter_t option

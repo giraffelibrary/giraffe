@@ -8,7 +8,7 @@ structure GioDBusInterface :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "g_dbus_interface_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val dupObject_ = call (getSymbol "g_dbus_interface_dup_object") (GioDBusInterfaceClass.PolyML.cPtr --> GioDBusObjectClass.PolyML.cPtr)
+      val getObject_ = call (getSymbol "g_dbus_interface_dup_object") (GioDBusInterfaceClass.PolyML.cPtr --> GioDBusObjectClass.PolyML.cPtr)
       val getInfo_ = call (getSymbol "g_dbus_interface_get_info") (GioDBusInterfaceClass.PolyML.cPtr --> GioDBusInterfaceInfoRecord.PolyML.cPtr)
       val setObject_ = call (getSymbol "g_dbus_interface_set_object") (GioDBusInterfaceClass.PolyML.cPtr &&> GioDBusObjectClass.PolyML.cOptPtr --> cVoid)
     end
@@ -17,7 +17,7 @@ structure GioDBusInterface :>
     type 'a d_bus_object_class = 'a GioDBusObjectClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun dupObject self = (GioDBusInterfaceClass.FFI.withPtr ---> GioDBusObjectClass.FFI.fromPtr true) dupObject_ self
+    fun getObject self = (GioDBusInterfaceClass.FFI.withPtr ---> GioDBusObjectClass.FFI.fromPtr true) getObject_ self
     fun getInfo self = (GioDBusInterfaceClass.FFI.withPtr ---> GioDBusInterfaceInfoRecord.FFI.fromPtr false) getInfo_ self
     fun setObject self object = (GioDBusInterfaceClass.FFI.withPtr &&&> GioDBusObjectClass.FFI.withOptPtr ---> I) setObject_ (self & object)
   end

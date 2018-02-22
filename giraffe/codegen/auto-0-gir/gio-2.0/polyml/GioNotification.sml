@@ -17,7 +17,7 @@ structure GioNotification :>
              &&> Utf8.PolyML.cInPtr
              --> cVoid
           )
-      val addButtonWithTargetValue_ =
+      val addButtonWithTarget_ =
         call (getSymbol "g_notification_add_button_with_target_value")
           (
             GioNotificationClass.PolyML.cPtr
@@ -28,7 +28,7 @@ structure GioNotification :>
           )
       val setBody_ = call (getSymbol "g_notification_set_body") (GioNotificationClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
       val setDefaultAction_ = call (getSymbol "g_notification_set_default_action") (GioNotificationClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
-      val setDefaultActionAndTargetValue_ =
+      val setDefaultActionAndTarget_ =
         call (getSymbol "g_notification_set_default_action_and_target_value")
           (
             GioNotificationClass.PolyML.cPtr
@@ -60,7 +60,7 @@ structure GioNotification :>
            & label
            & detailedAction
         )
-    fun addButtonWithTargetValue
+    fun addButtonWithTarget
       self
       (
         label,
@@ -74,7 +74,7 @@ structure GioNotification :>
          &&&> GLibVariantRecord.FFI.withOptPtr
          ---> I
       )
-        addButtonWithTargetValue_
+        addButtonWithTarget_
         (
           self
            & label
@@ -83,14 +83,14 @@ structure GioNotification :>
         )
     fun setBody self body = (GioNotificationClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setBody_ (self & body)
     fun setDefaultAction self detailedAction = (GioNotificationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDefaultAction_ (self & detailedAction)
-    fun setDefaultActionAndTargetValue self (action, target) =
+    fun setDefaultActionAndTarget self (action, target) =
       (
         GioNotificationClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibVariantRecord.FFI.withOptPtr
          ---> I
       )
-        setDefaultActionAndTargetValue_
+        setDefaultActionAndTarget_
         (
           self
            & action

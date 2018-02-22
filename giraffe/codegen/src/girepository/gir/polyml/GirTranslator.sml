@@ -399,7 +399,7 @@ fun makeConfigElemBaseData
   makeInstance
   con
   typelib
-  name
+  (name, shadows, shadowedBy)
   config
   x
   : Info.basedata option =
@@ -427,12 +427,12 @@ fun makeConfigElemBaseData
     val baseData = Info.BASE refData
 
     val instance =
-      if introspectable
+      if introspectable andalso shadowedBy = NONE
       then makeInstance con baseData typelib x
       else handleError Info.INVALID
   in
     refData := {
-      name       = name,
+      name       = if isSome shadows then shadows else name,
       container  = container,
       typelib    = typelib,
       deprecated = deprecated,
@@ -822,7 +822,7 @@ and makeCallbackBaseData containerData elemDicts con typelib
     (makeCallback elemDicts)
     con
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 
@@ -832,7 +832,7 @@ and initCallbackBaseData typelib (x as {name, config, ...} : callback) =
     makeUntranslated
     I
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 
@@ -856,7 +856,19 @@ and makeFunction
   con
   baseData  (* self reference *)
   typelib
-  ({elem, name, config = _, callable, cIdentifier, movedTo, throws} : function) =
+  (
+    {
+      elem,
+      name,
+      config = _,
+      shadows = _,
+      shadowedBy = _,
+      callable,
+      cIdentifier,
+      movedTo,
+      throws
+    } : function
+  ) =
   let
     val flags'0 =
       let
@@ -894,23 +906,43 @@ and makeFunction
         raise
           GIRFail (HText.concat (getFunctionElemName elem :: " " :: fmtQuoted name) :: ms)
 
-and makeFunctionBaseData containerData elemDicts con typelib (x as {elem, name, config, ...} : function) =
+and makeFunctionBaseData containerData elemDicts con typelib
+  (
+    x as {
+      elem,
+      name,
+      shadows,
+      shadowedBy,
+      config,
+      ...
+    } : function
+  ) =
   makeConfigElemBaseData (getFunctionElemName elem) ni
     (SOME containerData)
     (makeFunction elemDicts)
     con
     typelib
-    (SOME name)
+    (SOME name, shadows, shadowedBy)
     config
     x
 
-and initFunctionBaseData typelib (x as {elem, name, config, ...} : function) =
+and initFunctionBaseData typelib
+  (
+    x as {
+      elem,
+      name,
+      shadows,
+      shadowedBy,
+      config,
+      ...
+    } : function
+  ) =
   makeConfigElemBaseData (getFunctionElemName elem) I
     NONE
     makeUntranslated
     I
     typelib
-    (SOME name)
+    (SOME name, shadows, shadowedBy)
     config
     x
 
@@ -989,7 +1021,7 @@ and makeVFuncBaseData containerData elemDicts con typelib (x as {name, config, .
     (makeVFunc elemDicts)
     con
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 
@@ -1090,7 +1122,7 @@ and makeSignalBaseData containerData elemDicts con typelib (x as {name, config, 
     (makeSignal elemDicts)
     con
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 
@@ -1181,7 +1213,7 @@ and makePropertyBaseData containerData elemDicts con typelib (x as {name, config
     (makeProperty elemDicts)
     con
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 
@@ -1237,7 +1269,7 @@ and makeFieldBaseData containerData elemDicts con typelib (x as {name, config, .
     (makeField elemDicts)
     con
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 
@@ -1273,7 +1305,7 @@ and initAliasBaseData typelib (x as {name, config, ...} : alias) =
     makeUntranslated
     I
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 
@@ -1315,7 +1347,7 @@ and makeConstantBaseData containerData elemDicts con typelib
     (makeConstant elemDicts)
     con
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 
@@ -1325,7 +1357,7 @@ and initConstantBaseData typelib (x as {name, config, ...} : constant) =
     makeUntranslated
     I
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 
@@ -1438,7 +1470,7 @@ and initClassBaseData typelib (x as {name, config, ...} : class) =
     makeUntranslated
     I
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 
@@ -1538,7 +1570,7 @@ and initInterfaceBaseData typelib (x as {name, config, ...} : interface) =
     makeUntranslated
     I
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 
@@ -1616,7 +1648,7 @@ and initRecordBaseData typelib (x as {name, config, ...} : record) =
     makeUntranslated
     I
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 
@@ -1678,7 +1710,7 @@ and initUnionBaseData typelib (x as {name, config, ...} : union) =
     makeUntranslated
     I
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 
@@ -1716,7 +1748,7 @@ and makeMemberBaseData containerData elemDicts con typelib (x as {name, config, 
     (makeMember elemDicts)
     con
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 
@@ -1785,7 +1817,7 @@ and initEnumBaseData typelib (x as {elem, name, config, ...} : enum) =
     makeUntranslated
     I
     typelib
-    (SOME name)
+    (SOME name, NONE, NONE)
     config
     x
 

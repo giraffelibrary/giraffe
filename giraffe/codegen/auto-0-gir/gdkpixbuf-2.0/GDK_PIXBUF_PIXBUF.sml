@@ -159,7 +159,7 @@ signature GDK_PIXBUF_PIXBUF =
       'a class
        -> string
        -> string
-    val getPixelsWithLength : 'a class -> Word8Vector.vector
+    val getPixels : 'a class -> Word8Vector.vector
     val getRowstride : 'a class -> LargeInt.int
     val getWidth : 'a class -> LargeInt.int
     val newSubpixbuf :

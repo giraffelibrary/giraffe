@@ -5,7 +5,7 @@ signature GTK_SELECTION_DATA =
     val getType : unit -> GObject.Type.t
     val copy : t -> t
     val getDataType : t -> Gdk.AtomRecord.t
-    val getDataWithLength : t -> Word8Vector.vector
+    val getData : t -> Word8Vector.vector
     val getDisplay : t -> base Gdk.DisplayClass.class
     val getFormat : t -> LargeInt.int
     val getLength : t -> LargeInt.int

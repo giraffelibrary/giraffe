@@ -18,7 +18,7 @@ structure GioSubprocess :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "g_subprocess_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val newv_ =
+      val new_ =
         call (getSymbol "g_subprocess_newv")
           (
             Utf8CVector.PolyML.cInPtr
@@ -123,14 +123,14 @@ structure GioSubprocess :>
     type t = base class
     fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newv (argv, flags) =
+    fun new (argv, flags) =
       (
         Utf8CVector.FFI.withPtr
          &&&> GioSubprocessFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioSubprocessClass.FFI.fromPtr true
       )
-        newv_
+        new_
         (
           argv
            & flags

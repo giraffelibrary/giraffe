@@ -30,7 +30,7 @@ structure Gio : GIO =
               x2,
               x3
             )
-    val busOwnNameOnConnectionWithClosures_ =
+    val busOwnNameOnConnection_ =
       fn
         x1
          & (x2, x3)
@@ -55,7 +55,7 @@ structure Gio : GIO =
               x5,
               x6
             )
-    val busOwnNameWithClosures_ =
+    val busOwnName_ =
       fn
         x1
          & (x2, x3)
@@ -85,7 +85,7 @@ structure Gio : GIO =
             )
     val busUnownName_ = _import "g_bus_unown_name" : GUInt.FFI.val_ -> unit;
     val busUnwatchName_ = _import "g_bus_unwatch_name" : GUInt.FFI.val_ -> unit;
-    val busWatchNameOnConnectionWithClosures_ =
+    val busWatchNameOnConnection_ =
       fn
         x1
          & (x2, x3)
@@ -110,7 +110,7 @@ structure Gio : GIO =
               x5,
               x6
             )
-    val busWatchNameWithClosures_ =
+    val busWatchName_ =
       fn
         x1
          & (x2, x3)
@@ -1033,7 +1033,7 @@ structure Gio : GIO =
            & cancellable
            & []
         )
-    fun busOwnNameOnConnectionWithClosures
+    fun busOwnNameOnConnection
       (
         connection,
         name,
@@ -1049,7 +1049,7 @@ structure Gio : GIO =
          &&&> GObjectClosureRecord.FFI.withOptPtr
          ---> GUInt.FFI.fromVal
       )
-        busOwnNameOnConnectionWithClosures_
+        busOwnNameOnConnection_
         (
           connection
            & name
@@ -1057,7 +1057,7 @@ structure Gio : GIO =
            & nameAcquiredClosure
            & nameLostClosure
         )
-    fun busOwnNameWithClosures
+    fun busOwnName
       (
         busType,
         name,
@@ -1075,7 +1075,7 @@ structure Gio : GIO =
          &&&> GObjectClosureRecord.FFI.withOptPtr
          ---> GUInt.FFI.fromVal
       )
-        busOwnNameWithClosures_
+        busOwnName_
         (
           busType
            & name
@@ -1086,7 +1086,7 @@ structure Gio : GIO =
         )
     fun busUnownName ownerId = (GUInt.FFI.withVal ---> I) busUnownName_ ownerId
     fun busUnwatchName watcherId = (GUInt.FFI.withVal ---> I) busUnwatchName_ watcherId
-    fun busWatchNameOnConnectionWithClosures
+    fun busWatchNameOnConnection
       (
         connection,
         name,
@@ -1102,7 +1102,7 @@ structure Gio : GIO =
          &&&> GObjectClosureRecord.FFI.withOptPtr
          ---> GUInt.FFI.fromVal
       )
-        busWatchNameOnConnectionWithClosures_
+        busWatchNameOnConnection_
         (
           connection
            & name
@@ -1110,7 +1110,7 @@ structure Gio : GIO =
            & nameAppearedClosure
            & nameVanishedClosure
         )
-    fun busWatchNameWithClosures
+    fun busWatchName
       (
         busType,
         name,
@@ -1126,7 +1126,7 @@ structure Gio : GIO =
          &&&> GObjectClosureRecord.FFI.withOptPtr
          ---> GUInt.FFI.fromVal
       )
-        busWatchNameWithClosures_
+        busWatchName_
         (
           busType
            & name

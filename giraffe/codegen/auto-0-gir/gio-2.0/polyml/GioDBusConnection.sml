@@ -166,7 +166,7 @@ structure GioDBusConnection :>
       val getStream_ = call (getSymbol "g_dbus_connection_get_stream") (GioDBusConnectionClass.PolyML.cPtr --> GioIOStreamClass.PolyML.cPtr)
       val getUniqueName_ = call (getSymbol "g_dbus_connection_get_unique_name") (GioDBusConnectionClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val isClosed_ = call (getSymbol "g_dbus_connection_is_closed") (GioDBusConnectionClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val registerObjectWithClosures_ =
+      val registerObject_ =
         call (getSymbol "g_dbus_connection_register_object_with_closures")
           (
             GioDBusConnectionClass.PolyML.cPtr
@@ -533,7 +533,7 @@ structure GioDBusConnection :>
     fun getStream self = (GioDBusConnectionClass.FFI.withPtr ---> GioIOStreamClass.FFI.fromPtr false) getStream_ self
     fun getUniqueName self = (GioDBusConnectionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUniqueName_ self
     fun isClosed self = (GioDBusConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
-    fun registerObjectWithClosures
+    fun registerObject
       self
       (
         objectPath,
@@ -552,7 +552,7 @@ structure GioDBusConnection :>
          &&&> GLibErrorRecord.handleError
          ---> GUInt.FFI.fromVal
       )
-        registerObjectWithClosures_
+        registerObject_
         (
           self
            & objectPath

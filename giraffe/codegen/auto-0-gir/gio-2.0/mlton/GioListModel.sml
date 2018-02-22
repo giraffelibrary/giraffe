@@ -5,7 +5,7 @@ structure GioListModel :>
     val getType_ = _import "g_list_model_get_type" : unit -> GObjectType.FFI.val_;
     val getItemType_ = _import "g_list_model_get_item_type" : GioListModelClass.FFI.notnull GioListModelClass.FFI.p -> GObjectType.FFI.val_;
     val getNItems_ = _import "g_list_model_get_n_items" : GioListModelClass.FFI.notnull GioListModelClass.FFI.p -> GUInt.FFI.val_;
-    val getObject_ = fn x1 & x2 => (_import "g_list_model_get_object" : GioListModelClass.FFI.notnull GioListModelClass.FFI.p * GUInt.FFI.val_ -> unit GObjectObjectClass.FFI.p;) (x1, x2)
+    val getItem_ = fn x1 & x2 => (_import "g_list_model_get_object" : GioListModelClass.FFI.notnull GioListModelClass.FFI.p * GUInt.FFI.val_ -> unit GObjectObjectClass.FFI.p;) (x1, x2)
     val itemsChanged_ =
       fn
         x1
@@ -31,7 +31,7 @@ structure GioListModel :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getItemType self = (GioListModelClass.FFI.withPtr ---> GObjectType.FFI.fromVal) getItemType_ self
     fun getNItems self = (GioListModelClass.FFI.withPtr ---> GUInt.FFI.fromVal) getNItems_ self
-    fun getObject self position = (GioListModelClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GObjectObjectClass.FFI.fromOptPtr true) getObject_ (self & position)
+    fun getItem self position = (GioListModelClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GObjectObjectClass.FFI.fromOptPtr true) getItem_ (self & position)
     fun itemsChanged
       self
       (

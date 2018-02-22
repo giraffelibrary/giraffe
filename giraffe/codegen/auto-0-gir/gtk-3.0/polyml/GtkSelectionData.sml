@@ -27,7 +27,7 @@ structure GtkSelectionData :>
       val getType_ = call (getSymbol "gtk_selection_data_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val copy_ = call (getSymbol "gtk_selection_data_copy") (GtkSelectionDataRecord.PolyML.cPtr --> GtkSelectionDataRecord.PolyML.cPtr)
       val getDataType_ = call (getSymbol "gtk_selection_data_get_data_type") (GtkSelectionDataRecord.PolyML.cPtr --> GdkAtomRecord.PolyML.cPtr)
-      val getDataWithLength_ = call (getSymbol "gtk_selection_data_get_data_with_length") (GtkSelectionDataRecord.PolyML.cPtr &&> GInt.PolyML.cRef --> GUInt8CVectorN.PolyML.cOutPtr)
+      val getData_ = call (getSymbol "gtk_selection_data_get_data_with_length") (GtkSelectionDataRecord.PolyML.cPtr &&> GInt.PolyML.cRef --> GUInt8CVectorN.PolyML.cOutPtr)
       val getDisplay_ = call (getSymbol "gtk_selection_data_get_display") (GtkSelectionDataRecord.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
       val getFormat_ = call (getSymbol "gtk_selection_data_get_format") (GtkSelectionDataRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val getLength_ = call (getSymbol "gtk_selection_data_get_length") (GtkSelectionDataRecord.PolyML.cPtr --> GInt.PolyML.cVal)
@@ -74,9 +74,9 @@ structure GtkSelectionData :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun copy self = (GtkSelectionDataRecord.FFI.withPtr ---> GtkSelectionDataRecord.FFI.fromPtr true) copy_ self
     fun getDataType self = (GtkSelectionDataRecord.FFI.withPtr ---> GdkAtomRecord.FFI.fromPtr false) getDataType_ self
-    fun getDataWithLength self =
+    fun getData self =
       let
-        val length & retVal = (GtkSelectionDataRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 0) getDataWithLength_ (self & GInt.null)
+        val length & retVal = (GtkSelectionDataRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 0) getData_ (self & GInt.null)
       in
         retVal (LargeInt.toInt length)
       end

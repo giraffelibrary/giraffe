@@ -24,7 +24,7 @@ structure GtkSelectionData :>
     val getType_ = _import "gtk_selection_data_get_type" : unit -> GObjectType.FFI.val_;
     val copy_ = _import "gtk_selection_data_copy" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p;
     val getDataType_ = _import "gtk_selection_data_get_data_type" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p;
-    val getDataWithLength_ = fn x1 & x2 => (_import "gtk_selection_data_get_data_with_length" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p * GInt.FFI.ref_ -> GUInt8CVectorN.FFI.notnull GUInt8CVectorN.FFI.out_p;) (x1, x2)
+    val getData_ = fn x1 & x2 => (_import "gtk_selection_data_get_data_with_length" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p * GInt.FFI.ref_ -> GUInt8CVectorN.FFI.notnull GUInt8CVectorN.FFI.out_p;) (x1, x2)
     val getDisplay_ = _import "gtk_selection_data_get_display" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
     val getFormat_ = _import "gtk_selection_data_get_format" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GInt.FFI.val_;
     val getLength_ = _import "gtk_selection_data_get_length" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GInt.FFI.val_;
@@ -121,9 +121,9 @@ structure GtkSelectionData :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun copy self = (GtkSelectionDataRecord.FFI.withPtr ---> GtkSelectionDataRecord.FFI.fromPtr true) copy_ self
     fun getDataType self = (GtkSelectionDataRecord.FFI.withPtr ---> GdkAtomRecord.FFI.fromPtr false) getDataType_ self
-    fun getDataWithLength self =
+    fun getData self =
       let
-        val length & retVal = (GtkSelectionDataRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 0) getDataWithLength_ (self & GInt.null)
+        val length & retVal = (GtkSelectionDataRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 0) getData_ (self & GInt.null)
       in
         retVal (LargeInt.toInt length)
       end

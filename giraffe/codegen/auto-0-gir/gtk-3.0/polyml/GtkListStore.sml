@@ -36,7 +36,7 @@ structure GtkListStore :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_list_store_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val newv_ = call (getSymbol "gtk_list_store_newv") (GInt.PolyML.cVal &&> GObjectTypeCVectorN.PolyML.cInPtr --> GtkListStoreClass.PolyML.cPtr)
+      val new_ = call (getSymbol "gtk_list_store_newv") (GInt.PolyML.cVal &&> GObjectTypeCVectorN.PolyML.cInPtr --> GtkListStoreClass.PolyML.cPtr)
       val append_ = call (getSymbol "gtk_list_store_append") (GtkListStoreClass.PolyML.cPtr &&> GtkTreeIterRecord.PolyML.cPtr --> cVoid)
       val clear_ = call (getSymbol "gtk_list_store_clear") (GtkListStoreClass.PolyML.cPtr --> cVoid)
       val insert_ =
@@ -111,7 +111,7 @@ structure GtkListStore :>
              &&> GObjectValueRecord.PolyML.cPtr
              --> cVoid
           )
-      val setValuesv_ =
+      val set_ =
         call (getSymbol "gtk_list_store_set_valuesv")
           (
             GtkListStoreClass.PolyML.cPtr
@@ -144,10 +144,10 @@ structure GtkListStore :>
     fun asTreeModel self = (GObjectObjectClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) I self
     fun asTreeSortable self = (GObjectObjectClass.FFI.withPtr ---> GtkTreeSortableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newv types =
+    fun new types =
       let
         val nColumns = LargeInt.fromInt (GObjectTypeCVectorN.length types)
-        val retVal = (GInt.FFI.withVal &&&> GObjectTypeCVectorN.FFI.withPtr ---> GtkListStoreClass.FFI.fromPtr true) newv_ (nColumns & types)
+        val retVal = (GInt.FFI.withVal &&&> GObjectTypeCVectorN.FFI.withPtr ---> GtkListStoreClass.FFI.fromPtr true) new_ (nColumns & types)
       in
         retVal
       end
@@ -318,7 +318,7 @@ structure GtkListStore :>
            & column
            & value
         )
-    fun setValuesv
+    fun set
       self
       (
         iter,
@@ -336,7 +336,7 @@ structure GtkListStore :>
              &&&> GInt.FFI.withVal
              ---> I
           )
-            setValuesv_
+            set_
             (
               self
                & iter

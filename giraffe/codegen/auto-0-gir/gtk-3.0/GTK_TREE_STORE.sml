@@ -14,7 +14,7 @@ signature GTK_TREE_STORE =
     val asTreeModel : 'a class -> base tree_model_class
     val asTreeSortable : 'a class -> base tree_sortable_class
     val getType : unit -> GObject.Type.t
-    val newv : GObject.Type.t vector -> base class
+    val new : GObject.Type.t vector -> base class
     val append :
       'a class
        -> tree_iter_t option
@@ -32,7 +32,7 @@ signature GTK_TREE_STORE =
       'a class
        -> tree_iter_t option * tree_iter_t option
        -> tree_iter_t
-    val insertWithValuesv :
+    val insertWithValues :
       'a class
        -> tree_iter_t option
            * LargeInt.int
@@ -77,7 +77,7 @@ signature GTK_TREE_STORE =
            * LargeInt.int
            * GObject.ValueRecord.t
        -> unit
-    val setValuesv :
+    val set :
       'a class
        -> tree_iter_t
            * LargeInt.int vector

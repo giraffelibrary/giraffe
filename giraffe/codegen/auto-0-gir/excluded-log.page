@@ -1016,7 +1016,7 @@
     <item>function byte_array_unref: moved to ByteArray.unref</item>
     <item>function checksum_type_get_length: moved to Checksum.type_get_length</item>
     <item>
-      function child_watch_add_full
+      function child_watch_add
       <item>
         arg notify
         <item>
@@ -1245,7 +1245,7 @@
       </item>
     </item>
     <item>
-      function idle_add_full
+      function idle_add
       <item>
         arg notify
         <item>
@@ -1277,7 +1277,7 @@
     <item>function intern_static_string: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function intern_string: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>
-      function io_add_watch_full
+      function io_add_watch
       <item>
         arg notify
         <item>
@@ -1294,7 +1294,7 @@
       <item>arg unused_data: pointer C type for VOID not supported</item>
     </item>
     <item>
-      function log_set_handler_full
+      function log_set_handler
       <item>
         arg destroy
         <item>
@@ -1566,7 +1566,7 @@
     <item>function thread_yield: moved to Thread.yield</item>
     <item>function time_val_from_iso8601: moved to TimeVal.from_iso8601</item>
     <item>
-      function timeout_add_full
+      function timeout_add
       <item>
         arg notify
         <item>
@@ -1576,7 +1576,7 @@
       </item>
     </item>
     <item>
-      function timeout_add_seconds_full
+      function timeout_add_seconds
       <item>
         arg notify
         <item>
@@ -1697,7 +1697,7 @@
       </item>
     </item>
     <item>
-      function unix_signal_add_full
+      function unix_signal_add
       <item>
         arg notify
         <item>
@@ -1791,16 +1791,6 @@
       <item>function interface_find_property: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function interface_install_property: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function interface_list_properties: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>
-        function bind_property_full
-        <item>
-          arg notify
-          <item>
-            type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
-          </item>
-        </item>
-      </item>
       <item>function force_floating: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function get_data: pointer C type for VOID not supported</item>
       <item>function get_qdata: pointer C type for VOID not supported</item>
@@ -1841,16 +1831,6 @@
       <item>function interface_find_property: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function interface_install_property: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function interface_list_properties: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>
-        function bind_property_full
-        <item>
-          arg notify
-          <item>
-            type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
-          </item>
-        </item>
-      </item>
       <item>function force_floating: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function get_data: pointer C type for VOID not supported</item>
       <item>function get_qdata: pointer C type for VOID not supported</item>
@@ -2104,31 +2084,11 @@
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function sort
-        <item>
-          arg compare_func
-          <item>
-            type interface
-            <item>callback CompareFunc: type CALLBACK INTERFACE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function sort_with_data
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function sort
-        <item>
-          arg compare_func
-          <item>
-            type interface
-            <item>callback CompareFunc: type CALLBACK INTERFACE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function sort_with_data
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
@@ -2671,16 +2631,6 @@
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
-        function register_object
-        <item>
-          arg user_data_free_func
-          <item>
-            type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
         function register_subtree
         <item>
           arg user_data_free_func
@@ -2744,16 +2694,6 @@
       <item>
         function flush
         <item>arg user_data: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function register_object
-        <item>
-          arg user_data_free_func
-          <item>
-            type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
-          </item>
-        </item>
       </item>
       <item>
         function register_subtree
@@ -5480,10 +5420,6 @@
         <item>type ghash: type GHASH not supported</item>
       </item>
       <item>
-        function get_pixels
-        <item>type array: cannot determine array length</item>
-      </item>
-      <item>
         function read_pixels
         <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
       </item>
@@ -5519,10 +5455,6 @@
       <item>
         function get_options
         <item>type ghash: type GHASH not supported</item>
-      </item>
-      <item>
-        function get_pixels
-        <item>type array: cannot determine array length</item>
       </item>
       <item>
         function read_pixels
@@ -6305,7 +6237,7 @@
       <item>type glist: type GLIST not supported</item>
     </item>
     <item>
-      function threads_add_idle_full
+      function threads_add_idle
       <item>
         arg notify
         <item>
@@ -6315,7 +6247,7 @@
       </item>
     </item>
     <item>
-      function threads_add_timeout_full
+      function threads_add_timeout
       <item>
         arg notify
         <item>
@@ -6325,7 +6257,7 @@
       </item>
     </item>
     <item>
-      function threads_add_timeout_seconds_full
+      function threads_add_timeout_seconds
       <item>
         arg notify
         <item>

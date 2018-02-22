@@ -30,7 +30,7 @@ structure GtkTreeStore :>
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_tree_store_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val newv_ = call (getSymbol "gtk_tree_store_newv") (GInt.PolyML.cVal &&> GObjectTypeCVectorN.PolyML.cInPtr --> GtkTreeStoreClass.PolyML.cPtr)
+      val new_ = call (getSymbol "gtk_tree_store_newv") (GInt.PolyML.cVal &&> GObjectTypeCVectorN.PolyML.cInPtr --> GtkTreeStoreClass.PolyML.cPtr)
       val append_ =
         call (getSymbol "gtk_tree_store_append")
           (
@@ -67,7 +67,7 @@ structure GtkTreeStore :>
              &&> GtkTreeIterRecord.PolyML.cOptPtr
              --> cVoid
           )
-      val insertWithValuesv_ =
+      val insertWithValues_ =
         call (getSymbol "gtk_tree_store_insert_with_valuesv")
           (
             GtkTreeStoreClass.PolyML.cPtr
@@ -131,7 +131,7 @@ structure GtkTreeStore :>
              &&> GObjectValueRecord.PolyML.cPtr
              --> cVoid
           )
-      val setValuesv_ =
+      val set_ =
         call (getSymbol "gtk_tree_store_set_valuesv")
           (
             GtkTreeStoreClass.PolyML.cPtr
@@ -164,10 +164,10 @@ structure GtkTreeStore :>
     fun asTreeModel self = (GObjectObjectClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) I self
     fun asTreeSortable self = (GObjectObjectClass.FFI.withPtr ---> GtkTreeSortableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newv types =
+    fun new types =
       let
         val nColumns = LargeInt.fromInt (GObjectTypeCVectorN.length types)
-        val retVal = (GInt.FFI.withVal &&&> GObjectTypeCVectorN.FFI.withPtr ---> GtkTreeStoreClass.FFI.fromPtr true) newv_ (nColumns & types)
+        val retVal = (GInt.FFI.withVal &&&> GObjectTypeCVectorN.FFI.withPtr ---> GtkTreeStoreClass.FFI.fromPtr true) new_ (nColumns & types)
       in
         retVal
       end
@@ -250,7 +250,7 @@ structure GtkTreeStore :>
       in
         iter
       end
-    fun insertWithValuesv
+    fun insertWithValues
       self
       (
         parent,
@@ -271,7 +271,7 @@ structure GtkTreeStore :>
              &&&> GInt.FFI.withVal
              ---> GtkTreeIterRecord.FFI.fromPtr true && I
           )
-            insertWithValuesv_
+            insertWithValues_
             (
               self
                & ()
@@ -384,7 +384,7 @@ structure GtkTreeStore :>
            & column
            & value
         )
-    fun setValuesv
+    fun set
       self
       (
         iter,
@@ -402,7 +402,7 @@ structure GtkTreeStore :>
              &&&> GInt.FFI.withVal
              ---> I
           )
-            setValuesv_
+            set_
             (
               self
                & iter

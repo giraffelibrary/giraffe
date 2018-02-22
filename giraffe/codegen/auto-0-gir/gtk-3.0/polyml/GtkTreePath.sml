@@ -14,14 +14,14 @@ structure GtkTreePath :>
       val getType_ = call (getSymbol "gtk_tree_path_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "gtk_tree_path_new") (cVoid --> GtkTreePathRecord.PolyML.cPtr)
       val newFirst_ = call (getSymbol "gtk_tree_path_new_first") (cVoid --> GtkTreePathRecord.PolyML.cPtr)
-      val newFromIndicesv_ = call (getSymbol "gtk_tree_path_new_from_indicesv") (GIntCVectorN.PolyML.cInPtr &&> GSize.PolyML.cVal --> GtkTreePathRecord.PolyML.cPtr)
+      val newFromIndices_ = call (getSymbol "gtk_tree_path_new_from_indicesv") (GIntCVectorN.PolyML.cInPtr &&> GSize.PolyML.cVal --> GtkTreePathRecord.PolyML.cPtr)
       val newFromString_ = call (getSymbol "gtk_tree_path_new_from_string") (Utf8.PolyML.cInPtr --> GtkTreePathRecord.PolyML.cPtr)
       val appendIndex_ = call (getSymbol "gtk_tree_path_append_index") (GtkTreePathRecord.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
       val compare_ = call (getSymbol "gtk_tree_path_compare") (GtkTreePathRecord.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val copy_ = call (getSymbol "gtk_tree_path_copy") (GtkTreePathRecord.PolyML.cPtr --> GtkTreePathRecord.PolyML.cPtr)
       val down_ = call (getSymbol "gtk_tree_path_down") (GtkTreePathRecord.PolyML.cPtr --> cVoid)
       val getDepth_ = call (getSymbol "gtk_tree_path_get_depth") (GtkTreePathRecord.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getIndicesWithDepth_ = call (getSymbol "gtk_tree_path_get_indices_with_depth") (GtkTreePathRecord.PolyML.cPtr &&> GInt.PolyML.cRef --> GIntCVectorN.PolyML.cOutPtr)
+      val getIndices_ = call (getSymbol "gtk_tree_path_get_indices_with_depth") (GtkTreePathRecord.PolyML.cPtr &&> GInt.PolyML.cRef --> GIntCVectorN.PolyML.cOutPtr)
       val isAncestor_ = call (getSymbol "gtk_tree_path_is_ancestor") (GtkTreePathRecord.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val isDescendant_ = call (getSymbol "gtk_tree_path_is_descendant") (GtkTreePathRecord.PolyML.cPtr &&> GtkTreePathRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val next_ = call (getSymbol "gtk_tree_path_next") (GtkTreePathRecord.PolyML.cPtr --> cVoid)
@@ -34,10 +34,10 @@ structure GtkTreePath :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkTreePathRecord.FFI.fromPtr true) new_ ()
     fun newFirst () = (I ---> GtkTreePathRecord.FFI.fromPtr true) newFirst_ ()
-    fun newFromIndicesv indices =
+    fun newFromIndices indices =
       let
         val length = LargeInt.fromInt (GIntCVectorN.length indices)
-        val retVal = (GIntCVectorN.FFI.withPtr &&&> GSize.FFI.withVal ---> GtkTreePathRecord.FFI.fromPtr true) newFromIndicesv_ (indices & length)
+        val retVal = (GIntCVectorN.FFI.withPtr &&&> GSize.FFI.withVal ---> GtkTreePathRecord.FFI.fromPtr true) newFromIndices_ (indices & length)
       in
         retVal
       end
@@ -47,9 +47,9 @@ structure GtkTreePath :>
     fun copy self = (GtkTreePathRecord.FFI.withPtr ---> GtkTreePathRecord.FFI.fromPtr true) copy_ self
     fun down self = (GtkTreePathRecord.FFI.withPtr ---> I) down_ self
     fun getDepth self = (GtkTreePathRecord.FFI.withPtr ---> GInt.FFI.fromVal) getDepth_ self
-    fun getIndicesWithDepth self =
+    fun getIndices self =
       let
-        val depth & retVal = (GtkTreePathRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCVectorN.FFI.fromPtr 0) getIndicesWithDepth_ (self & GInt.null)
+        val depth & retVal = (GtkTreePathRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCVectorN.FFI.fromPtr 0) getIndices_ (self & GInt.null)
       in
         retVal (LargeInt.toInt depth)
       end

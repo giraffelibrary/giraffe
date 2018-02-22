@@ -15,7 +15,7 @@ structure GioSubprocess :>
       )
     structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_subprocess_get_type" : unit -> GObjectType.FFI.val_;
-    val newv_ =
+    val new_ =
       fn
         (x1, x2)
          & x3
@@ -232,14 +232,14 @@ structure GioSubprocess :>
     type t = base class
     fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newv (argv, flags) =
+    fun new (argv, flags) =
       (
         Utf8CVector.FFI.withPtr
          &&&> GioSubprocessFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioSubprocessClass.FFI.fromPtr true
       )
-        newv_
+        new_
         (
           argv
            & flags

@@ -1300,14 +1300,14 @@ signature GIO =
     val VOLUME_MONITOR_EXTENSION_POINT_NAME : string
     val busGetFinish : 'a AsyncResultClass.class -> base DBusConnectionClass.class
     val busGetSync : BusType.t * 'a CancellableClass.class option -> base DBusConnectionClass.class
-    val busOwnNameOnConnectionWithClosures :
+    val busOwnNameOnConnection :
       'a DBusConnectionClass.class
        * string
        * BusNameOwnerFlags.t
        * GObject.ClosureRecord.t option
        * GObject.ClosureRecord.t option
        -> LargeInt.int
-    val busOwnNameWithClosures :
+    val busOwnName :
       BusType.t
        * string
        * BusNameOwnerFlags.t
@@ -1317,14 +1317,14 @@ signature GIO =
        -> LargeInt.int
     val busUnownName : LargeInt.int -> unit
     val busUnwatchName : LargeInt.int -> unit
-    val busWatchNameOnConnectionWithClosures :
+    val busWatchNameOnConnection :
       'a DBusConnectionClass.class
        * string
        * BusNameWatcherFlags.t
        * GObject.ClosureRecord.t option
        * GObject.ClosureRecord.t option
        -> LargeInt.int
-    val busWatchNameWithClosures :
+    val busWatchName :
       BusType.t
        * string
        * BusNameWatcherFlags.t

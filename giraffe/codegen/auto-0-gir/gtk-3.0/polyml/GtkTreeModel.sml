@@ -102,7 +102,7 @@ structure GtkTreeModel :>
              &&> GtkTreeIterRecord.PolyML.cPtr
              --> cVoid
           )
-      val rowsReorderedWithLength_ =
+      val rowsReordered_ =
         call (getSymbol "gtk_tree_model_rows_reordered_with_length")
           (
             GtkTreeModelClass.PolyML.cPtr
@@ -290,7 +290,7 @@ structure GtkTreeModel :>
            & path
            & iter
         )
-    fun rowsReorderedWithLength
+    fun rowsReordered
       self
       (
         path,
@@ -308,7 +308,7 @@ structure GtkTreeModel :>
              &&&> GInt.FFI.withVal
              ---> I
           )
-            rowsReorderedWithLength_
+            rowsReordered_
             (
               self
                & path

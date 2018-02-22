@@ -10,7 +10,7 @@ signature GIO_SUBPROCESS =
     type t = base class
     val asInitable : 'a class -> base initable_class
     val getType : unit -> GObject.Type.t
-    val newv : string list * subprocess_flags_t -> base class
+    val new : string list * subprocess_flags_t -> base class
     val communicate :
       'a class
        -> GLib.BytesRecord.t option * 'b cancellable_class option

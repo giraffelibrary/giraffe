@@ -10,7 +10,7 @@ signature GIO_NOTIFICATION =
       'a class
        -> string * string
        -> unit
-    val addButtonWithTargetValue :
+    val addButtonWithTarget :
       'a class
        -> string
            * string
@@ -24,7 +24,7 @@ signature GIO_NOTIFICATION =
       'a class
        -> string
        -> unit
-    val setDefaultActionAndTargetValue :
+    val setDefaultActionAndTarget :
       'a class
        -> string * GLib.VariantRecord.t option
        -> unit

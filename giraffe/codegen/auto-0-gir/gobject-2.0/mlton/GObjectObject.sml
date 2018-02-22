@@ -17,7 +17,7 @@ structure GObjectObject :>
       )
     structure GObjectParameterRecordCVectorN = CVectorN(GObjectParameterRecordCVectorNType)
     val getType_ = _import "g_object_get_type" : unit -> GObjectType.FFI.val_;
-    val newv_ =
+    val new_ =
       fn
         x1
          & x2
@@ -63,7 +63,7 @@ structure GObjectObject :>
               x6,
               x7
             )
-    val bindPropertyWithClosures_ =
+    val bindPropertyFull_ =
       fn
         x1
          & (x2, x3)
@@ -165,7 +165,7 @@ structure GObjectObject :>
     type 'a signal_t = 'a Signal.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newv (objectType, parameters) =
+    fun new (objectType, parameters) =
       let
         val nParameters = LargeInt.fromInt (GObjectParameterRecordCVectorN.length parameters)
         val retVal =
@@ -175,7 +175,7 @@ structure GObjectObject :>
              &&&> GObjectParameterRecordCVectorN.FFI.withPtr
              ---> GObjectObjectClass.FFI.fromPtr true
           )
-            newv_
+            new_
             (
               objectType
                & nParameters
@@ -208,7 +208,7 @@ structure GObjectObject :>
            & targetProperty
            & flags
         )
-    fun bindPropertyWithClosures
+    fun bindPropertyFull
       self
       (
         sourceProperty,
@@ -228,7 +228,7 @@ structure GObjectObject :>
          &&&> GObjectClosureRecord.FFI.withPtr
          ---> GObjectBindingClass.FFI.fromPtr false
       )
-        bindPropertyWithClosures_
+        bindPropertyFull_
         (
           self
            & sourceProperty

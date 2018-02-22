@@ -118,6 +118,8 @@ structure GirAbstractSyntaxTree : GIR_ABSTRACT_SYNTAX_TREE =
         elem           : function_elem,
         name           : string,
         config         : config,
+        shadows        : string option,
+        shadowedBy     : string option,
         callable       : callable,
         cIdentifier    : string,
         movedTo        : string option,

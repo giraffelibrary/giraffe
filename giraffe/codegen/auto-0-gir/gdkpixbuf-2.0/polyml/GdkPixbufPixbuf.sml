@@ -229,7 +229,7 @@ structure GdkPixbufPixbuf :>
       val getHeight_ = call (getSymbol "gdk_pixbuf_get_height") (GdkPixbufPixbufClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getNChannels_ = call (getSymbol "gdk_pixbuf_get_n_channels") (GdkPixbufPixbufClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getOption_ = call (getSymbol "gdk_pixbuf_get_option") (GdkPixbufPixbufClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val getPixelsWithLength_ = call (getSymbol "gdk_pixbuf_get_pixels_with_length") (GdkPixbufPixbufClass.PolyML.cPtr &&> GUInt.PolyML.cRef --> GUInt8CVectorN.PolyML.cOutPtr)
+      val getPixels_ = call (getSymbol "gdk_pixbuf_get_pixels_with_length") (GdkPixbufPixbufClass.PolyML.cPtr &&> GUInt.PolyML.cRef --> GUInt8CVectorN.PolyML.cOutPtr)
       val getRowstride_ = call (getSymbol "gdk_pixbuf_get_rowstride") (GdkPixbufPixbufClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getWidth_ = call (getSymbol "gdk_pixbuf_get_width") (GdkPixbufPixbufClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val newSubpixbuf_ =
@@ -816,9 +816,9 @@ structure GdkPixbufPixbuf :>
     fun getHeight self = (GdkPixbufPixbufClass.FFI.withPtr ---> GInt.FFI.fromVal) getHeight_ self
     fun getNChannels self = (GdkPixbufPixbufClass.FFI.withPtr ---> GInt.FFI.fromVal) getNChannels_ self
     fun getOption self key = (GdkPixbufPixbufClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getOption_ (self & key)
-    fun getPixelsWithLength self =
+    fun getPixels self =
       let
-        val length & retVal = (GdkPixbufPixbufClass.FFI.withPtr &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 0) getPixelsWithLength_ (self & GUInt.null)
+        val length & retVal = (GdkPixbufPixbufClass.FFI.withPtr &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 0) getPixels_ (self & GUInt.null)
       in
         retVal (LargeInt.toInt length)
       end

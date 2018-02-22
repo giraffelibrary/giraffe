@@ -372,6 +372,8 @@ fun parseFunctionCommon elem (elemName, (attrs, ts)) : function =
   in
     let
       val config = getConfig attrs
+      val shadows = getOptAttr attrs "shadows"
+      val shadowedBy = getOptAttr attrs "shadowed-by"
       val cIdentifier = getAttr attrs "c:identifier"
       val movedTo = getOptAttr attrs "moved-to"
       val throws = getOptAttr attrs "throws"
@@ -382,6 +384,8 @@ fun parseFunctionCommon elem (elemName, (attrs, ts)) : function =
         elem           = elem,
         name           = name,
         config         = config,
+        shadows        = shadows,
+        shadowedBy     = shadowedBy,
         callable       = parseCallable elemDict,
         cIdentifier    = cIdentifier,
         movedTo        = movedTo,

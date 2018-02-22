@@ -33,7 +33,7 @@ structure GtkListStore :>
       )
     structure GObjectTypeCVectorN = CVectorN(GObjectTypeCVectorNType)
     val getType_ = _import "gtk_list_store_get_type" : unit -> GObjectType.FFI.val_;
-    val newv_ =
+    val new_ =
       fn
         x1 & (x2, x3) =>
           (
@@ -222,7 +222,7 @@ structure GtkListStore :>
               x3,
               x4
             )
-    val setValuesv_ =
+    val set_ =
       fn
         x1
          & x2
@@ -280,10 +280,10 @@ structure GtkListStore :>
     fun asTreeModel self = (GObjectObjectClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) I self
     fun asTreeSortable self = (GObjectObjectClass.FFI.withPtr ---> GtkTreeSortableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newv types =
+    fun new types =
       let
         val nColumns = LargeInt.fromInt (GObjectTypeCVectorN.length types)
-        val retVal = (GInt.FFI.withVal &&&> GObjectTypeCVectorN.FFI.withPtr ---> GtkListStoreClass.FFI.fromPtr true) newv_ (nColumns & types)
+        val retVal = (GInt.FFI.withVal &&&> GObjectTypeCVectorN.FFI.withPtr ---> GtkListStoreClass.FFI.fromPtr true) new_ (nColumns & types)
       in
         retVal
       end
@@ -454,7 +454,7 @@ structure GtkListStore :>
            & column
            & value
         )
-    fun setValuesv
+    fun set
       self
       (
         iter,
@@ -472,7 +472,7 @@ structure GtkListStore :>
              &&&> GInt.FFI.withVal
              ---> I
           )
-            setValuesv_
+            set_
             (
               self
                & iter
