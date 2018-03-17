@@ -91,7 +91,7 @@ structure Property :>
 
     fun get name t object =
       let
-        val value = GObjectValue.init (ValueAccessor.baseType t)
+        val value = GObjectValue.init (ValueAccessor.gtype t)
       in
         getProperty object name value;
         ValueAccessor.get t value
@@ -99,7 +99,7 @@ structure Property :>
 
     fun set name t x object =
       let
-        val value = GObjectValue.init (ValueAccessor.baseType t)
+        val value = GObjectValue.init (ValueAccessor.gtype t)
       in
         ValueAccessor.set t value x;
         setProperty object name value

@@ -170,6 +170,144 @@ giraffe_g_variant_get_type (void)
   return G_TYPE_VARIANT;
 }
 
+GType
+giraffe_g_param_char_get_type (void)
+{
+  return G_TYPE_PARAM_CHAR;
+}
+
+GType
+giraffe_g_param_uchar_get_type (void)
+{
+  return G_TYPE_PARAM_UCHAR;
+}
+
+GType
+giraffe_g_param_boolean_get_type (void)
+{
+  return G_TYPE_PARAM_BOOLEAN;
+}
+
+GType
+giraffe_g_param_int_get_type (void)
+{
+  return G_TYPE_PARAM_INT;
+}
+
+GType
+giraffe_g_param_uint_get_type (void)
+{
+  return G_TYPE_PARAM_UINT;
+}
+
+GType
+giraffe_g_param_long_get_type (void)
+{
+  return G_TYPE_PARAM_LONG;
+}
+
+GType
+giraffe_g_param_ulong_get_type (void)
+{
+  return G_TYPE_PARAM_ULONG;
+}
+
+GType
+giraffe_g_param_int64_get_type (void)
+{
+  return G_TYPE_PARAM_INT64;
+}
+
+GType
+giraffe_g_param_uint64_get_type (void)
+{
+  return G_TYPE_PARAM_UINT64;
+}
+
+GType
+giraffe_g_param_unichar_get_type (void)
+{
+  return G_TYPE_PARAM_UNICHAR;
+}
+
+GType
+giraffe_g_param_enum_get_type (void)
+{
+  return G_TYPE_PARAM_ENUM;
+}
+
+GType
+giraffe_g_param_flags_get_type (void)
+{
+  return G_TYPE_PARAM_FLAGS;
+}
+
+GType
+giraffe_g_param_X_get_type (void)
+{
+  return G_TYPE_PARAM_FLOAT;
+}
+
+GType
+giraffe_g_param_double_get_type (void)
+{
+  return G_TYPE_PARAM_DOUBLE;
+}
+
+GType
+giraffe_g_param_string_get_type (void)
+{
+  return G_TYPE_PARAM_STRING;
+}
+
+GType
+giraffe_g_param_param_get_type (void)
+{
+  return G_TYPE_PARAM_PARAM;
+}
+
+GType
+giraffe_g_param_boxed_get_type (void)
+{
+  return G_TYPE_PARAM_BOXED;
+}
+
+GType
+giraffe_g_param_pointer_get_type (void)
+{
+  return G_TYPE_PARAM_POINTER;
+}
+
+GType
+giraffe_g_param_value_array_get_type (void)
+{
+  return G_TYPE_PARAM_VALUE_ARRAY;
+}
+
+GType
+giraffe_g_param_object_get_type (void)
+{
+  return G_TYPE_PARAM_OBJECT;
+}
+
+GType
+giraffe_g_param_override_get_type (void)
+{
+  return G_TYPE_PARAM_OVERRIDE;
+}
+
+GType
+giraffe_g_param_gtype_get_type (void)
+{
+  return G_TYPE_PARAM_GTYPE;
+}
+
+GType
+giraffe_g_param_variant_get_type (void)
+{
+  return G_TYPE_PARAM_VARIANT;
+}
+
 
 /* GValue */
 

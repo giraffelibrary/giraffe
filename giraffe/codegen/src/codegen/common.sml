@@ -344,10 +344,21 @@ in
 end
 
 (*
- * `addAccessorRootStrDecs (containerNamespace, containerName) info` returns
- *   `(addStrDecs, addIRefs, revLocalTypes)`
+ * The function application
+ *
+ *   addAccessorRootStrDecs
+ *     (containerNamespace, containerName)
+ *     getValueType
+ *     info
+ *
+ * returns
+ *
+ *   (addStrDecs, addIRefs, revLocalTypes)
+ *
  * where
- *   `addStrDecs (valueType, isPtr) isPolyML strDecs`
+ *
+ *   addStrDecs isPtr isPolyML strDecs
+ *
  * prepends the following to `strDecs` when `info` is a registered GType
  * whose get-type function is <getTypeSymbol>, i.e.
  *
@@ -512,11 +523,19 @@ end
  *         (I ---> GObjectType.FFI.fromVal) getType_
  *           if getTypeSymbol <> "intern"
  *
+ *         GObject.Type.param<T>
+ *           if getTypeSymbol = "intern" and <containerName> = "ParamSpec<T>"
+ *
  *         GObject.Type.<containerName>
  *           otherwise
  *
  *)
 local
+  fun stripPrefix s1 s2 =
+    if String.isPrefix s1 s2
+    then SOME (String.extract (s2, String.size s1, NONE))
+    else NONE
+
   (*
    *     val t<Opt> =
    *       ValueAccessor.C.createAccessor {
@@ -535,6 +554,9 @@ local
    *         (I ---> GObjectType.FFI.fromVal) getType_
    *           if getTypeSymbol <> "intern"
    *
+   *         GObject.Type.param<T>
+   *           if getTypeSymbol = "intern" and <containerName> = "ParamSpec<T>"
+   *
    *         GObjectType.<containerName>
    *           otherwise
    *)
@@ -548,7 +570,14 @@ local
         mkIdLNameExp getTypeUId
       )
     else
-      mkLIdLNameExp ["GObjectType", toLCC containerName]
+      mkLIdLNameExp [
+        "GObjectType",
+        toLCC (
+          case stripPrefix "ParamSpec" containerName of
+            SOME t => "Param" ^ t
+          | NONE   => containerName
+        )
+      ]
   fun getValueExp ptrOpt =
     let
       val fromFunExp =

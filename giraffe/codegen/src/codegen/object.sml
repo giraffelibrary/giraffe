@@ -185,98 +185,110 @@ in
         | _                  => [parentObjectIRef]
 
       val isParentNamespace = parentObjectScope <> GLOBAL
-      val isGObject = objectNamespace = "GObject"
 
       (* module *)
       val strDecs'0 = []
-      val revAccessorLocalTypes = makeAccessorLocalTypes isGObject
-      val iRefs'2 = addAccessorIRefs isGObject iRefs'1
 
-      (*
-       *                                           -.
-       *     type 'a <parent_object_name>_class =   | isParentNamespace
-       *       'a <ParentObjectNamespace><ParentObjectName>Class.class
-       *                                           -'
-       *     open <ParentObjectNamespace><ParentObjectName>Class
-       *     type 'a <object_name> = unit
-       *     type 'a class = 'a <object_name> class
-       *)
-      val classTyStrDec =
-        StrDecDec (
-          mkTypeDec (
-            classTyName aTyVar,
-            classTy (TyRef ([aVarTy], toList1 [objectNameTypeId]))
-          )
-        )
-      val parentClassStrLId =
-        toList1 (
-          if isParentNamespace
-          then [parentClassStrId]
-          else prefixInterfaceStrId parentObjectIRef []
-        )
-      val strDecs'1 =
-        StrDecDec (DecOpen (toList1 [parentClassStrLId]))
-         :: StrDecDec (mkTypeDec (([aTyVar], objectNameTypeId), unitTy))
-         :: classTyStrDec
-         :: strDecs'0
-      val (strDecs'2, revParentClassLocalTypes) =
+      val getValueType =
+        fn
+          ("GObject", name) =>
+            if String.isPrefix "ParamSpec" name
+            then "param"
+            else "object"
+        | _                 => "object"
+
+      val (addAccessorStrDecs, addAccessorIRefs, revAccessorLocalTypes) =
+        addAccessorRootStrDecs (objectNamespace, objectName) getValueType objectInfo
+
+      val iRefs'2 = addAccessorIRefs iRefs'1
+
+      val revParentClassLocalTypes =
         if isParentNamespace
-        then
-          let
-            val localType = makeIRefLocalType parentObjectIRef
-          in
-            (
-              makeLocalTypeStrDec localType :: strDecs'1,
-              [localType]
+        then [makeIRefLocalType parentObjectIRef]
+        else []
+
+      fun mkModule isPolyML =
+        let
+          val strDecs'1 = addAccessorStrDecs true isPolyML strDecs'0
+
+          (*
+           *                                           -.
+           *     type 'a <parent_object_name>_class =   | isParentNamespace
+           *       'a <ParentObjectNamespace><ParentObjectName>Class.class
+           *                                           -'
+           *     open <ParentObjectNamespace><ParentObjectName>Class
+           *     type 'a <object_name> = unit
+           *     type 'a class = 'a <object_name> class
+           *)
+          val classTyStrDec =
+            StrDecDec (
+              mkTypeDec (
+                classTyName aTyVar,
+                classTy (TyRef ([aVarTy], toList1 [objectNameTypeId]))
+              )
             )
-          end
-        else (strDecs'1, [])
+          val parentClassStrLId =
+            toList1 (
+              if isParentNamespace
+              then [parentClassStrId]
+              else prefixInterfaceStrId parentObjectIRef []
+            )
+          val strDecs'2 =
+            StrDecDec (DecOpen (toList1 [parentClassStrLId]))
+             :: StrDecDec (mkTypeDec (([aTyVar], objectNameTypeId), unitTy))
+             :: classTyStrDec
+             :: strDecs'1
+          val strDecs'3 = map makeLocalTypeStrDec revParentClassLocalTypes @ strDecs'2
 
-      val struct1 = mkBodyStruct strDecs'2
+          val struct1 = mkBodyStruct strDecs'3
 
-      (* sig *)
-      val sig1 = SigName objectClassSigId
-      (*
-       *                                                 -.
-       *     where                                        |
-       *       type 'a <parent_object_name>_class =       | isParentNamespace
-       *         'a <ParentObjectNamespace><ParentObjectName>Class.class
-       *                                                 -'
-       *                                                 -.
-       *     where type ('a, 'b) value_accessor_t =       | isGObject
-       *       ('a, 'b) ValueAccessor.t                   |
-       *                                                 -'
-       *     where type C.notnull =
-       *       <ParentObjectNamespace><ParentObjectName>Class.C.notnull
-       *     where type 'a C.p =
-       *       'a <ParentObjectNamespace><ParentObjectName>Class.C.p
-       *)
-      val cNotnullQual =
-        toList1 [
-          (([], cNotnullLId), TyRef ([], cons1 (parentClassStrId, cNotnullLId)))
-        ]
-      val cPtrQual =
-        toList1 [
-          (
-            ([aTyVar], cPtrLId),
-            TyRef ([aVarTy], cons1 (parentClassStrId, cPtrLId))
-          )
-        ]
+          (* sig *)
+          val sig1 = SigName objectClassSigId
+          (*
+           *                                                 -.
+           *     where                                        |
+           *       type 'a <parent_object_name>_class =       | isParentNamespace
+           *         'a <ParentObjectNamespace><ParentObjectName>Class.class
+           *                                                 -'
+           *                                                 -.
+           *     where type ('a, 'b) value_accessor_t =       | isGObject
+           *       ('a, 'b) ValueAccessor.t                   |
+           *                                                 -'
+           *     where type C.notnull =
+           *       <ParentObjectNamespace><ParentObjectName>Class.C.notnull
+           *     where type 'a C.p =
+           *       'a <ParentObjectNamespace><ParentObjectName>Class.C.p
+           *)
+          val cNotnullQual =
+            toList1 [
+              (([], cNotnullLId), TyRef ([], cons1 (parentClassStrId, cNotnullLId)))
+            ]
+          val cPtrQual =
+            toList1 [
+              (
+                ([aTyVar], cPtrLId),
+                TyRef ([aVarTy], cons1 (parentClassStrId, cPtrLId))
+              )
+            ]
 
-      val sigQual'1 : qual list = [cNotnullQual, cPtrQual]
-      val sigQual'2 =
-        revMapAppend makeLocalTypeStrModuleQual (revAccessorLocalTypes, sigQual'1)
-      val sigQual'3 =
-        revMapAppend makeLocalTypeStrModuleQual
-          (revParentClassLocalTypes, sigQual'2)
-      val qSig : qsig = (sig1, sigQual'3)
+          val sigQual'1 : qual list = [cNotnullQual, cPtrQual]
+          val sigQual'2 =
+            revMapAppend makeLocalTypeStrModuleQual (revAccessorLocalTypes, sigQual'1)
+          val sigQual'3 =
+            revMapAppend makeLocalTypeStrModuleQual
+              (revParentClassLocalTypes, sigQual'2)
+          val qSig : qsig = (sig1, sigQual'3)
 
-      (* strdec *)
-      val structDec =
-        toList1 [(objectClassStrId, SOME (true, qSig), struct1)]
-      val strDec = StrDecStruct structDec
+          (* strdec *)
+          val structDec =
+            toList1 [(objectClassStrId, SOME (true, qSig), struct1)]
+          val strDec = StrDecStruct structDec
+        in
+          [ModuleDecStr strDec]
+        end
 
-      val program = [ModuleDecStr strDec]
+      val programMLton = mkModule false
+      val programPolyML = mkModule true
 
       (* namespace spec *)
       val objectClassSpec =
@@ -306,7 +318,7 @@ in
       (
         objectClassStrId,
         (objectClassSpecs, objectClassStrDecs),
-        Specific {mlton = program, polyml = program},
+        Specific {mlton = programMLton, polyml = programPolyML},
         iRefs'2
       )
     end

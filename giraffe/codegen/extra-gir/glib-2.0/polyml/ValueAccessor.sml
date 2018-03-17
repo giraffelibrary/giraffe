@@ -53,7 +53,7 @@ structure ValueAccessor :>
     fun set ({setValue, ...} : ('a, 'b) t) value x =
       (GObjectValueRecord.FFI.withPtr &&&> I ---> I) setValue (value & x)
 
-    fun baseType ({getType, ...} : ('a, 'b) t) = getType ()
+    fun gtype ({getType, ...} : ('a, 'b) t) = getType ()
 
     fun init gtype =
       let
@@ -69,7 +69,7 @@ structure ValueAccessor :>
 
     fun new (t : ('a, 'b) t) x =
       let
-        val value = init (baseType t)
+        val value = init (gtype t)
         val () = set t value x
       in
         value

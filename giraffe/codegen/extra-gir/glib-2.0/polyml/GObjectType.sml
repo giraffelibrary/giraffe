@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2016-2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2016-2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -147,6 +147,121 @@ structure GObjectType :> G_OBJECT_TYPE =
         call
           (getSymbol "giraffe_g_variant_get_type")
           (cVoid --> PolyML.cVal);
+
+      val paramChar_ =
+        call
+          (getSymbol "giraffe_g_param_char_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramUChar_ =
+        call
+          (getSymbol "giraffe_g_param_uchar_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramBoolean_ =
+        call
+          (getSymbol "giraffe_g_param_boolean_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramInt_ =
+        call
+          (getSymbol "giraffe_g_param_int_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramUInt_ =
+        call
+          (getSymbol "giraffe_g_param_uint_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramLong_ =
+        call
+          (getSymbol "giraffe_g_param_long_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramULong_ =
+        call
+          (getSymbol "giraffe_g_param_ulong_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramInt64_ =
+        call
+          (getSymbol "giraffe_g_param_int64_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramUInt64_ =
+        call
+          (getSymbol "giraffe_g_param_uint64_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramUnichar_ =
+        call
+          (getSymbol "giraffe_g_param_unichar_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramEnum_ =
+        call
+          (getSymbol "giraffe_g_param_enum_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramFlags_ =
+        call
+          (getSymbol "giraffe_g_param_flags_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramFloat_ =
+        call
+          (getSymbol "giraffe_g_param_float_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramDouble_ =
+        call
+          (getSymbol "giraffe_g_param_double_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramString_ =
+        call
+          (getSymbol "giraffe_g_param_string_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramParam_ =
+        call
+          (getSymbol "giraffe_g_param_param_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramBoxed_ =
+        call
+          (getSymbol "giraffe_g_param_boxed_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramPointer_ =
+        call
+          (getSymbol "giraffe_g_param_pointer_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramValueArray_ =
+        call
+          (getSymbol "giraffe_g_param_value_array_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramObject_ =
+        call
+          (getSymbol "giraffe_g_param_object_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramOverride_ =
+        call
+          (getSymbol "giraffe_g_param_override_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramGType_ =
+        call
+          (getSymbol "giraffe_g_param_gtype_get_type")
+          (cVoid --> PolyML.cVal);
+
+      val paramVariant_ =
+        call
+          (getSymbol "giraffe_g_param_variant_get_type")
+          (cVoid --> PolyML.cVal);
     end
 
 
@@ -209,4 +324,50 @@ structure GObjectType :> G_OBJECT_TYPE =
     val gtype = fn () => (I ---> FFI.fromVal) gtype_ ()
 
     val variant = fn () => (I ---> FFI.fromVal) variant_ ()
+
+    val paramChar = fn () => (I ---> FFI.fromVal) paramChar_ ()
+
+    val paramUChar = fn () => (I ---> FFI.fromVal) paramUChar_ ()
+
+    val paramBoolean = fn () => (I ---> FFI.fromVal) paramBoolean_ ()
+
+    val paramInt = fn () => (I ---> FFI.fromVal) paramInt_ ()
+
+    val paramUInt = fn () => (I ---> FFI.fromVal) paramUInt_ ()
+
+    val paramLong = fn () => (I ---> FFI.fromVal) paramLong_ ()
+
+    val paramULong = fn () => (I ---> FFI.fromVal) paramULong_ ()
+
+    val paramInt64 = fn () => (I ---> FFI.fromVal) paramInt64_ ()
+
+    val paramUInt64 = fn () => (I ---> FFI.fromVal) paramUInt64_ ()
+
+    val paramUnichar = fn () => (I ---> FFI.fromVal) paramUnichar_ ()
+
+    val paramEnum = fn () => (I ---> FFI.fromVal) paramEnum_ ()
+
+    val paramFlags = fn () => (I ---> FFI.fromVal) paramFlags_ ()
+
+    val paramFloat = fn () => (I ---> FFI.fromVal) paramFloat_ ()
+
+    val paramDouble = fn () => (I ---> FFI.fromVal) paramDouble_ ()
+
+    val paramString = fn () => (I ---> FFI.fromVal) paramString_ ()
+
+    val paramParam = fn () => (I ---> FFI.fromVal) paramParam_ ()
+
+    val paramBoxed = fn () => (I ---> FFI.fromVal) paramBoxed_ ()
+
+    val paramPointer = fn () => (I ---> FFI.fromVal) paramPointer_ ()
+
+    val paramValueArray = fn () => (I ---> FFI.fromVal) paramValueArray_ ()
+
+    val paramObject = fn () => (I ---> FFI.fromVal) paramObject_ ()
+
+    val paramOverride = fn () => (I ---> FFI.fromVal) paramOverride_ ()
+
+    val paramGType = fn () => (I ---> FFI.fromVal) paramGType_ ()
+
+    val paramVariant = fn () => (I ---> FFI.fromVal) paramVariant_ ()
   end
