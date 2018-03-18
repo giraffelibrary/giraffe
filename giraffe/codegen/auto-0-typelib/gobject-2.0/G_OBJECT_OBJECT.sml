@@ -1,7 +1,6 @@
 signature G_OBJECT_OBJECT =
   sig
     type 'a class
-    type parameter_t
     type type_t
     type 'a binding_class
     type binding_flags_t
@@ -11,7 +10,6 @@ signature G_OBJECT_OBJECT =
     type 'a signal_t
     type t = base class
     val getType : unit -> type_t
-    val new : type_t * parameter_t vector -> base class
     val bindProperty :
       'a class
        -> string

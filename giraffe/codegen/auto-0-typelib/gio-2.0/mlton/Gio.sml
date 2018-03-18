@@ -1,11 +1,5 @@
 structure Gio : GIO =
   struct
-    structure GObjectParameterRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GObjectParameterRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GObjectParameterRecord.C.ValueType)
-      )
-    structure GObjectParameterRecordCVectorN = CVectorN(GObjectParameterRecordCVectorNType)
     structure GioDBusAnnotationInfoRecordCVectorType =
       CPointerCVectorType(
         structure CElemType = GioDBusAnnotationInfoRecord.C.PointerType
@@ -507,31 +501,6 @@ structure Gio : GIO =
               x1,
               x2,
               x3
-            )
-    val initableNewv_ =
-      fn
-        x1
-         & x2
-         & (x3, x4)
-         & x5
-         & x6 =>
-          (
-            _import "mlton_g_initable_newv" :
-              GObjectType.FFI.val_
-               * GUInt32.FFI.val_
-               * GObjectParameterRecordCVectorN.MLton.p1
-               * GObjectParameterRecordCVectorN.FFI.notnull GObjectParameterRecordCVectorN.MLton.p2
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6
             )
     val ioErrorFromErrno_ = _import "g_io_error_from_errno" : GInt32.FFI.val_ -> GioIOErrorEnum.FFI.val_;
     val ioErrorQuark_ = _import "g_io_error_quark" : unit -> GUInt32.FFI.val_;
@@ -1696,34 +1665,6 @@ structure Gio : GIO =
     fun fileParseName parseName = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) fileParseName_ parseName
     fun iconDeserialize value = (GLibVariantRecord.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) iconDeserialize_ value
     fun iconNewForString str = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioIconClass.FFI.fromPtr true) iconNewForString_ (str & [])
-    fun initableNewv
-      (
-        objectType,
-        parameters,
-        cancellable
-      ) =
-      let
-        val nParameters = LargeInt.fromInt (GObjectParameterRecordCVectorN.length parameters)
-        val retVal =
-          (
-            GObjectType.FFI.withVal
-             &&&> GUInt32.FFI.withVal
-             &&&> GObjectParameterRecordCVectorN.FFI.withPtr
-             &&&> GioCancellableClass.FFI.withOptPtr
-             &&&> GLibErrorRecord.handleError
-             ---> GObjectObjectClass.FFI.fromPtr true
-          )
-            initableNewv_
-            (
-              objectType
-               & nParameters
-               & parameters
-               & cancellable
-               & []
-            )
-      in
-        retVal
-      end
     fun ioErrorFromErrno errNo = (GInt32.FFI.withVal ---> GioIOErrorEnum.FFI.fromVal) ioErrorFromErrno_ errNo
     fun ioErrorQuark () = (I ---> GUInt32.FFI.fromVal) ioErrorQuark_ ()
     fun ioExtensionPointImplement

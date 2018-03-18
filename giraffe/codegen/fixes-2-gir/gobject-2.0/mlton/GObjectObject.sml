@@ -7,9 +7,47 @@ structure GObjectObject :>
     where type value_t = GObjectValueRecord.t
     where type closure_t = GObjectClosureRecord.t
     where type 'a param_spec_class = 'a GObjectParamSpecClass.class
+    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
+    where type 'object_class property_t = 'object_class Property.t
     where type 'a signal_t = 'a Signal.t =
   struct
+    structure Utf8CVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
+    structure GObjectValueRecordCVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GObjectValueRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GObjectValueRecord.C.ValueType)
+      )
+    structure GObjectValueRecordCVectorN = CVectorN(GObjectValueRecordCVectorNType)
     val getType_ = _import "g_object_get_type" : unit -> GObjectType.FFI.val_;
+    val new_ =
+      fn
+        x1
+         & x2
+         & (x3, x4)
+         & (x5, x6) =>
+          (
+            _import "mlton_g_object_new_with_properties" :
+              GObjectType.FFI.val_
+               * GUInt.FFI.val_
+               * Utf8CVectorN.MLton.p1
+               * Utf8CVectorN.FFI.notnull Utf8CVectorN.MLton.p2
+               * GObjectValueRecordCVectorN.MLton.p1
+               * GObjectValueRecordCVectorN.FFI.notnull GObjectValueRecordCVectorN.MLton.p2
+               -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
     val bindProperty_ =
       fn
         x1
@@ -135,9 +173,35 @@ structure GObjectObject :>
     type value_t = GObjectValueRecord.t
     type closure_t = GObjectClosureRecord.t
     type 'a param_spec_class = 'a GObjectParamSpecClass.class
+    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
+    type 'object_class property_t = 'object_class Property.t
     type 'a signal_t = 'a Signal.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new (class, parameters) =
+      let
+        val objectType = ValueAccessor.gtype class
+        val nProperties = LargeInt.fromInt (List.length parameters)
+        val names = List.map Property.name parameters
+        val values = Vector.fromList (List.map Property.value parameters)
+        val retVal =
+          (
+            GObjectType.FFI.withVal
+             &&&> GUInt.FFI.withVal
+             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> GObjectValueRecordCVectorN.FFI.withPtr
+             ---> GObjectObjectClass.FFI.fromPtr true
+          )
+            new_
+            (
+              objectType
+               & nProperties
+               & names
+               & values
+            )
+      in
+        GObjectObjectClass.toDerived class retVal
+      end
     fun bindProperty
       self
       (

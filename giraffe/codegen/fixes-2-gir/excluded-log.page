@@ -1731,6 +1731,19 @@
     <item>
       object Object
       <item>
+        function new
+        <item>
+          arg parameters
+          <item>
+            type array
+            <item>
+              type interface
+              <item>struct Parameter: struct not included by configuration (structTypes)</item>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item>
         function compat_control
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
@@ -1770,6 +1783,19 @@
       <item>function steal_data: pointer C type for VOID not supported</item>
       <item>function steal_qdata: pointer C type for VOID not supported</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>
+        function new
+        <item>
+          arg parameters
+          <item>
+            type array
+            <item>
+              type interface
+              <item>struct Parameter: struct not included by configuration (structTypes)</item>
+            </item>
+          </item>
+        </item>
+      </item>
       <item>
         function compat_control
         <item>arg data: pointer C type for VOID not supported</item>
@@ -1833,6 +1859,7 @@
     <item>struct ParamSpecClass: class struct</item>
     <item>struct ParamSpecPool: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct ParamSpecTypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct Parameter: struct not included by configuration (structTypes)</item>
     <item>constant TYPE_FLAG_RESERVED_ID_BIT: type INTERFACE not expected</item>
     <item>struct TypeClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct TypeFundamentalInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
@@ -3632,6 +3659,35 @@
     <item>struct InetAddressPrivate: struct not included by configuration (structTypes)</item>
     <item>struct InetSocketAddressClass: class struct</item>
     <item>struct InetSocketAddressPrivate: struct not included by configuration (structTypes)</item>
+    <item>
+      interface Initable
+      <item>
+        function newv
+        <item>
+          arg parameters
+          <item>
+            type array
+            <item>
+              type interface
+              <item>struct Parameter: struct not included by configuration (structTypes)</item>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function newv
+        <item>
+          arg parameters
+          <item>
+            type array
+            <item>
+              type interface
+              <item>struct Parameter: struct not included by configuration (structTypes)</item>
+            </item>
+          </item>
+        </item>
+      </item>
+    </item>
     <item>struct InitableIface: class struct</item>
     <item>struct InputMessage: struct not included by configuration (structTypes)</item>
     <item>

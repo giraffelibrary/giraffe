@@ -283,6 +283,8 @@ signature G_OBJECT =
         where type value_t = ValueRecord.t
         where type closure_t = ClosureRecord.t
         where type 'a param_spec_class = 'a ParamSpecClass.class
+        where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
+        where type 'a property_t = 'a property_t
         where type 'a signal_t = 'a signal_t
     val PARAM_MASK : LargeInt.int
     val PARAM_STATIC_STRINGS : LargeInt.int

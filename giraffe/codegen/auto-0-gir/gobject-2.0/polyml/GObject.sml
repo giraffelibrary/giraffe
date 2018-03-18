@@ -322,7 +322,6 @@ structure GObject :
     structure FlagsClassRecord = GObjectFlagsClassRecord
     structure FlagsValueRecord = GObjectFlagsValueRecord
     structure ParamFlags = GObjectParamFlags
-    structure ParameterRecord = GObjectParameterRecord
     structure SignalFlags = GObjectSignalFlags
     structure SignalInvocationHintRecord = GObjectSignalInvocationHintRecord
     structure SignalMatchType = GObjectSignalMatchType
@@ -338,7 +337,6 @@ structure GObject :
     structure EnumValue = GObjectEnumValue
     structure FlagsClass = GObjectFlagsClass
     structure FlagsValue = GObjectFlagsValue
-    structure Parameter = GObjectParameter
     structure SignalInvocationHint = GObjectSignalInvocationHint
     structure SignalQuery = GObjectSignalQuery
     structure TypeQuery = GObjectTypeQuery

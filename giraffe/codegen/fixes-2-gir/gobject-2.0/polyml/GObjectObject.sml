@@ -7,12 +7,35 @@ structure GObjectObject :>
     where type value_t = GObjectValueRecord.t
     where type closure_t = GObjectClosureRecord.t
     where type 'a param_spec_class = 'a GObjectParamSpecClass.class
+    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
+    where type 'object_class property_t = 'object_class Property.t
     where type 'a signal_t = 'a Signal.t =
   struct
+    structure Utf8CVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
+    structure GObjectValueRecordCVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GObjectValueRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GObjectValueRecord.C.ValueType)
+      )
+    structure GObjectValueRecordCVectorN = CVectorN(GObjectValueRecordCVectorNType)
     local
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "g_object_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ =
+        call (getSymbol "giraffe_g_object_new_with_properties")
+          (
+            GObjectType.PolyML.cVal
+             &&> GUInt.PolyML.cVal
+             &&> Utf8CVectorN.PolyML.cInPtr
+             &&> GObjectValueRecordCVectorN.PolyML.cInPtr
+             --> GObjectObjectClass.PolyML.cPtr
+          )
       val bindProperty_ =
         call (getSymbol "g_object_bind_property")
           (
@@ -65,9 +88,35 @@ structure GObjectObject :>
     type value_t = GObjectValueRecord.t
     type closure_t = GObjectClosureRecord.t
     type 'a param_spec_class = 'a GObjectParamSpecClass.class
+    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
+    type 'object_class property_t = 'object_class Property.t
     type 'a signal_t = 'a Signal.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new (class, parameters) =
+      let
+        val objectType = ValueAccessor.gtype class
+        val nProperties = LargeInt.fromInt (List.length parameters)
+        val names = List.map Property.name parameters
+        val values = Vector.fromList (List.map Property.value parameters)
+        val retVal =
+          (
+            GObjectType.FFI.withVal
+             &&&> GUInt.FFI.withVal
+             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> GObjectValueRecordCVectorN.FFI.withPtr
+             ---> GObjectObjectClass.FFI.fromPtr true
+          )
+            new_
+            (
+              objectType
+               & nProperties
+               & names
+               & values
+            )
+      in
+        GObjectObjectClass.toDerived class retVal
+      end
     fun bindProperty
       self
       (

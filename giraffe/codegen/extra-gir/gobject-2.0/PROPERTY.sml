@@ -17,6 +17,7 @@ signature PROPERTY =
     type 'object_class t
     val name : 'object_class t -> string
     val value : 'object_class t -> value_t
+    val conv : ('a object_class -> 'b) -> 'b t -> 'a object_class t
 
     (*
      * Declaration of property operators

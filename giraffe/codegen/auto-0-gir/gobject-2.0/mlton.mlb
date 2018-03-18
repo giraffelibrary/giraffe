@@ -79,8 +79,6 @@ in
   G_OBJECT_PARAM_SPEC_VALUE_ARRAY.sml
   G_OBJECT_PARAM_SPEC_VARIANT_CLASS.sml
   G_OBJECT_PARAM_SPEC_VARIANT.sml
-  G_OBJECT_PARAMETER_RECORD.sml
-  G_OBJECT_PARAMETER.sml
   G_OBJECT_SIGNAL_FLAGS.sml
   G_OBJECT_SIGNAL_INVOCATION_HINT_RECORD.sml
   G_OBJECT_SIGNAL_INVOCATION_HINT.sml
@@ -111,7 +109,6 @@ in
     mlton/GObjectFlagsClassRecord.sml
     mlton/GObjectFlagsValueRecord.sml
     mlton/GObjectParamFlags.sml
-    mlton/GObjectParameterRecord.sml
     mlton/GObjectSignalFlags.sml
     mlton/GObjectSignalInvocationHintRecord.sml
     mlton/GObjectSignalMatchType.sml
@@ -127,7 +124,6 @@ in
     mlton/GObjectEnumValue.sml
     mlton/GObjectFlagsClass.sml
     mlton/GObjectFlagsValue.sml
-    mlton/GObjectParameter.sml
     mlton/GObjectSignalInvocationHint.sml
     mlton/GObjectSignalQuery.sml
     mlton/GObjectTypeQuery.sml

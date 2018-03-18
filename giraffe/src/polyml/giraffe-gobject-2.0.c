@@ -364,6 +364,35 @@ giraffe_g_object_type (GObject *object)
   return G_OBJECT_TYPE (object);
 }
 
+GObject *
+giraffe_g_object_new_with_properties (GType          object_type,
+                                      guint          n_properties,
+                                      const char    *names[],
+                                      const GValue   values[])
+{
+  GObject *object;
+
+#ifdef GLIB_VERSION_2_54
+  object = g_object_new_with_properties (object_type, n_properties, names, values);
+#else
+  guint i;
+
+  GParameter parameters[n_properties];
+  for (i = 0; i < n_properties; i++)
+    {
+      parameters[i].name = names[i];
+      parameters[i].value = values[i];
+    }
+  object = g_object_newv (object_type, n_properties, parameters);
+#endif
+
+  /* ensure we own a reference */
+  if (G_IS_INITIALLY_UNOWNED (object))
+    g_object_ref_sink (object);
+
+  return object;
+}
+
 #ifdef GIRAFFE_DEBUG
 void
 giraffe_debug_object_take (gpointer object)

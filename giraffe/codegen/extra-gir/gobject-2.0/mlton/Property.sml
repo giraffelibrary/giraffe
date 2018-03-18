@@ -90,6 +90,7 @@ structure Property :>
 
     fun name {name, ...} = name
     fun value {value, ...} = value ()
+    fun conv _ t = t
 
     fun get name t object =
       let
@@ -107,3 +108,10 @@ structure Property :>
         setProperty object name value
       end
   end
+
+fun propConv asX {get, set, new} =
+  {
+    get = get o asX,
+    set = fn a => set a o asX,
+    new = Property.conv asX o new
+  }

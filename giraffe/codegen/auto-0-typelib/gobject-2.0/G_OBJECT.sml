@@ -10,7 +10,6 @@ signature G_OBJECT =
     structure FlagsClassRecord : G_OBJECT_FLAGS_CLASS_RECORD
     structure FlagsValueRecord : G_OBJECT_FLAGS_VALUE_RECORD
     structure ParamFlags : G_OBJECT_PARAM_FLAGS
-    structure ParameterRecord : G_OBJECT_PARAMETER_RECORD
     structure SignalFlags : G_OBJECT_SIGNAL_FLAGS
     structure SignalInvocationHintRecord : G_OBJECT_SIGNAL_INVOCATION_HINT_RECORD
     structure SignalMatchType : G_OBJECT_SIGNAL_MATCH_TYPE
@@ -41,9 +40,6 @@ signature G_OBJECT =
     structure FlagsValue :
       G_OBJECT_FLAGS_VALUE
         where type t = FlagsValueRecord.t
-    structure Parameter :
-      G_OBJECT_PARAMETER
-        where type t = ParameterRecord.t
     structure SignalInvocationHint :
       G_OBJECT_SIGNAL_INVOCATION_HINT
         where type t = SignalInvocationHintRecord.t
@@ -281,7 +277,6 @@ signature G_OBJECT =
     structure Object :
       G_OBJECT_OBJECT
         where type 'a class = 'a ObjectClass.class
-        where type parameter_t = ParameterRecord.t
         where type type_t = Type.t
         where type 'a binding_class = 'a BindingClass.class
         where type binding_flags_t = BindingFlags.t

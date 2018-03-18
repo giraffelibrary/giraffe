@@ -1,11 +1,5 @@
 structure Gio : GIO =
   struct
-    structure GObjectParameterRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GObjectParameterRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GObjectParameterRecord.C.ValueType)
-      )
-    structure GObjectParameterRecordCVectorN = CVectorN(GObjectParameterRecordCVectorNType)
     structure GioDBusAnnotationInfoRecordCVectorType =
       CPointerCVectorType(
         structure CElemType = GioDBusAnnotationInfoRecord.C.PointerType
@@ -200,16 +194,6 @@ structure Gio : GIO =
       val fileParseName_ = call (getSymbol "g_file_parse_name") (Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
       val iconDeserialize_ = call (getSymbol "g_icon_deserialize") (GLibVariantRecord.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
       val iconNewForString_ = call (getSymbol "g_icon_new_for_string") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioIconClass.PolyML.cPtr)
-      val initableNewv_ =
-        call (getSymbol "g_initable_newv")
-          (
-            GObjectType.PolyML.cVal
-             &&> GUInt32.PolyML.cVal
-             &&> GObjectParameterRecordCVectorN.PolyML.cInPtr
-             &&> GioCancellableClass.PolyML.cOptPtr
-             &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GObjectObjectClass.PolyML.cPtr
-          )
       val ioErrorFromErrno_ = call (getSymbol "g_io_error_from_errno") (GInt32.PolyML.cVal --> GioIOErrorEnum.PolyML.cVal)
       val ioErrorQuark_ = call (getSymbol "g_io_error_quark") (cVoid --> GUInt32.PolyML.cVal)
       val ioExtensionPointImplement_ =
@@ -1189,34 +1173,6 @@ structure Gio : GIO =
     fun fileParseName parseName = (Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) fileParseName_ parseName
     fun iconDeserialize value = (GLibVariantRecord.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) iconDeserialize_ value
     fun iconNewForString str = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioIconClass.FFI.fromPtr true) iconNewForString_ (str & [])
-    fun initableNewv
-      (
-        objectType,
-        parameters,
-        cancellable
-      ) =
-      let
-        val nParameters = LargeInt.fromInt (GObjectParameterRecordCVectorN.length parameters)
-        val retVal =
-          (
-            GObjectType.FFI.withVal
-             &&&> GUInt32.FFI.withVal
-             &&&> GObjectParameterRecordCVectorN.FFI.withPtr
-             &&&> GioCancellableClass.FFI.withOptPtr
-             &&&> GLibErrorRecord.handleError
-             ---> GObjectObjectClass.FFI.fromPtr true
-          )
-            initableNewv_
-            (
-              objectType
-               & nParameters
-               & parameters
-               & cancellable
-               & []
-            )
-      in
-        retVal
-      end
     fun ioErrorFromErrno errNo = (GInt32.FFI.withVal ---> GioIOErrorEnum.FFI.fromVal) ioErrorFromErrno_ errNo
     fun ioErrorQuark () = (I ---> GUInt32.FFI.fromVal) ioErrorQuark_ ()
     fun ioExtensionPointImplement

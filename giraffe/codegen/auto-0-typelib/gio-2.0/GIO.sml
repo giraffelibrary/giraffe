@@ -1382,11 +1382,6 @@ signature GIO =
     val fileParseName : string -> base FileClass.class
     val iconDeserialize : GLib.VariantRecord.t -> base IconClass.class
     val iconNewForString : string -> base IconClass.class
-    val initableNewv :
-      GObject.Type.t
-       * GObject.ParameterRecord.t vector
-       * 'a CancellableClass.class option
-       -> base GObject.ObjectClass.class
     val ioErrorFromErrno : LargeInt.int -> IOErrorEnum.t
     val ioErrorQuark : unit -> LargeInt.int
     val ioExtensionPointImplement :

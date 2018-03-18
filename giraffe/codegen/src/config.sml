@@ -118,7 +118,6 @@ structTypes := [
   (("GObject", "EnumValue"),          ValueRecord),
   (("GObject", "FlagsClass"),         ValueRecord),
   (("GObject", "FlagsValue"),         ValueRecord),
-  (("GObject", "Parameter"),          ValueRecord),
   (("GObject",
              "SignalInvocationHint"), ValueRecord),
   (("GObject", "SignalQuery"),        ValueRecord),
