@@ -200,9 +200,7 @@ signature <OBJECT_NAMESPACE>_<OBJECT_NAME> =
     type 'a signal_t                                         | isGObject and S > 0
                                                             -'
                                                             -.
-    type ('object, 'a) property_readonly                     |
-    type ('object, 'a) property_writeonly                    | isGObject and P > 0
-    type ('object, 'a, 'b) property_readwrite                |
+    type 'object_class property_t                            | isGObject and P > 0
                                                             -'
 
     (* Type Abbreviations *)
@@ -304,9 +302,7 @@ structure <ObjectNamespace><ObjectName> :>
     where type 'a signal_t = 'a Signal.t                                                   | isGObject and S > 0
                                                                                           -'
                                                                                           -.
-    where type ('object, 'a) property_readonly = ('object, 'a) Property.readonly           |
-    where type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly         | isGObject and P > 0
-    where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite |
+    where type 'object_class property_t = 'object_class Property.t                         | isGObject and P > 0
                                                                                           -'
 =
   struct
@@ -350,9 +346,7 @@ structure <ObjectNamespace><ObjectName> :>
     type 'a signal_t = 'a Signal.t                                                         | isGObject and S > 0
                                                                                           -'
                                                                                           -.
-    type ('object, 'a) property_readonly = ('object, 'a) Property.readonly                 |
-    type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly               | isGObject and P > 0
-    type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite       |
+    type 'object_class property_t = 'object_class Property.t                               | isGObject and P > 0
                                                                                           -'
 
     (* Type Abbreviations *)

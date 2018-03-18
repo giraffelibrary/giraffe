@@ -4,6 +4,22 @@ signature GTK_SOURCE_TAG =
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : string option -> base class
-    val drawSpacesProp : ('a class, bool, bool) Property.readwrite
-    val drawSpacesSetProp : ('a class, bool, bool) Property.readwrite
+    val drawSpacesProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val drawSpacesSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

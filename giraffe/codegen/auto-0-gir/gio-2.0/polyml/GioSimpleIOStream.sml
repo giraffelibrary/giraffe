@@ -22,12 +22,12 @@ structure GioSimpleIOStream :>
       val inputStreamProp =
         {
           get = fn x => get "input-stream" GioInputStreamClass.tOpt x,
-          set = fn x => set "input-stream" GioInputStreamClass.tOpt x
+          new = fn x => new "input-stream" GioInputStreamClass.tOpt x
         }
       val outputStreamProp =
         {
           get = fn x => get "output-stream" GioOutputStreamClass.tOpt x,
-          set = fn x => set "output-stream" GioOutputStreamClass.tOpt x
+          new = fn x => new "output-stream" GioOutputStreamClass.tOpt x
         }
     end
   end

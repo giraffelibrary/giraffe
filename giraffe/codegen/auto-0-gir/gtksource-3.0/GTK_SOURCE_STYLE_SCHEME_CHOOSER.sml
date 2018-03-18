@@ -9,5 +9,13 @@ signature GTK_SOURCE_STYLE_SCHEME_CHOOSER =
       'a class
        -> 'b style_scheme_class
        -> unit
-    val styleSchemeProp : ('a class, base style_scheme_class option, 'b style_scheme_class option) Property.readwrite
+    val styleSchemeProp :
+      {
+        get : 'a class -> base style_scheme_class option,
+        set :
+          'b style_scheme_class option
+           -> 'a class
+           -> unit,
+        new : 'b style_scheme_class option -> 'a class Property.t
+      }
   end

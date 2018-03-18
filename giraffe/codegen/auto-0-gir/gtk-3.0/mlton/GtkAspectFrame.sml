@@ -112,22 +112,26 @@ structure GtkAspectFrame :>
       val obeyChildProp =
         {
           get = fn x => get "obey-child" boolean x,
-          set = fn x => set "obey-child" boolean x
+          set = fn x => set "obey-child" boolean x,
+          new = fn x => new "obey-child" boolean x
         }
       val ratioProp =
         {
           get = fn x => get "ratio" float x,
-          set = fn x => set "ratio" float x
+          set = fn x => set "ratio" float x,
+          new = fn x => new "ratio" float x
         }
       val xalignProp =
         {
           get = fn x => get "xalign" float x,
-          set = fn x => set "xalign" float x
+          set = fn x => set "xalign" float x,
+          new = fn x => new "xalign" float x
         }
       val yalignProp =
         {
           get = fn x => get "yalign" float x,
-          set = fn x => set "yalign" float x
+          set = fn x => set "yalign" float x,
+          new = fn x => new "yalign" float x
         }
     end
   end

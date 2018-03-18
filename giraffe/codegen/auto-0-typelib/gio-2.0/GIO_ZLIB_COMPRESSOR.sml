@@ -13,7 +13,23 @@ signature GIO_ZLIB_COMPRESSOR =
       'a class
        -> 'b file_info_class option
        -> unit
-    val fileInfoProp : ('a class, base file_info_class option, 'b file_info_class option) Property.readwrite
-    val formatProp : ('a class, zlib_compressor_format_t, zlib_compressor_format_t) Property.readwrite
-    val levelProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val fileInfoProp :
+      {
+        get : 'a class -> base file_info_class option,
+        set :
+          'b file_info_class option
+           -> 'a class
+           -> unit,
+        new : 'b file_info_class option -> 'a class Property.t
+      }
+    val formatProp :
+      {
+        get : 'a class -> zlib_compressor_format_t,
+        new : zlib_compressor_format_t -> 'a class Property.t
+      }
+    val levelProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

@@ -41,86 +41,742 @@ signature GTK_SETTINGS =
            * string
            * string
        -> unit
-    val gtkAlternativeButtonOrderProp : ('a class, bool, bool) Property.readwrite
-    val gtkAlternativeSortArrowsProp : ('a class, bool, bool) Property.readwrite
-    val gtkApplicationPreferDarkThemeProp : ('a class, bool, bool) Property.readwrite
-    val gtkAutoMnemonicsProp : ('a class, bool, bool) Property.readwrite
-    val gtkButtonImagesProp : ('a class, bool, bool) Property.readwrite
-    val gtkCanChangeAccelsProp : ('a class, bool, bool) Property.readwrite
-    val gtkColorPaletteProp : ('a class, string option, string option) Property.readwrite
-    val gtkColorSchemeProp : ('a class, string option, string option) Property.readwrite
-    val gtkCursorBlinkProp : ('a class, bool, bool) Property.readwrite
-    val gtkCursorBlinkTimeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkCursorBlinkTimeoutProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkCursorThemeNameProp : ('a class, string option, string option) Property.readwrite
-    val gtkCursorThemeSizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkDecorationLayoutProp : ('a class, string option, string option) Property.readwrite
-    val gtkDialogsUseHeaderProp : ('a class, bool, bool) Property.readwrite
-    val gtkDndDragThresholdProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkDoubleClickDistanceProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkDoubleClickTimeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkEnableAccelsProp : ('a class, bool, bool) Property.readwrite
-    val gtkEnableAnimationsProp : ('a class, bool, bool) Property.readwrite
-    val gtkEnableEventSoundsProp : ('a class, bool, bool) Property.readwrite
-    val gtkEnableInputFeedbackSoundsProp : ('a class, bool, bool) Property.readwrite
-    val gtkEnableMnemonicsProp : ('a class, bool, bool) Property.readwrite
-    val gtkEnablePrimaryPasteProp : ('a class, bool, bool) Property.readwrite
-    val gtkEnableTooltipsProp : ('a class, bool, bool) Property.readwrite
-    val gtkEntryPasswordHintTimeoutProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkEntrySelectOnFocusProp : ('a class, bool, bool) Property.readwrite
-    val gtkErrorBellProp : ('a class, bool, bool) Property.readwrite
-    val gtkFallbackIconThemeProp : ('a class, string option, string option) Property.readwrite
-    val gtkFileChooserBackendProp : ('a class, string option, string option) Property.readwrite
-    val gtkFontNameProp : ('a class, string option, string option) Property.readwrite
-    val gtkFontconfigTimestampProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkIconSizesProp : ('a class, string option, string option) Property.readwrite
-    val gtkIconThemeNameProp : ('a class, string option, string option) Property.readwrite
-    val gtkImModuleProp : ('a class, string option, string option) Property.readwrite
-    val gtkImPreeditStyleProp : ('a class, i_m_preedit_style_t, i_m_preedit_style_t) Property.readwrite
-    val gtkImStatusStyleProp : ('a class, i_m_status_style_t, i_m_status_style_t) Property.readwrite
-    val gtkKeyThemeNameProp : ('a class, string option, string option) Property.readwrite
-    val gtkKeynavCursorOnlyProp : ('a class, bool, bool) Property.readwrite
-    val gtkKeynavUseCaretProp : ('a class, bool, bool) Property.readwrite
-    val gtkKeynavWrapAroundProp : ('a class, bool, bool) Property.readwrite
-    val gtkLabelSelectOnFocusProp : ('a class, bool, bool) Property.readwrite
-    val gtkLongPressTimeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkMenuBarAccelProp : ('a class, string option, string option) Property.readwrite
-    val gtkMenuBarPopupDelayProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkMenuImagesProp : ('a class, bool, bool) Property.readwrite
-    val gtkMenuPopdownDelayProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkMenuPopupDelayProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkModulesProp : ('a class, string option, string option) Property.readwrite
-    val gtkPrimaryButtonWarpsSliderProp : ('a class, bool, bool) Property.readwrite
-    val gtkPrintBackendsProp : ('a class, string option, string option) Property.readwrite
-    val gtkPrintPreviewCommandProp : ('a class, string option, string option) Property.readwrite
-    val gtkRecentFilesEnabledProp : ('a class, bool, bool) Property.readwrite
-    val gtkRecentFilesLimitProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkRecentFilesMaxAgeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkScrolledWindowPlacementProp : ('a class, corner_type_t, corner_type_t) Property.readwrite
-    val gtkShellShowsAppMenuProp : ('a class, bool, bool) Property.readwrite
-    val gtkShellShowsDesktopProp : ('a class, bool, bool) Property.readwrite
-    val gtkShellShowsMenubarProp : ('a class, bool, bool) Property.readwrite
-    val gtkShowInputMethodMenuProp : ('a class, bool, bool) Property.readwrite
-    val gtkShowUnicodeMenuProp : ('a class, bool, bool) Property.readwrite
-    val gtkSoundThemeNameProp : ('a class, string option, string option) Property.readwrite
-    val gtkSplitCursorProp : ('a class, bool, bool) Property.readwrite
-    val gtkThemeNameProp : ('a class, string option, string option) Property.readwrite
-    val gtkTimeoutExpandProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkTimeoutInitialProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkTimeoutRepeatProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkTitlebarDoubleClickProp : ('a class, string option, string option) Property.readwrite
-    val gtkTitlebarMiddleClickProp : ('a class, string option, string option) Property.readwrite
-    val gtkTitlebarRightClickProp : ('a class, string option, string option) Property.readwrite
-    val gtkToolbarIconSizeProp : ('a class, icon_size_t, icon_size_t) Property.readwrite
-    val gtkToolbarStyleProp : ('a class, toolbar_style_t, toolbar_style_t) Property.readwrite
-    val gtkTooltipBrowseModeTimeoutProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkTooltipBrowseTimeoutProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkTooltipTimeoutProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkTouchscreenModeProp : ('a class, bool, bool) Property.readwrite
-    val gtkVisibleFocusProp : ('a class, policy_type_t, policy_type_t) Property.readwrite
-    val gtkXftAntialiasProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkXftDpiProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkXftHintingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gtkXftHintstyleProp : ('a class, string option, string option) Property.readwrite
-    val gtkXftRgbaProp : ('a class, string option, string option) Property.readwrite
+    val gtkAlternativeButtonOrderProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkAlternativeSortArrowsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkApplicationPreferDarkThemeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkAutoMnemonicsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkButtonImagesProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkCanChangeAccelsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkColorPaletteProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkColorSchemeProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkCursorBlinkProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkCursorBlinkTimeProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkCursorBlinkTimeoutProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkCursorThemeNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkCursorThemeSizeProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkDecorationLayoutProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkDialogsUseHeaderProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkDndDragThresholdProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkDoubleClickDistanceProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkDoubleClickTimeProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkEnableAccelsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkEnableAnimationsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkEnableEventSoundsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkEnableInputFeedbackSoundsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkEnableMnemonicsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkEnablePrimaryPasteProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkEnableTooltipsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkEntryPasswordHintTimeoutProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkEntrySelectOnFocusProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkErrorBellProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkFallbackIconThemeProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkFileChooserBackendProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkFontNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkFontconfigTimestampProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkIconSizesProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkIconThemeNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkImModuleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkImPreeditStyleProp :
+      {
+        get : 'a class -> i_m_preedit_style_t,
+        set :
+          i_m_preedit_style_t
+           -> 'a class
+           -> unit,
+        new : i_m_preedit_style_t -> 'a class Property.t
+      }
+    val gtkImStatusStyleProp :
+      {
+        get : 'a class -> i_m_status_style_t,
+        set :
+          i_m_status_style_t
+           -> 'a class
+           -> unit,
+        new : i_m_status_style_t -> 'a class Property.t
+      }
+    val gtkKeyThemeNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkKeynavCursorOnlyProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkKeynavUseCaretProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkKeynavWrapAroundProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkLabelSelectOnFocusProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkLongPressTimeProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkMenuBarAccelProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkMenuBarPopupDelayProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkMenuImagesProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkMenuPopdownDelayProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkMenuPopupDelayProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkModulesProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkPrimaryButtonWarpsSliderProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkPrintBackendsProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkPrintPreviewCommandProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkRecentFilesEnabledProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkRecentFilesLimitProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkRecentFilesMaxAgeProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkScrolledWindowPlacementProp :
+      {
+        get : 'a class -> corner_type_t,
+        set :
+          corner_type_t
+           -> 'a class
+           -> unit,
+        new : corner_type_t -> 'a class Property.t
+      }
+    val gtkShellShowsAppMenuProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkShellShowsDesktopProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkShellShowsMenubarProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkShowInputMethodMenuProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkShowUnicodeMenuProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkSoundThemeNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkSplitCursorProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkThemeNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkTimeoutExpandProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkTimeoutInitialProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkTimeoutRepeatProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkTitlebarDoubleClickProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkTitlebarMiddleClickProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkTitlebarRightClickProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkToolbarIconSizeProp :
+      {
+        get : 'a class -> icon_size_t,
+        set :
+          icon_size_t
+           -> 'a class
+           -> unit,
+        new : icon_size_t -> 'a class Property.t
+      }
+    val gtkToolbarStyleProp :
+      {
+        get : 'a class -> toolbar_style_t,
+        set :
+          toolbar_style_t
+           -> 'a class
+           -> unit,
+        new : toolbar_style_t -> 'a class Property.t
+      }
+    val gtkTooltipBrowseModeTimeoutProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkTooltipBrowseTimeoutProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkTooltipTimeoutProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkTouchscreenModeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gtkVisibleFocusProp :
+      {
+        get : 'a class -> policy_type_t,
+        set :
+          policy_type_t
+           -> 'a class
+           -> unit,
+        new : policy_type_t -> 'a class Property.t
+      }
+    val gtkXftAntialiasProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkXftDpiProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkXftHintingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gtkXftHintstyleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val gtkXftRgbaProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

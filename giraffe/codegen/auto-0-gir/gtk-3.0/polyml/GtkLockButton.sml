@@ -32,32 +32,38 @@ structure GtkLockButton :>
       val permissionProp =
         {
           get = fn x => get "permission" GioPermissionClass.tOpt x,
-          set = fn x => set "permission" GioPermissionClass.tOpt x
+          set = fn x => set "permission" GioPermissionClass.tOpt x,
+          new = fn x => new "permission" GioPermissionClass.tOpt x
         }
       val textLockProp =
         {
           get = fn x => get "text-lock" stringOpt x,
-          set = fn x => set "text-lock" stringOpt x
+          set = fn x => set "text-lock" stringOpt x,
+          new = fn x => new "text-lock" stringOpt x
         }
       val textUnlockProp =
         {
           get = fn x => get "text-unlock" stringOpt x,
-          set = fn x => set "text-unlock" stringOpt x
+          set = fn x => set "text-unlock" stringOpt x,
+          new = fn x => new "text-unlock" stringOpt x
         }
       val tooltipLockProp =
         {
           get = fn x => get "tooltip-lock" stringOpt x,
-          set = fn x => set "tooltip-lock" stringOpt x
+          set = fn x => set "tooltip-lock" stringOpt x,
+          new = fn x => new "tooltip-lock" stringOpt x
         }
       val tooltipNotAuthorizedProp =
         {
           get = fn x => get "tooltip-not-authorized" stringOpt x,
-          set = fn x => set "tooltip-not-authorized" stringOpt x
+          set = fn x => set "tooltip-not-authorized" stringOpt x,
+          new = fn x => new "tooltip-not-authorized" stringOpt x
         }
       val tooltipUnlockProp =
         {
           get = fn x => get "tooltip-unlock" stringOpt x,
-          set = fn x => set "tooltip-unlock" stringOpt x
+          set = fn x => set "tooltip-unlock" stringOpt x,
+          new = fn x => new "tooltip-unlock" stringOpt x
         }
     end
   end

@@ -223,7 +223,8 @@ structure GioDataOutputStream :>
       val byteOrderProp =
         {
           get = fn x => get "byte-order" GioDataStreamByteOrder.t x,
-          set = fn x => set "byte-order" GioDataStreamByteOrder.t x
+          set = fn x => set "byte-order" GioDataStreamByteOrder.t x,
+          new = fn x => new "byte-order" GioDataStreamByteOrder.t x
         }
     end
   end

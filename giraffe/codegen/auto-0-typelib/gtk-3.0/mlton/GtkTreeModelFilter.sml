@@ -104,12 +104,12 @@ structure GtkTreeModelFilter :>
       val childModelProp =
         {
           get = fn x => get "child-model" GtkTreeModelClass.tOpt x,
-          set = fn x => set "child-model" GtkTreeModelClass.tOpt x
+          new = fn x => new "child-model" GtkTreeModelClass.tOpt x
         }
       val virtualRootProp =
         {
           get = fn x => get "virtual-root" GtkTreePathRecord.tOpt x,
-          set = fn x => set "virtual-root" GtkTreePathRecord.tOpt x
+          new = fn x => new "virtual-root" GtkTreePathRecord.tOpt x
         }
     end
   end

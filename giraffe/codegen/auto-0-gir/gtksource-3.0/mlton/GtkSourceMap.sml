@@ -23,12 +23,14 @@ structure GtkSourceMap :>
       val fontDescProp =
         {
           get = fn x => get "font-desc" PangoFontDescriptionRecord.tOpt x,
-          set = fn x => set "font-desc" PangoFontDescriptionRecord.tOpt x
+          set = fn x => set "font-desc" PangoFontDescriptionRecord.tOpt x,
+          new = fn x => new "font-desc" PangoFontDescriptionRecord.tOpt x
         }
       val viewProp =
         {
           get = fn x => get "view" GtkSourceViewClass.tOpt x,
-          set = fn x => set "view" GtkSourceViewClass.tOpt x
+          set = fn x => set "view" GtkSourceViewClass.tOpt x,
+          new = fn x => new "view" GtkSourceViewClass.tOpt x
         }
     end
   end

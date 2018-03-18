@@ -17,6 +17,10 @@ signature GIO_THEMED_ICON =
       'a class
        -> string
        -> unit
-    val nameProp : ('a class, string option) Property.writeonly
-    val useDefaultFallbacksProp : ('a class, bool, bool) Property.readwrite
+    val nameProp : {new : string option -> 'a class Property.t}
+    val useDefaultFallbacksProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
   end

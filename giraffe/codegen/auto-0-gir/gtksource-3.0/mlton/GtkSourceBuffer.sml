@@ -485,37 +485,44 @@ structure GtkSourceBuffer :>
       val highlightMatchingBracketsProp =
         {
           get = fn x => get "highlight-matching-brackets" boolean x,
-          set = fn x => set "highlight-matching-brackets" boolean x
+          set = fn x => set "highlight-matching-brackets" boolean x,
+          new = fn x => new "highlight-matching-brackets" boolean x
         }
       val highlightSyntaxProp =
         {
           get = fn x => get "highlight-syntax" boolean x,
-          set = fn x => set "highlight-syntax" boolean x
+          set = fn x => set "highlight-syntax" boolean x,
+          new = fn x => new "highlight-syntax" boolean x
         }
       val implicitTrailingNewlineProp =
         {
           get = fn x => get "implicit-trailing-newline" boolean x,
-          set = fn x => set "implicit-trailing-newline" boolean x
+          set = fn x => set "implicit-trailing-newline" boolean x,
+          new = fn x => new "implicit-trailing-newline" boolean x
         }
       val languageProp =
         {
           get = fn x => get "language" GtkSourceLanguageClass.tOpt x,
-          set = fn x => set "language" GtkSourceLanguageClass.tOpt x
+          set = fn x => set "language" GtkSourceLanguageClass.tOpt x,
+          new = fn x => new "language" GtkSourceLanguageClass.tOpt x
         }
       val maxUndoLevelsProp =
         {
           get = fn x => get "max-undo-levels" int x,
-          set = fn x => set "max-undo-levels" int x
+          set = fn x => set "max-undo-levels" int x,
+          new = fn x => new "max-undo-levels" int x
         }
       val styleSchemeProp =
         {
           get = fn x => get "style-scheme" GtkSourceStyleSchemeClass.tOpt x,
-          set = fn x => set "style-scheme" GtkSourceStyleSchemeClass.tOpt x
+          set = fn x => set "style-scheme" GtkSourceStyleSchemeClass.tOpt x,
+          new = fn x => new "style-scheme" GtkSourceStyleSchemeClass.tOpt x
         }
       val undoManagerProp =
         {
           get = fn x => get "undo-manager" GtkSourceUndoManagerClass.tOpt x,
-          set = fn x => set "undo-manager" GtkSourceUndoManagerClass.tOpt x
+          set = fn x => set "undo-manager" GtkSourceUndoManagerClass.tOpt x,
+          new = fn x => new "undo-manager" GtkSourceUndoManagerClass.tOpt x
         }
     end
   end

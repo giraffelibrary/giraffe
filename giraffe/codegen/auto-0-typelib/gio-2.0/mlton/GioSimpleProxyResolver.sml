@@ -99,7 +99,8 @@ structure GioSimpleProxyResolver :>
       val defaultProxyProp =
         {
           get = fn x => get "default-proxy" stringOpt x,
-          set = fn x => set "default-proxy" stringOpt x
+          set = fn x => set "default-proxy" stringOpt x,
+          new = fn x => new "default-proxy" stringOpt x
         }
     end
   end

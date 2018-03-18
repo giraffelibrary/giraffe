@@ -287,27 +287,171 @@ signature VTE_TERMINAL =
     val textModifiedSig : (unit -> unit) -> 'a class Signal.t
     val textScrolledSig : (LargeInt.int -> unit) -> 'a class Signal.t
     val windowTitleChangedSig : (unit -> unit) -> 'a class Signal.t
-    val allowBoldProp : ('a class, bool, bool) Property.readwrite
-    val audibleBellProp : ('a class, bool, bool) Property.readwrite
-    val backspaceBindingProp : ('a class, erase_binding_t, erase_binding_t) Property.readwrite
-    val cjkAmbiguousWidthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val currentDirectoryUriProp : ('a class, string option) Property.readonly
-    val currentFileUriProp : ('a class, string option) Property.readonly
-    val cursorBlinkModeProp : ('a class, cursor_blink_mode_t, cursor_blink_mode_t) Property.readwrite
-    val cursorShapeProp : ('a class, cursor_shape_t, cursor_shape_t) Property.readwrite
-    val deleteBindingProp : ('a class, erase_binding_t, erase_binding_t) Property.readwrite
-    val encodingProp : ('a class, string option, string option) Property.readwrite
-    val fontDescProp : ('a class, Pango.FontDescriptionRecord.t option, Pango.FontDescriptionRecord.t option) Property.readwrite
-    val fontScaleProp : ('a class, real, real) Property.readwrite
-    val iconTitleProp : ('a class, string option) Property.readonly
-    val inputEnabledProp : ('a class, bool, bool) Property.readwrite
-    val pointerAutohideProp : ('a class, bool, bool) Property.readwrite
-    val ptyProp : ('a class, base pty_class option, 'b pty_class option) Property.readwrite
-    val rewrapOnResizeProp : ('a class, bool, bool) Property.readwrite
-    val scrollOnKeystrokeProp : ('a class, bool, bool) Property.readwrite
-    val scrollOnOutputProp : ('a class, bool, bool) Property.readwrite
-    val scrollSpeedProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val scrollbackLinesProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val windowTitleProp : ('a class, string option) Property.readonly
-    val wordCharExceptionsProp : ('a class, string option) Property.readonly
+    val allowBoldProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val audibleBellProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val backspaceBindingProp :
+      {
+        get : 'a class -> erase_binding_t,
+        set :
+          erase_binding_t
+           -> 'a class
+           -> unit,
+        new : erase_binding_t -> 'a class Property.t
+      }
+    val cjkAmbiguousWidthProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val currentDirectoryUriProp : {get : 'a class -> string option}
+    val currentFileUriProp : {get : 'a class -> string option}
+    val cursorBlinkModeProp :
+      {
+        get : 'a class -> cursor_blink_mode_t,
+        set :
+          cursor_blink_mode_t
+           -> 'a class
+           -> unit,
+        new : cursor_blink_mode_t -> 'a class Property.t
+      }
+    val cursorShapeProp :
+      {
+        get : 'a class -> cursor_shape_t,
+        set :
+          cursor_shape_t
+           -> 'a class
+           -> unit,
+        new : cursor_shape_t -> 'a class Property.t
+      }
+    val deleteBindingProp :
+      {
+        get : 'a class -> erase_binding_t,
+        set :
+          erase_binding_t
+           -> 'a class
+           -> unit,
+        new : erase_binding_t -> 'a class Property.t
+      }
+    val encodingProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val fontDescProp :
+      {
+        get : 'a class -> Pango.FontDescriptionRecord.t option,
+        set :
+          Pango.FontDescriptionRecord.t option
+           -> 'a class
+           -> unit,
+        new : Pango.FontDescriptionRecord.t option -> 'a class Property.t
+      }
+    val fontScaleProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val iconTitleProp : {get : 'a class -> string option}
+    val inputEnabledProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val pointerAutohideProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val ptyProp :
+      {
+        get : 'a class -> base pty_class option,
+        set :
+          'b pty_class option
+           -> 'a class
+           -> unit,
+        new : 'b pty_class option -> 'a class Property.t
+      }
+    val rewrapOnResizeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val scrollOnKeystrokeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val scrollOnOutputProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val scrollSpeedProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val scrollbackLinesProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val windowTitleProp : {get : 'a class -> string option}
+    val wordCharExceptionsProp : {get : 'a class -> string option}
   end

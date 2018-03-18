@@ -32,12 +32,12 @@ structure GtkTextMark :>
       val leftGravityProp =
         {
           get = fn x => get "left-gravity" boolean x,
-          set = fn x => set "left-gravity" boolean x
+          new = fn x => new "left-gravity" boolean x
         }
       val nameProp =
         {
           get = fn x => get "name" stringOpt x,
-          set = fn x => set "name" stringOpt x
+          new = fn x => new "name" stringOpt x
         }
     end
   end

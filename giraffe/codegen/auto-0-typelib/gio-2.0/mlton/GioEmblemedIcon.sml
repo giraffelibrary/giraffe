@@ -25,7 +25,7 @@ structure GioEmblemedIcon :>
       val giconProp =
         {
           get = fn x => get "gicon" GioIconClass.tOpt x,
-          set = fn x => set "gicon" GioIconClass.tOpt x
+          new = fn x => new "gicon" GioIconClass.tOpt x
         }
     end
   end

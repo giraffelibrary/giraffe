@@ -11,15 +11,101 @@ signature GTK_SHORTCUTS_SHORTCUT =
     val asBuildable : 'a class -> base buildable_class
     val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
-    val accelSizeGroupProp : ('a class, 'b size_group_class option) Property.writeonly
-    val acceleratorProp : ('a class, string option, string option) Property.readwrite
-    val actionNameProp : ('a class, string option, string option) Property.readwrite
-    val directionProp : ('a class, text_direction_t, text_direction_t) Property.readwrite
-    val iconProp : ('a class, base Gio.IconClass.class option, 'b Gio.IconClass.class option) Property.readwrite
-    val iconSetProp : ('a class, bool, bool) Property.readwrite
-    val shortcutTypeProp : ('a class, shortcut_type_t, shortcut_type_t) Property.readwrite
-    val subtitleProp : ('a class, string option, string option) Property.readwrite
-    val subtitleSetProp : ('a class, bool, bool) Property.readwrite
-    val titleProp : ('a class, string option, string option) Property.readwrite
-    val titleSizeGroupProp : ('a class, 'b size_group_class option) Property.writeonly
+    val accelSizeGroupProp :
+      {
+        set :
+          'b size_group_class option
+           -> 'a class
+           -> unit,
+        new : 'b size_group_class option -> 'a class Property.t
+      }
+    val acceleratorProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val actionNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val directionProp :
+      {
+        get : 'a class -> text_direction_t,
+        set :
+          text_direction_t
+           -> 'a class
+           -> unit,
+        new : text_direction_t -> 'a class Property.t
+      }
+    val iconProp :
+      {
+        get : 'a class -> base Gio.IconClass.class option,
+        set :
+          'b Gio.IconClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gio.IconClass.class option -> 'a class Property.t
+      }
+    val iconSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val shortcutTypeProp :
+      {
+        get : 'a class -> shortcut_type_t,
+        set :
+          shortcut_type_t
+           -> 'a class
+           -> unit,
+        new : shortcut_type_t -> 'a class Property.t
+      }
+    val subtitleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val subtitleSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val titleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val titleSizeGroupProp :
+      {
+        set :
+          'b size_group_class option
+           -> 'a class
+           -> unit,
+        new : 'b size_group_class option -> 'a class Property.t
+      }
   end

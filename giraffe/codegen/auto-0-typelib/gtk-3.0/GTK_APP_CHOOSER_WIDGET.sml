@@ -45,10 +45,58 @@ signature GTK_APP_CHOOSER_WIDGET =
     val applicationActivatedSig : (base Gio.AppInfoClass.class -> unit) -> 'a class Signal.t
     val applicationSelectedSig : (base Gio.AppInfoClass.class -> unit) -> 'a class Signal.t
     val populatePopupSig : (base menu_class * base Gio.AppInfoClass.class -> unit) -> 'a class Signal.t
-    val defaultTextProp : ('a class, string option, string option) Property.readwrite
-    val showAllProp : ('a class, bool, bool) Property.readwrite
-    val showDefaultProp : ('a class, bool, bool) Property.readwrite
-    val showFallbackProp : ('a class, bool, bool) Property.readwrite
-    val showOtherProp : ('a class, bool, bool) Property.readwrite
-    val showRecommendedProp : ('a class, bool, bool) Property.readwrite
+    val defaultTextProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val showAllProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showDefaultProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showFallbackProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showOtherProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showRecommendedProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

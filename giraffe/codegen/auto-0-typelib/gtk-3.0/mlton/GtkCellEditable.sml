@@ -24,7 +24,8 @@ structure GtkCellEditable :>
       val editingCanceledProp =
         {
           get = fn x => get "editing-canceled" boolean x,
-          set = fn x => set "editing-canceled" boolean x
+          set = fn x => set "editing-canceled" boolean x,
+          new = fn x => new "editing-canceled" boolean x
         }
     end
   end

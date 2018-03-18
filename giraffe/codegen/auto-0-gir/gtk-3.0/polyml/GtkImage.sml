@@ -270,63 +270,75 @@ structure GtkImage :>
       val fileProp =
         {
           get = fn x => get "file" stringOpt x,
-          set = fn x => set "file" stringOpt x
+          set = fn x => set "file" stringOpt x,
+          new = fn x => new "file" stringOpt x
         }
       val giconProp =
         {
           get = fn x => get "gicon" GioIconClass.tOpt x,
-          set = fn x => set "gicon" GioIconClass.tOpt x
+          set = fn x => set "gicon" GioIconClass.tOpt x,
+          new = fn x => new "gicon" GioIconClass.tOpt x
         }
       val iconNameProp =
         {
           get = fn x => get "icon-name" stringOpt x,
-          set = fn x => set "icon-name" stringOpt x
+          set = fn x => set "icon-name" stringOpt x,
+          new = fn x => new "icon-name" stringOpt x
         }
       val iconSetProp =
         {
           get = fn x => get "icon-set" GtkIconSetRecord.tOpt x,
-          set = fn x => set "icon-set" GtkIconSetRecord.tOpt x
+          set = fn x => set "icon-set" GtkIconSetRecord.tOpt x,
+          new = fn x => new "icon-set" GtkIconSetRecord.tOpt x
         }
       val iconSizeProp =
         {
           get = fn x => get "icon-size" int x,
-          set = fn x => set "icon-size" int x
+          set = fn x => set "icon-size" int x,
+          new = fn x => new "icon-size" int x
         }
       val pixbufProp =
         {
           get = fn x => get "pixbuf" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "pixbuf" GdkPixbufPixbufClass.tOpt x
+          set = fn x => set "pixbuf" GdkPixbufPixbufClass.tOpt x,
+          new = fn x => new "pixbuf" GdkPixbufPixbufClass.tOpt x
         }
       val pixbufAnimationProp =
         {
           get = fn x => get "pixbuf-animation" GdkPixbufPixbufAnimationClass.tOpt x,
-          set = fn x => set "pixbuf-animation" GdkPixbufPixbufAnimationClass.tOpt x
+          set = fn x => set "pixbuf-animation" GdkPixbufPixbufAnimationClass.tOpt x,
+          new = fn x => new "pixbuf-animation" GdkPixbufPixbufAnimationClass.tOpt x
         }
       val pixelSizeProp =
         {
           get = fn x => get "pixel-size" int x,
-          set = fn x => set "pixel-size" int x
+          set = fn x => set "pixel-size" int x,
+          new = fn x => new "pixel-size" int x
         }
       val resourceProp =
         {
           get = fn x => get "resource" stringOpt x,
-          set = fn x => set "resource" stringOpt x
+          set = fn x => set "resource" stringOpt x,
+          new = fn x => new "resource" stringOpt x
         }
       val stockProp =
         {
           get = fn x => get "stock" stringOpt x,
-          set = fn x => set "stock" stringOpt x
+          set = fn x => set "stock" stringOpt x,
+          new = fn x => new "stock" stringOpt x
         }
       val storageTypeProp = {get = fn x => get "storage-type" GtkImageType.t x}
       val surfaceProp =
         {
           get = fn x => get "surface" CairoSurfaceRecord.tOpt x,
-          set = fn x => set "surface" CairoSurfaceRecord.tOpt x
+          set = fn x => set "surface" CairoSurfaceRecord.tOpt x,
+          new = fn x => new "surface" CairoSurfaceRecord.tOpt x
         }
       val useFallbackProp =
         {
           get = fn x => get "use-fallback" boolean x,
-          set = fn x => set "use-fallback" boolean x
+          set = fn x => set "use-fallback" boolean x,
+          new = fn x => new "use-fallback" boolean x
         }
     end
   end

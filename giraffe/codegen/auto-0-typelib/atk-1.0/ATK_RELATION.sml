@@ -15,6 +15,22 @@ signature ATK_RELATION =
       'a class
        -> 'b object_class
        -> bool
-    val relationTypeProp : ('a class, relation_type_t, relation_type_t) Property.readwrite
-    val targetProp : ('a class, GObject.ValueArrayRecord.t option, GObject.ValueArrayRecord.t option) Property.readwrite
+    val relationTypeProp :
+      {
+        get : 'a class -> relation_type_t,
+        set :
+          relation_type_t
+           -> 'a class
+           -> unit,
+        new : relation_type_t -> 'a class Property.t
+      }
+    val targetProp :
+      {
+        get : 'a class -> GObject.ValueArrayRecord.t option,
+        set :
+          GObject.ValueArrayRecord.t option
+           -> 'a class
+           -> unit,
+        new : GObject.ValueArrayRecord.t option -> 'a class Property.t
+      }
   end

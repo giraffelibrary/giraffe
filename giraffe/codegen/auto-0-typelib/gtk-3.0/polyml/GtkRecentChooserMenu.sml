@@ -36,7 +36,8 @@ structure GtkRecentChooserMenu :>
       val showNumbersProp =
         {
           get = fn x => get "show-numbers" boolean x,
-          set = fn x => set "show-numbers" boolean x
+          set = fn x => set "show-numbers" boolean x,
+          new = fn x => new "show-numbers" boolean x
         }
     end
   end

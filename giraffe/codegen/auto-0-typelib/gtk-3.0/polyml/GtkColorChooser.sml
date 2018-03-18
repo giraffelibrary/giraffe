@@ -84,12 +84,14 @@ structure GtkColorChooser :>
       val rgbaProp =
         {
           get = fn x => get "rgba" GdkRgbaRecord.tOpt x,
-          set = fn x => set "rgba" GdkRgbaRecord.tOpt x
+          set = fn x => set "rgba" GdkRgbaRecord.tOpt x,
+          new = fn x => new "rgba" GdkRgbaRecord.tOpt x
         }
       val useAlphaProp =
         {
           get = fn x => get "use-alpha" boolean x,
-          set = fn x => set "use-alpha" boolean x
+          set = fn x => set "use-alpha" boolean x,
+          new = fn x => new "use-alpha" boolean x
         }
     end
   end

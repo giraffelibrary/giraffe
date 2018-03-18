@@ -27,8 +27,40 @@ signature GTK_SCROLLABLE =
       'a class
        -> scrollable_policy_t
        -> unit
-    val hadjustmentProp : ('a class, base adjustment_class option, 'b adjustment_class option) Property.readwrite
-    val hscrollPolicyProp : ('a class, scrollable_policy_t, scrollable_policy_t) Property.readwrite
-    val vadjustmentProp : ('a class, base adjustment_class option, 'b adjustment_class option) Property.readwrite
-    val vscrollPolicyProp : ('a class, scrollable_policy_t, scrollable_policy_t) Property.readwrite
+    val hadjustmentProp :
+      {
+        get : 'a class -> base adjustment_class option,
+        set :
+          'b adjustment_class option
+           -> 'a class
+           -> unit,
+        new : 'b adjustment_class option -> 'a class Property.t
+      }
+    val hscrollPolicyProp :
+      {
+        get : 'a class -> scrollable_policy_t,
+        set :
+          scrollable_policy_t
+           -> 'a class
+           -> unit,
+        new : scrollable_policy_t -> 'a class Property.t
+      }
+    val vadjustmentProp :
+      {
+        get : 'a class -> base adjustment_class option,
+        set :
+          'b adjustment_class option
+           -> 'a class
+           -> unit,
+        new : 'b adjustment_class option -> 'a class Property.t
+      }
+    val vscrollPolicyProp :
+      {
+        get : 'a class -> scrollable_policy_t,
+        set :
+          scrollable_policy_t
+           -> 'a class
+           -> unit,
+        new : scrollable_policy_t -> 'a class Property.t
+      }
   end

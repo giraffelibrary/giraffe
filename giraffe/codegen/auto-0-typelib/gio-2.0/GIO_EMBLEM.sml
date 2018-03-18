@@ -10,6 +10,14 @@ signature GIO_EMBLEM =
     val newWithOrigin : 'a icon_class * emblem_origin_t -> base class
     val getIcon : 'a class -> base icon_class
     val getOrigin : 'a class -> emblem_origin_t
-    val iconProp : ('a class, base GObject.ObjectClass.class option, 'b GObject.ObjectClass.class option) Property.readwrite
-    val originProp : ('a class, emblem_origin_t, emblem_origin_t) Property.readwrite
+    val iconProp :
+      {
+        get : 'a class -> base GObject.ObjectClass.class option,
+        new : 'b GObject.ObjectClass.class option -> 'a class Property.t
+      }
+    val originProp :
+      {
+        get : 'a class -> emblem_origin_t,
+        new : emblem_origin_t -> 'a class Property.t
+      }
   end

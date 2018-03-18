@@ -49,17 +49,18 @@ structure GioCharsetConverter :>
       val fromCharsetProp =
         {
           get = fn x => get "from-charset" stringOpt x,
-          set = fn x => set "from-charset" stringOpt x
+          new = fn x => new "from-charset" stringOpt x
         }
       val toCharsetProp =
         {
           get = fn x => get "to-charset" stringOpt x,
-          set = fn x => set "to-charset" stringOpt x
+          new = fn x => new "to-charset" stringOpt x
         }
       val useFallbackProp =
         {
           get = fn x => get "use-fallback" boolean x,
-          set = fn x => set "use-fallback" boolean x
+          set = fn x => set "use-fallback" boolean x,
+          new = fn x => new "use-fallback" boolean x
         }
     end
   end

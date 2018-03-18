@@ -2,9 +2,7 @@ structure GObject :
   G_OBJECT
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
     where type 'a signal_t = 'a Signal.t
-    where type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
-    where type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
-    where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite =
+    where type 'object_class property_t = 'object_class Property.t =
   struct
     structure GObjectTypeCVectorNType =
       CValueCVectorNType(
@@ -880,9 +878,7 @@ structure GObject :
     val typeTestFlags_ = fn x1 & x2 => (_import "g_type_test_flags" : GObjectType.FFI.val_ * GUInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
     type 'a signal_t = 'a Signal.t
-    type ('object, 'a) property_readonly = ('object, 'a) Property.readonly
-    type ('object, 'a) property_writeonly = ('object, 'a) Property.writeonly
-    type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) Property.readwrite
+    type 'object_class property_t = 'object_class Property.t
     structure Type = GObjectType
     structure ConnectFlags = GObjectConnectFlags
     structure EnumClassRecord = GObjectEnumClassRecord

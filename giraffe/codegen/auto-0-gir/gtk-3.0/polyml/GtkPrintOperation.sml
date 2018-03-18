@@ -191,80 +191,95 @@ structure GtkPrintOperation :>
       val allowAsyncProp =
         {
           get = fn x => get "allow-async" boolean x,
-          set = fn x => set "allow-async" boolean x
+          set = fn x => set "allow-async" boolean x,
+          new = fn x => new "allow-async" boolean x
         }
       val currentPageProp =
         {
           get = fn x => get "current-page" int x,
-          set = fn x => set "current-page" int x
+          set = fn x => set "current-page" int x,
+          new = fn x => new "current-page" int x
         }
       val customTabLabelProp =
         {
           get = fn x => get "custom-tab-label" stringOpt x,
-          set = fn x => set "custom-tab-label" stringOpt x
+          set = fn x => set "custom-tab-label" stringOpt x,
+          new = fn x => new "custom-tab-label" stringOpt x
         }
       val defaultPageSetupProp =
         {
           get = fn x => get "default-page-setup" GtkPageSetupClass.tOpt x,
-          set = fn x => set "default-page-setup" GtkPageSetupClass.tOpt x
+          set = fn x => set "default-page-setup" GtkPageSetupClass.tOpt x,
+          new = fn x => new "default-page-setup" GtkPageSetupClass.tOpt x
         }
       val embedPageSetupProp =
         {
           get = fn x => get "embed-page-setup" boolean x,
-          set = fn x => set "embed-page-setup" boolean x
+          set = fn x => set "embed-page-setup" boolean x,
+          new = fn x => new "embed-page-setup" boolean x
         }
       val exportFilenameProp =
         {
           get = fn x => get "export-filename" stringOpt x,
-          set = fn x => set "export-filename" stringOpt x
+          set = fn x => set "export-filename" stringOpt x,
+          new = fn x => new "export-filename" stringOpt x
         }
       val hasSelectionProp =
         {
           get = fn x => get "has-selection" boolean x,
-          set = fn x => set "has-selection" boolean x
+          set = fn x => set "has-selection" boolean x,
+          new = fn x => new "has-selection" boolean x
         }
       val jobNameProp =
         {
           get = fn x => get "job-name" stringOpt x,
-          set = fn x => set "job-name" stringOpt x
+          set = fn x => set "job-name" stringOpt x,
+          new = fn x => new "job-name" stringOpt x
         }
       val nPagesProp =
         {
           get = fn x => get "n-pages" int x,
-          set = fn x => set "n-pages" int x
+          set = fn x => set "n-pages" int x,
+          new = fn x => new "n-pages" int x
         }
       val nPagesToPrintProp = {get = fn x => get "n-pages-to-print" int x}
       val printSettingsProp =
         {
           get = fn x => get "print-settings" GtkPrintSettingsClass.tOpt x,
-          set = fn x => set "print-settings" GtkPrintSettingsClass.tOpt x
+          set = fn x => set "print-settings" GtkPrintSettingsClass.tOpt x,
+          new = fn x => new "print-settings" GtkPrintSettingsClass.tOpt x
         }
       val showProgressProp =
         {
           get = fn x => get "show-progress" boolean x,
-          set = fn x => set "show-progress" boolean x
+          set = fn x => set "show-progress" boolean x,
+          new = fn x => new "show-progress" boolean x
         }
       val statusProp = {get = fn x => get "status" GtkPrintStatus.t x}
       val statusStringProp = {get = fn x => get "status-string" stringOpt x}
       val supportSelectionProp =
         {
           get = fn x => get "support-selection" boolean x,
-          set = fn x => set "support-selection" boolean x
+          set = fn x => set "support-selection" boolean x,
+          new = fn x => new "support-selection" boolean x
         }
       val trackPrintStatusProp =
         {
           get = fn x => get "track-print-status" boolean x,
-          set = fn x => set "track-print-status" boolean x
+          set = fn x => set "track-print-status" boolean x,
+          new = fn x => new "track-print-status" boolean x
         }
       val unitProp =
         {
           get = fn x => get "unit" GtkUnit.t x,
-          set = fn x => set "unit" GtkUnit.t x
+          set = fn x => set "unit" GtkUnit.t x,
+          new = fn x => new "unit" GtkUnit.t x
         }
       val useFullPageProp =
         {
           get = fn x => get "use-full-page" boolean x,
-          set = fn x => set "use-full-page" boolean x
+          set = fn x => set "use-full-page" boolean x,
+          new = fn x => new "use-full-page" boolean x
         }
     end
   end

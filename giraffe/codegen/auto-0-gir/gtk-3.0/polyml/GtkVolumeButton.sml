@@ -31,7 +31,8 @@ structure GtkVolumeButton :>
       val useSymbolicProp =
         {
           get = fn x => get "use-symbolic" boolean x,
-          set = fn x => set "use-symbolic" boolean x
+          set = fn x => set "use-symbolic" boolean x,
+          new = fn x => new "use-symbolic" boolean x
         }
     end
   end

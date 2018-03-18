@@ -228,12 +228,44 @@ signature GDK_PIXBUF_PIXBUF =
       'a class
        -> string * string
        -> bool
-    val bitsPerSampleProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val colorspaceProp : ('a class, colorspace_t, colorspace_t) Property.readwrite
-    val hasAlphaProp : ('a class, bool, bool) Property.readwrite
-    val heightProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val nChannelsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val pixelBytesProp : ('a class, GLib.BytesRecord.t option, GLib.BytesRecord.t option) Property.readwrite
-    val rowstrideProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val widthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val bitsPerSampleProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val colorspaceProp :
+      {
+        get : 'a class -> colorspace_t,
+        new : colorspace_t -> 'a class Property.t
+      }
+    val hasAlphaProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val heightProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val nChannelsProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val pixelBytesProp :
+      {
+        get : 'a class -> GLib.BytesRecord.t option,
+        new : GLib.BytesRecord.t option -> 'a class Property.t
+      }
+    val rowstrideProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val widthProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

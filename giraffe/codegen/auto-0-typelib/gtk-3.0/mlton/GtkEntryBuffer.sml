@@ -242,12 +242,14 @@ structure GtkEntryBuffer :>
       val maxLengthProp =
         {
           get = fn x => get "max-length" int x,
-          set = fn x => set "max-length" int x
+          set = fn x => set "max-length" int x,
+          new = fn x => new "max-length" int x
         }
       val textProp =
         {
           get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x
+          set = fn x => set "text" stringOpt x,
+          new = fn x => new "text" stringOpt x
         }
     end
   end

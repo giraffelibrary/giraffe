@@ -1510,42 +1510,42 @@ structure GdkPixbufPixbuf :>
       val bitsPerSampleProp =
         {
           get = fn x => get "bits-per-sample" int x,
-          set = fn x => set "bits-per-sample" int x
+          new = fn x => new "bits-per-sample" int x
         }
       val colorspaceProp =
         {
           get = fn x => get "colorspace" GdkPixbufColorspace.t x,
-          set = fn x => set "colorspace" GdkPixbufColorspace.t x
+          new = fn x => new "colorspace" GdkPixbufColorspace.t x
         }
       val hasAlphaProp =
         {
           get = fn x => get "has-alpha" boolean x,
-          set = fn x => set "has-alpha" boolean x
+          new = fn x => new "has-alpha" boolean x
         }
       val heightProp =
         {
           get = fn x => get "height" int x,
-          set = fn x => set "height" int x
+          new = fn x => new "height" int x
         }
       val nChannelsProp =
         {
           get = fn x => get "n-channels" int x,
-          set = fn x => set "n-channels" int x
+          new = fn x => new "n-channels" int x
         }
       val pixelBytesProp =
         {
           get = fn x => get "pixel-bytes" GLibBytesRecord.tOpt x,
-          set = fn x => set "pixel-bytes" GLibBytesRecord.tOpt x
+          new = fn x => new "pixel-bytes" GLibBytesRecord.tOpt x
         }
       val rowstrideProp =
         {
           get = fn x => get "rowstride" int x,
-          set = fn x => set "rowstride" int x
+          new = fn x => new "rowstride" int x
         }
       val widthProp =
         {
           get = fn x => get "width" int x,
-          set = fn x => set "width" int x
+          new = fn x => new "width" int x
         }
     end
   end

@@ -121,17 +121,20 @@ structure GtkPaned :>
       val positionProp =
         {
           get = fn x => get "position" int x,
-          set = fn x => set "position" int x
+          set = fn x => set "position" int x,
+          new = fn x => new "position" int x
         }
       val positionSetProp =
         {
           get = fn x => get "position-set" boolean x,
-          set = fn x => set "position-set" boolean x
+          set = fn x => set "position-set" boolean x,
+          new = fn x => new "position-set" boolean x
         }
       val wideHandleProp =
         {
           get = fn x => get "wide-handle" boolean x,
-          set = fn x => set "wide-handle" boolean x
+          set = fn x => set "wide-handle" boolean x,
+          new = fn x => new "wide-handle" boolean x
         }
     end
   end

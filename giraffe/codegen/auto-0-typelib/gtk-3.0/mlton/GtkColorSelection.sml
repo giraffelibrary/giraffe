@@ -151,27 +151,32 @@ structure GtkColorSelection :>
       val currentAlphaProp =
         {
           get = fn x => get "current-alpha" uint x,
-          set = fn x => set "current-alpha" uint x
+          set = fn x => set "current-alpha" uint x,
+          new = fn x => new "current-alpha" uint x
         }
       val currentColorProp =
         {
           get = fn x => get "current-color" GdkColorRecord.tOpt x,
-          set = fn x => set "current-color" GdkColorRecord.tOpt x
+          set = fn x => set "current-color" GdkColorRecord.tOpt x,
+          new = fn x => new "current-color" GdkColorRecord.tOpt x
         }
       val currentRgbaProp =
         {
           get = fn x => get "current-rgba" GdkRgbaRecord.tOpt x,
-          set = fn x => set "current-rgba" GdkRgbaRecord.tOpt x
+          set = fn x => set "current-rgba" GdkRgbaRecord.tOpt x,
+          new = fn x => new "current-rgba" GdkRgbaRecord.tOpt x
         }
       val hasOpacityControlProp =
         {
           get = fn x => get "has-opacity-control" boolean x,
-          set = fn x => set "has-opacity-control" boolean x
+          set = fn x => set "has-opacity-control" boolean x,
+          new = fn x => new "has-opacity-control" boolean x
         }
       val hasPaletteProp =
         {
           get = fn x => get "has-palette" boolean x,
-          set = fn x => set "has-palette" boolean x
+          set = fn x => set "has-palette" boolean x,
+          new = fn x => new "has-palette" boolean x
         }
     end
   end

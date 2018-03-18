@@ -167,12 +167,12 @@ structure GdkCursor :>
       val cursorTypeProp =
         {
           get = fn x => get "cursor-type" GdkCursorType.t x,
-          set = fn x => set "cursor-type" GdkCursorType.t x
+          new = fn x => new "cursor-type" GdkCursorType.t x
         }
       val displayProp =
         {
           get = fn x => get "display" GdkDisplayClass.tOpt x,
-          set = fn x => set "display" GdkDisplayClass.tOpt x
+          new = fn x => new "display" GdkDisplayClass.tOpt x
         }
     end
   end

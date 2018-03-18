@@ -51,17 +51,20 @@ structure GtkCheckMenuItem :>
       val activeProp =
         {
           get = fn x => get "active" boolean x,
-          set = fn x => set "active" boolean x
+          set = fn x => set "active" boolean x,
+          new = fn x => new "active" boolean x
         }
       val drawAsRadioProp =
         {
           get = fn x => get "draw-as-radio" boolean x,
-          set = fn x => set "draw-as-radio" boolean x
+          set = fn x => set "draw-as-radio" boolean x,
+          new = fn x => new "draw-as-radio" boolean x
         }
       val inconsistentProp =
         {
           get = fn x => get "inconsistent" boolean x,
-          set = fn x => set "inconsistent" boolean x
+          set = fn x => set "inconsistent" boolean x,
+          new = fn x => new "inconsistent" boolean x
         }
     end
   end

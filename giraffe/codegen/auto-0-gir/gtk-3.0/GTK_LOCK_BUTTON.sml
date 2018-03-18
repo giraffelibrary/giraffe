@@ -16,10 +16,58 @@ signature GTK_LOCK_BUTTON =
       'a class
        -> 'b Gio.PermissionClass.class option
        -> unit
-    val permissionProp : ('a class, base Gio.PermissionClass.class option, 'b Gio.PermissionClass.class option) Property.readwrite
-    val textLockProp : ('a class, string option, string option) Property.readwrite
-    val textUnlockProp : ('a class, string option, string option) Property.readwrite
-    val tooltipLockProp : ('a class, string option, string option) Property.readwrite
-    val tooltipNotAuthorizedProp : ('a class, string option, string option) Property.readwrite
-    val tooltipUnlockProp : ('a class, string option, string option) Property.readwrite
+    val permissionProp :
+      {
+        get : 'a class -> base Gio.PermissionClass.class option,
+        set :
+          'b Gio.PermissionClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gio.PermissionClass.class option -> 'a class Property.t
+      }
+    val textLockProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val textUnlockProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val tooltipLockProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val tooltipNotAuthorizedProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val tooltipUnlockProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

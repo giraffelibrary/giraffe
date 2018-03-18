@@ -16,8 +16,40 @@ signature GTK_MISC =
       'a class
        -> LargeInt.int * LargeInt.int
        -> unit
-    val xalignProp : ('a class, real, real) Property.readwrite
-    val xpadProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val yalignProp : ('a class, real, real) Property.readwrite
-    val ypadProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val xalignProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val xpadProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val yalignProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val ypadProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

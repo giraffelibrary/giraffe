@@ -239,82 +239,97 @@ structure GtkAction :>
       val actionGroupProp =
         {
           get = fn x => get "action-group" GtkActionGroupClass.tOpt x,
-          set = fn x => set "action-group" GtkActionGroupClass.tOpt x
+          set = fn x => set "action-group" GtkActionGroupClass.tOpt x,
+          new = fn x => new "action-group" GtkActionGroupClass.tOpt x
         }
       val alwaysShowImageProp =
         {
           get = fn x => get "always-show-image" boolean x,
-          set = fn x => set "always-show-image" boolean x
+          set = fn x => set "always-show-image" boolean x,
+          new = fn x => new "always-show-image" boolean x
         }
       val giconProp =
         {
           get = fn x => get "gicon" GioIconClass.tOpt x,
-          set = fn x => set "gicon" GioIconClass.tOpt x
+          set = fn x => set "gicon" GioIconClass.tOpt x,
+          new = fn x => new "gicon" GioIconClass.tOpt x
         }
       val hideIfEmptyProp =
         {
           get = fn x => get "hide-if-empty" boolean x,
-          set = fn x => set "hide-if-empty" boolean x
+          set = fn x => set "hide-if-empty" boolean x,
+          new = fn x => new "hide-if-empty" boolean x
         }
       val iconNameProp =
         {
           get = fn x => get "icon-name" stringOpt x,
-          set = fn x => set "icon-name" stringOpt x
+          set = fn x => set "icon-name" stringOpt x,
+          new = fn x => new "icon-name" stringOpt x
         }
       val isImportantProp =
         {
           get = fn x => get "is-important" boolean x,
-          set = fn x => set "is-important" boolean x
+          set = fn x => set "is-important" boolean x,
+          new = fn x => new "is-important" boolean x
         }
       val labelProp =
         {
           get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x
+          set = fn x => set "label" stringOpt x,
+          new = fn x => new "label" stringOpt x
         }
       val nameProp =
         {
           get = fn x => get "name" stringOpt x,
-          set = fn x => set "name" stringOpt x
+          new = fn x => new "name" stringOpt x
         }
       val sensitiveProp =
         {
           get = fn x => get "sensitive" boolean x,
-          set = fn x => set "sensitive" boolean x
+          set = fn x => set "sensitive" boolean x,
+          new = fn x => new "sensitive" boolean x
         }
       val shortLabelProp =
         {
           get = fn x => get "short-label" stringOpt x,
-          set = fn x => set "short-label" stringOpt x
+          set = fn x => set "short-label" stringOpt x,
+          new = fn x => new "short-label" stringOpt x
         }
       val stockIdProp =
         {
           get = fn x => get "stock-id" stringOpt x,
-          set = fn x => set "stock-id" stringOpt x
+          set = fn x => set "stock-id" stringOpt x,
+          new = fn x => new "stock-id" stringOpt x
         }
       val tooltipProp =
         {
           get = fn x => get "tooltip" stringOpt x,
-          set = fn x => set "tooltip" stringOpt x
+          set = fn x => set "tooltip" stringOpt x,
+          new = fn x => new "tooltip" stringOpt x
         }
       val visibleProp =
         {
           get = fn x => get "visible" boolean x,
-          set = fn x => set "visible" boolean x
+          set = fn x => set "visible" boolean x,
+          new = fn x => new "visible" boolean x
         }
       val visibleHorizontalProp =
         {
           get = fn x => get "visible-horizontal" boolean x,
-          set = fn x => set "visible-horizontal" boolean x
+          set = fn x => set "visible-horizontal" boolean x,
+          new = fn x => new "visible-horizontal" boolean x
         }
       val visibleOverflownProp =
         {
           get = fn x => get "visible-overflown" boolean x,
-          set = fn x => set "visible-overflown" boolean x
+          set = fn x => set "visible-overflown" boolean x,
+          new = fn x => new "visible-overflown" boolean x
         }
       val visibleVerticalProp =
         {
           get = fn x => get "visible-vertical" boolean x,
-          set = fn x => set "visible-vertical" boolean x
+          set = fn x => set "visible-vertical" boolean x,
+          new = fn x => new "visible-vertical" boolean x
         }
     end
   end

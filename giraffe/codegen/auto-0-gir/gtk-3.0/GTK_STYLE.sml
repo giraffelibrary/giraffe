@@ -50,5 +50,9 @@ signature GTK_STYLE =
        -> unit
     val realizeSig : (unit -> unit) -> 'a class Signal.t
     val unrealizeSig : (unit -> unit) -> 'a class Signal.t
-    val contextProp : ('a class, base style_context_class option, 'b style_context_class option) Property.readwrite
+    val contextProp :
+      {
+        get : 'a class -> base style_context_class option,
+        new : 'b style_context_class option -> 'a class Property.t
+      }
   end

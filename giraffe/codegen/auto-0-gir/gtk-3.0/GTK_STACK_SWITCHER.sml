@@ -15,6 +15,22 @@ signature GTK_STACK_SWITCHER =
       'a class
        -> 'b stack_class option
        -> unit
-    val iconSizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val stackProp : ('a class, base stack_class option, 'b stack_class option) Property.readwrite
+    val iconSizeProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val stackProp :
+      {
+        get : 'a class -> base stack_class option,
+        set :
+          'b stack_class option
+           -> 'a class
+           -> unit,
+        new : 'b stack_class option -> 'a class Property.t
+      }
   end

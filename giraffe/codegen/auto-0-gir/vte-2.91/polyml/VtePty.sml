@@ -145,12 +145,12 @@ structure VtePty :>
       val fdProp =
         {
           get = fn x => get "fd" int x,
-          set = fn x => set "fd" int x
+          new = fn x => new "fd" int x
         }
       val flagsProp =
         {
           get = fn x => get "flags" VtePtyFlags.t x,
-          set = fn x => set "flags" VtePtyFlags.t x
+          new = fn x => new "flags" VtePtyFlags.t x
         }
     end
   end

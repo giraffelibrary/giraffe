@@ -20,7 +20,8 @@ structure GioTcpConnection :>
       val gracefulDisconnectProp =
         {
           get = fn x => get "graceful-disconnect" boolean x,
-          set = fn x => set "graceful-disconnect" boolean x
+          set = fn x => set "graceful-disconnect" boolean x,
+          new = fn x => new "graceful-disconnect" boolean x
         }
     end
   end

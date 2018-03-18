@@ -28,6 +28,14 @@ signature GDK_CURSOR =
        -> Cairo.SurfaceRecord.t option
            * real
            * real
-    val cursorTypeProp : ('a class, cursor_type_t, cursor_type_t) Property.readwrite
-    val displayProp : ('a class, base display_class option, 'b display_class option) Property.readwrite
+    val cursorTypeProp :
+      {
+        get : 'a class -> cursor_type_t,
+        new : cursor_type_t -> 'a class Property.t
+      }
+    val displayProp :
+      {
+        get : 'a class -> base display_class option,
+        new : 'b display_class option -> 'a class Property.t
+      }
   end

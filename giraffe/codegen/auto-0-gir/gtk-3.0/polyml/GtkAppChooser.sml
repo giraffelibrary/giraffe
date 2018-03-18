@@ -22,7 +22,7 @@ structure GtkAppChooser :>
       val contentTypeProp =
         {
           get = fn x => get "content-type" stringOpt x,
-          set = fn x => set "content-type" stringOpt x
+          new = fn x => new "content-type" stringOpt x
         }
     end
   end

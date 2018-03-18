@@ -30,5 +30,13 @@ signature GTK_CELL_AREA_BOX =
       'a class
        -> LargeInt.int
        -> unit
-    val spacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val spacingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

@@ -64,8 +64,40 @@ signature GTK_TOOLBAR =
         -> bool)
        -> 'a class Signal.t
     val styleChangedSig : (toolbar_style_t -> unit) -> 'a class Signal.t
-    val iconSizeProp : ('a class, icon_size_t, icon_size_t) Property.readwrite
-    val iconSizeSetProp : ('a class, bool, bool) Property.readwrite
-    val showArrowProp : ('a class, bool, bool) Property.readwrite
-    val toolbarStyleProp : ('a class, toolbar_style_t, toolbar_style_t) Property.readwrite
+    val iconSizeProp :
+      {
+        get : 'a class -> icon_size_t,
+        set :
+          icon_size_t
+           -> 'a class
+           -> unit,
+        new : icon_size_t -> 'a class Property.t
+      }
+    val iconSizeSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showArrowProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val toolbarStyleProp :
+      {
+        get : 'a class -> toolbar_style_t,
+        set :
+          toolbar_style_t
+           -> 'a class
+           -> unit,
+        new : toolbar_style_t -> 'a class Property.t
+      }
   end

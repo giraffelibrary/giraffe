@@ -42,7 +42,8 @@ structure GtkSourceFile :>
       val locationProp =
         {
           get = fn x => get "location" GioFileClass.tOpt x,
-          set = fn x => set "location" GioFileClass.tOpt x
+          set = fn x => set "location" GioFileClass.tOpt x,
+          new = fn x => new "location" GioFileClass.tOpt x
         }
       val newlineTypeProp = {get = fn x => get "newline-type" GtkSourceNewlineType.t x}
       val readOnlyProp = {get = fn x => get "read-only" boolean x}

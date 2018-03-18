@@ -34,5 +34,9 @@ signature GTK_TREE_MODEL_SORT =
        -> tree_iter_t
        -> bool
     val resetDefaultSortFunc : 'a class -> unit
-    val modelProp : ('a class, base tree_model_class option, 'b tree_model_class option) Property.readwrite
+    val modelProp :
+      {
+        get : 'a class -> base tree_model_class option,
+        new : 'b tree_model_class option -> 'a class Property.t
+      }
   end

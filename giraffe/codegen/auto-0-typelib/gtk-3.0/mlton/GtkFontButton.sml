@@ -86,32 +86,38 @@ structure GtkFontButton :>
       val fontNameProp =
         {
           get = fn x => get "font-name" stringOpt x,
-          set = fn x => set "font-name" stringOpt x
+          set = fn x => set "font-name" stringOpt x,
+          new = fn x => new "font-name" stringOpt x
         }
       val showSizeProp =
         {
           get = fn x => get "show-size" boolean x,
-          set = fn x => set "show-size" boolean x
+          set = fn x => set "show-size" boolean x,
+          new = fn x => new "show-size" boolean x
         }
       val showStyleProp =
         {
           get = fn x => get "show-style" boolean x,
-          set = fn x => set "show-style" boolean x
+          set = fn x => set "show-style" boolean x,
+          new = fn x => new "show-style" boolean x
         }
       val titleProp =
         {
           get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x
+          set = fn x => set "title" stringOpt x,
+          new = fn x => new "title" stringOpt x
         }
       val useFontProp =
         {
           get = fn x => get "use-font" boolean x,
-          set = fn x => set "use-font" boolean x
+          set = fn x => set "use-font" boolean x,
+          new = fn x => new "use-font" boolean x
         }
       val useSizeProp =
         {
           get = fn x => get "use-size" boolean x,
-          set = fn x => set "use-size" boolean x
+          set = fn x => set "use-size" boolean x,
+          new = fn x => new "use-size" boolean x
         }
     end
   end

@@ -18,12 +18,14 @@ structure GtkSourceTag :>
       val drawSpacesProp =
         {
           get = fn x => get "draw-spaces" boolean x,
-          set = fn x => set "draw-spaces" boolean x
+          set = fn x => set "draw-spaces" boolean x,
+          new = fn x => new "draw-spaces" boolean x
         }
       val drawSpacesSetProp =
         {
           get = fn x => get "draw-spaces-set" boolean x,
-          set = fn x => set "draw-spaces-set" boolean x
+          set = fn x => set "draw-spaces-set" boolean x,
+          new = fn x => new "draw-spaces-set" boolean x
         }
     end
   end

@@ -167,48 +167,57 @@ structure GtkRecentChooser :>
       val filterProp =
         {
           get = fn x => get "filter" GtkRecentFilterClass.tOpt x,
-          set = fn x => set "filter" GtkRecentFilterClass.tOpt x
+          set = fn x => set "filter" GtkRecentFilterClass.tOpt x,
+          new = fn x => new "filter" GtkRecentFilterClass.tOpt x
         }
       val limitProp =
         {
           get = fn x => get "limit" int x,
-          set = fn x => set "limit" int x
+          set = fn x => set "limit" int x,
+          new = fn x => new "limit" int x
         }
       val localOnlyProp =
         {
           get = fn x => get "local-only" boolean x,
-          set = fn x => set "local-only" boolean x
+          set = fn x => set "local-only" boolean x,
+          new = fn x => new "local-only" boolean x
         }
-      val recentManagerProp = {set = fn x => set "recent-manager" GtkRecentManagerClass.tOpt x}
+      val recentManagerProp = {new = fn x => new "recent-manager" GtkRecentManagerClass.tOpt x}
       val selectMultipleProp =
         {
           get = fn x => get "select-multiple" boolean x,
-          set = fn x => set "select-multiple" boolean x
+          set = fn x => set "select-multiple" boolean x,
+          new = fn x => new "select-multiple" boolean x
         }
       val showIconsProp =
         {
           get = fn x => get "show-icons" boolean x,
-          set = fn x => set "show-icons" boolean x
+          set = fn x => set "show-icons" boolean x,
+          new = fn x => new "show-icons" boolean x
         }
       val showNotFoundProp =
         {
           get = fn x => get "show-not-found" boolean x,
-          set = fn x => set "show-not-found" boolean x
+          set = fn x => set "show-not-found" boolean x,
+          new = fn x => new "show-not-found" boolean x
         }
       val showPrivateProp =
         {
           get = fn x => get "show-private" boolean x,
-          set = fn x => set "show-private" boolean x
+          set = fn x => set "show-private" boolean x,
+          new = fn x => new "show-private" boolean x
         }
       val showTipsProp =
         {
           get = fn x => get "show-tips" boolean x,
-          set = fn x => set "show-tips" boolean x
+          set = fn x => set "show-tips" boolean x,
+          new = fn x => new "show-tips" boolean x
         }
       val sortTypeProp =
         {
           get = fn x => get "sort-type" GtkRecentSortType.t x,
-          set = fn x => set "sort-type" GtkRecentSortType.t x
+          set = fn x => set "sort-type" GtkRecentSortType.t x,
+          new = fn x => new "sort-type" GtkRecentSortType.t x
         }
     end
   end

@@ -224,17 +224,20 @@ structure GtkBox :>
       val baselinePositionProp =
         {
           get = fn x => get "baseline-position" GtkBaselinePosition.t x,
-          set = fn x => set "baseline-position" GtkBaselinePosition.t x
+          set = fn x => set "baseline-position" GtkBaselinePosition.t x,
+          new = fn x => new "baseline-position" GtkBaselinePosition.t x
         }
       val homogeneousProp =
         {
           get = fn x => get "homogeneous" boolean x,
-          set = fn x => set "homogeneous" boolean x
+          set = fn x => set "homogeneous" boolean x,
+          new = fn x => new "homogeneous" boolean x
         }
       val spacingProp =
         {
           get = fn x => get "spacing" int x,
-          set = fn x => set "spacing" int x
+          set = fn x => set "spacing" int x,
+          new = fn x => new "spacing" int x
         }
     end
   end

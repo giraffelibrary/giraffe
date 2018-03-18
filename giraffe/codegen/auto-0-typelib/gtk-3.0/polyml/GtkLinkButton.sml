@@ -43,12 +43,14 @@ structure GtkLinkButton :>
       val uriProp =
         {
           get = fn x => get "uri" stringOpt x,
-          set = fn x => set "uri" stringOpt x
+          set = fn x => set "uri" stringOpt x,
+          new = fn x => new "uri" stringOpt x
         }
       val visitedProp =
         {
           get = fn x => get "visited" boolean x,
-          set = fn x => set "visited" boolean x
+          set = fn x => set "visited" boolean x,
+          new = fn x => new "visited" boolean x
         }
     end
   end

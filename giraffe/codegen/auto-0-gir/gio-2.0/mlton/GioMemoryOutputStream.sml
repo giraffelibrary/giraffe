@@ -27,7 +27,7 @@ structure GioMemoryOutputStream :>
       val sizeProp =
         {
           get = fn x => get "size" ulong x,
-          set = fn x => set "size" ulong x
+          new = fn x => new "size" ulong x
         }
     end
   end

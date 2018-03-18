@@ -24,15 +24,19 @@ signature GIO_INET_ADDRESS =
     val getIsSiteLocal : 'a class -> bool
     val getNativeSize : 'a class -> LargeInt.int
     val toString : 'a class -> string
-    val familyProp : ('a class, socket_family_t, socket_family_t) Property.readwrite
-    val isAnyProp : ('a class, bool) Property.readonly
-    val isLinkLocalProp : ('a class, bool) Property.readonly
-    val isLoopbackProp : ('a class, bool) Property.readonly
-    val isMcGlobalProp : ('a class, bool) Property.readonly
-    val isMcLinkLocalProp : ('a class, bool) Property.readonly
-    val isMcNodeLocalProp : ('a class, bool) Property.readonly
-    val isMcOrgLocalProp : ('a class, bool) Property.readonly
-    val isMcSiteLocalProp : ('a class, bool) Property.readonly
-    val isMulticastProp : ('a class, bool) Property.readonly
-    val isSiteLocalProp : ('a class, bool) Property.readonly
+    val familyProp :
+      {
+        get : 'a class -> socket_family_t,
+        new : socket_family_t -> 'a class Property.t
+      }
+    val isAnyProp : {get : 'a class -> bool}
+    val isLinkLocalProp : {get : 'a class -> bool}
+    val isLoopbackProp : {get : 'a class -> bool}
+    val isMcGlobalProp : {get : 'a class -> bool}
+    val isMcLinkLocalProp : {get : 'a class -> bool}
+    val isMcNodeLocalProp : {get : 'a class -> bool}
+    val isMcOrgLocalProp : {get : 'a class -> bool}
+    val isMcSiteLocalProp : {get : 'a class -> bool}
+    val isMulticastProp : {get : 'a class -> bool}
+    val isSiteLocalProp : {get : 'a class -> bool}
   end

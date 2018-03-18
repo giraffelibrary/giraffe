@@ -127,7 +127,8 @@ structure GtkTreeSelection :>
       val modeProp =
         {
           get = fn x => get "mode" GtkSelectionMode.t x,
-          set = fn x => set "mode" GtkSelectionMode.t x
+          set = fn x => set "mode" GtkSelectionMode.t x,
+          new = fn x => new "mode" GtkSelectionMode.t x
         }
     end
   end

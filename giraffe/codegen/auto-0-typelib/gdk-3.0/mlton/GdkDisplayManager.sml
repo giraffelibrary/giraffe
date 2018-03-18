@@ -41,7 +41,8 @@ structure GdkDisplayManager :>
       val defaultDisplayProp =
         {
           get = fn x => get "default-display" GdkDisplayClass.tOpt x,
-          set = fn x => set "default-display" GdkDisplayClass.tOpt x
+          set = fn x => set "default-display" GdkDisplayClass.tOpt x,
+          new = fn x => new "default-display" GdkDisplayClass.tOpt x
         }
     end
   end

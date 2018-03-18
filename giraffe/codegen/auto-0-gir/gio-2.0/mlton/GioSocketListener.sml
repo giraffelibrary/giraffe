@@ -361,7 +361,8 @@ structure GioSocketListener :>
       val listenBacklogProp =
         {
           get = fn x => get "listen-backlog" int x,
-          set = fn x => set "listen-backlog" int x
+          set = fn x => set "listen-backlog" int x,
+          new = fn x => new "listen-backlog" int x
         }
     end
   end

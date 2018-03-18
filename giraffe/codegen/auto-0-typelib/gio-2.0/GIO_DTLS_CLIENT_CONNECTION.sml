@@ -17,6 +17,22 @@ signature GIO_DTLS_CLIENT_CONNECTION =
       'a class
        -> tls_certificate_flags_t
        -> unit
-    val serverIdentityProp : ('a class, base socket_connectable_class option, 'b socket_connectable_class option) Property.readwrite
-    val validationFlagsProp : ('a class, tls_certificate_flags_t, tls_certificate_flags_t) Property.readwrite
+    val serverIdentityProp :
+      {
+        get : 'a class -> base socket_connectable_class option,
+        set :
+          'b socket_connectable_class option
+           -> 'a class
+           -> unit,
+        new : 'b socket_connectable_class option -> 'a class Property.t
+      }
+    val validationFlagsProp :
+      {
+        get : 'a class -> tls_certificate_flags_t,
+        set :
+          tls_certificate_flags_t
+           -> 'a class
+           -> unit,
+        new : tls_certificate_flags_t -> 'a class Property.t
+      }
   end

@@ -53,10 +53,58 @@ signature GTK_POPOVER =
        -> bool
        -> unit
     val closedSig : (unit -> unit) -> 'a class Signal.t
-    val constrainToProp : ('a class, popover_constraint_t, popover_constraint_t) Property.readwrite
-    val modalProp : ('a class, bool, bool) Property.readwrite
-    val pointingToProp : ('a class, Gdk.RectangleRecord.t option, Gdk.RectangleRecord.t option) Property.readwrite
-    val positionProp : ('a class, position_type_t, position_type_t) Property.readwrite
-    val relativeToProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
-    val transitionsEnabledProp : ('a class, bool, bool) Property.readwrite
+    val constrainToProp :
+      {
+        get : 'a class -> popover_constraint_t,
+        set :
+          popover_constraint_t
+           -> 'a class
+           -> unit,
+        new : popover_constraint_t -> 'a class Property.t
+      }
+    val modalProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val pointingToProp :
+      {
+        get : 'a class -> Gdk.RectangleRecord.t option,
+        set :
+          Gdk.RectangleRecord.t option
+           -> 'a class
+           -> unit,
+        new : Gdk.RectangleRecord.t option -> 'a class Property.t
+      }
+    val positionProp :
+      {
+        get : 'a class -> position_type_t,
+        set :
+          position_type_t
+           -> 'a class
+           -> unit,
+        new : position_type_t -> 'a class Property.t
+      }
+    val relativeToProp :
+      {
+        get : 'a class -> base widget_class option,
+        set :
+          'b widget_class option
+           -> 'a class
+           -> unit,
+        new : 'b widget_class option -> 'a class Property.t
+      }
+    val transitionsEnabledProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

@@ -46,7 +46,8 @@ structure GtkFileChooserWidget :>
       val searchModeProp =
         {
           get = fn x => get "search-mode" boolean x,
-          set = fn x => set "search-mode" boolean x
+          set = fn x => set "search-mode" boolean x,
+          new = fn x => new "search-mode" boolean x
         }
       val subtitleProp = {get = fn x => get "subtitle" stringOpt x}
     end

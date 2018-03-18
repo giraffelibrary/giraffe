@@ -33,12 +33,14 @@ structure GtkSizeGroup :>
       val ignoreHiddenProp =
         {
           get = fn x => get "ignore-hidden" boolean x,
-          set = fn x => set "ignore-hidden" boolean x
+          set = fn x => set "ignore-hidden" boolean x,
+          new = fn x => new "ignore-hidden" boolean x
         }
       val modeProp =
         {
           get = fn x => get "mode" GtkSizeGroupMode.t x,
-          set = fn x => set "mode" GtkSizeGroupMode.t x
+          set = fn x => set "mode" GtkSizeGroupMode.t x,
+          new = fn x => new "mode" GtkSizeGroupMode.t x
         }
     end
   end

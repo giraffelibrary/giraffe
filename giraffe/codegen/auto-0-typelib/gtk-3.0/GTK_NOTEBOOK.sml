@@ -173,11 +173,67 @@ signature GTK_NOTEBOOK =
     val reorderTabSig : (direction_type_t * bool -> bool) -> 'a class Signal.t
     val selectPageSig : (bool -> bool) -> 'a class Signal.t
     val switchPageSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.t
-    val enablePopupProp : ('a class, bool, bool) Property.readwrite
-    val groupNameProp : ('a class, string option, string option) Property.readwrite
-    val pageProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val scrollableProp : ('a class, bool, bool) Property.readwrite
-    val showBorderProp : ('a class, bool, bool) Property.readwrite
-    val showTabsProp : ('a class, bool, bool) Property.readwrite
-    val tabPosProp : ('a class, position_type_t, position_type_t) Property.readwrite
+    val enablePopupProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val groupNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val pageProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val scrollableProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showBorderProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showTabsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val tabPosProp :
+      {
+        get : 'a class -> position_type_t,
+        set :
+          position_type_t
+           -> 'a class
+           -> unit,
+        new : position_type_t -> 'a class Property.t
+      }
   end

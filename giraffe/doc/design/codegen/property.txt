@@ -25,11 +25,15 @@ Conditions
 
   isReadable =
     GParamFlags.anySet
-      (GIPropertyInfo.get_flags propertyInfo, GParamFlags.READABLE);
+      (GIPropertyInfo.getFlags propertyInfo, GParamFlags.READABLE);
 
   isWritable = 
     GParamFlags.anySet
-      (GIPropertyInfo.get_flags propertyInfo, GParamFlags.WRITABLE);
+      (GIPropertyInfo.getFlags propertyInfo, GParamFlags.WRITABLE);
+
+  isConstructOnly = 
+    GParamFlags.anySet
+      (GIPropertyInfo.getFlags propertyInfo, GParamFlags.CONSTRUCT_ONLY);
 
 
 ==Specification==
@@ -37,20 +41,48 @@ Conditions
 PropertySpec has the form:
 
 
-  val <propertyName>Prop : ('a class, <PropertyType(true)>) <Property("readonly")>
+  val <propertyName>Prop :
+    {
+      get : 'a class -> <PropertyType(true)>,
+      set : <PropertyType(false)> -> 'a class -> unit,
+      new : <PropertyType(false)> -> 'a class <property_t>
+    }
+
+    if isReadable and isWritable and not isConstructOnly
+
+
+  val <propertyName>Prop :
+    {
+      get : 'a class -> <PropertyType(true)>,
+      new : <PropertyType(false)> -> 'a class <property_t>
+    }
+
+    if isReadable and isWritable and isConstructOnly
+
+
+  val <propertyName>Prop :
+    {
+      get : 'a class -> <PropertyType(true)>
+    }
 
     if isReadable and not isWritable
 
 
-  val <propertyName>Prop : ('a class, <PropertyType(false)>) <Property("writeonly")>
+  val <propertyName>Prop :
+    {
+      set : <PropertyType(false)> -> 'a class -> unit,
+      new : <PropertyType(false)> -> 'a class <property_t>
+    }
 
-    if not isReadable and isWritable
+    if not isReadable and isWritable and not isConstructOnly
 
 
   val <propertyName>Prop :
-    ('a class, <PropertyType(true)>, <PropertyType(false)>) <Property("readwrite")>
+    {
+      new : <PropertyType(false)> -> 'a class <property_t>
+    }
 
-    if isReadable and isWritable
+    if not isReadable and isWritable and isConstructOnly
 
 
   <raise Error "property neither readable nor writable">
@@ -61,13 +93,13 @@ PropertySpec has the form:
 where
 
 
-  Property(mode)
+  property_t
     is defined as follows:
 
-      Property.<mode>
+      Property.t
         if belowGObject
 
-      property_<mode>
+      property_t
         if isGObject
 
 
@@ -90,7 +122,7 @@ where
     is defined as according to the GIR type tag as follows:
 
       typeInfo = GIPropertyInfo.getType propertyInfo
-      tag = GITypeInfo.get_tag typeInfo
+      tag = GITypeInfo.getTag typeInfo
 
       Conversion from tag is as follows:
 
@@ -189,6 +221,25 @@ PropertyDec has the form:
 
   val <propertyName>Prop =
     {
+      get = fn x => get "<property-name>" <PropertyAccessor> x,
+      set = fn x => set "<property-name>" <PropertyAccessor> x,
+      new = fn x => new "<property-name>" <PropertyAccessor> x
+    }
+
+    if isReadable and isWritable and not isConstructOnly
+
+
+  val <propertyName>Prop =
+    {
+      get = fn x => get "<property-name>" <PropertyAccessor> x,
+      new = fn x => new "<property-name>" <PropertyAccessor> x
+    }
+
+    if isReadable and isWritable and isConstructOnly
+
+
+  val <propertyName>Prop =
+    {
       get = fn x => get "<property-name>" <PropertyAccessor> x
     }
 
@@ -197,19 +248,19 @@ PropertyDec has the form:
 
   val <propertyName>Prop =
     {
-      set = fn x => set "<property-name>" <PropertyAccessor> x
+      set = fn x => set "<property-name>" <PropertyAccessor> x,
+      new = fn x => new "<property-name>" <PropertyAccessor> x
     }
 
-    if not isReadable and isWritable
+    if not isReadable and isWritable and not isConstructOnly
 
 
   val <propertyName>Prop =
     {
-      get = fn x => get "<property-name>" <PropertyAccessor> x,
-      set = fn x => set "<property-name>" <PropertyAccessor> x
+      new = fn x => new "<property-name>" <PropertyAccessor> x
     }
 
-    if isReadable and isWritable
+    if not isReadable and isWritable and isConstructOnly
 
 
   <raise Error "property neither readable nor writable">
@@ -223,7 +274,7 @@ where
     is defined as according to the GIR type tag as follows:
 
       typeInfo = GIPropertyInfo.getType propertyInfo
-      tag = GITypeInfo.get_tag typeInfo
+      tag = GITypeInfo.getTag typeInfo
 
       Conversion from tag is as follows:
 

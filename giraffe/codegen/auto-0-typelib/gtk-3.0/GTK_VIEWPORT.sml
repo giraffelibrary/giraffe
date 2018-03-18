@@ -28,5 +28,13 @@ signature GTK_VIEWPORT =
       'a class
        -> 'b adjustment_class option
        -> unit
-    val shadowTypeProp : ('a class, shadow_type_t, shadow_type_t) Property.readwrite
+    val shadowTypeProp :
+      {
+        get : 'a class -> shadow_type_t,
+        set :
+          shadow_type_t
+           -> 'a class
+           -> unit,
+        new : shadow_type_t -> 'a class Property.t
+      }
   end

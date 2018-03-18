@@ -13,5 +13,9 @@ signature GTK_SOURCE_MARK =
       'a class
        -> string
        -> base class option
-    val categoryProp : ('a class, string option, string option) Property.readwrite
+    val categoryProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
   end

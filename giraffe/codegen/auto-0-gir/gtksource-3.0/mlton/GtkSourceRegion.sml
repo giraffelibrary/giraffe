@@ -164,7 +164,7 @@ structure GtkSourceRegion :>
       val bufferProp =
         {
           get = fn x => get "buffer" GtkTextBufferClass.tOpt x,
-          set = fn x => set "buffer" GtkTextBufferClass.tOpt x
+          new = fn x => new "buffer" GtkTextBufferClass.tOpt x
         }
     end
   end

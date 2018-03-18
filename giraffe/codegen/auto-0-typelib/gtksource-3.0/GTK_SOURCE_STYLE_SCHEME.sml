@@ -13,8 +13,12 @@ signature GTK_SOURCE_STYLE_SCHEME =
       'a class
        -> string
        -> base style_class option
-    val descriptionProp : ('a class, string option) Property.readonly
-    val filenameProp : ('a class, string option) Property.readonly
-    val idProp : ('a class, string option, string option) Property.readwrite
-    val nameProp : ('a class, string option) Property.readonly
+    val descriptionProp : {get : 'a class -> string option}
+    val filenameProp : {get : 'a class -> string option}
+    val idProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
+    val nameProp : {get : 'a class -> string option}
   end

@@ -64,5 +64,5 @@ signature GIO_SUBPROCESS_LAUNCHER =
       'a class
        -> string
        -> unit
-    val flagsProp : ('a class, subprocess_flags_t) Property.writeonly
+    val flagsProp : {new : subprocess_flags_t -> 'a class Property.t}
   end

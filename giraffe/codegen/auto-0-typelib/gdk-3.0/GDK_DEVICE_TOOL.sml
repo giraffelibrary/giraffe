@@ -8,8 +8,24 @@ signature GDK_DEVICE_TOOL =
     val getHardwareId : 'a class -> LargeInt.int
     val getSerial : 'a class -> LargeInt.int
     val getToolType : 'a class -> device_tool_type_t
-    val axesProp : ('a class, axis_flags_t, axis_flags_t) Property.readwrite
-    val hardwareIdProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val serialProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val toolTypeProp : ('a class, device_tool_type_t, device_tool_type_t) Property.readwrite
+    val axesProp :
+      {
+        get : 'a class -> axis_flags_t,
+        new : axis_flags_t -> 'a class Property.t
+      }
+    val hardwareIdProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val serialProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val toolTypeProp :
+      {
+        get : 'a class -> device_tool_type_t,
+        new : device_tool_type_t -> 'a class Property.t
+      }
   end

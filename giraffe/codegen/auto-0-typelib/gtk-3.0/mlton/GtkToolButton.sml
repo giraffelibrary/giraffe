@@ -113,32 +113,38 @@ structure GtkToolButton :>
       val iconNameProp =
         {
           get = fn x => get "icon-name" stringOpt x,
-          set = fn x => set "icon-name" stringOpt x
+          set = fn x => set "icon-name" stringOpt x,
+          new = fn x => new "icon-name" stringOpt x
         }
       val iconWidgetProp =
         {
           get = fn x => get "icon-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "icon-widget" GtkWidgetClass.tOpt x
+          set = fn x => set "icon-widget" GtkWidgetClass.tOpt x,
+          new = fn x => new "icon-widget" GtkWidgetClass.tOpt x
         }
       val labelProp =
         {
           get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x
+          set = fn x => set "label" stringOpt x,
+          new = fn x => new "label" stringOpt x
         }
       val labelWidgetProp =
         {
           get = fn x => get "label-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "label-widget" GtkWidgetClass.tOpt x
+          set = fn x => set "label-widget" GtkWidgetClass.tOpt x,
+          new = fn x => new "label-widget" GtkWidgetClass.tOpt x
         }
       val stockIdProp =
         {
           get = fn x => get "stock-id" stringOpt x,
-          set = fn x => set "stock-id" stringOpt x
+          set = fn x => set "stock-id" stringOpt x,
+          new = fn x => new "stock-id" stringOpt x
         }
       val useUnderlineProp =
         {
           get = fn x => get "use-underline" boolean x,
-          set = fn x => set "use-underline" boolean x
+          set = fn x => set "use-underline" boolean x,
+          new = fn x => new "use-underline" boolean x
         }
     end
   end

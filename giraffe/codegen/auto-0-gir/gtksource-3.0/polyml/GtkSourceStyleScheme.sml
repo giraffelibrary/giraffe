@@ -38,7 +38,7 @@ structure GtkSourceStyleScheme :>
       val idProp =
         {
           get = fn x => get "id" stringOpt x,
-          set = fn x => set "id" stringOpt x
+          new = fn x => new "id" stringOpt x
         }
       val nameProp = {get = fn x => get "name" stringOpt x}
     end

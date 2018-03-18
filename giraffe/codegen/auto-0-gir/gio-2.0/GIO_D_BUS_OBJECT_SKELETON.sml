@@ -26,5 +26,13 @@ signature GIO_D_BUS_OBJECT_SKELETON =
        -> string
        -> unit
     val authorizeMethodSig : (base d_bus_interface_skeleton_class * base d_bus_method_invocation_class -> bool) -> 'a class Signal.t
-    val gObjectPathProp : ('a class, string option, string option) Property.readwrite
+    val gObjectPathProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

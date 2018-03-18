@@ -120,19 +120,131 @@ signature GTK_SOURCE_VIEW =
     val showCompletionSig : (unit -> unit) -> 'a class Signal.t
     val smartHomeEndSig : (Gtk.TextIterRecord.t * LargeInt.int -> unit) -> 'a class Signal.t
     val undoSig : (unit -> unit) -> 'a class Signal.t
-    val autoIndentProp : ('a class, bool, bool) Property.readwrite
-    val backgroundPatternProp : ('a class, background_pattern_type_t, background_pattern_type_t) Property.readwrite
-    val completionProp : ('a class, base completion_class option) Property.readonly
-    val drawSpacesProp : ('a class, draw_spaces_flags_t, draw_spaces_flags_t) Property.readwrite
-    val highlightCurrentLineProp : ('a class, bool, bool) Property.readwrite
-    val indentOnTabProp : ('a class, bool, bool) Property.readwrite
-    val indentWidthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val insertSpacesInsteadOfTabsProp : ('a class, bool, bool) Property.readwrite
-    val rightMarginPositionProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val showLineMarksProp : ('a class, bool, bool) Property.readwrite
-    val showLineNumbersProp : ('a class, bool, bool) Property.readwrite
-    val showRightMarginProp : ('a class, bool, bool) Property.readwrite
-    val smartBackspaceProp : ('a class, bool, bool) Property.readwrite
-    val smartHomeEndProp : ('a class, smart_home_end_type_t, smart_home_end_type_t) Property.readwrite
-    val tabWidthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val autoIndentProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val backgroundPatternProp :
+      {
+        get : 'a class -> background_pattern_type_t,
+        set :
+          background_pattern_type_t
+           -> 'a class
+           -> unit,
+        new : background_pattern_type_t -> 'a class Property.t
+      }
+    val completionProp : {get : 'a class -> base completion_class option}
+    val drawSpacesProp :
+      {
+        get : 'a class -> draw_spaces_flags_t,
+        set :
+          draw_spaces_flags_t
+           -> 'a class
+           -> unit,
+        new : draw_spaces_flags_t -> 'a class Property.t
+      }
+    val highlightCurrentLineProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val indentOnTabProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val indentWidthProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val insertSpacesInsteadOfTabsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val rightMarginPositionProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val showLineMarksProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showLineNumbersProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showRightMarginProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val smartBackspaceProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val smartHomeEndProp :
+      {
+        get : 'a class -> smart_home_end_type_t,
+        set :
+          smart_home_end_type_t
+           -> 'a class
+           -> unit,
+        new : smart_home_end_type_t -> 'a class Property.t
+      }
+    val tabWidthProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

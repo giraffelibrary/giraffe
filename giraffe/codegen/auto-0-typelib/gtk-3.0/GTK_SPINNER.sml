@@ -9,5 +9,13 @@ signature GTK_SPINNER =
     val new : unit -> base class
     val start : 'a class -> unit
     val stop : 'a class -> unit
-    val activeProp : ('a class, bool, bool) Property.readwrite
+    val activeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

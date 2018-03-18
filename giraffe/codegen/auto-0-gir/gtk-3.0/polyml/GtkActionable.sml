@@ -26,12 +26,14 @@ structure GtkActionable :>
       val actionNameProp =
         {
           get = fn x => get "action-name" stringOpt x,
-          set = fn x => set "action-name" stringOpt x
+          set = fn x => set "action-name" stringOpt x,
+          new = fn x => new "action-name" stringOpt x
         }
       val actionTargetProp =
         {
           get = fn x => get "action-target" GLibVariantRecord.tOpt x,
-          set = fn x => set "action-target" GLibVariantRecord.tOpt x
+          set = fn x => set "action-target" GLibVariantRecord.tOpt x,
+          new = fn x => new "action-target" GLibVariantRecord.tOpt x
         }
     end
   end

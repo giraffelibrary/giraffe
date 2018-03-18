@@ -25,7 +25,8 @@ structure GtkSeparatorToolItem :>
       val drawProp =
         {
           get = fn x => get "draw" boolean x,
-          set = fn x => set "draw" boolean x
+          set = fn x => set "draw" boolean x,
+          new = fn x => new "draw" boolean x
         }
     end
   end

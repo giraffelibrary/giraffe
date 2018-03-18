@@ -88,11 +88,67 @@ signature GTK_FLOW_BOX =
     val selectedChildrenChangedSig : (unit -> unit) -> 'a class Signal.t
     val toggleCursorChildSig : (unit -> unit) -> 'a class Signal.t
     val unselectAllSig : (unit -> unit) -> 'a class Signal.t
-    val activateOnSingleClickProp : ('a class, bool, bool) Property.readwrite
-    val columnSpacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val homogeneousProp : ('a class, bool, bool) Property.readwrite
-    val maxChildrenPerLineProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val minChildrenPerLineProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val rowSpacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val selectionModeProp : ('a class, selection_mode_t, selection_mode_t) Property.readwrite
+    val activateOnSingleClickProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val columnSpacingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val homogeneousProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val maxChildrenPerLineProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val minChildrenPerLineProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val rowSpacingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val selectionModeProp :
+      {
+        get : 'a class -> selection_mode_t,
+        set :
+          selection_mode_t
+           -> 'a class
+           -> unit,
+        new : selection_mode_t -> 'a class Property.t
+      }
   end

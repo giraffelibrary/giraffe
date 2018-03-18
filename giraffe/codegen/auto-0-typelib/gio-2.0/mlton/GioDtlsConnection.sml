@@ -283,34 +283,39 @@ structure GioDtlsConnection :>
       val baseSocketProp =
         {
           get = fn x => get "base-socket" GioDatagramBasedClass.tOpt x,
-          set = fn x => set "base-socket" GioDatagramBasedClass.tOpt x
+          new = fn x => new "base-socket" GioDatagramBasedClass.tOpt x
         }
       val certificateProp =
         {
           get = fn x => get "certificate" GioTlsCertificateClass.tOpt x,
-          set = fn x => set "certificate" GioTlsCertificateClass.tOpt x
+          set = fn x => set "certificate" GioTlsCertificateClass.tOpt x,
+          new = fn x => new "certificate" GioTlsCertificateClass.tOpt x
         }
       val databaseProp =
         {
           get = fn x => get "database" GioTlsDatabaseClass.tOpt x,
-          set = fn x => set "database" GioTlsDatabaseClass.tOpt x
+          set = fn x => set "database" GioTlsDatabaseClass.tOpt x,
+          new = fn x => new "database" GioTlsDatabaseClass.tOpt x
         }
       val interactionProp =
         {
           get = fn x => get "interaction" GioTlsInteractionClass.tOpt x,
-          set = fn x => set "interaction" GioTlsInteractionClass.tOpt x
+          set = fn x => set "interaction" GioTlsInteractionClass.tOpt x,
+          new = fn x => new "interaction" GioTlsInteractionClass.tOpt x
         }
       val peerCertificateProp = {get = fn x => get "peer-certificate" GioTlsCertificateClass.tOpt x}
       val peerCertificateErrorsProp = {get = fn x => get "peer-certificate-errors" GioTlsCertificateFlags.t x}
       val rehandshakeModeProp =
         {
           get = fn x => get "rehandshake-mode" GioTlsRehandshakeMode.t x,
-          set = fn x => set "rehandshake-mode" GioTlsRehandshakeMode.t x
+          set = fn x => set "rehandshake-mode" GioTlsRehandshakeMode.t x,
+          new = fn x => new "rehandshake-mode" GioTlsRehandshakeMode.t x
         }
       val requireCloseNotifyProp =
         {
           get = fn x => get "require-close-notify" boolean x,
-          set = fn x => set "require-close-notify" boolean x
+          set = fn x => set "require-close-notify" boolean x,
+          new = fn x => new "require-close-notify" boolean x
         }
     end
   end

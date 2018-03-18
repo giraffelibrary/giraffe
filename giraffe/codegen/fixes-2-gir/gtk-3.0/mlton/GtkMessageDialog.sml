@@ -77,37 +77,43 @@ structure GtkMessageDialog :>
     local
       open Property
     in
-      val buttonsProp = {set = fn x => set "buttons" GtkButtonsType.t x}
+      val buttonsProp = {new = fn x => new "buttons" GtkButtonsType.t x}
       val imageProp =
         {
           get = fn x => get "image" GtkWidgetClass.tOpt x,
-          set = fn x => set "image" GtkWidgetClass.tOpt x
+          set = fn x => set "image" GtkWidgetClass.tOpt x,
+          new = fn x => new "image" GtkWidgetClass.tOpt x
         }
       val messageAreaProp = {get = fn x => get "message-area" GtkWidgetClass.tOpt x}
       val messageTypeProp =
         {
           get = fn x => get "message-type" GtkMessageType.t x,
-          set = fn x => set "message-type" GtkMessageType.t x
+          set = fn x => set "message-type" GtkMessageType.t x,
+          new = fn x => new "message-type" GtkMessageType.t x
         }
       val secondaryTextProp =
         {
           get = fn x => get "secondary-text" stringOpt x,
-          set = fn x => set "secondary-text" stringOpt x
+          set = fn x => set "secondary-text" stringOpt x,
+          new = fn x => new "secondary-text" stringOpt x
         }
       val secondaryUseMarkupProp =
         {
           get = fn x => get "secondary-use-markup" boolean x,
-          set = fn x => set "secondary-use-markup" boolean x
+          set = fn x => set "secondary-use-markup" boolean x,
+          new = fn x => new "secondary-use-markup" boolean x
         }
       val textProp =
         {
           get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x
+          set = fn x => set "text" stringOpt x,
+          new = fn x => new "text" stringOpt x
         }
       val useMarkupProp =
         {
           get = fn x => get "use-markup" boolean x,
-          set = fn x => set "use-markup" boolean x
+          set = fn x => set "use-markup" boolean x,
+          new = fn x => new "use-markup" boolean x
         }
     end
   end

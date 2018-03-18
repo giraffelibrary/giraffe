@@ -142,26 +142,177 @@ signature GTK_LABEL =
         -> unit)
        -> 'a class Signal.t
     val populatePopupSig : (base menu_class -> unit) -> 'a class Signal.t
-    val angleProp : ('a class, real, real) Property.readwrite
-    val attributesProp : ('a class, Pango.AttrListRecord.t option, Pango.AttrListRecord.t option) Property.readwrite
-    val cursorPositionProp : ('a class, LargeInt.int) Property.readonly
-    val ellipsizeProp : ('a class, Pango.EllipsizeMode.t, Pango.EllipsizeMode.t) Property.readwrite
-    val justifyProp : ('a class, justification_t, justification_t) Property.readwrite
-    val labelProp : ('a class, string option, string option) Property.readwrite
-    val linesProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val maxWidthCharsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val mnemonicKeyvalProp : ('a class, LargeInt.int) Property.readonly
-    val mnemonicWidgetProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
-    val patternProp : ('a class, string option) Property.writeonly
-    val selectableProp : ('a class, bool, bool) Property.readwrite
-    val selectionBoundProp : ('a class, LargeInt.int) Property.readonly
-    val singleLineModeProp : ('a class, bool, bool) Property.readwrite
-    val trackVisitedLinksProp : ('a class, bool, bool) Property.readwrite
-    val useMarkupProp : ('a class, bool, bool) Property.readwrite
-    val useUnderlineProp : ('a class, bool, bool) Property.readwrite
-    val widthCharsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val wrapProp : ('a class, bool, bool) Property.readwrite
-    val wrapModeProp : ('a class, Pango.WrapMode.t, Pango.WrapMode.t) Property.readwrite
-    val xalignProp : ('a class, real, real) Property.readwrite
-    val yalignProp : ('a class, real, real) Property.readwrite
+    val angleProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val attributesProp :
+      {
+        get : 'a class -> Pango.AttrListRecord.t option,
+        set :
+          Pango.AttrListRecord.t option
+           -> 'a class
+           -> unit,
+        new : Pango.AttrListRecord.t option -> 'a class Property.t
+      }
+    val cursorPositionProp : {get : 'a class -> LargeInt.int}
+    val ellipsizeProp :
+      {
+        get : 'a class -> Pango.EllipsizeMode.t,
+        set :
+          Pango.EllipsizeMode.t
+           -> 'a class
+           -> unit,
+        new : Pango.EllipsizeMode.t -> 'a class Property.t
+      }
+    val justifyProp :
+      {
+        get : 'a class -> justification_t,
+        set :
+          justification_t
+           -> 'a class
+           -> unit,
+        new : justification_t -> 'a class Property.t
+      }
+    val labelProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val linesProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val maxWidthCharsProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val mnemonicKeyvalProp : {get : 'a class -> LargeInt.int}
+    val mnemonicWidgetProp :
+      {
+        get : 'a class -> base widget_class option,
+        set :
+          'b widget_class option
+           -> 'a class
+           -> unit,
+        new : 'b widget_class option -> 'a class Property.t
+      }
+    val patternProp :
+      {
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val selectableProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val selectionBoundProp : {get : 'a class -> LargeInt.int}
+    val singleLineModeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val trackVisitedLinksProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val useMarkupProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val useUnderlineProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val widthCharsProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val wrapProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val wrapModeProp :
+      {
+        get : 'a class -> Pango.WrapMode.t,
+        set :
+          Pango.WrapMode.t
+           -> 'a class
+           -> unit,
+        new : Pango.WrapMode.t -> 'a class Property.t
+      }
+    val xalignProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val yalignProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
   end

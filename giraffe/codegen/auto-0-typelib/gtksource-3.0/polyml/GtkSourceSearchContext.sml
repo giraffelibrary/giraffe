@@ -479,23 +479,26 @@ structure GtkSourceSearchContext :>
       val bufferProp =
         {
           get = fn x => get "buffer" GtkSourceBufferClass.tOpt x,
-          set = fn x => set "buffer" GtkSourceBufferClass.tOpt x
+          new = fn x => new "buffer" GtkSourceBufferClass.tOpt x
         }
       val highlightProp =
         {
           get = fn x => get "highlight" boolean x,
-          set = fn x => set "highlight" boolean x
+          set = fn x => set "highlight" boolean x,
+          new = fn x => new "highlight" boolean x
         }
       val matchStyleProp =
         {
           get = fn x => get "match-style" GtkSourceStyleClass.tOpt x,
-          set = fn x => set "match-style" GtkSourceStyleClass.tOpt x
+          set = fn x => set "match-style" GtkSourceStyleClass.tOpt x,
+          new = fn x => new "match-style" GtkSourceStyleClass.tOpt x
         }
       val occurrencesCountProp = {get = fn x => get "occurrences-count" int x}
       val settingsProp =
         {
           get = fn x => get "settings" GtkSourceSearchSettingsClass.tOpt x,
-          set = fn x => set "settings" GtkSourceSearchSettingsClass.tOpt x
+          set = fn x => set "settings" GtkSourceSearchSettingsClass.tOpt x,
+          new = fn x => new "settings" GtkSourceSearchSettingsClass.tOpt x
         }
     end
   end

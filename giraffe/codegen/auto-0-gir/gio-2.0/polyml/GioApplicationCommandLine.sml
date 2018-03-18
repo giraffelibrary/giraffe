@@ -56,9 +56,9 @@ structure GioApplicationCommandLine :>
     local
       open Property
     in
-      val argumentsProp = {set = fn x => set "arguments" GLibVariantRecord.tOpt x}
+      val argumentsProp = {new = fn x => new "arguments" GLibVariantRecord.tOpt x}
       val isRemoteProp = {get = fn x => get "is-remote" boolean x}
-      val optionsProp = {set = fn x => set "options" GLibVariantRecord.tOpt x}
-      val platformDataProp = {set = fn x => set "platform-data" GLibVariantRecord.tOpt x}
+      val optionsProp = {new = fn x => new "options" GLibVariantRecord.tOpt x}
+      val platformDataProp = {new = fn x => new "platform-data" GLibVariantRecord.tOpt x}
     end
   end

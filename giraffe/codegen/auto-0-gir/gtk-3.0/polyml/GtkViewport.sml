@@ -45,7 +45,8 @@ structure GtkViewport :>
       val shadowTypeProp =
         {
           get = fn x => get "shadow-type" GtkShadowType.t x,
-          set = fn x => set "shadow-type" GtkShadowType.t x
+          set = fn x => set "shadow-type" GtkShadowType.t x,
+          new = fn x => new "shadow-type" GtkShadowType.t x
         }
     end
   end

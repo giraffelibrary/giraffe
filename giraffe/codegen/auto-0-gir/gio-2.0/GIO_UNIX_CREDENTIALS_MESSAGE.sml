@@ -8,5 +8,9 @@ signature GIO_UNIX_CREDENTIALS_MESSAGE =
     val newWithCredentials : 'a credentials_class -> base class
     val isSupported : unit -> bool
     val getCredentials : 'a class -> base credentials_class
-    val credentialsProp : ('a class, base credentials_class option, 'b credentials_class option) Property.readwrite
+    val credentialsProp :
+      {
+        get : 'a class -> base credentials_class option,
+        new : 'b credentials_class option -> 'a class Property.t
+      }
   end

@@ -161,7 +161,8 @@ structure GtkMenuShell :>
       val takeFocusProp =
         {
           get = fn x => get "take-focus" boolean x,
-          set = fn x => set "take-focus" boolean x
+          set = fn x => set "take-focus" boolean x,
+          new = fn x => new "take-focus" boolean x
         }
     end
   end

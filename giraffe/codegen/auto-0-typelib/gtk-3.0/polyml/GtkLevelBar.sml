@@ -103,27 +103,32 @@ structure GtkLevelBar :>
       val invertedProp =
         {
           get = fn x => get "inverted" boolean x,
-          set = fn x => set "inverted" boolean x
+          set = fn x => set "inverted" boolean x,
+          new = fn x => new "inverted" boolean x
         }
       val maxValueProp =
         {
           get = fn x => get "max-value" double x,
-          set = fn x => set "max-value" double x
+          set = fn x => set "max-value" double x,
+          new = fn x => new "max-value" double x
         }
       val minValueProp =
         {
           get = fn x => get "min-value" double x,
-          set = fn x => set "min-value" double x
+          set = fn x => set "min-value" double x,
+          new = fn x => new "min-value" double x
         }
       val modeProp =
         {
           get = fn x => get "mode" GtkLevelBarMode.t x,
-          set = fn x => set "mode" GtkLevelBarMode.t x
+          set = fn x => set "mode" GtkLevelBarMode.t x,
+          new = fn x => new "mode" GtkLevelBarMode.t x
         }
       val valueProp =
         {
           get = fn x => get "value" double x,
-          set = fn x => set "value" double x
+          set = fn x => set "value" double x,
+          new = fn x => new "value" double x
         }
     end
   end

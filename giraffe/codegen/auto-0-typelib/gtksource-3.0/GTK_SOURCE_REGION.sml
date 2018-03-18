@@ -34,5 +34,9 @@ signature GTK_SOURCE_REGION =
        -> Gtk.TextIterRecord.t * Gtk.TextIterRecord.t
        -> unit
     val toString : 'a class -> string option
-    val bufferProp : ('a class, base Gtk.TextBufferClass.class option, 'b Gtk.TextBufferClass.class option) Property.readwrite
+    val bufferProp :
+      {
+        get : 'a class -> base Gtk.TextBufferClass.class option,
+        new : 'b Gtk.TextBufferClass.class option -> 'a class Property.t
+      }
   end

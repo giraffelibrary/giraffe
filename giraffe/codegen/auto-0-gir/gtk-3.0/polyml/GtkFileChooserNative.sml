@@ -65,12 +65,14 @@ structure GtkFileChooserNative :>
       val acceptLabelProp =
         {
           get = fn x => get "accept-label" stringOpt x,
-          set = fn x => set "accept-label" stringOpt x
+          set = fn x => set "accept-label" stringOpt x,
+          new = fn x => new "accept-label" stringOpt x
         }
       val cancelLabelProp =
         {
           get = fn x => get "cancel-label" stringOpt x,
-          set = fn x => set "cancel-label" stringOpt x
+          set = fn x => set "cancel-label" stringOpt x,
+          new = fn x => new "cancel-label" stringOpt x
         }
     end
   end

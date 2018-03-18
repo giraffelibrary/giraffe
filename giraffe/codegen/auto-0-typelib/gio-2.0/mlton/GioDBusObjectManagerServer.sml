@@ -47,12 +47,13 @@ structure GioDBusObjectManagerServer :>
       val connectionProp =
         {
           get = fn x => get "connection" GioDBusConnectionClass.tOpt x,
-          set = fn x => set "connection" GioDBusConnectionClass.tOpt x
+          set = fn x => set "connection" GioDBusConnectionClass.tOpt x,
+          new = fn x => new "connection" GioDBusConnectionClass.tOpt x
         }
       val objectPathProp =
         {
           get = fn x => get "object-path" stringOpt x,
-          set = fn x => set "object-path" stringOpt x
+          new = fn x => new "object-path" stringOpt x
         }
     end
   end

@@ -18,7 +18,8 @@ structure GioTlsFileDatabase :>
       val anchorsProp =
         {
           get = fn x => get "anchors" stringOpt x,
-          set = fn x => set "anchors" stringOpt x
+          set = fn x => set "anchors" stringOpt x,
+          new = fn x => new "anchors" stringOpt x
         }
     end
   end

@@ -200,27 +200,32 @@ structure GtkGrid :>
       val baselineRowProp =
         {
           get = fn x => get "baseline-row" int x,
-          set = fn x => set "baseline-row" int x
+          set = fn x => set "baseline-row" int x,
+          new = fn x => new "baseline-row" int x
         }
       val columnHomogeneousProp =
         {
           get = fn x => get "column-homogeneous" boolean x,
-          set = fn x => set "column-homogeneous" boolean x
+          set = fn x => set "column-homogeneous" boolean x,
+          new = fn x => new "column-homogeneous" boolean x
         }
       val columnSpacingProp =
         {
           get = fn x => get "column-spacing" int x,
-          set = fn x => set "column-spacing" int x
+          set = fn x => set "column-spacing" int x,
+          new = fn x => new "column-spacing" int x
         }
       val rowHomogeneousProp =
         {
           get = fn x => get "row-homogeneous" boolean x,
-          set = fn x => set "row-homogeneous" boolean x
+          set = fn x => set "row-homogeneous" boolean x,
+          new = fn x => new "row-homogeneous" boolean x
         }
       val rowSpacingProp =
         {
           get = fn x => get "row-spacing" int x,
-          set = fn x => set "row-spacing" int x
+          set = fn x => set "row-spacing" int x,
+          new = fn x => new "row-spacing" int x
         }
     end
   end

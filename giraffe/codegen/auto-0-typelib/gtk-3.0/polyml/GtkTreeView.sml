@@ -1148,92 +1148,110 @@ structure GtkTreeView :>
       val activateOnSingleClickProp =
         {
           get = fn x => get "activate-on-single-click" boolean x,
-          set = fn x => set "activate-on-single-click" boolean x
+          set = fn x => set "activate-on-single-click" boolean x,
+          new = fn x => new "activate-on-single-click" boolean x
         }
       val enableGridLinesProp =
         {
           get = fn x => get "enable-grid-lines" GtkTreeViewGridLines.t x,
-          set = fn x => set "enable-grid-lines" GtkTreeViewGridLines.t x
+          set = fn x => set "enable-grid-lines" GtkTreeViewGridLines.t x,
+          new = fn x => new "enable-grid-lines" GtkTreeViewGridLines.t x
         }
       val enableSearchProp =
         {
           get = fn x => get "enable-search" boolean x,
-          set = fn x => set "enable-search" boolean x
+          set = fn x => set "enable-search" boolean x,
+          new = fn x => new "enable-search" boolean x
         }
       val enableTreeLinesProp =
         {
           get = fn x => get "enable-tree-lines" boolean x,
-          set = fn x => set "enable-tree-lines" boolean x
+          set = fn x => set "enable-tree-lines" boolean x,
+          new = fn x => new "enable-tree-lines" boolean x
         }
       val expanderColumnProp =
         {
           get = fn x => get "expander-column" GtkTreeViewColumnClass.tOpt x,
-          set = fn x => set "expander-column" GtkTreeViewColumnClass.tOpt x
+          set = fn x => set "expander-column" GtkTreeViewColumnClass.tOpt x,
+          new = fn x => new "expander-column" GtkTreeViewColumnClass.tOpt x
         }
       val fixedHeightModeProp =
         {
           get = fn x => get "fixed-height-mode" boolean x,
-          set = fn x => set "fixed-height-mode" boolean x
+          set = fn x => set "fixed-height-mode" boolean x,
+          new = fn x => new "fixed-height-mode" boolean x
         }
       val headersClickableProp =
         {
           get = fn x => get "headers-clickable" boolean x,
-          set = fn x => set "headers-clickable" boolean x
+          set = fn x => set "headers-clickable" boolean x,
+          new = fn x => new "headers-clickable" boolean x
         }
       val headersVisibleProp =
         {
           get = fn x => get "headers-visible" boolean x,
-          set = fn x => set "headers-visible" boolean x
+          set = fn x => set "headers-visible" boolean x,
+          new = fn x => new "headers-visible" boolean x
         }
       val hoverExpandProp =
         {
           get = fn x => get "hover-expand" boolean x,
-          set = fn x => set "hover-expand" boolean x
+          set = fn x => set "hover-expand" boolean x,
+          new = fn x => new "hover-expand" boolean x
         }
       val hoverSelectionProp =
         {
           get = fn x => get "hover-selection" boolean x,
-          set = fn x => set "hover-selection" boolean x
+          set = fn x => set "hover-selection" boolean x,
+          new = fn x => new "hover-selection" boolean x
         }
       val levelIndentationProp =
         {
           get = fn x => get "level-indentation" int x,
-          set = fn x => set "level-indentation" int x
+          set = fn x => set "level-indentation" int x,
+          new = fn x => new "level-indentation" int x
         }
       val modelProp =
         {
           get = fn x => get "model" GtkTreeModelClass.tOpt x,
-          set = fn x => set "model" GtkTreeModelClass.tOpt x
+          set = fn x => set "model" GtkTreeModelClass.tOpt x,
+          new = fn x => new "model" GtkTreeModelClass.tOpt x
         }
       val reorderableProp =
         {
           get = fn x => get "reorderable" boolean x,
-          set = fn x => set "reorderable" boolean x
+          set = fn x => set "reorderable" boolean x,
+          new = fn x => new "reorderable" boolean x
         }
       val rubberBandingProp =
         {
           get = fn x => get "rubber-banding" boolean x,
-          set = fn x => set "rubber-banding" boolean x
+          set = fn x => set "rubber-banding" boolean x,
+          new = fn x => new "rubber-banding" boolean x
         }
       val rulesHintProp =
         {
           get = fn x => get "rules-hint" boolean x,
-          set = fn x => set "rules-hint" boolean x
+          set = fn x => set "rules-hint" boolean x,
+          new = fn x => new "rules-hint" boolean x
         }
       val searchColumnProp =
         {
           get = fn x => get "search-column" int x,
-          set = fn x => set "search-column" int x
+          set = fn x => set "search-column" int x,
+          new = fn x => new "search-column" int x
         }
       val showExpandersProp =
         {
           get = fn x => get "show-expanders" boolean x,
-          set = fn x => set "show-expanders" boolean x
+          set = fn x => set "show-expanders" boolean x,
+          new = fn x => new "show-expanders" boolean x
         }
       val tooltipColumnProp =
         {
           get = fn x => get "tooltip-column" int x,
-          set = fn x => set "tooltip-column" int x
+          set = fn x => set "tooltip-column" int x,
+          new = fn x => new "tooltip-column" int x
         }
     end
   end

@@ -8,5 +8,13 @@ signature GIO_TCP_CONNECTION =
       'a class
        -> bool
        -> unit
-    val gracefulDisconnectProp : ('a class, bool, bool) Property.readwrite
+    val gracefulDisconnectProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

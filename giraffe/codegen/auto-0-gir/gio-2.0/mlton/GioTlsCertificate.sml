@@ -132,13 +132,13 @@ structure GioTlsCertificate :>
       val certificatePemProp =
         {
           get = fn x => get "certificate-pem" stringOpt x,
-          set = fn x => set "certificate-pem" stringOpt x
+          new = fn x => new "certificate-pem" stringOpt x
         }
       val issuerProp =
         {
           get = fn x => get "issuer" GioTlsCertificateClass.tOpt x,
-          set = fn x => set "issuer" GioTlsCertificateClass.tOpt x
+          new = fn x => new "issuer" GioTlsCertificateClass.tOpt x
         }
-      val privateKeyPemProp = {set = fn x => set "private-key-pem" stringOpt x}
+      val privateKeyPemProp = {new = fn x => new "private-key-pem" stringOpt x}
     end
   end

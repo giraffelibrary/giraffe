@@ -113,37 +113,41 @@ structure GtkSourceFileSaver :>
       val bufferProp =
         {
           get = fn x => get "buffer" GtkSourceBufferClass.tOpt x,
-          set = fn x => set "buffer" GtkSourceBufferClass.tOpt x
+          new = fn x => new "buffer" GtkSourceBufferClass.tOpt x
         }
       val compressionTypeProp =
         {
           get = fn x => get "compression-type" GtkSourceCompressionType.t x,
-          set = fn x => set "compression-type" GtkSourceCompressionType.t x
+          set = fn x => set "compression-type" GtkSourceCompressionType.t x,
+          new = fn x => new "compression-type" GtkSourceCompressionType.t x
         }
       val encodingProp =
         {
           get = fn x => get "encoding" GtkSourceEncodingRecord.tOpt x,
-          set = fn x => set "encoding" GtkSourceEncodingRecord.tOpt x
+          set = fn x => set "encoding" GtkSourceEncodingRecord.tOpt x,
+          new = fn x => new "encoding" GtkSourceEncodingRecord.tOpt x
         }
       val fileProp =
         {
           get = fn x => get "file" GtkSourceFileClass.tOpt x,
-          set = fn x => set "file" GtkSourceFileClass.tOpt x
+          new = fn x => new "file" GtkSourceFileClass.tOpt x
         }
       val flagsProp =
         {
           get = fn x => get "flags" GtkSourceFileSaverFlags.t x,
-          set = fn x => set "flags" GtkSourceFileSaverFlags.t x
+          set = fn x => set "flags" GtkSourceFileSaverFlags.t x,
+          new = fn x => new "flags" GtkSourceFileSaverFlags.t x
         }
       val locationProp =
         {
           get = fn x => get "location" GioFileClass.tOpt x,
-          set = fn x => set "location" GioFileClass.tOpt x
+          new = fn x => new "location" GioFileClass.tOpt x
         }
       val newlineTypeProp =
         {
           get = fn x => get "newline-type" GtkSourceNewlineType.t x,
-          set = fn x => set "newline-type" GtkSourceNewlineType.t x
+          set = fn x => set "newline-type" GtkSourceNewlineType.t x,
+          new = fn x => new "newline-type" GtkSourceNewlineType.t x
         }
     end
   end

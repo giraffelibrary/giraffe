@@ -29,12 +29,12 @@ structure GioEmblem :>
       val iconProp =
         {
           get = fn x => get "icon" GObjectObjectClass.tOpt x,
-          set = fn x => set "icon" GObjectObjectClass.tOpt x
+          new = fn x => new "icon" GObjectObjectClass.tOpt x
         }
       val originProp =
         {
           get = fn x => get "origin" GioEmblemOrigin.t x,
-          set = fn x => set "origin" GioEmblemOrigin.t x
+          new = fn x => new "origin" GioEmblemOrigin.t x
         }
     end
   end

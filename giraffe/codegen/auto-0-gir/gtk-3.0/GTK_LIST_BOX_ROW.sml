@@ -27,6 +27,22 @@ signature GTK_LIST_BOX_ROW =
        -> bool
        -> unit
     val activateSig : (unit -> unit) -> 'a class Signal.t
-    val activatableProp : ('a class, bool, bool) Property.readwrite
-    val selectableProp : ('a class, bool, bool) Property.readwrite
+    val activatableProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val selectableProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

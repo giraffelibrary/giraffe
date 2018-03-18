@@ -144,12 +144,13 @@ structure GtkGesture :>
       val nPointsProp =
         {
           get = fn x => get "n-points" uint x,
-          set = fn x => set "n-points" uint x
+          new = fn x => new "n-points" uint x
         }
       val windowProp =
         {
           get = fn x => get "window" GdkWindowClass.tOpt x,
-          set = fn x => set "window" GdkWindowClass.tOpt x
+          set = fn x => set "window" GdkWindowClass.tOpt x,
+          new = fn x => new "window" GdkWindowClass.tOpt x
         }
     end
   end

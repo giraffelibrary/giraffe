@@ -316,87 +316,103 @@ structure GtkTreeViewColumn :>
       val alignmentProp =
         {
           get = fn x => get "alignment" float x,
-          set = fn x => set "alignment" float x
+          set = fn x => set "alignment" float x,
+          new = fn x => new "alignment" float x
         }
       val cellAreaProp =
         {
           get = fn x => get "cell-area" GtkCellAreaClass.tOpt x,
-          set = fn x => set "cell-area" GtkCellAreaClass.tOpt x
+          new = fn x => new "cell-area" GtkCellAreaClass.tOpt x
         }
       val clickableProp =
         {
           get = fn x => get "clickable" boolean x,
-          set = fn x => set "clickable" boolean x
+          set = fn x => set "clickable" boolean x,
+          new = fn x => new "clickable" boolean x
         }
       val expandProp =
         {
           get = fn x => get "expand" boolean x,
-          set = fn x => set "expand" boolean x
+          set = fn x => set "expand" boolean x,
+          new = fn x => new "expand" boolean x
         }
       val fixedWidthProp =
         {
           get = fn x => get "fixed-width" int x,
-          set = fn x => set "fixed-width" int x
+          set = fn x => set "fixed-width" int x,
+          new = fn x => new "fixed-width" int x
         }
       val maxWidthProp =
         {
           get = fn x => get "max-width" int x,
-          set = fn x => set "max-width" int x
+          set = fn x => set "max-width" int x,
+          new = fn x => new "max-width" int x
         }
       val minWidthProp =
         {
           get = fn x => get "min-width" int x,
-          set = fn x => set "min-width" int x
+          set = fn x => set "min-width" int x,
+          new = fn x => new "min-width" int x
         }
       val reorderableProp =
         {
           get = fn x => get "reorderable" boolean x,
-          set = fn x => set "reorderable" boolean x
+          set = fn x => set "reorderable" boolean x,
+          new = fn x => new "reorderable" boolean x
         }
       val resizableProp =
         {
           get = fn x => get "resizable" boolean x,
-          set = fn x => set "resizable" boolean x
+          set = fn x => set "resizable" boolean x,
+          new = fn x => new "resizable" boolean x
         }
       val sizingProp =
         {
           get = fn x => get "sizing" GtkTreeViewColumnSizing.t x,
-          set = fn x => set "sizing" GtkTreeViewColumnSizing.t x
+          set = fn x => set "sizing" GtkTreeViewColumnSizing.t x,
+          new = fn x => new "sizing" GtkTreeViewColumnSizing.t x
         }
       val sortColumnIdProp =
         {
           get = fn x => get "sort-column-id" int x,
-          set = fn x => set "sort-column-id" int x
+          set = fn x => set "sort-column-id" int x,
+          new = fn x => new "sort-column-id" int x
         }
       val sortIndicatorProp =
         {
           get = fn x => get "sort-indicator" boolean x,
-          set = fn x => set "sort-indicator" boolean x
+          set = fn x => set "sort-indicator" boolean x,
+          new = fn x => new "sort-indicator" boolean x
         }
       val sortOrderProp =
         {
           get = fn x => get "sort-order" GtkSortType.t x,
-          set = fn x => set "sort-order" GtkSortType.t x
+          set = fn x => set "sort-order" GtkSortType.t x,
+          new = fn x => new "sort-order" GtkSortType.t x
         }
       val spacingProp =
         {
           get = fn x => get "spacing" int x,
-          set = fn x => set "spacing" int x
+          set = fn x => set "spacing" int x,
+          new = fn x => new "spacing" int x
         }
       val titleProp =
         {
           get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x
+          set = fn x => set "title" stringOpt x,
+          new = fn x => new "title" stringOpt x
         }
       val visibleProp =
         {
           get = fn x => get "visible" boolean x,
-          set = fn x => set "visible" boolean x
+          set = fn x => set "visible" boolean x,
+          new = fn x => new "visible" boolean x
         }
       val widgetProp =
         {
           get = fn x => get "widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "widget" GtkWidgetClass.tOpt x
+          set = fn x => set "widget" GtkWidgetClass.tOpt x,
+          new = fn x => new "widget" GtkWidgetClass.tOpt x
         }
       val widthProp = {get = fn x => get "width" int x}
       val xOffsetProp = {get = fn x => get "x-offset" int x}

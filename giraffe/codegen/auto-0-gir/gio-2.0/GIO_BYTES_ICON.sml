@@ -9,5 +9,9 @@ signature GIO_BYTES_ICON =
     val getType : unit -> GObject.Type.t
     val new : GLib.BytesRecord.t -> base class
     val getBytes : 'a class -> GLib.BytesRecord.t
-    val bytesProp : ('a class, GLib.BytesRecord.t option, GLib.BytesRecord.t option) Property.readwrite
+    val bytesProp :
+      {
+        get : 'a class -> GLib.BytesRecord.t option,
+        new : GLib.BytesRecord.t option -> 'a class Property.t
+      }
   end

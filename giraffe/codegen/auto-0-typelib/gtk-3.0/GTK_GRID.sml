@@ -85,9 +85,49 @@ signature GTK_GRID =
       'a class
        -> LargeInt.int
        -> unit
-    val baselineRowProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val columnHomogeneousProp : ('a class, bool, bool) Property.readwrite
-    val columnSpacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val rowHomogeneousProp : ('a class, bool, bool) Property.readwrite
-    val rowSpacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val baselineRowProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val columnHomogeneousProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val columnSpacingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val rowHomogeneousProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val rowSpacingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

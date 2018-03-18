@@ -22,7 +22,7 @@ structure GtkRendererCellAccessible :>
       val rendererProp =
         {
           get = fn x => get "renderer" GtkCellRendererClass.tOpt x,
-          set = fn x => set "renderer" GtkCellRendererClass.tOpt x
+          new = fn x => new "renderer" GtkCellRendererClass.tOpt x
         }
     end
   end

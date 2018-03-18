@@ -26,12 +26,13 @@ structure GioUnixOutputStream :>
       val closeFdProp =
         {
           get = fn x => get "close-fd" boolean x,
-          set = fn x => set "close-fd" boolean x
+          set = fn x => set "close-fd" boolean x,
+          new = fn x => new "close-fd" boolean x
         }
       val fdProp =
         {
           get = fn x => get "fd" int x,
-          set = fn x => set "fd" int x
+          new = fn x => new "fd" int x
         }
     end
   end

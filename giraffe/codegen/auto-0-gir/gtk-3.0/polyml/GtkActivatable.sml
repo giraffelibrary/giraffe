@@ -30,12 +30,14 @@ structure GtkActivatable :>
       val relatedActionProp =
         {
           get = fn x => get "related-action" GtkActionClass.tOpt x,
-          set = fn x => set "related-action" GtkActionClass.tOpt x
+          set = fn x => set "related-action" GtkActionClass.tOpt x,
+          new = fn x => new "related-action" GtkActionClass.tOpt x
         }
       val useActionAppearanceProp =
         {
           get = fn x => get "use-action-appearance" boolean x,
-          set = fn x => set "use-action-appearance" boolean x
+          set = fn x => set "use-action-appearance" boolean x,
+          new = fn x => new "use-action-appearance" boolean x
         }
     end
   end

@@ -38,7 +38,8 @@ structure GtkApplicationWindow :>
       val showMenubarProp =
         {
           get = fn x => get "show-menubar" boolean x,
-          set = fn x => set "show-menubar" boolean x
+          set = fn x => set "show-menubar" boolean x,
+          new = fn x => new "show-menubar" boolean x
         }
     end
   end

@@ -215,21 +215,153 @@ signature GTK_ICON_VIEW =
     val selectionChangedSig : (unit -> unit) -> 'a class Signal.t
     val toggleCursorItemSig : (unit -> unit) -> 'a class Signal.t
     val unselectAllSig : (unit -> unit) -> 'a class Signal.t
-    val activateOnSingleClickProp : ('a class, bool, bool) Property.readwrite
-    val cellAreaProp : ('a class, base cell_area_class option, 'b cell_area_class option) Property.readwrite
-    val columnSpacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val columnsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val itemOrientationProp : ('a class, orientation_t, orientation_t) Property.readwrite
-    val itemPaddingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val itemWidthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val marginProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val markupColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val modelProp : ('a class, base tree_model_class option, 'b tree_model_class option) Property.readwrite
-    val pixbufColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val reorderableProp : ('a class, bool, bool) Property.readwrite
-    val rowSpacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val selectionModeProp : ('a class, selection_mode_t, selection_mode_t) Property.readwrite
-    val spacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val textColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val tooltipColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val activateOnSingleClickProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val cellAreaProp :
+      {
+        get : 'a class -> base cell_area_class option,
+        new : 'b cell_area_class option -> 'a class Property.t
+      }
+    val columnSpacingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val columnsProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val itemOrientationProp :
+      {
+        get : 'a class -> orientation_t,
+        set :
+          orientation_t
+           -> 'a class
+           -> unit,
+        new : orientation_t -> 'a class Property.t
+      }
+    val itemPaddingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val itemWidthProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val marginProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val markupColumnProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val modelProp :
+      {
+        get : 'a class -> base tree_model_class option,
+        set :
+          'b tree_model_class option
+           -> 'a class
+           -> unit,
+        new : 'b tree_model_class option -> 'a class Property.t
+      }
+    val pixbufColumnProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val reorderableProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val rowSpacingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val selectionModeProp :
+      {
+        get : 'a class -> selection_mode_t,
+        set :
+          selection_mode_t
+           -> 'a class
+           -> unit,
+        new : selection_mode_t -> 'a class Property.t
+      }
+    val spacingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val textColumnProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val tooltipColumnProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

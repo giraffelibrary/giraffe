@@ -12,7 +12,19 @@ signature GIO_NETWORK_ADDRESS =
     val getHostname : 'a class -> string
     val getPort : 'a class -> LargeInt.int
     val getScheme : 'a class -> string
-    val hostnameProp : ('a class, string option, string option) Property.readwrite
-    val portProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val schemeProp : ('a class, string option, string option) Property.readwrite
+    val hostnameProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
+    val portProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val schemeProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
   end

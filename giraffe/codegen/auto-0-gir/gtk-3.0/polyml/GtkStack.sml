@@ -134,43 +134,51 @@ structure GtkStack :>
       val hhomogeneousProp =
         {
           get = fn x => get "hhomogeneous" boolean x,
-          set = fn x => set "hhomogeneous" boolean x
+          set = fn x => set "hhomogeneous" boolean x,
+          new = fn x => new "hhomogeneous" boolean x
         }
       val homogeneousProp =
         {
           get = fn x => get "homogeneous" boolean x,
-          set = fn x => set "homogeneous" boolean x
+          set = fn x => set "homogeneous" boolean x,
+          new = fn x => new "homogeneous" boolean x
         }
       val interpolateSizeProp =
         {
           get = fn x => get "interpolate-size" boolean x,
-          set = fn x => set "interpolate-size" boolean x
+          set = fn x => set "interpolate-size" boolean x,
+          new = fn x => new "interpolate-size" boolean x
         }
       val transitionDurationProp =
         {
           get = fn x => get "transition-duration" uint x,
-          set = fn x => set "transition-duration" uint x
+          set = fn x => set "transition-duration" uint x,
+          new = fn x => new "transition-duration" uint x
         }
       val transitionRunningProp = {get = fn x => get "transition-running" boolean x}
       val transitionTypeProp =
         {
           get = fn x => get "transition-type" GtkStackTransitionType.t x,
-          set = fn x => set "transition-type" GtkStackTransitionType.t x
+          set = fn x => set "transition-type" GtkStackTransitionType.t x,
+          new = fn x => new "transition-type" GtkStackTransitionType.t x
         }
       val vhomogeneousProp =
         {
           get = fn x => get "vhomogeneous" boolean x,
-          set = fn x => set "vhomogeneous" boolean x
+          set = fn x => set "vhomogeneous" boolean x,
+          new = fn x => new "vhomogeneous" boolean x
         }
       val visibleChildProp =
         {
           get = fn x => get "visible-child" GtkWidgetClass.tOpt x,
-          set = fn x => set "visible-child" GtkWidgetClass.tOpt x
+          set = fn x => set "visible-child" GtkWidgetClass.tOpt x,
+          new = fn x => new "visible-child" GtkWidgetClass.tOpt x
         }
       val visibleChildNameProp =
         {
           get = fn x => get "visible-child-name" stringOpt x,
-          set = fn x => set "visible-child-name" stringOpt x
+          set = fn x => set "visible-child-name" stringOpt x,
+          new = fn x => new "visible-child-name" stringOpt x
         }
     end
   end

@@ -44,7 +44,7 @@ structure GioTestDBus :>
       val flagsProp =
         {
           get = fn x => get "flags" GioTestDBusFlags.t x,
-          set = fn x => set "flags" GioTestDBusFlags.t x
+          new = fn x => new "flags" GioTestDBusFlags.t x
         }
     end
   end

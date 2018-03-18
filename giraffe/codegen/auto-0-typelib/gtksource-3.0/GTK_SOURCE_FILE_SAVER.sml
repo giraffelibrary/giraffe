@@ -42,11 +42,55 @@ signature GTK_SOURCE_FILE_SAVER =
       'a class
        -> newline_type_t
        -> unit
-    val bufferProp : ('a class, base buffer_class option, 'b buffer_class option) Property.readwrite
-    val compressionTypeProp : ('a class, compression_type_t, compression_type_t) Property.readwrite
-    val encodingProp : ('a class, encoding_t option, encoding_t option) Property.readwrite
-    val fileProp : ('a class, base file_class option, 'b file_class option) Property.readwrite
-    val flagsProp : ('a class, file_saver_flags_t, file_saver_flags_t) Property.readwrite
-    val locationProp : ('a class, base Gio.FileClass.class option, 'b Gio.FileClass.class option) Property.readwrite
-    val newlineTypeProp : ('a class, newline_type_t, newline_type_t) Property.readwrite
+    val bufferProp :
+      {
+        get : 'a class -> base buffer_class option,
+        new : 'b buffer_class option -> 'a class Property.t
+      }
+    val compressionTypeProp :
+      {
+        get : 'a class -> compression_type_t,
+        set :
+          compression_type_t
+           -> 'a class
+           -> unit,
+        new : compression_type_t -> 'a class Property.t
+      }
+    val encodingProp :
+      {
+        get : 'a class -> encoding_t option,
+        set :
+          encoding_t option
+           -> 'a class
+           -> unit,
+        new : encoding_t option -> 'a class Property.t
+      }
+    val fileProp :
+      {
+        get : 'a class -> base file_class option,
+        new : 'b file_class option -> 'a class Property.t
+      }
+    val flagsProp :
+      {
+        get : 'a class -> file_saver_flags_t,
+        set :
+          file_saver_flags_t
+           -> 'a class
+           -> unit,
+        new : file_saver_flags_t -> 'a class Property.t
+      }
+    val locationProp :
+      {
+        get : 'a class -> base Gio.FileClass.class option,
+        new : 'b Gio.FileClass.class option -> 'a class Property.t
+      }
+    val newlineTypeProp :
+      {
+        get : 'a class -> newline_type_t,
+        set :
+          newline_type_t
+           -> 'a class
+           -> unit,
+        new : newline_type_t -> 'a class Property.t
+      }
   end

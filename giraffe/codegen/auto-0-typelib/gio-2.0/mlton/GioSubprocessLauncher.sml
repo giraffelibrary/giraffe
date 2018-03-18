@@ -248,6 +248,6 @@ structure GioSubprocessLauncher :>
     local
       open Property
     in
-      val flagsProp = {set = fn x => set "flags" GioSubprocessFlags.t x}
+      val flagsProp = {new = fn x => new "flags" GioSubprocessFlags.t x}
     end
   end

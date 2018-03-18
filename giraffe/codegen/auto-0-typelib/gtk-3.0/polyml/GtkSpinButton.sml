@@ -293,42 +293,50 @@ structure GtkSpinButton :>
       val adjustmentProp =
         {
           get = fn x => get "adjustment" GtkAdjustmentClass.tOpt x,
-          set = fn x => set "adjustment" GtkAdjustmentClass.tOpt x
+          set = fn x => set "adjustment" GtkAdjustmentClass.tOpt x,
+          new = fn x => new "adjustment" GtkAdjustmentClass.tOpt x
         }
       val climbRateProp =
         {
           get = fn x => get "climb-rate" double x,
-          set = fn x => set "climb-rate" double x
+          set = fn x => set "climb-rate" double x,
+          new = fn x => new "climb-rate" double x
         }
       val digitsProp =
         {
           get = fn x => get "digits" uint x,
-          set = fn x => set "digits" uint x
+          set = fn x => set "digits" uint x,
+          new = fn x => new "digits" uint x
         }
       val numericProp =
         {
           get = fn x => get "numeric" boolean x,
-          set = fn x => set "numeric" boolean x
+          set = fn x => set "numeric" boolean x,
+          new = fn x => new "numeric" boolean x
         }
       val snapToTicksProp =
         {
           get = fn x => get "snap-to-ticks" boolean x,
-          set = fn x => set "snap-to-ticks" boolean x
+          set = fn x => set "snap-to-ticks" boolean x,
+          new = fn x => new "snap-to-ticks" boolean x
         }
       val updatePolicyProp =
         {
           get = fn x => get "update-policy" GtkSpinButtonUpdatePolicy.t x,
-          set = fn x => set "update-policy" GtkSpinButtonUpdatePolicy.t x
+          set = fn x => set "update-policy" GtkSpinButtonUpdatePolicy.t x,
+          new = fn x => new "update-policy" GtkSpinButtonUpdatePolicy.t x
         }
       val valueProp =
         {
           get = fn x => get "value" double x,
-          set = fn x => set "value" double x
+          set = fn x => set "value" double x,
+          new = fn x => new "value" double x
         }
       val wrapProp =
         {
           get = fn x => get "wrap" boolean x,
-          set = fn x => set "wrap" boolean x
+          set = fn x => set "wrap" boolean x,
+          new = fn x => new "wrap" boolean x
         }
     end
   end

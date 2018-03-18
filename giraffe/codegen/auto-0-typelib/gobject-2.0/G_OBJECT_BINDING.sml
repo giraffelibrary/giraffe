@@ -4,9 +4,7 @@ signature G_OBJECT_BINDING =
     type type_t
     type binding_flags_t
     type 'a object_class
-    type ('object, 'a) property_readonly
-    type ('object, 'a) property_writeonly
-    type ('object, 'a, 'b) property_readwrite
+    type 'object_class property_t
     type t = base class
     val getType : unit -> type_t
     val getFlags : 'a class -> binding_flags_t
@@ -15,9 +13,29 @@ signature G_OBJECT_BINDING =
     val getTarget : 'a class -> base object_class
     val getTargetProperty : 'a class -> string
     val unbind : 'a class -> unit
-    val flagsProp : ('a class, binding_flags_t, binding_flags_t) property_readwrite
-    val sourceProp : ('a class, base object_class option, 'b object_class option) property_readwrite
-    val sourcePropertyProp : ('a class, string option, string option) property_readwrite
-    val targetProp : ('a class, base object_class option, 'b object_class option) property_readwrite
-    val targetPropertyProp : ('a class, string option, string option) property_readwrite
+    val flagsProp :
+      {
+        get : 'a class -> binding_flags_t,
+        new : binding_flags_t -> 'a class property_t
+      }
+    val sourceProp :
+      {
+        get : 'a class -> base object_class option,
+        new : 'b object_class option -> 'a class property_t
+      }
+    val sourcePropertyProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class property_t
+      }
+    val targetProp :
+      {
+        get : 'a class -> base object_class option,
+        new : 'b object_class option -> 'a class property_t
+      }
+    val targetPropertyProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class property_t
+      }
   end

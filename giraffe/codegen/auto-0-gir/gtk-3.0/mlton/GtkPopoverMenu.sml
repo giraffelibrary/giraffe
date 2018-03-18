@@ -34,7 +34,8 @@ structure GtkPopoverMenu :>
       val visibleSubmenuProp =
         {
           get = fn x => get "visible-submenu" stringOpt x,
-          set = fn x => set "visible-submenu" stringOpt x
+          set = fn x => set "visible-submenu" stringOpt x,
+          new = fn x => new "visible-submenu" stringOpt x
         }
     end
   end

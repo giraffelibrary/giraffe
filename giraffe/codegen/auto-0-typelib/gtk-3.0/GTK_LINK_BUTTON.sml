@@ -23,6 +23,22 @@ signature GTK_LINK_BUTTON =
        -> bool
        -> unit
     val activateLinkSig : (unit -> bool) -> 'a class Signal.t
-    val uriProp : ('a class, string option, string option) Property.readwrite
-    val visitedProp : ('a class, bool, bool) Property.readwrite
+    val uriProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val visitedProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

@@ -1442,7 +1442,8 @@ structure GdkWindow :>
       val cursorProp =
         {
           get = fn x => get "cursor" GdkCursorClass.tOpt x,
-          set = fn x => set "cursor" GdkCursorClass.tOpt x
+          set = fn x => set "cursor" GdkCursorClass.tOpt x,
+          new = fn x => new "cursor" GdkCursorClass.tOpt x
         }
     end
   end

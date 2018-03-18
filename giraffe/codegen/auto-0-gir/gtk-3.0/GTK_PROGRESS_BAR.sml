@@ -40,10 +40,58 @@ signature GTK_PROGRESS_BAR =
       'a class
        -> string option
        -> unit
-    val ellipsizeProp : ('a class, Pango.EllipsizeMode.t, Pango.EllipsizeMode.t) Property.readwrite
-    val fractionProp : ('a class, real, real) Property.readwrite
-    val invertedProp : ('a class, bool, bool) Property.readwrite
-    val pulseStepProp : ('a class, real, real) Property.readwrite
-    val showTextProp : ('a class, bool, bool) Property.readwrite
-    val textProp : ('a class, string option, string option) Property.readwrite
+    val ellipsizeProp :
+      {
+        get : 'a class -> Pango.EllipsizeMode.t,
+        set :
+          Pango.EllipsizeMode.t
+           -> 'a class
+           -> unit,
+        new : Pango.EllipsizeMode.t -> 'a class Property.t
+      }
+    val fractionProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val invertedProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val pulseStepProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val showTextProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val textProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

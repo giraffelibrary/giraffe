@@ -59,12 +59,14 @@ structure AtkRelation :>
       val relationTypeProp =
         {
           get = fn x => get "relation-type" AtkRelationType.t x,
-          set = fn x => set "relation-type" AtkRelationType.t x
+          set = fn x => set "relation-type" AtkRelationType.t x,
+          new = fn x => new "relation-type" AtkRelationType.t x
         }
       val targetProp =
         {
           get = fn x => get "target" GObjectValueArrayRecord.tOpt x,
-          set = fn x => set "target" GObjectValueArrayRecord.tOpt x
+          set = fn x => set "target" GObjectValueArrayRecord.tOpt x,
+          new = fn x => new "target" GObjectValueArrayRecord.tOpt x
         }
     end
   end

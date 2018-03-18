@@ -79,12 +79,14 @@ structure GtkToggleAction :>
       val activeProp =
         {
           get = fn x => get "active" boolean x,
-          set = fn x => set "active" boolean x
+          set = fn x => set "active" boolean x,
+          new = fn x => new "active" boolean x
         }
       val drawAsRadioProp =
         {
           get = fn x => get "draw-as-radio" boolean x,
-          set = fn x => set "draw-as-radio" boolean x
+          set = fn x => set "draw-as-radio" boolean x,
+          new = fn x => new "draw-as-radio" boolean x
         }
     end
   end

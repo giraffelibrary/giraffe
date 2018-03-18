@@ -137,7 +137,7 @@ structure GioSocketConnection :>
       val socketProp =
         {
           get = fn x => get "socket" GioSocketClass.tOpt x,
-          set = fn x => set "socket" GioSocketClass.tOpt x
+          new = fn x => new "socket" GioSocketClass.tOpt x
         }
     end
   end

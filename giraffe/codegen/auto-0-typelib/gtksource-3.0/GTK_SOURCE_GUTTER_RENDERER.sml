@@ -109,15 +109,87 @@ signature GTK_SOURCE_GUTTER_RENDERER =
         -> bool)
        -> 'a class Signal.t
     val queueDrawSig : (unit -> unit) -> 'a class Signal.t
-    val alignmentModeProp : ('a class, gutter_renderer_alignment_mode_t, gutter_renderer_alignment_mode_t) Property.readwrite
-    val backgroundRgbaProp : ('a class, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite
-    val backgroundSetProp : ('a class, bool, bool) Property.readwrite
-    val sizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val viewProp : ('a class, base Gtk.TextViewClass.class option) Property.readonly
-    val visibleProp : ('a class, bool, bool) Property.readwrite
-    val windowTypeProp : ('a class, Gtk.TextWindowType.t) Property.readonly
-    val xalignProp : ('a class, real, real) Property.readwrite
-    val xpadProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val yalignProp : ('a class, real, real) Property.readwrite
-    val ypadProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val alignmentModeProp :
+      {
+        get : 'a class -> gutter_renderer_alignment_mode_t,
+        set :
+          gutter_renderer_alignment_mode_t
+           -> 'a class
+           -> unit,
+        new : gutter_renderer_alignment_mode_t -> 'a class Property.t
+      }
+    val backgroundRgbaProp :
+      {
+        get : 'a class -> Gdk.RgbaRecord.t option,
+        set :
+          Gdk.RgbaRecord.t option
+           -> 'a class
+           -> unit,
+        new : Gdk.RgbaRecord.t option -> 'a class Property.t
+      }
+    val backgroundSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val sizeProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val viewProp : {get : 'a class -> base Gtk.TextViewClass.class option}
+    val visibleProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val windowTypeProp : {get : 'a class -> Gtk.TextWindowType.t}
+    val xalignProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val xpadProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val yalignProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val ypadProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

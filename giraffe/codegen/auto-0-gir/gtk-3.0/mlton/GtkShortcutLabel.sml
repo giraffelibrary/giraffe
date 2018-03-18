@@ -57,12 +57,14 @@ structure GtkShortcutLabel :>
       val acceleratorProp =
         {
           get = fn x => get "accelerator" stringOpt x,
-          set = fn x => set "accelerator" stringOpt x
+          set = fn x => set "accelerator" stringOpt x,
+          new = fn x => new "accelerator" stringOpt x
         }
       val disabledTextProp =
         {
           get = fn x => get "disabled-text" stringOpt x,
-          set = fn x => set "disabled-text" stringOpt x
+          set = fn x => set "disabled-text" stringOpt x,
+          new = fn x => new "disabled-text" stringOpt x
         }
     end
   end

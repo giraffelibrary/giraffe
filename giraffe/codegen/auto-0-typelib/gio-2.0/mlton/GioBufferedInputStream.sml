@@ -182,7 +182,8 @@ structure GioBufferedInputStream :>
       val bufferSizeProp =
         {
           get = fn x => get "buffer-size" uint x,
-          set = fn x => set "buffer-size" uint x
+          set = fn x => set "buffer-size" uint x,
+          new = fn x => new "buffer-size" uint x
         }
     end
   end

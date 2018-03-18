@@ -306,7 +306,7 @@ structure GtkThemingEngine :>
       val nameProp =
         {
           get = fn x => get "name" stringOpt x,
-          set = fn x => set "name" stringOpt x
+          new = fn x => new "name" stringOpt x
         }
     end
   end

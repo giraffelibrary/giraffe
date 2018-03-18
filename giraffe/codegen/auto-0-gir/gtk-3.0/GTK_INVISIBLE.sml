@@ -13,5 +13,13 @@ signature GTK_INVISIBLE =
       'a class
        -> 'b Gdk.ScreenClass.class
        -> unit
-    val screenProp : ('a class, base Gdk.ScreenClass.class option, 'b Gdk.ScreenClass.class option) Property.readwrite
+    val screenProp :
+      {
+        get : 'a class -> base Gdk.ScreenClass.class option,
+        set :
+          'b Gdk.ScreenClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gdk.ScreenClass.class option -> 'a class Property.t
+      }
   end

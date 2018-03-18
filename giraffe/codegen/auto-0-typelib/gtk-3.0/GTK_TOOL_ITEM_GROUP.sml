@@ -58,9 +58,49 @@ signature GTK_TOOL_ITEM_GROUP =
       'a class
        -> 'b widget_class
        -> unit
-    val collapsedProp : ('a class, bool, bool) Property.readwrite
-    val ellipsizeProp : ('a class, Pango.EllipsizeMode.t, Pango.EllipsizeMode.t) Property.readwrite
-    val headerReliefProp : ('a class, relief_style_t, relief_style_t) Property.readwrite
-    val labelProp : ('a class, string option, string option) Property.readwrite
-    val labelWidgetProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
+    val collapsedProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val ellipsizeProp :
+      {
+        get : 'a class -> Pango.EllipsizeMode.t,
+        set :
+          Pango.EllipsizeMode.t
+           -> 'a class
+           -> unit,
+        new : Pango.EllipsizeMode.t -> 'a class Property.t
+      }
+    val headerReliefProp :
+      {
+        get : 'a class -> relief_style_t,
+        set :
+          relief_style_t
+           -> 'a class
+           -> unit,
+        new : relief_style_t -> 'a class Property.t
+      }
+    val labelProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val labelWidgetProp :
+      {
+        get : 'a class -> base widget_class option,
+        set :
+          'b widget_class option
+           -> 'a class
+           -> unit,
+        new : 'b widget_class option -> 'a class Property.t
+      }
   end

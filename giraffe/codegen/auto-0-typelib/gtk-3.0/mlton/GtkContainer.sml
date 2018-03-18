@@ -246,13 +246,19 @@ structure GtkContainer :>
       val borderWidthProp =
         {
           get = fn x => get "border-width" uint x,
-          set = fn x => set "border-width" uint x
+          set = fn x => set "border-width" uint x,
+          new = fn x => new "border-width" uint x
         }
-      val childProp = {set = fn x => set "child" GtkWidgetClass.tOpt x}
+      val childProp =
+        {
+          set = fn x => set "child" GtkWidgetClass.tOpt x,
+          new = fn x => new "child" GtkWidgetClass.tOpt x
+        }
       val resizeModeProp =
         {
           get = fn x => get "resize-mode" GtkResizeMode.t x,
-          set = fn x => set "resize-mode" GtkResizeMode.t x
+          set = fn x => set "resize-mode" GtkResizeMode.t x,
+          new = fn x => new "resize-mode" GtkResizeMode.t x
         }
     end
   end

@@ -70,17 +70,20 @@ structure GioTlsPassword :>
       val descriptionProp =
         {
           get = fn x => get "description" stringOpt x,
-          set = fn x => set "description" stringOpt x
+          set = fn x => set "description" stringOpt x,
+          new = fn x => new "description" stringOpt x
         }
       val flagsProp =
         {
           get = fn x => get "flags" GioTlsPasswordFlags.t x,
-          set = fn x => set "flags" GioTlsPasswordFlags.t x
+          set = fn x => set "flags" GioTlsPasswordFlags.t x,
+          new = fn x => new "flags" GioTlsPasswordFlags.t x
         }
       val warningProp =
         {
           get = fn x => get "warning" stringOpt x,
-          set = fn x => set "warning" stringOpt x
+          set = fn x => set "warning" stringOpt x,
+          new = fn x => new "warning" stringOpt x
         }
     end
   end

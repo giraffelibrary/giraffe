@@ -663,147 +663,178 @@ structure GtkWindow :>
       val acceptFocusProp =
         {
           get = fn x => get "accept-focus" boolean x,
-          set = fn x => set "accept-focus" boolean x
+          set = fn x => set "accept-focus" boolean x,
+          new = fn x => new "accept-focus" boolean x
         }
       val applicationProp =
         {
           get = fn x => get "application" GtkApplicationClass.tOpt x,
-          set = fn x => set "application" GtkApplicationClass.tOpt x
+          set = fn x => set "application" GtkApplicationClass.tOpt x,
+          new = fn x => new "application" GtkApplicationClass.tOpt x
         }
       val attachedToProp =
         {
           get = fn x => get "attached-to" GtkWidgetClass.tOpt x,
-          set = fn x => set "attached-to" GtkWidgetClass.tOpt x
+          set = fn x => set "attached-to" GtkWidgetClass.tOpt x,
+          new = fn x => new "attached-to" GtkWidgetClass.tOpt x
         }
       val decoratedProp =
         {
           get = fn x => get "decorated" boolean x,
-          set = fn x => set "decorated" boolean x
+          set = fn x => set "decorated" boolean x,
+          new = fn x => new "decorated" boolean x
         }
       val defaultHeightProp =
         {
           get = fn x => get "default-height" int x,
-          set = fn x => set "default-height" int x
+          set = fn x => set "default-height" int x,
+          new = fn x => new "default-height" int x
         }
       val defaultWidthProp =
         {
           get = fn x => get "default-width" int x,
-          set = fn x => set "default-width" int x
+          set = fn x => set "default-width" int x,
+          new = fn x => new "default-width" int x
         }
       val deletableProp =
         {
           get = fn x => get "deletable" boolean x,
-          set = fn x => set "deletable" boolean x
+          set = fn x => set "deletable" boolean x,
+          new = fn x => new "deletable" boolean x
         }
       val destroyWithParentProp =
         {
           get = fn x => get "destroy-with-parent" boolean x,
-          set = fn x => set "destroy-with-parent" boolean x
+          set = fn x => set "destroy-with-parent" boolean x,
+          new = fn x => new "destroy-with-parent" boolean x
         }
       val focusOnMapProp =
         {
           get = fn x => get "focus-on-map" boolean x,
-          set = fn x => set "focus-on-map" boolean x
+          set = fn x => set "focus-on-map" boolean x,
+          new = fn x => new "focus-on-map" boolean x
         }
       val focusVisibleProp =
         {
           get = fn x => get "focus-visible" boolean x,
-          set = fn x => set "focus-visible" boolean x
+          set = fn x => set "focus-visible" boolean x,
+          new = fn x => new "focus-visible" boolean x
         }
       val gravityProp =
         {
           get = fn x => get "gravity" GdkGravity.t x,
-          set = fn x => set "gravity" GdkGravity.t x
+          set = fn x => set "gravity" GdkGravity.t x,
+          new = fn x => new "gravity" GdkGravity.t x
         }
       val hasResizeGripProp =
         {
           get = fn x => get "has-resize-grip" boolean x,
-          set = fn x => set "has-resize-grip" boolean x
+          set = fn x => set "has-resize-grip" boolean x,
+          new = fn x => new "has-resize-grip" boolean x
         }
       val hasToplevelFocusProp = {get = fn x => get "has-toplevel-focus" boolean x}
       val hideTitlebarWhenMaximizedProp =
         {
           get = fn x => get "hide-titlebar-when-maximized" boolean x,
-          set = fn x => set "hide-titlebar-when-maximized" boolean x
+          set = fn x => set "hide-titlebar-when-maximized" boolean x,
+          new = fn x => new "hide-titlebar-when-maximized" boolean x
         }
       val iconProp =
         {
           get = fn x => get "icon" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "icon" GdkPixbufPixbufClass.tOpt x
+          set = fn x => set "icon" GdkPixbufPixbufClass.tOpt x,
+          new = fn x => new "icon" GdkPixbufPixbufClass.tOpt x
         }
       val iconNameProp =
         {
           get = fn x => get "icon-name" stringOpt x,
-          set = fn x => set "icon-name" stringOpt x
+          set = fn x => set "icon-name" stringOpt x,
+          new = fn x => new "icon-name" stringOpt x
         }
       val isActiveProp = {get = fn x => get "is-active" boolean x}
       val isMaximizedProp = {get = fn x => get "is-maximized" boolean x}
       val mnemonicsVisibleProp =
         {
           get = fn x => get "mnemonics-visible" boolean x,
-          set = fn x => set "mnemonics-visible" boolean x
+          set = fn x => set "mnemonics-visible" boolean x,
+          new = fn x => new "mnemonics-visible" boolean x
         }
       val modalProp =
         {
           get = fn x => get "modal" boolean x,
-          set = fn x => set "modal" boolean x
+          set = fn x => set "modal" boolean x,
+          new = fn x => new "modal" boolean x
         }
       val resizableProp =
         {
           get = fn x => get "resizable" boolean x,
-          set = fn x => set "resizable" boolean x
+          set = fn x => set "resizable" boolean x,
+          new = fn x => new "resizable" boolean x
         }
       val resizeGripVisibleProp = {get = fn x => get "resize-grip-visible" boolean x}
       val roleProp =
         {
           get = fn x => get "role" stringOpt x,
-          set = fn x => set "role" stringOpt x
+          set = fn x => set "role" stringOpt x,
+          new = fn x => new "role" stringOpt x
         }
       val screenProp =
         {
           get = fn x => get "screen" GdkScreenClass.tOpt x,
-          set = fn x => set "screen" GdkScreenClass.tOpt x
+          set = fn x => set "screen" GdkScreenClass.tOpt x,
+          new = fn x => new "screen" GdkScreenClass.tOpt x
         }
       val skipPagerHintProp =
         {
           get = fn x => get "skip-pager-hint" boolean x,
-          set = fn x => set "skip-pager-hint" boolean x
+          set = fn x => set "skip-pager-hint" boolean x,
+          new = fn x => new "skip-pager-hint" boolean x
         }
       val skipTaskbarHintProp =
         {
           get = fn x => get "skip-taskbar-hint" boolean x,
-          set = fn x => set "skip-taskbar-hint" boolean x
+          set = fn x => set "skip-taskbar-hint" boolean x,
+          new = fn x => new "skip-taskbar-hint" boolean x
         }
-      val startupIdProp = {set = fn x => set "startup-id" stringOpt x}
+      val startupIdProp =
+        {
+          set = fn x => set "startup-id" stringOpt x,
+          new = fn x => new "startup-id" stringOpt x
+        }
       val titleProp =
         {
           get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x
+          set = fn x => set "title" stringOpt x,
+          new = fn x => new "title" stringOpt x
         }
       val transientForProp =
         {
           get = fn x => get "transient-for" GtkWindowClass.tOpt x,
-          set = fn x => set "transient-for" GtkWindowClass.tOpt x
+          set = fn x => set "transient-for" GtkWindowClass.tOpt x,
+          new = fn x => new "transient-for" GtkWindowClass.tOpt x
         }
       val typeProp =
         {
           get = fn x => get "type" GtkWindowType.t x,
-          set = fn x => set "type" GtkWindowType.t x
+          new = fn x => new "type" GtkWindowType.t x
         }
       val typeHintProp =
         {
           get = fn x => get "type-hint" GdkWindowTypeHint.t x,
-          set = fn x => set "type-hint" GdkWindowTypeHint.t x
+          set = fn x => set "type-hint" GdkWindowTypeHint.t x,
+          new = fn x => new "type-hint" GdkWindowTypeHint.t x
         }
       val urgencyHintProp =
         {
           get = fn x => get "urgency-hint" boolean x,
-          set = fn x => set "urgency-hint" boolean x
+          set = fn x => set "urgency-hint" boolean x,
+          new = fn x => new "urgency-hint" boolean x
         }
       val windowPositionProp =
         {
           get = fn x => get "window-position" GtkWindowPosition.t x,
-          set = fn x => set "window-position" GtkWindowPosition.t x
+          set = fn x => set "window-position" GtkWindowPosition.t x,
+          new = fn x => new "window-position" GtkWindowPosition.t x
         }
     end
   end

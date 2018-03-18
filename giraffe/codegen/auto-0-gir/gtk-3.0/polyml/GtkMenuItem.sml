@@ -84,27 +84,32 @@ structure GtkMenuItem :>
       val accelPathProp =
         {
           get = fn x => get "accel-path" stringOpt x,
-          set = fn x => set "accel-path" stringOpt x
+          set = fn x => set "accel-path" stringOpt x,
+          new = fn x => new "accel-path" stringOpt x
         }
       val labelProp =
         {
           get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x
+          set = fn x => set "label" stringOpt x,
+          new = fn x => new "label" stringOpt x
         }
       val rightJustifiedProp =
         {
           get = fn x => get "right-justified" boolean x,
-          set = fn x => set "right-justified" boolean x
+          set = fn x => set "right-justified" boolean x,
+          new = fn x => new "right-justified" boolean x
         }
       val submenuProp =
         {
           get = fn x => get "submenu" GtkMenuClass.tOpt x,
-          set = fn x => set "submenu" GtkMenuClass.tOpt x
+          set = fn x => set "submenu" GtkMenuClass.tOpt x,
+          new = fn x => new "submenu" GtkMenuClass.tOpt x
         }
       val useUnderlineProp =
         {
           get = fn x => get "use-underline" boolean x,
-          set = fn x => set "use-underline" boolean x
+          set = fn x => set "use-underline" boolean x,
+          new = fn x => new "use-underline" boolean x
         }
     end
   end

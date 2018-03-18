@@ -99,12 +99,14 @@ structure GtkAccelLabel :>
       val accelClosureProp =
         {
           get = fn x => get "accel-closure" GObjectClosureRecord.tOpt x,
-          set = fn x => set "accel-closure" GObjectClosureRecord.tOpt x
+          set = fn x => set "accel-closure" GObjectClosureRecord.tOpt x,
+          new = fn x => new "accel-closure" GObjectClosureRecord.tOpt x
         }
       val accelWidgetProp =
         {
           get = fn x => get "accel-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "accel-widget" GtkWidgetClass.tOpt x
+          set = fn x => set "accel-widget" GtkWidgetClass.tOpt x,
+          new = fn x => new "accel-widget" GtkWidgetClass.tOpt x
         }
     end
   end

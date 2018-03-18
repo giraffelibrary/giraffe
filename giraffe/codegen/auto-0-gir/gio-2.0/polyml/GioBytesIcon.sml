@@ -26,7 +26,7 @@ structure GioBytesIcon :>
       val bytesProp =
         {
           get = fn x => get "bytes" GLibBytesRecord.tOpt x,
-          set = fn x => set "bytes" GLibBytesRecord.tOpt x
+          new = fn x => new "bytes" GLibBytesRecord.tOpt x
         }
     end
   end

@@ -33,22 +33,22 @@ structure GioInetSocketAddress :>
       val addressProp =
         {
           get = fn x => get "address" GioInetAddressClass.tOpt x,
-          set = fn x => set "address" GioInetAddressClass.tOpt x
+          new = fn x => new "address" GioInetAddressClass.tOpt x
         }
       val flowinfoProp =
         {
           get = fn x => get "flowinfo" uint x,
-          set = fn x => set "flowinfo" uint x
+          new = fn x => new "flowinfo" uint x
         }
       val portProp =
         {
           get = fn x => get "port" uint x,
-          set = fn x => set "port" uint x
+          new = fn x => new "port" uint x
         }
       val scopeIdProp =
         {
           get = fn x => get "scope-id" uint x,
-          set = fn x => set "scope-id" uint x
+          new = fn x => new "scope-id" uint x
         }
     end
   end

@@ -61,9 +61,49 @@ signature GTK_MENU_ITEM =
     val deselectSig : (unit -> unit) -> 'a class Signal.t
     val selectSig : (unit -> unit) -> 'a class Signal.t
     val toggleSizeAllocateSig : (LargeInt.int -> unit) -> 'a class Signal.t
-    val accelPathProp : ('a class, string option, string option) Property.readwrite
-    val labelProp : ('a class, string option, string option) Property.readwrite
-    val rightJustifiedProp : ('a class, bool, bool) Property.readwrite
-    val submenuProp : ('a class, base menu_class option, 'b menu_class option) Property.readwrite
-    val useUnderlineProp : ('a class, bool, bool) Property.readwrite
+    val accelPathProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val labelProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val rightJustifiedProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val submenuProp :
+      {
+        get : 'a class -> base menu_class option,
+        set :
+          'b menu_class option
+           -> 'a class
+           -> unit,
+        new : 'b menu_class option -> 'a class Property.t
+      }
+    val useUnderlineProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

@@ -303,21 +303,28 @@ structure GioApplication :>
     local
       open Property
     in
-      val actionGroupProp = {set = fn x => set "action-group" GioActionGroupClass.tOpt x}
+      val actionGroupProp =
+        {
+          set = fn x => set "action-group" GioActionGroupClass.tOpt x,
+          new = fn x => new "action-group" GioActionGroupClass.tOpt x
+        }
       val applicationIdProp =
         {
           get = fn x => get "application-id" stringOpt x,
-          set = fn x => set "application-id" stringOpt x
+          set = fn x => set "application-id" stringOpt x,
+          new = fn x => new "application-id" stringOpt x
         }
       val flagsProp =
         {
           get = fn x => get "flags" GioApplicationFlags.t x,
-          set = fn x => set "flags" GioApplicationFlags.t x
+          set = fn x => set "flags" GioApplicationFlags.t x,
+          new = fn x => new "flags" GioApplicationFlags.t x
         }
       val inactivityTimeoutProp =
         {
           get = fn x => get "inactivity-timeout" uint x,
-          set = fn x => set "inactivity-timeout" uint x
+          set = fn x => set "inactivity-timeout" uint x,
+          new = fn x => new "inactivity-timeout" uint x
         }
       val isBusyProp = {get = fn x => get "is-busy" boolean x}
       val isRegisteredProp = {get = fn x => get "is-registered" boolean x}
@@ -325,7 +332,8 @@ structure GioApplication :>
       val resourceBasePathProp =
         {
           get = fn x => get "resource-base-path" stringOpt x,
-          set = fn x => set "resource-base-path" stringOpt x
+          set = fn x => set "resource-base-path" stringOpt x,
+          new = fn x => new "resource-base-path" stringOpt x
         }
     end
   end

@@ -125,5 +125,5 @@ signature GIO_D_BUS_MESSAGE =
        -> d_bus_capability_flags_t
        -> Word8Vector.vector
     val toGerror : 'a class -> unit
-    val lockedProp : ('a class, bool) Property.readonly
+    val lockedProp : {get : 'a class -> bool}
   end

@@ -88,16 +88,112 @@ signature GTK_ABOUT_DIALOG =
        -> bool
        -> unit
     val activateLinkSig : (string -> bool) -> 'a class Signal.t
-    val commentsProp : ('a class, string option, string option) Property.readwrite
-    val copyrightProp : ('a class, string option, string option) Property.readwrite
-    val licenseProp : ('a class, string option, string option) Property.readwrite
-    val licenseTypeProp : ('a class, license_t, license_t) Property.readwrite
-    val logoProp : ('a class, base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option) Property.readwrite
-    val logoIconNameProp : ('a class, string option, string option) Property.readwrite
-    val programNameProp : ('a class, string option, string option) Property.readwrite
-    val translatorCreditsProp : ('a class, string option, string option) Property.readwrite
-    val versionProp : ('a class, string option, string option) Property.readwrite
-    val websiteProp : ('a class, string option, string option) Property.readwrite
-    val websiteLabelProp : ('a class, string option, string option) Property.readwrite
-    val wrapLicenseProp : ('a class, bool, bool) Property.readwrite
+    val commentsProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val copyrightProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val licenseProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val licenseTypeProp :
+      {
+        get : 'a class -> license_t,
+        set :
+          license_t
+           -> 'a class
+           -> unit,
+        new : license_t -> 'a class Property.t
+      }
+    val logoProp :
+      {
+        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
+        set :
+          'b GdkPixbuf.PixbufClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
+      }
+    val logoIconNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val programNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val translatorCreditsProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val versionProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val websiteProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val websiteLabelProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val wrapLicenseProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

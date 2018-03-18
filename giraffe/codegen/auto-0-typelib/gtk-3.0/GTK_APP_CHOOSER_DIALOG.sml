@@ -27,6 +27,18 @@ signature GTK_APP_CHOOSER_DIALOG =
       'a class
        -> string
        -> unit
-    val gfileProp : ('a class, base Gio.FileClass.class option, 'b Gio.FileClass.class option) Property.readwrite
-    val headingProp : ('a class, string option, string option) Property.readwrite
+    val gfileProp :
+      {
+        get : 'a class -> base Gio.FileClass.class option,
+        new : 'b Gio.FileClass.class option -> 'a class Property.t
+      }
+    val headingProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

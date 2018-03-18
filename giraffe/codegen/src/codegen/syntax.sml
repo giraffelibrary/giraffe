@@ -422,6 +422,7 @@ val signalId : id = "signal"
 val signalExp : exp = mkIdLNameExp signalId
 
 val propertyId : id = "property"
+val propertyStrId : id = "Property"
 
 val getId : id = "get"
 val setId : id = "set"

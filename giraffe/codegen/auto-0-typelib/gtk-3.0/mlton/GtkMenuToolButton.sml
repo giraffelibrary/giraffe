@@ -85,7 +85,8 @@ structure GtkMenuToolButton :>
       val menuProp =
         {
           get = fn x => get "menu" GtkMenuClass.tOpt x,
-          set = fn x => set "menu" GtkMenuClass.tOpt x
+          set = fn x => set "menu" GtkMenuClass.tOpt x,
+          new = fn x => new "menu" GtkMenuClass.tOpt x
         }
     end
   end

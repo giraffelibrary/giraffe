@@ -20,22 +20,23 @@ structure GioProxyAddressEnumerator :>
       val connectableProp =
         {
           get = fn x => get "connectable" GioSocketConnectableClass.tOpt x,
-          set = fn x => set "connectable" GioSocketConnectableClass.tOpt x
+          new = fn x => new "connectable" GioSocketConnectableClass.tOpt x
         }
       val defaultPortProp =
         {
           get = fn x => get "default-port" uint x,
-          set = fn x => set "default-port" uint x
+          new = fn x => new "default-port" uint x
         }
       val proxyResolverProp =
         {
           get = fn x => get "proxy-resolver" GioProxyResolverClass.tOpt x,
-          set = fn x => set "proxy-resolver" GioProxyResolverClass.tOpt x
+          set = fn x => set "proxy-resolver" GioProxyResolverClass.tOpt x,
+          new = fn x => new "proxy-resolver" GioProxyResolverClass.tOpt x
         }
       val uriProp =
         {
           get = fn x => get "uri" stringOpt x,
-          set = fn x => set "uri" stringOpt x
+          new = fn x => new "uri" stringOpt x
         }
     end
   end

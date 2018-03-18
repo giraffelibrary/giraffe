@@ -68,13 +68,77 @@ signature GTK_STACK =
       'a class
        -> string
        -> unit
-    val hhomogeneousProp : ('a class, bool, bool) Property.readwrite
-    val homogeneousProp : ('a class, bool, bool) Property.readwrite
-    val interpolateSizeProp : ('a class, bool, bool) Property.readwrite
-    val transitionDurationProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val transitionRunningProp : ('a class, bool) Property.readonly
-    val transitionTypeProp : ('a class, stack_transition_type_t, stack_transition_type_t) Property.readwrite
-    val vhomogeneousProp : ('a class, bool, bool) Property.readwrite
-    val visibleChildProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
-    val visibleChildNameProp : ('a class, string option, string option) Property.readwrite
+    val hhomogeneousProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val homogeneousProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val interpolateSizeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val transitionDurationProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val transitionRunningProp : {get : 'a class -> bool}
+    val transitionTypeProp :
+      {
+        get : 'a class -> stack_transition_type_t,
+        set :
+          stack_transition_type_t
+           -> 'a class
+           -> unit,
+        new : stack_transition_type_t -> 'a class Property.t
+      }
+    val vhomogeneousProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val visibleChildProp :
+      {
+        get : 'a class -> base widget_class option,
+        set :
+          'b widget_class option
+           -> 'a class
+           -> unit,
+        new : 'b widget_class option -> 'a class Property.t
+      }
+    val visibleChildNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

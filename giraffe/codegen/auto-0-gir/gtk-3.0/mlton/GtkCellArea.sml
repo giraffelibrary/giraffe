@@ -1120,7 +1120,8 @@ structure GtkCellArea :>
       val focusCellProp =
         {
           get = fn x => get "focus-cell" GtkCellRendererClass.tOpt x,
-          set = fn x => set "focus-cell" GtkCellRendererClass.tOpt x
+          set = fn x => set "focus-cell" GtkCellRendererClass.tOpt x,
+          new = fn x => new "focus-cell" GtkCellRendererClass.tOpt x
         }
     end
   end

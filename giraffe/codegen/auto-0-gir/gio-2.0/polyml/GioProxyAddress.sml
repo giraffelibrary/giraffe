@@ -77,37 +77,37 @@ structure GioProxyAddress :>
       val destinationHostnameProp =
         {
           get = fn x => get "destination-hostname" stringOpt x,
-          set = fn x => set "destination-hostname" stringOpt x
+          new = fn x => new "destination-hostname" stringOpt x
         }
       val destinationPortProp =
         {
           get = fn x => get "destination-port" uint x,
-          set = fn x => set "destination-port" uint x
+          new = fn x => new "destination-port" uint x
         }
       val destinationProtocolProp =
         {
           get = fn x => get "destination-protocol" stringOpt x,
-          set = fn x => set "destination-protocol" stringOpt x
+          new = fn x => new "destination-protocol" stringOpt x
         }
       val passwordProp =
         {
           get = fn x => get "password" stringOpt x,
-          set = fn x => set "password" stringOpt x
+          new = fn x => new "password" stringOpt x
         }
       val protocolProp =
         {
           get = fn x => get "protocol" stringOpt x,
-          set = fn x => set "protocol" stringOpt x
+          new = fn x => new "protocol" stringOpt x
         }
       val uriProp =
         {
           get = fn x => get "uri" stringOpt x,
-          set = fn x => set "uri" stringOpt x
+          new = fn x => new "uri" stringOpt x
         }
       val usernameProp =
         {
           get = fn x => get "username" stringOpt x,
-          set = fn x => set "username" stringOpt x
+          new = fn x => new "username" stringOpt x
         }
     end
   end

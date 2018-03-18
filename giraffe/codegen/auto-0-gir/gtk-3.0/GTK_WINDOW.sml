@@ -302,37 +302,264 @@ signature GTK_WINDOW =
     val enableDebuggingSig : (bool -> bool) -> 'a class Signal.t
     val keysChangedSig : (unit -> unit) -> 'a class Signal.t
     val setFocusSig : (base widget_class -> unit) -> 'a class Signal.t
-    val acceptFocusProp : ('a class, bool, bool) Property.readwrite
-    val applicationProp : ('a class, base application_class option, 'b application_class option) Property.readwrite
-    val attachedToProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
-    val decoratedProp : ('a class, bool, bool) Property.readwrite
-    val defaultHeightProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val defaultWidthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val deletableProp : ('a class, bool, bool) Property.readwrite
-    val destroyWithParentProp : ('a class, bool, bool) Property.readwrite
-    val focusOnMapProp : ('a class, bool, bool) Property.readwrite
-    val focusVisibleProp : ('a class, bool, bool) Property.readwrite
-    val gravityProp : ('a class, Gdk.Gravity.t, Gdk.Gravity.t) Property.readwrite
-    val hasResizeGripProp : ('a class, bool, bool) Property.readwrite
-    val hasToplevelFocusProp : ('a class, bool) Property.readonly
-    val hideTitlebarWhenMaximizedProp : ('a class, bool, bool) Property.readwrite
-    val iconProp : ('a class, base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option) Property.readwrite
-    val iconNameProp : ('a class, string option, string option) Property.readwrite
-    val isActiveProp : ('a class, bool) Property.readonly
-    val isMaximizedProp : ('a class, bool) Property.readonly
-    val mnemonicsVisibleProp : ('a class, bool, bool) Property.readwrite
-    val modalProp : ('a class, bool, bool) Property.readwrite
-    val resizableProp : ('a class, bool, bool) Property.readwrite
-    val resizeGripVisibleProp : ('a class, bool) Property.readonly
-    val roleProp : ('a class, string option, string option) Property.readwrite
-    val screenProp : ('a class, base Gdk.ScreenClass.class option, 'b Gdk.ScreenClass.class option) Property.readwrite
-    val skipPagerHintProp : ('a class, bool, bool) Property.readwrite
-    val skipTaskbarHintProp : ('a class, bool, bool) Property.readwrite
-    val startupIdProp : ('a class, string option) Property.writeonly
-    val titleProp : ('a class, string option, string option) Property.readwrite
-    val transientForProp : ('a class, base class option, 'b class option) Property.readwrite
-    val typeProp : ('a class, window_type_t, window_type_t) Property.readwrite
-    val typeHintProp : ('a class, Gdk.WindowTypeHint.t, Gdk.WindowTypeHint.t) Property.readwrite
-    val urgencyHintProp : ('a class, bool, bool) Property.readwrite
-    val windowPositionProp : ('a class, window_position_t, window_position_t) Property.readwrite
+    val acceptFocusProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val applicationProp :
+      {
+        get : 'a class -> base application_class option,
+        set :
+          'b application_class option
+           -> 'a class
+           -> unit,
+        new : 'b application_class option -> 'a class Property.t
+      }
+    val attachedToProp :
+      {
+        get : 'a class -> base widget_class option,
+        set :
+          'b widget_class option
+           -> 'a class
+           -> unit,
+        new : 'b widget_class option -> 'a class Property.t
+      }
+    val decoratedProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val defaultHeightProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val defaultWidthProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val deletableProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val destroyWithParentProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val focusOnMapProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val focusVisibleProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val gravityProp :
+      {
+        get : 'a class -> Gdk.Gravity.t,
+        set :
+          Gdk.Gravity.t
+           -> 'a class
+           -> unit,
+        new : Gdk.Gravity.t -> 'a class Property.t
+      }
+    val hasResizeGripProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val hasToplevelFocusProp : {get : 'a class -> bool}
+    val hideTitlebarWhenMaximizedProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val iconProp :
+      {
+        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
+        set :
+          'b GdkPixbuf.PixbufClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
+      }
+    val iconNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val isActiveProp : {get : 'a class -> bool}
+    val isMaximizedProp : {get : 'a class -> bool}
+    val mnemonicsVisibleProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val modalProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val resizableProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val resizeGripVisibleProp : {get : 'a class -> bool}
+    val roleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val screenProp :
+      {
+        get : 'a class -> base Gdk.ScreenClass.class option,
+        set :
+          'b Gdk.ScreenClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gdk.ScreenClass.class option -> 'a class Property.t
+      }
+    val skipPagerHintProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val skipTaskbarHintProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val startupIdProp :
+      {
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val titleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val transientForProp :
+      {
+        get : 'a class -> base class option,
+        set :
+          'b class option
+           -> 'a class
+           -> unit,
+        new : 'b class option -> 'a class Property.t
+      }
+    val typeProp :
+      {
+        get : 'a class -> window_type_t,
+        new : window_type_t -> 'a class Property.t
+      }
+    val typeHintProp :
+      {
+        get : 'a class -> Gdk.WindowTypeHint.t,
+        set :
+          Gdk.WindowTypeHint.t
+           -> 'a class
+           -> unit,
+        new : Gdk.WindowTypeHint.t -> 'a class Property.t
+      }
+    val urgencyHintProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val windowPositionProp :
+      {
+        get : 'a class -> window_position_t,
+        set :
+          window_position_t
+           -> 'a class
+           -> unit,
+        new : window_position_t -> 'a class Property.t
+      }
   end

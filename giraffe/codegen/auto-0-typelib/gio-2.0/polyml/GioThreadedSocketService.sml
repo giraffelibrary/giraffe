@@ -25,7 +25,7 @@ structure GioThreadedSocketService :>
       val maxThreadsProp =
         {
           get = fn x => get "max-threads" int x,
-          set = fn x => set "max-threads" int x
+          new = fn x => new "max-threads" int x
         }
     end
   end

@@ -8,23 +8,99 @@ signature GTK_SOURCE_STYLE =
        -> 'b Gtk.TextTagClass.class
        -> unit
     val copy : 'a class -> base class
-    val backgroundProp : ('a class, string option, string option) Property.readwrite
-    val backgroundSetProp : ('a class, bool, bool) Property.readwrite
-    val boldProp : ('a class, bool, bool) Property.readwrite
-    val boldSetProp : ('a class, bool, bool) Property.readwrite
-    val foregroundProp : ('a class, string option, string option) Property.readwrite
-    val foregroundSetProp : ('a class, bool, bool) Property.readwrite
-    val italicProp : ('a class, bool, bool) Property.readwrite
-    val italicSetProp : ('a class, bool, bool) Property.readwrite
-    val lineBackgroundProp : ('a class, string option, string option) Property.readwrite
-    val lineBackgroundSetProp : ('a class, bool, bool) Property.readwrite
-    val pangoUnderlineProp : ('a class, Pango.Underline.t, Pango.Underline.t) Property.readwrite
-    val scaleProp : ('a class, string option, string option) Property.readwrite
-    val scaleSetProp : ('a class, bool, bool) Property.readwrite
-    val strikethroughProp : ('a class, bool, bool) Property.readwrite
-    val strikethroughSetProp : ('a class, bool, bool) Property.readwrite
-    val underlineProp : ('a class, bool, bool) Property.readwrite
-    val underlineColorProp : ('a class, string option, string option) Property.readwrite
-    val underlineColorSetProp : ('a class, bool, bool) Property.readwrite
-    val underlineSetProp : ('a class, bool, bool) Property.readwrite
+    val backgroundProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
+    val backgroundSetProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val boldProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val boldSetProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val foregroundProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
+    val foregroundSetProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val italicProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val italicSetProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val lineBackgroundProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
+    val lineBackgroundSetProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val pangoUnderlineProp :
+      {
+        get : 'a class -> Pango.Underline.t,
+        new : Pango.Underline.t -> 'a class Property.t
+      }
+    val scaleProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
+    val scaleSetProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val strikethroughProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val strikethroughSetProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val underlineProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val underlineColorProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
+    val underlineColorSetProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val underlineSetProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
   end

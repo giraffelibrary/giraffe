@@ -51,9 +51,33 @@ signature GTK_PANED =
     val cycleHandleFocusSig : (bool -> bool) -> 'a class Signal.t
     val moveHandleSig : (scroll_type_t -> bool) -> 'a class Signal.t
     val toggleHandleFocusSig : (unit -> bool) -> 'a class Signal.t
-    val maxPositionProp : ('a class, LargeInt.int) Property.readonly
-    val minPositionProp : ('a class, LargeInt.int) Property.readonly
-    val positionProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val positionSetProp : ('a class, bool, bool) Property.readwrite
-    val wideHandleProp : ('a class, bool, bool) Property.readwrite
+    val maxPositionProp : {get : 'a class -> LargeInt.int}
+    val minPositionProp : {get : 'a class -> LargeInt.int}
+    val positionProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val positionSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val wideHandleProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

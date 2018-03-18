@@ -30,5 +30,9 @@ signature GDK_APP_LAUNCH_CONTEXT =
       'a class
        -> LargeInt.int
        -> unit
-    val displayProp : ('a class, base display_class option, 'b display_class option) Property.readwrite
+    val displayProp :
+      {
+        get : 'a class -> base display_class option,
+        new : 'b display_class option -> 'a class Property.t
+      }
   end

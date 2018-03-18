@@ -35,27 +35,32 @@ structure GtkCellRendererToggle :>
       val activatableProp =
         {
           get = fn x => get "activatable" boolean x,
-          set = fn x => set "activatable" boolean x
+          set = fn x => set "activatable" boolean x,
+          new = fn x => new "activatable" boolean x
         }
       val activeProp =
         {
           get = fn x => get "active" boolean x,
-          set = fn x => set "active" boolean x
+          set = fn x => set "active" boolean x,
+          new = fn x => new "active" boolean x
         }
       val inconsistentProp =
         {
           get = fn x => get "inconsistent" boolean x,
-          set = fn x => set "inconsistent" boolean x
+          set = fn x => set "inconsistent" boolean x,
+          new = fn x => new "inconsistent" boolean x
         }
       val indicatorSizeProp =
         {
           get = fn x => get "indicator-size" int x,
-          set = fn x => set "indicator-size" int x
+          set = fn x => set "indicator-size" int x,
+          new = fn x => new "indicator-size" int x
         }
       val radioProp =
         {
           get = fn x => get "radio" boolean x,
-          set = fn x => set "radio" boolean x
+          set = fn x => set "radio" boolean x,
+          new = fn x => new "radio" boolean x
         }
     end
   end

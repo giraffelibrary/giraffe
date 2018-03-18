@@ -281,7 +281,8 @@ structure GtkUIManager :>
       val addTearoffsProp =
         {
           get = fn x => get "add-tearoffs" boolean x,
-          set = fn x => set "add-tearoffs" boolean x
+          set = fn x => set "add-tearoffs" boolean x,
+          new = fn x => new "add-tearoffs" boolean x
         }
       val uiProp = {get = fn x => get "ui" stringOpt x}
     end

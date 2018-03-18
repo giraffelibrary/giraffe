@@ -87,12 +87,13 @@ structure GtkAppChooserDialog :>
       val gfileProp =
         {
           get = fn x => get "gfile" GioFileClass.tOpt x,
-          set = fn x => set "gfile" GioFileClass.tOpt x
+          new = fn x => new "gfile" GioFileClass.tOpt x
         }
       val headingProp =
         {
           get = fn x => get "heading" stringOpt x,
-          set = fn x => set "heading" stringOpt x
+          set = fn x => set "heading" stringOpt x,
+          new = fn x => new "heading" stringOpt x
         }
     end
   end

@@ -33,7 +33,8 @@ structure GtkGesturePan :>
       val orientationProp =
         {
           get = fn x => get "orientation" GtkOrientation.t x,
-          set = fn x => set "orientation" GtkOrientation.t x
+          set = fn x => set "orientation" GtkOrientation.t x,
+          new = fn x => new "orientation" GtkOrientation.t x
         }
     end
   end

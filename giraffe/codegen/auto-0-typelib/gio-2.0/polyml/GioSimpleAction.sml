@@ -59,22 +59,24 @@ structure GioSimpleAction :>
       val enabledProp =
         {
           get = fn x => get "enabled" boolean x,
-          set = fn x => set "enabled" boolean x
+          set = fn x => set "enabled" boolean x,
+          new = fn x => new "enabled" boolean x
         }
       val nameProp =
         {
           get = fn x => get "name" stringOpt x,
-          set = fn x => set "name" stringOpt x
+          new = fn x => new "name" stringOpt x
         }
       val parameterTypeProp =
         {
           get = fn x => get "parameter-type" GLibVariantTypeRecord.tOpt x,
-          set = fn x => set "parameter-type" GLibVariantTypeRecord.tOpt x
+          new = fn x => new "parameter-type" GLibVariantTypeRecord.tOpt x
         }
       val stateProp =
         {
           get = fn x => get "state" GLibVariantRecord.tOpt x,
-          set = fn x => set "state" GLibVariantRecord.tOpt x
+          set = fn x => set "state" GLibVariantRecord.tOpt x,
+          new = fn x => new "state" GLibVariantRecord.tOpt x
         }
       val stateTypeProp = {get = fn x => get "state-type" GLibVariantTypeRecord.tOpt x}
     end

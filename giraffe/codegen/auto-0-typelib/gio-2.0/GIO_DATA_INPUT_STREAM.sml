@@ -83,6 +83,22 @@ signature GIO_DATA_INPUT_STREAM =
       'a class
        -> data_stream_newline_type_t
        -> unit
-    val byteOrderProp : ('a class, data_stream_byte_order_t, data_stream_byte_order_t) Property.readwrite
-    val newlineTypeProp : ('a class, data_stream_newline_type_t, data_stream_newline_type_t) Property.readwrite
+    val byteOrderProp :
+      {
+        get : 'a class -> data_stream_byte_order_t,
+        set :
+          data_stream_byte_order_t
+           -> 'a class
+           -> unit,
+        new : data_stream_byte_order_t -> 'a class Property.t
+      }
+    val newlineTypeProp :
+      {
+        get : 'a class -> data_stream_newline_type_t,
+        set :
+          data_stream_newline_type_t
+           -> 'a class
+           -> unit,
+        new : data_stream_newline_type_t -> 'a class Property.t
+      }
   end

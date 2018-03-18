@@ -32,12 +32,14 @@ structure GtkSearchBar :>
       val searchModeEnabledProp =
         {
           get = fn x => get "search-mode-enabled" boolean x,
-          set = fn x => set "search-mode-enabled" boolean x
+          set = fn x => set "search-mode-enabled" boolean x,
+          new = fn x => new "search-mode-enabled" boolean x
         }
       val showCloseButtonProp =
         {
           get = fn x => get "show-close-button" boolean x,
-          set = fn x => set "show-close-button" boolean x
+          set = fn x => set "show-close-button" boolean x,
+          new = fn x => new "show-close-button" boolean x
         }
     end
   end

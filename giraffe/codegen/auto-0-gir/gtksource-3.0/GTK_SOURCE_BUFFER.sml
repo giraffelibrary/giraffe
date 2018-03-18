@@ -115,13 +115,69 @@ signature GTK_SOURCE_BUFFER =
     val redoSig : (unit -> unit) -> 'a class Signal.t
     val sourceMarkUpdatedSig : (base Gtk.TextMarkClass.class -> unit) -> 'a class Signal.t
     val undoSig : (unit -> unit) -> 'a class Signal.t
-    val canRedoProp : ('a class, bool) Property.readonly
-    val canUndoProp : ('a class, bool) Property.readonly
-    val highlightMatchingBracketsProp : ('a class, bool, bool) Property.readwrite
-    val highlightSyntaxProp : ('a class, bool, bool) Property.readwrite
-    val implicitTrailingNewlineProp : ('a class, bool, bool) Property.readwrite
-    val languageProp : ('a class, base language_class option, 'b language_class option) Property.readwrite
-    val maxUndoLevelsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val styleSchemeProp : ('a class, base style_scheme_class option, 'b style_scheme_class option) Property.readwrite
-    val undoManagerProp : ('a class, base undo_manager_class option, 'b undo_manager_class option) Property.readwrite
+    val canRedoProp : {get : 'a class -> bool}
+    val canUndoProp : {get : 'a class -> bool}
+    val highlightMatchingBracketsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val highlightSyntaxProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val implicitTrailingNewlineProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val languageProp :
+      {
+        get : 'a class -> base language_class option,
+        set :
+          'b language_class option
+           -> 'a class
+           -> unit,
+        new : 'b language_class option -> 'a class Property.t
+      }
+    val maxUndoLevelsProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val styleSchemeProp :
+      {
+        get : 'a class -> base style_scheme_class option,
+        set :
+          'b style_scheme_class option
+           -> 'a class
+           -> unit,
+        new : 'b style_scheme_class option -> 'a class Property.t
+      }
+    val undoManagerProp :
+      {
+        get : 'a class -> base undo_manager_class option,
+        set :
+          'b undo_manager_class option
+           -> 'a class
+           -> unit,
+        new : 'b undo_manager_class option -> 'a class Property.t
+      }
   end

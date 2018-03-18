@@ -43,7 +43,8 @@ structure GioDtlsServerConnection :>
       val authenticationModeProp =
         {
           get = fn x => get "authentication-mode" GioTlsAuthenticationMode.t x,
-          set = fn x => set "authentication-mode" GioTlsAuthenticationMode.t x
+          set = fn x => set "authentication-mode" GioTlsAuthenticationMode.t x,
+          new = fn x => new "authentication-mode" GioTlsAuthenticationMode.t x
         }
     end
   end

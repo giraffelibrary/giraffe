@@ -20,8 +20,40 @@ signature GTK_ASPECT_FRAME =
            * real
            * bool
        -> unit
-    val obeyChildProp : ('a class, bool, bool) Property.readwrite
-    val ratioProp : ('a class, real, real) Property.readwrite
-    val xalignProp : ('a class, real, real) Property.readwrite
-    val yalignProp : ('a class, real, real) Property.readwrite
+    val obeyChildProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val ratioProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val xalignProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val yalignProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
   end

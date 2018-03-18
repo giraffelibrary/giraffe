@@ -609,37 +609,44 @@ structure GtkNotebook :>
       val enablePopupProp =
         {
           get = fn x => get "enable-popup" boolean x,
-          set = fn x => set "enable-popup" boolean x
+          set = fn x => set "enable-popup" boolean x,
+          new = fn x => new "enable-popup" boolean x
         }
       val groupNameProp =
         {
           get = fn x => get "group-name" stringOpt x,
-          set = fn x => set "group-name" stringOpt x
+          set = fn x => set "group-name" stringOpt x,
+          new = fn x => new "group-name" stringOpt x
         }
       val pageProp =
         {
           get = fn x => get "page" int x,
-          set = fn x => set "page" int x
+          set = fn x => set "page" int x,
+          new = fn x => new "page" int x
         }
       val scrollableProp =
         {
           get = fn x => get "scrollable" boolean x,
-          set = fn x => set "scrollable" boolean x
+          set = fn x => set "scrollable" boolean x,
+          new = fn x => new "scrollable" boolean x
         }
       val showBorderProp =
         {
           get = fn x => get "show-border" boolean x,
-          set = fn x => set "show-border" boolean x
+          set = fn x => set "show-border" boolean x,
+          new = fn x => new "show-border" boolean x
         }
       val showTabsProp =
         {
           get = fn x => get "show-tabs" boolean x,
-          set = fn x => set "show-tabs" boolean x
+          set = fn x => set "show-tabs" boolean x,
+          new = fn x => new "show-tabs" boolean x
         }
       val tabPosProp =
         {
           get = fn x => get "tab-pos" GtkPositionType.t x,
-          set = fn x => set "tab-pos" GtkPositionType.t x
+          set = fn x => set "tab-pos" GtkPositionType.t x,
+          new = fn x => new "tab-pos" GtkPositionType.t x
         }
     end
   end

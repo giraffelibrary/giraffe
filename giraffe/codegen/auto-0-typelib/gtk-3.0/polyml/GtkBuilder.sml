@@ -315,7 +315,8 @@ structure GtkBuilder :>
       val translationDomainProp =
         {
           get = fn x => get "translation-domain" stringOpt x,
-          set = fn x => set "translation-domain" stringOpt x
+          set = fn x => set "translation-domain" stringOpt x,
+          new = fn x => new "translation-domain" stringOpt x
         }
     end
   end

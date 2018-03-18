@@ -48,16 +48,18 @@ structure GtkFileChooserButton :>
     local
       open Property
     in
-      val dialogProp = {set = fn x => set "dialog" GtkFileChooserClass.tOpt x}
+      val dialogProp = {new = fn x => new "dialog" GtkFileChooserClass.tOpt x}
       val titleProp =
         {
           get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x
+          set = fn x => set "title" stringOpt x,
+          new = fn x => new "title" stringOpt x
         }
       val widthCharsProp =
         {
           get = fn x => get "width-chars" int x,
-          set = fn x => set "width-chars" int x
+          set = fn x => set "width-chars" int x,
+          new = fn x => new "width-chars" int x
         }
     end
   end

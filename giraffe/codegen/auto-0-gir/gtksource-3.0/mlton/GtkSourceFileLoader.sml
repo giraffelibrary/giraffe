@@ -103,22 +103,22 @@ structure GtkSourceFileLoader :>
       val bufferProp =
         {
           get = fn x => get "buffer" GtkSourceBufferClass.tOpt x,
-          set = fn x => set "buffer" GtkSourceBufferClass.tOpt x
+          new = fn x => new "buffer" GtkSourceBufferClass.tOpt x
         }
       val fileProp =
         {
           get = fn x => get "file" GtkSourceFileClass.tOpt x,
-          set = fn x => set "file" GtkSourceFileClass.tOpt x
+          new = fn x => new "file" GtkSourceFileClass.tOpt x
         }
       val inputStreamProp =
         {
           get = fn x => get "input-stream" GioInputStreamClass.tOpt x,
-          set = fn x => set "input-stream" GioInputStreamClass.tOpt x
+          new = fn x => new "input-stream" GioInputStreamClass.tOpt x
         }
       val locationProp =
         {
           get = fn x => get "location" GioFileClass.tOpt x,
-          set = fn x => set "location" GioFileClass.tOpt x
+          new = fn x => new "location" GioFileClass.tOpt x
         }
     end
   end

@@ -74,17 +74,17 @@ structure GioUnixSocketAddress :>
       val abstractProp =
         {
           get = fn x => get "abstract" boolean x,
-          set = fn x => set "abstract" boolean x
+          new = fn x => new "abstract" boolean x
         }
       val addressTypeProp =
         {
           get = fn x => get "address-type" GioUnixSocketAddressType.t x,
-          set = fn x => set "address-type" GioUnixSocketAddressType.t x
+          new = fn x => new "address-type" GioUnixSocketAddressType.t x
         }
       val pathProp =
         {
           get = fn x => get "path" stringOpt x,
-          set = fn x => set "path" stringOpt x
+          new = fn x => new "path" stringOpt x
         }
     end
   end

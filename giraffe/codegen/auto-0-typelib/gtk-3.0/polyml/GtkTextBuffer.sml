@@ -1271,12 +1271,13 @@ structure GtkTextBuffer :>
       val tagTableProp =
         {
           get = fn x => get "tag-table" GtkTextTagTableClass.tOpt x,
-          set = fn x => set "tag-table" GtkTextTagTableClass.tOpt x
+          new = fn x => new "tag-table" GtkTextTagTableClass.tOpt x
         }
       val textProp =
         {
           get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x
+          set = fn x => set "text" stringOpt x,
+          new = fn x => new "text" stringOpt x
         }
     end
   end

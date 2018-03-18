@@ -90,16 +90,112 @@ signature GTK_MENU =
        -> string
        -> unit
     val moveScrollSig : (scroll_type_t -> unit) -> 'a class Signal.t
-    val accelGroupProp : ('a class, base accel_group_class option, 'b accel_group_class option) Property.readwrite
-    val accelPathProp : ('a class, string option, string option) Property.readwrite
-    val activeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val anchorHintsProp : ('a class, Gdk.AnchorHints.t, Gdk.AnchorHints.t) Property.readwrite
-    val attachWidgetProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
-    val menuTypeHintProp : ('a class, Gdk.WindowTypeHint.t, Gdk.WindowTypeHint.t) Property.readwrite
-    val monitorProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val rectAnchorDxProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val rectAnchorDyProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val reserveToggleSizeProp : ('a class, bool, bool) Property.readwrite
-    val tearoffStateProp : ('a class, bool, bool) Property.readwrite
-    val tearoffTitleProp : ('a class, string option, string option) Property.readwrite
+    val accelGroupProp :
+      {
+        get : 'a class -> base accel_group_class option,
+        set :
+          'b accel_group_class option
+           -> 'a class
+           -> unit,
+        new : 'b accel_group_class option -> 'a class Property.t
+      }
+    val accelPathProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val activeProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val anchorHintsProp :
+      {
+        get : 'a class -> Gdk.AnchorHints.t,
+        set :
+          Gdk.AnchorHints.t
+           -> 'a class
+           -> unit,
+        new : Gdk.AnchorHints.t -> 'a class Property.t
+      }
+    val attachWidgetProp :
+      {
+        get : 'a class -> base widget_class option,
+        set :
+          'b widget_class option
+           -> 'a class
+           -> unit,
+        new : 'b widget_class option -> 'a class Property.t
+      }
+    val menuTypeHintProp :
+      {
+        get : 'a class -> Gdk.WindowTypeHint.t,
+        set :
+          Gdk.WindowTypeHint.t
+           -> 'a class
+           -> unit,
+        new : Gdk.WindowTypeHint.t -> 'a class Property.t
+      }
+    val monitorProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val rectAnchorDxProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val rectAnchorDyProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val reserveToggleSizeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val tearoffStateProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val tearoffTitleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

@@ -24,7 +24,8 @@ structure GtkInvisible :>
       val screenProp =
         {
           get = fn x => get "screen" GdkScreenClass.tOpt x,
-          set = fn x => set "screen" GdkScreenClass.tOpt x
+          set = fn x => set "screen" GdkScreenClass.tOpt x,
+          new = fn x => new "screen" GdkScreenClass.tOpt x
         }
     end
   end

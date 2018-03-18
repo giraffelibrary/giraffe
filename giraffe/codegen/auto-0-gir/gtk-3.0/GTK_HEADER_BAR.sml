@@ -46,12 +46,76 @@ signature GTK_HEADER_BAR =
       'a class
        -> string option
        -> unit
-    val customTitleProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
-    val decorationLayoutProp : ('a class, string option, string option) Property.readwrite
-    val decorationLayoutSetProp : ('a class, bool, bool) Property.readwrite
-    val hasSubtitleProp : ('a class, bool, bool) Property.readwrite
-    val showCloseButtonProp : ('a class, bool, bool) Property.readwrite
-    val spacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val subtitleProp : ('a class, string option, string option) Property.readwrite
-    val titleProp : ('a class, string option, string option) Property.readwrite
+    val customTitleProp :
+      {
+        get : 'a class -> base widget_class option,
+        set :
+          'b widget_class option
+           -> 'a class
+           -> unit,
+        new : 'b widget_class option -> 'a class Property.t
+      }
+    val decorationLayoutProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val decorationLayoutSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val hasSubtitleProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showCloseButtonProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val spacingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val subtitleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val titleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

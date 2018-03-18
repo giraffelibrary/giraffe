@@ -90,42 +90,50 @@ structure GtkHeaderBar :>
       val customTitleProp =
         {
           get = fn x => get "custom-title" GtkWidgetClass.tOpt x,
-          set = fn x => set "custom-title" GtkWidgetClass.tOpt x
+          set = fn x => set "custom-title" GtkWidgetClass.tOpt x,
+          new = fn x => new "custom-title" GtkWidgetClass.tOpt x
         }
       val decorationLayoutProp =
         {
           get = fn x => get "decoration-layout" stringOpt x,
-          set = fn x => set "decoration-layout" stringOpt x
+          set = fn x => set "decoration-layout" stringOpt x,
+          new = fn x => new "decoration-layout" stringOpt x
         }
       val decorationLayoutSetProp =
         {
           get = fn x => get "decoration-layout-set" boolean x,
-          set = fn x => set "decoration-layout-set" boolean x
+          set = fn x => set "decoration-layout-set" boolean x,
+          new = fn x => new "decoration-layout-set" boolean x
         }
       val hasSubtitleProp =
         {
           get = fn x => get "has-subtitle" boolean x,
-          set = fn x => set "has-subtitle" boolean x
+          set = fn x => set "has-subtitle" boolean x,
+          new = fn x => new "has-subtitle" boolean x
         }
       val showCloseButtonProp =
         {
           get = fn x => get "show-close-button" boolean x,
-          set = fn x => set "show-close-button" boolean x
+          set = fn x => set "show-close-button" boolean x,
+          new = fn x => new "show-close-button" boolean x
         }
       val spacingProp =
         {
           get = fn x => get "spacing" int x,
-          set = fn x => set "spacing" int x
+          set = fn x => set "spacing" int x,
+          new = fn x => new "spacing" int x
         }
       val subtitleProp =
         {
           get = fn x => get "subtitle" stringOpt x,
-          set = fn x => set "subtitle" stringOpt x
+          set = fn x => set "subtitle" stringOpt x,
+          new = fn x => new "subtitle" stringOpt x
         }
       val titleProp =
         {
           get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x
+          set = fn x => set "title" stringOpt x,
+          new = fn x => new "title" stringOpt x
         }
     end
   end

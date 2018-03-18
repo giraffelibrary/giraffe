@@ -75,8 +75,32 @@ signature GTK_APPLICATION =
        -> unit
     val windowAddedSig : (base window_class -> unit) -> 'a class Signal.t
     val windowRemovedSig : (base window_class -> unit) -> 'a class Signal.t
-    val activeWindowProp : ('a class, base window_class option) Property.readonly
-    val appMenuProp : ('a class, base Gio.MenuModelClass.class option, 'b Gio.MenuModelClass.class option) Property.readwrite
-    val menubarProp : ('a class, base Gio.MenuModelClass.class option, 'b Gio.MenuModelClass.class option) Property.readwrite
-    val registerSessionProp : ('a class, bool, bool) Property.readwrite
+    val activeWindowProp : {get : 'a class -> base window_class option}
+    val appMenuProp :
+      {
+        get : 'a class -> base Gio.MenuModelClass.class option,
+        set :
+          'b Gio.MenuModelClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gio.MenuModelClass.class option -> 'a class Property.t
+      }
+    val menubarProp :
+      {
+        get : 'a class -> base Gio.MenuModelClass.class option,
+        set :
+          'b Gio.MenuModelClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gio.MenuModelClass.class option -> 'a class Property.t
+      }
+    val registerSessionProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

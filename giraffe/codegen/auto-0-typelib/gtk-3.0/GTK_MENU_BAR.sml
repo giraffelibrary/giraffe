@@ -19,6 +19,22 @@ signature GTK_MENU_BAR =
       'a class
        -> pack_direction_t
        -> unit
-    val childPackDirectionProp : ('a class, pack_direction_t, pack_direction_t) Property.readwrite
-    val packDirectionProp : ('a class, pack_direction_t, pack_direction_t) Property.readwrite
+    val childPackDirectionProp :
+      {
+        get : 'a class -> pack_direction_t,
+        set :
+          pack_direction_t
+           -> 'a class
+           -> unit,
+        new : pack_direction_t -> 'a class Property.t
+      }
+    val packDirectionProp :
+      {
+        get : 'a class -> pack_direction_t,
+        set :
+          pack_direction_t
+           -> 'a class
+           -> unit,
+        new : pack_direction_t -> 'a class Property.t
+      }
   end

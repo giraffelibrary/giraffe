@@ -78,13 +78,81 @@ signature GTK_ENTRY_COMPLETION =
     val insertPrefixSig : (string -> bool) -> 'a class Signal.t
     val matchSelectedSig : (base tree_model_class * tree_iter_t -> bool) -> 'a class Signal.t
     val noMatchesSig : (unit -> unit) -> 'a class Signal.t
-    val cellAreaProp : ('a class, base cell_area_class option, 'b cell_area_class option) Property.readwrite
-    val inlineCompletionProp : ('a class, bool, bool) Property.readwrite
-    val inlineSelectionProp : ('a class, bool, bool) Property.readwrite
-    val minimumKeyLengthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val modelProp : ('a class, base tree_model_class option, 'b tree_model_class option) Property.readwrite
-    val popupCompletionProp : ('a class, bool, bool) Property.readwrite
-    val popupSetWidthProp : ('a class, bool, bool) Property.readwrite
-    val popupSingleMatchProp : ('a class, bool, bool) Property.readwrite
-    val textColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val cellAreaProp :
+      {
+        get : 'a class -> base cell_area_class option,
+        new : 'b cell_area_class option -> 'a class Property.t
+      }
+    val inlineCompletionProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val inlineSelectionProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val minimumKeyLengthProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val modelProp :
+      {
+        get : 'a class -> base tree_model_class option,
+        set :
+          'b tree_model_class option
+           -> 'a class
+           -> unit,
+        new : 'b tree_model_class option -> 'a class Property.t
+      }
+    val popupCompletionProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val popupSetWidthProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val popupSingleMatchProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val textColumnProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

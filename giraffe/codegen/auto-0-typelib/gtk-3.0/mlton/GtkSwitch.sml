@@ -38,12 +38,14 @@ structure GtkSwitch :>
       val activeProp =
         {
           get = fn x => get "active" boolean x,
-          set = fn x => set "active" boolean x
+          set = fn x => set "active" boolean x,
+          new = fn x => new "active" boolean x
         }
       val stateProp =
         {
           get = fn x => get "state" boolean x,
-          set = fn x => set "state" boolean x
+          set = fn x => set "state" boolean x,
+          new = fn x => new "state" boolean x
         }
     end
   end

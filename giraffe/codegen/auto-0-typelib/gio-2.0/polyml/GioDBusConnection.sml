@@ -641,25 +641,26 @@ structure GioDBusConnection :>
     local
       open Property
     in
-      val addressProp = {set = fn x => set "address" stringOpt x}
-      val authenticationObserverProp = {set = fn x => set "authentication-observer" GioDBusAuthObserverClass.tOpt x}
+      val addressProp = {new = fn x => new "address" stringOpt x}
+      val authenticationObserverProp = {new = fn x => new "authentication-observer" GioDBusAuthObserverClass.tOpt x}
       val capabilitiesProp = {get = fn x => get "capabilities" GioDBusCapabilityFlags.t x}
       val closedProp = {get = fn x => get "closed" boolean x}
       val exitOnCloseProp =
         {
           get = fn x => get "exit-on-close" boolean x,
-          set = fn x => set "exit-on-close" boolean x
+          set = fn x => set "exit-on-close" boolean x,
+          new = fn x => new "exit-on-close" boolean x
         }
-      val flagsProp = {set = fn x => set "flags" GioDBusConnectionFlags.t x}
+      val flagsProp = {new = fn x => new "flags" GioDBusConnectionFlags.t x}
       val guidProp =
         {
           get = fn x => get "guid" stringOpt x,
-          set = fn x => set "guid" stringOpt x
+          new = fn x => new "guid" stringOpt x
         }
       val streamProp =
         {
           get = fn x => get "stream" GioIOStreamClass.tOpt x,
-          set = fn x => set "stream" GioIOStreamClass.tOpt x
+          new = fn x => new "stream" GioIOStreamClass.tOpt x
         }
       val uniqueNameProp = {get = fn x => get "unique-name" stringOpt x}
     end

@@ -14,6 +14,14 @@ signature GTK_TEXT_MARK =
       'a class
        -> bool
        -> unit
-    val leftGravityProp : ('a class, bool, bool) Property.readwrite
-    val nameProp : ('a class, string option, string option) Property.readwrite
+    val leftGravityProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val nameProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
   end

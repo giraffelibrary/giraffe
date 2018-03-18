@@ -208,62 +208,74 @@ structure GtkMenu :>
       val accelGroupProp =
         {
           get = fn x => get "accel-group" GtkAccelGroupClass.tOpt x,
-          set = fn x => set "accel-group" GtkAccelGroupClass.tOpt x
+          set = fn x => set "accel-group" GtkAccelGroupClass.tOpt x,
+          new = fn x => new "accel-group" GtkAccelGroupClass.tOpt x
         }
       val accelPathProp =
         {
           get = fn x => get "accel-path" stringOpt x,
-          set = fn x => set "accel-path" stringOpt x
+          set = fn x => set "accel-path" stringOpt x,
+          new = fn x => new "accel-path" stringOpt x
         }
       val activeProp =
         {
           get = fn x => get "active" int x,
-          set = fn x => set "active" int x
+          set = fn x => set "active" int x,
+          new = fn x => new "active" int x
         }
       val anchorHintsProp =
         {
           get = fn x => get "anchor-hints" GdkAnchorHints.t x,
-          set = fn x => set "anchor-hints" GdkAnchorHints.t x
+          set = fn x => set "anchor-hints" GdkAnchorHints.t x,
+          new = fn x => new "anchor-hints" GdkAnchorHints.t x
         }
       val attachWidgetProp =
         {
           get = fn x => get "attach-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "attach-widget" GtkWidgetClass.tOpt x
+          set = fn x => set "attach-widget" GtkWidgetClass.tOpt x,
+          new = fn x => new "attach-widget" GtkWidgetClass.tOpt x
         }
       val menuTypeHintProp =
         {
           get = fn x => get "menu-type-hint" GdkWindowTypeHint.t x,
-          set = fn x => set "menu-type-hint" GdkWindowTypeHint.t x
+          set = fn x => set "menu-type-hint" GdkWindowTypeHint.t x,
+          new = fn x => new "menu-type-hint" GdkWindowTypeHint.t x
         }
       val monitorProp =
         {
           get = fn x => get "monitor" int x,
-          set = fn x => set "monitor" int x
+          set = fn x => set "monitor" int x,
+          new = fn x => new "monitor" int x
         }
       val rectAnchorDxProp =
         {
           get = fn x => get "rect-anchor-dx" int x,
-          set = fn x => set "rect-anchor-dx" int x
+          set = fn x => set "rect-anchor-dx" int x,
+          new = fn x => new "rect-anchor-dx" int x
         }
       val rectAnchorDyProp =
         {
           get = fn x => get "rect-anchor-dy" int x,
-          set = fn x => set "rect-anchor-dy" int x
+          set = fn x => set "rect-anchor-dy" int x,
+          new = fn x => new "rect-anchor-dy" int x
         }
       val reserveToggleSizeProp =
         {
           get = fn x => get "reserve-toggle-size" boolean x,
-          set = fn x => set "reserve-toggle-size" boolean x
+          set = fn x => set "reserve-toggle-size" boolean x,
+          new = fn x => new "reserve-toggle-size" boolean x
         }
       val tearoffStateProp =
         {
           get = fn x => get "tearoff-state" boolean x,
-          set = fn x => set "tearoff-state" boolean x
+          set = fn x => set "tearoff-state" boolean x,
+          new = fn x => new "tearoff-state" boolean x
         }
       val tearoffTitleProp =
         {
           get = fn x => get "tearoff-title" stringOpt x,
-          set = fn x => set "tearoff-title" stringOpt x
+          set = fn x => set "tearoff-title" stringOpt x,
+          new = fn x => new "tearoff-title" stringOpt x
         }
     end
   end

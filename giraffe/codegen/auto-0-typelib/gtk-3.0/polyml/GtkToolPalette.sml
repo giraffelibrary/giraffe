@@ -217,17 +217,20 @@ structure GtkToolPalette :>
       val iconSizeProp =
         {
           get = fn x => get "icon-size" GtkIconSize.t x,
-          set = fn x => set "icon-size" GtkIconSize.t x
+          set = fn x => set "icon-size" GtkIconSize.t x,
+          new = fn x => new "icon-size" GtkIconSize.t x
         }
       val iconSizeSetProp =
         {
           get = fn x => get "icon-size-set" boolean x,
-          set = fn x => set "icon-size-set" boolean x
+          set = fn x => set "icon-size-set" boolean x,
+          new = fn x => new "icon-size-set" boolean x
         }
       val toolbarStyleProp =
         {
           get = fn x => get "toolbar-style" GtkToolbarStyle.t x,
-          set = fn x => set "toolbar-style" GtkToolbarStyle.t x
+          set = fn x => set "toolbar-style" GtkToolbarStyle.t x,
+          new = fn x => new "toolbar-style" GtkToolbarStyle.t x
         }
     end
   end

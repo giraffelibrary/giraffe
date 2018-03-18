@@ -22,6 +22,22 @@ signature GTK_ACTIVATABLE =
       'a class
        -> 'b action_class option
        -> unit
-    val relatedActionProp : ('a class, base action_class option, 'b action_class option) Property.readwrite
-    val useActionAppearanceProp : ('a class, bool, bool) Property.readwrite
+    val relatedActionProp :
+      {
+        get : 'a class -> base action_class option,
+        set :
+          'b action_class option
+           -> 'a class
+           -> unit,
+        new : 'b action_class option -> 'a class Property.t
+      }
+    val useActionAppearanceProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

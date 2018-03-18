@@ -55,16 +55,16 @@ structure GioPropertyAction :>
       val invertBooleanProp =
         {
           get = fn x => get "invert-boolean" boolean x,
-          set = fn x => set "invert-boolean" boolean x
+          new = fn x => new "invert-boolean" boolean x
         }
       val nameProp =
         {
           get = fn x => get "name" stringOpt x,
-          set = fn x => set "name" stringOpt x
+          new = fn x => new "name" stringOpt x
         }
-      val objectProp = {set = fn x => set "object" GObjectObjectClass.tOpt x}
+      val objectProp = {new = fn x => new "object" GObjectObjectClass.tOpt x}
       val parameterTypeProp = {get = fn x => get "parameter-type" GLibVariantTypeRecord.tOpt x}
-      val propertyNameProp = {set = fn x => set "property-name" stringOpt x}
+      val propertyNameProp = {new = fn x => new "property-name" stringOpt x}
       val stateProp = {get = fn x => get "state" GLibVariantRecord.tOpt x}
       val stateTypeProp = {get = fn x => get "state-type" GLibVariantTypeRecord.tOpt x}
     end

@@ -130,6 +130,6 @@ structure GioFileEnumerator :>
     local
       open Property
     in
-      val containerProp = {set = fn x => set "container" GioFileClass.tOpt x}
+      val containerProp = {new = fn x => new "container" GioFileClass.tOpt x}
     end
   end

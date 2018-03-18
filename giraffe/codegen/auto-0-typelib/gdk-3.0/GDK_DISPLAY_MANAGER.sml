@@ -15,5 +15,13 @@ signature GDK_DISPLAY_MANAGER =
        -> 'b display_class
        -> unit
     val displayOpenedSig : (base display_class -> unit) -> 'a class Signal.t
-    val defaultDisplayProp : ('a class, base display_class option, 'b display_class option) Property.readwrite
+    val defaultDisplayProp :
+      {
+        get : 'a class -> base display_class option,
+        set :
+          'b display_class option
+           -> 'a class
+           -> unit,
+        new : 'b display_class option -> 'a class Property.t
+      }
   end

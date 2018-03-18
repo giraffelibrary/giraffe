@@ -52,7 +52,7 @@ structure GioInetAddress :>
       val familyProp =
         {
           get = fn x => get "family" GioSocketFamily.t x,
-          set = fn x => set "family" GioSocketFamily.t x
+          new = fn x => new "family" GioSocketFamily.t x
         }
       val isAnyProp = {get = fn x => get "is-any" boolean x}
       val isLinkLocalProp = {get = fn x => get "is-link-local" boolean x}

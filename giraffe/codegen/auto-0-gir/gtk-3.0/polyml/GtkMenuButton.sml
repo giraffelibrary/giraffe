@@ -62,32 +62,38 @@ structure GtkMenuButton :>
       val alignWidgetProp =
         {
           get = fn x => get "align-widget" GtkContainerClass.tOpt x,
-          set = fn x => set "align-widget" GtkContainerClass.tOpt x
+          set = fn x => set "align-widget" GtkContainerClass.tOpt x,
+          new = fn x => new "align-widget" GtkContainerClass.tOpt x
         }
       val directionProp =
         {
           get = fn x => get "direction" GtkArrowType.t x,
-          set = fn x => set "direction" GtkArrowType.t x
+          set = fn x => set "direction" GtkArrowType.t x,
+          new = fn x => new "direction" GtkArrowType.t x
         }
       val menuModelProp =
         {
           get = fn x => get "menu-model" GioMenuModelClass.tOpt x,
-          set = fn x => set "menu-model" GioMenuModelClass.tOpt x
+          set = fn x => set "menu-model" GioMenuModelClass.tOpt x,
+          new = fn x => new "menu-model" GioMenuModelClass.tOpt x
         }
       val popoverProp =
         {
           get = fn x => get "popover" GtkPopoverClass.tOpt x,
-          set = fn x => set "popover" GtkPopoverClass.tOpt x
+          set = fn x => set "popover" GtkPopoverClass.tOpt x,
+          new = fn x => new "popover" GtkPopoverClass.tOpt x
         }
       val popupProp =
         {
           get = fn x => get "popup" GtkMenuClass.tOpt x,
-          set = fn x => set "popup" GtkMenuClass.tOpt x
+          set = fn x => set "popup" GtkMenuClass.tOpt x,
+          new = fn x => new "popup" GtkMenuClass.tOpt x
         }
       val usePopoverProp =
         {
           get = fn x => get "use-popover" boolean x,
-          set = fn x => set "use-popover" boolean x
+          set = fn x => set "use-popover" boolean x,
+          new = fn x => new "use-popover" boolean x
         }
     end
   end

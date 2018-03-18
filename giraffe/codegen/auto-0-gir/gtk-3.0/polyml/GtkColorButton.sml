@@ -61,32 +61,38 @@ structure GtkColorButton :>
       val alphaProp =
         {
           get = fn x => get "alpha" uint x,
-          set = fn x => set "alpha" uint x
+          set = fn x => set "alpha" uint x,
+          new = fn x => new "alpha" uint x
         }
       val colorProp =
         {
           get = fn x => get "color" GdkColorRecord.tOpt x,
-          set = fn x => set "color" GdkColorRecord.tOpt x
+          set = fn x => set "color" GdkColorRecord.tOpt x,
+          new = fn x => new "color" GdkColorRecord.tOpt x
         }
       val rgbaProp =
         {
           get = fn x => get "rgba" GdkRgbaRecord.tOpt x,
-          set = fn x => set "rgba" GdkRgbaRecord.tOpt x
+          set = fn x => set "rgba" GdkRgbaRecord.tOpt x,
+          new = fn x => new "rgba" GdkRgbaRecord.tOpt x
         }
       val showEditorProp =
         {
           get = fn x => get "show-editor" boolean x,
-          set = fn x => set "show-editor" boolean x
+          set = fn x => set "show-editor" boolean x,
+          new = fn x => new "show-editor" boolean x
         }
       val titleProp =
         {
           get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x
+          set = fn x => set "title" stringOpt x,
+          new = fn x => new "title" stringOpt x
         }
       val useAlphaProp =
         {
           get = fn x => get "use-alpha" boolean x,
-          set = fn x => set "use-alpha" boolean x
+          set = fn x => set "use-alpha" boolean x,
+          new = fn x => new "use-alpha" boolean x
         }
     end
   end

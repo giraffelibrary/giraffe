@@ -7,7 +7,31 @@ signature GTK_CELL_RENDERER_COMBO =
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
     val changedSig : (string * tree_iter_t -> unit) -> 'a class Signal.t
-    val hasEntryProp : ('a class, bool, bool) Property.readwrite
-    val modelProp : ('a class, base tree_model_class option, 'b tree_model_class option) Property.readwrite
-    val textColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val hasEntryProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val modelProp :
+      {
+        get : 'a class -> base tree_model_class option,
+        set :
+          'b tree_model_class option
+           -> 'a class
+           -> unit,
+        new : 'b tree_model_class option -> 'a class Property.t
+      }
+    val textColumnProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

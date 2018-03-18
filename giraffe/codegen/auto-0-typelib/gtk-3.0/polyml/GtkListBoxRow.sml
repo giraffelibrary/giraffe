@@ -47,12 +47,14 @@ structure GtkListBoxRow :>
       val activatableProp =
         {
           get = fn x => get "activatable" boolean x,
-          set = fn x => set "activatable" boolean x
+          set = fn x => set "activatable" boolean x,
+          new = fn x => new "activatable" boolean x
         }
       val selectableProp =
         {
           get = fn x => get "selectable" boolean x,
-          set = fn x => set "selectable" boolean x
+          set = fn x => set "selectable" boolean x,
+          new = fn x => new "selectable" boolean x
         }
     end
   end

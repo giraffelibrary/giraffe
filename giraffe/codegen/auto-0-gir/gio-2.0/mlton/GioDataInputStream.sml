@@ -596,12 +596,14 @@ structure GioDataInputStream :>
       val byteOrderProp =
         {
           get = fn x => get "byte-order" GioDataStreamByteOrder.t x,
-          set = fn x => set "byte-order" GioDataStreamByteOrder.t x
+          set = fn x => set "byte-order" GioDataStreamByteOrder.t x,
+          new = fn x => new "byte-order" GioDataStreamByteOrder.t x
         }
       val newlineTypeProp =
         {
           get = fn x => get "newline-type" GioDataStreamNewlineType.t x,
-          set = fn x => set "newline-type" GioDataStreamNewlineType.t x
+          set = fn x => set "newline-type" GioDataStreamNewlineType.t x,
+          new = fn x => new "newline-type" GioDataStreamNewlineType.t x
         }
     end
   end

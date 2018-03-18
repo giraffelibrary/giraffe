@@ -175,22 +175,26 @@ structure GtkScale :>
       val digitsProp =
         {
           get = fn x => get "digits" int x,
-          set = fn x => set "digits" int x
+          set = fn x => set "digits" int x,
+          new = fn x => new "digits" int x
         }
       val drawValueProp =
         {
           get = fn x => get "draw-value" boolean x,
-          set = fn x => set "draw-value" boolean x
+          set = fn x => set "draw-value" boolean x,
+          new = fn x => new "draw-value" boolean x
         }
       val hasOriginProp =
         {
           get = fn x => get "has-origin" boolean x,
-          set = fn x => set "has-origin" boolean x
+          set = fn x => set "has-origin" boolean x,
+          new = fn x => new "has-origin" boolean x
         }
       val valuePosProp =
         {
           get = fn x => get "value-pos" GtkPositionType.t x,
-          set = fn x => set "value-pos" GtkPositionType.t x
+          set = fn x => set "value-pos" GtkPositionType.t x,
+          new = fn x => new "value-pos" GtkPositionType.t x
         }
     end
   end

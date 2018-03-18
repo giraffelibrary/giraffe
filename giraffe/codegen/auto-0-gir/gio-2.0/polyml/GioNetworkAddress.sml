@@ -71,17 +71,17 @@ structure GioNetworkAddress :>
       val hostnameProp =
         {
           get = fn x => get "hostname" stringOpt x,
-          set = fn x => set "hostname" stringOpt x
+          new = fn x => new "hostname" stringOpt x
         }
       val portProp =
         {
           get = fn x => get "port" uint x,
-          set = fn x => set "port" uint x
+          new = fn x => new "port" uint x
         }
       val schemeProp =
         {
           get = fn x => get "scheme" stringOpt x,
-          set = fn x => set "scheme" stringOpt x
+          new = fn x => new "scheme" stringOpt x
         }
     end
   end

@@ -20,9 +20,17 @@ signature GTK_SOURCE_FILE =
       'a class
        -> 'b Gio.FileClass.class option
        -> unit
-    val compressionTypeProp : ('a class, compression_type_t) Property.readonly
-    val encodingProp : ('a class, encoding_t option) Property.readonly
-    val locationProp : ('a class, base Gio.FileClass.class option, 'b Gio.FileClass.class option) Property.readwrite
-    val newlineTypeProp : ('a class, newline_type_t) Property.readonly
-    val readOnlyProp : ('a class, bool) Property.readonly
+    val compressionTypeProp : {get : 'a class -> compression_type_t}
+    val encodingProp : {get : 'a class -> encoding_t option}
+    val locationProp :
+      {
+        get : 'a class -> base Gio.FileClass.class option,
+        set :
+          'b Gio.FileClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gio.FileClass.class option -> 'a class Property.t
+      }
+    val newlineTypeProp : {get : 'a class -> newline_type_t}
+    val readOnlyProp : {get : 'a class -> bool}
   end

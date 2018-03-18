@@ -74,6 +74,22 @@ signature GTK_LIST_BOX =
     val selectedRowsChangedSig : (unit -> unit) -> 'a class Signal.t
     val toggleCursorRowSig : (unit -> unit) -> 'a class Signal.t
     val unselectAllSig : (unit -> unit) -> 'a class Signal.t
-    val activateOnSingleClickProp : ('a class, bool, bool) Property.readwrite
-    val selectionModeProp : ('a class, selection_mode_t, selection_mode_t) Property.readwrite
+    val activateOnSingleClickProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val selectionModeProp :
+      {
+        get : 'a class -> selection_mode_t,
+        set :
+          selection_mode_t
+           -> 'a class
+           -> unit,
+        new : selection_mode_t -> 'a class Property.t
+      }
   end

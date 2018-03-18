@@ -57,10 +57,58 @@ signature GIO_MOUNT_OPERATION =
         * LargeInt.int
         -> unit)
        -> 'a class Signal.t
-    val anonymousProp : ('a class, bool, bool) Property.readwrite
-    val choiceProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val domainProp : ('a class, string option, string option) Property.readwrite
-    val passwordProp : ('a class, string option, string option) Property.readwrite
-    val passwordSaveProp : ('a class, password_save_t, password_save_t) Property.readwrite
-    val usernameProp : ('a class, string option, string option) Property.readwrite
+    val anonymousProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val choiceProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val domainProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val passwordProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val passwordSaveProp :
+      {
+        get : 'a class -> password_save_t,
+        set :
+          password_save_t
+           -> 'a class
+           -> unit,
+        new : password_save_t -> 'a class Property.t
+      }
+    val usernameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

@@ -30,12 +30,14 @@ structure GtkMenuBar :>
       val childPackDirectionProp =
         {
           get = fn x => get "child-pack-direction" GtkPackDirection.t x,
-          set = fn x => set "child-pack-direction" GtkPackDirection.t x
+          set = fn x => set "child-pack-direction" GtkPackDirection.t x,
+          new = fn x => new "child-pack-direction" GtkPackDirection.t x
         }
       val packDirectionProp =
         {
           get = fn x => get "pack-direction" GtkPackDirection.t x,
-          set = fn x => set "pack-direction" GtkPackDirection.t x
+          set = fn x => set "pack-direction" GtkPackDirection.t x,
+          new = fn x => new "pack-direction" GtkPackDirection.t x
         }
     end
   end

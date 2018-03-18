@@ -158,37 +158,44 @@ structure GtkSourceCompletionItem :>
       val giconProp =
         {
           get = fn x => get "gicon" GioIconClass.tOpt x,
-          set = fn x => set "gicon" GioIconClass.tOpt x
+          set = fn x => set "gicon" GioIconClass.tOpt x,
+          new = fn x => new "gicon" GioIconClass.tOpt x
         }
       val iconProp =
         {
           get = fn x => get "icon" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "icon" GdkPixbufPixbufClass.tOpt x
+          set = fn x => set "icon" GdkPixbufPixbufClass.tOpt x,
+          new = fn x => new "icon" GdkPixbufPixbufClass.tOpt x
         }
       val iconNameProp =
         {
           get = fn x => get "icon-name" stringOpt x,
-          set = fn x => set "icon-name" stringOpt x
+          set = fn x => set "icon-name" stringOpt x,
+          new = fn x => new "icon-name" stringOpt x
         }
       val infoProp =
         {
           get = fn x => get "info" stringOpt x,
-          set = fn x => set "info" stringOpt x
+          set = fn x => set "info" stringOpt x,
+          new = fn x => new "info" stringOpt x
         }
       val labelProp =
         {
           get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x
+          set = fn x => set "label" stringOpt x,
+          new = fn x => new "label" stringOpt x
         }
       val markupProp =
         {
           get = fn x => get "markup" stringOpt x,
-          set = fn x => set "markup" stringOpt x
+          set = fn x => set "markup" stringOpt x,
+          new = fn x => new "markup" stringOpt x
         }
       val textProp =
         {
           get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x
+          set = fn x => set "text" stringOpt x,
+          new = fn x => new "text" stringOpt x
         }
     end
   end

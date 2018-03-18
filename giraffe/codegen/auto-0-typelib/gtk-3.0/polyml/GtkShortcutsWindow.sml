@@ -26,12 +26,14 @@ structure GtkShortcutsWindow :>
       val sectionNameProp =
         {
           get = fn x => get "section-name" stringOpt x,
-          set = fn x => set "section-name" stringOpt x
+          set = fn x => set "section-name" stringOpt x,
+          new = fn x => new "section-name" stringOpt x
         }
       val viewNameProp =
         {
           get = fn x => get "view-name" stringOpt x,
-          set = fn x => set "view-name" stringOpt x
+          set = fn x => set "view-name" stringOpt x,
+          new = fn x => new "view-name" stringOpt x
         }
     end
   end

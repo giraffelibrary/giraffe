@@ -122,52 +122,62 @@ structure GtkPlacesSidebar :>
       val localOnlyProp =
         {
           get = fn x => get "local-only" boolean x,
-          set = fn x => set "local-only" boolean x
+          set = fn x => set "local-only" boolean x,
+          new = fn x => new "local-only" boolean x
         }
       val locationProp =
         {
           get = fn x => get "location" GioFileClass.tOpt x,
-          set = fn x => set "location" GioFileClass.tOpt x
+          set = fn x => set "location" GioFileClass.tOpt x,
+          new = fn x => new "location" GioFileClass.tOpt x
         }
       val openFlagsProp =
         {
           get = fn x => get "open-flags" GtkPlacesOpenFlags.t x,
-          set = fn x => set "open-flags" GtkPlacesOpenFlags.t x
+          set = fn x => set "open-flags" GtkPlacesOpenFlags.t x,
+          new = fn x => new "open-flags" GtkPlacesOpenFlags.t x
         }
       val populateAllProp =
         {
           get = fn x => get "populate-all" boolean x,
-          set = fn x => set "populate-all" boolean x
+          set = fn x => set "populate-all" boolean x,
+          new = fn x => new "populate-all" boolean x
         }
       val showConnectToServerProp =
         {
           get = fn x => get "show-connect-to-server" boolean x,
-          set = fn x => set "show-connect-to-server" boolean x
+          set = fn x => set "show-connect-to-server" boolean x,
+          new = fn x => new "show-connect-to-server" boolean x
         }
       val showDesktopProp =
         {
           get = fn x => get "show-desktop" boolean x,
-          set = fn x => set "show-desktop" boolean x
+          set = fn x => set "show-desktop" boolean x,
+          new = fn x => new "show-desktop" boolean x
         }
       val showEnterLocationProp =
         {
           get = fn x => get "show-enter-location" boolean x,
-          set = fn x => set "show-enter-location" boolean x
+          set = fn x => set "show-enter-location" boolean x,
+          new = fn x => new "show-enter-location" boolean x
         }
       val showOtherLocationsProp =
         {
           get = fn x => get "show-other-locations" boolean x,
-          set = fn x => set "show-other-locations" boolean x
+          set = fn x => set "show-other-locations" boolean x,
+          new = fn x => new "show-other-locations" boolean x
         }
       val showRecentProp =
         {
           get = fn x => get "show-recent" boolean x,
-          set = fn x => set "show-recent" boolean x
+          set = fn x => set "show-recent" boolean x,
+          new = fn x => new "show-recent" boolean x
         }
       val showTrashProp =
         {
           get = fn x => get "show-trash" boolean x,
-          set = fn x => set "show-trash" boolean x
+          set = fn x => set "show-trash" boolean x,
+          new = fn x => new "show-trash" boolean x
         }
     end
   end

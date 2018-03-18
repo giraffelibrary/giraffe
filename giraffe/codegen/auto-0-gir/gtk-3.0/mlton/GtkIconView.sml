@@ -857,87 +857,103 @@ structure GtkIconView :>
       val activateOnSingleClickProp =
         {
           get = fn x => get "activate-on-single-click" boolean x,
-          set = fn x => set "activate-on-single-click" boolean x
+          set = fn x => set "activate-on-single-click" boolean x,
+          new = fn x => new "activate-on-single-click" boolean x
         }
       val cellAreaProp =
         {
           get = fn x => get "cell-area" GtkCellAreaClass.tOpt x,
-          set = fn x => set "cell-area" GtkCellAreaClass.tOpt x
+          new = fn x => new "cell-area" GtkCellAreaClass.tOpt x
         }
       val columnSpacingProp =
         {
           get = fn x => get "column-spacing" int x,
-          set = fn x => set "column-spacing" int x
+          set = fn x => set "column-spacing" int x,
+          new = fn x => new "column-spacing" int x
         }
       val columnsProp =
         {
           get = fn x => get "columns" int x,
-          set = fn x => set "columns" int x
+          set = fn x => set "columns" int x,
+          new = fn x => new "columns" int x
         }
       val itemOrientationProp =
         {
           get = fn x => get "item-orientation" GtkOrientation.t x,
-          set = fn x => set "item-orientation" GtkOrientation.t x
+          set = fn x => set "item-orientation" GtkOrientation.t x,
+          new = fn x => new "item-orientation" GtkOrientation.t x
         }
       val itemPaddingProp =
         {
           get = fn x => get "item-padding" int x,
-          set = fn x => set "item-padding" int x
+          set = fn x => set "item-padding" int x,
+          new = fn x => new "item-padding" int x
         }
       val itemWidthProp =
         {
           get = fn x => get "item-width" int x,
-          set = fn x => set "item-width" int x
+          set = fn x => set "item-width" int x,
+          new = fn x => new "item-width" int x
         }
       val marginProp =
         {
           get = fn x => get "margin" int x,
-          set = fn x => set "margin" int x
+          set = fn x => set "margin" int x,
+          new = fn x => new "margin" int x
         }
       val markupColumnProp =
         {
           get = fn x => get "markup-column" int x,
-          set = fn x => set "markup-column" int x
+          set = fn x => set "markup-column" int x,
+          new = fn x => new "markup-column" int x
         }
       val modelProp =
         {
           get = fn x => get "model" GtkTreeModelClass.tOpt x,
-          set = fn x => set "model" GtkTreeModelClass.tOpt x
+          set = fn x => set "model" GtkTreeModelClass.tOpt x,
+          new = fn x => new "model" GtkTreeModelClass.tOpt x
         }
       val pixbufColumnProp =
         {
           get = fn x => get "pixbuf-column" int x,
-          set = fn x => set "pixbuf-column" int x
+          set = fn x => set "pixbuf-column" int x,
+          new = fn x => new "pixbuf-column" int x
         }
       val reorderableProp =
         {
           get = fn x => get "reorderable" boolean x,
-          set = fn x => set "reorderable" boolean x
+          set = fn x => set "reorderable" boolean x,
+          new = fn x => new "reorderable" boolean x
         }
       val rowSpacingProp =
         {
           get = fn x => get "row-spacing" int x,
-          set = fn x => set "row-spacing" int x
+          set = fn x => set "row-spacing" int x,
+          new = fn x => new "row-spacing" int x
         }
       val selectionModeProp =
         {
           get = fn x => get "selection-mode" GtkSelectionMode.t x,
-          set = fn x => set "selection-mode" GtkSelectionMode.t x
+          set = fn x => set "selection-mode" GtkSelectionMode.t x,
+          new = fn x => new "selection-mode" GtkSelectionMode.t x
         }
       val spacingProp =
         {
           get = fn x => get "spacing" int x,
-          set = fn x => set "spacing" int x
+          set = fn x => set "spacing" int x,
+          new = fn x => new "spacing" int x
         }
       val textColumnProp =
         {
           get = fn x => get "text-column" int x,
-          set = fn x => set "text-column" int x
+          set = fn x => set "text-column" int x,
+          new = fn x => new "text-column" int x
         }
       val tooltipColumnProp =
         {
           get = fn x => get "tooltip-column" int x,
-          set = fn x => set "tooltip-column" int x
+          set = fn x => set "tooltip-column" int x,
+          new = fn x => new "tooltip-column" int x
         }
     end
   end

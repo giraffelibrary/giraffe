@@ -53,8 +53,36 @@ signature GTK_ACTION_GROUP =
     val disconnectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.t
     val postActivateSig : (base action_class -> unit) -> 'a class Signal.t
     val preActivateSig : (base action_class -> unit) -> 'a class Signal.t
-    val accelGroupProp : ('a class, base accel_group_class option, 'b accel_group_class option) Property.readwrite
-    val nameProp : ('a class, string option, string option) Property.readwrite
-    val sensitiveProp : ('a class, bool, bool) Property.readwrite
-    val visibleProp : ('a class, bool, bool) Property.readwrite
+    val accelGroupProp :
+      {
+        get : 'a class -> base accel_group_class option,
+        set :
+          'b accel_group_class option
+           -> 'a class
+           -> unit,
+        new : 'b accel_group_class option -> 'a class Property.t
+      }
+    val nameProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
+    val sensitiveProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val visibleProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

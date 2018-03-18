@@ -102,19 +102,106 @@ signature GTK_STATUS_ICON =
        -> 'a class Signal.t
     val scrollEventSig : (Gdk.EventScrollRecord.t -> bool) -> 'a class Signal.t
     val sizeChangedSig : (LargeInt.int -> bool) -> 'a class Signal.t
-    val embeddedProp : ('a class, bool) Property.readonly
-    val fileProp : ('a class, string option) Property.writeonly
-    val giconProp : ('a class, base Gio.IconClass.class option, 'b Gio.IconClass.class option) Property.readwrite
-    val hasTooltipProp : ('a class, bool, bool) Property.readwrite
-    val iconNameProp : ('a class, string option, string option) Property.readwrite
-    val orientationProp : ('a class, orientation_t) Property.readonly
-    val pixbufProp : ('a class, base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option) Property.readwrite
-    val screenProp : ('a class, base Gdk.ScreenClass.class option, 'b Gdk.ScreenClass.class option) Property.readwrite
-    val sizeProp : ('a class, LargeInt.int) Property.readonly
-    val stockProp : ('a class, string option, string option) Property.readwrite
-    val storageTypeProp : ('a class, image_type_t) Property.readonly
-    val titleProp : ('a class, string option, string option) Property.readwrite
-    val tooltipMarkupProp : ('a class, string option, string option) Property.readwrite
-    val tooltipTextProp : ('a class, string option, string option) Property.readwrite
-    val visibleProp : ('a class, bool, bool) Property.readwrite
+    val embeddedProp : {get : 'a class -> bool}
+    val fileProp :
+      {
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val giconProp :
+      {
+        get : 'a class -> base Gio.IconClass.class option,
+        set :
+          'b Gio.IconClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gio.IconClass.class option -> 'a class Property.t
+      }
+    val hasTooltipProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val iconNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val orientationProp : {get : 'a class -> orientation_t}
+    val pixbufProp :
+      {
+        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
+        set :
+          'b GdkPixbuf.PixbufClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
+      }
+    val screenProp :
+      {
+        get : 'a class -> base Gdk.ScreenClass.class option,
+        set :
+          'b Gdk.ScreenClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gdk.ScreenClass.class option -> 'a class Property.t
+      }
+    val sizeProp : {get : 'a class -> LargeInt.int}
+    val stockProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val storageTypeProp : {get : 'a class -> image_type_t}
+    val titleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val tooltipMarkupProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val tooltipTextProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val visibleProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

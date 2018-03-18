@@ -46,11 +46,11 @@ structure GioThemedIcon :>
     local
       open Property
     in
-      val nameProp = {set = fn x => set "name" stringOpt x}
+      val nameProp = {new = fn x => new "name" stringOpt x}
       val useDefaultFallbacksProp =
         {
           get = fn x => get "use-default-fallbacks" boolean x,
-          set = fn x => set "use-default-fallbacks" boolean x
+          new = fn x => new "use-default-fallbacks" boolean x
         }
     end
   end

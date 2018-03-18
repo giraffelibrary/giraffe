@@ -18,8 +18,28 @@ signature GIO_NETWORK_SERVICE =
       'a class
        -> string
        -> unit
-    val domainProp : ('a class, string option, string option) Property.readwrite
-    val protocolProp : ('a class, string option, string option) Property.readwrite
-    val schemeProp : ('a class, string option, string option) Property.readwrite
-    val serviceProp : ('a class, string option, string option) Property.readwrite
+    val domainProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
+    val protocolProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
+    val schemeProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val serviceProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
   end

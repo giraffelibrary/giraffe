@@ -875,64 +875,72 @@ structure GioSocket :>
       val blockingProp =
         {
           get = fn x => get "blocking" boolean x,
-          set = fn x => set "blocking" boolean x
+          set = fn x => set "blocking" boolean x,
+          new = fn x => new "blocking" boolean x
         }
       val broadcastProp =
         {
           get = fn x => get "broadcast" boolean x,
-          set = fn x => set "broadcast" boolean x
+          set = fn x => set "broadcast" boolean x,
+          new = fn x => new "broadcast" boolean x
         }
       val familyProp =
         {
           get = fn x => get "family" GioSocketFamily.t x,
-          set = fn x => set "family" GioSocketFamily.t x
+          new = fn x => new "family" GioSocketFamily.t x
         }
       val fdProp =
         {
           get = fn x => get "fd" int x,
-          set = fn x => set "fd" int x
+          new = fn x => new "fd" int x
         }
       val keepaliveProp =
         {
           get = fn x => get "keepalive" boolean x,
-          set = fn x => set "keepalive" boolean x
+          set = fn x => set "keepalive" boolean x,
+          new = fn x => new "keepalive" boolean x
         }
       val listenBacklogProp =
         {
           get = fn x => get "listen-backlog" int x,
-          set = fn x => set "listen-backlog" int x
+          set = fn x => set "listen-backlog" int x,
+          new = fn x => new "listen-backlog" int x
         }
       val localAddressProp = {get = fn x => get "local-address" GioSocketAddressClass.tOpt x}
       val multicastLoopbackProp =
         {
           get = fn x => get "multicast-loopback" boolean x,
-          set = fn x => set "multicast-loopback" boolean x
+          set = fn x => set "multicast-loopback" boolean x,
+          new = fn x => new "multicast-loopback" boolean x
         }
       val multicastTtlProp =
         {
           get = fn x => get "multicast-ttl" uint x,
-          set = fn x => set "multicast-ttl" uint x
+          set = fn x => set "multicast-ttl" uint x,
+          new = fn x => new "multicast-ttl" uint x
         }
       val protocolProp =
         {
           get = fn x => get "protocol" GioSocketProtocol.t x,
-          set = fn x => set "protocol" GioSocketProtocol.t x
+          new = fn x => new "protocol" GioSocketProtocol.t x
         }
       val remoteAddressProp = {get = fn x => get "remote-address" GioSocketAddressClass.tOpt x}
       val timeoutProp =
         {
           get = fn x => get "timeout" uint x,
-          set = fn x => set "timeout" uint x
+          set = fn x => set "timeout" uint x,
+          new = fn x => new "timeout" uint x
         }
       val ttlProp =
         {
           get = fn x => get "ttl" uint x,
-          set = fn x => set "ttl" uint x
+          set = fn x => set "ttl" uint x,
+          new = fn x => new "ttl" uint x
         }
       val typeProp =
         {
           get = fn x => get "type" GioSocketType.t x,
-          set = fn x => set "type" GioSocketType.t x
+          new = fn x => new "type" GioSocketType.t x
         }
     end
   end

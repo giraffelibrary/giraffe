@@ -13,5 +13,9 @@ signature GIO_EMBLEMED_ICON =
        -> unit
     val clearEmblems : 'a class -> unit
     val getIcon : 'a class -> base icon_class
-    val giconProp : ('a class, base icon_class option, 'b icon_class option) Property.readwrite
+    val giconProp :
+      {
+        get : 'a class -> base icon_class option,
+        new : 'b icon_class option -> 'a class Property.t
+      }
   end

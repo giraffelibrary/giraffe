@@ -110,12 +110,14 @@ structure GtkListBox :>
       val activateOnSingleClickProp =
         {
           get = fn x => get "activate-on-single-click" boolean x,
-          set = fn x => set "activate-on-single-click" boolean x
+          set = fn x => set "activate-on-single-click" boolean x,
+          new = fn x => new "activate-on-single-click" boolean x
         }
       val selectionModeProp =
         {
           get = fn x => get "selection-mode" GtkSelectionMode.t x,
-          set = fn x => set "selection-mode" GtkSelectionMode.t x
+          set = fn x => set "selection-mode" GtkSelectionMode.t x,
+          new = fn x => new "selection-mode" GtkSelectionMode.t x
         }
     end
   end

@@ -161,8 +161,40 @@ signature GTK_STYLE_CONTEXT =
        -> style_context_print_flags_t
        -> string
     val changedSig : (unit -> unit) -> 'a class Signal.t
-    val directionProp : ('a class, text_direction_t, text_direction_t) Property.readwrite
-    val paintClockProp : ('a class, base Gdk.FrameClockClass.class option, 'b Gdk.FrameClockClass.class option) Property.readwrite
-    val parentProp : ('a class, base class option, 'b class option) Property.readwrite
-    val screenProp : ('a class, base Gdk.ScreenClass.class option, 'b Gdk.ScreenClass.class option) Property.readwrite
+    val directionProp :
+      {
+        get : 'a class -> text_direction_t,
+        set :
+          text_direction_t
+           -> 'a class
+           -> unit,
+        new : text_direction_t -> 'a class Property.t
+      }
+    val paintClockProp :
+      {
+        get : 'a class -> base Gdk.FrameClockClass.class option,
+        set :
+          'b Gdk.FrameClockClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gdk.FrameClockClass.class option -> 'a class Property.t
+      }
+    val parentProp :
+      {
+        get : 'a class -> base class option,
+        set :
+          'b class option
+           -> 'a class
+           -> unit,
+        new : 'b class option -> 'a class Property.t
+      }
+    val screenProp :
+      {
+        get : 'a class -> base Gdk.ScreenClass.class option,
+        set :
+          'b Gdk.ScreenClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gdk.ScreenClass.class option -> 'a class Property.t
+      }
   end

@@ -293,62 +293,74 @@ structure GtkAboutDialog :>
       val commentsProp =
         {
           get = fn x => get "comments" stringOpt x,
-          set = fn x => set "comments" stringOpt x
+          set = fn x => set "comments" stringOpt x,
+          new = fn x => new "comments" stringOpt x
         }
       val copyrightProp =
         {
           get = fn x => get "copyright" stringOpt x,
-          set = fn x => set "copyright" stringOpt x
+          set = fn x => set "copyright" stringOpt x,
+          new = fn x => new "copyright" stringOpt x
         }
       val licenseProp =
         {
           get = fn x => get "license" stringOpt x,
-          set = fn x => set "license" stringOpt x
+          set = fn x => set "license" stringOpt x,
+          new = fn x => new "license" stringOpt x
         }
       val licenseTypeProp =
         {
           get = fn x => get "license-type" GtkLicense.t x,
-          set = fn x => set "license-type" GtkLicense.t x
+          set = fn x => set "license-type" GtkLicense.t x,
+          new = fn x => new "license-type" GtkLicense.t x
         }
       val logoProp =
         {
           get = fn x => get "logo" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "logo" GdkPixbufPixbufClass.tOpt x
+          set = fn x => set "logo" GdkPixbufPixbufClass.tOpt x,
+          new = fn x => new "logo" GdkPixbufPixbufClass.tOpt x
         }
       val logoIconNameProp =
         {
           get = fn x => get "logo-icon-name" stringOpt x,
-          set = fn x => set "logo-icon-name" stringOpt x
+          set = fn x => set "logo-icon-name" stringOpt x,
+          new = fn x => new "logo-icon-name" stringOpt x
         }
       val programNameProp =
         {
           get = fn x => get "program-name" stringOpt x,
-          set = fn x => set "program-name" stringOpt x
+          set = fn x => set "program-name" stringOpt x,
+          new = fn x => new "program-name" stringOpt x
         }
       val translatorCreditsProp =
         {
           get = fn x => get "translator-credits" stringOpt x,
-          set = fn x => set "translator-credits" stringOpt x
+          set = fn x => set "translator-credits" stringOpt x,
+          new = fn x => new "translator-credits" stringOpt x
         }
       val versionProp =
         {
           get = fn x => get "version" stringOpt x,
-          set = fn x => set "version" stringOpt x
+          set = fn x => set "version" stringOpt x,
+          new = fn x => new "version" stringOpt x
         }
       val websiteProp =
         {
           get = fn x => get "website" stringOpt x,
-          set = fn x => set "website" stringOpt x
+          set = fn x => set "website" stringOpt x,
+          new = fn x => new "website" stringOpt x
         }
       val websiteLabelProp =
         {
           get = fn x => get "website-label" stringOpt x,
-          set = fn x => set "website-label" stringOpt x
+          set = fn x => set "website-label" stringOpt x,
+          new = fn x => new "website-label" stringOpt x
         }
       val wrapLicenseProp =
         {
           get = fn x => get "wrap-license" boolean x,
-          set = fn x => set "wrap-license" boolean x
+          set = fn x => set "wrap-license" boolean x,
+          new = fn x => new "wrap-license" boolean x
         }
     end
   end

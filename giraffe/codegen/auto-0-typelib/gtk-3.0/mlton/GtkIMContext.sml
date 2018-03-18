@@ -206,12 +206,14 @@ structure GtkIMContext :>
       val inputHintsProp =
         {
           get = fn x => get "input-hints" GtkInputHints.t x,
-          set = fn x => set "input-hints" GtkInputHints.t x
+          set = fn x => set "input-hints" GtkInputHints.t x,
+          new = fn x => new "input-hints" GtkInputHints.t x
         }
       val inputPurposeProp =
         {
           get = fn x => get "input-purpose" GtkInputPurpose.t x,
-          set = fn x => set "input-purpose" GtkInputPurpose.t x
+          set = fn x => set "input-purpose" GtkInputPurpose.t x,
+          new = fn x => new "input-purpose" GtkInputPurpose.t x
         }
     end
   end

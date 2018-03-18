@@ -895,131 +895,156 @@ structure VteTerminal :>
       val allowBoldProp =
         {
           get = fn x => get "allow-bold" boolean x,
-          set = fn x => set "allow-bold" boolean x
+          set = fn x => set "allow-bold" boolean x,
+          new = fn x => new "allow-bold" boolean x
         }
       val audibleBellProp =
         {
           get = fn x => get "audible-bell" boolean x,
-          set = fn x => set "audible-bell" boolean x
+          set = fn x => set "audible-bell" boolean x,
+          new = fn x => new "audible-bell" boolean x
         }
       val backgroundImageFileProp =
         {
           get = fn x => get "background-image-file" stringOpt x,
-          set = fn x => set "background-image-file" stringOpt x
+          set = fn x => set "background-image-file" stringOpt x,
+          new = fn x => new "background-image-file" stringOpt x
         }
       val backgroundImagePixbufProp =
         {
           get = fn x => get "background-image-pixbuf" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "background-image-pixbuf" GdkPixbufPixbufClass.tOpt x
+          set = fn x => set "background-image-pixbuf" GdkPixbufPixbufClass.tOpt x,
+          new = fn x => new "background-image-pixbuf" GdkPixbufPixbufClass.tOpt x
         }
       val backgroundOpacityProp =
         {
           get = fn x => get "background-opacity" double x,
-          set = fn x => set "background-opacity" double x
+          set = fn x => set "background-opacity" double x,
+          new = fn x => new "background-opacity" double x
         }
       val backgroundSaturationProp =
         {
           get = fn x => get "background-saturation" double x,
-          set = fn x => set "background-saturation" double x
+          set = fn x => set "background-saturation" double x,
+          new = fn x => new "background-saturation" double x
         }
       val backgroundTintColorProp =
         {
           get = fn x => get "background-tint-color" GdkColorRecord.tOpt x,
-          set = fn x => set "background-tint-color" GdkColorRecord.tOpt x
+          set = fn x => set "background-tint-color" GdkColorRecord.tOpt x,
+          new = fn x => new "background-tint-color" GdkColorRecord.tOpt x
         }
       val backgroundTransparentProp =
         {
           get = fn x => get "background-transparent" boolean x,
-          set = fn x => set "background-transparent" boolean x
+          set = fn x => set "background-transparent" boolean x,
+          new = fn x => new "background-transparent" boolean x
         }
       val backspaceBindingProp =
         {
           get = fn x => get "backspace-binding" VteTerminalEraseBinding.t x,
-          set = fn x => set "backspace-binding" VteTerminalEraseBinding.t x
+          set = fn x => set "backspace-binding" VteTerminalEraseBinding.t x,
+          new = fn x => new "backspace-binding" VteTerminalEraseBinding.t x
         }
       val currentDirectoryUriProp = {get = fn x => get "current-directory-uri" stringOpt x}
       val currentFileUriProp = {get = fn x => get "current-file-uri" stringOpt x}
       val cursorBlinkModeProp =
         {
           get = fn x => get "cursor-blink-mode" VteTerminalCursorBlinkMode.t x,
-          set = fn x => set "cursor-blink-mode" VteTerminalCursorBlinkMode.t x
+          set = fn x => set "cursor-blink-mode" VteTerminalCursorBlinkMode.t x,
+          new = fn x => new "cursor-blink-mode" VteTerminalCursorBlinkMode.t x
         }
       val cursorShapeProp =
         {
           get = fn x => get "cursor-shape" VteTerminalCursorShape.t x,
-          set = fn x => set "cursor-shape" VteTerminalCursorShape.t x
+          set = fn x => set "cursor-shape" VteTerminalCursorShape.t x,
+          new = fn x => new "cursor-shape" VteTerminalCursorShape.t x
         }
       val deleteBindingProp =
         {
           get = fn x => get "delete-binding" VteTerminalEraseBinding.t x,
-          set = fn x => set "delete-binding" VteTerminalEraseBinding.t x
+          set = fn x => set "delete-binding" VteTerminalEraseBinding.t x,
+          new = fn x => new "delete-binding" VteTerminalEraseBinding.t x
         }
       val emulationProp =
         {
           get = fn x => get "emulation" stringOpt x,
-          set = fn x => set "emulation" stringOpt x
+          set = fn x => set "emulation" stringOpt x,
+          new = fn x => new "emulation" stringOpt x
         }
       val encodingProp =
         {
           get = fn x => get "encoding" stringOpt x,
-          set = fn x => set "encoding" stringOpt x
+          set = fn x => set "encoding" stringOpt x,
+          new = fn x => new "encoding" stringOpt x
         }
       val fontDescProp =
         {
           get = fn x => get "font-desc" PangoFontDescriptionRecord.tOpt x,
-          set = fn x => set "font-desc" PangoFontDescriptionRecord.tOpt x
+          set = fn x => set "font-desc" PangoFontDescriptionRecord.tOpt x,
+          new = fn x => new "font-desc" PangoFontDescriptionRecord.tOpt x
         }
       val iconTitleProp = {get = fn x => get "icon-title" stringOpt x}
       val pointerAutohideProp =
         {
           get = fn x => get "pointer-autohide" boolean x,
-          set = fn x => set "pointer-autohide" boolean x
+          set = fn x => set "pointer-autohide" boolean x,
+          new = fn x => new "pointer-autohide" boolean x
         }
       val ptyProp =
         {
           get = fn x => get "pty" int x,
-          set = fn x => set "pty" int x
+          set = fn x => set "pty" int x,
+          new = fn x => new "pty" int x
         }
       val ptyObjectProp =
         {
           get = fn x => get "pty-object" VtePtyClass.tOpt x,
-          set = fn x => set "pty-object" VtePtyClass.tOpt x
+          set = fn x => set "pty-object" VtePtyClass.tOpt x,
+          new = fn x => new "pty-object" VtePtyClass.tOpt x
         }
       val rewrapOnResizeProp =
         {
           get = fn x => get "rewrap-on-resize" boolean x,
-          set = fn x => set "rewrap-on-resize" boolean x
+          set = fn x => set "rewrap-on-resize" boolean x,
+          new = fn x => new "rewrap-on-resize" boolean x
         }
       val scrollBackgroundProp =
         {
           get = fn x => get "scroll-background" boolean x,
-          set = fn x => set "scroll-background" boolean x
+          set = fn x => set "scroll-background" boolean x,
+          new = fn x => new "scroll-background" boolean x
         }
       val scrollOnKeystrokeProp =
         {
           get = fn x => get "scroll-on-keystroke" boolean x,
-          set = fn x => set "scroll-on-keystroke" boolean x
+          set = fn x => set "scroll-on-keystroke" boolean x,
+          new = fn x => new "scroll-on-keystroke" boolean x
         }
       val scrollOnOutputProp =
         {
           get = fn x => get "scroll-on-output" boolean x,
-          set = fn x => set "scroll-on-output" boolean x
+          set = fn x => set "scroll-on-output" boolean x,
+          new = fn x => new "scroll-on-output" boolean x
         }
       val scrollbackLinesProp =
         {
           get = fn x => get "scrollback-lines" uint x,
-          set = fn x => set "scrollback-lines" uint x
+          set = fn x => set "scrollback-lines" uint x,
+          new = fn x => new "scrollback-lines" uint x
         }
       val visibleBellProp =
         {
           get = fn x => get "visible-bell" boolean x,
-          set = fn x => set "visible-bell" boolean x
+          set = fn x => set "visible-bell" boolean x,
+          new = fn x => new "visible-bell" boolean x
         }
       val windowTitleProp = {get = fn x => get "window-title" stringOpt x}
       val wordCharsProp =
         {
           get = fn x => get "word-chars" stringOpt x,
-          set = fn x => set "word-chars" stringOpt x
+          set = fn x => set "word-chars" stringOpt x,
+          new = fn x => new "word-chars" stringOpt x
         }
     end
   end

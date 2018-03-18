@@ -496,223 +496,266 @@ structure GtkEntry :>
       val activatesDefaultProp =
         {
           get = fn x => get "activates-default" boolean x,
-          set = fn x => set "activates-default" boolean x
+          set = fn x => set "activates-default" boolean x,
+          new = fn x => new "activates-default" boolean x
         }
       val attributesProp =
         {
           get = fn x => get "attributes" PangoAttrListRecord.tOpt x,
-          set = fn x => set "attributes" PangoAttrListRecord.tOpt x
+          set = fn x => set "attributes" PangoAttrListRecord.tOpt x,
+          new = fn x => new "attributes" PangoAttrListRecord.tOpt x
         }
       val bufferProp =
         {
           get = fn x => get "buffer" GtkEntryBufferClass.tOpt x,
-          set = fn x => set "buffer" GtkEntryBufferClass.tOpt x
+          set = fn x => set "buffer" GtkEntryBufferClass.tOpt x,
+          new = fn x => new "buffer" GtkEntryBufferClass.tOpt x
         }
       val capsLockWarningProp =
         {
           get = fn x => get "caps-lock-warning" boolean x,
-          set = fn x => set "caps-lock-warning" boolean x
+          set = fn x => set "caps-lock-warning" boolean x,
+          new = fn x => new "caps-lock-warning" boolean x
         }
       val completionProp =
         {
           get = fn x => get "completion" GtkEntryCompletionClass.tOpt x,
-          set = fn x => set "completion" GtkEntryCompletionClass.tOpt x
+          set = fn x => set "completion" GtkEntryCompletionClass.tOpt x,
+          new = fn x => new "completion" GtkEntryCompletionClass.tOpt x
         }
       val cursorPositionProp = {get = fn x => get "cursor-position" int x}
       val editableProp =
         {
           get = fn x => get "editable" boolean x,
-          set = fn x => set "editable" boolean x
+          set = fn x => set "editable" boolean x,
+          new = fn x => new "editable" boolean x
         }
       val hasFrameProp =
         {
           get = fn x => get "has-frame" boolean x,
-          set = fn x => set "has-frame" boolean x
+          set = fn x => set "has-frame" boolean x,
+          new = fn x => new "has-frame" boolean x
         }
       val imModuleProp =
         {
           get = fn x => get "im-module" stringOpt x,
-          set = fn x => set "im-module" stringOpt x
+          set = fn x => set "im-module" stringOpt x,
+          new = fn x => new "im-module" stringOpt x
         }
       val innerBorderProp =
         {
           get = fn x => get "inner-border" GtkBorderRecord.tOpt x,
-          set = fn x => set "inner-border" GtkBorderRecord.tOpt x
+          set = fn x => set "inner-border" GtkBorderRecord.tOpt x,
+          new = fn x => new "inner-border" GtkBorderRecord.tOpt x
         }
       val inputHintsProp =
         {
           get = fn x => get "input-hints" GtkInputHints.t x,
-          set = fn x => set "input-hints" GtkInputHints.t x
+          set = fn x => set "input-hints" GtkInputHints.t x,
+          new = fn x => new "input-hints" GtkInputHints.t x
         }
       val inputPurposeProp =
         {
           get = fn x => get "input-purpose" GtkInputPurpose.t x,
-          set = fn x => set "input-purpose" GtkInputPurpose.t x
+          set = fn x => set "input-purpose" GtkInputPurpose.t x,
+          new = fn x => new "input-purpose" GtkInputPurpose.t x
         }
       val invisibleCharProp =
         {
           get = fn x => get "invisible-char" uint x,
-          set = fn x => set "invisible-char" uint x
+          set = fn x => set "invisible-char" uint x,
+          new = fn x => new "invisible-char" uint x
         }
       val invisibleCharSetProp =
         {
           get = fn x => get "invisible-char-set" boolean x,
-          set = fn x => set "invisible-char-set" boolean x
+          set = fn x => set "invisible-char-set" boolean x,
+          new = fn x => new "invisible-char-set" boolean x
         }
       val maxLengthProp =
         {
           get = fn x => get "max-length" int x,
-          set = fn x => set "max-length" int x
+          set = fn x => set "max-length" int x,
+          new = fn x => new "max-length" int x
         }
       val maxWidthCharsProp =
         {
           get = fn x => get "max-width-chars" int x,
-          set = fn x => set "max-width-chars" int x
+          set = fn x => set "max-width-chars" int x,
+          new = fn x => new "max-width-chars" int x
         }
       val overwriteModeProp =
         {
           get = fn x => get "overwrite-mode" boolean x,
-          set = fn x => set "overwrite-mode" boolean x
+          set = fn x => set "overwrite-mode" boolean x,
+          new = fn x => new "overwrite-mode" boolean x
         }
       val placeholderTextProp =
         {
           get = fn x => get "placeholder-text" stringOpt x,
-          set = fn x => set "placeholder-text" stringOpt x
+          set = fn x => set "placeholder-text" stringOpt x,
+          new = fn x => new "placeholder-text" stringOpt x
         }
       val populateAllProp =
         {
           get = fn x => get "populate-all" boolean x,
-          set = fn x => set "populate-all" boolean x
+          set = fn x => set "populate-all" boolean x,
+          new = fn x => new "populate-all" boolean x
         }
       val primaryIconActivatableProp =
         {
           get = fn x => get "primary-icon-activatable" boolean x,
-          set = fn x => set "primary-icon-activatable" boolean x
+          set = fn x => set "primary-icon-activatable" boolean x,
+          new = fn x => new "primary-icon-activatable" boolean x
         }
       val primaryIconGiconProp =
         {
           get = fn x => get "primary-icon-gicon" GioIconClass.tOpt x,
-          set = fn x => set "primary-icon-gicon" GioIconClass.tOpt x
+          set = fn x => set "primary-icon-gicon" GioIconClass.tOpt x,
+          new = fn x => new "primary-icon-gicon" GioIconClass.tOpt x
         }
       val primaryIconNameProp =
         {
           get = fn x => get "primary-icon-name" stringOpt x,
-          set = fn x => set "primary-icon-name" stringOpt x
+          set = fn x => set "primary-icon-name" stringOpt x,
+          new = fn x => new "primary-icon-name" stringOpt x
         }
       val primaryIconPixbufProp =
         {
           get = fn x => get "primary-icon-pixbuf" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "primary-icon-pixbuf" GdkPixbufPixbufClass.tOpt x
+          set = fn x => set "primary-icon-pixbuf" GdkPixbufPixbufClass.tOpt x,
+          new = fn x => new "primary-icon-pixbuf" GdkPixbufPixbufClass.tOpt x
         }
       val primaryIconSensitiveProp =
         {
           get = fn x => get "primary-icon-sensitive" boolean x,
-          set = fn x => set "primary-icon-sensitive" boolean x
+          set = fn x => set "primary-icon-sensitive" boolean x,
+          new = fn x => new "primary-icon-sensitive" boolean x
         }
       val primaryIconStockProp =
         {
           get = fn x => get "primary-icon-stock" stringOpt x,
-          set = fn x => set "primary-icon-stock" stringOpt x
+          set = fn x => set "primary-icon-stock" stringOpt x,
+          new = fn x => new "primary-icon-stock" stringOpt x
         }
       val primaryIconStorageTypeProp = {get = fn x => get "primary-icon-storage-type" GtkImageType.t x}
       val primaryIconTooltipMarkupProp =
         {
           get = fn x => get "primary-icon-tooltip-markup" stringOpt x,
-          set = fn x => set "primary-icon-tooltip-markup" stringOpt x
+          set = fn x => set "primary-icon-tooltip-markup" stringOpt x,
+          new = fn x => new "primary-icon-tooltip-markup" stringOpt x
         }
       val primaryIconTooltipTextProp =
         {
           get = fn x => get "primary-icon-tooltip-text" stringOpt x,
-          set = fn x => set "primary-icon-tooltip-text" stringOpt x
+          set = fn x => set "primary-icon-tooltip-text" stringOpt x,
+          new = fn x => new "primary-icon-tooltip-text" stringOpt x
         }
       val progressFractionProp =
         {
           get = fn x => get "progress-fraction" double x,
-          set = fn x => set "progress-fraction" double x
+          set = fn x => set "progress-fraction" double x,
+          new = fn x => new "progress-fraction" double x
         }
       val progressPulseStepProp =
         {
           get = fn x => get "progress-pulse-step" double x,
-          set = fn x => set "progress-pulse-step" double x
+          set = fn x => set "progress-pulse-step" double x,
+          new = fn x => new "progress-pulse-step" double x
         }
       val scrollOffsetProp = {get = fn x => get "scroll-offset" int x}
       val secondaryIconActivatableProp =
         {
           get = fn x => get "secondary-icon-activatable" boolean x,
-          set = fn x => set "secondary-icon-activatable" boolean x
+          set = fn x => set "secondary-icon-activatable" boolean x,
+          new = fn x => new "secondary-icon-activatable" boolean x
         }
       val secondaryIconGiconProp =
         {
           get = fn x => get "secondary-icon-gicon" GioIconClass.tOpt x,
-          set = fn x => set "secondary-icon-gicon" GioIconClass.tOpt x
+          set = fn x => set "secondary-icon-gicon" GioIconClass.tOpt x,
+          new = fn x => new "secondary-icon-gicon" GioIconClass.tOpt x
         }
       val secondaryIconNameProp =
         {
           get = fn x => get "secondary-icon-name" stringOpt x,
-          set = fn x => set "secondary-icon-name" stringOpt x
+          set = fn x => set "secondary-icon-name" stringOpt x,
+          new = fn x => new "secondary-icon-name" stringOpt x
         }
       val secondaryIconPixbufProp =
         {
           get = fn x => get "secondary-icon-pixbuf" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "secondary-icon-pixbuf" GdkPixbufPixbufClass.tOpt x
+          set = fn x => set "secondary-icon-pixbuf" GdkPixbufPixbufClass.tOpt x,
+          new = fn x => new "secondary-icon-pixbuf" GdkPixbufPixbufClass.tOpt x
         }
       val secondaryIconSensitiveProp =
         {
           get = fn x => get "secondary-icon-sensitive" boolean x,
-          set = fn x => set "secondary-icon-sensitive" boolean x
+          set = fn x => set "secondary-icon-sensitive" boolean x,
+          new = fn x => new "secondary-icon-sensitive" boolean x
         }
       val secondaryIconStockProp =
         {
           get = fn x => get "secondary-icon-stock" stringOpt x,
-          set = fn x => set "secondary-icon-stock" stringOpt x
+          set = fn x => set "secondary-icon-stock" stringOpt x,
+          new = fn x => new "secondary-icon-stock" stringOpt x
         }
       val secondaryIconStorageTypeProp = {get = fn x => get "secondary-icon-storage-type" GtkImageType.t x}
       val secondaryIconTooltipMarkupProp =
         {
           get = fn x => get "secondary-icon-tooltip-markup" stringOpt x,
-          set = fn x => set "secondary-icon-tooltip-markup" stringOpt x
+          set = fn x => set "secondary-icon-tooltip-markup" stringOpt x,
+          new = fn x => new "secondary-icon-tooltip-markup" stringOpt x
         }
       val secondaryIconTooltipTextProp =
         {
           get = fn x => get "secondary-icon-tooltip-text" stringOpt x,
-          set = fn x => set "secondary-icon-tooltip-text" stringOpt x
+          set = fn x => set "secondary-icon-tooltip-text" stringOpt x,
+          new = fn x => new "secondary-icon-tooltip-text" stringOpt x
         }
       val selectionBoundProp = {get = fn x => get "selection-bound" int x}
       val shadowTypeProp =
         {
           get = fn x => get "shadow-type" GtkShadowType.t x,
-          set = fn x => set "shadow-type" GtkShadowType.t x
+          set = fn x => set "shadow-type" GtkShadowType.t x,
+          new = fn x => new "shadow-type" GtkShadowType.t x
         }
       val tabsProp =
         {
           get = fn x => get "tabs" PangoTabArrayRecord.tOpt x,
-          set = fn x => set "tabs" PangoTabArrayRecord.tOpt x
+          set = fn x => set "tabs" PangoTabArrayRecord.tOpt x,
+          new = fn x => new "tabs" PangoTabArrayRecord.tOpt x
         }
       val textProp =
         {
           get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x
+          set = fn x => set "text" stringOpt x,
+          new = fn x => new "text" stringOpt x
         }
       val textLengthProp = {get = fn x => get "text-length" uint x}
       val truncateMultilineProp =
         {
           get = fn x => get "truncate-multiline" boolean x,
-          set = fn x => set "truncate-multiline" boolean x
+          set = fn x => set "truncate-multiline" boolean x,
+          new = fn x => new "truncate-multiline" boolean x
         }
       val visibilityProp =
         {
           get = fn x => get "visibility" boolean x,
-          set = fn x => set "visibility" boolean x
+          set = fn x => set "visibility" boolean x,
+          new = fn x => new "visibility" boolean x
         }
       val widthCharsProp =
         {
           get = fn x => get "width-chars" int x,
-          set = fn x => set "width-chars" int x
+          set = fn x => set "width-chars" int x,
+          new = fn x => new "width-chars" int x
         }
       val xalignProp =
         {
           get = fn x => get "xalign" float x,
-          set = fn x => set "xalign" float x
+          set = fn x => set "xalign" float x,
+          new = fn x => new "xalign" float x
         }
     end
   end

@@ -5,8 +5,28 @@ signature GIO_PROXY_ADDRESS_ENUMERATOR =
     type 'a proxy_resolver_class
     type t = base class
     val getType : unit -> GObject.Type.t
-    val connectableProp : ('a class, base socket_connectable_class option, 'b socket_connectable_class option) Property.readwrite
-    val defaultPortProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val proxyResolverProp : ('a class, base proxy_resolver_class option, 'b proxy_resolver_class option) Property.readwrite
-    val uriProp : ('a class, string option, string option) Property.readwrite
+    val connectableProp :
+      {
+        get : 'a class -> base socket_connectable_class option,
+        new : 'b socket_connectable_class option -> 'a class Property.t
+      }
+    val defaultPortProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val proxyResolverProp :
+      {
+        get : 'a class -> base proxy_resolver_class option,
+        set :
+          'b proxy_resolver_class option
+           -> 'a class
+           -> unit,
+        new : 'b proxy_resolver_class option -> 'a class Property.t
+      }
+    val uriProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
   end

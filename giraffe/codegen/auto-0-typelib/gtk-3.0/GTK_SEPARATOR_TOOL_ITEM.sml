@@ -14,5 +14,13 @@ signature GTK_SEPARATOR_TOOL_ITEM =
       'a class
        -> bool
        -> unit
-    val drawProp : ('a class, bool, bool) Property.readwrite
+    val drawProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

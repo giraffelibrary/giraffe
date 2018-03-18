@@ -77,13 +77,15 @@ structure GioInetAddressMask :>
       val addressProp =
         {
           get = fn x => get "address" GioInetAddressClass.tOpt x,
-          set = fn x => set "address" GioInetAddressClass.tOpt x
+          set = fn x => set "address" GioInetAddressClass.tOpt x,
+          new = fn x => new "address" GioInetAddressClass.tOpt x
         }
       val familyProp = {get = fn x => get "family" GioSocketFamily.t x}
       val lengthProp =
         {
           get = fn x => get "length" uint x,
-          set = fn x => set "length" uint x
+          set = fn x => set "length" uint x,
+          new = fn x => new "length" uint x
         }
     end
   end

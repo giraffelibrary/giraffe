@@ -9,9 +9,39 @@ signature GTK_SHORTCUTS_GROUP =
     val asBuildable : 'a class -> base buildable_class
     val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
-    val accelSizeGroupProp : ('a class, 'b size_group_class option) Property.writeonly
-    val heightProp : ('a class, LargeInt.int) Property.readonly
-    val titleProp : ('a class, string option, string option) Property.readwrite
-    val titleSizeGroupProp : ('a class, 'b size_group_class option) Property.writeonly
-    val viewProp : ('a class, string option, string option) Property.readwrite
+    val accelSizeGroupProp :
+      {
+        set :
+          'b size_group_class option
+           -> 'a class
+           -> unit,
+        new : 'b size_group_class option -> 'a class Property.t
+      }
+    val heightProp : {get : 'a class -> LargeInt.int}
+    val titleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val titleSizeGroupProp :
+      {
+        set :
+          'b size_group_class option
+           -> 'a class
+           -> unit,
+        new : 'b size_group_class option -> 'a class Property.t
+      }
+    val viewProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

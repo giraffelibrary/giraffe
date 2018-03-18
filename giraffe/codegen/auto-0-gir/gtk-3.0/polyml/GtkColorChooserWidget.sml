@@ -28,7 +28,8 @@ structure GtkColorChooserWidget :>
       val showEditorProp =
         {
           get = fn x => get "show-editor" boolean x,
-          set = fn x => set "show-editor" boolean x
+          set = fn x => set "show-editor" boolean x,
+          new = fn x => new "show-editor" boolean x
         }
     end
   end

@@ -32,17 +32,20 @@ structure GtkGestureSingle :>
       val buttonProp =
         {
           get = fn x => get "button" uint x,
-          set = fn x => set "button" uint x
+          set = fn x => set "button" uint x,
+          new = fn x => new "button" uint x
         }
       val exclusiveProp =
         {
           get = fn x => get "exclusive" boolean x,
-          set = fn x => set "exclusive" boolean x
+          set = fn x => set "exclusive" boolean x,
+          new = fn x => new "exclusive" boolean x
         }
       val touchOnlyProp =
         {
           get = fn x => get "touch-only" boolean x,
-          set = fn x => set "touch-only" boolean x
+          set = fn x => set "touch-only" boolean x,
+          new = fn x => new "touch-only" boolean x
         }
     end
   end

@@ -32,12 +32,76 @@ signature GTK_ALIGNMENT =
            * LargeInt.int
            * LargeInt.int
        -> unit
-    val bottomPaddingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val leftPaddingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val rightPaddingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val topPaddingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val xalignProp : ('a class, real, real) Property.readwrite
-    val xscaleProp : ('a class, real, real) Property.readwrite
-    val yalignProp : ('a class, real, real) Property.readwrite
-    val yscaleProp : ('a class, real, real) Property.readwrite
+    val bottomPaddingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val leftPaddingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val rightPaddingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val topPaddingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val xalignProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val xscaleProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val yalignProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val yscaleProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
   end

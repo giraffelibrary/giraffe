@@ -141,12 +141,14 @@ structure GtkInfoBar :>
       val messageTypeProp =
         {
           get = fn x => get "message-type" GtkMessageType.t x,
-          set = fn x => set "message-type" GtkMessageType.t x
+          set = fn x => set "message-type" GtkMessageType.t x,
+          new = fn x => new "message-type" GtkMessageType.t x
         }
       val showCloseButtonProp =
         {
           get = fn x => get "show-close-button" boolean x,
-          set = fn x => set "show-close-button" boolean x
+          set = fn x => set "show-close-button" boolean x,
+          new = fn x => new "show-close-button" boolean x
         }
     end
   end

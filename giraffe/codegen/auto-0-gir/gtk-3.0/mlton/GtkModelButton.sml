@@ -26,42 +26,50 @@ structure GtkModelButton :>
       val activeProp =
         {
           get = fn x => get "active" boolean x,
-          set = fn x => set "active" boolean x
+          set = fn x => set "active" boolean x,
+          new = fn x => new "active" boolean x
         }
       val centeredProp =
         {
           get = fn x => get "centered" boolean x,
-          set = fn x => set "centered" boolean x
+          set = fn x => set "centered" boolean x,
+          new = fn x => new "centered" boolean x
         }
       val iconProp =
         {
           get = fn x => get "icon" GioIconClass.tOpt x,
-          set = fn x => set "icon" GioIconClass.tOpt x
+          set = fn x => set "icon" GioIconClass.tOpt x,
+          new = fn x => new "icon" GioIconClass.tOpt x
         }
       val iconicProp =
         {
           get = fn x => get "iconic" boolean x,
-          set = fn x => set "iconic" boolean x
+          set = fn x => set "iconic" boolean x,
+          new = fn x => new "iconic" boolean x
         }
       val invertedProp =
         {
           get = fn x => get "inverted" boolean x,
-          set = fn x => set "inverted" boolean x
+          set = fn x => set "inverted" boolean x,
+          new = fn x => new "inverted" boolean x
         }
       val menuNameProp =
         {
           get = fn x => get "menu-name" stringOpt x,
-          set = fn x => set "menu-name" stringOpt x
+          set = fn x => set "menu-name" stringOpt x,
+          new = fn x => new "menu-name" stringOpt x
         }
       val roleProp =
         {
           get = fn x => get "role" GtkButtonRole.t x,
-          set = fn x => set "role" GtkButtonRole.t x
+          set = fn x => set "role" GtkButtonRole.t x,
+          new = fn x => new "role" GtkButtonRole.t x
         }
       val textProp =
         {
           get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x
+          set = fn x => set "text" stringOpt x,
+          new = fn x => new "text" stringOpt x
         }
     end
   end

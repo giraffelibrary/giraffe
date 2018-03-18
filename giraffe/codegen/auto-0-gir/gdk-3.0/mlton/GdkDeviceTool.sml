@@ -22,22 +22,22 @@ structure GdkDeviceTool :>
       val axesProp =
         {
           get = fn x => get "axes" GdkAxisFlags.t x,
-          set = fn x => set "axes" GdkAxisFlags.t x
+          new = fn x => new "axes" GdkAxisFlags.t x
         }
       val hardwareIdProp =
         {
           get = fn x => get "hardware-id" uint64 x,
-          set = fn x => set "hardware-id" uint64 x
+          new = fn x => new "hardware-id" uint64 x
         }
       val serialProp =
         {
           get = fn x => get "serial" uint64 x,
-          set = fn x => set "serial" uint64 x
+          new = fn x => new "serial" uint64 x
         }
       val toolTypeProp =
         {
           get = fn x => get "tool-type" GdkDeviceToolType.t x,
-          set = fn x => set "tool-type" GdkDeviceToolType.t x
+          new = fn x => new "tool-type" GdkDeviceToolType.t x
         }
     end
   end

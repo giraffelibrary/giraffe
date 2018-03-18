@@ -161,47 +161,55 @@ structure GtkEntryCompletion :>
       val cellAreaProp =
         {
           get = fn x => get "cell-area" GtkCellAreaClass.tOpt x,
-          set = fn x => set "cell-area" GtkCellAreaClass.tOpt x
+          new = fn x => new "cell-area" GtkCellAreaClass.tOpt x
         }
       val inlineCompletionProp =
         {
           get = fn x => get "inline-completion" boolean x,
-          set = fn x => set "inline-completion" boolean x
+          set = fn x => set "inline-completion" boolean x,
+          new = fn x => new "inline-completion" boolean x
         }
       val inlineSelectionProp =
         {
           get = fn x => get "inline-selection" boolean x,
-          set = fn x => set "inline-selection" boolean x
+          set = fn x => set "inline-selection" boolean x,
+          new = fn x => new "inline-selection" boolean x
         }
       val minimumKeyLengthProp =
         {
           get = fn x => get "minimum-key-length" int x,
-          set = fn x => set "minimum-key-length" int x
+          set = fn x => set "minimum-key-length" int x,
+          new = fn x => new "minimum-key-length" int x
         }
       val modelProp =
         {
           get = fn x => get "model" GtkTreeModelClass.tOpt x,
-          set = fn x => set "model" GtkTreeModelClass.tOpt x
+          set = fn x => set "model" GtkTreeModelClass.tOpt x,
+          new = fn x => new "model" GtkTreeModelClass.tOpt x
         }
       val popupCompletionProp =
         {
           get = fn x => get "popup-completion" boolean x,
-          set = fn x => set "popup-completion" boolean x
+          set = fn x => set "popup-completion" boolean x,
+          new = fn x => new "popup-completion" boolean x
         }
       val popupSetWidthProp =
         {
           get = fn x => get "popup-set-width" boolean x,
-          set = fn x => set "popup-set-width" boolean x
+          set = fn x => set "popup-set-width" boolean x,
+          new = fn x => new "popup-set-width" boolean x
         }
       val popupSingleMatchProp =
         {
           get = fn x => get "popup-single-match" boolean x,
-          set = fn x => set "popup-single-match" boolean x
+          set = fn x => set "popup-single-match" boolean x,
+          new = fn x => new "popup-single-match" boolean x
         }
       val textColumnProp =
         {
           get = fn x => get "text-column" int x,
-          set = fn x => set "text-column" int x
+          set = fn x => set "text-column" int x,
+          new = fn x => new "text-column" int x
         }
     end
   end

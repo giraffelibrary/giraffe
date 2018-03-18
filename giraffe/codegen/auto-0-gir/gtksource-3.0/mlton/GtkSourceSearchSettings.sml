@@ -48,27 +48,32 @@ structure GtkSourceSearchSettings :>
       val atWordBoundariesProp =
         {
           get = fn x => get "at-word-boundaries" boolean x,
-          set = fn x => set "at-word-boundaries" boolean x
+          set = fn x => set "at-word-boundaries" boolean x,
+          new = fn x => new "at-word-boundaries" boolean x
         }
       val caseSensitiveProp =
         {
           get = fn x => get "case-sensitive" boolean x,
-          set = fn x => set "case-sensitive" boolean x
+          set = fn x => set "case-sensitive" boolean x,
+          new = fn x => new "case-sensitive" boolean x
         }
       val regexEnabledProp =
         {
           get = fn x => get "regex-enabled" boolean x,
-          set = fn x => set "regex-enabled" boolean x
+          set = fn x => set "regex-enabled" boolean x,
+          new = fn x => new "regex-enabled" boolean x
         }
       val searchTextProp =
         {
           get = fn x => get "search-text" stringOpt x,
-          set = fn x => set "search-text" stringOpt x
+          set = fn x => set "search-text" stringOpt x,
+          new = fn x => new "search-text" stringOpt x
         }
       val wrapAroundProp =
         {
           get = fn x => get "wrap-around" boolean x,
-          set = fn x => set "wrap-around" boolean x
+          set = fn x => set "wrap-around" boolean x,
+          new = fn x => new "wrap-around" boolean x
         }
     end
   end

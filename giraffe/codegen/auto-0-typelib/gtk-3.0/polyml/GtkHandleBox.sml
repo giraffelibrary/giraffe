@@ -49,22 +49,26 @@ structure GtkHandleBox :>
       val handlePositionProp =
         {
           get = fn x => get "handle-position" GtkPositionType.t x,
-          set = fn x => set "handle-position" GtkPositionType.t x
+          set = fn x => set "handle-position" GtkPositionType.t x,
+          new = fn x => new "handle-position" GtkPositionType.t x
         }
       val shadowTypeProp =
         {
           get = fn x => get "shadow-type" GtkShadowType.t x,
-          set = fn x => set "shadow-type" GtkShadowType.t x
+          set = fn x => set "shadow-type" GtkShadowType.t x,
+          new = fn x => new "shadow-type" GtkShadowType.t x
         }
       val snapEdgeProp =
         {
           get = fn x => get "snap-edge" GtkPositionType.t x,
-          set = fn x => set "snap-edge" GtkPositionType.t x
+          set = fn x => set "snap-edge" GtkPositionType.t x,
+          new = fn x => new "snap-edge" GtkPositionType.t x
         }
       val snapEdgeSetProp =
         {
           get = fn x => get "snap-edge-set" boolean x,
-          set = fn x => set "snap-edge-set" boolean x
+          set = fn x => set "snap-edge-set" boolean x,
+          new = fn x => new "snap-edge-set" boolean x
         }
     end
   end

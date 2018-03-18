@@ -9,8 +9,40 @@ signature GTK_SHORTCUTS_SECTION =
     val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
     val changeCurrentPageSig : (LargeInt.int -> bool) -> 'a class Signal.t
-    val maxHeightProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val sectionNameProp : ('a class, string option, string option) Property.readwrite
-    val titleProp : ('a class, string option, string option) Property.readwrite
-    val viewNameProp : ('a class, string option, string option) Property.readwrite
+    val maxHeightProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val sectionNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val titleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val viewNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

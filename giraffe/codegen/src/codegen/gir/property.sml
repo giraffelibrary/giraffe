@@ -2,6 +2,71 @@
  * Property
  * -------------------------------------------------------------------------- *)
 
+datatype param_op =
+  GET
+| SET
+| NEW
+
+val paramOpName =
+  fn
+    GET => getId
+  | SET => setId
+  | NEW => newId
+
+(*
+ *   <containerTy> -> <ParamReadTy>
+ *)
+fun mkGetOpTy (containerTy, paramReadTy) = TyFun (containerTy, paramReadTy)
+
+(*
+ *   <ParamWriteTy> -> <containerTy> -> unit
+ *)
+fun mkSetOpTy (containerTy, paramWriteTy) =
+  TyFun (paramWriteTy, TyFun (containerTy, unitTy))
+
+(*
+ *   <ParamWriteTy> -> <containerTy> Property.t
+ *     if notGObject
+ *
+ *   <ParamWriteTy> -> <containerTy> property_t
+ *     if isGObject
+ *)
+fun mkNewOpTy (containerTy, paramWriteTy) isGObject =
+  let
+    val propertyTypeLId =
+  if isGObject
+  then toList1 [concat [propertyId, "_", tId]]
+  else toList1 [toUCC propertyId, tId]
+  in
+    TyFun (paramWriteTy, TyRef ([containerTy], propertyTypeLId))
+  end
+
+fun mkParamOpTy (containerTy, paramReadTy, paramWriteTy) isGObject =
+  fn
+    GET => mkGetOpTy (containerTy, paramReadTy)
+  | SET => mkSetOpTy (containerTy, paramWriteTy)
+  | NEW => mkNewOpTy (containerTy, paramWriteTy) isGObject
+
+fun getParamOps propertyInfo =
+  let
+    val paramFlags = PropertyInfo.getFlags propertyInfo
+    val isReadable =
+      GObjectParamFlags.anySet (paramFlags, GObjectParamFlags.READABLE)
+    val isWritable =
+      GObjectParamFlags.anySet (paramFlags, GObjectParamFlags.WRITABLE)
+    val isConstructOnly =
+      GObjectParamFlags.anySet (paramFlags, GObjectParamFlags.CONSTRUCT_ONLY)
+  in
+    case (isReadable, isWritable, isConstructOnly) of
+      (true,  true,  false) => [GET, SET, NEW]
+    | (true,  true,  true)  => [GET, NEW]
+    | (true,  false, _)     => [GET]
+    | (false, true,  false) => [SET, NEW]
+    | (false, true,  true)  => [NEW]
+    | (false, false, _)     => infoExcl "property neither readable nor writable"
+  end
+
+
 val containerOrEverythingForProp =
   "ownership transfer CONTAINER or EVERYTHING for property not supported"
 
@@ -28,16 +93,11 @@ type interface_info =
     isOpt    : bool
   }
 
-datatype mode =
-  READONLY
-| WRITEONLY
-| READWRITE
-
-datatype paraminfo =
-  PIGTYPE of mode * gtype_info
-| PISCALAR of mode * scalar_info
-| PIUTF8 of mode * utf8_info
-| PIINTERFACE of mode * interface_info
+datatype param_info =
+  PIGTYPE of gtype_info
+| PISCALAR of scalar_info
+| PIUTF8 of utf8_info
+| PIINTERFACE of interface_info
 
 
 fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
@@ -47,19 +107,6 @@ fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
     val typeInfo = PropertyInfo.getType propertyInfo
 
     val isRef = false
-
-    val paramFlags = PropertyInfo.getFlags propertyInfo
-    val isReadable =
-      GObjectParamFlags.anySet (paramFlags, GObjectParamFlags.READABLE);
-    val isWritable =
-      GObjectParamFlags.anySet (paramFlags, GObjectParamFlags.WRITABLE);
-
-    val mode =
-      case (isReadable, isWritable) of
-        (true,  false) => READONLY
-      | (false, true)  => WRITEONLY
-      | (true,  true)  => READWRITE
-      | (false, false) => infoExcl "property neither readable nor writable"
 
     fun notExpected s = infoExcl ("type " ^ s ^ " not expected")
     fun notSupported s = infoExcl ("type " ^ s ^ " not supported")
@@ -101,34 +148,34 @@ fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
                     end
               val gtypeInfo = {iRef = iRef}
             in
-              PIGTYPE (mode, gtypeInfo)
+              PIGTYPE gtypeInfo
             end
         | ARRAY        => notSupported "ARRAY"
         | GLIST        => notSupported "GLIST"
         | GSLIST       => notSupported "GSLIST"
         | GHASH        => notSupported "GHASH"
         | VOID         => notExpected "VOID"
-        | BOOLEAN      => PISCALAR (mode, toScalarInfo STBOOLEAN)
-        | CHAR         => PISCALAR (mode, toScalarInfo STCHAR)    (* GIR only *)
-        | UCHAR        => PISCALAR (mode, toScalarInfo STUCHAR)   (* GIR only *)
-        | INT          => PISCALAR (mode, toScalarInfo STINT)     (* GIR only *)
-        | UINT         => PISCALAR (mode, toScalarInfo STUINT)    (* GIR only *)
-        | SHORT        => PISCALAR (mode, toScalarInfo STSHORT)   (* GIR only *)
-        | USHORT       => PISCALAR (mode, toScalarInfo STUSHORT)  (* GIR only *)
-        | LONG         => PISCALAR (mode, toScalarInfo STLONG)    (* GIR only *)
-        | ULONG        => PISCALAR (mode, toScalarInfo STULONG)   (* GIR only *)
+        | BOOLEAN      => PISCALAR (toScalarInfo STBOOLEAN)
+        | CHAR         => PISCALAR (toScalarInfo STCHAR)    (* GIR only *)
+        | UCHAR        => PISCALAR (toScalarInfo STUCHAR)   (* GIR only *)
+        | INT          => PISCALAR (toScalarInfo STINT)     (* GIR only *)
+        | UINT         => PISCALAR (toScalarInfo STUINT)    (* GIR only *)
+        | SHORT        => PISCALAR (toScalarInfo STSHORT)   (* GIR only *)
+        | USHORT       => PISCALAR (toScalarInfo STUSHORT)  (* GIR only *)
+        | LONG         => PISCALAR (toScalarInfo STLONG)    (* GIR only *)
+        | ULONG        => PISCALAR (toScalarInfo STULONG)   (* GIR only *)
         | INT8         => noGType "INT8"
         | UINT8        => noGType "UINT8"
         | INT16        => noGType "INT16"
         | UINT16       => noGType "UINT16"
-        | INT32        => PISCALAR (mode, toScalarInfo STINT32)
-        | UINT32       => PISCALAR (mode, toScalarInfo STUINT32)
-        | INT64        => PISCALAR (mode, toScalarInfo STINT64)
-        | UINT64       => PISCALAR (mode, toScalarInfo STUINT64)
-        | FLOAT        => PISCALAR (mode, toScalarInfo STFLOAT)
-        | DOUBLE       => PISCALAR (mode, toScalarInfo STDOUBLE)
-        | SIZE         => PISCALAR (mode, toScalarInfo STSIZE)    (* GIR only *)
-        | SSIZE        => PISCALAR (mode, toScalarInfo STSSIZE)   (* GIR only *)
+        | INT32        => PISCALAR (toScalarInfo STINT32)
+        | UINT32       => PISCALAR (toScalarInfo STUINT32)
+        | INT64        => PISCALAR (toScalarInfo STINT64)
+        | UINT64       => PISCALAR (toScalarInfo STUINT64)
+        | FLOAT        => PISCALAR (toScalarInfo STFLOAT)
+        | DOUBLE       => PISCALAR (toScalarInfo STDOUBLE)
+        | SIZE         => PISCALAR (toScalarInfo STSIZE)    (* GIR only *)
+        | SSIZE        => PISCALAR (toScalarInfo STSSIZE)   (* GIR only *)
         | OFFSET       => notSupported "OFFSET"                   (* GIR only *)
         | INTPTR       => notSupported "INTPTR"                   (* GIR only *)
         | UINTPTR      => notSupported "UINTPTR"                  (* GIR only *)
@@ -145,7 +192,7 @@ fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
                 isOpt = isOpt
               }
             in
-              PIUTF8 (mode, utf8Info)
+              PIUTF8 utf8Info
             end
         | UTF8         =>
             let
@@ -160,9 +207,9 @@ fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
                 isOpt = isOpt
               }
             in
-              PIUTF8 (mode, utf8Info)
+              PIUTF8 utf8Info
             end
-        | UNICHAR      => PISCALAR (mode, toScalarInfo STUNICHAR)
+        | UNICHAR      => PISCALAR (toScalarInfo STUNICHAR)
         | INTERFACE    =>
             let
               val interfaceInfo = getInterface typeInfo
@@ -235,7 +282,7 @@ fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
                       isOpt    = isOpt
                     }
                   in
-                    PIINTERFACE (mode, interfaceInfo)
+                    PIINTERFACE interfaceInfo
                   end
             end
       end
@@ -273,35 +320,16 @@ fun makePropertySpec
 
     val isGObject = containerNamespace = "GObject"
 
+    val paramOps = getParamOps propertyInfo
     val paramInfo = getParamInfo repo containerIRef propertyInfo
-
 
     val tyVarIdx'0 = 0
     val (containerTy, tyVarIdx'1) =
       makeIRefLocalTypeRef (makeRefVarTy false) (containerIRef, tyVarIdx'0)
 
-    fun mkTy mode isOpt (tyRef, tyVarIdx) =
-      let
-        val aux = foldmapl (mkParamTy isOpt)
-        val ((tys, tyVarIdx'), mId) =
-          case mode of
-            READONLY  => (aux ([(true, tyRef)], tyVarIdx), "readonly")
-          | WRITEONLY => (aux ([(false, tyRef)], tyVarIdx), "writeonly")
-          | READWRITE => (
-              aux ([(true, tyRef), (false, tyRef)], tyVarIdx),
-              "readwrite"
-            )
-        val lid =
-          if isGObject
-          then toList1 [concat [propertyId, "_", mId]]
-          else toList1 [toUCC propertyId, mId]
-      in
-        (TyRef (containerTy :: tys, lid), tyVarIdx')
-      end
-
-    val ((propertyTy, _), iRefs'1) =
+    val (tyRef, isOpt, iRefs'1) =
       case paramInfo of
-        PIGTYPE (mode, {iRef})                 =>
+        PIGTYPE {iRef}                 =>
           let
             val {scope, ...} = iRef
             val iRefs' =
@@ -315,13 +343,11 @@ fun makePropertySpec
               makeInterfaceRefTyLongId iRef
             )
           in
-            (mkTy mode false (gtypeTyRef, tyVarIdx'1), iRefs')
+            (gtypeTyRef, false, iRefs')
           end
-      | PISCALAR (mode, {ty})                  =>
-          (mkTy mode false (scalarTyRef ty, tyVarIdx'1), iRefs)
-      | PIUTF8 (mode, {isOpt})                 =>
-          (mkTy mode isOpt (utf8TyRef, tyVarIdx'1), iRefs)
-      | PIINTERFACE (mode, {iRef, isOpt, ...}) =>
+      | PISCALAR {ty}                  => (scalarTyRef ty, false, iRefs)
+      | PIUTF8 {isOpt}                 => (utf8TyRef, isOpt, iRefs)
+      | PIINTERFACE {iRef, isOpt, ...} =>
           let
             val {scope, ...} = iRef
             val iRefs' =
@@ -335,8 +361,19 @@ fun makePropertySpec
               makeInterfaceRefTyLongId iRef
             )
           in
-            (mkTy mode isOpt (interfaceTyRef, tyVarIdx'1), iRefs')
+            (interfaceTyRef, isOpt, iRefs')
           end
+
+    val (paramReadTy, tyVarIdx'2) = mkParamTy isOpt ((true, tyRef), tyVarIdx'1)
+    val (paramWriteTy, _) = mkParamTy isOpt ((false, tyRef), tyVarIdx'2)
+
+    val labels = map paramOpName paramOps
+    val tys =
+      map (mkParamOpTy (containerTy, paramReadTy, paramWriteTy) isGObject)
+        paramOps
+    val fields = ListPair.zipEq (labels, tys)
+
+    val propertyTy = TyRec fields
   in
     (mkValSpec (propertyNameId, propertyTy), (iRefs'1, excls))
   end
@@ -355,11 +392,12 @@ fun makePropertyStrDec
     val propertyName = getName propertyInfo
     val propertyNameId = mkPropertyNameId propertyName
 
+    val paramOps = getParamOps propertyInfo
     val paramInfo = getParamInfo repo containerIRef propertyInfo
 
-    val (mode, accExp, iRefs'1) =
+    val (accExp, iRefs'1) =
       case paramInfo of
-        PIGTYPE (mode, {iRef})                 =>
+        PIGTYPE {iRef}                 =>
           let
             val {scope, ...} = iRef
             val iRefs' =
@@ -371,18 +409,18 @@ fun makePropertyStrDec
             val accId = tId
             val accExp = mkLIdLNameExp (prefixInterfaceStrId iRef [accId])
           in
-            (mode, accExp, iRefs')
+            (accExp, iRefs')
           end
-      | PISCALAR (mode, {ty})                  =>
-          (mode, mkIdLNameExp (scalarAccessorId ty), iRefs)
-      | PIUTF8 (mode, {isOpt})                 =>
+      | PISCALAR {ty}                  =>
+          (mkIdLNameExp (scalarAccessorId ty), iRefs)
+      | PIUTF8 {isOpt}                 =>
           let
             val accId = if isOpt then "stringOpt" else "string"
             val accExp = mkIdLNameExp accId
           in
-            (mode, accExp, iRefs)
+            (accExp, iRefs)
           end
-      | PIINTERFACE (mode, {iRef, isOpt, ...}) =>
+      | PIINTERFACE {iRef, isOpt, ...} =>
           let
             val {scope, ...} = iRef
             val iRefs' =
@@ -394,13 +432,13 @@ fun makePropertyStrDec
             val accId = if isOpt then tOptId else tId
             val accExp = mkLIdLNameExp (prefixInterfaceStrId iRef [accId])
           in
-            (mode, accExp, iRefs')
+            (accExp, iRefs')
           end
 
     (*
      *   <id> = fn x => <id> "<property-name>" <accExp> x
      *)
-    fun mkField propertyName accExp id =
+    fun mkField id =
       let
         val xId : id = "x"
         val propertyNameExp = ExpConst (ConstString propertyName)
@@ -417,13 +455,7 @@ fun makePropertyStrDec
         (id : label, ExpFn (toList1 [(pat, exp)]))
       end
 
-    val propertyExp =
-      ExpRec (
-        case mode of
-          READONLY  => map (mkField propertyName accExp) [getId]
-        | WRITEONLY => map (mkField propertyName accExp) [setId]
-        | READWRITE => map (mkField propertyName accExp) [getId, setId]
-      )
+    val propertyExp = ExpRec (map (mkField o paramOpName) paramOps)
   in
     (
       StrDecDec (mkIdValDec (propertyNameId, propertyExp)),

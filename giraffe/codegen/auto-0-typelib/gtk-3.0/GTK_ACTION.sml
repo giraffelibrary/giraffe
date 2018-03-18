@@ -100,20 +100,144 @@ signature GTK_ACTION =
        -> unit
     val unblockActivate : 'a class -> unit
     val activateSig : (unit -> unit) -> 'a class Signal.t
-    val actionGroupProp : ('a class, base action_group_class option, 'b action_group_class option) Property.readwrite
-    val alwaysShowImageProp : ('a class, bool, bool) Property.readwrite
-    val giconProp : ('a class, base Gio.IconClass.class option, 'b Gio.IconClass.class option) Property.readwrite
-    val hideIfEmptyProp : ('a class, bool, bool) Property.readwrite
-    val iconNameProp : ('a class, string option, string option) Property.readwrite
-    val isImportantProp : ('a class, bool, bool) Property.readwrite
-    val labelProp : ('a class, string option, string option) Property.readwrite
-    val nameProp : ('a class, string option, string option) Property.readwrite
-    val sensitiveProp : ('a class, bool, bool) Property.readwrite
-    val shortLabelProp : ('a class, string option, string option) Property.readwrite
-    val stockIdProp : ('a class, string option, string option) Property.readwrite
-    val tooltipProp : ('a class, string option, string option) Property.readwrite
-    val visibleProp : ('a class, bool, bool) Property.readwrite
-    val visibleHorizontalProp : ('a class, bool, bool) Property.readwrite
-    val visibleOverflownProp : ('a class, bool, bool) Property.readwrite
-    val visibleVerticalProp : ('a class, bool, bool) Property.readwrite
+    val actionGroupProp :
+      {
+        get : 'a class -> base action_group_class option,
+        set :
+          'b action_group_class option
+           -> 'a class
+           -> unit,
+        new : 'b action_group_class option -> 'a class Property.t
+      }
+    val alwaysShowImageProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val giconProp :
+      {
+        get : 'a class -> base Gio.IconClass.class option,
+        set :
+          'b Gio.IconClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gio.IconClass.class option -> 'a class Property.t
+      }
+    val hideIfEmptyProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val iconNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val isImportantProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val labelProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val nameProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
+    val sensitiveProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val shortLabelProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val stockIdProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val tooltipProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val visibleProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val visibleHorizontalProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val visibleOverflownProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val visibleVerticalProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

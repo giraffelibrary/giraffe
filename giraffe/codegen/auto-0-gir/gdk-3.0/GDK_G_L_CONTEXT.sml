@@ -34,7 +34,19 @@ signature GDK_G_L_CONTEXT =
       'a class
        -> LargeInt.int
        -> unit
-    val displayProp : ('a class, base display_class option, 'b display_class option) Property.readwrite
-    val sharedContextProp : ('a class, base class option, 'b class option) Property.readwrite
-    val windowProp : ('a class, base window_class option, 'b window_class option) Property.readwrite
+    val displayProp :
+      {
+        get : 'a class -> base display_class option,
+        new : 'b display_class option -> 'a class Property.t
+      }
+    val sharedContextProp :
+      {
+        get : 'a class -> base class option,
+        new : 'b class option -> 'a class Property.t
+      }
+    val windowProp :
+      {
+        get : 'a class -> base window_class option,
+        new : 'b window_class option -> 'a class Property.t
+      }
   end

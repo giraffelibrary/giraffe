@@ -64,5 +64,9 @@ signature GTK_THEMING_ENGINE =
       'a class
        -> state_type_t
        -> real option
-    val nameProp : ('a class, string option, string option) Property.readwrite
+    val nameProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
   end

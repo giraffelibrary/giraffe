@@ -60,6 +60,10 @@ structure GtkRadioMenuItem :>
     local
       open Property
     in
-      val groupProp = {set = fn x => set "group" GtkRadioMenuItemClass.tOpt x}
+      val groupProp =
+        {
+          set = fn x => set "group" GtkRadioMenuItemClass.tOpt x,
+          new = fn x => new "group" GtkRadioMenuItemClass.tOpt x
+        }
     end
   end

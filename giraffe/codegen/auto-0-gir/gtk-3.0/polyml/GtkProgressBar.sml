@@ -51,32 +51,38 @@ structure GtkProgressBar :>
       val ellipsizeProp =
         {
           get = fn x => get "ellipsize" PangoEllipsizeMode.t x,
-          set = fn x => set "ellipsize" PangoEllipsizeMode.t x
+          set = fn x => set "ellipsize" PangoEllipsizeMode.t x,
+          new = fn x => new "ellipsize" PangoEllipsizeMode.t x
         }
       val fractionProp =
         {
           get = fn x => get "fraction" double x,
-          set = fn x => set "fraction" double x
+          set = fn x => set "fraction" double x,
+          new = fn x => new "fraction" double x
         }
       val invertedProp =
         {
           get = fn x => get "inverted" boolean x,
-          set = fn x => set "inverted" boolean x
+          set = fn x => set "inverted" boolean x,
+          new = fn x => new "inverted" boolean x
         }
       val pulseStepProp =
         {
           get = fn x => get "pulse-step" double x,
-          set = fn x => set "pulse-step" double x
+          set = fn x => set "pulse-step" double x,
+          new = fn x => new "pulse-step" double x
         }
       val showTextProp =
         {
           get = fn x => get "show-text" boolean x,
-          set = fn x => set "show-text" boolean x
+          set = fn x => set "show-text" boolean x,
+          new = fn x => new "show-text" boolean x
         }
       val textProp =
         {
           get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x
+          set = fn x => set "text" stringOpt x,
+          new = fn x => new "text" stringOpt x
         }
     end
   end

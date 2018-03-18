@@ -220,7 +220,7 @@ structure GtkAssistant :>
       val useHeaderBarProp =
         {
           get = fn x => get "use-header-bar" int x,
-          set = fn x => set "use-header-bar" int x
+          new = fn x => new "use-header-bar" int x
         }
     end
   end

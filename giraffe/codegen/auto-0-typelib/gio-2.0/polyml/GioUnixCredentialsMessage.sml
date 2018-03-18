@@ -26,7 +26,7 @@ structure GioUnixCredentialsMessage :>
       val credentialsProp =
         {
           get = fn x => get "credentials" GioCredentialsClass.tOpt x,
-          set = fn x => set "credentials" GioCredentialsClass.tOpt x
+          new = fn x => new "credentials" GioCredentialsClass.tOpt x
         }
     end
   end

@@ -46,10 +46,58 @@ signature GTK_MENU_BUTTON =
       'a class
        -> bool
        -> unit
-    val alignWidgetProp : ('a class, base container_class option, 'b container_class option) Property.readwrite
-    val directionProp : ('a class, arrow_type_t, arrow_type_t) Property.readwrite
-    val menuModelProp : ('a class, base Gio.MenuModelClass.class option, 'b Gio.MenuModelClass.class option) Property.readwrite
-    val popoverProp : ('a class, base popover_class option, 'b popover_class option) Property.readwrite
-    val popupProp : ('a class, base menu_class option, 'b menu_class option) Property.readwrite
-    val usePopoverProp : ('a class, bool, bool) Property.readwrite
+    val alignWidgetProp :
+      {
+        get : 'a class -> base container_class option,
+        set :
+          'b container_class option
+           -> 'a class
+           -> unit,
+        new : 'b container_class option -> 'a class Property.t
+      }
+    val directionProp :
+      {
+        get : 'a class -> arrow_type_t,
+        set :
+          arrow_type_t
+           -> 'a class
+           -> unit,
+        new : arrow_type_t -> 'a class Property.t
+      }
+    val menuModelProp :
+      {
+        get : 'a class -> base Gio.MenuModelClass.class option,
+        set :
+          'b Gio.MenuModelClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gio.MenuModelClass.class option -> 'a class Property.t
+      }
+    val popoverProp :
+      {
+        get : 'a class -> base popover_class option,
+        set :
+          'b popover_class option
+           -> 'a class
+           -> unit,
+        new : 'b popover_class option -> 'a class Property.t
+      }
+    val popupProp :
+      {
+        get : 'a class -> base menu_class option,
+        set :
+          'b menu_class option
+           -> 'a class
+           -> unit,
+        new : 'b menu_class option -> 'a class Property.t
+      }
+    val usePopoverProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

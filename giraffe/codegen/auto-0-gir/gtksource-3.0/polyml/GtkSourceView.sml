@@ -188,73 +188,87 @@ structure GtkSourceView :>
       val autoIndentProp =
         {
           get = fn x => get "auto-indent" boolean x,
-          set = fn x => set "auto-indent" boolean x
+          set = fn x => set "auto-indent" boolean x,
+          new = fn x => new "auto-indent" boolean x
         }
       val backgroundPatternProp =
         {
           get = fn x => get "background-pattern" GtkSourceBackgroundPatternType.t x,
-          set = fn x => set "background-pattern" GtkSourceBackgroundPatternType.t x
+          set = fn x => set "background-pattern" GtkSourceBackgroundPatternType.t x,
+          new = fn x => new "background-pattern" GtkSourceBackgroundPatternType.t x
         }
       val completionProp = {get = fn x => get "completion" GtkSourceCompletionClass.tOpt x}
       val drawSpacesProp =
         {
           get = fn x => get "draw-spaces" GtkSourceDrawSpacesFlags.t x,
-          set = fn x => set "draw-spaces" GtkSourceDrawSpacesFlags.t x
+          set = fn x => set "draw-spaces" GtkSourceDrawSpacesFlags.t x,
+          new = fn x => new "draw-spaces" GtkSourceDrawSpacesFlags.t x
         }
       val highlightCurrentLineProp =
         {
           get = fn x => get "highlight-current-line" boolean x,
-          set = fn x => set "highlight-current-line" boolean x
+          set = fn x => set "highlight-current-line" boolean x,
+          new = fn x => new "highlight-current-line" boolean x
         }
       val indentOnTabProp =
         {
           get = fn x => get "indent-on-tab" boolean x,
-          set = fn x => set "indent-on-tab" boolean x
+          set = fn x => set "indent-on-tab" boolean x,
+          new = fn x => new "indent-on-tab" boolean x
         }
       val indentWidthProp =
         {
           get = fn x => get "indent-width" int x,
-          set = fn x => set "indent-width" int x
+          set = fn x => set "indent-width" int x,
+          new = fn x => new "indent-width" int x
         }
       val insertSpacesInsteadOfTabsProp =
         {
           get = fn x => get "insert-spaces-instead-of-tabs" boolean x,
-          set = fn x => set "insert-spaces-instead-of-tabs" boolean x
+          set = fn x => set "insert-spaces-instead-of-tabs" boolean x,
+          new = fn x => new "insert-spaces-instead-of-tabs" boolean x
         }
       val rightMarginPositionProp =
         {
           get = fn x => get "right-margin-position" uint x,
-          set = fn x => set "right-margin-position" uint x
+          set = fn x => set "right-margin-position" uint x,
+          new = fn x => new "right-margin-position" uint x
         }
       val showLineMarksProp =
         {
           get = fn x => get "show-line-marks" boolean x,
-          set = fn x => set "show-line-marks" boolean x
+          set = fn x => set "show-line-marks" boolean x,
+          new = fn x => new "show-line-marks" boolean x
         }
       val showLineNumbersProp =
         {
           get = fn x => get "show-line-numbers" boolean x,
-          set = fn x => set "show-line-numbers" boolean x
+          set = fn x => set "show-line-numbers" boolean x,
+          new = fn x => new "show-line-numbers" boolean x
         }
       val showRightMarginProp =
         {
           get = fn x => get "show-right-margin" boolean x,
-          set = fn x => set "show-right-margin" boolean x
+          set = fn x => set "show-right-margin" boolean x,
+          new = fn x => new "show-right-margin" boolean x
         }
       val smartBackspaceProp =
         {
           get = fn x => get "smart-backspace" boolean x,
-          set = fn x => set "smart-backspace" boolean x
+          set = fn x => set "smart-backspace" boolean x,
+          new = fn x => new "smart-backspace" boolean x
         }
       val smartHomeEndProp =
         {
           get = fn x => get "smart-home-end" GtkSourceSmartHomeEndType.t x,
-          set = fn x => set "smart-home-end" GtkSourceSmartHomeEndType.t x
+          set = fn x => set "smart-home-end" GtkSourceSmartHomeEndType.t x,
+          new = fn x => new "smart-home-end" GtkSourceSmartHomeEndType.t x
         }
       val tabWidthProp =
         {
           get = fn x => get "tab-width" uint x,
-          set = fn x => set "tab-width" uint x
+          set = fn x => set "tab-width" uint x,
+          new = fn x => new "tab-width" uint x
         }
     end
   end

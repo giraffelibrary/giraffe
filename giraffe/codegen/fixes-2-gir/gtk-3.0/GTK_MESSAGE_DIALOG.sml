@@ -27,12 +27,60 @@ signature GTK_MESSAGE_DIALOG =
       'a class
        -> string
        -> unit
-    val buttonsProp : ('a class, buttons_type_t) Property.writeonly
-    val imageProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
-    val messageAreaProp : ('a class, base widget_class option) Property.readonly
-    val messageTypeProp : ('a class, message_type_t, message_type_t) Property.readwrite
-    val secondaryTextProp : ('a class, string option, string option) Property.readwrite
-    val secondaryUseMarkupProp : ('a class, bool, bool) Property.readwrite
-    val textProp : ('a class, string option, string option) Property.readwrite
-    val useMarkupProp : ('a class, bool, bool) Property.readwrite
+    val buttonsProp : {new : buttons_type_t -> 'a class Property.t}
+    val imageProp :
+      {
+        get : 'a class -> base widget_class option,
+        set :
+          'b widget_class option
+           -> 'a class
+           -> unit,
+        new : 'b widget_class option -> 'a class Property.t
+      }
+    val messageAreaProp : {get : 'a class -> base widget_class option}
+    val messageTypeProp :
+      {
+        get : 'a class -> message_type_t,
+        set :
+          message_type_t
+           -> 'a class
+           -> unit,
+        new : message_type_t -> 'a class Property.t
+      }
+    val secondaryTextProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val secondaryUseMarkupProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val textProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val useMarkupProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

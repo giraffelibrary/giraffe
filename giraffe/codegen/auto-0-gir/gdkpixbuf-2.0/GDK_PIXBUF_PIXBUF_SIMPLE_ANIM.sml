@@ -18,5 +18,13 @@ signature GDK_PIXBUF_PIXBUF_SIMPLE_ANIM =
       'a class
        -> bool
        -> unit
-    val loopProp : ('a class, bool, bool) Property.readwrite
+    val loopProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

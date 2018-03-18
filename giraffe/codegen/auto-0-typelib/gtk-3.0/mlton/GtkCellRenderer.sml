@@ -804,77 +804,95 @@ structure GtkCellRenderer :>
     local
       open Property
     in
-      val cellBackgroundProp = {set = fn x => set "cell-background" stringOpt x}
+      val cellBackgroundProp =
+        {
+          set = fn x => set "cell-background" stringOpt x,
+          new = fn x => new "cell-background" stringOpt x
+        }
       val cellBackgroundGdkProp =
         {
           get = fn x => get "cell-background-gdk" GdkColorRecord.tOpt x,
-          set = fn x => set "cell-background-gdk" GdkColorRecord.tOpt x
+          set = fn x => set "cell-background-gdk" GdkColorRecord.tOpt x,
+          new = fn x => new "cell-background-gdk" GdkColorRecord.tOpt x
         }
       val cellBackgroundRgbaProp =
         {
           get = fn x => get "cell-background-rgba" GdkRgbaRecord.tOpt x,
-          set = fn x => set "cell-background-rgba" GdkRgbaRecord.tOpt x
+          set = fn x => set "cell-background-rgba" GdkRgbaRecord.tOpt x,
+          new = fn x => new "cell-background-rgba" GdkRgbaRecord.tOpt x
         }
       val cellBackgroundSetProp =
         {
           get = fn x => get "cell-background-set" boolean x,
-          set = fn x => set "cell-background-set" boolean x
+          set = fn x => set "cell-background-set" boolean x,
+          new = fn x => new "cell-background-set" boolean x
         }
       val editingProp = {get = fn x => get "editing" boolean x}
       val heightProp =
         {
           get = fn x => get "height" int x,
-          set = fn x => set "height" int x
+          set = fn x => set "height" int x,
+          new = fn x => new "height" int x
         }
       val isExpandedProp =
         {
           get = fn x => get "is-expanded" boolean x,
-          set = fn x => set "is-expanded" boolean x
+          set = fn x => set "is-expanded" boolean x,
+          new = fn x => new "is-expanded" boolean x
         }
       val isExpanderProp =
         {
           get = fn x => get "is-expander" boolean x,
-          set = fn x => set "is-expander" boolean x
+          set = fn x => set "is-expander" boolean x,
+          new = fn x => new "is-expander" boolean x
         }
       val modeProp =
         {
           get = fn x => get "mode" GtkCellRendererMode.t x,
-          set = fn x => set "mode" GtkCellRendererMode.t x
+          set = fn x => set "mode" GtkCellRendererMode.t x,
+          new = fn x => new "mode" GtkCellRendererMode.t x
         }
       val sensitiveProp =
         {
           get = fn x => get "sensitive" boolean x,
-          set = fn x => set "sensitive" boolean x
+          set = fn x => set "sensitive" boolean x,
+          new = fn x => new "sensitive" boolean x
         }
       val visibleProp =
         {
           get = fn x => get "visible" boolean x,
-          set = fn x => set "visible" boolean x
+          set = fn x => set "visible" boolean x,
+          new = fn x => new "visible" boolean x
         }
       val widthProp =
         {
           get = fn x => get "width" int x,
-          set = fn x => set "width" int x
+          set = fn x => set "width" int x,
+          new = fn x => new "width" int x
         }
       val xalignProp =
         {
           get = fn x => get "xalign" float x,
-          set = fn x => set "xalign" float x
+          set = fn x => set "xalign" float x,
+          new = fn x => new "xalign" float x
         }
       val xpadProp =
         {
           get = fn x => get "xpad" uint x,
-          set = fn x => set "xpad" uint x
+          set = fn x => set "xpad" uint x,
+          new = fn x => new "xpad" uint x
         }
       val yalignProp =
         {
           get = fn x => get "yalign" float x,
-          set = fn x => set "yalign" float x
+          set = fn x => set "yalign" float x,
+          new = fn x => new "yalign" float x
         }
       val ypadProp =
         {
           get = fn x => get "ypad" uint x,
-          set = fn x => set "ypad" uint x
+          set = fn x => set "ypad" uint x,
+          new = fn x => new "ypad" uint x
         }
     end
   end

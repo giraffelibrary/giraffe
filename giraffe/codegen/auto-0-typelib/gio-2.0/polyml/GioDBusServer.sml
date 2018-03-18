@@ -82,23 +82,23 @@ structure GioDBusServer :>
       val addressProp =
         {
           get = fn x => get "address" stringOpt x,
-          set = fn x => set "address" stringOpt x
+          new = fn x => new "address" stringOpt x
         }
       val authenticationObserverProp =
         {
           get = fn x => get "authentication-observer" GioDBusAuthObserverClass.tOpt x,
-          set = fn x => set "authentication-observer" GioDBusAuthObserverClass.tOpt x
+          new = fn x => new "authentication-observer" GioDBusAuthObserverClass.tOpt x
         }
       val clientAddressProp = {get = fn x => get "client-address" stringOpt x}
       val flagsProp =
         {
           get = fn x => get "flags" GioDBusServerFlags.t x,
-          set = fn x => set "flags" GioDBusServerFlags.t x
+          new = fn x => new "flags" GioDBusServerFlags.t x
         }
       val guidProp =
         {
           get = fn x => get "guid" stringOpt x,
-          set = fn x => set "guid" stringOpt x
+          new = fn x => new "guid" stringOpt x
         }
     end
   end

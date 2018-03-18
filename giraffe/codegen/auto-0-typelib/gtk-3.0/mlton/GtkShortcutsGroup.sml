@@ -18,18 +18,28 @@ structure GtkShortcutsGroup :>
     local
       open Property
     in
-      val accelSizeGroupProp = {set = fn x => set "accel-size-group" GtkSizeGroupClass.tOpt x}
+      val accelSizeGroupProp =
+        {
+          set = fn x => set "accel-size-group" GtkSizeGroupClass.tOpt x,
+          new = fn x => new "accel-size-group" GtkSizeGroupClass.tOpt x
+        }
       val heightProp = {get = fn x => get "height" uint x}
       val titleProp =
         {
           get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x
+          set = fn x => set "title" stringOpt x,
+          new = fn x => new "title" stringOpt x
         }
-      val titleSizeGroupProp = {set = fn x => set "title-size-group" GtkSizeGroupClass.tOpt x}
+      val titleSizeGroupProp =
+        {
+          set = fn x => set "title-size-group" GtkSizeGroupClass.tOpt x,
+          new = fn x => new "title-size-group" GtkSizeGroupClass.tOpt x
+        }
       val viewProp =
         {
           get = fn x => get "view" stringOpt x,
-          set = fn x => set "view" stringOpt x
+          set = fn x => set "view" stringOpt x,
+          new = fn x => new "view" stringOpt x
         }
     end
   end

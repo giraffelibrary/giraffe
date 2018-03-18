@@ -13,6 +13,22 @@ signature GTK_ARROW =
       'a class
        -> arrow_type_t * shadow_type_t
        -> unit
-    val arrowTypeProp : ('a class, arrow_type_t, arrow_type_t) Property.readwrite
-    val shadowTypeProp : ('a class, shadow_type_t, shadow_type_t) Property.readwrite
+    val arrowTypeProp :
+      {
+        get : 'a class -> arrow_type_t,
+        set :
+          arrow_type_t
+           -> 'a class
+           -> unit,
+        new : arrow_type_t -> 'a class Property.t
+      }
+    val shadowTypeProp :
+      {
+        get : 'a class -> shadow_type_t,
+        set :
+          shadow_type_t
+           -> 'a class
+           -> unit,
+        new : shadow_type_t -> 'a class Property.t
+      }
   end

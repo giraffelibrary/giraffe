@@ -20,12 +20,13 @@ structure GioFilterInputStream :>
       val baseStreamProp =
         {
           get = fn x => get "base-stream" GioInputStreamClass.tOpt x,
-          set = fn x => set "base-stream" GioInputStreamClass.tOpt x
+          new = fn x => new "base-stream" GioInputStreamClass.tOpt x
         }
       val closeBaseStreamProp =
         {
           get = fn x => get "close-base-stream" boolean x,
-          set = fn x => set "close-base-stream" boolean x
+          set = fn x => set "close-base-stream" boolean x,
+          new = fn x => new "close-base-stream" boolean x
         }
     end
   end

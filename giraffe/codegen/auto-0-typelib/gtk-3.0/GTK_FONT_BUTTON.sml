@@ -45,10 +45,58 @@ signature GTK_FONT_BUTTON =
        -> bool
        -> unit
     val fontSetSig : (unit -> unit) -> 'a class Signal.t
-    val fontNameProp : ('a class, string option, string option) Property.readwrite
-    val showSizeProp : ('a class, bool, bool) Property.readwrite
-    val showStyleProp : ('a class, bool, bool) Property.readwrite
-    val titleProp : ('a class, string option, string option) Property.readwrite
-    val useFontProp : ('a class, bool, bool) Property.readwrite
-    val useSizeProp : ('a class, bool, bool) Property.readwrite
+    val fontNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val showSizeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showStyleProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val titleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val useFontProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val useSizeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

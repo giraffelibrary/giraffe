@@ -190,32 +190,38 @@ structure GtkAdjustment :>
       val lowerProp =
         {
           get = fn x => get "lower" double x,
-          set = fn x => set "lower" double x
+          set = fn x => set "lower" double x,
+          new = fn x => new "lower" double x
         }
       val pageIncrementProp =
         {
           get = fn x => get "page-increment" double x,
-          set = fn x => set "page-increment" double x
+          set = fn x => set "page-increment" double x,
+          new = fn x => new "page-increment" double x
         }
       val pageSizeProp =
         {
           get = fn x => get "page-size" double x,
-          set = fn x => set "page-size" double x
+          set = fn x => set "page-size" double x,
+          new = fn x => new "page-size" double x
         }
       val stepIncrementProp =
         {
           get = fn x => get "step-increment" double x,
-          set = fn x => set "step-increment" double x
+          set = fn x => set "step-increment" double x,
+          new = fn x => new "step-increment" double x
         }
       val upperProp =
         {
           get = fn x => get "upper" double x,
-          set = fn x => set "upper" double x
+          set = fn x => set "upper" double x,
+          new = fn x => new "upper" double x
         }
       val valueProp =
         {
           get = fn x => get "value" double x,
-          set = fn x => set "value" double x
+          set = fn x => set "value" double x,
+          new = fn x => new "value" double x
         }
     end
   end

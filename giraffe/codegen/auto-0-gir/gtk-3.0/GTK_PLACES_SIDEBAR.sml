@@ -85,14 +85,94 @@ signature GTK_PLACES_SIDEBAR =
     val showOtherLocationsSig : (unit -> unit) -> 'a class Signal.t
     val showOtherLocationsWithFlagsSig : (places_open_flags_t -> unit) -> 'a class Signal.t
     val unmountSig : (base Gio.MountOperationClass.class -> unit) -> 'a class Signal.t
-    val localOnlyProp : ('a class, bool, bool) Property.readwrite
-    val locationProp : ('a class, base Gio.FileClass.class option, 'b Gio.FileClass.class option) Property.readwrite
-    val openFlagsProp : ('a class, places_open_flags_t, places_open_flags_t) Property.readwrite
-    val populateAllProp : ('a class, bool, bool) Property.readwrite
-    val showConnectToServerProp : ('a class, bool, bool) Property.readwrite
-    val showDesktopProp : ('a class, bool, bool) Property.readwrite
-    val showEnterLocationProp : ('a class, bool, bool) Property.readwrite
-    val showOtherLocationsProp : ('a class, bool, bool) Property.readwrite
-    val showRecentProp : ('a class, bool, bool) Property.readwrite
-    val showTrashProp : ('a class, bool, bool) Property.readwrite
+    val localOnlyProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val locationProp :
+      {
+        get : 'a class -> base Gio.FileClass.class option,
+        set :
+          'b Gio.FileClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gio.FileClass.class option -> 'a class Property.t
+      }
+    val openFlagsProp :
+      {
+        get : 'a class -> places_open_flags_t,
+        set :
+          places_open_flags_t
+           -> 'a class
+           -> unit,
+        new : places_open_flags_t -> 'a class Property.t
+      }
+    val populateAllProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showConnectToServerProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showDesktopProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showEnterLocationProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showOtherLocationsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showRecentProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showTrashProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

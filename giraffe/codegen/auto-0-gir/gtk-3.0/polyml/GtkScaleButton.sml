@@ -100,17 +100,20 @@ structure GtkScaleButton :>
       val adjustmentProp =
         {
           get = fn x => get "adjustment" GtkAdjustmentClass.tOpt x,
-          set = fn x => set "adjustment" GtkAdjustmentClass.tOpt x
+          set = fn x => set "adjustment" GtkAdjustmentClass.tOpt x,
+          new = fn x => new "adjustment" GtkAdjustmentClass.tOpt x
         }
       val sizeProp =
         {
           get = fn x => get "size" GtkIconSize.t x,
-          set = fn x => set "size" GtkIconSize.t x
+          set = fn x => set "size" GtkIconSize.t x,
+          new = fn x => new "size" GtkIconSize.t x
         }
       val valueProp =
         {
           get = fn x => get "value" double x,
-          set = fn x => set "value" double x
+          set = fn x => set "value" double x,
+          new = fn x => new "value" double x
         }
     end
   end

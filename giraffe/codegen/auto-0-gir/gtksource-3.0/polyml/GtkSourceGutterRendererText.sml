@@ -126,12 +126,14 @@ structure GtkSourceGutterRendererText :>
       val markupProp =
         {
           get = fn x => get "markup" stringOpt x,
-          set = fn x => set "markup" stringOpt x
+          set = fn x => set "markup" stringOpt x,
+          new = fn x => new "markup" stringOpt x
         }
       val textProp =
         {
           get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x
+          set = fn x => set "text" stringOpt x,
+          new = fn x => new "text" stringOpt x
         }
     end
   end

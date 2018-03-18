@@ -120,27 +120,32 @@ structure GtkToolItemGroup :>
       val collapsedProp =
         {
           get = fn x => get "collapsed" boolean x,
-          set = fn x => set "collapsed" boolean x
+          set = fn x => set "collapsed" boolean x,
+          new = fn x => new "collapsed" boolean x
         }
       val ellipsizeProp =
         {
           get = fn x => get "ellipsize" PangoEllipsizeMode.t x,
-          set = fn x => set "ellipsize" PangoEllipsizeMode.t x
+          set = fn x => set "ellipsize" PangoEllipsizeMode.t x,
+          new = fn x => new "ellipsize" PangoEllipsizeMode.t x
         }
       val headerReliefProp =
         {
           get = fn x => get "header-relief" GtkReliefStyle.t x,
-          set = fn x => set "header-relief" GtkReliefStyle.t x
+          set = fn x => set "header-relief" GtkReliefStyle.t x,
+          new = fn x => new "header-relief" GtkReliefStyle.t x
         }
       val labelProp =
         {
           get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x
+          set = fn x => set "label" stringOpt x,
+          new = fn x => new "label" stringOpt x
         }
       val labelWidgetProp =
         {
           get = fn x => get "label-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "label-widget" GtkWidgetClass.tOpt x
+          set = fn x => set "label-widget" GtkWidgetClass.tOpt x,
+          new = fn x => new "label-widget" GtkWidgetClass.tOpt x
         }
     end
   end

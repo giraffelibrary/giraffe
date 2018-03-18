@@ -75,13 +75,85 @@ signature GTK_BUTTON =
     val leaveSig : (unit -> unit) -> 'a class Signal.t
     val pressedSig : (unit -> unit) -> 'a class Signal.t
     val releasedSig : (unit -> unit) -> 'a class Signal.t
-    val alwaysShowImageProp : ('a class, bool, bool) Property.readwrite
-    val imageProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
-    val imagePositionProp : ('a class, position_type_t, position_type_t) Property.readwrite
-    val labelProp : ('a class, string option, string option) Property.readwrite
-    val reliefProp : ('a class, relief_style_t, relief_style_t) Property.readwrite
-    val useStockProp : ('a class, bool, bool) Property.readwrite
-    val useUnderlineProp : ('a class, bool, bool) Property.readwrite
-    val xalignProp : ('a class, real, real) Property.readwrite
-    val yalignProp : ('a class, real, real) Property.readwrite
+    val alwaysShowImageProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val imageProp :
+      {
+        get : 'a class -> base widget_class option,
+        set :
+          'b widget_class option
+           -> 'a class
+           -> unit,
+        new : 'b widget_class option -> 'a class Property.t
+      }
+    val imagePositionProp :
+      {
+        get : 'a class -> position_type_t,
+        set :
+          position_type_t
+           -> 'a class
+           -> unit,
+        new : position_type_t -> 'a class Property.t
+      }
+    val labelProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val reliefProp :
+      {
+        get : 'a class -> relief_style_t,
+        set :
+          relief_style_t
+           -> 'a class
+           -> unit,
+        new : relief_style_t -> 'a class Property.t
+      }
+    val useStockProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val useUnderlineProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val xalignProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val yalignProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
   end

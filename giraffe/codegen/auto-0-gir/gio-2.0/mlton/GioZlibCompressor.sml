@@ -25,17 +25,18 @@ structure GioZlibCompressor :>
       val fileInfoProp =
         {
           get = fn x => get "file-info" GioFileInfoClass.tOpt x,
-          set = fn x => set "file-info" GioFileInfoClass.tOpt x
+          set = fn x => set "file-info" GioFileInfoClass.tOpt x,
+          new = fn x => new "file-info" GioFileInfoClass.tOpt x
         }
       val formatProp =
         {
           get = fn x => get "format" GioZlibCompressorFormat.t x,
-          set = fn x => set "format" GioZlibCompressorFormat.t x
+          new = fn x => new "format" GioZlibCompressorFormat.t x
         }
       val levelProp =
         {
           get = fn x => get "level" int x,
-          set = fn x => set "level" int x
+          new = fn x => new "level" int x
         }
     end
   end

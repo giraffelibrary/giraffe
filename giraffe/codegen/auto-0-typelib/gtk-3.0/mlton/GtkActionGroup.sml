@@ -129,22 +129,25 @@ structure GtkActionGroup :>
       val accelGroupProp =
         {
           get = fn x => get "accel-group" GtkAccelGroupClass.tOpt x,
-          set = fn x => set "accel-group" GtkAccelGroupClass.tOpt x
+          set = fn x => set "accel-group" GtkAccelGroupClass.tOpt x,
+          new = fn x => new "accel-group" GtkAccelGroupClass.tOpt x
         }
       val nameProp =
         {
           get = fn x => get "name" stringOpt x,
-          set = fn x => set "name" stringOpt x
+          new = fn x => new "name" stringOpt x
         }
       val sensitiveProp =
         {
           get = fn x => get "sensitive" boolean x,
-          set = fn x => set "sensitive" boolean x
+          set = fn x => set "sensitive" boolean x,
+          new = fn x => new "sensitive" boolean x
         }
       val visibleProp =
         {
           get = fn x => get "visible" boolean x,
-          set = fn x => set "visible" boolean x
+          set = fn x => set "visible" boolean x,
+          new = fn x => new "visible" boolean x
         }
     end
   end

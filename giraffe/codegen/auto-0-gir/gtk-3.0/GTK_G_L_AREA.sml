@@ -44,10 +44,50 @@ signature GTK_G_L_AREA =
     val createContextSig : (unit -> 'a Gdk.GLContextClass.class) -> 'b class Signal.t
     val renderSig : (base Gdk.GLContextClass.class -> bool) -> 'a class Signal.t
     val resizeSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.t
-    val autoRenderProp : ('a class, bool, bool) Property.readwrite
-    val contextProp : ('a class, base Gdk.GLContextClass.class option) Property.readonly
-    val hasAlphaProp : ('a class, bool, bool) Property.readwrite
-    val hasDepthBufferProp : ('a class, bool, bool) Property.readwrite
-    val hasStencilBufferProp : ('a class, bool, bool) Property.readwrite
-    val useEsProp : ('a class, bool, bool) Property.readwrite
+    val autoRenderProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val contextProp : {get : 'a class -> base Gdk.GLContextClass.class option}
+    val hasAlphaProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val hasDepthBufferProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val hasStencilBufferProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val useEsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

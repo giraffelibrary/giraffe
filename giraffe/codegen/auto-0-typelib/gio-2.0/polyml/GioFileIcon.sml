@@ -28,7 +28,7 @@ structure GioFileIcon :>
       val fileProp =
         {
           get = fn x => get "file" GioFileClass.tOpt x,
-          set = fn x => set "file" GioFileClass.tOpt x
+          new = fn x => new "file" GioFileClass.tOpt x
         }
     end
   end

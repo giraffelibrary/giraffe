@@ -4,14 +4,94 @@ signature GTK_CELL_RENDERER_PIXBUF =
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val followStateProp : ('a class, bool, bool) Property.readwrite
-    val giconProp : ('a class, base Gio.IconClass.class option, 'b Gio.IconClass.class option) Property.readwrite
-    val iconNameProp : ('a class, string option, string option) Property.readwrite
-    val pixbufProp : ('a class, base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option) Property.readwrite
-    val pixbufExpanderClosedProp : ('a class, base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option) Property.readwrite
-    val pixbufExpanderOpenProp : ('a class, base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option) Property.readwrite
-    val stockDetailProp : ('a class, string option, string option) Property.readwrite
-    val stockIdProp : ('a class, string option, string option) Property.readwrite
-    val stockSizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val surfaceProp : ('a class, Cairo.SurfaceRecord.t option, Cairo.SurfaceRecord.t option) Property.readwrite
+    val followStateProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val giconProp :
+      {
+        get : 'a class -> base Gio.IconClass.class option,
+        set :
+          'b Gio.IconClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gio.IconClass.class option -> 'a class Property.t
+      }
+    val iconNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val pixbufProp :
+      {
+        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
+        set :
+          'b GdkPixbuf.PixbufClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
+      }
+    val pixbufExpanderClosedProp :
+      {
+        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
+        set :
+          'b GdkPixbuf.PixbufClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
+      }
+    val pixbufExpanderOpenProp :
+      {
+        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
+        set :
+          'b GdkPixbuf.PixbufClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
+      }
+    val stockDetailProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val stockIdProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val stockSizeProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val surfaceProp :
+      {
+        get : 'a class -> Cairo.SurfaceRecord.t option,
+        set :
+          Cairo.SurfaceRecord.t option
+           -> 'a class
+           -> unit,
+        new : Cairo.SurfaceRecord.t option -> 'a class Property.t
+      }
   end

@@ -40,7 +40,31 @@ signature GTK_APP_CHOOSER_BUTTON =
        -> bool
        -> unit
     val customItemActivatedSig : (string -> unit) -> 'a class Signal.t
-    val headingProp : ('a class, string option, string option) Property.readwrite
-    val showDefaultItemProp : ('a class, bool, bool) Property.readwrite
-    val showDialogItemProp : ('a class, bool, bool) Property.readwrite
+    val headingProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val showDefaultItemProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showDialogItemProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

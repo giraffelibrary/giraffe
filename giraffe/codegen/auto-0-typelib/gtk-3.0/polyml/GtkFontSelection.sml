@@ -51,12 +51,14 @@ structure GtkFontSelection :>
       val fontNameProp =
         {
           get = fn x => get "font-name" stringOpt x,
-          set = fn x => set "font-name" stringOpt x
+          set = fn x => set "font-name" stringOpt x,
+          new = fn x => new "font-name" stringOpt x
         }
       val previewTextProp =
         {
           get = fn x => get "preview-text" stringOpt x,
-          set = fn x => set "preview-text" stringOpt x
+          set = fn x => set "preview-text" stringOpt x,
+          new = fn x => new "preview-text" stringOpt x
         }
     end
   end

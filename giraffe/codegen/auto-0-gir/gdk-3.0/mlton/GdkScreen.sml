@@ -215,7 +215,8 @@ structure GdkScreen :>
       val resolutionProp =
         {
           get = fn x => get "resolution" double x,
-          set = fn x => set "resolution" double x
+          set = fn x => set "resolution" double x,
+          new = fn x => new "resolution" double x
         }
     end
   end

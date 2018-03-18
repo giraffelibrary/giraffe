@@ -67,17 +67,113 @@ signature GTK_IMAGE =
       'a class
        -> LargeInt.int
        -> unit
-    val fileProp : ('a class, string option, string option) Property.readwrite
-    val giconProp : ('a class, base Gio.IconClass.class option, 'b Gio.IconClass.class option) Property.readwrite
-    val iconNameProp : ('a class, string option, string option) Property.readwrite
-    val iconSetProp : ('a class, icon_set_t option, icon_set_t option) Property.readwrite
-    val iconSizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val pixbufProp : ('a class, base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option) Property.readwrite
-    val pixbufAnimationProp : ('a class, base GdkPixbuf.PixbufAnimationClass.class option, 'b GdkPixbuf.PixbufAnimationClass.class option) Property.readwrite
-    val pixelSizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val resourceProp : ('a class, string option, string option) Property.readwrite
-    val stockProp : ('a class, string option, string option) Property.readwrite
-    val storageTypeProp : ('a class, image_type_t) Property.readonly
-    val surfaceProp : ('a class, Cairo.SurfaceRecord.t option, Cairo.SurfaceRecord.t option) Property.readwrite
-    val useFallbackProp : ('a class, bool, bool) Property.readwrite
+    val fileProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val giconProp :
+      {
+        get : 'a class -> base Gio.IconClass.class option,
+        set :
+          'b Gio.IconClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b Gio.IconClass.class option -> 'a class Property.t
+      }
+    val iconNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val iconSetProp :
+      {
+        get : 'a class -> icon_set_t option,
+        set :
+          icon_set_t option
+           -> 'a class
+           -> unit,
+        new : icon_set_t option -> 'a class Property.t
+      }
+    val iconSizeProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val pixbufProp :
+      {
+        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
+        set :
+          'b GdkPixbuf.PixbufClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
+      }
+    val pixbufAnimationProp :
+      {
+        get : 'a class -> base GdkPixbuf.PixbufAnimationClass.class option,
+        set :
+          'b GdkPixbuf.PixbufAnimationClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b GdkPixbuf.PixbufAnimationClass.class option -> 'a class Property.t
+      }
+    val pixelSizeProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val resourceProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val stockProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val storageTypeProp : {get : 'a class -> image_type_t}
+    val surfaceProp :
+      {
+        get : 'a class -> Cairo.SurfaceRecord.t option,
+        set :
+          Cairo.SurfaceRecord.t option
+           -> 'a class
+           -> unit,
+        new : Cairo.SurfaceRecord.t option -> 'a class Property.t
+      }
+    val useFallbackProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

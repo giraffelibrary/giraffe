@@ -114,16 +114,100 @@ signature GTK_SOURCE_PRINT_COMPOSITOR =
       'a class
        -> Gtk.WrapMode.t
        -> unit
-    val bodyFontNameProp : ('a class, string option, string option) Property.readwrite
-    val bufferProp : ('a class, base buffer_class option, 'b buffer_class option) Property.readwrite
-    val footerFontNameProp : ('a class, string option, string option) Property.readwrite
-    val headerFontNameProp : ('a class, string option, string option) Property.readwrite
-    val highlightSyntaxProp : ('a class, bool, bool) Property.readwrite
-    val lineNumbersFontNameProp : ('a class, string option, string option) Property.readwrite
-    val nPagesProp : ('a class, LargeInt.int) Property.readonly
-    val printFooterProp : ('a class, bool, bool) Property.readwrite
-    val printHeaderProp : ('a class, bool, bool) Property.readwrite
-    val printLineNumbersProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val tabWidthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val wrapModeProp : ('a class, Gtk.WrapMode.t, Gtk.WrapMode.t) Property.readwrite
+    val bodyFontNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val bufferProp :
+      {
+        get : 'a class -> base buffer_class option,
+        new : 'b buffer_class option -> 'a class Property.t
+      }
+    val footerFontNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val headerFontNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val highlightSyntaxProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val lineNumbersFontNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val nPagesProp : {get : 'a class -> LargeInt.int}
+    val printFooterProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val printHeaderProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val printLineNumbersProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val tabWidthProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val wrapModeProp :
+      {
+        get : 'a class -> Gtk.WrapMode.t,
+        set :
+          Gtk.WrapMode.t
+           -> 'a class
+           -> unit,
+        new : Gtk.WrapMode.t -> 'a class Property.t
+      }
   end

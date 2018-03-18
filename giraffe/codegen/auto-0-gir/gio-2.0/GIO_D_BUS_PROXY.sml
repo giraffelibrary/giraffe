@@ -94,13 +94,49 @@ signature GIO_D_BUS_PROXY =
         * GLib.VariantRecord.t
         -> unit)
        -> 'a class Signal.t
-    val gBusTypeProp : ('a class, bus_type_t) Property.writeonly
-    val gConnectionProp : ('a class, base d_bus_connection_class option, 'b d_bus_connection_class option) Property.readwrite
-    val gDefaultTimeoutProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val gFlagsProp : ('a class, d_bus_proxy_flags_t, d_bus_proxy_flags_t) Property.readwrite
-    val gInterfaceInfoProp : ('a class, d_bus_interface_info_t option, d_bus_interface_info_t option) Property.readwrite
-    val gInterfaceNameProp : ('a class, string option, string option) Property.readwrite
-    val gNameProp : ('a class, string option, string option) Property.readwrite
-    val gNameOwnerProp : ('a class, string option) Property.readonly
-    val gObjectPathProp : ('a class, string option, string option) Property.readwrite
+    val gBusTypeProp : {new : bus_type_t -> 'a class Property.t}
+    val gConnectionProp :
+      {
+        get : 'a class -> base d_bus_connection_class option,
+        new : 'b d_bus_connection_class option -> 'a class Property.t
+      }
+    val gDefaultTimeoutProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val gFlagsProp :
+      {
+        get : 'a class -> d_bus_proxy_flags_t,
+        new : d_bus_proxy_flags_t -> 'a class Property.t
+      }
+    val gInterfaceInfoProp :
+      {
+        get : 'a class -> d_bus_interface_info_t option,
+        set :
+          d_bus_interface_info_t option
+           -> 'a class
+           -> unit,
+        new : d_bus_interface_info_t option -> 'a class Property.t
+      }
+    val gInterfaceNameProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
+    val gNameProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
+    val gNameOwnerProp : {get : 'a class -> string option}
+    val gObjectPathProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
   end

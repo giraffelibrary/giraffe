@@ -24,7 +24,7 @@ structure GtkSourceMark :>
       val categoryProp =
         {
           get = fn x => get "category" stringOpt x,
-          set = fn x => set "category" stringOpt x
+          new = fn x => new "category" stringOpt x
         }
     end
   end

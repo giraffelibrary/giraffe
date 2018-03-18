@@ -5,7 +5,31 @@ signature GTK_CELL_RENDERER_SPINNER =
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val activeProp : ('a class, bool, bool) Property.readwrite
-    val pulseProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val sizeProp : ('a class, icon_size_t, icon_size_t) Property.readwrite
+    val activeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val pulseProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val sizeProp :
+      {
+        get : 'a class -> icon_size_t,
+        set :
+          icon_size_t
+           -> 'a class
+           -> unit,
+        new : icon_size_t -> 'a class Property.t
+      }
   end

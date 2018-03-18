@@ -93,7 +93,7 @@ structure GioListStore :>
       val itemTypeProp =
         {
           get = fn x => get "item-type" GObjectType.t x,
-          set = fn x => set "item-type" GObjectType.t x
+          new = fn x => new "item-type" GObjectType.t x
         }
     end
   end

@@ -76,27 +76,32 @@ structure GtkSourceMarkAttributes :>
       val backgroundProp =
         {
           get = fn x => get "background" GdkRgbaRecord.tOpt x,
-          set = fn x => set "background" GdkRgbaRecord.tOpt x
+          set = fn x => set "background" GdkRgbaRecord.tOpt x,
+          new = fn x => new "background" GdkRgbaRecord.tOpt x
         }
       val giconProp =
         {
           get = fn x => get "gicon" GioIconClass.tOpt x,
-          set = fn x => set "gicon" GioIconClass.tOpt x
+          set = fn x => set "gicon" GioIconClass.tOpt x,
+          new = fn x => new "gicon" GioIconClass.tOpt x
         }
       val iconNameProp =
         {
           get = fn x => get "icon-name" stringOpt x,
-          set = fn x => set "icon-name" stringOpt x
+          set = fn x => set "icon-name" stringOpt x,
+          new = fn x => new "icon-name" stringOpt x
         }
       val pixbufProp =
         {
           get = fn x => get "pixbuf" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "pixbuf" GdkPixbufPixbufClass.tOpt x
+          set = fn x => set "pixbuf" GdkPixbufPixbufClass.tOpt x,
+          new = fn x => new "pixbuf" GdkPixbufPixbufClass.tOpt x
         }
       val stockIdProp =
         {
           get = fn x => get "stock-id" stringOpt x,
-          set = fn x => set "stock-id" stringOpt x
+          set = fn x => set "stock-id" stringOpt x,
+          new = fn x => new "stock-id" stringOpt x
         }
     end
   end

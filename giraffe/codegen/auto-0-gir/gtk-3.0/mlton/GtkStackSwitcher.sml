@@ -27,12 +27,14 @@ structure GtkStackSwitcher :>
       val iconSizeProp =
         {
           get = fn x => get "icon-size" int x,
-          set = fn x => set "icon-size" int x
+          set = fn x => set "icon-size" int x,
+          new = fn x => new "icon-size" int x
         }
       val stackProp =
         {
           get = fn x => get "stack" GtkStackClass.tOpt x,
-          set = fn x => set "stack" GtkStackClass.tOpt x
+          set = fn x => set "stack" GtkStackClass.tOpt x,
+          new = fn x => new "stack" GtkStackClass.tOpt x
         }
     end
   end

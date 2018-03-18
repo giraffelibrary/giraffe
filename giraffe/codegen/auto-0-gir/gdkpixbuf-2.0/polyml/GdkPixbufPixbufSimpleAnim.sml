@@ -50,7 +50,8 @@ structure GdkPixbufPixbufSimpleAnim :>
       val loopProp =
         {
           get = fn x => get "loop" boolean x,
-          set = fn x => set "loop" boolean x
+          set = fn x => set "loop" boolean x,
+          new = fn x => new "loop" boolean x
         }
     end
   end

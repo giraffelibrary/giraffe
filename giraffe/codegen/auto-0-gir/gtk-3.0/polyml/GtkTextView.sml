@@ -719,107 +719,128 @@ structure GtkTextView :>
       val acceptsTabProp =
         {
           get = fn x => get "accepts-tab" boolean x,
-          set = fn x => set "accepts-tab" boolean x
+          set = fn x => set "accepts-tab" boolean x,
+          new = fn x => new "accepts-tab" boolean x
         }
       val bottomMarginProp =
         {
           get = fn x => get "bottom-margin" int x,
-          set = fn x => set "bottom-margin" int x
+          set = fn x => set "bottom-margin" int x,
+          new = fn x => new "bottom-margin" int x
         }
       val bufferProp =
         {
           get = fn x => get "buffer" GtkTextBufferClass.tOpt x,
-          set = fn x => set "buffer" GtkTextBufferClass.tOpt x
+          set = fn x => set "buffer" GtkTextBufferClass.tOpt x,
+          new = fn x => new "buffer" GtkTextBufferClass.tOpt x
         }
       val cursorVisibleProp =
         {
           get = fn x => get "cursor-visible" boolean x,
-          set = fn x => set "cursor-visible" boolean x
+          set = fn x => set "cursor-visible" boolean x,
+          new = fn x => new "cursor-visible" boolean x
         }
       val editableProp =
         {
           get = fn x => get "editable" boolean x,
-          set = fn x => set "editable" boolean x
+          set = fn x => set "editable" boolean x,
+          new = fn x => new "editable" boolean x
         }
       val imModuleProp =
         {
           get = fn x => get "im-module" stringOpt x,
-          set = fn x => set "im-module" stringOpt x
+          set = fn x => set "im-module" stringOpt x,
+          new = fn x => new "im-module" stringOpt x
         }
       val indentProp =
         {
           get = fn x => get "indent" int x,
-          set = fn x => set "indent" int x
+          set = fn x => set "indent" int x,
+          new = fn x => new "indent" int x
         }
       val inputHintsProp =
         {
           get = fn x => get "input-hints" GtkInputHints.t x,
-          set = fn x => set "input-hints" GtkInputHints.t x
+          set = fn x => set "input-hints" GtkInputHints.t x,
+          new = fn x => new "input-hints" GtkInputHints.t x
         }
       val inputPurposeProp =
         {
           get = fn x => get "input-purpose" GtkInputPurpose.t x,
-          set = fn x => set "input-purpose" GtkInputPurpose.t x
+          set = fn x => set "input-purpose" GtkInputPurpose.t x,
+          new = fn x => new "input-purpose" GtkInputPurpose.t x
         }
       val justificationProp =
         {
           get = fn x => get "justification" GtkJustification.t x,
-          set = fn x => set "justification" GtkJustification.t x
+          set = fn x => set "justification" GtkJustification.t x,
+          new = fn x => new "justification" GtkJustification.t x
         }
       val leftMarginProp =
         {
           get = fn x => get "left-margin" int x,
-          set = fn x => set "left-margin" int x
+          set = fn x => set "left-margin" int x,
+          new = fn x => new "left-margin" int x
         }
       val monospaceProp =
         {
           get = fn x => get "monospace" boolean x,
-          set = fn x => set "monospace" boolean x
+          set = fn x => set "monospace" boolean x,
+          new = fn x => new "monospace" boolean x
         }
       val overwriteProp =
         {
           get = fn x => get "overwrite" boolean x,
-          set = fn x => set "overwrite" boolean x
+          set = fn x => set "overwrite" boolean x,
+          new = fn x => new "overwrite" boolean x
         }
       val pixelsAboveLinesProp =
         {
           get = fn x => get "pixels-above-lines" int x,
-          set = fn x => set "pixels-above-lines" int x
+          set = fn x => set "pixels-above-lines" int x,
+          new = fn x => new "pixels-above-lines" int x
         }
       val pixelsBelowLinesProp =
         {
           get = fn x => get "pixels-below-lines" int x,
-          set = fn x => set "pixels-below-lines" int x
+          set = fn x => set "pixels-below-lines" int x,
+          new = fn x => new "pixels-below-lines" int x
         }
       val pixelsInsideWrapProp =
         {
           get = fn x => get "pixels-inside-wrap" int x,
-          set = fn x => set "pixels-inside-wrap" int x
+          set = fn x => set "pixels-inside-wrap" int x,
+          new = fn x => new "pixels-inside-wrap" int x
         }
       val populateAllProp =
         {
           get = fn x => get "populate-all" boolean x,
-          set = fn x => set "populate-all" boolean x
+          set = fn x => set "populate-all" boolean x,
+          new = fn x => new "populate-all" boolean x
         }
       val rightMarginProp =
         {
           get = fn x => get "right-margin" int x,
-          set = fn x => set "right-margin" int x
+          set = fn x => set "right-margin" int x,
+          new = fn x => new "right-margin" int x
         }
       val tabsProp =
         {
           get = fn x => get "tabs" PangoTabArrayRecord.tOpt x,
-          set = fn x => set "tabs" PangoTabArrayRecord.tOpt x
+          set = fn x => set "tabs" PangoTabArrayRecord.tOpt x,
+          new = fn x => new "tabs" PangoTabArrayRecord.tOpt x
         }
       val topMarginProp =
         {
           get = fn x => get "top-margin" int x,
-          set = fn x => set "top-margin" int x
+          set = fn x => set "top-margin" int x,
+          new = fn x => new "top-margin" int x
         }
       val wrapModeProp =
         {
           get = fn x => get "wrap-mode" GtkWrapMode.t x,
-          set = fn x => set "wrap-mode" GtkWrapMode.t x
+          set = fn x => set "wrap-mode" GtkWrapMode.t x,
+          new = fn x => new "wrap-mode" GtkWrapMode.t x
         }
     end
   end

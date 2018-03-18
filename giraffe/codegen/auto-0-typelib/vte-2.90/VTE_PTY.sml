@@ -23,7 +23,23 @@ signature VTE_PTY =
       'a class
        -> bool
        -> unit
-    val fdProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val flagsProp : ('a class, pty_flags_t, pty_flags_t) Property.readwrite
-    val termProp : ('a class, string option, string option) Property.readwrite
+    val fdProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val flagsProp :
+      {
+        get : 'a class -> pty_flags_t,
+        new : pty_flags_t -> 'a class Property.t
+      }
+    val termProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

@@ -26,12 +26,12 @@ structure GdkDrawingContext :>
       val clipProp =
         {
           get = fn x => get "clip" CairoRegionRecord.tOpt x,
-          set = fn x => set "clip" CairoRegionRecord.tOpt x
+          new = fn x => new "clip" CairoRegionRecord.tOpt x
         }
       val windowProp =
         {
           get = fn x => get "window" GdkWindowClass.tOpt x,
-          set = fn x => set "window" GdkWindowClass.tOpt x
+          new = fn x => new "window" GdkWindowClass.tOpt x
         }
     end
   end

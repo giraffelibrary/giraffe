@@ -59,21 +59,28 @@ structure GtkImageMenuItem :>
     local
       open Property
     in
-      val accelGroupProp = {set = fn x => set "accel-group" GtkAccelGroupClass.tOpt x}
+      val accelGroupProp =
+        {
+          set = fn x => set "accel-group" GtkAccelGroupClass.tOpt x,
+          new = fn x => new "accel-group" GtkAccelGroupClass.tOpt x
+        }
       val alwaysShowImageProp =
         {
           get = fn x => get "always-show-image" boolean x,
-          set = fn x => set "always-show-image" boolean x
+          set = fn x => set "always-show-image" boolean x,
+          new = fn x => new "always-show-image" boolean x
         }
       val imageProp =
         {
           get = fn x => get "image" GtkWidgetClass.tOpt x,
-          set = fn x => set "image" GtkWidgetClass.tOpt x
+          set = fn x => set "image" GtkWidgetClass.tOpt x,
+          new = fn x => new "image" GtkWidgetClass.tOpt x
         }
       val useStockProp =
         {
           get = fn x => get "use-stock" boolean x,
-          set = fn x => set "use-stock" boolean x
+          set = fn x => set "use-stock" boolean x,
+          new = fn x => new "use-stock" boolean x
         }
     end
   end

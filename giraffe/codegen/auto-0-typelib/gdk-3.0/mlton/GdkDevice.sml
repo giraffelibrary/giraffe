@@ -531,59 +531,61 @@ structure GdkDevice :>
       val deviceManagerProp =
         {
           get = fn x => get "device-manager" GdkDeviceManagerClass.tOpt x,
-          set = fn x => set "device-manager" GdkDeviceManagerClass.tOpt x
+          new = fn x => new "device-manager" GdkDeviceManagerClass.tOpt x
         }
       val displayProp =
         {
           get = fn x => get "display" GdkDisplayClass.tOpt x,
-          set = fn x => set "display" GdkDisplayClass.tOpt x
+          new = fn x => new "display" GdkDisplayClass.tOpt x
         }
       val hasCursorProp =
         {
           get = fn x => get "has-cursor" boolean x,
-          set = fn x => set "has-cursor" boolean x
+          new = fn x => new "has-cursor" boolean x
         }
       val inputModeProp =
         {
           get = fn x => get "input-mode" GdkInputMode.t x,
-          set = fn x => set "input-mode" GdkInputMode.t x
+          set = fn x => set "input-mode" GdkInputMode.t x,
+          new = fn x => new "input-mode" GdkInputMode.t x
         }
       val inputSourceProp =
         {
           get = fn x => get "input-source" GdkInputSource.t x,
-          set = fn x => set "input-source" GdkInputSource.t x
+          new = fn x => new "input-source" GdkInputSource.t x
         }
       val nAxesProp = {get = fn x => get "n-axes" uint x}
       val nameProp =
         {
           get = fn x => get "name" stringOpt x,
-          set = fn x => set "name" stringOpt x
+          new = fn x => new "name" stringOpt x
         }
       val numTouchesProp =
         {
           get = fn x => get "num-touches" uint x,
-          set = fn x => set "num-touches" uint x
+          new = fn x => new "num-touches" uint x
         }
       val productIdProp =
         {
           get = fn x => get "product-id" stringOpt x,
-          set = fn x => set "product-id" stringOpt x
+          new = fn x => new "product-id" stringOpt x
         }
       val seatProp =
         {
           get = fn x => get "seat" GdkSeatClass.tOpt x,
-          set = fn x => set "seat" GdkSeatClass.tOpt x
+          set = fn x => set "seat" GdkSeatClass.tOpt x,
+          new = fn x => new "seat" GdkSeatClass.tOpt x
         }
       val toolProp = {get = fn x => get "tool" GdkDeviceToolClass.tOpt x}
       val typeProp =
         {
           get = fn x => get "type" GdkDeviceType.t x,
-          set = fn x => set "type" GdkDeviceType.t x
+          new = fn x => new "type" GdkDeviceType.t x
         }
       val vendorIdProp =
         {
           get = fn x => get "vendor-id" stringOpt x,
-          set = fn x => set "vendor-id" stringOpt x
+          new = fn x => new "vendor-id" stringOpt x
         }
     end
   end

@@ -169,17 +169,20 @@ structure GtkApplication :>
       val appMenuProp =
         {
           get = fn x => get "app-menu" GioMenuModelClass.tOpt x,
-          set = fn x => set "app-menu" GioMenuModelClass.tOpt x
+          set = fn x => set "app-menu" GioMenuModelClass.tOpt x,
+          new = fn x => new "app-menu" GioMenuModelClass.tOpt x
         }
       val menubarProp =
         {
           get = fn x => get "menubar" GioMenuModelClass.tOpt x,
-          set = fn x => set "menubar" GioMenuModelClass.tOpt x
+          set = fn x => set "menubar" GioMenuModelClass.tOpt x,
+          new = fn x => new "menubar" GioMenuModelClass.tOpt x
         }
       val registerSessionProp =
         {
           get = fn x => get "register-session" boolean x,
-          set = fn x => set "register-session" boolean x
+          set = fn x => set "register-session" boolean x,
+          new = fn x => new "register-session" boolean x
         }
     end
   end

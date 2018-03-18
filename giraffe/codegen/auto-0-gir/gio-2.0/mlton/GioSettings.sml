@@ -966,22 +966,22 @@ structure GioSettings :>
       val pathProp =
         {
           get = fn x => get "path" stringOpt x,
-          set = fn x => set "path" stringOpt x
+          new = fn x => new "path" stringOpt x
         }
       val schemaProp =
         {
           get = fn x => get "schema" stringOpt x,
-          set = fn x => set "schema" stringOpt x
+          new = fn x => new "schema" stringOpt x
         }
       val schemaIdProp =
         {
           get = fn x => get "schema-id" stringOpt x,
-          set = fn x => set "schema-id" stringOpt x
+          new = fn x => new "schema-id" stringOpt x
         }
       val settingsSchemaProp =
         {
           get = fn x => get "settings-schema" GioSettingsSchemaRecord.tOpt x,
-          set = fn x => set "settings-schema" GioSettingsSchemaRecord.tOpt x
+          new = fn x => new "settings-schema" GioSettingsSchemaRecord.tOpt x
         }
     end
   end

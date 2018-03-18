@@ -20,7 +20,8 @@ structure GtkAccessible :>
       val widgetProp =
         {
           get = fn x => get "widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "widget" GtkWidgetClass.tOpt x
+          set = fn x => set "widget" GtkWidgetClass.tOpt x,
+          new = fn x => new "widget" GtkWidgetClass.tOpt x
         }
     end
   end

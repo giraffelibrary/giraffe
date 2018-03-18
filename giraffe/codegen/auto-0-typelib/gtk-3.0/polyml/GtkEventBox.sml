@@ -30,12 +30,14 @@ structure GtkEventBox :>
       val aboveChildProp =
         {
           get = fn x => get "above-child" boolean x,
-          set = fn x => set "above-child" boolean x
+          set = fn x => set "above-child" boolean x,
+          new = fn x => new "above-child" boolean x
         }
       val visibleWindowProp =
         {
           get = fn x => get "visible-window" boolean x,
-          set = fn x => set "visible-window" boolean x
+          set = fn x => set "visible-window" boolean x,
+          new = fn x => new "visible-window" boolean x
         }
     end
   end

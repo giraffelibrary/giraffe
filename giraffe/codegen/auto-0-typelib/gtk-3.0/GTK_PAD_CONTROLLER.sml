@@ -18,6 +18,14 @@ signature GTK_PAD_CONTROLLER =
            * string
            * string
        -> unit
-    val actionGroupProp : ('a class, base Gio.ActionGroupClass.class option, 'b Gio.ActionGroupClass.class option) Property.readwrite
-    val padProp : ('a class, base Gdk.DeviceClass.class option, 'b Gdk.DeviceClass.class option) Property.readwrite
+    val actionGroupProp :
+      {
+        get : 'a class -> base Gio.ActionGroupClass.class option,
+        new : 'b Gio.ActionGroupClass.class option -> 'a class Property.t
+      }
+    val padProp :
+      {
+        get : 'a class -> base Gdk.DeviceClass.class option,
+        new : 'b Gdk.DeviceClass.class option -> 'a class Property.t
+      }
   end

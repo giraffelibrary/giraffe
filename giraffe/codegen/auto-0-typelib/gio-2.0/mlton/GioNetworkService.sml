@@ -80,22 +80,23 @@ structure GioNetworkService :>
       val domainProp =
         {
           get = fn x => get "domain" stringOpt x,
-          set = fn x => set "domain" stringOpt x
+          new = fn x => new "domain" stringOpt x
         }
       val protocolProp =
         {
           get = fn x => get "protocol" stringOpt x,
-          set = fn x => set "protocol" stringOpt x
+          new = fn x => new "protocol" stringOpt x
         }
       val schemeProp =
         {
           get = fn x => get "scheme" stringOpt x,
-          set = fn x => set "scheme" stringOpt x
+          set = fn x => set "scheme" stringOpt x,
+          new = fn x => new "scheme" stringOpt x
         }
       val serviceProp =
         {
           get = fn x => get "service" stringOpt x,
-          set = fn x => set "service" stringOpt x
+          new = fn x => new "service" stringOpt x
         }
     end
   end

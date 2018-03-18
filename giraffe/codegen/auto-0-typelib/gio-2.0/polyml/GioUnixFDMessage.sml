@@ -58,7 +58,7 @@ structure GioUnixFDMessage :>
       val fdListProp =
         {
           get = fn x => get "fd-list" GioUnixFDListClass.tOpt x,
-          set = fn x => set "fd-list" GioUnixFDListClass.tOpt x
+          new = fn x => new "fd-list" GioUnixFDListClass.tOpt x
         }
     end
   end

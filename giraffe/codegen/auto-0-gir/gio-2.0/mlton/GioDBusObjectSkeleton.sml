@@ -64,7 +64,8 @@ structure GioDBusObjectSkeleton :>
       val gObjectPathProp =
         {
           get = fn x => get "g-object-path" stringOpt x,
-          set = fn x => set "g-object-path" stringOpt x
+          set = fn x => set "g-object-path" stringOpt x,
+          new = fn x => new "g-object-path" stringOpt x
         }
     end
   end

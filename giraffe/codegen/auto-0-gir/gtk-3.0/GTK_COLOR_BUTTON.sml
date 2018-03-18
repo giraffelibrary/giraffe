@@ -36,10 +36,58 @@ signature GTK_COLOR_BUTTON =
        -> bool
        -> unit
     val colorSetSig : (unit -> unit) -> 'a class Signal.t
-    val alphaProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val colorProp : ('a class, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
-    val rgbaProp : ('a class, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite
-    val showEditorProp : ('a class, bool, bool) Property.readwrite
-    val titleProp : ('a class, string option, string option) Property.readwrite
-    val useAlphaProp : ('a class, bool, bool) Property.readwrite
+    val alphaProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val colorProp :
+      {
+        get : 'a class -> Gdk.ColorRecord.t option,
+        set :
+          Gdk.ColorRecord.t option
+           -> 'a class
+           -> unit,
+        new : Gdk.ColorRecord.t option -> 'a class Property.t
+      }
+    val rgbaProp :
+      {
+        get : 'a class -> Gdk.RgbaRecord.t option,
+        set :
+          Gdk.RgbaRecord.t option
+           -> 'a class
+           -> unit,
+        new : Gdk.RgbaRecord.t option -> 'a class Property.t
+      }
+    val showEditorProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val titleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val useAlphaProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

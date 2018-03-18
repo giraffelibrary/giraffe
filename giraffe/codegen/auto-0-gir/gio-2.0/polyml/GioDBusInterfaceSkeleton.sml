@@ -76,7 +76,8 @@ structure GioDBusInterfaceSkeleton :>
       val gFlagsProp =
         {
           get = fn x => get "g-flags" GioDBusInterfaceSkeletonFlags.t x,
-          set = fn x => set "g-flags" GioDBusInterfaceSkeletonFlags.t x
+          set = fn x => set "g-flags" GioDBusInterfaceSkeletonFlags.t x,
+          new = fn x => new "g-flags" GioDBusInterfaceSkeletonFlags.t x
         }
     end
   end

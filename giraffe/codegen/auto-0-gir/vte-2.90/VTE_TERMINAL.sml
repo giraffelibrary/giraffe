@@ -291,33 +291,233 @@ signature VTE_TERMINAL =
     val textModifiedSig : (unit -> unit) -> 'a class Signal.t
     val textScrolledSig : (LargeInt.int -> unit) -> 'a class Signal.t
     val windowTitleChangedSig : (unit -> unit) -> 'a class Signal.t
-    val allowBoldProp : ('a class, bool, bool) Property.readwrite
-    val audibleBellProp : ('a class, bool, bool) Property.readwrite
-    val backgroundImageFileProp : ('a class, string option, string option) Property.readwrite
-    val backgroundImagePixbufProp : ('a class, base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option) Property.readwrite
-    val backgroundOpacityProp : ('a class, real, real) Property.readwrite
-    val backgroundSaturationProp : ('a class, real, real) Property.readwrite
-    val backgroundTintColorProp : ('a class, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
-    val backgroundTransparentProp : ('a class, bool, bool) Property.readwrite
-    val backspaceBindingProp : ('a class, terminal_erase_binding_t, terminal_erase_binding_t) Property.readwrite
-    val currentDirectoryUriProp : ('a class, string option) Property.readonly
-    val currentFileUriProp : ('a class, string option) Property.readonly
-    val cursorBlinkModeProp : ('a class, terminal_cursor_blink_mode_t, terminal_cursor_blink_mode_t) Property.readwrite
-    val cursorShapeProp : ('a class, terminal_cursor_shape_t, terminal_cursor_shape_t) Property.readwrite
-    val deleteBindingProp : ('a class, terminal_erase_binding_t, terminal_erase_binding_t) Property.readwrite
-    val emulationProp : ('a class, string option, string option) Property.readwrite
-    val encodingProp : ('a class, string option, string option) Property.readwrite
-    val fontDescProp : ('a class, Pango.FontDescriptionRecord.t option, Pango.FontDescriptionRecord.t option) Property.readwrite
-    val iconTitleProp : ('a class, string option) Property.readonly
-    val pointerAutohideProp : ('a class, bool, bool) Property.readwrite
-    val ptyProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val ptyObjectProp : ('a class, base pty_class option, 'b pty_class option) Property.readwrite
-    val rewrapOnResizeProp : ('a class, bool, bool) Property.readwrite
-    val scrollBackgroundProp : ('a class, bool, bool) Property.readwrite
-    val scrollOnKeystrokeProp : ('a class, bool, bool) Property.readwrite
-    val scrollOnOutputProp : ('a class, bool, bool) Property.readwrite
-    val scrollbackLinesProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val visibleBellProp : ('a class, bool, bool) Property.readwrite
-    val windowTitleProp : ('a class, string option) Property.readonly
-    val wordCharsProp : ('a class, string option, string option) Property.readwrite
+    val allowBoldProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val audibleBellProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val backgroundImageFileProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val backgroundImagePixbufProp :
+      {
+        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
+        set :
+          'b GdkPixbuf.PixbufClass.class option
+           -> 'a class
+           -> unit,
+        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
+      }
+    val backgroundOpacityProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val backgroundSaturationProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val backgroundTintColorProp :
+      {
+        get : 'a class -> Gdk.ColorRecord.t option,
+        set :
+          Gdk.ColorRecord.t option
+           -> 'a class
+           -> unit,
+        new : Gdk.ColorRecord.t option -> 'a class Property.t
+      }
+    val backgroundTransparentProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val backspaceBindingProp :
+      {
+        get : 'a class -> terminal_erase_binding_t,
+        set :
+          terminal_erase_binding_t
+           -> 'a class
+           -> unit,
+        new : terminal_erase_binding_t -> 'a class Property.t
+      }
+    val currentDirectoryUriProp : {get : 'a class -> string option}
+    val currentFileUriProp : {get : 'a class -> string option}
+    val cursorBlinkModeProp :
+      {
+        get : 'a class -> terminal_cursor_blink_mode_t,
+        set :
+          terminal_cursor_blink_mode_t
+           -> 'a class
+           -> unit,
+        new : terminal_cursor_blink_mode_t -> 'a class Property.t
+      }
+    val cursorShapeProp :
+      {
+        get : 'a class -> terminal_cursor_shape_t,
+        set :
+          terminal_cursor_shape_t
+           -> 'a class
+           -> unit,
+        new : terminal_cursor_shape_t -> 'a class Property.t
+      }
+    val deleteBindingProp :
+      {
+        get : 'a class -> terminal_erase_binding_t,
+        set :
+          terminal_erase_binding_t
+           -> 'a class
+           -> unit,
+        new : terminal_erase_binding_t -> 'a class Property.t
+      }
+    val emulationProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val encodingProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val fontDescProp :
+      {
+        get : 'a class -> Pango.FontDescriptionRecord.t option,
+        set :
+          Pango.FontDescriptionRecord.t option
+           -> 'a class
+           -> unit,
+        new : Pango.FontDescriptionRecord.t option -> 'a class Property.t
+      }
+    val iconTitleProp : {get : 'a class -> string option}
+    val pointerAutohideProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val ptyProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val ptyObjectProp :
+      {
+        get : 'a class -> base pty_class option,
+        set :
+          'b pty_class option
+           -> 'a class
+           -> unit,
+        new : 'b pty_class option -> 'a class Property.t
+      }
+    val rewrapOnResizeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val scrollBackgroundProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val scrollOnKeystrokeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val scrollOnOutputProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val scrollbackLinesProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val visibleBellProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val windowTitleProp : {get : 'a class -> string option}
+    val wordCharsProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

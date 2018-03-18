@@ -20,17 +20,20 @@ structure GtkCellRendererSpin :>
       val adjustmentProp =
         {
           get = fn x => get "adjustment" GtkAdjustmentClass.tOpt x,
-          set = fn x => set "adjustment" GtkAdjustmentClass.tOpt x
+          set = fn x => set "adjustment" GtkAdjustmentClass.tOpt x,
+          new = fn x => new "adjustment" GtkAdjustmentClass.tOpt x
         }
       val climbRateProp =
         {
           get = fn x => get "climb-rate" double x,
-          set = fn x => set "climb-rate" double x
+          set = fn x => set "climb-rate" double x,
+          new = fn x => new "climb-rate" double x
         }
       val digitsProp =
         {
           get = fn x => get "digits" uint x,
-          set = fn x => set "digits" uint x
+          set = fn x => set "digits" uint x,
+          new = fn x => new "digits" uint x
         }
     end
   end

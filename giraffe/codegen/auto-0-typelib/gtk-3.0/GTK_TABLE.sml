@@ -69,9 +69,49 @@ signature GTK_TABLE =
       'a class
        -> LargeInt.int
        -> unit
-    val columnSpacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val homogeneousProp : ('a class, bool, bool) Property.readwrite
-    val nColumnsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val nRowsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val rowSpacingProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val columnSpacingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val homogeneousProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val nColumnsProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val nRowsProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val rowSpacingProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

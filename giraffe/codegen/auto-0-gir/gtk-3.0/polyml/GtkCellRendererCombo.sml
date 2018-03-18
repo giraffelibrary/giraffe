@@ -27,17 +27,20 @@ structure GtkCellRendererCombo :>
       val hasEntryProp =
         {
           get = fn x => get "has-entry" boolean x,
-          set = fn x => set "has-entry" boolean x
+          set = fn x => set "has-entry" boolean x,
+          new = fn x => new "has-entry" boolean x
         }
       val modelProp =
         {
           get = fn x => get "model" GtkTreeModelClass.tOpt x,
-          set = fn x => set "model" GtkTreeModelClass.tOpt x
+          set = fn x => set "model" GtkTreeModelClass.tOpt x,
+          new = fn x => new "model" GtkTreeModelClass.tOpt x
         }
       val textColumnProp =
         {
           get = fn x => get "text-column" int x,
-          set = fn x => set "text-column" int x
+          set = fn x => set "text-column" int x,
+          new = fn x => new "text-column" int x
         }
     end
   end

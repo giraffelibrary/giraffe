@@ -415,47 +415,56 @@ structure GioSocketClient :>
       val enableProxyProp =
         {
           get = fn x => get "enable-proxy" boolean x,
-          set = fn x => set "enable-proxy" boolean x
+          set = fn x => set "enable-proxy" boolean x,
+          new = fn x => new "enable-proxy" boolean x
         }
       val familyProp =
         {
           get = fn x => get "family" GioSocketFamily.t x,
-          set = fn x => set "family" GioSocketFamily.t x
+          set = fn x => set "family" GioSocketFamily.t x,
+          new = fn x => new "family" GioSocketFamily.t x
         }
       val localAddressProp =
         {
           get = fn x => get "local-address" GioSocketAddressClass.tOpt x,
-          set = fn x => set "local-address" GioSocketAddressClass.tOpt x
+          set = fn x => set "local-address" GioSocketAddressClass.tOpt x,
+          new = fn x => new "local-address" GioSocketAddressClass.tOpt x
         }
       val protocolProp =
         {
           get = fn x => get "protocol" GioSocketProtocol.t x,
-          set = fn x => set "protocol" GioSocketProtocol.t x
+          set = fn x => set "protocol" GioSocketProtocol.t x,
+          new = fn x => new "protocol" GioSocketProtocol.t x
         }
       val proxyResolverProp =
         {
           get = fn x => get "proxy-resolver" GioProxyResolverClass.tOpt x,
-          set = fn x => set "proxy-resolver" GioProxyResolverClass.tOpt x
+          set = fn x => set "proxy-resolver" GioProxyResolverClass.tOpt x,
+          new = fn x => new "proxy-resolver" GioProxyResolverClass.tOpt x
         }
       val timeoutProp =
         {
           get = fn x => get "timeout" uint x,
-          set = fn x => set "timeout" uint x
+          set = fn x => set "timeout" uint x,
+          new = fn x => new "timeout" uint x
         }
       val tlsProp =
         {
           get = fn x => get "tls" boolean x,
-          set = fn x => set "tls" boolean x
+          set = fn x => set "tls" boolean x,
+          new = fn x => new "tls" boolean x
         }
       val tlsValidationFlagsProp =
         {
           get = fn x => get "tls-validation-flags" GioTlsCertificateFlags.t x,
-          set = fn x => set "tls-validation-flags" GioTlsCertificateFlags.t x
+          set = fn x => set "tls-validation-flags" GioTlsCertificateFlags.t x,
+          new = fn x => new "tls-validation-flags" GioTlsCertificateFlags.t x
         }
       val typeProp =
         {
           get = fn x => get "type" GioSocketType.t x,
-          set = fn x => set "type" GioSocketType.t x
+          set = fn x => set "type" GioSocketType.t x,
+          new = fn x => new "type" GioSocketType.t x
         }
     end
   end

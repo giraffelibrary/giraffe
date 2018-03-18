@@ -25,8 +25,40 @@ signature GTK_NATIVE_DIALOG =
        -> unit
     val show : 'a class -> unit
     val responseSig : (LargeInt.int -> unit) -> 'a class Signal.t
-    val modalProp : ('a class, bool, bool) Property.readwrite
-    val titleProp : ('a class, string option, string option) Property.readwrite
-    val transientForProp : ('a class, base window_class option, 'b window_class option) Property.readwrite
-    val visibleProp : ('a class, bool, bool) Property.readwrite
+    val modalProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val titleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val transientForProp :
+      {
+        get : 'a class -> base window_class option,
+        set :
+          'b window_class option
+           -> 'a class
+           -> unit,
+        new : 'b window_class option -> 'a class Property.t
+      }
+    val visibleProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

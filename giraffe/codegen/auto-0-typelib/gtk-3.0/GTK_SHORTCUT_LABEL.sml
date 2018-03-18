@@ -19,6 +19,22 @@ signature GTK_SHORTCUT_LABEL =
       'a class
        -> string
        -> unit
-    val acceleratorProp : ('a class, string option, string option) Property.readwrite
-    val disabledTextProp : ('a class, string option, string option) Property.readwrite
+    val acceleratorProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val disabledTextProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

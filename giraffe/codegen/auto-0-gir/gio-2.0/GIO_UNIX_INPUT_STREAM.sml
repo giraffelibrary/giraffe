@@ -14,6 +14,18 @@ signature GIO_UNIX_INPUT_STREAM =
       'a class
        -> bool
        -> unit
-    val closeFdProp : ('a class, bool, bool) Property.readwrite
-    val fdProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val closeFdProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val fdProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

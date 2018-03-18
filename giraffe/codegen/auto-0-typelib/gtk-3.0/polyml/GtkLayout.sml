@@ -150,12 +150,14 @@ structure GtkLayout :>
       val heightProp =
         {
           get = fn x => get "height" uint x,
-          set = fn x => set "height" uint x
+          set = fn x => set "height" uint x,
+          new = fn x => new "height" uint x
         }
       val widthProp =
         {
           get = fn x => get "width" uint x,
-          set = fn x => set "width" uint x
+          set = fn x => set "width" uint x,
+          new = fn x => new "width" uint x
         }
     end
   end

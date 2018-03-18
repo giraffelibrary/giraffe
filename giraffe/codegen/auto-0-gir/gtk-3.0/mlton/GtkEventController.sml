@@ -26,12 +26,13 @@ structure GtkEventController :>
       val propagationPhaseProp =
         {
           get = fn x => get "propagation-phase" GtkPropagationPhase.t x,
-          set = fn x => set "propagation-phase" GtkPropagationPhase.t x
+          set = fn x => set "propagation-phase" GtkPropagationPhase.t x,
+          new = fn x => new "propagation-phase" GtkPropagationPhase.t x
         }
       val widgetProp =
         {
           get = fn x => get "widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "widget" GtkWidgetClass.tOpt x
+          new = fn x => new "widget" GtkWidgetClass.tOpt x
         }
     end
   end

@@ -24,6 +24,22 @@ signature GTK_ACCEL_LABEL =
       'a class
        -> 'b widget_class
        -> unit
-    val accelClosureProp : ('a class, GObject.ClosureRecord.t option, GObject.ClosureRecord.t option) Property.readwrite
-    val accelWidgetProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
+    val accelClosureProp :
+      {
+        get : 'a class -> GObject.ClosureRecord.t option,
+        set :
+          GObject.ClosureRecord.t option
+           -> 'a class
+           -> unit,
+        new : GObject.ClosureRecord.t option -> 'a class Property.t
+      }
+    val accelWidgetProp :
+      {
+        get : 'a class -> base widget_class option,
+        set :
+          'b widget_class option
+           -> 'a class
+           -> unit,
+        new : 'b widget_class option -> 'a class Property.t
+      }
   end

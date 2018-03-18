@@ -105,27 +105,27 @@ structure GioDBusObjectManagerClient :>
     local
       open Property
     in
-      val busTypeProp = {set = fn x => set "bus-type" GioBusType.t x}
+      val busTypeProp = {new = fn x => new "bus-type" GioBusType.t x}
       val connectionProp =
         {
           get = fn x => get "connection" GioDBusConnectionClass.tOpt x,
-          set = fn x => set "connection" GioDBusConnectionClass.tOpt x
+          new = fn x => new "connection" GioDBusConnectionClass.tOpt x
         }
       val flagsProp =
         {
           get = fn x => get "flags" GioDBusObjectManagerClientFlags.t x,
-          set = fn x => set "flags" GioDBusObjectManagerClientFlags.t x
+          new = fn x => new "flags" GioDBusObjectManagerClientFlags.t x
         }
       val nameProp =
         {
           get = fn x => get "name" stringOpt x,
-          set = fn x => set "name" stringOpt x
+          new = fn x => new "name" stringOpt x
         }
       val nameOwnerProp = {get = fn x => get "name-owner" stringOpt x}
       val objectPathProp =
         {
           get = fn x => get "object-path" stringOpt x,
-          set = fn x => set "object-path" stringOpt x
+          new = fn x => new "object-path" stringOpt x
         }
     end
   end

@@ -39,17 +39,20 @@ structure GtkRevealer :>
       val revealChildProp =
         {
           get = fn x => get "reveal-child" boolean x,
-          set = fn x => set "reveal-child" boolean x
+          set = fn x => set "reveal-child" boolean x,
+          new = fn x => new "reveal-child" boolean x
         }
       val transitionDurationProp =
         {
           get = fn x => get "transition-duration" uint x,
-          set = fn x => set "transition-duration" uint x
+          set = fn x => set "transition-duration" uint x,
+          new = fn x => new "transition-duration" uint x
         }
       val transitionTypeProp =
         {
           get = fn x => get "transition-type" GtkRevealerTransitionType.t x,
-          set = fn x => set "transition-type" GtkRevealerTransitionType.t x
+          set = fn x => set "transition-type" GtkRevealerTransitionType.t x,
+          new = fn x => new "transition-type" GtkRevealerTransitionType.t x
         }
     end
   end

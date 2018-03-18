@@ -33,12 +33,14 @@ structure GioBufferedOutputStream :>
       val autoGrowProp =
         {
           get = fn x => get "auto-grow" boolean x,
-          set = fn x => set "auto-grow" boolean x
+          set = fn x => set "auto-grow" boolean x,
+          new = fn x => new "auto-grow" boolean x
         }
       val bufferSizeProp =
         {
           get = fn x => get "buffer-size" uint x,
-          set = fn x => set "buffer-size" uint x
+          set = fn x => set "buffer-size" uint x,
+          new = fn x => new "buffer-size" uint x
         }
     end
   end

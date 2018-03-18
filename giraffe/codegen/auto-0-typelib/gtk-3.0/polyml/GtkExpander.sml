@@ -63,42 +63,50 @@ structure GtkExpander :>
       val expandedProp =
         {
           get = fn x => get "expanded" boolean x,
-          set = fn x => set "expanded" boolean x
+          set = fn x => set "expanded" boolean x,
+          new = fn x => new "expanded" boolean x
         }
       val labelProp =
         {
           get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x
+          set = fn x => set "label" stringOpt x,
+          new = fn x => new "label" stringOpt x
         }
       val labelFillProp =
         {
           get = fn x => get "label-fill" boolean x,
-          set = fn x => set "label-fill" boolean x
+          set = fn x => set "label-fill" boolean x,
+          new = fn x => new "label-fill" boolean x
         }
       val labelWidgetProp =
         {
           get = fn x => get "label-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "label-widget" GtkWidgetClass.tOpt x
+          set = fn x => set "label-widget" GtkWidgetClass.tOpt x,
+          new = fn x => new "label-widget" GtkWidgetClass.tOpt x
         }
       val resizeToplevelProp =
         {
           get = fn x => get "resize-toplevel" boolean x,
-          set = fn x => set "resize-toplevel" boolean x
+          set = fn x => set "resize-toplevel" boolean x,
+          new = fn x => new "resize-toplevel" boolean x
         }
       val spacingProp =
         {
           get = fn x => get "spacing" int x,
-          set = fn x => set "spacing" int x
+          set = fn x => set "spacing" int x,
+          new = fn x => new "spacing" int x
         }
       val useMarkupProp =
         {
           get = fn x => get "use-markup" boolean x,
-          set = fn x => set "use-markup" boolean x
+          set = fn x => set "use-markup" boolean x,
+          new = fn x => new "use-markup" boolean x
         }
       val useUnderlineProp =
         {
           get = fn x => get "use-underline" boolean x,
-          set = fn x => set "use-underline" boolean x
+          set = fn x => set "use-underline" boolean x,
+          new = fn x => new "use-underline" boolean x
         }
     end
   end

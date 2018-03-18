@@ -122,22 +122,26 @@ structure GtkMisc :>
       val xalignProp =
         {
           get = fn x => get "xalign" float x,
-          set = fn x => set "xalign" float x
+          set = fn x => set "xalign" float x,
+          new = fn x => new "xalign" float x
         }
       val xpadProp =
         {
           get = fn x => get "xpad" int x,
-          set = fn x => set "xpad" int x
+          set = fn x => set "xpad" int x,
+          new = fn x => new "xpad" int x
         }
       val yalignProp =
         {
           get = fn x => get "yalign" float x,
-          set = fn x => set "yalign" float x
+          set = fn x => set "yalign" float x,
+          new = fn x => new "yalign" float x
         }
       val ypadProp =
         {
           get = fn x => get "ypad" int x,
-          set = fn x => set "ypad" int x
+          set = fn x => set "ypad" int x,
+          new = fn x => new "ypad" int x
         }
     end
   end

@@ -128,78 +128,91 @@ structure GtkComboBox :>
       val activeProp =
         {
           get = fn x => get "active" int x,
-          set = fn x => set "active" int x
+          set = fn x => set "active" int x,
+          new = fn x => new "active" int x
         }
       val activeIdProp =
         {
           get = fn x => get "active-id" stringOpt x,
-          set = fn x => set "active-id" stringOpt x
+          set = fn x => set "active-id" stringOpt x,
+          new = fn x => new "active-id" stringOpt x
         }
       val addTearoffsProp =
         {
           get = fn x => get "add-tearoffs" boolean x,
-          set = fn x => set "add-tearoffs" boolean x
+          set = fn x => set "add-tearoffs" boolean x,
+          new = fn x => new "add-tearoffs" boolean x
         }
       val buttonSensitivityProp =
         {
           get = fn x => get "button-sensitivity" GtkSensitivityType.t x,
-          set = fn x => set "button-sensitivity" GtkSensitivityType.t x
+          set = fn x => set "button-sensitivity" GtkSensitivityType.t x,
+          new = fn x => new "button-sensitivity" GtkSensitivityType.t x
         }
       val cellAreaProp =
         {
           get = fn x => get "cell-area" GtkCellAreaClass.tOpt x,
-          set = fn x => set "cell-area" GtkCellAreaClass.tOpt x
+          new = fn x => new "cell-area" GtkCellAreaClass.tOpt x
         }
       val columnSpanColumnProp =
         {
           get = fn x => get "column-span-column" int x,
-          set = fn x => set "column-span-column" int x
+          set = fn x => set "column-span-column" int x,
+          new = fn x => new "column-span-column" int x
         }
       val entryTextColumnProp =
         {
           get = fn x => get "entry-text-column" int x,
-          set = fn x => set "entry-text-column" int x
+          set = fn x => set "entry-text-column" int x,
+          new = fn x => new "entry-text-column" int x
         }
       val hasEntryProp =
         {
           get = fn x => get "has-entry" boolean x,
-          set = fn x => set "has-entry" boolean x
+          new = fn x => new "has-entry" boolean x
         }
       val hasFrameProp =
         {
           get = fn x => get "has-frame" boolean x,
-          set = fn x => set "has-frame" boolean x
+          set = fn x => set "has-frame" boolean x,
+          new = fn x => new "has-frame" boolean x
         }
       val idColumnProp =
         {
           get = fn x => get "id-column" int x,
-          set = fn x => set "id-column" int x
+          set = fn x => set "id-column" int x,
+          new = fn x => new "id-column" int x
         }
       val modelProp =
         {
           get = fn x => get "model" GtkTreeModelClass.tOpt x,
-          set = fn x => set "model" GtkTreeModelClass.tOpt x
+          set = fn x => set "model" GtkTreeModelClass.tOpt x,
+          new = fn x => new "model" GtkTreeModelClass.tOpt x
         }
       val popupFixedWidthProp =
         {
           get = fn x => get "popup-fixed-width" boolean x,
-          set = fn x => set "popup-fixed-width" boolean x
+          set = fn x => set "popup-fixed-width" boolean x,
+          new = fn x => new "popup-fixed-width" boolean x
         }
       val popupShownProp = {get = fn x => get "popup-shown" boolean x}
       val rowSpanColumnProp =
         {
           get = fn x => get "row-span-column" int x,
-          set = fn x => set "row-span-column" int x
+          set = fn x => set "row-span-column" int x,
+          new = fn x => new "row-span-column" int x
         }
       val tearoffTitleProp =
         {
           get = fn x => get "tearoff-title" stringOpt x,
-          set = fn x => set "tearoff-title" stringOpt x
+          set = fn x => set "tearoff-title" stringOpt x,
+          new = fn x => new "tearoff-title" stringOpt x
         }
       val wrapWidthProp =
         {
           get = fn x => get "wrap-width" int x,
-          set = fn x => set "wrap-width" int x
+          set = fn x => set "wrap-width" int x,
+          new = fn x => new "wrap-width" int x
         }
     end
   end

@@ -22,7 +22,8 @@ structure GtkGestureLongPress :>
       val delayFactorProp =
         {
           get = fn x => get "delay-factor" double x,
-          set = fn x => set "delay-factor" double x
+          set = fn x => set "delay-factor" double x,
+          new = fn x => new "delay-factor" double x
         }
     end
   end

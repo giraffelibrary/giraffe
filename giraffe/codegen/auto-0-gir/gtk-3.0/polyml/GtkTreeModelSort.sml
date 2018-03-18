@@ -93,7 +93,7 @@ structure GtkTreeModelSort :>
       val modelProp =
         {
           get = fn x => get "model" GtkTreeModelClass.tOpt x,
-          set = fn x => set "model" GtkTreeModelClass.tOpt x
+          new = fn x => new "model" GtkTreeModelClass.tOpt x
         }
     end
   end

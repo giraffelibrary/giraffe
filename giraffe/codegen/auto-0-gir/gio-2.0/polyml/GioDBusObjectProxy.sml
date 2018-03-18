@@ -25,12 +25,12 @@ structure GioDBusObjectProxy :>
       val gConnectionProp =
         {
           get = fn x => get "g-connection" GioDBusConnectionClass.tOpt x,
-          set = fn x => set "g-connection" GioDBusConnectionClass.tOpt x
+          new = fn x => new "g-connection" GioDBusConnectionClass.tOpt x
         }
       val gObjectPathProp =
         {
           get = fn x => get "g-object-path" stringOpt x,
-          set = fn x => set "g-object-path" stringOpt x
+          new = fn x => new "g-object-path" stringOpt x
         }
     end
   end

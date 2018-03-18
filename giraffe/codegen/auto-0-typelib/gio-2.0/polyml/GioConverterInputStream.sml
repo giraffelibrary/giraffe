@@ -27,7 +27,7 @@ structure GioConverterInputStream :>
       val converterProp =
         {
           get = fn x => get "converter" GioConverterClass.tOpt x,
-          set = fn x => set "converter" GioConverterClass.tOpt x
+          new = fn x => new "converter" GioConverterClass.tOpt x
         }
     end
   end

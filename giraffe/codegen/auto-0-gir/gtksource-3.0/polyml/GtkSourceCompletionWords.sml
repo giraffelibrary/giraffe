@@ -27,42 +27,50 @@ structure GtkSourceCompletionWords :>
       val activationProp =
         {
           get = fn x => get "activation" GtkSourceCompletionActivation.t x,
-          set = fn x => set "activation" GtkSourceCompletionActivation.t x
+          set = fn x => set "activation" GtkSourceCompletionActivation.t x,
+          new = fn x => new "activation" GtkSourceCompletionActivation.t x
         }
       val iconProp =
         {
           get = fn x => get "icon" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "icon" GdkPixbufPixbufClass.tOpt x
+          set = fn x => set "icon" GdkPixbufPixbufClass.tOpt x,
+          new = fn x => new "icon" GdkPixbufPixbufClass.tOpt x
         }
       val interactiveDelayProp =
         {
           get = fn x => get "interactive-delay" int x,
-          set = fn x => set "interactive-delay" int x
+          set = fn x => set "interactive-delay" int x,
+          new = fn x => new "interactive-delay" int x
         }
       val minimumWordSizeProp =
         {
           get = fn x => get "minimum-word-size" uint x,
-          set = fn x => set "minimum-word-size" uint x
+          set = fn x => set "minimum-word-size" uint x,
+          new = fn x => new "minimum-word-size" uint x
         }
       val nameProp =
         {
           get = fn x => get "name" stringOpt x,
-          set = fn x => set "name" stringOpt x
+          set = fn x => set "name" stringOpt x,
+          new = fn x => new "name" stringOpt x
         }
       val priorityProp =
         {
           get = fn x => get "priority" int x,
-          set = fn x => set "priority" int x
+          set = fn x => set "priority" int x,
+          new = fn x => new "priority" int x
         }
       val proposalsBatchSizeProp =
         {
           get = fn x => get "proposals-batch-size" uint x,
-          set = fn x => set "proposals-batch-size" uint x
+          set = fn x => set "proposals-batch-size" uint x,
+          new = fn x => new "proposals-batch-size" uint x
         }
       val scanBatchSizeProp =
         {
           get = fn x => get "scan-batch-size" uint x,
-          set = fn x => set "scan-batch-size" uint x
+          set = fn x => set "scan-batch-size" uint x,
+          new = fn x => new "scan-batch-size" uint x
         }
     end
   end

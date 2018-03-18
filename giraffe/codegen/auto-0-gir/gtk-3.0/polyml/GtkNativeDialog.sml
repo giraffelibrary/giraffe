@@ -45,22 +45,26 @@ structure GtkNativeDialog :>
       val modalProp =
         {
           get = fn x => get "modal" boolean x,
-          set = fn x => set "modal" boolean x
+          set = fn x => set "modal" boolean x,
+          new = fn x => new "modal" boolean x
         }
       val titleProp =
         {
           get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x
+          set = fn x => set "title" stringOpt x,
+          new = fn x => new "title" stringOpt x
         }
       val transientForProp =
         {
           get = fn x => get "transient-for" GtkWindowClass.tOpt x,
-          set = fn x => set "transient-for" GtkWindowClass.tOpt x
+          set = fn x => set "transient-for" GtkWindowClass.tOpt x,
+          new = fn x => new "transient-for" GtkWindowClass.tOpt x
         }
       val visibleProp =
         {
           get = fn x => get "visible" boolean x,
-          set = fn x => set "visible" boolean x
+          set = fn x => set "visible" boolean x,
+          new = fn x => new "visible" boolean x
         }
     end
   end

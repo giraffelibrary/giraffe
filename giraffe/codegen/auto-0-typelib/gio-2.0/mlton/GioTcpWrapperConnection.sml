@@ -20,7 +20,7 @@ structure GioTcpWrapperConnection :>
       val baseIoStreamProp =
         {
           get = fn x => get "base-io-stream" GioIOStreamClass.tOpt x,
-          set = fn x => set "base-io-stream" GioIOStreamClass.tOpt x
+          new = fn x => new "base-io-stream" GioIOStreamClass.tOpt x
         }
     end
   end

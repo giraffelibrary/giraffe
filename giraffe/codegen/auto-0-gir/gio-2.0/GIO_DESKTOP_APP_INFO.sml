@@ -43,5 +43,9 @@ signature GIO_DESKTOP_APP_INFO =
        -> string * 'b app_launch_context_class option
        -> unit
     val listActions : 'a class -> string list
-    val filenameProp : ('a class, string option, string option) Property.readwrite
+    val filenameProp :
+      {
+        get : 'a class -> string option,
+        new : string option -> 'a class Property.t
+      }
   end

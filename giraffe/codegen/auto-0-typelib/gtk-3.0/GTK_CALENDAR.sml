@@ -56,14 +56,94 @@ signature GTK_CALENDAR =
     val nextYearSig : (unit -> unit) -> 'a class Signal.t
     val prevMonthSig : (unit -> unit) -> 'a class Signal.t
     val prevYearSig : (unit -> unit) -> 'a class Signal.t
-    val dayProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val detailHeightRowsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val detailWidthCharsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val monthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val noMonthChangeProp : ('a class, bool, bool) Property.readwrite
-    val showDayNamesProp : ('a class, bool, bool) Property.readwrite
-    val showDetailsProp : ('a class, bool, bool) Property.readwrite
-    val showHeadingProp : ('a class, bool, bool) Property.readwrite
-    val showWeekNumbersProp : ('a class, bool, bool) Property.readwrite
-    val yearProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val dayProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val detailHeightRowsProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val detailWidthCharsProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val monthProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val noMonthChangeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showDayNamesProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showDetailsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showHeadingProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showWeekNumbersProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val yearProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

@@ -38,7 +38,7 @@ structure GdkSeat :>
       val displayProp =
         {
           get = fn x => get "display" GdkDisplayClass.tOpt x,
-          set = fn x => set "display" GdkDisplayClass.tOpt x
+          new = fn x => new "display" GdkDisplayClass.tOpt x
         }
     end
   end

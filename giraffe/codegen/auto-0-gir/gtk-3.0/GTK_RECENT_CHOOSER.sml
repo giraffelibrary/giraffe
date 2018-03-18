@@ -79,14 +79,86 @@ signature GTK_RECENT_CHOOSER =
        -> unit
     val itemActivatedSig : (unit -> unit) -> 'a class Signal.t
     val selectionChangedSig : (unit -> unit) -> 'a class Signal.t
-    val filterProp : ('a class, base recent_filter_class option, 'b recent_filter_class option) Property.readwrite
-    val limitProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val localOnlyProp : ('a class, bool, bool) Property.readwrite
-    val recentManagerProp : ('a class, 'b recent_manager_class option) Property.writeonly
-    val selectMultipleProp : ('a class, bool, bool) Property.readwrite
-    val showIconsProp : ('a class, bool, bool) Property.readwrite
-    val showNotFoundProp : ('a class, bool, bool) Property.readwrite
-    val showPrivateProp : ('a class, bool, bool) Property.readwrite
-    val showTipsProp : ('a class, bool, bool) Property.readwrite
-    val sortTypeProp : ('a class, recent_sort_type_t, recent_sort_type_t) Property.readwrite
+    val filterProp :
+      {
+        get : 'a class -> base recent_filter_class option,
+        set :
+          'b recent_filter_class option
+           -> 'a class
+           -> unit,
+        new : 'b recent_filter_class option -> 'a class Property.t
+      }
+    val limitProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val localOnlyProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val recentManagerProp : {new : 'b recent_manager_class option -> 'a class Property.t}
+    val selectMultipleProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showIconsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showNotFoundProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showPrivateProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showTipsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val sortTypeProp :
+      {
+        get : 'a class -> recent_sort_type_t,
+        set :
+          recent_sort_type_t
+           -> 'a class
+           -> unit,
+        new : recent_sort_type_t -> 'a class Property.t
+      }
   end

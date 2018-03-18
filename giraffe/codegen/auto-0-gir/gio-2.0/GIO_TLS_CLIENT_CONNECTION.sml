@@ -26,7 +26,31 @@ signature GIO_TLS_CLIENT_CONNECTION =
       'a class
        -> tls_certificate_flags_t
        -> unit
-    val serverIdentityProp : ('a class, base socket_connectable_class option, 'b socket_connectable_class option) Property.readwrite
-    val useSsl3Prop : ('a class, bool, bool) Property.readwrite
-    val validationFlagsProp : ('a class, tls_certificate_flags_t, tls_certificate_flags_t) Property.readwrite
+    val serverIdentityProp :
+      {
+        get : 'a class -> base socket_connectable_class option,
+        set :
+          'b socket_connectable_class option
+           -> 'a class
+           -> unit,
+        new : 'b socket_connectable_class option -> 'a class Property.t
+      }
+    val useSsl3Prop :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val validationFlagsProp :
+      {
+        get : 'a class -> tls_certificate_flags_t,
+        set :
+          tls_certificate_flags_t
+           -> 'a class
+           -> unit,
+        new : tls_certificate_flags_t -> 'a class Property.t
+      }
   end

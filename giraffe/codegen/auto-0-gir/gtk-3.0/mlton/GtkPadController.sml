@@ -108,12 +108,12 @@ structure GtkPadController :>
       val actionGroupProp =
         {
           get = fn x => get "action-group" GioActionGroupClass.tOpt x,
-          set = fn x => set "action-group" GioActionGroupClass.tOpt x
+          new = fn x => new "action-group" GioActionGroupClass.tOpt x
         }
       val padProp =
         {
           get = fn x => get "pad" GdkDeviceClass.tOpt x,
-          set = fn x => set "pad" GdkDeviceClass.tOpt x
+          new = fn x => new "pad" GdkDeviceClass.tOpt x
         }
     end
   end

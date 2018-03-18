@@ -47,22 +47,26 @@ structure GtkFontChooser :>
       val fontProp =
         {
           get = fn x => get "font" stringOpt x,
-          set = fn x => set "font" stringOpt x
+          set = fn x => set "font" stringOpt x,
+          new = fn x => new "font" stringOpt x
         }
       val fontDescProp =
         {
           get = fn x => get "font-desc" PangoFontDescriptionRecord.tOpt x,
-          set = fn x => set "font-desc" PangoFontDescriptionRecord.tOpt x
+          set = fn x => set "font-desc" PangoFontDescriptionRecord.tOpt x,
+          new = fn x => new "font-desc" PangoFontDescriptionRecord.tOpt x
         }
       val previewTextProp =
         {
           get = fn x => get "preview-text" stringOpt x,
-          set = fn x => set "preview-text" stringOpt x
+          set = fn x => set "preview-text" stringOpt x,
+          new = fn x => new "preview-text" stringOpt x
         }
       val showPreviewEntryProp =
         {
           get = fn x => get "show-preview-entry" boolean x,
-          set = fn x => set "show-preview-entry" boolean x
+          set = fn x => set "show-preview-entry" boolean x,
+          new = fn x => new "show-preview-entry" boolean x
         }
     end
   end

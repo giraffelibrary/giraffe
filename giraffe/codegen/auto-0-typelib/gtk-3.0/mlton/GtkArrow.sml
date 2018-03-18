@@ -52,12 +52,14 @@ structure GtkArrow :>
       val arrowTypeProp =
         {
           get = fn x => get "arrow-type" GtkArrowType.t x,
-          set = fn x => set "arrow-type" GtkArrowType.t x
+          set = fn x => set "arrow-type" GtkArrowType.t x,
+          new = fn x => new "arrow-type" GtkArrowType.t x
         }
       val shadowTypeProp =
         {
           get = fn x => get "shadow-type" GtkShadowType.t x,
-          set = fn x => set "shadow-type" GtkShadowType.t x
+          set = fn x => set "shadow-type" GtkShadowType.t x,
+          new = fn x => new "shadow-type" GtkShadowType.t x
         }
     end
   end

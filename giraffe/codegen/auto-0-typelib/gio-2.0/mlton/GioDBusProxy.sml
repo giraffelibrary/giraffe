@@ -485,42 +485,44 @@ structure GioDBusProxy :>
     local
       open Property
     in
-      val gBusTypeProp = {set = fn x => set "g-bus-type" GioBusType.t x}
+      val gBusTypeProp = {new = fn x => new "g-bus-type" GioBusType.t x}
       val gConnectionProp =
         {
           get = fn x => get "g-connection" GioDBusConnectionClass.tOpt x,
-          set = fn x => set "g-connection" GioDBusConnectionClass.tOpt x
+          new = fn x => new "g-connection" GioDBusConnectionClass.tOpt x
         }
       val gDefaultTimeoutProp =
         {
           get = fn x => get "g-default-timeout" int x,
-          set = fn x => set "g-default-timeout" int x
+          set = fn x => set "g-default-timeout" int x,
+          new = fn x => new "g-default-timeout" int x
         }
       val gFlagsProp =
         {
           get = fn x => get "g-flags" GioDBusProxyFlags.t x,
-          set = fn x => set "g-flags" GioDBusProxyFlags.t x
+          new = fn x => new "g-flags" GioDBusProxyFlags.t x
         }
       val gInterfaceInfoProp =
         {
           get = fn x => get "g-interface-info" GioDBusInterfaceInfoRecord.tOpt x,
-          set = fn x => set "g-interface-info" GioDBusInterfaceInfoRecord.tOpt x
+          set = fn x => set "g-interface-info" GioDBusInterfaceInfoRecord.tOpt x,
+          new = fn x => new "g-interface-info" GioDBusInterfaceInfoRecord.tOpt x
         }
       val gInterfaceNameProp =
         {
           get = fn x => get "g-interface-name" stringOpt x,
-          set = fn x => set "g-interface-name" stringOpt x
+          new = fn x => new "g-interface-name" stringOpt x
         }
       val gNameProp =
         {
           get = fn x => get "g-name" stringOpt x,
-          set = fn x => set "g-name" stringOpt x
+          new = fn x => new "g-name" stringOpt x
         }
       val gNameOwnerProp = {get = fn x => get "g-name-owner" stringOpt x}
       val gObjectPathProp =
         {
           get = fn x => get "g-object-path" stringOpt x,
-          set = fn x => set "g-object-path" stringOpt x
+          new = fn x => new "g-object-path" stringOpt x
         }
     end
   end

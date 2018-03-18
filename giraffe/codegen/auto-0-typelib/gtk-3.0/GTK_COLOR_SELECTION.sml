@@ -53,9 +53,49 @@ signature GTK_COLOR_SELECTION =
        -> Gdk.RgbaRecord.t
        -> unit
     val colorChangedSig : (unit -> unit) -> 'a class Signal.t
-    val currentAlphaProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val currentColorProp : ('a class, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
-    val currentRgbaProp : ('a class, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite
-    val hasOpacityControlProp : ('a class, bool, bool) Property.readwrite
-    val hasPaletteProp : ('a class, bool, bool) Property.readwrite
+    val currentAlphaProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val currentColorProp :
+      {
+        get : 'a class -> Gdk.ColorRecord.t option,
+        set :
+          Gdk.ColorRecord.t option
+           -> 'a class
+           -> unit,
+        new : Gdk.ColorRecord.t option -> 'a class Property.t
+      }
+    val currentRgbaProp :
+      {
+        get : 'a class -> Gdk.RgbaRecord.t option,
+        set :
+          Gdk.RgbaRecord.t option
+           -> 'a class
+           -> unit,
+        new : Gdk.RgbaRecord.t option -> 'a class Property.t
+      }
+    val hasOpacityControlProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val hasPaletteProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

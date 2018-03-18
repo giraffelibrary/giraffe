@@ -27,12 +27,14 @@ structure GtkMountOperation :>
       val parentProp =
         {
           get = fn x => get "parent" GtkWindowClass.tOpt x,
-          set = fn x => set "parent" GtkWindowClass.tOpt x
+          set = fn x => set "parent" GtkWindowClass.tOpt x,
+          new = fn x => new "parent" GtkWindowClass.tOpt x
         }
       val screenProp =
         {
           get = fn x => get "screen" GdkScreenClass.tOpt x,
-          set = fn x => set "screen" GdkScreenClass.tOpt x
+          set = fn x => set "screen" GdkScreenClass.tOpt x,
+          new = fn x => new "screen" GdkScreenClass.tOpt x
         }
     end
   end

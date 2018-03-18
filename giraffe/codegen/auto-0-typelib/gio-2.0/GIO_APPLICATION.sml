@@ -95,12 +95,51 @@ signature GIO_APPLICATION =
     val openSig : (base file_class vector * string -> unit) -> 'a class Signal.t
     val shutdownSig : (unit -> unit) -> 'a class Signal.t
     val startupSig : (unit -> unit) -> 'a class Signal.t
-    val actionGroupProp : ('a class, 'b action_group_class option) Property.writeonly
-    val applicationIdProp : ('a class, string option, string option) Property.readwrite
-    val flagsProp : ('a class, application_flags_t, application_flags_t) Property.readwrite
-    val inactivityTimeoutProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val isBusyProp : ('a class, bool) Property.readonly
-    val isRegisteredProp : ('a class, bool) Property.readonly
-    val isRemoteProp : ('a class, bool) Property.readonly
-    val resourceBasePathProp : ('a class, string option, string option) Property.readwrite
+    val actionGroupProp :
+      {
+        set :
+          'b action_group_class option
+           -> 'a class
+           -> unit,
+        new : 'b action_group_class option -> 'a class Property.t
+      }
+    val applicationIdProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val flagsProp :
+      {
+        get : 'a class -> application_flags_t,
+        set :
+          application_flags_t
+           -> 'a class
+           -> unit,
+        new : application_flags_t -> 'a class Property.t
+      }
+    val inactivityTimeoutProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val isBusyProp : {get : 'a class -> bool}
+    val isRegisteredProp : {get : 'a class -> bool}
+    val isRemoteProp : {get : 'a class -> bool}
+    val resourceBasePathProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

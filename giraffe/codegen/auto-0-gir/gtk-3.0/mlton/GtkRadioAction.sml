@@ -81,13 +81,19 @@ structure GtkRadioAction :>
       val currentValueProp =
         {
           get = fn x => get "current-value" int x,
-          set = fn x => set "current-value" int x
+          set = fn x => set "current-value" int x,
+          new = fn x => new "current-value" int x
         }
-      val groupProp = {set = fn x => set "group" GtkRadioActionClass.tOpt x}
+      val groupProp =
+        {
+          set = fn x => set "group" GtkRadioActionClass.tOpt x,
+          new = fn x => new "group" GtkRadioActionClass.tOpt x
+        }
       val valueProp =
         {
           get = fn x => get "value" int x,
-          set = fn x => set "value" int x
+          set = fn x => set "value" int x,
+          new = fn x => new "value" int x
         }
     end
   end

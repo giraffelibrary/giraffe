@@ -253,58 +253,68 @@ structure GtkSourcePrintCompositor :>
       val bodyFontNameProp =
         {
           get = fn x => get "body-font-name" stringOpt x,
-          set = fn x => set "body-font-name" stringOpt x
+          set = fn x => set "body-font-name" stringOpt x,
+          new = fn x => new "body-font-name" stringOpt x
         }
       val bufferProp =
         {
           get = fn x => get "buffer" GtkSourceBufferClass.tOpt x,
-          set = fn x => set "buffer" GtkSourceBufferClass.tOpt x
+          new = fn x => new "buffer" GtkSourceBufferClass.tOpt x
         }
       val footerFontNameProp =
         {
           get = fn x => get "footer-font-name" stringOpt x,
-          set = fn x => set "footer-font-name" stringOpt x
+          set = fn x => set "footer-font-name" stringOpt x,
+          new = fn x => new "footer-font-name" stringOpt x
         }
       val headerFontNameProp =
         {
           get = fn x => get "header-font-name" stringOpt x,
-          set = fn x => set "header-font-name" stringOpt x
+          set = fn x => set "header-font-name" stringOpt x,
+          new = fn x => new "header-font-name" stringOpt x
         }
       val highlightSyntaxProp =
         {
           get = fn x => get "highlight-syntax" boolean x,
-          set = fn x => set "highlight-syntax" boolean x
+          set = fn x => set "highlight-syntax" boolean x,
+          new = fn x => new "highlight-syntax" boolean x
         }
       val lineNumbersFontNameProp =
         {
           get = fn x => get "line-numbers-font-name" stringOpt x,
-          set = fn x => set "line-numbers-font-name" stringOpt x
+          set = fn x => set "line-numbers-font-name" stringOpt x,
+          new = fn x => new "line-numbers-font-name" stringOpt x
         }
       val nPagesProp = {get = fn x => get "n-pages" int x}
       val printFooterProp =
         {
           get = fn x => get "print-footer" boolean x,
-          set = fn x => set "print-footer" boolean x
+          set = fn x => set "print-footer" boolean x,
+          new = fn x => new "print-footer" boolean x
         }
       val printHeaderProp =
         {
           get = fn x => get "print-header" boolean x,
-          set = fn x => set "print-header" boolean x
+          set = fn x => set "print-header" boolean x,
+          new = fn x => new "print-header" boolean x
         }
       val printLineNumbersProp =
         {
           get = fn x => get "print-line-numbers" uint x,
-          set = fn x => set "print-line-numbers" uint x
+          set = fn x => set "print-line-numbers" uint x,
+          new = fn x => new "print-line-numbers" uint x
         }
       val tabWidthProp =
         {
           get = fn x => get "tab-width" uint x,
-          set = fn x => set "tab-width" uint x
+          set = fn x => set "tab-width" uint x,
+          new = fn x => new "tab-width" uint x
         }
       val wrapModeProp =
         {
           get = fn x => get "wrap-mode" GtkWrapMode.t x,
-          set = fn x => set "wrap-mode" GtkWrapMode.t x
+          set = fn x => set "wrap-mode" GtkWrapMode.t x,
+          new = fn x => new "wrap-mode" GtkWrapMode.t x
         }
     end
   end

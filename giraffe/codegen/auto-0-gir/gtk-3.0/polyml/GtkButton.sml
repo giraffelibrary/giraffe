@@ -147,47 +147,56 @@ structure GtkButton :>
       val alwaysShowImageProp =
         {
           get = fn x => get "always-show-image" boolean x,
-          set = fn x => set "always-show-image" boolean x
+          set = fn x => set "always-show-image" boolean x,
+          new = fn x => new "always-show-image" boolean x
         }
       val imageProp =
         {
           get = fn x => get "image" GtkWidgetClass.tOpt x,
-          set = fn x => set "image" GtkWidgetClass.tOpt x
+          set = fn x => set "image" GtkWidgetClass.tOpt x,
+          new = fn x => new "image" GtkWidgetClass.tOpt x
         }
       val imagePositionProp =
         {
           get = fn x => get "image-position" GtkPositionType.t x,
-          set = fn x => set "image-position" GtkPositionType.t x
+          set = fn x => set "image-position" GtkPositionType.t x,
+          new = fn x => new "image-position" GtkPositionType.t x
         }
       val labelProp =
         {
           get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x
+          set = fn x => set "label" stringOpt x,
+          new = fn x => new "label" stringOpt x
         }
       val reliefProp =
         {
           get = fn x => get "relief" GtkReliefStyle.t x,
-          set = fn x => set "relief" GtkReliefStyle.t x
+          set = fn x => set "relief" GtkReliefStyle.t x,
+          new = fn x => new "relief" GtkReliefStyle.t x
         }
       val useStockProp =
         {
           get = fn x => get "use-stock" boolean x,
-          set = fn x => set "use-stock" boolean x
+          set = fn x => set "use-stock" boolean x,
+          new = fn x => new "use-stock" boolean x
         }
       val useUnderlineProp =
         {
           get = fn x => get "use-underline" boolean x,
-          set = fn x => set "use-underline" boolean x
+          set = fn x => set "use-underline" boolean x,
+          new = fn x => new "use-underline" boolean x
         }
       val xalignProp =
         {
           get = fn x => get "xalign" float x,
-          set = fn x => set "xalign" float x
+          set = fn x => set "xalign" float x,
+          new = fn x => new "xalign" float x
         }
       val yalignProp =
         {
           get = fn x => get "yalign" float x,
-          set = fn x => set "yalign" float x
+          set = fn x => set "yalign" float x,
+          new = fn x => new "yalign" float x
         }
     end
   end

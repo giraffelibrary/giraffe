@@ -15,5 +15,9 @@ signature GIO_TEST_D_BUS =
     val getFlags : 'a class -> test_d_bus_flags_t
     val stop : 'a class -> unit
     val up : 'a class -> unit
-    val flagsProp : ('a class, test_d_bus_flags_t, test_d_bus_flags_t) Property.readwrite
+    val flagsProp :
+      {
+        get : 'a class -> test_d_bus_flags_t,
+        new : test_d_bus_flags_t -> 'a class Property.t
+      }
   end

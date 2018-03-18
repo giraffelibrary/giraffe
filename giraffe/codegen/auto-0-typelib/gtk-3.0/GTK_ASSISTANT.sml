@@ -100,5 +100,9 @@ signature GTK_ASSISTANT =
     val closeSig : (unit -> unit) -> 'a class Signal.t
     val escapeSig : (unit -> unit) -> 'a class Signal.t
     val prepareSig : (base widget_class -> unit) -> 'a class Signal.t
-    val useHeaderBarProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val useHeaderBarProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

@@ -106,32 +106,38 @@ structure GioMountOperation :>
       val anonymousProp =
         {
           get = fn x => get "anonymous" boolean x,
-          set = fn x => set "anonymous" boolean x
+          set = fn x => set "anonymous" boolean x,
+          new = fn x => new "anonymous" boolean x
         }
       val choiceProp =
         {
           get = fn x => get "choice" int x,
-          set = fn x => set "choice" int x
+          set = fn x => set "choice" int x,
+          new = fn x => new "choice" int x
         }
       val domainProp =
         {
           get = fn x => get "domain" stringOpt x,
-          set = fn x => set "domain" stringOpt x
+          set = fn x => set "domain" stringOpt x,
+          new = fn x => new "domain" stringOpt x
         }
       val passwordProp =
         {
           get = fn x => get "password" stringOpt x,
-          set = fn x => set "password" stringOpt x
+          set = fn x => set "password" stringOpt x,
+          new = fn x => new "password" stringOpt x
         }
       val passwordSaveProp =
         {
           get = fn x => get "password-save" GioPasswordSave.t x,
-          set = fn x => set "password-save" GioPasswordSave.t x
+          set = fn x => set "password-save" GioPasswordSave.t x,
+          new = fn x => new "password-save" GioPasswordSave.t x
         }
       val usernameProp =
         {
           get = fn x => get "username" stringOpt x,
-          set = fn x => set "username" stringOpt x
+          set = fn x => set "username" stringOpt x,
+          new = fn x => new "username" stringOpt x
         }
     end
   end

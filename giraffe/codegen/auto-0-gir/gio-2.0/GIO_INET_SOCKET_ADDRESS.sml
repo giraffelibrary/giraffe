@@ -12,8 +12,24 @@ signature GIO_INET_SOCKET_ADDRESS =
     val getFlowinfo : 'a class -> LargeInt.int
     val getPort : 'a class -> LargeInt.int
     val getScopeId : 'a class -> LargeInt.int
-    val addressProp : ('a class, base inet_address_class option, 'b inet_address_class option) Property.readwrite
-    val flowinfoProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val portProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val scopeIdProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val addressProp :
+      {
+        get : 'a class -> base inet_address_class option,
+        new : 'b inet_address_class option -> 'a class Property.t
+      }
+    val flowinfoProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val portProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val scopeIdProp :
+      {
+        get : 'a class -> LargeInt.int,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

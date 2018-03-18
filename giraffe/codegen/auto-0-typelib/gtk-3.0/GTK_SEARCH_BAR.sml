@@ -26,6 +26,22 @@ signature GTK_SEARCH_BAR =
       'a class
        -> bool
        -> unit
-    val searchModeEnabledProp : ('a class, bool, bool) Property.readwrite
-    val showCloseButtonProp : ('a class, bool, bool) Property.readwrite
+    val searchModeEnabledProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val showCloseButtonProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

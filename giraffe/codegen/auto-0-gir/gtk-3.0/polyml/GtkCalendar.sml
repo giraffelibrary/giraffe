@@ -117,52 +117,62 @@ structure GtkCalendar :>
       val dayProp =
         {
           get = fn x => get "day" int x,
-          set = fn x => set "day" int x
+          set = fn x => set "day" int x,
+          new = fn x => new "day" int x
         }
       val detailHeightRowsProp =
         {
           get = fn x => get "detail-height-rows" int x,
-          set = fn x => set "detail-height-rows" int x
+          set = fn x => set "detail-height-rows" int x,
+          new = fn x => new "detail-height-rows" int x
         }
       val detailWidthCharsProp =
         {
           get = fn x => get "detail-width-chars" int x,
-          set = fn x => set "detail-width-chars" int x
+          set = fn x => set "detail-width-chars" int x,
+          new = fn x => new "detail-width-chars" int x
         }
       val monthProp =
         {
           get = fn x => get "month" int x,
-          set = fn x => set "month" int x
+          set = fn x => set "month" int x,
+          new = fn x => new "month" int x
         }
       val noMonthChangeProp =
         {
           get = fn x => get "no-month-change" boolean x,
-          set = fn x => set "no-month-change" boolean x
+          set = fn x => set "no-month-change" boolean x,
+          new = fn x => new "no-month-change" boolean x
         }
       val showDayNamesProp =
         {
           get = fn x => get "show-day-names" boolean x,
-          set = fn x => set "show-day-names" boolean x
+          set = fn x => set "show-day-names" boolean x,
+          new = fn x => new "show-day-names" boolean x
         }
       val showDetailsProp =
         {
           get = fn x => get "show-details" boolean x,
-          set = fn x => set "show-details" boolean x
+          set = fn x => set "show-details" boolean x,
+          new = fn x => new "show-details" boolean x
         }
       val showHeadingProp =
         {
           get = fn x => get "show-heading" boolean x,
-          set = fn x => set "show-heading" boolean x
+          set = fn x => set "show-heading" boolean x,
+          new = fn x => new "show-heading" boolean x
         }
       val showWeekNumbersProp =
         {
           get = fn x => get "show-week-numbers" boolean x,
-          set = fn x => set "show-week-numbers" boolean x
+          set = fn x => set "show-week-numbers" boolean x,
+          new = fn x => new "show-week-numbers" boolean x
         }
       val yearProp =
         {
           get = fn x => get "year" int x,
-          set = fn x => set "year" int x
+          set = fn x => set "year" int x,
+          new = fn x => new "year" int x
         }
     end
   end

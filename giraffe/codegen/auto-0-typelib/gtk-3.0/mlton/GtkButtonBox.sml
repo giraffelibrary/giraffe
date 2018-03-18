@@ -95,7 +95,8 @@ structure GtkButtonBox :>
       val layoutStyleProp =
         {
           get = fn x => get "layout-style" GtkButtonBoxStyle.t x,
-          set = fn x => set "layout-style" GtkButtonBoxStyle.t x
+          set = fn x => set "layout-style" GtkButtonBoxStyle.t x,
+          new = fn x => new "layout-style" GtkButtonBoxStyle.t x
         }
     end
   end

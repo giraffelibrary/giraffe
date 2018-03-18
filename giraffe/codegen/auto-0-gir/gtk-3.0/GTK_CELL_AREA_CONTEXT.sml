@@ -29,9 +29,13 @@ signature GTK_CELL_AREA_CONTEXT =
        -> LargeInt.int * LargeInt.int
        -> unit
     val reset : 'a class -> unit
-    val areaProp : ('a class, base cell_area_class option, 'b cell_area_class option) Property.readwrite
-    val minimumHeightProp : ('a class, LargeInt.int) Property.readonly
-    val minimumWidthProp : ('a class, LargeInt.int) Property.readonly
-    val naturalHeightProp : ('a class, LargeInt.int) Property.readonly
-    val naturalWidthProp : ('a class, LargeInt.int) Property.readonly
+    val areaProp :
+      {
+        get : 'a class -> base cell_area_class option,
+        new : 'b cell_area_class option -> 'a class Property.t
+      }
+    val minimumHeightProp : {get : 'a class -> LargeInt.int}
+    val minimumWidthProp : {get : 'a class -> LargeInt.int}
+    val naturalHeightProp : {get : 'a class -> LargeInt.int}
+    val naturalWidthProp : {get : 'a class -> LargeInt.int}
   end

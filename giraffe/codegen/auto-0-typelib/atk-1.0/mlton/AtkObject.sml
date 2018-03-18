@@ -185,63 +185,75 @@ structure AtkObject :>
       val accessibleDescriptionProp =
         {
           get = fn x => get "accessible-description" stringOpt x,
-          set = fn x => set "accessible-description" stringOpt x
+          set = fn x => set "accessible-description" stringOpt x,
+          new = fn x => new "accessible-description" stringOpt x
         }
       val accessibleHypertextNlinksProp = {get = fn x => get "accessible-hypertext-nlinks" int x}
       val accessibleNameProp =
         {
           get = fn x => get "accessible-name" stringOpt x,
-          set = fn x => set "accessible-name" stringOpt x
+          set = fn x => set "accessible-name" stringOpt x,
+          new = fn x => new "accessible-name" stringOpt x
         }
       val accessibleParentProp =
         {
           get = fn x => get "accessible-parent" AtkObjectClass.tOpt x,
-          set = fn x => set "accessible-parent" AtkObjectClass.tOpt x
+          set = fn x => set "accessible-parent" AtkObjectClass.tOpt x,
+          new = fn x => new "accessible-parent" AtkObjectClass.tOpt x
         }
       val accessibleRoleProp =
         {
           get = fn x => get "accessible-role" int x,
-          set = fn x => set "accessible-role" int x
+          set = fn x => set "accessible-role" int x,
+          new = fn x => new "accessible-role" int x
         }
       val accessibleTableCaptionProp =
         {
           get = fn x => get "accessible-table-caption" stringOpt x,
-          set = fn x => set "accessible-table-caption" stringOpt x
+          set = fn x => set "accessible-table-caption" stringOpt x,
+          new = fn x => new "accessible-table-caption" stringOpt x
         }
       val accessibleTableCaptionObjectProp =
         {
           get = fn x => get "accessible-table-caption-object" AtkObjectClass.tOpt x,
-          set = fn x => set "accessible-table-caption-object" AtkObjectClass.tOpt x
+          set = fn x => set "accessible-table-caption-object" AtkObjectClass.tOpt x,
+          new = fn x => new "accessible-table-caption-object" AtkObjectClass.tOpt x
         }
       val accessibleTableColumnDescriptionProp =
         {
           get = fn x => get "accessible-table-column-description" stringOpt x,
-          set = fn x => set "accessible-table-column-description" stringOpt x
+          set = fn x => set "accessible-table-column-description" stringOpt x,
+          new = fn x => new "accessible-table-column-description" stringOpt x
         }
       val accessibleTableColumnHeaderProp =
         {
           get = fn x => get "accessible-table-column-header" AtkObjectClass.tOpt x,
-          set = fn x => set "accessible-table-column-header" AtkObjectClass.tOpt x
+          set = fn x => set "accessible-table-column-header" AtkObjectClass.tOpt x,
+          new = fn x => new "accessible-table-column-header" AtkObjectClass.tOpt x
         }
       val accessibleTableRowDescriptionProp =
         {
           get = fn x => get "accessible-table-row-description" stringOpt x,
-          set = fn x => set "accessible-table-row-description" stringOpt x
+          set = fn x => set "accessible-table-row-description" stringOpt x,
+          new = fn x => new "accessible-table-row-description" stringOpt x
         }
       val accessibleTableRowHeaderProp =
         {
           get = fn x => get "accessible-table-row-header" AtkObjectClass.tOpt x,
-          set = fn x => set "accessible-table-row-header" AtkObjectClass.tOpt x
+          set = fn x => set "accessible-table-row-header" AtkObjectClass.tOpt x,
+          new = fn x => new "accessible-table-row-header" AtkObjectClass.tOpt x
         }
       val accessibleTableSummaryProp =
         {
           get = fn x => get "accessible-table-summary" AtkObjectClass.tOpt x,
-          set = fn x => set "accessible-table-summary" AtkObjectClass.tOpt x
+          set = fn x => set "accessible-table-summary" AtkObjectClass.tOpt x,
+          new = fn x => new "accessible-table-summary" AtkObjectClass.tOpt x
         }
       val accessibleValueProp =
         {
           get = fn x => get "accessible-value" double x,
-          set = fn x => set "accessible-value" double x
+          set = fn x => set "accessible-value" double x,
+          new = fn x => new "accessible-value" double x
         }
     end
   end

@@ -29,9 +29,49 @@ signature GTK_FRAME =
       'a class
        -> shadow_type_t
        -> unit
-    val labelProp : ('a class, string option, string option) Property.readwrite
-    val labelWidgetProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
-    val labelXalignProp : ('a class, real, real) Property.readwrite
-    val labelYalignProp : ('a class, real, real) Property.readwrite
-    val shadowTypeProp : ('a class, shadow_type_t, shadow_type_t) Property.readwrite
+    val labelProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val labelWidgetProp :
+      {
+        get : 'a class -> base widget_class option,
+        set :
+          'b widget_class option
+           -> 'a class
+           -> unit,
+        new : 'b widget_class option -> 'a class Property.t
+      }
+    val labelXalignProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val labelYalignProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val shadowTypeProp :
+      {
+        get : 'a class -> shadow_type_t,
+        set :
+          shadow_type_t
+           -> 'a class
+           -> unit,
+        new : shadow_type_t -> 'a class Property.t
+      }
   end

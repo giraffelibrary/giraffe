@@ -104,20 +104,132 @@ signature GTK_COMBO_BOX =
     val moveActiveSig : (scroll_type_t -> unit) -> 'a class Signal.t
     val popdownSig : (unit -> bool) -> 'a class Signal.t
     val popupSig : (unit -> unit) -> 'a class Signal.t
-    val activeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val activeIdProp : ('a class, string option, string option) Property.readwrite
-    val addTearoffsProp : ('a class, bool, bool) Property.readwrite
-    val buttonSensitivityProp : ('a class, sensitivity_type_t, sensitivity_type_t) Property.readwrite
-    val cellAreaProp : ('a class, base cell_area_class option, 'b cell_area_class option) Property.readwrite
-    val columnSpanColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val entryTextColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val hasEntryProp : ('a class, bool, bool) Property.readwrite
-    val hasFrameProp : ('a class, bool, bool) Property.readwrite
-    val idColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val modelProp : ('a class, base tree_model_class option, 'b tree_model_class option) Property.readwrite
-    val popupFixedWidthProp : ('a class, bool, bool) Property.readwrite
-    val popupShownProp : ('a class, bool) Property.readonly
-    val rowSpanColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val tearoffTitleProp : ('a class, string option, string option) Property.readwrite
-    val wrapWidthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val activeProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val activeIdProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val addTearoffsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val buttonSensitivityProp :
+      {
+        get : 'a class -> sensitivity_type_t,
+        set :
+          sensitivity_type_t
+           -> 'a class
+           -> unit,
+        new : sensitivity_type_t -> 'a class Property.t
+      }
+    val cellAreaProp :
+      {
+        get : 'a class -> base cell_area_class option,
+        new : 'b cell_area_class option -> 'a class Property.t
+      }
+    val columnSpanColumnProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val entryTextColumnProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val hasEntryProp :
+      {
+        get : 'a class -> bool,
+        new : bool -> 'a class Property.t
+      }
+    val hasFrameProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val idColumnProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val modelProp :
+      {
+        get : 'a class -> base tree_model_class option,
+        set :
+          'b tree_model_class option
+           -> 'a class
+           -> unit,
+        new : 'b tree_model_class option -> 'a class Property.t
+      }
+    val popupFixedWidthProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val popupShownProp : {get : 'a class -> bool}
+    val rowSpanColumnProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val tearoffTitleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val wrapWidthProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

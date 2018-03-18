@@ -318,22 +318,166 @@ signature GTK_TREE_VIEW =
     val testExpandRowSig : (tree_iter_t * tree_path_t -> bool) -> 'a class Signal.t
     val toggleCursorRowSig : (unit -> bool) -> 'a class Signal.t
     val unselectAllSig : (unit -> bool) -> 'a class Signal.t
-    val activateOnSingleClickProp : ('a class, bool, bool) Property.readwrite
-    val enableGridLinesProp : ('a class, tree_view_grid_lines_t, tree_view_grid_lines_t) Property.readwrite
-    val enableSearchProp : ('a class, bool, bool) Property.readwrite
-    val enableTreeLinesProp : ('a class, bool, bool) Property.readwrite
-    val expanderColumnProp : ('a class, base tree_view_column_class option, 'b tree_view_column_class option) Property.readwrite
-    val fixedHeightModeProp : ('a class, bool, bool) Property.readwrite
-    val headersClickableProp : ('a class, bool, bool) Property.readwrite
-    val headersVisibleProp : ('a class, bool, bool) Property.readwrite
-    val hoverExpandProp : ('a class, bool, bool) Property.readwrite
-    val hoverSelectionProp : ('a class, bool, bool) Property.readwrite
-    val levelIndentationProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val modelProp : ('a class, base tree_model_class option, 'b tree_model_class option) Property.readwrite
-    val reorderableProp : ('a class, bool, bool) Property.readwrite
-    val rubberBandingProp : ('a class, bool, bool) Property.readwrite
-    val rulesHintProp : ('a class, bool, bool) Property.readwrite
-    val searchColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val showExpandersProp : ('a class, bool, bool) Property.readwrite
-    val tooltipColumnProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val activateOnSingleClickProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val enableGridLinesProp :
+      {
+        get : 'a class -> tree_view_grid_lines_t,
+        set :
+          tree_view_grid_lines_t
+           -> 'a class
+           -> unit,
+        new : tree_view_grid_lines_t -> 'a class Property.t
+      }
+    val enableSearchProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val enableTreeLinesProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val expanderColumnProp :
+      {
+        get : 'a class -> base tree_view_column_class option,
+        set :
+          'b tree_view_column_class option
+           -> 'a class
+           -> unit,
+        new : 'b tree_view_column_class option -> 'a class Property.t
+      }
+    val fixedHeightModeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val headersClickableProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val headersVisibleProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val hoverExpandProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val hoverSelectionProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val levelIndentationProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val modelProp :
+      {
+        get : 'a class -> base tree_model_class option,
+        set :
+          'b tree_model_class option
+           -> 'a class
+           -> unit,
+        new : 'b tree_model_class option -> 'a class Property.t
+      }
+    val reorderableProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val rubberBandingProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val rulesHintProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val searchColumnProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val showExpandersProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val tooltipColumnProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

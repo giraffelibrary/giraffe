@@ -13,8 +13,40 @@ signature GTK_CELL_RENDERER_ACCEL =
         * LargeInt.int
         -> unit)
        -> 'a class Signal.t
-    val accelKeyProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val accelModeProp : ('a class, cell_renderer_accel_mode_t, cell_renderer_accel_mode_t) Property.readwrite
-    val accelModsProp : ('a class, Gdk.ModifierType.t, Gdk.ModifierType.t) Property.readwrite
-    val keycodeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val accelKeyProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val accelModeProp :
+      {
+        get : 'a class -> cell_renderer_accel_mode_t,
+        set :
+          cell_renderer_accel_mode_t
+           -> 'a class
+           -> unit,
+        new : cell_renderer_accel_mode_t -> 'a class Property.t
+      }
+    val accelModsProp :
+      {
+        get : 'a class -> Gdk.ModifierType.t,
+        set :
+          Gdk.ModifierType.t
+           -> 'a class
+           -> unit,
+        new : Gdk.ModifierType.t -> 'a class Property.t
+      }
+    val keycodeProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

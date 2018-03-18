@@ -24,22 +24,26 @@ structure GtkShortcutsSection :>
       val maxHeightProp =
         {
           get = fn x => get "max-height" uint x,
-          set = fn x => set "max-height" uint x
+          set = fn x => set "max-height" uint x,
+          new = fn x => new "max-height" uint x
         }
       val sectionNameProp =
         {
           get = fn x => get "section-name" stringOpt x,
-          set = fn x => set "section-name" stringOpt x
+          set = fn x => set "section-name" stringOpt x,
+          new = fn x => new "section-name" stringOpt x
         }
       val titleProp =
         {
           get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x
+          set = fn x => set "title" stringOpt x,
+          new = fn x => new "title" stringOpt x
         }
       val viewNameProp =
         {
           get = fn x => get "view-name" stringOpt x,
-          set = fn x => set "view-name" stringOpt x
+          set = fn x => set "view-name" stringOpt x,
+          new = fn x => new "view-name" stringOpt x
         }
     end
   end

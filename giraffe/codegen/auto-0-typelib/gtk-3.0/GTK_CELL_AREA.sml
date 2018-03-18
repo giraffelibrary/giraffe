@@ -197,7 +197,15 @@ signature GTK_CELL_AREA =
        -> 'a class Signal.t
     val focusChangedSig : (base cell_renderer_class * string -> unit) -> 'a class Signal.t
     val removeEditableSig : (base cell_renderer_class * base cell_editable_class -> unit) -> 'a class Signal.t
-    val editWidgetProp : ('a class, base cell_editable_class option) Property.readonly
-    val editedCellProp : ('a class, base cell_renderer_class option) Property.readonly
-    val focusCellProp : ('a class, base cell_renderer_class option, 'b cell_renderer_class option) Property.readwrite
+    val editWidgetProp : {get : 'a class -> base cell_editable_class option}
+    val editedCellProp : {get : 'a class -> base cell_renderer_class option}
+    val focusCellProp :
+      {
+        get : 'a class -> base cell_renderer_class option,
+        set :
+          'b cell_renderer_class option
+           -> 'a class
+           -> unit,
+        new : 'b cell_renderer_class option -> 'a class Property.t
+      }
   end

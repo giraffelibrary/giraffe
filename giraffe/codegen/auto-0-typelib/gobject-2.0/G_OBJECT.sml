@@ -2,9 +2,7 @@ signature G_OBJECT =
   sig
     type ('a, 'b) value_accessor_t
     type 'a signal_t
-    type ('object, 'a) property_readonly
-    type ('object, 'a) property_writeonly
-    type ('object, 'a, 'b) property_readwrite
+    type 'object_class property_t
     structure Type : G_OBJECT_TYPE
     structure ConnectFlags : G_OBJECT_CONNECT_FLAGS
     structure EnumClassRecord : G_OBJECT_ENUM_CLASS_RECORD
@@ -195,9 +193,7 @@ signature G_OBJECT =
         where type type_t = Type.t
         where type binding_flags_t = BindingFlags.t
         where type 'a object_class = 'a ObjectClass.class
-        where type ('object, 'a) property_readonly = ('object, 'a) property_readonly
-        where type ('object, 'a) property_writeonly = ('object, 'a) property_writeonly
-        where type ('object, 'a, 'b) property_readwrite = ('object, 'a, 'b) property_readwrite
+        where type 'object_class property_t = 'object_class property_t
     structure InitiallyUnowned :
       G_OBJECT_INITIALLY_UNOWNED
         where type 'a class = 'a InitiallyUnownedClass.class

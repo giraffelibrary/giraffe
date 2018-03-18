@@ -18,7 +18,8 @@ structure GtkSourceStyleSchemeChooser :>
       val styleSchemeProp =
         {
           get = fn x => get "style-scheme" GtkSourceStyleSchemeClass.tOpt x,
-          set = fn x => set "style-scheme" GtkSourceStyleSchemeClass.tOpt x
+          set = fn x => set "style-scheme" GtkSourceStyleSchemeClass.tOpt x,
+          new = fn x => new "style-scheme" GtkSourceStyleSchemeClass.tOpt x
         }
     end
   end

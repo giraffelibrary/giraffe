@@ -194,7 +194,7 @@ structure GtkRecentManager :>
       val filenameProp =
         {
           get = fn x => get "filename" stringOpt x,
-          set = fn x => set "filename" stringOpt x
+          new = fn x => new "filename" stringOpt x
         }
       val sizeProp = {get = fn x => get "size" int x}
     end

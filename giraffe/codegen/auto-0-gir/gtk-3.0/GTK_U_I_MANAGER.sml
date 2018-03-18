@@ -67,6 +67,14 @@ signature GTK_U_I_MANAGER =
     val disconnectProxySig : (base action_class * base widget_class -> unit) -> 'a class Signal.t
     val postActivateSig : (base action_class -> unit) -> 'a class Signal.t
     val preActivateSig : (base action_class -> unit) -> 'a class Signal.t
-    val addTearoffsProp : ('a class, bool, bool) Property.readwrite
-    val uiProp : ('a class, string option) Property.readonly
+    val addTearoffsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val uiProp : {get : 'a class -> string option}
   end

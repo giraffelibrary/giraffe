@@ -41,22 +41,26 @@ structure GtkScrollable :>
       val hadjustmentProp =
         {
           get = fn x => get "hadjustment" GtkAdjustmentClass.tOpt x,
-          set = fn x => set "hadjustment" GtkAdjustmentClass.tOpt x
+          set = fn x => set "hadjustment" GtkAdjustmentClass.tOpt x,
+          new = fn x => new "hadjustment" GtkAdjustmentClass.tOpt x
         }
       val hscrollPolicyProp =
         {
           get = fn x => get "hscroll-policy" GtkScrollablePolicy.t x,
-          set = fn x => set "hscroll-policy" GtkScrollablePolicy.t x
+          set = fn x => set "hscroll-policy" GtkScrollablePolicy.t x,
+          new = fn x => new "hscroll-policy" GtkScrollablePolicy.t x
         }
       val vadjustmentProp =
         {
           get = fn x => get "vadjustment" GtkAdjustmentClass.tOpt x,
-          set = fn x => set "vadjustment" GtkAdjustmentClass.tOpt x
+          set = fn x => set "vadjustment" GtkAdjustmentClass.tOpt x,
+          new = fn x => new "vadjustment" GtkAdjustmentClass.tOpt x
         }
       val vscrollPolicyProp =
         {
           get = fn x => get "vscroll-policy" GtkScrollablePolicy.t x,
-          set = fn x => set "vscroll-policy" GtkScrollablePolicy.t x
+          set = fn x => set "vscroll-policy" GtkScrollablePolicy.t x,
+          new = fn x => new "vscroll-policy" GtkScrollablePolicy.t x
         }
     end
   end

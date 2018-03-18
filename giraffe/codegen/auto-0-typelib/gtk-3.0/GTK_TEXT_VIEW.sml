@@ -275,25 +275,193 @@ signature GTK_TEXT_VIEW =
     val setAnchorSig : (unit -> unit) -> 'a class Signal.t
     val toggleCursorVisibleSig : (unit -> unit) -> 'a class Signal.t
     val toggleOverwriteSig : (unit -> unit) -> 'a class Signal.t
-    val acceptsTabProp : ('a class, bool, bool) Property.readwrite
-    val bottomMarginProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val bufferProp : ('a class, base text_buffer_class option, 'b text_buffer_class option) Property.readwrite
-    val cursorVisibleProp : ('a class, bool, bool) Property.readwrite
-    val editableProp : ('a class, bool, bool) Property.readwrite
-    val imModuleProp : ('a class, string option, string option) Property.readwrite
-    val indentProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val inputHintsProp : ('a class, input_hints_t, input_hints_t) Property.readwrite
-    val inputPurposeProp : ('a class, input_purpose_t, input_purpose_t) Property.readwrite
-    val justificationProp : ('a class, justification_t, justification_t) Property.readwrite
-    val leftMarginProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val monospaceProp : ('a class, bool, bool) Property.readwrite
-    val overwriteProp : ('a class, bool, bool) Property.readwrite
-    val pixelsAboveLinesProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val pixelsBelowLinesProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val pixelsInsideWrapProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val populateAllProp : ('a class, bool, bool) Property.readwrite
-    val rightMarginProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val tabsProp : ('a class, Pango.TabArrayRecord.t option, Pango.TabArrayRecord.t option) Property.readwrite
-    val topMarginProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val wrapModeProp : ('a class, wrap_mode_t, wrap_mode_t) Property.readwrite
+    val acceptsTabProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val bottomMarginProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val bufferProp :
+      {
+        get : 'a class -> base text_buffer_class option,
+        set :
+          'b text_buffer_class option
+           -> 'a class
+           -> unit,
+        new : 'b text_buffer_class option -> 'a class Property.t
+      }
+    val cursorVisibleProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val editableProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val imModuleProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val indentProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val inputHintsProp :
+      {
+        get : 'a class -> input_hints_t,
+        set :
+          input_hints_t
+           -> 'a class
+           -> unit,
+        new : input_hints_t -> 'a class Property.t
+      }
+    val inputPurposeProp :
+      {
+        get : 'a class -> input_purpose_t,
+        set :
+          input_purpose_t
+           -> 'a class
+           -> unit,
+        new : input_purpose_t -> 'a class Property.t
+      }
+    val justificationProp :
+      {
+        get : 'a class -> justification_t,
+        set :
+          justification_t
+           -> 'a class
+           -> unit,
+        new : justification_t -> 'a class Property.t
+      }
+    val leftMarginProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val monospaceProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val overwriteProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val pixelsAboveLinesProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val pixelsBelowLinesProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val pixelsInsideWrapProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val populateAllProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val rightMarginProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val tabsProp :
+      {
+        get : 'a class -> Pango.TabArrayRecord.t option,
+        set :
+          Pango.TabArrayRecord.t option
+           -> 'a class
+           -> unit,
+        new : Pango.TabArrayRecord.t option -> 'a class Property.t
+      }
+    val topMarginProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val wrapModeProp :
+      {
+        get : 'a class -> wrap_mode_t,
+        set :
+          wrap_mode_t
+           -> 'a class
+           -> unit,
+        new : wrap_mode_t -> 'a class Property.t
+      }
   end

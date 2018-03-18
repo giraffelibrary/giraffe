@@ -82,17 +82,20 @@ structure GtkAppChooserButton :>
       val headingProp =
         {
           get = fn x => get "heading" stringOpt x,
-          set = fn x => set "heading" stringOpt x
+          set = fn x => set "heading" stringOpt x,
+          new = fn x => new "heading" stringOpt x
         }
       val showDefaultItemProp =
         {
           get = fn x => get "show-default-item" boolean x,
-          set = fn x => set "show-default-item" boolean x
+          set = fn x => set "show-default-item" boolean x,
+          new = fn x => new "show-default-item" boolean x
         }
       val showDialogItemProp =
         {
           get = fn x => get "show-dialog-item" boolean x,
-          set = fn x => set "show-dialog-item" boolean x
+          set = fn x => set "show-dialog-item" boolean x,
+          new = fn x => new "show-dialog-item" boolean x
         }
     end
   end

@@ -562,49 +562,58 @@ structure GtkSourceGutterRenderer :>
       val alignmentModeProp =
         {
           get = fn x => get "alignment-mode" GtkSourceGutterRendererAlignmentMode.t x,
-          set = fn x => set "alignment-mode" GtkSourceGutterRendererAlignmentMode.t x
+          set = fn x => set "alignment-mode" GtkSourceGutterRendererAlignmentMode.t x,
+          new = fn x => new "alignment-mode" GtkSourceGutterRendererAlignmentMode.t x
         }
       val backgroundRgbaProp =
         {
           get = fn x => get "background-rgba" GdkRgbaRecord.tOpt x,
-          set = fn x => set "background-rgba" GdkRgbaRecord.tOpt x
+          set = fn x => set "background-rgba" GdkRgbaRecord.tOpt x,
+          new = fn x => new "background-rgba" GdkRgbaRecord.tOpt x
         }
       val backgroundSetProp =
         {
           get = fn x => get "background-set" boolean x,
-          set = fn x => set "background-set" boolean x
+          set = fn x => set "background-set" boolean x,
+          new = fn x => new "background-set" boolean x
         }
       val sizeProp =
         {
           get = fn x => get "size" int x,
-          set = fn x => set "size" int x
+          set = fn x => set "size" int x,
+          new = fn x => new "size" int x
         }
       val viewProp = {get = fn x => get "view" GtkTextViewClass.tOpt x}
       val visibleProp =
         {
           get = fn x => get "visible" boolean x,
-          set = fn x => set "visible" boolean x
+          set = fn x => set "visible" boolean x,
+          new = fn x => new "visible" boolean x
         }
       val windowTypeProp = {get = fn x => get "window-type" GtkTextWindowType.t x}
       val xalignProp =
         {
           get = fn x => get "xalign" float x,
-          set = fn x => set "xalign" float x
+          set = fn x => set "xalign" float x,
+          new = fn x => new "xalign" float x
         }
       val xpadProp =
         {
           get = fn x => get "xpad" int x,
-          set = fn x => set "xpad" int x
+          set = fn x => set "xpad" int x,
+          new = fn x => new "xpad" int x
         }
       val yalignProp =
         {
           get = fn x => get "yalign" float x,
-          set = fn x => set "yalign" float x
+          set = fn x => set "yalign" float x,
+          new = fn x => new "yalign" float x
         }
       val ypadProp =
         {
           get = fn x => get "ypad" int x,
-          set = fn x => set "ypad" int x
+          set = fn x => set "ypad" int x,
+          new = fn x => new "ypad" int x
         }
     end
   end

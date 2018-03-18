@@ -24,7 +24,7 @@ structure GioZlibDecompressor :>
       val formatProp =
         {
           get = fn x => get "format" GioZlibCompressorFormat.t x,
-          set = fn x => set "format" GioZlibCompressorFormat.t x
+          new = fn x => new "format" GioZlibCompressorFormat.t x
         }
     end
   end

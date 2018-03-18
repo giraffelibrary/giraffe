@@ -39,6 +39,22 @@ signature GTK_LAYOUT =
       'a class
        -> 'b adjustment_class option
        -> unit
-    val heightProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val widthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val heightProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val widthProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

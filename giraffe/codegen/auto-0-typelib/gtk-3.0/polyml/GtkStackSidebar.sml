@@ -28,7 +28,8 @@ structure GtkStackSidebar :>
       val stackProp =
         {
           get = fn x => get "stack" GtkStackClass.tOpt x,
-          set = fn x => set "stack" GtkStackClass.tOpt x
+          set = fn x => set "stack" GtkStackClass.tOpt x,
+          new = fn x => new "stack" GtkStackClass.tOpt x
         }
     end
   end

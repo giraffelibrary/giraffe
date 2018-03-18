@@ -20,6 +20,6 @@ signature GTK_PLUG =
     val getId : 'a class -> LargeInt.int
     val getSocketWindow : 'a class -> base Gdk.WindowClass.class option
     val embeddedSig : (unit -> unit) -> 'a class Signal.t
-    val embeddedProp : ('a class, bool) Property.readonly
-    val socketWindowProp : ('a class, base Gdk.WindowClass.class option) Property.readonly
+    val embeddedProp : {get : 'a class -> bool}
+    val socketWindowProp : {get : 'a class -> base Gdk.WindowClass.class option}
   end

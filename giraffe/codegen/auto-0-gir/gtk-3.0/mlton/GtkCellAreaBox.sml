@@ -123,7 +123,8 @@ structure GtkCellAreaBox :>
       val spacingProp =
         {
           get = fn x => get "spacing" int x,
-          set = fn x => set "spacing" int x
+          set = fn x => set "spacing" int x,
+          new = fn x => new "spacing" int x
         }
     end
   end

@@ -34,17 +34,19 @@ structure GtkSourceCompletionContext :>
       val activationProp =
         {
           get = fn x => get "activation" GtkSourceCompletionActivation.t x,
-          set = fn x => set "activation" GtkSourceCompletionActivation.t x
+          set = fn x => set "activation" GtkSourceCompletionActivation.t x,
+          new = fn x => new "activation" GtkSourceCompletionActivation.t x
         }
       val completionProp =
         {
           get = fn x => get "completion" GtkSourceCompletionClass.tOpt x,
-          set = fn x => set "completion" GtkSourceCompletionClass.tOpt x
+          new = fn x => new "completion" GtkSourceCompletionClass.tOpt x
         }
       val iterProp =
         {
           get = fn x => get "iter" GtkTextIterRecord.tOpt x,
-          set = fn x => set "iter" GtkTextIterRecord.tOpt x
+          set = fn x => set "iter" GtkTextIterRecord.tOpt x,
+          new = fn x => new "iter" GtkTextIterRecord.tOpt x
         }
     end
   end

@@ -59,7 +59,7 @@ structure GdkMonitor :>
       val displayProp =
         {
           get = fn x => get "display" GdkDisplayClass.tOpt x,
-          set = fn x => set "display" GdkDisplayClass.tOpt x
+          new = fn x => new "display" GdkDisplayClass.tOpt x
         }
       val geometryProp = {get = fn x => get "geometry" GdkRectangleRecord.tOpt x}
       val heightMmProp = {get = fn x => get "height-mm" int x}

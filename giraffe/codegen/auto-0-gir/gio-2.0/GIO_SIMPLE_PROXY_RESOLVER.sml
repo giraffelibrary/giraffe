@@ -18,5 +18,13 @@ signature GIO_SIMPLE_PROXY_RESOLVER =
       'a class
        -> string * string
        -> unit
-    val defaultProxyProp : ('a class, string option, string option) Property.readwrite
+    val defaultProxyProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

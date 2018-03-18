@@ -142,22 +142,24 @@ structure GtkSourceGutter :>
       val viewProp =
         {
           get = fn x => get "view" GtkSourceViewClass.tOpt x,
-          set = fn x => set "view" GtkSourceViewClass.tOpt x
+          new = fn x => new "view" GtkSourceViewClass.tOpt x
         }
       val windowTypeProp =
         {
           get = fn x => get "window-type" GtkTextWindowType.t x,
-          set = fn x => set "window-type" GtkTextWindowType.t x
+          new = fn x => new "window-type" GtkTextWindowType.t x
         }
       val xpadProp =
         {
           get = fn x => get "xpad" int x,
-          set = fn x => set "xpad" int x
+          set = fn x => set "xpad" int x,
+          new = fn x => new "xpad" int x
         }
       val ypadProp =
         {
           get = fn x => get "ypad" int x,
-          set = fn x => set "ypad" int x
+          set = fn x => set "ypad" int x,
+          new = fn x => new "ypad" int x
         }
     end
   end

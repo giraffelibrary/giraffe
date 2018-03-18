@@ -152,17 +152,17 @@ structure GdkGLContext :>
       val displayProp =
         {
           get = fn x => get "display" GdkDisplayClass.tOpt x,
-          set = fn x => set "display" GdkDisplayClass.tOpt x
+          new = fn x => new "display" GdkDisplayClass.tOpt x
         }
       val sharedContextProp =
         {
           get = fn x => get "shared-context" GdkGLContextClass.tOpt x,
-          set = fn x => set "shared-context" GdkGLContextClass.tOpt x
+          new = fn x => new "shared-context" GdkGLContextClass.tOpt x
         }
       val windowProp =
         {
           get = fn x => get "window" GdkWindowClass.tOpt x,
-          set = fn x => set "window" GdkWindowClass.tOpt x
+          new = fn x => new "window" GdkWindowClass.tOpt x
         }
     end
   end

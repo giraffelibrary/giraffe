@@ -88,7 +88,8 @@ structure GioFileMonitor :>
       val rateLimitProp =
         {
           get = fn x => get "rate-limit" int x,
-          set = fn x => set "rate-limit" int x
+          set = fn x => set "rate-limit" int x,
+          new = fn x => new "rate-limit" int x
         }
     end
   end

@@ -51,17 +51,20 @@ structure GtkToggleButton :>
       val activeProp =
         {
           get = fn x => get "active" boolean x,
-          set = fn x => set "active" boolean x
+          set = fn x => set "active" boolean x,
+          new = fn x => new "active" boolean x
         }
       val drawIndicatorProp =
         {
           get = fn x => get "draw-indicator" boolean x,
-          set = fn x => set "draw-indicator" boolean x
+          set = fn x => set "draw-indicator" boolean x,
+          new = fn x => new "draw-indicator" boolean x
         }
       val inconsistentProp =
         {
           get = fn x => get "inconsistent" boolean x,
-          set = fn x => set "inconsistent" boolean x
+          set = fn x => set "inconsistent" boolean x,
+          new = fn x => new "inconsistent" boolean x
         }
     end
   end

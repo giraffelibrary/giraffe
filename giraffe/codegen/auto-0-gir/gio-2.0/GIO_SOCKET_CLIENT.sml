@@ -109,13 +109,85 @@ signature GIO_SOCKET_CLIENT =
         * base i_o_stream_class option
         -> unit)
        -> 'a class Signal.t
-    val enableProxyProp : ('a class, bool, bool) Property.readwrite
-    val familyProp : ('a class, socket_family_t, socket_family_t) Property.readwrite
-    val localAddressProp : ('a class, base socket_address_class option, 'b socket_address_class option) Property.readwrite
-    val protocolProp : ('a class, socket_protocol_t, socket_protocol_t) Property.readwrite
-    val proxyResolverProp : ('a class, base proxy_resolver_class option, 'b proxy_resolver_class option) Property.readwrite
-    val timeoutProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val tlsProp : ('a class, bool, bool) Property.readwrite
-    val tlsValidationFlagsProp : ('a class, tls_certificate_flags_t, tls_certificate_flags_t) Property.readwrite
-    val typeProp : ('a class, socket_type_t, socket_type_t) Property.readwrite
+    val enableProxyProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val familyProp :
+      {
+        get : 'a class -> socket_family_t,
+        set :
+          socket_family_t
+           -> 'a class
+           -> unit,
+        new : socket_family_t -> 'a class Property.t
+      }
+    val localAddressProp :
+      {
+        get : 'a class -> base socket_address_class option,
+        set :
+          'b socket_address_class option
+           -> 'a class
+           -> unit,
+        new : 'b socket_address_class option -> 'a class Property.t
+      }
+    val protocolProp :
+      {
+        get : 'a class -> socket_protocol_t,
+        set :
+          socket_protocol_t
+           -> 'a class
+           -> unit,
+        new : socket_protocol_t -> 'a class Property.t
+      }
+    val proxyResolverProp :
+      {
+        get : 'a class -> base proxy_resolver_class option,
+        set :
+          'b proxy_resolver_class option
+           -> 'a class
+           -> unit,
+        new : 'b proxy_resolver_class option -> 'a class Property.t
+      }
+    val timeoutProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val tlsProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val tlsValidationFlagsProp :
+      {
+        get : 'a class -> tls_certificate_flags_t,
+        set :
+          tls_certificate_flags_t
+           -> 'a class
+           -> unit,
+        new : tls_certificate_flags_t -> 'a class Property.t
+      }
+    val typeProp :
+      {
+        get : 'a class -> socket_type_t,
+        set :
+          socket_type_t
+           -> 'a class
+           -> unit,
+        new : socket_type_t -> 'a class Property.t
+      }
   end

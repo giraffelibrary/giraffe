@@ -289,7 +289,7 @@ structure GtkStyle :>
       val contextProp =
         {
           get = fn x => get "context" GtkStyleContextClass.tOpt x,
-          set = fn x => set "context" GtkStyleContextClass.tOpt x
+          new = fn x => new "context" GtkStyleContextClass.tOpt x
         }
     end
   end

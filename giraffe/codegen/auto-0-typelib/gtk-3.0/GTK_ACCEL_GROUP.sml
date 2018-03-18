@@ -53,6 +53,6 @@ signature GTK_ACCEL_GROUP =
         * GObject.ClosureRecord.t
         -> unit)
        -> 'a class Signal.t
-    val isLockedProp : ('a class, bool) Property.readonly
-    val modifierMaskProp : ('a class, Gdk.ModifierType.t) Property.readonly
+    val isLockedProp : {get : 'a class -> bool}
+    val modifierMaskProp : {get : 'a class -> Gdk.ModifierType.t}
   end

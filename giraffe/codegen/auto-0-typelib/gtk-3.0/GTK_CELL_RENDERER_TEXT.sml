@@ -9,52 +9,433 @@ signature GTK_CELL_RENDERER_TEXT =
        -> LargeInt.int
        -> unit
     val editedSig : (string * string -> unit) -> 'a class Signal.t
-    val alignSetProp : ('a class, bool, bool) Property.readwrite
-    val alignmentProp : ('a class, Pango.Alignment.t, Pango.Alignment.t) Property.readwrite
-    val attributesProp : ('a class, Pango.AttrListRecord.t option, Pango.AttrListRecord.t option) Property.readwrite
-    val backgroundProp : ('a class, string option) Property.writeonly
-    val backgroundGdkProp : ('a class, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
-    val backgroundRgbaProp : ('a class, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite
-    val backgroundSetProp : ('a class, bool, bool) Property.readwrite
-    val editableProp : ('a class, bool, bool) Property.readwrite
-    val editableSetProp : ('a class, bool, bool) Property.readwrite
-    val ellipsizeProp : ('a class, Pango.EllipsizeMode.t, Pango.EllipsizeMode.t) Property.readwrite
-    val ellipsizeSetProp : ('a class, bool, bool) Property.readwrite
-    val familyProp : ('a class, string option, string option) Property.readwrite
-    val familySetProp : ('a class, bool, bool) Property.readwrite
-    val fontProp : ('a class, string option, string option) Property.readwrite
-    val fontDescProp : ('a class, Pango.FontDescriptionRecord.t option, Pango.FontDescriptionRecord.t option) Property.readwrite
-    val foregroundProp : ('a class, string option) Property.writeonly
-    val foregroundGdkProp : ('a class, Gdk.ColorRecord.t option, Gdk.ColorRecord.t option) Property.readwrite
-    val foregroundRgbaProp : ('a class, Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option) Property.readwrite
-    val foregroundSetProp : ('a class, bool, bool) Property.readwrite
-    val languageProp : ('a class, string option, string option) Property.readwrite
-    val languageSetProp : ('a class, bool, bool) Property.readwrite
-    val markupProp : ('a class, string option) Property.writeonly
-    val maxWidthCharsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val placeholderTextProp : ('a class, string option, string option) Property.readwrite
-    val riseProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val riseSetProp : ('a class, bool, bool) Property.readwrite
-    val scaleProp : ('a class, real, real) Property.readwrite
-    val scaleSetProp : ('a class, bool, bool) Property.readwrite
-    val singleParagraphModeProp : ('a class, bool, bool) Property.readwrite
-    val sizeProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val sizePointsProp : ('a class, real, real) Property.readwrite
-    val sizeSetProp : ('a class, bool, bool) Property.readwrite
-    val stretchProp : ('a class, Pango.Stretch.t, Pango.Stretch.t) Property.readwrite
-    val stretchSetProp : ('a class, bool, bool) Property.readwrite
-    val strikethroughProp : ('a class, bool, bool) Property.readwrite
-    val strikethroughSetProp : ('a class, bool, bool) Property.readwrite
-    val styleProp : ('a class, Pango.Style.t, Pango.Style.t) Property.readwrite
-    val styleSetProp : ('a class, bool, bool) Property.readwrite
-    val textProp : ('a class, string option, string option) Property.readwrite
-    val underlineProp : ('a class, Pango.Underline.t, Pango.Underline.t) Property.readwrite
-    val underlineSetProp : ('a class, bool, bool) Property.readwrite
-    val variantProp : ('a class, Pango.Variant.t, Pango.Variant.t) Property.readwrite
-    val variantSetProp : ('a class, bool, bool) Property.readwrite
-    val weightProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val weightSetProp : ('a class, bool, bool) Property.readwrite
-    val widthCharsProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val wrapModeProp : ('a class, Pango.WrapMode.t, Pango.WrapMode.t) Property.readwrite
-    val wrapWidthProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
+    val alignSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val alignmentProp :
+      {
+        get : 'a class -> Pango.Alignment.t,
+        set :
+          Pango.Alignment.t
+           -> 'a class
+           -> unit,
+        new : Pango.Alignment.t -> 'a class Property.t
+      }
+    val attributesProp :
+      {
+        get : 'a class -> Pango.AttrListRecord.t option,
+        set :
+          Pango.AttrListRecord.t option
+           -> 'a class
+           -> unit,
+        new : Pango.AttrListRecord.t option -> 'a class Property.t
+      }
+    val backgroundProp :
+      {
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val backgroundGdkProp :
+      {
+        get : 'a class -> Gdk.ColorRecord.t option,
+        set :
+          Gdk.ColorRecord.t option
+           -> 'a class
+           -> unit,
+        new : Gdk.ColorRecord.t option -> 'a class Property.t
+      }
+    val backgroundRgbaProp :
+      {
+        get : 'a class -> Gdk.RgbaRecord.t option,
+        set :
+          Gdk.RgbaRecord.t option
+           -> 'a class
+           -> unit,
+        new : Gdk.RgbaRecord.t option -> 'a class Property.t
+      }
+    val backgroundSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val editableProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val editableSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val ellipsizeProp :
+      {
+        get : 'a class -> Pango.EllipsizeMode.t,
+        set :
+          Pango.EllipsizeMode.t
+           -> 'a class
+           -> unit,
+        new : Pango.EllipsizeMode.t -> 'a class Property.t
+      }
+    val ellipsizeSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val familyProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val familySetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val fontProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val fontDescProp :
+      {
+        get : 'a class -> Pango.FontDescriptionRecord.t option,
+        set :
+          Pango.FontDescriptionRecord.t option
+           -> 'a class
+           -> unit,
+        new : Pango.FontDescriptionRecord.t option -> 'a class Property.t
+      }
+    val foregroundProp :
+      {
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val foregroundGdkProp :
+      {
+        get : 'a class -> Gdk.ColorRecord.t option,
+        set :
+          Gdk.ColorRecord.t option
+           -> 'a class
+           -> unit,
+        new : Gdk.ColorRecord.t option -> 'a class Property.t
+      }
+    val foregroundRgbaProp :
+      {
+        get : 'a class -> Gdk.RgbaRecord.t option,
+        set :
+          Gdk.RgbaRecord.t option
+           -> 'a class
+           -> unit,
+        new : Gdk.RgbaRecord.t option -> 'a class Property.t
+      }
+    val foregroundSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val languageProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val languageSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val markupProp :
+      {
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val maxWidthCharsProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val placeholderTextProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val riseProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val riseSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val scaleProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val scaleSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val singleParagraphModeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val sizeProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val sizePointsProp :
+      {
+        get : 'a class -> real,
+        set :
+          real
+           -> 'a class
+           -> unit,
+        new : real -> 'a class Property.t
+      }
+    val sizeSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val stretchProp :
+      {
+        get : 'a class -> Pango.Stretch.t,
+        set :
+          Pango.Stretch.t
+           -> 'a class
+           -> unit,
+        new : Pango.Stretch.t -> 'a class Property.t
+      }
+    val stretchSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val strikethroughProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val strikethroughSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val styleProp :
+      {
+        get : 'a class -> Pango.Style.t,
+        set :
+          Pango.Style.t
+           -> 'a class
+           -> unit,
+        new : Pango.Style.t -> 'a class Property.t
+      }
+    val styleSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val textProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val underlineProp :
+      {
+        get : 'a class -> Pango.Underline.t,
+        set :
+          Pango.Underline.t
+           -> 'a class
+           -> unit,
+        new : Pango.Underline.t -> 'a class Property.t
+      }
+    val underlineSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val variantProp :
+      {
+        get : 'a class -> Pango.Variant.t,
+        set :
+          Pango.Variant.t
+           -> 'a class
+           -> unit,
+        new : Pango.Variant.t -> 'a class Property.t
+      }
+    val variantSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val weightProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val weightSetProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val widthCharsProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val wrapModeProp :
+      {
+        get : 'a class -> Pango.WrapMode.t,
+        set :
+          Pango.WrapMode.t
+           -> 'a class
+           -> unit,
+        new : Pango.WrapMode.t -> 'a class Property.t
+      }
+    val wrapWidthProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
   end

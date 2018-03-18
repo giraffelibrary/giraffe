@@ -117,27 +117,32 @@ structure GtkFrame :>
       val labelProp =
         {
           get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x
+          set = fn x => set "label" stringOpt x,
+          new = fn x => new "label" stringOpt x
         }
       val labelWidgetProp =
         {
           get = fn x => get "label-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "label-widget" GtkWidgetClass.tOpt x
+          set = fn x => set "label-widget" GtkWidgetClass.tOpt x,
+          new = fn x => new "label-widget" GtkWidgetClass.tOpt x
         }
       val labelXalignProp =
         {
           get = fn x => get "label-xalign" float x,
-          set = fn x => set "label-xalign" float x
+          set = fn x => set "label-xalign" float x,
+          new = fn x => new "label-xalign" float x
         }
       val labelYalignProp =
         {
           get = fn x => get "label-yalign" float x,
-          set = fn x => set "label-yalign" float x
+          set = fn x => set "label-yalign" float x,
+          new = fn x => new "label-yalign" float x
         }
       val shadowTypeProp =
         {
           get = fn x => get "shadow-type" GtkShadowType.t x,
-          set = fn x => set "shadow-type" GtkShadowType.t x
+          set = fn x => set "shadow-type" GtkShadowType.t x,
+          new = fn x => new "shadow-type" GtkShadowType.t x
         }
     end
   end

@@ -462,22 +462,26 @@ structure GtkStyleContext :>
       val directionProp =
         {
           get = fn x => get "direction" GtkTextDirection.t x,
-          set = fn x => set "direction" GtkTextDirection.t x
+          set = fn x => set "direction" GtkTextDirection.t x,
+          new = fn x => new "direction" GtkTextDirection.t x
         }
       val paintClockProp =
         {
           get = fn x => get "paint-clock" GdkFrameClockClass.tOpt x,
-          set = fn x => set "paint-clock" GdkFrameClockClass.tOpt x
+          set = fn x => set "paint-clock" GdkFrameClockClass.tOpt x,
+          new = fn x => new "paint-clock" GdkFrameClockClass.tOpt x
         }
       val parentProp =
         {
           get = fn x => get "parent" GtkStyleContextClass.tOpt x,
-          set = fn x => set "parent" GtkStyleContextClass.tOpt x
+          set = fn x => set "parent" GtkStyleContextClass.tOpt x,
+          new = fn x => new "parent" GtkStyleContextClass.tOpt x
         }
       val screenProp =
         {
           get = fn x => get "screen" GdkScreenClass.tOpt x,
-          set = fn x => set "screen" GdkScreenClass.tOpt x
+          set = fn x => set "screen" GdkScreenClass.tOpt x,
+          new = fn x => new "screen" GdkScreenClass.tOpt x
         }
     end
   end

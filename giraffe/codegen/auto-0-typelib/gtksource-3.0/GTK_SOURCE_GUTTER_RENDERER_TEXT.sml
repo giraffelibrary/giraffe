@@ -20,6 +20,22 @@ signature GTK_SOURCE_GUTTER_RENDERER_TEXT =
       'a class
        -> string * LargeInt.int
        -> unit
-    val markupProp : ('a class, string option, string option) Property.readwrite
-    val textProp : ('a class, string option, string option) Property.readwrite
+    val markupProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val textProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

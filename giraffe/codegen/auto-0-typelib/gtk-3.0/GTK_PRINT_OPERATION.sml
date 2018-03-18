@@ -118,22 +118,142 @@ signature GTK_PRINT_OPERATION =
         * base print_settings_class
         -> unit)
        -> 'a class Signal.t
-    val allowAsyncProp : ('a class, bool, bool) Property.readwrite
-    val currentPageProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val customTabLabelProp : ('a class, string option, string option) Property.readwrite
-    val defaultPageSetupProp : ('a class, base page_setup_class option, 'b page_setup_class option) Property.readwrite
-    val embedPageSetupProp : ('a class, bool, bool) Property.readwrite
-    val exportFilenameProp : ('a class, string option, string option) Property.readwrite
-    val hasSelectionProp : ('a class, bool, bool) Property.readwrite
-    val jobNameProp : ('a class, string option, string option) Property.readwrite
-    val nPagesProp : ('a class, LargeInt.int, LargeInt.int) Property.readwrite
-    val nPagesToPrintProp : ('a class, LargeInt.int) Property.readonly
-    val printSettingsProp : ('a class, base print_settings_class option, 'b print_settings_class option) Property.readwrite
-    val showProgressProp : ('a class, bool, bool) Property.readwrite
-    val statusProp : ('a class, print_status_t) Property.readonly
-    val statusStringProp : ('a class, string option) Property.readonly
-    val supportSelectionProp : ('a class, bool, bool) Property.readwrite
-    val trackPrintStatusProp : ('a class, bool, bool) Property.readwrite
-    val unitProp : ('a class, unit_t, unit_t) Property.readwrite
-    val useFullPageProp : ('a class, bool, bool) Property.readwrite
+    val allowAsyncProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val currentPageProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val customTabLabelProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val defaultPageSetupProp :
+      {
+        get : 'a class -> base page_setup_class option,
+        set :
+          'b page_setup_class option
+           -> 'a class
+           -> unit,
+        new : 'b page_setup_class option -> 'a class Property.t
+      }
+    val embedPageSetupProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val exportFilenameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val hasSelectionProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val jobNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val nPagesProp :
+      {
+        get : 'a class -> LargeInt.int,
+        set :
+          LargeInt.int
+           -> 'a class
+           -> unit,
+        new : LargeInt.int -> 'a class Property.t
+      }
+    val nPagesToPrintProp : {get : 'a class -> LargeInt.int}
+    val printSettingsProp :
+      {
+        get : 'a class -> base print_settings_class option,
+        set :
+          'b print_settings_class option
+           -> 'a class
+           -> unit,
+        new : 'b print_settings_class option -> 'a class Property.t
+      }
+    val showProgressProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val statusProp : {get : 'a class -> print_status_t}
+    val statusStringProp : {get : 'a class -> string option}
+    val supportSelectionProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val trackPrintStatusProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val unitProp :
+      {
+        get : 'a class -> unit_t,
+        set :
+          unit_t
+           -> 'a class
+           -> unit,
+        new : unit_t -> 'a class Property.t
+      }
+    val useFullPageProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end

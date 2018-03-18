@@ -46,6 +46,22 @@ signature GTK_I_M_CONTEXT =
     val preeditEndSig : (unit -> unit) -> 'a class Signal.t
     val preeditStartSig : (unit -> unit) -> 'a class Signal.t
     val retrieveSurroundingSig : (unit -> bool) -> 'a class Signal.t
-    val inputHintsProp : ('a class, input_hints_t, input_hints_t) Property.readwrite
-    val inputPurposeProp : ('a class, input_purpose_t, input_purpose_t) Property.readwrite
+    val inputHintsProp :
+      {
+        get : 'a class -> input_hints_t,
+        set :
+          input_hints_t
+           -> 'a class
+           -> unit,
+        new : input_hints_t -> 'a class Property.t
+      }
+    val inputPurposeProp :
+      {
+        get : 'a class -> input_purpose_t,
+        set :
+          input_purpose_t
+           -> 'a class
+           -> unit,
+        new : input_purpose_t -> 'a class Property.t
+      }
   end

@@ -20,7 +20,31 @@ signature GIO_TLS_PASSWORD =
       'a class
        -> string
        -> unit
-    val descriptionProp : ('a class, string option, string option) Property.readwrite
-    val flagsProp : ('a class, tls_password_flags_t, tls_password_flags_t) Property.readwrite
-    val warningProp : ('a class, string option, string option) Property.readwrite
+    val descriptionProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val flagsProp :
+      {
+        get : 'a class -> tls_password_flags_t,
+        set :
+          tls_password_flags_t
+           -> 'a class
+           -> unit,
+        new : tls_password_flags_t -> 'a class Property.t
+      }
+    val warningProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

@@ -313,7 +313,7 @@ structure GtkCellAreaContext :>
       val areaProp =
         {
           get = fn x => get "area" GtkCellAreaClass.tOpt x,
-          set = fn x => set "area" GtkCellAreaClass.tOpt x
+          new = fn x => new "area" GtkCellAreaClass.tOpt x
         }
       val minimumHeightProp = {get = fn x => get "minimum-height" int x}
       val minimumWidthProp = {get = fn x => get "minimum-width" int x}

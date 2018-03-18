@@ -163,17 +163,20 @@ structure GtkToolItem :>
       val isImportantProp =
         {
           get = fn x => get "is-important" boolean x,
-          set = fn x => set "is-important" boolean x
+          set = fn x => set "is-important" boolean x,
+          new = fn x => new "is-important" boolean x
         }
       val visibleHorizontalProp =
         {
           get = fn x => get "visible-horizontal" boolean x,
-          set = fn x => set "visible-horizontal" boolean x
+          set = fn x => set "visible-horizontal" boolean x,
+          new = fn x => new "visible-horizontal" boolean x
         }
       val visibleVerticalProp =
         {
           get = fn x => get "visible-vertical" boolean x,
-          set = fn x => set "visible-vertical" boolean x
+          set = fn x => set "visible-vertical" boolean x,
+          new = fn x => new "visible-vertical" boolean x
         }
     end
   end

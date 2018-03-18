@@ -71,32 +71,38 @@ structure GtkAppChooserWidget :>
       val defaultTextProp =
         {
           get = fn x => get "default-text" stringOpt x,
-          set = fn x => set "default-text" stringOpt x
+          set = fn x => set "default-text" stringOpt x,
+          new = fn x => new "default-text" stringOpt x
         }
       val showAllProp =
         {
           get = fn x => get "show-all" boolean x,
-          set = fn x => set "show-all" boolean x
+          set = fn x => set "show-all" boolean x,
+          new = fn x => new "show-all" boolean x
         }
       val showDefaultProp =
         {
           get = fn x => get "show-default" boolean x,
-          set = fn x => set "show-default" boolean x
+          set = fn x => set "show-default" boolean x,
+          new = fn x => new "show-default" boolean x
         }
       val showFallbackProp =
         {
           get = fn x => get "show-fallback" boolean x,
-          set = fn x => set "show-fallback" boolean x
+          set = fn x => set "show-fallback" boolean x,
+          new = fn x => new "show-fallback" boolean x
         }
       val showOtherProp =
         {
           get = fn x => get "show-other" boolean x,
-          set = fn x => set "show-other" boolean x
+          set = fn x => set "show-other" boolean x,
+          new = fn x => new "show-other" boolean x
         }
       val showRecommendedProp =
         {
           get = fn x => get "show-recommended" boolean x,
-          set = fn x => set "show-recommended" boolean x
+          set = fn x => set "show-recommended" boolean x,
+          new = fn x => new "show-recommended" boolean x
         }
     end
   end

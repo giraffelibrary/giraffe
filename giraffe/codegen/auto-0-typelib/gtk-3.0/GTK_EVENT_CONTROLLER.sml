@@ -16,6 +16,18 @@ signature GTK_EVENT_CONTROLLER =
       'a class
        -> propagation_phase_t
        -> unit
-    val propagationPhaseProp : ('a class, propagation_phase_t, propagation_phase_t) Property.readwrite
-    val widgetProp : ('a class, base widget_class option, 'b widget_class option) Property.readwrite
+    val propagationPhaseProp :
+      {
+        get : 'a class -> propagation_phase_t,
+        set :
+          propagation_phase_t
+           -> 'a class
+           -> unit,
+        new : propagation_phase_t -> 'a class Property.t
+      }
+    val widgetProp :
+      {
+        get : 'a class -> base widget_class option,
+        new : 'b widget_class option -> 'a class Property.t
+      }
   end

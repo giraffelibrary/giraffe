@@ -8,6 +8,22 @@ signature GTK_SHORTCUTS_WINDOW =
     val getType : unit -> GObject.Type.t
     val closeSig : (unit -> unit) -> 'a class Signal.t
     val searchSig : (unit -> unit) -> 'a class Signal.t
-    val sectionNameProp : ('a class, string option, string option) Property.readwrite
-    val viewNameProp : ('a class, string option, string option) Property.readwrite
+    val sectionNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
+    val viewNameProp :
+      {
+        get : 'a class -> string option,
+        set :
+          string option
+           -> 'a class
+           -> unit,
+        new : string option -> 'a class Property.t
+      }
   end

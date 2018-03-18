@@ -108,28 +108,33 @@ structure GtkGLArea :>
       val autoRenderProp =
         {
           get = fn x => get "auto-render" boolean x,
-          set = fn x => set "auto-render" boolean x
+          set = fn x => set "auto-render" boolean x,
+          new = fn x => new "auto-render" boolean x
         }
       val contextProp = {get = fn x => get "context" GdkGLContextClass.tOpt x}
       val hasAlphaProp =
         {
           get = fn x => get "has-alpha" boolean x,
-          set = fn x => set "has-alpha" boolean x
+          set = fn x => set "has-alpha" boolean x,
+          new = fn x => new "has-alpha" boolean x
         }
       val hasDepthBufferProp =
         {
           get = fn x => get "has-depth-buffer" boolean x,
-          set = fn x => set "has-depth-buffer" boolean x
+          set = fn x => set "has-depth-buffer" boolean x,
+          new = fn x => new "has-depth-buffer" boolean x
         }
       val hasStencilBufferProp =
         {
           get = fn x => get "has-stencil-buffer" boolean x,
-          set = fn x => set "has-stencil-buffer" boolean x
+          set = fn x => set "has-stencil-buffer" boolean x,
+          new = fn x => new "has-stencil-buffer" boolean x
         }
       val useEsProp =
         {
           get = fn x => get "use-es" boolean x,
-          set = fn x => set "use-es" boolean x
+          set = fn x => set "use-es" boolean x,
+          new = fn x => new "use-es" boolean x
         }
     end
   end

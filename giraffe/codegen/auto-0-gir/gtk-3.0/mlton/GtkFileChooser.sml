@@ -584,57 +584,68 @@ structure GtkFileChooser :>
       val actionProp =
         {
           get = fn x => get "action" GtkFileChooserAction.t x,
-          set = fn x => set "action" GtkFileChooserAction.t x
+          set = fn x => set "action" GtkFileChooserAction.t x,
+          new = fn x => new "action" GtkFileChooserAction.t x
         }
       val createFoldersProp =
         {
           get = fn x => get "create-folders" boolean x,
-          set = fn x => set "create-folders" boolean x
+          set = fn x => set "create-folders" boolean x,
+          new = fn x => new "create-folders" boolean x
         }
       val doOverwriteConfirmationProp =
         {
           get = fn x => get "do-overwrite-confirmation" boolean x,
-          set = fn x => set "do-overwrite-confirmation" boolean x
+          set = fn x => set "do-overwrite-confirmation" boolean x,
+          new = fn x => new "do-overwrite-confirmation" boolean x
         }
       val extraWidgetProp =
         {
           get = fn x => get "extra-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "extra-widget" GtkWidgetClass.tOpt x
+          set = fn x => set "extra-widget" GtkWidgetClass.tOpt x,
+          new = fn x => new "extra-widget" GtkWidgetClass.tOpt x
         }
       val filterProp =
         {
           get = fn x => get "filter" GtkFileFilterClass.tOpt x,
-          set = fn x => set "filter" GtkFileFilterClass.tOpt x
+          set = fn x => set "filter" GtkFileFilterClass.tOpt x,
+          new = fn x => new "filter" GtkFileFilterClass.tOpt x
         }
       val localOnlyProp =
         {
           get = fn x => get "local-only" boolean x,
-          set = fn x => set "local-only" boolean x
+          set = fn x => set "local-only" boolean x,
+          new = fn x => new "local-only" boolean x
         }
       val previewWidgetProp =
         {
           get = fn x => get "preview-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "preview-widget" GtkWidgetClass.tOpt x
+          set = fn x => set "preview-widget" GtkWidgetClass.tOpt x,
+          new = fn x => new "preview-widget" GtkWidgetClass.tOpt x
         }
       val previewWidgetActiveProp =
         {
           get = fn x => get "preview-widget-active" boolean x,
-          set = fn x => set "preview-widget-active" boolean x
+          set = fn x => set "preview-widget-active" boolean x,
+          new = fn x => new "preview-widget-active" boolean x
         }
       val selectMultipleProp =
         {
           get = fn x => get "select-multiple" boolean x,
-          set = fn x => set "select-multiple" boolean x
+          set = fn x => set "select-multiple" boolean x,
+          new = fn x => new "select-multiple" boolean x
         }
       val showHiddenProp =
         {
           get = fn x => get "show-hidden" boolean x,
-          set = fn x => set "show-hidden" boolean x
+          set = fn x => set "show-hidden" boolean x,
+          new = fn x => new "show-hidden" boolean x
         }
       val usePreviewLabelProp =
         {
           get = fn x => get "use-preview-label" boolean x,
-          set = fn x => set "use-preview-label" boolean x
+          set = fn x => set "use-preview-label" boolean x,
+          new = fn x => new "use-preview-label" boolean x
         }
     end
   end

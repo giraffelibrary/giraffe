@@ -43,27 +43,32 @@ structure GtkNumerableIcon :>
       val backgroundIconProp =
         {
           get = fn x => get "background-icon" GioIconClass.tOpt x,
-          set = fn x => set "background-icon" GioIconClass.tOpt x
+          set = fn x => set "background-icon" GioIconClass.tOpt x,
+          new = fn x => new "background-icon" GioIconClass.tOpt x
         }
       val backgroundIconNameProp =
         {
           get = fn x => get "background-icon-name" stringOpt x,
-          set = fn x => set "background-icon-name" stringOpt x
+          set = fn x => set "background-icon-name" stringOpt x,
+          new = fn x => new "background-icon-name" stringOpt x
         }
       val countProp =
         {
           get = fn x => get "count" int x,
-          set = fn x => set "count" int x
+          set = fn x => set "count" int x,
+          new = fn x => new "count" int x
         }
       val labelProp =
         {
           get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x
+          set = fn x => set "label" stringOpt x,
+          new = fn x => new "label" stringOpt x
         }
       val styleContextProp =
         {
           get = fn x => get "style-context" GtkStyleContextClass.tOpt x,
-          set = fn x => set "style-context" GtkStyleContextClass.tOpt x
+          set = fn x => set "style-context" GtkStyleContextClass.tOpt x,
+          new = fn x => new "style-context" GtkStyleContextClass.tOpt x
         }
     end
   end

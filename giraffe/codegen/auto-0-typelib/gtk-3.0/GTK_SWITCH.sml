@@ -23,6 +23,22 @@ signature GTK_SWITCH =
        -> unit
     val activateSig : (unit -> unit) -> 'a class Signal.t
     val stateSetSig : (bool -> bool) -> 'a class Signal.t
-    val activeProp : ('a class, bool, bool) Property.readwrite
-    val stateProp : ('a class, bool, bool) Property.readwrite
+    val activeProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
+    val stateProp :
+      {
+        get : 'a class -> bool,
+        set :
+          bool
+           -> 'a class
+           -> unit,
+        new : bool -> 'a class Property.t
+      }
   end
