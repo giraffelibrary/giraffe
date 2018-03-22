@@ -17,6 +17,7 @@ signature G_OBJECT_TYPE =
       where type FFI.val_ = C.ValueType.v
 
     val isValueType : t -> bool
+    val isA : t * t -> bool
     val name : t -> string
     val fromName : string -> t option
 

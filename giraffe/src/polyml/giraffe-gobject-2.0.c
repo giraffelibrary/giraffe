@@ -358,6 +358,12 @@ giraffe_g_value_size ()
 
 /* GObject */
 
+GType
+giraffe_g_object_type (GObject *object)
+{
+  return G_OBJECT_TYPE (object);
+}
+
 #ifdef GIRAFFE_DEBUG
 void
 giraffe_debug_object_take (gpointer object)

@@ -46,7 +46,7 @@ in
       val objectClassStrId = mkClassStrId objectNamespace objectName
       val objectClassSigId = toUCU objectClassStrId
 
-      val specs'0 = []
+      val specs'0 = [toDerivedSpec objectNamespace]
       val specs'1 =
         addAccessorSpecs
           objectNamespace

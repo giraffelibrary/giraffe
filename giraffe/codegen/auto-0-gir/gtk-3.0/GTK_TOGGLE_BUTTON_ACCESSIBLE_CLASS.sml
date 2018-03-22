@@ -7,4 +7,8 @@ signature GTK_TOGGLE_BUTTON_ACCESSIBLE_CLASS =
         where type 'a class = 'a toggle_button_accessible button_accessible_class
     val t : (base class, 'a class) ValueAccessor.t
     val tOpt : (base class option, 'a class option) ValueAccessor.t
+    val toDerived :
+      ('a class, 'b) ValueAccessor.t
+       -> base class
+       -> 'a class
   end

@@ -23,6 +23,11 @@ structure GObjectType :> G_OBJECT_TYPE =
           (getSymbol "giraffe_g_type_is_value_type")
           (PolyML.cVal --> GBool.PolyML.cVal);
 
+      val isA_ =
+        call
+          (getSymbol "g_type_is_a")
+          (PolyML.cVal &&> PolyML.cVal --> GBool.PolyML.cVal);
+
       val name_ =
         call
           (getSymbol "giraffe_g_type_name")
@@ -268,6 +273,10 @@ structure GObjectType :> G_OBJECT_TYPE =
     val isValueType =
       fn gtype =>
         (FFI.withVal ---> GBool.FFI.fromVal) isValueType_ gtype
+
+    val isA =
+      fn (type', isAType) =>
+        (FFI.withVal &&&> FFI.withVal ---> GBool.FFI.fromVal) isA_ (type' & isAType)
 
     val name =
       fn gtype =>

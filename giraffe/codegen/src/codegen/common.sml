@@ -268,6 +268,36 @@ local
   val accessorLocalType = toLocalType "" accessorTemplate
 in
   (*
+   *                                                          -.
+   *     val toDerived                                         | isGObject
+   *       : ('a class, 'b) value_accessor_t -> base class -> 'a class
+   *                                                          -'
+   *                                                          -.
+   *     val toDerived                                         | not isGObject
+   *       : ('a class, 'b) ValueAccessor.t -> base class -> 'a class
+   *                                                          -'
+   *)
+  fun toDerivedSpec namespace =
+    let
+      val isGObject = namespace = "GObject"
+
+      val derivedClassTy = classTy aVarTy
+      val baseClassTy = classTy baseTy
+
+      val accessorTys = [derivedClassTy, bVarTy]
+      val accessorLId =
+        if isGObject
+        then accessorLocalLId
+        else accessorGlobalLId
+      val accessorTy = TyRef (accessorTys, accessorLId)
+      val ty = TyFun (accessorTy, TyFun (baseClassTy, derivedClassTy))
+
+      val toDerivedId = "toDerived"
+    in
+      mkValSpec (toDerivedId, ty)
+    end
+
+  (*
    * `addAccessorSpecs namespace info (readTy, writeTy) isPtr specs` adds
    *
    *                                                          -.

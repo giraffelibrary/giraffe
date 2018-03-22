@@ -1,3 +1,10 @@
+(* Copyright (C) 2013, 2016-2018 Phil Clayton <phil.clayton@veonix.com>
+ *
+ * This file is part of the Giraffe Library runtime.  For your rights to use
+ * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+ * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+ *)
+
 structure GObjectObjectClass :>
   G_OBJECT_OBJECT_CLASS
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
@@ -160,4 +167,26 @@ structure GObjectObjectClass :>
         getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
         setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_
       }
+
+    val objectType_ = _import "giraffe_g_object_type" : notnull p -> GObjectType.FFI.val_;
+
+    fun objectType object = (FFI.withPtr ---> GObjectType.FFI.fromVal) objectType_ object
+
+    fun toDerived subclass object = (
+      let
+        val objectType = objectType object
+        val derivedType = ValueAccessor.gtype subclass
+      in
+        if GObjectType.isA (objectType, derivedType)
+        then ()
+        else
+          GiraffeLog.critical (
+            String.concat [
+              "Invalid downcast to type ", GObjectType.name derivedType,
+              " on object of type ",       GObjectType.name objectType
+            ]
+          )
+      end;
+      object
+    )
   end

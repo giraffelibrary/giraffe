@@ -7,4 +7,8 @@ signature GIO_BUFFERED_OUTPUT_STREAM_CLASS =
         where type 'a class = 'a buffered_output_stream filter_output_stream_class
     val t : (base class, 'a class) ValueAccessor.t
     val tOpt : (base class option, 'a class option) ValueAccessor.t
+    val toDerived :
+      ('a class, 'b) ValueAccessor.t
+       -> base class
+       -> 'a class
   end

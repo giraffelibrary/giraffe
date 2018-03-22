@@ -369,6 +369,12 @@ mlton_g_value_set_string (GValue *value, SML_CVECTOR_VAL(gchar, v_string))
 
 /* GObject */
 
+GType
+giraffe_g_object_type (GObject *object)
+{
+  return G_OBJECT_TYPE (object);
+}
+
 #ifdef GIRAFFE_DEBUG
 void
 giraffe_debug_object_take (gpointer object)

@@ -51,12 +51,16 @@ signature <OBJECT_NAMESPACE>_<OBJECT_NAME>_CLASS =
                                                                -'
                                                                     -.
     type ('a, 'b) value_accessor_t                                   |
-    val t : (base class, 'a class) value_accessor_t                  | isGObject
-    val tOpt : (base class option, 'a class option) value_accessor_t |
+    val t : (base class, 'a class) value_accessor_t                  |
+    val tOpt : (base class option, 'a class option) value_accessor_t | isGObject
+    val toDerived                                                    |
+       : ('a class, 'b) value_accessor_t -> base class -> 'a class   |
                                                                     -'
                                                                     -.
-    val t : (base class, 'a class) ValueAccessor.t                   | not isGObject
-    val tOpt : (base class option, 'a class option) ValueAccessor.t  |
+    val t : (base class, 'a class) ValueAccessor.t                   |
+    val tOpt : (base class option, 'a class option) ValueAccessor.t  | not isGObject
+    val toDerived                                                    |
+       : ('a class, 'b) ValueAccessor.t -> base class -> 'a class    |
                                                                     -'
   end
 

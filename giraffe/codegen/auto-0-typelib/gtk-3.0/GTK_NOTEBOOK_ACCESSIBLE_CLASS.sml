@@ -7,4 +7,8 @@ signature GTK_NOTEBOOK_ACCESSIBLE_CLASS =
         where type 'a class = 'a notebook_accessible container_accessible_class
     val t : (base class, 'a class) ValueAccessor.t
     val tOpt : (base class option, 'a class option) ValueAccessor.t
+    val toDerived :
+      ('a class, 'b) ValueAccessor.t
+       -> base class
+       -> 'a class
   end
