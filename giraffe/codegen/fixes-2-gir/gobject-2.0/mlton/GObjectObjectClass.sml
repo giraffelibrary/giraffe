@@ -29,6 +29,8 @@ structure GObjectObjectClass :>
         end
       else ()
 
+    val isFloating_ = _import "g_object_is_floating" : notnull p -> GBool.FFI.val_;
+
     val take_ =
       if GiraffeDebug.isEnabled
       then _import "giraffe_debug_object_take" : notnull p -> unit;
@@ -117,7 +119,12 @@ structure GObjectObjectClass :>
             val object =
               Finalizable.new (
                 if transfer
-                then (take_ ptr; ptr)  (* take the existing reference *)
+                then (
+                  if GBool.FFI.fromVal (isFloating_ ptr)
+                  then GiraffeLog.critical "taking ownership of floating reference"
+                  else ();
+                  take_ ptr; ptr  (* take the existing reference *)
+                )
                 else ref_ ptr
               )
           in

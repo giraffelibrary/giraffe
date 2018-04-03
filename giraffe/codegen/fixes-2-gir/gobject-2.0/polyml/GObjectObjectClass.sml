@@ -40,6 +40,11 @@ structure GObjectObjectClass :>
     local
       open PolyMLFFI
     in
+      val isFloating_ =
+        call
+          (getSymbol "g_object_is_floating")
+          (cPtr --> GBool.PolyML.cVal)
+
       val take_ =
         if GiraffeDebug.isEnabled
         then
@@ -134,7 +139,12 @@ structure GObjectObjectClass :>
             val object =
               Finalizable.new (
                 if transfer
-                then (take_ ptr; ptr)  (* take the existing reference *)
+                then (
+                  if GBool.FFI.fromVal (isFloating_ ptr)
+                  then GiraffeLog.critical "taking ownership of floating reference"
+                  else ();
+                  take_ ptr; ptr  (* take the existing reference *)
+                )
                 else ref_ ptr
               )
           in
