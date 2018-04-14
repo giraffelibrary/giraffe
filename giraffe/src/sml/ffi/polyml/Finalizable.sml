@@ -1,4 +1,4 @@
-(* Copyright (C) 2015-2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2015-2016, 2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -26,9 +26,8 @@ structure Finalizable :> FINALIZABLE =
       }
 
     (* `touch (T {value, ...})` is an operation that requires `value` but
-     * does nothing.  Something has to be done to `value` to require it, so
-     * it is assigned to itself. *)
-    fun touch (T {value, ...}) = value := !value
+     * does nothing. *)
+    fun touch (T {value, ...}) = Weak.touch value
 
     fun withValue (t as T {value, ...}, f) =
       f (!value) handle e => (touch t; raise e)
