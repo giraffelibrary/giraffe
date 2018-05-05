@@ -54,12 +54,20 @@ It is not necessary for all supported libraries to be installed.
 The following libraries are supported, where the interface is based on the
 indicated version:
 
-  GLib 2.0              2.30.3
-  Pango 1.0             1.30.0
-  GTK+ 3.0              3.2.4
-  GtkSourceView 3.0     3.2.3
-  VTE 2.90              0.28.2
-  VTE 2.91              0.39.1
+  GLib-2.0              2.50.3
+  GObject-2.0           2.50.3
+  Gio-2.0               2.50.3
+  GModule-2.0           2.50.3
+  GIRepository-2.0      1.50.0
+  Atk-1.0               2.22.0
+  Pango-1.0             1.40.9
+  PangoCairo-1.0        1.40.9
+  GdkPixbuf-2.0         2.36.9
+  Gdk-3.0               3.22.17
+  Gtk-3.0               3.22.17
+  GtkSource-3.0         3.22.2
+  Vte-2.90              0.36.5
+  Vte-2.91              0.46.3
 
 Later versions are expected to work but newer features are not supported.
 Earlier versions may still work, depending on the actual dependencies.

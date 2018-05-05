@@ -1,3 +1,32 @@
+1.0.0-alpha.8 (...)
+
+    Removed restriction on Poly/ML 5.7 that required C function argument/return
+     values with a C integer type to be in the range of Int.int which, in
+     practice, required Int to be the same as IntInf.
+    Generated C wrapper functions for use with MLton so all functions supported.
+    Generated C functions to determine the size of value-like record types.
+    Updated library versions:
+        GLib-2.0            2.50.3
+        GObject-2.0         2.50.3
+        Gio-2.0             2.50.3
+        GModule-2.0         2.50.3
+        GIRepository-2.0    1.50.0
+        Atk-1.0             2.22.0
+        Pango-1.0           1.40.9
+        PangoCairo-1.0      1.40.9
+        GdkPixbuf-2.0       2.36.9
+        Gdk-3.0             3.22.17
+        Gtk-3.0             3.22.17
+        GtkSource-3.0       3.22.2
+        Vte-2.90            0.36.5
+        Vte-2.91            0.46.3
+    Included deprecated functions in generated code.
+    GLib namespace is loaded before GObject namespace.
+    Added GObject.Object.new.
+    Fixed property operators to respect construct-only mode.
+    Supported case-insensitive file systems.
+
+
 1.0.0-alpha.7 (2017-10-18)
 
     Poly/ML 5.6 required.
