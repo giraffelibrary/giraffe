@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2017 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2017-2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -12,7 +12,21 @@
 #include <string.h>
 #include <glib.h>
 
-#include "polyml/giraffe-glib-2.0.h"
+#include "giraffe-glib-2.0.h"
+
+
+/* GLog */
+
+void
+giraffe_g_log (const gchar *log_domain,
+               GLogLevelFlags log_level,
+               const gchar *format)
+{
+  g_log (log_domain,
+         log_level,
+         format,
+         NULL);
+}
 
 
 /* GError */
@@ -33,33 +47,6 @@ gchar *
 giraffe_get_g_error_message (GError *error)
 {
   return error->message;
-}
-
-
-/* GPollFD */
-
-GPollFD *
-giraffe_g_lib_poll_f_d_new (void)
-{
-  return g_slice_new (GPollFD);
-}
-
-void
-giraffe_g_lib_poll_f_d_copy (const GPollFD *src, GPollFD *dest)
-{
-  memcpy (dest, src, sizeof (GPollFD));
-}
-
-void
-giraffe_g_lib_poll_f_d_free (GPollFD *pollfd)
-{
-  g_slice_free (GPollFD, pollfd);
-}
-
-guint
-giraffe_g_lib_poll_f_d_size (void)
-{
-  return sizeof (GPollFD);
 }
 
 

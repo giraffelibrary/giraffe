@@ -11,17 +11,13 @@
 
 #include <glib-object.h>
 
-
 #ifdef GIRAFFE_DEBUG
 #include <stdio.h>
 gboolean giraffe_debug_closure;
 gboolean giraffe_debug_ref_count;
 #endif /* GIRAFFE_DEBUG */
 
-
-#include "mlton/cvector.h"
-#include "mlton/cvectorvector.h"
-#include "mlton/giraffe-sml-gobject-2.0.h"
+#include "giraffe-sml-gobject-2.0.h"
 
 
 /* GType */
@@ -360,12 +356,6 @@ giraffe_g_value_size ()
   return sizeof (GValue);
 }
 
-void
-mlton_g_value_set_string (GValue *value, SML_CVECTOR_VAL(gchar, v_string))
-{
-  g_value_set_string (value, GET_SML_CVECTOR_VAL(gchar, v_string));
-}
-
 
 /* GObject */
 
@@ -402,18 +392,6 @@ giraffe_g_object_new_with_properties (GType          object_type,
     g_object_ref_sink (object);
 
   return object;
-}
-
-GObject *
-mlton_g_object_new_with_properties (GType object_type,
-                                    guint n_properties,
-                                    SML_CVECTORVECTOR_VAL(const char, names),
-                                    SML_CVECTOR_VAL(GValue, values))
-{
-  return giraffe_g_object_new_with_properties (object_type,
-                                               n_properties,
-                                               GET_SML_CVECTORVECTOR_VAL(const char, names),
-                                               GET_SML_CVECTOR_VAL(GValue, values));
 }
 
 #ifdef GIRAFFE_DEBUG
@@ -454,22 +432,6 @@ giraffe_debug_g_object_unref (gpointer object)
   g_object_unref (object);
 }
 #endif /* GIRAFFE_DEBUG */
-
-void
-mlton_g_object_get_property (GObject *object,
-                             SML_CVECTOR_VAL(gchar, property_name),
-                             GValue *value)
-{
-  g_object_get_property (object, GET_SML_CVECTOR_VAL(gchar, property_name), value);
-}
-
-void
-mlton_g_object_set_property (GObject *object,
-                             SML_CVECTOR_VAL(gchar, property_name),
-                             const GValue *value)
-{
-  g_object_set_property (object, GET_SML_CVECTOR_VAL(gchar, property_name), value);
-}
 
 
 /* ClosureMarshal */
@@ -586,10 +548,10 @@ giraffe_g_closure_new (guint callback_id)
 /* GSignal */
 
 gulong
-mlton_g_signal_connect_closure (gpointer instance,
-                                SML_CVECTOR_VAL(gchar, detailed_signal),
-                                GClosure *closure,
-                                gboolean after)
+giraffe_g_signal_connect_closure (gpointer instance,
+                                  const gchar *detailed_signal,
+                                  GClosure *closure,
+                                  gboolean after)
 {
 #ifdef GIRAFFE_DEBUG
   if (giraffe_debug_closure)
@@ -597,14 +559,49 @@ mlton_g_signal_connect_closure (gpointer instance,
     printf ("connect%s closure %p \"%s\" instance %p (type %s)\n",
             after ? "-after" : "",
             closure,
-            GET_SML_CVECTOR_VAL(gchar, detailed_signal),
+            detailed_signal,
             instance,
             G_OBJECT_TYPE_NAME(instance));
     fflush (stdout);
   }
 #endif /* GIRAFFE_DEBUG */
   return g_signal_connect_closure (instance,
-                                   GET_SML_CVECTOR_VAL(gchar, detailed_signal),
+                                   detailed_signal,
                                    closure,
                                    after);
+}
+
+
+/* MLton */
+
+#include "giraffe-gobject-2.0-mlton.c"
+
+
+/* GObject */
+
+GObject *
+mlton_g_object_new_with_properties (GType object_type,
+                                    guint n_properties,
+                                    SML_CVECTORVECTOR_VAL(const char, names),
+                                    SML_CVECTOR_VAL(GValue, values))
+{
+  return giraffe_g_object_new_with_properties (object_type,
+                                               n_properties,
+                                               GET_SML_CVECTORVECTOR_VAL(const char, names),
+                                               GET_SML_CVECTOR_VAL(GValue, values));
+}
+
+
+/* GSignal */
+
+gulong
+mlton_g_signal_connect_closure (gpointer instance,
+                                SML_CVECTOR_VAL(gchar, detailed_signal),
+                                GClosure *closure,
+                                gboolean after)
+{
+  return giraffe_g_signal_connect_closure (instance,
+                                           GET_SML_CVECTOR_VAL(gchar, detailed_signal),
+                                           closure,
+                                           after);
 }

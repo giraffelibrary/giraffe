@@ -1003,7 +1003,7 @@ structure GLib : G_LIB =
          & x12
          & x13 =>
           (
-            _import "giraffe_g_spawn_async_with_pipes" :
+            _import "mlton_g_spawn_async_with_pipes" :
               Utf8.MLton.p1 * unit Utf8.MLton.p2
                * Utf8CVector.MLton.p1
                * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2

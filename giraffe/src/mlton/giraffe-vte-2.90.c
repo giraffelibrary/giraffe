@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2016-2017 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016-2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,63 +11,24 @@
 
 #include <vte/vte.h>
 
-#include "mlton/cvector.h"
-#include "mlton/cvectorvector.h"
-
 
 /* VteTerminal */
-
-void
-mlton_vte_terminal_set_colors (VteTerminal *terminal,
-                               const GdkColor *foreground,
-                               const GdkColor *background,
-                               SML_CVECTOR_VAL(GdkColor, palette),
-                               glong palette_size)
-{
-  vte_terminal_set_colors (terminal,
-                           foreground,
-                           background,
-                           GET_SML_CVECTOR_VAL(GdkColor, palette),
-                           palette_size);
-}
-
-void
-mlton_vte_terminal_set_rgba (VteTerminal *terminal,
-                             const GdkRGBA *foreground,
-                             const GdkRGBA *background,
-                             SML_CVECTOR_VAL(GdkRGBA, palette),
-                             gsize palette_size)
-{
-  vte_terminal_set_colors_rgba (terminal,
-                                foreground,
-                                background,
-                                GET_SML_CVECTOR_VAL(GdkRGBA, palette),
-                                palette_size);
-}
-
-void
-mlton_vte_terminal_set_font_from_string (VteTerminal *terminal,
-                                         SML_CVECTOR_VAL(gchar, name))
-{
-  vte_terminal_set_font_from_string (terminal,
-                                     GET_SML_CVECTOR_VAL(gchar, name));
-}
 
 gboolean
 giraffe_vte_terminal_fork_command_full (VteTerminal *terminal,
                                         VtePtyFlags pty_flags,
-                                        SML_CVECTOR_VAL(gchar, working_directory),
-                                        SML_CVECTORVECTOR_VAL(gchar, argv),
-                                        SML_CVECTORVECTOR_VAL(gchar, envp),
+                                        const char *working_directory,
+                                        char **argv,
+                                        char **envp,
                                         GSpawnFlags flags,
                                         GPid *child_pid,
                                         GError **error)
 {
   return vte_terminal_fork_command_full (terminal,
                                          pty_flags,
-                                         GET_SML_CVECTOR_VAL(gchar, working_directory),
-                                         GET_SML_CVECTORVECTOR_VAL(gchar, argv),
-                                         GET_SML_CVECTORVECTOR_VAL(gchar, envp),
+                                         working_directory,
+                                         argv,
+                                         envp,
                                          flags,
                                          NULL,
                                          NULL,
@@ -95,9 +56,9 @@ giraffe_spawn_child_setup_dispatch (gpointer data)
 gboolean
 giraffe_vte_terminal_fork_command_full (VteTerminal *terminal,
                                         VtePtyFlags pty_flags,
-                                        SML_CVECTOR_VAL(gchar, working_directory),
-                                        SML_CVECTORVECTOR_VAL(gchar, argv),
-                                        SML_CVECTORVECTOR_VAL(gchar, envp),
+                                        const char *working_directory,
+                                        char **argv,
+                                        char **envp,
                                         GSpawnFlags flags,
                                         guint callback_id,
                                         GPid *child_pid,
@@ -105,9 +66,9 @@ giraffe_vte_terminal_fork_command_full (VteTerminal *terminal,
 {
   return vte_terminal_fork_command_full (terminal,
                                          pty_flags,
-                                         GET_SML_CVECTOR_VAL(gchar, working_directory),
-                                         GET_SML_CVECTORVECTOR_VAL(gchar, argv),
-                                         GET_SML_CVECTORVECTOR_VAL(gchar, envp),
+                                         working_directory,
+                                         argv,
+                                         envp,
                                          flags,
                                          giraffe_spawn_child_setup_dispatch,
                                          GUINT_TO_POINTER(callback_id),
@@ -117,3 +78,31 @@ giraffe_vte_terminal_fork_command_full (VteTerminal *terminal,
 
  *
  */
+
+
+/* MLton */
+
+#include "giraffe-vte-2.90-mlton.c"
+
+
+/* VteTerminal */
+
+gboolean
+mlton_vte_terminal_fork_command_full (VteTerminal *terminal,
+                                      VtePtyFlags pty_flags,
+                                      SML_CVECTOR_VAL(gchar, working_directory),
+                                      SML_CVECTORVECTOR_VAL(gchar, argv),
+                                      SML_CVECTORVECTOR_VAL(gchar, envp),
+                                      GSpawnFlags flags,
+                                      GPid *child_pid,
+                                      GError **error)
+{
+  return giraffe_vte_terminal_fork_command_full (terminal,
+                                                 pty_flags,
+                                                 GET_SML_CVECTOR_VAL(gchar, working_directory),
+                                                 GET_SML_CVECTORVECTOR_VAL(gchar, argv),
+                                                 GET_SML_CVECTORVECTOR_VAL(gchar, envp),
+                                                 flags,
+                                                 child_pid,
+                                                 error);
+}

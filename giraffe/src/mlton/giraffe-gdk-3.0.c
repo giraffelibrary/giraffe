@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2016-2017 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016-2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,20 +11,6 @@
 
 #include <string.h>
 #include <gdk/gdk.h>
-
-#include "mlton/cvector.h"
-#include "mlton/cvectorvector.h"
-
-
-/* GdkAtom */
-
-GdkAtom
-mlton_gdk_atom_intern (SML_CVECTOR_VAL(gchar, atom_name),
-                       gboolean only_if_exists)
-{
-  return gdk_atom_intern (GET_SML_CVECTOR_VAL(gchar, atom_name),
-                          only_if_exists);
-}
 
 
 /* GdkGeometry */
@@ -122,14 +108,6 @@ giraffe_gdk_color_size (void)
   return sizeof (GdkColor);
 }
 
-gboolean
-mlton_gdk_color_parse (SML_CVECTOR_VAL(gchar, spec),
-                       GdkColor *color)
-{
-  return gdk_color_parse (GET_SML_CVECTOR_VAL(gchar, spec),
-                          color);
-}
-
 
 /* GdkRGBA */
 
@@ -155,14 +133,6 @@ guint
 giraffe_gdk_rgba_size (void)
 {
   return sizeof (GdkRGBA);
-}
-
-gboolean
-mlton_gdk_rgba_parse (GdkRGBA *rgba,
-                      SML_CVECTOR_VAL(gchar, spec))
-{
-  return gdk_rgba_parse (rgba,
-                         GET_SML_CVECTOR_VAL(gchar, spec));
 }
 
 
@@ -395,3 +365,8 @@ giraffe_gdk_event_proximity_get_time (GdkEventProximity *event)
 {
   return event->time;
 }
+
+
+/* MLton */
+
+#include "giraffe-gdk-3.0-mlton.c"

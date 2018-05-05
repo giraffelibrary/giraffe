@@ -1,4 +1,4 @@
-/* Copyright (C) 2016-2017 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2016-2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,22 +11,6 @@
 
 #include <string.h>
 #include <gio/gio.h>
-
-#include "mlton/cvector.h"
-#include "mlton/cvectorvector.h"
-
-
-/* GioApplication */
-
-int
-mlton_g_application_run (GApplication *application,
-                         int argc,
-                         SML_CVECTORVECTOR_VAL(char, argv))
-{
-  return g_application_run (application,
-                            argc,
-                            GET_SML_CVECTORVECTOR_VAL(char, argv));
-}
 
 
 /* GFileAttributeInfo */
@@ -54,3 +38,7 @@ giraffe_gio_file_attribute_info_size (void)
 {
   return sizeof (GFileAttributeInfo);
 }
+
+/* MLton */
+
+#include "giraffe-gio-2.0-mlton.c"

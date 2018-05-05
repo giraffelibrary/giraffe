@@ -96,7 +96,7 @@ structure VteTerminal :>
     val forkCommandFull_ =
       fn x1 & x2 & (x3, x4) & (x5, x6) & (x7, x8) & x9 & x10 & x11 =>
         (
-          _import "giraffe_vte_terminal_fork_command_full" :
+          _import "mlton_vte_terminal_fork_command_full" :
             GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
              * VtePtyFlags.FFI.val_
              * Utf8.MLton.p1

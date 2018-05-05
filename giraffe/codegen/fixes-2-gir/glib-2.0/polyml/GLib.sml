@@ -287,7 +287,7 @@ structure GLib : G_LIB =
              --> Utf8.PolyML.cOutPtr
           )
       val log_ =
-        call (getSymbol "g_log")
+        call (getSymbol "giraffe_g_log")
           (
             Utf8.PolyML.cInPtr
              &&> GLibLogLevelFlags.PolyML.cVal
