@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -69,18 +69,6 @@ giraffe_gtk_border_size (void)
 
 /* GtkFileChooserDialog */
 
-GtkWidget *
-giraffe_gtk_file_chooser_dialog_new (const gchar *title,
-                                     GtkWindow *parent,
-                                     GtkFileChooserAction action)
-{
-  return gtk_file_chooser_dialog_new (title,
-                                      parent,
-                                      action,
-                                      NULL,
-                                      NULL);
-}
-
 
 /* GtkFileFilter */
 
@@ -110,19 +98,6 @@ giraffe_file_filter_info_size (void)
 
 
 /* GtkMessageDialog */
-
-GtkWidget *
-giraffe_gtk_message_dialog_new (GtkWindow *parent,
-                                GtkDialogFlags flags,
-                                GtkMessageType type,
-                                GtkButtonsType buttons)
-{
-  return gtk_message_dialog_new (parent,
-                                 flags,
-                                 type,
-                                 buttons,
-                                 NULL);
-}
 
 
 /* GtkRecentData */

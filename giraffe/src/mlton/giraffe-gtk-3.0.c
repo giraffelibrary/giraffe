@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016, 2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -197,18 +197,6 @@ mlton_gtk_file_chooser_set_current_folder (GtkFileChooser *chooser,
 
 /* GtkFileChooserDialog */
 
-GtkWidget *
-giraffe_gtk_file_chooser_dialog_new (SML_CVECTOR_VAL(gchar, title),
-                                     GtkWindow *parent,
-                                     GtkFileChooserAction action)
-{
-  return gtk_file_chooser_dialog_new (GET_SML_CVECTOR_VAL(gchar, title),
-                                      parent,
-                                      action,
-                                      NULL,
-                                      NULL);
-}
-
 
 /* GtkFileFilter */
 
@@ -255,19 +243,6 @@ mlton_gtk_label_set_text (GtkLabel *label,
 
 
 /* GtkMessageDialog */
-
-GtkWidget *
-giraffe_gtk_message_dialog_new (GtkWindow *parent,
-                                GtkDialogFlags flags,
-                                GtkMessageType type,
-                                GtkButtonsType buttons)
-{
-  return gtk_message_dialog_new (parent,
-                                 flags,
-                                 type,
-                                 buttons,
-                                 NULL);
-}
 
 
 /* GtkRecentData */
