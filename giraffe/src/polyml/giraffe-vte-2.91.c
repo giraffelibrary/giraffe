@@ -11,7 +11,9 @@
 
 #include <vte/vte.h>
 
+#include "giraffe-common.h"
 #include "giraffe-glib-2.0.h"
+#include "giraffe-vte-2.91-common.c"
 
 
 /* VteTerminal */

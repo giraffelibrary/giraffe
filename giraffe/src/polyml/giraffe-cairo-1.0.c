@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2017 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2017-2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -13,30 +13,5 @@
 #include <glib.h>
 #include <cairo/cairo.h>
 
-
-/* cairo_rectangle_int_t */
-
-cairo_rectangle_int_t *
-giraffe_cairo_rectangle_int_new (void)
-{
-  return g_slice_new (cairo_rectangle_int_t);
-}
-
-void
-giraffe_cairo_rectangle_int_copy (const cairo_rectangle_int_t *src,
-                                        cairo_rectangle_int_t *dest)
-{
-  memcpy (dest, src, sizeof (cairo_rectangle_int_t));
-}
-
-void
-giraffe_cairo_rectangle_int_free (cairo_rectangle_int_t *rect)
-{
-  g_slice_free (cairo_rectangle_int_t, rect);
-}
-
-guint
-giraffe_cairo_rectangle_int_size (void)
-{
-  return sizeof (cairo_rectangle_int_t);
-}
+#include "giraffe-common.h"
+#include "giraffe-cairo-1.0-common.c"

@@ -17,6 +17,9 @@ gboolean giraffe_debug_closure;
 gboolean giraffe_debug_ref_count;
 #endif /* GIRAFFE_DEBUG */
 
+#include "giraffe-common.h"
+#include "giraffe-gobject-2.0-common.c"
+
 
 /* GType */
 

@@ -12,33 +12,6 @@
 #include <string.h>
 #include <gio/gio.h>
 
-
-/* GFileAttributeInfo */
-
-GFileAttributeInfo *
-giraffe_gio_file_attribute_info_new (void)
-{
-  return g_slice_new (GFileAttributeInfo);
-}
-
-void
-giraffe_gio_file_attribute_info_copy (const GFileAttributeInfo *src, GFileAttributeInfo *dest)
-{
-  memcpy (dest, src, sizeof (GFileAttributeInfo));
-}
-
-void
-giraffe_gio_file_attribute_info_free (GFileAttributeInfo *key)
-{
-  g_slice_free (GFileAttributeInfo, key);
-}
-
-guint
-giraffe_gio_file_attribute_info_size (void)
-{
-  return sizeof (GFileAttributeInfo);
-}
-
-/* MLton */
-
+#include "giraffe-common.h"
+#include "giraffe-gio-2.0-common.c"
 #include "giraffe-gio-2.0-mlton.c"

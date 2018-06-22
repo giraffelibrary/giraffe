@@ -11,6 +11,10 @@
 
 #include <vte/vte.h>
 
+#include "giraffe-common.h"
+#include "giraffe-vte-2.90-common.c"
+#include "giraffe-vte-2.90-mlton.c"
+
 
 /* VteTerminal */
 
@@ -78,11 +82,6 @@ giraffe_vte_terminal_fork_command_full (VteTerminal *terminal,
 
  *
  */
-
-
-/* MLton */
-
-#include "giraffe-vte-2.90-mlton.c"
 
 
 /* VteTerminal */

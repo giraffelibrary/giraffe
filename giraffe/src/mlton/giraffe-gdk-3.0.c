@@ -12,59 +12,9 @@
 #include <string.h>
 #include <gdk/gdk.h>
 
-
-/* GdkGeometry */
-
-GdkGeometry *
-giraffe_gdk_geometry_new (void)
-{
-  return g_slice_new (GdkGeometry);
-}
-
-void
-giraffe_gdk_geometry_copy (const GdkGeometry *src, GdkGeometry *dest)
-{
-  memcpy (dest, src, sizeof (GdkGeometry));
-}
-
-void
-giraffe_gdk_geometry_free (GdkGeometry *geometry)
-{
-  g_slice_free (GdkGeometry, geometry);
-}
-
-guint
-giraffe_gdk_geometry_size (void)
-{
-  return sizeof (GdkGeometry);
-}
-
-
-/* GdkKeymapKey */
-
-GdkKeymapKey *
-giraffe_gdk_keymap_key_new (void)
-{
-  return g_slice_new (GdkKeymapKey);
-}
-
-void
-giraffe_gdk_keymap_key_copy (const GdkKeymapKey *src, GdkKeymapKey *dest)
-{
-  memcpy (dest, src, sizeof (GdkKeymapKey));
-}
-
-void
-giraffe_gdk_keymap_key_free (GdkKeymapKey *keymap_key)
-{
-  g_slice_free (GdkKeymapKey, keymap_key);
-}
-
-guint
-giraffe_gdk_keymap_key_size (void)
-{
-  return sizeof (GdkKeymapKey);
-}
+#include "giraffe-common.h"
+#include "giraffe-gdk-3.0-common.c"
+#include "giraffe-gdk-3.0-mlton.c"
 
 
 /* GdkWindowAttr */
@@ -79,60 +29,6 @@ void
 giraffe_gdk_window_attr_free (GdkWindowAttr *attributes)
 {
   g_slice_free (GdkWindowAttr, attributes);
-}
-
-
-/* GdkColor */
-
-GdkColor *
-giraffe_gdk_color_new (void)
-{
-  return g_slice_new (GdkColor);
-}
-
-void
-giraffe_gdk_color_copy (const GdkColor *src, GdkColor *dest)
-{
-  memcpy (dest, src, sizeof (GdkColor));
-}
-
-void
-giraffe_gdk_color_free (GdkColor *color)
-{
-  g_slice_free (GdkColor, color);
-}
-
-guint
-giraffe_gdk_color_size (void)
-{
-  return sizeof (GdkColor);
-}
-
-
-/* GdkRGBA */
-
-GdkRGBA *
-giraffe_gdk_rgba_new (void)
-{
-  return g_slice_new (GdkRGBA);
-}
-
-void
-giraffe_gdk_rgba_copy (const GdkRGBA *src, GdkRGBA *dest)
-{
-  memcpy (dest, src, sizeof (GdkRGBA));
-}
-
-void
-giraffe_gdk_rgba_free (GdkRGBA *rgba)
-{
-  g_slice_free (GdkRGBA, rgba);
-}
-
-guint
-giraffe_gdk_rgba_size (void)
-{
-  return sizeof (GdkRGBA);
 }
 
 
@@ -365,8 +261,3 @@ giraffe_gdk_event_proximity_get_time (GdkEventProximity *event)
 {
   return event->time;
 }
-
-
-/* MLton */
-
-#include "giraffe-gdk-3.0-mlton.c"

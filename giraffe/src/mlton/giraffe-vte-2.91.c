@@ -11,7 +11,10 @@
 
 #include <vte/vte.h>
 
+#include "giraffe-common.h"
 #include "giraffe-glib-2.0.h"
+#include "giraffe-vte-2.91-common.c"
+#include "giraffe-vte-2.91-mlton.c"
 
 
 /* VteTerminal */
@@ -40,14 +43,6 @@ giraffe_vte_terminal_spawn_sync (VteTerminal *terminal,
                                   cancellable,
                                   error);
 }
-
-
-/* MLton */
-
-#include "giraffe-vte-2.91-mlton.c"
-
-
-/* VteTerminal */
 
 gboolean
 mlton_vte_terminal_spawn_sync (VteTerminal *terminal,

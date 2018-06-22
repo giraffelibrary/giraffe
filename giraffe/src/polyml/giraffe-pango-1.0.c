@@ -12,56 +12,5 @@
 #include <string.h>
 #include <pango/pango.h>
 
-
-/* PangoRectangle */
-
-PangoRectangle *
-giraffe_pango_rectangle_new (void)
-{
-  return g_slice_new (PangoRectangle);
-}
-
-void
-giraffe_pango_rectangle_copy (const PangoRectangle *src, PangoRectangle *dest)
-{
-  memcpy (dest, src, sizeof (PangoRectangle));
-}
-
-void
-giraffe_pango_rectangle_free (PangoRectangle *rect)
-{
-  g_slice_free (PangoRectangle, rect);
-}
-
-guint
-giraffe_pango_rectangle_size (void)
-{
-  return sizeof (PangoRectangle);
-}
-
-
-/* PangoLogAttr */
-
-PangoLogAttr *
-giraffe_pango_log_attr_new (void)
-{
-  return g_slice_new (PangoLogAttr);
-}
-
-void
-giraffe_pango_log_attr_copy (const PangoLogAttr *src, PangoLogAttr *dest)
-{
-  memcpy (dest, src, sizeof (PangoLogAttr));
-}
-
-void
-giraffe_pango_log_attr_free (PangoLogAttr *log_attr)
-{
-  g_slice_free (PangoLogAttr, log_attr);
-}
-
-guint
-giraffe_pango_log_attr_size (void)
-{
-  return sizeof (PangoLogAttr);
-}
+#include "giraffe-common.h"
+#include "giraffe-pango-1.0-common.c"

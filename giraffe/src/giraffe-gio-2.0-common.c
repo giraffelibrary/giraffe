@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2018 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -6,11 +6,7 @@
  */
 
 /*
- * Gtk C interface support for Poly/ML
+ * Gio C interface support
  */
 
-#include <string.h>
-#include <gtk/gtk.h>
-
-#include "giraffe-common.h"
-#include "giraffe-gtk-3.0-common.c"
+GIRAFFE_DECLARE_VALUE_RECORD (GFileAttributeInfo, gio_file_attribute_info)

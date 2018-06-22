@@ -12,7 +12,9 @@
 #include <string.h>
 #include <glib.h>
 
+#include "giraffe-common.h"
 #include "giraffe-glib-2.0.h"
+#include "giraffe-glib-2.0-common.c"
 
 
 /* GLog */
@@ -47,33 +49,6 @@ gchar *
 giraffe_get_g_error_message (GError *error)
 {
   return error->message;
-}
-
-
-/* GTimeVal */
-
-GTimeVal *
-giraffe_g_lib_time_val_new (void)
-{
-  return g_slice_new (GTimeVal);
-}
-
-void
-giraffe_g_lib_time_val_copy (const GTimeVal *src, GTimeVal *dest)
-{
-  memcpy (dest, src, sizeof (GTimeVal));
-}
-
-void
-giraffe_g_lib_time_val_free (GTimeVal *time)
-{
-  g_slice_free (GTimeVal, time);
-}
-
-guint
-giraffe_g_lib_time_val_size (void)
-{
-  return sizeof (GTimeVal);
 }
 
 

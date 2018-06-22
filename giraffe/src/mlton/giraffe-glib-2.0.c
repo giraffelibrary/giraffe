@@ -12,8 +12,11 @@
 #include <string.h>
 #include <glib.h>
 
+#include "giraffe-common.h"
 #include "giraffe-sml-glib-2.0.h"
 #include "giraffe-glib-2.0.h"
+#include "giraffe-glib-2.0-common.c"
+#include "giraffe-glib-2.0-mlton.c"
 
 
 /* GLog */
@@ -27,6 +30,16 @@ giraffe_g_log (const gchar *log_domain,
          log_level,
          format,
          NULL);
+}
+
+void
+mlton_g_log (SML_CVECTOR_VAL(gchar, log_domain),
+             GLogLevelFlags log_level,
+             SML_CVECTOR_VAL(gchar, format))
+{
+  giraffe_g_log (GET_SML_CVECTOR_VAL(gchar, log_domain),
+                 log_level,
+                 GET_SML_CVECTOR_VAL(gchar, format));
 }
 
 
@@ -48,33 +61,6 @@ gchar *
 giraffe_get_g_error_message (GError *error)
 {
   return error->message;
-}
-
-
-/* GTimeVal */
-
-GTimeVal *
-giraffe_g_lib_time_val_new (void)
-{
-  return g_slice_new (GTimeVal);
-}
-
-void
-giraffe_g_lib_time_val_copy (const GTimeVal *src, GTimeVal *dest)
-{
-  memcpy (dest, src, sizeof (GTimeVal));
-}
-
-void
-giraffe_g_lib_time_val_free (GTimeVal *time)
-{
-  g_slice_free (GTimeVal, time);
-}
-
-guint
-giraffe_g_lib_time_val_size (void)
-{
-  return sizeof (GTimeVal);
 }
 
 
@@ -383,27 +369,6 @@ giraffe_g_spawn_async_with_pipes (const gchar *working_directory,
                                    standard_error,
                                    error);
 }
-
-
-/* MLton */
-
-#include "giraffe-glib-2.0-mlton.c"
-
-
-/* GLog */
-
-void
-mlton_g_log (SML_CVECTOR_VAL(gchar, log_domain),
-             GLogLevelFlags log_level,
-             SML_CVECTOR_VAL(gchar, format))
-{
-  giraffe_g_log (GET_SML_CVECTOR_VAL(gchar, log_domain),
-                 log_level,
-                 GET_SML_CVECTOR_VAL(gchar, format));
-}
-
-
-/* GLib */
 
 gboolean
 mlton_g_spawn_async_with_pipes (SML_CVECTOR_VAL(gchar, working_directory),
