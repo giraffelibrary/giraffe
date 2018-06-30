@@ -4,8 +4,6 @@ use "gir/G_OBJECT_SIGNAL_FLAGS.sml";
 use "gir/polyml/GObjectParamFlags.sml";
 use "gir/polyml/GObjectSignalFlags.sml";
 
-use "gir/GIR_ABSTRACT_SYNTAX_TREE.sml";
-
 use "gir/G_I_REPOSITORY_FIELD_INFO_FLAGS.sml";
 use "gir/G_I_REPOSITORY_FUNCTION_INFO_FLAGS.sml";
 use "gir/G_I_REPOSITORY_V_FUNC_INFO_FLAGS.sml";
@@ -58,12 +56,6 @@ use "gir/G_I_REPOSITORY_TYPELIB.sml";
 use "gir/G_I_REPOSITORY_REPOSITORY.sml";
 use "gir/G_I_REPOSITORY_INFO_TYPE.sml";
 use "gir/G_I_REPOSITORY.sml";
-
-
-use "gir/polyml/GirAbstractSyntaxTree.sml";
-use "gir/polyml/Dict.sml";
-use "gir/polyml/HText.sml";
-use "gir/polyml/GirXmlParser.sml";
 
 use "gir/polyml/GIRepositoryFieldInfoFlags.sml";
 use "gir/polyml/GIRepositoryFunctionInfoFlags.sml";
