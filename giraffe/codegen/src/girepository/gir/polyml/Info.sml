@@ -104,7 +104,7 @@ structure Info =
             nullable          : bool,
             type_             : basedata
           },
-        parameter   : basedata list
+        parameters  : basedata list
       }
 
     and aliasdata =

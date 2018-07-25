@@ -57,15 +57,15 @@ structure GIRepositoryCallableInfo :>
 
     fun getNArgs info =
       let
-        val _ & {parameter, ...} & _ = (fromBase o fromCallable) I info
+        val _ & {parameters, ...} & _ = (fromBase o fromCallable) I info
       in
-        LargeInt.fromInt (List.length parameter)
+        LargeInt.fromInt (List.length parameters)
       end
 
     fun getArg info n =
       let
-        val _ & {parameter, ...} & _ = (fromBase o fromCallable) I info
-        val base = List.nth (parameter, LargeInt.toInt n)
+        val _ & {parameters, ...} & _ = (fromBase o fromCallable) I info
+        val base = List.nth (parameters, LargeInt.toInt n)
         val Info.BASE (ref {instance, ...}) = base
       in
         case instance of

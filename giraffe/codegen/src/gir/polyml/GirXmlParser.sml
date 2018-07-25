@@ -285,9 +285,8 @@ and parseReturnValue (attrs, ts) : return_value =
         )
   end
 
-and parseParameter (attrs, ts) : parameter =
+and parseParameter elemName (attrs, ts) : parameter =
   let
-    val elemName = "parameter"
     val name = getOptAttr attrs "name"
   in
     let
@@ -328,11 +327,23 @@ and parseParameter (attrs, ts) : parameter =
         )
   end
 
-and parseParameters (_, ts) : parameter list =
+and parseParameters (_, ts) : parameters =
   let
     val elemDict = splitElems ts
+
+    val instance =
+      case lookupElems elemDict "instance-parameter" of
+        []      => NONE
+      | e :: [] => SOME (parseParameter "instance-parameter" e)
+      | _       => xmlFail "multiple \"instance-parameter\" elements found"
+
+    val others =
+      map (parseParameter "parameter") (lookupElems elemDict "parameter")
   in
-    map parseParameter (lookupElems elemDict "parameter")
+    {
+      instance = instance,
+      others   = others
+    }
   end
 
 and parseCallable elemDict : callable =
@@ -343,15 +354,16 @@ and parseCallable elemDict : callable =
       | e :: [] => parseReturnValue e
       | _       => xmlFail "multiple \"return-value\" elements found"
 
-    val parameter =
+    val emptyParameters = {instance = NONE, others = []}
+    val parameters =
       case lookupElems elemDict "parameters" of
-        []      => []
+        []      => emptyParameters
       | e :: [] => parseParameters e
       | _       => xmlFail "multiple \"parameters\" elements found"
   in
     {
       returnValue = returnValue,
-      parameter   = parameter
+      parameters  = parameters
     }
   end
 

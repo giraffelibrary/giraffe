@@ -774,22 +774,22 @@ and makeParameterBaseData containerData elemDicts con typelib (x as {name, ...} 
  * element "constructor", "method", "virtual-method", "function"
  * -------------------------------------------------------------------------- *)
 
-and makeCallableData containerData elemDicts typelib {returnValue, parameter}
+and makeCallableData containerData elemDicts typelib {returnValue, parameters}
   : Info.callabledata =
   let
     val returnValue =
       makeReturnValue containerData elemDicts typelib returnValue
 
-    val parameter =
+    val parameters =
       List.map
         (makeParameterBaseData containerData elemDicts Info.ARG typelib)
-        parameter
+        (#others parameters)
         handle
           GIRFail ms => raise GIRFail (HText.string "parameters" :: ms)
   in
     {
       returnValue = returnValue,
-      parameter   = parameter
+      parameters  = parameters
     }
   end
 

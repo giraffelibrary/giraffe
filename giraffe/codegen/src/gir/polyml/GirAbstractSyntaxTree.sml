@@ -46,7 +46,65 @@ structure GirAbstractSyntaxTree : GIR_ABSTRACT_SYNTAX_TREE =
                 nullable          : string option,
                 type_             : type_
               },
-            parameter   : (* ** parameter list ** *)
+            parameters  : (* ** parameters ** *)
+              {
+                instance : (* ** parameter option ** *)
+                  {
+                    name              : string option,
+                    transferOwnership : string,
+                    nullable          : string option,
+                    optional          : string option,
+                    direction         : string option,
+                    callerAllocates   : string option,
+                    scope             : string option,
+                    closure           : string option,
+                    destroy           : string option,
+                    type_             : type_
+                  }
+                    option,
+                others   : (* ** parameter list ** *)
+                  {
+                    name              : string option,
+                    transferOwnership : string,
+                    nullable          : string option,
+                    optional          : string option,
+                    direction         : string option,
+                    callerAllocates   : string option,
+                    scope             : string option,
+                    closure           : string option,
+                    destroy           : string option,
+                    type_             : type_
+                  }
+                    list
+              }
+          }
+      }
+
+    and callable =
+      {
+        returnValue : (* ** return_value ** *)
+          {
+            transferOwnership : string option,
+            nullable          : string option,
+            type_             : type_
+          },
+        parameters  : (* ** parameters ** *)
+          {
+            instance : (* ** parameter option ** *)
+              {
+                name              : string option,
+                transferOwnership : string,
+                nullable          : string option,
+                optional          : string option,
+                direction         : string option,
+                callerAllocates   : string option,
+                scope             : string option,
+                closure           : string option,
+                destroy           : string option,
+                type_             : type_
+              }
+                option,
+            others   : (* ** parameter list ** *)
               {
                 name              : string option,
                 transferOwnership : string,
@@ -63,15 +121,30 @@ structure GirAbstractSyntaxTree : GIR_ABSTRACT_SYNTAX_TREE =
           }
       }
 
-    and callable =
+    and return_value =
       {
-        returnValue : (* ** return_value ** *)
+        transferOwnership : string option,
+        nullable          : string option,
+        type_             : type_
+      }
+
+    and parameters =
+      {
+        instance : (* ** parameter option ** *)
           {
-            transferOwnership : string option,
+            name              : string option,
+            transferOwnership : string,
             nullable          : string option,
+            optional          : string option,
+            direction         : string option,
+            callerAllocates   : string option,
+            scope             : string option,
+            closure           : string option,
+            destroy           : string option,
             type_             : type_
-          },
-        parameter   : (* ** parameter list ** *)
+          }
+            option,
+        others   : (* ** parameter list ** *)
           {
             name              : string option,
             transferOwnership : string,
@@ -85,13 +158,6 @@ structure GirAbstractSyntaxTree : GIR_ABSTRACT_SYNTAX_TREE =
             type_             : type_
           }
             list
-      }
-
-    and return_value =
-      {
-        transferOwnership : string option,
-        nullable          : string option,
-        type_             : type_
       }
 
     and parameter =
