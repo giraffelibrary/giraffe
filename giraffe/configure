@@ -539,7 +539,7 @@ for DIR in src/sml/*-[0-9]*
 do
   if [ -f "${DIR}/package" ]
   then
-    PKGNAME=`cat "${DIR}/package"`
+    PKGNAME=`head -n 1 "${DIR}/package"`
   else
     PKGNAME=
     echo

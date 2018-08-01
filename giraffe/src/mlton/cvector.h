@@ -49,7 +49,7 @@ get_c_vector_ptr (void *sml_arr, void *c_arr) {
 
 #define SML_CVECTOR_VAL(ctype, x) ctype *sml_arr_##x, ctype *c_arr_##x
 
-#define GET_SML_CVECTOR_VAL(ctype, x) (ctype *)(get_c_vector_ptr (sml_arr_##x, c_arr_##x))
+#define GET_SML_CVECTOR_VAL(ctype, x) (ctype *)(get_c_vector_ptr ((void *)sml_arr_##x, (void *)c_arr_##x))
 
 
 /* get_c_vector_ptr_ptr */

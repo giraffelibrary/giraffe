@@ -1,0 +1,389 @@
+#! /bin/sh
+
+CODEGEN_REL_DIR=$(dirname $0)
+CODEGEN_DIR=$(cd ${CODEGEN_REL_DIR} ; pwd -P)
+
+AUTO="mlton-auto"
+FIXES="mlton-fixes"
+FIXED="mlton-fixed"
+SRC="../src/mlton"
+
+TMP_DIR="/tmp"
+AUTO_OUT_DIR="${TMP_DIR}/${AUTO}"
+FIXED_OUT_DIR="${TMP_DIR}/${FIXED}"
+
+try_merge_tool () {
+  SOURCE_DIR="$1"
+  TARGET_DIR="$2"
+
+  if [ -z "${MERGE}" ]
+  then
+    echo
+    echo "Environment variable MERGE not set; no merge tool available."
+  else
+    if [ ! -x "${MERGE}" ]
+    then
+      echo
+      echo "Environment variable MERGE does not specify an executable file."
+    else
+      while true
+      do
+        echo -n "Run merge tool? [y/N] "
+        read ANSWER
+        if [ "x${ANSWER}" = "xy" -o "x${ANSWER}" = "xY" ]
+        then
+          echo "Running ${MERGE} ${SOURCE_DIR} ${TARGET_DIR}"
+          "${MERGE}" "${SOURCE_DIR}" "${TARGET_DIR}"
+          break
+        elif [ "x${ANSWER}" = "xn" -o "x${ANSWER}" = "xN" -o "x${ANSWER}" = "x" ]
+        then
+          break
+        fi
+      done
+    fi
+  fi
+}
+
+update () {
+  INDENT="  "
+  DIFF_EXISTS=
+  SOURCE_DIR="$1"
+  TARGET_DIR="$2"
+
+  if [ ! -d "${SOURCE_DIR}" ]
+  then
+    echo "Error: source directory ${SOURCE_DIR} does not exist"
+    exit 1
+  fi
+
+  if [ ! -d "${TARGET_DIR}" ]
+  then
+    echo "Error: target directory ${TARGET_DIR} does not exist"
+    exit 1
+  fi
+
+  SOURCE_NAME_LEN_MAX=$((1 + ${#SOURCE_DIR}))
+  for SOURCE in "${SOURCE_DIR}"/giraffe-*-mlton.*
+  do
+    NAME=$(basename "${SOURCE}")
+    NAME_LEN=$((${#INDENT} + ${#NAME}))
+    if [ ${SOURCE_NAME_LEN_MAX} -lt ${NAME_LEN} ]
+    then
+      SOURCE_NAME_LEN_MAX=${NAME_LEN}
+    fi
+  done
+
+  TARGET_NAME_LEN_MAX=${SOURCE_NAME_LEN_MAX}
+  for TARGET in "${TARGET_DIR}"/giraffe-*-mlton.*
+  do
+    NAME=$(basename "${TARGET}")
+    NAME_LEN=$((${#INDENT} + ${#NAME}))
+    if [ ${TARGET_NAME_LEN_MAX} -lt ${NAME_LEN} ]
+    then
+      TARGET_NAME_LEN_MAX=${NAME_LEN}
+    fi
+  done
+
+  FMT="  %-${SOURCE_NAME_LEN_MAX}s  %-12s  %-${TARGET_NAME_LEN_MAX}s"
+
+  printf "${FMT}\n" "${SOURCE_DIR}/" "------->" "${TARGET_DIR}/"
+
+  MATCHES=$(find "${SOURCE_DIR}" -maxdepth 1 -name 'giraffe-*-mlton.*' -print -quit)
+  if [ -n "${MATCHES}" ]
+  then
+    for SOURCE in "${SOURCE_DIR}"/giraffe-*-mlton.*
+    do
+      NAME=$(basename "${SOURCE}")
+      TARGET="${TARGET_DIR}/${NAME}"
+
+      if [ -e "${TARGET}" ]
+      then
+        if diff -rq "${TARGET}" "${SOURCE}" > /dev/null
+        then
+          printf "${FMT}\n" "${INDENT}${NAME}" "same as" "${INDENT}${NAME}"
+        else
+          printf "${FMT}  %-22s\n" "${INDENT}${NAME}" "differs from" "${INDENT}${NAME}" "(manual update required)"
+          DIFF_EXISTS=1
+        fi
+      else
+        if cp -an "${SOURCE}" "${TARGET}"
+        then
+          printf "${FMT}\n" "${INDENT}${NAME}" "copied to" "${INDENT}${NAME}"
+        else
+          echo "error: failed to copy ${SOURCE} to ${TARGET}"
+        fi
+      fi
+    done
+  fi
+
+  MATCHES=$(find "${TARGET_DIR}" -maxdepth 1 -name 'giraffe-*-mlton.*' -print -quit)
+  if [ -n "${MATCHES}" ]
+  then
+    for TARGET in "${TARGET_DIR}"/giraffe-*-mlton.*
+    do
+      NAME=$(basename "${TARGET}")
+      SOURCE="${SOURCE_DIR}/${NAME}"
+
+      if [ ! -e "${SOURCE}" ]
+      then
+        printf "${FMT}  %-22s\n" "${INDENT}<>" "differs from" "${INDENT}${NAME}" "(manual delete required)"
+        DIFF_EXISTS=1
+      fi
+    done
+  fi
+
+  if [ -n "${DIFF_EXISTS}" ]
+  then
+    echo
+    echo "Differences exist; manual update required."
+    try_merge_tool "${SOURCE_DIR}" "${TARGET_DIR}"
+  fi
+}
+
+
+################################################################################
+# Process arguments
+
+GENERATE_AUTO=
+MERGE_AUTO=
+GENERATE_FIXED=
+MERGE_FIXED=
+MERGE_SOURCE=
+REMOVE_SOURCE=
+SHOW_HELP=
+
+if [ $# != 0 ]
+then
+  while [ $# != 0 ]
+  do
+    case "$1" in
+    auto)
+      GENERATE_AUTO=1
+      shift
+      ;;
+    update-auto)
+      MERGE_AUTO=1
+      shift
+      ;;
+    fixed)
+      GENERATE_FIXED=1
+      shift
+      ;;
+    update-fixed)
+      MERGE_FIXED=1
+      shift
+      ;;
+    update-source)
+      MERGE_SOURCE=1
+      shift
+      ;;
+    remove-source)
+      REMOVE_SOURCE=1
+      shift
+      ;;
+    help)
+      SHOW_HELP=${SHOW_HELP:-0}
+      shift
+      ;;
+    *)
+      echo "error: unrecognized command \"$1\""
+      SHOW_HELP=1
+      shift
+      ;;
+    esac
+  done
+else
+  echo "error: no command specified"
+  SHOW_HELP=1
+fi
+
+
+if [ -n "${SHOW_HELP}" ]
+then
+  cat << EOF
+
+Usage: $0 COMMAND
+
+Commands
+  auto              generate code [${AUTO_OUT_DIR}]
+  update-auto       update working directory [${CODEGEN_REL_DIR}/${AUTO}]
+
+  fixed             fix code [${FIXED_OUT_DIR}]
+  update-fixed      update working directory [${CODEGEN_REL_DIR}/${FIXED}]
+
+  update-source     update source directory with fixed code [${CODEGEN_REL_DIR}/${SRC}]
+  remove-source     remove fixed code from source directory [${CODEGEN_REL_DIR}/${SRC}]
+
+  help              show this help
+
+EOF
+  exit ${SHOW_HELP}
+fi
+
+
+################################################################################
+# 
+
+# auto
+
+if [ -n "${GENERATE_AUTO}" ]
+then
+  (
+    cd src &&
+    cat mlton-codegen.sml | \
+      OUT_DIR=${AUTO_OUT_DIR} \
+      VERSION_DIR=${CODEGEN_DIR}/version \
+      GIVERSION_DIR=${CODEGEN_DIR}/giversion \
+      GIREPOSITORY_DIR=${CODEGEN_DIR}/girepository \
+      poly -q --error-exit
+  )
+fi
+
+
+# update-auto
+
+if [ -n "${MERGE_AUTO}" ]
+then
+  update ${AUTO_OUT_DIR} ${CODEGEN_REL_DIR}/${AUTO}
+fi
+
+
+# fixed
+
+if [ -n "${GENERATE_FIXED}" ]
+then
+  if [ -e "${FIXED_OUT_DIR}" ]
+  then
+    LAST=1
+    for i in "${TMP_DIR}"/*
+    do
+      N=$(echo $i | sed -n -e "s|^${TMP_DIR}/${FIXED}\.\([0-9][0-9]*\).*$|\1|p")
+      if [ -n "${N}" ]
+      then
+        if [ ${LAST} -lt ${N} ]
+        then
+          LAST=${N}
+        fi
+      fi
+    done
+    N=$((${LAST} + 1))
+    NEW_DIR=${FIXED_OUT_DIR}.${N}
+    echo "Renaming existing output directory ${FIXED_OUT_DIR} to ${NEW_DIR}"
+    if ! mv "${FIXED_OUT_DIR}" "${NEW_DIR}"
+    then
+      echo "Failed to rename existing output directory ${FIXED_OUT_DIR} to ${NEW_DIR}"
+      exit 4
+    fi
+  fi
+
+  echo "Creating ${FIXED_OUT_DIR}"
+  mkdir ${FIXED_OUT_DIR}
+
+  echo "Copying ${AUTO} to ${FIXED_OUT_DIR}"
+  cp -a ${CODEGEN_REL_DIR}/${AUTO}/* ${FIXED_OUT_DIR}
+
+  echo "Copying ${FIXES} to ${FIXED_OUT_DIR}"
+  cp -a ${CODEGEN_REL_DIR}/${FIXES}/* ${FIXED_OUT_DIR}
+fi
+
+
+# update-fixed
+
+if [ -n "${MERGE_FIXED}" ]
+then
+  if [ ! -d "${CODEGEN_REL_DIR}/${FIXED}" ]
+  then
+    echo "Creating ${CODEGEN_REL_DIR}/${FIXED}"
+    mkdir "${CODEGEN_REL_DIR}/${FIXED}"
+  fi
+  update "${FIXED_OUT_DIR}" "${CODEGEN_REL_DIR}/${FIXED}"
+fi
+
+
+# update-source
+
+if [ -n "${MERGE_SOURCE}" ]
+then
+  update "${CODEGEN_REL_DIR}/${FIXED}" "${CODEGEN_REL_DIR}/${SRC}"
+fi
+
+
+# remove-source
+
+if [ -n "${REMOVE_SOURCE}" ]
+then
+  # the following code is a variation on update ()
+  INDENT="  "
+  DIFF_EXISTS=
+  SOURCE_DIR="${CODEGEN_REL_DIR}/${FIXED}"
+  TARGET_DIR="${CODEGEN_REL_DIR}/${SRC}"
+
+  if [ ! -d "${SOURCE_DIR}" ]
+  then
+    echo "Error: source directory ${SOURCE_DIR} does not exist"
+    exit 1
+  fi
+
+  if [ ! -d "${TARGET_DIR}" ]
+  then
+    echo "Error: target directory ${TARGET_DIR} does not exist"
+    exit 1
+  fi
+
+  SOURCE_NAME_LEN_MAX=$((1 + ${#SOURCE_DIR}))
+  for SOURCE in "${SOURCE_DIR}"/giraffe-*-mlton.*
+  do
+    NAME=$(basename "${SOURCE}")
+    NAME_LEN=$((${#INDENT} + ${#NAME}))
+    if [ ${SOURCE_NAME_LEN_MAX} -lt ${NAME_LEN} ]
+    then
+      SOURCE_NAME_LEN_MAX=${NAME_LEN}
+    fi
+  done
+
+  TARGET_NAME_LEN_MAX=$((1 + ${#TARGET_DIR}))
+  for TARGET in "${TARGET_DIR}"/giraffe-*-mlton.*
+  do
+    NAME=$(basename "${TARGET}")
+    NAME_LEN=$((${#INDENT} + ${#NAME}))
+    if [ ${TARGET_NAME_LEN_MAX} -lt ${NAME_LEN} ]
+    then
+      TARGET_NAME_LEN_MAX=${NAME_LEN}
+    fi
+  done
+
+  FMT="  %-${TARGET_NAME_LEN_MAX}s  %-16s  %-${SOURCE_NAME_LEN_MAX}s"
+
+  MATCHES=$(find "${TARGET_DIR}" -maxdepth 1 -name 'giraffe-*-mlton.*' -print -quit)
+  if [ -n "${MATCHES}" ]
+  then
+    printf "${FMT}\n" "${TARGET_DIR}/" "" "${SOURCE_DIR}/"
+
+    for TARGET in "${TARGET_DIR}"/giraffe-*-mlton.*
+    do
+      NAME=$(basename ${TARGET})
+      SOURCE="${SOURCE_DIR}/${NAME}"
+
+      if [ -e "${SOURCE}" ]
+      then
+        if diff -rq "${TARGET}" "${SOURCE}" > /dev/null
+        then
+          rm -r "${TARGET}"
+          printf "${FMT}\n" "${INDENT}${NAME}" "deleted, same as" "${INDENT}${NAME}"
+        else
+          printf "${FMT}\n" "${INDENT}${NAME}" "not deleted, differs from" "${INDENT}${NAME}"
+          DIFF_EXISTS=1
+        fi
+      else
+        printf "${FMT} %-14s\n" "${INDENT}${NAME}" "not deleted" "${INDENT}${NAME}" "does not exist"
+      fi
+    done
+  fi
+
+  if [ -n "${DIFF_EXISTS}" ]
+  then
+    echo
+    echo "Differences found; manual delete required."
+    try_merge_tool "${SOURCE_DIR}" "${TARGET_DIR}"
+  fi
+fi

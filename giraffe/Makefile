@@ -66,7 +66,7 @@ MLTON_CFLAGS := $(CFLAGS) -iquote "src"
 MLTON_OBJ_FILES := $(patsubst %,src/mlton/giraffe-%.o,$(MLTON_LIB_NAMES))
 MLTON_LIB_FILES := $(patsubst %,src/mlton/libgiraffe-%.a,$(MLTON_LIB_NAMES))
 
-$(MLTON_OBJ_FILES) : src/mlton/giraffe-%.o : src/mlton/giraffe-%.c src/mlton/cvector.h src/mlton/cvectorvector.h
+$(MLTON_OBJ_FILES) : src/mlton/giraffe-%.o : src/mlton/giraffe-%.c src/mlton/giraffe-%-mlton.c src/mlton/cvector.h src/mlton/cvectorvector.h
 	$(CC) $(MLTON_CFLAGS) -c -I$(MLTON_INCLUDEDIR) -o $@ `pkg-config --cflags $(shell cat src/sml/$*/package)` $<
 
 MLTON_AR_FLAGS := rcs

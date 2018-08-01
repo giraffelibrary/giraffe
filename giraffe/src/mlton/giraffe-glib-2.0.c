@@ -11,6 +11,7 @@
 
 #include <string.h>
 #include <glib.h>
+#include <glib/gstdio.h>
 
 #include "giraffe-common.h"
 #include "giraffe-sml-glib-2.0.h"

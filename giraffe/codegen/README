@@ -6,6 +6,7 @@ This document contains the following sections:
   2  Working directory initialization
   3  Code generation
   4  Manual code
+  5  MLton-specific code generation
 
 
 1  Directory contents
@@ -13,15 +14,17 @@ This document contains the following sections:
 In the repository, the "codegen" directory contains the following:
 
   README            - this file
-  codegen           - script to perform code generation operations
+  codegen           - script to perform code generation steps
+  mlton-codegen     - script to perform MLton-specific code generation steps
   src/              - code generator source code
   version/          - package version of GIR/TYPELIB files for code generation
   giversion/        - GI version of GIR/TYPELIB files for code generation
   auto-0-gir/       - code that is generated from GIR files
   auto-0-typelib/   - code that is generated from TYPELIB files
-  fixes-1-gir/      - code that is fixed to work around incorrect GI data
-  fixes-2-gir/      - code that is fixed to work around Giraffe limitations
-  extra-gir/        - code that is not generated
+  fixes-1-gir/      - fixes to generated code to work around incorrect GI data
+  fixes-2-gir/      - fixes to generated code to work around limitations
+  extra-gir/        - extra code that is not generated
+  mlton-auto/       - MLton-specific code that is generated from GIR files
 
 The following are not included in the repository but must be added to the
 "codegen" directory in a working directory, as described in section 2 below,
@@ -34,7 +37,8 @@ before code generation can be performed:
 The following are created in the working directory as a result of code
 generation:
 
-  sml-gir/          - final version of generated code
+  sml-gir/          - final version of code for source release
+  mlton-fixed/      - final version of MLton-specific code for source release
 
 
 
@@ -107,7 +111,7 @@ Code generation requires Poly/ML 5.5.2 and common GNU utilities.
 
 3.1  Overview
 
-SML code is produced in stages:
+Code is produced in stages:
 
  1. Generate code from GIR files
  2. Add non-generated files and, where required, fix generated code
@@ -169,32 +173,34 @@ in the generated code against the original code in the working directory.
 
 3.3  Using GIR files
 
-Giraffe Library is generated from GIR files to produce that the library code is
+Giraffe Library is generated from GIR files to produce library code that is
 portable across all platforms.  Although GIR files include some platform-
 specific data, such data is not (or should not be) used.
 
 Stage 1
 
 In a working directory, library code is generated in the directory "auto-0-gir"
-by the following commands:
+using the following commands:
 
   ./codegen gir
   ./codegen update-gir
 
 Stage 2
 
-Fixes are applied to the code in the directory "sml-gir" by the commands
+Fixed library code is generated in the directory "sml-gir" by applying fixes
+to the code in "auto-0-gir" using the commands
 
   ./codegen fixed
   ./codegen update-fixed
 
 Stage 3
 
-The code in "sml-gir" is copied into the source release directory by the command
+The code in "sml-gir" is copied into the source release directory using the
+command
 
   ./codegen update-source
 
-The code in "sml-gir" is removed from the source release directory by the
+The code in "sml-gir" is removed from the source release directory using the
 command
 
   ./codegen remove-source
@@ -276,3 +282,98 @@ includes:
   - special GObject modules: Signal, Property and ClosureMarshal;
   - a module to classify, i.e. downcast, a GdkEvent record;
   - other modules that introduce abstractions.
+
+
+
+5  MLton-specific code generation
+
+The generated code provides C functions that wrap library functions in order to
+use a different representation for C array parameters that allows MLton to pass
+an optional SML vector as an optionally-null C pointer.  Note, therefore, that
+C wrapper functions are generated only for functions with arguments that are
+vector-like.
+
+MLton-specific code generation requires Poly/ML 5.5.2 and common GNU utilities.
+
+5.1  Overview
+
+MLton-specific code is produced in stages:
+
+ 1. Generate code from GIR files
+ 2. Fix generated code
+ 3. Copy final code to the main source tree to be included in the release
+
+The following diagram shows the data dependencies of these stages:
+
+
+   Code from GIR files
+
+      .-----------.
+      | GIR files |
+      `-----------'
+            | 1
+            v
+       .----------.
+       |  C code  |
+       | from GIR |
+       `----------'
+            | 2
+            v
+    .----------------.
+    |  fixed C code  |
+    `----------------'
+            | 3
+            v
+      .------------.
+      |  C source  |
+      |  release   |
+      `------------'
+
+
+3.2  Commands
+
+The mlton-codegen script is used to invoke code generation stages 1, 2 and 3
+described above.
+
+To see a list of commands, enter
+
+  ./mlton-codegen help
+
+Commands that produce code write to a temporary directory under "/tmp".  A
+corresponding "update-..." command copies the code from the temporary directory
+to the working directory.  The update commands do not overwrite any existing
+code in the working directory and, if existing code is different, it will invoke
+a merge tool, if defined by the environment variable MERGE, to allow differences
+to be reviewed.  This approach is taken to compare easily differences introduced
+in the generated code against the original code in the working directory.
+
+The C function wrapper code is produced only from GIR files because the required
+information is not stored in TYPELIB files.
+
+Stage 1
+
+In a working directory, library code is generated in the directory "mlton-auto"
+by the following commands:
+
+  ./mlton-codegen gir
+  ./mlton-codegen update-gir
+
+Stage 2
+
+Fixed library code is generated in the directory "mlton-fixed" by applying fixes
+to the code in "mlton-auto" using the commands
+
+  ./mlton-codegen fixed
+  ./mlton-codegen update-fixed
+
+Stage 3
+
+The code in "mlton-fixed" is copied into the source release directory by the
+command
+
+  ./mlton-codegen update-source
+
+The code in "mlton-fixed" is removed from the source release directory by the
+command
+
+  ./mlton-codegen remove-source

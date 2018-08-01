@@ -38,6 +38,11 @@ Create library code by patching generated code and copy to src/sml:
   ./codegen fixed
   ./codegen update-fixed
   ./codegen update-source
+  ./mlton-codegen auto
+  ./mlton-codegen update-auto
+  ./mlton-codegen fixed
+  ./mlton-codegen update-fixed
+  ./mlton-codegen update-source
 
 
 Create source release archive:

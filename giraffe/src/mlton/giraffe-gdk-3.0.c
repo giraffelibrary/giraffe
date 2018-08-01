@@ -12,6 +12,14 @@
 #include <string.h>
 #include <gdk/gdk.h>
 
+#ifndef GDK_CHECK_VERSION
+#define GDK_CHECK_VERSION(major,minor,micro)                          \
+    (GDK_MAJOR_VERSION > (major) ||                                   \
+     (GDK_MAJOR_VERSION == (major) && GDK_MINOR_VERSION > (minor)) || \
+     (GDK_MAJOR_VERSION == (major) && GDK_MINOR_VERSION == (minor) && \
+      GDK_MICRO_VERSION >= (micro)))
+#endif
+
 #include "giraffe-common.h"
 #include "giraffe-gdk-3.0-common.c"
 #include "giraffe-gdk-3.0-mlton.c"

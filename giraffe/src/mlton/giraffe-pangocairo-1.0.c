@@ -6,11 +6,11 @@
  */
 
 /*
- * Pango C interface support for MLton
+ * PangoCairo C interface support for MLton
  */
 
 #include <string.h>
-#include <pango/pango.h>
+#include <pango/pangocairo.h>
 
 #ifndef PANGO_CHECK_VERSION
 #define PANGO_CHECK_VERSION(major,minor,micro)                          \
@@ -21,5 +21,5 @@
 #endif
 
 #include "giraffe-common.h"
-#include "giraffe-pango-1.0-common.c"
-#include "giraffe-pango-1.0-mlton.c"
+#include "giraffe-pangocairo-1.0-common.c"
+#include "giraffe-pangocairo-1.0-mlton.c"

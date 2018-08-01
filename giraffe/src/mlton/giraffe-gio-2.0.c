@@ -11,6 +11,10 @@
 
 #include <string.h>
 #include <gio/gio.h>
+#include <gio/gdesktopappinfo.h>
+#include <gio/gunixfdlist.h>
+#include <gio/gunixsocketaddress.h>
+#include <gio/gunixmounts.h>
 
 #include "giraffe-common.h"
 #include "giraffe-gio-2.0-common.c"
