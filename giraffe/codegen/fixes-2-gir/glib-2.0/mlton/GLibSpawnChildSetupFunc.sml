@@ -5,11 +5,11 @@ structure GLibSpawnChildSetupFunc :>
   struct
     type t = unit -> unit
 
-    structure SpawnChildSetupCallback = Callback (type callback = t)
+    structure SpawnChildSetupCallbackTable = CallbackTable(type callback = t)
 
     local
-      fun dispatch (id : SpawnChildSetupCallback.id) : unit =
-        case SpawnChildSetupCallback.lookup id of
+      fun dispatch (id : SpawnChildSetupCallbackTable.id) : unit =
+        case SpawnChildSetupCallbackTable.lookup id of
           SOME f => (
             f ()
               handle
@@ -19,27 +19,27 @@ structure GLibSpawnChildSetupFunc :>
             GiraffeLog.critical (
               concat [
                 "child setup callback error: invalid child setup function id ",
-                SpawnChildSetupCallback.fmtId id
+                SpawnChildSetupCallbackTable.fmtId id
               ]
             )
     in
       val _ =
         _export "giraffe_spawn_child_setup_dispatch_smlside"
-          : (SpawnChildSetupCallback.id -> unit) -> unit;
+          : (SpawnChildSetupCallbackTable.id -> unit) -> unit;
       dispatch
     end
 
     structure FFI =
       struct
-        type callback = SpawnChildSetupCallback.id
+        type callback = SpawnChildSetupCallbackTable.id
 
         fun withCallback f callback =
           let
-            val callbackId = SpawnChildSetupCallback.add callback
+            val callbackId = SpawnChildSetupCallbackTable.add callback
           in
-            f callbackId before SpawnChildSetupCallback.remove callbackId
+            f callbackId before SpawnChildSetupCallbackTable.remove callbackId
               handle
-                e => (SpawnChildSetupCallback.remove callbackId; raise e)
+                e => (SpawnChildSetupCallbackTable.remove callbackId; raise e)
           end
 
         fun withOptCallback f optCallback =

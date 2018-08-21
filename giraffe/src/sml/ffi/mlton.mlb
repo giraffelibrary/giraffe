@@ -14,10 +14,10 @@ in
   ann
     "resolveScope topdec"
   in
+    mlton/TABLE.sml
     mlton/CALLBACK_TABLE.sml
-    mlton/CALLBACK.sml
+    mlton/WordTable.sml
     mlton/CallbackTable.sml
-    mlton/Callback.sml
     HighLevelFFI.sml
     FINALIZABLE.sml
     C_VALUE.sml

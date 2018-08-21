@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2016-2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2016-2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -31,17 +31,17 @@ structure ClosureMarshal :>
        * GUInt32.FFI.val_
     type c_callback = state -> unit
 
-    structure ClosureCallback = Callback (struct type callback = c_callback end)
+    structure ClosureCallbackTable = CallbackTable(struct type callback = c_callback end)
 
     local
       val dispatch :
-        ClosureCallback.id
+        ClosureCallbackTable.id
          * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
          * GObjectValueRecordArray.C.notnull GObjectValueRecordArray.C.p
          * GUInt32.FFI.val_
          -> unit =
         fn (id, v, vs, size) =>
-          case ClosureCallback.lookup id of
+          case ClosureCallbackTable.lookup id of
             SOME f => (
               f (v, vs, size)
                 handle
@@ -51,13 +51,13 @@ structure ClosureMarshal :>
               GiraffeLog.critical (
                 concat [
                   "closure callback error: invalid closure function id ",
-                  ClosureCallback.fmtId id
+                  ClosureCallbackTable.fmtId id
                 ]
               )
     in
       val _ =
         _export "giraffe_closure_dispatch_smlside" :
-          (ClosureCallback.id
+          (ClosureCallbackTable.id
             * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
             * GObjectValueRecordArray.C.notnull GObjectValueRecordArray.C.p
             * GUInt32.FFI.val_
@@ -68,8 +68,8 @@ structure ClosureMarshal :>
 
     val _ =
       _export "giraffe_closure_destroy_smlside" :
-        (ClosureCallback.id -> unit) -> unit;
-    ClosureCallback.remove
+        (ClosureCallbackTable.id -> unit) -> unit;
+    ClosureCallbackTable.remove
 
 
     type 'a get = state -> 'a
@@ -96,15 +96,15 @@ structure ClosureMarshal :>
 
     structure FFI =
       struct
-        type callback = ClosureCallback.id
+        type callback = ClosureCallbackTable.id
 
         fun withCallback f (marshaller, callback) =
           let
-            val callbackId = ClosureCallback.add (marshaller callback)
+            val callbackId = ClosureCallbackTable.add (marshaller callback)
           in
             f callbackId
               handle
-                e => (ClosureCallback.remove callbackId; raise e)
+                e => (ClosureCallbackTable.remove callbackId; raise e)
           end
       end
   end

@@ -14,15 +14,17 @@
  * from one callback table instance cannot be used with another callback
  * table instance.
  *)
-functor Callback(type callback) :>
-  CALLBACK
-    where type callback = callback =
+functor CallbackTable(type elem) :>
+  CALLBACK_TABLE
+    where type id = C_UInt.word
+    where type elem = elem =
   struct
-    type callback = callback
+    type elem = elem
 
-    open CallbackTable
+    structure Table = WordTable(C_UInt)
+    open Table
 
-    val table : callback t = new ()
+    val table : elem t = new ()
 
     val add = insert table
     val remove = ignore o delete table

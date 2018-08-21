@@ -5,11 +5,11 @@ structure GLibSourceFunc :>
   struct
     type t = unit -> bool
 
-    structure SourceCallback = Callback (type callback = t)
+    structure SourceCallbackTable = CallbackTable(type callback = t)
 
     local
-      fun dispatch (id : SourceCallback.id) : bool =
-        case SourceCallback.lookup id of
+      fun dispatch (id : SourceCallbackTable.id) : bool =
+        case SourceCallbackTable.lookup id of
           SOME f => (
             f ()
               handle
@@ -22,7 +22,7 @@ structure GLibSourceFunc :>
             GiraffeLog.critical (
               concat [
                 "source callback error: source function id ",
-                SourceCallback.fmtId id,
+                SourceCallbackTable.fmtId id,
                 " is invalid (callback does not exist)"
               ]
             );
@@ -30,23 +30,23 @@ structure GLibSourceFunc :>
                   * to remove a non-existent source *)
           )
     in
-      val _ = _export "giraffe_source_dispatch_smlside" : (SourceCallback.id -> bool) -> unit;
+      val _ = _export "giraffe_source_dispatch_smlside" : (SourceCallbackTable.id -> bool) -> unit;
       dispatch
     end
 
-    val _ = _export "giraffe_source_destroy_smlside" : (SourceCallback.id -> unit) -> unit; 
-    SourceCallback.remove
+    val _ = _export "giraffe_source_destroy_smlside" : (SourceCallbackTable.id -> unit) -> unit; 
+    SourceCallbackTable.remove
 
     structure FFI =
       struct
-        type callback = SourceCallback.id
+        type callback = SourceCallbackTable.id
         fun withCallback f callback =
           let
-            val callbackId = SourceCallback.add callback
+            val callbackId = SourceCallbackTable.add callback
           in
             f callbackId
               handle
-                e => (SourceCallback.remove callbackId; raise e)
+                e => (SourceCallbackTable.remove callbackId; raise e)
           end
       end
   end

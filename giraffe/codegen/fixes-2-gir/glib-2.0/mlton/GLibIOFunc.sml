@@ -11,16 +11,16 @@ structure GLibIOFunc :>
 
     type t = GLibIOChannelRecord.t * GLibIOCondition.t -> bool
 
-    structure IOCallback = Callback (type callback = t)
+    structure IOCallbackTable = CallbackTable(type callback = t)
 
     local
       fun dispatch
         (
           channel : GLibIOChannelRecord.FFI.notnull GLibIOChannelRecord.FFI.p,
           condition : GLibIOCondition.FFI.val_,
-          id : IOCallback.id
+          id : IOCallbackTable.id
         ) : bool =
-        case IOCallback.lookup id of
+        case IOCallbackTable.lookup id of
           SOME f => (
             f (GLibIOChannelRecord.FFI.fromPtr false channel, GLibIOCondition.FFI.fromVal condition)
               handle
@@ -33,7 +33,7 @@ structure GLibIOFunc :>
             GiraffeLog.critical (
               concat [
                 "IO source callback error: source function id ",
-                IOCallback.fmtId id,
+                IOCallbackTable.fmtId id,
                 " is invalid (callback does not exist)\n"
               ]
             );
@@ -45,25 +45,25 @@ structure GLibIOFunc :>
         _export "giraffe_io_dispatch_smlside"
           : (GLibIOChannelRecord.FFI.notnull GLibIOChannelRecord.FFI.p
               * GLibIOCondition.FFI.val_
-              * IOCallback.id
+              * IOCallbackTable.id
               -> bool)
              -> unit;
       dispatch
     end
 
-    val _ = _export "giraffe_io_destroy_smlside" : (IOCallback.id -> unit) -> unit; 
-    IOCallback.remove
+    val _ = _export "giraffe_io_destroy_smlside" : (IOCallbackTable.id -> unit) -> unit; 
+    IOCallbackTable.remove
 
     structure FFI =
       struct
-        type callback = IOCallback.id
+        type callback = IOCallbackTable.id
         fun withCallback f callback =
           let
-            val callbackId = IOCallback.add callback
+            val callbackId = IOCallbackTable.add callback
           in
             f callbackId
               handle
-                e => (IOCallback.remove callbackId; raise e)
+                e => (IOCallbackTable.remove callbackId; raise e)
           end
       end
   end
