@@ -1,15 +1,19 @@
 structure GLibIOFunc :>
-  sig
-    include
-      G_LIB_I_O_FUNC
-        where type i_o_channel_t = GLibIOChannelRecord.t
-        where type i_o_condition_t = GLibIOCondition.t
-  end =
+  G_LIB_I_O_FUNC
+    where type i_o_channel_t = GLibIOChannelRecord.t
+    where type i_o_condition_t = GLibIOCondition.t =
   struct
     type i_o_channel_t = GLibIOChannelRecord.t
     type i_o_condition_t = GLibIOCondition.t
+    type func = i_o_channel_t * i_o_condition_t -> bool
+    type t = func
 
-    type t = GLibIOChannelRecord.t * GLibIOCondition.t -> bool
+    structure C =
+      struct
+        structure Pointer = CPointerInternal
+        type notnull = Pointer.notnull
+        type 'a p = 'a Pointer.p
+      end
 
     structure IOCallbackTable = CallbackTable(type callback = t)
 
@@ -56,6 +60,9 @@ structure GLibIOFunc :>
 
     structure FFI =
       struct
+        type notnull = C.notnull
+        type 'a p = 'a C.p
+
         type callback = IOCallbackTable.id
         fun withCallback f callback =
           let
@@ -65,5 +72,21 @@ structure GLibIOFunc :>
               handle
                 e => (IOCallbackTable.remove callbackId; raise e)
           end
+        fun withOptCallback f optCallback =
+          case optCallback of
+            SOME callback => withCallback f callback
+          | NONE          => f IOCallbackTable.nullId
+
+        fun withPtrToDispatch f () = f (_address "giraffe_io_dispatch" : MLton.Pointer.t;)
+        fun withOptPtrToDispatch f =
+          fn
+            true  => withPtrToDispatch f ()
+          | false => f MLton.Pointer.null
+
+        fun withPtrToDestroy f () = f (_address "giraffe_io_destroy" : MLton.Pointer.t;)
+        fun withOptPtrToDestroy f =
+          fn
+            true  => withPtrToDestroy f ()
+          | false => f MLton.Pointer.null
       end
   end

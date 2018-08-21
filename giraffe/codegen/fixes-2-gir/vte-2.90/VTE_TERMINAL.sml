@@ -27,6 +27,17 @@ signature VTE_TERMINAL =
       'a class
        -> string * LargeInt.int
        -> unit
+    (**
+     * `forkCommandFull` has no child setup callback parameter because it
+     * cannot work: the child setup callback _must_ call vte_pty_child_setup
+     * (not documented in API) but vte_pty_child_setup requires the
+     * terminal's VtePty object as its argument which is not available to the
+     * callback.  vte_terminal_get_pty_object cannot be used in the child
+     * setup callback because vte_terminal_set_pty_object occurs after
+     * __vte_pty_spawn in vte_terminal_fork_command_full.  The binding always
+     * uses NULL as the callback function which causes vte_pty_child_setup to
+     * be called internally.
+     *)
     val forkCommandFull :
       'a class
        -> pty_flags_t

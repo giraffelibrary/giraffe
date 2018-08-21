@@ -208,18 +208,24 @@ structure GLib : G_LIB =
       fn
         x1
          & x2
-         & x3 =>
+         & x3
+         & x4
+         & x5 =>
           (
-            _import "giraffe_g_child_watch_add" :
+            _import "g_child_watch_add" :
               GInt.FFI.val_
                * GLibPid.FFI.val_
+               * GLibChildWatchFunc.FFI.notnull GLibChildWatchFunc.FFI.p
                * GLibChildWatchFunc.FFI.callback
+               * GLibChildWatchFunc.FFI.notnull GLibChildWatchFunc.FFI.p
                -> GUInt.FFI.val_;
           )
             (
               x1,
               x2,
-              x3
+              x3,
+              x4,
+              x5
             )
     val childWatchSourceNew_ = fn x1 & x2 => (_import "giraffe_g_child_watch_source_new" : GLibPid.FFI.val_ * GLibChildWatchFunc.FFI.callback -> GLibSourceRecord.FFI.notnull GLibSourceRecord.FFI.p;) (x1, x2)
     val close_ = fn x1 & x2 => (_import "g_close" : FileDesc.FFI.val_ * (unit, unit) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
@@ -621,19 +627,18 @@ structure GLib : G_LIB =
     val hostnameToAscii_ = _import "mlton_g_hostname_to_ascii" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val hostnameToUnicode_ = _import "mlton_g_hostname_to_unicode" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val idleSourceNew_ = _import "g_idle_source_new" : unit -> GLibSourceRecord.FFI.notnull GLibSourceRecord.FFI.p;
-    val idleAdd_ = fn x1 & x2 => (_import "giraffe_g_idle_add" : GInt.FFI.val_ * GLibSourceFunc.FFI.callback -> GUInt.FFI.val_;) (x1, x2)
-    val ioAddWatch_ =
+    val idleAdd_ =
       fn
         x1
          & x2
          & x3
          & x4 =>
           (
-            _import "giraffe_g_io_add_watch" :
-              GLibIOChannelRecord.FFI.notnull GLibIOChannelRecord.FFI.p
-               * GInt.FFI.val_
-               * GLibIOCondition.FFI.val_
-               * GLibIOFunc.FFI.callback
+            _import "g_idle_add_full" :
+              GInt.FFI.val_
+               * GLibSourceFunc.FFI.notnull GLibSourceFunc.FFI.p
+               * GLibSourceFunc.FFI.callback
+               * GLibSourceFunc.FFI.notnull GLibSourceFunc.FFI.p
                -> GUInt.FFI.val_;
           )
             (
@@ -641,6 +646,32 @@ structure GLib : G_LIB =
               x2,
               x3,
               x4
+            )
+    val ioAddWatch_ =
+      fn
+        x1
+         & x2
+         & x3
+         & x4
+         & x5
+         & x6 =>
+          (
+            _import "g_io_add_watch_full" :
+              GLibIOChannelRecord.FFI.notnull GLibIOChannelRecord.FFI.p
+               * GInt.FFI.val_
+               * GLibIOCondition.FFI.val_
+               * GLibIOFunc.FFI.notnull GLibIOFunc.FFI.p
+               * GLibIOFunc.FFI.callback
+               * GLibIOFunc.FFI.notnull GLibIOFunc.FFI.p
+               -> GUInt.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
             )
     val ioCreateWatch_ = fn x1 & x2 => (_import "g_io_create_watch" : GLibIOChannelRecord.FFI.notnull GLibIOChannelRecord.FFI.p * GLibIOCondition.FFI.val_ -> GLibSourceRecord.FFI.notnull GLibSourceRecord.FFI.p;) (x1, x2)
     val listenv_ = _import "g_listenv" : unit -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
@@ -1001,7 +1032,8 @@ structure GLib : G_LIB =
          & x10
          & x11
          & x12
-         & x13 =>
+         & x13
+         & x14 =>
           (
             _import "mlton_g_spawn_async_with_pipes" :
               Utf8.MLton.p1 * unit Utf8.MLton.p2
@@ -1010,6 +1042,7 @@ structure GLib : G_LIB =
                * Utf8CVector.MLton.p1
                * unit Utf8CVector.MLton.p2
                * GLibSpawnFlags.FFI.val_
+               * GLibSpawnChildSetupFunc.FFI.notnull GLibSpawnChildSetupFunc.FFI.p
                * GLibSpawnChildSetupFunc.FFI.callback
                * GLibPid.FFI.ref_
                * FileDesc.FFI.ref_
@@ -1031,7 +1064,8 @@ structure GLib : G_LIB =
               x10,
               x11,
               x12,
-              x13
+              x13,
+              x14
             )
     val spawnCheckExitStatus_ = fn x1 & x2 => (_import "g_spawn_check_exit_status" : GInt.FFI.val_ * (unit, unit) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
     val spawnClosePid_ = _import "g_spawn_close_pid" : GLibPid.FFI.val_ -> unit;
@@ -1205,35 +1239,47 @@ structure GLib : G_LIB =
       fn
         x1
          & x2
-         & x3 =>
+         & x3
+         & x4
+         & x5 =>
           (
-            _import "giraffe_g_timeout_add" :
+            _import "g_timeout_add" :
               GInt.FFI.val_
                * GUInt.FFI.val_
+               * GLibSourceFunc.FFI.notnull GLibSourceFunc.FFI.p
                * GLibSourceFunc.FFI.callback
+               * GLibSourceFunc.FFI.notnull GLibSourceFunc.FFI.p
                -> GUInt.FFI.val_;
           )
             (
               x1,
               x2,
-              x3
+              x3,
+              x4,
+              x5
             )
     val timeoutAddSeconds_ =
       fn
         x1
          & x2
-         & x3 =>
+         & x3
+         & x4
+         & x5 =>
           (
-            _import "giraffe_g_timeout_add_seconds" :
+            _import "g_timeout_add_seconds" :
               GInt.FFI.val_
                * GUInt.FFI.val_
+               * GLibSourceFunc.FFI.notnull GLibSourceFunc.FFI.p
                * GLibSourceFunc.FFI.callback
+               * GLibSourceFunc.FFI.notnull GLibSourceFunc.FFI.p
                -> GUInt.FFI.val_;
           )
             (
               x1,
               x2,
-              x3
+              x3,
+              x4,
+              x5
             )
     val timeoutSourceNew_ = _import "g_timeout_source_new" : GUInt.FFI.val_ -> GLibSourceRecord.FFI.notnull GLibSourceRecord.FFI.p;
     val timeoutSourceNewSeconds_ = _import "g_timeout_source_new_seconds" : GUInt.FFI.val_ -> GLibSourceRecord.FFI.notnull GLibSourceRecord.FFI.p;
@@ -1623,14 +1669,18 @@ structure GLib : G_LIB =
       (
         GInt.FFI.withVal
          &&&> GLibPid.FFI.withVal
+         &&&> GLibChildWatchFunc.FFI.withPtrToDispatch
          &&&> GLibChildWatchFunc.FFI.withCallback
+         &&&> GLibChildWatchFunc.FFI.withPtrToDestroy
          ---> GUInt.FFI.fromVal
       )
         childWatchAdd_
         (
           priority
            & pid
+           & ()
            & function
+           & ()
         )
     fun childWatchSourceNew (pid, function) = (GLibPid.FFI.withVal &&&> GLibChildWatchFunc.FFI.withCallback ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ (pid & function)
     fun close fd = (FileDesc.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore) close_ (fd & [])
@@ -1988,13 +2038,29 @@ structure GLib : G_LIB =
     fun hostnameToAscii hostname = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) hostnameToAscii_ hostname
     fun hostnameToUnicode hostname = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) hostnameToUnicode_ hostname
     fun idleSourceNew () = (I ---> GLibSourceRecord.FFI.fromPtr true) idleSourceNew_ ()
-    fun idleAdd (priority, function) = (GInt.FFI.withVal &&&> GLibSourceFunc.FFI.withCallback ---> GUInt.FFI.fromVal) idleAdd_ (priority & function)
+    fun idleAdd (priority, function) =
+      (
+        GInt.FFI.withVal
+         &&&> GLibSourceFunc.FFI.withPtrToDispatch
+         &&&> GLibSourceFunc.FFI.withCallback
+         &&&> GLibSourceFunc.FFI.withPtrToDestroy
+         ---> GUInt.FFI.fromVal
+      )
+        idleAdd_
+        (
+          priority
+           & ()
+           & function
+           & ()
+        )
     fun ioAddWatch (channel, priority, condition, func) =
       (
         GLibIOChannelRecord.FFI.withPtr
          &&&> GInt.FFI.withVal
          &&&> GLibIOCondition.FFI.withVal
+         &&&> GLibIOFunc.FFI.withPtrToDispatch
          &&&> GLibIOFunc.FFI.withCallback
+         &&&> GLibIOFunc.FFI.withPtrToDestroy
          ---> GUInt.FFI.fromVal
       )
         ioAddWatch_
@@ -2002,7 +2068,9 @@ structure GLib : G_LIB =
           channel
            & priority
            & condition
+           & ()
            & func
+           & ()
         )
     fun ioCreateWatch (channel, condition) = (GLibIOChannelRecord.FFI.withPtr &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) ioCreateWatch_ (channel & condition)
     fun listenv () = (I ---> Utf8CVector.FFI.fromPtr 2) listenv_ ()
@@ -2228,6 +2296,8 @@ structure GLib : G_LIB =
       end
     fun shellQuote unquotedString = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) shellQuote_ unquotedString
     fun shellUnquote quotedString = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) shellUnquote_ (quotedString & [])
+    fun sliceGetConfig ckey = (GLibSliceConfig.FFI.withVal ---> GInt64.FFI.fromVal) sliceGetConfig_ ckey
+    fun sliceSetConfig (ckey, value) = (GLibSliceConfig.FFI.withVal &&&> GInt64.FFI.withVal ---> I) sliceSetConfig_ (ckey & value)
     fun spawnAsyncWithPipes (workingDirectory, argv, envp, flags, childSetup) =
       let
         val
@@ -2241,6 +2311,7 @@ structure GLib : G_LIB =
              &&&> Utf8CVector.FFI.withPtr
              &&&> Utf8CVector.FFI.withOptPtr
              &&&> GLibSpawnFlags.FFI.withVal
+             &&&> GLibSpawnChildSetupFunc.FFI.withPtrToDispatch
              &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback
              &&&> GLibPid.FFI.withRefVal
              &&&> FileDesc.FFI.withRefVal
@@ -2259,6 +2330,7 @@ structure GLib : G_LIB =
                & argv
                & envp
                & flags
+               & ()
                & childSetup
                & GLibPid.null
                & FileDesc.null
@@ -2269,8 +2341,6 @@ structure GLib : G_LIB =
       in
         (childPid, standardInput, standardOutput, standardError)
       end
-    fun sliceGetConfig ckey = (GLibSliceConfig.FFI.withVal ---> GInt64.FFI.fromVal) sliceGetConfig_ ckey
-    fun sliceSetConfig (ckey, value) = (GLibSliceConfig.FFI.withVal &&&> GInt64.FFI.withVal ---> I) sliceSetConfig_ (ckey & value)
     fun spawnCheckExitStatus exitStatus = (GInt.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore) spawnCheckExitStatus_ (exitStatus & [])
     fun spawnClosePid pid = (GLibPid.FFI.withVal ---> I) spawnClosePid_ pid
     fun spawnCommandLineAsync commandLine = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) spawnCommandLineAsync_ (commandLine & [])
@@ -2416,27 +2486,35 @@ structure GLib : G_LIB =
       (
         GInt.FFI.withVal
          &&&> GUInt.FFI.withVal
+         &&&> GLibSourceFunc.FFI.withPtrToDispatch
          &&&> GLibSourceFunc.FFI.withCallback
+         &&&> GLibSourceFunc.FFI.withPtrToDestroy
          ---> GUInt.FFI.fromVal
       )
         timeoutAdd_
         (
           priority
            & interval
+           & ()
            & function
+           & ()
         )
     fun timeoutAddSeconds (priority, interval, function) =
       (
         GInt.FFI.withVal
          &&&> GUInt.FFI.withVal
+         &&&> GLibSourceFunc.FFI.withPtrToDispatch
          &&&> GLibSourceFunc.FFI.withCallback
+         &&&> GLibSourceFunc.FFI.withPtrToDestroy
          ---> GUInt.FFI.fromVal
       )
         timeoutAddSeconds_
         (
           priority
            & interval
+           & ()
            & function
+           & ()
         )
     fun timeoutSourceNew interval = (GUInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) timeoutSourceNew_ interval
     fun timeoutSourceNewSeconds interval = (GUInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) timeoutSourceNewSeconds_ interval

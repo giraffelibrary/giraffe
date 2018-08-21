@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2016-2017 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016-2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -48,4 +48,30 @@ mlton_g_shell_unquote (SML_CVECTOR_VAL(gchar, quoted_string),
 {
   return g_shell_unquote (GET_SML_CVECTOR_VAL(gchar, quoted_string),
                           error);
+}
+
+gboolean
+mlton_g_spawn_async_with_pipes (SML_CVECTOR_VAL(gchar, working_directory),
+                                SML_CVECTORVECTOR_VAL(gchar, argv),
+                                SML_CVECTORVECTOR_VAL(gchar, envp),
+                                GSpawnFlags flags,
+                                GSpawnChildSetupFunc child_setup,
+                                gpointer user_data,
+                                GPid *child_pid,
+                                gint *standard_input,
+                                gint *standard_output,
+                                gint *standard_error,
+                                GError **error)
+{
+  return g_spawn_async_with_pipes (GET_SML_CVECTOR_VAL(gchar, working_directory),
+                                   GET_SML_CVECTORVECTOR_VAL(gchar, argv),
+                                   GET_SML_CVECTORVECTOR_VAL(gchar, envp),
+                                   flags,
+                                   child_setup,
+                                   user_data,
+                                   child_pid,
+                                   standard_input,
+                                   standard_output,
+                                   standard_error,
+                                   error);
 }

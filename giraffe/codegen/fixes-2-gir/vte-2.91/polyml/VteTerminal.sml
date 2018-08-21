@@ -252,8 +252,7 @@ structure VteTerminal :>
           )
       val setWordCharExceptions_ = call (getSymbol "vte_terminal_set_word_char_exceptions") (VteTerminalClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val spawnSync_ =
-        call
-          (getSymbol "giraffe_vte_terminal_spawn_sync")
+        call (getSymbol "vte_terminal_spawn_sync")
           (
             VteTerminalClass.PolyML.cPtr
              &&> VtePtyFlags.PolyML.cVal
@@ -261,7 +260,8 @@ structure VteTerminal :>
              &&> Utf8CVector.PolyML.cInPtr
              &&> Utf8CVector.PolyML.cInOptPtr
              &&> GLibSpawnFlags.PolyML.cVal
-             &&> GLibSpawnChildSetupFunc.PolyML.CALLBACK
+             &&> GLibSpawnChildSetupFunc.PolyML.cOptPtr
+             &&> GLibSpawnChildSetupFunc.PolyML.cFunction
              &&> GLibPid.PolyML.cRef
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -682,6 +682,7 @@ structure VteTerminal :>
              &&&> Utf8CVector.FFI.withPtr
              &&&> Utf8CVector.FFI.withOptPtr
              &&&> GLibSpawnFlags.FFI.withVal
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptPtrToDispatch
              &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback
              &&&> GLibPid.FFI.withRefVal
              &&&> GioCancellableClass.FFI.withOptPtr
@@ -697,6 +698,7 @@ structure VteTerminal :>
                & argv
                & envv
                & spawnFlags
+               & isSome childSetup
                & childSetup
                & GLibPid.null
                & cancellable

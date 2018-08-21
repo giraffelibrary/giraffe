@@ -94,7 +94,7 @@ structure VteTerminal :>
               x4
             )
     val forkCommandFull_ =
-      fn x1 & x2 & (x3, x4) & (x5, x6) & (x7, x8) & x9 & x10 & x11 =>
+      fn x1 & x2 & (x3, x4) & (x5, x6) & (x7, x8) & x9 & x10 & x11 & x12 & x13 =>
         (
           _import "mlton_vte_terminal_fork_command_full" :
             GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
@@ -106,6 +106,8 @@ structure VteTerminal :>
              * Utf8CVector.MLton.p1
              * unit Utf8CVector.MLton.p2
              * GLibSpawnFlags.FFI.val_
+             * unit GLibSpawnChildSetupFunc.FFI.p
+             * GLibSpawnChildSetupFunc.FFI.callback
              * GLibPid.FFI.ref_
              * (unit, unit) GLibErrorRecord.FFI.r
              -> GBool.FFI.val_;
@@ -121,7 +123,9 @@ structure VteTerminal :>
             x8,
             x9,
             x10,
-            x11
+            x11,
+            x12,
+            x13
           )
     val getAllowBold_ = _import "vte_terminal_get_allow_bold" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GBool.FFI.val_;
     val getAudibleBell_ = _import "vte_terminal_get_audible_bell" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> GBool.FFI.val_;
@@ -550,6 +554,8 @@ structure VteTerminal :>
              &&&> Utf8CVector.FFI.withPtr
              &&&> Utf8CVector.FFI.withOptPtr
              &&&> GLibSpawnFlags.FFI.withVal
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptPtrToDispatch
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback
              &&&> GLibPid.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GLibPid.FFI.fromVal
@@ -563,6 +569,8 @@ structure VteTerminal :>
                & argv
                & envv
                & spawnFlags
+               & isSome NONE
+               & NONE
                & GLibPid.null 
                & [GLibSpawnError.handler]
             )

@@ -1,9 +1,14 @@
-structure GLibSourceFunc :>
-  sig
-    include G_LIB_SOURCE_FUNC
-  end =
+structure GLibSourceFunc :> G_LIB_SOURCE_FUNC =
   struct
-    type t = unit -> bool
+    type func = unit -> bool
+    type t = func
+
+    structure C =
+      struct
+        structure Pointer = CPointerInternal
+        type notnull = Pointer.notnull
+        type 'a p = 'a Pointer.p
+      end
 
     structure SourceCallbackTable = CallbackTable(type callback = t)
 
@@ -39,6 +44,9 @@ structure GLibSourceFunc :>
 
     structure FFI =
       struct
+        type notnull = C.notnull
+        type 'a p = 'a C.p
+
         type callback = SourceCallbackTable.id
         fun withCallback f callback =
           let
@@ -48,5 +56,21 @@ structure GLibSourceFunc :>
               handle
                 e => (SourceCallbackTable.remove callbackId; raise e)
           end
+        fun withOptCallback f optCallback =
+          case optCallback of
+            SOME callback => withCallback f callback
+          | NONE          => f SourceCallbackTable.nullId
+
+        fun withPtrToDispatch f () = f (_address "giraffe_source_dispatch" : MLton.Pointer.t;)
+        fun withOptPtrToDispatch f =
+          fn
+            true  => withPtrToDispatch f ()
+          | false => f MLton.Pointer.null
+
+        fun withPtrToDestroy f () = f (_address "giraffe_source_destroy" : MLton.Pointer.t;)
+        fun withOptPtrToDestroy f =
+          fn
+            true  => withPtrToDestroy f ()
+          | false => f MLton.Pointer.null
       end
   end

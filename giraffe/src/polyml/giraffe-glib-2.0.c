@@ -110,74 +110,6 @@ giraffe_spawn_child_setup_dispatch (gpointer data)
 
 /* GLib */
 
-guint
-giraffe_g_timeout_add (gint priority,
-                       guint interval,
-                       SourceCallback callback)
-{
-  guint res;
-  res = g_timeout_add_full (priority,
-                            interval,
-                            giraffe_source_dispatch,
-                            (gpointer) callback,
-                            giraffe_source_destroy);
-  return res;
-}
-
-guint
-giraffe_g_timeout_add_seconds (gint priority,
-                               guint interval,
-                               SourceCallback callback)
-{
-  guint res;
-  res = g_timeout_add_seconds_full (priority,
-                                    interval,
-                                    giraffe_source_dispatch,
-                                    (gpointer) callback,
-                                    giraffe_source_destroy);
-  return res;
-}
-
-guint
-giraffe_g_idle_add (gint priority,
-                    SourceCallback callback)
-{
-  guint res;
-  res = g_idle_add_full (priority,
-                         giraffe_source_dispatch,
-                         (gpointer) callback,
-                         giraffe_source_destroy);
-  return res;
-}
-
-guint
-giraffe_g_child_watch_add (gint priority,
-                           GPid pid,
-                           ChildWatchCallback callback)
-{
-  guint res;
-  res = g_child_watch_add_full (priority,
-                                pid,
-                                giraffe_child_watch_dispatch,
-                                (gpointer) callback,
-                                giraffe_child_watch_destroy);
-  return res;
-}
-
-guint
-giraffe_g_io_add_watch (GIOChannel *channel,
-                        gint priority,
-                        GIOCondition condition,
-                        IOCallback callback)
-{
-  return g_io_add_watch_full (channel,
-                              priority,
-                              condition,
-                              giraffe_io_dispatch,
-                              (gpointer) callback,
-                              giraffe_io_destroy);
-}
-
 GSource *
 giraffe_g_timeout_source_new (guint interval,
                               SourceCallback callback)
@@ -329,29 +261,4 @@ giraffe_g_source_add_poll (GSource *source, gint fd, gint events)
   pollfd->events = (gushort) events;
 
   g_source_add_poll (source, pollfd);
-}
-
-gboolean
-giraffe_g_spawn_async_with_pipes (const gchar *working_directory,
-                                  gchar **argv,
-                                  gchar **envp,
-                                  gint flags,
-                                  SpawnChildSetupCallback child_setup,
-                                  GPid *child_pid,
-                                  gint *standard_input,
-                                  gint *standard_output,
-                                  gint *standard_error,
-                                  GError **error)
-{
-  return g_spawn_async_with_pipes (working_directory,
-                                   argv,
-                                   envp,
-                                   flags,
-                                   giraffe_spawn_child_setup_dispatch,
-                                   child_setup,
-                                   child_pid,
-                                   standard_input,
-                                   standard_output,
-                                   standard_error,
-                                   error);
 }

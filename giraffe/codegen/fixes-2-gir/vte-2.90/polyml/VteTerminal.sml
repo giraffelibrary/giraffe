@@ -64,7 +64,7 @@ structure VteTerminal :>
              --> cVoid
           )
       val forkCommandFull_ =
-        call (getSymbol "giraffe_vte_terminal_fork_command_full")
+        call (getSymbol "vte_terminal_fork_command_full")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> VtePtyFlags.PolyML.cVal
@@ -72,6 +72,8 @@ structure VteTerminal :>
              &&> Utf8CVector.PolyML.cInPtr
              &&> Utf8CVector.PolyML.cInOptPtr
              &&> GLibSpawnFlags.PolyML.cVal
+             &&> GLibSpawnChildSetupFunc.PolyML.cOptPtr
+             &&> GLibSpawnChildSetupFunc.PolyML.cFunction
              &&> GLibPid.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
@@ -320,6 +322,8 @@ structure VteTerminal :>
              &&&> Utf8CVector.FFI.withPtr
              &&&> Utf8CVector.FFI.withOptPtr
              &&&> GLibSpawnFlags.FFI.withVal
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptPtrToDispatch
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback
              &&&> GLibPid.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GLibPid.FFI.fromVal
@@ -333,6 +337,8 @@ structure VteTerminal :>
                & argv
                & envv
                & spawnFlags
+               & isSome NONE
+               & NONE
                & GLibPid.null 
                & [GLibSpawnError.handler]
             )

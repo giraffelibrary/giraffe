@@ -96,6 +96,8 @@ in
     UNION.sml
     RECORD.sml
     VALUE_RECORD.sml
+    CALLBACK.sml
+    NOTIFIED_CALLBACK.sml
     FLAGS.sml
     ENUM.sml
     mlton/PointerRecord.sml

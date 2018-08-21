@@ -38,3 +38,29 @@ mlton_vte_terminal_set_colors (VteTerminal *terminal,
                            GET_SML_CVECTOR_VAL(GdkRGBA, palette),
                            palette_size);
 }
+
+gboolean
+mlton_vte_terminal_spawn_sync (VteTerminal *terminal,
+                               VtePtyFlags pty_flags,
+                               SML_CVECTOR_VAL(gchar, working_directory),
+                               SML_CVECTORVECTOR_VAL(gchar, argv),
+                               SML_CVECTORVECTOR_VAL(gchar, envv),
+                               GSpawnFlags spawn_flags,
+                               GSpawnChildSetupFunc child_setup,
+                               gpointer child_setup_data,
+                               GPid *child_pid,
+                               GCancellable *cancellable,
+                               GError **error)
+{
+  return vte_terminal_spawn_sync (terminal,
+                                  pty_flags,
+                                  GET_SML_CVECTOR_VAL(gchar, working_directory),
+                                  GET_SML_CVECTORVECTOR_VAL(gchar, argv),
+                                  GET_SML_CVECTORVECTOR_VAL(gchar, envv),
+                                  spawn_flags,
+                                  child_setup,
+                                  child_setup_data,
+                                  child_pid,
+                                  cancellable,
+                                  error);
+}

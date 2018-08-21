@@ -456,7 +456,7 @@ structure VteTerminal :>
               x3
             )
     val spawnSync_ =
-      fn x1 & x2 & (x3, x4) & (x5, x6) & (x7, x8) & x9 & x10 & x11 & x12 & x13 =>
+      fn x1 & x2 & (x3, x4) & (x5, x6) & (x7, x8) & x9 & x10 & x11 & x12 & x13 & x14 =>
         (
           _import "mlton_vte_terminal_spawn_sync" :
             VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
@@ -468,6 +468,7 @@ structure VteTerminal :>
              * Utf8CVector.MLton.p1
              * unit Utf8CVector.MLton.p2
              * GLibSpawnFlags.FFI.val_
+             * unit GLibSpawnChildSetupFunc.FFI.p
              * GLibSpawnChildSetupFunc.FFI.callback
              * GLibPid.FFI.ref_
              * unit GioCancellableClass.FFI.p
@@ -487,7 +488,8 @@ structure VteTerminal :>
             x10,
             x11,
             x12,
-            x13
+            x13,
+            x14
           )
     val unselectAll_ = _import "vte_terminal_unselect_all" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> unit;
     val watchChild_ = fn x1 & x2 => (_import "vte_terminal_watch_child" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p * GLibPid.FFI.val_ -> unit;) (x1, x2)
@@ -916,6 +918,7 @@ structure VteTerminal :>
              &&&> Utf8CVector.FFI.withPtr
              &&&> Utf8CVector.FFI.withOptPtr
              &&&> GLibSpawnFlags.FFI.withVal
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptPtrToDispatch
              &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback
              &&&> GLibPid.FFI.withRefVal
              &&&> GioCancellableClass.FFI.withOptPtr
@@ -931,6 +934,7 @@ structure VteTerminal :>
                & argv
                & envv
                & spawnFlags
+               & isSome childSetup
                & childSetup
                & GLibPid.null
                & cancellable

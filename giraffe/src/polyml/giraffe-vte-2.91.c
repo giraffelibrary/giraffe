@@ -15,30 +15,3 @@
 #include "giraffe-glib-2.0.h"
 #include "giraffe-vte-2.91-common.c"
 
-
-/* VteTerminal */
-
-gboolean
-giraffe_vte_terminal_spawn_sync (VteTerminal *terminal,
-                                 VtePtyFlags pty_flags,
-                                 const char *working_directory,
-                                 char **argv,
-                                 char **envv,
-                                 GSpawnFlags spawn_flags,
-                                 SpawnChildSetupCallback child_setup,
-                                 GPid *child_pid,
-                                 GCancellable *cancellable,
-                                 GError **error)
-{
-  return vte_terminal_spawn_sync (terminal,
-                                  pty_flags,
-                                  working_directory,
-                                  argv,
-                                  envv,
-                                  spawn_flags,
-                                  giraffe_spawn_child_setup_dispatch,
-                                  child_setup,
-                                  child_pid,
-                                  cancellable,
-                                  error);
-}

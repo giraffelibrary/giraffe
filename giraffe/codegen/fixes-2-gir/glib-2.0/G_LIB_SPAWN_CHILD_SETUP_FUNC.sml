@@ -1,11 +1,7 @@
 signature G_LIB_SPAWN_CHILD_SETUP_FUNC =
   sig
-    type t = unit -> unit
-
-    structure FFI :
-      sig
-        type callback
-        val withCallback : (callback -> 'a) -> t -> 'a
-        val withOptCallback : (callback -> 'a) -> t option -> 'a
-      end
+    type func = unit -> unit
+    include
+      CALLBACK
+        where type t = func
   end

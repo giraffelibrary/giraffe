@@ -1,10 +1,7 @@
 signature G_LIB_SOURCE_FUNC =
   sig
-    type t = unit -> bool
-
-    structure FFI :
-      sig
-        type callback
-        val withCallback : (callback -> 'a) -> t -> 'a
-      end
+    type func = unit -> bool
+    include
+      NOTIFIED_CALLBACK
+        where type t = func
   end
