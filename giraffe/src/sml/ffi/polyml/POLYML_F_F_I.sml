@@ -136,6 +136,7 @@ signature POLYML_F_F_I =
     val closureWithAbi :
       Foreign.LibFFI.abi -> ('as, 'r) func -> ('as -> 'r) -> ('as -> 'r) closure
     val closure : ('as, 'r) func -> ('as -> 'r) -> ('as -> 'r) closure
+    val nullClosure : ('as -> 'r) closure
 
     val callWithAbi : Foreign.LibFFI.abi -> symbol -> ('as, 'r) func -> 'as -> 'r
     val call : symbol -> ('as, 'r) func -> 'as -> 'r

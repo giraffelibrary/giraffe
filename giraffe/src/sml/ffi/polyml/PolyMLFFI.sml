@@ -291,6 +291,8 @@ structure PolyMLFFI :> POLYML_F_F_I =
 
     fun closure func = closureWithAbi LibFFI.abiDefault func
 
+    fun nullClosure () = Memory.Pointer.null
+
 
     fun callWithAbi abi fnAddr func =
       let
