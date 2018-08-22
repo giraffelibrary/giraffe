@@ -13,6 +13,7 @@
 signature CALLBACK_TABLE =
   sig
     type id
+    val nullId : id
     val fmtId : id -> string
 
     type callback

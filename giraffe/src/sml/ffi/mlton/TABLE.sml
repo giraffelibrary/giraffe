@@ -15,12 +15,17 @@
 signature TABLE =
   sig
     (**
-     * The type `key` uniquely identifies a value in the table.
+     * Values of the type `key`, except for `nullKey`, uniquely identify an
+     * element in a table until it is deleted from the table.
+     *
+     * `nullKey` is a key that never identifies an element of a table: it is
+     * never returned by `insert`.
      *
      * `fmtKey` returns a string representation of an `key`.  Different
      * `key` values should have a different string representation.
      *)
     type key
+    val nullKey : key
     val fmtKey : key -> string
 
     type 'a t

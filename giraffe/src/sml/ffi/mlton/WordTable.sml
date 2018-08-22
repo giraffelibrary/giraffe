@@ -23,10 +23,9 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
      * delete an element is not retained.
      *)
     type key = Key.word
+    val fromWord = Key.fromLarge o Word.toLarge
 
     val fmtKey = Key.fmt StringCvt.DEC
-
-    val fromWord = Key.fromLarge o Word.toLarge
 
     (* The table is effectively a dynamic array whose size grows as
      * required.  No attempt is made to shrink the structure where
@@ -34,12 +33,21 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
      * increase exponentially.  Once a block is allocated, it is never
      * removed.  The blocks are indexed from zero and the size of a block
      * is given by the function `blockLength`.
-     *
-     * The keys are simply an index into the concatenation of the blocks
+     *)
+    local
+      val << = Key.<<
+      infix <<
+    in
+      fun blockLength (idx : Word.word) = (fromWord 0w1) << idx
+    end
+
+    (* The keys are simply an index into the concatenation of the blocks
      * and are allocated sequentially starting from 1. For type `key`
      * defined as `Key.word` and excluding key 0, at most `Key.wordSize`
      * blocks are required.
      *)
+    val nullKey = fromWord 0w0
+    val firstKey = fromWord 0w1
     val numBlocks = Key.wordSize
 
     (* When an entry is removed its key is recycled by maintaining a list
@@ -85,11 +93,7 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
 
       val andb = Key.andb
       val toInt = Key.toInt
-      val << = Key.<<
-      infix <<
     in
-      fun blockLength (idx : Word.word) = (fromWord 0w1) << idx
-
       fun keyIndex (key : key) =
         let
           val op - = Key.-
@@ -99,30 +103,7 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
         in
           {bIdx = Word.toInt bIdx, eIdx = toInt eIdx, bLen = toInt bLen}
         end
-
-      val firstKey : key = fromWord 0w1
     end
-
-    (* Note that key 0 is excluded to make the above functions as simple as
-     * possible.  If we wanted to include key 0, we could instead define:
-     *
-     *   val numBlocks = Key.wordSize + 0w1
-     *
-     *   fun blockLength idx =
-     *     case idx of
-     *       0w0 => 0w1
-     *     | _   => Key.<< (fromWord 0w1, idx - 0w1)
-     *
-     *   fun keyIndex key =
-     *     let
-     *       val bIdx = if key = fromWord 0w0 then 0w0 else log2 key + 0w1
-     *       val bLen = blockLength bIdx
-     *       val eIdx = Key.andb (bLen - fromWord 0w1, key)
-     *     in
-     *       {bIdx = Word.toInt bIdx, eIdx = toInt eIdx, bLen = toInt bLen}
-     *     end
-     *)
-
 
     (**
      * A table with elements of type `'a` is represented by the type `'a t`.

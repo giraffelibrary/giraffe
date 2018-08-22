@@ -24,6 +24,7 @@ functor CallbackTable(type callback) :>
     open Table
 
     type id = key
+    val nullId = nullKey
     val fmtId = fmtKey
 
     val table : callback t = new ()
