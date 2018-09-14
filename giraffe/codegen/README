@@ -211,16 +211,22 @@ command
 Although it is possible to generate code from TYPELIB files, they are designed
 for dynamic (run-time) introspection and, for efficiency, are platform-specific.
 Consequently, TYPELIB files do not have sufficient information to generate
-portable SML code.  In particular, types are resolved for the platform, for
-example, glong is
-  - gint32 in the TYPELIB for a 32 bit platform and is
-  - gint64 in the TYPELIB for a 64 bit platform.
-Also, in TYPELIB files, alias types are resolved to the underlying type, which
-reduces traceability to the API documentation.
+portable code because
+  - types are resolved for the platform, for example, glong is
+      - gint32 in the TYPELIB for a 32 bit platform and is
+      - gint64 in the TYPELIB for a 64 bit platform;
+  - the version at which entities are introduced is not stored so, for example,
+    references in C code to struct types cannot be protected for use on
+    platforms with older libraries.
+Also, alias types are resolved to the underlying type, which reduces
+traceability to the API documentation.
 
 At present, code is generated from TYPELIB files only for the purpose of
 comparison with code generated from GIR files, to add confidence that the
 SML GIRepository interface to GIR files is giving correct information.
+
+It is planned that code generated from TYPELIB should be usable on the platform
+that is was generated on, using dynamic linking.
 
 Stage 4
 

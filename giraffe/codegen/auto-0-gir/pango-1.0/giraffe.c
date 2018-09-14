@@ -1,0 +1,3 @@
+GIRAFFE_DECLARE_VALUE_RECORD(PangoAnalysis, pango_analysis)
+GIRAFFE_DECLARE_VALUE_RECORD(PangoLogAttr, pango_log_attr)
+GIRAFFE_DECLARE_VALUE_RECORD(PangoRectangle, pango_rectangle)

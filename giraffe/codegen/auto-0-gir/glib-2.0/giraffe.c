@@ -1,0 +1,3 @@
+GIRAFFE_DECLARE_VALUE_RECORD(GDebugKey, g_lib_debug_key)
+GIRAFFE_DECLARE_VALUE_RECORD(GOptionEntry, g_lib_option_entry)
+GIRAFFE_DECLARE_VALUE_RECORD(GTimeVal, g_lib_time_val)

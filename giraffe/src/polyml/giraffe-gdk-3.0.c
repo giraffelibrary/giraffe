@@ -12,8 +12,8 @@
 #include <string.h>
 #include <gdk/gdk.h>
 
-#include "giraffe-common.h"
-#include "giraffe-gdk-3.0-common.c"
+#include "giraffe.c"
+#include "gdk-3.0/giraffe.c"
 
 
 /* GdkWindowAttr */

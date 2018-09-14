@@ -13,6 +13,6 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gdk-pixbuf/gdk-pixdata.h>
 
-#include "giraffe-common.h"
-#include "giraffe-gdkpixbuf-2.0-common.c"
+#include "giraffe.c"
+#include "gdkpixbuf-2.0/giraffe.c"
 #include "giraffe-gdkpixbuf-2.0-mlton.c"

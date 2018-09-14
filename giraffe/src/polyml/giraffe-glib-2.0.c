@@ -12,9 +12,9 @@
 #include <string.h>
 #include <glib.h>
 
-#include "giraffe-common.h"
+#include "giraffe.c"
 #include "giraffe-glib-2.0.h"
-#include "giraffe-glib-2.0-common.c"
+#include "glib-2.0/giraffe.c"
 
 
 /* GLog */

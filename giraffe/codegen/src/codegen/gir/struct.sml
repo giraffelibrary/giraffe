@@ -1,5 +1,5 @@
 (* --------------------------------------------------------------------------
- * Struct - record modules stubbed with empty file for now
+ * Struct
  * -------------------------------------------------------------------------- *)
 
 (* Record signature *)
@@ -36,8 +36,8 @@ in
       val recordSigId =
         toUCU (
           case structType of
-            ValueRecord => valueStrId ^ recordStrId
-          | _           => recordStrId
+            ValueRecord _ => valueStrId ^ recordStrId
+          | _             => recordStrId
         )
       val recordInclSpec = SpecIncl (SigName recordSigId, [])
       val specs'2 = recordInclSpec :: specs'1
@@ -79,82 +79,129 @@ local
       fn name => prefix ^ "_" ^ name
     end
 
+  val cPtrTy = makeLowLevelTy false [] (PTR {optDir = NONE, isOpt = false})
+  val gsizeTy = makeLowLevelTy false ["GSize", ffiStrId] VAL
+
+  (* `callStrDecLowLevelMLton (name, symbol, parTys, retTy)` constructs
+   * a MLton low-level function call expression as follows:
+   *
+   *     val <name> =
+   *       fn x1 & ... & x<N> =>
+   *         (_import "<symbol>" : <parTys[1]> * ... * <parTys[N]> -> <retTy>;)
+   *         (x1, ..., x<N>)
+   *
+   *       if N > 1
+   *
+   *     val <name> =
+   *       _import "<symbol>" : <parTys[1]> -> <retTy>;
+   *
+   *       if N = 1
+   *
+   *     val <name> =
+   *       _import "<symbol>" : unit -> <retTy>;
+   *
+   *       if N = 0
+   *
+   *   where
+   *
+   *     N = length parTys
+   *)
+  fun callStrDecLowLevelMLton (name, symbol, parTys, retTy) =
+    StrDecDec (
+      mkIdValDec (name, callMLtonFFIExp symbol (parTys, retTy))
+    )
+
+  (*
+   *     val memcpy_ =
+   *       fn x1 & x2 & x3 =>
+   *         (_import "memcpy"
+   *           : notnull p * notnull p * GSize.FFI.val_ -> unit;)
+   *         (x1, x2, x3)
+   *)
+  val memcpyStrDecMLton =
+    callStrDecLowLevelMLton (memcpyUId, memcpyId, [cPtrTy, cPtrTy, gsizeTy], unitTy)
+
+  (*
+   *     val copy_ =
+   *       fn src & dest =>
+   *         memcpy_ (dest & src & size_ ())
+   *)
+  val defaultCopyStrDec =
+    let
+      val srcId = "src"
+      val destId = "dest"
+      val pat = mkAPat (mkIdVarPat srcId, mkIdVarPat destId)
+      val sizeExp = ExpApp (mkIdLNameExp sizeUId, ExpConst ConstUnit)
+      val exp =
+        ExpApp (
+          mkIdLNameExp memcpyUId,
+          mkParenExp (
+            foldl mkAExp sizeExp (map mkIdLNameExp [srcId, destId])
+          )
+        )
+    in
+      StrDecDec (mkIdValDec (copyUId, ExpFn (toList1 [(pat, exp)])))
+    end
+
+  (*
+   *     val clear_ = Fn.ignore
+   *)
+  val defaultClearStrDec =
+    StrDecDec (mkIdValDec (clearUId, mkLIdLNameExp [fnStrId, ignoreId]))
+
   fun addStrDecsLowLevelMLton
+    _
     structNamespace
     structName
     structType
     strDecs
   =
     let
-      val cPtrTy = makeLowLevelTy false [] (PTR {optDir = NONE, isOpt = false})
-      val guintTy = makeLowLevelTy false ["GUInt", ffiStrId] VAL
-
-      (* `callStrDecLowLevelMLton (name, symbol, parTys, retTy)` constructs
-       * a MLton low-level function call expression as follows:
-       *
-       *     val <name>_ =
-       *       fn x1 & ... & x<N> =>
-       *         (_import "<symbol>" : <parTys[1]> * ... * <parTys[N]> -> <retTy>;)
-       *         (x1, ..., x<N>)
-       *
-       *       if N > 1
-       *
-       *     val <name>_ =
-       *       _import "<symbol>" : <parTys[1]> -> <retTy>;
-       *
-       *       if N = 1
-       *
-       *     val <name>_ =
-       *       _import "<symbol>" : unit -> <retTy>;
-       *
-       *       if N = 0
-       *
-       *   where
-       *
-       *     N = length parTys
-       *)
-      fun callStrDecLowLevelMLton (name, symbol, parTys, retTy) =
-        StrDecDec (
-          mkIdValDec (name ^ "_", callMLtonFFIExp symbol (parTys, retTy))
-        )
-
       val strDecs' =
-        case  structType of
-          ValueRecord =>
-            (*
-             *     val new_ =
-             *       _import "giraffe_<struct_namespace>_<struct_name>_new"
-             *         : unit -> notnull p;
-             *
-             *     val copy_ =
-             *       fn x1 & x2 =>
-             *         (_import "giraffe_<struct_namespace>_<struct_name>_copy"
-             *            : notnull p * notnull p -> unit;)
-             *         (x1, x2)
-             *
-             *     val free_ =
-             *       _import "giraffe_<struct_namespace>_<struct_name>_free"
-             *         : notnull p -> unit;
-             *
-             *     val size_ =
-             *       _import "giraffe_<struct_namespace>_<struct_name>_size"
-             *         : unit -> GUInt.FFI.val_;
-             *)
+        case structType of
+          ValueRecord funcs =>
             let
-              fun call (name, parConvs, retConv) =
-                callStrDecLowLevelMLton
-                  (
-                    name,
-                    mkSymbolId structNamespace structName name,
-                    parConvs,
-                    retConv
-                  )
+              val sizeSymbolId = mkSymbolId structNamespace structName sizeId
             in
-              call (newId,  [], cPtrTy) ::
-              call (copyId, [cPtrTy, cPtrTy], unitTy) ::
-              call (freeId, [cPtrTy], unitTy) ::
-              call (sizeId, [], guintTy) ::
-              strDecs
+              (*
+               *     val size_ =
+               *       _import "giraffe_<struct_namespace>_<struct_name>_size"
+               *         : unit -> GSize.FFI.val_;
+               *)
+              callStrDecLowLevelMLton (sizeUId, sizeSymbolId, [], gsizeTy) :: (
+                case funcs of
+                  SOME {copy, clear} =>
+                    (*
+                     *     val copy_ =
+                     *       fn x1 & x2 =>
+                     *         (_import "<copy>" : notnull p * notnull p -> unit;)
+                     *         (x1, x2)
+                     *
+                     *     val clear_ =
+                     *       _import "<clear>" : notnull p -> unit;
+                     *) 
+                    callStrDecLowLevelMLton (copyUId,  copy,  [cPtrTy, cPtrTy], unitTy) ::
+                    callStrDecLowLevelMLton (clearUId, clear, [cPtrTy],         unitTy) ::
+                    strDecs
+                | NONE               =>
+                    (*
+                     *     val memcpy_ =
+                     *       fn x1 & x2 & x3 =>
+                     *         (_import "memcpy"
+                     *           : notnull p * notnull p * GSize.FFI.val_ -> unit;)
+                     *         (x1, x2, x3)
+                     *
+                     *     val copy_ =
+                     *       fn src & dest =>
+                     *         memcpy_ (dest & src & size_ ())
+                     *
+                     *     val clear_ = Fn.ignore
+                     *) 
+                    memcpyStrDecMLton ::
+                    defaultCopyStrDec ::
+                    defaultClearStrDec ::
+                    strDecs
+              )
             end
         | Record {dup, free} =>
             (* 
@@ -162,8 +209,8 @@ local
              * 
              *     val free_ = _import "<free>" : notnull p -> unit;
              *)
-            callStrDecLowLevelMLton (dupId,  dup,  [cPtrTy], cPtrTy) ::
-            callStrDecLowLevelMLton (freeId, free, [cPtrTy], unitTy) ::
+            callStrDecLowLevelMLton (dupUId,  dup,  [cPtrTy], cPtrTy) ::
+            callStrDecLowLevelMLton (freeUId, free, [cPtrTy], unitTy) ::
             strDecs
         | DisguisedRecord =>
             raise Fail "disguised record has no low-level FFI"
@@ -171,102 +218,119 @@ local
       strDecs'
     end
 
+  (* `callStrDecLowLevelPolyML (name, symbol, parConvs, retConv)`
+   * constructs a Poly/ML low-level function call expression as follows:
+   *
+   *     val <name> =
+   *       call
+   *         (getSymbol "<symbol>")
+   *         (<parConvs[1]> &&> ... &&> <parConvs[N]> --> <retConv>)
+   *
+   *       if N > 0
+   *
+   *     val <name> =
+   *       call
+   *         (getSymbol "<symbol>")
+   *         (cVoidConv --> <retConv>)
+   *
+   *       if N = 0
+   *
+   *   where
+   *
+   *     N = length parConvs
+   *)
+  fun callStrDecLowLevelPolyML (name, symbol, parConvs, retConv) =
+    let
+      val parConv =
+        case rev parConvs of
+          []      => cVoidConv
+        | c :: cs => foldl mkAARExp c cs
+    in
+      StrDecDec (
+        mkIdValDec (name, callPolyMLFFIExp symbol (parConv, retConv))
+      )
+    end
+
+  val cPtrLowLevelSpec = PTR {optDir = NONE, isOpt = false}
+
+  (*
+   *     val cPtr = Pointer.PolyML.cVal
+   *)
+  val cPtrStrDec =
+    StrDecDec (
+      mkIdValDec (
+        makeConvId cPtrLowLevelSpec,
+        makeConv [pointerStrId, polyMLStrId] VAL
+      )
+    )
+
+  val cPtrConv = makeConv [] cPtrLowLevelSpec
+  val gsizeConv = makeConv ["GSize", polyMLStrId] VAL
+
+  (*
+   *     val memcpy_ =
+   *       call
+   *         (getSymbol "memcpy")
+   *         (cPtr &&> cPtr &&> GSize.FFI.cVal --> cVoid)
+   *)
+  val memcpyStrDecPolyML =
+    callStrDecLowLevelPolyML (memcpyUId, memcpyId, [cPtrConv, cPtrConv, gsizeConv], cVoidConv)
+
   fun addStrDecsLowLevelPolyML
+    _
     structNamespace
     structName
     structType
     strDecs
   =
     let
-      val cPtrLowLevelSpec = PTR {optDir = NONE, isOpt = false}
-
-      (*
-       *     val cPtr = Pointer.PolyML.cVal
-       *)
-      val cPtrStrDec =
-        StrDecDec (
-          mkIdValDec (
-            makeConvId cPtrLowLevelSpec,
-            makeConv [pointerStrId, polyMLStrId] VAL
-          )
-        )
-
-      val cPtrConv = makeConv [] cPtrLowLevelSpec
-      val guintConv = makeConv ["GUInt", polyMLStrId] VAL
-
-      (* `callStrDecLowLevelPolyML (name, symbol, parConvs, retConv)`
-       * constructs a Poly/ML low-level function call expression as follows:
-       *
-       *     val <name>_ =
-       *       call
-       *         (getSymbol "<symbol>")
-       *         (<parConvs[1]> &&> ... &&> <parConvs[N]> --> <retConv>)
-       *
-       *       if N > 0
-       *
-       *     val <name>_ =
-       *       call
-       *         (getSymbol "<symbol>")
-       *         (cVoidConv --> <retConv>)
-       *
-       *       if N = 0
-       *
-       *   where
-       *
-       *     N = length parConvs
-       *)
-      fun callStrDecLowLevelPolyML (name, symbol, parConvs, retConv) =
-        let
-          val parConv =
-            case rev parConvs of
-              []      => cVoidConv
-            | c :: cs => foldl mkAARExp c cs
-        in
-          StrDecDec (
-            mkIdValDec (name ^ "_", callPolyMLFFIExp symbol (parConv, retConv))
-          )
-        end
-
       val localStrDecs =
-        case  structType of
-          ValueRecord =>
-            (*
-             *     val new_ =
-             *       call
-             *         (getSymbol "giraffe_<struct_namespace>_<struct_name>_new")
-             *         (cVoid --> cPtr)
-             *
-             *     val copy_ =
-             *       call
-             *         (getSymbol "giraffe_<struct_namespace>_<struct_name>_copy")
-             *         (cPtr &&> cPtr --> cVoid)
-             *
-             *     val free_ =
-             *       call
-             *         (getSymbol "giraffe_<struct_namespace>_<struct_name>_free")
-             *         (cPtr --> cVoid)
-             *
-             *     val size_ =
-             *       call
-             *         (getSymbol "giraffe_<struct_namespace>_<struct_name>_size")
-             *         (cVoid --> GUInt.PolyML.cVal)
-             *)
+        case structType of
+          ValueRecord funcs =>
             let
-              fun call (name, parConvs, retConv) =
-                callStrDecLowLevelPolyML
-                  (
-                    name,
-                    mkSymbolId structNamespace structName name,
-                    parConvs,
-                    retConv
-                  )
+              val sizeSymbolId = mkSymbolId structNamespace structName sizeId
             in
-              [
-                call (newId,  [], cPtrConv),
-                call (copyId, [cPtrConv, cPtrConv], cVoidConv),
-                call (freeId, [cPtrConv], cVoidConv),
-                call (sizeId, [], guintConv)
-              ]
+              (*
+               *     val size_ =
+               *       call
+               *         (getSymbol "giraffe_<struct_namespace>_<struct_name>_size")
+               *         (cVoid --> GSize.PolyML.cVal)
+               *)
+              callStrDecLowLevelPolyML (sizeUId, sizeSymbolId, [], gsizeConv) :: (
+                case funcs of
+                  SOME {copy, clear} =>
+                    (*
+                     *     val copy_ =
+                     *       call
+                     *         (getSymbol "<copy>")
+                     *         (cPtr &&> cPtr --> cVoid)
+                     *
+                     *     val clear_ =
+                     *       call
+                     *         (getSymbol "<clear>")
+                     *         (cPtr --> cVoid)
+                     *) 
+                    callStrDecLowLevelPolyML (copyUId,  copy,  [cPtrConv, cPtrConv], cVoidConv) ::
+                    callStrDecLowLevelPolyML (clearUId, clear, [cPtrConv],           cVoidConv) ::
+                    []
+                | NONE               =>
+                    (*
+                     *     val memcpy_ =
+                     *       call
+                     *         (getSymbol "memcpy")
+                     *         (cPtr &&> cPtr &&> GSize.FFI.cVal --> cVoid)
+                     *
+                     *     val copy_ =
+                     *       fn src & dest =>
+                     *         memcpy_ (dest & src & size_ ())
+                     *
+                     *     val clear_ = Fn.ignore
+                     *) 
+                    memcpyStrDecPolyML ::
+                    defaultCopyStrDec ::
+                    defaultClearStrDec ::
+                    []
+              )
             end
         | Record {dup, free} =>
             (*
@@ -281,8 +345,8 @@ local
              *         (cPtr --> cVoid)
              *)
             [
-              callStrDecLowLevelPolyML (dupId,  dup,  [cPtrConv], cPtrConv),
-              callStrDecLowLevelPolyML (freeId, free, [cPtrConv], cVoidConv)
+              callStrDecLowLevelPolyML (dupUId,  dup,  [cPtrConv], cPtrConv),
+              callStrDecLowLevelPolyML (freeUId, free, [cPtrConv], cVoidConv)
             ]
         | DisguisedRecord =>
             raise Fail "disguised record has no low-level FFI"
@@ -301,11 +365,8 @@ local
    *         structure Pointer = Pointer
    *         type notnull = notnull
    *         type 'a p = 'a p
-   *         val new_ = new_
    *         val copy_ = copy_
-   *         val take_ = ignore
-   *         val clear_ = ignore
-   *         val free_ = free_
+   *         val clear_ = clear_
    *         val size_ = size_
    *       )
    *)
@@ -318,11 +379,8 @@ local
           mkStructStrDec (pointerStrId, mkNameStruct [pointerStrId]),
           StrDecDec (mkTypeDec (notnullTyName, notnullTy)),
           StrDecDec (mkTypeDec (ptrTyName aTyVar, ptrTy aVarTy)),
-          StrDecDec (mkIdValDec (newUId, mkIdLNameExp newUId)),
           StrDecDec (mkIdValDec (copyUId, mkIdLNameExp copyUId)),
-          StrDecDec (mkIdValDec (takeUId, mkIdLNameExp ignoreId)),
-          StrDecDec (mkIdValDec (clearUId, mkIdLNameExp ignoreId)),
-          StrDecDec (mkIdValDec (freeUId, mkIdLNameExp freeUId)),
+          StrDecDec (mkIdValDec (clearUId, mkIdLNameExp clearUId)),
           StrDecDec (mkIdValDec (sizeUId, mkIdLNameExp sizeUId))
         ]
       )
@@ -425,7 +483,7 @@ in
           val strDecs'1 = addAccessorStrDecs true isPolyML strDecs'0
           val strDecs'2 = (
             case structType of
-              ValueRecord     => structValueRecordStrDec
+              ValueRecord _   => structValueRecordStrDec
             | Record _        => structRecordStrDec
             | DisguisedRecord =>
                 structDisguisedRecordStrDec (structNamespace, structName)
@@ -435,9 +493,14 @@ in
             case structType of
               DisguisedRecord => strDecs'2
             | _               =>
-                addPointerStrDecs
-                  (addStrDecsLowLevel isPolyML
-                    structNamespace structName structType strDecs'2)
+                addPointerStrDecs (
+                  addStrDecsLowLevel isPolyML
+                    structInfo
+                    structNamespace
+                    structName
+                    structType
+                    strDecs'2
+                )
 
           val struct1 = mkBodyStruct strDecs'3
 
@@ -708,4 +771,46 @@ fun makeStructStr
       strIRefs,
       excls'2
     )
+  end
+
+
+(* Struct C Interface - GIR only *)
+
+val cDeclareValueRecordId = "GIRAFFE_DECLARE_VALUE_RECORD"
+
+fun addStructCInterfaceDecl
+  (_               : 'a RepositoryClass.class)
+  (_               : Repository.typelibvers_t)
+  (structNamespace : string)
+  (structInfo      : 'b StructInfoClass.class)
+  (cInterfaceDecls : c_interface_decl list)
+  : c_interface_decl list =
+  let
+    val () = checkDeprecated structInfo
+
+    val structName = getName structInfo
+    val structType = getStructType (structNamespace, structName)
+  in
+    case structType of
+      ValueRecord _ =>
+        let
+          val structSize = StructInfo.getCName structInfo
+          val structVersion = BaseInfo.getVersion structInfo
+
+          val decl =
+            CMacroCall {
+              name = cDeclareValueRecordId,
+              args = [
+                structSize,
+                String.concatWith "_" [toLCU structNamespace, toLCU structName]
+              ]
+            }
+          val structCVersionDecl =
+            case structVersion of
+              SOME version => CCheckVersion {decl = decl, version = version}
+            | NONE         => decl
+        in
+          structCVersionDecl :: cInterfaceDecls
+        end
+    | _             => cInterfaceDecls
   end

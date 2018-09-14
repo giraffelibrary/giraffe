@@ -28,11 +28,11 @@ print "Loading SML libraries\n";
 
 print "  GObject library\n";
 PolyML.Compiler.reportUnreferencedIds := true;
-use "../../src/sml/polyml.sml";
-use "../../src/sml/general/polyml.sml";
-use "../../src/sml/ffi/polyml.sml";
-use "../../src/sml/glib-2.0/polyml.sml";
-use "../../src/sml/gobject-2.0/polyml.sml";
+use "../../src/polyml.sml";
+use "../../src/general/polyml.sml";
+use "../../src/ffi/polyml.sml";
+use "../../src/glib-2.0/polyml.sml";
+use "../../src/gobject-2.0/polyml.sml";
 
 
 (* Load TYPELIB-based GIRepository *)
@@ -277,9 +277,9 @@ val () =
 
 (* Generate code *)
 
-fun gen outDir repo (namespace_version as (namespace, version)) extras = (
+fun gen outDir repo (x as (namespace, version, _)) extras = (
   List.app print ["  ", namespace, "-", version, "\n"];
-  (namespace_version, generateFull outDir repo namespace_version extras)
+  ((namespace, version), generateFull outDir repo x extras)
 )
 
 fun init outDir namespace_version initNamespace extras =
@@ -314,7 +314,7 @@ val () = ignore [
     )
 ]
 val errorLog'1 = List.foldl insert errorLog'0 [
-  gen outDir repo ("GLib", "2.0")
+  gen outDir repo ("GLib", "2.0", "GLIB")
     (
       [],
       [
@@ -340,7 +340,7 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         extendStrDeps "GLibErrorRecord" ["GLibQuark"]
       ]
     ),
-  gen outDir repo ("GObject", "2.0")
+  gen outDir repo ("GObject", "2.0", "GLIB")
     (
       [],
       [
@@ -399,9 +399,9 @@ val errorLog'1 = List.foldl insert errorLog'0 [
           ["GObjectType", "GObjectValueRecord", "GObjectValue"]
       ]
     ),
-  gen outDir repo ("GModule", "2.0") ([], [], []),
-  gen outDir repo ("Gio", "2.0") ([], [], []),
-  gen outDir repo ("GIRepository", "2.0")
+  gen outDir repo ("GModule", "2.0", "GLIB") ([], [], []),
+  gen outDir repo ("Gio", "2.0", "GLIB") ([], [], []),
+  gen outDir repo ("GIRepository", "2.0", "")
     (
       [],
       [
@@ -416,12 +416,12 @@ val errorLog'1 = List.foldl insert errorLog'0 [
           []
       ]
     ),
-  gen outDir repo ("Atk", "1.0") ([], [], []),
-  gen outDir repo ("GdkPixbuf", "2.0") ([], [], []),
-  gen outDir repo ("Pango", "1.0") ([], [], []),
-  gen outDir repo ("cairo", "1.0") ([("GObject", "2.0")], [], []),
-  gen outDir repo ("PangoCairo", "1.0") ([], [], []),
-  gen outDir repo ("Gdk", "3.0")
+  gen outDir repo ("Atk", "1.0", "ATK") ([], [], []),
+  gen outDir repo ("GdkPixbuf", "2.0", "GDK_PIXBUF") ([], [], []),
+  gen outDir repo ("Pango", "1.0", "PANGO") ([], [], []),
+  gen outDir repo ("cairo", "1.0", "") ([("GObject", "2.0")], [], []),
+  gen outDir repo ("PangoCairo", "1.0", "PANGO") ([], [], []),
+  gen outDir repo ("Gdk", "3.0", "GDK")
     (
       [],
       [
@@ -561,9 +561,9 @@ val errorLog'1 = List.foldl insert errorLog'0 [
    * academic because this library is used only for aliases which is not
    * required by the TYPELIB version.
    *
-   * gen outDir repo ("xlib", "2.0") ([], [], []),
+   * gen outDir repo ("xlib", "2.0", "") ([], [], []),
    *)
-  gen outDir repo ("Gtk", "3.0")
+  gen outDir repo ("Gtk", "3.0", "GTK")
     (
       [],
       [
@@ -573,8 +573,8 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         extendStrDeps "ChildSignal" ["GtkWidgetClass", "GtkWidget"]
       ]
     ),
-  gen outDir repo ("GtkSource", "3.0") ([], [], []),
-  gen outDir repo ("Vte", "2.90") ([], [], [])
+  gen outDir repo ("GtkSource", "3.0", "GTK_SOURCE") ([], [], []),
+  gen outDir repo ("Vte", "2.90", "VTE") ([], [], [])
 ]
 
 

@@ -1,6 +1,6 @@
 structure GIRepositoryTypelibType :>
   G_I_REPOSITORY_TYPELIB_TYPE
-    where type t = Info.repodata =
+    where type t = Info.typelibdata =
   struct
-    type t = Info.repodata
+    type t = Info.typelibdata
   end

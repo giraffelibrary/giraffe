@@ -129,6 +129,7 @@ fun mkOpLNameExp infixOp : exp = ExpLName (LNameOp infixOp)
 
 fun mkIntConstExp n : exp = ExpConst (ConstInt (n, NONE))
 fun mkWordConstExp n : exp = ExpConst (ConstWord (n, NONE))
+fun mkStringConstExp s : exp = ExpConst (ConstString s)
 
 fun mkIdVarAPat id : apat = APatVar (NameId id)
 
@@ -294,6 +295,8 @@ fun mkIdValDec (id, exp) : dec =
 
 val iId : id = "I"
 val iExp : exp = mkIdLNameExp iId
+val idId : id = "id"
+val fnStrId : id = "Fn"
 
 val falseId : id = "false"
 val falseExp = mkIdLNameExp falseId
@@ -394,6 +397,8 @@ val makeHandlerId : id = "makeHandler"
 val giraffeId : id = "giraffe"
 val newId : id = "new"
 val newUId : id = newId ^ "_"
+val memcpyId = "memcpy"
+val memcpyUId = memcpyId ^ "_"
 val copyId : id = "copy"
 val copyUId : id = copyId ^ "_"
 val dupId : id = "dup"

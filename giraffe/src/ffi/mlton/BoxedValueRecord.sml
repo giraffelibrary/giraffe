@@ -1,4 +1,4 @@
-(* Copyright (C) 2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2018 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -6,21 +6,21 @@
  *)
 
 functor BoxedValueRecord(
-  structure Pointer : C_POINTER where type 'a p = PolyMLFFI.Memory.Pointer.t
+  structure Pointer : C_POINTER where type 'a p = MLton.Pointer.t
   type notnull = Pointer.notnull
   type 'a p = 'a Pointer.p
-  val new_ : unit -> notnull p
   val copy_ : (notnull p, notnull p) pair -> unit
-  val take_ : notnull p -> unit
   val clear_ : notnull p -> unit
-  val free_ : notnull p -> unit
-  val size_ : unit -> GUInt.FFI.val_
+  val size_ : unit -> GSize.FFI.val_
 ) :>
   VALUE_RECORD
     where type C.Pointer.notnull = Pointer.notnull
     where type 'a C.Pointer.p = 'a Pointer.p
     where type ('a, 'b) C.Pointer.r = ('a, 'b) Pointer.r =
   struct
+    val malloc_ = _import "g_malloc0" : GSize.FFI.val_ -> MLton.Pointer.t;
+    val free_ = _import "g_free" : MLton.Pointer.t -> unit;
+    val new_ = malloc_ o size_
     fun dup_ ptr =
       let
         val ptrNew = new_ ()
@@ -28,6 +28,7 @@ functor BoxedValueRecord(
       in
         ptrNew
       end
+    val take_ = Fn.ignore
 
     structure C =
       struct
@@ -38,22 +39,19 @@ functor BoxedValueRecord(
 
         structure ValueType =
           struct
-            open PolyMLFFI
+            type t = MLton.Pointer.t Finalizable.t
+            type v = MLton.Pointer.t
+            type p = MLton.Pointer.t
 
-            type t = Memory.Pointer.t Finalizable.t
-            type v = Memory.Pointer.t
-            type p = Memory.Pointer.t
-
-            structure PolyML =
+            structure MLtonVector =
               struct
-                val cVal = cPointer
-                val cPtr = cPointer
+                val e = Finalizable.new MLton.Pointer.null
               end
 
             val isRef = true
-            val size = Fn.lazy (Word.fromLargeInt o GUInt.FFI.fromVal o size_)
+            val size = Fn.lazy (Word.fromLargeInt o GSize.FFI.fromVal o size_)
 
-            fun toC _ = Memory.Pointer.null
+            fun toC _ = MLton.Pointer.null
             fun updateC t dest = Finalizable.withValue (t, fn src => copy_ (src & dest))
             fun fromC v =
               let
@@ -69,13 +67,8 @@ functor BoxedValueRecord(
 
             fun get p = p
             fun set (p, v) = copy_ (v & p)
-            local
-              val malloc_ = call (getSymbol "g_malloc0") (GULong.PolyML.cVal --> cPointer)
-              val free_ = call (getSymbol "g_free") (cPointer --> cVoid)
-            in
-              fun malloc n = (GULong.FFI.withVal ---> I) malloc_ (Word.toLargeInt n)
-              fun free p = (I ---> I) free_ p
-            end
+            fun malloc n = (GSize.FFI.withVal ---> I) malloc_ (Word.toLargeInt n)
+            fun free p = (I ---> I) free_ p
           end
 
         structure PointerType =
@@ -99,6 +92,17 @@ functor BoxedValueRecord(
               in
                 Finalizable.addFinalizer (object, fn ptr => (clear_ ptr; free_ ptr));
                 object
+              end
+
+            structure CVector =
+              struct
+                type cvector = notnull p
+                val v = let open Pointer in toNotNull (sub (null, 0w1)) end
+                val free = free ~1
+                val fromPointer = dup ~1
+                val toPointer = dup ~1
+                val fromVal = toC
+                val toVal = fromC
               end
           end
       end
@@ -148,15 +152,5 @@ functor BoxedValueRecord(
 
         fun fromOptPtr transfer optptr =
           Option.map (fromPtr transfer) (Pointer.fromOptVal optptr)
-      end
-
-    structure PolyML =
-      struct
-        val cPtr = C.Pointer.PolyML.cVal
-        val cOptPtr = C.Pointer.PolyML.cOptVal
-        val cOutRef = C.Pointer.PolyML.cRef
-        val cOutOptRef = C.Pointer.PolyML.cOptOutRef
-        val cInOutRef = C.Pointer.PolyML.cInRef
-        val cInOutOptRef = C.Pointer.PolyML.cOptOutRef
       end
   end

@@ -1,0 +1,8 @@
+GIRAFFE_DECLARE_VALUE_RECORD(GEnumClass, g_object_enum_class)
+GIRAFFE_DECLARE_VALUE_RECORD(GEnumValue, g_object_enum_value)
+GIRAFFE_DECLARE_VALUE_RECORD(GFlagsClass, g_object_flags_class)
+GIRAFFE_DECLARE_VALUE_RECORD(GFlagsValue, g_object_flags_value)
+GIRAFFE_DECLARE_VALUE_RECORD(GSignalInvocationHint, g_object_signal_invocation_hint)
+GIRAFFE_DECLARE_VALUE_RECORD(GSignalQuery, g_object_signal_query)
+GIRAFFE_DECLARE_VALUE_RECORD(GTypeQuery, g_object_type_query)
+GIRAFFE_DECLARE_VALUE_RECORD(GValue, g_object_value)

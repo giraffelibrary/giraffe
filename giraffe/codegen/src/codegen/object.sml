@@ -2,16 +2,6 @@
  * Object - root class stubbed with empty file for now
  * -------------------------------------------------------------------------- *)
 
-datatype program =
-  Portable of module list
-| Specific of {mlton : module list, polyml : module list}
-
-val isPortable =
-  fn
-    Portable _ => true
-  | Specific _ => false
-
-
 (* Class signature *)
 
 local

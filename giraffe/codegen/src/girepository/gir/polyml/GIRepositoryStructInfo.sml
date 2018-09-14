@@ -62,6 +62,14 @@ structure GIRepositoryStructInfo :>
 
     fun findMethod _ = raise Fail "findMethod not supported"
 
+    fun getCName info =
+      let
+        val _ & _ & {cType, ...} & _ =
+          (fromBase o fromRegisteredTypeInfo o fromStruct) I info
+      in
+        cType
+      end
+
     fun isGtypeStruct info =
       let
         val _ & _ & {isGTypeStruct, ...} & _ =

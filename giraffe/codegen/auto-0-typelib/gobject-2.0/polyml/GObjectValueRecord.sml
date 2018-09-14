@@ -9,21 +9,17 @@ structure GObjectValueRecord :>
     local
       open PolyMLFFI
     in
-      val new_ = call (getSymbol "giraffe_g_object_value_new") (cVoid --> cPtr)
-      val copy_ = call (getSymbol "giraffe_g_object_value_copy") (cPtr &&> cPtr --> cVoid)
-      val free_ = call (getSymbol "giraffe_g_object_value_free") (cPtr --> cVoid)
-      val size_ = call (getSymbol "giraffe_g_object_value_size") (cVoid --> GUInt.PolyML.cVal)
+      val size_ = fn () => 24
+      val copy_ = call (getSymbol "giraffe_g_value_copy") (cPtr &&> cPtr --> cVoid)
+      val clear_ = call (getSymbol "giraffe_g_value_clear") (cPtr --> cVoid)
     end
     structure Record =
       BoxedValueRecord(
         structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
-        val new_ = new_
         val copy_ = copy_
-        val take_ = ignore
-        val clear_ = ignore
-        val free_ = free_
+        val clear_ = clear_
         val size_ = size_
       )
     open Record

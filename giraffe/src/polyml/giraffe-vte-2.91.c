@@ -9,9 +9,10 @@
  * Vte C interface support for Poly/ML
  */
 
+#include <stdio.h>
 #include <vte/vte.h>
 
-#include "giraffe-common.h"
+#include "giraffe.c"
 #include "giraffe-glib-2.0.h"
-#include "giraffe-vte-2.91-common.c"
+#include "vte-2.91/giraffe.c"
 

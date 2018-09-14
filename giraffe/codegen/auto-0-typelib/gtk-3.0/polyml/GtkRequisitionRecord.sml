@@ -7,21 +7,33 @@ structure GtkRequisitionRecord :> GTK_REQUISITION_RECORD =
     local
       open PolyMLFFI
     in
-      val new_ = call (getSymbol "giraffe_gtk_requisition_new") (cVoid --> cPtr)
-      val copy_ = call (getSymbol "giraffe_gtk_requisition_copy") (cPtr &&> cPtr --> cVoid)
-      val free_ = call (getSymbol "giraffe_gtk_requisition_free") (cPtr --> cVoid)
-      val size_ = call (getSymbol "giraffe_gtk_requisition_size") (cVoid --> GUInt.PolyML.cVal)
+      val size_ = fn () => 8
+      val memcpy_ =
+        call (getSymbol "memcpy")
+          (
+            cPtr
+             &&> cPtr
+             &&> GSize.PolyML.cVal
+             --> cVoid
+          )
+      val copy_ =
+        fn
+          src & dest =>
+            memcpy_
+              (
+                dest
+                 & src
+                 & size_ ()
+              )
+      val clear_ = Fn.ignore
     end
     structure Record =
       BoxedValueRecord(
         structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
-        val new_ = new_
         val copy_ = copy_
-        val take_ = ignore
-        val clear_ = ignore
-        val free_ = free_
+        val clear_ = clear_
         val size_ = size_
       )
     open Record

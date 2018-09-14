@@ -1,6 +1,77 @@
 (* --------------------------------------------------------------------------
- * Common functions
+ * Common
  * -------------------------------------------------------------------------- *)
+
+(* Representation of a program unit for multiple compiler targets *)
+
+datatype program =
+  Portable of module list
+| Specific of {mlton : module list, polyml : module list}
+
+val isPortable =
+  fn
+    Portable _ => true
+  | Specific _ => false
+
+
+
+(* Representation and printing of generated C source code *)
+
+(**
+ * At present, only the C interface for record types requires C functions to
+ * be compiled on the target platform.  The required C functions are declared
+ * by invoking preprocessor macros whose definitions, in the static part of
+ * the C library, provide the actual C function.
+ *)
+
+type version = string * string * string  (* (major, minor, patch) : version *)
+
+datatype c_interface_decl =
+  CMacroCall of {name : string, args : string list}
+| CCheckVersion of {decl : c_interface_decl, version : version}
+
+local
+  open HVTextTree
+
+  fun fmtHLast fmtX hLast x = H.seq [fmtX x, hLast]
+  fun fmtSeq (separator, terminator) fmtX xs =
+    let
+      val rec aux =
+        fn
+          []      => []
+        | x :: [] => fmtX terminator x :: []
+        | x :: xs => fmtX separator x :: aux xs
+    in
+      aux xs
+    end
+in
+  fun fmtCInterfaceDecl cppPrefix =
+    fn
+      CMacroCall {name, args} =>
+        V.line (
+          H.seq [
+            H.str name,
+            H.str "(",
+            H.seq (fmtSeq (H.str ", ", H.str ")") (fmtHLast H.str) args)
+          ]
+        )
+    | CCheckVersion {decl, version = (major, minor, patch)} =>
+        V.seq [
+          V.line (
+            H.concat [
+              "#if ", cppPrefix, "_CHECK_VERSION(", major, ", ", minor, ", ", patch, ")"
+            ]
+          ),
+          fmtCInterfaceDecl cppPrefix decl,
+          V.str "#endif"
+        ]
+
+  fun fmtCInterfaceDecls cppPrefix = V.seq o map (fmtCInterfaceDecl cppPrefix)
+end
+
+
+
+(* Common code generation functions *)
 
 val internTypeSymbol = "intern"
 

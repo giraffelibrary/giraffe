@@ -20,8 +20,8 @@ use "fxlib-polyml.sml";
 
 print "  general-purpose libraries\n";
 PolyML.Compiler.reportUnreferencedIds := true;
-use "../../src/sml/polyml.sml";
-use "../../src/sml/general/polyml.sml";
+use "../../src/polyml.sml";
+use "../../src/general/polyml.sml";
 
 
 (* Load GIR-based GIRepository *)

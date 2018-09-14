@@ -20,6 +20,6 @@
       PANGO_MICRO_VERSION >= (micro)))
 #endif
 
-#include "giraffe-common.h"
-#include "giraffe-pangocairo-1.0-common.c"
+#include "giraffe.c"
+#include "pangocairo-1.0/giraffe.c"
 #include "giraffe-pangocairo-1.0-mlton.c"

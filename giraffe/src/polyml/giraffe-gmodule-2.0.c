@@ -9,7 +9,8 @@
  * GModule C interface support for Poly/ML
  */
 
+#include <string.h>
 #include <gmodule.h>
 
-#include "giraffe-common.h"
-#include "giraffe-gmodule-2.0-common.c"
+#include "giraffe.c"
+#include "gmodule-2.0/giraffe.c"

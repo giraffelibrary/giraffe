@@ -9,7 +9,7 @@ FIXES_1_GIR="fixes-1-gir"
 FIXES_2_GIR="fixes-2-gir"
 EXTRA_3_GIR="extra-gir"
 SML_GIR="sml-gir"
-SRC="../src/sml"
+SRC="../src"
 
 TMP_DIR="/tmp"
 AUTO_0_GIR_OUT_DIR="${TMP_DIR}/${AUTO_0_GIR}"

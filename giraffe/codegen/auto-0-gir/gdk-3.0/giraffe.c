@@ -1,0 +1,6 @@
+GIRAFFE_DECLARE_VALUE_RECORD(GdkColor, gdk_color)
+GIRAFFE_DECLARE_VALUE_RECORD(GdkGeometry, gdk_geometry)
+GIRAFFE_DECLARE_VALUE_RECORD(GdkKeymapKey, gdk_keymap_key)
+GIRAFFE_DECLARE_VALUE_RECORD(GdkPoint, gdk_point)
+GIRAFFE_DECLARE_VALUE_RECORD(GdkRGBA, gdk_rgba)
+GIRAFFE_DECLARE_VALUE_RECORD(GdkRectangle, gdk_rectangle)

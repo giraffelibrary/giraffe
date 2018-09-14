@@ -7,12 +7,12 @@ open GirAbstractSyntaxTree
 (* Translation
  *
  * Translation is performed on a per-namespace basis.  Translation of a
- * namespace generates an `Info.repodata` structure.
+ * namespace generates an `Info.typelibdata` structure.
  *
  * In a namespace, type elements can refer to top-level elements of included
  * namespaces and of the namespace itself.  The translation algorithm
  * resolves all references, capturing the references (using ref types) in the
- * `Info.repodata` structure that is generated.
+ * `Info.typelibdata` structure that is generated.
  * 
  * The translation is performed in a number of passes.
  * 
@@ -326,6 +326,15 @@ fun makeSignalRun (s : string) : GObjectSignalFlags.t =
         [HText.concat ["when=\"", s, "\" invalid"]]
       )
 
+fun makeVersion (s : string) : string * string * string =
+  case String.fields (fn c => c = #".") s of
+    [major, minor]        => (major, minor, "0")
+  | [major, minor, patch] => (major, minor, patch)
+  | _                     =>
+      raise GIRFail (
+        [HText.concat ["version \"", s, "\" invalid"]]
+      )
+
 
 
 (* --------------------------------------------------------------------------
@@ -341,10 +350,17 @@ fun makeBaseDataConfig (config : config) =
             raise GIRFail (HText.concat ("attribute " :: fmtQuoted "introspectable") :: ms)
 
     val deprecated = isSome (#deprecated config)  (* can't fail *)
+
+    val version =
+      Option.map makeVersion (#version config)
+        handle
+          GIRFail ms =>
+            raise GIRFail (HText.concat ("attribute " :: fmtQuoted "version") :: ms)
   in
     {
       introspectable = introspectable,
       deprecated     = deprecated,
+      version        = version,
       attributes     = ListDict.empty      
     }
   end
@@ -374,6 +390,7 @@ fun makeElemBaseData container makeInstance con typelib name x
         container  = NONE,
         typelib    = typelib,
         deprecated = false,
+        version    = NONE,
         attributes = ListDict.empty,
         instance   = Info.INVALID
       }
@@ -386,6 +403,7 @@ fun makeElemBaseData container makeInstance con typelib name x
       container  = container,
       typelib    = typelib,
       deprecated = false,
+      version    = NONE,
       attributes = ListDict.empty,
       instance   = instance
     };
@@ -404,7 +422,7 @@ fun makeConfigElemBaseData
   x
   : Info.basedata option =
   let
-    val {introspectable, deprecated, attributes} =
+    val {introspectable, deprecated, version, attributes} =
       makeBaseDataConfig config
         handle
           GIRFail ms =>
@@ -421,6 +439,7 @@ fun makeConfigElemBaseData
         container  = NONE,
         typelib    = typelib,
         deprecated = false,
+        version    = NONE,
         attributes = ListDict.empty,
         instance   = Info.INVALID
       }
@@ -436,6 +455,7 @@ fun makeConfigElemBaseData
       container  = container,
       typelib    = typelib,
       deprecated = deprecated,
+      version    = version,
       attributes = attributes,
       instance   = instance
     };
@@ -450,7 +470,7 @@ fun updateElemBaseData makeInstance con x baseData : unit =
   let
     val Info.BASE refData = baseData
     val
-      ref {name, container, typelib, deprecated, attributes, instance} =
+      ref {name, container, typelib, deprecated, version, attributes, instance} =
       refData
   in
     case instance of
@@ -463,6 +483,7 @@ fun updateElemBaseData makeInstance con x baseData : unit =
                 container  = container,
                 typelib    = typelib,
                 deprecated = deprecated,
+                version    = version,
                 attributes = attributes,
                 instance   = Info.TRANSLATING
               }
@@ -478,6 +499,7 @@ fun updateElemBaseData makeInstance con x baseData : unit =
               container  = container,
               typelib    = typelib,
               deprecated = deprecated,
+              version    = version,
               attributes = attributes,
               instance   = instance
             }
@@ -1591,6 +1613,7 @@ and makeRecord
   (
     {
       name,
+      cType,
       typeName,
       getType,
       isGTypeStructFor,
@@ -1624,6 +1647,7 @@ and makeRecord
 
     val structData : Info.structdata =
       {
+        cType         = cType,
         isGTypeStruct = isGTypeStruct,
         isForeign     = isForeign,
         method        = method,
@@ -1971,7 +1995,7 @@ fun dropNamespaceElem annElem =
   | _                                                           => annElem
 
 
-fun initRepodata
+fun initTypelib
   includes
   packages
   dependencies
@@ -1985,7 +2009,7 @@ fun initRepodata
     }
       : 'a namespace
   )
-    : Info.repodata =
+    : Info.typelibdata =
   ref
     {
       includes     = includes,
@@ -2002,7 +2026,7 @@ fun initRepodata
       elemDict     = Dict.empty
     }
 
-fun updateRepodataInfos infos elemDict typelib =
+fun updateTypelibInfos infos elemDict typelib =
   let
     val
       ref
@@ -2098,16 +2122,16 @@ end
 
 
 (* `translate elemDicts repository` returns `repository` with the translated
- * `Info.repodata` structure in the `data` field.  `elemDicts` provides a
+ * `Info.typelibdata` structure in the `data` field.  `elemDicts` provides a
  * type dictionary for each included namespace, to resolve type references
  * when translating. *)
 
-fun translate dependencies elemDicts repository =
+fun translate dependencies elemDicts gir =
   let
-    val {version, includes, packages, namespace, data = ()} = repository
+    val {version, includes, packages, namespace, data = ()} = gir
 
-    val typelib : Info.repodata =
-      initRepodata includes packages dependencies namespace
+    val typelib : Info.typelibdata =
+      initTypelib includes packages dependencies namespace
 
     val (namespace' as {elems, ...}, elemDict') =
       let
@@ -2190,7 +2214,7 @@ fun translate dependencies elemDicts repository =
 
     val infos = Vector.fromList (List.mapPartial #data elems)
   in
-    updateRepodataInfos infos elemDict' typelib : unit;
+    updateTypelibInfos infos elemDict' typelib : unit;
     {
       version   = version,
       includes  = includes,
@@ -2198,7 +2222,7 @@ fun translate dependencies elemDicts repository =
       namespace = namespace',
       data      = typelib
     }
-      : (Info.repodata, Info.basedata option) repository
+      : (Info.typelibdata, Info.basedata option) repository
   end
     handle
       GIRFail ms => (

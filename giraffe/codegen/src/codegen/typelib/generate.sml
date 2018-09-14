@@ -1,6 +1,6 @@
 fun loadNamespace repo (namespace, version) =
   let
-    val (tylib, vers) =
+    val (typelib, vers) =
       Repository.require
         repo
         (namespace, version, RepositoryLoadFlags.flags [])
@@ -8,7 +8,7 @@ fun loadNamespace repo (namespace, version) =
     val namespace_ =
       Repository.loadTypelib
         repo
-        tylib
+        typelib
         (RepositoryLoadFlags.flags [])
 
     (* a sanity check... *)
@@ -27,9 +27,12 @@ fun loadNamespace repo (namespace, version) =
             ]
           )
   in
-    vers
+    (typelib, vers)
   end
 
+
+
+fun mkFile base ext = OS.Path.joinBaseExt {base = base, ext = SOME ext}
 
 
 datatype target =
@@ -41,16 +44,23 @@ val targetString =
     MLton  => "mlton"
   | PolyML => "polyml"
 
-fun mkTargetDir dir c = OS.Path.joinDirFile {dir = dir, file = targetString c}
+fun mkTargetDir dir target =
+  OS.Path.joinDirFile {dir = dir, file = targetString target}
 
-fun mkFile id ext = OS.Path.joinBaseExt {base = id, ext = SOME ext}
+fun mkTargetFile target base ext =
+  OS.Path.joinDirFile {dir = targetString target, file = mkFile base ext}
 
-fun mkTargetFile c id ext =
-  OS.Path.joinDirFile {dir = targetString c, file = mkFile id ext}
 
-val sml = "sml"
-val mlb = "mlb"
+datatype content =
+  SML
+| MLB
+| C
 
+val contentExt =
+  fn
+    SML => "sml"
+  | MLB => "mlb"
+  | C   => "c"
 
 
 fun mkBaseVersion base ver = String.concat [base, "-", ver]
@@ -117,16 +127,16 @@ fun sort (m : (id * ('a * id list)) list) : (id * 'a) list =
 
 
 
-fun mkProgramFile isPolyML (id, isPortable) =
-  if isPortable
-  then mkFile id sml
-  else mkTargetFile (if isPolyML then PolyML else MLton) id sml
+fun mkSourceFile content target (id, isPortable) =
+  (if isPortable then mkFile id else mkTargetFile target id) (contentExt content)
+
+val mkProgramFile = mkSourceFile SML
 
 
 fun mkMLBBasDec (root, dir, base) =
   OS.Path.joinDirFile {
     dir  = OS.Path.joinDirFile {dir = root, file = dir},
-    file = mkFile base mlb
+    file = mkFile base (contentExt MLB)
   }
 
 val mltonBasDecs = [
@@ -149,7 +159,7 @@ fun mkNamespaceBasDec namespaceDep =
 
 fun fmtNamespaceBasisMLton namespaceDeps (revSigs, revStrs) : VTextTree.t =
   let
-    val mkMLtonFile = mkProgramFile false
+    val mkMLtonFile = mkProgramFile MLton
     val sigBasDecs = revMap mkMLtonFile revSigs
     val strBasDecs = revMap mkMLtonFile revStrs
 
@@ -189,8 +199,8 @@ fun fmtNamespaceBasisMLton namespaceDeps (revSigs, revStrs) : VTextTree.t =
 
 local
   fun mkUseTopLevelDec e = TopLevelDecExp (ExpApp (mkIdLNameExp "use", e))
-  val useSigExp = mkUseTopLevelDec o ExpConst o ConstString o mkProgramFile true
-  val useStrExp = mkUseTopLevelDec o ExpConst o ConstString o mkProgramFile true
+  val useSigExp = mkUseTopLevelDec o ExpConst o ConstString o mkProgramFile PolyML
+  val useStrExp = mkUseTopLevelDec o ExpConst o ConstString o mkProgramFile PolyML
 in
   fun fmtNamespaceBasisPolyML (revSigs, revStrs)
     : VTextTree.t =
@@ -221,28 +231,33 @@ fun writeFile dir file v =
     TextIO.closeOut ostream
   end
 
+
 fun fmtModules ms = PrettyPrint.fmtProgram (map mkModuleTopLevelDec ms)
 
 fun writeProgramFileMLton dir (id, ms) =
-  writeFile dir (mkTargetFile MLton id sml) (fmtModules ms)
+  writeFile dir (mkTargetFile MLton id (contentExt SML)) (fmtModules ms)
+
 fun writeProgramFilePolyML dir (id, ms) =
-  writeFile dir (mkTargetFile PolyML id sml) (fmtModules ms)
+  writeFile dir (mkTargetFile PolyML id (contentExt SML)) (fmtModules ms)
+
 fun writeProgramFile dir (id, program) =
   case program of
-    Portable ms              => writeFile dir (mkFile id sml) (fmtModules ms)
+    Portable ms              =>
+      writeFile dir (mkFile id (contentExt SML)) (fmtModules ms)
   | Specific {mlton, polyml} => (
       writeProgramFileMLton dir (id, mlton);
       writeProgramFilePolyML dir (id, polyml)
     )
 
+
 fun writeBasisFileMLton namespaceDir namespaceDeps (revSigs, revStrs) =
   writeFile namespaceDir
-    (mkFile (targetString MLton) mlb)
+    (mkFile (targetString MLton) (contentExt MLB))
     (fmtNamespaceBasisMLton namespaceDeps (revSigs, revStrs))
 
 fun writeBasisFilePolyML namespaceDir (revSigs, revStrs) =
   writeFile namespaceDir
-    (mkFile (targetString PolyML) sml)
+    (mkFile (targetString PolyML) (contentExt SML))
     (fmtNamespaceBasisPolyML (revSigs, revStrs))
 
 fun writeBasisFile
@@ -254,6 +269,11 @@ fun writeBasisFile
     writeBasisFileMLton namespaceDir namespaceDeps (revSigs, revStrs);
     writeBasisFilePolyML namespaceDir (revSigs, revStrs)
   end
+
+
+fun writeCInterfaceFile dir cppPrefix cInterfaceDecls =
+  writeFile dir (mkFile giraffeId (contentExt C))
+    (fmtCInterfaceDecls cppPrefix cInterfaceDecls)
 
 
 (* `createNamespaceDir isInit (namespace, version)` creates the directory
@@ -473,17 +493,17 @@ val updateStr =
 fun insertStr x = ListDict.insert #2 updateStr x
 fun insertStrs (xs, m) = List.foldr insertStr m xs
 
-fun generateFull dir repo (namespace, version) (extraVers, extraSigs, extraStrs) =
+fun generateFull dir repo (namespace, version, cppPrefix) (extraVers, extraSigs, extraStrs) =
   let
-    val vers'1 = loadNamespace repo (namespace, version)
+    val (_, vers'1) = loadNamespace repo (namespace, version)
     val vers = Repository.extendTypelibVers extraVers vers'1
 
     val namespaceDeps =
       getOpt (Repository.getDependencies repo vers namespace, [])
 
-    (* generate code for the entire namespace *)
-    val ((modules, constants, functions, structDeps), excls) =
-      translateLoadedNamespace repo vers namespace
+    (* generate SML code for the namespace except its signature and structure *)
+    val ((modules, constants, functions, structDeps, cInterfaceDecls), excls) =
+      makeNamespaceElems repo vers namespace
 
     val (files'1, sigs'1, strs'1, numProps, numSigs, useAccessors) = modules
 
@@ -524,6 +544,8 @@ fun generateFull dir repo (namespace, version) (extraVers, extraSigs, extraStrs)
        *      modules from step 2, giving `files'2`.
        *
        *   8. Write module files `files'2` from step 7.
+       *
+       *   9. Write the C interface file.
        *)
 
       (* Step 1 *)
@@ -574,6 +596,9 @@ fun generateFull dir repo (namespace, version) (extraVers, extraSigs, extraStrs)
 
       (* Step 8 *)
       val () = ListDict.appi (writeProgramFile namespaceDir) files'2
+
+      (* Step 9 *)
+      val () = writeCInterfaceFile namespaceDir cppPrefix cInterfaceDecls
 
       val () = OS.FileSys.chDir curDir
     in

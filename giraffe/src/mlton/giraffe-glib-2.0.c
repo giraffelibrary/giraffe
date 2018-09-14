@@ -13,10 +13,10 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#include "giraffe-common.h"
+#include "giraffe.c"
 #include "giraffe-sml-glib-2.0.h"
 #include "giraffe-glib-2.0.h"
-#include "giraffe-glib-2.0-common.c"
+#include "glib-2.0/giraffe.c"
 #include "giraffe-glib-2.0-mlton.c"
 
 

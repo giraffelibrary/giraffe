@@ -31,6 +31,14 @@ structure GIRepositoryBaseInfo :>
         deprecated
       end
 
+    fun getVersion info =
+      let
+        val Info.BASE (ref {version, ...}) & _ =
+          GIRepositoryBaseInfoClass.Obj.unpack info
+      in
+        version
+      end
+
     fun getAttribute info =
       let
         val Info.BASE (ref {attributes, ...}) & _ =

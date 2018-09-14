@@ -12,5 +12,5 @@
 #include <string.h>
 #include <gtksourceview/gtksource.h>
 
-#include "giraffe-common.h"
-#include "giraffe-gtksource-3.0-common.c"
+#include "giraffe.c"
+#include "gtksource-3.0/giraffe.c"

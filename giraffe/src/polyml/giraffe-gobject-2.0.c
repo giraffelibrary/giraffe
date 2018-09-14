@@ -9,6 +9,7 @@
  * GObject C interface support for Poly/ML
  */
 
+#include <string.h>
 #include <glib-object.h>
 
 #ifdef GIRAFFE_DEBUG
@@ -17,8 +18,8 @@ gboolean giraffe_debug_closure;
 gboolean giraffe_debug_ref_count;
 #endif /* GIRAFFE_DEBUG */
 
-#include "giraffe-common.h"
-#include "giraffe-gobject-2.0-common.c"
+#include "giraffe.c"
+#include "gobject-2.0/giraffe.c"
 
 
 /* GType */
@@ -307,18 +308,6 @@ giraffe_g_param_variant_get_type (void)
 
 
 /* GValue */
-
-GValue *
-giraffe_g_value_new (void)
-{
-  return g_slice_new0 (GValue);  /* clear memory to 0 */
-}
-
-void
-giraffe_g_value_free (GValue *value)
-{
-  g_slice_free (GValue, value);
-}
 
 void
 giraffe_g_value_copy (const GValue *src, GValue *dest)

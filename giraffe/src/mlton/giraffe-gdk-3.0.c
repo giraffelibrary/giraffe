@@ -20,8 +20,8 @@
       GDK_MICRO_VERSION >= (micro)))
 #endif
 
-#include "giraffe-common.h"
-#include "giraffe-gdk-3.0-common.c"
+#include "giraffe.c"
+#include "gdk-3.0/giraffe.c"
 #include "giraffe-gdk-3.0-mlton.c"
 
 

@@ -12,11 +12,15 @@ Source release directory layout
     layout.txt                - this file
 
   src/                      - source code
+    giraffe.c                 - C interface support (common)
+
     mlton/                    - C interface support for MLton
       cvector.h                 - interface functions for C array FFI
       cvectorvector.h           - interface functions for C array FFI
       giraffe-sml-<namespace>-<version>.h
                                 - SML interface exported by MLton
+      giraffe-<namespace>-<version>-mlton.c
+                                - C wrapper functions for array arguments
       giraffe-<namespace>-<version>.h
       giraffe-<namespace>-<version>.c
 
@@ -24,26 +28,31 @@ Source release directory layout
       giraffe-<namespace>-<version>.h
       giraffe-<namespace>-<version>.c
 
-    sml/                      - SML libraries
-      polyml.sml                - recursive 'use' function for Poly/ML
+    polyml.sml                - recursive 'use' function for Poly/ML
 
-      general/                  - general purpose SML utilities
+    general/                  - general purpose SML utilities
         mlton.mlb
         polyml.sml
         mlton/
         polyml/
+        ...
 
-      ffi/                      - FFI extensions (for high-level FFI)
-        mlton.mlb
-        polyml.sml
-        mlton/
-        polyml/
+    ffi/                      - FFI extensions (for high-level FFI)
+      mlton.mlb
+      polyml.sml
+      mlton/
+      polyml/
+      ...
 
-      <namespace>-<version>/    - SML bindings for <namespace>-<version>
-        mlton.mlb
-        polyml.sml
-        mlton/
-        polyml/
+    <namespace>-<version>/    - SML bindings for <namespace>-<version>
+      giraffe.c
+      mlton.mlb
+      polyml.sml
+      mlton/
+      polyml/
+      ...
+
+    excluded-log.page         - log of excluded parts of each namespace
 
 
 
@@ -57,25 +66,28 @@ Installation directory layout
       libgiraffe-<namespace>-<version>.so
 
     sml/                      - SML libraries (source code, not compiled)
-      polyml.sml                - copy of src/sml/polyml.sml
+      polyml.sml                - copy of src/polyml.sml
 
-      general/                  - copy of src/sml/general
+      general/                  - copy of src/general
         mlton.mlb
         polyml.sml
         mlton/
         polyml/
+        ...
 
-      ffi/                      - copy of src/sml/ffi
+      ffi/                      - copy of src/ffi
         mlton.mlb
         polyml.sml
         mlton/
         polyml/
+        ...
 
-      <namespace>-<version>/    - copy of src/sml/<namespace>-<version>
+      <namespace>-<version>/    - copy of (non C from) src/<namespace>-<version>
         mlton.mlb
         polyml.sml
         mlton/
         polyml/
+        ...
 
   include/
     mlton/

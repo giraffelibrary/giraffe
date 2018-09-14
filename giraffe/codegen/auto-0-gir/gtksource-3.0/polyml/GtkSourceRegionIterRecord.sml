@@ -7,21 +7,33 @@ structure GtkSourceRegionIterRecord :> GTK_SOURCE_REGION_ITER_RECORD =
     local
       open PolyMLFFI
     in
-      val new_ = call (getSymbol "giraffe_gtk_source_region_iter_new") (cVoid --> cPtr)
-      val copy_ = call (getSymbol "giraffe_gtk_source_region_iter_copy") (cPtr &&> cPtr --> cVoid)
-      val free_ = call (getSymbol "giraffe_gtk_source_region_iter_free") (cPtr --> cVoid)
-      val size_ = call (getSymbol "giraffe_gtk_source_region_iter_size") (cVoid --> GUInt.PolyML.cVal)
+      val size_ = call (getSymbol "giraffe_gtk_source_region_iter_size") (cVoid --> GSize.PolyML.cVal)
+      val memcpy_ =
+        call (getSymbol "memcpy")
+          (
+            cPtr
+             &&> cPtr
+             &&> GSize.PolyML.cVal
+             --> cVoid
+          )
+      val copy_ =
+        fn
+          src & dest =>
+            memcpy_
+              (
+                dest
+                 & src
+                 & size_ ()
+              )
+      val clear_ = Fn.ignore
     end
     structure Record =
       BoxedValueRecord(
         structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
-        val new_ = new_
         val copy_ = copy_
-        val take_ = ignore
-        val clear_ = ignore
-        val free_ = free_
+        val clear_ = clear_
         val size_ = size_
       )
     open Record

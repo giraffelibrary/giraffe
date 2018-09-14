@@ -12,5 +12,5 @@
 #include <string.h>
 #include <pango/pango.h>
 
-#include "giraffe-common.h"
-#include "giraffe-pango-1.0-common.c"
+#include "giraffe.c"
+#include "pango-1.0/giraffe.c"

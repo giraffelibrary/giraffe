@@ -132,10 +132,10 @@ structure GIRepositoryRepository :>
       ]
 
     fun genTypelib (loaded, path, namespace_, version)
-      : Info.repodata * string ListDict.t =
+      : Info.typelibdata * string ListDict.t =
       let
         (* Read GIR file *)
-        val repository as {includes, ...} =
+        val gir as {includes, ...} =
           GirReader.readRepo path (namespace_, version)
 
         (* Create type dictionary for included namespaces, checking that
@@ -207,10 +207,10 @@ structure GIRepositoryRepository :>
             ((namespace_, version), dependencies)
 
         (* Parse GIR abstract syntax *)
-        val {data = repodata, ...} =
-          GirTranslator.translate dependencies elemDicts repository
+        val {data = typelib, ...} =
+          GirTranslator.translate dependencies elemDicts gir
       in
-        (repodata, versions)
+        (typelib, versions)
       end
 
     fun require repository (namespace_, version, _) =
@@ -226,7 +226,7 @@ structure GIRepositoryRepository :>
             ((typelib, versions), typelib)
           end
 
-        exception Unchanged of Info.repodata
+        exception Unchanged of Info.typelibdata
         fun keepTypelib ((), oldTypelib) = raise (Unchanged oldTypelib)
 
         fun create () =

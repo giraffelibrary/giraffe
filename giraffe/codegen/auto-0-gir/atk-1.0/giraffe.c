@@ -1,0 +1,2 @@
+GIRAFFE_DECLARE_VALUE_RECORD(AtkRectangle, atk_rectangle)
+GIRAFFE_DECLARE_VALUE_RECORD(AtkTextRectangle, atk_text_rectangle)

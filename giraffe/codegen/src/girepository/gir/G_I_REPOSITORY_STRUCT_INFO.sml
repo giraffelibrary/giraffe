@@ -8,6 +8,7 @@ signature G_I_REPOSITORY_STRUCT_INFO =
     val getNMethods : 'a class -> LargeInt.int
     val getMethod : 'a class -> LargeInt.int -> base functioninfo_class
     val findMethod : 'a class -> string -> base functioninfo_class
+    val getCName : 'a class -> string
     val isGtypeStruct : 'a class -> bool
     val isForeign : 'a class -> bool
   end

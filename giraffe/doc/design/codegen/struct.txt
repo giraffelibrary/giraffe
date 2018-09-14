@@ -12,15 +12,29 @@ Context
     extra information provided as part of codegen configuration indicating the
     struct type as follows:
 
-      ValueRecord         - the struct can be used like a value in C (and
-                            therefore also like a reference in C via a pointer);
+      ValueRecord funcs
+        The struct can be used like a value in C (and therefore also like a
+        reference in C via a pointer).  The struct may own references to
+        other data in which case a deep copy is required when copying the
+        struct and references to other data must be cleared before freeing
+        the struct itself.  To support this, `funcs` is as follows:
 
-      Record {dup, free}  - the struct can only be used like a reference in C
-                            via a pointer, where C functions `dup` and `free`
-                            duplicate (or ref) and free (or unref) such a struct
-                            in C;
+          SOME {copy, clear}
+            The C function `copy` performs a deep copy and the C function
+            `clear` removes all references to other data.
 
-      DisguisedRecord     - the struct is opaque and is just a pointer in C.
+          NONE
+            In the common case that the struct does not own references to
+            other data, memcpy can be used to copy and there is no other
+            referenced data to clear.
+
+      Record {dup, free}
+        The struct can only be used like a reference in C via a pointer, where
+        C functions `dup` and `free` duplicate (or ref) and free (or unref)
+        the struct.
+
+      DisguisedRecord
+        The struct is opaque and is just a pointer in C.
 
 
 Placeholders
@@ -33,6 +47,8 @@ Placeholders
 
   optGetTypeSymbol = GIRegisteredTypeInfo.getTypeInit structInfo
 
+  structSize = StructInfo.getSie structInfo  (TYPELIB only)
+
 
 Conditions
 
@@ -44,10 +60,10 @@ Conditions
 signature <STRUCT_NAMESPACE>_<STRUCT_NAME>_RECORD =
   sig
                                                                -.
-    include VALUE_RECORD                                        | structType = ValueRecord
+    include VALUE_RECORD                                        | structType is ValueRecord _
                                                                -'
                                                                -.
-    include RECORD                                              | structType <> ValueRecord
+    include RECORD                                              | structType is Record _ | DisguisedRecord
                                                                -'
                                                                -.                -.
     type ('a, 'b) value_accessor_t                              |                 |
@@ -72,7 +88,7 @@ structure <StructNamespace><StructName>Record :>
   struct
                                                                                                                 -.
     structure Pointer = CPointerInternal                                                                         |
-    type notnull = Pointer.notnull                                                                               | structType is ValueRecord | Record _
+    type notnull = Pointer.notnull                                                                               | structType is ValueRecord _ | Record _
     type 'a p = 'a Pointer.p                                                                                     |
                                                                                                                 -'
                                                                                                                 -.
@@ -81,27 +97,38 @@ structure <StructNamespace><StructName>Record :>
     local                                                                                                        |
       open PolyMLFFI                                                                                             |
     in                                                                                                           |
-                                                                                          -.                     |
-      val new_ =                                                                           |                     |
-        call                                                                               |                     |
-          (getSymbol "giraffe_<struct_namespace>_<struct_name>_new")                       |                     |
-          (cVoid --> cPtr)                                                                 |                     |
-                                                                                           |                     |
-      val copy_ =                                                                          |                     |
-        call                                                                               |                     |
-          (getSymbol "giraffe_<struct_namespace>_<struct_name>_copy")                      |                     |
-          (cPtr &&> cPtr --> cVoid)                                                        |                     |
-                                                                                           | structType is       |
-      val free_ =                                                                          |  ValueRecord        |
-        call                                                                               |                     |
-          (getSymbol "giraffe_<struct_namespace>_<struct_name>_free")                      |                     |
-          (cPtr --> cVoid)                                                                 |                     |
-                                                                                           |                     |
-      val size_ =                                                                          |                     | Poly/ML only
-        call                                                                               |                     |
-          (getSymbol "giraffe_<struct_namespace>_<struct_name>_size")                      |                     | structType is ValueRecord | Record _
-          (cVoid --> GUInt.PolyML.cVal)                                                    |                     |
-                                                                                          -'                     |
+                                                                    -.                    -.                     |
+      val size_ =                                                    |                     |                     |
+        call                                                         | using GIR           |                     |
+          (getSymbol "giraffe_<struct_namespace>_<struct_name>_size")|                     |                     |
+          (cVoid --> GSize.PolyML.cVal)                              |                     |                     |
+                                                                    -'                     |                     |
+                                                                    -.                     |                     |
+      val size_ = fn () => <structSize>                              | using TYPELIB       |                     |
+                                                                    -'                     |                     |
+                                                                    -.                     |                     |
+      val memcpy_ =                                                  |                     |                     |
+        call                                                         |                     |                     |
+          (getSymbol "memcpy")                                       |                     |                     |
+          (cPtr &&> cPtr &&> GSize.FFI.cVal --> cVoid)               |                     |                     |
+                                                                     | funcs is NONE       |                     |
+      val copy_ =                                                    |                     | structType is       |
+        fn src & dest =>                                             |                     |  ValueRecord funcs  |
+          memcpy_ (dest & src & size_ ())                            |                     |                     | Poly/ML only
+                                                                     |                     |                     |
+      val clear_ = Fn.ignore                                         |                     |                     | structType is ValueRecord _ | Record _
+                                                                    -'                     |                     |
+                                                                    -.                     |                     |
+      val copy_ =                                                    |                     |                     |
+        call                                                         |                     |                     |
+          (getSymbol "<copy>")                                       |                     |                     |
+          (cPtr &&> cPtr --> cVoid)                                  | funcs is            |                     |
+                                                                     |  SOME {copy, clear} |                     |
+      val clear_ =                                                   |                     |                     |
+        call                                                         |                     |                     |
+          (getSymbol "<clear>")                                      |                     |                     |
+          (cPtr --> cVoid)                                           |                     |                     |
+                                                                    -'                    -'                     |
                                                                                           -.                     |
       val dup_ =                                                                           |                     |
         call                                                                               |                     |
@@ -116,20 +143,35 @@ structure <StructNamespace><StructName>Record :>
     end                                                                                                          |
                                                                                                                 -'
                                                                                           -.                    -.
-    val new_ =                                                                             |                     |
-      _import "giraffe_<struct_namespace>_<struct_name>_new" : unit -> notnull p;          |                     |
-                                                                                           |                     |
-    val copy_ =                                                                            |                     |
-      fn x1 & x2 =>                                                                        |                     |
-        (_import "giraffe_<struct_namespace>_<struct_name>_copy" : notnull p * notnull p -> unit;)               |
-        (x1, x2)                                                                           |                     |
-                                                                                           | structType is       |
-    val free_ =                                                                            |  ValueRecord        | MLton only
-      _import "giraffe_<struct_namespace>_<struct_name>_free" : notnull p -> unit;         |                     |
-                                                                                           |                     |
-    val size_ =                                                                            |                     |
-      _import "giraffe_<struct_namespace>_<struct_name>_size" : unit -> GUInt.FFI.val_;    |                     |
-                                                                                          -'                     |
+                                                                    -.                     |                     |
+    val size_ =                                                      |                     |                     |
+      _import "giraffe_<struct_namespace>_<struct_name>_size"        | using GIR           |                     |
+        : unit -> GSize.FFI.val_;                                    |                     |                     |
+                                                                    -'                     |                     |
+                                                                    -.                     |                     |
+    val size_ = fn () => <structSize>                                | using TYPELIB       |                     |
+                                                                    -'                     |                     |
+                                                                    -.                     |                     |
+    val memcpy_ =                                                    |                     |                     |
+      fn x1 & x2 & x3 =>                                             |                     |                     |
+        (_import "memcpy" : notnull p * notnull p * GSize.FFI.val_ -> unit;)               |                     |
+        (x1, x2, x3)                                                 |                     |                     |
+                                                                     | funcs is NONE       | structType is       |
+    val copy_ =                                                      |                     |  ValueRecord funcs  |
+      fn src & dest =>                                               |                     |                     |
+        memcpy_ (dest & src & size_ ())                              |                     |                     | MLton only
+                                                                     |                     |                     |
+    val clear_ = Fn.ignore                                           |                     |                     |
+                                                                    -'                     |                     |
+                                                                    -.                     |                     |
+    val copy_ =                                                      |                     |                     |
+      fn x1 & x2 =>                                                  |                     |                     |
+        (_import "<copy>" : notnull p * notnull p -> unit;)          | funcs is            |                     |
+        (x1, x2)                                                     |  SOME {copy, clear} |                     |
+                                                                     |                     |                     |
+    val clear_ =                                                     |                     |                     |
+      _import "<clear>" : notnull p -> unit;                         |                     |                     |
+                                                                    -'                    -'                     |
                                                                                           -.                     |
     val dup_ = _import "<dup>" : notnull p -> notnull p;                                   | structType is       |
                                                                                            |  Record {dup, free} |
@@ -140,12 +182,9 @@ structure <StructNamespace><StructName>Record :>
       BoxedValueRecord(                                                                    |
         structure Pointer = Pointer                                                        |
         type notnull = notnull                                                             |
-        type 'a p = 'a p                                                                   |
-        val new_ = new_                                                                    |
-        val copy_ = copy_                                                                  | structType is ValueRecord
-        val take_ = ignore                                                                 |
-        val clear_ = ignore                                                                |
-        val free_ = free_                                                                  |
+        type 'a p = 'a p                                                                   | structType is ValueRecord _
+        val copy_ = copy_                                                                  |
+        val clear_ = clear_                                                                |
         val size_ = size_                                                                  |
       )                                                                                    |
                                                                                           -'
@@ -162,8 +201,8 @@ structure <StructNamespace><StructName>Record :>
                                                                                           -'
                                                                                           -.
     structure Record =                                                                     |
-      PointerRecord(                                                                       |
-        val name = "<StructNamespace>.<StructName>"                                        | structType is DisguisedRecord
+      PointerRecord(                                                                       | structType is DisguisedRecord
+        val name = "<StructNamespace>.<StructName>"                                        |
       )                                                                                    |
                                                                                           -'
     open Record

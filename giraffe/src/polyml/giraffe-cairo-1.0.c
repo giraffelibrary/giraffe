@@ -13,5 +13,5 @@
 #include <glib.h>
 #include <cairo/cairo.h>
 
-#include "giraffe-common.h"
-#include "giraffe-cairo-1.0-common.c"
+#include "giraffe.c"
+#include "cairo-1.0/giraffe.c"

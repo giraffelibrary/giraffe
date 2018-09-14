@@ -1,0 +1,1 @@
+GIRAFFE_DECLARE_VALUE_RECORD(GdkPixdata, gdk_pixbuf_pixdata)

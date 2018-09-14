@@ -28,7 +28,7 @@ fun checkInterfaceType interfaceInfo =
 (* Struct types *)
 	
 datatype struct_type =
-  ValueRecord
+  ValueRecord of {copy : string, clear : string} option
 | Record of {dup : string, free : string}
 | DisguisedRecord
 

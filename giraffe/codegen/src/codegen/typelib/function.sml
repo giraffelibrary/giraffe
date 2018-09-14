@@ -374,8 +374,8 @@ val needsStructDeps =
               val structNamespace = BaseInfo.getNamespace structInfo
             in
               case getStructType (structNamespace, structName) of
-                ValueRecord => SOME false
-              | _           => SOME true
+                ValueRecord _ => SOME false
+              | _             => SOME true
             end 
         | _                 => SOME true
       end
@@ -812,8 +812,8 @@ fun getParInfo
                               SOME _ => true
                             | NONE   => (
                                 case getStructType (interfaceNamespace, interfaceName) of
-                                  ValueRecord => false
-                                | _           => true
+                                  ValueRecord _ => false
+                                | _             => true
                               )
                           )
                         | UNION _     => true
@@ -1198,8 +1198,8 @@ fun getRetInfo
                               SOME _ => true
                             | NONE   => (
                                 case getStructType (interfaceNamespace, interfaceName) of
-                                  ValueRecord => false
-                                | _           => true
+                                  ValueRecord _ => false
+                                | _             => true
                               )
                           )
                         | UNION _     => true

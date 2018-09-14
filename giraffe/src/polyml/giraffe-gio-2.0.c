@@ -12,5 +12,5 @@
 #include <string.h>
 #include <gio/gio.h>
 
-#include "giraffe-common.h"
-#include "giraffe-gio-2.0-common.c"
+#include "giraffe.c"
+#include "gio-2.0/giraffe.c"

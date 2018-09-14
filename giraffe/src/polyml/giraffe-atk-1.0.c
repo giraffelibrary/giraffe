@@ -9,7 +9,8 @@
  * Atk C interface support for Poly/ML
  */
 
+#include <string.h>
 #include <atk/atk.h>
 
-#include "giraffe-common.h"
-#include "giraffe-atk-1.0-common.c"
+#include "giraffe.c"
+#include "atk-1.0/giraffe.c"

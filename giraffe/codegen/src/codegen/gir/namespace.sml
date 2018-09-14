@@ -8,7 +8,7 @@ fun dupFile id _ = raise Fail (String.concat ["duplicate file for module ", id])
 fun insertNew f (x as ((id, _), _)) = ListDict.insert I (f id) x
 fun insertNewList f (xs, m) = List.foldr (insertNew f) m xs
 
-fun translateInfo
+fun makeInfo
   repo
   vers
   namespace
@@ -26,7 +26,8 @@ fun translateInfo
         ),
         constants'0,
         functions'0,
-        structDeps'0
+        structDeps'0,
+        cInterfaceDecls'0
       ),
       excls'0
     )
@@ -91,7 +92,7 @@ fun translateInfo
         val modules'1 =
           (files'1, sigs'1, strs'1, numProps'1, numSigs'1, useAccessors'1)
       in
-        ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
+        ((modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'0), excls'2)
       end
   | InfoType.INTERFACE interfaceInfo =>
       let
@@ -152,7 +153,7 @@ fun translateInfo
         val modules'1 =
           (files'1, sigs'1, strs'1, numProps'1, numSigs'1, useAccessors'1)
       in
-        ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
+        ((modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'0), excls'2)
       end
   | InfoType.STRUCT structInfo       =>
       let
@@ -209,8 +210,11 @@ fun translateInfo
           )
         val modules'1 =
           (files'1, sigs'1, strs'1, numProps'0, numSigs'0, useAccessors'0)
+
+        val cInterfaceDecls'1 =
+          addStructCInterfaceDecl repo vers namespace structInfo cInterfaceDecls'0
       in
-        ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
+        ((modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'1), excls'2)
       end
   | InfoType.UNION unionInfo         =>
       if
@@ -254,7 +258,7 @@ fun translateInfo
           val modules'1 =
             (files'1, sigs'1, strs'1, numProps'0, numSigs'0, useAccessors'0)
         in
-          ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
+          ((modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'0), excls'2)
         end
       else
         acc
@@ -293,7 +297,7 @@ fun translateInfo
         val modules'1 =
           (files'1, sigs'1, strs'1, numProps'0, numSigs'0, useAccessors'1)
       in
-        ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
+        ((modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'0), excls'2)
       end
   | InfoType.ENUM enumInfo           =>
       let
@@ -330,7 +334,7 @@ fun translateInfo
         val modules'1 =
           (files'1, sigs'1, strs'1, numProps'0, numSigs'0, useAccessors'1)
       in
-        ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
+        ((modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'0), excls'2)
       end
   | InfoType.ALIAS aliasInfo         =>
       let
@@ -365,7 +369,7 @@ fun translateInfo
         val modules'1 =
           (files'1, sigs'1, strs'1, numProps'0, numSigs'0, useAccessors'0)
       in
-        ((modules'1, constants'0, functions'0, structDeps'0), excls'2)
+        ((modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'0), excls'2)
       end
   | InfoType.CONSTANT constantInfo   =>
       let
@@ -379,7 +383,7 @@ fun translateInfo
         val (specs'0, strDecs'0) = constants'0
         val constants'1 = (spec :: specs'0, strDec :: strDecs'0)
       in
-        ((modules'0, constants'1, functions'0, structDeps'1), excls'2)
+        ((modules'0, constants'1, functions'0, structDeps'1, cInterfaceDecls'0), excls'2)
       end
   | InfoType.FUNCTION functionInfo   =>
       let
@@ -411,22 +415,26 @@ fun translateInfo
           strDecLowLevelPolyML :: strDecsLowLevelPolyML'0
         )
       in
-        ((modules'0, constants'0, functions'1, structDeps'1), excls'4)
+        ((modules'0, constants'0, functions'1, structDeps'1, cInterfaceDecls'0), excls'4)
       end
   | _                                => acc
 
 
-fun translateLoadedNamespace repo vers namespace =
+fun makeNamespaceElems repo vers namespace =
   let
     val modules'0 = (ListDict.empty, ListDict.empty, ListDict.empty, 0, 0, false)
     val constants'0 = ([], [])
     val functions'0 = ([], [], [], [])
     val structDeps'0 = ListDict.empty
+    val cInterfaceDecls'0 = []
     val excls'0 = []
   in
     revFoldInfosWithExcls
       (Repository.getNInfos repo vers)
       (Repository.getInfo repo vers)
-      (translateInfo repo vers namespace)
-      (namespace, ((modules'0, constants'0, functions'0, structDeps'0), excls'0))
+      (makeInfo repo vers namespace)
+      (
+        namespace,
+        ((modules'0, constants'0, functions'0, structDeps'0, cInterfaceDecls'0), excls'0)
+      )
   end

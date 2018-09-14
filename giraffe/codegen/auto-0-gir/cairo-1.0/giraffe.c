@@ -1,0 +1,1 @@
+GIRAFFE_DECLARE_VALUE_RECORD(cairo_rectangle_int_t, cairo_rectangle_int)

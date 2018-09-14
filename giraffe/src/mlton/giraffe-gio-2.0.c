@@ -16,6 +16,6 @@
 #include <gio/gunixsocketaddress.h>
 #include <gio/gunixmounts.h>
 
-#include "giraffe-common.h"
-#include "giraffe-gio-2.0-common.c"
+#include "giraffe.c"
+#include "gio-2.0/giraffe.c"
 #include "giraffe-gio-2.0-mlton.c"

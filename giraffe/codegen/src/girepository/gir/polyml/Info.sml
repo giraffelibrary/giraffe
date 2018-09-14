@@ -59,8 +59,9 @@ structure Info =
         {
           name       : string option,
           container  : basedata option,
-          typelib    : repodata,
+          typelib    : typelibdata,
           deprecated : bool,
+          version    : (string * string * string) option,
           attributes : string ListDict.t,
           instance   : data
         }
@@ -79,7 +80,7 @@ structure Info =
           arrayType           : GIRepositoryArrayType.t option
         }
 
-    withtype repodata =
+    withtype typelibdata =
       {
         includes     : {name : string, version : string} list,
         packages     : string list,
@@ -183,6 +184,7 @@ structure Info =
 
     and structdata =
       {
+        cType         : string,
         isGTypeStruct : bool,
         isForeign     : bool,
         method        : basedata list,
@@ -196,16 +198,17 @@ structure Info =
       }
 
     (* Unlike the GIRepository library, the GIR interface allows different
-     * versions of the same namespace to be loaded simultaneously.  The
-     * field `loaded` is a map from namespace names to a map from namespace
-     * versions to a `repodata`.  Functions that take a namespace name
-     * argument still work provided that there is only one version of the
-     * specified name loaded.
+     * versions of the same namespace to be loaded simultaneously.  Therefore
+     * the currently loaded namespaces in the field `loaded` is a map from
+     * namespace names to a map from namespace versions to `typelibdata`, the
+     * representation of a TYPELIB file.  Functions that take a namespace
+     * name argument still work provided that there is only one version of
+     * the specified name loaded.
      *)
-    type repository =
+    type repodata =
       {
         path   : unit ListDict.t,
-        loaded : repodata ListDict.t ListDict.t
+        loaded : typelibdata ListDict.t ListDict.t
       }
         ref
   end

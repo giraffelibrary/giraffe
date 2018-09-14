@@ -67,7 +67,7 @@ MLTON_OBJ_FILES := $(patsubst %,src/mlton/giraffe-%.o,$(MLTON_LIB_NAMES))
 MLTON_LIB_FILES := $(patsubst %,src/mlton/libgiraffe-%.a,$(MLTON_LIB_NAMES))
 
 $(MLTON_OBJ_FILES) : src/mlton/giraffe-%.o : src/mlton/giraffe-%.c src/mlton/giraffe-%-mlton.c src/mlton/cvector.h src/mlton/cvectorvector.h
-	$(CC) $(MLTON_CFLAGS) -c -I$(MLTON_INCLUDEDIR) -o $@ `pkg-config --cflags $(shell cat src/sml/$*/package)` $<
+	$(CC) $(MLTON_CFLAGS) -c -I$(MLTON_INCLUDEDIR) -o $@ `pkg-config --cflags $(shell cat src/$*/package)` $<
 
 MLTON_AR_FLAGS := rcs
 
@@ -91,13 +91,13 @@ POLYML_OBJ_FILES := $(patsubst %,src/polyml/giraffe-%.o,$(POLYML_LIB_NAMES))
 POLYML_LIB_FILES := $(patsubst %,src/polyml/libgiraffe-%.$(LIB),$(POLYML_LIB_NAMES))
 
 $(POLYML_OBJ_FILES) : src/polyml/giraffe-%.o : src/polyml/giraffe-%.c
-	$(CC) $(POLYML_CFLAGS) -c -o $@ `pkg-config --cflags $(shell cat src/sml/$*/package)` $<
+	$(CC) $(POLYML_CFLAGS) -c -o $@ `pkg-config --cflags $(shell cat src/$*/package)` $<
 
 $(POLYML_LIB_FILES) : src/polyml/libgiraffe-%.$(LIB) : src/polyml/giraffe-%.o
 ifeq ($(KERNEL_NAME),Darwin)
-	$(CC) -dynamiclib -Wl,-install_name,"@rpath/libgiraffe-$*.$(LIB)" -o $@ $< `pkg-config --libs $(shell cat src/sml/$*/package)`
+	$(CC) -dynamiclib -Wl,-install_name,"@rpath/libgiraffe-$*.$(LIB)" -o $@ $< `pkg-config --libs $(shell cat src/$*/package)`
 else
-	$(CC) -shared -Wl,-soname,libgiraffe-$*.$(LIB) -o $@ $< `pkg-config --libs $(shell cat src/sml/$*/package)`
+	$(CC) -shared -Wl,-soname,libgiraffe-$*.$(LIB) -o $@ $< `pkg-config --libs $(shell cat src/$*/package)`
 endif
 
 
@@ -150,20 +150,20 @@ install-sml :
 	install -c -p -m 644 config.mk "$(PREFIX)"
 	install -d "$(LIBDIR)"
 	install -d "$(LIBDIR)/sml"
-	install -c -p -m 644 src/sml/polyml.sml "$(LIBDIR)/sml"
+	install -c -p -m 644 src/polyml.sml "$(LIBDIR)/sml"
 	for dir in ffi general $(SML_LIB_NAMES) ; \
 	do \
 	  install -d "$(LIBDIR)/sml/$${dir}" ; \
-	  install -c -p -m 644 src/sml/$${dir}/*.sml src/sml/$${dir}/*.mlb "$(LIBDIR)/sml/$${dir}" ; \
+	  install -c -p -m 644 src/$${dir}/*.sml src/$${dir}/*.mlb "$(LIBDIR)/sml/$${dir}" ; \
 	  install -d "$(LIBDIR)/sml/$${dir}/mlton" "$(LIBDIR)/sml/$${dir}/polyml" ; \
-	  install -c -p -m 644 src/sml/$${dir}/mlton/*.sml "$(LIBDIR)/sml/$${dir}/mlton" ; \
-	  install -c -p -m 644 src/sml/$${dir}/polyml/*.sml "$(LIBDIR)/sml/$${dir}/polyml" ; \
+	  install -c -p -m 644 src/$${dir}/mlton/*.sml "$(LIBDIR)/sml/$${dir}/mlton" ; \
+	  install -c -p -m 644 src/$${dir}/polyml/*.sml "$(LIBDIR)/sml/$${dir}/polyml" ; \
 	done
 	for dir in $(SML_LIB_NAMES) ; \
 	do \
-	  install -c -p -m 644 src/sml/$${dir}/package "$(LIBDIR)/sml/$${dir}" ; \
-	  [ -e src/sml/$${dir}/version ] \
-	   && install -c -p -m 644 src/sml/$${dir}/version "$(LIBDIR)/sml/$${dir}" \
+	  install -c -p -m 644 src/$${dir}/package "$(LIBDIR)/sml/$${dir}" ; \
+	  [ -e src/$${dir}/version ] \
+	   && install -c -p -m 644 src/$${dir}/version "$(LIBDIR)/sml/$${dir}" \
 	   || true ; \
 	done
 

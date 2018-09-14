@@ -3,20 +3,16 @@ structure GtkTargetEntryRecord :> GTK_TARGET_ENTRY_RECORD =
     structure Pointer = CPointerInternal
     type notnull = Pointer.notnull
     type 'a p = 'a Pointer.p
-    val new_ = _import "giraffe_gtk_target_entry_new" : unit -> notnull p;
+    val size_ = _import "giraffe_gtk_target_entry_size" : unit -> GSize.FFI.val_;
     val copy_ = fn x1 & x2 => (_import "giraffe_gtk_target_entry_copy" : notnull p * notnull p -> unit;) (x1, x2)
-    val free_ = _import "giraffe_gtk_target_entry_free" : notnull p -> unit;
-    val size_ = _import "giraffe_gtk_target_entry_size" : unit -> GUInt.FFI.val_;
+    val clear_ = _import "giraffe_gtk_target_entry_clear" : notnull p -> unit;
     structure Record =
       BoxedValueRecord(
         structure Pointer = Pointer
         type notnull = notnull
         type 'a p = 'a p
-        val new_ = new_
         val copy_ = copy_
-        val take_ = ignore
-        val clear_ = ignore
-        val free_ = free_
+        val clear_ = clear_
         val size_ = size_
       )
     open Record

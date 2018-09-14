@@ -1,6 +1,6 @@
 # Giraffe Library release Makefile
 #
-# Copyright (C) 2015 Phil Clayton <phil.clayton@veonix.com>
+# Copyright (C) 2015, 2018 Phil Clayton <phil.clayton@veonix.com>
 #
 # This file is part of the Giraffe Library runtime.  For your rights to use
 # this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -72,13 +72,17 @@ RELEASE_FILES := \
 	LICENCE.RUNTIME \
 	Makefile \
 	README \
+	src/*.[hc] \
 	src/mlton/*.[hc] \
 	src/polyml/*.[hc] \
-	src/sml
+	src/polyml.sml \
+	src/general \
+	src/ffi \
+	src/*-*
 
 EXCLUDED_RELEASE_FILES := \
 	src/polyml/giraffe-girepository* \
-	src/sml/girepository-2.0
+	src/girepository-2.0
 
 giraffe-$(VERSION).tar.gz : $(OUT_FILES)
 	$(TAR) -czf giraffe-$(VERSION).tar.gz \
