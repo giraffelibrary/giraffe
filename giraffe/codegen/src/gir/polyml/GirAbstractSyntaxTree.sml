@@ -379,6 +379,7 @@ structure GirAbstractSyntaxTree : GIR_ABSTRACT_SYNTAX_TREE =
       }
 
 
+    (* ('a, 'b) repository represents an annotated AST *)
     type ('a, 'b) repository =
       {
         version   : string,
@@ -387,4 +388,6 @@ structure GirAbstractSyntaxTree : GIR_ABSTRACT_SYNTAX_TREE =
         namespace : 'b namespace,
         data      : 'a
       }
+
+    type t = (unit, unit) repository
   end

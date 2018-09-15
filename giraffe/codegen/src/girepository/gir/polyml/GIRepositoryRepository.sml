@@ -112,18 +112,6 @@ structure GIRepositoryRepository :>
         name
       end
 
-    fun fileNotFoundMsg file =
-      String.concat ["file \"", String.toString file, "\" not found on path"]
-
-    fun fileIsDirMsg file =
-      String.concat ["file \"", String.toString file, "\" is a directory"]
-
-    fun fileNotReadableMsg file =
-      String.concat ["file \"", String.toString file, "\" is not readable"]
-
-    fun failedToParseXMLFileMsg file =
-      String.concat ["failed to parse XML file \"", String.toString file, "\""]
-
     fun fmtInclude (name, version) = String.concat [name, "-", version]
 
     fun errMsgInclVerConlift name (version1, path1) (version2, path2) =
@@ -143,47 +131,12 @@ structure GIRepositoryRepository :>
         "in which it has already been included"
       ]
 
-    fun findFile path file =
-      let
-        val dirs = List.map #1 (ListDict.toList path)
-
-        fun check dirs =
-          case dirs of
-            dir :: dirs' => (
-              OS.FileSys.fullPath (OS.Path.joinDirFile {dir = dir, file = file})
-                handle
-                  OS.SysErr _ => check dirs'
-            )
-          | []           => raise Fail (fileNotFoundMsg file)
-      in
-        check dirs
-      end
-
     fun genTypelib (loaded, path, namespace_, version)
       : Info.repodata * string ListDict.t =
       let
-        val file = String.concat [namespace_, "-", version, ".gir"]
-
-        (* Find GIR file *)
-        val fullFile = findFile path file
-
-        (* Validate `fullFile`; note: `fullFile` exists on the file system *)
-        val () =
-          if OS.FileSys.isDir fullFile
-          then raise Fail (fileIsDirMsg fullFile)
-          else
-            if OS.FileSys.access (fullFile, [OS.FileSys.A_READ])
-            then ()
-            else raise Fail (fileNotReadableMsg fullFile)
-
-        (* Parse XML *)
-        val tree =
-          XML.parsefile fullFile
-            handle
-              XML.XML _ => raise Fail (failedToParseXMLFileMsg fullFile)
-
-        (* Parse GIR XML *)
-        val repository as {includes, ...} = GirXmlParser.parseTree tree
+        (* Read GIR file *)
+        val repository as {includes, ...} =
+          GirReader.readRepo path (namespace_, version)
 
         (* Create type dictionary for included namespaces, checking that
          * included namespaces are already loaded at the required version and
