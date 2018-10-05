@@ -40,7 +40,7 @@ If using MLton, release 20130715 or later is required.  See
 for instructions on downloading and installing MLton.
 
 
-If using Poly/ML, version 5.5.2 or later is required.  See
+If using Poly/ML, version 5.6 or later is required.  See
 
   http://www.polyml.org/download.html
 
@@ -232,19 +232,19 @@ non-standard installations:
 2.2.2  Changing PATH
 
 PATH can be updated to include the directory containing the required program.
-For example, to specify Poly/ML installed to /opt/polyml/polyml-5.5.2, then PATH
+For example, to specify Poly/ML installed to /opt/polyml/polyml-5.6, then PATH
 would be updated as follows:
 
-  PATH=/opt/polyml/polyml-5.5.2/bin:${PATH}
+  PATH=/opt/polyml/polyml-5.6/bin:${PATH}
 
 
 2.2.3  Changing PKG_CONFIG_PATH
 
 PKG_CONFIG_PATH can be updated to include the directory containing the required
-PC file.  For example, to specify Poly/ML installed to /opt/polyml/polyml-5.5.2,
+PC file.  For example, to specify Poly/ML installed to /opt/polyml/polyml-5.6,
 PKG_CONFIG_PATH would be updated as follows:
 
-  PKG_CONFIG_PATH=/opt/polyml/polyml-5.5.2/lib/pkgconfig:${PKG_CONFIG_PATH}
+  PKG_CONFIG_PATH=/opt/polyml/polyml-5.6/lib/pkgconfig:${PKG_CONFIG_PATH}
 
 
          ---------------   3.  Additional configuration   ---------------

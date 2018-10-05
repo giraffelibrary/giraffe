@@ -106,7 +106,7 @@ For example, we may have the following hierarchy from the GTK+ package:
 
 3  Code generation
 
-Code generation requires Poly/ML 5.5.2 and common GNU utilities.
+Code generation requires Poly/ML 5.6 and common GNU utilities.
 
 
 3.1  Overview
@@ -299,7 +299,7 @@ an optional SML vector as an optionally-null C pointer.  Note, therefore, that
 C wrapper functions are generated only for functions with arguments that are
 vector-like.
 
-MLton-specific code generation requires Poly/ML 5.5.2 and common GNU utilities.
+MLton-specific code generation requires Poly/ML 5.6 and common GNU utilities.
 
 5.1  Overview
 
