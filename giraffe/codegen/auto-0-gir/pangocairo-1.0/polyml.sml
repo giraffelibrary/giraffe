@@ -1,10 +1,10 @@
-use "PANGO_CAIRO_FC_FONT_MAP_CLASS.sml";
-use "PANGO_CAIRO_FC_FONT_MAP.sml";
-use "PANGO_CAIRO_FONT_CLASS.sml";
-use "PANGO_CAIRO_FONT.sml";
-use "PANGO_CAIRO_FONT_MAP_CLASS.sml";
-use "PANGO_CAIRO_FONT_MAP.sml";
-use "PANGO_CAIRO.sml";
+use "PANGO_CAIRO_FC_FONT_MAP_CLASS-sig.sml";
+use "PANGO_CAIRO_FC_FONT_MAP-sig.sml";
+use "PANGO_CAIRO_FONT_CLASS-sig.sml";
+use "PANGO_CAIRO_FONT-sig.sml";
+use "PANGO_CAIRO_FONT_MAP_CLASS-sig.sml";
+use "PANGO_CAIRO_FONT_MAP-sig.sml";
+use "PANGO_CAIRO-sig.sml";
 use "polyml/PangoCairoFcFontMapClass.sml";
 use "polyml/PangoCairoFontClass.sml";
 use "polyml/PangoCairoFontMapClass.sml";

@@ -4,19 +4,19 @@ local
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
 in
-  XLIB_ATOM.sml
-  XLIB_COLORMAP.sml
-  XLIB_CURSOR.sml
-  XLIB_DRAWABLE.sml
-  XLIB_KEY_CODE.sml
-  XLIB_KEY_SYM.sml
-  XLIB_PICTURE.sml
-  XLIB_TIME.sml
-  XLIB_VISUAL_I_D.sml
-  XLIB_WINDOW.sml
-  XLIB_XID.sml
-  XLIB_PIXMAP.sml
-  XLIB.sml
+  XLIB_ATOM-sig.sml
+  XLIB_COLORMAP-sig.sml
+  XLIB_CURSOR-sig.sml
+  XLIB_DRAWABLE-sig.sml
+  XLIB_KEY_CODE-sig.sml
+  XLIB_KEY_SYM-sig.sml
+  XLIB_PICTURE-sig.sml
+  XLIB_TIME-sig.sml
+  XLIB_VISUAL_I_D-sig.sml
+  XLIB_WINDOW-sig.sml
+  XLIB_XID-sig.sml
+  XLIB_PIXMAP-sig.sml
+  XLIB-sig.sml
   ann
     "allowFFI true"
     "resolveScope topdec"

@@ -112,7 +112,7 @@ in
       val program = [ModuleDecSig sigDec]
       val sigDeps = []
     in
-      (enumSigId, Portable program, sigDeps, excls'2)
+      (mkSigFile enumSigId, Portable program, sigDeps, excls'2)
     end
 end
 
@@ -248,7 +248,7 @@ in
       val enumStrDecs = [enumStrDec]
     in
       (
-        enumStrId,
+        mkStrFile enumStrId,
         (enumSpecs, enumStrDecs),
         Specific {mlton = programMLton, polyml = programPolyML},
         iRefs'3,

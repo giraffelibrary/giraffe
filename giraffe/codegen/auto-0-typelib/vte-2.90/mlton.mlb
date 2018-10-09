@@ -15,18 +15,18 @@ local
   ../pango-1.0/mlton.mlb
   ../gtk-3.0/mlton.mlb
 in
-  VTE_PTY_CLASS.sml
-  VTE_PTY.sml
-  VTE_PTY_ERROR.sml
-  VTE_PTY_FLAGS.sml
-  VTE_TERMINAL_CLASS.sml
-  VTE_TERMINAL.sml
-  VTE_TERMINAL_ANTI_ALIAS.sml
-  VTE_TERMINAL_CURSOR_BLINK_MODE.sml
-  VTE_TERMINAL_CURSOR_SHAPE.sml
-  VTE_TERMINAL_ERASE_BINDING.sml
-  VTE_TERMINAL_WRITE_FLAGS.sml
-  VTE.sml
+  VTE_PTY_CLASS-sig.sml
+  VTE_PTY-sig.sml
+  VTE_PTY_ERROR-sig.sml
+  VTE_PTY_FLAGS-sig.sml
+  VTE_TERMINAL_CLASS-sig.sml
+  VTE_TERMINAL-sig.sml
+  VTE_TERMINAL_ANTI_ALIAS-sig.sml
+  VTE_TERMINAL_CURSOR_BLINK_MODE-sig.sml
+  VTE_TERMINAL_CURSOR_SHAPE-sig.sml
+  VTE_TERMINAL_ERASE_BINDING-sig.sml
+  VTE_TERMINAL_WRITE_FLAGS-sig.sml
+  VTE-sig.sml
   ann
     "allowFFI true"
     "resolveScope topdec"

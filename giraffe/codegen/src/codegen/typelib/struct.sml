@@ -48,7 +48,7 @@ in
       val program = [ModuleDecSig sigDec]
       val sigDeps = []
     in
-      (structRecordSigId, Portable program, sigDeps)
+      (mkSigFile structRecordSigId, Portable program, sigDeps)
     end
 end
 
@@ -533,7 +533,7 @@ in
       val structRecordStrDecs = [structRecordStrDec]
     in
       (
-        structRecordStrId,
+        mkStrFile structRecordStrId,
         (structRecordSpecs, structRecordStrDecs),
         Specific {mlton = programMLton, polyml = programPolyML},
         iRefs'1
@@ -609,7 +609,7 @@ fun makeStructSig
     val program = [ModuleDecSig sigDec]
     val sigDeps = []
   in
-    (structSigId, Portable program, sigDeps, excls'2)
+    (mkSigFile structSigId, Portable program, sigDeps, excls'2)
   end
 
 
@@ -752,7 +752,7 @@ fun makeStructStr
       )
   in
     (
-      structStrId,
+      mkStrFile structStrId,
       ([structSpec], [structStrDec]),
       Specific {mlton = programMLton, polyml = programPolyML},
       strIRefs,

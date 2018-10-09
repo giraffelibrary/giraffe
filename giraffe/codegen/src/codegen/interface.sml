@@ -78,7 +78,7 @@ in
       val program = [ModuleDecSig sigDec]
       val sigDeps = []
     in
-      (interfaceClassSigId, Portable program, sigDeps)
+      (mkSigFile interfaceClassSigId, Portable program, sigDeps)
     end
 end
 
@@ -243,7 +243,7 @@ in
       val interfaceClassStrDecs = [interfaceClassStrDec]
     in
       (
-        interfaceClassStrId,
+        mkStrFile interfaceClassStrId,
         (interfaceClassSpecs, interfaceClassStrDecs),
         Specific {mlton = program, polyml = program},
         iRefs'2
@@ -367,7 +367,7 @@ fun makeInterfaceSig
     val program = [ModuleDecSig sigDec]
     val sigDeps = []
   in
-    (interfaceSigId, Portable program, sigDeps, excls'6)
+    (mkSigFile interfaceSigId, Portable program, sigDeps, excls'6)
   end
 
 
@@ -629,7 +629,7 @@ fun makeInterfaceStr
       )
   in
     (
-      interfaceStrId,
+      mkStrFile interfaceStrId,
       ([interfaceSpec], [interfaceStrDec]),
       Specific {mlton = programMLton, polyml = programPolyML},
       strIRefs,

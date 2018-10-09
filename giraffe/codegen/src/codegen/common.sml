@@ -2,6 +2,61 @@
  * Common
  * -------------------------------------------------------------------------- *)
 
+(* File names *)
+
+fun mkFile (base, ext) = OS.Path.joinBaseExt {base = base, ext = SOME ext}
+
+
+(**
+ * Construction of a target-specific directory and file name
+ *)
+
+datatype target =
+  MLton
+| PolyML
+
+val targetString =
+  fn
+    MLton  => "mlton"
+  | PolyML => "polyml"
+
+fun mkTargetDir dir target =
+  OS.Path.joinDirFile {dir = dir, file = targetString target}
+
+fun mkTargetFile target file =
+  OS.Path.joinDirFile {dir = targetString target, file = file}
+
+
+(**
+ * File extension
+ *)
+
+datatype file_type =
+  SML
+| MLB
+| C
+
+val fileTypeExt =
+  fn
+    SML => "sml"
+  | MLB => "mlb"
+  | C   => "c"
+
+val smlFileExt = "sml"
+val mlbFileExt = "mlb"
+val cFileExt   = "c"
+
+
+(**
+ * Construction of a file name from a module name
+ *)
+
+fun mkStrFile id = mkFile (id,          smlFileExt)
+fun mkSigFile id = mkFile (id ^ "-sig", smlFileExt)
+fun mkFunFile id = mkFile (id ^ "-fun", smlFileExt)
+
+
+
 (* Representation of a program unit for multiple compiler targets *)
 
 datatype program =

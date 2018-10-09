@@ -91,7 +91,7 @@ in
       val program = [ModuleDecSig sigDec]
       val sigDeps = []
     in
-      (objectClassSigId, Portable program, sigDeps)
+      (mkSigFile objectClassSigId, Portable program, sigDeps)
     end
 
   fun makeObjectRootClassSig
@@ -109,7 +109,7 @@ in
       val program = []
       val sigDeps = []
     in
-      (objectClassSigId, Portable program, sigDeps)
+      (mkSigFile objectClassSigId, Portable program, sigDeps)
     end
 
   fun makeObjectClassSig
@@ -306,7 +306,7 @@ in
       val objectClassStrDecs = [objectClassStrDec]
     in
       (
-        objectClassStrId,
+        mkStrFile objectClassStrId,
         (objectClassSpecs, objectClassStrDecs),
         Specific {mlton = programMLton, polyml = programPolyML},
         iRefs'2
@@ -358,7 +358,7 @@ in
       val objectClassStrDecs = [objectClassStrDec]
     in
       (
-        objectClassStrId,
+        mkStrFile objectClassStrId,
         (objectClassSpecs, objectClassStrDecs),
         Specific {mlton = programMLton, polyml = programPolyML},
         []
@@ -498,7 +498,7 @@ fun makeObjectSig
     val program = [ModuleDecSig sigDec]
     val sigDeps = []
   in
-    (objectSigId, Portable program, sigDeps, excls'6)
+    (mkSigFile objectSigId, Portable program, sigDeps, excls'6)
   end
 
 
@@ -766,7 +766,7 @@ fun makeObjectStr
       )
   in
     (
-      objectStrId,
+      mkStrFile objectStrId,
       ([objectSpec], [objectStrDec]),
       Specific {mlton = programMLton, polyml = programPolyML},
       strIRefs,

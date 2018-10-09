@@ -12,9 +12,9 @@ in
   "Pair.sml"
   "Combinators.sml"
   "Fn.sml"
-  "Word32BitFlags.sml"
-  "GIRAFFE_LOG.sml"
-  "GIRAFFE_DEBUG.sml"
+  "Word32BitFlags-fun.sml"
+  "GIRAFFE_LOG-sig.sml"
+  "GIRAFFE_DEBUG-sig.sml"
   "GiraffeLog.sml"
   ann "allowConstant true" in "mlton/GiraffeDebug.sml" end
   "mlton/GC.sml"

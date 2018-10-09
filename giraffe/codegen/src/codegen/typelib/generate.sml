@@ -32,37 +32,6 @@ fun loadNamespace repo (namespace, version) =
 
 
 
-fun mkFile base ext = OS.Path.joinBaseExt {base = base, ext = SOME ext}
-
-
-datatype target =
-  MLton
-| PolyML
-
-val targetString =
-  fn
-    MLton  => "mlton"
-  | PolyML => "polyml"
-
-fun mkTargetDir dir target =
-  OS.Path.joinDirFile {dir = dir, file = targetString target}
-
-fun mkTargetFile target base ext =
-  OS.Path.joinDirFile {dir = targetString target, file = mkFile base ext}
-
-
-datatype content =
-  SML
-| MLB
-| C
-
-val contentExt =
-  fn
-    SML => "sml"
-  | MLB => "mlb"
-  | C   => "c"
-
-
 fun mkBaseVersion base ver = String.concat [base, "-", ver]
 
 
@@ -126,17 +95,14 @@ fun sort (m : (id * ('a * id list)) list) : (id * 'a) list =
   end
 
 
-
-fun mkSourceFile content target (id, isPortable) =
-  (if isPortable then mkFile id else mkTargetFile target id) (contentExt content)
-
-val mkProgramFile = mkSourceFile SML
+fun mkProgramFile target (file, isPortable) =
+  if isPortable then file else mkTargetFile target file
 
 
 fun mkMLBBasDec (root, dir, base) =
   OS.Path.joinDirFile {
     dir  = OS.Path.joinDirFile {dir = root, file = dir},
-    file = mkFile base (contentExt MLB)
+    file = mkFile (base, mlbFileExt)
   }
 
 val mltonBasDecs = [
@@ -215,7 +181,7 @@ end
 
 
 
-fun writeFile dir file v =
+fun writeFile (dir, file) v =
   let
     val dirFile = OS.Path.concat (dir, file)
 
@@ -234,30 +200,31 @@ fun writeFile dir file v =
 
 fun fmtModules ms = PrettyPrint.fmtProgram (map mkModuleTopLevelDec ms)
 
-fun writeProgramFileMLton dir (id, ms) =
-  writeFile dir (mkTargetFile MLton id (contentExt SML)) (fmtModules ms)
-
-fun writeProgramFilePolyML dir (id, ms) =
-  writeFile dir (mkTargetFile PolyML id (contentExt SML)) (fmtModules ms)
-
-fun writeProgramFile dir (id, program) =
+fun writeProgramFile dir (file, program) =
   case program of
-    Portable ms              =>
-      writeFile dir (mkFile id (contentExt SML)) (fmtModules ms)
+    Portable common          => writeFile (dir, file) (fmtModules common)
   | Specific {mlton, polyml} => (
-      writeProgramFileMLton dir (id, mlton);
-      writeProgramFilePolyML dir (id, polyml)
+      writeFile (dir, mkTargetFile MLton file) (fmtModules mlton);
+      writeFile (dir, mkTargetFile PolyML file) (fmtModules polyml)
     )
 
 
+fun mkBasisFile target =
+  mkFile (
+    targetString target, 
+    case target of
+      MLton  => mlbFileExt
+    | PolyML => smlFileExt
+  )
+
 fun writeBasisFileMLton namespaceDir namespaceDeps (revSigs, revStrs) =
-  writeFile namespaceDir
-    (mkFile (targetString MLton) (contentExt MLB))
+  writeFile
+    (namespaceDir, mkBasisFile MLton)
     (fmtNamespaceBasisMLton namespaceDeps (revSigs, revStrs))
 
 fun writeBasisFilePolyML namespaceDir (revSigs, revStrs) =
-  writeFile namespaceDir
-    (mkFile (targetString PolyML) (contentExt SML))
+  writeFile
+    (namespaceDir, mkBasisFile PolyML)
     (fmtNamespaceBasisPolyML (revSigs, revStrs))
 
 fun writeBasisFile
@@ -272,7 +239,8 @@ fun writeBasisFile
 
 
 fun writeCInterfaceFile dir cppPrefix cInterfaceDecls =
-  writeFile dir (mkFile giraffeId (contentExt C))
+  writeFile
+    (dir, mkFile (giraffeId, cFileExt))
     (fmtCInterfaceDecls cppPrefix cInterfaceDecls)
 
 
@@ -448,9 +416,9 @@ fun makeNamespaceSigStr
     val namespaceStrProgramMLton = mkModule functionStrDecsLowLevelMLton
   in
     (
-      (namespaceSigId, Portable namespaceSigProgram),
+      (mkSigFile namespaceSigId, Portable namespaceSigProgram),
       (
-         namespaceStrId,
+         mkStrFile namespaceStrId,
          Specific {
            mlton  = namespaceStrProgramMLton,
            polyml = namespaceStrProgramPolyML
@@ -531,11 +499,11 @@ fun generateFull dir repo (namespace, version, cppPrefix) (extraVers, extraSigs,
        *   3. Extend `sigs'1` with `extraSigs` and sort the result to
        *      satisfy dependencies, giving `sigFiles'2`.
        *
-       *   4. Extend `strFiles'2` with `namespaceStrId` from step 2 to give
-       *      `strFiles'3`.  `namespaceStrId` must occur last.
+       *   4. Extend `sigFiles'2` with `namespaceSigFile` from step 2 to give
+       *      `sigFiles'2`.  `namespaceSigFile` must occur last.
        *
-       *   5. Extend `sigFiles'2` with `namespaceSigId` from step 2 to give
-       *      `sigFiles'2`.  `namespaceSigId` must occur last.
+       *   5. Extend `strFiles'2` with `namespaceStrFile` from step 2 to give
+       *      `strFiles'3`.  `namespaceStrFile` must occur last.
        *
        *   6. Write basis/load files using extended sorted `strFiles'3` from
        *      step 4 and extended `sigFiles'2` from step 3.
@@ -560,8 +528,8 @@ fun generateFull dir repo (namespace, version, cppPrefix) (extraVers, extraSigs,
 
       (* Step 2 *)
       val (
-        namespaceSig as (namespaceSigId, namespaceSigProgram),
-        namespaceStr as (namespaceStrId, namespaceStrProgram)
+        namespaceSig as (namespaceSigFile, namespaceSigProgram),
+        namespaceStr as (namespaceStrFile, namespaceStrProgram)
       ) =
         makeNamespaceSigStr namespace
           (
@@ -580,11 +548,11 @@ fun generateFull dir repo (namespace, version, cppPrefix) (extraVers, extraSigs,
 
       (* Step 4 *)
       val revSigFiles'3 =
-        (namespaceSigId, isPortable namespaceSigProgram) :: revSigFiles'2
+        (namespaceSigFile, isPortable namespaceSigProgram) :: revSigFiles'2
 
       (* Step 5 *)
       val revStrFiles'3 =
-        (namespaceStrId, isPortable namespaceStrProgram) :: revStrFiles'2
+        (namespaceStrFile, isPortable namespaceStrProgram) :: revStrFiles'2
 
       (* Step 6 *)
       val () =
@@ -644,11 +612,11 @@ fun generateInit dir (namespace, version) initNamespace (namespaceDeps, extraSig
        *   3. Extend `sigs'1` with `extraSigs` and sort the result to
        *      satisfy dependencies, giving `sigFiles'2`.
        *
-       *   4. Extend `strFiles'2` with `namespaceStrId` from step 2 to give
-       *      `strFiles'3`.  `namespaceStrId` must occur last.
+       *   4. Extend `sigFiles'2` with `namespaceSigFile` from step 2 to give
+       *      `sigFiles'2`.  `namespaceSigFile` must occur last.
        *
-       *   5. Extend `sigFiles'2` with `namespaceSigId` from step 2 to give
-       *      `sigFiles'2`.  `namespaceSigId` must occur last.
+       *   5. Extend `strFiles'2` with `namespaceStrFile` from step 2 to give
+       *      `strFiles'3`.  `namespaceStrFile` must occur last.
        *
        *   6. Write basis/load files using extended sorted `strFiles'3` from
        *      step 4 and extended `sigFiles'2` from step 3.
@@ -671,8 +639,8 @@ fun generateInit dir (namespace, version) initNamespace (namespaceDeps, extraSig
 
       (* Step 2 *)
       val (
-        namespaceSig as (namespaceSigId, namespaceSigProgram),
-        namespaceStr as (namespaceStrId, namespaceStrProgram)
+        namespaceSig as (namespaceSigFile, namespaceSigProgram),
+        namespaceStr as (namespaceStrFile, namespaceStrProgram)
       ) =
         makeNamespaceSigStr initNamespace
           (
@@ -691,11 +659,11 @@ fun generateInit dir (namespace, version) initNamespace (namespaceDeps, extraSig
 
       (* Step 4 *)
       val revSigFiles'3 =
-        (namespaceSigId, isPortable namespaceSigProgram) :: revSigFiles'2
+        (namespaceSigFile, isPortable namespaceSigProgram) :: revSigFiles'2
 
       (* Step 5 *)
       val revStrFiles'3 =
-        (namespaceStrId, isPortable namespaceStrProgram) :: revStrFiles'2
+        (namespaceStrFile, isPortable namespaceStrProgram) :: revStrFiles'2
 
       (* Step 6 *)
       val () =
@@ -719,8 +687,21 @@ fun generateInit dir (namespace, version) initNamespace (namespaceDeps, extraSig
 
 (* Support for constructing values for `extraSigs` parameter of `generate<X>`. *)
 
-fun newSig nameId sigDeps = (nameId, (New, (true, sigDeps)))
-fun extendSig nameId sigDeps = (nameId, (Extend, (true, sigDeps)))
+fun newSig nameId sigDeps =
+  let
+    val sigFile = mkSigFile nameId
+    val sigFileDeps = map mkSigFile sigDeps
+  in
+    (sigFile, (New, (true, sigFileDeps)))
+  end
+
+fun extendSig nameId sigDeps =
+  let
+    val sigFile = mkSigFile nameId
+    val sigFileDeps = map mkSigFile sigDeps
+  in
+    (sigFile, (Extend, (true, sigFileDeps)))
+  end
 
 
 (* Support for constructing values for `extraStrs` parameter of `generate<X>`. *)
@@ -736,14 +717,16 @@ fun newStr (namespaceId, nameId, sigId) mkLocalTypes =
     val localTypes = map (fn f => f nameId) mkLocalTypes
 
     val strId = namespaceId ^ nameId
+    val strFile = mkStrFile strId
 
     val quals = map makeLocalTypeStrSpecQual localTypes
     val strDeps = map (#1 o #tyStrLId) localTypes
+    val strFileDeps = map mkStrFile strDeps
 
     val isPortable = false
   in
     (
-      strId,
+      strFile,
       (
         New,
         (
@@ -754,7 +737,7 @@ fun newStr (namespaceId, nameId, sigId) mkLocalTypes =
               [mkStructStrDec (nameId, strId)]
             )
           ),
-          strDeps
+          strFileDeps
         )
       )
     )
@@ -763,9 +746,11 @@ fun newStr (namespaceId, nameId, sigId) mkLocalTypes =
 fun extendStrDeps strId strDeps =
   let
     val isPortable = false
+    val strFile = mkStrFile strId
+    val strFileDeps = map mkStrFile strDeps
   in
     (
-      strId,
+      strFile,
       (
         Extend,
         (
@@ -776,7 +761,7 @@ fun extendStrDeps strId strDeps =
               []
             )
           ),
-          strDeps
+          strFileDeps
         )
       )
     )
@@ -853,6 +838,6 @@ in
           V.str pageEndTag
         ]
     in
-      writeFile dir file text
+      writeFile (dir, file) text
     end
 end

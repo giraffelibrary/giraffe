@@ -222,7 +222,7 @@ fun dropStarR (ss'0 : substring) : substring option =
   end
     handle Subscript => NONE
 
-fun writeFile dir file v =
+fun writeFile (dir, file) v =
   let
     val dirFile = OS.Path.concat (dir, file)
 
@@ -506,7 +506,7 @@ fun generate outDir path (namespace_, version, cppPrefix) =
         cf :: cfs => V.seq [header, foldl prefixCFunction (fmtCFunction1 cf) cfs]
       | []        => V.empty
 
-    val () = writeFile outDir file text
+    val () = writeFile (outDir, file) text
   in
     excls
   end
@@ -583,6 +583,6 @@ in
           V.str pageEndTag
         ]
     in
-      writeFile dir file text
+      writeFile (dir, file) text
     end
 end

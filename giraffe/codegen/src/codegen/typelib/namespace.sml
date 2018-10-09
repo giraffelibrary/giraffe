@@ -37,24 +37,24 @@ fun makeInfo
       let
         val () = checkInterfaceType objectInfo
 
-        val (classSigId, classSigProgram, classSigDeps) =
+        val (classSigFile, classSigProgram, classSigDeps) =
           makeObjectClassSig repo namespace objectInfo
 
         val (
-          classStrId,
+          classStrFile,
           classStrSpecDec,
           classStrProgram,
           classStrIRefs
         ) =
           makeObjectClassStr repo namespace objectInfo
 
-        val (strId, strSpecDec, strProgram, strIRefs, excls'1) =
+        val (strFile, strSpecDec, strProgram, strIRefs, excls'1) =
           makeObjectStr repo vers namespace objectInfo excls'0
 
-        val classStrDeps = map makeIRefInterfaceOtherStrId classStrIRefs
-        val strDeps = map makeIRefInterfaceOtherStrId strIRefs
+        val classStrDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) classStrIRefs
+        val strDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) strIRefs
 
-        val (sigId, sigProgram, sigDeps, excls'2) =
+        val (sigFile, sigProgram, sigDeps, excls'2) =
           makeObjectSig repo vers namespace objectInfo excls'1
 
         val isClassSigPortable = isPortable classSigProgram
@@ -65,24 +65,24 @@ fun makeInfo
         val sigs'1 =
           insertNewList dupSig (
             [
-              (classSigId, (isClassSigPortable, classSigDeps)),
-              (sigId,      (isSigPortable,      sigDeps))
+              (classSigFile, (isClassSigPortable, classSigDeps)),
+              (sigFile,      (isSigPortable,      sigDeps))
            ],
            sigs'0
         )
         val strs'1 =
           insertNewList dupStr (
             [
-              (classStrId, ((isClassStrPortable, classStrSpecDec), classStrDeps)),
-              (strId,      ((isStrPortable,      strSpecDec),      strDeps))
+              (classStrFile, ((isClassStrPortable, classStrSpecDec), classStrDeps)),
+              (strFile,      ((isStrPortable,      strSpecDec),      strDeps))
             ],
             strs'0
           )
         val files'1 =
           insertNewList dupFile (
             [
-              (classSigId, classSigProgram), (sigId, sigProgram),
-              (classStrId, classStrProgram), (strId, strProgram)
+              (classSigFile, classSigProgram), (sigFile, sigProgram),
+              (classStrFile, classStrProgram), (strFile, strProgram)
             ],
             files'0
           )
@@ -98,24 +98,24 @@ fun makeInfo
       let
         val () = checkInterfaceType interfaceInfo
 
-        val (classSigId, classSigProgram, classSigDeps) =
+        val (classSigFile, classSigProgram, classSigDeps) =
           makeInterfaceClassSig repo namespace interfaceInfo
 
         val (
-          classStrId,
+          classStrFile,
           classStrSpecDec,
           classStrProgram,
           classStrIRefs
         ) =
           makeInterfaceClassStr repo namespace interfaceInfo
 
-        val (strId, strSpecDec, strProgram, strIRefs, excls'1) =
+        val (strFile, strSpecDec, strProgram, strIRefs, excls'1) =
           makeInterfaceStr repo vers namespace interfaceInfo excls'0
 
-        val classStrDeps = map makeIRefInterfaceOtherStrId classStrIRefs
-        val strDeps = map makeIRefInterfaceOtherStrId strIRefs
+        val classStrDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) classStrIRefs
+        val strDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) strIRefs
 
-        val (sigId, sigProgram, sigDeps, excls'2) =
+        val (sigFile, sigProgram, sigDeps, excls'2) =
           makeInterfaceSig repo vers namespace interfaceInfo excls'1
 
         val isClassSigPortable = isPortable classSigProgram
@@ -126,24 +126,24 @@ fun makeInfo
         val sigs'1 =
           insertNewList dupSig (
             [
-              (classSigId, (isClassSigPortable, classSigDeps)),
-              (sigId,      (isSigPortable,      sigDeps))
+              (classSigFile, (isClassSigPortable, classSigDeps)),
+              (sigFile,      (isSigPortable,      sigDeps))
             ],
             sigs'0
           )
         val strs'1 =
           insertNewList dupStr (
             [
-              (classStrId, ((isClassStrPortable, classStrSpecDec), classStrDeps)),
-              (strId,      ((isStrPortable,      strSpecDec),      strDeps))
+              (classStrFile, ((isClassStrPortable, classStrSpecDec), classStrDeps)),
+              (strFile,      ((isStrPortable,      strSpecDec),      strDeps))
             ],
             strs'0
           )
         val files'1 =
           insertNewList dupFile (
             [
-              (classSigId, classSigProgram), (sigId, sigProgram),
-              (classStrId, classStrProgram), (strId, strProgram)
+              (classSigFile, classSigProgram), (sigFile, sigProgram),
+              (classStrFile, classStrProgram), (strFile, strProgram)
             ],
             files'0
           )
@@ -159,24 +159,24 @@ fun makeInfo
       let
         val () = checkInterfaceType structInfo
 
-        val (recordSigId, recordSigProgram, recordSigDeps) =
+        val (recordSigFile, recordSigProgram, recordSigDeps) =
           makeStructRecordSig repo namespace structInfo
 
         val (
-          recordStrId,
+          recordStrFile,
           recordStrSpecDec,
           recordStrProgram,
           recordStrIRefs
         ) =
           makeStructRecordStr repo vers namespace structInfo
 
-        val (strId, strSpecDec, strProgram, strIRefs, excls'1) =
+        val (strFile, strSpecDec, strProgram, strIRefs, excls'1) =
           makeStructStr repo vers namespace structInfo excls'0
 
-        val recordStrDeps = map makeIRefInterfaceOtherStrId recordStrIRefs
-        val strDeps = map makeIRefInterfaceOtherStrId strIRefs
+        val recordStrDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) recordStrIRefs
+        val strDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) strIRefs
 
-        val (sigId, sigProgram, sigDeps, excls'2) =
+        val (sigFile, sigProgram, sigDeps, excls'2) =
           makeStructSig repo vers namespace structInfo excls'1
 
         val isRecordSigPortable = isPortable recordSigProgram
@@ -187,24 +187,24 @@ fun makeInfo
         val sigs'1 =
           insertNewList dupSig (
             [
-              (recordSigId, (isRecordSigPortable, recordSigDeps)),
-              (sigId,       (isSigPortable,       sigDeps))
+              (recordSigFile, (isRecordSigPortable, recordSigDeps)),
+              (sigFile,       (isSigPortable,       sigDeps))
             ],
             sigs'0
           )
         val strs'1 =
           insertNewList dupStr (
             [
-              (recordStrId, ((isRecordStrPortable, recordStrSpecDec), recordStrDeps)),
-              (strId,       ((isStrPortable,       strSpecDec),       strDeps))
+              (recordStrFile, ((isRecordStrPortable, recordStrSpecDec), recordStrDeps)),
+              (strFile,       ((isStrPortable,       strSpecDec),       strDeps))
             ],
             strs'0
           )
         val files'1 =
           insertNewList dupFile (
             [
-              (recordSigId, recordSigProgram), (sigId, sigProgram),
-              (recordStrId, recordStrProgram), (strId, strProgram)
+              (recordSigFile, recordSigProgram), (sigFile, sigProgram),
+              (recordStrFile, recordStrProgram), (strFile, strProgram)
             ],
             files'0
           )
@@ -229,29 +229,29 @@ fun makeInfo
         let
           val () = checkInterfaceType unionInfo
 
-          val (strId, strSpecDec, strProgram, strIRefs, excls'1) =
+          val (strFile, strSpecDec, strProgram, strIRefs, excls'1) =
             makeUnionStr repo vers namespace unionInfo excls'0
 
-          val strDeps = map makeIRefInterfaceOtherStrId strIRefs
+          val strDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) strIRefs
 
-          val (sigId, sigProgram, sigDeps, excls'2) =
+          val (sigFile, sigProgram, sigDeps, excls'2) =
             makeUnionSig repo vers namespace unionInfo excls'1
 
           val isSigPortable = isPortable sigProgram
           val isStrPortable = isPortable strProgram
 
           val sigs'1 =
-            insertNewList dupSig ([(sigId, (isSigPortable, sigDeps))], sigs'0)
+            insertNewList dupSig ([(sigFile, (isSigPortable, sigDeps))], sigs'0)
           val strs'1 =
             insertNewList dupStr (
-              [(strId, ((isStrPortable, strSpecDec), strDeps))],
+              [(strFile, ((isStrPortable, strSpecDec), strDeps))],
               strs'0
             )
           val files'1 =
             insertNewList dupFile (
               [
-                (sigId, sigProgram),
-                (strId, strProgram)
+                (sigFile, sigProgram),
+                (strFile, strProgram)
               ],
               files'0
             )
@@ -266,29 +266,29 @@ fun makeInfo
       let
         val () = checkInterfaceType enumInfo
 
-        val (strId, strSpecDec, strProgram, strIRefs, excls'1) =
+        val (strFile, strSpecDec, strProgram, strIRefs, excls'1) =
           makeFlagsStr repo vers namespace enumInfo excls'0
 
-        val strDeps = map makeIRefInterfaceOtherStrId strIRefs
+        val strDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) strIRefs
 
-        val (sigId, sigProgram, sigDeps, excls'2) =
+        val (sigFile, sigProgram, sigDeps, excls'2) =
           makeFlagsSig repo vers namespace enumInfo excls'1
 
         val isSigPortable = isPortable sigProgram
         val isStrPortable = isPortable strProgram
 
         val sigs'1 =
-          insertNew dupSig ((sigId, (isSigPortable, sigDeps)), sigs'0)
+          insertNew dupSig ((sigFile, (isSigPortable, sigDeps)), sigs'0)
         val strs'1 =
           insertNewList dupStr (
-            [(strId, ((isStrPortable, strSpecDec), strDeps))],
+            [(strFile, ((isStrPortable, strSpecDec), strDeps))],
             strs'0
           )
         val files'1 =
           insertNewList dupFile (
             [
-              (sigId, sigProgram),
-              (strId, strProgram)
+              (sigFile, sigProgram),
+              (strFile, strProgram)
             ],
             files'0
           )
@@ -303,29 +303,29 @@ fun makeInfo
       let
         val () = checkInterfaceType enumInfo
 
-        val (strId, strSpecDec, strProgram, strIRefs, excls'1) =
+        val (strFile, strSpecDec, strProgram, strIRefs, excls'1) =
           makeEnumStr repo vers namespace enumInfo excls'0
 
-        val strDeps = map makeIRefInterfaceOtherStrId strIRefs
+        val strDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) strIRefs
 
-        val (sigId, sigProgram, sigDeps, excls'2) =
+        val (sigFile, sigProgram, sigDeps, excls'2) =
           makeEnumSig repo vers namespace enumInfo excls'1
 
         val isSigPortable = isPortable sigProgram
         val isStrPortable = isPortable strProgram
 
         val sigs'1 =
-          insertNew dupSig ((sigId, (isSigPortable, sigDeps)), sigs'0)
+          insertNew dupSig ((sigFile, (isSigPortable, sigDeps)), sigs'0)
         val strs'1 =
           insertNewList dupStr (
-            [(strId, ((isStrPortable, strSpecDec), strDeps))],
+            [(strFile, ((isStrPortable, strSpecDec), strDeps))],
             strs'0
           )
         val files'1 =
           insertNewList dupFile (
             [
-              (sigId, sigProgram),
-              (strId, strProgram)
+              (sigFile, sigProgram),
+              (strFile, strProgram)
             ],
             files'0
           )

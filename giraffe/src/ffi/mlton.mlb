@@ -14,51 +14,51 @@ in
   ann
     "resolveScope topdec"
   in
-    mlton/TABLE.sml
-    mlton/CALLBACK_TABLE.sml
-    mlton/WordTable.sml
-    mlton/CallbackTable.sml
+    mlton/TABLE-sig.sml
+    mlton/CALLBACK_TABLE-sig.sml
+    mlton/WordTable-fun.sml
+    mlton/CallbackTable-fun.sml
     HighLevelFFI.sml
-    FINALIZABLE.sml
-    C_VALUE.sml
-    mlton/C_VALUE.sml
-    C_VALUE_EQ.sml
-    mlton/C_VALUE_EQ.sml
-    C_VALUE_TYPE.sml
-    C_VALUE_NULL_TYPE.sml
-    C_VALUE_EQ_TYPE.sml
-    C_VALUE_EQ_NULL_TYPE.sml
-    FILE_DESC_TYPE.sml
-    C_REF.sml
-    C_POINTER.sml
-    mlton/C_POINTER.sml
-    C_TYPED_POINTER.sml
-    C_POINTER_TYPE.sml
-    mlton/C_POINTER_TYPE.sml
-    C_SCALAR.sml
-    SEQUENCE.sml
-    MONO_SEQUENCE.sml
-    C_ARRAY_TYPE.sml
-    mlton/C_ARRAY_TYPE.sml
-    C_ARRAY.sml
-    mlton/C_ARRAY.sml
-    C_ARRAY_LOW_LEVEL.sml
+    FINALIZABLE-sig.sml
+    C_VALUE-sig.sml
+    mlton/C_VALUE-sig.sml
+    C_VALUE_EQ-sig.sml
+    mlton/C_VALUE_EQ-sig.sml
+    C_VALUE_TYPE-sig.sml
+    C_VALUE_NULL_TYPE-sig.sml
+    C_VALUE_EQ_TYPE-sig.sml
+    C_VALUE_EQ_NULL_TYPE-sig.sml
+    FILE_DESC_TYPE-sig.sml
+    C_REF-sig.sml
+    C_POINTER-sig.sml
+    mlton/C_POINTER-sig.sml
+    C_TYPED_POINTER-sig.sml
+    C_POINTER_TYPE-sig.sml
+    mlton/C_POINTER_TYPE-sig.sml
+    C_SCALAR-sig.sml
+    SEQUENCE-sig.sml
+    MONO_SEQUENCE-sig.sml
+    C_ARRAY_TYPE-sig.sml
+    mlton/C_ARRAY_TYPE-sig.sml
+    C_ARRAY-sig.sml
+    mlton/C_ARRAY-sig.sml
+    C_ARRAY_LOW_LEVEL-sig.sml
     mlton/Finalizable.sml
-    mlton/CRef.sml
+    mlton/CRef-fun.sml
     ann "allowFFI true" in mlton/CPointerInternal.sml end
-    CTypedPointer.sml
+    CTypedPointer-fun.sml
     CPointer.sml
-    mlton/CScalar.sml
-    mlton/CVectorLowLevel.sml
-    mlton/CVector.sml
-    mlton/CVectorNLowLevel.sml
-    mlton/CVectorN.sml
-    mlton/CValueCVectorType.sml
-    mlton/CValueCVectorNType.sml
-    mlton/CPointerCVectorType.sml
-    mlton/CPointerCVectorNType.sml
-    mlton/MLtonIntPointer.sml
-    mlton/MLtonWordPointer.sml
+    mlton/CScalar-fun.sml
+    mlton/CVectorLowLevel-fun.sml
+    mlton/CVector-fun.sml
+    mlton/CVectorNLowLevel-fun.sml
+    mlton/CVectorN-fun.sml
+    mlton/CValueCVectorType-fun.sml
+    mlton/CValueCVectorNType-fun.sml
+    mlton/CPointerCVectorType-fun.sml
+    mlton/CPointerCVectorNType-fun.sml
+    mlton/MLtonIntPointer-fun.sml
+    mlton/MLtonWordPointer-fun.sml
     ann
       "allowFFI true"
     in
@@ -85,25 +85,25 @@ in
       mlton/FileDescType.sml
     end
     CScalars.sml
-    MonoVectorSequence.sml
-    CValueVector.sml
-    CValueVectorSequence.sml
+    MonoVectorSequence-fun.sml
+    CValueVector-fun.sml
+    CValueVectorSequence-fun.sml
     ListSequence.sml
     VectorSequence.sml
-    UTF8.sml
+    UTF8-sig.sml
     Utf8.sml
-    CLASS.sml
-    UNION.sml
-    RECORD.sml
-    VALUE_RECORD.sml
-    CALLBACK.sml
-    NOTIFIED_CALLBACK.sml
-    FLAGS.sml
-    ENUM.sml
-    mlton/PointerRecord.sml
-    mlton/BoxedRecord.sml
-    ann "allowFFI true" in mlton/BoxedValueRecord.sml end
-    mlton/Flags.sml
-    mlton/Enum.sml
+    CLASS-sig.sml
+    UNION-sig.sml
+    RECORD-sig.sml
+    VALUE_RECORD-sig.sml
+    CALLBACK-sig.sml
+    NOTIFIED_CALLBACK-sig.sml
+    FLAGS-sig.sml
+    ENUM-sig.sml
+    mlton/PointerRecord-fun.sml
+    mlton/BoxedRecord-fun.sml
+    ann "allowFFI true" in mlton/BoxedValueRecord-fun.sml end
+    mlton/Flags-fun.sml
+    mlton/Enum-fun.sml
   end
 end

@@ -31,7 +31,7 @@ fun makeUnionSig
     val program = []
     val sigDeps = []
   in
-    (unionSigId, Portable program, sigDeps, excls'0)
+    (mkSigFile unionSigId, Portable program, sigDeps, excls'0)
   end
 
 
@@ -88,7 +88,7 @@ fun makeUnionStr
       )
   in
     (
-      unionStrId,
+      mkStrFile unionStrId,
       ([unionSpec], [unionStrDec]),
       Specific {mlton = programMLton, polyml = programPolyML},
       [],

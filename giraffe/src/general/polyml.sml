@@ -8,9 +8,9 @@
 use "Pair.sml";
 use "Combinators.sml";
 use "Fn.sml";
-use "Word32BitFlags.sml";
-use "GIRAFFE_LOG.sml";
-use "GIRAFFE_DEBUG.sml";
+use "Word32BitFlags-fun.sml";
+use "GIRAFFE_LOG-sig.sml";
+use "GIRAFFE_DEBUG-sig.sml";
 use "GiraffeLog.sml";
 use "polyml/GiraffeDebug.sml";
 use "polyml/GC.sml";

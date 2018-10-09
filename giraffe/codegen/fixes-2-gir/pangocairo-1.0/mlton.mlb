@@ -8,13 +8,13 @@ local
   ../cairo-1.0/mlton.mlb
   ../pango-1.0/mlton.mlb
 in
-  PANGO_CAIRO_FC_FONT_MAP_CLASS.sml
-  PANGO_CAIRO_FC_FONT_MAP.sml
-  PANGO_CAIRO_FONT_CLASS.sml
-  PANGO_CAIRO_FONT.sml
-  PANGO_CAIRO_FONT_MAP_CLASS.sml
-  PANGO_CAIRO_FONT_MAP.sml
-  PANGO_CAIRO.sml
+  PANGO_CAIRO_FC_FONT_MAP_CLASS-sig.sml
+  PANGO_CAIRO_FC_FONT_MAP-sig.sml
+  PANGO_CAIRO_FONT_CLASS-sig.sml
+  PANGO_CAIRO_FONT-sig.sml
+  PANGO_CAIRO_FONT_MAP_CLASS-sig.sml
+  PANGO_CAIRO_FONT_MAP-sig.sml
+  PANGO_CAIRO-sig.sml
   ann
     "allowFFI true"
     "resolveScope topdec"

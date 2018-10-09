@@ -26,7 +26,7 @@ fun makeAliasSig
         val sigDeps =
           if namespace <> aliasNamespace
           then []
-          else [sigId]
+          else [mkSigFile sigId]
       in
         (sigId, ty, sigDeps)
       end
@@ -137,7 +137,7 @@ fun makeAliasSig
     val sigDec = toList1 [(aliasSigId, qSig)]
     val program = [ModuleDecSig sigDec]
   in
-    (aliasSigId, Portable program, sigDeps, excls'0)
+    (mkSigFile aliasSigId, Portable program, sigDeps, excls'0)
   end
 
 
@@ -315,7 +315,7 @@ fun makeAliasStr
     val aliasStrDecs = [aliasStrDec]
   in
     (
-      aliasStrId,
+      mkStrFile aliasStrId,
       (aliasSpecs, aliasStrDecs),
       Specific {mlton = program, polyml = program},
       iRefs,
