@@ -1,4 +1,4 @@
-1.0.0-alpha.8 (...)
+1.0.0-alpha.8 (2018-10-17)
 
     Removed restriction on Poly/ML 5.7 that required C function argument/return
      values with a C integer type to be in the range of Int.int which, in
@@ -25,6 +25,7 @@
     Added GObject.Object.new.
     Fixed property operators to respect construct-only mode.
     Supported case-insensitive file systems.
+    Fixed use of dynamic loader with Poly/ML under Darwin.
 
 
 1.0.0-alpha.7 (2017-10-18)
