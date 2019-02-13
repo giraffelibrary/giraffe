@@ -118,8 +118,6 @@ use "polyml/GObjectTypeQuery.sml";
 use "polyml/GObjectValueRecord.sml";
 use "polyml/GObjectValue.sml";
 use "polyml/GObjectValueArray.sml";
-use "polyml/CVector.sml";
-use "polyml/CVectorN.sml";
 use "polyml/ClosureMarshal.sml";
 use "polyml/GObjectClosureRecord.sml";
 use "polyml/GObjectObjectClass.sml";

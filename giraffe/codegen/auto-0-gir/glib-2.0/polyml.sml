@@ -5,6 +5,8 @@ use "G_OBJECT-sig.sml";
 use "polyml/GObjectType.sml";
 use "polyml/GObjectValueRecord.sml";
 use "polyml/ValueAccessor.sml";
+use "polyml/CVector.sml";
+use "polyml/CVectorN.sml";
 use "polyml/GObject.sml";
 use "G_LIB_PID_TYPE-sig.sml";
 use "G_LIB_SOURCE_FUNC-sig.sml";

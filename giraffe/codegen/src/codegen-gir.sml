@@ -288,7 +288,14 @@ val () = ignore [
       [
         newStr ("GObject", "Type", "G_OBJECT_TYPE") [],
         newStr ("GObject", "ValueRecord", "G_OBJECT_VALUE_RECORD") [],
-        extendStrDeps "ValueAccessor" ["GObjectValueRecord", "GObjectType"]
+        extendStrDeps "ValueAccessor" ["GObjectValueRecord", "GObjectType"],
+
+        (* CVector and CVectorN are manually generated modules that extend
+         * existing functors (of the same name) with GValue accessors for
+         * arrays.  Therefore their spec and strdec lists are empty but
+         * dependencies are included to ensure that they are loaded first. *)
+        extendStrDeps "CVector" ["GObjectValueRecord", "ValueAccessor"],
+        extendStrDeps "CVectorN" ["GObjectValueRecord", "ValueAccessor"]
       ]
     )
 ]
@@ -327,13 +334,6 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         newSig "VALUE_ACCESSOR" []
       ],
       [
-        (* CVector and CVectorN are manually generated modules that extend
-         * existing functors (of the same name) with GValue accessors for
-         * arrays.  Therefore their spec and strdec lists are empty but
-         * dependencies are included to ensure that they are loaded first. *)
-        extendStrDeps "CVector" ["GObjectValueRecord", "GObjectValue"],
-        extendStrDeps "CVectorN" ["GObjectValueRecord", "GObjectValue"],
-
         (* ClosureMarshal, ValueAccessor, Signal and Property are special
          * supporting structures outside the Gtk structure.  Therefore their
          * spec and strdec lists are empty but dependencies are included to

@@ -129,8 +129,6 @@ in
     mlton/GObjectValueRecord.sml
     mlton/GObjectValue.sml
     mlton/GObjectValueArray.sml
-    mlton/CVector.sml
-    mlton/CVectorN.sml
     mlton/ClosureMarshal.sml
     mlton/GObjectClosureRecord.sml
     mlton/GObjectObjectClass.sml
