@@ -480,7 +480,7 @@ fun cArrayStrIdStructDeps length elem structDeps =
               )
             )
           in
-            foldl (ListDict.insert Fn.id #2) structDeps'1 [arrayTypeStruct, arrayStruct]
+            foldl (ListDict.insert #2) structDeps'1 [arrayTypeStruct, arrayStruct]
           end
       | NONE       => structDeps'1
   in

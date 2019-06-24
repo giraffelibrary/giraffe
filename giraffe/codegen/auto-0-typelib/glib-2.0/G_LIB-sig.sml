@@ -70,7 +70,6 @@ signature G_LIB =
       G_LIB_I_O_FUNC
         where type i_o_channel_t = IOChannelRecord.t
         where type i_o_condition_t = IOCondition.t
-    structure ErrorRecord : G_LIB_ERROR_RECORD
     structure Bytes :
       G_LIB_BYTES
         where type t = BytesRecord.t
@@ -92,6 +91,7 @@ signature G_LIB =
     structure DebugKey :
       G_LIB_DEBUG_KEY
         where type t = DebugKeyRecord.t
+    structure ErrorRecord : G_LIB_ERROR_RECORD
     structure KeyFile :
       G_LIB_KEY_FILE
         where type t = KeyFileRecord.t

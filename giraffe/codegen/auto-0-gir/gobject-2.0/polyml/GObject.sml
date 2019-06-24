@@ -331,7 +331,6 @@ structure GObject :
     structure TypeFundamentalFlags = GObjectTypeFundamentalFlags
     structure TypeQueryRecord = GObjectTypeQueryRecord
     structure ValueArrayRecord = GObjectValueArrayRecord
-    structure ValueRecord = GObjectValueRecord
     structure BindingFlags = GObjectBindingFlags
     structure EnumClass = GObjectEnumClass
     structure EnumValue = GObjectEnumValue
@@ -340,13 +339,14 @@ structure GObject :
     structure SignalInvocationHint = GObjectSignalInvocationHint
     structure SignalQuery = GObjectSignalQuery
     structure TypeQuery = GObjectTypeQuery
+    structure ValueRecord = GObjectValueRecord
     structure Value = GObjectValue
     structure ValueArray = GObjectValueArray
     structure ClosureRecord = GObjectClosureRecord
     structure ObjectClass = GObjectObjectClass
     structure ParamSpecClass = GObjectParamSpecClass
-    structure Closure = GObjectClosure
     structure BindingClass = GObjectBindingClass
+    structure Closure = GObjectClosure
     structure InitiallyUnownedClass = GObjectInitiallyUnownedClass
     structure ParamSpec = GObjectParamSpec
     structure ParamSpecBooleanClass = GObjectParamSpecBooleanClass

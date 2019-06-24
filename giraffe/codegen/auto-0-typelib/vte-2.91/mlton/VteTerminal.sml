@@ -27,18 +27,18 @@ structure VteTerminal :>
         structure Sequence = VectorSequence
       )
     structure VteRegexRecordCVectorN = CVectorN(VteRegexRecordCVectorNType)
-    structure GLibRegexRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GLibRegexRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GLibRegexRecordCVectorN = CVectorN(GLibRegexRecordCVectorNType)
     structure Utf8CVectorNType =
       CPointerCVectorNType(
         structure CElemType = Utf8.C.ArrayType
         structure Sequence = ListSequence
       )
     structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
+    structure GLibRegexRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GLibRegexRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GLibRegexRecordCVectorN = CVectorN(GLibRegexRecordCVectorNType)
     val getType_ = _import "vte_terminal_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "vte_terminal_new" : unit -> VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p;
     val copyClipboard_ = _import "vte_terminal_copy_clipboard" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> unit;

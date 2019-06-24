@@ -16,12 +16,6 @@ structure GLibKeyFile :>
         structure ElemSequence = CValueVectorSequence(GInt32Type)
       )
     structure GInt32CVectorN = CVectorN(GInt32CVectorNType)
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     structure GDoubleCVectorNType =
       CValueCVectorNType(
         structure CElemType = GDoubleType
@@ -34,6 +28,12 @@ structure GLibKeyFile :>
         structure ElemSequence = CValueVectorSequence(GBoolType)
       )
     structure GBoolCVectorN = CVectorN(GBoolCVectorNType)
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in

@@ -18,9 +18,8 @@ val valueExnId : id = "Value"
 structure LargeIntMap = ListMap(type key = LargeInt.int val eq = op =)
 
 fun addValue (valueInfo, m) =
-  LargeIntMap.insert Fn.id (fn _ => raise Unchanged)
+  LargeIntMap.insert #2
     ((ValueInfo.getValueInt valueInfo, valueInfo), m)
-      handle Unchanged => m
 
 val emptyValues = LargeIntMap.empty
 

@@ -12,18 +12,18 @@ structure Gtk : GTK =
         structure Sequence = VectorSequence
       )
     structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
-    structure GtkStockItemRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GtkStockItemRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GtkStockItemRecord.C.ValueType)
-      )
-    structure GtkStockItemRecordCVectorN = CVectorN(GtkStockItemRecordCVectorNType)
     structure GtkTargetEntryRecordCVectorNType =
       CValueCVectorNType(
         structure CElemType = GtkTargetEntryRecord.C.ValueType
         structure ElemSequence = CValueVectorSequence(GtkTargetEntryRecord.C.ValueType)
       )
     structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
+    structure GtkStockItemRecordCVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GtkStockItemRecord.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GtkStockItemRecord.C.ValueType)
+      )
+    structure GtkStockItemRecordCVectorN = CVectorN(GtkStockItemRecordCVectorNType)
     structure Utf8CVectorType =
       CPointerCVectorType(
         structure CElemType = Utf8.C.ArrayType

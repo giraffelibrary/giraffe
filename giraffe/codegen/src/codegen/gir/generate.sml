@@ -458,7 +458,7 @@ val updateSig =
         (isPortable, List.foldl insert sigDeps extraSigDeps)
       end
 
-fun insertSig x = ListDict.insert #2 updateSig x
+fun insertSig x = ListDict.insertMap #2 updateSig x
 fun insertSigs (xs, m) = List.foldr insertSig m xs
 
 val updateStr =
@@ -475,7 +475,7 @@ val updateStr =
         )
       end
 
-fun insertStr x = ListDict.insert #2 updateStr x
+fun insertStr x = ListDict.insertMap #2 updateStr x
 fun insertStrs (xs, m) = List.foldr insertStr m xs
 
 fun generateFull dir repo (namespace, version, cppPrefix) (extraVers, extraSigs, extraStrs) =

@@ -200,7 +200,7 @@ structure Info =
     (* Unlike the GIRepository library, the GIR interface allows different
      * versions of the same namespace to be loaded simultaneously.  Therefore
      * the currently loaded namespaces in the field `loaded` is a map from
-     * namespace names to a map from namespace versions to `typelibdata`, the
+     * namespace names and namespace versions to `typelibdata`, the
      * representation of a TYPELIB file.  Functions that take a namespace
      * name argument still work provided that there is only one version of
      * the specified name loaded.
@@ -208,7 +208,7 @@ structure Info =
     type repodata =
       {
         path   : unit ListDict.t,
-        loaded : typelibdata ListDict.t ListDict.t
+        loaded : typelibdata NamespaceVersionMap.t
       }
         ref
   end

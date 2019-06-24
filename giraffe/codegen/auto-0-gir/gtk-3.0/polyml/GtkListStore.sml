@@ -8,12 +8,6 @@ structure GtkListStore :>
     where type 'a tree_sortable_class = 'a GtkTreeSortableClass.class
     where type tree_iter_t = GtkTreeIterRecord.t =
   struct
-    structure GIntCVectorType =
-      CValueCVectorType(
-        structure CElemType = GIntType
-        structure ElemSequence = CValueVectorSequence(GIntType)
-      )
-    structure GIntCVector = CVector(GIntCVectorType)
     structure GIntCVectorNType =
       CValueCVectorNType(
         structure CElemType = GIntType
@@ -32,6 +26,12 @@ structure GtkListStore :>
         structure ElemSequence = CValueVectorSequence(GObjectType.C.ValueType)
       )
     structure GObjectTypeCVectorN = CVectorN(GObjectTypeCVectorNType)
+    structure GIntCVectorType =
+      CValueCVectorType(
+        structure CElemType = GIntType
+        structure ElemSequence = CValueVectorSequence(GIntType)
+      )
+    structure GIntCVector = CVector(GIntCVectorType)
     local
       open PolyMLFFI
     in

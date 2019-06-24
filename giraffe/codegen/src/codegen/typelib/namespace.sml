@@ -2,10 +2,10 @@
  * Namespace
  * -------------------------------------------------------------------------- *)
 
-fun dupSig id _ = raise Fail (String.concat ["duplicate signature ", id])
-fun dupStr id _ = raise Fail (String.concat ["duplicate structure ", id])
-fun dupFile id _ = raise Fail (String.concat ["duplicate file for module ", id])
-fun insertNew f (x as ((id, _), _)) = ListDict.insert I (f id) x
+fun dupSig ((id, _), _) = raise Fail (String.concat ["duplicate signature ", id])
+fun dupStr ((id, _), _) = raise Fail (String.concat ["duplicate structure ", id])
+fun dupFile ((id, _), _) = raise Fail (String.concat ["duplicate file for module ", id])
+fun insertNew f = ListDict.inserti f
 fun insertNewList f (xs, m) = List.foldr (insertNew f) m xs
 
 fun makeInfo

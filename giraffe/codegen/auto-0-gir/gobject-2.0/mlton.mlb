@@ -8,8 +8,6 @@ in
   CLOSURE_MARSHAL-sig.sml
   SIGNAL-sig.sml
   PROPERTY-sig.sml
-  G_OBJECT_VALUE_RECORD-sig.sml
-  G_OBJECT_VALUE-sig.sml
   VALUE_ACCESSOR-sig.sml
   G_OBJECT_TYPE-sig.sml
   G_OBJECT_BINDING_CLASS-sig.sml
@@ -94,6 +92,8 @@ in
   G_OBJECT_TYPE_PLUGIN-sig.sml
   G_OBJECT_TYPE_QUERY_RECORD-sig.sml
   G_OBJECT_TYPE_QUERY-sig.sml
+  G_OBJECT_VALUE_RECORD-sig.sml
+  G_OBJECT_VALUE-sig.sml
   G_OBJECT_VALUE_ARRAY_RECORD-sig.sml
   G_OBJECT_VALUE_ARRAY-sig.sml
   G_OBJECT-sig.sml
@@ -118,7 +118,6 @@ in
     mlton/GObjectTypeFundamentalFlags.sml
     mlton/GObjectTypeQueryRecord.sml
     mlton/GObjectValueArrayRecord.sml
-    mlton/GObjectValueRecord.sml
     mlton/GObjectBindingFlags.sml
     mlton/GObjectEnumClass.sml
     mlton/GObjectEnumValue.sml
@@ -127,6 +126,7 @@ in
     mlton/GObjectSignalInvocationHint.sml
     mlton/GObjectSignalQuery.sml
     mlton/GObjectTypeQuery.sml
+    mlton/GObjectValueRecord.sml
     mlton/GObjectValue.sml
     mlton/GObjectValueArray.sml
     mlton/CVector.sml
@@ -136,8 +136,8 @@ in
     mlton/GObjectObjectClass.sml
     mlton/GObjectParamSpecClass.sml
     mlton/Property.sml
-    mlton/GObjectClosure.sml
     mlton/GObjectBindingClass.sml
+    mlton/GObjectClosure.sml
     mlton/GObjectInitiallyUnownedClass.sml
     mlton/GObjectParamSpec.sml
     mlton/GObjectParamSpecBooleanClass.sml

@@ -8,18 +8,18 @@ structure GioDBusMessage :>
     where type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     where type d_bus_capability_flags_t = GioDBusCapabilityFlags.t =
   struct
-    structure GUInt8CVectorType =
-      CValueCVectorType(
-        structure CElemType = GUInt8Type
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVector = CVector(GUInt8CVectorType)
     structure GUInt8CVectorNType =
       CValueCVectorNType(
         structure CElemType = GUInt8Type
         structure ElemSequence = MonoVectorSequence(Word8Vector)
       )
     structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
+    structure GUInt8CVectorType =
+      CValueCVectorType(
+        structure CElemType = GUInt8Type
+        structure ElemSequence = MonoVectorSequence(Word8Vector)
+      )
+    structure GUInt8CVector = CVector(GUInt8CVectorType)
     val getType_ = _import "g_dbus_message_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "g_dbus_message_new" : unit -> GioDBusMessageClass.FFI.notnull GioDBusMessageClass.FFI.p;
     val newFromBlob_ =

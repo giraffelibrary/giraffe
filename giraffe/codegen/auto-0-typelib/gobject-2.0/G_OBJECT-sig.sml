@@ -21,9 +21,6 @@ signature G_OBJECT =
     structure ValueArrayRecord :
       G_OBJECT_VALUE_ARRAY_RECORD
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
-    structure ValueRecord :
-      G_OBJECT_VALUE_RECORD
-        where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
     structure BindingFlags :
       G_OBJECT_BINDING_FLAGS
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
@@ -49,6 +46,9 @@ signature G_OBJECT =
     structure TypeQuery :
       G_OBJECT_TYPE_QUERY
         where type t = TypeQueryRecord.t
+    structure ValueRecord :
+      G_OBJECT_VALUE_RECORD
+        where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
     structure Value :
       G_OBJECT_VALUE
         where type t = ValueRecord.t
@@ -67,14 +67,14 @@ signature G_OBJECT =
     structure ParamSpecClass :
       G_OBJECT_PARAM_SPEC_CLASS
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
-    structure Closure :
-      G_OBJECT_CLOSURE
-        where type t = ClosureRecord.t
-        where type type_t = Type.t
     structure BindingClass :
       G_OBJECT_BINDING_CLASS
         where type 'a object_class = 'a ObjectClass.class
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
+    structure Closure :
+      G_OBJECT_CLOSURE
+        where type t = ClosureRecord.t
+        where type type_t = Type.t
     structure InitiallyUnownedClass :
       G_OBJECT_INITIALLY_UNOWNED_CLASS
         where type 'a object_class = 'a ObjectClass.class

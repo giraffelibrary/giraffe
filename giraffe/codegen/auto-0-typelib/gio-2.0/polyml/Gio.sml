@@ -1,11 +1,5 @@
 structure Gio : GIO =
   struct
-    structure GioDBusAnnotationInfoRecordCVectorType =
-      CPointerCVectorType(
-        structure CElemType = GioDBusAnnotationInfoRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GioDBusAnnotationInfoRecordCVector = CVector(GioDBusAnnotationInfoRecordCVectorType)
     structure Utf8CVectorType =
       CPointerCVectorType(
         structure CElemType = Utf8.C.ArrayType
@@ -18,6 +12,12 @@ structure Gio : GIO =
         structure ElemSequence = MonoVectorSequence(Word8Vector)
       )
     structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
+    structure GioDBusAnnotationInfoRecordCVectorType =
+      CPointerCVectorType(
+        structure CElemType = GioDBusAnnotationInfoRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GioDBusAnnotationInfoRecordCVector = CVector(GioDBusAnnotationInfoRecordCVectorType)
     local
       open PolyMLFFI
     in

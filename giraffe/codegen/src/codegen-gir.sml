@@ -114,24 +114,19 @@ val revPaths =
 
 (* Namespace dictionary for storing error information returned by `generate` *)
 
-type 'a namespace_dict = 'a ListDict.t ListDict.t
-
 local
-  fun errMsgAlreadyGen (name, ver) =
-    String.concat ["namespace ", name, " version ", ver, " already generated"]
-
-  fun create ver x = ListDict.singleton (ver, x)
-  fun update (name, ver) (x, verDict) =
-    ListDict.insert I
-      (fn _ => raise Fail (errMsgAlreadyGen (name, ver))) 
-      ((ver, x), verDict)
+  fun errMsgAlreadyGen (((name, ver), _), _) =
+    raise Fail (
+      String.concat ["namespace ", name, " version ", ver, " already generated"]
+    )
 in
-  fun insert (((name : string, ver : string), x : 'a), dict : 'a namespace_dict) =
-    ListDict.insert
-      (create ver)
-      (update (name, ver))
-      ((name, x), dict)
-     : 'a namespace_dict
+  structure NamespaceVersionMap =
+    JoinMap(
+      structure L = ListDict
+      structure R = ListDict
+    )
+  val empty = NamespaceVersionMap.empty
+  fun insert x = NamespaceVersionMap.inserti errMsgAlreadyGen x
 end
 
 
@@ -269,7 +264,7 @@ fun gen outDir repo (x as (namespace, version, _)) extras = (
 fun init outDir namespace_version initNamespace extras =
   generateInit outDir namespace_version initNamespace extras
 
-val errorLog'0 = ListDict.empty
+val errorLog'0 = empty
 
 val () = print "Generating code for namespaces\n"
 val () = ignore [

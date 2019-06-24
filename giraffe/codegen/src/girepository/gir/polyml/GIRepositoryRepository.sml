@@ -23,19 +23,16 @@ structure GIRepositoryRepository :>
         " conflicts with version ", ver2, " that is already present"
       ]
 
-    fun checkVer name (ver1, ver2) =
+    fun checkVer ((name, ver1), ver2) =
       if ver1 = ver2
       then raise Fail (errMsgVerExists name ver2)
       else raise Fail (errMsgVerConflict name ver1 ver2)
 
     fun insertTypelibVer ((name, ver), vers) =
-      ListDict.insert I (checkVer name) ((name, ver), vers)
+      ListDict.inserti checkVer ((name, ver), vers)
 
     fun extendTypelibVers extraVers vers = foldl insertTypelibVer vers extraVers
 
-
-    fun errMsgNamespaceNotLoaded name =
-      String.concat ["namespace '", name, "' not loaded"]
 
     fun errMsgNamespaceVerNotLoaded name version =
       String.concat
@@ -49,14 +46,9 @@ structure GIRepositoryRepository :>
       ]
 
     fun lookupTypelibDict loaded name version =
-      case ListDict.lookup loaded name of
-        SOME loadedVersions => (
-          case ListDict.lookup loadedVersions version of
-            SOME typelib => typelib
-          | NONE         =>
-              raise Fail (errMsgNamespaceVerNotLoaded name version)
-        )
-      | NONE                => raise Fail (errMsgNamespaceNotLoaded name)
+      case NamespaceVersionMap.lookup loaded (name, version) of
+        SOME typelib => typelib
+      | NONE         => raise Fail (errMsgNamespaceVerNotLoaded name version)
 
     fun lookupTypelib repository versions name =
       let
@@ -77,7 +69,7 @@ structure GIRepositoryRepository :>
 
     fun getDefault () =
       GIRepositoryRepositoryClass.Obj.pack
-        (ref {path = ListDict.empty, loaded = ListDict.empty} & ())
+        (ref {path = ListDict.empty, loaded = NamespaceVersionMap.empty} & ())
 
     fun prependSearchPath repository directory =
       let
@@ -90,7 +82,7 @@ structure GIRepositoryRepository :>
 
         val repodata & _ = GIRepositoryRepositoryClass.Obj.unpack repository
         val ref {path, loaded} = repodata
-        val path' = ListDict.insert I #1 ((directory, ()), path)
+        val path' = ListDict.insert #1 ((directory, ()), path)
       in
         repodata := {path = path', loaded = loaded}
       end
@@ -102,11 +94,8 @@ structure GIRepositoryRepository :>
 
         val ref {namespace = {name, version, ...}, ...} = typelib
 
-        fun create typelib = ListDict.singleton (version, typelib)
-        fun update (typelib, versionDict) =
-          ListDict.insert I #1 ((version, typelib), versionDict)
-
-        val loaded' = ListDict.insert create update ((name, typelib), loaded)
+        val loaded' =
+          NamespaceVersionMap.insert #1 (((name, version), typelib), loaded)
       in
         repodata := {path = path, loaded = loaded'};
         name
@@ -170,7 +159,7 @@ structure GIRepositoryRepository :>
 
         fun addInclude path ({name, version}, dict) =
           let
-            val path'1 = ListDict.insert I errorCycle ((name, version), path)
+            val path'1 = ListDict.insert errorCycle ((name, version), path)
 
             val ref {elemDict, includes, ...} =
               lookupTypelibDict loaded name version
@@ -182,7 +171,7 @@ structure GIRepositoryRepository :>
               elemDict = elemDict
             }
           in
-            ListDict.insert I checkIncludedVersion ((name, new), dict'1)
+            ListDict.insert checkIncludedVersion ((name, new), dict'1)
               handle
                 Unchanged         => dict'1
               | Included included =>
@@ -202,7 +191,7 @@ structure GIRepositoryRepository :>
 
         val dependencies = ListDict.map #version includeInfo
         val versions =
-          ListDict.insert I
+          ListDict.insert
             (fn _ => raise Fail "typelib dependency contains itself")
             ((namespace_, version), dependencies)
 
@@ -223,43 +212,31 @@ structure GIRepositoryRepository :>
             val (typelib, versions) =
               genTypelib (loaded, path, namespace_, version)
           in
-            ((typelib, versions), typelib)
+            ((true, (typelib, versions)), typelib)
           end
 
-        exception Unchanged of Info.typelibdata
-        fun keepTypelib ((), oldTypelib) = raise (Unchanged oldTypelib)
-
-        fun create () =
+        fun keepTypelib ((), oldTypelib as ref {dependencies, ...}) =
           let
-            val (typelib, versions) =
-              genTypelib (loaded, path, namespace_, version)
+            val versions =
+              ListDict.insert
+                (fn _ => raise Fail "typelib dependency contains itself")
+                ((namespace_, version), dependencies)
           in
-            ((typelib, versions), ListDict.singleton (version, typelib))
+            ((false, (oldTypelib, versions)), oldTypelib)
           end
-
-        fun update ((), versionDict) =
-          ListDict.insertMap
-            makeTypelib
-            keepTypelib
-            ((version, ()), versionDict)
       in
         let
-          val ((typelib, versions), loaded') =
-            ListDict.insertMap create update ((namespace_, ()), loaded)
+          val ((isNew, (typelib, versions)), loaded') =
+            NamespaceVersionMap.insertFoldMap
+              makeTypelib
+              keepTypelib
+              (((namespace_, version), ()), loaded)
         in
-          repodata := {path = path, loaded = loaded'};
+          if isNew
+          then repodata := {path = path, loaded = loaded'}
+          else ();
           (typelib, versions)
         end
-          handle
-            Unchanged (typelib as ref {dependencies, ...}) =>
-              let
-                val versions =
-                  ListDict.insert I
-                    (fn _ => raise Fail "typelib dependency contains itself")
-                    ((namespace_, version), dependencies)
-              in
-                (typelib, versions)
-              end
       end
 
     fun getDependencies repository versions namespace_ =

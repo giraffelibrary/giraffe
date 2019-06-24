@@ -67,6 +67,7 @@ use "gir/polyml/GIRepositoryTransfer.sml";
 use "gir/polyml/GIRepositoryArrayType.sml";
 use "gir/polyml/GIRepositoryTypeTag.sml";
 use "gir/polyml/GIRepositoryArgument.sml";
+use "gir/polyml/NamespaceVersionMap.sml";
 use "gir/polyml/Info.sml";
 use "gir/polyml/GirTranslator.sml";
 

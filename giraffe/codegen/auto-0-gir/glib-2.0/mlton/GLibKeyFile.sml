@@ -16,12 +16,6 @@ structure GLibKeyFile :>
         structure ElemSequence = CValueVectorSequence(GIntType)
       )
     structure GIntCVectorN = CVectorN(GIntCVectorNType)
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     structure GDoubleCVectorNType =
       CValueCVectorNType(
         structure CElemType = GDoubleType
@@ -34,6 +28,12 @@ structure GLibKeyFile :>
         structure ElemSequence = CValueVectorSequence(GBoolType)
       )
     structure GBoolCVectorN = CVectorN(GBoolCVectorNType)
+    structure Utf8CVectorType =
+      CPointerCVectorType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_key_file_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "g_key_file_new" : unit -> GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p;
     val getBoolean_ =

@@ -1,0 +1,1 @@
+val alias = MLton.eq

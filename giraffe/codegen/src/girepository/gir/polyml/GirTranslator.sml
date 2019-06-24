@@ -1886,7 +1886,7 @@ fun initNamespaceElem typelib =
         | _           => GIRepositoryTypeTag.INTERFACE
       else K GIRepositoryTypeTag.INTERFACE
 
-    fun dupFail name _ =
+    fun dupFail ((name, _), _) =
       raise GIRFail [HText.concat ["duplicate namespace element ", name]]
   in
     fn ({elem, data = ()}, dict) =>
@@ -1948,7 +1948,7 @@ fun initNamespaceElem typelib =
  *)
                     val x = ((tag, data), typePtrDepth)
 
-                    val dict' = Dict.insert I (dupFail name) ((name, x), dict)
+                    val dict' = Dict.inserti dupFail ((name, x), dict)
                   in
                     dict'
                   end
@@ -2078,7 +2078,7 @@ local
   open GIRepositoryTypeTag
 in
   fun addBasicTypeElems typelib dict =
-    foldl (Dict.insert I dupFail) dict [
+    foldl (Dict.insert dupFail) dict [
       makeMaplet typelib "gboolean"      BOOLEAN      (SOME 0),
 
       makeMaplet typelib "gchar"         CHAR         (SOME 0),
@@ -2163,14 +2163,14 @@ fun translate dependencies elemDicts gir =
          * names are unprefixed, so the prefix will be the empty string
          * ("") when looking up a type reference. *)
         val elemDicts'1 =
-          ListDict.insert I
+          ListDict.insert
             (fn _ => raise Fail "translate: namespace already loaded")
             (("", localDict'2), elemDicts)
 
         (* The namespace GLib refers to the types with special tags
          * (that it provides) using the namespace prefix.  Therefore,
          * these types must be added with the namespace prefix. *)
-        fun isSpecial (_, ((tag, _), _)) =
+        fun isSpecial ((tag, _), _) =
           case tag of
             GIRepositoryTypeTag.GLIST  => true
           | GIRepositoryTypeTag.GSLIST => true
@@ -2181,10 +2181,10 @@ fun translate dependencies elemDicts gir =
         val elemDicts'2 =
           if name = "GLib"
           then
-            (ListDict.insert I #2) (
+            (ListDict.insert #2) (
               (
                 name,
-                Dict.fromList (List.filter isSpecial (Dict.toList localDict'1))
+                Dict.filter isSpecial localDict'1
               ),
               elemDicts'1
             )

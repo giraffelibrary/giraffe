@@ -1,1 +1,1 @@
-structure ListDict :> ORD_DICT = ListMap (StringEqKey)
+structure ListDict = ListMap (StringEqKey)

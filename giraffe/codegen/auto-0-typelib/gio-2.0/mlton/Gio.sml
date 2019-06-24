@@ -1,11 +1,5 @@
 structure Gio : GIO =
   struct
-    structure GioDBusAnnotationInfoRecordCVectorType =
-      CPointerCVectorType(
-        structure CElemType = GioDBusAnnotationInfoRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GioDBusAnnotationInfoRecordCVector = CVector(GioDBusAnnotationInfoRecordCVectorType)
     structure Utf8CVectorType =
       CPointerCVectorType(
         structure CElemType = Utf8.C.ArrayType
@@ -18,6 +12,12 @@ structure Gio : GIO =
         structure ElemSequence = MonoVectorSequence(Word8Vector)
       )
     structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
+    structure GioDBusAnnotationInfoRecordCVectorType =
+      CPointerCVectorType(
+        structure CElemType = GioDBusAnnotationInfoRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GioDBusAnnotationInfoRecordCVector = CVector(GioDBusAnnotationInfoRecordCVectorType)
     val actionNameIsValid_ = _import "mlton_g_action_name_is_valid" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
     val actionParseDetailedName_ =
       fn

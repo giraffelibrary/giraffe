@@ -1,10 +1,7 @@
-use "Unchanged.sml";
+use "polyml/alias.sml";
 use "EQ_KEY.sml";
-use "ORD_KEY.sml";
 use "MAP.sml";
-use "ORD_MAP.sml";
-use "DICT.sml";
-use "ORD_DICT.sml";
-use "StringEqKey.sml";
+use "JoinMap.sml";
 use "ListMap.sml";
+use "StringEqKey.sml";
 use "ListDict.sml";

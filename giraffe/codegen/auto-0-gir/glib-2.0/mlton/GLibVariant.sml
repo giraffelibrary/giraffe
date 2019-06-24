@@ -5,12 +5,6 @@ structure GLibVariant :>
     where type bytes_t = GLibBytesRecord.t
     where type variant_type_t = GLibVariantTypeRecord.t =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8Type
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     structure Utf8CVectorNType =
       CPointerCVectorNType(
         structure CElemType = Utf8.C.ArrayType
@@ -23,6 +17,12 @@ structure GLibVariant :>
         structure ElemSequence = MonoVectorSequence(Word8Vector)
       )
     structure GUInt8CVector = CVector(GUInt8CVectorType)
+    structure GUInt8CVectorNType =
+      CValueCVectorNType(
+        structure CElemType = GUInt8Type
+        structure ElemSequence = MonoVectorSequence(Word8Vector)
+      )
+    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     structure GLibVariantRecordCVectorNType =
       CPointerCVectorNType(
         structure CElemType = GLibVariantRecord.C.PointerType

@@ -67,7 +67,7 @@ fun splitElems ts =
   let
     fun singleton x = [x]
   in
-    foldl (Dict.insert singleton (op ::))
+    foldl (Dict.insertMap singleton (op ::))
       Dict.empty
       (revMapPartial getElem ts)
   end

@@ -9,18 +9,18 @@ structure GtkSelectionData :>
         structure Sequence = ListSequence
       )
     structure Utf8CVector = CVector(Utf8CVectorType)
-    structure GdkAtomRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GdkAtomRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
     structure GUInt8CVectorNType =
       CValueCVectorNType(
         structure CElemType = GUInt8Type
         structure ElemSequence = MonoVectorSequence(Word8Vector)
       )
     structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
+    structure GdkAtomRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GdkAtomRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
     val getType_ = _import "gtk_selection_data_get_type" : unit -> GObjectType.FFI.val_;
     val copy_ = _import "gtk_selection_data_copy" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p;
     val getDataType_ = _import "gtk_selection_data_get_data_type" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p;

@@ -27,18 +27,18 @@ structure VteTerminal :>
         structure Sequence = VectorSequence
       )
     structure VteRegexRecordCVectorN = CVectorN(VteRegexRecordCVectorNType)
-    structure GLibRegexRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GLibRegexRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GLibRegexRecordCVectorN = CVectorN(GLibRegexRecordCVectorNType)
     structure Utf8CVectorNType =
       CPointerCVectorNType(
         structure CElemType = Utf8.C.ArrayType
         structure Sequence = ListSequence
       )
     structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
+    structure GLibRegexRecordCVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = GLibRegexRecord.C.PointerType
+        structure Sequence = VectorSequence
+      )
+    structure GLibRegexRecordCVectorN = CVectorN(GLibRegexRecordCVectorNType)
     local
       open PolyMLFFI
     in

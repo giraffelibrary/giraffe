@@ -1,14 +1,13 @@
 local
   $(SML_LIB)/basis/basis.mlb
 in
-  Unchanged.sml
+  mlton/alias.sml
   EQ_KEY.sml
   ORD_KEY.sml
   MAP.sml
   ORD_MAP.sml
-  DICT.sml
-  ORD_DICT.sml
-  StringEqKey.sml
+  JoinMap.sml
   ListMap.sml
+  StringEqKey.sml
   ListDict.sml
 end

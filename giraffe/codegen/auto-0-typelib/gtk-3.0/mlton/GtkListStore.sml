@@ -8,12 +8,6 @@ structure GtkListStore :>
     where type 'a tree_sortable_class = 'a GtkTreeSortableClass.class
     where type tree_iter_t = GtkTreeIterRecord.t =
   struct
-    structure GInt32CVectorType =
-      CValueCVectorType(
-        structure CElemType = GInt32Type
-        structure ElemSequence = CValueVectorSequence(GInt32Type)
-      )
-    structure GInt32CVector = CVector(GInt32CVectorType)
     structure GInt32CVectorNType =
       CValueCVectorNType(
         structure CElemType = GInt32Type
@@ -32,6 +26,12 @@ structure GtkListStore :>
         structure ElemSequence = CValueVectorSequence(GObjectType.C.ValueType)
       )
     structure GObjectTypeCVectorN = CVectorN(GObjectTypeCVectorNType)
+    structure GInt32CVectorType =
+      CValueCVectorType(
+        structure CElemType = GInt32Type
+        structure ElemSequence = CValueVectorSequence(GInt32Type)
+      )
+    structure GInt32CVector = CVector(GInt32CVectorType)
     val getType_ = _import "gtk_list_store_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn

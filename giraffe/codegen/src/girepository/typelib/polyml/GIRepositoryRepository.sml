@@ -208,13 +208,13 @@ structure GIRepositoryRepository :>
         "' conflicts with version '", ver2, "' that is already present"
       ]
 
-    fun checkVer name (ver1, ver2) =
+    fun checkVer ((name, ver1), ver2) =
       if ver1 = ver2
       then raise Fail (errMsgVerExists name ver2)
       else raise Fail (errMsgVerConflict name ver1 ver2)
 
     fun insertTypelibVer ((name, ver), vers) =
-      ListDict.insert I (checkVer name) ((name, ver), vers)
+      ListDict.inserti checkVer ((name, ver), vers)
 
     fun extendTypelibVers extraVers vers = foldl insertTypelibVer vers extraVers
 
@@ -278,7 +278,7 @@ structure GIRepositoryRepository :>
           | SOME deps => extendTypelibVers (map parseDependency deps) ListDict.empty
 
         val versions =
-          ListDict.insert I
+          ListDict.insert
             (fn _ => raise Fail "typelib dependency contains itself")
             ((namespace_, version), dependencies)
       in

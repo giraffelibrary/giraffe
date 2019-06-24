@@ -208,14 +208,14 @@ in
     mlton/GLibVariantClass.sml
     mlton/GLibVariantDictRecord.sml
     mlton/GLibVariantTypeRecord.sml
-    mlton/GLibPid.sml
     mlton/GLibIOFunc.sml
-    mlton/GLibErrorRecord.sml
+    mlton/GLibPid.sml
     mlton/GLibBytes.sml
     mlton/GLibChecksum.sml
     mlton/GLibDate.sml
     mlton/GLibDateTime.sml
     mlton/GLibDebugKey.sml
+    mlton/GLibErrorRecord.sml
     mlton/GLibKeyFile.sml
     mlton/GLibMainContext.sml
     mlton/GLibMarkupParseContext.sml

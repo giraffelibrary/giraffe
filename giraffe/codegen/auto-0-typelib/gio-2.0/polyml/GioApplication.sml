@@ -10,18 +10,18 @@ structure GioApplication :>
     where type 'a action_group_class = 'a GioActionGroupClass.class
     where type application_flags_t = GioApplicationFlags.t =
   struct
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     structure GioFileClassCVectorNType =
       CPointerCVectorNType(
         structure CElemType = GioFileClass.C.PointerType
         structure Sequence = VectorSequence
       )
     structure GioFileClassCVectorN = CVectorN(GioFileClassCVectorNType)
+    structure Utf8CVectorNType =
+      CPointerCVectorNType(
+        structure CElemType = Utf8.C.ArrayType
+        structure Sequence = ListSequence
+      )
+    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     local
       open PolyMLFFI
     in
