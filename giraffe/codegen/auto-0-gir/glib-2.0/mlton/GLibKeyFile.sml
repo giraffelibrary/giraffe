@@ -12,20 +12,20 @@ structure GLibKeyFile :>
     structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     structure GIntCVectorNType =
       CValueCVectorNType(
-        structure CElemType = GIntType
-        structure ElemSequence = CValueVectorSequence(GIntType)
+        structure CElemType = GInt.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
       )
     structure GIntCVectorN = CVectorN(GIntCVectorNType)
     structure GDoubleCVectorNType =
       CValueCVectorNType(
-        structure CElemType = GDoubleType
-        structure ElemSequence = CValueVectorSequence(GDoubleType)
+        structure CElemType = GDouble.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GDouble.C.ValueType)
       )
     structure GDoubleCVectorN = CVectorN(GDoubleCVectorNType)
     structure GBoolCVectorNType =
       CValueCVectorNType(
-        structure CElemType = GBoolType
-        structure ElemSequence = CValueVectorSequence(GBoolType)
+        structure CElemType = GBool.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GBool.C.ValueType)
       )
     structure GBoolCVectorN = CVectorN(GBoolCVectorNType)
     structure Utf8CVectorType =

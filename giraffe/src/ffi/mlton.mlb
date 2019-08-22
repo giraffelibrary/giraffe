@@ -36,6 +36,9 @@ in
     C_POINTER_TYPE-sig.sml
     mlton/C_POINTER_TYPE-sig.sml
     C_SCALAR-sig.sml
+    C_SCALAR_NULL-sig.sml
+    C_SCALAR_EQ-sig.sml
+    C_SCALAR_EQ_NULL-sig.sml
     SEQUENCE-sig.sml
     MONO_SEQUENCE-sig.sml
     C_ARRAY_TYPE-sig.sml
@@ -49,6 +52,9 @@ in
     CTypedPointer-fun.sml
     CPointer.sml
     mlton/CScalar-fun.sml
+    mlton/CScalarNull-fun.sml
+    mlton/CScalarEq-fun.sml
+    mlton/CScalarEqNull-fun.sml
     mlton/CVectorLowLevel-fun.sml
     mlton/CVector-fun.sml
     mlton/CVectorNLowLevel-fun.sml

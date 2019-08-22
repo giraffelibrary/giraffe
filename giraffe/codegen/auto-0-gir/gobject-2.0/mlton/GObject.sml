@@ -12,8 +12,8 @@ structure GObject :
     structure GObjectTypeCVectorN = CVectorN(GObjectTypeCVectorNType)
     structure GUIntCVectorNType =
       CValueCVectorNType(
-        structure CElemType = GUIntType
-        structure ElemSequence = CValueVectorSequence(GUIntType)
+        structure CElemType = GUInt.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GUInt.C.ValueType)
       )
     structure GUIntCVectorN = CVectorN(GUIntCVectorNType)
     val enumGetValue_ = fn x1 & x2 => (_import "g_enum_get_value" : GObjectEnumClassRecord.FFI.notnull GObjectEnumClassRecord.FFI.p * GInt.FFI.val_ -> GObjectEnumValueRecord.FFI.notnull GObjectEnumValueRecord.FFI.p;) (x1, x2)

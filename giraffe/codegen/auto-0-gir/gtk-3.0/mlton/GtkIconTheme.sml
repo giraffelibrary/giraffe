@@ -12,8 +12,8 @@ structure GtkIconTheme :>
     structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     structure GIntCVectorType =
       CValueCVectorType(
-        structure CElemType = GIntType
-        structure ElemSequence = CValueVectorSequence(GIntType)
+        structure CElemType = GInt.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
       )
     structure GIntCVector = CVector(GIntCVectorType)
     structure Utf8CVectorType =

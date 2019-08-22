@@ -6,7 +6,7 @@ structure GioUnixSocketAddress :>
   struct
     structure GCharCVectorNType =
       CValueCVectorNType(
-        structure CElemType = GCharType
+        structure CElemType = GChar.C.ValueType
         structure ElemSequence = MonoVectorSequence(CharVector)
       )
     structure GCharCVectorN = CVectorN(GCharCVectorNType)

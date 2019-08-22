@@ -11,7 +11,7 @@ structure GtkSelectionData :>
     structure Utf8CVector = CVector(Utf8CVectorType)
     structure GUInt8CVectorNType =
       CValueCVectorNType(
-        structure CElemType = GUInt8Type
+        structure CElemType = GUInt8.C.ValueType
         structure ElemSequence = MonoVectorSequence(Word8Vector)
       )
     structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)

@@ -592,7 +592,7 @@ fun cArrayStrIdStructDeps length elem structDeps =
                     val elemStruct =
                       case elem of
                         ISCALAR {ty, ...} =>
-                          mkNameStruct [gStrId ^ scalarStrId ty ^ typeStrId]
+                          mkNameStruct [gStrId ^ scalarStrId ty, cStrId, valueTypeStrId]
                       | _                 =>
                           mkNameStruct [elemStrId, cStrId, valueTypeStrId]
 

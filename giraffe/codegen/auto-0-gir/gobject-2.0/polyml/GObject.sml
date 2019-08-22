@@ -12,8 +12,8 @@ structure GObject :
     structure GObjectTypeCVectorN = CVectorN(GObjectTypeCVectorNType)
     structure GUIntCVectorNType =
       CValueCVectorNType(
-        structure CElemType = GUIntType
-        structure ElemSequence = CValueVectorSequence(GUIntType)
+        structure CElemType = GUInt.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GUInt.C.ValueType)
       )
     structure GUIntCVectorN = CVectorN(GUIntCVectorNType)
     local

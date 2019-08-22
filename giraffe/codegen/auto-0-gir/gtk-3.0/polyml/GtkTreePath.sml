@@ -4,8 +4,8 @@ structure GtkTreePath :>
   struct
     structure GIntCVectorNType =
       CValueCVectorNType(
-        structure CElemType = GIntType
-        structure ElemSequence = CValueVectorSequence(GIntType)
+        structure CElemType = GInt.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
       )
     structure GIntCVectorN = CVectorN(GIntCVectorNType)
     local

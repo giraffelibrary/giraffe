@@ -6,8 +6,8 @@ structure GioUnixSocketAddress :>
   struct
     structure GInt8CVectorNType =
       CValueCVectorNType(
-        structure CElemType = GInt8Type
-        structure ElemSequence = CValueVectorSequence(GInt8Type)
+        structure CElemType = GInt8.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GInt8.C.ValueType)
       )
     structure GInt8CVectorN = CVectorN(GInt8CVectorNType)
     local

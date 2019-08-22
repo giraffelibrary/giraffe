@@ -8,8 +8,8 @@ structure GioSettings :>
   struct
     structure GUInt32CVectorNType =
       CValueCVectorNType(
-        structure CElemType = GUInt32Type
-        structure ElemSequence = CValueVectorSequence(GUInt32Type)
+        structure CElemType = GUInt32.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GUInt32.C.ValueType)
       )
     structure GUInt32CVectorN = CVectorN(GUInt32CVectorNType)
     structure Utf8CVectorType =

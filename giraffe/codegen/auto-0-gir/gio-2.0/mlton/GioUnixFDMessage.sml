@@ -5,8 +5,8 @@ structure GioUnixFDMessage :>
   struct
     structure GIntCVectorNType =
       CValueCVectorNType(
-        structure CElemType = GIntType
-        structure ElemSequence = CValueVectorSequence(GIntType)
+        structure CElemType = GInt.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
       )
     structure GIntCVectorN = CVectorN(GIntCVectorNType)
     val getType_ = _import "g_unix_fd_message_get_type" : unit -> GObjectType.FFI.val_;

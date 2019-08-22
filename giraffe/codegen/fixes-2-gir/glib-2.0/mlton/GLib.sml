@@ -2,7 +2,7 @@ structure GLib : G_LIB =
   struct
     structure GUInt8CVectorType =
       CValueCVectorType(
-        structure CElemType = GUInt8Type
+        structure CElemType = GUInt8.C.ValueType
         structure ElemSequence = MonoVectorSequence(Word8Vector)
       )
     structure GUInt8CVector = CVector(GUInt8CVectorType)
@@ -26,7 +26,7 @@ structure GLib : G_LIB =
     structure Utf8CVector = CVector(Utf8CVectorType)
     structure GUInt8CVectorNType =
       CValueCVectorNType(
-        structure CElemType = GUInt8Type
+        structure CElemType = GUInt8.C.ValueType
         structure ElemSequence = MonoVectorSequence(Word8Vector)
       )
     structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
@@ -1438,14 +1438,14 @@ structure GLib : G_LIB =
     structure VariantClass = GLibVariantClass
     structure VariantDictRecord = GLibVariantDictRecord
     structure VariantTypeRecord = GLibVariantTypeRecord
-    structure Pid = GLibPid
     structure IOFunc = GLibIOFunc
-    structure ErrorRecord = GLibErrorRecord
+    structure Pid = GLibPid
     structure Bytes = GLibBytes
     structure Checksum = GLibChecksum
     structure Date = GLibDate
     structure DateTime = GLibDateTime
     structure DebugKey = GLibDebugKey
+    structure ErrorRecord = GLibErrorRecord
     structure KeyFile = GLibKeyFile
     structure MainContext = GLibMainContext
     structure MarkupParseContext = GLibMarkupParseContext

@@ -5,8 +5,8 @@ structure PangoFontFace :>
   struct
     structure GInt32CVectorNType =
       CValueCVectorNType(
-        structure CElemType = GInt32Type
-        structure ElemSequence = CValueVectorSequence(GInt32Type)
+        structure CElemType = GInt32.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GInt32.C.ValueType)
       )
     structure GInt32CVectorN = CVectorN(GInt32CVectorNType)
     val getType_ = _import "pango_font_face_get_type" : unit -> GObjectType.FFI.val_;

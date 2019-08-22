@@ -38,8 +38,8 @@ structure Gtk : GTK =
     structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     structure GUInt32CVectorType =
       CValueCVectorType(
-        structure CElemType = GUInt32Type
-        structure ElemSequence = CValueVectorSequence(GUInt32Type)
+        structure CElemType = GUInt32.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GUInt32.C.ValueType)
       )
     structure GUInt32CVector = CVector(GUInt32CVectorType)
     local

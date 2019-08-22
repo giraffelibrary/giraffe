@@ -14,8 +14,8 @@ structure GdkKeymap :>
     structure GdkKeymapKeyRecordCVectorN = CVectorN(GdkKeymapKeyRecordCVectorNType)
     structure GUInt32CVectorNType =
       CValueCVectorNType(
-        structure CElemType = GUInt32Type
-        structure ElemSequence = CValueVectorSequence(GUInt32Type)
+        structure CElemType = GUInt32.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GUInt32.C.ValueType)
       )
     structure GUInt32CVectorN = CVectorN(GUInt32CVectorNType)
     val getType_ = _import "gdk_keymap_get_type" : unit -> GObjectType.FFI.val_;

@@ -10,8 +10,8 @@ structure GtkListStore :>
   struct
     structure GIntCVectorNType =
       CValueCVectorNType(
-        structure CElemType = GIntType
-        structure ElemSequence = CValueVectorSequence(GIntType)
+        structure CElemType = GInt.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
       )
     structure GIntCVectorN = CVectorN(GIntCVectorNType)
     structure GObjectValueRecordCVectorNType =
@@ -28,8 +28,8 @@ structure GtkListStore :>
     structure GObjectTypeCVectorN = CVectorN(GObjectTypeCVectorNType)
     structure GIntCVectorType =
       CValueCVectorType(
-        structure CElemType = GIntType
-        structure ElemSequence = CValueVectorSequence(GIntType)
+        structure CElemType = GInt.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
       )
     structure GIntCVector = CVector(GIntCVectorType)
     local

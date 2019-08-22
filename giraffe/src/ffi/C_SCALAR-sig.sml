@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2016, 2019 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -15,9 +15,19 @@ signature C_SCALAR =
      *)
     val null : t
 
+    structure C :
+      sig
+        type v
+
+        structure ValueType :
+          C_VALUE_TYPE
+            where type t = t
+            where type v = v
+      end
+
     structure FFI :
       sig
-        type val_
+        type val_ = C.v
         type ref_
         val withVal : (val_ -> 'a) -> t -> 'a
         val withRefVal : (ref_ -> 'a) -> t -> (val_, 'a) pair

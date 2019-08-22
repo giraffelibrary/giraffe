@@ -2,7 +2,7 @@ structure Gdk : GDK =
   struct
     structure GUInt8CVectorNType =
       CValueCVectorNType(
-        structure CElemType = GUInt8Type
+        structure CElemType = GUInt8.C.ValueType
         structure ElemSequence = MonoVectorSequence(Word8Vector)
       )
     structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
@@ -20,8 +20,8 @@ structure Gdk : GDK =
     structure GdkVisualTypeCVectorN = CVectorN(GdkVisualTypeCVectorNType)
     structure GIntCVectorNType =
       CValueCVectorNType(
-        structure CElemType = GIntType
-        structure ElemSequence = CValueVectorSequence(GIntType)
+        structure CElemType = GInt.C.ValueType
+        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
       )
     structure GIntCVectorN = CVectorN(GIntCVectorNType)
     structure Utf8CVectorNType =
