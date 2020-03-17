@@ -14,7 +14,7 @@ structure GioInetSocketAddress :>
               Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GUInt.FFI.val_
-               -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
+               -> unit GioSocketAddressClass.FFI.p;
           )
             (
               x1,
@@ -32,7 +32,7 @@ structure GioInetSocketAddress :>
     fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (address, port) = (GioInetAddressClass.FFI.withPtr &&&> GUInt16.FFI.withVal ---> GioInetSocketAddressClass.FFI.fromPtr true) new_ (address & port)
-    fun newFromString (address, port) = (Utf8.FFI.withPtr &&&> GUInt.FFI.withVal ---> GioInetSocketAddressClass.FFI.fromPtr true) newFromString_ (address & port)
+    fun newFromString (address, port) = (Utf8.FFI.withPtr &&&> GUInt.FFI.withVal ---> GioInetSocketAddressClass.FFI.fromOptPtr true) newFromString_ (address & port)
     fun getAddress self = (GioInetSocketAddressClass.FFI.withPtr ---> GioInetAddressClass.FFI.fromPtr false) getAddress_ self
     fun getFlowinfo self = (GioInetSocketAddressClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getFlowinfo_ self
     fun getPort self = (GioInetSocketAddressClass.FFI.withPtr ---> GUInt16.FFI.fromVal) getPort_ self

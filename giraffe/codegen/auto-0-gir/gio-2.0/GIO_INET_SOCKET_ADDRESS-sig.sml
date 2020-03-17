@@ -7,7 +7,7 @@ signature GIO_INET_SOCKET_ADDRESS =
     val asSocketConnectable : 'a class -> base socket_connectable_class
     val getType : unit -> GObject.Type.t
     val new : 'a inet_address_class * LargeInt.int -> base class
-    val newFromString : string * LargeInt.int -> base class
+    val newFromString : string * LargeInt.int -> base class option
     val getAddress : 'a class -> base inet_address_class
     val getFlowinfo : 'a class -> LargeInt.int
     val getPort : 'a class -> LargeInt.int

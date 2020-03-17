@@ -5,7 +5,7 @@ signature GIO_INET_ADDRESS =
     type t = base class
     val getType : unit -> GObject.Type.t
     val newAny : socket_family_t -> base class
-    val newFromString : string -> base class
+    val newFromString : string -> base class option
     val newLoopback : socket_family_t -> base class
     val equal :
       'a class

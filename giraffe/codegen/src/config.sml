@@ -3,6 +3,10 @@
  *)
 
 GIRepository.Override.callableInfoMayReturnNull := [
+  (* https://gitlab.gnome.org/GNOME/glib/-/merge_requests/1418 *)
+  (("Gio", SOME "InetAddress", "new_from_string"), true),
+  (("Gio", SOME "InetSocketAddress", "new_from_string"), true),
+
   (("Gtk", SOME "FileChooser", "get_filename"), true),
   (("Gtk", SOME "FileChooser", "get_current_folder"), true),
   (("Gtk", SOME "FileChooser", "get_uri"), true),

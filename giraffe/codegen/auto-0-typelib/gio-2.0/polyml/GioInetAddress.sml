@@ -8,7 +8,7 @@ structure GioInetAddress :>
     in
       val getType_ = call (getSymbol "g_inet_address_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val newAny_ = call (getSymbol "g_inet_address_new_any") (GioSocketFamily.PolyML.cVal --> GioInetAddressClass.PolyML.cPtr)
-      val newFromString_ = call (getSymbol "g_inet_address_new_from_string") (Utf8.PolyML.cInPtr --> GioInetAddressClass.PolyML.cPtr)
+      val newFromString_ = call (getSymbol "g_inet_address_new_from_string") (Utf8.PolyML.cInPtr --> GioInetAddressClass.PolyML.cOptPtr)
       val newLoopback_ = call (getSymbol "g_inet_address_new_loopback") (GioSocketFamily.PolyML.cVal --> GioInetAddressClass.PolyML.cPtr)
       val equal_ = call (getSymbol "g_inet_address_equal") (GioInetAddressClass.PolyML.cPtr &&> GioInetAddressClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getFamily_ = call (getSymbol "g_inet_address_get_family") (GioInetAddressClass.PolyML.cPtr --> GioSocketFamily.PolyML.cVal)
@@ -30,7 +30,7 @@ structure GioInetAddress :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newAny family = (GioSocketFamily.FFI.withVal ---> GioInetAddressClass.FFI.fromPtr true) newAny_ family
-    fun newFromString string = (Utf8.FFI.withPtr ---> GioInetAddressClass.FFI.fromPtr true) newFromString_ string
+    fun newFromString string = (Utf8.FFI.withPtr ---> GioInetAddressClass.FFI.fromOptPtr true) newFromString_ string
     fun newLoopback family = (GioSocketFamily.FFI.withVal ---> GioInetAddressClass.FFI.fromPtr true) newLoopback_ family
     fun equal self otherAddress = (GioInetAddressClass.FFI.withPtr &&&> GioInetAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & otherAddress)
     fun getFamily self = (GioInetAddressClass.FFI.withPtr ---> GioSocketFamily.FFI.fromVal) getFamily_ self
