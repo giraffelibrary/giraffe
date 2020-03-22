@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2017, 2019 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -80,9 +80,8 @@ functor CValueCArrayNType(
 
     val toElem = CElemType.fromC
 
-    fun toC v =
+    fun toC n v =
       let
-        val n = ElemSequence.length v
         val p = new n
         fun updateElem (i, e) =
           if CElemType.isRef

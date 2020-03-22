@@ -1,4 +1,4 @@
-(* Copyright (C) 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -27,7 +27,7 @@ signature C_ARRAY_TYPE =
         (* `free ~1` must be applied to the pointer returned by
          * `toPointer c` once it is not required. *)
         val fromPointer : (notnull p -> cvector) from_p
-        val toPointer   : cvector -> notnull p
+        val toPointer   : (cvector -> notnull p) from_p
         val fromVal     : t -> cvector
         val toVal       : cvector -> t
       end

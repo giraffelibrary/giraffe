@@ -1,4 +1,4 @@
-(* Copyright (C) 2016, 2019 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -95,9 +95,8 @@ functor CPointerCArrayNType(
           Vector.tabulate
             (len n p, CElemType.CVector.fromPointer o get n p)
 
-        fun toPointer v =
+        fun toPointer n v =
           let
-            val n = Vector.length v
             val p = new n
             fun updateElem (i, e) =
               set n p (i, CElemType.CVector.toPointer e)
@@ -113,7 +112,7 @@ functor CPointerCArrayNType(
           Sequence.fromVector o Vector.map CElemType.CVector.toVal
       end
 
-    fun toC v = CVector.toPointer (CVector.fromVal v)
+    fun toC n v = CVector.toPointer n (CVector.fromVal v)
 
     fun fromC n p = CVector.toVal (CVector.fromPointer n p)
 

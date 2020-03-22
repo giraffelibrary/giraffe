@@ -6,7 +6,7 @@
  *)
 
 functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
-  C_ARRAY
+  C_ARRAY_N
     where type elem = CArrayType.elem
     where type sequence = CArrayType.t
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
@@ -27,11 +27,14 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
       end
 
     (**
-     * For Poly/ML, `t`, the representation of a C array, is a
-     * pointer to a C array allocated on the C heap.  A finalizable value
+     * For Poly/ML, `array`, the representation of an immutable C array, is a
+     * pointer to a C array allocated on the C heap and the number of
+     * elements for which space was allocated.  A finalizable value
      * is used to free the array on the C heap when no longer reachable.
      *)
-    type t = C.notnull C.p Finalizable.t * int
+    type array = C.notnull C.p Finalizable.t * int
+
+    type t = array * int
 
     structure FFI =
       struct
@@ -51,10 +54,10 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
 
         fun fromPtr d p n =
           let
-            val t = Finalizable.new p
+            val a = Finalizable.new p
           in
-            Finalizable.addFinalizer (t, free d n);
-            (t, n)
+            Finalizable.addFinalizer (a, free d n);
+            ((a, n), n)
           end
 
         fun fromDupPtr d p n =
@@ -96,20 +99,20 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
             Pointer.fromOpt pOpt & withOptPointer f pOpt
               handle e => (Option.app free pOpt; raise e)
         in
-          fun withPtr f (a, _) = Finalizable.withValue (a, withPointer f)
+          fun withPtr f ((a, _), _) = Finalizable.withValue (a, withPointer f)
 
-          fun withDupPtr d f (a, n) =
+          fun withDupPtr d f ((a, _), n) =
             Finalizable.withValue (a, withDupPointer (free d n) f o dup d n)
 
 
           fun withOptPtr f =
             fn
-              SOME (a, _) => Finalizable.withValue (a, withOptPointer f o SOME)
+              SOME ((a, _), _) => Finalizable.withValue (a, withOptPointer f o SOME)
             | NONE => withOptPointer f NONE
 
           fun withDupOptPtr d f =
             fn
-              SOME (a, n) =>
+              SOME ((a, _), n) =>
                 Finalizable.withValue
                   (a, withDupOptPointer (free d n) f o SOME o dup d n)
             | NONE => withDupOptPointer ignore f NONE
@@ -135,20 +138,20 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
           fun withNullRef f = Pointer.withNullRef f
 
 
-          fun withRefPtr f (a, _) = Finalizable.withValue (a, withRefPointer f)
+          fun withRefPtr f ((a, _), _) = Finalizable.withValue (a, withRefPointer f)
 
-          fun withRefDupPtr d f (a, n) =
+          fun withRefDupPtr d f ((a, _), n) =
             Finalizable.withValue (a, withRefDupPointer (free d n) f o dup d n)
 
 
           fun withRefOptPtr f =
             fn
-              SOME (a, _) => Finalizable.withValue (a, withRefOptPointer f o SOME)
+              SOME ((a, _), _) => Finalizable.withValue (a, withRefOptPointer f o SOME)
             | NONE => withRefOptPointer f NONE
 
           fun withRefDupOptPtr d f =
             fn
-              SOME (a, n) =>
+              SOME ((a, _), n) =>
                 Finalizable.withValue
                   (a, withRefDupOptPointer (free d n) f o SOME o dup d n)
             | NONE => withRefDupOptPointer ignore f NONE
@@ -156,22 +159,41 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
       end
 
     fun fromSequence v =
-      FFI.fromPtr ~1 (C.ArrayType.toC v) (C.ArrayType.length v)
-
-    fun toSequence (a, n) = Finalizable.withValue (a, C.ArrayType.fromC n)
-
-    fun length (a, n) = Finalizable.withValue (a, C.ArrayType.len n)
-
-    fun sub (a, n) =
       let
-        val len = length (a, n)
-        val get = Finalizable.withValue (a, C.ArrayType.get n)
+        val n = C.ArrayType.length v
       in
-        fn i =>
-          if 0 <= i andalso i < len
-          then C.ArrayType.toElem (get i)
-          else raise Subscript
+        FFI.fromPtr ~1 (C.ArrayType.toC n v) n
       end
+
+    val toSequence =
+      fn
+        ((a, _), n) => Finalizable.withValue (a, C.ArrayType.fromC n)
+
+    val length =
+      fn
+        ((a, _), n) => Finalizable.withValue (a, C.ArrayType.len n)
+
+    val sub =
+      fn
+        t as ((a, _), n) =>
+          let
+            val len = length t
+            val get = Finalizable.withValue (a, C.ArrayType.get n)
+          in
+            fn i =>
+              if 0 <= i andalso i < len
+              then C.ArrayType.toElem (get i)
+              else raise Subscript
+          end
+
+    val full =
+      fn
+        (array as (_, len), _) => (array, len)
+
+    fun subslice (t as (array, _), len) =
+      if 0 <= len andalso len <= length t
+      then (array, len)
+      else raise Subscript
 
     structure PolyML =
       struct

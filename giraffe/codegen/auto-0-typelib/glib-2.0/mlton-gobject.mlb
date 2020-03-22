@@ -8,6 +8,7 @@ in
   G_OBJECT_VALUE_RECORD-sig.sml
   VALUE_ACCESSOR-sig.sml
   C_ARRAY-sig.sml
+  C_ARRAY_N-sig.sml
   G_OBJECT-sig.sml
   ann
     "allowFFI true"

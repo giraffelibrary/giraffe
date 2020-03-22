@@ -6,7 +6,7 @@
  *)
 
 functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
-  C_ARRAY
+  C_ARRAY_N
     where type elem = CArrayType.elem
     where type sequence = CArrayType.t
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p

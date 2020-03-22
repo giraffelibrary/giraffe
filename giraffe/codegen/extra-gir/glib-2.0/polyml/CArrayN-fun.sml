@@ -1,4 +1,4 @@
-(* Copyright (C) 2019 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2019-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -6,7 +6,7 @@
  *)
 
 functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
-  C_ARRAY
+  C_ARRAY_N
     where type elem = CArrayType.elem
     where type sequence = CArrayType.t
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p

@@ -300,7 +300,8 @@ val () = ignore [
         newSig "G_OBJECT_TYPE" [],
         newSig "G_OBJECT_VALUE_RECORD" [],
         newSig "VALUE_ACCESSOR" [],
-        newSig "C_ARRAY" []
+        newSig "C_ARRAY" [],
+        newSig "C_ARRAY_N" ["C_ARRAY"]
       ],
       [
         newStr ("GObject", "Type", "G_OBJECT_TYPE") [],

@@ -42,8 +42,8 @@ use "MONO_SEQUENCE-sig.sml";
 use "C_ARRAY_TYPE-sig.sml";
 use "C_ARRAY-sig.sml";
 use "polyml/C_ARRAY-sig.sml";
+use "C_ARRAY_N-sig.sml";
 use "polyml/Finalizable.sml";
-
 use "polyml/CRef-fun.sml";
 use "polyml/CPointerInternal.sml";
 use "CTypedPointer-fun.sml";

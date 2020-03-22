@@ -27,11 +27,13 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
       end
 
     (**
-     * For Poly/ML, `t`, the representation of a C array, is a
+     * For Poly/ML, `array`, the representation of an immutable C array, is a
      * pointer to a C array allocated on the C heap.  A finalizable value
      * is used to free the array on the C heap when no longer reachable.
      *)
-    type t = C.notnull C.p Finalizable.t
+    type array = C.notnull C.p Finalizable.t
+
+    type t = array
 
     structure FFI =
       struct
@@ -154,20 +156,26 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
 
     fun fromSequence v = FFI.fromPtr ~1 (C.ArrayType.toC v)
 
-    fun toSequence a = Finalizable.withValue (a, C.ArrayType.fromC)
+    val toSequence =
+      fn
+        a => Finalizable.withValue (a, C.ArrayType.fromC)
 
-    fun length a = Finalizable.withValue (a, C.ArrayType.len)
+    val length =
+      fn
+        a => Finalizable.withValue (a, C.ArrayType.len)
 
-    fun sub a =
-      let
-        val len = length a
-        val get = Finalizable.withValue (a, C.ArrayType.get)
-      in
-        fn i =>
-          if 0 <= i andalso i < len
-          then C.ArrayType.toElem (get i)
-          else raise Subscript
-      end
+    val sub =
+      fn
+        t as a =>
+          let
+            val len = length t
+            val get = Finalizable.withValue (a, C.ArrayType.get)
+          in
+            fn i =>
+              if 0 <= i andalso i < len
+              then C.ArrayType.toElem (get i)
+              else raise Subscript
+          end
 
     structure PolyML =
       struct

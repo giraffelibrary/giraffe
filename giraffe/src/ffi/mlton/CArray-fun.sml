@@ -27,10 +27,12 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
       end
 
     (**
-     * For MLton, `t`, the representation of an immutable C array, is either
-     * a pointer to a C array allocated on the C heap or an SML vector.  A
-     * finalizable value is used to free arrays on the C heap when no longer
-     * reachable.
+     * For MLton, `array`, the representation of an immutable C array, is
+     * either
+     *   - a pointer to a C array allocated on the C heap or
+     *   - an SML vector.
+     * A finalizable value is used to free an array on the C heap when no
+     * longer reachable.
      *
      * The SML vector case is included because MLton can pass a pointer to an
      * SML vector value (that points into the SML heap) to a C function,
@@ -43,9 +45,11 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
      * the C function is not allowed to modify the C array because it does not
      * have ownership.)
      *)
-    datatype t =
+    datatype array =
       CArray of C.notnull C.p Finalizable.t
     | SMLValue of C.ArrayType.CVector.cvector Finalizable.t
+
+    type t = array
 
     fun toSMLValue cvector =
       let
@@ -295,9 +299,9 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
 
     val sub =
       fn
-        CArray a =>
+        t as CArray a =>
           let
-            val len = length (CArray a)
+            val len = length t
             val get = Finalizable.withValue (a, C.ArrayType.get)
           in
             fn i =>

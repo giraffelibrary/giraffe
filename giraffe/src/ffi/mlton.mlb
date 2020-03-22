@@ -45,6 +45,7 @@ in
     mlton/C_ARRAY_TYPE-sig.sml
     C_ARRAY-sig.sml
     mlton/C_ARRAY-sig.sml
+    C_ARRAY_N-sig.sml
     mlton/Finalizable.sml
     mlton/CRef-fun.sml
     ann "allowFFI true" in mlton/CPointerInternal.sml end
